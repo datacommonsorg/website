@@ -120,7 +120,7 @@ export function EnclosedPlacesSelector(
         numPlacesLimit={1}
         searchBarInstructionText={
           props.searchBarInstructionText ||
-          intl.formatMessage(toolMessages.enterAPlaceInstruction)
+          intl.formatMessage(toolMessages.placeSearchBoxLabel)
         }
         searchBarPlaceholderText={props.searchBarPlaceholderText}
         selectedPlaces={
@@ -141,7 +141,7 @@ export function EnclosedPlacesSelector(
           gap: ${theme.spacing.sm}px;
         `}
       >
-        <div>{intl.formatMessage(toolMessages.childPlaceTypeInstruction)}</div>
+        <div>{intl.formatMessage(toolMessages.placeTypeGranularityLabel)}</div>
         <PlaceTypeSelect
           id={"place-selector-place-type"}
           className="form-control"
@@ -154,7 +154,7 @@ export function EnclosedPlacesSelector(
           }
         >
           <option value="">
-            {intl.formatMessage(toolMessages.selectAPlaceTypePlaceholder)}
+            {intl.formatMessage(toolMessages.placeTypeDropdownPlaceholder)}
           </option>
           {childPlaceTypes.map((type) => (
             <option value={type} key={type}>

@@ -187,11 +187,10 @@ export const toolMessages = defineMessages({
     description:
       "Message to users that the place they selected is unsupported by our tool",
   },
-  enterAPlaceInstruction: {
-    id: "enter_a_place_instruction",
+  placeSearchBoxLabel: {
+    id: "place_search_box_label",
     defaultMessage: "Location:",
-    description:
-      "An instruction for users to type a place's name into a text box",
+    description: "Label on a text box that users type a place's name into",
   },
   enterPotentiallyMultiplePlacesInstruction: {
     id: "enter_potentially_multiple_places_instruction",
@@ -199,14 +198,14 @@ export const toolMessages = defineMessages({
     description:
       "An instruction for users to type one or many place's name into a text box",
   },
-  childPlaceTypeInstruction: {
-    id: "childPlaceTypeInstruction",
+  placeTypeGranularityLabel: {
+    id: "place_type_granularity_label",
     defaultMessage: "Breakdown by:",
     description:
-      "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)",
+      "part of the label on a form asking users to select a place type (e.g. city, country) to visualize data at that level of granularity (e.g. see population of USA by State)",
   },
-  selectAPlaceTypePlaceholder: {
-    id: "selectAPlaceTypePlaceholder",
+  placeTypeDropdownPlaceholder: {
+    id: "place_type_dropdown_placeholder",
     defaultMessage: "Select geographic level",
     description:
       "default value on a dropdown telling the user to select a place type from the given options",
