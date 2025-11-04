@@ -55,7 +55,7 @@ export function PlaceSelect(props: PlaceSelectProps): JSX.Element {
         flex-direction: row;
         flex-grow: 1;
         flex-wrap: wrap;
-        gap: ${theme.spacing.md}px ${theme.spacing.sm}px;
+        gap: ${theme.spacing.sm}px;
       `}
     >
       <div>{props.searchBarInstructionText}</div>
