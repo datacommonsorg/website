@@ -131,7 +131,7 @@ export function AutoCompleteSuggestions(
       {showLoadMore && (
         <div
           className="search-input-result-section load-more-section"
-          onClick={() => {
+          onClick={(): void => {
             triggerGAEvent(GA_EVENT_AUTOCOMPLETE_LOAD_MORE, {
               [GA_PARAM_QUERY]: props.baseInput,
             });
