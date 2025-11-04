@@ -254,20 +254,46 @@ class ExplorePageTestMixin():
                                 'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
 
+  def test_highlight_chart_date_selection(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
-def test_highlight_chart_date_selection(self):
-  """Test the highlight chart for Population ranking with map of US States."""
-  highlight_params = "sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
-  self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+    shared.wait_for_loading(self.driver)
 
-  shared.wait_for_loading(self.driver)
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
 
-  highlight_div = find_elem(self.driver, By.CLASS_NAME,
-                            'highlight-result-title')
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+    ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
+                                    'ranking-date-cell')
+    for cell in ranking_date_cells:
+      self.assertIn('2023', cell.text)
 
-  ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
-  self.assertIsNotNone(ranking_tile)
-  ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
-                                  'ranking-date-cell')
-  for cell in ranking_date_cells:
-    self.assertIn('2023', cell.text)
+  def test_highlight_chart_facet_selector(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "?sv=Count_BlizzardEvent&p=country/USA&imp=StormNOAA_Agg&chartType=RANKING_WITH_MAP&obsPer=P1Y"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+
+    shared.wait_for_loading(self.driver)
+
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    block_controls = find_elem(highlight_div, By.CLASS_NAME, 'block-controls')
+    facet_button = find_elem(block_controls, By.CLASS_NAME,
+                             'source-selector-open-modal-button')
+    self.assertIsNotNone(facet_button, "Facet selector button not found")
+    facet_button.click()
+
+    facet_options = find_elem(self.driver, By.CLASS_NAME,
+                              'source-selector-facet-options-section')
+
+    # Verify that the expected option is selected, in this case it has P1Y ObsPeriod.
+    for option in find_elems(facet_options, By.TAG_NAME, 'label'):
+      is_option_selected = find_elem(option, By.TAG_NAME, 'input').is_selected()
+      if is_option_selected:
+        list_items = find_elems(option, By.TAG_NAME, 'ul')
+        self.assertIn('Observation period • Yearly (P1Y)',
+                      str([item.text for item in list_items]))
+        break
