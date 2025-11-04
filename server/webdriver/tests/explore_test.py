@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import re
+import time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -397,7 +398,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
                               'highlight-result-title')
     block_controls = find_elem(highlight_div, By.CLASS_NAME, 'block-controls')
-    sleep(10)  # Wait for the controls to be fully interactive
+    time.sleep(5)  # Wait for the controls to be fully interactive.
     facet_button = find_elem(block_controls, By.CLASS_NAME,
                              'source-selector-open-modal-button')
     self.assertIsNotNone(facet_button, "Facet selector button not found")
