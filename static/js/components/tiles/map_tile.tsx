@@ -78,6 +78,7 @@ import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   getContextStatVar,
   getHash,
@@ -156,6 +157,8 @@ export interface MapTilePropType {
   lazyLoadMargin?: string;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surface?: string;
+  // Metadata for the facet to highlight.
+  facetSelector?: FacetSelectionCriteria;
 }
 
 // Api responses associated with a single layer of the map
@@ -544,7 +547,8 @@ export const fetchData = async (
       dataDate,
       [],
       facetIds,
-      props.surface
+      props.surface,
+      props.facetSelector
     );
     let denomsByFacet: Record<string, SeriesApiResponse> = null;
     let defaultDenomData: SeriesApiResponse = null;
