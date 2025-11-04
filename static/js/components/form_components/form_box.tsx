@@ -23,15 +23,24 @@ import React from "react";
 
 import { Box } from "../elements/wrappers/box";
 
-export function FormBox(props: { children?: React.ReactNode }): JSX.Element {
+interface FormBoxProps {
+  // Child react components/elements to render in the box
+  children?: React.ReactNode;
+  // Whether to arrange children in a row or column layout
+  flexDirection?: "row" | "column";
+}
+
+export function FormBox(props: FormBoxProps): JSX.Element {
   const theme = useTheme();
+  const flexDirection = props.flexDirection || "row";
   return (
     <Box
       sx={css`
-        align-items: center;
+        ${flexDirection === "row" && "align-items: center;"}
         display: flex;
+        flex-direction: ${flexDirection};
         flex-wrap: wrap;
-        gap: ${theme.spacing.sm}px;
+        gap: ${theme.spacing.md}px;
         padding: ${theme.spacing.lg}px;
         ${theme.radius.secondary}
         width: 100%;
