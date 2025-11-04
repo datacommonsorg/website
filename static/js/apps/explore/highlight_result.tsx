@@ -23,6 +23,7 @@ import React, { ReactElement, useMemo } from "react";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { trimCategory } from "../../utils/subject_page_utils";
 
 const PAGE_ID = "highlight-result";
