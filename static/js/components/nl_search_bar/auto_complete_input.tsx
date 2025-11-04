@@ -136,7 +136,7 @@ export function AutoCompleteInput(
   const { placeholder } = useQueryStore();
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       setLastScrollY(window.scrollY);
     };
     window.addEventListener("scroll", handleScroll);
