@@ -111,10 +111,6 @@
     "defaultMessage": "Choose a variable to view its metadata",
     "description": "Title for the metadata modal showing the list of variables to show source information for"
   },
-  "citationGuidance": {
-    "defaultMessage": "Citation guidance",
-    "description": "Label preceding guidance on how to cite the data sources in the metadata modal."
-  },
   "close": {
     "defaultMessage": "Close",
     "description": "Button to close a modal or other interactive element. Unlike 'Cancel', this does not imply abandoning changes; it simply dismisses the dialog. It is used when there are no contrasting actions."
@@ -142,10 +138,6 @@
   "dataError": {
     "defaultMessage": "Error fetching data.",
     "description": "Error message for no when the CSV data fetch fails."
-  },
-  "dataSources": {
-    "defaultMessage": "Data sources",
-    "description": "Label preceding the list of data sources in the metadata modal."
   },
   "data_overview": {
     "defaultMessage": "Data Overview",
@@ -235,32 +227,40 @@
     "defaultMessage": "Follow these steps:",
     "description": "heading for a set of instructions on how to use our tools"
   },
-  "info_box_instruction_multi_variable_desktop": {
-    "defaultMessage": "Pick statistical variables in the left pane.",
-    "description": "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables"
-  },
-  "info_box_instruction_multi_variable_mobile": {
-    "defaultMessage": "Pick statistical variables using the \"select variables\" button above.",
-    "description": "An instruction for users to use a button labeled 'select variables' to select multiple statistical variable to plot"
-  },
   "info_box_instruction_places_map": {
     "defaultMessage": "Enter your desired location (country or state) into the search box above, and then select the type of place you want to plot.",
     "description": "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot States in USA)."
   },
   "info_box_instruction_places_scatter": {
-    "defaultMessage": "Enter your desired location (city, state, county, or country) into the search box above, and then select the type of place you want to plot.",
+    "defaultMessage": "Enter your desired location (country, state, county, or city) into the search box above, and then select the type of place you want to plot.",
     "description": "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)"
   },
   "info_box_instruction_places_timeline": {
-    "defaultMessage": "Enter your desired location(s) (city, state, county, or country) into the search box above.",
+    "defaultMessage": "Enter your desired location(s) (country, state, county, or city) into the search box above.",
     "description": "Instructions for how to enter a list of places to plot using our chart visualization tools"
   },
-  "info_box_instruction_variable_desktop": {
+  "info_box_instruction_variable_desktop_map": {
     "defaultMessage": "Pick a statistical variable in the left pane.",
-    "description": "An instruction for users to interact with a UI element on the left side of the page"
+    "description": "Instruction for users to interact with a UI element on the left side of the page."
   },
-  "info_box_instruction_variable_mobile": {
+  "info_box_instruction_variable_desktop_scatter": {
+    "defaultMessage": "Pick two statistical variables in the left pane.",
+    "description": "Instruction for users to interact with a UI element on the left side of the page."
+  },
+  "info_box_instruction_variable_desktop_timeline": {
+    "defaultMessage": "Pick one or more statistical variables in the left pane.",
+    "description": "Instruction for users to interact with a UI element on the left side of the page."
+  },
+  "info_box_instruction_variable_mobile_map": {
     "defaultMessage": "Pick a statistical variable using the \"select variable\" button above.",
+    "description": "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot"
+  },
+  "info_box_instruction_variable_mobile_scatter": {
+    "defaultMessage": "Pick two statistical variables using the \"select variable\" button above.",
+    "description": "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot"
+  },
+  "info_box_instruction_variable_mobile_timeline": {
+    "defaultMessage": "Pick one or more statistical variables using the \"select variable\" button above.",
     "description": "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot"
   },
   "key_demographics": {
@@ -294,6 +294,10 @@
   "map_tool_go_back_message": {
     "defaultMessage": "Go back to the new Map Explorer",
     "description": "label on a button that takes the user to a newer version of the Map Explorer"
+  },
+  "map_tool_search_box_placeholder": {
+    "defaultMessage": "Enter a country or state to get started",
+    "description": "Placeholder text in a search bar inviting the user to type in the name of a place"
   },
   "map_visualization_tool_description": {
     "defaultMessage": "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions.",
@@ -651,9 +655,17 @@
     "defaultMessage": "Scatter Tool",
     "description": "Title for the scatter tool"
   },
+  "scatter_tool_bivariate_chart_type_tooltip": {
+    "defaultMessage": "Visualize the geographical co-location of two statistical variables using a bivariate map",
+    "description": "Explanation of a chart type option that describes a bivariate map plot"
+  },
   "scatter_tool_go_back_message": {
     "defaultMessage": "Go back to the new Scatter Plot Explorer",
     "description": "label on a button that takes the user to a newer version of the Scatter Plot Explorer"
+  },
+  "scatter_tool_scatter_chart_type_tooltip": {
+    "defaultMessage": "Visualize the relationship between two statistical variables using a scatter plot",
+    "description": "Explanation of a chart type option that describes a scatter plot"
   },
   "scatter_visualization_tool_description": {
     "defaultMessage": "The Scatter Plot Explorer helps you visualize the correlation between two statistical variables.",
@@ -832,8 +844,8 @@
     "description": "Title indicating that the chart data comes from the following single source"
   },
   "sourceAndCitation": {
-    "defaultMessage": "Source and citation",
-    "description": "Title for source and citation section in the metadata modal."
+    "defaultMessage": "Citation",
+    "description": "Title for citation section in the metadata modal. Citation is akin to the definition here https://en.wikipedia.org/wiki/Citation"
   },
   "sources": {
     "defaultMessage": "Sources",
