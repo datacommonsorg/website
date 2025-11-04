@@ -256,7 +256,7 @@ class ExplorePageTestMixin():
 
   def test_highlight_chart_date_selection(self):
     """Test the highlight chart for Population ranking with map of US States."""
-    highlight_params = "sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
+    highlight_params = "?sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
     shared.wait_for_loading(self.driver)
