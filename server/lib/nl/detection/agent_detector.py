@@ -13,7 +13,7 @@ from shared.lib.detected_variables import VarCandidates
 def detect(query: str, prev_utterance: utterance.Utterance,
            query_detection_debug_logs: dict, counters: Counters,
            dargs: DetectionArgs) -> Detection:
-
+  # Place holder for actual agentic detection logic.
   empty_place_detection = PlaceDetection(
       query_original=query,
       query_without_place_substr="",
