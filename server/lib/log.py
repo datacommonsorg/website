@@ -26,6 +26,7 @@ import time
 import traceback
 
 from flask import current_app
+from flask import has_app_context
 import requests
 
 # 3500 may seem v high,  but there are known paths (like ranking across
@@ -79,6 +80,10 @@ class ExtremeCallLogger:
 
   def finish(self, resp: requests.Response = None):
     if os.environ.get('FLASK_ENV') in ['production', 'custom']:
+      return
+
+    # Do not log extreme calls from async processes that have no access to global flask.current_app
+    if not has_app_context():
       return
 
     self._try_log_payload(
