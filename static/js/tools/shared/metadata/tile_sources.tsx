@@ -65,6 +65,8 @@ export function TileSources(props: {
   // a set of observation specs relevant to the chart. These
   // specs can be hydrated into API calls.
   getObservationSpecs?: () => ObservationSpec[];
+  // Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+  surface: string;
 }): ReactElement {
   const {
     facets,
@@ -134,12 +136,14 @@ export function TileSources(props: {
                     statVarSpecs={statVarSpecs}
                     facets={facets}
                     statVarToFacets={statVarToFacets}
+                    surface={props.surface}
                   />
                 ) : (
                   <TileMetadataModalSimple
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
+                    surface={props.surface}
                   />
                 )}
               </span>
@@ -154,6 +158,7 @@ export function TileSources(props: {
                   getObservationSpecs={getObservationSpecs}
                   containerRef={props.containerRef}
                   variant="textOnly"
+                  surface={props.surface}
                 />
               </span>
             </>

@@ -59,7 +59,6 @@ function App(): ReactElement {
     y.value,
     place.value
   );
-  const showInfo = !showChart && !showChooseStatVarMessage;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
   const useStandardizedUi = isFeatureEnabled(
@@ -74,25 +73,23 @@ function App(): ReactElement {
       />
       <div id="plot-container">
         <Container fluid={true}>
-          {!showChart && (
-            <Row>
-              {useStandardizedUi ? (
-                <ToolHeader
-                  title={intl.formatMessage(toolMessages.scatterToolTitle)}
-                  subtitle={intl.formatMessage(
-                    toolMessages.scatterToolSubtitle
-                  )}
-                />
-              ) : (
-                <div className="app-header">
-                  <h1 className="mb-4">Scatter Plot Explorer</h1>
-                  <a href="/tools/visualization#visType%3Dscatter">
-                    Go back to the new Scatter Plot Explorer
-                  </a>
-                </div>
-              )}
-            </Row>
-          )}
+          <Row>
+            {useStandardizedUi ? (
+              <ToolHeader
+                title={intl.formatMessage(toolMessages.scatterToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.scatterToolSubtitle)}
+              />
+            ) : (
+              <div className="app-header">
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.scatterToolTitle)}
+                </h1>
+                <a href="/tools/visualization#visType%3Dscatter">
+                  {intl.formatMessage(toolMessages.scatterToolGoBackMessage)}
+                </a>
+              </div>
+            )}
+          </Row>
           <Row>
             <div
               css={css`
@@ -103,25 +100,30 @@ function App(): ReactElement {
               <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
             </div>
           </Row>
-          {showChooseStatVarMessage && (
+          {showChooseStatVarMessage && !useStandardizedUi && (
             <Row className="info-message">
               Choose 2 statistical variables from the left pane.
             </Row>
           )}
-          {showInfo && (
+          {!showChart && (
             <>
               {useStandardizedUi ? (
                 <>
                   <Row>
-                    <VisToolInstructionsBox toolType="scatter" />
+                    <VisToolInstructionsBox
+                      toolType="scatter"
+                      showStatVarInstructionsOnly={showChooseStatVarMessage}
+                    />
                   </Row>
-                  <Row
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="scatter" />
-                  </Row>
+                  {!showChooseStatVarMessage && (
+                    <Row
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="scatter" />
+                    </Row>
+                  )}
                 </>
               ) : (
                 <Row>
