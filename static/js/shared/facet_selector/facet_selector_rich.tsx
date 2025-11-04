@@ -355,11 +355,7 @@ function FacetSelectorModal(
       ? findMatchingFacets(facetList[0]["metadataMap"], props?.facetSelector)
       : undefined;
     if (!_.isEmpty(injectedFacetId)) {
-      let facetIdToSet: string | undefined;
-      facetIdToSet = injectedFacetId[0];
-      if (facetIdToSet) {
-        setModalSelections({ [facetList[0]["dcid"]]: facetIdToSet });
-      }
+      setModalSelections({ [facetList[0]["dcid"]]: injectedFacetId[0] });
     }
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
