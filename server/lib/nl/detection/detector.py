@@ -40,7 +40,7 @@ from server.lib.nl.detection.utils import get_multi_sv
 from shared.lib import constants
 import shared.lib.detected_variables as dutils
 
-_DETECTORS_REQUIRING_LLM_PROMPT= [
+_DETECTORS_REQUIRING_LLM_PROMPT = [
     RequestedDetectorType.LLM.value,
     RequestedDetectorType.Hybrid.value,
     RequestedDetectorType.HybridSafetyCheck.value,
@@ -90,8 +90,9 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
   #
   # Agent Detection.
   #
-  if detector_type == RequestedDetectorType.Agent.value and is_feature_enabled(
-      ENABLE_AGENT_DETECTOR, request=request):
+  if is_feature_enabled(
+      ENABLE_AGENT_DETECTOR,
+      request=request) and detector_type == RequestedDetectorType.Agent.value:
     agent_detection = agent_detector.detect(
         query=original_query,
         prev_utterance=prev_utterance,
