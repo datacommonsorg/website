@@ -25,11 +25,11 @@
 
 import React, { ReactElement } from "react";
 
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { isFeatureEnabled, METADATA_FEATURE_FLAG } from "../feature_flags/util";
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorRich } from "./facet_selector_rich";
 import { FacetSelectorSimple } from "./facet_selector_simple";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 export interface FacetSelectorFacetInfo {
   // dcid of the stat var

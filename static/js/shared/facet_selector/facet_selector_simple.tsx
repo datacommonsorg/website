@@ -39,9 +39,9 @@ import { intl } from "../../i18n/i18n";
 import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
 import { messages } from "../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { humanizeIsoDuration } from "../periodicity";
 import { StatMetadata } from "../stat_types";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const SELECTOR_PREFIX = "source-selector";
 
@@ -94,7 +94,6 @@ export function FacetSelectorSimple({
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSelections, setModalSelections] = useState(svFacetId);
-  console.log("These facets???" + JSON.stringify(facetList));
   const totalFacetOptionCount = useMemo(() => {
     if (!facetList) return 0;
     return facetList.reduce((sum: number, facetInfo) => {

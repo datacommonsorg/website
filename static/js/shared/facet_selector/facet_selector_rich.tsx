@@ -32,7 +32,6 @@ import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
 import { DebugFlag } from "../../components/elements/debug_flag";
-import { findMatchingFacets } from "../../utils/data_fetch_utils";
 import {
   Dialog,
   DialogActions,
@@ -42,10 +41,11 @@ import {
 import { intl } from "../../i18n/i18n";
 import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
 import { messages } from "../../i18n/i18n_messages";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
+import { findMatchingFacets } from "../../utils/data_fetch_utils";
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
 import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 export const SELECTOR_PREFIX = "source-selector";
 
@@ -173,7 +173,6 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
     loading,
     error,
     allowSelectionGrouping = false,
-    facetSelector,
   } = props;
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
@@ -186,13 +185,6 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
       SHOW_INCONSISTENT_FACETS
     );
   }, [facetList, allowSelectionGrouping]);
-
-  console.log("Final Facet List " + JSON.stringify(finalFacetList));
-
-  if (!_.isEmpty(finalFacetList) && facetSelector?.facetMetadata) {
-    // Find if facetSelector matches a facet in facetlist.
-    console.log("Looking for " + JSON.stringify(props.facetSelector) + "; in " + JSON.stringify(finalFacetList))
-  }
 
   const totalFacetOptionCount = useMemo(() => {
     if (!finalFacetList) {
@@ -359,25 +351,19 @@ function FacetSelectorModal(
   const [modalSelections, setModalSelections] = useState(svFacetId);
 
   useEffect(() => {
-    // Set the facet to injected facet.
-
-    const injectedFacetId = findMatchingFacets(facetList[0]["metadataMap"], props.facetSelector);
-    if (useInjectedFacet && injectedFacetId) {
-      // findMatchingFacets may return a string or an array of strings;
-      // ensure we pass a single string into the state (use the first item if array).
+    const injectedFacetId = useInjectedFacet
+      ? findMatchingFacets(facetList[0]["metadataMap"], props?.facetSelector)
+      : undefined;
+    if (!_.isEmpty(injectedFacetId)) {
       let facetIdToSet: string | undefined;
-      if (Array.isArray(injectedFacetId)) {
-        facetIdToSet = injectedFacetId.length > 0 ? injectedFacetId[0] : undefined;
-      } else {
-        facetIdToSet = injectedFacetId;
-      }
+      facetIdToSet = injectedFacetId[0];
       if (facetIdToSet) {
         setModalSelections({ [facetList[0]["dcid"]]: facetIdToSet });
       }
     }
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
-    if (!open) {
+    if (!open && !useInjectedFacet) {
       setModalSelections(svFacetId);
     }
   }, [svFacetId, open]);
@@ -390,7 +376,6 @@ function FacetSelectorModal(
       ...modalSelections,
       [clickedDcid]: clickedFacetId,
     });
-    props.setUseInjectedFacet(false);
   };
 
   const handleGroupedSelectionChange = (clickedFacetId: string): void => {
@@ -401,7 +386,6 @@ function FacetSelectorModal(
       }
     }
     setModalSelections(newSelections);
-    props.setUseInjectedFacet(false);
   };
 
   function onConfirm(): void {
@@ -413,6 +397,7 @@ function FacetSelectorModal(
       }
     });
     onSvFacetIdUpdated(modalSelections, metadataMap);
+    props.setUseInjectedFacet(false);
     onClose();
   }
 

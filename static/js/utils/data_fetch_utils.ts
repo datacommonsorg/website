@@ -120,28 +120,30 @@ function getProcessedPointResponse(
   return processedResp;
 }
 
-export function findMatchingFacets(facets: Record<string, StatMetadata>, facetSelector: FacetSelectionCriteria): string[] | null {
+export function findMatchingFacets(
+  facets: Record<string, StatMetadata>,
+  facetSelector: FacetSelectionCriteria
+): string[] | null {
   for (const [facetId, f] of Object.entries(facets)) {
-      const highlightFacet = facetSelector.facetMetadata;
-      if (
-        !highlightFacet ||
-        (!_.isEmpty(highlightFacet.importName) &&
-          highlightFacet.importName !== f.importName) ||
-        (!_.isEmpty(highlightFacet.measurementMethod) &&
-          highlightFacet.measurementMethod !== f.measurementMethod) ||
-        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
-        (!_.isEmpty(highlightFacet.observationPeriod) &&
-          highlightFacet.observationPeriod !== f.observationPeriod) ||
-        (!_.isEmpty(highlightFacet.scalingFactor) &&
-          highlightFacet.scalingFactor !== f.scalingFactor)
-      ) {
-        continue;
-      }
-      return [facetId];
+    const highlightFacet = facetSelector?.facetMetadata;
+    if (
+      !highlightFacet ||
+      (!_.isEmpty(highlightFacet.importName) &&
+        highlightFacet.importName !== f.importName) ||
+      (!_.isEmpty(highlightFacet.measurementMethod) &&
+        highlightFacet.measurementMethod !== f.measurementMethod) ||
+      (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
+      (!_.isEmpty(highlightFacet.observationPeriod) &&
+        highlightFacet.observationPeriod !== f.observationPeriod) ||
+      (!_.isEmpty(highlightFacet.scalingFactor) &&
+        highlightFacet.scalingFactor !== f.scalingFactor)
+    ) {
+      continue;
     }
-    return [];
+    return [facetId];
+  }
+  return [];
 }
-
 
 /**
  * Gets the data from /api/observations/point endpoint
@@ -168,7 +170,10 @@ async function selectFacet(
   }
   const facetsResponse = await getFacets(apiRoot, entities, variables, surface);
   for (const svDcid of Object.keys(facetsResponse)) {
-    const matchingFacets = findMatchingFacets(facetsResponse[svDcid], facetSelector);
+    const matchingFacets = findMatchingFacets(
+      facetsResponse[svDcid],
+      facetSelector
+    );
     if (!_.isEmpty(matchingFacets)) {
       return matchingFacets;
     }
