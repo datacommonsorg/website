@@ -387,7 +387,6 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     self.assertIn('"variable": {"dcids": ["Count_Person"]},', curl_actual_text)
     self.assertIn('"entity": {"dcids": ["country/USA"]}', curl_actual_text)
 
-
   def test_highlight_chart_facet_selector(self):
     """Test the highlight chart for Population ranking with map of US States."""
     highlight_params = "?sv=Count_BlizzardEvent&p=country/USA&imp=StormNOAA_Agg&chartType=RANKING_WITH_MAP&obsPer=P1Y"
