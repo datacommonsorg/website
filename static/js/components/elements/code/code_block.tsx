@@ -32,13 +32,15 @@ import React, { useMemo } from "react";
 
 void import("prismjs/components/prism-bash");
 void import("prismjs/components/prism-python");
+void import("prismjs/components/prism-csv");
+
 /*
  When later adding a new languages, import it here:
  import "prismjs/components/prism-json";
  */
 
 // The available languages for highlighting.
-export type HighlightLanguage = "bash" | "python";
+export type HighlightLanguage = "bash" | "python" | "csv";
 
 /**
  * A record of terms to be treated in a special way by the code block.
@@ -150,25 +152,79 @@ function PrismRenderer({
   className,
 }: CodeBlockProps): React.JSX.Element {
   const highlighted = useMemo(() => {
+    /*
+      Out of the box, Prism provides CSV highlighting, distinguishing only
+      separators from values. We want to add the ability to distinguish strings
+      from other values so we can color them differently. The patch below adds
+      string to the CSV language, using a regex pattern that determines of the token
+      starts and ends with double-quotes, and contains no double-quotes inside ([^"])
+      unless they are escaped by doubling ("").
+     */
+    if (
+      language === "csv" &&
+      Prism.languages.csv &&
+      !Prism.languages.csv.string
+    ) {
+      Prism.languages.insertBefore("csv", "value", {
+        string: {
+          pattern: /"(?:[^"]|"")*"/,
+          alias: "value",
+        },
+      });
+    }
+
     const grammar = Prism.languages[language];
     if (!grammar) {
       return Prism.Token.stringify(Prism.util.encode(code), language);
     }
 
+    const tokens = Prism.tokenize(code, grammar);
+
+    let processedTokens: PrismTokenStream;
     const highlightTerms = (specialTerms?.highlight ?? []).filter(Boolean);
+
+    // We check if we have special terms to highlight and if so, process them.
     if (!highlightTerms.length) {
-      return Prism.highlight(code, grammar, language);
+      processedTokens = tokens;
+    } else {
+      const sortedHighlightTerms = [...highlightTerms].sort(
+        (a, b) => b.length - a.length
+      );
+      const termsRegex = buildTermsRegex(sortedHighlightTerms);
+      const termsSet = new Set(sortedHighlightTerms);
+      processedTokens = processTokenStream(tokens, termsRegex, termsSet);
     }
 
-    const sortedHighlightTerms = [...highlightTerms].sort(
-      (a, b) => b.length - a.length
-    );
+    /*
+      In addition to the string detection patch above, we also augment CSVs to distinguish
+      the header. All tokens in teh first line will be given a "header" class.
+     */
+    if (language === "csv") {
+      let firstLine = true;
+      for (const token of processedTokens) {
+        if (!firstLine) break;
 
-    const termsRegex = buildTermsRegex(sortedHighlightTerms);
-    const termsSet = new Set(sortedHighlightTerms);
+        if (typeof token === "string" && /\r\n|[\r\n]/.test(token)) {
+          firstLine = false;
+          continue;
+        }
 
-    const tokens = Prism.tokenize(code, grammar);
-    const processedTokens = processTokenStream(tokens, termsRegex, termsSet);
+        if (isPrismToken(token)) {
+          const newAlias = "header";
+          if (Array.isArray(token.alias)) {
+            if (!token.alias.includes(newAlias)) {
+              token.alias.push(newAlias);
+            }
+          } else if (token.alias) {
+            if (token.alias !== newAlias) {
+              token.alias = [token.alias, newAlias];
+            }
+          } else {
+            token.alias = newAlias;
+          }
+        }
+      }
+    }
     return Prism.Token.stringify(processedTokens, language);
   }, [code, language, specialTerms]);
 
@@ -234,6 +290,21 @@ export function CodeBlock({
       ".token.punctuation": {
         color: theme.codeHighlight.punctuation,
       },
+
+      "&.language-csv .token.value.string.header, &.language-csv .token.value.header":
+        {
+          color: theme.codeHighlight.csvHeader,
+        },
+      "&.language-csv .token.punctuation": {
+        color: theme.codeHighlight.csvSeparator,
+      },
+      "&.language-csv .token.value": {
+        color: theme.codeHighlight.csvValue,
+      },
+      "&.language-csv .token.value.string": {
+        color: theme.codeHighlight.csvStringValue,
+      },
+
       ".token.namespace": {
         opacity: 0.7,
       },
