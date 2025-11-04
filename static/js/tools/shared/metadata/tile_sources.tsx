@@ -59,6 +59,8 @@ export function TileSources(props: {
   // If given and the facets and mappings are not given, we
   // fall back to the old sources.
   sources?: Set<string> | string[];
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
   // A callback function passed through from the chart that will collate
@@ -73,6 +75,7 @@ export function TileSources(props: {
     statVarToFacets,
     statVarSpecs,
     sources,
+    statVarDateRanges,
     getObservationSpecs,
   } = props;
   if (!facets && !sources) {
@@ -136,6 +139,7 @@ export function TileSources(props: {
                     statVarSpecs={statVarSpecs}
                     facets={facets}
                     statVarToFacets={statVarToFacets}
+                    statVarDateRanges={statVarDateRanges}
                     surface={props.surface}
                   />
                 ) : (

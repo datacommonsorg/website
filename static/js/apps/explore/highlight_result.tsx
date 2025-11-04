@@ -99,7 +99,7 @@ function generateCitationSources(
   statVars: NamedNode[],
   metadataMap: Record<string, StatVarMetadata[]>
 ): string {
-  return buildCitationParts(statVars, metadataMap, true)
+  return buildCitationParts(statVars, metadataMap, undefined, true)
     .map(({ label }) => label)
     .join(", ");
 }
