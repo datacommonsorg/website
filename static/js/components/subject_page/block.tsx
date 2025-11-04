@@ -526,6 +526,7 @@ export function Block(props: BlockPropType): ReactElement {
         {showFacetSelector && (
           <div className="block-modal-trigger">
             <FacetSelector
+              facetSelector={props.facetSelector}
               svFacetId={facetOverrides}
               facetList={facetList}
               loading={facetsLoading}
