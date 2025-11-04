@@ -64,7 +64,7 @@ import {
   fetchFacetChoices,
   fetchFacetChoicesWithin,
 } from "../../tools/shared/facet_choice_fetcher";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -141,7 +141,7 @@ export interface BlockPropType {
   startWithDenom?: boolean;
   // Whether to render tiles as web components
   showWebComponents?: boolean;
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
@@ -171,9 +171,12 @@ const FACET_GROUPING_ELIGIBLE_TILES = new Set(["BAR"]);
 function eligibleForSnapToHighestCoverage(
   columns: ColumnConfig[],
   statVarProvider: StatVarProvider,
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria
 ): boolean {
-  if (highlightFacet) {
+  if (
+    !_.isEmpty(facetSelector?.facetMetadata) ||
+    !_.isEmpty(facetSelector?.date)
+  ) {
     return false;
   }
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
@@ -297,7 +300,7 @@ export function Block(props: BlockPropType): ReactElement {
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
     props.statVarProvider,
-    props.highlightFacet
+    props.facetSelector
   );
   const [snapToHighestCoverage, setSnapToHighestCoverage] = useState(
     isEligibleForSnapToHighestCoverage
@@ -497,10 +500,10 @@ export function Block(props: BlockPropType): ReactElement {
 
   useEffect(() => {
     setDenom(props.denom || "");
-    if (props.highlightFacet) {
+    if (props.facetSelector?.facetMetadata) {
       setDenom("");
     }
-  }, [props.highlightFacet, props.denom]);
+  }, [props.facetSelector, props.denom]);
 
   return (
     <>
@@ -693,7 +696,7 @@ function renderTiles(
             description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
             statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
             surface={WEBSITE_SURFACE}
           />
         );
@@ -726,7 +729,7 @@ function renderTiles(
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
             surface={WEBSITE_SURFACE}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
           />
         );
       case "LINE":
@@ -756,7 +759,7 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
             surface={WEBSITE_SURFACE}
           />
         );
@@ -785,7 +788,7 @@ function renderTiles(
                 : undefined
             }
             surface={WEBSITE_SURFACE}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
           />
         );
       case "BAR":
@@ -821,7 +824,7 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
             surface={WEBSITE_SURFACE}
           />
         );

@@ -866,17 +866,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct"
-                    ],
-                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "dc/34t2kjrwbjd31_growth_pct"
                     ],
                     "title": "Population Working in the Petroleum and Coal Products Manufacturing Industry in Placer County",
@@ -902,6 +891,17 @@
                       "Count_Worker_NAICSTotalAllIndustries_growth_pct"
                     ],
                     "title": "Workers in All Industries in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
                     "type": "LINE"
                   }
                 ]
