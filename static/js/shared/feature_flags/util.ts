@@ -58,11 +58,11 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
  */
 export function getFeatureFlags(): Record<
   string,
-  { enabled: boolean; rollout_percentage?: number }
+  { enabled: boolean; rolloutPercentage?: number }
 > {
   return globalThis.FEATURE_FLAGS as Record<
     string,
-    { enabled: boolean; rollout_percentage?: number }
+    { enabled: boolean; rolloutPercentage?: number }
   >;
 }
 
@@ -101,8 +101,8 @@ export function isFeatureEnabled(featureName: string): boolean {
     if (!feature.enabled) {
       return false;
     }
-    if (feature.rollout_percentage !== undefined) {
-      return Math.random() * 100 < feature.rollout_percentage;
+    if (feature.rolloutPercentage !== undefined) {
+      return Math.random() * 100 < feature.rolloutPercentage;
     }
     return true;
   }

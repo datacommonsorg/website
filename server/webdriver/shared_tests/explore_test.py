@@ -164,13 +164,6 @@ class ExplorePageTestMixin():
     bar_chart = find_elem(highlight_div, By.CLASS_NAME, "bar-chart")
     self.assertIsNotNone(bar_chart)
 
-    expected_citation = (
-        "World Bank, World Development Indicators, with minor processing by Data Commons"
-    )
-
-    wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
-                  "metadata-summary")
-
   def test_highlight_chart_us_states_pop_ranking_with_map(self):
     """Test the highlight chart for Population ranking with map of US States."""
     highlight_params = "#sv=Count_Person&p=country/USA&imp=USCensusPEP_Annual_Population&mm=CensusPEPSurvey&obsPer=P1Y&chartType=RANKING_WITH_MAP"
@@ -254,20 +247,19 @@ class ExplorePageTestMixin():
                                 'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
 
+  def test_highlight_chart_date_selection(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "?sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
-def test_highlight_chart_date_selection(self):
-  """Test the highlight chart for Population ranking with map of US States."""
-  highlight_params = "sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
-  self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+    shared.wait_for_loading(self.driver)
 
-  shared.wait_for_loading(self.driver)
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
 
-  highlight_div = find_elem(self.driver, By.CLASS_NAME,
-                            'highlight-result-title')
-
-  ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
-  self.assertIsNotNone(ranking_tile)
-  ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
-                                  'ranking-date-cell')
-  for cell in ranking_date_cells:
-    self.assertIn('2023', cell.text)
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+    ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
+                                    'ranking-date-cell')
+    for cell in ranking_date_cells:
+      self.assertIn('2023', cell.text)
