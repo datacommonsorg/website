@@ -42,7 +42,7 @@ bp = Blueprint("place_api", __name__, url_prefix='/api/place')
 
 @bp.route('/charts/<path:place_dcid>')
 @log_execution_time
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_charts(place_dcid: str):
   """
   Returns chart definitions for the specified place based on the availability of
@@ -98,7 +98,7 @@ async def place_charts(place_dcid: str):
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Filter out place page charts that don't have any data for the current place_dcid
-  chart_config_existing_data, request_ids = await asyncio.to_thread(
+  chart_config_existing_data = await asyncio.to_thread(
       place_utils.filter_chart_config_for_data_existence,
       chart_config=full_chart_config,
       place_dcid=place_dcid,
@@ -124,8 +124,7 @@ async def place_charts(place_dcid: str):
 
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,
-                                    categories=categories_with_more_charts,
-                                    requestIds=request_ids)
+                                    categories=categories_with_more_charts)
   return jsonify(response)
 
 
@@ -231,12 +230,11 @@ def overview_table(place_dcid: str):
 
 @bp.route('/summary/<path:place_dcid>')
 @log_execution_time
-@cache_and_log(timeout=TIMEOUT)
+@cache.cached(timeout=TIMEOUT)
 async def place_summary(place_dcid: str):
   # todo: query_string=true
   """
   Fetches and returns place summary data for the specified place.
   """
-  summary, requestId = await place_utils.generate_place_summary(
-      place_dcid, g.locale)
-  return jsonify(PlaceSummaryApiResponse(summary=summary, requestId=requestId))
+  summary = await place_utils.generate_place_summary(place_dcid, g.locale)
+  return jsonify(PlaceSummaryApiResponse(summary=summary))

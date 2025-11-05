@@ -66,12 +66,12 @@ if cfg.USE_MEMCACHE or REDIS_HOST:
   else:
     cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
 # for debugging only, will be removed
-elif cfg.LOCAL:
-  cache = Cache(
-      config={
-          'CACHE_TYPE': 'FileSystemCache',
-          'CACHE_DIR': os.path.join(Path(__file__).parents[2], '.cache')
-      })
+# elif cfg.LOCAL:
+#   cache = Cache(
+#       config={
+#           'CACHE_TYPE': 'FileSystemCache',
+#           'CACHE_DIR': os.path.join(Path(__file__).parents[2], '.cache')
+#       })
 else:
   # For some instance with fast updated data, we may not want to use memcache.
   cache = Cache(config={'CACHE_TYPE': 'NullCache'})

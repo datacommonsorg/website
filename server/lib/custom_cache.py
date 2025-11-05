@@ -93,7 +93,7 @@ def cache_and_log(timeout, query_string: bool = False, make_cache_key=None):
           return cached_result
 
         # Cache miss
-        result = f(*args, **kwargs) # calling the function directly
+        result = f(*args, **kwargs)  # calling the function directly
         cache.set(key, result, timeout=timeout)
         return result
 

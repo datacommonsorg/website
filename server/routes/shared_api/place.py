@@ -290,19 +290,17 @@ def get_place_variable_count():
 
 
 @bp.route('/child/<path:dcid>')
-@cache_and_log(timeout=TIMEOUT)
+@cache.cached(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
-  child_places, request_id = child_fetch(dcid)
+  child_places = child_fetch(dcid)
   for place_type in child_places:
     child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
     child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
-  return Response(json.dumps(child_places, request_id),
-                  200,
-                  mimetype='application/json')
+  return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
-@cache_and_log(timeout=TIMEOUT)
+@cache.cached(timeout=TIMEOUT)
 def child_fetch(parent_dcid):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
@@ -360,7 +358,7 @@ def child_fetch(parent_dcid):
 
   # Drop empty categories
   result = dict(filter(lambda x: len(x[1]) > 0, result.items()))
-  return result, (obs_response["requestId"] or "")
+  return result
 
 
 @bp.route('/parent')

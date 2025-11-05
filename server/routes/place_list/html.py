@@ -40,9 +40,9 @@ def index():
 
 
 @bp.route('/place-list/<path:dcid>')
-@cache_and_log(timeout=TIMEOUT)
+@cache.cached(timeout=TIMEOUT)
 def node(dcid):
-  child_places, requestId = child_fetch(dcid)
+  child_places = child_fetch(dcid)
   place_by_type = collections.defaultdict(list)
   for place_type, childs in child_places.items():
     for child in childs:
@@ -58,5 +58,4 @@ def node(dcid):
 
   return render_template('place_list.html',
                          place_by_type=place_by_type,
-                         dcid=dcid,
-                         request_id=requestId)
+                         dcid=dcid)

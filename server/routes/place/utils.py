@@ -219,7 +219,7 @@ def count_places_per_stat_var(
   return stat_var_to_places_with_data
 
 
-@cache_and_log(timeout=TIMEOUT)
+@cache.cached(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
@@ -253,12 +253,6 @@ async def filter_chart_config_for_data_existence(
         current_place_obs_point_task, child_places_obs_point_within_task,
         peer_places_obs_point_within_task, fetch_peer_places_task)
 
-    requestIds = [
-        current_place_obs_point_response["requestId"],
-        child_places_obs_point_within["requestId"],
-        peer_places_obs_point_within["requestId"]
-    ]
-
     count_places_per_child_sv_task = asyncio.to_thread(
         count_places_per_stat_var, child_places_obs_point_within,
         child_places_stat_var_dcids, 2)
@@ -287,7 +281,7 @@ async def filter_chart_config_for_data_existence(
         count_places_per_sv_task, count_places_per_child_sv_task,
         count_places_per_peer_sv_task, child_geo_task, peer_geo_task)
 
-    return current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data, requestIds
+    return current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data
 
   # Get a flat list of all statistical variable dcids in the chart config
   current_place_stat_var_dcids = []
@@ -323,7 +317,7 @@ async def filter_chart_config_for_data_existence(
     if needs_peer_places_data:
       peer_places_stat_var_dcids.extend(variables)
 
-  current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data, requestIds = await fetch_and_process_stats(
+  current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data = await fetch_and_process_stats(
   )
 
   # Build set of all stat vars that have data for our place & children places
@@ -406,7 +400,7 @@ async def filter_chart_config_for_data_existence(
     if config.blocks:
       valid_chart_configs.append(config)
 
-  return valid_chart_configs, requestIds
+  return valid_chart_configs
 
 
 def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
@@ -1238,8 +1232,6 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
       place_dcid, variable_dcids, locale)
   variable_observations = []
 
-  requestId = place_observations["requestId"] if (place_observations and "requestId" in place_observations) else ""
-
   # Iterate over each variable and extract the most recent observation
   for variable in PLACE_SUMMARY_VARIABLES:
     variable_dcid = variable["dcid"]
@@ -1275,4 +1267,4 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
             year=variable_observation["observation"]["date"][:4]))
 
   summary = " ".join(sentences)
-  return summary, requestId
+  return summary

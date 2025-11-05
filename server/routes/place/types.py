@@ -77,8 +77,6 @@ class PlaceChartsApiResponse:
   blocks: List[BlockConfig]
   place: Place
   categories: List[Category]
-  # Represent all mixer calls used in this response and used in caching
-  requestIds: List[str]
 
 
 @dataclass
@@ -185,5 +183,3 @@ class PlaceSummaryApiResponse:
   API Response for /api/place/summary/<place_dcid>
   """
   summary: str
-  # Represent all mixer calls used in this response and used in caching
-  requestId: str
