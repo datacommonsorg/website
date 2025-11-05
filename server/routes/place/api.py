@@ -24,7 +24,7 @@ from flask import jsonify
 from flask import request
 
 from server.lib.cache import cache
-from server.lib.custom_cache import cache_and_log
+from server.lib.cache import cache_and_log
 from server.lib.util import error_response
 from server.lib.util import log_execution_time
 from server.routes import TIMEOUT

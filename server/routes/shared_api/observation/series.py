@@ -21,7 +21,7 @@ from flask import request
 from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
-from server.lib.custom_cache import cache_and_log
+from server.lib.cache import cache_and_log
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 

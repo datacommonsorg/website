@@ -17,7 +17,7 @@ from flask import request
 
 from server.lib import fetch
 from server.lib.cache import cache
-from server.lib.custom_cache import cache_and_log
+from server.lib.cache import cache_and_log
 from server.lib.util import fetch_highest_coverage
 from server.routes import TIMEOUT
 from shared.lib.constants import DATE_HIGHEST_COVERAGE

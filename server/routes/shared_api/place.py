@@ -27,7 +27,6 @@ from markupsafe import escape
 
 from server.lib import fetch
 from server.lib.cache import cache
-from server.lib.custom_cache import cache_and_log
 import server.lib.i18n as i18n
 from server.lib.i18n_messages import get_place_type_to_locale_message
 from server.lib.i18n_messages import get_place_type_to_locale_message_plural
