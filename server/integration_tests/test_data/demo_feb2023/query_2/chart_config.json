@@ -101,37 +101,6 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_OxidesOfNitrogen_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM10_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_SulfurDioxide_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound_multiple_place_bar_block"
-                    ],
-                    "title": "Wildfire Emissions by Pollutant in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Wildfire Emissions by Pollutant"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "lineTileSpec": {
                       "startDate": "2024"
                     },
@@ -157,6 +126,37 @@
               }
             ],
             "title": "Wildfires"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_OxidesOfNitrogen_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM10_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_SulfurDioxide_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound_multiple_place_bar_block"
+                    ],
+                    "title": "Wildfire Emissions by Pollutant in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Wildfire Emissions by Pollutant"
           }
         ],
         "statVarSpec": {
