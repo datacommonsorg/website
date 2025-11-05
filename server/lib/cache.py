@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import functools
+import json
 import logging
 import os
 from pathlib import Path
@@ -23,7 +24,6 @@ from flask_caching import Cache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -92,66 +92,81 @@ def should_skip_cache():
     logging.warning("Error checking X-Skip-Cache header.", exc_info=True)
     # Any error should default to False to preserve normal caching behavior
     return False
-  
-# The Mixer usage logs can't track usage from the website cache, so this 
-# logs mixer request IDs (IDs unique to each mixer response) which is 
+
+
+# The Mixer usage logs can't track usage from the website cache, so this
+# logs mixer request IDs (IDs unique to each mixer response) which is
 # ingested in GCP cloud logging and incoroporated into the usage logs.
-def cache_and_log_request_id(timeout=300, query_string=False, make_cache_key=None, unless=False):
+def cache_and_log_request_id(timeout=300,
+                             query_string=False,
+                             make_cache_key=None,
+                             unless=False):
   """
   The Mixer usage logs can't track usage from the website cache, so this 
   wraps cache.cached and logs mixer request IDs (IDs unique to each mixer response) which is 
   ingested in GCP cloud logging and incoroporated into the usage logs.
   """
-  def decorator(fn):
-      # This is either the cached result or the evaluation of the function, 
-      # if it wasn't cached previously
-      cached_fn = cache.cached(timeout=timeout, query_string=query_string, make_cache_key=make_cache_key, unless=unless)(fn)
 
-      # Handles logging the request ID
-      return _cache_wrapper(fn, cached_fn)
+  def decorator(fn):
+    # This is either the cached result or the evaluation of the function,
+    # if it wasn't cached previously
+    cached_fn = cache.cached(timeout=timeout,
+                             query_string=query_string,
+                             make_cache_key=make_cache_key,
+                             unless=unless)(fn)
+
+    # Handles logging the request ID
+    return _cache_wrapper(fn, cached_fn)
+
   return decorator
+
 
 # Version of the above cacher that logs the request ID, but with memoization
 def memoize_and_log_request_id(timeout=300, unless=False):
-  def decorator(fn):
-      # This is either the memoized result or the evaluation of the function, 
-      # if it wasn't cached previously
-      memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
 
-      # Handles logging the request ID
-      return _cache_wrapper(fn, memoized_fn)
+  def decorator(fn):
+    # This is either the memoized result or the evaluation of the function,
+    # if it wasn't cached previously
+    memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
+
+    # Handles logging the request ID
+    return _cache_wrapper(fn, memoized_fn)
+
   return decorator
+
 
 # Extracts the request ID from the cached or fetched result
 def log_request_id(result):
-      print("hitting logger!")
-      try:
-        log_payload = {
-            "message": "Website cache mixer usage",
-        }
-        unique_id = result.get("requestId")
-        if unique_id:
-          log_payload["request_ids"] = [unique_id]
-        else:
-          # more than one ID, for higher-level functions that make multiple mixer requests
-          ids = result.get("requestIds")
-          if ids:
-            log_payload["request_ids"] = ids
+  print("hitting logger!")
+  try:
+    log_payload = {
+        "message": "Website cache mixer usage",
+    }
+    unique_id = result.get("requestId")
+    if unique_id:
+      log_payload["request_ids"] = [unique_id]
+    else:
+      # more than one ID, for higher-level functions that make multiple mixer requests
+      ids = result.get("requestIds")
+      if ids:
+        log_payload["request_ids"] = ids
 
-        if "request_ids" in log_payload:
-          logger.info(json.dumps(log_payload))
-      except Exception as e:
-        logger.info(f"Error logging the request ID for result {result}: {e}")
+    if "request_ids" in log_payload:
+      logger.info(json.dumps(log_payload))
+  except Exception as e:
+    logger.info(f"Error logging the request ID for result {result}: {e}")
+
 
 def _cache_wrapper(fn, cached_fn):
+
   @functools.wraps(fn)
   def wrapper(*args, **kwargs):
-      result = cached_fn(*args, **kwargs)
-      try:
-          log_request_id(result)
-      except Exception as e:
-          logger.warning(f"Error logging response for {fn.__name__}: {e}")
+    result = cached_fn(*args, **kwargs)
+    try:
+      log_request_id(result)
+    except Exception as e:
+      logger.warning(f"Error logging response for {fn.__name__}: {e}")
 
-      return result
+    return result
+
   return wrapper
-
