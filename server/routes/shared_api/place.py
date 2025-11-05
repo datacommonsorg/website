@@ -290,7 +290,7 @@ def get_place_variable_count():
 
 
 @bp.route('/child/<path:dcid>')
-@cache.cached(timeout=TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
   child_places = child_fetch(dcid)
@@ -300,7 +300,7 @@ def child(dcid):
   return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
-@cache.cached(timeout=TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def child_fetch(parent_dcid):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',

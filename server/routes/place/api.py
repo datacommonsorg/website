@@ -230,9 +230,8 @@ def overview_table(place_dcid: str):
 
 @bp.route('/summary/<path:place_dcid>')
 @log_execution_time
-@cache.cached(timeout=TIMEOUT)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_summary(place_dcid: str):
-  # todo: query_string=true
   """
   Fetches and returns place summary data for the specified place.
   """
