@@ -25,7 +25,6 @@ from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
-from server.lib.custom_cache import cache_and_log
 from server.lib.i18n import DEFAULT_LOCALE
 from server.lib.i18n_messages import get_other_places_in_parent_place_str
 from server.lib.i18n_messages import \
@@ -219,7 +218,7 @@ def count_places_per_stat_var(
   return stat_var_to_places_with_data
 
 
-@cache.cached(timeout=TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
@@ -252,7 +251,6 @@ async def filter_chart_config_for_data_existence(
     current_place_obs_point_response, child_places_obs_point_within, peer_places_obs_point_within, fetch_peer_places = await asyncio.gather(
         current_place_obs_point_task, child_places_obs_point_within_task,
         peer_places_obs_point_within_task, fetch_peer_places_task)
-
     count_places_per_child_sv_task = asyncio.to_thread(
         count_places_per_stat_var, child_places_obs_point_within,
         child_places_stat_var_dcids, 2)

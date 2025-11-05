@@ -254,6 +254,5 @@ class TestApiSeriesWithin(unittest.TestCase):
             'childType': 'State',
             'variables': ['Count_Person', 'UnemploymentRate_Person']
         })
-    print("response in failing test: ", response)
     assert response.status_code == 200
     assert json.loads(response.data) == result
