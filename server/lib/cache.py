@@ -93,10 +93,6 @@ def should_skip_cache():
     # Any error should default to False to preserve normal caching behavior
     return False
 
-
-# The Mixer usage logs can't track usage from the website cache, so this
-# logs mixer request IDs (IDs unique to each mixer response) which is
-# ingested in GCP cloud logging and incoroporated into the usage logs.
 def cache_and_log_request_id(timeout=300,
                              query_string=False,
                              make_cache_key=None,
