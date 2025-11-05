@@ -23,10 +23,7 @@ from flask_caching import Cache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
-
-import asyncio
-from functools import wraps
-from flask import Response
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -135,16 +132,22 @@ def memoize_and_log_request_id(timeout=300, unless=False):
 def log_request_id(result):
       print("hitting logger!")
       try:
-        single_id = result.get("requestId")
-        if single_id:
-          logger.info(f"Cache reached for ID {single_id}")
+        log_payload = {
+            "message": "Website cache mixer usage",
+        }
+        unique_id = result.get("requestId")
+        if unique_id:
+          log_payload["request_ids"] = [unique_id]
         else:
           # more than one ID, for higher-level functions that make multiple mixer requests
           ids = result.get("requestIds")
           if ids:
-            logger.info(f"Cache reached for IDs {single_id}")
+            log_payload["request_ids"] = ids
+
+        if "request_ids" in log_payload:
+          logger.info(json.dumps(log_payload))
       except Exception as e:
-        logger.info(f"Something wrong for result {result}: {e}")
+        logger.info(f"Error logging the request ID for result {result}: {e}")
 
 def _cache_wrapper(fn, cached_fn):
   @functools.wraps(fn)
