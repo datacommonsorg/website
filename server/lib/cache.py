@@ -101,130 +101,55 @@ def should_skip_cache():
     logging.warning("Error checking X-Skip-Cache header.", exc_info=True)
     # Any error should default to False to preserve normal caching behavior
     return False
-  
-# memoize_and_log_response_id
-def cache_and_log(timeout=300):
+
+# todo; rename cached_fn to fn when logging key is removed
+def _cache_wrapper(fn, cached_fn):
+  @functools.wraps(fn)
+  def wrapper(*args, **kwargs):
+      result = cached_fn(*args, **kwargs)
+      try:
+          log_request_id(result)
+      except Exception as e:
+          logger.warning(f"Error logging response for {fn.__name__}: {e}")
+
+      return result
+  return wrapper
+
+def cache_and_log_request_id(timeout=300, query_string=False, make_cache_key=None, unless=False):
+  """
+  Wraps cache.cached and runs a logging function on the
+  final result, regardless of cache status.
+  """
+  def decorator(fn):
+      # create the memoized version of the function 
+      cached_fn = cache.cached(timeout=timeout, query_string=query_string, make_cache_key=make_cache_key, unless=unless)(fn)
+
+      return _cache_wrapper(fn, cached_fn)
+  return decorator
+
+def memoize_and_log_request_id(timeout=300, make_cache_key=None, unless=False):
   """
   Wraps cache.memoize and runs a logging function on the
   final result, regardless of cache status.
   """
   def decorator(fn):
       # create the memoized version of the function 
-      memoized_fn = cache.memoize(timeout)(fn)
+      memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
 
-      @functools.wraps(fn)  # Wrap the *original* fn to keep its name/docs
-      def wrapper(*args, **kwargs):
-          
-          # will either return a cached value or run the function and cache it.
-          result = memoized_fn(*args, **kwargs)
-
-          # log response
-          try:
-              log_request_id(result, True) # todo: define this fun, diff between cache hits and misses
-              # or just subtract 1 from num times used
-          except Exception as e:
-              logger.warning(f"Error logging response for {fn.__name__}: {e}")
-
-          return result
-      return wrapper
+      return _cache_wrapper(fn, memoized_fn)
   return decorator
 
 
-def log_request_id(result, is_hit):
+def log_request_id(result):
       print("hitting logger!")
       try:
-        # Handling flask responses and regular dicts
-        if isinstance(result, Response):
-          cached_data = result.get_json()
-        else:
-          cached_data = result
-
-        unique_id = cached_data.get("requestId")
-        # TODO: these should all be logged as lists for consistency
-        if unique_id:
-          logger.info(f"Cache hit for ID {unique_id}") if is_hit else logger.info(f"Cache miss for ID {unique_id}")
+        single_id = result.get("requestId")
+        if single_id:
+          logger.info(f"Cache reached for ID {single_id}")
         else:
           # more than one ID, for higher-level functions that make multiple mixer requests
-          ids = cached_data.get("requestIds")
+          ids = result.get("requestIds")
           if ids:
-            logger.info(f"Cache hit for IDs {ids}")
+            logger.info(f"Cache reached for IDs {single_id}")
       except Exception as e:
-        logger.info(f"Cache hit for IDs {unique_id}") if is_hit else logger.info(f"Cache miss for IDs {unique_id}")
-
-# # TODO: handle unless, etc. and other options
-# def cache_and_log(timeout, query_string: bool = False, make_cache_key=None):
-
-#   def decorator(f):
-
-#     def get_cache_key(*args, **kwargs):
-#       # if a custom key function is provided, use it
-#       if make_cache_key:
-#         key = make_cache_key()
-#       else:
-#         # Otherwise, use the default cache key maker
-#         key = cache._memoize_make_cache_key()(f, *args, **kwargs)
-#       # If query_string is True, append the request query string to the key
-#       if query_string:
-#         # Make sure the request is available in context for query_string
-#         if request:
-#           return key + request.query_string.decode('utf-8')
-#       return key
-
-#     # TODO: modify this to log all IDs with an indicator if it was a hit/miss
-#     def log_request_id(result, is_hit):
-#       try:
-#         # Handling flask responses and regular dicts
-#         if isinstance(result, Response):
-#           cached_data = result.get_json()
-#         else:
-#           cached_data = result
-
-#         unique_id = cached_data.get("requestId")
-#         # TODO: these should all be logged as lists for consistency
-#         if unique_id:
-#           logger.info(f"Cache hit for ID {unique_id}") if is_hit else logger.info(f"Cache miss for ID {unique_id}")
-#         else:
-#           # more than one ID, for higher-level functions that make multiple mixer requests
-#           ids = cached_data.get("requestIds")
-#           if ids:
-#             logger.info(f"Cache hit for IDs {ids}")
-#       except Exception as e:
-#         logger.info(f"Cache hit for IDs {unique_id}") if is_hit else logger.info(f"Cache miss for IDs {unique_id}")
-
-#     # Handling async functions -- TODO: clean this up
-#     if asyncio.iscoroutinefunction(f):
-#       # If it's an async function, return an async wrapper.
-#       @wraps(f)
-#       async def async_wrapper(*args, **kwargs):
-#         key = get_cache_key(f, *args, **kwargs)
-#         cached_result = cache.get(key)
-#         if cached_result is not None:
-#           log_request_id(cached_result, True)
-#           return cached_result
-
-#         # Cache miss
-#         result = await f(*args, **kwargs)  # Await the async function
-#         cache.set(key, result, timeout=timeout)
-#         # Log the cache miss as well as a hit
-#         log_request_id(result, False)
-#         return result
-
-#       return async_wrapper
-#     else:
-#       # If it's a synchronous function, return a synchronous wrapper.
-#       @wraps(f)
-#       def sync_wrapper(*args, **kwargs):
-#         key = get_cache_key(f, *args, **kwargs)
-#         cached_result = cache.get(key)
-#         if cached_result is not None:
-#           log_request_id(cached_result)
-#           return cached_result
-
-#         # Cache miss
-#         result = f(*args, **kwargs)  # calling the function directly
-#         cache.set(key, result, timeout=timeout)
-#         return result
-
-#       return sync_wrapper
-
-#   return decorator
+        logger.info(f"Something wrong for result {result}: {e}")

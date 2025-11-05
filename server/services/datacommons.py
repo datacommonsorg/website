@@ -26,7 +26,7 @@ from flask import request
 import requests
 
 from server.lib import log
-from server.lib.cache import should_skip_cache, cache_and_log
+from server.lib.cache import should_skip_cache, memoize_and_log_request_id
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
@@ -56,7 +56,7 @@ def get_basic_request_headers() -> dict:
   return headers
 
 
-@cache_and_log(timeout=TIMEOUT)
+@memoize_and_log_request_id(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
   headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
@@ -82,7 +82,7 @@ def post(url: str, req: Dict, headers: dict | None = None):
   return post_wrapper(url, req_str, headers)
 
 
-@cache_and_log(timeout=TIMEOUT)
+@memoize_and_log_request_id(timeout=TIMEOUT, unless=should_skip_cache)
 def post_wrapper(url, req_str: str, headers_str: str | None = None):
   #
   # CRITICAL: This function is called from synchronous and asynchronous contexts
