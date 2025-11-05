@@ -101,45 +101,37 @@ def should_skip_cache():
     logging.warning("Error checking X-Skip-Cache header.", exc_info=True)
     # Any error should default to False to preserve normal caching behavior
     return False
-
-# todo; rename cached_fn to fn when logging key is removed
-def _cache_wrapper(fn, cached_fn):
-  @functools.wraps(fn)
-  def wrapper(*args, **kwargs):
-      result = cached_fn(*args, **kwargs)
-      try:
-          log_request_id(result)
-      except Exception as e:
-          logger.warning(f"Error logging response for {fn.__name__}: {e}")
-
-      return result
-  return wrapper
-
+  
+# The Mixer usage logs can't track usage from the website cache, so this 
+# logs mixer request IDs (IDs unique to each mixer response) which is 
+# ingested in GCP cloud logging and incoroporated into the usage logs.
 def cache_and_log_request_id(timeout=300, query_string=False, make_cache_key=None, unless=False):
   """
-  Wraps cache.cached and runs a logging function on the
-  final result, regardless of cache status.
+  The Mixer usage logs can't track usage from the website cache, so this 
+  wraps cache.cached and logs mixer request IDs (IDs unique to each mixer response) which is 
+  ingested in GCP cloud logging and incoroporated into the usage logs.
   """
   def decorator(fn):
-      # create the memoized version of the function 
+      # This is either the cached result or the evaluation of the function, 
+      # if it wasn't cached previously
       cached_fn = cache.cached(timeout=timeout, query_string=query_string, make_cache_key=make_cache_key, unless=unless)(fn)
 
+      # Handles logging the request ID
       return _cache_wrapper(fn, cached_fn)
   return decorator
 
-def memoize_and_log_request_id(timeout=300, make_cache_key=None, unless=False):
-  """
-  Wraps cache.memoize and runs a logging function on the
-  final result, regardless of cache status.
-  """
+# Version of the above cacher that logs the request ID, but with memoization
+def memoize_and_log_request_id(timeout=300, unless=False):
   def decorator(fn):
-      # create the memoized version of the function 
+      # This is either the memoized result or the evaluation of the function, 
+      # if it wasn't cached previously
       memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
 
+      # Handles logging the request ID
       return _cache_wrapper(fn, memoized_fn)
   return decorator
 
-
+# Extracts the request ID from the cached or fetched result
 def log_request_id(result):
       print("hitting logger!")
       try:
@@ -153,3 +145,16 @@ def log_request_id(result):
             logger.info(f"Cache reached for IDs {single_id}")
       except Exception as e:
         logger.info(f"Something wrong for result {result}: {e}")
+
+def _cache_wrapper(fn, cached_fn):
+  @functools.wraps(fn)
+  def wrapper(*args, **kwargs):
+      result = cached_fn(*args, **kwargs)
+      try:
+          log_request_id(result)
+      except Exception as e:
+          logger.warning(f"Error logging response for {fn.__name__}: {e}")
+
+      return result
+  return wrapper
+
