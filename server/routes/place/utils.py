@@ -1238,7 +1238,7 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
       place_dcid, variable_dcids, locale)
   variable_observations = []
 
-  requestId = place_observations["requestId"] or ""
+  requestId = place_observations["requestId"] if (place_observations and "requestId" in place_observations) else ""
 
   # Iterate over each variable and extract the most recent observation
   for variable in PLACE_SUMMARY_VARIABLES:

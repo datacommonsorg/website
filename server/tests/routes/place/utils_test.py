@@ -981,7 +981,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    "value": 150
                                }],
                                include_facets=True)
-    resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
+    resp, _ = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
     self.assertEqual(len(resp), 1)
     self.assertEqual(resp[0].name, 'Population')
     self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')

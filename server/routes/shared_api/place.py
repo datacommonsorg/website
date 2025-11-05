@@ -360,7 +360,7 @@ def child_fetch(parent_dcid):
 
   # Drop empty categories
   result = dict(filter(lambda x: len(x[1]) > 0, result.items()))
-  return result, obs_response["requestId"]
+  return result, (obs_response["requestId"] or "")
 
 
 @bp.route('/parent')
