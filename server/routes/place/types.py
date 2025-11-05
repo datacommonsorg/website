@@ -77,6 +77,7 @@ class PlaceChartsApiResponse:
   blocks: List[BlockConfig]
   place: Place
   categories: List[Category]
+  # Represent all mixer calls used in this response and used in caching
   requestIds: List[str]
 
 
@@ -172,10 +173,9 @@ class OverviewTableDataRow:
 class PlaceOverviewTableApiResponse:
   """
   API Response for /api/place/overview-table/<place_dcid>
-  Also includes the request ID from the mixer call used
-  to populate the data for logging
   """
   data: List[OverviewTableDataRow]
+  # Represent all mixer calls used in this response and used in caching
   requestId: str
 
 
@@ -185,4 +185,5 @@ class PlaceSummaryApiResponse:
   API Response for /api/place/summary/<place_dcid>
   """
   summary: str
+  # Represent all mixer calls used in this response and used in caching
   requestId: str

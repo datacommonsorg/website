@@ -56,7 +56,7 @@ def get_basic_request_headers() -> dict:
 
   return headers
 
-
+# TODO: add 'unless' and memoize handling
 @cache_and_log(timeout=TIMEOUT)
 def get(url: str):
   headers = get_basic_request_headers()
@@ -82,7 +82,7 @@ def post(url: str, req: Dict, headers: dict | None = None):
     headers = json.dumps(headers, sort_keys=True)
   return post_wrapper(url, req_str, headers)
 
-
+# TODO: add 'unless' and memoize handling
 @cache_and_log(timeout=TIMEOUT)
 def post_wrapper(url, req_str: str, headers_str: str | None = None):
   #
@@ -110,9 +110,6 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  if "observation" in url:
-    print("raw response text: ", response.text)
-    print("response: ", response.json())
   return response.json()
 
 
@@ -126,7 +123,7 @@ def obs_point(entities, variables, date="LATEST"):
             observation is returned.
     """
   url = get_service_url("/v2/observation")
-  ret = post(
+  return post(
       url, {
           "select": ["date", "value", "variable", "entity"],
           "entity": {
@@ -137,8 +134,6 @@ def obs_point(entities, variables, date="LATEST"):
           },
           "date": date,
       })
-  print("ID in obs_point: ", ret.get("requestId", ""), ret)
-  return ret
 
 
 def obs_point_within(parent_entity,

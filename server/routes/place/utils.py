@@ -219,7 +219,6 @@ def count_places_per_stat_var(
   return stat_var_to_places_with_data
 
 
-# @cache.memoize(timeout=TIMEOUT)
 @cache_and_log(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
@@ -235,7 +234,6 @@ async def filter_chart_config_for_data_existence(
   Returns:
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
-  print("reaching filter_chart_config_for_data_existence")
 
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
@@ -260,7 +258,6 @@ async def filter_chart_config_for_data_existence(
         child_places_obs_point_within["requestId"],
         peer_places_obs_point_within["requestId"]
     ]
-    print("requestIds in fetch_and_process_stats: ", requestIds)
 
     count_places_per_child_sv_task = asyncio.to_thread(
         count_places_per_stat_var, child_places_obs_point_within,
@@ -1000,9 +997,8 @@ def fetch_overview_table_data(
   # Fetch all observations for each variable
   resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
-  # Return this so we know which mixer calls are used in the cached result
+  # This indicates which mixer calls are used when this result is cached
   requestId = resp.get("requestId", "")
-  print("requestId in fetch_overview_table_data: ", requestId)
 
   # Iterate over each variable and extract the most recent observation
   for item in place_overview_table_variable_translations:
@@ -1243,8 +1239,6 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
   variable_observations = []
 
   requestId = place_observations["requestId"] or ""
-
-  print("requestIDs in generate_place_summary: ", requestId)
 
   # Iterate over each variable and extract the most recent observation
   for variable in PLACE_SUMMARY_VARIABLES:

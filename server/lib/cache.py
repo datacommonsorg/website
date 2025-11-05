@@ -65,6 +65,7 @@ if cfg.USE_MEMCACHE or REDIS_HOST:
     cache = _redis_cache
   else:
     cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+# for debugging only, will be removed
 elif cfg.LOCAL:
   cache = Cache(
       config={

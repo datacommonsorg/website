@@ -53,11 +53,10 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 
 @bp.route('', strict_slashes=False, methods=['GET', 'POST'])
 @cache_and_log(timeout=TIMEOUT,
-               query_string=True,
-               make_cache_key=lib_util.post_body_cache_key)
+              query_string=True,
+              make_cache_key=lib_util.post_body_cache_key)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
-  print("reaching series!!")
   if request.method == 'POST':
     entities = request.json.get('entities')
     variables = request.json.get('variables')

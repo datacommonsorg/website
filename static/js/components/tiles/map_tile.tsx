@@ -550,7 +550,6 @@ export const fetchData = async (
       props.surface,
       props.highlightFacet
     );
-    console.log("placeStat in fetchData: ", placeStat);
     let denomsByFacet: Record<string, SeriesApiResponse> = null;
     let defaultDenomData: SeriesApiResponse = null;
     if (layer.variable.denom) {

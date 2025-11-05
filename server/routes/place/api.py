@@ -42,9 +42,7 @@ bp = Blueprint("place_api", __name__, url_prefix='/api/place')
 
 @bp.route('/charts/<path:place_dcid>')
 @log_execution_time
-# @cache.cached(timeout=TIMEOUT, query_string=True)
-@cache_and_log(timeout=TIMEOUT)
-# TODO: query_string
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 async def place_charts(place_dcid: str):
   """
   Returns chart definitions for the specified place based on the availability of
@@ -124,7 +122,6 @@ async def place_charts(place_dcid: str):
   categories_with_more_charts = place_utils.get_categories_metadata(
       place_category, chart_config_existing_data, chart_config_for_category)
 
-  print("requestIDS in place_charts: ", request_ids)
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,
                                     categories=categories_with_more_charts,
@@ -220,18 +217,15 @@ async def related_places(place_dcid: str):
 
 @bp.route('/overview-table/<path:place_dcid>')
 @log_execution_time
-@cache_and_log(timeout=TIMEOUT)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def overview_table(place_dcid: str):
-  # todo: query_string=true
   """
   Fetches and returns overview table data for the specified place.
   """
   data_rows, requestId = place_utils.fetch_overview_table_data(place_dcid)
-  print("request ID in overview_table: ", requestId)
 
   response_data = PlaceOverviewTableApiResponse(data=data_rows,
                                                 requestId=requestId)
-  print("response_data: ", response_data)
   return jsonify(response_data)
 
 
@@ -245,5 +239,4 @@ async def place_summary(place_dcid: str):
   """
   summary, requestId = await place_utils.generate_place_summary(
       place_dcid, g.locale)
-  print("requestId in place_summary: ", requestId)
   return jsonify(PlaceSummaryApiResponse(summary=summary, requestId=requestId))
