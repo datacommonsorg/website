@@ -98,14 +98,14 @@ export const toolMessages = defineMessages({
   infoBoxInstructionsPlacesMap: {
     id: "info_box_instruction_places_map",
     defaultMessage:
-      "Enter your desired location (country or state) into the search box above, and then select the type of place you want to plot.",
+      "Enter your desired location (country or state) into the search box above, and then select a breakdown (or viewing granularity) to plot.",
     description:
       "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot States in USA).",
   },
   infoBoxInstructionsPlacesScatter: {
     id: "info_box_instruction_places_scatter",
     defaultMessage:
-      "Enter your desired location (country, state, county, or city) into the search box above, and then select the type of place you want to plot.",
+      "Enter your desired location (country, state, county, or city) into the search box above, and then select a breakdown (or viewing granularity) to plot.",
     description:
       "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)",
   },
@@ -187,11 +187,10 @@ export const toolMessages = defineMessages({
     description:
       "Message to users that the place they selected is unsupported by our tool",
   },
-  enterAPlaceInstruction: {
-    id: "enter_a_place_instruction",
-    defaultMessage: "Enter a place",
-    description:
-      "An instruction for users to type a place's name into a text box",
+  placeSearchBoxLabel: {
+    id: "place_search_box_label",
+    defaultMessage: "Location:",
+    description: "Label on a text box that users type a place's name into",
   },
   enterPotentiallyMultiplePlacesInstruction: {
     id: "enter_potentially_multiple_places_instruction",
@@ -199,15 +198,15 @@ export const toolMessages = defineMessages({
     description:
       "An instruction for users to type one or many place's name into a text box",
   },
-  childPlaceTypeInstruction: {
-    id: "childPlaceTypeInstruction",
-    defaultMessage: "of type",
+  placeTypeGranularityLabel: {
+    id: "place_type_granularity_label",
+    defaultMessage: "Breakdown by:",
     description:
-      "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)",
+      "part of the label on a form asking users to select a place type (e.g. city, country) to visualize data at that level of granularity (e.g. see population of USA by State)",
   },
-  selectAPlaceTypeInstruction: {
-    id: "selectAPlaceTypeInstruction",
-    defaultMessage: "Select a place type",
+  placeTypeDropdownPlaceholder: {
+    id: "place_type_dropdown_placeholder",
+    defaultMessage: "Select geographic level",
     description:
       "default value on a dropdown telling the user to select a place type from the given options",
   },
@@ -222,12 +221,6 @@ export const toolMessages = defineMessages({
     defaultMessage: "Select variables",
     description:
       "Instruction inviting the user to select more than 1 statistical variable to plot",
-  },
-  placesIn: {
-    id: "places_in",
-    defaultMessage: "Places in",
-    description:
-      "Label on a textbox for a place, as in 'plot places in <user selected place>",
   },
 });
 
