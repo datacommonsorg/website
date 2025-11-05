@@ -412,7 +412,7 @@ export function drawLegendSvg(
 ): [
   number,
   {
-    [variable: string]: d3.ScaleLinear<number, number, never>;
+    [variable: string]: d3.ScaleLinear<number, number>;
   }
 ] {
   // mapping of variable to values for computing color scale
@@ -420,7 +420,7 @@ export function drawLegendSvg(
   const variableNames: { [variable: string]: string } = {};
   const units: { [variable: string]: string } = {};
   const colorScales: {
-    [variable: string]: d3.ScaleLinear<number, number, never>;
+    [variable: string]: d3.ScaleLinear<number, number>;
   } = {};
   for (const layer of chartData.layerData) {
     // Build variable -> values mapping for color scale calculations
@@ -435,7 +435,7 @@ export function drawLegendSvg(
 
   // Calculate color scales for each variable and add legends
   const legendData: {
-    colorScale: d3.ScaleLinear<number, number, never>;
+    colorScale: d3.ScaleLinear<number, number>;
     unit: string;
     label?: string;
   }[] = [];

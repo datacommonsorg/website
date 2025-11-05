@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ],
     "lib": ["dom", "ES2021"],
     "outDir": "./dist/",
     "sourceMap": true,

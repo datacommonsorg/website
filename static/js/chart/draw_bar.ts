@@ -477,11 +477,11 @@ export function drawStackBarChart(
  */
 function drawBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
-  colorFn: d3.ScaleOrdinal<string, string, never>,
+  colorFn: d3.ScaleOrdinal<string, string>,
   dataGroups: DataGroup[],
   xScale: d3.ScaleBand<string>,
   xSubScale: d3.ScaleBand<string>,
-  yScale: d3.ScaleLinear<number, number, never>,
+  yScale: d3.ScaleLinear<number, number>,
   legendKeyFn: (l: string) => string,
   unit?: string
 ): void {
@@ -539,7 +539,7 @@ function drawBars(
  */
 function drawHorizontalGroupedBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
-  colorFn: d3.ScaleOrdinal<string, string, never>,
+  colorFn: d3.ScaleOrdinal<string, string>,
   dataGroups: DataGroup[],
   xScale: d3.ScaleLinear<number, number>,
   yScale: d3.ScaleBand<string>,
@@ -701,7 +701,7 @@ function drawHorizontalGroupedBars(
  */
 function drawHorizontalStackedBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
-  colorFn: d3.ScaleOrdinal<string, string, never>,
+  colorFn: d3.ScaleOrdinal<string, string>,
   series: d3.Series<{ [key: string]: number }, string>[],
   xScale: d3.ScaleLinear<number, number>,
   yScale: d3.ScaleBand<string>,
@@ -832,11 +832,11 @@ function drawHorizontalStackedBars(
  */
 function drawLollipops(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
-  colorFn: d3.ScaleOrdinal<string, string, never>,
+  colorFn: d3.ScaleOrdinal<string, string>,
   dataGroups: DataGroup[],
   xScale: d3.ScaleBand<string>,
   xSubScale: d3.ScaleBand<string>,
-  yScale: d3.ScaleLinear<number, number, never>,
+  yScale: d3.ScaleLinear<number, number>,
   legendKeyFn: (l: string) => string,
   unit?: string
 ): void {
