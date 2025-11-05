@@ -72,33 +72,20 @@ def get(url: str):
   return response.json()
 
 
-def post(url: str, req: Dict, headers: dict | None = None):
+def post(url: str, req: Dict):
 
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
-  if headers:
-    headers = json.dumps(headers, sort_keys=True)
-  return post_wrapper(url, req_str, headers)
+  return post_wrapper(url, req_str)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, headers_str: str | None = None):
-  #
-  # CRITICAL: This function is called from synchronous and asynchronous contexts
-  # (including background threads via asyncio.to_thread).
-  # It MUST NOT access the global flask.request context or app context without checking if they are available first.
-  # All required request data (headers, etc.) MUST be passed via the `headers` argument or
-  # available via flask's request context. See `get_basic_request_headers` for an example
-  # of how to check whether app and/or request context is available.
-  #
-  req = json.loads(req_str)
+def post_wrapper(url, req_str: str):
 
-  if headers_str:
-    headers = json.loads(headers_str)
-  else:
-    headers = get_basic_request_headers()
+  req = json.loads(req_str)
+  headers = get_basic_request_headers()
 
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
@@ -434,19 +421,16 @@ def nl_search_vars(
     index_types: List[str],
     reranker="",
     skip_topics="",
-    nl_root=None,
-    headers=None,
 ):
   """Search sv from NL server."""
   idx_params = ",".join(index_types)
-  if not nl_root:
-    nl_root = current_app.config["NL_ROOT"]
+  nl_root = current_app.config["NL_ROOT"]
   url = f"{nl_root}/api/search_vars?idx={idx_params}"
   if reranker:
     url = f"{url}&reranker={reranker}"
   if skip_topics:
     url = f"{url}&skip_topics={skip_topics}"
-  return post(url, {"queries": queries}, headers=headers)
+  return post(url, {"queries": queries})
 
 
 async def nl_search_vars_in_parallel(
@@ -463,17 +447,14 @@ async def nl_search_vars_in_parallel(
     Returns:
         A dictionary mapping from index name to the search result from that index.
     """
-  # Get config from application context before starting threads.
-  nl_root = current_app.config["NL_ROOT"]
-  post_headers = get_basic_request_headers()
 
   async def search_for_index(index):
-    result = await asyncio.to_thread(nl_search_vars,
-                                     queries=queries,
-                                     index_types=[index],
-                                     skip_topics="true" if skip_topics else "",
-                                     nl_root=nl_root,
-                                     headers=post_headers)
+    result = await asyncio.to_thread(
+        nl_search_vars,
+        queries=queries,
+        index_types=[index],
+        skip_topics="true" if skip_topics else "",
+    )
     return index, result
 
   tasks = [search_for_index(index) for index in index_types]
