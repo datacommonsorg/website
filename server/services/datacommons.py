@@ -26,8 +26,7 @@ from flask import request
 import requests
 
 from server.lib import log
-from server.lib.cache import should_skip_cache
-from server.lib.custom_cache import cache_and_log
+from server.lib.cache import should_skip_cache, cache_and_log
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls

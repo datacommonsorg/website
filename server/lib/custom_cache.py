@@ -1,51 +1,104 @@
-# Copyright 2024 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# # Copyright 2024 Google LLC
+# #
+# # Licensed under the Apache License, Version 2.0 (the "License");
+# # you may not use this file except in compliance with the License.
+# # You may obtain a copy of the License at
+# #
+# #      http://www.apache.org/licenses/LICENSE-2.0
+# #
+# # Unless required by applicable law or agreed to in writing, software
+# # distributed under the License is distributed on an "AS IS" BASIS,
+# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# # See the License for the specific language governing permissions and
+# # limitations under the License.
+# """Custom cache that logs mixer request IDs"""
 
-"""Custom cache that logs mixer request IDs from cache hits"""
+# import asyncio
+# from functools import wraps
+# import logging
 
-import logging
-from functools import wraps
-from server.lib.cache import cache
+# from flask import request
+# from flask import Response
 
-logger = logging.getLogger(__name__)
+# from server.lib.cache import cache
 
-def cache_and_log(timeout):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            # Generate the cache key
-            key = cache._memoize_make_cache_key()(f, *args, **kwargs)
-            # Try to get the result from the cache
-            cached_result = cache.get(key)
+# logger = logging.getLogger(__name__)
 
-            if cached_result is not None:
-                # print("cache hit! result: ", cached_result.get("requestId", {}))
-                # Cache hit
-                try:
-                    # NOTE: this will eventually be a list if we expand the cache to other places that use multiple requests
-                    unique_id = cached_result.get("requestId", {})
-                    # for id in unique_ids:
-                    if unique_id:
-                        logger.info(f"Cache hit for key {key} with unique ID {unique_id}")
-                except Exception as e:
-                    logger.error(f"Error logging cache hit for key {key}: {e}")
-                return cached_result
 
-            # Cache miss
-            print("cache miss")
-            result = f(*args, **kwargs)
-            cache.set(key, result, timeout=timeout)
-            return result
-        return decorated_function
-    return decorator
+# # TODO: handle unless, etc. and other options
+# def cache_and_log(timeout, query_string: bool = False, make_cache_key=None):
+
+#   def decorator(f):
+
+#     def get_cache_key(*args, **kwargs):
+#       # if a custom key function is provided, use it
+#       if make_cache_key:
+#         key = make_cache_key()
+#       else:
+#         # Otherwise, use the default cache key maker
+#         key = cache._memoize_make_cache_key()(f, *args, **kwargs)
+#       # If query_string is True, append the request query string to the key
+#       if query_string:
+#         # Make sure the request is available in context for query_string
+#         if request:
+#           return key + request.query_string.decode('utf-8')
+#       return key
+
+#     # TODO: modify this to log all IDs with an indicator if it was a hit/miss
+#     def log_request_id(key, cached_result, is_hit):
+#       try:
+#         # Handling flask responses and regular dicts
+#         if isinstance(cached_result, Response):
+#           cached_data = cached_result.get_json()
+#         else:
+#           cached_data = cached_result
+
+#         unique_id = cached_data.get("requestId")
+#         # TODO: these should all be logged as lists for consistency
+#         if unique_id:
+#           logger.info(f"Cache hit for ID {unique_id}") if is_hit else logger.info(f"Cache miss for ID {unique_id}")
+#         else:
+#           # more than one ID, for higher-level functions that make multiple mixer requests
+#           ids = cached_data.get("requestIds")
+#           if ids:
+#             logger.info(f"Cache hit for IDs {ids}")
+#       except Exception as e:
+#         logger.info(f"Cache hit for IDs {unique_id}") if is_hit else logger.info(f"Cache miss for IDs {unique_id}")
+
+#     # Handling async functions -- TODO: clean this up
+#     if asyncio.iscoroutinefunction(f):
+#       # If it's an async function, return an async wrapper.
+#       @wraps(f)
+#       async def async_wrapper(*args, **kwargs):
+#         key = get_cache_key(f, *args, **kwargs)
+#         cached_result = cache.get(key)
+#         if cached_result is not None:
+#           log_request_id(key, cached_result, true)
+#           return cached_result
+
+#         # Cache miss
+#         result = await f(*args, **kwargs)  # Await the async function
+#         cache.set(key, result, timeout=timeout)
+#         # Log the cache miss as well as a hit
+#         log_request_id(key, result, false)
+#         return result
+
+#       return async_wrapper
+#     else:
+#       # If it's a synchronous function, return a synchronous wrapper.
+#       @wraps(f)
+#       def sync_wrapper(*args, **kwargs):
+#         key = get_cache_key(f, *args, **kwargs)
+#         cached_result = cache.get(key)
+#         if cached_result is not None:
+#           log_request_id(key, cached_result)
+#           return cached_result
+
+#         # Cache miss
+#         result = f(*args, **kwargs)  # calling the function directly
+#         cache.set(key, result, timeout=timeout)
+#         return result
+
+#       return sync_wrapper
+
+#   return decorator
