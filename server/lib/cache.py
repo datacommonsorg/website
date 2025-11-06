@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import functools
+import json
 import logging
 import os
 from pathlib import Path
@@ -23,10 +24,6 @@ from flask_caching import Cache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
-
-import asyncio
-from functools import wraps
-from flask import Response
 
 logger = logging.getLogger(__name__)
 
@@ -72,12 +69,6 @@ if cfg.USE_MEMCACHE or REDIS_HOST:
     cache = _redis_cache
   else:
     cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
-elif cfg.LOCAL:
-  cache = Cache(
-      config={
-          'CACHE_TYPE': 'FileSystemCache',
-          'CACHE_DIR': os.path.join(Path(__file__).parents[2], '.cache')
-      })
 else:
   # For some instance with fast updated data, we may not want to use memcache.
   cache = Cache(config={'CACHE_TYPE': 'NullCache'})
@@ -102,85 +93,77 @@ def should_skip_cache():
     # Any error should default to False to preserve normal caching behavior
     return False
 
-# todo; rename cached_fn to fn when logging key is removed
-def _cache_wrapper(fn, cached_fn, get_logging_key_fn):
+
+def cache_and_log_request_id(timeout=300,
+                             query_string=False,
+                             make_cache_key=None,
+                             unless=False):
+  """
+  The Mixer usage logs can't track usage from the website cache, so this 
+  wraps cache.cached and logs mixer request IDs (IDs unique to each mixer response) which is 
+  ingested in GCP cloud logging and incoroporated into the usage logs.
+  """
+
+  def decorator(fn):
+    # This is either the cached result or the evaluation of the function,
+    # if it wasn't cached previously
+    cached_fn = cache.cached(timeout=timeout,
+                             query_string=query_string,
+                             make_cache_key=make_cache_key,
+                             unless=unless)(fn)
+
+    # Handles logging the request ID
+    return _cache_wrapper(fn, cached_fn)
+
+  return decorator
+
+
+# Version of the above cacher that logs the request ID, but with memoization
+def memoize_and_log_request_id(timeout=300, unless=False):
+
+  def decorator(fn):
+    # This is either the memoized result or the evaluation of the function,
+    # if it wasn't cached previously
+    memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
+
+    # Handles logging the request ID
+    return _cache_wrapper(fn, memoized_fn)
+
+  return decorator
+
+
+# Extracts the request ID from the cached or fetched result
+def log_request_id(result):
+  print("hitting logger!")
+  try:
+    log_payload = {
+        "message": "Website cache mixer usage",
+    }
+    unique_id = result.get("requestId")
+    if unique_id:
+      log_payload["request_ids"] = [unique_id]
+    else:
+      # more than one ID, for higher-level functions that make multiple mixer requests
+      ids = result.get("requestIds")
+      if ids:
+        log_payload["request_ids"] = ids
+
+    if "request_ids" in log_payload:
+      logger.info(json.dumps(log_payload))
+  except Exception as e:
+    logger.info(f"Error logging the request ID for result {result}: {e}")
+
+
+def _cache_wrapper(fn, cached_fn):
+
   @functools.wraps(fn)
   def wrapper(*args, **kwargs):
-      result = cached_fn(*args, **kwargs)
+    result = cached_fn(*args, **kwargs)
+    try:
+      log_request_id(result)
+    except Exception as e:
+      logger.warning(f"Error logging response for {fn.__name__}: {e}")
 
-      key = get_logging_key_fn(fn, *args, **kwargs)
-      res = cache.get(key)
-      is_hit = res is not None
+    return result
 
-      try:
-          log_request_id(result, is_hit)
-      except Exception as e:
-          logger.warning(f"Error logging response for {fn.__name__}: {e}")
-
-      return result
   return wrapper
-
-
-# memoize_and_log_response_id
-def cache_and_log(timeout=300, query_string=False, make_cache_key=None, unless=False):
-  """
-  Wraps cache.cached and runs a logging function on the
-  final result, regardless of cache status.
-  """
-  def decorator(fn):
-      def get_logging_key(fn, *args, **kwargs):
-        # if a custom key function is provided, use it
-        if make_cache_key:
-          key = make_cache_key()
-        else:
-          # Otherwise, use the default cache key maker
-          key = cache._memoize_make_cache_key()(fn, *args, **kwargs)
-        # If query_string is True, append the request query string to the key
-        if query_string:
-          # Make sure the request is available in context for query_string
-          if request:
-            return key + request.query_string.decode('utf-8')
-        return key
-
-      # create the memoized version of the function 
-      cached_fn = cache.cached(timeout=timeout, query_string=query_string, make_cache_key=make_cache_key, unless=unless)(fn)
-
-      return _cache_wrapper(fn, cached_fn, get_logging_key)
-  return decorator
-
-def memoize_and_log(timeout=300, make_cache_key=None, unless=False):
-  """
-  Wraps cache.memoize and runs a logging function on the
-  final result, regardless of cache status.
-  """
-  def decorator(fn):
-      def get_logging_key(fn, *args, **kwargs):
-        # if a custom key function is provided, use it
-        if make_cache_key:
-          key = make_cache_key()
-        else:
-          # Otherwise, use the default cache key maker
-          key = cache._memoize_make_cache_key()(fn, *args, **kwargs)
-        return key
-
-      # create the memoized version of the function 
-      memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
-
-      return _cache_wrapper(fn, memoized_fn, get_logging_key)
-  return decorator
-
-
-def log_request_id(result, is_hit):
-      print("hitting logger!")
-      try:
-        unique_id = result.get("requestId")
-        # TODO: these should all be logged as lists for consistency
-        if unique_id:
-          logger.info(f"Cache hit for ID {unique_id}") if is_hit else logger.info(f"Cache miss for ID {unique_id}")
-        else:
-          # more than one ID, for higher-level functions that make multiple mixer requests
-          ids = result.get("requestIds")
-          if ids:
-            logger.info(f"Cache hit for IDs {ids}")
-      except Exception as e:
-        logger.info(f"Cache hit for IDs {unique_id}") if is_hit else logger.info(f"Cache miss for IDs {unique_id}")
