@@ -225,7 +225,6 @@ def overview_table(place_dcid: str):
 
   response_data = PlaceOverviewTableApiResponse(data=data_rows,
                                                 requestId=requestId)
-  print("requestId in overview_table: ", requestId)
   return jsonify(response_data)
 
 

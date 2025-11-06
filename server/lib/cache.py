@@ -134,6 +134,7 @@ def memoize_and_log_request_id(timeout=300, unless=False):
 
 # Extracts the request ID from the cached or fetched result
 def log_request_id(result):
+  print("reaching logger!")
   try:
     log_payload = {
         "message": "Website cache mixer usage",

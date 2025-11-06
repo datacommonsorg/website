@@ -77,7 +77,6 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
     }
     return point_to_return
 
-  print("requestId in point: ", point_data["requestId"])
   return point_data
 
 
@@ -108,7 +107,6 @@ def point():
   point_data = fetch.point_core(entities, variables, date, all_facets)
 
   if not facet_id:
-    print("requestId in point: ", point_data["requestId"])
     return point_data
 
   return _filter_point_for_facets(point_data, facet_id)
@@ -163,9 +161,8 @@ def point_within():
                                   facet_ids=facet_ids)
   # Fetch observations from a specific date or date = 'LATEST'
 
-  resp = fetch.point_within_core(parent_entity, child_type, variables, date,
+  return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  False, facet_ids)
-  return resp
 
 
 @bp.route('/within/all')

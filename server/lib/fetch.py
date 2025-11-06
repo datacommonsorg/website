@@ -134,7 +134,6 @@ def _compact_point(point_resp, all_facets):
   # Setting the request ID to reference in the cache
   result['requestId'] = point_resp.get("requestId",
                                        "") if "requestId" in point_resp else ""
-  print("requestId in _compact_point: ", point_resp.get("requestId", ""))
   return result
 
 
