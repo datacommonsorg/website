@@ -162,7 +162,7 @@ function addSuffix(key: string, isX: boolean): string {
  * @param params
  * @param isX
  */
-function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
+export function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
   const dcid = params.get(addSuffix(FieldToAbbreviation.statVarDcid, isX));
   if (!dcid) {
     return EmptyAxis;
@@ -189,7 +189,7 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
  * Uses the parsed hash to produce a `PlaceInfo`.
  * @param params
  */
-function applyHashPlace(params: URLSearchParams): PlaceInfo {
+export function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const place = _.cloneDeep(EmptyPlace);
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
   if (dcid) {
@@ -305,6 +305,14 @@ export function updateHash(context: ContextType): void {
  * @param value
  */
 function appendEntry(hash: string, key: string, value: string): string {
+  if (!key || !value) {
+    // If key or value is not provided, don't append anything
+    return hash;
+  }
+  if (!hash) {
+    // If hash is currently empty, don't prefix with '&'
+    return `${key}=${value}`;
+  }
   return `${hash}&${key}=${value}`;
 }
 
