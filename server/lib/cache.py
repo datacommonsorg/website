@@ -96,9 +96,9 @@ def should_skip_cache():
 
 
 def cache_and_log_mixer_usage(timeout: int = 300,
-                                     query_string: bool = False,
-                                     make_cache_key: Optional[Callable] = None,
-                                     unless: Callable = None) -> Callable:
+                              query_string: bool = False,
+                              make_cache_key: Optional[Callable] = None,
+                              unless: Callable = None) -> Callable:
   """
   Decorator that memoizes a function's result and logs mixer response IDs.
 
@@ -138,7 +138,7 @@ def cache_and_log_mixer_usage(timeout: int = 300,
 
 
 def memoize_and_log_mixer_usage(timeout: int = 300,
-                                       unless: Callable = None) -> Callable:
+                                unless: Callable = None) -> Callable:
   """
   Decorator that memoizes a function's result and logs Mixer response IDs.
 
