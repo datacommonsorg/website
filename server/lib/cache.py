@@ -17,7 +17,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Callable, Optional, Union
+from typing import Callable, Optional
 
 from flask import has_request_context
 from flask import request
