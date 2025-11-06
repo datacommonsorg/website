@@ -334,6 +334,11 @@ export const GA_EVENT_PAGE_OVERVIEW_CLICK = "page_overview_click";
  */
 export const GA_EVENT_TOTAL_ANCHOR_COUNT = "total_anchor_count";
 
+/**
+ * Triggered when a highlight chart is injected into the explore page.
+ */
+export const GA_EVENT_HIGHLIGHT_CHART_INJECTED = "highlight_chart_injected";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -350,6 +355,7 @@ export const GA_PARAM_ID = "id";
 export const GA_PARAM_SOURCE = "source";
 export const GA_PARAM_TOPIC = "topic";
 export const GA_PARAM_PLACE = "place";
+export const GA_PARAM_CHART_TYPE = "chart_type";
 export const GA_PARAM_TIMING_MS = "time_ms";
 export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_SELECTION_TYPE = "selection_type";
