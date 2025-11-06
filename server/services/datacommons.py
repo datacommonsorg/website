@@ -26,7 +26,7 @@ from flask import request
 import requests
 
 from server.lib import log
-from server.lib.cache import memoize_and_log_request_id
+from server.lib.cache import memoize_and_log_mixer_response_id
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
@@ -57,7 +57,7 @@ def get_basic_request_headers() -> dict:
   return headers
 
 
-@memoize_and_log_request_id(timeout=TIMEOUT, unless=should_skip_cache)
+@memoize_and_log_mixer_response_id(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
   headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
@@ -81,7 +81,7 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@memoize_and_log_request_id(timeout=TIMEOUT, unless=should_skip_cache)
+@memoize_and_log_mixer_response_id(timeout=TIMEOUT, unless=should_skip_cache)
 def post_wrapper(url, req_str: str, headers_str: str | None = None):
 
   req = json.loads(req_str)
