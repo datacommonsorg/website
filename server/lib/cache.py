@@ -103,7 +103,7 @@ def cache_and_log_mixer_usage(timeout: int = 300,
   Decorator that memoizes a function's result and logs mixer response IDs.
 
   The Mixer usage logs can't track usage from the website cache, so this decorator
-  wraps cache.cached and logs mixer response IDs (IDs unique to each mixer response) which is 
+  wraps cache.cached and logs mixer response IDs (IDs unique to each mixer response) which are 
   ingested in GCP cloud logging and incoroporated into the usage logs.
 
   Notes that this decorator should only be applied to uses where mixer results are used meaningfully
@@ -173,17 +173,15 @@ def log_mixer_response_id(result: dict) -> None:
   is logged. Note that it is expected in some cases for the result
   to not have a mixer response ID because the IDs are only found on `v2/observation`
   endpoint calls, and certain cached functions like `get` and `post` are 
-  hit by other calls as well.
+  used by other endpoints as well.
 
   Args:
     result (dict): A cached result that may contain mixer response IDs.
   """
-  print("reaching logger!")
   try:
     log_payload = {
         "message": "Website cache mixer usage",
     }
-    # print("Result: ", result)
     ids = result.get("mixerResponseIds")
     if ids:
       log_payload["mixer_response_ids"] = ids
@@ -194,12 +192,6 @@ def log_mixer_response_id(result: dict) -> None:
 
 def _cache_wrapper(fn: Callable, cached_fn: Callable) -> Callable:
   """Wraps a cached or memoized function to log Mixer response IDs.
-
-  This internal helper function takes an original function (`fn`) and its
-  cached/memoized version (`cached_fn`). It executes `cached_fn` to get the
-  result, then calls `log_mixer_response_id` to extract and log any Mixer response
-  IDs present in the result. This ensures that even cached responses contribute
-  to Mixer usage logging.
 
   Args:
     fn (function): The original function being wrapped.
