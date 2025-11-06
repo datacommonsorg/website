@@ -486,7 +486,7 @@ export function App(props: AppProps): ReactElement {
               [GA_PARAM_SOURCE]: urlHashParams.origin,
               [GA_PARAM_STAT_VAR]: urlHashParams.statVars,
               [GA_PARAM_CHART_TYPE]: urlHashParams.chartType,
-              [GA_PARAM_PLACE]: mainPlace
+              [GA_PARAM_PLACE]: mainPlace.dcid,
             });
 
             // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
