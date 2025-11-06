@@ -16,7 +16,6 @@ Defines endpoints for the place page.
 """
 
 import asyncio
-import json
 
 from flask import Blueprint
 from flask import g
