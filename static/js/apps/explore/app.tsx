@@ -40,12 +40,15 @@ import {
   WEBSITE_SURFACE_HEADER,
 } from "../../shared/constants";
 import {
+  GA_EVENT_HIGHLIGHT_CHART_INJECTED,
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
   GA_EVENT_PAGE_VIEW,
+  GA_PARAM_CHART_TYPE,
   GA_PARAM_PLACE,
   GA_PARAM_QUERY,
   GA_PARAM_SOURCE,
+  GA_PARAM_STAT_VAR,
   GA_PARAM_TIMING_MS,
   GA_PARAM_TOPIC,
   triggerGAEvent,
@@ -73,6 +76,7 @@ import {
   isFulfillDataValid,
 } from "./explore_utils";
 import { SuccessResult } from "./success_result";
+import { stringify } from "querystring";
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -478,6 +482,12 @@ export function App(props: AppProps): ReactElement {
           if (highlightPageMetadataResp) {
             // If we have a highlight response, prevent any place page redirection.
             allowRedirect = false;
+            triggerGAEvent(GA_EVENT_PAGE_VIEW, {
+              [GA_PARAM_SOURCE]: urlHashParams.origin,
+              [GA_PARAM_STAT_VAR]: urlHashParams.statVars,
+              [GA_PARAM_CHART_TYPE]: urlHashParams.chartType,
+              [GA_PARAM_PLACE]: mainPlace
+            });
 
             // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
             mainPageMetadata = filterBlocksFromPageMetadata(
