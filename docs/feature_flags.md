@@ -7,7 +7,7 @@ Feature flags allow us to rapidly deploy flag-gated changes per environment, out
 This script automates the deployment of feature flags from `master` to a Google Cloud Storage (GCS) bucket and optionally restarts a Kubernetes deployment.
 
 The Cloud Build trigger, [update-feature-flags](https://pantheon.corp.google.com/cloud-build/triggers?e=13803378&mods=-monitoring_api_staging&project=datcom-ci&pageState=(%22triggers%22:(%22f%22:%22%255B%257B_22k_22_3A_22_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22update-feature-flags_5C_22_22%257D%255D%22))):
-*  checks for changes to the feature flag files when pushing to main
+*  Checks for changes to the feature flag files when pushing to main.
 *  Invokes [cloudbuild.update_feature_flags.yaml](https://github.com/datacommonsorg/website/blob/master/build/ci/cloudbuild.update_feature_flags.yaml), which calls [scripts/update_gcs_feature_flags.sh](https://github.com/datacommonsorg/website/blob/master/scripts/update_gcs_feature_flags.sh) for the appropriate environments.
 
 ### Manual Usage
@@ -65,11 +65,11 @@ This script uploads the feature flag configuration files from the Github master 
 
 ## Adding a New Flag
 
-1. **Add flag in flag configurations**: Check the flags in the Github master branch [`server/config/feature_flag_configs`](https://github.com/datacommonsorg/website/tree/master/server/config/feature_flag_configs). The flag must be added to all environments.
-    * TIP: Use [this script](https://github.com/datacommonsorg/website/tree/master/scripts/create_feature_flag.sh) to add a new flag to each config file.
+1. **Add flag to configs**: Use [this script](https://github.com/datacommonsorg/website/tree/master/scripts/create_feature_flag.sh) to add a new flag to the config files. The flag will be added to all environments except production so that prod isn't redeployed more than necessary.
     > ```bash
     > ./scripts/create_feature_flag.sh
     > ```
+    * **Submit a PR with just this change** before moving to the next step so that the rest is rollback safe.
 2. **Define flag in server layer**: Add your flag constant to [feature_flags.py](https://github.com/datacommonsorg/website/blob/master/server/lib/feature_flags.py#L19) helper file for use in the API layer.
 3. **Define flag in client layer**: Add your flag constant to [feature_flags/util.ts](https://github.com/datacommonsorg/website/blob/master/static/js/shared/feature_flags/util.ts#L18) helper file for use in the client layer.
 4. **Check flag value and implement your feature**
