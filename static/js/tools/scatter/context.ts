@@ -23,7 +23,13 @@ import { createContext, useState } from "react";
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { Setter } from "../../shared/util";
-import { ScatterChartType } from "./util";
+import {
+  applyHashAxis,
+  applyHashBoolean,
+  applyHashPlace,
+  applyHashPopulation,
+  ScatterChartType,
+} from "./util";
 
 type PointScaleState = "linear" | "log" | "";
 const SHOW_POPULATION_LINEAR: PointScaleState = "linear";
@@ -187,19 +193,31 @@ const FieldToAbbreviation = {
 /**
  * Hook that constructs an initial context.
  */
-function useContextStore(): ContextType {
-  const [x, setX] = useState(EmptyAxis);
-  const [y, setY] = useState(EmptyAxis);
-  const [place, setPlace] = useState(EmptyPlace);
-  const [showQuadrants, setQuadrants] = useState(false);
-  const [showLabels, setLabels] = useState(false);
-  const [showDensity, setDensity] = useState(false);
-  const [showPopulation, setPopulation] = useState(SHOW_POPULATION_OFF);
+function useContextStore(params: URLSearchParams): ContextType {
+  const [x, setX] = useState(applyHashAxis(params, true));
+  const [y, setY] = useState(applyHashAxis(params, false));
+  const [place, setPlace] = useState(applyHashPlace(params));
+  const [showQuadrants, setQuadrants] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
+  );
+  const [showLabels, setLabels] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
+  );
+  const [showDensity, setDensity] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
+  const [showPopulation, setPopulation] = useState(applyHashPopulation(params));
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
-  const [chartType, setChartType] = useState(ScatterChartType.SCATTER);
-  const [showRegression, setRegression] = useState(false);
+  const initialChartState =
+    params.get(FieldToAbbreviation.chartType) === "1"
+      ? ScatterChartType.MAP
+      : ScatterChartType.SCATTER;
+  const [chartType, setChartType] = useState(initialChartState);
+  const [showRegression, setRegression] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showRegression)
+  );
   return {
     x: {
       value: x,
@@ -276,7 +294,6 @@ function getSetEnclosingPlace(
       enclosedPlaces: [],
       enclosingPlace,
       parentPlaces: null,
-      enclosedPlaceType: "",
     });
 }
 

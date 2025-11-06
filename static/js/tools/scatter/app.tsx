@@ -145,9 +145,11 @@ function App(): ReactElement {
 }
 
 function AppWithContext(): ReactElement {
-  const store = useContextStore();
+  const params = new URLSearchParams(
+    decodeURIComponent(location.hash).replace("#", "?")
+  );
+  const store = useContextStore(params);
 
-  useEffect(() => applyHash(store), []);
   useEffect(() => updateHash(store), [store]);
   window.onhashchange = (): void => applyHash(store);
 
