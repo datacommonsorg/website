@@ -93,6 +93,7 @@ def should_skip_cache():
     # Any error should default to False to preserve normal caching behavior
     return False
 
+
 def cache_and_log_request_id(timeout=300,
                              query_string=False,
                              make_cache_key=None,
