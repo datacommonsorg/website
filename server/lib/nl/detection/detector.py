@@ -18,7 +18,7 @@ from typing import Dict, List
 from flask import current_app
 from flask import request
 
-from server.lib.feature_flags import ENABLE_AGENT_DETECTOR
+from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
@@ -91,7 +91,7 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
   # Agent Detection.
   #
   if is_feature_enabled(
-      ENABLE_AGENT_DETECTOR,
+      ENABLE_NL_AGENT_DETECTOR,
       request=request) and detector_type == RequestedDetectorType.Agent.value:
     agent_detection = agent_detector.detect(
         query=original_query,
