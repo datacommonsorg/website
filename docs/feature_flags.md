@@ -7,9 +7,8 @@ Feature flags allow us to rapidly deploy flag-gated changes per environment, out
 This script automates the deployment of feature flags from `master` to a Google Cloud Storage (GCS) bucket and optionally restarts a Kubernetes deployment.
 
 The Cloud Build trigger, [update-feature-flags](https://pantheon.corp.google.com/cloud-build/triggers?e=13803378&mods=-monitoring_api_staging&project=datcom-ci&pageState=(%22triggers%22:(%22f%22:%22%255B%257B_22k_22_3A_22_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22update-feature-flags_5C_22_22%257D%255D%22))):
-*  checks for changes to the feature flag files when pushing to main then 
-* follows [cloudbuild.update_feature_flags.yaml](https://github.com/datacommonsorg/website/blob/master/build/ci/cloudbuild.update_feature_flags.yaml) which calls
-* [scripts/update_gcs_feature_flags.sh](https://github.com/datacommonsorg/website/blob/master/scripts/update_gcs_feature_flags.sh) for the appropriate environments.  
+*  checks for changes to the feature flag files when pushing to main
+*  Invokes [cloudbuild.update_feature_flags.yaml](https://github.com/datacommonsorg/website/blob/master/build/ci/cloudbuild.update_feature_flags.yaml), which calls [scripts/update_gcs_feature_flags.sh](https://github.com/datacommonsorg/website/blob/master/scripts/update_gcs_feature_flags.sh) for the appropriate environments.
 
 ### Manual Usage
 
