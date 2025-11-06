@@ -21,7 +21,7 @@ from flask import request
 from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
-from server.lib.cache import cache_and_log
+from server.lib.cache import cache_and_log_request_id
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 
@@ -52,7 +52,7 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 
 
 @bp.route('', strict_slashes=False, methods=['GET', 'POST'])
-@cache_and_log(timeout=TIMEOUT,
+@cache_and_log_request_id(timeout=TIMEOUT,
                query_string=True,
                make_cache_key=lib_util.post_body_cache_key)
 def series():
@@ -73,7 +73,7 @@ def series():
 
 
 @bp.route('/all')
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
   entities = _get_filtered_arg_list(request.args.getlist('entities'))
@@ -86,7 +86,7 @@ def series_all():
 
 
 @bp.route('/within')
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def series_within():
   """Gets the observation for child entities of a certain type contained in a
   parent entity at a given date.
@@ -129,7 +129,7 @@ def series_within():
 
 
 @bp.route('/within/all')
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def series_within_all():
   """Gets the observation for child entities of a certain type contained in a
   parent entity at a given date.

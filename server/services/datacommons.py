@@ -29,7 +29,6 @@ from server.lib import log
 from server.lib.cache import memoize_and_log_request_id
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
-from server.lib.cache import memoize_and_log
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url

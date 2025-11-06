@@ -23,8 +23,7 @@ from flask import g
 from flask import jsonify
 from flask import request
 
-from server.lib.cache import cache
-from server.lib.cache import cache_and_log
+from server.lib.cache import cache, cache_and_log_request_id
 from server.lib.util import error_response
 from server.lib.util import log_execution_time
 from server.routes import TIMEOUT
@@ -216,7 +215,7 @@ async def related_places(place_dcid: str):
 
 @bp.route('/overview-table/<path:place_dcid>')
 @log_execution_time
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
@@ -225,6 +224,7 @@ def overview_table(place_dcid: str):
 
   response_data = PlaceOverviewTableApiResponse(data=data_rows,
                                                 requestId=requestId)
+  print("requestId in overview_table: ", requestId)
   return jsonify(response_data)
 
 

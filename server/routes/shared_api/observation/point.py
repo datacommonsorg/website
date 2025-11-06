@@ -17,7 +17,7 @@ from flask import request
 
 from server.lib import fetch
 from server.lib.cache import cache
-from server.lib.cache import cache_and_log
+from server.lib.cache import cache_and_log_request_id
 from server.lib.util import fetch_highest_coverage
 from server.routes import TIMEOUT
 from shared.lib.constants import DATE_HIGHEST_COVERAGE
@@ -77,11 +77,12 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
     }
     return point_to_return
 
+  print("requestId in point: ", point_data["requestId"])
   return point_data
 
 
 @bp.route('', strict_slashes=False)
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def point():
   """Handler to get the observation point given multiple stat vars and places."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -107,13 +108,14 @@ def point():
   point_data = fetch.point_core(entities, variables, date, all_facets)
 
   if not facet_id:
+    print("requestId in point: ", point_data["requestId"])
     return point_data
 
   return _filter_point_for_facets(point_data, facet_id)
 
 
 @bp.route('/all')
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def point_all():
   """Handler to get all the observation points given multiple stat vars and entities."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -133,7 +135,7 @@ def point_all():
 
 
 @bp.route('/within')
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def point_within():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will
@@ -167,7 +169,7 @@ def point_within():
 
 
 @bp.route('/within/all')
-@cache_and_log(timeout=TIMEOUT, query_string=True)
+@cache_and_log_request_id(timeout=TIMEOUT, query_string=True)
 def point_within_all():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will
