@@ -5,7 +5,11 @@ __pycache__/
 .env/
 .env_website/
 .env_nl/
-.gemini
+
+# Gemini
+.gemini/**
+!.gemini/
+!.gemini/config.yaml
 
 
 # Production static files
