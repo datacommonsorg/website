@@ -70,7 +70,13 @@ def get(url: str):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get("x-response-id")
+  # This is used to log cached mixer usage and is a list to be compatible with other cached
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json["mixerResponseIds"] = [response_id]
+  return res_json
 
 
 def post(url: str, req: Dict):
@@ -99,7 +105,13 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get("x-response-id")
+  # This is used to log cached mixer usage and is a list to be compatible with other cached
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json["mixerResponseIds"] = [response_id]
+  return res_json
 
 
 def obs_point(entities, variables, date="LATEST"):
