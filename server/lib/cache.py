@@ -180,7 +180,7 @@ def log_mixer_response_id(result: dict) -> None:
   """
   try:
     log_payload = {
-        "message": "Website cache mixer usage",
+        "message": "Mixer responses used in the website cache",
     }
     ids = result.get("mixerResponseIds")
     if ids:
