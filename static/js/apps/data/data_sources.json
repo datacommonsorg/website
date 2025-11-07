@@ -4,6 +4,18 @@
     "slug": "agriculture",
     "dataSourceGroups": [
       {
+        "label": "Open Data for Africa",
+        "url": "https://dataportal.opendataforafrica.org/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          }
+        ]
+      },
+      {
         "label": "U.S. Department of Agriculture (USDA)",
         "url": "https://www.usda.gov/",
         "description": null,
@@ -444,6 +456,18 @@
         ]
       },
       {
+        "label": "Mongolian Statistical Service",
+        "url": "https://www.1212.mn/en/statcate",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Mongolia Statistics",
+            "url": "https://www.1212.mn/en/statcate",
+            "description": "Mongolia's population, households, health and labour statistics at country level."
+          }
+        ]
+      },
+      {
         "label": "National Institute of Statistics and Censuses (INDEC)",
         "url": "https://www.indec.gob.ar",
         "description": null,
@@ -483,9 +507,29 @@
         "description": null,
         "dataSources": [
           {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
+          {
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
+          },
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          },
+          {
+            "label": "Rwanda Census",
+            "url": "https://rwanda.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -495,7 +539,7 @@
           {
             "label": "Uganda Bureau of Statistics (UBOS)",
             "url": "https://uganda.opendataforafrica.org/",
-            "description": "Demographics, health and education data for Uganda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb);[Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health and education data for Uganda at the country, region and district levels."
           }
         ]
       },
@@ -561,6 +605,18 @@
         ]
       },
       {
+        "label": "South Korea Statistics Agency (KOSA)",
+        "url": "https://kosis.kr/eng/",
+        "description": "Statistics Korea is the central government organization",
+        "dataSources": [
+          {
+            "label": "South Korea Statistics",
+            "url": "https://kosis.kr/eng/statisticsList/statisticsListIndex.do",
+            "description": "The official website for Statistics Korea (KOSTAT) provides comprehensive data on the country's economy, society, and population."
+          }
+        ]
+      },
+      {
         "label": "Stadt Zurich open data",
         "url": "https://data.stadt-zuerich.ch//",
         "description": null,
@@ -586,6 +642,18 @@
             "label": "Canada Statistics",
             "url": "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
             "description": "Statistics on Canada demographics, health, education and economy statistics at the country and subnational levels.\n\n[Terms and conditions](https://www.statcan.gc.ca/en/reference/terms-conditions/general?MM=as)"
+          }
+        ]
+      },
+      {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
           }
         ]
       },
@@ -622,6 +690,38 @@
             "label": "Indonesia Census",
             "url": "https://www.bps.go.id/indikator/indikator/list_/da_03/",
             "description": "Population census and statistics for Indonesia at the country, province, regency and city levels."
+          }
+        ]
+      },
+      {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey (ACS)",
+            "url": "https://www.census.gov/programs-surveys/acs",
+            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
+          },
+          {
+            "label": "Cartographic Boundary Files",
+            "url": "https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html",
+            "description": "KML files for U.S. counties, states, congressional districts, etc."
+          },
+          {
+            "label": "Gazetteer Files",
+            "url": "https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html",
+            "description": "Basic geographic information about U.S. counties, county subdivisions, congressional districts, states, etc."
+          },
+          {
+            "label": "Population Estimates Program (PEP)",
+            "url": "https://www.census.gov/programs-surveys/popest/about.html",
+            "description": "Produces yearly estimates of the population for the United States, its states, counties, cities, and towns, as well as for the Commonwealth of Puerto Rico and its municipios. Data Commons imports the total population estimate data for the U.S. at the state, county, and city levels."
+          },
+          {
+            "label": "US Decennial Census - Redistricting data",
+            "url": "https://www.census.gov",
+            "description": "Basic population, race demographics and housing statistics from U.S. redistricting data, mapped down to block-group level.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
           }
         ]
       },
@@ -818,38 +918,6 @@
         ]
       },
       {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey (ACS)",
-            "url": "https://www.census.gov/programs-surveys/acs",
-            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
-          },
-          {
-            "label": "Cartographic Boundary Files",
-            "url": "https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html",
-            "description": "KML files for U.S. counties, states, congressional districts, etc."
-          },
-          {
-            "label": "Gazetteer Files",
-            "url": "https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html",
-            "description": "Basic geographic information about U.S. counties, county subdivisions, congressional districts, states, etc."
-          },
-          {
-            "label": "Population Estimates Program (PEP)",
-            "url": "https://www.census.gov/programs-surveys/popest/about.html",
-            "description": "Produces yearly estimates of the population for the United States, its states, counties, cities, and towns, as well as for the Commonwealth of Puerto Rico and its municipios. Data Commons imports the total population estimate data for the U.S. at the state, county, and city levels."
-          },
-          {
-            "label": "US Decennial Census - Redistricting data",
-            "url": "https://www.census.gov",
-            "description": "Basic population, race demographics and housing statistics from U.S. redistricting data, mapped down to block-group level.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
         "label": "United States Federal Election Commission (FEC)",
         "url": "https://www.fec.gov/",
         "description": null,
@@ -915,6 +983,18 @@
             "label": "Australia Statistics",
             "url": "https://www.abs.gov.au/statistics",
             "description": "Australia demographics, health, and economy statistics at the country, state, and territory levels."
+          }
+        ]
+      },
+      {
+        "label": "Bank for International Settlements (BIS)",
+        "url": "https://data.bis.org/",
+        "description": "Global statistics at the heart of international cooperation.",
+        "dataSources": [
+          {
+            "label": "Central Bank Policy Rate",
+            "url": "https://data.bis.org/topics/CBPOL",
+            "description": "The BIS central bank policy rates data set tracks the evolution of policy rates across the world."
           }
         ]
       },
@@ -1003,6 +1083,18 @@
         ]
       },
       {
+        "label": "Google",
+        "url": "https://www.google.com/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Sustainability Energy and Transport Financial Incentives",
+            "url": "https://www.google.com/",
+            "description": "A set of energy and transportation related financial incentives offered by government and utility organizations.\n\nData made publicly available under the standard [Google terms of service](https://policies.google.com/terms?hl=en)."
+          }
+        ]
+      },
+      {
         "label": "India Ministry of Statistics and Programme Implementation",
         "url": "https://mospi.gov.in/",
         "description": null,
@@ -1051,6 +1143,28 @@
         ]
       },
       {
+        "label": "Open Data for Africa",
+        "url": "https://dataportal.opendataforafrica.org/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
+          {
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          }
+        ]
+      },
+      {
         "label": "OpenFIGI",
         "url": "https://www.openfigi.com/",
         "description": "A system for identifying global financial instruments. It provides tools for identifying, mapping, and requesting a free Financial Instrument Global Identifier (FIGI).",
@@ -1059,6 +1173,18 @@
             "label": "FIGI",
             "url": "https://www.openfigi.com/",
             "description": "A list of global identifiers for financial instruments, including many assets that lack any other comprehensive open identifier such as loans, futures and options and indices."
+          }
+        ]
+      },
+      {
+        "label": "Organisation for Economic Co-operation and Development (OECD)",
+        "url": "https://stats.oecd.org/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "OECD GDP",
+            "url": "https://data-explorer.oecd.org/?fs[0]=Topic%2C1%7CEconomy%23ECO%23%7CNational%20accounts%23ECO_NAD%23&fs[1]=Topic%2C3%7CEconomy%23ECO%23%7CNational%20accounts%23ECO_NAD%23%7CGDP%20and%20non-financial%20accounts%23ECO_NAD_GNF%23%7CGDP%20and%20components%23ECO_NAD_GNF_GDP%23&pg=0&fc=Topic&snb=21",
+            "description": "Gross Domestic Product (GDP) measured by OECD.\n\n[Terms of use](https://www.oecd.org/termsandconditions/)"
           }
         ]
       },
@@ -1087,6 +1213,18 @@
         ]
       },
       {
+        "label": "SouthAfrica Budget",
+        "url": "https://github.com/dsfsi/data-commons-data/tree/master/data/budget%20data/csv/",
+        "description": "Revenue and expenditure budget of South Africa at metropolitan municipality level for different economic sectors.",
+        "dataSources": [
+          {
+            "label": "South Africa Budget",
+            "url": "https://github.com/dsfsi/data-commons-data/tree/master/data/budget%20data/csv/",
+            "description": "Revenue and expenditure budget of South Africa."
+          }
+        ]
+      },
+      {
         "label": "Statistics Canada",
         "url": "https://www.statcan.gc.ca/en/start",
         "description": null,
@@ -1095,6 +1233,18 @@
             "label": "Canada Statistics",
             "url": "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
             "description": "Statistics on Canada demographics, health, education and economy statistics at the country and subnational levels.\n\n[Terms and conditions](https://www.statcan.gc.ca/en/reference/terms-conditions/general?MM=as)"
+          }
+        ]
+      },
+      {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
           }
         ]
       },
@@ -1131,6 +1281,11 @@
             "description": "U.S. consumer price index broken down by categories of consumers."
           },
           {
+            "label": "Consumer Price Index by Category",
+            "url": "https://www.bls.gov/cpi/tables/supplemental-files/",
+            "description": "U.S. consumer price index broken down by categories of consumers."
+          },
+          {
             "label": "Current Employment Statistics (CES)",
             "url": "https://www.bls.gov/ces",
             "description": "Industry estimates of nonfarm employment, hours, and earnings of workers on payrolls."
@@ -1154,6 +1309,33 @@
             "label": "Quarterly Census of Employment and Wages (QCEW)",
             "url": "https://www.bls.gov/cew",
             "description": "U.S. quarterly and annual employment and wage statistics broken down by industry and ownership."
+          }
+        ]
+      },
+      {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey (ACS)",
+            "url": "https://www.census.gov/programs-surveys/acs",
+            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
+          },
+          {
+            "label": "County Business Patterns",
+            "url": "https://www.census.gov/programs-surveys/cbp/data/datasets.html",
+            "description": "U.S. per-industry number of establishments, employment, payroll and annual payroll, by county, metropolitan statistical area and zip code."
+          },
+          {
+            "label": "Economic Census",
+            "url": "https://www.census.gov/programs-surveys/economic-census/about.html",
+            "description": "Number of U.S. businesses and amount of revenue, by business payroll status, industry, operation type, and tax status."
+          },
+          {
+            "label": "Monthly Retail Sales US Census",
+            "url": "https://www.census.gov/retail/index.html",
+            "description": "The Advance Monthly and Monthly Retail Trade Surveys (MARTS and MRTS), the Annual Retail Trade Survey (ARTS), and the Quarterly E-Commerce Report work together to produce the most comprehensive estimates available on retail economic activity in the United States.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
           }
         ]
       },
@@ -1216,36 +1398,24 @@
         ]
       },
       {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey (ACS)",
-            "url": "https://www.census.gov/programs-surveys/acs",
-            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
-          },
-          {
-            "label": "County Business Patterns",
-            "url": "https://www.census.gov/programs-surveys/cbp/data/datasets.html",
-            "description": "U.S. per-industry number of establishments, employment, payroll and annual payroll, by county, metropolitan statistical area and zip code."
-          },
-          {
-            "label": "Economic Census",
-            "url": "https://www.census.gov/programs-surveys/economic-census/about.html",
-            "description": "Number of U.S. businesses and amount of revenue, by business payroll status, industry, operation type, and tax status.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
         "label": "World Bank",
         "url": "https://www.worldbank.org/en/home",
         "description": null,
         "dataSources": [
           {
+            "label": "World Bank Commodity Markets",
+            "url": "https://data.worldbank.org",
+            "description": "Datasets related to price and index value of the commodities in the market"
+          },
+          {
             "label": "World Bank Datasets",
             "url": "https://data.worldbank.org",
             "description": "Datasets related to demographics, economy, education, etc."
+          },
+          {
+            "label": "World Bank International Debt Statistics",
+            "url": "https://databank.worldbank.org/source/international-debt-statistics",
+            "description": "World Bank international debt statistics."
           },
           {
             "label": "World Development Indicators",
@@ -1343,9 +1513,29 @@
         "description": null,
         "dataSources": [
           {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
+          {
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
+          },
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          },
+          {
+            "label": "Rwanda Census",
+            "url": "https://rwanda.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -1355,7 +1545,7 @@
           {
             "label": "Uganda Bureau of Statistics (UBOS)",
             "url": "https://uganda.opendataforafrica.org/",
-            "description": "Demographics, health and education data for Uganda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb);[Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health and education data for Uganda at the country, region and district levels."
           }
         ]
       },
@@ -1384,6 +1574,18 @@
         ]
       },
       {
+        "label": "South Korea Statistics Agency (KOSA)",
+        "url": "https://kosis.kr/eng/",
+        "description": "Statistics Korea is the central government organization",
+        "dataSources": [
+          {
+            "label": "South Korea Statistics",
+            "url": "https://kosis.kr/eng/statisticsList/statisticsListIndex.do",
+            "description": "The official website for Statistics Korea (KOSTAT) provides comprehensive data on the country's economy, society, and population."
+          }
+        ]
+      },
+      {
         "label": "Statistics Canada",
         "url": "https://www.statcan.gc.ca/en/start",
         "description": null,
@@ -1396,6 +1598,18 @@
         ]
       },
       {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
+          }
+        ]
+      },
+      {
         "label": "Statistics Sweden",
         "url": "https://www.scb.se/en/",
         "description": null,
@@ -1404,6 +1618,18 @@
             "label": "Sweden Census",
             "url": "https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/",
             "description": "Sweden demographics, health and education data at the country, NUTS1, NUTS2, NUTS3 and municipality levels."
+          }
+        ]
+      },
+      {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey Education Tabulation (ACS-ED)",
+            "url": "https://nces.ed.gov/programs/edge/demographic/acs",
+            "description": "The National Center for Education Statistics collaborates with the U.S. Census Bureau to create a variety of custom data files that describe the condition of school-age children in the United States at the country, state, and school district levels. ACS-ED is updated annually based on ACS five-year period estimates.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
           }
         ]
       },
@@ -1481,18 +1707,6 @@
         ]
       },
       {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey Education Tabulation (ACS-ED)",
-            "url": "https://nces.ed.gov/programs/edge/demographic/acs",
-            "description": "The National Center for Education Statistics collaborates with the U.S. Census Bureau to create a variety of custom data files that describe the condition of school-age children in the United States at the country, state, and school district levels. ACS-ED is updated annually based on ACS five-year period estimates.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
         "label": "World Bank",
         "url": "https://www.worldbank.org/en/home",
         "description": null,
@@ -1501,6 +1715,24 @@
             "label": "World Bank Datasets",
             "url": "https://data.worldbank.org",
             "description": "Datasets related to demographics, economy, education, etc.\n\n[Terms of use](https://datacatalog.worldbank.org/public-licenses)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Employment",
+    "slug": "employment",
+    "dataSourceGroups": [
+      {
+        "label": "Mongolian Statistical Service",
+        "url": "https://www.1212.mn/en/statcate",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Mongolia Statistics",
+            "url": "https://www.1212.mn/en/statcate",
+            "description": "Mongolia's population, households, health and labour statistics at country level."
           }
         ]
       }
@@ -1529,18 +1761,6 @@
             "label": "Open Data",
             "url": "https://www.eia.gov/opendata/qb.php",
             "description": "County, state, and plant-level data on generation, consumption, and sales for different energy sources and sectors (residential, commercial, etc). Data Commons has imported data about coal, electricity, natural gas, nuclear outages, and petroleum.\n\n[Copyrights and reuse](https://www.eia.gov/about/copyrights_reuse.php)."
-          }
-        ]
-      },
-      {
-        "label": "U.S. National Renewable Energy Laboratory (NREL)",
-        "url": "https://www.nrel.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "RE Atlas",
-            "url": "https://maps.nrel.gov/re-atlas",
-            "description": "Data Commons has imported the potential for solar energy generation in different counties in the U.S.\n\n[Disclaimer](https://maps.nrel.gov/re-atlas/)."
           }
         ]
       },
@@ -1675,6 +1895,18 @@
             "label": "Randolph Glacier Inventory",
             "url": "https://www.glims.org/RGI/rgi60_dl.html",
             "description": "A global inventory of glaciers, including surface areas."
+          }
+        ]
+      },
+      {
+        "label": "Google",
+        "url": "https://www.google.com/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Sustainability Energy and Transport Financial Incentives",
+            "url": "https://www.google.com/",
+            "description": "A set of energy and transportation related financial incentives offered by government and utility organizations.\n\nData made publicly available under the standard [Google terms of service](https://policies.google.com/terms?hl=en)."
           }
         ]
       },
@@ -2058,6 +2290,18 @@
         ]
       },
       {
+        "label": "Mongolian Statistical Service",
+        "url": "https://www.1212.mn/en/statcate",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Mongolia Statistics",
+            "url": "https://www.1212.mn/en/statcate",
+            "description": "Mongolia's population, households, health and labour statistics at country level."
+          }
+        ]
+      },
+      {
         "label": "National Institute of Statistics and Censuses (INDEC)",
         "url": "https://www.indec.gob.ar",
         "description": null,
@@ -2087,9 +2331,29 @@
         "description": null,
         "dataSources": [
           {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
+          {
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
+          },
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          },
+          {
+            "label": "Rwanda Census",
+            "url": "https://rwanda.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -2099,7 +2363,7 @@
           {
             "label": "Uganda Bureau of Statistics (UBOS)",
             "url": "https://uganda.opendataforafrica.org/",
-            "description": "Demographics, health and education data for Uganda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb);[Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health and education data for Uganda at the country, region and district levels."
           }
         ]
       },
@@ -2128,6 +2392,18 @@
         ]
       },
       {
+        "label": "South Korea Statistics Agency (KOSA)",
+        "url": "https://kosis.kr/eng/",
+        "description": "Statistics Korea is the central government organization",
+        "dataSources": [
+          {
+            "label": "South Korea Statistics",
+            "url": "https://kosis.kr/eng/statisticsList/statisticsListIndex.do",
+            "description": "The official website for Statistics Korea (KOSTAT) provides comprehensive data on the country's economy, society, and population."
+          }
+        ]
+      },
+      {
         "label": "Statistics Canada",
         "url": "https://www.statcan.gc.ca/en/start",
         "description": null,
@@ -2136,6 +2412,18 @@
             "label": "Canada Statistics",
             "url": "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
             "description": "Statistics on Canada demographics, health, education and economy statistics at the country and subnational levels.\n\n[Terms and conditions](https://www.statcan.gc.ca/en/reference/terms-conditions/general?MM=as)"
+          }
+        ]
+      },
+      {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
           }
         ]
       },
@@ -2188,6 +2476,18 @@
         ]
       },
       {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Small Area Health Insurance Estimates (SAHIE)",
+            "url": "https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html",
+            "description": "Provides yearly estimates of health insurance coverage status for all U.S. counties and states. Data Commons includes all estimates, available by age, race, sex, and income.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
         "label": "U.S. Centers for Disease Control and Prevention (CDC)",
         "url": "https://www.cdc.gov/",
         "description": null,
@@ -2233,6 +2533,11 @@
             "description": "Annual survey that gathers data on various health measures for pregnant women and their babies."
           },
           {
+            "label": "Underlying cause of death",
+            "url": "https://wonder.cdc.gov/ucd-icd10-expanded.html",
+            "description": "Mortality statistics broken down by the underlying cause of death, residence, age, race, ethinicity, and sex."
+          },
+          {
             "label": "Wonder: Compressed Mortality",
             "url": "https://wonder.cdc.gov/cmf-icd10.html",
             "description": "Mortality counts for all U.S. states and counties, broken down by underlying cause of death, age, race, sex, and year."
@@ -2258,18 +2563,6 @@
             "label": "IMD2019",
             "url": "https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019/",
             "description": "Statistics on relative deprivation in small areas in England."
-          }
-        ]
-      },
-      {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Small Area Health Insurance Estimates (SAHIE)",
-            "url": "https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html",
-            "description": "Provides yearly estimates of health insurance coverage status for all U.S. counties and states. Data Commons includes all estimates, available by age, race, sex, and income.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
           }
         ]
       },
@@ -2316,7 +2609,7 @@
     "slug": "housing",
     "dataSourceGroups": [
       {
-        "label": "United States Census Bureau",
+        "label": "U.S. Census Bureau",
         "url": "https://www.census.gov/",
         "description": null,
         "dataSources": [

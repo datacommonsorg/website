@@ -34,6 +34,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "The total number of females in a population.",
             "title": "Women"
           },
           {
@@ -162,7 +163,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_3376114862"
+                      "Count_Person_Female_WithHealthInsurance_1704193675"
                     ],
                     "title": "Women With Health Insurance in New York",
                     "type": "LINE"
@@ -584,13 +585,13 @@
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
-          "Count_Person_Female_WithHealthInsurance_2019": {
-            "date": "2019",
+          "Count_Person_Female_WithHealthInsurance_1704193675": {
+            "facetId": "1704193675",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_3376114862": {
-            "facetId": "3376114862",
+          "Count_Person_Female_WithHealthInsurance_2019": {
+            "date": "2019",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
@@ -673,7 +674,6 @@
           "Count_Person_85OrMoreYears_Female_HispanicOrLatino",
           "Count_Person_85OrMoreYears_Female_SomeOtherRaceAlone",
           "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces",
-          "Count_Person_85OrMoreYears_Female_WhiteAlone",
           "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
         ]
       },
@@ -681,7 +681,6 @@
         "age": [
           "Count_Person_15To44Years_Female",
           "Count_Person_21OrMoreYears_Female",
-          "Count_Person_60OrMoreYears_Female",
           "Count_Person_62OrMoreYears_Female",
           "Count_Person_65To66Years_Female",
           "Count_Person_67To69Years_Female",
@@ -738,17 +737,11 @@
       },
       "Count_Person_Female_WhiteAlone": {
         "age": [
-          "Count_Person_10To14Years_Female_WhiteAlone",
           "Count_Person_15OrMoreYears_Female_WhiteAlone",
           "Count_Person_15To17Years_Female_WhiteAlone",
           "Count_Person_18To19Years_Female_WhiteAlone",
-          "Count_Person_20To24Years_Female_WhiteAlone",
           "Count_Person_25OrMoreYears_Female_WhiteAlone",
-          "Count_Person_25To29Years_Female_WhiteAlone",
-          "Count_Person_30To34Years_Female_WhiteAlone",
-          "Count_Person_5To9Years_Female_WhiteAlone",
-          "Count_Person_75To84Years_Female_WhiteAlone",
-          "Count_Person_85OrMoreYears_Female_WhiteAlone"
+          "Count_Person_75To84Years_Female_WhiteAlone"
         ]
       },
       "Count_Person_Female_WithHealthInsurance": {
@@ -771,7 +764,6 @@
         "age": [
           "Count_Person_15To44Years_Male",
           "Count_Person_21OrMoreYears_Male",
-          "Count_Person_60OrMoreYears_Male",
           "Count_Person_62OrMoreYears_Male",
           "Count_Person_65To66Years_Male",
           "Count_Person_67To69Years_Male"

@@ -6,40 +6,89 @@
     "description": "Feature flag to enable place autocomplete."
   },
   {
-    "name": "dev_place_experiment",
-    "enabled": true,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the V2 place page only for the experiment places."
-  },
-  {
-    "name": "dev_place_ga",
-    "enabled": false,
-    "owner": "dwnoble",
-    "description": "Feature flag to enable the V2 Place page to GA."
-  },
-  {
-    "name": "scroll_to_top_button",
-    "deprecated": true,
-    "enabled": false,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the scroll to top button on the explore and place pages."
-  },
-  {
-    "name": "dynamic_placeholder_experiment",
-    "enabled": true,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
-  },
-  {
-    "name": "dynamic_placeholder_ga",
-    "enabled": false,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
-  },
-  {
     "name": "biomed_nl",
     "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+  },
+  {
+    "name": "enable_gemini_2_5_flash",
+    "enabled": true,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash for NL detection."
+  },
+  {
+    "name": "enable_stat_var_autocomplete",
+    "enabled": true,
+    "owner": "gmechali",
+    "rollout_percentage": 20,
+    "description": "Enable stat var autocompletion in the NL Search bar"
+  },
+  {
+    "name": "explore_result_header",
+    "enabled": true,
+    "owner": "nick-next",
+    "description": "Enables the display of an updated explore page results header."
+  },
+  {
+    "name": "follow_up_questions_experiment",
+    "enabled": true,
+    "owner": "javiervazquez",
+    "description": "Enables the follow up questions generated from related topics as an experiment."
+  },
+  {
+    "name": "follow_up_questions_ga",
+    "enabled": true,
+    "owner": "javiervazquez",
+    "description": "Enables the follow up questions generated from related topics to general audience."
+  },
+  {
+    "name": "page_overview_experiment",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Enables the page overview generated from query and relevant stat vars as an experiment."
+  },
+  {
+    "name": "page_overview_ga",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
+  },
+  {
+    "name": "page_overview_links",
+    "enabled": true,
+    "owner": "javiervazquez",
+    "description": "A flag to guard if the embedded links in the overview are enabled."
+  },
+  {
+    "name": "show_api_modal",
+    "enabled": false,
+    "owner": "dwnoble",
+    "deprecated": true,
+    "description": "Feature flag to show the API modal on web components."
+  },
+  {
+    "name": "data_overview",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the data_overview/<place> routes."
+  },
+  {
+    "name": "metadata_modal",
+    "enabled": true,
+    "owner": "nick-next",
+    "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
+  },
+  {
+    "name": "vai_for_statvar_search",
+    "enabled": true,
+    "owner": "alyssaguo",
+    "description": "Enables using the Vertex AI search application for stat var searches."
+  },
+  {
+    "name": "vai_medium_relevance_threshold",
+    "enabled": false,
+    "owner": "alyssaguo",
+    "description": "Enables setting the relevance threshold to \"MEDIUM\" for Vertex AI stat var search application."
   }
 ]

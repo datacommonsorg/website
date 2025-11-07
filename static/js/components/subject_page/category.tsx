@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,12 @@
 /**
  * Component for rendering a category (a container for blocks).
  */
-import React, { memo } from "react";
+import React, { memo, ReactElement } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   CategoryConfig,
   EventTypeSpec,
@@ -50,11 +51,15 @@ export interface CategoryPropType {
   showExploreMore?: boolean;
   // Whether to render tiles as web components
   showWebComponents?: boolean;
+  // The facet to highlight in the rendered page (optional)
+  facetSelector?: FacetSelectionCriteria;
+  // Metadata loading state: true (loading), false (loaded), undefined (no metadata)
+  metadataLoadingState?: boolean;
 }
 
 export const Category = memo(function Category(
   props: CategoryPropType
-): JSX.Element {
+): ReactElement {
   const svProvider = new StatVarProvider(props.config.statVarSpec || {});
   const rs: ReplacementStrings = {
     placeName: props.place.name,
@@ -97,7 +102,7 @@ export const Category = memo(function Category(
 function renderBlocks(
   props: CategoryPropType,
   svProvider: StatVarProvider
-): JSX.Element {
+): ReactElement {
   if (!props.config.blocks) {
     return <></>;
   }
@@ -130,6 +135,8 @@ function renderBlocks(
               description={block.description}
               footnote={block.footnote}
               place={props.place}
+              metadataLoadingState={props.metadataLoadingState}
+              metadataSummary={block.metadataSummary}
             >
               <DisasterEventBlock
                 id={id}
@@ -155,6 +162,9 @@ function renderBlocks(
               place={props.place}
               commonSVSpec={commonSVSpec}
               infoMessage={block.infoMessage}
+              disableExploreMore={!props.showExploreMore}
+              metadataLoadingState={props.metadataLoadingState}
+              metadataSummary={block.metadataSummary}
             >
               <Block
                 id={id}
@@ -171,6 +181,7 @@ function renderBlocks(
                 denom={block.denom}
                 startWithDenom={block.startWithDenom}
                 showWebComponents={props.showWebComponents}
+                facetSelector={props.facetSelector}
               />
             </BlockContainer>
           </ErrorBoundary>

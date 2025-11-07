@@ -2,6 +2,9 @@
   "alert-no_data_for_place": {
     "defaultMessage": "माफ़ करें, हमारे पास {placeName} के बारे में कोई डेटा नहीं है"
   },
+  "category_in_place": {
+    "defaultMessage": "{placeName} के लिए, {category} से जुड़ा डेटा"
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName} (प्रति व्यक्ति के हिसाब से, {date} में)"
   },
@@ -56,6 +59,9 @@
   "close": {
     "defaultMessage": "बंद करें"
   },
+  "dateRange": {
+    "defaultMessage": "{minDate} से {maxDate} तक"
+  },
   "disasterTool": {
     "defaultMessage": "आपदा की जानकारी देने वाला टूल"
   },
@@ -74,8 +80,14 @@
   "embed_export_chart_link": {
     "defaultMessage": "यह चार्ट भेजें"
   },
+  "enterQuery": {
+    "defaultMessage": "जानकारी पाने के लिए कोई सवाल पूछें"
+  },
   "exploreLink": {
     "defaultMessage": "{toolName} में एक्सप्लोर करें"
+  },
+  "explore_data_on": {
+    "defaultMessage": "इससे जुड़ा डेटा देखें... \"{sampleQuestion}\""
   },
   "header-overview": {
     "defaultMessage": "खास जानकारी"
@@ -101,14 +113,23 @@
   "more_charts_link": {
     "defaultMessage": "और चार्ट"
   },
+  "no_charts": {
+    "defaultMessage": "{place} के लिए, {category} से जुड़ा कोई डेटा नहीं मिला."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} में {placeType}"
+  },
+  "place_not_found": {
+    "defaultMessage": "\"{placeDcid}\" जगह की जानकारी नहीं मिली."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "रैंकिंग (में)"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{total} में से {rank}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{parentPlaces} में {placeType}"
   },
   "plural_administrative_area": {
     "defaultMessage": "प्रशासकीय क्षेत्र"
@@ -121,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "शहर"
+  },
+  "plural_continent": {
+    "defaultMessage": "महाद्वीप"
   },
   "plural_country": {
     "defaultMessage": "देश"
@@ -212,6 +236,9 @@
   "search_bar_placeholder-search_again": {
     "defaultMessage": "कोई दूसरी जगह खोजें"
   },
+  "seePerCapita": {
+    "defaultMessage": "प्रति व्यक्ति से जुड़ा डेटा देखें"
+  },
   "selectVariable": {
     "defaultMessage": "किसी वैरिएबल को सूची में से चुनकर, उससे जुड़ी जानकारी देखें. नीचे दिए गए लिंक की मदद से नए टैब में स्टैटिस्टिकल वैरिएबल एक्सप्लोरर खोले जा सकते हैं."
   },
@@ -229,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "शहर"
+  },
+  "singular_continent": {
+    "defaultMessage": "महाद्वीप"
   },
   "singular_country": {
     "defaultMessage": "देश"
@@ -274,6 +304,9 @@
   },
   "summary_overview": {
     "defaultMessage": "खास जानकारी"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "हम सोर्स से जुटाए गए अपने डेटा से अहम जानकारी पाने के लिए, एआई का इस्तेमाल करते हैं. हर चार्ट पर इस डेटा का लिंक मौजूद है. हमारा मकसद सटीक जानकारी देना है. इसलिए, कृपया जानकारी की समीक्षा करें और सोर्स डेटा देखें."
   },
   "the_world": {
     "defaultMessage": "दुनिया में"

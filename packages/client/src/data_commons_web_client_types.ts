@@ -17,6 +17,23 @@
 /**
  * Interface definitions supporting DataCommonsWebClient
  */
+
+/*
+  StatVarSpec has a corresponding interface in: static/js/shared/types.ts
+  When updating this interface, update its corresponding definition to match.
+ */
+export interface StatVarSpec {
+  statVar: string;
+  denom: string;
+  unit: string;
+  scaling: number;
+  log: boolean;
+  name?: string;
+  date?: string;
+  noPerCapita?: boolean;
+  facetId?: string;
+}
+
 export interface StatMetadata {
   importName?: string | null;
   provenanceUrl?: string | null;
@@ -182,7 +199,7 @@ export interface Category {
 }
 
 /**
- * Website API response for /api/dev-place/charts/<place_dcid>
+ * Website API response for /api/place/charts/<place_dcid>
  */
 export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
@@ -191,7 +208,7 @@ export interface PlaceChartsApiResponse {
 }
 
 /**
- * Website API response for /api/dev-place/related-places/<place_dcid>
+ * Website API response for /api/place/related-places/<place_dcid>
  */
 export interface RelatedPlacesApiResponse {
   childPlaceType: string;
@@ -213,8 +230,15 @@ export interface OverviewTableDataRow {
 }
 
 /**
- * Website API response for /api/dev-place/overview-table/<place_dcid>
+ * Website API response for /api/place/overview-table/<place_dcid>
  */
 export interface PlaceOverviewTableApiResponse {
   data: OverviewTableDataRow[];
+}
+
+/**
+ * Website API response for /api/place/summary/<place_dcid>
+ */
+export interface PlaceSummaryApiResponse {
+  summary: string;
 }

@@ -79,6 +79,7 @@ interface RankingUnitPropType {
   apiRoot?: string;
   entityType?: string;
   isLoading?: boolean;
+  statVar?: string;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.

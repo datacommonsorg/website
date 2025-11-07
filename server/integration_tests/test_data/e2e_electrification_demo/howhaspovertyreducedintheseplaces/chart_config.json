@@ -10,13 +10,13 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/MLI",
                       "country/GIN",
-                      "country/SEN",
+                      "country/MLI",
+                      "country/BEN",
                       "country/ETH",
+                      "country/SEN",
                       "country/RWA",
                       "country/GHA",
-                      "country/UGA",
                       "country/MAR"
                     ],
                     "statVarKey": [
@@ -36,18 +36,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
@@ -60,11 +48,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Senegal",
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -77,6 +77,18 @@
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
@@ -101,18 +113,6 @@
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -138,35 +138,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Guinea",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -186,11 +162,47 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -215,18 +227,6 @@
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -254,7 +254,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/MLI"
+        "country/GIN"
       ]
     }
   },
@@ -263,31 +263,21 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/MLI",
-    "name": "Mali",
+    "dcid": "country/KEN",
+    "name": "Kenya",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
-      "dcid": "country/MLI",
-      "name": "Mali",
+      "dcid": "country/KEN",
+      "name": "Kenya",
       "place_type": "Country"
     },
     {
-      "dcid": "country/GIN",
-      "name": "Guinea",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
+      "dcid": "country/SOM",
+      "name": "Somalia",
       "place_type": "Country"
     },
     {
@@ -301,19 +291,47 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/UGA",
-      "name": "Uganda",
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
       "place_type": "Country"
     },
     {
       "dcid": "country/MAR",
       "name": "Morocco",
       "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BEN",
+      "name": "Benin",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GIN",
+      "name": "Guinea",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {
       "sdg/SI_POV_DAY1": {
         "age": [
@@ -352,6 +370,13 @@
     ],
     "peerPlaces": [],
     "peerTopics": [
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",

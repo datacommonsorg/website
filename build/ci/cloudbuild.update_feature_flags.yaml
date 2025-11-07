@@ -56,10 +56,7 @@ steps:
           filename=$(basename "$modified_file")
           echo "Processing modified file: ${filename}"
           environment="${filename%.*}"
-          should_restart="false"
-          if [ "$environment" != "production" ]; then
-            should_restart="true"
-          fi
+          should_restart="true"
           skip_staging_prompt="true"
           ./scripts/update_gcs_feature_flags.sh "$environment" "$skip_staging_prompt" "$should_restart"
         done <<< "$sorted_files"

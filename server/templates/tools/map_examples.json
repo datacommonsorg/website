@@ -14,7 +14,7 @@
     "preposition": "across",
     "examples": [{
       "text": "countries",
-      "url": "#%26sv%3DworldBank%2FEN_ATM_CO2E_PC%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry"
+      "url": "#%26sv%3DAmount_Emissions_CarbonDioxide_PerCapita%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry%26ppt%3DEpaReportingFacility"
     }]
   }, {
     "header": "Water Withdrawal Rate",

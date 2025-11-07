@@ -23,7 +23,9 @@ import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
+import { ObservationSpec } from "../../shared/observation_specs";
 import { StatVarSpec } from "../../shared/types";
+import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
   RankingData,
   RankingGroup,
@@ -31,8 +33,7 @@ import {
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
-import { formatString, TileSources } from "../../utils/tile_utils";
-import { NlChartFeedback } from "../nl_feedback";
+import { formatString } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
@@ -48,6 +49,7 @@ interface SvRankingUnitsProps {
     chartTitle: string,
     sources: string[]
   ) => void;
+  getObservationSpecs?: () => ObservationSpec[];
   statVar: string;
   entityType: string;
   tileId: string;
@@ -63,6 +65,7 @@ interface SvRankingUnitsProps {
   isLoading?: boolean;
   statVarSpecs: StatVarSpec[];
   containerRef: React.RefObject<HTMLElement>;
+  surface: string;
 }
 
 /**
@@ -113,6 +116,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.apiRoot,
             props.statVarSpecs,
             props.containerRef,
+            props.surface,
             highestRankingUnitRef,
             props.onHoverToggled,
             props.errorMsg,
@@ -132,9 +136,10 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   : null
               }
               footnote={props.footnote}
-            >
-              <NlChartFeedback id={props.tileId} />
-            </ChartFooter>
+              containerRef={props.containerRef}
+              getObservationSpecs={props.getObservationSpecs}
+              surface={props.surface}
+            ></ChartFooter>
           )}
         </div>
       ) : (
@@ -151,6 +156,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.apiRoot,
                 props.statVarSpecs,
                 props.containerRef,
+                props.surface,
                 highestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -164,9 +170,10 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
                   footnote={props.footnote}
-                >
-                  <NlChartFeedback id={props.tileId} />
-                </ChartFooter>
+                  containerRef={props.containerRef}
+                  getObservationSpecs={props.getObservationSpecs}
+                  surface={props.surface}
+                ></ChartFooter>
               )}
             </div>
           )}
@@ -182,6 +189,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.apiRoot,
                 props.statVarSpecs,
                 props.containerRef,
+                props.surface,
                 lowestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -195,9 +203,10 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
                   footnote={props.footnote}
-                >
-                  <NlChartFeedback id={props.tileId} />
-                </ChartFooter>
+                  containerRef={props.containerRef}
+                  getObservationSpecs={props.getObservationSpecs}
+                  surface={props.surface}
+                ></ChartFooter>
               )}
             </div>
           )}
@@ -297,6 +306,7 @@ export function getRankingUnitPoints(
  * @param rankingGroup the RankingGroup information to get the ranking unit for
  * @param rankingMetadata the RankingTileSpec to get the ranking unit for
  * @param isHighest whether or not this ranking unit is showing highest
+ * @param surface value to pass into calls to mixer for usage logs
  * @param rankingUnitRef ref object to attach to the ranking unit
  * @param onHoverToggled callback when user hovers over a row
  * @param errorMsg Erorr message
@@ -312,6 +322,7 @@ export function getRankingUnit(
   apiRoot: string,
   statVarSpecs: StatVarSpec[],
   containerRef: React.RefObject<HTMLElement>,
+  surface: string,
   rankingUnitRef?: RefObject<HTMLDivElement>,
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
@@ -345,6 +356,7 @@ export function getRankingUnit(
       svNames={
         rankingMetadata.showMultiColumn ? rankingGroup.svName : undefined
       }
+      statVar={statVar}
       onHoverToggled={onHoverToggled}
       headerChild={
         errorMsg ? null : (
@@ -352,7 +364,10 @@ export function getRankingUnit(
             apiRoot={apiRoot}
             containerRef={containerRef}
             sources={sources || rankingGroup.sources}
+            facets={rankingGroup.facets}
+            statVarToFacets={rankingGroup.statVarToFacets}
             statVarSpecs={statVarSpecs}
+            surface={surface}
           />
         )
       }

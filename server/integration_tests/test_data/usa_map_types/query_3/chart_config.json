@@ -59,6 +59,7 @@
                 ]
               }
             ],
+            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
             "title": "Unemployment Rate"
           },
           {
@@ -179,6 +180,38 @@
             ],
             "denom": "Count_Person",
             "title": "State Unemployment Insurance Claims"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
+                    "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
+                    "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -567,67 +600,6 @@
             ],
             "denom": "Count_Person",
             "title": "Workers in All Industries"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Full Time Year Round Worker"
           }
         ],
         "statVarSpec": {
@@ -646,10 +618,6 @@
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
-          },
-          "Count_Person_FullTimeYearRoundWorker": {
-            "name": "Population: 16 - 64 Years, Full Time Year Round Worker",
-            "statVar": "Count_Person_FullTimeYearRoundWorker"
           },
           "Count_Person_InLaborForce": {
             "name": "Population in the Labor Force",
@@ -1078,12 +1046,6 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "Count_Person_FullTimeYearRoundWorker": {
-        "gender": [
-          "Count_Person_Female_FullTimeYearRoundWorker",
-          "Count_Person_Male_FullTimeYearRoundWorker"
-        ]
-      },
       "Count_Person_NotInLaborForce": {
         "residenceType": [
           "Count_Person_NotInLaborForce_ResidesInAdultCorrectionalFacilities",

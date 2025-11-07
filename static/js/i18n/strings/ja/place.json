@@ -2,6 +2,9 @@
   "alert-no_data_for_place": {
     "defaultMessage": "{placeName} に関するデータはありません"
   },
+  "category_in_place": {
+    "defaultMessage": "{placeName} の {category}"
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName}（{date} における 1 人あたり）"
   },
@@ -56,6 +59,9 @@
   "close": {
     "defaultMessage": "閉じる"
   },
+  "dateRange": {
+    "defaultMessage": "{minDate}～{maxDate}"
+  },
   "disasterTool": {
     "defaultMessage": "災害ツール"
   },
@@ -74,8 +80,14 @@
   "embed_export_chart_link": {
     "defaultMessage": "このグラフをエクスポート"
   },
+  "enterQuery": {
+    "defaultMessage": "質問を入力して検索"
+  },
   "exploreLink": {
     "defaultMessage": "{toolName} で探索"
+  },
+  "explore_data_on": {
+    "defaultMessage": "データを確認する... 「{sampleQuestion}」"
   },
   "header-overview": {
     "defaultMessage": "概要"
@@ -101,14 +113,23 @@
   "more_charts_link": {
     "defaultMessage": "その他のグラフ"
   },
+  "no_charts": {
+    "defaultMessage": "{place} の {category} に関するデータは見つかりませんでした。"
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} 内の {placeType}"
+  },
+  "place_not_found": {
+    "defaultMessage": "場所「{placeDcid}」が見つかりません。"
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "ランキング"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank}/{total}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{parentPlaces} の {placeType}"
   },
   "plural_administrative_area": {
     "defaultMessage": "行政区域"
@@ -121,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "都市"
+  },
+  "plural_continent": {
+    "defaultMessage": "大陸"
   },
   "plural_country": {
     "defaultMessage": "国"
@@ -212,6 +236,9 @@
   "search_bar_placeholder-search_again": {
     "defaultMessage": "別の場所を検索する"
   },
+  "seePerCapita": {
+    "defaultMessage": "1 人あたりのデータを表示"
+  },
   "selectVariable": {
     "defaultMessage": "リストから変数を選択すると、その詳細が表示されます。以下のリンクをクリックすると、新しいタブで統計変数エクスプローラが開きます。"
   },
@@ -229,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "都市"
+  },
+  "singular_continent": {
+    "defaultMessage": "大陸"
   },
   "singular_country": {
     "defaultMessage": "国"
@@ -274,6 +304,9 @@
   },
   "summary_overview": {
     "defaultMessage": "概要"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "AI を使用して、ソースデータ（各グラフにリンク）の分析情報を要約しています。正確性を重視していますが、ソースデータも参照しながら要約を確認してください。"
   },
   "the_world": {
     "defaultMessage": "世界"

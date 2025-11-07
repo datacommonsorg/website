@@ -26,6 +26,10 @@ import Collapsible from "react-collapsible";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
+  GA_EVENT_STATVAR_HIERARCHY_CLICK,
+  triggerGAEvent,
+} from "../shared/ga_events";
+import {
   NamedNode,
   RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
@@ -216,6 +220,7 @@ export class StatVarGroupNode extends React.Component<
           triggerWhenOpen={getTrigger(true)}
           open={shouldOpen}
           handleTriggerClick={(): void => {
+            triggerGAEvent(GA_EVENT_STATVAR_HIERARCHY_CLICK, {});
             this.setState({ isOpen: !this.state.isOpen });
           }}
           transitionTime={200}

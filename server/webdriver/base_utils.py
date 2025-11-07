@@ -16,6 +16,7 @@
 from typing import List
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -24,6 +25,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
 TIMEOUT = 60
+# Charts can take a long time to load.
+# This is a custom, longer timeout to use for charts we know are slow.
+LONG_TIMEOUT = 120  # seconds
 
 
 def create_driver(preferences=None):
@@ -112,6 +116,32 @@ def find_elem(
   return elems[0] if elems else None
 
 
+def find_any_of_elems(
+    parent: webdriver.remote.webelement.WebElement,
+    locators: List[tuple]) -> webdriver.remote.webelement.WebElement | None:
+  """
+  Waits for the first element to be present from a list of locators. This can be
+  used when we do not know which of the given elements will appear, and can be used
+  to distinguish functionality behind feature flags.
+
+  Args:
+    parent: The parent to search inside of.
+    locators: A list of locator tuples, e.g., [(By.ID, 'id'), (By.CLASS_NAME, 'class')].
+
+  Returns:
+    The first of the requested elements that is found, or None if no elements are found.
+  """
+  if not locators:
+    return None
+
+  wait = WebDriverWait(parent, TIMEOUT)
+  try:
+    conditions = [EC.presence_of_element_located(loc) for loc in locators]
+    return wait.until(EC.any_of(*conditions))
+  except TimeoutException:
+    return None
+
+
 def scroll_to_elem(
     parent: webdriver.remote.webelement.WebElement,
     by: str = By.CLASS_NAME,
@@ -144,3 +174,18 @@ def wait_elem(driver,
         EC.presence_of_element_located((by, value)))
   except:
     return None
+
+
+def wait_for_text(driver,
+                  text,
+                  by: str,
+                  value: str,
+                  timeout_seconds: float = TIMEOUT):
+  """
+  Waits for a text to be present in the element specified by by and value.
+
+  Returns:
+    The element that contains the text. If not found, returns None.
+  """
+  condition = EC.text_to_be_present_in_element((by, value), text)
+  return WebDriverWait(driver, timeout_seconds).until(condition)

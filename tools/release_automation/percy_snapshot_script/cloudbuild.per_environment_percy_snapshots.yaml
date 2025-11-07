@@ -1,0 +1,191 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-0'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=0
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-1'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=1
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-2'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=2
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-3'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=3
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-4'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=4
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-5'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=5
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-6'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=6
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-7'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=7
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-finalize'
+    waitFor:
+      - 'percy-shard-0'
+      - 'percy-shard-1'
+      - 'percy-shard-2'
+      - 'percy-shard-3'
+      - 'percy-shard-4'
+      - 'percy-shard-5'
+      - 'percy-shard-6'
+      - 'percy-shard-7'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        # Finalize the build; ignore errors to avoid failing the build if there are visual diffs.
+        percy build:finalize || true
+    secretEnv: ['percy_token']
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/879489846695/secrets/PERCY_TOKEN_RELEASES/versions/latest
+      env: 'percy_token'
+
+substitutions:
+  _ENVIRONMENT: 'production'
+
+options:
+  machineType: 'E2_HIGHCPU_8'

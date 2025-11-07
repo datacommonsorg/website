@@ -23,7 +23,6 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import Response
-from flask import send_from_directory
 
 from server.lib.cache import cache
 import server.lib.render as lib_render
@@ -107,10 +106,15 @@ def mcf_playground():
   return render_template('mcf_playground.html')
 
 
-# TODO(shifucun): get branch cache version from mixer
 @bp.route('/version')
 def version():
   mixer_version = dc.version()
+  mixer_feature_flags = {}
+  try:
+    mixer_feature_flags = json.loads(mixer_version.get('featureFlags', '{}'))
+  except json.JSONDecodeError:
+    pass
+
   return render_template(
       'version.html',
       website_hash=os.environ.get("WEBSITE_HASH"),
@@ -118,13 +122,18 @@ def version():
       tables=mixer_version.get('tables', ''),
       bigquery=mixer_version.get('bigquery', ''),
       featureFlags=current_app.config.get('FEATURE_FLAGS', []),
+      mixerFeatureFlags=mixer_feature_flags,
       remote_mixer_domain=mixer_version.get('remoteMixerDomain', ''))
 
 
 @bp.route('/robots.txt')
 @cache.cached(timeout=TIMEOUT)
 def robots_config():
+  robots_content = ""
   if current_app.config.get('DISABLE_CRAWLERS', False):
-    return Response("User-agent: *\nDisallow: /", mimetype="text/plain")
+    robots_content = "User-agent: *\nDisallow: /"
   else:
-    return send_from_directory("dist", "robots.txt")
+    with current_app.open_resource("dist/robots.txt", 'r') as f:
+      robots_content = f.read()
+
+  return Response(robots_content, mimetype="text/plain")

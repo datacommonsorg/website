@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +19,24 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement, useCallback, useMemo } from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
-import { FacetSelector } from "../../../shared/facet_selector";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
+import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import {
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
 } from "../../../shared/ga_events";
+import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatVarHierarchyType } from "../../../shared/types";
+import { fetchFacetChoicesWithin } from "../../../tools/shared/facet_choice_fetcher";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
-import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
-import { ChartFooter, InputInfo } from "../chart_footer";
+import { ChartHeader, InputInfo } from "../chart_header";
 import { VisType } from "../vis_type_configs";
 
 function getAxisInputs(
@@ -97,31 +99,37 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
   ];
 }
 
-function getFacetSelector(appContext: AppContextType): JSX.Element {
-  const statVars = appContext.statVars.slice(0, 2);
+interface ChartFacetSelectorProps {
+  appContext: AppContextType;
+}
+
+function ChartFacetSelector({
+  appContext,
+}: ChartFacetSelectorProps): ReactElement {
+  const statVars = useMemo(
+    () => appContext.statVars.slice(0, 2),
+    [appContext.statVars]
+  );
+
   const svFacetId = {};
   statVars.forEach((sv) => {
     svFacetId[sv.dcid] = sv.facetId;
   });
-  const facetListPromises = statVars.map((sv) =>
-    getFacetsWithin(
-      "",
+
+  const fetchFacets = useCallback(async () => {
+    return fetchFacetChoicesWithin(
       appContext.places[0].dcid,
       appContext.enclosedPlaceType,
-      [sv.dcid],
-      sv.date
-    )
-  );
-  const facetListPromise = Promise.all(facetListPromises).then((facetResp) => {
-    return statVars.map((sv, idx) => {
-      return {
+      statVars.map((sv) => ({
         dcid: sv.dcid,
-        name: sv.info.title || sv.dcid,
-        metadataMap:
-          idx < facetResp.length ? facetResp[idx][sv.dcid] || {} : {},
-      };
-    });
-  });
+        name: sv.info.title,
+        date: sv.date,
+      }))
+    );
+  }, [appContext.places, appContext.enclosedPlaceType, statVars]);
+
+  const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
+
   const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
     const facetsChanged = statVars.filter(
       (sv) => sv.facetId !== svFacetId[sv.dcid]
@@ -135,10 +143,13 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
     });
     appContext.setStatVars(newStatVars);
   };
+
   return (
     <FacetSelector
       svFacetId={svFacetId}
-      facetListPromise={facetListPromise}
+      facetList={facetList}
+      loading={loading}
+      error={!!error}
       onSvFacetIdUpdated={onSvFacetIdUpdated}
     />
   );
@@ -147,7 +158,7 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
 function getChartArea(
   appContext: AppContextType,
   chartHeight: number
-): JSX.Element {
+): ReactElement {
   // If any svs do not allow per capita, hide the per capita inputs.
   const hidePcInputs =
     appContext.statVars.filter((sv) => !sv.info.pcAllowed).length > 0;
@@ -156,6 +167,20 @@ function getChartArea(
   );
   return (
     <div className="chart scatter">
+      <ChartHeader
+        inputSections={[
+          {
+            label: "Y-axis:",
+            inputs: getAxisInputs(0, appContext, hidePcInputs),
+          },
+          {
+            label: "X-axis:",
+            inputs: getAxisInputs(1, appContext, hidePcInputs),
+          },
+          { label: "Display:", inputs: getDisplayInputs(appContext) },
+        ]}
+        facetSelector={<ChartFacetSelector appContext={appContext} />}
+      />
       <ScatterTile
         id="vis-tool-scatter"
         title={
@@ -174,26 +199,13 @@ function getChartArea(
           showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
           showQuadrants: appContext.displayOptions.scatterQuadrants,
         }}
-      />
-      <ChartFooter
-        inputSections={[
-          {
-            label: "Y-axis:",
-            inputs: getAxisInputs(0, appContext, hidePcInputs),
-          },
-          {
-            label: "X-axis:",
-            inputs: getAxisInputs(1, appContext, hidePcInputs),
-          },
-          { label: "Display:", inputs: getDisplayInputs(appContext) },
-        ]}
-        facetSelector={getFacetSelector(appContext)}
+        surface={WEBSITE_SURFACE}
       />
     </div>
   );
 }
 
-function getInfoContent(): JSX.Element {
+function getInfoContent(): ReactElement {
   const hideExamples = _.isEmpty(window.infoConfig["scatter"]);
   return (
     <div className="info-content">

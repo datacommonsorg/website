@@ -16,6 +16,7 @@
 
 /* Tests for getting result for query endpoint */
 
+import { TEST_SURFACE } from "../js/shared/constants";
 import { queryAxiosMock } from "./mock_functions";
 import { getQueryResult } from "./query";
 import { TileResult } from "./types";
@@ -212,15 +213,18 @@ test("getQueryResult", async () => {
   for (const c of cases) {
     const result = await getQueryResult(
       c.query,
-      true,
-      false,
-      "",
-      "",
-      "",
-      "bard",
-      "",
-      "",
-      false
+      true, // useChartUrl
+      false, // allResults
+      "", // apiRoot
+      "", // apikey
+      "", // urlRoot
+      "bard", // client
+      "", // mode
+      "", // varThreshold
+      false, // wantRelatedQuestions
+      "", // detector
+      undefined, // idx
+      TEST_SURFACE // surface
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);
@@ -228,5 +232,37 @@ test("getQueryResult", async () => {
       console.log(`Failed for query: ${c.query}`);
       throw e;
     }
+  }
+});
+
+// this confirms that the surface successfully reaches the mixer call
+// getQueryResult is used in the nodejs/query endpoint by DataGemma
+test("getQueryResult with surface", async () => {
+  const expectedCharts = BAR_EXPECTED_RESULT;
+  const query = "top jobs in santa clara county";
+
+  // Mock data fetches
+  queryAxiosMock();
+
+  const result = await getQueryResult(
+    query,
+    true, // useChartUrl
+    false, // allResults
+    "", // apiRoot
+    "", // apikey
+    "", // urlRoot
+    "bard", // client
+    "", // mode
+    "", // varThreshold
+    false, // wantRelatedQuestions
+    "", // detector
+    "", // idx
+    "datagemma" // surface
+  );
+  try {
+    expect(result.charts).toStrictEqual(expectedCharts);
+  } catch (e) {
+    console.log(`Failed for query: ${query}`);
+    throw e;
   }
 });

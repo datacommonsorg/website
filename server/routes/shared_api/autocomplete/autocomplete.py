@@ -12,64 +12,145 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import asyncio
+import itertools
 import logging
+import re
+import time
+from typing import List
 
 from flask import Blueprint
 from flask import jsonify
 from flask import request
 
+from server.lib.feature_flags import ENABLE_STAT_VAR_AUTOCOMPLETE
+from server.lib.feature_flags import is_feature_enabled
 from server.routes.shared_api.autocomplete import helpers
+from server.routes.shared_api.autocomplete import stat_vars
+from server.routes.shared_api.autocomplete.helpers import \
+    SKIP_AUTOCOMPLETE_TRIGGER
 from server.routes.shared_api.autocomplete.types import AutoCompleteApiResponse
 from server.routes.shared_api.autocomplete.types import AutoCompleteResult
-
-# TODO(gmechali): Add Stat Var search.
+from server.routes.shared_api.autocomplete.types import ScoredPrediction
 
 # Define blueprint
 bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 
 
 @bp.route('/autocomplete')
-def autocomplete():
-  """Predicts the user query for location only, using the Google Maps prediction API.
-  Returns:
-      Json object represnting 5 location predictions for the query.
-  """
-  lang = request.args.get('hl')
-  query = request.args.get('query')
+async def autocomplete():
+  """Predicts the user query for location and stat vars."""
+  start_time = time.time()
+  lang = request.args.get('hl', 'en')
+  original_query = request.args.get('query', '')
+  has_location = request.args.get('has_location', 'false') == 'true'
 
-  # Extract subqueries from the user input.
-  queries = helpers.find_queries(query)
+  # Don't trigger autocomplete on short queries or if the last word is a stop word.
+  words = original_query.split()
+  if not words or len(original_query) < 3:
+    return jsonify(AutoCompleteApiResponse(predictions=[]))
+  last_word = words[-1].lower().strip()
+  if last_word in SKIP_AUTOCOMPLETE_TRIGGER:
+    return jsonify(AutoCompleteApiResponse(predictions=[]))
 
-  # Send requests to the Google Maps Predictions API.
-  prediction_responses = helpers.predict(queries, lang)
+  # 1. FAN-OUT: Create all concurrent tasks.
+  tasks = []
+  task_metadata = []
 
-  # Augment responses with place DCID.
-  prediction_responses = helpers.fetch_place_id_to_dcid(prediction_responses)
+  # Task A: Core Concept Stat Var Search
+  concept_result = None
+  if lang == 'en' and is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE,
+                                         request=request):
+    # Note: analyze_query_concepts is synchronous and makes a blocking API call.
+    # We run it once at the start.
+    concept_result = stat_vars.analyze_query_concepts(original_query)
+    if concept_result:
+      tasks.append(
+          asyncio.to_thread(stat_vars.search_stat_vars,
+                            concept_result['cleaned_query']))
+      task_metadata.append({
+          'source': 'core_concept_sv',
+          'original_phrase': concept_result['original_phrase']
+      })
 
-  # Custom places hack - Continents not supported by Google Maps Predictions API.
-  # This hack will always evaluate continents and a few custom places for each response.
-  # They will get filtered in/out based on the match_score we compute.
-  prediction_responses = helpers.prepend_custom_places_hack(
-      prediction_responses, queries)
+  # Task B: N-gram and Custom Place Search
+  query_for_ngrams = original_query
+  if concept_result and concept_result.get('place_name'):
+    place_name = concept_result['place_name']
+    place_name_end_pos = original_query.lower().find(
+        place_name.lower()) + len(place_name)
+    query_for_ngrams = original_query[place_name_end_pos:]
+    query_for_ngrams = re.sub(r"^\s*'s\s*", "", query_for_ngrams).strip()
 
-  prediction_responses.sort(key=helpers.get_score)
+  ngram_queries = helpers.get_ngram_queries(query_for_ngrams)
 
-  final_predictions = []
-  for prediction in prediction_responses:
-    # Only keep places that have a DCID.
-    if prediction.place_dcid:
+  for ngram_query in ngram_queries:
+    # Custom place suggestions
+    tasks.append(
+        asyncio.to_thread(helpers.get_custom_place_suggestions, ngram_query))
+    task_metadata.append({
+        'source': 'custom_place',
+        'matched_query': ngram_query
+    })
+
+    # Google Maps place predictions
+    tasks.append(
+        asyncio.to_thread(helpers.get_place_predictions, [ngram_query], lang,
+                          'ngram_place'))
+    task_metadata.append({
+        'source': 'ngram_place',
+        'matched_query': ngram_query
+    })
+
+    # Stat var n-gram search
+    if lang == 'en' and is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE,
+                                           request=request):
+      tasks.append(asyncio.to_thread(stat_vars.search_stat_vars, ngram_query))
+      task_metadata.append({'source': 'ngram_sv', 'matched_query': ngram_query})
+
+  # Run all tasks concurrently and gather results.
+  all_results_nested = await asyncio.gather(*tasks, return_exceptions=True)
+  all_predictions = []
+  for i, result_list in enumerate(all_results_nested):
+    if isinstance(result_list, Exception):
+      logging.error(f"[Autocomplete] Task failed: {result_list}")
+      continue
+    meta = task_metadata[i]
+    for p in result_list:
+      p.source = meta['source']
+      if meta['source'] == 'core_concept_sv':
+        p.matched_query = meta['original_phrase']
+      else:
+        p.matched_query = meta['matched_query']
+      p.has_place = has_location or (concept_result['has_place']
+                                     if concept_result else False)
+      all_predictions.append(p)
+
+  # 2. RANK: Apply custom ranking to all gathered predictions.
+  ranked_predictions = helpers.custom_rank_predictions(all_predictions,
+                                                       original_query)
+
+  # 3. MERGE: Deduplicate and format the final list.
+  places_to_fetch_dcid = [
+      p for p in ranked_predictions if p.place_id and not p.place_dcid
+  ]
+  if places_to_fetch_dcid:
+    helpers.fetch_place_id_to_dcid(places_to_fetch_dcid)
+
+  final_predictions: List[AutoCompleteResult] = []
+  seen_dcids = set()
+  for prediction in ranked_predictions:
+    if prediction.place_dcid and prediction.place_dcid not in seen_dcids:
+      seen_dcids.add(prediction.place_dcid)
+      is_place = prediction.place_id or prediction.source == 'custom_place'
       current_prediction = AutoCompleteResult(
           name=prediction.description,
-          match_type='location_search',
+          match_type='location_search' if is_place else 'stat_var_search',
           matched_query=prediction.matched_query,
-          dcid=prediction.place_dcid)
+          dcid=prediction.place_dcid,
+          has_place=prediction.has_place)
       final_predictions.append(current_prediction)
 
-      if len(final_predictions) == helpers.DISPLAYED_RESPONSE_COUNT_LIMIT:
-        break
-
-  logging.info(
-      "[Place_Autocomplete] Returning a total of %d place predictions.",
-      len(final_predictions))
+  duration_ms = (time.time() - start_time) * 1000
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))

@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
-import React, { Component, createRef, RefObject } from "react";
-import { Button, Card, Col, Container, Row } from "reactstrap";
+import { css, ThemeProvider } from "@emotion/react";
+import _ from "lodash";
+import React, { Component, createRef, ReactElement, RefObject } from "react";
+import { Container } from "reactstrap";
 
+import { FormBox } from "../../components/form_components/form_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
-  GA_EVENT_TOOL_PLACE_ADD,
-  GA_PARAM_PLACE_DCID,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { SearchBar } from "../../shared/place_search_bar";
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
+import { PlaceSelect } from "../shared/place_selector/place_select";
+import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
 import { StatVarWidget } from "../shared/stat_var_widget";
+import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
 import { MemoizedInfo } from "./info";
 import {
@@ -44,6 +53,8 @@ interface PageStateType {
   statVarInfo: Record<string, StatVarInfo>;
   // Whether the SV Hierarchy Modal is opened.
   showSvHierarchyModal: boolean;
+  // Whether the SV Hierarchy sidebar is collapsed.
+  statVarWidgetIsCollapsed: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -57,6 +68,7 @@ class Page extends Component<unknown, PageStateType> {
       placeName: {},
       statVarInfo: {},
       showSvHierarchyModal: false,
+      statVarWidgetIsCollapsed: true,
     };
     // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
     // menu but reattached to the modal when it is opened on small screens.
@@ -67,9 +79,160 @@ class Page extends Component<unknown, PageStateType> {
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
+  setStatVarWidgetIsCollapsed = (isCollapsed: boolean): void => {
+    this.setState({ statVarWidgetIsCollapsed: isCollapsed });
+  };
+
   componentDidMount(): void {
     window.addEventListener("hashchange", this.fetchDataAndRender);
     this.fetchDataAndRender();
+  }
+
+  componentDidUpdate(_prevProps: unknown, prevState: PageStateType): void {
+    if (this.state.placeName !== prevState.placeName) {
+      if (!_.isEmpty(this.state.placeName)) {
+        // Show stat var widget if a place is selected
+        this.setStatVarWidgetIsCollapsed(false);
+      } else {
+        this.setStatVarWidgetIsCollapsed(true);
+      }
+    }
+  }
+
+  render(): ReactElement {
+    const numPlaces = Object.keys(this.state.placeName).length;
+    const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
+    const namedPlaces: NamedPlace[] = [];
+    for (const place in this.state.placeName) {
+      namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
+    }
+    const statVarTokens = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
+    );
+    const statVars = statVarTokens.map((sv) =>
+      sv.includes("|") ? sv.split("|")[0] : sv
+    );
+
+    const deselectSVs = (svList: string[]): void => {
+      const availableSVs = statVars.filter((sv) => svList.indexOf(sv) === -1);
+      const statVarTokenInfo = {
+        name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
+        sep: statVarSep,
+        tokens: new Set(availableSVs),
+      };
+      setTokensToUrl([statVarTokenInfo]);
+    };
+
+    const svToSvInfo = {};
+    for (const sv of statVars) {
+      svToSvInfo[sv] =
+        sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
+    }
+
+    const useStandardizedUi = isFeatureEnabled(
+      STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+    );
+
+    const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
+    const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
+    return (
+      <ThemeProvider theme={theme}>
+        <StatVarWidget
+          openSvHierarchyModal={this.state.showSvHierarchyModal}
+          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
+          collapsible={true}
+          svHierarchyType={StatVarHierarchyType.SCATTER}
+          sampleEntities={namedPlaces}
+          deselectSVs={deselectSVs}
+          selectedSVs={svToSvInfo}
+          selectSV={(sv): void =>
+            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
+          }
+          isCollapsedOverride={this.state.statVarWidgetIsCollapsed}
+          setIsCollapsedOverride={this.setStatVarWidgetIsCollapsed}
+        />
+        <div id="plot-container">
+          <Container fluid={true}>
+            {useStandardizedUi ? (
+              <ToolHeader
+                title={intl.formatMessage(toolMessages.timelineToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.timelineToolSubtitle)}
+              />
+            ) : (
+              <div className="app-header">
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.timelineToolTitle)}
+                </h1>
+                <a href="/tools/visualization#visType%3Dtimeline">
+                  {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
+                </a>
+              </div>
+            )}
+            <div
+              css={css`
+                margin-bottom: ${theme.spacing.lg}px;
+              `}
+            >
+              <FormBox>
+                <PlaceSelect
+                  selectedPlaces={this.state.placeName}
+                  onPlaceSelected={(placeDcid: string): void => {
+                    addToken(
+                      TIMELINE_URL_PARAM_KEYS.PLACE,
+                      placeSep,
+                      placeDcid
+                    );
+                  }}
+                  onPlaceUnselected={(placeDcid: string): void => {
+                    removeToken(
+                      TIMELINE_URL_PARAM_KEYS.PLACE,
+                      placeSep,
+                      placeDcid
+                    );
+                  }}
+                  searchBarInstructionText={intl.formatMessage(
+                    toolMessages.enterPotentiallyMultiplePlacesInstruction
+                  )}
+                />
+                <StatVarHierarchyToggleButton
+                  onClickCallback={this.toggleSvHierarchyModal}
+                  text={"Select variable(s)"}
+                />
+              </FormBox>
+            </div>
+            {!showChart &&
+              (useStandardizedUi ? (
+                <>
+                  <VisToolInstructionsBox
+                    toolType="timeline"
+                    showStatVarInstructionsOnly={showStatVarInstructions}
+                  />
+                  {!showStatVarInstructions && (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="timeline" />
+                    </div>
+                  )}
+                </>
+              ) : (
+                <MemoizedInfo />
+              ))}
+            {showChart && (
+              <div id="chart-region">
+                <ChartRegion
+                  placeName={this.state.placeName}
+                  statVarInfo={this.state.statVarInfo}
+                  statVarOrder={statVars}
+                ></ChartRegion>
+              </div>
+            )}
+          </Container>
+        </div>
+      </ThemeProvider>
+    );
   }
 
   private fetchDataAndRender(): void {
@@ -126,107 +289,6 @@ class Page extends Component<unknown, PageStateType> {
     document
       .getElementById("explore")
       .appendChild(this.svHierarchyContainerRef.current);
-  }
-
-  render(): JSX.Element {
-    const numPlaces = Object.keys(this.state.placeName).length;
-    const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
-    const namedPlaces: NamedPlace[] = [];
-    for (const place in this.state.placeName) {
-      namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
-    }
-    const statVarTokens = Array.from(
-      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
-    );
-    const statVars = statVarTokens.map((sv) =>
-      sv.includes("|") ? sv.split("|")[0] : sv
-    );
-
-    const deselectSVs = (svList: string[]): void => {
-      const availableSVs = statVars.filter((sv) => svList.indexOf(sv) === -1);
-      const statVarTokenInfo = {
-        name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
-        sep: statVarSep,
-        tokens: new Set(availableSVs),
-      };
-      setTokensToUrl([statVarTokenInfo]);
-    };
-
-    const svToSvInfo = {};
-    for (const sv of statVars) {
-      svToSvInfo[sv] =
-        sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
-    }
-    return (
-      <>
-        <StatVarWidget
-          openSvHierarchyModal={this.state.showSvHierarchyModal}
-          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
-          collapsible={true}
-          svHierarchyType={StatVarHierarchyType.SCATTER}
-          sampleEntities={namedPlaces}
-          deselectSVs={deselectSVs}
-          selectedSVs={svToSvInfo}
-          selectSV={(sv): void =>
-            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
-          }
-        />
-        <div id="plot-container">
-          <Container fluid={true}>
-            {numPlaces === 0 && (
-              <div className="app-header">
-                <h1 className="mb-4">Timelines Explorer</h1>
-                <a href="/tools/visualization#visType%3Dtimeline">
-                  Go back to the new Data Commons
-                </a>
-              </div>
-            )}
-            <Card id="place-search">
-              <Row>
-                <Col sm={12}>
-                  <p>Select places:</p>
-                </Col>
-                <Col sm={12}>
-                  <SearchBar
-                    places={this.state.placeName}
-                    addPlace={(place): void => {
-                      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
-                      triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
-                        [GA_PARAM_PLACE_DCID]: place,
-                      });
-                    }}
-                    removePlace={(place): void => {
-                      removeToken(
-                        TIMELINE_URL_PARAM_KEYS.PLACE,
-                        placeSep,
-                        place
-                      );
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row className="d-lg-none">
-                <Col>
-                  <Button color="primary" onClick={this.toggleSvHierarchyModal}>
-                    Select variables
-                  </Button>
-                </Col>
-              </Row>
-            </Card>
-            {numPlaces === 0 && <MemoizedInfo />}
-            {numPlaces !== 0 && numStatVarInfo !== 0 && (
-              <div id="chart-region">
-                <ChartRegion
-                  placeName={this.state.placeName}
-                  statVarInfo={this.state.statVarInfo}
-                  statVarOrder={statVars}
-                ></ChartRegion>
-              </div>
-            )}
-          </Container>
-        </div>
-      </>
-    );
   }
 }
 

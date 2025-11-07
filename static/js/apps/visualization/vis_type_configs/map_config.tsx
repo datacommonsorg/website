@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,41 +19,55 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement, useCallback } from "react";
 
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
-import { FacetSelector } from "../../../shared/facet_selector";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
+import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
+import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
+import { fetchFacetChoicesWithin } from "../../../tools/shared/facet_choice_fetcher";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
-import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
-import { ChartFooter } from "../chart_footer";
+import { ChartHeader } from "../chart_header";
 import { VisType } from "../vis_type_configs";
 
-function getFacetSelector(appContext: AppContextType): JSX.Element {
+interface ChartFacetSelectorProps {
+  appContext: AppContextType;
+}
+
+function ChartFacetSelector({
+  appContext,
+}: ChartFacetSelectorProps): ReactElement {
   const statVar = appContext.statVars[0];
   const svFacetId = { [statVar.dcid]: statVar.facetId };
-  const facetListPromise = getFacetsWithin(
-    "",
-    appContext.places[0].dcid,
+
+  const fetchFacets = useCallback(async () => {
+    return fetchFacetChoicesWithin(
+      appContext.places[0].dcid,
+      appContext.enclosedPlaceType,
+      [
+        {
+          dcid: statVar.dcid,
+          name: statVar.info.title || statVar.dcid,
+        },
+      ]
+    );
+  }, [
     appContext.enclosedPlaceType,
-    [statVar.dcid],
-    statVar.date
-  ).then((resp) => {
-    return [
-      {
-        dcid: statVar.dcid,
-        name: statVar.info.title || statVar.dcid,
-        metadataMap: resp[statVar.dcid],
-      },
-    ];
-  });
+    appContext.places,
+    statVar.dcid,
+    statVar.info.title,
+  ]);
+
+  const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
+
   const onSvFacetIdUpdated = (
     svFacetId: Record<string, string>,
     metadataMap: Record<string, StatMetadata>
@@ -66,14 +80,17 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
     }
     const newStatVars = _.cloneDeep(appContext.statVars);
     const facetId = svFacetId[newStatVars[0].dcid];
-    newStatVars[0].facetId = svFacetId[newStatVars[0].dcid];
+    newStatVars[0].facetId = facetId;
     newStatVars[0].facetInfo = metadataMap[facetId];
     appContext.setStatVars(newStatVars);
   };
+
   return (
     <FacetSelector
       svFacetId={svFacetId}
-      facetListPromise={facetListPromise}
+      facetList={facetList}
+      loading={loading}
+      error={!!error}
       onSvFacetIdUpdated={onSvFacetIdUpdated}
     />
   );
@@ -82,7 +99,7 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
 export function getChartArea(
   appContext: AppContextType,
   chartHeight: number
-): JSX.Element {
+): ReactElement {
   const perCapitaInputs = appContext.statVars[0].info.pcAllowed
     ? [
         {
@@ -103,6 +120,10 @@ export function getChartArea(
   return (
     <>
       <div className="chart">
+        <ChartHeader
+          inputSections={[{ inputs: perCapitaInputs }]}
+          facetSelector={<ChartFacetSelector appContext={appContext} />}
+        />
         <MapTile
           id="vis-tool-map"
           place={appContext.places[0]}
@@ -111,10 +132,7 @@ export function getChartArea(
           svgChartHeight={chartHeight}
           title={statVarLabel + " (${date})"}
           allowZoom={true}
-        />
-        <ChartFooter
-          inputSections={[{ inputs: perCapitaInputs }]}
-          facetSelector={getFacetSelector(appContext)}
+          surface={WEBSITE_SURFACE}
         />
       </div>
       <div className="chart">
@@ -139,13 +157,14 @@ export function getChartArea(
               hover
             );
           }}
+          surface={WEBSITE_SURFACE}
         />
       </div>
     </>
   );
 }
 
-function getInfoContent(): JSX.Element {
+function getInfoContent(): ReactElement {
   const hideExamples = _.isEmpty(window.infoConfig["map"]);
   return (
     <div className="info-content">

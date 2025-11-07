@@ -9,13 +9,36 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/IRN"
+                    ],
+                    "statVarKey": [
+                      "sdg/GB_XPD_CULNAT_PB_multiple_place_bar_block",
+                      "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT_multiple_place_bar_block"
+                    ],
+                    "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public (PPP, Constant 2017 United States Dollars) in Iran (Islamic Republic Of) (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public (PPP, Constant 2017 United States Dollars)"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT_multiple_place_bar_block": {
+            "name": "Total expenditure per capita spent on cultural and natural heritage, public [National Government]",
+            "statVar": "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT"
+          },
+          "sdg/GB_XPD_CULNAT_PB_multiple_place_bar_block": {
+            "name": "Total expenditure per capita spent on cultural and natural heritage, public",
+            "statVar": "sdg/GB_XPD_CULNAT_PB"
+          }
+        }
       }
     ],
     "metadata": {
@@ -44,19 +67,35 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/sdg_11.4.1",
+        "name": "Expenditure on Heritage Preservation by Source",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
+        "dcid": "dc/topic/sdg_11.4",
+        "name": "Protect Cultural and Natural Heritage",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg_11",
+        "name": "Sustainable Cities and Communities",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -164,11 +203,39 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_11.1",
+        "name": "Safe and Affordable Housing by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_11.5",
+        "name": "Reduce Deaths and Losses From Disasters by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_11.6",
+        "name": "Reduce Environmental Impact From Cities by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_11.a",
+        "name": "Positive Links Between Urban and Rural Areas",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
-  "showForm": true,
-  "svSource": "UNFULFILLED",
+  "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "Sorry, there were no relevant statistics about the topic for Iran (Islamic Republic of)."
+    "Low confidence in understanding your query. Displaying the closest results."
   ]
 }

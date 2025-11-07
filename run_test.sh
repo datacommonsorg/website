@@ -27,6 +27,23 @@ function setup_python {
   deactivate
 }
 
+function setup_website_python {
+  python3 -m venv .env_website
+  source .env_website/bin/activate
+  echo "installing server/requirements.txt"
+  pip3 install -r server/requirements.txt -q
+  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  deactivate
+}
+
+function setup_nl_python {
+  python3 -m venv .env_nl
+  source .env_nl/bin/activate
+  echo "installing nl_server/requirements.txt"
+  pip3 install -r nl_server/requirements.txt -q
+  deactivate
+}
+
 # Start website and NL servers in a subprocess and ensure they are stopped
 # if the test script exits before stop_servers is called.
 function start_servers() {
@@ -39,17 +56,31 @@ function start_servers() {
     fi
     exit $exit_with
   }
-# On exit, assign status code to a variable and call cleanup.
+  # On exit, assign status code to a variable and call cleanup.
   trap 'exit_with=$?; cleanup' EXIT
-  ./run_servers.sh --verbose &
+  local mode="$1" # Get the mode argument
+  if [[ -n "$STARTUP_WAIT_SEC" ]]; then
+    startup_wait_sec="$STARTUP_WAIT_SEC"
+  elif [[ "$mode" == "cdc" ]]; then
+    startup_wait_sec=10
+  else
+    startup_wait_sec=3
+  fi
+  if [[ "$mode" == "cdc" ]]; then
+    echo "Starting servers using run_cdc_dev.sh..."
+    ./run_cdc_dev.sh --verbose &
+  else
+    echo "Starting servers using run_servers.sh..."
+    ./run_servers.sh --verbose &
+  fi
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
   # Tests will time out eventually if health checks for website and NL servers
   # don't pass, but this is quicker if the servers fail to start up immediately.
-  sleep 3
+  sleep "$startup_wait_sec"
   if ! ps -p $SERVERS_PID > /dev/null; then
-    echo "Server script not running after 3 seconds."
+    echo "Server script not running after $startup_wait_sec seconds."
     exit 1
   fi
 }
@@ -61,6 +92,35 @@ function stop_servers() {
     kill $SERVERS_PID
   fi
   trap - EXIT
+}
+
+# Ensures that the CDC test environment file exists, fetching it from GCP Secret Manager if not.
+function ensure_cdc_test_env_file {
+  local cdc_env_file_path="$RUN_CDC_DEV_ENV_FILE"
+  local secret_name="cdc-test-env-file"
+  local project_id="${GOOGLE_CLOUD_PROJECT:-datcom-website-dev}"
+
+  if [[ -z "$cdc_env_file_path" ]]; then
+    echo "Error: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file."
+    exit 1
+  fi
+
+  if [ ! -f "$cdc_env_file_path" ]; then
+    echo "File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager..."
+    echo "Secret: $secret_name, Project: $project_id"
+
+    # Ensure the target directory exists
+    mkdir -p "$(dirname "$cdc_env_file_path")"
+
+    # Fetch the secret
+    if gcloud secrets versions access latest --secret="$secret_name" --project="$project_id" > "$cdc_env_file_path"; then
+      echo "Successfully fetched $cdc_env_file_path from GCP Secret Manager."
+    else
+      echo "Error: Failed to fetch $secret_name from GCP Secret Manager for project $project_id."
+      rm -f "$cdc_env_file_path" # Clean up potentially empty/partial file
+      exit 1
+    fi
+  fi
 }
 
 # Run test for client side code.
@@ -86,24 +146,65 @@ function run_npm_lint_test {
   cd ..
 }
 
-# Fixes lint
+# Runs linting tools to automatically fix style issues in the
+# codebase. It can target client-side code (npm), Python code (py), or both.
+# Accepts one arg via ${extra_args[@]}".
 function run_lint_fix {
-  echo -e "#### Fixing client-side code"
-  cd static
-  npm list eslint || npm install eslint
-  npm run lint
-  cd ..
 
-  echo -e "#### Fixing Python code"
-  source .env/bin/activate
-  pip3 install yapf==0.40.2 -q
-  if ! command -v isort &> /dev/null
-  then
-    pip3 install isort -q
+  # Helper function to fix client-side (npm) code.
+  run_npm_fix() {
+    echo -e "#### Fixing client-side code"
+    # Run commands in a subshell to avoid changing the current directory.
+    (
+      cd "$(dirname "$0")"
+      cd static
+      # Install eslint if it's not already installed.
+      npm list eslint || npm install eslint
+
+      npm run lint
+    )
+  }
+
+  # Helper function to fix Python code.
+  run_py_fix() {
+    echo -e "#### Fixing Python code"
+    (
+      # Run commands in a subshell to avoid changing the current directory.
+      cd "$(dirname "$0")"
+      source .env/bin/activate
+      pip3 install yapf==0.40.2 isort -q
+      yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
+      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.env/** --profile=google
+      deactivate
+    )
+  }
+
+  # Validate that at most one argument is provided.
+  if [[ $# -gt 1 ]]; then
+    echo "Error: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'" >&2
+    return 1
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
-  isort server/ nl_server/ shared/ tools/  --skip-glob=*pb2.py  --skip-glob=**/.env/** --profile=google
-  deactivate
+
+  # Set the target for lint fixing. Default to 'all' if no argument is given.
+  local fix_target=${1:-all}
+
+  # Execute the correct linting function based on the target.
+  case "$fix_target" in
+    npm)
+      run_npm_fix
+      ;;
+    py)
+      run_py_fix
+      ;;
+    all) # Default case: if no argument or 'all' is provided.
+      run_npm_fix
+      run_py_fix
+      ;;
+    *)
+      echo "Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'." >&2
+      return 1
+      ;;
+  esac
 }
 
 # Build client side code
@@ -190,21 +291,36 @@ function run_webdriver_test {
   deactivate
 }
 
-# Run test for screenshot test codes.
-function run_screenshot_test {
-  source .env/bin/activate
-  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
+# Run test for webdriver automation test codes.
+function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
-  export FLASK_ENV=webdriver
+  export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
+  ensure_cdc_test_env_file
+  export CDC_TEST_BASE_URL="http://localhost:8080"
+  if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
+    export FLAKE_FINDER=true
+  fi
+  start_servers "cdc"
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  export DC_API_KEY=
-  export LLM_API_KEY=
-  python3 -m pytest -n auto --reruns 2 server/webdriver/screenshot/ ${@}
+  source .env/bin/activate
+  local rerun_options=""
+  if [[ "$FLAKE_FINDER" == "true" ]]; then
+    rerun_options=""
+  else
+    # TODO: Stop using reruns once tests are deflaked.
+    rerun_options="--reruns 2"
+  fi
+
+  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+
+  stop_servers
   deactivate
 }
 
@@ -266,9 +382,14 @@ function help {
   echo "Usage: $0 -pwblcsaf"
   echo "-p              Run server python tests"
   echo "-w              Run webdriver tests"
+  echo "--cdc           Run Custom DC webdriver tests"
+  echo "                Respects the STARTUP_WAIT_SEC environment variable for startup wait time (default 10)."
   echo "--explore       Run explore integration tests"
   echo "--nl            Run nl integration tests"
   echo "--setup_python  Setup python environment"
+  echo "--setup_website Setup website python requirements"
+  echo "--setup_nl      Setup NL python requirements"
+  echo "--setup_all     Setup all python venvs"
   echo "-g              Update integration test golden files"
   echo "-o              Build for production (ignores dev dependencies)"
   echo "-b              Run client install and build"
@@ -284,7 +405,7 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
+    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a)
         if [[ -n "$command" ]]; then
             # If a command has already been set, break the loop to process it with the collected extra_args
             break
@@ -316,6 +437,10 @@ case "$command" in
       echo -e "### Running webdriver tests"
       run_webdriver_test "${extra_args[@]}"
       ;;
+  --cdc)
+      echo -e "### Running Custom DC webdriver tests"
+      run_cdc_webdriver_test "${extra_args[@]}"
+      ;;
   --explore)
       echo --explore "### Running explore page integration tests"
       run_integration_test explore_test.py "${extra_args[@]}"
@@ -327,6 +452,20 @@ case "$command" in
   --setup_python)
       echo --setup_python "### Set up python environment"
       setup_python
+      ;;
+  --setup_website)
+      echo --setup_website "### Set up website python requirements"
+      setup_website_python
+      ;;
+  --setup_nl)
+      echo --setup_nl "### Set up NL python requirements"
+      setup_nl_python
+      ;;
+  --setup_all)
+      echo --setup_all "### Set up all Python venvs"
+      setup_python
+      setup_website_python
+      setup_nl_python
       ;;
   -g)
       echo -e "### Updating integration test goldens"
@@ -348,13 +487,9 @@ case "$command" in
       echo -e "### Running client tests"
       run_npm_test "${extra_args[@]}"
       ;;
-  -s)
-      echo -e "### Running screenshot tests"
-      run_screenshot_test "${extra_args[@]}"
-      ;;
   -f)
       echo -e "### Fix lint errors"
-      run_lint_fix
+      run_lint_fix "${extra_args[@]}"
       ;;
   -a)
       echo -e "### Running all tests"

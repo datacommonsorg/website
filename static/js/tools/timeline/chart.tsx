@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
-import React, { Component } from "react";
+import React, { Component, ReactElement } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { Chip } from "../../shared/chip";
-import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import { WEBSITE_SURFACE } from "../../shared/constants";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
@@ -33,7 +35,9 @@ import {
 } from "../../shared/ga_events";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
-import { ToolChartFooter } from "../shared/tool_chart_footer";
+import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
+import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
+import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
 import {
   convertToDelta,
@@ -70,6 +74,9 @@ interface ChartStateType {
   rawData: TimelineRawData;
   statData: StatData;
   ipccModels: StatData;
+  facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
 }
 
 class Chart extends Component<ChartPropsType, ChartStateType> {
@@ -80,6 +87,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
   minYear: string; // In the format of YYYY
   maxYear: string; // In the format of YYYY
   resizeObserver: ResizeObserver;
+  dataCommonsClient: DataCommonsClient;
 
   constructor(props: ChartPropsType) {
     super(props);
@@ -89,14 +97,25 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.loadRawData = this.loadRawData.bind(this);
     this.processData = this.processData.bind(this);
+    this.enrichFacets = this.enrichFacets.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
     this.maxYear = urlParams.get("maxYear");
-    this.state = { rawData: null, statData: null, ipccModels: null };
+    this.state = {
+      rawData: null,
+      statData: null,
+      ipccModels: null,
+      facetList: null,
+      facetListLoading: false,
+      facetListError: false,
+    };
+    this.dataCommonsClient = new DataCommonsClient({
+      surface: WEBSITE_SURFACE,
+    });
   }
 
-  render(): JSX.Element {
+  render(): ReactElement {
     const statVars = Object.keys(this.props.statVarInfos);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
@@ -109,7 +128,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNameMap)[0];
     const deltaCheckboxId = `delta-cb-${this.props.chartId}`;
-    const facetList = this.getFacetList(statVars);
     const svFacetId = {};
     for (const sv of statVars) {
       svFacetId[sv] =
@@ -117,6 +135,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     }
     return (
       <div className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
+        <ToolChartHeader
+          svFacetId={svFacetId}
+          facetList={this.state.facetList}
+          facetListLoading={this.state.facetListLoading}
+          facetListError={this.state.facetListError}
+          onSvFacetIdUpdated={(svFacetId): void => setMetahash(svFacetId)}
+        />
         <div className="card">
           <div className="statVarChipRegion">
             {statVars.map((statVar) => {
@@ -150,9 +175,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          svFacetId={svFacetId}
-          facetList={facetList}
-          onSvFacetIdUpdated={(svFacetId): void => setMetahash(svFacetId)}
           hideIsRatio={false}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
@@ -191,7 +213,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
   }
 
   componentDidMount(): void {
-    this.loadRawData();
+    void this.loadRawData();
     this.resizeObserver = new ResizeObserver(this.handleWindowResize);
     this.resizeObserver.observe(this.svgContainer.current);
     // Triggered when the component is mounted and send data to google analytics.
@@ -233,7 +255,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       !_.isEqual(prevProps.statVarInfos, this.props.statVarInfos) ||
       !_.isEqual(prevProps.denom, this.props.denom);
     if (shouldLoadData) {
-      this.loadRawData();
+      void this.loadRawData();
       return;
     }
     // If stat data or ipccModels data changes, need to redraw the chart
@@ -254,7 +276,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.drawChart();
   }
 
-  private getFacetList(statVars: string[]): FacetSelectorFacetInfo[] {
+  private getFacetList(
+    statVars: string[],
+    enrichedMetadataMap: Record<string, Record<string, StatMetadata>>
+  ): FacetSelectorFacetInfo[] {
     return statVars.map((sv) => {
       const displayNames = isIpccStatVarWithMultipleModels(sv)
         ? { "": "Mean across models" }
@@ -262,26 +287,54 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       return {
         dcid: sv,
         name: this.props.statVarInfos[sv].title || sv,
-        metadataMap:
-          this.state.rawData && this.state.rawData.metadataMap[sv]
-            ? this.state.rawData.metadataMap[sv]
-            : {},
+        metadataMap: enrichedMetadataMap[sv] || {},
         displayNames,
       };
     });
   }
 
-  private loadRawData(): void {
+  private async loadRawData(): Promise<void> {
+    this.setState({
+      facetList: null,
+      facetListError: false,
+      facetListLoading: true,
+      rawData: null,
+    });
+
     const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
-    fetchRawData(places, statVars, this.props.denom)
-      .then((rawData) => {
-        this.props.onMetadataMapUpdate(rawData.metadataMap);
-        this.setState({ rawData });
-      })
-      .catch(() => {
-        this.setState({ rawData: null });
+
+    try {
+      const rawData = await fetchRawData(places, statVars, this.props.denom);
+      this.props.onMetadataMapUpdate(rawData.metadataMap);
+
+      this.setState({ rawData }, () => {
+        void this.enrichFacets(statVars, rawData.metadataMap);
       });
+    } catch {
+      this.setState({
+        rawData: null,
+        facetListError: true,
+        facetListLoading: false,
+      });
+    }
+  }
+
+  private async enrichFacets(
+    statVars: string[],
+    metadataMap: Record<string, Record<string, StatMetadata>>
+  ): Promise<void> {
+    try {
+      const enriched = await fetchFacetsWithMetadata(
+        metadataMap,
+        this.dataCommonsClient
+      );
+      const facetList = this.getFacetList(statVars, enriched);
+      this.setState({ facetList, facetListLoading: false });
+    } catch {
+      console.error("Error loading facets for selection.");
+      this.setState({ facetListLoading: false, facetListError: true });
+    }
   }
 
   private processData(): void {

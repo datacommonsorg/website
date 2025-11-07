@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 from pathlib import Path
 
+from flask import has_request_context
+from flask import request
 from flask_caching import Cache
 
 import server.lib.config as lib_config
@@ -65,3 +68,23 @@ if cfg.USE_MEMCACHE or REDIS_HOST:
 else:
   # For some instance with fast updated data, we may not want to use memcache.
   cache = Cache(config={'CACHE_TYPE': 'NullCache'})
+
+
+def should_skip_cache():
+  """Check if cache should be skipped based on request header.
+  
+  Returns:
+    True if X-Skip-Cache header is set to 'true', False otherwise.
+    Always returns False on any error to ensure caching remains functional.
+  """
+  if not has_request_context():
+    # Cannot skip cache if there is no request context (e.g., in a thread).
+    return False
+  try:
+    skip_cache_header = request.headers.get('X-Skip-Cache')
+    return skip_cache_header is not None and str(
+        skip_cache_header).lower() == 'true'
+  except Exception:
+    logging.warning("Error checking X-Skip-Cache header.", exc_info=True)
+    # Any error should default to False to preserve normal caching behavior
+    return False

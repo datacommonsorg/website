@@ -19,28 +19,34 @@
  */
 
 import _ from "lodash";
-import React, { MutableRefObject, useRef } from "react";
+import React, { MutableRefObject, ReactElement, useRef } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
-import { StatVarSpec } from "../../shared/types";
+import { ObservationSpec } from "../../shared/observation_specs";
+import { StatMetadata } from "../../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
+import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
   formatString,
   getChartTitle,
   getMergedSvg,
   ReplacementStrings,
-  TileSources,
 } from "../../utils/tile_utils";
-import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
   title: string;
+  // A set of string sources (URLs)
   sources: Set<string> | string[];
+  // A full set of the facets used within the chart
+  facets?: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facets
+  statVarToFacets?: StatVarFacetMap;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -48,7 +54,10 @@ interface ChartTileContainerProp {
   // callback function for getting the chart data as a csv. Only used for
   // embedding.
   getDataCsv?: () => Promise<string>;
-  // Extra classes to add to the container.
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
   className?: string;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
@@ -68,9 +77,13 @@ interface ChartTileContainerProp {
   forwardRef?: MutableRefObject<HTMLDivElement | null>;
   // Optional: Chart height
   chartHeight?: number;
+  // Passed into calls to mixer to use in usage logs
+  surface: string;
 }
 
-export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
+export function ChartTileContainer(
+  props: ChartTileContainerProp
+): ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   // on initial loading, hide the title text
@@ -107,7 +120,10 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
               apiRoot={props.apiRoot}
               containerRef={containerRef}
               sources={props.sources}
+              facets={props.facets}
+              statVarToFacets={props.statVarToFacets}
               statVarSpecs={props.statVarSpecs}
+              surface={props.surface}
             />
           )}
         </div>
@@ -117,14 +133,24 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         {props.children}
       </div>
       <ChartFooter
+        apiRoot={props.apiRoot}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
         footnote={props.footnote}
-      >
-        <NlChartFeedback id={props.id} />
-      </ChartFooter>
+        getObservationSpecs={props.getObservationSpecs}
+        containerRef={containerRef}
+        surface={props.surface}
+      />
+
       {showEmbed && (
-        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+        <ChartEmbed
+          container={containerRef.current}
+          ref={embedModalElement}
+          statVarSpecs={props.statVarSpecs}
+          facets={props.facets}
+          statVarToFacets={props.statVarToFacets}
+          apiRoot={props.apiRoot}
+        />
       )}
     </div>
   );
@@ -143,7 +169,8 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       "",
       chartTitle,
       "",
-      Array.from(props.sources)
+      Array.from(props.sources),
+      props.surface
     );
   }
 }

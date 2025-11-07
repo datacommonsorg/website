@@ -18,6 +18,7 @@
  * Main component for event pages.
  */
 
+import { ThemeProvider } from "@emotion/react";
 import _ from "lodash";
 import React from "react";
 import { RawIntlProvider } from "react-intl";
@@ -29,6 +30,7 @@ import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { intl } from "../../i18n/i18n";
 import { PropertyValues } from "../../shared/api_response_types";
 import { NamedTypedPlace } from "../../shared/types";
+import theme from "../../theme/theme";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import {
   findProperty,
@@ -121,72 +123,74 @@ export function App(props: AppPropsType): JSX.Element {
   ));
 
   return (
-    <RawIntlProvider value={intl}>
-      <Container>
-        <div className="head-section">
-          <h1>{props.name}</h1>
-          <h3>
-            <span>{_.startCase(typeOf[0].name || typeOf[0].dcid)}</span>
-            {placeBreadcrumbsJsx && <> in {placeBreadcrumbsJsx}</>}
-          </h3>
-          <h4 className="clearfix">
-            <span>Data source: {provenanceJsx}</span>
-            <a className="float-right" href={`/browser/${props.dcid}`}>
-              Knowledge Graph ›
-            </a>
-          </h4>
-        </div>
-        {(geoJson || latLong) && (
-          <GoogleMap
-            dcid={props.dcid}
-            geoJsonGeometry={geoJson}
-            latLong={latLong}
-          />
-        )}
-        <section className="table-page-section">
-          <div className="card p-0">
-            <table className="node-table">
-              <tbody>
-                <tr key="header">
-                  <th className="property-column">Property</th>
-                  <th>Value</th>
-                </tr>
-                <ArcTableRow
-                  key="date"
-                  propertyLabel="Date"
-                  values={[{ text: dateDisplay }]}
-                  noPropLink={true}
-                />
-                {tableProperties.map((property, index) => {
-                  return (
-                    <ArcTableRow
-                      key={property + index}
-                      propertyLabel={_.startCase(property)}
-                      values={[
-                        {
-                          text: formatPropertyNodeValue(
-                            props.properties[property]
-                          ),
-                        },
-                      ]}
-                      noPropLink={true}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
+    <ThemeProvider theme={theme}>
+      <RawIntlProvider value={intl}>
+        <Container>
+          <div className="head-section">
+            <h1>{props.name}</h1>
+            <h3>
+              <span>{_.startCase(typeOf[0].name || typeOf[0].dcid)}</span>
+              {placeBreadcrumbsJsx && <> in {placeBreadcrumbsJsx}</>}
+            </h3>
+            <h4 className="clearfix">
+              <span>Data source: {provenanceJsx}</span>
+              <a className="float-right" href={`/browser/${props.dcid}`}>
+                Knowledge Graph ›
+              </a>
+            </h4>
           </div>
-        </section>
-      </Container>
-      <Container>
-        <SubjectPageMainPane
-          id={PAGE_ID}
-          place={props.place}
-          pageConfig={props.subjectConfig}
-          parentPlaces={props.parentPlaces}
-        />
-      </Container>
-    </RawIntlProvider>
+          {(geoJson || latLong) && (
+            <GoogleMap
+              dcid={props.dcid}
+              geoJsonGeometry={geoJson}
+              latLong={latLong}
+            />
+          )}
+          <section className="table-page-section">
+            <div className="card p-0">
+              <table className="node-table">
+                <tbody>
+                  <tr key="header">
+                    <th className="property-column">Property</th>
+                    <th>Value</th>
+                  </tr>
+                  <ArcTableRow
+                    key="date"
+                    propertyLabel="Date"
+                    values={[{ text: dateDisplay }]}
+                    noPropLink={true}
+                  />
+                  {tableProperties.map((property, index) => {
+                    return (
+                      <ArcTableRow
+                        key={property + index}
+                        propertyLabel={_.startCase(property)}
+                        values={[
+                          {
+                            text: formatPropertyNodeValue(
+                              props.properties[property]
+                            ),
+                          },
+                        ]}
+                        noPropLink={true}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </Container>
+        <Container>
+          <SubjectPageMainPane
+            id={PAGE_ID}
+            place={props.place}
+            pageConfig={props.subjectConfig}
+            parentPlaces={props.parentPlaces}
+          />
+        </Container>
+      </RawIntlProvider>
+    </ThemeProvider>
   );
 }
 

@@ -28,6 +28,7 @@ export interface Item {
 interface ItemListPropType {
   items: Item[];
   showRelevantTopicLabel?: boolean;
+  onItemClicked?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
 export function ItemList(props: ItemListPropType): ReactElement {
@@ -40,7 +41,11 @@ export function ItemList(props: ItemListPropType): ReactElement {
         {props.items.map((item, idx) => {
           return (
             <div key={idx} className="item-list-item">
-              <a className="item-list-text" href={item.url}>
+              <a
+                className="item-list-text"
+                href={item.url}
+                onClick={props.onItemClicked}
+              >
                 {item.text}
               </a>
             </div>

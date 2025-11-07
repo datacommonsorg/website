@@ -376,6 +376,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q120971341",
+          "name": "Chandigarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q1353",
           "name": "Delhi",
           "types": [
@@ -441,6 +448,13 @@
         {
           "dcid": "wikidataId/Q1599",
           "name": "Nagaland",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q200130",
+          "name": "Azad Kashmir",
           "types": [
             "AdministrativeArea1"
           ]
@@ -542,6 +556,13 @@
           "types": [
             "AdministrativeArea1"
           ]
+        },
+        {
+          "dcid": "wikidataId/Q9357528",
+          "name": "National Capital Territory of Delhi",
+          "types": [
+            "AdministrativeArea1"
+          ]
         }
       ]
     },
@@ -549,6 +570,13 @@
       {
         "dcid": "dc/topic/PovertyByResidency",
         "name": "Poverty by Residency",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
         "types": [
           "Topic"
         ]
@@ -700,6 +728,13 @@
     ],
     "peerTopics": [
       {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
         "types": [
@@ -709,13 +744,6 @@
       {
         "dcid": "dc/topic/Income",
         "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
         "types": [
           "Topic"
         ]

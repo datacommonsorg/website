@@ -9,6 +9,24 @@
       "value": "placeName"
     }
   ],
+  "category_in_place": [
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
   "chart-title-with-per-capita-and-date": [
     {
       "type": 1,
@@ -233,6 +251,20 @@
       "value": "Закрыть"
     }
   ],
+  "dateRange": [
+    {
+      "type": 1,
+      "value": "minDate"
+    },
+    {
+      "type": 0,
+      "value": "–"
+    },
+    {
+      "type": 1,
+      "value": "maxDate"
+    }
+  ],
   "disasterTool": [
     {
       "type": 0,
@@ -277,6 +309,12 @@
       "value": "Экспортировать диаграмму"
     }
   ],
+  "enterQuery": [
+    {
+      "type": 0,
+      "value": "Введите вопрос, который нужно изучить"
+    }
+  ],
   "exploreLink": [
     {
       "type": 0,
@@ -285,6 +323,20 @@
     {
       "type": 1,
       "value": "toolName"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "explore_data_on": [
+    {
+      "type": 0,
+      "value": "Изучить данные по вопросу… \""
+    },
+    {
+      "type": 1,
+      "value": "sampleQuestion"
     },
     {
       "type": 0,
@@ -339,6 +391,28 @@
       "value": "Другие диаграммы"
     }
   ],
+  "no_charts": [
+    {
+      "type": 0,
+      "value": "Данные в категории \""
+    },
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": "\" ("
+    },
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": ") не найдены."
+    }
+  ],
   "place_breadcrumb": [
     {
       "type": 1,
@@ -351,6 +425,20 @@
     {
       "type": 1,
       "value": "placeType"
+    }
+  ],
+  "place_not_found": [
+    {
+      "type": 0,
+      "value": "Местоположение \""
+    },
+    {
+      "type": 1,
+      "value": "placeDcid"
+    },
+    {
+      "type": 0,
+      "value": "\" не найдено."
     }
   ],
   "place_page_ranking_table-ranking_in": [
@@ -371,6 +459,24 @@
     {
       "type": 1,
       "value": "total"
+    }
+  ],
+  "place_type_in_places": [
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "type": 1,
+      "value": "parentPlaces"
+    },
+    {
+      "type": 0,
+      "value": ")"
     }
   ],
   "plural_administrative_area": [
@@ -399,6 +505,12 @@
     {
       "type": 0,
       "value": "Города"
+    }
+  ],
+  "plural_continent": [
+    {
+      "type": 0,
+      "value": "Континенты"
     }
   ],
   "plural_country": [
@@ -737,6 +849,12 @@
       "value": "Поиск другого места"
     }
   ],
+  "seePerCapita": [
+    {
+      "type": 0,
+      "value": "На душу населения"
+    }
+  ],
   "selectVariable": [
     {
       "type": 0,
@@ -775,6 +893,12 @@
     {
       "type": 0,
       "value": "Город"
+    }
+  ],
+  "singular_continent": [
+    {
+      "type": 0,
+      "value": "Континент"
     }
   ],
   "singular_country": [
@@ -869,6 +993,12 @@
     {
       "type": 0,
       "value": "Общие сведения"
+    }
+  ],
+  "summary_overview_tooltip": [
+    {
+      "type": 0,
+      "value": "Мы используем ИИ, чтобы создать сводку на основе полученных данных (ссылка есть на каждой диаграмме). Мы стараемся давать точные сведения, но тем не менее проверяйте сводку и обращайтесь к исходным данным."
     }
   ],
   "the_world": [

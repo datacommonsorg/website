@@ -15,14 +15,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -50,14 +50,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -95,14 +95,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -129,14 +129,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -162,14 +162,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -203,15 +203,12 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
-                      "country/KEN",
+                      "country/ETH",
                       "country/GHA",
-                      "country/UGA",
-                      "country/SEN",
-                      "country/MLI",
-                      "country/GIN",
-                      "country/RWA"
+                      "country/BEN",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "sdg/EN_ATM_GHGT_NAIP_multiple_place_bar_block"
@@ -223,7 +220,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: UNFCCC.",
-            "infoMessage": "Data for \"Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Kenya, Senegal, Mali and Guinea\" is currently unavailable. See the following statistics on the other places.",
             "title": "Total Greenhouse Gas Emissions Without LULUCF for non-Annex I Parties"
           },
           {
@@ -237,14 +234,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -273,7 +270,6 @@
                     "comparisonPlaces": [
                       "country/ETH",
                       "country/KEN",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
@@ -290,7 +286,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Morocco and Ghana\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Morocco, Ghana and Benin\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas"
           },
           {
@@ -304,14 +300,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -338,14 +334,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -372,14 +368,14 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -419,7 +415,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Morocco, Ghana, Uganda, Senegal, Mali, Guinea, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Morocco, Ghana, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Petrochemical Production, Greenhouse Gas"
           }
         ],
@@ -549,7 +545,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/ETH"
+        "country/MAR"
       ]
     }
   },
@@ -558,21 +554,21 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/ETH",
-    "name": "Ethiopia",
+    "dcid": "country/MAR",
+    "name": "Morocco",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
+      "dcid": "country/MAR",
+      "name": "Morocco",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MAR",
-      "name": "Morocco",
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
       "place_type": "Country"
     },
     {
@@ -583,11 +579,6 @@
     {
       "dcid": "country/GHA",
       "name": "Ghana",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/UGA",
-      "name": "Uganda",
       "place_type": "Country"
     },
     {
@@ -603,6 +594,11 @@
     {
       "dcid": "country/GIN",
       "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BEN",
+      "name": "Benin",
       "place_type": "Country"
     },
     {
@@ -652,7 +648,9 @@
       "Annual_Emissions_GreenhouseGas": {
         "emissionSource": [
           "Annual_Emissions_GreenhouseGas_Agriculture",
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
           "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
+          "Annual_Emissions_GreenhouseGas_CopperMining",
           "Annual_Emissions_GreenhouseGas_CroplandFire",
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
           "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
@@ -661,10 +659,11 @@
           "Annual_Emissions_GreenhouseGas_ForestFire",
           "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForAviation",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRailways",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles",
           "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+          "Annual_Emissions_GreenhouseGas_IronMining",
           "Annual_Emissions_GreenhouseGas_ManagedSoils",
           "Annual_Emissions_GreenhouseGas_Manufacturing",
           "Annual_Emissions_GreenhouseGas_ManureManagement",
@@ -673,7 +672,7 @@
           "Annual_Emissions_GreenhouseGas_MineralExtraction",
           "Annual_Emissions_GreenhouseGas_OilAndGas",
           "Annual_Emissions_GreenhouseGas_OpenBurningWaste",
-          "Annual_Emissions_GreenhouseGas_PetrochemicalProduction",
+          "Annual_Emissions_GreenhouseGas_PetroleumRefining",
           "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
           "Annual_Emissions_GreenhouseGas_RiceCultivation",
           "Annual_Emissions_GreenhouseGas_RockQuarry",

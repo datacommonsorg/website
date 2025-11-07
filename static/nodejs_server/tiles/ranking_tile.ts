@@ -22,10 +22,7 @@ import _ from "lodash";
 import ReactDOMServer from "react-dom/server";
 
 import { getPointsList } from "../../js/components/ranking_unit";
-import {
-  fetchData,
-  RankingTilePropType,
-} from "../../js/components/tiles/ranking_tile";
+import { fetchData } from "../../js/components/tiles/ranking_tile";
 import {
   getRankingUnit,
   getRankingUnitPoints,
@@ -37,34 +34,9 @@ import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../../js/utils/chart_csv_utils";
 import { getPlaceNames } from "../../js/utils/place_utils";
 import { htmlToSvg } from "../../js/utils/svg_utils";
-import {
-  CHART_ID,
-  FONT_FAMILY,
-  FONT_SIZE,
-  SVG_HEIGHT,
-  SVG_WIDTH,
-} from "../constants";
+import { FONT_FAMILY, FONT_SIZE, SVG_HEIGHT, SVG_WIDTH } from "../constants";
 import { TileResult } from "../types";
 import { getProcessedSvg, getSources } from "./utils";
-
-function getTileProp(
-  id: string,
-  tileConfig: TileConfig,
-  place: string,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  apiRoot: string
-): RankingTilePropType {
-  return {
-    id,
-    title: tileConfig.title,
-    parentPlace: place,
-    enclosedPlaceType,
-    variables: statVarSpec,
-    rankingMetadata: tileConfig.rankingTileSpec,
-    apiRoot,
-  };
-}
 
 function getRankingChartSvg(
   rankingGroup: RankingGroup,
@@ -73,7 +45,8 @@ function getRankingChartSvg(
   tileConfig: TileConfig,
   apiRoot: string,
   statVarSpecs: StatVarSpec[],
-  containerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement>,
+  surface: string
 ): SVGSVGElement {
   const rankingHtml = ReactDOMServer.renderToString(
     getRankingUnit(
@@ -85,7 +58,8 @@ function getRankingChartSvg(
       tileConfig.rankingTileSpec.showHighest,
       apiRoot,
       statVarSpecs,
-      containerRef
+      containerRef,
+      surface
     )
   );
   const style = {
@@ -187,6 +161,7 @@ function getRankingUnitResult(
  * @param enclosedPlaceType enclosed place type to use in the tile
  * @param statVarSpec list of stat var specs to show in the tile
  * @param apiRoot API root to use to fetch data
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getRankingTileResult(
   id: string,
@@ -194,18 +169,18 @@ export async function getRankingTileResult(
   place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  surface?: string
 ): Promise<TileResult[]> {
-  const tileProp = getTileProp(
-    id,
-    tileConfig,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot
-  );
   try {
-    const rankingData = await fetchData(tileProp);
+    const rankingData = await fetchData(
+      statVarSpec,
+      tileConfig.rankingTileSpec,
+      enclosedPlaceType,
+      place,
+      apiRoot,
+      surface
+    );
     const placeDcids = new Set<string>();
     Object.values(rankingData).forEach((rankingGroup) => {
       rankingGroup.points.forEach((point) => {
@@ -271,6 +246,7 @@ export async function getRankingTileResult(
  * @param enclosedPlaceType the enclosed place type to get the chart for
  * @param statVarSpec list of stat var specs to show in the chart
  * @param apiRoot API root to use to fetch data
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getRankingChart(
   tileConfig: TileConfig,
@@ -278,18 +254,18 @@ export async function getRankingChart(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  containerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement>,
+  surface: string
 ): Promise<SVGSVGElement> {
-  const tileProp = getTileProp(
-    CHART_ID,
-    tileConfig,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot
-  );
   try {
-    const rankingData = await fetchData(tileProp);
+    const rankingData = await fetchData(
+      statVarSpec,
+      tileConfig.rankingTileSpec,
+      enclosedPlaceType,
+      place,
+      apiRoot,
+      surface
+    );
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
       return getRankingChartSvg(
@@ -299,7 +275,8 @@ export async function getRankingChart(
         tileConfig,
         apiRoot,
         statVarSpec,
-        containerRef
+        containerRef,
+        surface
       );
     }
   } catch (e) {

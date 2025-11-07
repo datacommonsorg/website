@@ -2,6 +2,9 @@
   "alert-no_data_for_place": {
     "defaultMessage": "Spiacenti, nessun dato disponibile in merito a: {placeName}"
   },
+  "category_in_place": {
+    "defaultMessage": "{category} in {placeName}"
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName} (pro capite in data {date})"
   },
@@ -56,6 +59,9 @@
   "close": {
     "defaultMessage": "Chiudi"
   },
+  "dateRange": {
+    "defaultMessage": "Da {minDate} a {maxDate}"
+  },
   "disasterTool": {
     "defaultMessage": "Strumento calamità"
   },
@@ -74,8 +80,14 @@
   "embed_export_chart_link": {
     "defaultMessage": "Esporta questo grafico"
   },
+  "enterQuery": {
+    "defaultMessage": "Inserisci una domanda da approfondire"
+  },
   "exploreLink": {
     "defaultMessage": "Esplora in {toolName}"
+  },
+  "explore_data_on": {
+    "defaultMessage": "Esplora i dati su… \"{sampleQuestion}\""
   },
   "header-overview": {
     "defaultMessage": "Panoramica"
@@ -101,14 +113,23 @@
   "more_charts_link": {
     "defaultMessage": "Altri grafici"
   },
+  "no_charts": {
+    "defaultMessage": "Nessun dato di {category} trovato per {place}."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}"
+  },
+  "place_not_found": {
+    "defaultMessage": "Luogo \"{placeDcid}\" non trovato."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Posizioni (in)"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} di {total}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{placeType} in {parentPlaces}"
   },
   "plural_administrative_area": {
     "defaultMessage": "Aree amministrative"
@@ -121,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "Città"
+  },
+  "plural_continent": {
+    "defaultMessage": "Continenti"
   },
   "plural_country": {
     "defaultMessage": "Paesi"
@@ -212,6 +236,9 @@
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Cerca un altro luogo"
   },
+  "seePerCapita": {
+    "defaultMessage": "Visualizza pro capite"
+  },
   "selectVariable": {
     "defaultMessage": "Seleziona una variabile dall'elenco per visualizzarne i dettagli. I link di seguito aprono Esploratore delle variabili statistiche in una nuova scheda."
   },
@@ -229,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "Città"
+  },
+  "singular_continent": {
+    "defaultMessage": "Continente"
   },
   "singular_country": {
     "defaultMessage": "Paese"
@@ -274,6 +304,9 @@
   },
   "summary_overview": {
     "defaultMessage": "Panoramica di riepilogo"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "Utilizziamo l'AI per riassumere le informazioni provenienti dai dati che reperiamo (collegati a ciascun grafico). Sebbene ci impegniamo a garantire l'accuratezza, ti invitiamo a rivedere il riepilogo e a consultare i dati di origine."
   },
   "the_world": {
     "defaultMessage": "nel mondo"

@@ -259,10 +259,6 @@ msgstr ""
 msgid "Life Expectancy"
 msgstr ""
 
-#. A message shown on the page while the content is loading.
-msgid "Loading"
-msgstr ""
-
 #. The name of a tool to explore maps of statistical variables for places.
 msgid "Map Explorer"
 msgstr ""
@@ -364,9 +360,6 @@ msgstr ""
 
 #. The name of a tool that provides observation and import information about statistical variables.
 msgid "Statistical Variable Explorer"
-msgstr ""
-
-msgid "Statistics"
 msgstr ""
 
 #. The name of a tool that allows users to explore sustainability data.

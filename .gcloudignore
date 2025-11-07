@@ -28,5 +28,5 @@ static/node_modules/
 server/dist/
 
 **/.env/
-
-screenshots/*.png
+**/.env_website/
+**/.env_nl/

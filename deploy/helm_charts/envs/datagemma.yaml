@@ -23,7 +23,7 @@ cluster_prefix: "website"
 namespace:
   name: "website"
 website:
-  flaskEnv: custom
+  flaskEnv: datagemma
   replicas: 20
   redis:
     enabled: true

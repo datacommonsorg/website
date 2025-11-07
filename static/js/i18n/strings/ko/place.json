@@ -2,6 +2,9 @@
   "alert-no_data_for_place": {
     "defaultMessage": "죄송하지만 {placeName}에 관한 정보가 없습니다"
   },
+  "category_in_place": {
+    "defaultMessage": "{placeName}의 {category}"
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName}(1인당, {date} 기준)"
   },
@@ -56,6 +59,9 @@
   "close": {
     "defaultMessage": "닫기"
   },
+  "dateRange": {
+    "defaultMessage": "{minDate}~{maxDate}"
+  },
   "disasterTool": {
     "defaultMessage": "재난 도구"
   },
@@ -74,8 +80,14 @@
   "embed_export_chart_link": {
     "defaultMessage": "차트 내보내기"
   },
+  "enterQuery": {
+    "defaultMessage": "탐색할 질문을 입력하세요."
+  },
   "exploreLink": {
     "defaultMessage": "{toolName}에서 살펴보기"
+  },
+  "explore_data_on": {
+    "defaultMessage": "다음에서 데이터 탐색… \"{sampleQuestion}\""
   },
   "header-overview": {
     "defaultMessage": "개요"
@@ -101,14 +113,23 @@
   "more_charts_link": {
     "defaultMessage": "차트 더보기"
   },
+  "no_charts": {
+    "defaultMessage": "{place}에 대한 {category} 데이터가 없습니다."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} {placeType}"
+  },
+  "place_not_found": {
+    "defaultMessage": "\"{placeDcid}\" 장소를 찾을 수 없습니다."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "순위(내)"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{total} 중 {rank}위"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{parentPlaces}의 {placeType}"
   },
   "plural_administrative_area": {
     "defaultMessage": "행정 구역"
@@ -121,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "도시"
+  },
+  "plural_continent": {
+    "defaultMessage": "대륙"
   },
   "plural_country": {
     "defaultMessage": "국가"
@@ -212,6 +236,9 @@
   "search_bar_placeholder-search_again": {
     "defaultMessage": "다른 장소 검색"
   },
+  "seePerCapita": {
+    "defaultMessage": "1인당 보기"
+  },
   "selectVariable": {
     "defaultMessage": "목록에서 변수를 선택하여 세부정보를 확인하세요. 아래 링크를 클릭하면 새 탭에서 통계 변수 탐색기가 열립니다"
   },
@@ -229,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "시"
+  },
+  "singular_continent": {
+    "defaultMessage": "대륙"
   },
   "singular_country": {
     "defaultMessage": "국가"
@@ -274,6 +304,9 @@
   },
   "summary_overview": {
     "defaultMessage": "요약 개요"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "Google에서는 AI를 사용하여 소스 데이터(각 차트에 연결됨)의 통계를 요약합니다. Google은 정확성을 위해 노력하고 있지만 요약을 검토하고 소스 데이터를 참고하세요."
   },
   "the_world": {
     "defaultMessage": "세계"

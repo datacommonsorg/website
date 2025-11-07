@@ -1,16 +1,22 @@
 # Feature Flags in Data Commons
 
-Feature flags allow us to rapidly deploy flag-gated changes per environment, outside of the typical build schedule. 
+Feature flags allow us to rapidly deploy flag-gated changes per environment, outside of the typical build schedule.
 
 ## Deployment
+
 This script automates the deployment of feature flags from `master` to a Google Cloud Storage (GCS) bucket and optionally restarts a Kubernetes deployment.
 
-### Usage
+The Cloud Build trigger, [update-feature-flags](https://pantheon.corp.google.com/cloud-build/triggers?e=13803378&mods=-monitoring_api_staging&project=datcom-ci&pageState=(%22triggers%22:(%22f%22:%22%255B%257B_22k_22_3A_22_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22update-feature-flags_5C_22_22%257D%255D%22))):
+*  Checks for changes to the feature flag files when pushing to main.
+*  Invokes [cloudbuild.update_feature_flags.yaml](https://github.com/datacommonsorg/website/blob/master/build/ci/cloudbuild.update_feature_flags.yaml), which calls [scripts/update_gcs_feature_flags.sh](https://github.com/datacommonsorg/website/blob/master/scripts/update_gcs_feature_flags.sh) for the appropriate environments.
+
+### Manual Usage
+
+Note: this script is automatically executed by the Cloud Build job update-feature-flags on PR merge into main. This script should only be manually executed in one-off, rare circumstances.
 
 ```bash
 ./scripts/update_gcs_feature_flags.sh <environment>
 ```
-
 
 Where `<environment>` is one of:
 
@@ -55,16 +61,51 @@ This script uploads the feature flag configuration files from the Github master 
 * This script assumes you have the Google Cloud SDK installed and configured.
 * The script expects a JSON file named `dev.json`, `staging.json`, or `production.json` in the current directory.
 * The script can be modified to upload different files or perform additional actions after the deployment.
+* The script skips the production.json file. Updates to these files cause immediate restarts to the Kubernetes pods. Production changes should be done separately.
 
 ## Adding a New Flag
 
-1. **Add flag in flag configurations**: Check the flags in the Github master branch [`server/config/feature_flag_configs`](https://github.com/datacommonsorg/website/tree/master/server/config/feature_flag_configs). The flag must be added to all environments.
-    * TIP: Use [this script](https://github.com/datacommonsorg/website/tree/master/scripts/create_feature_flag.sh) to add a new flag to each config file.
+1. **Add flag to configs**: Use [this script](https://github.com/datacommonsorg/website/tree/master/scripts/create_feature_flag.sh) to add a new flag to the config files. The flag will be added to all environments except production so that prod isn't redeployed more than necessary.
+    > ```bash
+    > ./scripts/create_feature_flag.sh
     > ```
-    > ./scripts/create_feature_flag.sh <flag_name> <owner> <description>
-    > ```
+    * **Submit a PR with just this change** before moving to the next step so that the rest is rollback safe.
 2. **Define flag in server layer**: Add your flag constant to [feature_flags.py](https://github.com/datacommonsorg/website/blob/master/server/lib/feature_flags.py#L19) helper file for use in the API layer.
 3. **Define flag in client layer**: Add your flag constant to [feature_flags/util.ts](https://github.com/datacommonsorg/website/blob/master/static/js/shared/feature_flags/util.ts#L18) helper file for use in the client layer.
 4. **Check flag value and implement your feature**
+    * [server layer example](https://github.com/datacommonsorg/website/blob/53ea3aa41e8478526bb2052b1738d7146f180d2f/server/routes/shared_api/autocomplete/autocomplete.py#L62)
+    * [client layer example](https://github.com/datacommonsorg/website/blob/53ea3aa41e8478526bb2052b1738d7146f180d2f/static/js/apps/visualization/main.ts#L35)
 5. **Deploy & update GCS Flag files**: Once your code reaches production, you can enable your flags and run the script to update the GCS flag files.
 6. **Restart Kubernetes**: The script to update the GCS flag files will prompt you to restart Kubernetes, on restart the new flags will be applied and your feature will be enabled.
+
+## Manually enable or disable feature flags
+
+> [!NOTE]
+> Manually enabling or disabling currently only works for client side code. On the server side, you'll need to
+> propagate the feature flag in request arguments.
+
+Feature flags can be enabled manually on any datacommons.org page using the `enable_feature` URL parameter.
+
+For example, to enable the "autocomplete" feature:
+
+* Enable: https://datacommons.org/explore?enable_feature=autocomplete
+
+To enable both the autocomplete and metadata_modal features:
+
+* Enable: https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal
+
+To manually disable a feature flag, use the `disable_feature` URL parameter.
+
+For example, to disable the "autocomplete" feature:
+
+* Disable: https://datacommons.org/explore?disable_feature=autocomplete
+
+These URL overrides take precedence over the environment-specific feature flag settings defined in server/config/feature_flag_configs/<environment>.json
+
+### Propagating Feature Flags
+
+This override can be utilized to propagate the feature flags into future pages.
+
+For example, the following anchor element would maintain the "autocomplete" feature enabled:
+
+`<a href="https://datacommons.org/explore?enable_feature=autocomplete">Autocomplete Still Enabled<a/>`
