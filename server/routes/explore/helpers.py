@@ -86,7 +86,7 @@ def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
 # Given a request parses the query and other params and
 # detects stuff into a Detection object.
 #
-def parse_query_and_detect(request: Dict, backend: str, client: str,
+async def parse_query_and_detect(request: Dict, backend: str, client: str,
                            debug_logs: Dict):
   if not current_app.config.get('NL_BAD_WORDS'):
     flask.abort(404)
@@ -206,7 +206,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type=detector_type,
+  query_detection = await detector.detect(detector_type=detector_type,
                                     original_query=original_query,
                                     no_punct_query=query,
                                     prev_utterance=prev_utterance,
@@ -491,10 +491,10 @@ def abort(
 
   if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
+    # loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(context_history, False)
     data_dict['session'] = session_info
-    loop.run_until_complete(bt.write_row(session_info, data_dict, debug_logs))
+    asyncio.create_task(bt.write_row(session_info, data_dict, debug_logs))
 
   return data_dict
 

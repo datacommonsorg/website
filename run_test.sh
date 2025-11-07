@@ -28,10 +28,10 @@ function setup_python {
 }
 
 function setup_website_python {
-  python3 -m venv .env_website
+  python3 -m venv .env_website --clear
   source .env_website/bin/activate
   echo "installing server/requirements.txt"
-  pip3 install -r server/requirements.txt -q
+  pip3 install -v -r server/requirements.txt -q
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   deactivate
 }
