@@ -24,18 +24,22 @@ from server.lib.nl.detection.agent.config import get_mcp_env
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
-root_agent = LlmAgent(
-    model=AGENT_MODEL,
-    name='detection_agent',
-    instruction=AGENT_INSTRUCTIONS,
-    tools=[
-        MCPToolset(connection_params=StdioConnectionParams(
-            server_params=StdioServerParameters(
-                command='uvx',
-                args=['datacommons-mcp@latest', 'serve', 'stdio'],
-                env=get_mcp_env(),
-                stderr=subprocess.DEVNULL),
-            timeout=30.0),
-                   tool_filter=["search_indicators"]),
-    ],
-    output_schema=AgentDetection)
+root_agent = LlmAgent(model=AGENT_MODEL,
+                      name='detection_agent',
+                      instruction=AGENT_INSTRUCTIONS,
+                      tools=[
+                          MCPToolset(connection_params=StdioConnectionParams(
+                              server_params=StdioServerParameters(
+                                  command='uvx',
+                                  args=[
+                                      'datacommons-mcp@latest',
+                                      'serve',
+                                      'stdio',
+                                      '--skip-api-key-validation',
+                                  ],
+                                  env=get_mcp_env(),
+                                  stderr=subprocess.DEVNULL),
+                              timeout=30.0),
+                                     tool_filter=["search_indicators"]),
+                      ],
+                      output_schema=AgentDetection)
