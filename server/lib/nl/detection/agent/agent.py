@@ -25,17 +25,17 @@ from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
 root_agent = LlmAgent(model=AGENT_MODEL,
-                      name='detection_agent',
+                      name="detection_agent",
                       instruction=AGENT_INSTRUCTIONS,
                       tools=[
                           MCPToolset(connection_params=StdioConnectionParams(
                               server_params=StdioServerParameters(
-                                  command='uvx',
+                                  command="uvx",
                                   args=[
-                                      'datacommons-mcp@latest',
-                                      'serve',
-                                      'stdio',
-                                      '--skip-api-key-validation',
+                                      "datacommons-mcp@latest",
+                                      "serve",
+                                      "stdio",
+                                      "--skip-api-key-validation",
                                   ],
                                   env=get_mcp_env(),
                                   stderr=subprocess.DEVNULL),

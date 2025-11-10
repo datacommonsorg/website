@@ -62,7 +62,7 @@ class AgentDetection(BaseModel):
   child_place_type: Optional[str] = None
   classification: str
 
-  @validator('classification')
+  @validator("classification")
   def classification_must_be_valid(cls, v):
     if v not in [member.value for member in ClassificationType]:
       raise ValueError(f"'{v}' is not a valid classification type.")
