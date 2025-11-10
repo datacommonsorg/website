@@ -109,3 +109,7 @@ deploy/terraform-custom-datacommons/modules/backend.tf
 
 # NL tools ignores
 tools/nl/nl_metadata/.env
+
+# Gemini files
+GEMINI.md
+.gemini/
