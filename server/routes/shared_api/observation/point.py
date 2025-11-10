@@ -81,6 +81,9 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
 
 
 @bp.route('', strict_slashes=False)
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def point():
   """Handler to get the observation point given multiple stat vars and places."""
@@ -113,6 +116,9 @@ def point():
 
 
 @bp.route('/all')
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def point_all():
   """Handler to get all the observation points given multiple stat vars and entities."""
@@ -133,6 +139,9 @@ def point_all():
 
 
 @bp.route('/within')
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def point_within():
   """Gets the observations for child entities of a certain place
@@ -166,6 +175,9 @@ def point_within():
 
 
 @bp.route('/within/all')
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def point_within_all():
   """Gets the observations for child entities of a certain place

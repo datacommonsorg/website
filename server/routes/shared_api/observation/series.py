@@ -52,6 +52,9 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 
 
 @bp.route('', strict_slashes=False, methods=['GET', 'POST'])
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT,
                           query_string=True,
                           make_cache_key=lib_util.post_body_cache_key)
@@ -73,6 +76,9 @@ def series():
 
 
 @bp.route('/all')
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
@@ -86,6 +92,9 @@ def series_all():
 
 
 @bp.route('/within')
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def series_within():
   """Gets the observation for child entities of a certain type contained in a
@@ -129,6 +138,9 @@ def series_within():
 
 
 @bp.route('/within/all')
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def series_within_all():
   """Gets the observation for child entities of a certain type contained in a

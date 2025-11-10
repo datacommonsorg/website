@@ -41,6 +41,9 @@ bp = Blueprint("place_api", __name__, url_prefix='/api/place')
 
 @bp.route('/charts/<path:place_dcid>')
 @log_execution_time
+# Note that we do not use cache_and_log_mixer_response_id here because
+# this endpoint only uses mixer results for existence checks, not for
+# populating meaningful data shown to users.
 @cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_charts(place_dcid: str):
   """
@@ -215,6 +218,9 @@ async def related_places(place_dcid: str):
 
 @bp.route('/overview-table/<path:place_dcid>')
 @log_execution_time
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is 
+# a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
 def overview_table(place_dcid: str):
   """
