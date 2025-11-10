@@ -22,6 +22,7 @@ from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 
 from server.lib.nl.detection.agent.config import AGENT_MODEL
 from server.lib.nl.detection.agent.config import get_mcp_env
+from server.lib.nl.detection.agent.config import MCP_SERVER_VERSION
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
@@ -39,7 +40,7 @@ def get_agent() -> LlmAgent:
                   server_params=StdioServerParameters(
                       command="uvx",
                       args=[
-                          "datacommons-mcp@latest",
+                          f"datacommons-mcp@{MCP_SERVER_VERSION}",
                           "serve",
                           "stdio",
                           "--skip-api-key-validation",

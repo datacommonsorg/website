@@ -19,6 +19,9 @@ import os
 
 from shared.lib.custom_dc_util import is_custom_dc
 
+# TODO(keyurs): Update to release version once the new package is released.
+MCP_SERVER_VERSION = "1.1.2rc1"
+
 # Read env vars needed by the agent / MCP server.
 AGENT_MODEL = os.environ.get("AGENT_MODEL", "gemini-2.5-flash")
 DC_API_KEY = os.environ.get("DC_API_KEY", "")
