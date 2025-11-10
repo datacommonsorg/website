@@ -19,7 +19,7 @@ class Config(_base.Config):
   LOCAL = True
   API_ROOT = 'https://api.datacommons.org'
   SCHEME = 'http'
-  USE_MEMCACHE = True
+  USE_MEMCACHE = False
   ENABLE_BQ = True
 
 
