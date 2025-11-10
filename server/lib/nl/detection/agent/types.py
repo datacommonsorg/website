@@ -17,7 +17,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 from pydantic import Field
-from pydantic import validator
+from pydantic import field_validator
 
 
 class Place(BaseModel):
@@ -48,6 +48,9 @@ class ClassificationType(str, Enum):
   UNKNOWN = "Unknown"
 
 
+VALID_CLASSIFICATION_TYPES = {member.value for member in ClassificationType}
+
+
 class AgentDetection(BaseModel):
   """A simplified, structured output from the detection agent.
 
@@ -62,8 +65,9 @@ class AgentDetection(BaseModel):
   child_place_type: Optional[str] = None
   classification: str
 
-  @validator("classification")
+  @field_validator("classification")
+  @classmethod
   def classification_must_be_valid(cls, v):
-    if v not in [member.value for member in ClassificationType]:
+    if v not in VALID_CLASSIFICATION_TYPES:
       raise ValueError(f"'{v}' is not a valid classification type.")
     return v
