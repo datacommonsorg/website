@@ -132,8 +132,8 @@ def _compact_point(point_resp, all_facets):
           data[var][entity] = {}
   result['data'] = data
   # Setting the request ID to reference in the cache
-  result['requestId'] = point_resp.get("requestId",
-                                       "") if "requestId" in point_resp else ""
+  result['mixerResponseIds'] = point_resp.get("mixerResponseIds",
+                                       "") if "mixerResponseIds" in point_resp else ""
   return result
 
 
@@ -171,8 +171,8 @@ def _compact_series(series_resp, all_facets):
           }
   result['data'] = data
   # Setting the request ID to reference in the cache
-  result['requestId'] = series_resp[
-      "requestId"] if "requestId" in series_resp else ""
+  result['mixerResponseIds'] = series_resp[
+      "mixerResponseIds"] if "mixerResponseIds" in series_resp else ""
   return result
 
 

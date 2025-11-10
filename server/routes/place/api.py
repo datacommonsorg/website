@@ -226,10 +226,10 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows, requestId = place_utils.fetch_overview_table_data(place_dcid)
+  data_rows, mixerResponseIds = place_utils.fetch_overview_table_data(place_dcid)
 
   response_data = PlaceOverviewTableApiResponse(data=data_rows,
-                                                requestId=requestId)
+                                                mixerResponseIds=mixerResponseIds)
   return jsonify(response_data)
 
 

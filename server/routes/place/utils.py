@@ -990,7 +990,7 @@ def fetch_overview_table_data(
   resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
   # This indicates which mixer calls are used when this result is cached
-  requestId = resp.get("requestId", "")
+  mixerResponseIds = resp.get("mixerResponseIds", "")
 
   # Iterate over each variable and extract the most recent observation
   for item in place_overview_table_variable_translations:
@@ -1024,7 +1024,7 @@ def fetch_overview_table_data(
             variableDcid=variable_dcid,
         ))
 
-  return data_rows, requestId
+  return data_rows, mixerResponseIds
 
 
 def extract_most_recent_facet_observations(
