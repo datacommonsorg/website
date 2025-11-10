@@ -67,8 +67,7 @@ if [[ $WEBSITE_HASH == "" || $WEBSITE_HASH == "null" ]]; then
 fi
 
 cd $ROOT/mixer
-# MIXER_HASH=$(git rev-parse --short=7 HEAD)
-MIXER_HASH=d881ac6
+MIXER_HASH=$(git rev-parse --short=7 HEAD)
 
 # Get gke credentials
 function get_gke_credentials() {
