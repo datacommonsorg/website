@@ -16,11 +16,15 @@
 from typing import Dict, List
 
 from flask import current_app
+from flask import request
 
+from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection import agent_detector
 from server.lib.nl.detection import heuristic_detector
 from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
@@ -36,10 +40,14 @@ from server.lib.nl.detection.utils import get_multi_sv
 from shared.lib import constants
 import shared.lib.detected_variables as dutils
 
-_LLM_API_DETECTORS = [
+_DETECTORS_REQUIRING_LLM_PROMPT = [
     RequestedDetectorType.LLM.value,
     RequestedDetectorType.Hybrid.value,
     RequestedDetectorType.HybridSafetyCheck.value,
+]
+
+_DETECTORS_REQUIRING_GEMINI_KEY = _DETECTORS_REQUIRING_LLM_PROMPT + [
+    RequestedDetectorType.Agent.value,
 ]
 
 MAX_CHILD_LIMIT = 50
@@ -57,12 +65,12 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
-  if (detector_type in _LLM_API_DETECTORS and
+  if (detector_type in _DETECTORS_REQUIRING_GEMINI_KEY and
       'LLM_API_KEY' not in current_app.config):
     counters.err('failed_llm_keynotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
-  if (detector_type in _LLM_API_DETECTORS and
+  if (detector_type in _DETECTORS_REQUIRING_LLM_PROMPT and
       'LLM_PROMPT_TEXT' not in current_app.config):
     counters.err('failed_llm_promptnotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
@@ -78,6 +86,20 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
         counters=counters,
         dargs=dargs)
     return llm_detection
+
+  #
+  # Agent Detection.
+  #
+  if is_feature_enabled(
+      ENABLE_NL_AGENT_DETECTOR,
+      request=request) and detector_type == RequestedDetectorType.Agent.value:
+    agent_detection = agent_detector.detect(
+        query=original_query,
+        prev_utterance=prev_utterance,
+        query_detection_debug_logs=query_detection_debug_logs,
+        counters=counters,
+        dargs=dargs)
+    return agent_detection
 
   #
   # Heuristic detection.
