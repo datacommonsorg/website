@@ -27,7 +27,7 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import TIMEOUT
 from server.webdriver.base_utils import wait_elem
 
-LOADING_WAIT_TIME_SEC = 5
+LOADING_WAIT_TIME_SEC = 10
 MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
 ASYNC_ELEMENT_CLASS = 'dc-async-element'
