@@ -26,7 +26,7 @@ from flask import request
 import requests
 
 from server.lib import log
-from server.lib.cache import memoize_and_log_mixer_response_id
+from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
@@ -57,7 +57,8 @@ def get_basic_request_headers() -> dict:
   return headers
 
 
-@memoize_and_log_mixer_response_id(timeout=TIMEOUT, unless=should_skip_cache)
+# Log the mixer response IDs to capture this call to mixer in the mixer usage logs
+@memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
   headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
@@ -69,7 +70,13 @@ def get(url: str):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get("x-response-id")
+  # This is used to log cached mixer usage and is a list to be compatible with other cached
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json["mixerResponseIds"] = [response_id]
+  return res_json
 
 
 def post(url: str, req: Dict):
@@ -81,7 +88,8 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@memoize_and_log_mixer_response_id(timeout=TIMEOUT, unless=should_skip_cache)
+# Log the mixer response IDs to capture this call to mixer in the mixer usage logs
+@memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
 def post_wrapper(url, req_str: str, headers_str: str | None = None):
 
   req = json.loads(req_str)
@@ -97,7 +105,13 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get("x-response-id")
+  # This is used to log cached mixer usage and is a list to be compatible with other cached
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json["mixerResponseIds"] = [response_id]
+  return res_json
 
 
 def obs_point(entities, variables, date="LATEST"):
