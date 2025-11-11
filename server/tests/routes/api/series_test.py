@@ -208,7 +208,7 @@ class TestApiSeriesWithin(unittest.TestCase):
                     'shortUnit'
             },
         },
-        'requestId': ""
+        'mixerResponseIds': ""
     }
 
     def side_effect(url, data, _=None, surface=None):

@@ -21,7 +21,7 @@ from flask import request
 from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
-from server.lib.cache import cache_and_log_mixer_response_id
+from server.lib.cache import cache_and_log_mixer_usage
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 
@@ -55,7 +55,7 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 # Log the mixer response IDs used to populate the table.
 # This allows the usage to be tracked in mixer usage logs because it is 
 # a meaningful use of mixer results that are shown to users.
-@cache_and_log_mixer_response_id(timeout=TIMEOUT,
+@cache_and_log_mixer_usage(timeout=TIMEOUT,
                           query_string=True,
                           make_cache_key=lib_util.post_body_cache_key)
 def series():
@@ -79,7 +79,7 @@ def series():
 # Log the mixer response IDs used to populate the table.
 # This allows the usage to be tracked in mixer usage logs because it is 
 # a meaningful use of mixer results that are shown to users.
-@cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
+@cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
   entities = _get_filtered_arg_list(request.args.getlist('entities'))
@@ -95,7 +95,7 @@ def series_all():
 # Log the mixer response IDs used to populate the table.
 # This allows the usage to be tracked in mixer usage logs because it is 
 # a meaningful use of mixer results that are shown to users.
-@cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
+@cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def series_within():
   """Gets the observation for child entities of a certain type contained in a
   parent entity at a given date.
@@ -141,7 +141,7 @@ def series_within():
 # Log the mixer response IDs used to populate the table.
 # This allows the usage to be tracked in mixer usage logs because it is 
 # a meaningful use of mixer results that are shown to users.
-@cache_and_log_mixer_response_id(timeout=TIMEOUT, query_string=True)
+@cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def series_within_all():
   """Gets the observation for child entities of a certain type contained in a
   parent entity at a given date.
