@@ -131,6 +131,8 @@ def _compact_point(point_resp, all_facets):
         else:
           data[var][entity] = {}
   result['data'] = data
+  # Setting the request ID to reference in the cache
+  result['requestId'] = point_resp.get("requestId", "")
   return result
 
 
@@ -167,6 +169,8 @@ def _compact_series(series_resp, all_facets):
               'series': [],
           }
   result['data'] = data
+  # Setting the request ID to reference in the cache
+  result['requestId'] = series_resp["requestId"]
   return result
 
 

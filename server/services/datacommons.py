@@ -26,9 +26,9 @@ from flask import request
 import requests
 
 from server.lib import log
-from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.custom_cache import cache_and_log
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -56,8 +56,8 @@ def get_basic_request_headers() -> dict:
 
   return headers
 
-
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+# TODO: add 'unless' and memoize handling
+@cache_and_log(timeout=TIMEOUT)
 def get(url: str):
   headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
@@ -81,9 +81,17 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str):
-
+# TODO: add 'unless' and memoize handling
+@cache_and_log(timeout=TIMEOUT)
+def post_wrapper(url, req_str: str, headers_str: str | None = None):
+  #
+  # CRITICAL: This function is called from synchronous and asynchronous contexts
+  # (including background threads via asyncio.to_thread).
+  # It MUST NOT access the global flask.request context or app context without checking if they are available first.
+  # All required request data (headers, etc.) MUST be passed via the `headers` argument or
+  # available via flask's request context. See `get_basic_request_headers` for an example
+  # of how to check whether app and/or request context is available.
+  #
   req = json.loads(req_str)
   headers = get_basic_request_headers()
 

@@ -301,7 +301,7 @@ def place_metadata(place_dcid,
 
   filtered_child_places = {}
   if get_child_places:
-    child_places = place_api.child_fetch(place_dcid)
+    child_places, _ = place_api.child_fetch(place_dcid)
     for place_type in child_places:
       child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
       child_places[place_type] = child_places[place_type][:place_api.

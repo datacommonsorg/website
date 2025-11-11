@@ -27,6 +27,7 @@ from markupsafe import escape
 
 from server.lib import fetch
 from server.lib.cache import cache
+from server.lib.custom_cache import cache_and_log
 import server.lib.i18n as i18n
 from server.lib.i18n_messages import get_place_type_to_locale_message
 from server.lib.i18n_messages import get_place_type_to_locale_message_plural
@@ -289,17 +290,19 @@ def get_place_variable_count():
 
 
 @bp.route('/child/<path:dcid>')
-@cache.memoize(timeout=TIMEOUT)
+@cache_and_log(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
-  child_places = child_fetch(dcid)
+  child_places, request_id = child_fetch(dcid)
   for place_type in child_places:
     child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
     child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
-  return Response(json.dumps(child_places), 200, mimetype='application/json')
+  return Response(json.dumps(child_places, request_id),
+                  200,
+                  mimetype='application/json')
 
 
-@cache.memoize(timeout=TIMEOUT)
+@cache_and_log(timeout=TIMEOUT)
 def child_fetch(parent_dcid):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
@@ -357,7 +360,7 @@ def child_fetch(parent_dcid):
 
   # Drop empty categories
   result = dict(filter(lambda x: len(x[1]) > 0, result.items()))
-  return result
+  return result, (obs_response["requestId"] or "")
 
 
 @bp.route('/parent')
