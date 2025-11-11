@@ -82,7 +82,7 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
 
 @bp.route('', strict_slashes=False)
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def point():
@@ -117,7 +117,7 @@ def point():
 
 @bp.route('/all')
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def point_all():
@@ -140,7 +140,7 @@ def point_all():
 
 @bp.route('/within')
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def point_within():
@@ -176,7 +176,7 @@ def point_within():
 
 @bp.route('/within/all')
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def point_within_all():

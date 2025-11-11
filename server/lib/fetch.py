@@ -132,8 +132,8 @@ def _compact_point(point_resp, all_facets):
           data[var][entity] = {}
   result['data'] = data
   # Setting the request ID to reference in the cache
-  result['mixerResponseIds'] = point_resp.get("mixerResponseIds",
-                                       "") if "mixerResponseIds" in point_resp else ""
+  result['mixerResponseIds'] = point_resp.get(
+      "mixerResponseIds", "") if "mixerResponseIds" in point_resp else ""
   return result
 
 

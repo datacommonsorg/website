@@ -219,17 +219,17 @@ async def related_places(place_dcid: str):
 @bp.route('/overview-table/<path:place_dcid>')
 @log_execution_time
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows, mixerResponseIds = place_utils.fetch_overview_table_data(place_dcid)
-
-  response_data = PlaceOverviewTableApiResponse(data=data_rows,
-                                                mixerResponseIds=mixerResponseIds)
+  data_rows, mixerResponseIds = place_utils.fetch_overview_table_data(
+      place_dcid)
+  response_data = PlaceOverviewTableApiResponse(
+      data=data_rows, mixerResponseIds=mixerResponseIds)
   return jsonify(response_data)
 
 

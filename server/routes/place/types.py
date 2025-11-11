@@ -174,7 +174,7 @@ class PlaceOverviewTableApiResponse:
   """
   data: List[OverviewTableDataRow]
   # Represent all mixer calls used in this response and used in caching
-  mixerResponseIds: str
+  mixerResponseIds: List[str]
 
 
 @dataclass

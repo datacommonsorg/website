@@ -53,11 +53,11 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 
 @bp.route('', strict_slashes=False, methods=['GET', 'POST'])
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT,
-                          query_string=True,
-                          make_cache_key=lib_util.post_body_cache_key)
+                           query_string=True,
+                           make_cache_key=lib_util.post_body_cache_key)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
   if request.method == 'POST':
@@ -77,7 +77,7 @@ def series():
 
 @bp.route('/all')
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def series_all():
@@ -93,7 +93,7 @@ def series_all():
 
 @bp.route('/within')
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def series_within():
@@ -139,7 +139,7 @@ def series_within():
 
 @bp.route('/within/all')
 # Log the mixer response IDs used to populate the table.
-# This allows the usage to be tracked in mixer usage logs because it is 
+# This allows the usage to be tracked in mixer usage logs because it is
 # a meaningful use of mixer results that are shown to users.
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def series_within_all():

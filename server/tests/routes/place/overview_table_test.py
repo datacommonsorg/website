@@ -127,8 +127,9 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
                                  unit='count',
                                  value=123,
                                  variableDcid='Count_Person')
-      expected = jsonify(PlaceOverviewTableApiResponse(
-          data=[row], mixerResponseIds=[])).get_json()
+      expected = jsonify(
+          PlaceOverviewTableApiResponse(data=[row],
+                                        mixerResponseIds=[])).get_json()
 
       response = self.app.test_client().get(
           '/api/place/overview-table/geoId/06')
