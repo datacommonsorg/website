@@ -1,3 +1,5 @@
+import sys
+import os
 # --- Modern Imports ---
 from google import genai
 from google.genai import types
@@ -325,7 +327,7 @@ class StatisticalFactChecker:
 # 4. Execution Example
 # =========================================
 # Configuration
-QUERY = "What is the total population of Florida?"
+QUERY = "What is the nominal GDP of Italy?"
 # print(VERTEX_AVAILABLE)
 
 # --- OPTION 1: VERTEX AI ---
