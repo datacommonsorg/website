@@ -60,8 +60,8 @@ MAX_CHILD_LIMIT = 50
 # based on `need_llm()`, decides to call the LLM detector.
 #
 async def detect(detector_type: str, original_query: str, no_punct_query: str,
-           prev_utterance: Utterance, query_detection_debug_logs: Dict,
-           counters: Counters, dargs: DetectionArgs) -> types.Detection:
+                 prev_utterance: Utterance, query_detection_debug_logs: Dict,
+                 counters: Counters, dargs: DetectionArgs) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #

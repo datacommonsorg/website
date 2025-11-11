@@ -28,27 +28,29 @@ from server.lib.nl.detection.agent.types import AgentDetection
 
 
 @lru_cache(maxsize=1)
-def get_agent() -> LlmAgent:
+def get_agent() -> tuple[LlmAgent, MCPToolset]:
   """Returns a cached singleton detection agent."""
-  return LlmAgent(
-      model=AGENT_MODEL,
-      name="detection_agent",
-      instruction=AGENT_INSTRUCTIONS,
-      tools=[
-          MCPToolset(
-              connection_params=StdioConnectionParams(
-                  server_params=StdioServerParameters(
-                      command="uvx",
-                      args=[
-                          f"datacommons-mcp@{MCP_SERVER_VERSION}",
-                          "serve",
-                          "stdio",
-                          "--skip-api-key-validation",
-                      ],
-                      env=get_mcp_env(),
-                      # TODO(keyurs): Log errors to file in dev mode.
-                      stderr=subprocess.DEVNULL),
-                  timeout=30.0),
-              tool_filter=["search_indicators"]),
-      ],
-      output_schema=AgentDetection)
+  
+  toolset = MCPToolset(
+      connection_params=StdioConnectionParams(
+          server_params=StdioServerParameters(
+              command="uvx",
+              args=[
+                  f"datacommons-mcp@{MCP_SERVER_VERSION}",
+                  "serve",
+                  "stdio",
+                  "--skip-api-key-validation",
+              ],
+              env=get_mcp_env(),
+              # TODO(keyurs): Log errors to file in dev mode.
+              stderr=subprocess.DEVNULL),
+          timeout=30.0),
+      tool_filter=["search_indicators"])
+  
+  agent = LlmAgent(model=AGENT_MODEL,
+                   name="detection_agent",
+                   instruction=AGENT_INSTRUCTIONS,
+                   tools=[toolset],
+                   output_schema=AgentDetection)
+  
+  return agent, toolset

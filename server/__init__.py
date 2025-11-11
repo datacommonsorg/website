@@ -38,6 +38,7 @@ import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
+from server.lib.nl.detection.agent.agent import get_agent
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -451,6 +452,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       libutil.get_special_dc_non_countery_only_vars()
     # TODO: need to handle singular vs plural in the titles
     app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
+
+    app.config['NL_DETECTION_AGENT'], app.config['NL_DETECTION_TOOLSET'] = get_agent()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()

@@ -17,6 +17,7 @@ Configuration settings for running the DC agent and MCP server.
 
 import os
 
+import server.lib.config as libconfig
 from shared.lib.custom_dc_util import is_custom_dc
 
 # TODO(keyurs): Update to release version once the new package is released.
@@ -26,13 +27,13 @@ MCP_SERVER_VERSION = "1.1.2rc1"
 AGENT_MODEL = os.environ.get("AGENT_MODEL", "gemini-2.5-flash")
 DC_API_KEY = os.environ.get("DC_API_KEY", "")
 PORT = os.environ.get("PORT", "8080")
-WEBSITE_MIXER_API_ROOT = os.environ.get("WEBSITE_MIXER_API_ROOT",
-                                        "http://localhost:8081")
 WEBSITE_ROOT = f"http://localhost:{PORT}"
 
 
 def get_mcp_env() -> dict[str, str]:
   """Returns a dict of environment variables for the MCP server based on its running mode (base or custom)."""
+  cfg = libconfig.get_config()
+  api_root = cfg.API_ROOT
   if is_custom_dc():
     return {
         "DC_API_KEY": DC_API_KEY,
@@ -41,6 +42,6 @@ def get_mcp_env() -> dict[str, str]:
     }
 
   return {
-      "DC_API_ROOT": f"{WEBSITE_MIXER_API_ROOT}/v2",
+      "DC_API_ROOT": f"{api_root}/v2",
       "DC_SEARCH_ROOT": WEBSITE_ROOT,
   }
