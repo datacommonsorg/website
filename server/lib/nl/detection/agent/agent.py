@@ -16,8 +16,7 @@ from functools import lru_cache
 import subprocess
 
 from google.adk.agents.llm_agent import LlmAgent
-from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
-from google.adk.tools.mcp_tool.mcp_session_manager import StdioServerParameters
+from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 
 from server.lib.nl.detection.agent.config import AGENT_MODEL
@@ -32,19 +31,9 @@ def get_agent() -> tuple[LlmAgent, MCPToolset]:
   """Returns a cached singleton detection agent."""
   
   toolset = MCPToolset(
-      connection_params=StdioConnectionParams(
-          server_params=StdioServerParameters(
-              command="uvx",
-              args=[
-                  f"datacommons-mcp@{MCP_SERVER_VERSION}",
-                  "serve",
-                  "stdio",
-                  "--skip-api-key-validation",
-              ],
-              env=get_mcp_env(),
-              # TODO(keyurs): Log errors to file in dev mode.
-              stderr=subprocess.DEVNULL),
-          timeout=30.0),
+    connection_params=StreamableHTTPConnectionParams(
+        url="http://localhost:3000/mcp",    
+         timeout=30.0),
       tool_filter=["search_indicators"])
   
   agent = LlmAgent(model=AGENT_MODEL,
