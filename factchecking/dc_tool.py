@@ -6,6 +6,7 @@ from google import genai
 from google.genai import types
 from google.cloud import discoveryengine_v1 as discoveryengine
 import vertex_ai
+from constants import VERIFICATION_PROMPT
 
 # --- 1. Setup ---
 # Ensure you have 'GOOGLE_APPLICATION_CREDENTIALS' set in your env for Vertex AI
@@ -149,12 +150,12 @@ You are a Data Commons assistant.
 
 # --- 4. Chat Loop ---
 
-def ask_data_commons(query: str):
-    print(f"\nUser Query: '{query}'\n" + "-"*40)
+GEMINI_FLASH_MODEL = "gemini-2.5-flash"
+GEMINI_PRO_MODEL = "gemini-2.5-pro"
 
+def ask_data_commons(claim: str):
     chat = client.chats.create(
-        model="gemini-2.5-flash",
-        # model="gemini-2.5-pro",
+        model=GEMINI_FLASH_MODEL,
         config=types.GenerateContentConfig(
             system_instruction=DC_SYSTEM_PROMPT,
             tools=tools_list,
@@ -162,7 +163,7 @@ def ask_data_commons(query: str):
         )
     )
 
-    response = chat.send_message(query)
+    response = chat.send_message(VERIFICATION_PROMPT + str(claim))
 
     # Loop to handle tool calls
     # The SDK does not auto-execute Python code locally for security; 
@@ -212,8 +213,6 @@ def ask_data_commons(query: str):
                 final_text_parts.append(part.text)
     
     final_answer = "".join(final_text_parts)
-    
-    print(f"\n✅ FINAL ANSWER:\n{final_answer}\n")
     
     if final_answer:
         return final_answer
