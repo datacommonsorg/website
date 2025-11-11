@@ -1,0 +1,6 @@
+google-generativeai
+google-cloud-aiplatform
+openai
+anthropic
+datacommons
+google-cloud-discoveryengine
