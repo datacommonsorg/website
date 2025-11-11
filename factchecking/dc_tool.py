@@ -1,236 +1,220 @@
+import os
+import json
 import itertools
+import datacommons as dc
 from google import genai
 from google.genai import types
-import datacommons as dc
-import json
-import os
-import vertex_ai
 from google.cloud import discoveryengine_v1 as discoveryengine
+import vertex_ai
 
-import itertools
+# --- 1. Setup ---
+# Ensure you have 'GOOGLE_APPLICATION_CREDENTIALS' set in your env for Vertex AI
+# and 'GENAI_API_KEY' for the Gemini API.
 
-# --- 1. Setup & Auth ---
-try:
-    API_KEY = os.getenv('GENAI_API_KEY')
-except Exception:
-    # If neither works, use a hardcoded (but invalid) key as a last resort
-    API_KEY = "YOUR_API_KEY" # Replace with a valid key if needed
+client = genai.Client(api_key=os.getenv('GENAI_API_KEY'))
 
-# genai.configure(api_key=API_KEY)
-client = genai.Client(api_key=API_KEY)
+# --- 2. Tool Definitions ---
+# The SDK uses docstrings and type hints to generate the schema.
+# Make sure these are descriptive!
 
-
-# --- 2. Tool Definition ---
-def ground_place_query(place_query: str) -> str:
+def ground_place_query(place_query: str) -> dict:
     """
     Finds the most relevant place DCID for a given query string.
     
     Args:
         place_query: A string to search for the place (e.g., "United States").
-
-    Returns:
-        A list of JSON objects containing the DCID, name and list of containedInPlaces of the most relevant places, or an error.
     """
+    print(f"   ---> 🏃 GROUNDING PLACE QUERY: {place_query}")
     try:
-        pager = vertex_ai.search(project_id='datcom-website-dev',
-                                            location='global',
-                                            engine_id='place-search-app_1762536747176',
-                                            serving_config_id='default_config',
-                                            query=place_query,
-                                            page_size=1,
-                                            page_token=None,
-                                            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+        pager = vertex_ai.search(
+            project_id='datcom-website-dev',
+            location='global',
+            engine_id='place-search-app_1762536747176',
+            serving_config_id='default_config',
+            query=place_query,
+            page_size=1,
+            page_token=None,
+            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW
+        )
         
         results = list(itertools.islice(pager, 20))
-
         if not results:
-            return json.dumps({"error": "No place found."})
+            return {"error": "No place found."}
 
-        # Extract all DCIDs from the results
-        dcids = [{'dcid': result.document.struct_data['dcid'], 'name': result.document.struct_data['name'], 'containedInPlaces': list(result.document.struct_data['containedInPlace'])} for result in results]
-        return json.dumps(dcids)
-
+        return [
+            {
+                'dcid': r.document.struct_data['dcid'], 
+                'name': r.document.struct_data['name'], 
+                'containedInPlaces': list(r.document.struct_data['containedInPlace'])
+            } 
+            for r in results
+        ]
     except Exception as e:
-        return json.dumps({"error": str(e)})
+        return {"error": str(e)}
 
-def ground_statvar_query(stat_var_query: str) -> str:
+def ground_statvar_query(stat_var_query: str) -> dict:
     """
     Finds the most relevant statistical variable DCID for a given query string.
-    
-    Args:
-        stat_var_query: A string to search for the statistical variable (e.g., "Population").
-
-    Returns:
-        A list of JSON objects containing the DCID and name of the most relevant statistical variables, or an error.
     """
+    print(f"   ---> 🏃 GROUNDING STATVAR QUERY: {stat_var_query}")
     try:
-        pager = vertex_ai.search(project_id='datcom-nl',
-                                            location='global',
-                                            engine_id='full-statvar-search-prod-p_1757437817854',
-                                            serving_config_id='default_config',
-                                            query=stat_var_query,
-                                            page_size=1,
-                                            page_token=None,
-                                            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+        pager = vertex_ai.search(
+            project_id='datcom-nl',
+            location='global',
+            engine_id='full-statvar-search-prod-p_1757437817854',
+            serving_config_id='default_config',
+            query=stat_var_query,
+            page_size=1,
+            page_token=None,
+            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW
+        )
         
         results = list(itertools.islice(pager, 20))
-
         if not results:
-            return json.dumps({"error": "No statistical variable found."})
+            return {"error": "No statistical variable found."}
 
-        # Extract all DCIDs from the results
-        dcids = [{result.document.struct_data['dcid']: result.document.struct_data['name']} for result in results]
-        return json.dumps(dcids)
-
+        return [
+            {r.document.struct_data['dcid']: r.document.struct_data['name']} 
+            for r in results
+        ]
     except Exception as e:
-        return json.dumps({"error": str(e)})
+        return {"error": str(e)}
 
-def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None = None) -> str:
+def get_ranking_stat(place_dcid: str, stat_var_dcid: str, date: str | None = None) -> dict:
+    """
+    Retrieves the ranking of a place for a given statistical variable from Data Commons.
+    
+    Args:
+        place_dcid: The Data Commons ID of the place (e.g., "geoId/12").
+        stat_var_dcid: The statistical variable DCID (e.g., "Count_Person").
+        date: The specific date (e.g., "2023"). If None, gets the latest.
+    """
+    print(f"   ---> 🏃 FETCHING RANKING: {stat_var_dcid} for {place_dcid} ({date or 'Latest'})")
+    return {}
+
+def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None = None) -> dict:
     """
     Retrieves a statistical value from Data Commons for a single place and date.
     
     Args:
-        place_dcid: The Data Commons ID of the place (e.g., "geoId/12" for Florida).
-        stat_var_dcid: A string to search for the statistical variable (e.g., "Count_Person").
-        date: The specific date for the statistic (e.g., "2023"). If not provided, gets the latest.
-
-    Returns:
-        A JSON string containing the value, source, and date of the statistic, or an error.
+        place_dcid: The Data Commons ID of the place (e.g., "geoId/12").
+        stat_var_dcid: The statistical variable DCID (e.g., "Count_Person").
+        date: The specific date (e.g., "2023"). If None, gets the latest.
     """
-    print(f"   ---> 🏃 RUNNING PYTHON FUNCTION: get_datacommons_stat({place_dcid}, {stat_var_dcid}, date={date})")
+    print(f"   ---> 🏃 FETCHING: {stat_var_dcid} for {place_dcid} ({date or 'Latest'})")
     try:
-        # Get the data point
         data = dc.get_stat_value(place_dcid, stat_var_dcid, date=date)
-        print(f"Retrieved data: {data}")
         
+        # Handle simple return types (int/float)
         if isinstance(data, (int, float)):
-            value = data
-            obs_date = date if date else "latest" # Assuming 'date' is the observation date if provided, else 'latest'
-            return json.dumps({"value": value, "date": obs_date, "source": "Data Commons API"})
+            return {"value": data, "date": date or "latest", "source": "Data Commons API"}
         
+        # Handle dictionary return types (series data)
         if not data or 'series' not in data or not data['series']:
-            return json.dumps({"error": "No data found for this statistical variable."})
+            return {"error": "No data found for this statistical variable."}
         
         series = data.get('series', [])
-            
-        # Find the right data point for the given date
+        
         if date:
-            # Find the value for the specific year requested
             value = next((p['value'] for p in series if date in p['date']), None)
             if value is None:
-                 return json.dumps({"error": f"No data found for the year {date}."})
+                 return {"error": f"No data found for the year {date}."}
             obs_date = date
         else:
-            # If no date, get the latest value
             latest_point = max(series, key=lambda x: x['date'])
             value = latest_point['value']
             obs_date = latest_point['date']
 
-        return json.dumps({"value": value, "date": obs_date, "source": "Data Commons API"})
+        return {"value": value, "date": obs_date, "source": "Data Commons API"}
     except Exception as e:
-        return json.dumps({"error": str(e)})
+        return {"error": str(e)}
 
-# CRITICAL: A map to find your function by its string name
-function_map = {
-    "ground_statvar_query": ground_statvar_query,
-    "get_datacommons_stat": get_datacommons_stat,
-    "ground_place_query": ground_place_query,
-}
+# --- 3. Dynamic Configuration ---
 
-# --- 3. Model Configuration ---
-dc_tool = types.Tool(
-    function_declarations=[
-        types.FunctionDeclaration.from_callable(client=client, callable=get_datacommons_stat),
-        types.FunctionDeclaration.from_callable(client=client, callable=ground_statvar_query),
-        types.FunctionDeclaration.from_callable(client=client, callable=ground_place_query),
-    ]
-)
-print("Success! Data Commons tool initialized.")
+# Create the tool list directly from functions
+tools_list = [ground_place_query, ground_statvar_query, get_datacommons_stat, get_ranking_stat]
+
+# Create a map for execution (replacing your manual map)
+# This creates: {'ground_place_query': <func ground_place_query>, ...}
+function_map = {func.__name__: func for func in tools_list}
 
 DC_SYSTEM_PROMPT = """
-You are a helpful assistant with access to the Data Commons API.
-Your goal is to answer user questions that require statistical data.
-
-You have two tools available:
-
-1. `ground_place_query(place_query)`:
-   - Use this to find the most relevant place DCID for a given query string.
-   - Returns a list of JSON objects with DCID, name, and containedInPlaces.
-
-2. `ground_statvar_query(stat_var_query)`:
-   - Use this to find the most relevant statistical variable DCID for a given query string.
-   - Returns a list of JSON objects with DCID and name.
-   - Example: For the query "Life expectancy", this tool will return [{LifeExpectancy_Person: "The life expectancy at birth "}].
-
-3. `get_datacommons_stat(place_dcid, stat_var_dcid, date)`:
-   - Use this for finding a SINGLE statistical value for a specific place.
-   - Example: "What was the population of Florida in 2022?"
-   - The tool will return a JSON object with `value`, `date`, and `source`. Use these to construct your answer.
-   - Remember you must extract the stat var DCID from the ground_statvar_query response to use as stat_var_dcid first.
-   - And you must extract the place DCID from the ground_place_query response to use as place_dcid first.
-
-
-General Instructions:
-- First, choose the right tool for the job based on the user's query.
-- You need to provide a query for the statistical variable, not a DCID. For example, use "Population" instead of "Count_Person".
-- If a tool returns an 'error' or the value is 'NaN', the data is not available. State that you could not find the data.
-- Do not make up data. Only use the information returned by the tools.
-- Once you've already found a place_dcid or stat_var_dcid, you can reuse it without calling the grounding tools again.
+You are a Data Commons assistant. 
+1. Use `ground_statvar_query` and `ground_statvar_query` to find DCIDs first.
+2. Use `ground_place_query` to find the place DCID. However, for World/Earth, use "Earth" as the DCID directly.
+3. Use `get_datacommons_stat` to get actual data using the DCIDs found.
+4. Use `get_ranking_stat` if you need rankings and pass in the parent place's DCID. For example, for Ranking of italy in Europe, use ground Europe to a DCID, then use it.
+3. If data is missing, say so. Do not invent numbers.
 """
 
 # --- 4. Chat Loop ---
+
 def ask_data_commons(query: str):
-    print(f"User Query: '{query}'\n" + "-"*40)
+    print(f"\nUser Query: '{query}'\n" + "-"*40)
 
     chat = client.chats.create(
-        # model="gemini-2.5-pro",
         model="gemini-2.5-flash",
+        # model="gemini-2.5-pro",
         config=types.GenerateContentConfig(
             system_instruction=DC_SYSTEM_PROMPT,
-            tools=[dc_tool],
+            tools=tools_list,
             temperature=0.0,
-            tool_config=types.ToolConfig(
-                function_calling_config=types.FunctionCallingConfig(
-                    mode=types.FunctionCallingConfigMode.ANY
-                )
-            )
         )
     )
 
-    try:
-        response = chat.send_message(query)
-        # --- SAFETY BRAKE ---
-        max_turns = 100
-        current_turn = 0
+    response = chat.send_message(query)
 
-        print(f"🤖 Initial Response: {response.candidates}\n")
-
-        while response.candidates and response.candidates[0].content.parts and response.candidates[0].content.parts[0].function_call:
-            current_turn += 1
-            if current_turn > max_turns:
-                 print(f"⚠️ WARNING: Hit max tool turns ({max_turns}). Stopping loop.")
-                 break
-
-            call = response.candidates[0].content.parts[0].function_call
-            print(f"🤖 Turn {current_turn}: Model requested '{call.name}' with {call.args}")
-
-            func = function_map.get(call.name)
-            if func:
-                tool_result = func(**call.args)
-                print(f"   <--- Result: {tool_result}")
-                
-                # Send result back to continue the conversation
-                response = chat.send_message(
-                    types.Part.from_function_response(
-                        name=call.name,
-                        response={"result": tool_result}
-                    )
-                )
-            else:
-                break
+    # Loop to handle tool calls
+    # The SDK does not auto-execute Python code locally for security; 
+    # we must execute the requested function and send the result back.
+    while True:
+        # Check if the model wants to call a function
+        if not response.candidates or not response.candidates[0].content.parts:
+            break
+            
+        part = response.candidates[0].content.parts[0]
         
-        print(f"\n✅ FINAL ANSWER:\n{response.text}\n")
-        return response.text
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return "Error: Could not get a response from the model."
+        if not part.function_call:
+            # No function call, we have a text response. Done.
+            break
+
+        # Extract call details
+        call = part.function_call
+        print(f"🤖 Model requests: {call.name}({call.args})")
+
+        # Execute
+        func = function_map.get(call.name)
+        if func:
+            try:
+                # Unpack arguments provided by the model
+                result_data = func(**call.args)
+            except Exception as e:
+                print(f"   <--- Exceppptttiooonnnn: {result_data}")
+                result_data = {"error": str(e)}
+            
+            print(f"   <--- Result: {result_data}")
+
+            # Send result back to the model
+            response = chat.send_message(
+                types.Part.from_function_response(
+                    name=call.name,
+                    response={"result": result_data}
+                )
+            )
+        else:
+            print(f"❌ Error: Model requested unknown function '{call.name}'")
+            break
+
+    final_text_parts = []
+    if response.candidates and response.candidates[0].content.parts:
+        for part in response.candidates[0].content.parts:
+            if part.text:
+                final_text_parts.append(part.text)
+    
+    final_answer = "".join(final_text_parts)
+    
+    print(f"\n✅ FINAL ANSWER:\n{final_answer}\n")
+    
+    if final_answer:
+        return final_answer
+    return "No response generated."

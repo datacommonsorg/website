@@ -78,6 +78,39 @@ class LLMProvider(ABC):
 # 2. Concrete Implementations
 # =========================================
 
+def verify_claim(self, claim: str) -> Dict[str, Any]:
+    verification_prompt = f"""
+    You are a neutral fact-checker. Verify this claim using Data Commons Tool call..
+    Claim: "{claim}"
+    Determine if supported, rate as SUPPORTED/DISPUTED/UNSUPPORTED, and provide a 1-sentence citatated explanation. If you cannot verify using the data commons tool, mark as UNSUPPORTED
+    Return a JSON object with fields: "verdict" and "explanation".
+    """
+    
+    # --- NEW CLEANER GROUNDING SYNTAX ---
+    # if use_google_search:
+    #   response = self.client.models.generate_content(
+    #       model=self.model_name,
+    #       contents=verification_prompt,
+    #       config=types.GenerateContentConfig(
+    #           tools=[types.Tool(google_search=types.GoogleSearch())],
+    #           temperature=0.0
+    #       )
+    #   )
+    print("Verifying Response: ")
+    response = ask_data_commons(verification_prompt)
+
+    # Check metadata to confirm search actually happened
+    # The new SDK uses slightly different metadata structure
+    # grounding_meta = response.candidates[0].grounding_metadata
+    # used_search = grounding_meta.search_entry_point is not None if grounding_meta else False
+
+    return {
+        "original_claim": claim,
+        "verification_verdict": response,
+        # "verified_with_external_search": used_search,
+        "provider": "Vertex AI (google-genai SDK)"
+    }
+
 # --- A. Google Vertex AI Implementation ---
 class VertexAIProvider(LLMProvider):
     def __init__(self, project_id: str, location: str, model_name: str = "gemini-2.5-pro"):
@@ -122,56 +155,21 @@ class VertexAIProvider(LLMProvider):
                     temperature=0.2,
                 )
             )
-            print("Response from Vertex AI: " + str(response))
             return json.loads(response.text)
         except Exception as e:
             print(f"Extraction failed: {e}")
             return []
 
     def verify_claim(self, claim: str) -> Dict[str, Any]:
-        verification_prompt = f"""
-        You are a neutral fact-checker. Verify this claim using Data Commons Tool call..
-        Claim: "{claim}"
-        Determine if supported, rate as SUPPORTED/DISPUTED/UNSUPPORTED, and provide a 1-sentence citatated explanation. If you cannot verify using the data commons tool, mark as UNSUPPORTED
-        """
-        
-        # --- NEW CLEANER GROUNDING SYNTAX ---
-        # if use_google_search:
-        #   response = self.client.models.generate_content(
-        #       model=self.model_name,
-        #       contents=verification_prompt,
-        #       config=types.GenerateContentConfig(
-        #           tools=[types.Tool(google_search=types.GoogleSearch())],
-        #           temperature=0.0
-        #       )
-        #   )
-        print("Verifying Response: ")
-        response = ask_data_commons(verification_prompt)
-        print(response)
-
-        # Check metadata to confirm search actually happened
-        # The new SDK uses slightly different metadata structure
-        # grounding_meta = response.candidates[0].grounding_metadata
-        # used_search = grounding_meta.search_entry_point is not None if grounding_meta else False
-
-        return {
-            "original_claim": claim,
-            "verification_verdict": response,
-            # "verified_with_external_search": used_search,
-            "provider": "Vertex AI (google-genai SDK)"
-        }
+        return verify_claim(self, claim)
 
 # --- B. OpenAI Implementation ---
 class OpenAIProvider(LLMProvider):
-    def __init__(self, api_key: str, model_name: str = "gpt-4o"):
+    def __init__(self, model_name: str = "gpt-4o"):
         if not OPENAI_AVAILABLE:
             raise ImportError("openai library is not installed.")
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
         self.model_name = model_name
-
-    def _mock_web_search(self, query: str) -> str:
-        # IN PRODUCTION: Replace this with actual calls to SerpApi/Tavily
-        return f"[MOCK SEARCH RESULT] Data found for {query}: Verified by external source."
 
     def extract_statistics(self, user_query: str) -> List[Dict[str, Any]]:
         # OpenAI works best with "json_object" mode and a strong system prompt, 
@@ -204,35 +202,14 @@ class OpenAIProvider(LLMProvider):
             return []
 
     def verify_claim(self, claim: str) -> Dict[str, Any]:
-        # Simulating retrieval by "calling" our mock search
-        search_results = self._mock_web_search(claim)
-        
-        verify_prompt = f"""
-        Verify this claim based on the provided search results.
-        Claim: {claim}
-        Search Results: {search_results}
-        Verdict (SUPPORTED/DISPUTED/UNSUPPORTED) and 1 sentence explanation.
-        """
-        
-        response = self.client.chat.completions.create(
-            model=self.model_name,
-            messages=[{"role": "user", "content": verify_prompt}],
-            temperature=0.0
-        )
-        
-        return {
-            "original_claim": claim,
-            "verification_verdict": response.choices[0].message.content,
-            "verified_with_external_search": True, # Simulated True
-            "provider": "OpenAI"
-        }
+        return verify_claim(self, claim)
 
 # --- C. Anthropic Implementation ---
 class AnthropicProvider(LLMProvider):
-    def __init__(self, api_key: str, model_name: str = "claude-3-5-sonnet-20240620"):
+    def __init__(self, api_key: str, model_name: str = "claude-sonnet-4-20250514"):
         if not ANTHROPIC_AVAILABLE:
              raise ImportError("anthropic library is not installed.")
-        self.client = anthropic.Anthropic(api_key=api_key)
+        self.client =  anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
         self.model_name = model_name
 
     def extract_statistics(self, user_query: str) -> List[Dict[str, Any]]:
@@ -279,20 +256,8 @@ class AnthropicProvider(LLMProvider):
         return []
 
     def verify_claim(self, claim: str) -> Dict[str, Any]:
-        # Simplified verification without real search for this demo
-        response = self.client.messages.create(
-             model=self.model_name,
-             max_tokens=512,
-             messages=[
-                 {"role": "user", "content": f"Verify this claim based on your internal knowledge (ignoring realtime data need for now): '{claim}'. Verdict: SUPPORTED/DISPUTED/UNSUPPORTED."}
-             ]
-        )
-        return {
-            "original_claim": claim,
-            "verification_verdict": response.content[0].text,
-            "verified_with_external_search": False, # No native grounding here
-            "provider": "Anthropic"
-        }
+        return verify_claim(self, claim)
+
 
 # =========================================
 # 3. Main Context Class (Unchanged Logic)
@@ -327,26 +292,26 @@ class StatisticalFactChecker:
 # 4. Execution Example
 # =========================================
 # Configuration
-QUERY = "What is the nominal GDP of Italy?"
+QUERY = "What is the Nominal GDP of italy?"
 # print(VERTEX_AVAILABLE)
 
 # --- OPTION 1: VERTEX AI ---
-if VERTEX_AVAILABLE:
-    print("\n=== RUNNING WITH VERTEX AI ===")
-    vertex_provider = VertexAIProvider(project_id="datcom-website-dev", location="us-central1")
-    checker = StatisticalFactChecker(vertex_provider)
-    checker.run_check(QUERY)
+# if VERTEX_AVAILABLE:
+#     print("\n=== RUNNING WITH VERTEX AI ===")
+#     vertex_provider = VertexAIProvider(project_id="datcom-website-dev", location="us-central1")
+#     checker = StatisticalFactChecker(vertex_provider)
+#     checker.run_check(QUERY)
 
 # --- OPTION 2: OPENAI ---
-# if OPENAI_AVAILABLE:
-#     print("\n=== RUNNING WITH OPENAI ===")
-    # openai_provider = OpenAIProvider(api_key="your-api-key-here")
-    # checker = StatisticalFactChecker(openai_provider)
-    # checker.run_check(QUERY)
+if OPENAI_AVAILABLE:
+    print("\n=== RUNNING WITH OPENAI ===")
+    openai_provider = OpenAIProvider()
+    checker = StatisticalFactChecker(openai_provider)
+    checker.run_check(QUERY)
 
 # --- OPTION 3: ANTHROPIC ---
 # if ANTHROPIC_AVAILABLE:
 #      print("\n=== RUNNING WITH ANTHROPIC ===")
-    #  anthropic_provider = AnthropicProvider(api_key="your-api-key-here")
-    #  checker = StatisticalFactChecker(anthropic_provider)
-    #  checker.run_check(QUERY)
+#      anthropic_provider = AnthropicProvider(api_key="your-api-key-here")
+#      checker = StatisticalFactChecker(anthropic_provider)
+#      checker.run_check(QUERY)
