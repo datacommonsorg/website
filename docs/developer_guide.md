@@ -200,9 +200,9 @@ Find your image hash for both datacommons-mixer and datacommons-website in [Arti
 website_hash=
 mixer_hash=
 # To deploy to website + its mixer:
-./scripts/deploy_website_cloud_deploy.sh website_hash mixer_hash datacommons-website-dev
+./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
 # and to deploy to mixer only:
-./scripts/deploy_mixer_cloud_deploy.sh mixer_hash datacommons-mixer-dev
+./scripts/deploy_mixer_cloud_deploy.sh $mixer_hash datacommons-mixer-dev
 
 ```
 
