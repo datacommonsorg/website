@@ -16,6 +16,15 @@ VERIFICATION_PROMPT = """
     You are a neutral fact-checker. Verify this claim using Data Commons Tool call..
     Determine if supported, rate as SUPPORTED/DISPUTED/UNSUPPORTED, and provide a 1-sentence citatated explanation. If you cannot verify using the data commons tool, mark as UNSUPPORTED
     Return a JSON object with fields: "verdict" and "explanation".
+    
+    Example:
+    Claim: "The population of USA is 400 million"
+    Output:
+    {
+        "verdict": "DISPUTED",
+        "explanation": "According to Data Commons, the population of USA was 331.9 million in 2021."
+    }
+
     Claim:
     """
 

@@ -39,18 +39,37 @@ class FactChecker:
     def verify_claims(self, facts: Dict[str, Any]) -> Dict[str, Any]:
         if not facts:
             print("No statistical claims found to verify.")
-            return
+            return {}
 
         print("\n--- Step 2: Verifying all Claims ---")
         claim_index = 0
+        verdict_counts = {
+            "SUPPORTED": 0,
+            "DISPUTED": 0,
+            "UNSUPPORTED": 0,
+            "OTHER": 0,
+        }
         for fact in facts:
             print(f"\"\nVerifying Claim #{claim_index + 1}: {fact}")
             claim_index += 1
             result = verify_claim(fact)
 
-            print(result['verification_verdict'])
+            verification = result.get("verification_verdict", {})
+            print(verification)
+
+            verdict = verification.get("verdict", "OTHER").upper()
+            if verdict in verdict_counts:
+                verdict_counts[verdict] += 1
+            else:
+                verdict_counts["OTHER"] += 1
+
             print("-" * 40)
             time.sleep(4)  # To avoid rate limits in real scenarios
+        
+        print("\n--- Final Tally ---")
+        print(json.dumps(verdict_counts, indent=4))
+
+        return verdict_counts
 
 
     def generate_and_verify_claims(self, user_query: str):
