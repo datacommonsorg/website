@@ -34,7 +34,7 @@ steps:
         # 1. DETERMINE WEBSITE IMAGE HASH
         # If _SHORT_SHA is passed from a website repo trigger, use it.
         if [[ -n "${_SHORT_SHA}" ]]; then
-          # If the trigger hash is from a dev image, stop the deployment.
+          # If the trigger hash is from a dev image, stop the deployment because the was built locally.
           if [[ "${_SHORT_SHA}" == dev-* ]]; then
             echo "Skipping deployment for dev image tag: ${_SHORT_SHA}"
             exit 0
