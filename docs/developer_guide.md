@@ -192,11 +192,29 @@ Then run
 gcloud auth login
 gcloud auth configure-docker
 ./scripts/push_image.sh datcom-ci DEV
-./scripts/deploy_gke_helm.sh -e dev
+```
+
+Find your image hash for both datacommons-mixer and datacommons-website in [Artifact Registry](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io?e=13803378&inv=1&invt=Ab3CEA&mods=-monitoring_api_staging&project=datcom-ci)
+
+```bash
+WEBSITE_GITHASH=dev-72c634f # REPLACE WITH YOUR IMAGE TAG
+MIXER_GITHASH=dev-732ac9c # REPLACE WITH YOUR IMAGE TAG
+TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+DEPLOY_PIPELINE=datacommons-website-dev
+
+gcloud deploy releases create "dev-manual-$TIMESTAMP" \
+--delivery-pipeline=$DEPLOY_PIPELINE \
+--region=us-central1 \
+--skaffold-file=skaffold.yaml \
+--images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$WEBSITE_GITHASH,gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_GITHASH,gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$WEBSITE_GITHASH,gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$WEBSITE_GITHASH" \
+--deploy-parameters="mixer.githash=$MIXER_GITHASH,MIXER_GITHASH=$MIXER_GITHASH,website.githash=$WEBSITE_GITHASH" \
+--project=datcom-ci
 ```
 
 The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE.
+hash at HEAD, then deploys to dev instance in GKE through Cloud Deploy.
+
+Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autodeployment.
 
 View the deployoment at [link](https://dev.datacommons.org).
 
