@@ -19,9 +19,8 @@
   },
   {
     "name": "enable_stat_var_autocomplete",
-    "enabled": true,
+    "enabled": false,
     "owner": "gmechali",
-    "rollout_percentage": 20,
     "description": "Enable stat var autocompletion in the NL Search bar"
   },
   {

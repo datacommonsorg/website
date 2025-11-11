@@ -191,7 +191,7 @@ Then run
 ```bash
 gcloud auth login
 gcloud auth configure-docker
-./scripts/push_image.sh
+./scripts/push_image.sh datcom-ci DEV
 ./scripts/deploy_gke_helm.sh -e dev
 ```
 
