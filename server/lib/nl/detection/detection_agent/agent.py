@@ -9,7 +9,6 @@ AGENT_MODEL = 'gemini-2.5-flash'
 
 APP_NAME='datacommons-nl-agent'
 
-
 root_agent = LlmAgent(
     model=AGENT_MODEL,
     name='detection_agent',
