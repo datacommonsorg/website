@@ -1,0 +1,20 @@
+[
+    {
+        "claim_text": "According to the International Monetary Fund's (IMF) projections from April 2024, Italy's nominal Gross Domestic Product (GDP) is estimated to be approximately $2.21 trillion for the year 2024.",
+        "statistic_value": 2.21,
+        "statistic_unit": "trillion US dollars",
+        "topic": "Italy Nominal GDP"
+    },
+    {
+        "claim_text": "The World Bank recorded Italy's nominal GDP for the full year of 2022 as $2.05 trillion.",
+        "statistic_value": 2.05,
+        "statistic_unit": "trillion US dollars",
+        "topic": "Italy Nominal GDP"
+    },
+    {
+        "claim_text": "Italy's economy consistently ranks among the top 10 largest in the world by nominal GDP.",
+        "statistic_value": 10,
+        "statistic_unit": "ranking",
+        "topic": "Global Economic Ranking"
+    }
+]
