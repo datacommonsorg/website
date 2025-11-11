@@ -6,6 +6,12 @@
     "url": "https://unstats.un.org/UNSDWebsite/undatacommons/sdgs"
   },
   {
+    "id": "oneData",
+    "title": "ONE Data",
+    "sprite-index": 4,
+    "url": "https://data.one.org"
+  },
+  {
     "id": "techsoup",
     "title": "TechSoup",
     "sprite-index": 0,
@@ -22,11 +28,5 @@
     "title": "Stanford University",
     "sprite-index": 3,
     "url": "https://datacommons.stanford.edu"
-  },
-  {
-    "id": "oneData",
-    "title": "One Data",
-    "sprite-index": 4,
-    "url": "https://data.one.org"
   }
 ]
