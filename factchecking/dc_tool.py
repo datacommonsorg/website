@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import itertools
 import datacommons as dc
 from google import genai
@@ -149,11 +150,10 @@ You are a Data Commons assistant.
 """
 
 # --- 4. Chat Loop ---
-
 GEMINI_FLASH_MODEL = "gemini-2.5-flash"
 GEMINI_PRO_MODEL = "gemini-2.5-pro"
 
-def ask_data_commons(claim: str):
+def ask_data_commons(claim: str) -> dict:
     chat = client.chats.create(
         model=GEMINI_FLASH_MODEL,
         config=types.GenerateContentConfig(
@@ -213,7 +213,23 @@ def ask_data_commons(claim: str):
                 final_text_parts.append(part.text)
     
     final_answer = "".join(final_text_parts)
-    
+
     if final_answer:
-        return final_answer
-    return "No response generated."
+        # Remove markdown
+        final_answer = final_answer.replace("```json", "").replace("```", "")
+        match = re.search(r"\{.*\}", final_answer, re.DOTALL)
+        if match:
+            json_str = match.group(0)
+            try:
+                return json.loads(json_str)
+            except json.JSONDecodeError:
+                return {
+                    "verdict": "INVALID_JSON",
+                    "explanation": f"Could not parse JSON from LLM response: {final_answer}"
+                }
+        else:
+            return {
+                "verdict": "INVALID_JSON",
+                "explanation": f"No JSON object found in LLM response: {final_answer}"
+            }
+    return {"verdict": "NO_RESPONSE", "explanation": "No response generated."}
