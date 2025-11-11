@@ -197,18 +197,13 @@ gcloud auth configure-docker
 Find your image hash for both datacommons-mixer and datacommons-website in [Artifact Registry](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io?e=13803378&inv=1&invt=Ab3CEA&mods=-monitoring_api_staging&project=datcom-ci)
 
 ```bash
-WEBSITE_GITHASH=dev-72c634f # REPLACE WITH YOUR IMAGE TAG
-MIXER_GITHASH=dev-732ac9c # REPLACE WITH YOUR IMAGE TAG
-TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-DEPLOY_PIPELINE=datacommons-website-dev
+website_hash=
+mixer_hash=
+# To deploy to website + its mixer:
+./scripts/deploy_website_cloud_deploy.sh website_hash mixer_hash datacommons-website-dev
+# and to deploy to mixer only:
+./scripts/deploy_mixer_cloud_deploy.sh mixer_hash datacommons-mixer-dev
 
-gcloud deploy releases create "dev-manual-$TIMESTAMP" \
---delivery-pipeline=$DEPLOY_PIPELINE \
---region=us-central1 \
---skaffold-file=skaffold.yaml \
---images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$WEBSITE_GITHASH,gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_GITHASH,gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$WEBSITE_GITHASH,gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$WEBSITE_GITHASH" \
---deploy-parameters="mixer.githash=$MIXER_GITHASH,MIXER_GITHASH=$MIXER_GITHASH,website.githash=$WEBSITE_GITHASH" \
---project=datcom-ci
 ```
 
 The script builds docker image locally and tags it with the local git commit
