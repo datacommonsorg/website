@@ -13,33 +13,53 @@
 # limitations under the License.
 
 from functools import lru_cache
-import subprocess
 
 from google.adk.agents.llm_agent import LlmAgent
-from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
+from google.adk.apps import App
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
+from google.adk.tools.mcp_tool.mcp_session_manager import \
+    StreamableHTTPConnectionParams
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 
 from server.lib.nl.detection.agent.config import AGENT_MODEL
-from server.lib.nl.detection.agent.config import get_mcp_env
-from server.lib.nl.detection.agent.config import MCP_SERVER_VERSION
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
+APP_NAME = 'datacommons-nl-agent'
+
 
 @lru_cache(maxsize=1)
-def get_agent() -> tuple[LlmAgent, MCPToolset]:
+def get_agent() -> LlmAgent:
   """Returns a cached singleton detection agent."""
-  
-  toolset = MCPToolset(
-    connection_params=StreamableHTTPConnectionParams(
-        url="http://localhost:3000/mcp",    
-         timeout=30.0),
-      tool_filter=["search_indicators"])
-  
+
   agent = LlmAgent(model=AGENT_MODEL,
                    name="detection_agent",
                    instruction=AGENT_INSTRUCTIONS,
-                   tools=[toolset],
-                   output_schema=AgentDetection)
-  
-  return agent, toolset
+                   tools=[
+                       MCPToolset(
+                           connection_params=StreamableHTTPConnectionParams(
+                               url="http://localhost:3000/mcp",
+                               timeout=30.0,
+                               ),
+                           tool_filter=["search_indicators"],
+                       )
+                   ],
+                   output_schema=AgentDetection,
+                   output_key='nl_detection')
+
+  return agent
+
+
+@lru_cache(maxsize=1)
+def get_detection_agent_runner() -> Runner:
+  agent = get_agent()
+
+  runner = Runner(
+      app=App(
+          name=APP_NAME,
+          root_agent=agent,
+      ),
+      session_service=InMemorySessionService(),
+  )
+  return runner

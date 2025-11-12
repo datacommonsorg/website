@@ -12,33 +12,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import uuid
+
 from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
-AGENT_MODEL = 'gemini-2.5-flash'
-
-APP_NAME = 'datacommons-nl-agent'
+from server.lib.nl.detection.agent.types import AgentDetection
 
 
-async def call_agent(agent, query):
+async def call_agent(runner: Runner, query: str) -> AgentDetection:
+  ephemeral_session_id = str(uuid.uuid4())
+  generic_user = "stateless-web-user"
+  try:
+    session = await runner.session_service.create_session(
+        app_name=runner.app_name,
+        session_id=ephemeral_session_id,
+        user_id=generic_user,
+    )
 
-  session_service = InMemorySessionService()
-  await session_service.create_session(app_name=APP_NAME,
-                                       user_id="1",
-                                       session_id="test")
-  runner = Runner(agent=agent,
-                  session_service=session_service,
-                  app_name=APP_NAME)
+    query_content = types.Content(role="user", parts=[types.Part(text=query)])
 
-  events = runner.run_async(new_message=types.Content(
-      role="user", parts=[types.Part(text=query)]),
-                            user_id="1",
-                            session_id="test")
+    async for _ in runner.run_async(new_message=query_content,
+                                    user_id=session.user_id,
+                                    session_id=session.id):
+      pass
 
-  final_res = None
-  async for event in events:
-    if event.is_final_response():
-      final_res = event.content.parts
+    updated_session = await runner.session_service.get_session(
+        app_name=runner.app_name,
+        user_id=session.user_id,
+        session_id=session.id)
 
-  print(final_res)
+    detection_state = updated_session.state.get('nl_detection')
+    return AgentDetection(**detection_state)
+
+  finally:
+    await runner.session_service.delete_session(app_name=runner.app_name,
+                                                user_id=generic_user,
+                                                session_id=ephemeral_session_id)

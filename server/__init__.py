@@ -33,12 +33,13 @@ import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
+from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
-from server.lib.nl.detection.agent.agent import get_agent
+from server.lib.nl.detection.agent.agent import get_detection_agent_runner
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -453,7 +454,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     # TODO: need to handle singular vs plural in the titles
     app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
 
-    app.config['NL_DETECTION_AGENT'], app.config['NL_DETECTION_TOOLSET'] = get_agent()
+    if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
+      app.config['NL_DETECTION_AGENT_RUNNER'] = get_detection_agent_runner()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()

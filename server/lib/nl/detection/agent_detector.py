@@ -30,8 +30,6 @@ from shared.lib.detected_variables import VarCandidates
 async def detect(query: str, prev_utterance: utterance.Utterance,
                  query_detection_debug_logs: dict, counters: Counters,
                  dargs: DetectionArgs) -> Detection:
-  agent = current_app.config.get('NL_DETECTION_AGENT', None)
-  await call_agent(agent, query)
 
   # Place holder for actual agentic detection logic.
   empty_place_detection = PlaceDetection(
@@ -54,10 +52,18 @@ async def detect(query: str, prev_utterance: utterance.Utterance,
                                     sv_threshold=0.0,
                                     model_threshold=0.0)
 
-  return Detection(original_query=query,
-                   cleaned_query=query,
-                   places_detected=empty_place_detection,
-                   svs_detected=empty_svs_detection,
-                   classifications=[],
-                   llm_resp={},
-                   detector=ActualDetectorType.Agent)
+  empty_detection = Detection(original_query=query,
+                              cleaned_query=query,
+                              places_detected=empty_place_detection,
+                              svs_detected=empty_svs_detection,
+                              classifications=[],
+                              llm_resp={},
+                              detector=ActualDetectorType.Agent)
+
+  runner = current_app.config.get('NL_DETECTION_AGENT_RUNNER', None)
+  if not runner:
+    return empty_detection
+  agent_detection = await call_agent(runner, query)
+  print(agent_detection)
+
+  return empty_detection
