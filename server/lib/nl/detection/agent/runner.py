@@ -49,3 +49,5 @@ async def call_agent(runner: Runner, query: str) -> AgentDetection:
     await runner.session_service.delete_session(app_name=runner.app_name,
                                                 user_id=generic_user,
                                                 session_id=ephemeral_session_id)
+    for toolset in runner.agent.tools:
+        await toolset.close()
