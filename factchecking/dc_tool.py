@@ -4,6 +4,7 @@ import re
 import itertools
 import math
 import datacommons as dc
+import time
 from google import genai
 from google.genai import types
 from google.cloud import discoveryengine_v1 as discoveryengine
@@ -166,7 +167,7 @@ GEMINI_PRO_MODEL = "gemini-2.5-pro"
 
 def ask_data_commons(claim: str) -> dict:
     chat = client.chats.create(
-        model=GEMINI_FLASH_MODEL,
+        model=GEMINI_PRO_MODEL,
         config=types.GenerateContentConfig(
             system_instruction=DC_SYSTEM_PROMPT,
             tools=tools_list,
@@ -213,6 +214,7 @@ def ask_data_commons(claim: str) -> dict:
                     response={"result": result_data}
                 )
             )
+            time.sleep(10)
         else:
             print(f"❌ Error: Model requested unknown function '{call.name}'")
             break

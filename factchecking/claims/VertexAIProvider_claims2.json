@@ -1,0 +1,104 @@
+[
+    {
+        "claim_text": "Costa Rica has achieved nearly universal electricity access, with rates around 99.5%.",
+        "statistic_value": 99.5,
+        "statistic_unit": "%",
+        "topic": "Electricity Access in Costa Rica"
+    },
+    {
+        "claim_text": "Over 98% of Costa Rica's electricity is generated from renewable sources, primarily hydropower, geothermal, and wind.",
+        "statistic_value": 98,
+        "statistic_unit": "%",
+        "topic": "Renewable Energy in Costa Rica"
+    },
+    {
+        "claim_text": "Uruguay provides electricity to over 99.8% of its population.",
+        "statistic_value": 99.8,
+        "statistic_unit": "%",
+        "topic": "Electricity Access in Uruguay"
+    },
+    {
+        "claim_text": "Kenya has rapidly increased electricity access, reaching approximately 75% of its population.",
+        "statistic_value": 75,
+        "statistic_unit": "%",
+        "topic": "Electricity Access in Kenya"
+    },
+    {
+        "claim_text": "Approximately 90% of Kenya's grid-based electricity comes from renewable sources, especially geothermal and hydropower.",
+        "statistic_value": 90,
+        "statistic_unit": "%",
+        "topic": "Renewable Energy in Kenya"
+    },
+    {
+        "claim_text": "Iceland has 100% electricity access.",
+        "statistic_value": 100,
+        "statistic_unit": "%",
+        "topic": "Electricity Access in Iceland"
+    },
+    {
+        "claim_text": "Nearly 100% of Iceland's electricity is generated from renewable hydropower and geothermal sources.",
+        "statistic_value": 100,
+        "statistic_unit": "%",
+        "topic": "Renewable Energy in Iceland"
+    },
+    {
+        "claim_text": "In 2021, West Virginia had the highest rate of COPD prevalence among adults in the US.",
+        "statistic_value": 13.7,
+        "statistic_unit": "percent",
+        "topic": "COPD Prevalence"
+    },
+    {
+        "claim_text": "In 2022, coal-fired power plants generated 88% of West Virginia's total electricity.",
+        "statistic_value": 88,
+        "statistic_unit": "percent",
+        "topic": "Electricity Generation from Coal"
+    },
+    {
+        "claim_text": "In 2021, Kentucky had one of the highest rates of COPD prevalence among adults.",
+        "statistic_value": 11.1,
+        "statistic_unit": "percent",
+        "topic": "COPD Prevalence"
+    },
+    {
+        "claim_text": "In 2022, coal fueled about 68% of Kentucky's electricity generation.",
+        "statistic_value": 68,
+        "statistic_unit": "percent",
+        "topic": "Electricity Generation from Coal"
+    },
+    {
+        "claim_text": "In 2022, Missouri and Indiana generated more than half of their electricity from coal, at 63% and 53% respectively.",
+        "statistic_value": 53,
+        "statistic_unit": "percent",
+        "topic": "Electricity Generation from Coal"
+    },
+    {
+        "claim_text": "The national median prevalence of COPD among adults was 6.4% in 2021.",
+        "statistic_value": 6.4,
+        "statistic_unit": "percent",
+        "topic": "COPD Prevalence"
+    },
+    {
+        "claim_text": "Yes, obesity in America is continuing to increase. According to data from the Centers for Disease Control and Prevention (CDC) for 2017-March 2020, the obesity prevalence among U.S. adults was 41.9%.",
+        "statistic_value": 41.9,
+        "statistic_unit": "percent",
+        "topic": "Obesity in America"
+    },
+    {
+        "claim_text": "This represents a significant increase from the 1999-2000 period, when the adult obesity prevalence was 30.5%.",
+        "statistic_value": 30.5,
+        "statistic_unit": "percent",
+        "topic": "Obesity in America"
+    },
+    {
+        "claim_text": "The prevalence of severe obesity has also risen, increasing from 4.7% in 1999-2000 to 9.2% in 2017-March 2020.",
+        "statistic_value": 9.2,
+        "statistic_unit": "percent",
+        "topic": "Severe obesity in America"
+    },
+    {
+        "claim_text": "Childhood obesity is also a growing concern, with a prevalence of 20.7% among U.S. children and adolescents aged 2-19 years in 2017-2020.",
+        "statistic_value": 20.7,
+        "statistic_unit": "percent",
+        "topic": "Childhood obesity in America"
+    }
+]

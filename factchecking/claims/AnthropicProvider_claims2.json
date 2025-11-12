@@ -1,0 +1,122 @@
+[
+    {
+        "claim_text": "Costa Rica has achieved 99% electricity availability while maintaining relatively low per capita carbon emissions through renewable energy sources",
+        "statistic_value": 99,
+        "statistic_unit": "percent",
+        "topic": "electricity availability"
+    },
+    {
+        "claim_text": "Norway has nearly 100% electricity availability with hydroelectric power providing about 96% of electricity generation",
+        "statistic_value": 100,
+        "statistic_unit": "percent",
+        "topic": "electricity availability"
+    },
+    {
+        "claim_text": "Norway's hydroelectric power provides about 96% of electricity generation",
+        "statistic_value": 96,
+        "statistic_unit": "percent",
+        "topic": "renewable energy"
+    },
+    {
+        "claim_text": "Iceland has 100% electricity availability with nearly 100% renewable electricity from geothermal and hydroelectric sources",
+        "statistic_value": 100,
+        "statistic_unit": "percent",
+        "topic": "electricity availability"
+    },
+    {
+        "claim_text": "Iceland generates nearly 100% renewable electricity from geothermal and hydroelectric sources",
+        "statistic_value": 100,
+        "statistic_unit": "percent",
+        "topic": "renewable energy"
+    },
+    {
+        "claim_text": "Uruguay has achieved over 95% electricity availability with 95% of electricity from renewable sources including wind, hydro, and biomass",
+        "statistic_value": 95,
+        "statistic_unit": "percent",
+        "topic": "electricity availability"
+    },
+    {
+        "claim_text": "Uruguay generates 95% of electricity from renewable sources including wind, hydro, and biomass",
+        "statistic_value": 95,
+        "statistic_unit": "percent",
+        "topic": "renewable energy"
+    },
+    {
+        "claim_text": "Albania has high electricity availability with over 95% of electricity from hydroelectric power",
+        "statistic_value": 95,
+        "statistic_unit": "percent",
+        "topic": "renewable energy"
+    },
+    {
+        "claim_text": "West Virginia has the highest COPD rate in the US",
+        "statistic_value": 9.6,
+        "statistic_unit": "percent",
+        "topic": "COPD rates by state"
+    },
+    {
+        "claim_text": "Kentucky has the second highest COPD rate in the US",
+        "statistic_value": 9.2,
+        "statistic_unit": "percent",
+        "topic": "COPD rates by state"
+    },
+    {
+        "claim_text": "Alabama has high COPD rates",
+        "statistic_value": 8.8,
+        "statistic_unit": "percent",
+        "topic": "COPD rates by state"
+    },
+    {
+        "claim_text": "Wyoming generates approximately 80% of electricity from coal",
+        "statistic_value": 80,
+        "statistic_unit": "percent",
+        "topic": "coal-fired electricity generation by state"
+    },
+    {
+        "claim_text": "West Virginia generates approximately 90% of electricity from coal",
+        "statistic_value": 90,
+        "statistic_unit": "percent",
+        "topic": "coal-fired electricity generation by state"
+    },
+    {
+        "claim_text": "Kentucky generates approximately 70% of electricity from coal",
+        "statistic_value": 70,
+        "statistic_unit": "percent",
+        "topic": "coal-fired electricity generation by state"
+    },
+    {
+        "claim_text": "North Dakota generates approximately 70% of electricity from coal",
+        "statistic_value": 70,
+        "statistic_unit": "percent",
+        "topic": "coal-fired electricity generation by state"
+    },
+    {
+        "claim_text": "Utah generates approximately 60% of electricity from coal",
+        "statistic_value": 60,
+        "statistic_unit": "percent",
+        "topic": "coal-fired electricity generation by state"
+    },
+    {
+        "claim_text": "Adult obesity rate in the United States reached approximately 36.5%",
+        "statistic_value": 36.5,
+        "statistic_unit": "percent",
+        "topic": "obesity rates"
+    },
+    {
+        "claim_text": "Adult obesity rates increased from about 30% in the early 2000s to 36.5%",
+        "statistic_value": 30,
+        "statistic_unit": "percent",
+        "topic": "historical obesity rates"
+    },
+    {
+        "claim_text": "Childhood obesity affects approximately 19.3% of children and adolescents aged 2-19",
+        "statistic_value": 19.3,
+        "statistic_unit": "percent",
+        "topic": "childhood obesity"
+    },
+    {
+        "claim_text": "Annual healthcare costs related to obesity exceed $200 billion",
+        "statistic_value": 200,
+        "statistic_unit": "billion dollars",
+        "topic": "obesity healthcare costs"
+    }
+]
