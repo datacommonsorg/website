@@ -155,7 +155,7 @@ def memoize_and_log_mixer_usage(timeout: int = 300,
       logging.
   """
 
-  def decorator(fn):
+  def decorator(fn: Callable) -> Callable:
     # This is either the memoized result or the evaluation of the function,
     # if it wasn't cached previously
     memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
