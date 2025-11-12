@@ -491,7 +491,6 @@ def abort(
 
   if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
-    # loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(context_history, False)
     data_dict['session'] = session_info
     asyncio.create_task(bt.write_row(session_info, data_dict, debug_logs))

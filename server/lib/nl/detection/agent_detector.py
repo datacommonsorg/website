@@ -61,10 +61,10 @@ async def detect(query: str, prev_utterance: utterance.Utterance,
                               detector=ActualDetectorType.Agent)
 
   runner = current_app.config.get('NL_DETECTION_AGENT_RUNNER')
-  
+
   if not runner:
     return empty_detection
-  
+
   agent_detection = await get_detection(runner, query)
   print(agent_detection)
 

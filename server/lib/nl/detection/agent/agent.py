@@ -24,6 +24,7 @@ from server.lib.nl.detection.agent.config import DC_MCP_PORT
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
+
 @lru_cache(maxsize=1)
 def get_agent() -> LlmAgent | None:
   """Returns a cached singleton detection agent."""
