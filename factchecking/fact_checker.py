@@ -16,17 +16,22 @@ from llm_provider import LLMProvider
 import time
 from utils import verify_claim
 import json
-from typing import Dict, Any, Tuple
+from typing import Dict, Any, Tuple, List
 
 
 class FactChecker:
     def __init__(self, provider: LLMProvider):
         self.provider = provider
 
-    def generate_claims(self, user_query: str):
+    def generate_claims(self, user_queries: List[str]):
         print(f"--- Step 1: Generating Claims ({type(self.provider).__name__}) ---")
-        facts = self.provider.extract_statistics(user_query)
-        print(f"Found {len(facts)} statistical claims.\n{facts}")
+        facts = []
+        for user_query in user_queries:
+            print(f"\nGenerating claims for query: {user_query}")
+            facts.extend(self.provider.extract_statistics(user_query))
+            time.sleep(4)  # To avoid rate limits in real scenarios
+
+        print(f"Found {len(facts)} statistical claims.\n")
         with open('claims/' + self.provider.__class__.__name__ + '_claims.json', 'w', encoding='utf-8') as f:
             json.dump(facts, f, indent=4)
         return facts
@@ -53,25 +58,30 @@ class FactChecker:
         for fact in facts:
             print(f"\"\nVerifying Claim #{claim_index + 1}: {fact}")
             claim_index += 1
-            result = verify_claim(fact)
+            try:
+                result = verify_claim(fact)
 
-            verification = result.get("verification_verdict", {})
-            print(verification)
+                verification = result.get("verification_verdict", {})
+                print(verification)
 
-            verdict = verification.get("verdict", "OTHER").upper()
-            if verdict in verdict_counts:
-                verdict_counts[verdict] += 1
-            else:
+                verdict = verification.get("verdict", "OTHER").upper()
+                if verdict in verdict_counts:
+                    verdict_counts[verdict] += 1
+                else:
+                    verdict_counts["OTHER"] += 1
+
+                claim_verification_output = {
+                    "claim": fact,
+                    "verification": verification
+                }
+                verification_outputs.append(claim_verification_output)
+            except Exception as e:
+                print(f"Error verifying claim: {e}")
                 verdict_counts["OTHER"] += 1
-
-            claim_verification_output = {
-                "claim": fact,
-                "verification": verification
-            }
-            verification_outputs.append(claim_verification_output)
+                break
 
             print("-" * 40)
-            time.sleep(4)  # To avoid rate limits in real scenarios
+            time.sleep(10)  # To avoid rate limits in real scenarios
         
         print("\n--- Final Tally ---")
         print(json.dumps(verdict_counts, indent=4))
@@ -84,8 +94,8 @@ class FactChecker:
         return verification_outputs, verdict_counts
 
 
-    def generate_and_verify_claims(self, user_query: str):
-        facts = self.generate_claims(user_query)
+    def generate_and_verify_claims(self, user_queries: List[str]):
+        facts = self.generate_claims(user_queries)
         self.verify_claims(facts)
 
     def ingest_and_verify_claims(self):
