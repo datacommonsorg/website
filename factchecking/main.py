@@ -20,14 +20,32 @@ def main():
 
     checker = FactChecker(llm_provider)
 
+    queries_to_process = []
+    try:
+        with open(args.query_file, 'r') as f:
+            queries_to_process = [line.strip() for line in f if line.strip()]
+        print(f"Processing {len(queries_to_process)} queries from {args.query_file}")
+    except FileNotFoundError:
+        print(f"Error: Query file not found at {args.query_file}")
+        return
+
     if args.generate_claims:
         print("Generating claims...")
-        checker.generate_and_verify_claims(QUERY)
+        checker.generate_and_verify_claims(queries_to_process)
     else:
         print("Ingesting claims from file...")
         checker.ingest_and_verify_claims()
 
-
+def str2bool(v):
+        if isinstance(v, bool):
+            return v
+        if v.lower() in ('yes', 'true', 't', 'y', '1'):
+            return True
+        elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+            return False
+        else:
+            raise argparse.ArgumentTypeError('Boolean value expected.')
+            
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="A script that processes an input file and optionally writes to an output file."
@@ -41,7 +59,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--generate_claims",
-        type=bool,
+        type=str2bool,
         default=True,
         help="Whether to generate claims from the LLM or ingest from file."
     )
@@ -51,5 +69,12 @@ if __name__ == "__main__":
         default=QUERY,
         help="The query to use for fact checking."
     )
+    parser.add_argument(
+        "--query_file",
+        type=str,
+        default="queries.txt",
+        help="Path to a text file containing queries, one per line."
+    )
+    
     args = parser.parse_args()
     main()

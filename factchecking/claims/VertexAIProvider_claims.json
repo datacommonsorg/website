@@ -1,32 +1,26 @@
 [
     {
-        "claim_text": "According to the World Bank, life expectancy at birth in Italy was 82.9 years in 2020.",
-        "statistic_value": 82.9,
-        "statistic_unit": "years",
-        "topic": "Life expectancy in Italy"
+        "claim_text": "According to the International Monetary Fund (IMF), Italy's nominal Gross Domestic Product (GDP) was estimated to be approximately $2.19 trillion for the year 2023.",
+        "statistic_value": 2.19,
+        "statistic_unit": "trillion USD",
+        "topic": "Italy's Nominal GDP"
     },
     {
-        "claim_text": "According to Eurostat, life expectancy at birth in Italy was 82.4 years in 2020.",
-        "statistic_value": 82.4,
-        "statistic_unit": "years",
-        "topic": "Life expectancy in Italy"
+        "claim_text": "In terms of GDP per capita (nominal), the figure for Italy was estimated at around $37,150 for 2023.",
+        "statistic_value": 37150,
+        "statistic_unit": "USD",
+        "topic": "Italy's GDP per capita"
     },
     {
-        "claim_text": "Italy's national statistics office, Istat, reported that life expectancy fell to 82 years in 2020.",
-        "statistic_value": 82,
-        "statistic_unit": "years",
-        "topic": "Life expectancy in Italy"
+        "claim_text": "When considering GDP at Purchasing Power Parity (PPP), Italy's GDP was estimated at approximately $3.2 trillion for 2023.",
+        "statistic_value": 3.2,
+        "statistic_unit": "trillion USD",
+        "topic": "Italy's GDP (PPP)"
     },
     {
-        "claim_text": "According to Istat, life expectancy for men in Italy was 79.7 years in 2020.",
-        "statistic_value": 79.7,
-        "statistic_unit": "years",
-        "topic": "Life expectancy in Italy"
-    },
-    {
-        "claim_text": "According to Istat, life expectancy for women in Italy was 84.4 years in 2020.",
-        "statistic_value": 84.4,
-        "statistic_unit": "years",
-        "topic": "Life expectancy in Italy"
+        "claim_text": "This nominal GDP figure places Italy as the 8th largest economy in the world.",
+        "statistic_value": 8,
+        "statistic_unit": "world rank",
+        "topic": "Italy's Global Economic Ranking"
     }
 ]
