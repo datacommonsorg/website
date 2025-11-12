@@ -192,11 +192,24 @@ Then run
 gcloud auth login
 gcloud auth configure-docker
 ./scripts/push_image.sh datcom-ci DEV
-./scripts/deploy_gke_helm.sh -e dev
+```
+
+Find your image hash for both datacommons-mixer and datacommons-website in [Artifact Registry](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io?e=13803378&inv=1&invt=Ab3CEA&mods=-monitoring_api_staging&project=datcom-ci)
+
+```bash
+website_hash=
+mixer_hash=
+# To deploy to website + its mixer:
+./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
+# and to deploy to mixer only:
+./scripts/deploy_mixer_cloud_deploy.sh $mixer_hash datacommons-mixer-dev
+
 ```
 
 The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE.
+hash at HEAD, then deploys to dev instance in GKE through Cloud Deploy.
+
+Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autodeployment.
 
 View the deployoment at [link](https://dev.datacommons.org).
 
