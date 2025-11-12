@@ -15,51 +15,33 @@
 from functools import lru_cache
 
 from google.adk.agents.llm_agent import LlmAgent
-from google.adk.apps import App
-from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService
 from google.adk.tools.mcp_tool.mcp_session_manager import \
     StreamableHTTPConnectionParams
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 
 from server.lib.nl.detection.agent.config import AGENT_MODEL
+from server.lib.nl.detection.agent.config import DC_MCP_PORT
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
-APP_NAME = 'datacommons-nl-agent'
-
-
 @lru_cache(maxsize=1)
-def get_agent() -> LlmAgent:
+def get_agent() -> LlmAgent | None:
   """Returns a cached singleton detection agent."""
 
-  agent = LlmAgent(model=AGENT_MODEL,
-                   name="detection_agent",
-                   instruction=AGENT_INSTRUCTIONS,
-                   tools=[
-                       MCPToolset(
-                           connection_params=StreamableHTTPConnectionParams(
-                               url="http://localhost:3000/mcp",
-                               timeout=30.0,
-                               ),
-                           tool_filter=["search_indicators"],
-                       )
-                   ],
-                   output_schema=AgentDetection,
-                   output_key='nl_detection')
+  if not DC_MCP_PORT:
+    return None
 
-  return agent
-
-
-@lru_cache(maxsize=1)
-def get_detection_agent_runner() -> Runner:
-  agent = get_agent()
-
-  runner = Runner(
-      app=App(
-          name=APP_NAME,
-          root_agent=agent,
-      ),
-      session_service=InMemorySessionService(),
-  )
-  return runner
+  return LlmAgent(model=AGENT_MODEL,
+                  name="detection_agent",
+                  instruction=AGENT_INSTRUCTIONS,
+                  tools=[
+                      MCPToolset(
+                          connection_params=StreamableHTTPConnectionParams(
+                              url=f"http://localhost:{DC_MCP_PORT}/mcp",
+                              timeout=30.0,
+                          ),
+                          tool_filter=["search_indicators"],
+                      )
+                  ],
+                  output_schema=AgentDetection,
+                  output_key='nl_detection')

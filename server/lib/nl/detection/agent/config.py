@@ -26,6 +26,7 @@ MCP_SERVER_VERSION = "1.1.2rc1"
 # Read env vars needed by the agent / MCP server.
 AGENT_MODEL = os.environ.get("AGENT_MODEL", "gemini-2.5-flash")
 DC_API_KEY = os.environ.get("DC_API_KEY", "")
+DC_MCP_PORT = os.environ.get("DC_MCP_PORT")
 PORT = os.environ.get("PORT", "8080")
 WEBSITE_ROOT = f"http://localhost:{PORT}"
 

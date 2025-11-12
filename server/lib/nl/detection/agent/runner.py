@@ -12,15 +12,57 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import lru_cache
 import uuid
 
+from google.adk.apps import App
 from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
+from server.lib.nl.detection.agent.agent import get_agent
 from server.lib.nl.detection.agent.types import AgentDetection
 
 
-async def call_agent(runner: Runner, query: str) -> AgentDetection:
+@lru_cache(maxsize=1)
+def get_detection_agent_runner() -> Runner | None:
+  """Returns a cached singleton ADK Runner for the detection agent.
+
+  This function is called once during server startup from `create_app` in
+  `server/__init__.py`. The returned runner instance is then stored in the
+  Flask app config for use during the application's lifecycle. The `lru_cache`
+  decorator ensures that the potentially expensive runner initialization only
+  happens once.
+  """
+  agent = get_agent()
+  if not agent:
+    return None
+
+  return Runner(
+      app=App(
+          name="agents",
+          root_agent=agent,
+      ),
+      session_service=InMemorySessionService(),
+  )
+
+
+async def get_detection(runner: Runner, query: str) -> AgentDetection:
+  """Executes the detection agent for a given query.
+
+  This function orchestrates a single, stateless interaction with the detection
+  agent. It creates a temporary session, runs the agent with the provided query,
+  extracts the structured `AgentDetection` output from the final session state,
+and then cleans up by deleting the session.
+
+  Args:
+    runner: An ADK Runner instance configured with the detection agent.
+    query: The user's natural language query to be processed.
+
+  Returns:
+    An `AgentDetection` object containing the structured information
+    extracted by the agent from the query.
+  """
   ephemeral_session_id = str(uuid.uuid4())
   generic_user = "stateless-web-user"
   try:
@@ -51,4 +93,4 @@ async def call_agent(runner: Runner, query: str) -> AgentDetection:
                                                 session_id=ephemeral_session_id)
     # TODO: revisit this logic when productionizing
     for toolset in runner.agent.tools:
-        await toolset.close()
+      await toolset.close()

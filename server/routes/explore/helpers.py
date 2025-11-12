@@ -415,18 +415,18 @@ def prepare_response_common(data_dict: Dict,
                             client: str = '') -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
-  # Convert data_dict to pure json.
-  data_dict = utils.to_dict(data_dict)
   if test:
     data_dict['test'] = test
   if client:
     data_dict['client'] = client
   if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(data_dict['context'], has_data)
     data_dict['session'] = session_info
-    loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
+    asyncio.create_task(bt.write_row(session_info, data_dict, dbg_counters))
+
+  # Convert data_dict to pure json.
+  data_dict = utils.to_dict(data_dict)
 
   return data_dict
 

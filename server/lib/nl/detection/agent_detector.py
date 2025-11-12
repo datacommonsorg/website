@@ -16,7 +16,7 @@ from flask import current_app
 
 from server.lib.nl.common import utterance
 from server.lib.nl.common.counters import Counters
-from server.lib.nl.detection.agent.runner import call_agent
+from server.lib.nl.detection.agent.runner import get_detection
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import DetectionArgs
@@ -60,10 +60,12 @@ async def detect(query: str, prev_utterance: utterance.Utterance,
                               llm_resp={},
                               detector=ActualDetectorType.Agent)
 
-  runner = current_app.config.get('NL_DETECTION_AGENT_RUNNER', None)
+  runner = current_app.config.get('NL_DETECTION_AGENT_RUNNER')
+  
   if not runner:
     return empty_detection
-  agent_detection = await call_agent(runner, query)
+  
+  agent_detection = await get_detection(runner, query)
   print(agent_detection)
 
   return empty_detection

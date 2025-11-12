@@ -9,11 +9,12 @@ MCP_PID=""
 # Defaults
 PORT=8080
 FLASK_ENV="local"
-ENABLE_MODEL="false"        # Exported as ENABLE_MODEL, controlled by --enable-nl-model
-ENABLE_EVAL_TOOL="true"     # Default true, flag turns it off
+DC_MCP_PORT=3001
+ENABLE_MODEL="false"
+ENABLE_EVAL_TOOL="true"    # Default true
 ENABLE_DISASTER_JSON="false"
 USE_GUNICORN="false"
-ENABLE_MCP="false"          # Renamed from WITH_MCP/START_MCP
+ENABLE_REMOTE_MCP="false"
 WEBSITE_MIXER_API_ROOT=""
 
 # --- Helper Functions ---
@@ -50,15 +51,15 @@ function show_help() {
 Usage: $(basename "$0") [OPTIONS]
 
 Options:
-  -e, --env <env>         Set FLASK_ENV (e.g., lite, custom). Default: local
-  -p, --port <port>       Set port. Default: 8080
-  -m, --enable-nl-model   Enable natural language models
-  -x, --no-eval           Disable embedding eval playground
-  -d, --disaster-json     [Local dev] Enable disaster JSON cache
-  -l, --local-mixer       [Local dev] Use local mixer (localhost:8081)
-  -g, --gunicorn          [Local dev] Use Gunicorn for production simulation
-  -a, --enable-mcp        Run the MCP server in the background
-  -h, --help              Show this help message
+  -e, --env <env>          Set FLASK_ENV (e.g., lite, custom). Default: local
+  -p, --port <port>        Set port. Default: 8080
+  -m, --enable-nl-model    Enable natural language models
+  -x, --no-eval            Disable embedding eval playground
+  -d, --disaster-json      [Local dev] Enable disaster JSON cache
+  -l, --local-mixer        [Local dev] Use local mixer (localhost:8081)
+  -g, --gunicorn           [Local dev] Use Gunicorn for production simulation
+  -a, --enable-remote-mcp  Run the DC MCP server as a separate process for agentic detection.
+  -h, --help               Show this help message
 EOF
   exit 0
 }
@@ -72,14 +73,14 @@ function run_mcp_server() {
     exit 1
   fi
 
+  # Export the port only if we are actually starting the server.
+  export DC_MCP_PORT
+
   mkdir -p "$log_dir"
   log "Starting MCP server... Logs: $log_file"
-  
-  # Install dependencies quietly (-q)
-  # uv pip install -q datacommons-mcp@latest
 
   # Run in background & capture PID
-  uvx datacommons-mcp serve http --port 3000 > "$log_file" 2>&1 &
+  uvx datacommons-mcp serve http --port "$DC_MCP_PORT" > "$log_file" 2>&1 &
   MCP_PID=$!
 }
 
@@ -124,8 +125,8 @@ while [[ $# -gt 0 ]]; do
       USE_GUNICORN="true"
       shift
       ;;
-    -a|--enable-mcp)
-      ENABLE_MCP="true"
+    -a|--enable-remote-mcp)
+      ENABLE_REMOTE_MCP="true"
       shift
       ;;
     -h|--help)
@@ -173,8 +174,8 @@ export FLASK_ENV
 
 # --- Main Execution ---
 
-# 1. Start MCP if requested
-if [[ "$ENABLE_MCP" == "true" ]]; then
+# 1. Start MCP as separate server if requested
+if [[ "$ENABLE_REMOTE_MCP" == "true" ]]; then
   run_mcp_server
 fi
 
