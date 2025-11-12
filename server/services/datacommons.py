@@ -32,7 +32,9 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
-from shared.lib.constants import MIXER_RESPONSE_ID_FIELD, MIXER_RESPONSE_ID_HEADER, SURFACE_HEADER_NAME
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
+from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
+from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
 
 cfg = libconfig.get_config()
