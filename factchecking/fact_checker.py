@@ -16,7 +16,7 @@ from llm_provider import LLMProvider
 import time
 from utils import verify_claim
 import json
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 
 
 class FactChecker:
@@ -36,10 +36,10 @@ class FactChecker:
             facts = json.load(f)
         return facts
 
-    def verify_claims(self, facts: Dict[str, Any]) -> Dict[str, Any]:
+    def verify_claims(self, facts: Dict[str, Any]) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         if not facts:
             print("No statistical claims found to verify.")
-            return {}
+            return {}, {}
 
         print("\n--- Step 2: Verifying all Claims ---")
         claim_index = 0
@@ -49,6 +49,7 @@ class FactChecker:
             "UNSUPPORTED": 0,
             "OTHER": 0,
         }
+        verification_outputs = []
         for fact in facts:
             print(f"\"\nVerifying Claim #{claim_index + 1}: {fact}")
             claim_index += 1
@@ -63,13 +64,24 @@ class FactChecker:
             else:
                 verdict_counts["OTHER"] += 1
 
+            claim_verification_output = {
+                "claim": fact,
+                "verification": verification
+            }
+            verification_outputs.append(claim_verification_output)
+
             print("-" * 40)
             time.sleep(4)  # To avoid rate limits in real scenarios
         
         print("\n--- Final Tally ---")
         print(json.dumps(verdict_counts, indent=4))
 
-        return verdict_counts
+        with open('verifications/' + self.provider.__class__.__name__ + '_verifications.json', 'w', encoding='utf-8') as f:
+            json.dump(verification_outputs, f, indent=4)
+        with open('verifications/' + self.provider.__class__.__name__ + '_summary.json', 'w', encoding='utf-8') as f:
+            json.dump(verdict_counts, f, indent=4)
+
+        return verification_outputs, verdict_counts
 
 
     def generate_and_verify_claims(self, user_query: str):
