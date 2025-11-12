@@ -25,6 +25,7 @@ from flask_caching import Cache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 logger = logging.getLogger(__name__)
 
@@ -169,11 +170,14 @@ def memoize_and_log_mixer_usage(timeout: int = 300,
 def log_mixer_response_id(result: dict) -> None:
   """Extracts and logs Mixer response IDs from a function's result.
 
-  If an error occurs during logging, a warning
-  is logged. Note that it is expected in some cases for the result
+  If an error occurs during logging, a message with the error details
+  is logged.
+
+  Note that it is expected in some cases for the result
   to not have a mixer response ID because the IDs are only found on `v2/observation`
   endpoint calls, and certain cached functions like `get` and `post` are 
-  used by other endpoints as well.
+  used by other endpoints as well, so we don't print an error if the ID is missing, 
+  only when the logging itself fails.
 
   Args:
     result (dict): A cached result that may contain mixer response IDs.
@@ -182,9 +186,9 @@ def log_mixer_response_id(result: dict) -> None:
     log_payload = {
         "message": "Mixer responses used in the website cache",
     }
-    ids = result.get("mixerResponseIds")
+    ids = result.get(MIXER_RESPONSE_ID_FIELD)
     if ids:
-      log_payload["mixer_response_ids"] = ids
+      log_payload[MIXER_RESPONSE_ID_FIELD] = ids
       logger.info(json.dumps(log_payload))
   except Exception as e:
     logger.info(f"Error logging the mixer response ID for result {result}: {e}")
@@ -206,11 +210,7 @@ def _cache_wrapper(fn: Callable, cached_fn: Callable) -> Callable:
   @functools.wraps(fn)
   def wrapper(*args, **kwargs) -> dict:
     result = cached_fn(*args, **kwargs)
-    try:
-      log_mixer_response_id(result)
-    except Exception as e:
-      logger.warning(f"Error logging response for {fn.__name__}: {e}")
-
+    log_mixer_response_id(result)
     return result
 
   return wrapper

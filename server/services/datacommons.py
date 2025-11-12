@@ -32,7 +32,7 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
-from shared.lib.constants import SURFACE_HEADER_NAME
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD, MIXER_RESPONSE_ID_HEADER, SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
 
 cfg = libconfig.get_config()
@@ -71,11 +71,11 @@ def get(url: str):
             response.status_code, response.reason,
             response.json()["message"]))
   res_json = response.json()
-  response_id = response.headers.get("x-response-id")
-  # This is used to log cached mixer usage and is a list to be compatible with other cached
+  response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
+  # This is used to log cached and uncached mixer usage and is a list to be compatible with other cachable
   # objects that include multiple mixer responses.
   if response_id:
-    res_json["mixerResponseIds"] = [response_id]
+    res_json[MIXER_RESPONSE_ID_FIELD] = [response_id]
   return res_json
 
 
@@ -106,11 +106,11 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
             response.status_code, response.reason,
             response.json()["message"]))
   res_json = response.json()
-  response_id = response.headers.get("x-response-id")
+  response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
   # This is used to log cached mixer usage and is a list to be compatible with other cached
   # objects that include multiple mixer responses.
   if response_id:
-    res_json["mixerResponseIds"] = [response_id]
+    res_json[MIXER_RESPONSE_ID_FIELD] = [response_id]
   return res_json
 
 
