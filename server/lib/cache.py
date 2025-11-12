@@ -123,7 +123,7 @@ def cache_and_log_mixer_usage(timeout: int = 300,
       logging.
   """
 
-  def decorator(fn):
+  def decorator(fn: Callable) -> Callable:
     # This is either the cached result or the evaluation of the function,
     # if it wasn't cached previously
     cached_fn = cache.cached(timeout=timeout,
@@ -204,7 +204,7 @@ def _cache_wrapper(fn: Callable, cached_fn: Callable) -> Callable:
   """
 
   @functools.wraps(fn)
-  def wrapper(*args, **kwargs):
+  def wrapper(*args, **kwargs) -> dict:
     result = cached_fn(*args, **kwargs)
     try:
       log_mixer_response_id(result)
