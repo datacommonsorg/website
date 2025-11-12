@@ -1,26 +1,32 @@
 [
     {
-        "claim_text": "According to the International Monetary Fund's (IMF) October 2023 projections, Italy's nominal GDP was estimated at $2.19 trillion for the year 2023.",
-        "statistic_value": 2.19,
-        "statistic_unit": "trillion USD",
-        "topic": "Nominal GDP of Italy"
+        "claim_text": "According to the World Bank, life expectancy at birth in Italy was 82.9 years in 2020.",
+        "statistic_value": 82.9,
+        "statistic_unit": "years",
+        "topic": "Life expectancy in Italy"
     },
     {
-        "claim_text": "The IMF projects Italy's nominal GDP to reach approximately $2.28 trillion in 2024.",
-        "statistic_value": 2.28,
-        "statistic_unit": "trillion USD",
-        "topic": "Nominal GDP of Italy"
+        "claim_text": "According to Eurostat, life expectancy at birth in Italy was 82.4 years in 2020.",
+        "statistic_value": 82.4,
+        "statistic_unit": "years",
+        "topic": "Life expectancy in Italy"
     },
     {
-        "claim_text": "In 2023, Italy's economy ranked as the 10th largest in the world by nominal GDP.",
-        "statistic_value": 10,
-        "statistic_unit": "th largest economy by nominal GDP",
-        "topic": "Global Economic Ranking of Italy"
+        "claim_text": "Italy's national statistics office, Istat, reported that life expectancy fell to 82 years in 2020.",
+        "statistic_value": 82,
+        "statistic_unit": "years",
+        "topic": "Life expectancy in Italy"
     },
     {
-        "claim_text": "In Euro terms, Italy's nominal GDP for 2023 was estimated to be approximately \u20ac2.01 trillion.",
-        "statistic_value": 2.01,
-        "statistic_unit": "trillion EUR",
-        "topic": "Nominal GDP of Italy"
+        "claim_text": "According to Istat, life expectancy for men in Italy was 79.7 years in 2020.",
+        "statistic_value": 79.7,
+        "statistic_unit": "years",
+        "topic": "Life expectancy in Italy"
+    },
+    {
+        "claim_text": "According to Istat, life expectancy for women in Italy was 84.4 years in 2020.",
+        "statistic_value": 84.4,
+        "statistic_unit": "years",
+        "topic": "Life expectancy in Italy"
     }
 ]

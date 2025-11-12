@@ -1,0 +1,14 @@
+[
+    {
+        "claim": {
+            "claim_text": "Life expectancy in Italy in 2020 was approximately 82.3 years",
+            "statistic_value": 82.3,
+            "statistic_unit": "years",
+            "topic": "Life expectancy in Italy"
+        },
+        "verification": {
+            "verdict": "SUPPORTED",
+            "explanation": "According to Data Commons, the life expectancy in Italy was 82.195 years in 2020."
+        }
+    }
+]

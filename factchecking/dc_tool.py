@@ -2,6 +2,7 @@ import os
 import json
 import re
 import itertools
+import math
 import datacommons as dc
 from google import genai
 from google.genai import types
@@ -36,7 +37,7 @@ def ground_place_query(place_query: str) -> dict:
             query=place_query,
             page_size=1,
             page_token=None,
-            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW
+            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM
         )
         
         results = list(itertools.islice(pager, 20))
@@ -68,17 +69,18 @@ def ground_statvar_query(stat_var_query: str) -> dict:
             query=stat_var_query,
             page_size=1,
             page_token=None,
-            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW
+            relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM
         )
         
         results = list(itertools.islice(pager, 20))
         if not results:
             return {"error": "No statistical variable found."}
 
-        return [
+        stat_vars = [
             {r.document.struct_data['dcid']: r.document.struct_data['name']} 
             for r in results
         ]
+        return stat_vars
     except Exception as e:
         return {"error": str(e)}
 
@@ -109,6 +111,8 @@ def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None =
         
         # Handle simple return types (int/float)
         if isinstance(data, (int, float)):
+            if math.isnan(data):
+                data = None
             return {"value": data, "date": date or "latest", "source": "Data Commons API"}
         
         # Handle dictionary return types (series data)
@@ -127,6 +131,10 @@ def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None =
             value = latest_point['value']
             obs_date = latest_point['date']
 
+        if value is not None and isinstance(value, float) and math.isnan(value):
+            value = None
+
+        print(f"       Retrieved value: {value} for date: {obs_date}")
         return {"value": value, "date": obs_date, "source": "Data Commons API"}
     except Exception as e:
         return {"error": str(e)}
@@ -147,6 +155,9 @@ You are a Data Commons assistant.
 3. Use `get_datacommons_stat` to get actual data using the DCIDs found.
 4. Use `get_ranking_stat` if you need rankings and pass in the parent place's DCID. For example, for Ranking of italy in Europe, use ground Europe to a DCID, then use it.
 3. If data is missing, say so. Do not invent numbers.
+
+You may find multiple statistical variables which match the desired intent, they could point to data from different sources or have slightly different definitions. In such cases, you can try to fetch data for multiple statvars and use your judgement to pick the most appropriate one based on the returned data and sources.
+For example, you could ground_statvar_query, pick one and get_datacommons_stat. But then try get_datacommons_stat for another grounded statvar and compare the results and sources. You can do this multiple times in a row if needed.
 """
 
 # --- 4. Chat Loop ---

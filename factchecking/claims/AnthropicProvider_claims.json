@@ -1,8 +1,8 @@
 [
     {
-        "claim_text": "Italy's nominal GDP is approximately $2.1 trillion USD",
-        "statistic_value": 2.1,
-        "statistic_unit": "trillion USD",
-        "topic": "Italy GDP"
+        "claim_text": "Life expectancy in Italy in 2020 was approximately 82.3 years",
+        "statistic_value": 82.3,
+        "statistic_unit": "years",
+        "topic": "Life expectancy in Italy"
     }
 ]

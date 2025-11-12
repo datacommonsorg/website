@@ -5,7 +5,8 @@ from open_ai_llm_provider import OpenAIProvider
 from anthropic_llm_provider import AnthropicProvider
 import argparse
 
-QUERY = "What is the Nominal GDP of italy?"
+# QUERY = "What is the Nominal GDP of italy?"
+QUERY = "What is the life expectancy in Italy in 2020?"
 
 def main():
     llm_provider = None
