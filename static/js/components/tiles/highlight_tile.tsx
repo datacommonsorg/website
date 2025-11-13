@@ -44,13 +44,12 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
-import { getPoint } from "../../utils/data_fetch_utils";
+import { FacetMetadata } from "../../types/facet_metadata";
+import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
   formatString,
   getDenomInfo,
-  getDenomResp,
   getNoDataErrorMsg,
   getStatFormat,
   ReplacementStrings,
@@ -233,7 +232,7 @@ export const fetchData = async (
     ? [statVarSpec.facetId]
     : undefined;
   // Now assume highlight only talks about one stat var.
-  const statResp = await getPoint(
+  const statPromise = getPoint(
     apiRoot,
     [place.dcid],
     [statVarSpec.statVar],
@@ -243,6 +242,10 @@ export const fetchData = async (
     facetId,
     surface
   );
+  const denomPromise = statVarSpec.denom
+    ? getSeries(apiRoot, [place.dcid], [statVarSpec.denom], [], highlightFacet)
+    : Promise.resolve(null);
+  const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);
   const mainStatData = _.isArray(statResp.data[statVarSpec.statVar][place.dcid])
     ? statResp.data[statVarSpec.statVar][place.dcid][0]
     : statResp.data[statVarSpec.statVar][place.dcid];
@@ -271,33 +274,26 @@ export const fetchData = async (
   );
   let numFractionDigitsUsed: number;
   if (statVarSpec.denom) {
-    const [denomsByFacet, defaultDenom] = await getDenomResp(
-      [statVarSpec.denom],
-      statResp,
-      apiRoot,
-      false,
-      surface,
-      [place.dcid],
-      null,
-      null
-    );
     const denomInfo = getDenomInfo(
       statVarSpec,
-      denomsByFacet,
+      denomResp,
       place.dcid,
-      mainStatData.date,
-      mainStatData.facet,
-      defaultDenom
+      mainStatData.date
     );
     if (denomInfo && value) {
       value /= denomInfo.value;
-      if (denomInfo.facetId && denomInfo.facet) {
-        sources.add(denomInfo.source);
-        facets[denomInfo.facetId] = denomInfo.facet;
-        if (!statVarToFacets[statVarSpec.denom]) {
-          statVarToFacets[statVarSpec.denom] = new Set<string>();
+      const denomSeries = denomResp.data[statVarSpec.denom]?.[place.dcid];
+
+      if (denomSeries?.facet) {
+        const denomFacet = denomResp.facets[denomSeries.facet];
+        if (denomFacet) {
+          sources.add(denomFacet.provenanceUrl);
+          facets[denomSeries.facet] = denomFacet;
+          if (!statVarToFacets[statVarSpec.denom]) {
+            statVarToFacets[statVarSpec.denom] = new Set<string>();
+          }
+          statVarToFacets[statVarSpec.denom].add(denomSeries.facet);
         }
-        statVarToFacets[statVarSpec.denom].add(denomInfo.facetId);
       }
     } else {
       value = null;

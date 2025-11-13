@@ -27,11 +27,10 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { useLazyLoad } from "../../shared/hooks";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getPoint } from "../../utils/data_fetch_utils";
+import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
   clearContainer,
   getDenomInfo,
-  getDenomResp,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
@@ -167,17 +166,13 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
       null, // facetIds
       props.surface
     );
-    const [denomsByFacet, defaultDenomData] = props.statVarSpec.denom
-      ? await getDenomResp(
-          [props.statVarSpec.denom],
-          statResp,
+    const denomResp = props.statVarSpec.denom
+      ? await getSeries(
           props.apiRoot,
-          false,
-          props.surface,
-          [props.place.dcid]
+          [props.place.dcid],
+          [props.statVarSpec.denom]
         )
-      : [null, null];
-
+      : null;
     const statVarDcidToName = await getStatVarNames(
       [props.statVarSpec],
       props.apiRoot
@@ -193,11 +188,9 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
     if (props.statVarSpec.denom) {
       const denomInfo = getDenomInfo(
         props.statVarSpec,
-        denomsByFacet,
+        denomResp,
         props.place.dcid,
-        statData.date,
-        statData.facet,
-        defaultDenomData
+        statData.date
       );
       if (denomInfo && value) {
         value /= denomInfo.value;

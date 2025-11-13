@@ -395,7 +395,6 @@ function getChartData(
       namedPlace,
       xStatData,
       yStatData,
-      {}, // empty denomByFacet since we only care about the singular populationData here
       cache.populationData,
       cache.metadataMap,
       xDenom,
