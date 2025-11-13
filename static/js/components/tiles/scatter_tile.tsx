@@ -434,6 +434,8 @@ export const fetchData = async (
       props.surface,
       props.apiRoot
     );
+    console.log("denomsByFacet:", denomsByFacet);
+    console.log("defaultDenomData:", defaultDenomData);
     const statVarNames = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot
