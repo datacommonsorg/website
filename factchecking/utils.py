@@ -16,8 +16,8 @@ from typing import Dict, Any
 import json
 from dc_tool import ask_data_commons
 
-def verify_claim(claim: Dict[str, Any]) -> Dict[str, Any]:
-    response = ask_data_commons(claim)
+async def verify_claim(claim: Dict[str, Any], datcom_agent: Any) -> Dict[str, Any]:
+    response = await ask_data_commons(claim, datcom_agent)
 
     return {
         "original_claim": claim,
