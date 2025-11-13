@@ -481,7 +481,7 @@ export function App(props: AppProps): ReactElement {
           if (highlightPageMetadataResp) {
             // If we have a highlight response, prevent any place page redirection.
             allowRedirect = false;
-            triggerGAEvent(GA_EVENT_PAGE_VIEW, {
+            triggerGAEvent(GA_EVENT_HIGHLIGHT_CHART_INJECTED, {
               [GA_PARAM_SOURCE]: urlHashParams.origin,
               [GA_PARAM_STAT_VAR]: urlHashParams.statVars,
               [GA_PARAM_CHART_TYPE]: urlHashParams.chartType,
