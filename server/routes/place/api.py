@@ -226,7 +226,7 @@ def overview_table(place_dcid: str):
   data_rows, mixerResponseIds = place_utils.fetch_overview_table_data(
       place_dcid)
   response_data = PlaceOverviewTableApiResponse(
-      data=data_rows, mixerResponseIds=mixerResponseIds)
+      data=data_rows, mixer_response_ids=mixerResponseIds)
   return jsonify(response_data)
 
 

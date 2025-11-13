@@ -186,7 +186,11 @@ def log_mixer_response_id(result: dict) -> None:
     log_payload = {
         "message": "Mixer responses used in the website cache",
     }
-    ids = result.get(MIXER_RESPONSE_ID_FIELD)
+    data = result
+    # handling formatting for response types
+    if hasattr(result, 'get_json'):
+      data = result.get_json()
+    ids = data.get(MIXER_RESPONSE_ID_FIELD)
     if ids:
       log_payload[MIXER_RESPONSE_ID_FIELD] = ids
       logger.info(json.dumps(log_payload))

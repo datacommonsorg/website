@@ -992,7 +992,6 @@ def fetch_overview_table_data(
   facets = resp.get("facets", {})
   # This indicates which mixer calls are used when this result is cached
   mixer_response_ids = resp.get(MIXER_RESPONSE_ID_FIELD, [])
-  print("mixer_response_ids in fetch_overview:", mixer_response_ids)
 
   # Iterate over each variable and extract the most recent observation
   for item in place_overview_table_variable_translations:

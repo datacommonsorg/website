@@ -175,7 +175,7 @@ class PlaceOverviewTableApiResponse:
   data: List[OverviewTableDataRow]
   # IDs for all mixer responses used to populate the table.
   # Used if this response is cached to log mixer usage.
-  mixerResponseIds: List[str]
+  mixer_response_ids: List[str]
 
 
 @dataclass
