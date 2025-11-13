@@ -76,7 +76,6 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
         'data': filtered_data,
         'mixer_response_ids': point_data[MIXER_RESPONSE_ID_FIELD]
     }
-    print("Filtered point data facets:", point_to_return['mixer_response_ids'])
     return point_to_return
 
   return point_data
@@ -171,7 +170,6 @@ def point_within():
                                   all_facets=False,
                                   facet_ids=facet_ids)
   # Fetch observations from a specific date or date = 'LATEST'
-
   return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  False, facet_ids)
 
