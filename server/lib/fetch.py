@@ -134,8 +134,10 @@ def _compact_point(point_resp, all_facets):
   result['data'] = data
   # Setting the request ID to reference in the cache
   result[MIXER_RESPONSE_ID_FIELD] = point_resp.get(
-      MIXER_RESPONSE_ID_FIELD, []) if MIXER_RESPONSE_ID_FIELD in point_resp else []
-  print("MIXER_RESPONSE_ID_FIELD in point_resp:", result[MIXER_RESPONSE_ID_FIELD])
+      MIXER_RESPONSE_ID_FIELD,
+      []) if MIXER_RESPONSE_ID_FIELD in point_resp else []
+  print("MIXER_RESPONSE_ID_FIELD in point_resp:",
+        result[MIXER_RESPONSE_ID_FIELD])
   return result
 
 
@@ -173,9 +175,9 @@ def _compact_series(series_resp, all_facets):
           }
   result['data'] = data
   # Setting the request ID to reference in the cache
-  result[MIXER_RESPONSE_ID_FIELD] = series_resp.get(
-      MIXER_RESPONSE_ID_FIELD, []) if MIXER_RESPONSE_ID_FIELD in series_resp else []
-  print("MIXER_RESPONSE_ID_FIELD in series_resp:", result[MIXER_RESPONSE_ID_FIELD])
+  result[MIXER_RESPONSE_ID_FIELD] = series_resp[MIXER_RESPONSE_ID_FIELD] if MIXER_RESPONSE_ID_FIELD in series_resp else []
+  print("MIXER_RESPONSE_ID_FIELD in series_resp:",
+        result[MIXER_RESPONSE_ID_FIELD])
   return result
 
 

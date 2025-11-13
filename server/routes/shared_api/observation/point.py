@@ -20,8 +20,9 @@ from server.lib.cache import cache
 from server.lib.cache import cache_and_log_mixer_usage
 from server.lib.util import fetch_highest_coverage
 from server.routes import TIMEOUT
-from shared.lib.constants import DATE_HIGHEST_COVERAGE, MIXER_RESPONSE_ID_FIELD
+from shared.lib.constants import DATE_HIGHEST_COVERAGE
 from shared.lib.constants import DATE_LATEST
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
