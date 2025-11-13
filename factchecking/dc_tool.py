@@ -3,12 +3,17 @@ import json
 import re
 import itertools
 import math
+import uuid
 import datacommons as dc
-import time
+from datacommons_client.client import DataCommonsClient
 from google import genai
 from google.genai import types
 from google.cloud import discoveryengine_v1 as discoveryengine
+from google.adk.agents import LlmAgent
+from typing import Any
 import vertex_ai
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
 from constants import VERIFICATION_PROMPT
 
 # --- 1. Setup ---
@@ -108,7 +113,19 @@ def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None =
     """
     print(f"   ---> 🏃 FETCHING: {stat_var_dcid} for {place_dcid} ({date or 'Latest'})")
     try:
-        data = dc.get_stat_value(place_dcid, stat_var_dcid, date=date)
+        dc_client_args = {
+            "api_key": os.getenv("DATACOMMONS_API_KEY"),
+        }
+        dc2 = DataCommonsClient(**dc_client_args)
+        data = dc2.observation.fetch(
+            variable_dcids=[stat_var_dcid],
+            entity_dcids=[place_dcid],
+            date='LATEST',
+            select=["entity", "variable", "date", "value"],
+            filter_facet_ids=[],
+        )
+        print(f"       Raw data: {data}")
+
         
         # Handle simple return types (int/float)
         if isinstance(data, (int, float)):
@@ -138,6 +155,7 @@ def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None =
         print(f"       Retrieved value: {value} for date: {obs_date}")
         return {"value": value, "date": obs_date, "source": "Data Commons API"}
     except Exception as e:
+        print(f"       Error????: {e}")
         return {"error": str(e)}
 
 # --- 3. Dynamic Configuration ---
@@ -164,73 +182,66 @@ For example, you could ground_statvar_query, pick one and get_datacommons_stat. 
 # --- 4. Chat Loop ---
 GEMINI_FLASH_MODEL = "gemini-2.5-flash"
 GEMINI_PRO_MODEL = "gemini-2.5-pro"
+USER_ID="gmechali"
+APP_NAME="datacommons-mcp-gmechali"
+session_service = InMemorySessionService()
 
-def ask_data_commons(claim: str) -> dict:
-    chat = client.chats.create(
-        model=GEMINI_PRO_MODEL,
-        config=types.GenerateContentConfig(
-            system_instruction=DC_SYSTEM_PROMPT,
-            tools=tools_list,
-            temperature=0.0,
-        )
-    )
+# --- 6. Define Agent Interaction Logic ---
+async def call_agent_and_print(
+    runner_instance: Runner,
+    agent_instance: LlmAgent,
+    session_id: str,
+    query_json: str
+):
+    """Sends a query to the specified agent/runner and prints results."""
+    print(f"\n>>> Calling Agent: '{agent_instance.name}' | Query: {query_json}")
 
-    response = chat.send_message(VERIFICATION_PROMPT + str(claim))
+    user_content = types.Content(role='user', parts=[types.Part(text=query_json)])
 
-    # Loop to handle tool calls
-    # The SDK does not auto-execute Python code locally for security; 
-    # we must execute the requested function and send the result back.
-    while True:
-        # Check if the model wants to call a function
-        if not response.candidates or not response.candidates[0].content.parts:
-            break
-            
-        part = response.candidates[0].content.parts[0]
-        
-        if not part.function_call:
-            # No function call, we have a text response. Done.
-            break
+    final_response_content = "No final response received."
+    async for event in runner_instance.run_async(user_id=USER_ID, session_id=session_id, new_message=user_content):
+        # print(f"Event: {event.type}, Author: {event.author}") # Uncomment for detailed logging
+        if event.is_final_response() and event.content and event.content.parts:
+            # For output_schema, the content is the JSON string itself
+            final_response_content = event.content.parts[0].text
 
-        # Extract call details
-        call = part.function_call
-        print(f"🤖 Model requests: {call.name}({call.args})")
+    print(f"<<< Agent '{agent_instance.name}' Response: {final_response_content}")
 
-        # Execute
-        func = function_map.get(call.name)
-        if func:
-            try:
-                # Unpack arguments provided by the model
-                result_data = func(**call.args)
-            except Exception as e:
-                print(f"   <--- Exceppptttiooonnnn: {result_data}")
-                result_data = {"error": str(e)}
-            
-            print(f"   <--- Result: {result_data}")
+    current_session = await session_service.get_session(app_name=APP_NAME,
+                                                  user_id=USER_ID,
+                                                  session_id=session_id)
+    stored_output = current_session.state.get(agent_instance.output_key)
 
-            # Send result back to the model
-            response = chat.send_message(
-                types.Part.from_function_response(
-                    name=call.name,
-                    response={"result": result_data}
-                )
-            )
-            time.sleep(10)
-        else:
-            print(f"❌ Error: Model requested unknown function '{call.name}'")
-            break
+    # Pretty print if the stored output looks like JSON (likely from output_schema)
+    print(f"--- Session State ['{agent_instance.output_key}']: ", end="")
+    try:
+        # Attempt to parse and pretty print if it's JSON
+        parsed_output = json.loads(stored_output)
+        print(json.dumps(parsed_output, indent=2))
+        return parsed_output
+    except (json.JSONDecodeError, TypeError):
+         # Otherwise, print as string
+        print(stored_output)
+    print("-" * 30)
+    return final_response_content
 
-    final_text_parts = []
-    if response.candidates and response.candidates[0].content.parts:
-        for part in response.candidates[0].content.parts:
-            if part.text:
-                final_text_parts.append(part.text)
+async def ask_data_commons(claim: str, datcom_agent: Any) -> dict:
     
-    final_answer = "".join(final_text_parts)
+    # call_agent_async is defined in init_mcp.py
+    Input = VERIFICATION_PROMPT + str(claim)
+    session_id = str(uuid.uuid4())
+    # session_service = InMemorySessionService()
+    session = await session_service.create_session(app_name=APP_NAME, user_id=USER_ID, session_id=session_id)
+    runner = Runner(agent=datcom_agent, app_name=APP_NAME, session_service=session_service)
 
-    if final_answer:
+
+    # final_response_text = await call_agent_async(Input, runner=runner, user_id=USER_ID, session_id=SESSION_ID)
+    final_response_text = await call_agent_and_print(runner, datcom_agent, session_id, Input)
+
+    if final_response_text:
         # Remove markdown
-        final_answer = final_answer.replace("```json", "").replace("```", "")
-        match = re.search(r"\{.*\}", final_answer, re.DOTALL)
+        final_response_text = final_response_text.replace("```json", "").replace("```", "")
+        match = re.search(r"\{.*\}", final_response_text, re.DOTALL)
         if match:
             json_str = match.group(0)
             try:
@@ -238,11 +249,11 @@ def ask_data_commons(claim: str) -> dict:
             except json.JSONDecodeError:
                 return {
                     "verdict": "INVALID_JSON",
-                    "explanation": f"Could not parse JSON from LLM response: {final_answer}"
+                    "explanation": f"Could not parse JSON from LLM response: {final_response_text}"
                 }
         else:
             return {
                 "verdict": "INVALID_JSON",
-                "explanation": f"No JSON object found in LLM response: {final_answer}"
+                "explanation": f"No JSON object found in LLM response: {final_response_text}"
             }
     return {"verdict": "NO_RESPONSE", "explanation": "No response generated."}

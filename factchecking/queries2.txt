@@ -1,0 +1,101 @@
+Show me which countries have had a high rate of electricity availability without increasing their per person carbon footprint.
+Do the US states with high coal fired power also have high rates of COPD?
+Is obesity in America continuing to increase?
+Which US states have the highest percentage of uninsured children?
+Which Indian States are going to have the highest change in average temperature due to climate change?
+Are gender equality and poverty correlated in Africa?
+what percentage of the Indian population lives in slums?
+In which countries are more women getting college degrees than men?
+Which industries are growing the fastest in New Jersey?
+Which US states have the highest cancer rates?
+How have CO2 emissions changed in France over the last 10 years?
+How many US households have individuals over than 65 in them
+Which New Jersey schools have the highest student to teacher ratio?
+Show me a breakdown of income distribution for Seattle.
+Is there a correlation between crime rate and abortion?
+What are the record highs and low temperatures in chennai, India?
+Graph population density ranking by state
+How much wealth does the bottom 80 percent own in following countries: Pakistan, India, china, srilanka, Bangladesh, Indonesia, Taiwan, Vietnam, Philippines, Iran? Present a list in descending order and write down their respective percentage of contribution in tax collection.
+What is the percentage of the financial sector in GDP for different countries like the United States and China, based on the latest data?
+What is the annual change in inflation from July 2022 to July 2023 in North Carolina?
+What was the annual deficit for U.S. Government from FY 2010 to FY 2020?
+Which New Jersey cities have the best commute times for workers?
+Which US cities have the highest per capita number of starbucks stores?
+Which US states have the highest percentage of women in their state legislature?
+Which Indian States have the highest rate of diabetic retinopathy?
+What is the foreign corporate debt held in US dollar denomination?
+Which Indian States have the highest penetration of smart phones?
+What is the average number of electronic devices in U.S. households these days?
+Can you please show me a graph of expected traffic volume around Atlanta after a Hawks game?
+EV sales by state 2023.
+Can you supply daily sunshine hours for Karonga?
+What is the approximate total number of factories in China?
+What is the change in new credit issued as a % of GDP for China?
+Which social classes were most likely to vote for Brexit?
+Which political party has the most registered voters in the state of Louisiana?
+Could you rank the zipcodes of geneva, switzerland, by the average income/ wealth of inhabitants, based on the last data set available to you?
+If you excluded the SF/Bay Area from California, what would the GDP then be?
+What are the highest paid jobs in Texas?
+How much do graduates from ETH Zurich get paid on average?
+Write a Haiku about how beautiful Data is.
+What are some estimates about the economic loss caused by power surges in the U.S.?
+Which YouTube users have the highest subscriber base?
+Can you tell me what the best performing stock market sectors are during recessions?
+Do you have a regional and yearly breakdown of the growth of the digital transformation market size from 2023 to 2030? The regions are US, Europe and MENA. Please provide the source also.
+what is the geographic breakdown of revenues for the S&P 500?
+Give me a list of the current 10 richest people, and give me their yearly wealth over the past 10 years.
+Which Lok Sabha seats flipped from 2014 to 2019?
+Give 3 latest examples of dispute between Governor and State Government in India.
+What is the average sign on bonus for a person joining an investment bank as a new college graduate?
+Does India have more people living in the urban areas or rural areas?  How does that vary by states?  Are the districts with the most urban population also located in the states with the most urban population?
+Can you find a district in India each where: 1. there are more muslims than hindus or christians or sikhs;  2. more christians than the rest;  3. more sikhs than the rest.
+Which counties among the ones with median age over 40 have the highest asthma rates?
+What are some interesting trends in Sunnyvale spanning gender, age, race, immigration, health conditions, economic conditions, crime and education?
+In the US states with the highest foreign language speakers, how does the unemployment rate compare to the national average?
+Which US States are the best environmentally?
+Which indicators tend to move in concert with maternal mortality in African countries?
+Where are the most violent places in the world?
+Do US counties with wildfires exhibit a higher rate of asthma?
+Did higher population density countries have highest rates of COVID deaths?
+There is probably a delay between a high percentage of females attending school and females being in elected positions in the government. Can you show me what that delay looks like in different African countries?
+Do US counties where the Health Care industry is the highest job type also have the highest rates of chronic conditions?
+do countries with high populations of young males also suffer from higher violence?
+Do US states with better public schools have more PhDs?
+Which US counties share a very similar demographic composition to the US overall in terms of gender, age and racial breakdown?
+What are the types of things that increased electrification in the global south can enable and where do you see this in the data?
+Compare the highest margin Trump voting states to the highest margin Biden voting states in terms of demogrpahics, economics, and education.
+Compare Cambridge, MA and Palo Alto, CA in terms of demographics, education, and economy stats.
+Tell me some insights on the age, race and educational achievement of women who have recently had babies across US states.
+In which part of India (north, south, east, west) do the top 10 districts with the most medical and educational facilities lie?
+Do Indian states experiencing the highest levels of food inflation also face significant housing inflation?
+What trends can be observed among the countries that are the top consumers, importers and exporters of electricity?
+Give me some farming statistics about Kern county, CA.
+How does the ratio of single mother households vs. single father households compare among NYC, Chicago and SF?
+What is the fraction households below poverty status receive food stamps in the US?  How does that vary across states?
+How does the size of household compare across counties in Utah vs. California?  Does it change between owned vs. rental properties?
+Is there evidence that single-parent families are more likely to be below the poverty line compared to married-couple families in the US?
+Among the following coastal states, which cities have the most expensive rents:  California, Washington, New York, Florida
+At what points in the past did house prices in bay area counties dip?
+Is there a pattern among countries that did well with COVID testing?  Like in terms of the continent they were in, how rich they were, etc.
+Is there a specific region in the US where most of the top 10 counties with the highest suicide rates are located?
+What patterns emerge from statistics on safe birth rates across states in India?
+When comparing median ages across different racial groups in various cities in California, what differences emerge?
+Based on the distribution of foreign language speakers compare the diversity of people in: NYC, Seattle, Austin, Chicago and Tampa
+Compare the ratio of native-born to foreign-born populations among the counties with the highest and lowest percentages of veteran populations.
+Are there significant differences in the prevalence of various types of disabilities (such as vision, hearing, mobility, cognitive) between Dallas and Houston?
+Are there states in the US that stand out as outliers in terms of the prevalence of drinking and smoking?
+Have unemployment insurance claims in US counties returned to their pre-COVID levels?
+Do the states in southern India have more railroads compared to the states in northern India?
+Is there evidence to support the claim that countries with the highest market capitalizations produce the most electronic waste?
+It might be expected that countries producing the most food waste have a lower prevalence of undernourishment. Does the data support this?
+Write an analysis based on comparison GDP per capita, inward remittances and outward remittances of countries.
+When did the mobile phone usage spike in the US, India and Brazil?
+Which state in the US withdraws the most water, and which county in that state is the largest?
+Are there countries in the world where the forest area has actually increased?
+Is there evidence that lack of sleep is more prevalent in wealthier counties in the US?
+Is there a county in the US with more married people than single people per capita?  And more divorced people than married people?
+Which US states generate a larger share of their electricity from renewables compared to coal and natural gas?
+Is there a county in the US with more women PhD graduates than men? What about high school graduates?
+Which countries still struggle with access to basic drinking water services?
+Are recent trends in the retail purchases of addictive drugs (like Amphetamine, Oxycodone, etc) in California counties reassuring or alarming?
+Do US counties with higher median incomes have more PhDs?

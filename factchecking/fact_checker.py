@@ -20,10 +20,11 @@ from typing import Dict, Any, Tuple, List
 
 
 class FactChecker:
-    def __init__(self, provider: LLMProvider):
+    def __init__(self, provider: LLMProvider, datcom_agent=None):
         self.provider = provider
+        self.datcom_agent = datcom_agent
 
-    def generate_claims(self, user_queries: List[str]):
+    def generate_claims(self, user_queries: List[str], dry_run: bool = False) -> Dict[str, Any]:
         print(f"--- Step 1: Generating Claims ({type(self.provider).__name__}) ---")
         facts = []
         for user_query in user_queries:
@@ -32,8 +33,9 @@ class FactChecker:
             time.sleep(4)  # To avoid rate limits in real scenarios
 
         print(f"Found {len(facts)} statistical claims.\n")
-        with open('claims/' + self.provider.__class__.__name__ + '_claims.json', 'w', encoding='utf-8') as f:
-            json.dump(facts, f, indent=4)
+        if not dry_run:
+            with open('claims/' + self.provider.__class__.__name__ + '_claims.json', 'w', encoding='utf-8') as f:
+                json.dump(facts, f, indent=4)
         return facts
     
     def ingest_claims(self, filepath: str) -> Dict[str, Any]:
@@ -41,7 +43,7 @@ class FactChecker:
             facts = json.load(f)
         return facts
 
-    def verify_claims(self, facts: Dict[str, Any]) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+    async def verify_claims(self, facts: Dict[str, Any], dry_run: bool = False) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         if not facts:
             print("No statistical claims found to verify.")
             return {}, {}
@@ -59,7 +61,7 @@ class FactChecker:
             print(f"\"\nVerifying Claim #{claim_index + 1}: {fact}")
             claim_index += 1
             try:
-                result = verify_claim(fact)
+                result = await verify_claim(fact, self.datcom_agent)
 
                 verification = result.get("verification_verdict", {})
                 print(verification)
@@ -86,21 +88,22 @@ class FactChecker:
         print("\n--- Final Tally ---")
         print(json.dumps(verdict_counts, indent=4))
 
-        with open('verifications/' + self.provider.__class__.__name__ + '_verifications.json', 'w', encoding='utf-8') as f:
-            json.dump(verification_outputs, f, indent=4)
-        with open('verifications/' + self.provider.__class__.__name__ + '_summary.json', 'w', encoding='utf-8') as f:
-            json.dump(verdict_counts, f, indent=4)
+        if not dry_run:
+            with open('verifications/' + self.provider.__class__.__name__ + '_verifications_mcp_server.json', 'w', encoding='utf-8') as f:
+                json.dump(verification_outputs, f, indent=4)
+            with open('verifications/' + self.provider.__class__.__name__ + '_summary.json', 'w', encoding='utf-8') as f:
+                json.dump(verdict_counts, f, indent=4)
 
         return verification_outputs, verdict_counts
 
 
-    def generate_and_verify_claims(self, user_queries: List[str]):
-        facts = self.generate_claims(user_queries)
-        self.verify_claims(facts)
+    async def generate_and_verify_claims(self, user_queries: List[str], dry_run: bool = False):
+        facts = self.generate_claims(user_queries, dry_run=dry_run)
+        await self.verify_claims(facts, dry_run=dry_run)
 
-    def ingest_and_verify_claims(self):
+    async def ingest_and_verify_claims(self, dry_run: bool = False):
         facts = self.ingest_claims('claims/' + self.provider.__class__.__name__ + '_claims.json')
-        self.verify_claims(facts)
+        await self.verify_claims(facts, dry_run=dry_run)
 
 
         
