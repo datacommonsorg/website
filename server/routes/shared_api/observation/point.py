@@ -20,7 +20,7 @@ from server.lib.cache import cache
 from server.lib.cache import cache_and_log_mixer_usage
 from server.lib.util import fetch_highest_coverage
 from server.routes import TIMEOUT
-from shared.lib.constants import DATE_HIGHEST_COVERAGE
+from shared.lib.constants import DATE_HIGHEST_COVERAGE, MIXER_RESPONSE_ID_FIELD
 from shared.lib.constants import DATE_LATEST
 
 # Define blueprint
@@ -73,8 +73,9 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
     point_to_return = {
         'facets': final_facets_info,
         'data': filtered_data,
-        'mixerResponseIds': point_data["mixerResponseIds"]
+        'mixer_response_ids': point_data[MIXER_RESPONSE_ID_FIELD]
     }
+    print("Filtered point data facets:", point_to_return['mixer_response_ids'])
     return point_to_return
 
   return point_data

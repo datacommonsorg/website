@@ -45,6 +45,7 @@ from server.routes.place.types import ServerChartConfiguration
 from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 # Template for the first sentence in the summary
 _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}."
@@ -990,7 +991,8 @@ def fetch_overview_table_data(
   resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
   # This indicates which mixer calls are used when this result is cached
-  mixerResponseIds = resp.get("mixerResponseIds", [])
+  mixerResponseIds = resp.get(MIXER_RESPONSE_ID_FIELD, [])
+  print("mixerResponseIds:", mixerResponseIds)
 
   # Iterate over each variable and extract the most recent observation
   for item in place_overview_table_variable_translations:

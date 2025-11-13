@@ -102,7 +102,7 @@ class TestApiPointWithin(unittest.TestCase):
                 'unitDisplayName': 'shortUnit'
             }
         },
-        "mixerResponseIds": ""
+        "mixer_response_ids": []
     }
 
     def post_side_effect(url, data, _=None):
