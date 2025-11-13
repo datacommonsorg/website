@@ -173,7 +173,8 @@ class PlaceOverviewTableApiResponse:
   API Response for /api/place/overview-table/<place_dcid>
   """
   data: List[OverviewTableDataRow]
-  # Represent all mixer calls used in this response and used in caching
+  # IDs for all mixer responses used to populate the table.
+  # Used if this response is cached to log mixer usage.
   mixerResponseIds: List[str]
 
 

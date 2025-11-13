@@ -41,9 +41,6 @@ bp = Blueprint("place_api", __name__, url_prefix='/api/place')
 
 @bp.route('/charts/<path:place_dcid>')
 @log_execution_time
-# Note that we do not use cache_and_log_mixer_usage here because
-# this endpoint only uses mixer results for existence checks, not for
-# populating meaningful data shown to users.
 @cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_charts(place_dcid: str):
   """
