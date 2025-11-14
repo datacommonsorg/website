@@ -10,11 +10,9 @@ SET latest_log_time = (
     `{{DESTINATION_PROJECT_ID}}.{{DESTINATION_DATASET}}.{{AGGREGATION_TABLE}}`
 );
 
--- FINAL COMMAND: INSERT INTO the destination table.
-INSERT INTO `{{DESTINATION_PROJECT_ID}}.{{DESTINATION_DATASET}}.{{AGGREGATION_TABLE}}` (
+{{QUERY_COMMAND_HEADER}} `{{DESTINATION_PROJECT_ID}}.{{DESTINATION_DATASET}}.{{AGGREGATION_TABLE}}` (
     timestamp, feature, num_queries, stat_vars
 )
--- CREATE OR REPLACE TABLE `datcom-store.usage_logs.daily_logs` AS
 (
 
     -- Assign a unique ID to each source query before unnesting.
