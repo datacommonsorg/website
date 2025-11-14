@@ -23,7 +23,7 @@
  * instances changes (as the tiles are sensitive to re-rendering).
  */
 
-import { useCallback, useRef } from "react";
+import { useMemo, useRef } from "react";
 
 import { DATE_HIGHEST_COVERAGE } from "../../shared/constants";
 import { StatVarSpec } from "../../shared/types";
@@ -59,8 +59,8 @@ export function useStatVarSpec(
 ): UseStatVarSpecResult {
   const tileSpecCache = useRef<Map<string, StatVarSpec[]>>(new Map());
 
-  const getStatVarSpec = useCallback(
-    (svKey: string[]): StatVarSpec[] => {
+  return useMemo(() => {
+    const getStatVarSpec = (svKey: string[]): StatVarSpec[] => {
       const key = JSON.stringify({
         svKey,
         blockDate: snapToHighestCoverage ? DATE_HIGHEST_COVERAGE : undefined,
@@ -84,14 +84,11 @@ export function useStatVarSpec(
 
       tileSpecCache.current.set(key, list);
       return list;
-    },
-    [snapToHighestCoverage, useDenom, denom, facetOverrides, statVarProvider]
-  );
+    };
 
-  const getSingleStatVarSpec = useCallback(
-    (svDcid: string): StatVarSpec => getStatVarSpec([svDcid])[0],
-    [getStatVarSpec]
-  );
+    const getSingleStatVarSpec = (svDcid: string): StatVarSpec =>
+      getStatVarSpec([svDcid])[0];
 
-  return { getStatVarSpec, getSingleStatVarSpec };
+    return { getStatVarSpec, getSingleStatVarSpec };
+  }, [snapToHighestCoverage, useDenom, denom, facetOverrides, statVarProvider]);
 }

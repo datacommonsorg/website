@@ -170,6 +170,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
+        console.log("Fetching scatter data with props:", props.statVarSpec);
         const data = await fetchData(props);
         if (props && data && _.isEqual(data.props, props)) {
           setScatterChartData(data);
@@ -445,6 +446,8 @@ export const fetchData = async (
       placeNames,
       statVarNames,
     };
+    console.log("denomsByFacet:", denomsByFacet);
+    console.log("defaultDenomData:", defaultDenomData);
     const result = rawToChart(rawData, props);
     return result;
   } catch (error) {
@@ -456,6 +459,7 @@ function rawToChart(
   rawData: RawData,
   props: ScatterTilePropType
 ): ScatterChartData {
+  console.log("reaching rawToChart");
   const yStatVar = props.statVarSpec[0];
   const xStatVar = props.statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
@@ -499,8 +503,10 @@ function rawToChart(
       statVarToFacets[yStatVar.statVar].add(facetId);
     }
   }
-
+  console.log("xPlacePointStat:", xPlacePointStat);
+  console.log("yPlacePointStat:", yPlacePointStat);
   for (const place in xPlacePointStat) {
+    console.log("Processing place:", place);
     const namedPlace = {
       dcid: place,
       name: rawData.placeNames[place] || place,
@@ -514,6 +520,7 @@ function rawToChart(
       rawData.defaultDenomData,
       rawData.placeStats.facets
     );
+    console.log("placeChartData:", placeChartData.point);
     if (!placeChartData) {
       console.log(
         `SCATTER: no data ${xStatVar} / ${yStatVar} for ${place}. skipping.`
@@ -526,6 +533,9 @@ function rawToChart(
       }
     });
     const point = placeChartData.point;
+    console.log("xStatVar: ", xStatVar);
+    console.log("yStatVar: ", yStatVar);
+    console.log("point before denom: ", point);
     if (xStatVar.denom) {
       const xPlaceFacet = xPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
@@ -540,6 +550,7 @@ function rawToChart(
         // skip this data point because missing denom data.
         continue;
       }
+      console.log("x val for denom: ", point.xVal, denomInfo.value);
       point.xVal /= denomInfo.value;
       point.xPopDate = denomInfo.date;
       point.xPopVal = denomInfo.value;
@@ -570,6 +581,7 @@ function rawToChart(
         // skip this data point because missing denom data.
         continue;
       }
+      console.log("y val for denom: ", point.yVal, denomInfo.value);
       point.yVal /= denomInfo.value;
       point.yPopDate = denomInfo.date;
       point.yPopVal = denomInfo.value;

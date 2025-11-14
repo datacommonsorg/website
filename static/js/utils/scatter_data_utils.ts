@@ -54,15 +54,30 @@ function getPlaceAxisChartData(
   if (_.isEmpty(obs)) {
     return null;
   }
+  console.log("obs in y axis:", obs);
   // finding the denom data that matches the facet of the current observation
   const populationData = denomsByFacet?.[obs.facet]
     ? denomsByFacet[obs.facet]
     : defaultDenomData;
+  if (!denomsByFacet?.[obs.facet]) {
+    console.log("using default denom data");
+  }
+
+  console.log("populationData in y axis:", populationData);
   const denomSeries =
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
       ? populationData.data[denom][placeDcid]
       : null;
+  console.log(
+    "denomSeries in y axis:",
+    denom,
+    populationData.data[denom],
+    populationData.data[denom][placeDcid],
+    denomSeries
+  );
+
   if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.series))) {
+    console.log("Returning null denom series");
     return null;
   }
   const sources = [];
@@ -79,6 +94,7 @@ function getPlaceAxisChartData(
     denomValue = denomObs.value;
     denomDate = denomObs.date;
     value /= denomValue;
+    console.log("new value: ", value);
   }
   if (scaling) {
     value *= scaling;
@@ -95,6 +111,9 @@ function getPlaceAxisChartData(
         popBounds &&
         (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
       ) {
+        console.log(
+          `Population ${popObs?.value} for ${placeDcid} out of bounds`
+        );
         return null;
       }
       // If this axis is using a population denominator, use that for the population value as well
@@ -105,7 +124,9 @@ function getPlaceAxisChartData(
       console.log(`No population data for ${placeDcid}`);
     }
   }
+  console.log("getting unit");
   const unit = getUnit(metadataMap[metaHash]);
+  console.log("value in y axis:", value, popValue);
   return { value, statDate, sources, popValue, popDate, unit };
 }
 
@@ -154,9 +175,7 @@ export function getPlaceScatterData(
     xDenom,
     xScaling
   );
-  if (_.isEmpty(xChartData)) {
-    return null;
-  }
+  console.log("xChartData:", xChartData);
   const yChartData = getPlaceAxisChartData(
     yStatVarData,
     denomsByFacet,
@@ -167,20 +186,29 @@ export function getPlaceScatterData(
     yDenom,
     yScaling
   );
+  console.log("yChartData:", yChartData);
   if (_.isEmpty(yChartData)) {
     return null;
   }
+  const xVal = _.isEmpty(xChartData) ? null : xChartData.value;
   const point = {
     place: namedPlace,
-    xVal: xChartData.value,
+    xVal,
     yVal: yChartData.value,
-    xDate: xChartData.statDate,
+    xDate: _.isEmpty(xChartData) ? null : xChartData.statDate,
     yDate: yChartData.statDate,
-    xPopVal: xChartData.popValue,
+    xPopVal: _.isEmpty(xChartData) ? null : xChartData.popValue,
     yPopVal: yChartData.popValue,
-    xPopDate: xChartData.popDate,
+    xPopDate: _.isEmpty(xChartData) ? null : xChartData.popDate,
     yPopDate: yChartData.popDate,
   };
-  const sources = xChartData.sources.concat(yChartData.sources);
-  return { point, sources, xUnit: xChartData.unit, yUnit: yChartData.unit };
+  const sources = _.isEmpty(xChartData)
+    ? yChartData.sources
+    : xChartData.sources.concat(yChartData.sources);
+  return {
+    point,
+    sources,
+    xUnit: _.isEmpty(xChartData) ? "" : xChartData.unit,
+    yUnit: yChartData.unit,
+  };
 }
