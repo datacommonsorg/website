@@ -415,6 +415,8 @@ def prepare_response_common(data_dict: Dict,
                             client: str = '') -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
+  # Convert data_dict to pure json.
+  data_dict = utils.to_dict(data_dict)
   if test:
     data_dict['test'] = test
   if client:
@@ -424,9 +426,6 @@ def prepare_response_common(data_dict: Dict,
     session_info = futils.get_session_info(data_dict['context'], has_data)
     data_dict['session'] = session_info
     asyncio.create_task(bt.write_row(session_info, data_dict, dbg_counters))
-
-  # Convert data_dict to pure json.
-  data_dict = utils.to_dict(data_dict)
 
   return data_dict
 
@@ -481,7 +480,6 @@ def abort(
                                          query_detection=query_detection,
                                          debug_counters=counters.get(),
                                          query_detection_debug_logs=debug_logs)
-
   if test:
     data_dict['test'] = test
   if client:
@@ -493,7 +491,8 @@ def abort(
     # Asynchronously log as bigtable write takes O(100ms)
     session_info = futils.get_session_info(context_history, False)
     data_dict['session'] = session_info
-    asyncio.create_task(bt.write_row(session_info, data_dict, debug_logs))
+    log_data_dict = utils.to_dict(data_dict)
+    asyncio.create_task(bt.write_row(session_info, log_data_dict, debug_logs))
 
   return data_dict
 

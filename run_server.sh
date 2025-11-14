@@ -9,18 +9,22 @@ MCP_PID=""
 # Defaults
 PORT=8080
 FLASK_ENV="local"
-DC_MCP_PORT=3001
+DC_MCP_PORT="3001"
 ENABLE_MODEL="false"
 ENABLE_EVAL_TOOL="true"    # Default true
 ENABLE_DISASTER_JSON="false"
 USE_GUNICORN="false"
-ENABLE_REMOTE_MCP="false"
+ENABLE_MCP=""
 WEBSITE_MIXER_API_ROOT=""
 
 # --- Helper Functions ---
 
 function log() {
   echo -e "[INFO] $(date '+%H:%M:%S') - $1"
+}
+
+function warn() {
+  echo -e "[WARNING] $(date '+%H:%M:%S') - $1" >&2
 }
 
 function err() {
@@ -57,8 +61,8 @@ Options:
   -x, --no-eval            Disable embedding eval playground
   -d, --disaster-json      [Local dev] Enable disaster JSON cache
   -l, --local-mixer        [Local dev] Use local mixer (localhost:8081)
-  -g, --gunicorn           [Local dev] Use Gunicorn for production simulation
-  -a, --enable-remote-mcp  Run the DC MCP server as a separate process for agentic detection.
+  -g, --gunicorn           Use Gunicorn for production simulation
+  -a, --enable-mcp [mode]  Run the DC MCP server as a separate process. Mode can be 'http' (default) or 'stdio'.
   -h, --help               Show this help message
 EOF
   exit 0
@@ -74,10 +78,10 @@ function run_mcp_server() {
   fi
 
   # Export the port only if we are actually starting the server.
-  export DC_MCP_PORT
+  export DC_MCP_URL="http://localhost:${DC_MCP_PORT}"
 
   mkdir -p "$log_dir"
-  log "Starting MCP server... Logs: $log_file"
+  log "Starting MCP server at $DC_MCP_URL ... Logs: $log_file"
 
   # Run in background & capture PID
   uvx datacommons-mcp serve http --port "$DC_MCP_PORT" > "$log_file" 2>&1 &
@@ -125,9 +129,20 @@ while [[ $# -gt 0 ]]; do
       USE_GUNICORN="true"
       shift
       ;;
-    -a|--enable-remote-mcp)
-      ENABLE_REMOTE_MCP="true"
-      shift
+    -a|--enable-mcp)
+      # Check for optional argument.
+      if [[ -n "${2-}" && "$2" != -* ]]; then
+        if [[ "$2" == "http" || "$2" == "stdio" ]]; then
+          ENABLE_MCP="$2"
+          shift 2
+        else
+          err "Invalid value for --enable-mcp: '$2'. Valid values are 'http' or 'stdio'."
+          exit 1
+        fi
+      else
+        ENABLE_MCP="http" # Default value
+        shift
+      fi
       ;;
     -h|--help)
       show_help
@@ -175,8 +190,17 @@ export FLASK_ENV
 # --- Main Execution ---
 
 # 1. Start MCP as separate server if requested
-if [[ "$ENABLE_REMOTE_MCP" == "true" ]]; then
+if [[ "$ENABLE_MCP" == "http" ]]; then
   run_mcp_server
+  # Wait a moment and check if the server is still running.
+  sleep 2
+  if ! ps -p "$MCP_PID" > /dev/null; then
+    err "MCP server failed to start or stopped unexpectedly."
+    err "Check logs for details: tmp/logs/mcp_server.log"
+    exit 1
+  fi
+elif [[ "$ENABLE_MCP" == "stdio" ]]; then
+  warn "MCP stdio mode is not yet implemented, agentic nl detection will not be enabled."
 fi
 
 log "Starting app with FLASK_ENV='$FLASK_ENV' on port='$PORT'"

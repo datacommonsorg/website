@@ -17,32 +17,30 @@ from functools import lru_cache
 from google.adk.agents.llm_agent import LlmAgent
 from google.adk.tools.mcp_tool.mcp_session_manager import \
     StreamableHTTPConnectionParams
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
 
 from server.lib.nl.detection.agent.config import AGENT_MODEL
-from server.lib.nl.detection.agent.config import DC_MCP_PORT
+from server.lib.nl.detection.agent.config import DC_MCP_URL
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
 
 @lru_cache(maxsize=1)
 def get_agent() -> LlmAgent | None:
-  """Returns a cached singleton detection agent."""
+    """Returns a cached singleton detection agent."""
 
-  if not DC_MCP_PORT:
-    return None
+    if not DC_MCP_URL:
+        return None
 
-  return LlmAgent(model=AGENT_MODEL,
-                  name="detection_agent",
-                  instruction=AGENT_INSTRUCTIONS,
-                  tools=[
-                      MCPToolset(
-                          connection_params=StreamableHTTPConnectionParams(
-                              url=f"http://localhost:{DC_MCP_PORT}/mcp",
-                              timeout=30.0,
-                          ),
-                          tool_filter=["search_indicators"],
-                      )
-                  ],
-                  output_schema=AgentDetection,
-                  output_key='nl_detection')
+    return LlmAgent(model=AGENT_MODEL,
+                    name="detection_agent",
+                    instruction=AGENT_INSTRUCTIONS,
+                    tools=[McpToolset(
+                            connection_params=StreamableHTTPConnectionParams(
+                                url=f"{DC_MCP_URL}/mcp",
+                                timeout=30.0,
+                            ),
+                            tool_filter=["search_indicators"],
+                        )],
+                    output_schema=AgentDetection,
+                    output_key='nl_detection')
