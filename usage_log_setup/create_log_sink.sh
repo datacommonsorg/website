@@ -8,8 +8,7 @@ DESTINATION="bigquery.googleapis.com/projects/${DESTINATION_PROJECT_ID}/datasets
 # Docs: https://cloud.google.com/bigquery/docs/datasets#bq
 # The destination dataset must exist before creating the sink.
 if bq show --format=prettyjson "${DESTINATION_PROJECT_ID}:${DESTINATION_DATASET}" > /dev/null 2>&1; then
-    echo "Dataset ${DESTINATION_DATASET} already exists in project ${DESTINATION_PROJECT_ID}."
-    CREATED_DATASET=false
+    echo "Dataset ${DESTINATION_DATASET} already exists in project ${DESTINATION_PROJECT_ID}. Continuing..."
 else
     echo "Dataset ${DESTINATION_DATASET} not found. Creating dataset..."
     # We don't manually define a table, because the logger will automatically create it with a schema based on the logs injested.
@@ -18,20 +17,19 @@ else
         --description="${DATASET_DESCRIPTION}" \
         ${DESTINATION_PROJECT_ID}:${DESTINATION_DATASET}
     echo "Created dataset ${DESTINATION_DATASET} in project ${DESTINATION_PROJECT_ID}."
-    CREATED_DATASET=true
 fi
 
-# Append the CREATED_DATASET variable to the .env file
-# This allows other scripts to know if the dataset was newly created.
-# First, remove the line if it already exists to avoid duplicates
-sed -i.bak '/^CREATED_DATASET=/d' ./usage_log_setup/.env && rm ./usage_log_setup/.env.bak
-echo "CREATED_DATASET=${CREATED_DATASET}" >> ./usage_log_setup/.env
-CREATED_DATASET=true
+# Confirm that the destination table does NOT exist, because this will be created automatically by the log sink.
+if bq show --format=prettyjson "${DESTINATION_PROJECT_ID}:${DESTINATION_DATASET}.${DESTINATION_TABLE}" > /dev/null 2>&1; then
+    echo "Table ${DESTINATION_PROJECT_ID}:${DESTINATION_DATASET}.${DESTINATION_TABLE} already exists. Please choose a destination dataset where the `${DESTINATION_TABLE}` table does not already exist." \
+        "The log router will create this table automatically and determine the new table's schema."
+    exit 1
+fi
 
 # Create the logging sink for each project in LOG_SOURCE_PROJECT_IDS
 # This is configured to process multiple projects' logs to the same destination table.
 for project_id in $LOG_SOURCE_PROJECT_IDS; do
-    echo "--- Creating sink for project: ${project_id} ---"
+    echo "Creating sink for project: ${project_id}"
 
     # Create the logging sink
     # destination: a BigQuery table, e.g. bigquery.googleapis.com/projects/<PROJECT_ID>/datasets/<DATASET_NAME>
