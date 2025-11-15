@@ -47,20 +47,20 @@ export function SpinnerWithText(): ReactElement {
 
   useEffect(() => {
     // Show first biomed pun after 3 seconds
-    const timeoutId = setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       setShowMessage(true);
       setMessage(CUSTOM_MESSAGES[shuffledIndexes[messageIndex]]);
     }, THIRTY_SECONDS);
 
     // Show new pun after each minute
-    const messageInterval = setInterval(() => {
+    const messageInterval = window.setInterval(() => {
       setMessageIndex((prevIndex) => (prevIndex + 1) % CUSTOM_MESSAGES.length);
       setMessage(CUSTOM_MESSAGES[shuffledIndexes[messageIndex]]);
     }, SIXTY_SECONDS);
 
     return () => {
-      clearTimeout(timeoutId);
-      clearInterval(messageInterval);
+      window.clearTimeout(timeoutId);
+      window.clearInterval(messageInterval);
     };
   }, [messageIndex, shuffledIndexes]);
 

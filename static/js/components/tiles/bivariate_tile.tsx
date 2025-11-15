@@ -229,7 +229,7 @@ async function getPopulationData(
   }
 }
 
-export const fetchData = async (
+const fetchData = async (
   props: BivariateTilePropType
 ): Promise<BivariateChartData | null> => {
   if (props.statVarSpec.length < 2) {

@@ -16,7 +16,7 @@
 
 import { FacetStore, ObservationDate } from "../../shared/stat_types";
 
-export const observationDatesFacets: FacetStore = {
+const observationDatesFacets: FacetStore = {
   "1355058237": {
     importName: "CensusACS5YearSurvey_SubjectTables_S2601APR",
     provenanceUrl:

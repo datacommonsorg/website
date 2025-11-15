@@ -17,7 +17,7 @@ import _ from "lodash";
 import { useEffect } from "react";
 
 // Number of ms to debounce re-draws when chart is resized
-export const RESIZE_DEBOUNCE_INTERVAL_MS = 10;
+const RESIZE_DEBOUNCE_INTERVAL_MS = 10;
 
 export function useDrawOnResize(
   drawFn: () => void,
