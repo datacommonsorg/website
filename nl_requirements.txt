@@ -11,5 +11,5 @@ torch==2.2.2
 torchvision
 # TODO: Look into upgrading huggingface_hub. Previously pinned due to sentence-transformers which has now been bumped.
 huggingface_hub==0.25.2
-transformers==4.45.2
+transformers==4.48.0
 safetensors==0.4.3
