@@ -17,6 +17,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import wait_for_text
 import server.webdriver.shared as shared
 
 MAP_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=map'
@@ -160,12 +161,12 @@ class VisMapTestMixin():
         By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
-    chart_title = self.driver.find_element(By.CSS_SELECTOR,
-                                           '.map-chart .chart-headers h4')
-    self.assertIn("female population ", chart_title.text.lower())
-    chart_source = self.driver.find_element(
-        By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
-    self.assertTrue("wonder.cdc.gov" in chart_source.text)
+    # "Female population" should show up in the title
+    wait_for_text(self.driver, "Female population", By.CSS_SELECTOR,
+                  '.map-chart .chart-headers h4')
+    # "wonder.cdc.gov" should show up in sources
+    wait_for_text(self.driver, "wonder.cdc.gov", By.CSS_SELECTOR,
+                  '.map-chart .chart-headers .sources')
     self.assertEqual(len(self.get_chart_map_regions()), 58)
     ranking_items = self.get_ranking_items()
     self.assertEqual(len(ranking_items), 10)
@@ -242,16 +243,20 @@ class VisMapTestMixin():
                                      timeout_seconds=self.TIMEOUT_SEC)
 
     # Find the map region for Kern County (geoId/06029)
-    kern_county = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]',
-    )
+    # Wait for visibility, not just presence, in case of re-renders
+    kern_county = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.visibility_of_element_located((
+            By.XPATH,
+            '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]'
+        )))
 
     # Hover over the region using ActionChains
     actions = ActionChains(self.driver)
-    actions.move_to_element(kern_county).perform()
+    actions.move_to_element(kern_county).pause(0.5).perform()
 
-    # Wait for tooltip to appear and verify contents
-    tooltip = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.ID, "tooltip")))
-    self.assertIn("Female population", tooltip.text)
+    # Wait for tooltip to be visible, not just presence, in case of re-renders
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.visibility_of_element_located((By.ID, "tooltip")))
+
+    # Check that tooltip contains stat var
+    wait_for_text(self.driver, "Female population", By.ID, "tooltip")
