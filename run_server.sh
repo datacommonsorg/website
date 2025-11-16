@@ -77,15 +77,35 @@ function run_mcp_server() {
     exit 1
   fi
 
-  # Export the port only if we are actually starting the server.
-  export DC_MCP_URL="http://localhost:${DC_MCP_PORT}"
+  # Set env vars required by the MCP server (DC_API_ROOT and DC_SEARCH_ROOT)
+  if [[ -n "$WEBSITE_MIXER_API_ROOT" ]]; then
+    DC_API_ROOT_VAL="$WEBSITE_MIXER_API_ROOT"
+  else
+  # TEMP: routing non-local mixer calls to autopush. Note that an *autopush* DC_API_KEY is required.
+    DC_API_ROOT_VAL="https://autopush.api.datacommons.org"
+  fi
+
+  DC_SEARCH_ROOT_VAL="http://localhost:${PORT}"
 
   mkdir -p "$log_dir"
-  log "Starting MCP server at $DC_MCP_URL ... Logs: $log_file"
+  DC_MCP_URL="http://localhost:${DC_MCP_PORT}"
+  log "Starting MCP server at ${DC_MCP_URL} ... Logs: $log_file"
 
   # Run in background & capture PID
-  uvx datacommons-mcp serve http --port "$DC_MCP_PORT" > "$log_file" 2>&1 &
+  DC_API_KEY="${DC_API_KEY:-}" DC_API_ROOT="${DC_API_ROOT_VAL}/v2" DC_SEARCH_ROOT="$DC_SEARCH_ROOT_VAL" uvx datacommons-mcp@1.1.2rc2 serve http --port "$DC_MCP_PORT" --skip-api-key-validation > "$log_file" 2>&1 &
   MCP_PID=$!
+
+  # Wait a moment and check if the server is still running.
+  sleep 2
+  if ! ps -p "$MCP_PID" > /dev/null; then
+    err "MCP server failed to start or stopped unexpectedly. Showing first 10 lines of log:"
+    # Using sed to prefix each line to indicate it's from the MCP log
+    head -n 10 "$log_file" | sed 's/^/[MCP Log] /' >&2
+    err "Check the MCP server's full log for more details: $log_file"
+    exit 1
+  fi
+  # Export the mcp's url only if it successfully started.
+  export DC_MCP_URL
 }
 
 function compile_protos() {
@@ -192,13 +212,7 @@ export FLASK_ENV
 # 1. Start MCP as separate server if requested
 if [[ "$ENABLE_MCP" == "http" ]]; then
   run_mcp_server
-  # Wait a moment and check if the server is still running.
-  sleep 2
-  if ! ps -p "$MCP_PID" > /dev/null; then
-    err "MCP server failed to start or stopped unexpectedly."
-    err "Check logs for details: tmp/logs/mcp_server.log"
-    exit 1
-  fi
+  
 elif [[ "$ENABLE_MCP" == "stdio" ]]; then
   warn "MCP stdio mode is not yet implemented, agentic nl detection will not be enabled."
 fi
