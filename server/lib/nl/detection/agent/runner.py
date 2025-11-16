@@ -63,6 +63,7 @@ and then cleans up by deleting the session.
     An `AgentDetection` object containing the structured information
     extracted by the agent from the query.
   """
+  # TODO: Consider maintaining session state across queries
   ephemeral_session_id = str(uuid.uuid4())
   generic_user = "stateless-web-user"
   try:

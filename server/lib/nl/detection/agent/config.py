@@ -31,17 +31,17 @@ PORT = os.environ.get("PORT", "8080")
 WEBSITE_ROOT = f"http://localhost:{PORT}"
 
 
+# Note: this method is not used when starting the mcp server separately in http mode.
 def get_mcp_env() -> dict[str, str]:
   """Returns a dict of environment variables for the MCP server based on its running mode (base or custom)."""
-  cfg = libconfig.get_config()
-  api_root = cfg.API_ROOT
   if is_custom_dc():
     return {
         "DC_API_KEY": DC_API_KEY,
         "DC_TYPE": "custom",
         "CUSTOM_DC_URL": WEBSITE_ROOT,
     }
-
+  cfg = libconfig.get_config()
+  api_root = cfg.API_ROOT
   return {
       "DC_API_ROOT": f"{api_root}/v2",
       "DC_SEARCH_ROOT": WEBSITE_ROOT,

@@ -27,20 +27,22 @@ from server.lib.nl.detection.agent.types import AgentDetection
 
 @lru_cache(maxsize=1)
 def get_agent() -> LlmAgent | None:
-    """Returns a cached singleton detection agent."""
+  """Returns a cached singleton detection agent."""
 
-    if not DC_MCP_URL:
-        return None
+  if not DC_MCP_URL:
+    return None
 
-    return LlmAgent(model=AGENT_MODEL,
-                    name="detection_agent",
-                    instruction=AGENT_INSTRUCTIONS,
-                    tools=[McpToolset(
-                            connection_params=StreamableHTTPConnectionParams(
-                                url=f"{DC_MCP_URL}/mcp",
-                                timeout=30.0,
-                            ),
-                            tool_filter=["search_indicators"],
-                        )],
-                    output_schema=AgentDetection,
-                    output_key='nl_detection')
+  return LlmAgent(model=AGENT_MODEL,
+                  name="detection_agent",
+                  instruction=AGENT_INSTRUCTIONS,
+                  tools=[
+                      McpToolset(
+                          connection_params=StreamableHTTPConnectionParams(
+                              url=f"{DC_MCP_URL}/mcp",
+                              timeout=30.0,
+                          ),
+                          tool_filter=["search_indicators"],
+                      )
+                  ],
+                  output_schema=AgentDetection,
+                  output_key='nl_detection')
