@@ -53,11 +53,11 @@ bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 # The detection endpoint.
 #
 @bp.route('/detect', methods=['POST'])
-def detect():
+async def detect():
   debug_logs = {}
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
 
-  utterance, error_json = helpers.parse_query_and_detect(
+  utterance, error_json = await helpers.parse_query_and_detect(
       request, 'explore', client, debug_logs)
   if error_json:
     return error_json
@@ -102,7 +102,7 @@ def fulfill():
 # The detect and fulfill endpoint.
 #
 @bp.route('/detect-and-fulfill', methods=['POST'])
-def detect_and_fulfill():
+async def detect_and_fulfill():
   debug_logs = {}
 
   test = request.args.get(Params.TEST.value, '')
@@ -118,7 +118,7 @@ def detect_and_fulfill():
                          test=test,
                          client=client)
 
-  utterance, error_json = helpers.parse_query_and_detect(
+  utterance, error_json = await helpers.parse_query_and_detect(
       request, 'explore', client, debug_logs)
   if error_json:
     return error_json

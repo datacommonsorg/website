@@ -8,6 +8,7 @@ __pycache__/
 
 # Gemini
 .gemini/**
+.geminiignore
 !.gemini/
 !.gemini/config.yaml
 

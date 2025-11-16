@@ -86,8 +86,8 @@ def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
 # Given a request parses the query and other params and
 # detects stuff into a Detection object.
 #
-def parse_query_and_detect(request: Dict, backend: str, client: str,
-                           debug_logs: Dict):
+async def parse_query_and_detect(request: Dict, backend: str, client: str,
+                                 debug_logs: Dict):
   if not current_app.config.get('NL_BAD_WORDS'):
     flask.abort(404)
   nl_bad_words = current_app.config['NL_BAD_WORDS']
@@ -206,13 +206,13 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type=detector_type,
-                                    original_query=original_query,
-                                    no_punct_query=query,
-                                    prev_utterance=prev_utterance,
-                                    query_detection_debug_logs=debug_logs,
-                                    counters=counters,
-                                    dargs=detection_args)
+  query_detection = await detector.detect(detector_type=detector_type,
+                                          original_query=original_query,
+                                          no_punct_query=query,
+                                          prev_utterance=prev_utterance,
+                                          query_detection_debug_logs=debug_logs,
+                                          counters=counters,
+                                          dargs=detection_args)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
@@ -423,10 +423,9 @@ def prepare_response_common(data_dict: Dict,
     data_dict['client'] = client
   if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(data_dict['context'], has_data)
     data_dict['session'] = session_info
-    loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
+    asyncio.create_task(bt.write_row(session_info, data_dict, dbg_counters))
 
   return data_dict
 
@@ -481,7 +480,6 @@ def abort(
                                          query_detection=query_detection,
                                          debug_counters=counters.get(),
                                          query_detection_debug_logs=debug_logs)
-
   if test:
     data_dict['test'] = test
   if client:
@@ -491,10 +489,10 @@ def abort(
 
   if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(context_history, False)
     data_dict['session'] = session_info
-    loop.run_until_complete(bt.write_row(session_info, data_dict, debug_logs))
+    log_data_dict = utils.to_dict(data_dict)
+    asyncio.create_task(bt.write_row(session_info, log_data_dict, debug_logs))
 
   return data_dict
 
