@@ -55,6 +55,14 @@ function getPlaceAxisChartData(
   if (_.isEmpty(obs)) {
     return null;
   }
+  const denomInfo = getDenomInfo(
+    denom,
+    denomsByFacet,
+    placeDcid,
+    obs.date,
+    obs.facet,
+    defaultDenomData
+  );
   const sources = [];
   const statDate = obs.date;
   const metaHash = obs.facet;
@@ -64,15 +72,7 @@ function getPlaceAxisChartData(
   let value = obs.value || 0;
   let denomValue = null;
   let denomDate = null;
-  if (denom) {
-    const denomInfo = getDenomInfo(
-      denom,
-      denomsByFacet,
-      placeDcid,
-      obs.date,
-      obs.facet,
-      defaultDenomData
-    );
+  if (!_.isEmpty(denomInfo?.series)) {
     if (!denomInfo || !denomInfo.value) {
       return null;
     }
@@ -85,29 +85,31 @@ function getPlaceAxisChartData(
   }
   let popValue = denomValue;
   let popDate = denomDate;
-  const popInfo = getDenomInfo(
-    DEFAULT_POPULATION_DCID,
-    denomsByFacet,
-    placeDcid,
-    obs.date,
-    obs.facet,
-    defaultDenomData
-  );
-  if (popInfo) {
-    if (
-      popBounds &&
-      (!popInfo || !isBetween(popInfo.value, popBounds[0], popBounds[1]))
-    ) {
-      return null;
+  // checking if there is any denominator data submitted
+  if (!_.isNull(denomsByFacet) && !_.isNull(defaultDenomData)) {
+    const popInfo = getDenomInfo(
+      DEFAULT_POPULATION_DCID,
+      denomsByFacet,
+      placeDcid,
+      obs.date,
+      obs.facet,
+      defaultDenomData
+    );
+    if (popInfo.series) {
+      if (
+        popBounds &&
+        (!popInfo || !isBetween(popInfo.value, popBounds[0], popBounds[1]))
+      ) {
+        return null;
+      }
+      // If this axis is using a population denominator, use that for the population value as well
+      // Otherwise, use the default "Count_Person" variable.
+      popValue = denomValue || popInfo.value;
+      popDate = denomDate || popInfo.date;
+    } else {
+      console.log(`No population data for ${placeDcid}`);
     }
-    // If this axis is using a population denominator, use that for the population value as well
-    // Otherwise, use the default "Count_Person" variable.
-    popValue = denomValue || popInfo.value;
-    popDate = denomDate || popInfo.date;
-  } else {
-    console.log(`No population data for ${placeDcid}`);
   }
-
   const unit = getUnit(metadataMap[metaHash]);
   return { value, statDate, sources, popValue, popDate, unit };
 }
