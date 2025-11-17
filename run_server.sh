@@ -11,7 +11,6 @@ PORT=8080
 FLASK_ENV="local"
 DC_MCP_PORT="3001"
 ENABLE_MODEL="false"
-ENABLE_EVAL_TOOL="true"    # Default true
 ENABLE_DISASTER_JSON="false"
 USE_GUNICORN="false"
 ENABLE_MCP=""
@@ -58,7 +57,6 @@ Options:
   -e, --env <env>          Set FLASK_ENV (e.g., lite, custom). Default: local
   -p, --port <port>        Set port. Default: 8080
   -m, --enable-nl-model    Enable natural language models
-  -x, --no-eval            Disable embedding eval playground
   -d, --disaster-json      [Local dev] Enable disaster JSON cache
   -l, --local-mixer        [Local dev] Use local mixer (localhost:8081)
   -g, --gunicorn           Use Gunicorn for production simulation
@@ -133,10 +131,6 @@ while [[ $# -gt 0 ]]; do
       ENABLE_MODEL="true"
       shift
       ;;
-    -x|--no-eval)
-      ENABLE_EVAL_TOOL="false"
-      shift
-      ;;
     -d|--disaster-json)
       ENABLE_DISASTER_JSON="true"
       shift
@@ -190,7 +184,6 @@ fi
 export GOOGLE_CLOUD_PROJECT="datcom-website-dev"
 export ENABLE_DATAGEMMA="true"
 export ENABLE_MODEL
-export ENABLE_EVAL_TOOL
 export ENABLE_DISASTER_JSON
 
 if [[ -n "$WEBSITE_MIXER_API_ROOT" ]]; then
