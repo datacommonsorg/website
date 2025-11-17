@@ -87,7 +87,7 @@ and then cleans up by deleting the session.
 
     detection_state = updated_session.state.get('nl_detection')
     if not detection_state:
-      # TODO: potentially raise an exception here instead
+      # TODO: potentially raise an exception here instead of returning an "unknown" classifcation.
       return AgentDetection(classification="Unknown")
     return AgentDetection(**detection_state)
 
