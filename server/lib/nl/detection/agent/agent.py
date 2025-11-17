@@ -13,42 +13,37 @@
 # limitations under the License.
 
 from functools import lru_cache
-import subprocess
+import os
 
 from google.adk.agents.llm_agent import LlmAgent
-from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
-from google.adk.tools.mcp_tool.mcp_session_manager import StdioServerParameters
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import \
+    StreamableHTTPConnectionParams
+from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
 
-from server.lib.nl.detection.agent.config import AGENT_MODEL
-from server.lib.nl.detection.agent.config import get_mcp_env
-from server.lib.nl.detection.agent.config import MCP_SERVER_VERSION
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
+
+DC_MCP_URL = os.environ.get("DC_MCP_URL")
+AGENT_MODEL = os.environ.get("DETECTION_AGENT_MODEL", "gemini-2.5-flash")
 
 
 @lru_cache(maxsize=1)
 def get_agent() -> LlmAgent:
   """Returns a cached singleton detection agent."""
-  return LlmAgent(
-      model=AGENT_MODEL,
-      name="detection_agent",
-      instruction=AGENT_INSTRUCTIONS,
-      tools=[
-          MCPToolset(
-              connection_params=StdioConnectionParams(
-                  server_params=StdioServerParameters(
-                      command="uvx",
-                      args=[
-                          f"datacommons-mcp@{MCP_SERVER_VERSION}",
-                          "serve",
-                          "stdio",
-                          "--skip-api-key-validation",
-                      ],
-                      env=get_mcp_env(),
-                      # TODO(keyurs): Log errors to file in dev mode.
-                      stderr=subprocess.DEVNULL),
-                  timeout=30.0),
-              tool_filter=["search_indicators"]),
-      ],
-      output_schema=AgentDetection)
+  if not DC_MCP_URL:
+    return None
+
+  return LlmAgent(model=AGENT_MODEL,
+                  name="detection_agent",
+                  instruction=AGENT_INSTRUCTIONS,
+                  tools=[
+                      McpToolset(
+                          connection_params=StreamableHTTPConnectionParams(
+                              url=f"{DC_MCP_URL}/mcp",
+                              timeout=30.0,
+                          ),
+                          tool_filter=["search_indicators"],
+                      )
+                  ],
+                  output_schema=AgentDetection,
+                  output_key='nl_detection')
