@@ -63,6 +63,9 @@ function getPlaceAxisChartData(
     obs.facet,
     defaultDenomData
   );
+  if (denom && (!denomInfo || !denomInfo.value)) {
+    return null;
+  }
   const sources = [];
   const statDate = obs.date;
   const metaHash = obs.facet;
@@ -73,9 +76,6 @@ function getPlaceAxisChartData(
   let denomValue = null;
   let denomDate = null;
   if (!_.isEmpty(denomInfo?.series)) {
-    if (!denomInfo || !denomInfo.value) {
-      return null;
-    }
     denomValue = denomInfo.value;
     denomDate = denomInfo.date;
     value /= denomValue;
@@ -85,8 +85,9 @@ function getPlaceAxisChartData(
   }
   let popValue = denomValue;
   let popDate = denomDate;
-  // checking if there is any denominator data submitted
+  // Checking if there is any population data
   if (!_.isNull(denomsByFacet) && !_.isNull(defaultDenomData)) {
+    // Getting population info for DEFAULT_POPULATION_DCID
     const popInfo = getDenomInfo(
       DEFAULT_POPULATION_DCID,
       denomsByFacet,
@@ -104,8 +105,8 @@ function getPlaceAxisChartData(
       }
       // If this axis is using a population denominator, use that for the population value as well
       // Otherwise, use the default "Count_Person" variable.
-      popValue = denomValue || popInfo.value;
-      popDate = denomDate || popInfo.date;
+      popValue = popValue || popInfo.value;
+      popDate = popDate || popInfo.date;
     } else {
       console.log(`No population data for ${placeDcid}`);
     }
