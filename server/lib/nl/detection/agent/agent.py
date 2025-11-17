@@ -26,6 +26,7 @@ from server.lib.nl.detection.agent.config import MCP_SERVER_VERSION
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
+
 # DO NOT SUBMIT
 @lru_cache(maxsize=1)
 def get_agent() -> LlmAgent:
