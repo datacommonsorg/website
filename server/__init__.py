@@ -455,7 +455,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
 
     if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
-      os.environ['GEMINI_API_KEY'] =  app.config['LLM_API_KEY']
+      os.environ['GEMINI_API_KEY'] = app.config['LLM_API_KEY']
       app.config['NL_DETECTION_AGENT_RUNNER'] = get_detection_agent_runner()
 
   # Get and save the list of variables that we should not allow per capita for.

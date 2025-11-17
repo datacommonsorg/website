@@ -86,10 +86,10 @@ and then cleans up by deleting the session.
         session_id=session.id)
 
     detection_state = updated_session.state.get('nl_detection')
-    if not detection_state:  
+    if not detection_state:
       # TODO: potentially raise an exception here instead
-      return AgentDetection(classification="Unknown")  
-    return AgentDetection(**detection_state)  
+      return AgentDetection(classification="Unknown")
+    return AgentDetection(**detection_state)
 
   finally:
     await runner.session_service.delete_session(app_name=runner.app_name,
