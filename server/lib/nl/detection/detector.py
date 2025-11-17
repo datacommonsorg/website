@@ -13,6 +13,7 @@
 # limitations under the License.
 """Router for detection."""
 
+import asyncio
 from typing import Dict, List
 
 from flask import current_app
@@ -59,9 +60,9 @@ MAX_CHILD_LIMIT = 50
 # For `hybrid` detection, it first calls Heuristic detector, and
 # based on `need_llm()`, decides to call the LLM detector.
 #
-async def detect(detector_type: str, original_query: str, no_punct_query: str,
-                 prev_utterance: Utterance, query_detection_debug_logs: Dict,
-                 counters: Counters, dargs: DetectionArgs) -> types.Detection:
+def detect(detector_type: str, original_query: str, no_punct_query: str,
+           prev_utterance: Utterance, query_detection_debug_logs: Dict,
+           counters: Counters, dargs: DetectionArgs) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
@@ -93,12 +94,13 @@ async def detect(detector_type: str, original_query: str, no_punct_query: str,
   if is_feature_enabled(
       ENABLE_NL_AGENT_DETECTOR,
       request=request) and detector_type == RequestedDetectorType.Agent.value:
-    agent_detection = await agent_detector.detect(
-        query=original_query,
-        prev_utterance=prev_utterance,
-        query_detection_debug_logs=query_detection_debug_logs,
-        counters=counters,
-        dargs=dargs)
+    agent_detection = asyncio.run(
+        agent_detector.detect(
+            query=original_query,
+            prev_utterance=prev_utterance,
+            query_detection_debug_logs=query_detection_debug_logs,
+            counters=counters,
+            dargs=dargs))
     return agent_detection
 
   #

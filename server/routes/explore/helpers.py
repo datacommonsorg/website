@@ -86,8 +86,8 @@ def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
 # Given a request parses the query and other params and
 # detects stuff into a Detection object.
 #
-async def parse_query_and_detect(request: Dict, backend: str, client: str,
-                                 debug_logs: Dict):
+def parse_query_and_detect(request: Dict, backend: str, client: str,
+                           debug_logs: Dict):
   if not current_app.config.get('NL_BAD_WORDS'):
     flask.abort(404)
   nl_bad_words = current_app.config['NL_BAD_WORDS']
@@ -206,13 +206,13 @@ async def parse_query_and_detect(request: Dict, backend: str, client: str,
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = await detector.detect(detector_type=detector_type,
-                                          original_query=original_query,
-                                          no_punct_query=query,
-                                          prev_utterance=prev_utterance,
-                                          query_detection_debug_logs=debug_logs,
-                                          counters=counters,
-                                          dargs=detection_args)
+  query_detection = detector.detect(detector_type=detector_type,
+                                    original_query=original_query,
+                                    no_punct_query=query,
+                                    prev_utterance=prev_utterance,
+                                    query_detection_debug_logs=debug_logs,
+                                    counters=counters,
+                                    dargs=detection_args)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
