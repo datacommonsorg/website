@@ -54,15 +54,19 @@ function getPlaceAxisChartData(
   if (_.isEmpty(obs)) {
     return null;
   }
-  // finding the denom data that matches the facet of the current observation
-  const populationData = denomsByFacet?.[obs.facet]
-    ? denomsByFacet[obs.facet]
-    : defaultDenomData;
-  const denomSeries =
-    denom && populationData.data[denom] && populationData.data[denom][placeDcid]
-      ? populationData.data[denom][placeDcid]
-      : null;
-  if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.series))) {
+  // find the matching denominator data if it exists, for the facet used in the numerator
+  let populationData = denomsByFacet?.[obs.facet];
+  let denomSeries = denom && populationData?.data?.[denom]?.[placeDcid];
+
+  // Didn't find a denominator that comes from the same facet as the numerator,
+  // Now looking to see if any denominator is available.
+  if (!denomSeries || _.isEmpty(denomSeries.series)) {
+    populationData = defaultDenomData;
+    denomSeries = denom && populationData?.data?.[denom]?.[placeDcid];
+  }
+
+  // if there is no denom data at all, return null
+  if (denom && (!denomSeries || _.isEmpty(denomSeries.series))) {
     return null;
   }
   const sources = [];
@@ -89,7 +93,7 @@ function getPlaceAxisChartData(
     const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
       ? populationData.data[DEFAULT_POPULATION_DCID][placeDcid]
       : null;
-    if (popSeries && popSeries.series) {
+    if (popSeries && popSeries.series && popSeries.series.length > 0) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
       if (
         popBounds &&
