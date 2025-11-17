@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from functools import lru_cache
-
+import asyncio 
 from google.adk.apps import App
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
@@ -31,7 +31,7 @@ def get_detection_agent_runner() -> Runner | None:
   decorator ensures that the potentially expensive runner initialization only
   happens once.
   """
-  agent = get_agent()
+  agent = asyncio.run(get_agent())
   if not agent:
     return None
 

@@ -28,7 +28,7 @@ AGENT_MODEL = os.environ.get("DETECTION_AGENT_MODEL", "gemini-2.5-flash")
 
 
 @lru_cache(maxsize=1)
-def get_agent() -> LlmAgent | None:
+async def get_agent() -> LlmAgent | None:
   """Returns a cached singleton detection agent."""
   if not DC_MCP_URL:
     return None
