@@ -1398,8 +1398,7 @@
           "Count_MortalityEvent_AllOtherDiseases(Residual)_Female",
           "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female",
           "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female",
-          "Count_MortalityEvent_AlzheimersDisease_Female",
-          "Count_MortalityEvent_AorticAneurysmAndDissection_Female"
+          "Count_MortalityEvent_AlzheimersDisease_Female"
         ]
       },
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {

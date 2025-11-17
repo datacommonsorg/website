@@ -75,37 +75,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line (Per Capita) in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Women Below Poverty Line in Counties of United States (${date})",
@@ -923,10 +892,6 @@
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-            "name": "Population Below poverty line (Per Capita)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
             "name": "Asians Below Poverty Line",

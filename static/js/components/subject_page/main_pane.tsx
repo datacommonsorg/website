@@ -25,7 +25,7 @@ import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { SdgContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   CategoryConfig,
   SubjectPageConfig,
@@ -53,7 +53,7 @@ interface SubjectPageMainPanePropType {
   // Default enclosed place type
   defaultEnclosedPlaceType?: string;
   // The facet to highlight in the rendered page (optional)
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   // Metadata loading state: true (loading), false (loaded), undefined (no metadata)
   metadataLoadingState?: boolean;
 }
@@ -110,7 +110,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                   showExploreMore={props.showExploreMore}
                   parentPlaces={props.parentPlaces}
                   showWebComponents={props.showWebComponents}
-                  highlightFacet={props.highlightFacet}
+                  facetSelector={props.facetSelector}
                   metadataLoadingState={props.metadataLoadingState}
                 />
               </ErrorBoundary>

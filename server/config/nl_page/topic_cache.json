@@ -6511,6 +6511,23 @@
     },
     {
       "dcid": [
+        "dc/svpg/WindEvent_EventsByType"
+      ],
+      "memberList": [
+        "Count_HighWindEvent",
+        "Count_StrongWindEvent",
+        "Count_MarineHighWindEvent",
+        "Count_MarineStrongWindEvent"
+      ],
+      "name": [
+        "Wind Events by Type"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/AgeMedians_MedianAgeByGender"
       ],
       "memberList": [
@@ -11309,6 +11326,7 @@
       ],
       "relevantVariableList": [
         "Count_FireEvent",
+        "Count_WildfireEvent",
         "Count_WildlandFireEvent",
         "BurnedArea_FireEvent",
         "Percent_BurnedArea_FireEvent",
@@ -11328,10 +11346,25 @@
       ],
       "relevantVariableList": [
         "Area_FloodEvent",
+        "Count_CoastalFloodEvent",
         "Count_FloodEvent",
         "Count_FlashFloodEvent",
         "dc/topic/CoastalFlood",
         "dc/topic/RiverineFlood"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Fog"
+      ],
+      "name": [
+        "Fog"
+      ],
+      "relevantVariableList": [
+        "Count_DenseFogEvent"
       ],
       "typeOf": [
         "Topic"
@@ -13459,7 +13492,9 @@
         "dc/topic/Earthquake",
         "dc/topic/Avalanche",
         "dc/topic/Landslide",
-        "dc/topic/Tsunami"
+        "dc/topic/Tsunami",
+        "dc/topic/WindEvent",
+        "dc/topic/Fog"
       ],
       "typeOf": [
         "Topic"
@@ -14699,6 +14734,7 @@
         "HeavyPrecipitationIndex",
         "InterannualRange_Monthly_Precipitation",
         "PrecipitationRate",
+        "Count_SleetEvent",
         "dc/topic/Rainfall",
         "dc/topic/Snowfall"
       ],
@@ -15061,6 +15097,20 @@
       ],
       "relevantVariableList": [
         "dc/svpg/SeparatedPopulationByAge_SeparatedPopulationByAge"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Smoke"
+      ],
+      "name": [
+        "Smoke"
+      ],
+      "relevantVariableList": [
+        "Count_DenseSmokeEvent"
       ],
       "typeOf": [
         "Topic"
@@ -16208,6 +16258,20 @@
         "Count_Person_Widowed",
         "dc/svpg/dc/topic/WidowedPopulationByDemographic_WidowedPopulationByGender",
         "dc/svpg/dc/topic/WidowedPopulationByDemographic_WidowedPopulationByRace"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WindEvent"
+      ],
+      "name": [
+        "Wind Events"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/WindEvent_EventsByType"
       ],
       "typeOf": [
         "Topic"

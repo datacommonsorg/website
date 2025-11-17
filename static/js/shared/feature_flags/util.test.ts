@@ -120,7 +120,7 @@ describe("isFeatureEnabled", () => {
   test("returns true when rollout percentage is 100", () => {
     window.location.search = "";
     globalThis.FEATURE_FLAGS = {
-      [featureName]: { enabled: true, rollout_percentage: 100 },
+      [featureName]: { enabled: true, rolloutPercentage: 100 },
     };
     expect(isFeatureEnabled(featureName)).toBe(true);
   });
@@ -128,7 +128,7 @@ describe("isFeatureEnabled", () => {
   test("returns false when rollout percentage is 0", () => {
     window.location.search = "";
     globalThis.FEATURE_FLAGS = {
-      [featureName]: { enabled: true, rollout_percentage: 0 },
+      [featureName]: { enabled: true, rolloutPercentage: 0 },
     };
     expect(isFeatureEnabled(featureName)).toBe(false);
   });

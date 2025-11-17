@@ -37,6 +37,9 @@ import {
 } from "./place_select_utils";
 
 interface EnclosedPlacesSelectorProps {
+  // Other components/elements to render next to the place type selector
+  // Useful for cases like the scatter tool that has a chart type toggle
+  additionalControls?: React.ReactNode;
   // Current selected enclosed place type.
   enclosedPlaceType: string;
   // Callback to run when a place type is selected.
@@ -105,10 +108,9 @@ export function EnclosedPlacesSelector(
   return (
     <div
       css={css`
-        align-items: center;
         display: flex;
-        flex-direction: row;
-        gap: ${theme.spacing.sm}px;
+        flex-direction: column;
+        gap: ${theme.spacing.md}px;
         flex-wrap: wrap;
         flex-grow: 1;
       `}
@@ -118,7 +120,7 @@ export function EnclosedPlacesSelector(
         numPlacesLimit={1}
         searchBarInstructionText={
           props.searchBarInstructionText ||
-          intl.formatMessage(toolMessages.enterAPlaceInstruction)
+          intl.formatMessage(toolMessages.placeSearchBoxLabel)
         }
         searchBarPlaceholderText={props.searchBarPlaceholderText}
         selectedPlaces={
@@ -130,8 +132,16 @@ export function EnclosedPlacesSelector(
             : {}
         }
       />
-      <div>{intl.formatMessage(toolMessages.childPlaceTypeInstruction)}</div>
-      <div>
+      <div
+        css={css`
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: ${theme.spacing.sm}px;
+        `}
+      >
+        <div>{intl.formatMessage(toolMessages.placeTypeGranularityLabel)}</div>
         <PlaceTypeSelect
           id={"place-selector-place-type"}
           className="form-control"
@@ -143,13 +153,16 @@ export function EnclosedPlacesSelector(
             props.selectedParentPlace.dcid && !props.enclosedPlaceType
           }
         >
-          <option value="">Select a place type</option>
+          <option value="">
+            {intl.formatMessage(toolMessages.placeTypeDropdownPlaceholder)}
+          </option>
           {childPlaceTypes.map((type) => (
             <option value={type} key={type}>
               {ENCLOSED_PLACE_TYPE_NAMES[type] || type}
             </option>
           ))}
         </PlaceTypeSelect>
+        {props.additionalControls}
       </div>
     </div>
   );

@@ -40,12 +40,15 @@ import {
   WEBSITE_SURFACE_HEADER,
 } from "../../shared/constants";
 import {
+  GA_EVENT_HIGHLIGHT_CHART_INJECTED,
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
   GA_EVENT_PAGE_VIEW,
+  GA_PARAM_CHART_TYPE,
   GA_PARAM_PLACE,
   GA_PARAM_QUERY,
   GA_PARAM_SOURCE,
+  GA_PARAM_STAT_VAR,
   GA_PARAM_TIMING_MS,
   GA_PARAM_TOPIC,
   triggerGAEvent,
@@ -54,7 +57,7 @@ import { useQueryStore } from "../../shared/stores/query_store_hook";
 import { extractFlagsToPropagate } from "../../shared/util";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -116,7 +119,8 @@ export function App(props: AppProps): ReactElement {
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
   const [highlightPageMetadata, setHighlightPageMetadata] =
     useState<SubjectPageMetadata>(null);
-  const [highlightFacet, setHighlightFacet] = useState<FacetMetadata>(null);
+  const [highlightFacet, setHighlightFacet] =
+    useState<FacetSelectionCriteria>(null);
   const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
@@ -187,7 +191,7 @@ export function App(props: AppProps): ReactElement {
               queryResult={queryResult}
               pageMetadata={pageMetadata}
               highlightPageMetadata={highlightPageMetadata}
-              highlightFacet={highlightFacet}
+              facetSelector={highlightFacet}
               userMessage={userMessage}
               hideHeaderSearchBar={props.hideHeaderSearchBar}
             />
@@ -342,7 +346,11 @@ export function App(props: AppProps): ReactElement {
     const query = urlHashParams.query;
 
     let topicsToUse = toApiList(urlHashParams.topic || DEFAULT_TOPIC);
-    setHighlightFacet(urlHashParams.facetMetadata);
+    const fsm = {
+      date: urlHashParams.date,
+      facetMetadata: urlHashParams.facetMetadata,
+    };
+    setHighlightFacet(fsm);
 
     let places = [];
     if (!urlHashParams.place) {
@@ -473,11 +481,17 @@ export function App(props: AppProps): ReactElement {
           if (highlightPageMetadataResp) {
             // If we have a highlight response, prevent any place page redirection.
             allowRedirect = false;
+            triggerGAEvent(GA_EVENT_HIGHLIGHT_CHART_INJECTED, {
+              [GA_PARAM_SOURCE]: urlHashParams.origin,
+              [GA_PARAM_STAT_VAR]: urlHashParams.statVars,
+              [GA_PARAM_CHART_TYPE]: urlHashParams.chartType,
+              [GA_PARAM_PLACE]: mainPlace.dcid,
+            });
 
             // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
             mainPageMetadata = filterBlocksFromPageMetadata(
               mainPageMetadata,
-              highlightPageMetadataResp.pageConfig.categories.flatMap(
+              highlightPageMetadataResp.pageConfig.categories?.flatMap(
                 (category) => category.blocks || []
               )
             );

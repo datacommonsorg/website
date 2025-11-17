@@ -430,14 +430,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
-        "commuteMode": [
-          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanCarpooled_WorkCommute_Employed_WorkedOutsideOfHome",
-          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanDroveAlone_WorkCommute_Employed_WorkedOutsideOfHome"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/CommuteMode",

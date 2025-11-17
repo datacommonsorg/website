@@ -331,7 +331,7 @@ export function drawStackBarChart(
   const colorOrder = options?.statVarColorOrder || keys;
   const colorFn = getColorFn(colorOrder, options?.colors);
 
-  const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
+  const setData = (d: d3.Series<{ [key: string]: number }, string>): any[] => {
     return d
       .filter((item) => item.length >= 2 && !isNaN(item[0]) && !isNaN(item[1]))
       .map((item) => ({
@@ -709,7 +709,7 @@ function drawHorizontalStackedBars(
   useLollipop?: boolean,
   unit?: string
 ): void {
-  const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
+  const setData = (d: d3.Series<{ [key: string]: number }, string>): any[] => {
     return d
       .filter((dp) => dp.length >= 2 && !isNaN(dp[0]) && !isNaN(dp[1]))
       .map((dp) => ({

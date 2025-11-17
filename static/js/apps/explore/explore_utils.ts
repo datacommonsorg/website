@@ -52,7 +52,7 @@ export function filterBlocksFromPageMetadata(
     categories: pageMetadata.pageConfig.categories.map((category) => {
       const newCategory = { ...category };
       newCategory.blocks = category.blocks.filter((block) => {
-        return !blocksToRemove.some((b) => {
+        return !blocksToRemove?.some((b) => {
           return (
             b.title === block.title &&
             b.description === block.description &&

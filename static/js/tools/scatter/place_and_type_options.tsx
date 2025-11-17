@@ -18,15 +18,10 @@
  * Place options for selecting the child place type and the enclosing place.
  */
 
-import { css, useTheme } from "@emotion/react";
 import axios, { AxiosRequestConfig } from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { Button } from "../../components/elements/button/button";
-import { Public } from "../../components/elements/icons/public";
-import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
-import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
@@ -38,6 +33,7 @@ import {
 import { getAllChildPlaceTypes } from "../map/util";
 import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
 import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
+import { ChartTypeToggle } from "./chart_type_toggle";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 
@@ -57,7 +53,6 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   // Store the last place and place type combination that resulted in a failed fetch
   const [failedEnclosedPlaces, setFailedEnclosedPlaces] =
     useState<PlaceAndTypeSettings | null>(null);
-  const theme = useTheme();
 
   /**
    * Watch and update place info
@@ -127,62 +122,14 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   }, [place.value, display]);
 
   return (
-    <FormBox>
+    <FormBox flexDirection="column">
       <EnclosedPlacesSelector
         enclosedPlaceType={place.value.enclosedPlaceType}
         onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
         onPlaceSelected={place.setEnclosingPlace}
         selectedParentPlace={place.value.enclosingPlace}
+        additionalControls={<ChartTypeToggle />}
       />
-      <div
-        css={css`
-          border-radius: 0.25rem;
-          border: 1px solid ${theme.colors.border.primary.light};
-          display: flex;
-          flex-direction: row;
-          flex-shrink: 0;
-          flex-wrap: nowrap;
-          overflow: hidden;
-          width: fit-content;
-        `}
-      >
-        <Tooltip
-          title={intl.formatMessage(
-            toolMessages.scatterToolScatterChartTypeTooltip
-          )}
-          disableTouchListener
-        >
-          <Button
-            id="scatter-chart-type-selector-scatter"
-            variant={
-              display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
-            }
-            onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
-            startIcon={<ScatterPlot />}
-            css={css`
-              border-radius: 0.25rem;
-            `}
-          />
-        </Tooltip>
-        <Tooltip
-          title={intl.formatMessage(
-            toolMessages.scatterToolBivariateChartTypeTooltip
-          )}
-          disableTouchListener
-        >
-          <Button
-            id="scatter-chart-type-selector-map"
-            variant={
-              display.chartType === ScatterChartType.MAP ? "flat" : "text"
-            }
-            onClick={(): void => display.setChartType(ScatterChartType.MAP)}
-            startIcon={<Public />}
-            css={css`
-              border-radius: 0.25rem;
-            `}
-          />
-        </Tooltip>
-      </div>
       <StatVarHierarchyToggleButton
         onClickCallback={props.toggleSvHierarchyModal}
         text={intl.formatMessage(

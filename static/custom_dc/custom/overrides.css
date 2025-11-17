@@ -23,9 +23,27 @@
 
 #main-header {
   background: white;
-  box-shadow: 0 5px 5px 0 rgba(6, 6, 6, 0.18);
-  z-index: 10;
+  z-index: 100;
   position: sticky;
+}
+
+#main-nav .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")!important;
+}
+
+@media screen and (max-width: 1067px) {
+  #main-nav .navbar-nav {
+    width: 100%;
+    text-align: right;
+  }
+}
+
+#main-nav {
+  background: white;
+}
+
+#main-nav .navbar-collapse {
+  background: white;
 }
 
 #main-nav a {
@@ -34,6 +52,7 @@
 
 #main-header .navbar-brand {
   display: flex;
+  flex-wrap: wrap;
 }
 .btn.btn-primary {
   background-color: var(--dc-primary);
@@ -49,4 +68,8 @@
 
 #main-footer {
   border-top: 1px solid #efefef;
+}
+
+.search-section-container.sticky {
+  top: 60px;
 }

@@ -144,6 +144,7 @@ export interface UrlHashParams {
   chartType: string;
   origin: string;
   facetMetadata?: FacetMetadata;
+  date?: string;
 }
 
 export function extractFacetMetadataUrlHashParams(
@@ -210,6 +211,7 @@ export function extractUrlHashParams(
   const chartType = getSingleParam(hashParams[URL_HASH_PARAMS.CHART_TYPE]);
   const origin = getSingleParam(hashParams[URL_HASH_PARAMS.ORIGIN]);
   const facetMetadata = extractFacetMetadataUrlHashParams(hashParams);
+  const date = getSingleParam(hashParams[URL_HASH_PARAMS.DATE]);
 
   return {
     query,
@@ -232,6 +234,7 @@ export function extractUrlHashParams(
     chartType,
     origin,
     facetMetadata,
+    date,
   };
 }
 

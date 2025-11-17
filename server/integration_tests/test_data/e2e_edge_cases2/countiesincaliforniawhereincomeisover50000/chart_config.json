@@ -9,24 +9,36 @@
               {
                 "tiles": [
                   {
-                    "description": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less in Los Angeles County",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
                     ],
-                    "title": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less in Los Angeles County",
-                    "type": "HIGHLIGHT"
+                    "statVarKey": [
+                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Number of People Earning $35,000 and $49,999 (${date}) - Top 7 of 17",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less"
+            "title": "Number of People Earning $35,000 and $49,999"
           }
         ],
         "statVarSpec": {
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
+          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
           }
         }
       }
@@ -411,11 +423,20 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_IncomeOf35000To49999USDollar": {
+        "placeOfBirth": [
+          "dc/1c4p0em56brwg",
+          "dc/907pbhy3r7ew4",
+          "dc/b5cgqzknltjsb",
+          "dc/hrl4g7g9pzej8"
+        ]
+      }
+    },
     "mainTopics": [
       {
-        "dcid": "dc/topic/NoHealthInsuranceByIncome",
-        "name": "No Health Insurance by Income",
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
         "types": [
           "Topic"
         ]
@@ -424,8 +445,15 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/NoHealthInsurance",
-        "name": "No Health Insurance",
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IncomeEquity",
+        "name": "Income Equity",
         "types": [
           "Topic"
         ]
@@ -785,15 +813,15 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/NoHealthInsuranceByGender",
-        "name": "No Health Insurance by Gender",
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/NoHealthInsuranceByRace",
-        "name": "No Health Insurance by Race",
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
         "types": [
           "Topic"
         ]

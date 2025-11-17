@@ -27,7 +27,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import { isEqual } from "lodash";
+import _, { isEqual } from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
@@ -41,6 +41,8 @@ import {
 import { intl } from "../../i18n/i18n";
 import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
 import { messages } from "../../i18n/i18n_messages";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
+import { findMatchingFacets } from "../../utils/data_fetch_utils";
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
 import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
@@ -95,6 +97,11 @@ interface FacetSelectorRichProps {
   // is selected for all other stat vars. Only facets in common with all stat
   // vars will be selectable. This is currently used only for bar charts.
   allowSelectionGrouping?: boolean;
+  // Facet Selector
+  facetSelector?: FacetSelectionCriteria;
+  // useInjectedFacet
+  useInjectedFacet?: boolean;
+  setUseInjectedFacet?: (useInjectedFacet: boolean) => void;
 }
 
 /**
@@ -169,6 +176,7 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
   } = props;
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
+  const [useInjectedFacet, setUseInjectedFacet] = useState(true);
 
   const finalFacetList = useMemo(() => {
     return buildFinalFacetList(
@@ -284,6 +292,8 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
         multipleChoicesAvailable={multipleChoicesAvailable}
+        useInjectedFacet={useInjectedFacet}
+        setUseInjectedFacet={setUseInjectedFacet}
       />
     </>
   );
@@ -336,13 +346,20 @@ function FacetSelectorModal(
     onSvFacetIdUpdated,
     allowSelectionGrouping,
     mode,
+    useInjectedFacet,
   } = props;
   const [modalSelections, setModalSelections] = useState(svFacetId);
 
   useEffect(() => {
+    const injectedFacetId = useInjectedFacet
+      ? findMatchingFacets(facetList[0]["metadataMap"], props?.facetSelector)
+      : undefined;
+    if (!_.isEmpty(injectedFacetId)) {
+      setModalSelections({ [facetList[0]["dcid"]]: injectedFacetId[0] });
+    }
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
-    if (!open) {
+    if (!open && !useInjectedFacet) {
       setModalSelections(svFacetId);
     }
   }, [svFacetId, open]);
@@ -376,6 +393,7 @@ function FacetSelectorModal(
       }
     });
     onSvFacetIdUpdated(modalSelections, metadataMap);
+    props.setUseInjectedFacet(false);
     onClose();
   }
 

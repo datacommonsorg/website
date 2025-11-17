@@ -5,7 +5,11 @@ __pycache__/
 .env/
 .env_website/
 .env_nl/
-.gemini
+
+# Gemini
+.gemini/**
+!.gemini/
+!.gemini/config.yaml
 
 
 # Production static files
@@ -109,3 +113,7 @@ deploy/terraform-custom-datacommons/modules/backend.tf
 
 # NL tools ignores
 tools/nl/nl_metadata/.env
+
+# Gemini files
+GEMINI.md
+.gemini/

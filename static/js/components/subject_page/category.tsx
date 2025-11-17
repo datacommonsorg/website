@@ -22,7 +22,7 @@ import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   CategoryConfig,
   EventTypeSpec,
@@ -52,7 +52,7 @@ export interface CategoryPropType {
   // Whether to render tiles as web components
   showWebComponents?: boolean;
   // The facet to highlight in the rendered page (optional)
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   // Metadata loading state: true (loading), false (loaded), undefined (no metadata)
   metadataLoadingState?: boolean;
 }
@@ -181,7 +181,7 @@ function renderBlocks(
                 denom={block.denom}
                 startWithDenom={block.startWithDenom}
                 showWebComponents={props.showWebComponents}
-                highlightFacet={props.highlightFacet}
+                facetSelector={props.facetSelector}
               />
             </BlockContainer>
           </ErrorBoundary>

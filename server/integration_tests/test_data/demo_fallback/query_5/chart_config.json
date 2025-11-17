@@ -621,6 +621,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+                    ],
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
+                    "statVarKey": [
+                      "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+                    ],
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
                     "title": "Domestic Material Consumption Per Unit of GDP in United States",
@@ -686,6 +714,10 @@
           }
         ],
         "statVarSpec": {
+          "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange": {
+            "name": "Adjusted GDP Growth Rate (Quarter-over-Quarter)",
+            "statVar": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Accommodation and Food Services Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue"

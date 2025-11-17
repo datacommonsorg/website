@@ -81,7 +81,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
         width: 100%;
       `}
     >
-      <FormBox>
+      <FormBox flexDirection="column">
         <EnclosedPlacesSelector
           enclosedPlaceType={placeInfo.value.enclosedPlaceType}
           onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}

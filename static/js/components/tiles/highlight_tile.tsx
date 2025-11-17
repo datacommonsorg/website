@@ -44,7 +44,7 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { getPoint } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
@@ -73,7 +73,7 @@ export interface HighlightTilePropType {
   // Optional: Override sources for this tile
   sources?: string[];
   // Facet metadata to use for the highlight tile
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surface?: string;
 }
@@ -98,7 +98,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
   const {
     statVarSpec,
     place,
-    highlightFacet,
+    facetSelector,
     apiRoot,
     description: highlightDesc,
     surface,
@@ -110,7 +110,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
         const data = await fetchData(
           place,
           statVarSpec,
-          highlightFacet,
+          facetSelector,
           apiRoot,
           surface
         );
@@ -119,7 +119,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
         setHighlightData(null);
       }
     })();
-  }, [apiRoot, highlightFacet, place, statVarSpec, highlightDesc, surface]);
+  }, [apiRoot, facetSelector, place, statVarSpec, highlightDesc, surface]);
 
   /**
    * Callback function for building observation specifications.
@@ -223,11 +223,11 @@ export function getDescription(
 export const fetchData = async (
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec,
-  highlightFacet: FacetMetadata,
+  facetSelector: FacetSelectionCriteria,
   apiRoot?: string,
   surface?: string
 ): Promise<HighlightData> => {
-  const facetId = highlightFacet
+  const facetId = facetSelector
     ? undefined
     : statVarSpec.facetId
     ? [statVarSpec.facetId]
@@ -239,7 +239,7 @@ export const fetchData = async (
     [statVarSpec.statVar],
     statVarSpec.date,
     undefined,
-    highlightFacet,
+    facetSelector,
     facetId,
     surface
   );

@@ -51,6 +51,7 @@
       {# TODO: Remove new_place_page custom dimension after full launch #}
       {{ ("new_place_page: {},"|safe).format('true' if new_place_page else 'false') if new_place_page is defined else "" }}
       {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
+      {{ ("enable_stat_var_autocomplete: {},"|safe).format('true' if config['FEATURE_FLAGS'].get('enable_stat_var_autocomplete') else 'false') }}
       {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
     });
   </script>

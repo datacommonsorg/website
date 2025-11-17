@@ -464,3 +464,6 @@ TEST_SURFACE_HEADER = {SURFACE_HEADER_NAME: "integration-test"}
 # that this call came from an unknown DC surface via the website. This is set here to
 # differentiate these calls from public API calls that have no x-surface header,
 UNKNOWN_SURFACE = "unknown"
+
+MIXER_RESPONSE_ID_FIELD = "mixer_response_ids"
+MIXER_RESPONSE_ID_HEADER = "x-response-id"
