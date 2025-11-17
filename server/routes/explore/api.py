@@ -53,7 +53,7 @@ bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 # The detection endpoint.
 #
 @bp.route('/detect', methods=['POST'])
-def detect():
+async def detect():
   debug_logs = {}
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
 
@@ -102,7 +102,7 @@ def fulfill():
 # The detect and fulfill endpoint.
 #
 @bp.route('/detect-and-fulfill', methods=['POST'])
-def detect_and_fulfill():
+async def detect_and_fulfill():
   debug_logs = {}
 
   test = request.args.get(Params.TEST.value, '')
