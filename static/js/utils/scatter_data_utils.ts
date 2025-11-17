@@ -64,7 +64,6 @@ function getPlaceAxisChartData(
   let value = obs.value || 0;
   let denomValue = null;
   let denomDate = null;
-  let populationData = null;
   if (denom) {
     const denomInfo = getDenomInfo(
       denom,
@@ -80,33 +79,35 @@ function getPlaceAxisChartData(
     denomValue = denomInfo.value;
     denomDate = denomInfo.date;
     value /= denomValue;
-    populationData = denomInfo.series;
   }
   if (scaling) {
     value *= scaling;
   }
   let popValue = denomValue;
   let popDate = denomDate;
-  if (!_.isNull(populationData)) {
-    const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
-      ? populationData.data[DEFAULT_POPULATION_DCID][placeDcid]
-      : null;
-    if (popSeries && popSeries.series && popSeries.series.length > 0) {
-      const popObs = getMatchingObservation(popSeries.series, obs.date);
-      if (
-        popBounds &&
-        (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
-      ) {
-        return null;
-      }
-      // If this axis is using a population denominator, use that for the population value as well
-      // Otherwise, use the default "Count_Person" variable.
-      popValue = popValue || popObs.value;
-      popDate = popDate || popObs.date;
-    } else {
-      console.log(`No population data for ${placeDcid}`);
+  const popInfo = getDenomInfo(
+    DEFAULT_POPULATION_DCID,
+    denomsByFacet,
+    placeDcid,
+    obs.date,
+    obs.facet,
+    defaultDenomData
+  );
+  if (popInfo) {
+    if (
+      popBounds &&
+      (!popInfo || !isBetween(popInfo.value, popBounds[0], popBounds[1]))
+    ) {
+      return null;
     }
+    // If this axis is using a population denominator, use that for the population value as well
+    // Otherwise, use the default "Count_Person" variable.
+    popValue = denomValue || popInfo.value;
+    popDate = denomDate || popInfo.date;
+  } else {
+    console.log(`No population data for ${placeDcid}`);
   }
+
   const unit = getUnit(metadataMap[metaHash]);
   return { value, statDate, sources, popValue, popDate, unit };
 }
