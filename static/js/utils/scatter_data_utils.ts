@@ -27,6 +27,7 @@ import { NamedPlace } from "../shared/types";
 import { getMatchingObservation } from "../tools/shared_util";
 import { isBetween } from "./number_utils";
 import { getUnit } from "./stat_metadata_utils";
+import { getDenomInfo } from "./tile_utils";
 
 interface PlaceAxisChartData {
   value: number;
@@ -54,21 +55,6 @@ function getPlaceAxisChartData(
   if (_.isEmpty(obs)) {
     return null;
   }
-  // find the matching denominator data if it exists, for the facet used in the numerator
-  let populationData = denomsByFacet?.[obs.facet];
-  let denomSeries = denom && populationData?.data?.[denom]?.[placeDcid];
-
-  // Didn't find a denominator that comes from the same facet as the numerator,
-  // Now looking to see if any denominator is available.
-  if (!denomSeries || _.isEmpty(denomSeries.series)) {
-    populationData = defaultDenomData;
-    denomSeries = denom && populationData?.data?.[denom]?.[placeDcid];
-  }
-
-  // if there is no denom data at all, return null
-  if (denom && (!denomSeries || _.isEmpty(denomSeries.series))) {
-    return null;
-  }
   const sources = [];
   const statDate = obs.date;
   const metaHash = obs.facet;
@@ -78,11 +64,23 @@ function getPlaceAxisChartData(
   let value = obs.value || 0;
   let denomValue = null;
   let denomDate = null;
-  if (!_.isEmpty(denomSeries)) {
-    const denomObs = getMatchingObservation(denomSeries.series, obs.date);
-    denomValue = denomObs.value;
-    denomDate = denomObs.date;
+  let populationData = null;
+  if (denom) {
+    const denomInfo = getDenomInfo(
+      denom,
+      denomsByFacet,
+      placeDcid,
+      obs.date,
+      obs.facet,
+      defaultDenomData
+    );
+    if (!denomInfo || !denomInfo.value) {
+      return null;
+    }
+    denomValue = denomInfo.value;
+    denomDate = denomInfo.date;
     value /= denomValue;
+    populationData = denomInfo.series;
   }
   if (scaling) {
     value *= scaling;
@@ -127,7 +125,6 @@ interface PlaceScatterData {
  * @param yStatVarData data for the y axis stat var
  * @param denomsByFacet map of facetId to denominator series result
  * @param defaultDenomData default denominator series result, queried without specifying facet
- * @param populationData data for the population stat vars
  * @param metadataMap map of metahash to metadata for stat var data
  * @param xDenom optional denominator to use for x axis value calculation
  * @param yDenom optional denominator to use for y axis value calculation

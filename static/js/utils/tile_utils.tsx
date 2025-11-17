@@ -414,6 +414,7 @@ interface DenomInfo {
   value: number;
   date: string;
   source: string;
+  series: SeriesApiResponse;
   facet?: StatMetadata;
   facetId?: string;
 }
@@ -529,7 +530,7 @@ export async function getDenomResp(
  * svSpec, we use the default data that is fetched with no particular facet
  */
 export function getDenomInfo(
-  svSpec: StatVarSpec,
+  denom: string,
   denomData: Record<string, SeriesApiResponse>,
   placeDcid: string,
   mainStatDate: string,
@@ -538,11 +539,11 @@ export function getDenomInfo(
 ): DenomInfo {
   // find the matching denominator data if it exists, for the facet used in the numerator
   let matchingDenomData = denomData?.[facetUsed];
-  let placeDenomData = matchingDenomData?.data?.[svSpec.denom]?.[placeDcid];
+  let placeDenomData = matchingDenomData?.data?.[denom]?.[placeDcid];
 
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     matchingDenomData = defaultDenomData;
-    placeDenomData = matchingDenomData?.data?.[svSpec.denom]?.[placeDcid];
+    placeDenomData = matchingDenomData?.data?.[denom]?.[placeDcid];
   }
 
   // if there is no denom data at all, return null
@@ -565,6 +566,7 @@ export function getDenomInfo(
     source,
     facet: matchingDenomData?.facets?.[placeDenomData.facet],
     facetId: placeDenomData?.facet,
+    series: matchingDenomData,
   };
 }
 
