@@ -357,6 +357,9 @@ export function getStatFormat(
     scaling: svSpec.scaling || 1,
     numFractionDigits: undefined,
   };
+  if (svSpec.denom) {
+    result.unit = "";
+  }
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {
     result.unit = getProcessedUnit(result.unit);

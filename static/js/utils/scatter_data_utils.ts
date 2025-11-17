@@ -91,6 +91,9 @@ function getPlaceAxisChartData(
   let denomDate = null;
   if (!_.isEmpty(denomSeries)) {
     const denomObs = getMatchingObservation(denomSeries.series, obs.date);
+    if (!denomObs || !denomObs.value) {
+      return null;
+    }
     denomValue = denomObs.value;
     denomDate = denomObs.date;
     value /= denomValue;
