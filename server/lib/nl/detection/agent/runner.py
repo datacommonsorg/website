@@ -86,12 +86,16 @@ and then cleans up by deleting the session.
         session_id=session.id)
 
     detection_state = updated_session.state.get('nl_detection')
-    return AgentDetection(**detection_state)
+    if not detection_state:  
+      # TODO: potentially raise an exception here instead
+      return AgentDetection(classification="Unknown")  
+    return AgentDetection(**detection_state)  
 
   finally:
     await runner.session_service.delete_session(app_name=runner.app_name,
                                                 user_id=generic_user,
                                                 session_id=ephemeral_session_id)
-    # TODO: revisit this logic when productionizing
+    # toolset.close is meant to be called multiple times per runner to close
+    # mcp session connections after a session is complete.
     for toolset in runner.agent.tools:
       await toolset.close()
