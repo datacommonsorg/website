@@ -82,16 +82,16 @@ else
 fi
 WEB_PID=$!
 
-while true; do
-  if ! ps -p $WEB_PID > /dev/null; then
-    echo "Website server exited early. Run with --verbose to debug."
-    exit 1
-  fi
+# while true; do
+#   if ! ps -p $WEB_PID > /dev/null; then
+#     echo "Website server exited early. Run with --verbose to debug."
+#     exit 1
+#   fi
 
-  if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
-    echo "NL server exited early. Run with --verbose to debug."
-    exit 1
-  fi
+#   if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
+#     echo "NL server exited early. Run with --verbose to debug."
+#     exit 1
+#   fi
 
-  sleep 1
-done
+#   sleep 1
+# done
