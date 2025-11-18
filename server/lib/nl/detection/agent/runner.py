@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from google.adk.runners import Runner
 
-def get_detection_agent_runner() -> Runner | None:
+def get_detection_agent_runner() -> None:
   return None
 
 
