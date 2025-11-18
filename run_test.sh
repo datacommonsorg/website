@@ -68,24 +68,19 @@ function start_servers() {
   fi
   if [[ "$mode" == "cdc" ]]; then
     echo "Starting servers using run_cdc_dev.sh..."
-    source ./run_cdc_dev.sh --verbose
+    ./run_cdc_dev.sh --verbose &
   else
     echo "Starting servers using run_servers.sh..."
-    source ./run_servers.sh --verbose
+    ./run_servers.sh --verbose &
   fi
   # Store the ID of the subprocess that is running website and NL servers.
-  # SERVERS_PID=$!
+  SERVERS_PID=$!
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
   # Tests will time out eventually if health checks for website and NL servers
   # don't pass, but this is quicker if the servers fail to start up immediately.
   sleep "$startup_wait_sec"
-  if [[ -z "$WEB_PID" ]] || ! ps -p $WEB_PID > /dev/null; then
-    echo "Web server script not running after $startup_wait_sec seconds."
-    exit 1
-  fi
-  
-  if [[ -z "$NL_PID" ]] || ! ps -p $NL_PID > /dev/null; then
-    echo "NL server script not running after $startup_wait_sec seconds."
+  if ! ps -p $SERVERS_PID > /dev/null; then
+    echo "Server script not running after $startup_wait_sec seconds."
     exit 1
   fi
 }
@@ -93,11 +88,8 @@ function start_servers() {
 # Stop the subprocess that is running website and NL servers and remove the
 # configuration for cleaning them up on exit.
 function stop_servers() {
-  if ps -p $WEB_PID > /dev/null; then
-    kill $WEB_PID
-  fi
-  if ps -p $NL_PID > /dev/null; then
-    kill $NL_PID
+  if ps -p $SERVERS_PID > /dev/null; then
+    kill $SERVERS_PID
   fi
   trap - EXIT
 }
@@ -348,7 +340,6 @@ function run_integration_test {
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
   start_servers
-  echo "Running test: $1: ${@}"
   python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
   stop_servers
   deactivate
