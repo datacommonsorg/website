@@ -74,13 +74,18 @@ function start_servers() {
     ./run_servers.sh --verbose
   fi
   # Store the ID of the subprocess that is running website and NL servers.
-  SERVERS_PID=$!
+  # SERVERS_PID=$!
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
   # Tests will time out eventually if health checks for website and NL servers
   # don't pass, but this is quicker if the servers fail to start up immediately.
   sleep "$startup_wait_sec"
-  if ! ps -p $SERVERS_PID > /dev/null; then
-    echo "Server script not running after $startup_wait_sec seconds."
+  if ! ps -p $WEB_PID > /dev/null; then
+    echo "Web server script not running after $startup_wait_sec seconds."
+    exit 1
+  fi
+  
+  if ! ps -p $NL_PID > /dev/null; then
+    echo "NL server script not running after $startup_wait_sec seconds."
     exit 1
   fi
 }
