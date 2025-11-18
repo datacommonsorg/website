@@ -15,7 +15,7 @@
 # Run integration tests for NL
 steps:
   - id: setup_python
-    name: ghcr.io/astral-sh/uv:python3.11-bookworm
+    name: python:3.11.3
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -24,7 +24,7 @@ steps:
         ./run_test.sh --setup_python
 
   - id: explore_tests
-    name: ghcr.io/astral-sh/uv:python3.11-bookworm
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - setup_python
@@ -34,7 +34,7 @@ steps:
         ./run_test.sh --explore
 
   - id: nl_tests
-    name: ghcr.io/astral-sh/uv:python3.11-bookworm
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - setup_python

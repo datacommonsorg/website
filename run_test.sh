@@ -17,30 +17,30 @@
 set -e
 
 function setup_python {
-  uv venv .env
+  python3 -m venv .env
   source .env/bin/activate
   echo "installing server/requirements.txt"
-  uv pip install -r server/requirements.txt
-  uv pip install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install -r server/requirements.txt -q
+  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
-  uv pip install -r nl_server/requirements.txt
+  pip3 install -r nl_server/requirements.txt -q
   deactivate
 }
 
 function setup_website_python {
-  uv venv .env_website
+  python3 -m venv .env_website
   source .env_website/bin/activate
   echo "installing server/requirements.txt"
-  uv pip install -r server/requirements.txt
-  uv pip install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install -r server/requirements.txt -q
+  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   deactivate
 }
 
 function setup_nl_python {
-  uv venv .env_nl
+  python3 -m venv .env_nl
   source .env_nl/bin/activate
   echo "installing nl_server/requirements.txt"
-  uv pip install -r nl_server/requirements.txt
+  pip3 install -r nl_server/requirements.txt -q
   deactivate
 }
 
