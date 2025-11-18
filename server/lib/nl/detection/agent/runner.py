@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import asyncio
-from functools import lru_cache
 
 from google.adk.apps import App
 from google.adk.runners import Runner
@@ -22,7 +21,6 @@ from google.adk.sessions import InMemorySessionService
 from server.lib.nl.detection.agent.agent import get_agent
 
 
-@lru_cache(maxsize=1)
 def get_detection_agent_runner() -> Runner | None:
   """Returns a cached singleton ADK Runner for the detection agent.
 
