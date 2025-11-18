@@ -68,10 +68,10 @@ function start_servers() {
   fi
   if [[ "$mode" == "cdc" ]]; then
     echo "Starting servers using run_cdc_dev.sh..."
-    ./run_cdc_dev.sh --verbose &
+    ./run_cdc_dev.sh --verbose
   else
     echo "Starting servers using run_servers.sh..."
-    ./run_servers.sh --verbose &
+    ./run_servers.sh --verbose
   fi
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
