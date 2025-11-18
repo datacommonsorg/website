@@ -32,7 +32,7 @@ def get_detection_agent_runner() -> Runner | None:
   decorator ensures that the potentially expensive runner initialization only
   happens once.
   """
-  return None 
+  return None
   # agent, toolset = asyncio.run(get_agent())
   # if not agent:
   #   return None
