@@ -27,22 +27,22 @@ DC_MCP_URL = os.environ.get("DC_MCP_URL")
 AGENT_MODEL = os.environ.get("DETECTION_AGENT_MODEL", "gemini-2.5-flash")
 
 
-async def get_agent() -> LlmAgent | None:
+async def get_agent():
   """Returns a cached singleton detection agent."""
   if not DC_MCP_URL:
-    return None
+    return None, None
 
-  return LlmAgent(model=AGENT_MODEL,
-                  name="detection_agent",
-                  instruction=AGENT_INSTRUCTIONS,
-                  tools=[
-                      McpToolset(
+  toolset =  McpToolset(
                           connection_params=StreamableHTTPConnectionParams(
                               url=f"{DC_MCP_URL}/mcp",
                               timeout=30.0,
                           ),
                           tool_filter=["search_indicators"],
                       )
-                  ],
+  agent = LlmAgent(model=AGENT_MODEL,
+                  name="detection_agent",
+                  instruction=AGENT_INSTRUCTIONS,
+                  tools=[toolset],
                   output_schema=AgentDetection,
                   output_key='nl_detection')
+  return agent, toolset
