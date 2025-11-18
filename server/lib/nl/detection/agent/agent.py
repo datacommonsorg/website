@@ -32,17 +32,17 @@ async def get_agent():
   if not DC_MCP_URL:
     return None, None
 
-  toolset =  McpToolset(
-                          connection_params=StreamableHTTPConnectionParams(
-                              url=f"{DC_MCP_URL}/mcp",
-                              timeout=30.0,
-                          ),
-                          tool_filter=["search_indicators"],
-                      )
+  toolset = McpToolset(
+      connection_params=StreamableHTTPConnectionParams(
+          url=f"{DC_MCP_URL}/mcp",
+          timeout=30.0,
+      ),
+      tool_filter=["search_indicators"],
+  )
   agent = LlmAgent(model=AGENT_MODEL,
-                  name="detection_agent",
-                  instruction=AGENT_INSTRUCTIONS,
-                  tools=[toolset],
-                  output_schema=AgentDetection,
-                  output_key='nl_detection')
+                   name="detection_agent",
+                   instruction=AGENT_INSTRUCTIONS,
+                   tools=[toolset],
+                   output_schema=AgentDetection,
+                   output_key='nl_detection')
   return agent, toolset
