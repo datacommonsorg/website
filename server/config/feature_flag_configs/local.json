@@ -31,7 +31,7 @@
   },
   {
     "name": "enable_nl_agent_detector",
-    "enabled": false,
+    "enabled": true,
     "owner": "clincoln8",
     "description": "Enables detector=agent to be a valid detection mode for NL parsing."
   },
