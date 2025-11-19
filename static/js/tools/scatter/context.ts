@@ -192,6 +192,9 @@ const FieldToAbbreviation = {
 
 /**
  * Hook that constructs an initial context.
+ * If a hash parameter value is provided, will use those value in the returned context.
+ *
+ * @param params URL hash parameter values to use in the context
  */
 function useContextStore(params: URLSearchParams): ContextType {
   const [x, setX] = useState(applyHashAxis(params, true));
