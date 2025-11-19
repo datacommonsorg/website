@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import asyncio
 import json
 import logging
 import os
@@ -39,7 +38,6 @@ import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
-from server.lib.nl.detection.agent.agent import DetectionAgent
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -442,13 +440,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       app.config['LLM_API_KEY'] = _get_api_key(['LLM_API_KEY'],
                                                cfg.SECRET_PROJECT,
                                                'palm-api-key')
-      dc_mcp_url = os.environ.get("DC_MCP_URL")
-      if dc_mcp_url:
-        detection_agent = DetectionAgent(
-            dc_mcp_url,
-            os.environ.get("DETECTION_AGENT_MODEL", "gemini-2.5-flash"))
-        asyncio.run(detection_agent.initialize())
-        app.config['DETECTION_AGENT'] = detection_agent
 
     app.config[
         'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(

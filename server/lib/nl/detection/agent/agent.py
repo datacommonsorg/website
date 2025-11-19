@@ -12,50 +12,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+from functools import lru_cache
+import subprocess
 
 from google.adk.agents.llm_agent import LlmAgent
-from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService
-from google.adk.tools.mcp_tool.mcp_session_manager import \
-    StreamableHTTPConnectionParams
-from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
+from google.adk.tools.mcp_tool.mcp_session_manager import StdioServerParameters
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 
+from server.lib.nl.detection.agent.config import AGENT_MODEL
+from server.lib.nl.detection.agent.config import get_mcp_env
+from server.lib.nl.detection.agent.config import MCP_SERVER_VERSION
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
 
-class DetectionAgent:
-  """Class that manages the detection agent and its runner."""
-
-  def __init__(self, dc_mcp_url: str, agent_model: str):
-    self.dc_mcp_url = dc_mcp_url
-    self.agent_model = agent_model
-    self.agent: LlmAgent | None = None
-    self.runner: Runner | None = None
-    self.toolset: McpToolset | None = None
-
-  async def initialize(self):
-    """Initializes the agent and runner."""
-    if not self.dc_mcp_url:
-      return
-
-    self.toolset = McpToolset(
-        connection_params=StreamableHTTPConnectionParams(
-            url=self.dc_mcp_url,
-            timeout=30.0,
-        ),
-        tool_filter=["search_indicators"],
-    )
-    self.agent = LlmAgent(model=self.agent_model,
-                          name="detection_agent",
-                          instruction=AGENT_INSTRUCTIONS,
-                          tools=[self.toolset],
-                          output_schema=AgentDetection,
-                          output_key='nl_detection')
-
-    self.runner = Runner(
-        app_name="detection_agent_runner",
-        agent=self.agent,
-        session_service=InMemorySessionService(),
-    )
+@lru_cache(maxsize=1)
+def get_agent() -> LlmAgent:
+  """Returns a cached singleton detection agent."""
+  return LlmAgent(
+      model=AGENT_MODEL,
+      name="detection_agent",
+      instruction=AGENT_INSTRUCTIONS,
+      tools=[
+          MCPToolset(
+              connection_params=StdioConnectionParams(
+                  server_params=StdioServerParameters(
+                      command="uvx",
+                      args=[
+                          f"datacommons-mcp@{MCP_SERVER_VERSION}",
+                          "serve",
+                          "stdio",
+                          "--skip-api-key-validation",
+                      ],
+                      env=get_mcp_env(),
+                      # TODO(keyurs): Log errors to file in dev mode.
+                      stderr=subprocess.DEVNULL),
+                  timeout=30.0),
+              tool_filter=["search_indicators"]),
+      ],
+      output_schema=AgentDetection)
