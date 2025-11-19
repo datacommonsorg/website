@@ -86,6 +86,9 @@ class ExtremeCallLogger:
     if not has_app_context():
       return
 
+    if not current_app.config.get('LOG_EXTREME_MIXER_CALLS'):
+      return
+
     self._try_log_payload(
         log_enabled=current_app.config.get('LOG_DC_REQUEST_PAYLOAD'),
         log_percentage=current_app.config.get(

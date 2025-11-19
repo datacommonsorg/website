@@ -182,6 +182,8 @@ def log_mixer_response_id(result: dict) -> None:
   Args:
     result (dict): A cached result that may contain mixer response IDs.
   """
+  if not getattr(cfg, "LOG_CACHED_MIXER_RESPONSE_USAGE", False):
+    return
   try:
     log_payload = {
         "message": "Mixer responses used in the website cache",
