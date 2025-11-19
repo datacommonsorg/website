@@ -36,9 +36,7 @@ GCP will automatically recognize the schema of the incoming logs. This table now
 
 ### 5. Then, run `schedule_aggregator_query.sh` to [schedule a query](https://cloud.google.com/bigquery/docs/scheduling-queries#bq) on this BigQuery table. This query aggregates these query-level logs into a single daily log in the `AGGREGATION_TABLE` table you defined in the `config`.
 
-This executes the specified SQL query every 24 hours and writes the query results to the aggregated table.
-
-The daily aggregates significantly decrease storage needs. If costs are still a concern, you can also configure a partition expiration on your **query-level** BigQuery table. This allows you to store the sparser daily logs permanently while discarding old query-level logs that have already been accounted for in the daily logs, and is ideal if you plan to use the usage logs for longer-term tracking and don't need query-level granularity. This can be set up by running the following command:
+This executes the specified SQL query every 24 hours and writes the query results to the aggregated table. The daily aggregates significantly decrease storage needs. If costs are still a concern, you can also configure a partition expiration on your **query-level** BigQuery table. This allows you to store the sparser daily logs permanently while discarding old query-level logs that have already been accounted for in the daily logs, and is ideal if you plan to use the usage logs for longer-term tracking and don't need query-level granularity. This can be set up by running the following command:
 
 ```
 bq update \
