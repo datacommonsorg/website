@@ -30,9 +30,6 @@
         ON T1.jsonPayload.usage_log.response_id = T2.mixer_response_id
         WHERE
         T1.timestamp > (SELECT latest_log_time FROM LatestLogTime)
-        -- These timestamps are used for testing
-        -- T1.timestamp > CAST("2025-11-13 10:35:00-5" AS TIMESTAMP)
-        -- AND T1.timestamp < CAST("2025-11-14 10:35:00-5" AS TIMESTAMP)
     ),
     -- This creates a baseline table with one row for each query.
     -- It assigns a unique ID to each source query before unnesting for accurate counts
@@ -63,8 +60,7 @@
           (SELECT AS STRUCT facet.facet.*, src.name AS provenance_name) AS facet_detail,
           COALESCE(SAFE.PARSE_DATE('%Y', facet.earliest), CURRENT_DATE()) AS earliest,
           COALESCE(SAFE.PARSE_DATE('%Y', facet.latest), CURRENT_DATE()) AS latest,
-          -- there's currently some with count and some with num_series. num_series is newer so will always count first
-          COALESCE(COALESCE(facet.num_series, facet.count), 0) AS num_series
+         facet.num_series
         ) AS facet
       FROM
         SourceWithID_Temp AS T1,

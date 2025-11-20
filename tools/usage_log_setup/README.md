@@ -6,6 +6,8 @@ Ultimately, these logs are ingested by GCP Cloud Logging and are stored in a Big
 
 The setup process is divided into two scripts because BigQuery can take a minute to begin processing logs after a log router is set up in Cloud Logging, and the table must contain some logs to configure the scheduled query. Follow the steps below to configure the usage logger and run the scripts.
 
+Before running the script, follow these instructions to set up the [BigQuery command line tool](https://docs.cloud.google.com/bigquery/docs/quickstarts/load-data-bq).
+
 ---
 
 ### Setup Steps
