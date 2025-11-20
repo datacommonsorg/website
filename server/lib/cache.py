@@ -194,7 +194,7 @@ def log_mixer_response_id(result: Union[dict, Response]) -> None:
     ids = data.get(MIXER_RESPONSE_ID_FIELD)
     if ids:
       # The GCP log router that directs these logs to BigQuery detects them
-      # Based on the presence of the MIXER_RESPONSE_ID_FIELD field.
+      # Based on the presence of the MIXER_RESPONSE_ID_FIELD field in the jsonPayload.
       # If you update the field name here, also update the filter on the website_cache_mixer_usage_logs log router here:
       # https://pantheon.corp.google.com/logs/router?e=13803378&mods=-monitoring_api_staging&project=datcom-website-prod
       log_payload[MIXER_RESPONSE_ID_FIELD] = ids
