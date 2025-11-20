@@ -23,8 +23,6 @@
         COALESCE(T2.num_fetches, 1) AS num_fetches_to_replicate
         FROM
         `{{DESTINATION_PROJECT_ID}}.{{DESTINATION_DATASET}}.{{DESTINATION_TABLE}}` AS T1
-        -- this ensures that Mixer logs that are never cached in the website
-        -- (aka have null T2.mixer_response_id) are still included
         LEFT JOIN
         CacheCounts AS T2
         ON T1.jsonPayload.usage_log.response_id = T2.mixer_response_id
@@ -68,6 +66,8 @@
       -- Left joining here ensures that stat vars that have no facets are still included
       LEFT JOIN UNNEST(statVar.facets) AS facet
       -- Join with provenance information from knowledge graph
+      -- If you are an external user, see https://docs.datacommons.org/bigquery/  for information on
+      -- public access to these tables.
       LEFT JOIN `datcom-store.dc_kg_latest.Provenance` AS prov
         ON facet.facet.import_name = prov.name
       LEFT JOIN `datcom-store.dc_kg_latest.Source` AS src
