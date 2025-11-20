@@ -75,6 +75,9 @@ and then cleans up by deleting the session.
 
     query_content = types.Content(role="user", parts=[types.Part(text=query)])
 
+    # NOTE: runner.run_async returns an async generator.
+    # We must fully iterate over it (consuming all streamed results) to ensure
+    # the agent's work is finished before fetching the final session state.
     async for _ in runner.run_async(new_message=query_content,
                                     user_id=session.user_id,
                                     session_id=session.id):
