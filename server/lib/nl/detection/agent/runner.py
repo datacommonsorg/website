@@ -81,6 +81,9 @@ and then cleans up by deleting the session.
     async for _ in runner.run_async(new_message=query_content,
                                     user_id=session.user_id,
                                     session_id=session.id):
+      # The pass statement is used as a placeholder for the intentionally empty
+      # loop body. We only need to iterate through the generator to
+      # ensure the agent's execution completes, ignoring intermediate outputs.
       pass
 
     updated_session = await runner.session_service.get_session(
