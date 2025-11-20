@@ -465,7 +465,7 @@ TEST_SURFACE_HEADER = {SURFACE_HEADER_NAME: "integration-test"}
 # differentiate these calls from public API calls that have no x-surface header,
 UNKNOWN_SURFACE = "unknown"
 
-# The GCP log router than directs these logs to BigQuery detects them
+# The GCP log router that directs these logs to BigQuery detects them
 # Based on the MIXER_RESPONSE_ID_FIELD field.
 # If you update it here, also update the filter on the website_cache_mixer_usage_logs log router here:
 # https://pantheon.corp.google.com/logs/router?e=13803378&mods=-monitoring_api_staging&project=datcom-website-prod
