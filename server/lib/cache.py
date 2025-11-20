@@ -17,9 +17,9 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
-from flask import has_request_context
+from flask import has_request_context, Response
 from flask import request
 from flask_caching import Cache
 
@@ -167,7 +167,7 @@ def memoize_and_log_mixer_usage(timeout: int = 300,
   return decorator
 
 
-def log_mixer_response_id(result: dict) -> None:
+def log_mixer_response_id(result: Union[dict, Response]) -> None:
   """Extracts and logs Mixer response IDs from a function's result.
 
   If an error occurs during logging, a message with the error details
