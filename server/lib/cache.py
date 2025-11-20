@@ -19,8 +19,9 @@ import os
 from pathlib import Path
 from typing import Callable, Optional, Union
 
-from flask import has_request_context, Response
+from flask import has_request_context
 from flask import request
+from flask import Response
 from flask_caching import Cache
 
 import server.lib.config as lib_config
@@ -180,7 +181,7 @@ def log_mixer_response_id(result: Union[dict, Response]) -> None:
   only when the logging itself fails.
 
   Args:
-    result (dict): A cached result that may contain mixer response IDs.
+    result (dict or Flask Response): A cached result that may contain mixer response IDs.
   """
   try:
     log_payload = {
