@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import asyncio
 
 from flask import current_app
-import asyncio
 
 from server.lib.nl.common import utterance
 from server.lib.nl.common.counters import Counters
+from server.lib.nl.detection.agent.runner import get_detection
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import DetectionArgs
@@ -26,9 +27,6 @@ from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
 from shared.lib.detected_variables import MultiVarCandidates
 from shared.lib.detected_variables import VarCandidates
-from server.lib.nl.detection.agent.runner import get_detection
-
-
 
 
 def detect(query: str, prev_utterance: utterance.Utterance,

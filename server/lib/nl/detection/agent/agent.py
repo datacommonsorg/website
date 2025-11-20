@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
+
 from google.adk.agents.llm_agent import LlmAgent
 from google.adk.tools.mcp_tool.mcp_session_manager import \
     StreamableHTTPConnectionParams
@@ -20,9 +21,9 @@ from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
-
 AGENT_MODEL = os.environ.get("AGENT_MODEL", "gemini-2.5-flash")
 DC_MCP_URL = os.environ.get("DC_MCP_URL")
+
 
 def get_agent() -> LlmAgent | None:
   """Returns a cached singleton detection agent."""
