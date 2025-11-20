@@ -18,16 +18,16 @@
     -- All of the content of the usage logs is in jsonPayload.
     SourceWithCounts AS (
         SELECT
-        T1.jsonPayload,
-        T1.timestamp,
-        COALESCE(T2.num_fetches, 1) AS num_fetches_to_replicate
+          T1.jsonPayload,
+          T1.timestamp,
+          COALESCE(T2.num_fetches, 1) AS num_fetches_to_replicate
         FROM
-        `{{DESTINATION_PROJECT_ID}}.{{DESTINATION_DATASET}}.{{DESTINATION_TABLE}}` AS T1
+          `{{DESTINATION_PROJECT_ID}}.{{DESTINATION_DATASET}}.{{DESTINATION_TABLE}}` AS T1
         LEFT JOIN
-        CacheCounts AS T2
-        ON T1.jsonPayload.usage_log.response_id = T2.mixer_response_id
+          CacheCounts AS T2 
+          ON T1.jsonPayload.usage_log.response_id = T2.mixer_response_id
         WHERE
-        T1.timestamp > (SELECT latest_log_time FROM LatestLogTime)
+          T1.timestamp > (SELECT latest_log_time FROM LatestLogTime)
     ),
     -- This creates a baseline table with one row for each query.
     -- It assigns a unique ID to each source query before unnesting for accurate counts
