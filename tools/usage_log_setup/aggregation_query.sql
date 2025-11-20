@@ -46,7 +46,7 @@
     ),
     -- Unnests query-level logs by stat var and facet
     -- Also joins with datcom-store to get provenance information
-    -- This lets us identify the facets by organization, e.g. all facets contributed by the UN
+    -- This lets us identify the facets by organization, e.g. all facets contributed by the U.N.
     UnnestedFacetsWithProvenance AS (
       SELECT
         T1.query_id,
