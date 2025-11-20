@@ -146,7 +146,7 @@ function App(): ReactElement {
 
 function AppWithContext(): ReactElement {
   const params = new URLSearchParams(
-    decodeURIComponent(location.hash).replace("#", "?")
+    decodeURIComponent(location.hash.replace(/^#/, "?"))
   );
   const store = useContextStore(params);
 
