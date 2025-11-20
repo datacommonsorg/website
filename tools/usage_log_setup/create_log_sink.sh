@@ -22,7 +22,7 @@ fi
 # Confirm that the destination table does NOT exist, because this will be created automatically by the log sink.
 # We want it to automatic so that the schema is inferred from the logs -- manually specifying the complex schema is error-prone.
 if bq show --format=prettyjson "${DESTINATION_PROJECT_ID}:${DESTINATION_DATASET}.${DESTINATION_TABLE}" > /dev/null 2>&1; then
-    echo "Table ${DESTINATION_PROJECT_ID}:${DESTINATION_DATASET}.${DESTINATION_TABLE} already exists. Please choose a destination dataset where the "${DESTINATION_TABLE}" table does not already exist." \
+    echo "Table ${DESTINATION_PROJECT_ID}:${DESTINATION_DATASET}.${DESTINATION_TABLE} already exists. Please choose a destination dataset where the ${DESTINATION_TABLE} table does not already exist." \
         "The log router will create this table automatically and determine the new table's schema."
     exit 1
 fi
