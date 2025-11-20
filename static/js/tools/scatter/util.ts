@@ -300,20 +300,27 @@ export function updateHash(context: ContextType): void {
 
 /**
  * Appends a key-value mapping to the hash.
- * @param hash
- * @param key
- * @param value
+ *
+ * If a key is provided with empty string as a value, `key=` will be appended
+ * to the hash instead of a "true" boolean to keep behavior consistent with
+ * URLSearchParams.
+ *
+ * @param currentHash The current URL hash.
+ * @param key key of a hash parameter to add to the URL hash.
+ * @param value value of a hash parameter to add to the URL hash.
+ * @returns a new URL hash string with the new key-value added.
  */
-function appendEntry(hash: string, key: string, value: string): string {
-  if (!key || !value) {
-    // If key or value is not provided, don't append anything
-    return hash;
+function appendEntry(currentHash = "", key = "", value = ""): string {
+  if (!key) {
+    // If key is not provided, don't append anything
+    console.error(
+      `Attempted to append a new hash entry with value ${value} without a key.`
+    );
+    return currentHash;
   }
-  if (!hash) {
-    // If hash is currently empty, don't prefix with '&'
-    return `${key}=${value}`;
-  }
-  return `${hash}&${key}=${value}`;
+
+  // If hash is empty, don't prefix with '&'
+  return currentHash ? `${currentHash}&${key}=${value}` : `${key}=${value}`;
 }
 
 /**
@@ -406,11 +413,15 @@ function updateHashDisplayOptions(
     FieldToAbbreviation.chartType,
     display.chartType === ScatterChartType.MAP
   );
-  hash = appendEntry(
-    hash,
-    FieldToAbbreviation.showPopulation,
-    display.showPopulation
-  );
+  if (display.showPopulation) {
+    // Only include population in hash if showPopulation is not empty
+    // This prevents verbose URLs with trailing `&pp=` hashes
+    hash = appendEntry(
+      hash,
+      FieldToAbbreviation.showPopulation,
+      display.showPopulation
+    );
+  }
   return hash;
 }
 
