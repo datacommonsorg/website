@@ -25,7 +25,8 @@ from flask_caching import Cache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
-from shared.lib.constants import LOG_CACHED_MIXER_RESPONSE_USAGE, MIXER_RESPONSE_ID_FIELD
+from shared.lib.constants import LOG_CACHED_MIXER_RESPONSE_USAGE
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 logger = logging.getLogger(__name__)
 
