@@ -34,12 +34,13 @@ from shared.lib.detected_variables import VarCandidates
 class TestConversions(unittest.TestCase):
 
   def test_basic_conversion(self):
-    agent_detection = AgentDetection(
-        classification="Ranking",
-        places=[
-            AgentPlace(dcid="geoId/06", name="California", place_type="State")
-        ],
-        indicators={"Count_Person": "Population"})
+    agent_detection = AgentDetection(classification="Ranking",
+                                     places=[
+                                         AgentPlace(dcid="geoId/06",
+                                                    name="California",
+                                                    place_type="State")
+                                     ],
+                                     indicators={"Count_Person": "Population"})
     query = "rank states by population"
     ctr = counters.Counters()
 
@@ -49,17 +50,18 @@ class TestConversions(unittest.TestCase):
     expected_detection = Detection(
         original_query=query,
         cleaned_query=query,
-        places_detected=PlaceDetection(
-            query_original=query,
-            query_without_place_substr=query,
-            query_places_mentioned=[],
-            query_entities_mentioned=[],
-            places_found=[
-                Place(dcid="geoId/06", name="California", place_type="State")
-            ],
-            entities_found=[],
-            main_place=None,
-            parent_places=[]),
+        places_detected=PlaceDetection(query_original=query,
+                                       query_without_place_substr=query,
+                                       query_places_mentioned=[],
+                                       query_entities_mentioned=[],
+                                       places_found=[
+                                           Place(dcid="geoId/06",
+                                                 name="California",
+                                                 place_type="State")
+                                       ],
+                                       entities_found=[],
+                                       main_place=None,
+                                       parent_places=[]),
         svs_detected=SVDetection(
             query=query,
             single_sv=VarCandidates(svs=["Count_Person"],
@@ -101,13 +103,16 @@ class TestConversions(unittest.TestCase):
                                        entities_found=[],
                                        main_place=None,
                                        parent_places=[]),
-        svs_detected=SVDetection(
-            query=query,
-            single_sv=VarCandidates(svs=[], scores=[], sv2sentences={}),
-            prop=VarCandidates(svs=[], scores=[], sv2sentences={}),
-            multi_sv=MultiVarCandidates(candidates=[]),
-            sv_threshold=0.5,
-            model_threshold=0.5),
+        svs_detected=SVDetection(query=query,
+                                 single_sv=VarCandidates(svs=[],
+                                                         scores=[],
+                                                         sv2sentences={}),
+                                 prop=VarCandidates(svs=[],
+                                                    scores=[],
+                                                    sv2sentences={}),
+                                 multi_sv=MultiVarCandidates(candidates=[]),
+                                 sv_threshold=0.5,
+                                 model_threshold=0.5),
         classifications=[
             NLClassifier(type=ClassificationType.UNKNOWN, attributes={})
         ],

@@ -18,7 +18,8 @@ from flask import current_app
 
 from server.lib.nl.common import utterance
 from server.lib.nl.common.counters import Counters
-from server.lib.nl.detection.agent.conversions import convert_agent_detection_to_detection
+from server.lib.nl.detection.agent.conversions import \
+    convert_agent_detection_to_detection
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import DetectionArgs
@@ -69,9 +70,10 @@ def detect(query: str, prev_utterance: utterance.Utterance,
   if detection_agent:
     # Run the agent detection asynchronously
     agent_detection = asyncio.run(detection_agent.detect(query))
-    
+
     # Convert AgentDetection to Detection
-    return convert_agent_detection_to_detection(agent_detection, query, counters)
+    return convert_agent_detection_to_detection(agent_detection, query,
+                                                counters)
 
   # Fallback: return empty detection if no agent is configured
   return _create_empty_detection(query)
