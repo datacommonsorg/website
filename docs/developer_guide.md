@@ -126,29 +126,30 @@ Then start the Flask server with `-l` option to let it use the local mixer:
 
 ## Running Tests
 
-### Install web browser and webdriver
+### Prerequisite: Install web browser and webdriver
 
 :exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is
 compatible with your **local Google Chrome version**.
 
-Before running the tests, install the browser and webdriver. Here we recommend
+Before running the tests, install a browser and webdriver. We recommend
 you use Google Chrome browser and ChromeDriver.
 
-- Chrome browser can be downloaded [here](https://www.google.com/chrome/).
+<details>
+<summary>Instructions for installing Google Chrome and ChromeDriver</summary>
 
-- ChromeDriver can be downloaded
-  [here](https://chromedriver.chromium.org/downloads/version-selection), or you
-  can download it using package manager directly:
+1.  Chrome browser can be downloaded [here](https://www.google.com/chrome/).
 
-  ```bash
-  npm install chromedriver
-  ```
+1.  ChromeDriver can be downloaded
+    [here](https://chromedriver.chromium.org/downloads/version-selection). You can view the latest ChromeDriver version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Or, download it using a package manager directly:
 
-You can view the latest ChromeDriver version
-[here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Also make
-sure PATH is updated with ChromeDriver location.
+    ```bash
+    npm install chromedriver
+    ```
 
-If using Linux system, you can run the following commands to download Chrome
+1.  Make sure PATH is updated with ChromeDriver's location. You can view the latest ChromeDriver version
+    [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
+
+If you're using a Linux system, you can run the following commands to download Chrome
 browser and ChromeDriver, this will also include the path setup:
 
 ```bash
@@ -163,16 +164,38 @@ sudo chown root:root /usr/bin/chromedriver
 sudo chmod +x /usr/bin/chromedriver
 ```
 
+</details>
+
+### Run tests
+
 :exclamation: NOTE: If using MacOS with an ARM processor (M1 chip), run local NL server before running the tests:
 
 ```bash
 ./run_nl_server.sh -p 6060
 ```
 
-### Run all tests
+Run all tests:
 
 ```bash
 ./run_test.sh -a
+```
+
+Run client-side tests:
+
+```bash
+./run_test.sh -c
+```
+
+Run server-side tests:
+
+```bash
+./run_test.sh -p
+```
+
+Run webdriver tests:
+
+```bash
+./run_test.sh -w
 ```
 
 ### Update React test snapshots
@@ -184,7 +207,7 @@ npm test . -- -u
 
 ## Deployment
 
-### Deploy local changes to dev insance in GCP
+### Deploy local changes to dev instance in GCP
 
 Commit all changes locally, so the local change is identified by a git hash.
 Then run
@@ -213,42 +236,6 @@ hash at HEAD, then deploys to dev instance in GKE through Cloud Deploy.
 Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autodeployment.
 
 View the deployoment at [link](https://dev.datacommons.org).
-
-### Deploy local changes to dev
-
-Prerequisites: initialize `mixer` and `import` submodules must be done to
-successfully create images.
-
-```shell
-git submodule foreach git pull origin master
-git submodule update --init --recursive
-```
-
-Authenticate to Google Cloud
-
-```shell
-# auth is needed if not done
-gcloud auth login
-gcloud auth configure-docker
-```
-
-Create and push image
-
-```shell
-./scripts/push_image.sh
-```
-
-Wait until the image properly finishes building (check the links provided by the
-CLI), then run deployment
-
-```shell
-./scripts/deploy_gke_helm.sh -e dev
-```
-
-Once this
-[website](https://pantheon.corp.google.com/kubernetes/workload/overview?e=13803378&mods=-monitoring_api_staging&project=datcom-website-dev)
-is all green, and [versions](https://dev.datacommons.org/version) is updated,
-it’s good to go.
 
 ### Deployment Issue: force stop
 
@@ -372,6 +359,8 @@ Feature flags are used to gate the rollout of features, and can easily be turned
   ```python
   self.driver.save_screenshot(filename)
   ```
+
+  For more tips on working with webdriver tests, see the [WebDriver Test README](../server/webdriver/README.md).
 
 ### GKE config
 
