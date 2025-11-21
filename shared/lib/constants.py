@@ -468,6 +468,6 @@ UNKNOWN_SURFACE = "unknown"
 MIXER_RESPONSE_ID_FIELD = "mixer_response_ids"
 MIXER_RESPONSE_ID_HEADER = "x-response-id"
 
-# Flask App Env constants
+# Flask App env config constants
 LOG_EXTREME_MIXER_CALLS = "LOG_EXTREME_MIXER_CALLS"
 LOG_CACHED_MIXER_RESPONSE_USAGE = "LOG_CACHED_MIXER_RESPONSE_USAGE"
