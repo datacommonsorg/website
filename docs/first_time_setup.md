@@ -15,7 +15,7 @@ One-time steps to get the website repo setup locally on your machine.
    top right.
 
 ![Screenshot of github.com/datacommonsorg/website with a box around the "fork"
-button at the top right](https://screenshot.googleplex.com/BPNJ8dJFNr5L8t9.png)
+button at the top right](images/github-fork-button.png)
 
 ## Step 2: Setup local git repository
 
@@ -81,7 +81,7 @@ Open a new terminal window and enter the following commands into a shell:
 
 6.  Install [protoc](https://protobuf.dev/installation/) at version 3.21.12:
 
-On macs, you can [install via Homebrew](https://formulae.brew.sh/formula/protobuf@21):
+    On macs, you can [install via Homebrew](https://formulae.brew.sh/formula/protobuf@21):
 
     ```shell
     # On Macs, install via Homebrew (https://brew.sh/)
@@ -102,22 +102,22 @@ On macs, you can [install via Homebrew](https://formulae.brew.sh/formula/protobu
     the version of chromedriver you install matches the version of Google Chrome
     you have installed.
 
-On Macs, you can [install via Homebrew](https://formulae.brew.sh/cask/chromedriver):
+    On Macs, you can [install via Homebrew](https://formulae.brew.sh/cask/chromedriver):
 
     ```shell
     # On Macs, install via Homebrew (https://brew.sh/)
     brew install chromedriver
     ```
 
-9. [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
+9.  [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
 
-The Google Cloud CLI is required to make place search work locally. To enable place search locally:
+    The Google Cloud CLI is required to make place search work locally. To enable place search locally:
 
-First, install `gcloud` following the instructions here: <https://cloud.google.com/sdk/docs/install-sdk>.
+    First, install `gcloud` following the instructions here: <https://cloud.google.com/sdk/docs/install-sdk>.
 
-Next, ask the Data Commons team to grant you permissions to use a Google Maps API Key.
+    Next, ask the Data Commons team to grant you permissions to use a Google Maps API Key.
 
-Once you have a Google Maps API Key, authenticate locally with this command:
+    Once you have a Google Maps API Key, authenticate locally with this command:
 
     ```shell
     gcloud auth application-default login
@@ -155,7 +155,8 @@ following from the base directory in separate terminals.
 # Will not terminate
 # Should see "Debugger is active!" in output
 #
-# Note: Make sure ./run_nl_server.sh is running first (See Terminal 2 above), this script will fail if a local NL server is not online
+# Note: Make sure ./run_nl_server.sh is running first (See Terminal 2 above)
+# this script will fail if a local NL server is not online
 ./run_server.sh -m
 ```
 
