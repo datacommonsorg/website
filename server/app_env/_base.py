@@ -37,6 +37,10 @@ class Config:
   LOG_DC_REQUEST_PAYLOAD = False
   # Percentage of requests to log payload for (0-100)
   LOG_DC_REQUEST_PAYLOAD_PERCENTAGE = 0
+  # Whether to log large or long calls to mixer via ExtremeCallLogger
+  LOG_EXTREME_MIXER_CALLS = True
+  # Whether to log mixer responses retrieved from website cache.
+  LOG_CACHED_MIXER_RESPONSE_USAGE = True
   # Whether to show topic page
   SHOW_TOPIC = False
   # Whether to show disaster page
