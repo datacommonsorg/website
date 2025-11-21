@@ -19,7 +19,6 @@ from server.lib.nl.detection.agent.conversions import \
     convert_agent_detection_to_detection
 from server.lib.nl.detection.agent.types import AgentDetection
 from server.lib.nl.detection.agent.types import Place as AgentPlace
-from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
