@@ -18,7 +18,7 @@ from flask import current_app
 
 from server.lib.nl.common import utterance
 from server.lib.nl.common.counters import Counters
-from server.lib.nl.detection.agent.runner import get_detection
+from server.lib.nl.detection.agent.conversions import convert_agent_detection_to_detection
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import DetectionArgs
@@ -29,18 +29,8 @@ from shared.lib.detected_variables import MultiVarCandidates
 from shared.lib.detected_variables import VarCandidates
 
 
-def detect(query: str, prev_utterance: utterance.Utterance,
-           query_detection_debug_logs: dict, counters: Counters,
-           dargs: DetectionArgs) -> Detection:
-
-  runner = current_app.config.get('NL_DETECTION_AGENT_RUNNER')
-
-  if runner:
-    # TODO: consider if alternatives to asycio.run are more appropriate in a production setting
-    agent_detection = asyncio.run(get_detection(runner, query))
-    print(agent_detection)
-
-  # TODO: replace empty detection object with data parsed from agent_detection
+def _create_empty_detection(query: str) -> Detection:
+  """Creates an empty Detection object for fallback cases."""
   empty_place_detection = PlaceDetection(
       query_original=query,
       query_without_place_substr="",
@@ -68,3 +58,20 @@ def detect(query: str, prev_utterance: utterance.Utterance,
                    classifications=[],
                    llm_resp={},
                    detector=ActualDetectorType.Agent)
+
+
+def detect(query: str, prev_utterance: utterance.Utterance,
+           query_detection_debug_logs: dict, counters: Counters,
+           dargs: DetectionArgs) -> Detection:
+
+  detection_agent = current_app.config.get('NL_DETECTION_AGENT')
+
+  if detection_agent:
+    # Run the agent detection asynchronously
+    agent_detection = asyncio.run(detection_agent.detect(query))
+    
+    # Convert AgentDetection to Detection
+    return convert_agent_detection_to_detection(agent_detection, query, counters)
+
+  # Fallback: return empty detection if no agent is configured
+  return _create_empty_detection(query)

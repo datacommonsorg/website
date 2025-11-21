@@ -28,6 +28,44 @@ from shared.lib.detected_variables import SentenceScore
 from shared.lib.detected_variables import VarCandidates
 
 
+# Mapping from AgentClassificationType to ClassificationType
+AGENT_TO_NL_CLASSIFICATION_MAP = {
+    AgentClassificationType.SIMPLE: ClassificationType.SIMPLE,
+    AgentClassificationType.RANKING: ClassificationType.RANKING,
+    AgentClassificationType.QUANTITY: ClassificationType.QUANTITY,
+    AgentClassificationType.CONTAINED_IN: ClassificationType.CONTAINED_IN,
+    AgentClassificationType.CORRELATION: ClassificationType.CORRELATION,
+    AgentClassificationType.COMPARISON: ClassificationType.COMPARISON,
+    AgentClassificationType.TIME_DELTA: ClassificationType.TIME_DELTA,
+    AgentClassificationType.EVENT: ClassificationType.EVENT,
+    AgentClassificationType.OVERVIEW: ClassificationType.OVERVIEW,
+    AgentClassificationType.SUPERLATIVE: ClassificationType.SUPERLATIVE,
+    AgentClassificationType.DATE: ClassificationType.DATE,
+    AgentClassificationType.ANSWER_PLACES_REFERENCE:
+        ClassificationType.ANSWER_PLACES_REFERENCE,
+    AgentClassificationType.PER_CAPITA: ClassificationType.PER_CAPITA,
+    AgentClassificationType.DETAILED_ACTION: ClassificationType.DETAILED_ACTION,
+    AgentClassificationType.TEMPORAL: ClassificationType.TEMPORAL,
+    AgentClassificationType.UNKNOWN: ClassificationType.UNKNOWN,
+    AgentClassificationType.OTHER: ClassificationType.OTHER,
+}
+
+
+def _map_classification(classification_str: str) -> list[NLClassifier]:
+  """Maps the agent classification string to a list of NLClassifiers."""
+  try:
+    # Validate and get the enum member
+    agent_classification_type = AgentClassificationType(classification_str)
+  except ValueError as e:
+    # Log the error for troubleshooting
+    logging.error(f"Invalid classification type received: '{classification_str}'. Error: {e}")
+    return []
+
+  target_class_type = AGENT_TO_NL_CLASSIFICATION_MAP.get(agent_classification_type, ClassificationType.UNKNOWN)
+
+  return [NLClassifier(type=target_class_type, attributes={})]
+
+
 def convert_agent_detection_to_detection(agent_detection: AgentDetection,
                                          query: str,
                                          ctr: counters.Counters) -> Detection:
@@ -84,42 +122,3 @@ def convert_agent_detection_to_detection(agent_detection: AgentDetection,
                    classifications=classifications,
                    llm_resp={},
                    detector="Agent")
-
-
-
-# Mapping from AgentClassificationType to ClassificationType
-AGENT_TO_NL_CLASSIFICATION_MAP = {
-    AgentClassificationType.SIMPLE: ClassificationType.SIMPLE,
-    AgentClassificationType.RANKING: ClassificationType.RANKING,
-    AgentClassificationType.QUANTITY: ClassificationType.QUANTITY,
-    AgentClassificationType.CONTAINED_IN: ClassificationType.CONTAINED_IN,
-    AgentClassificationType.CORRELATION: ClassificationType.CORRELATION,
-    AgentClassificationType.COMPARISON: ClassificationType.COMPARISON,
-    AgentClassificationType.TIME_DELTA: ClassificationType.TIME_DELTA,
-    AgentClassificationType.EVENT: ClassificationType.EVENT,
-    AgentClassificationType.OVERVIEW: ClassificationType.OVERVIEW,
-    AgentClassificationType.SUPERLATIVE: ClassificationType.SUPERLATIVE,
-    AgentClassificationType.DATE: ClassificationType.DATE,
-    AgentClassificationType.ANSWER_PLACES_REFERENCE:
-        ClassificationType.ANSWER_PLACES_REFERENCE,
-    AgentClassificationType.PER_CAPITA: ClassificationType.PER_CAPITA,
-    AgentClassificationType.DETAILED_ACTION: ClassificationType.DETAILED_ACTION,
-    AgentClassificationType.TEMPORAL: ClassificationType.TEMPORAL,
-    AgentClassificationType.UNKNOWN: ClassificationType.UNKNOWN,
-    AgentClassificationType.OTHER: ClassificationType.OTHER,
-}
-
-
-def _map_classification(classification_str: str) -> list[NLClassifier]:
-  """Maps the agent classification string to a list of NLClassifiers."""
-  try:
-    # Validate and get the enum member
-    agent_classification_type = AgentClassificationType(classification_str)
-  except ValueError as e:
-    # Log the error for troubleshooting
-    logging.error(f"Invalid classification type received: '{classification_str}'. Error: {e}")
-    return []
-
-  target_class_type = AGENT_TO_NL_CLASSIFICATION_MAP.get(agent_classification_type, ClassificationType.UNKNOWN)
-
-  return [NLClassifier(type=target_class_type, attributes={})]
