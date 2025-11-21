@@ -17,10 +17,11 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 from flask import has_request_context
 from flask import request
+from flask import Response
 from flask_caching import Cache
 
 import server.lib.config as lib_config
@@ -168,7 +169,7 @@ def memoize_and_log_mixer_usage(timeout: int = 300,
   return decorator
 
 
-def log_mixer_response_id(result: dict) -> None:
+def log_mixer_response_id(result: Union[dict, Response]) -> None:
   """Extracts and logs Mixer response IDs from a function's result.
 
   If an error occurs during logging, a message with the error details
@@ -181,7 +182,7 @@ def log_mixer_response_id(result: dict) -> None:
   only when the logging itself fails.
 
   Args:
-    result (dict): A cached result that may contain mixer response IDs.
+    result (dict or Flask Response): A cached result that may contain mixer response IDs.
   """
   if not getattr(cfg, LOG_CACHED_MIXER_RESPONSE_USAGE, False):
     return
@@ -189,7 +190,11 @@ def log_mixer_response_id(result: dict) -> None:
     log_payload = {
         "message": "Mixer responses used in the website cache",
     }
-    ids = result.get(MIXER_RESPONSE_ID_FIELD)
+    data = result
+    # handling formatting for response types
+    if hasattr(result, 'get_json'):
+      data = result.get_json()
+    ids = data.get(MIXER_RESPONSE_ID_FIELD)
     if ids:
       log_payload[MIXER_RESPONSE_ID_FIELD] = ids
       logger.info(json.dumps(log_payload))

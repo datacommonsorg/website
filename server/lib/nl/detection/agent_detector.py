@@ -1,5 +1,24 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import asyncio
+
+from flask import current_app
+
 from server.lib.nl.common import utterance
 from server.lib.nl.common.counters import Counters
+from server.lib.nl.detection.agent.runner import get_detection
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import DetectionArgs
@@ -13,7 +32,15 @@ from shared.lib.detected_variables import VarCandidates
 def detect(query: str, prev_utterance: utterance.Utterance,
            query_detection_debug_logs: dict, counters: Counters,
            dargs: DetectionArgs) -> Detection:
-  # Place holder for actual agentic detection logic.
+
+  runner = current_app.config.get('NL_DETECTION_AGENT_RUNNER')
+
+  if runner:
+    # TODO: consider if alternatives to asycio.run are more appropriate in a production setting
+    agent_detection = asyncio.run(get_detection(runner, query))
+    print(agent_detection)
+
+  # TODO: replace empty detection object with data parsed from agent_detection
   empty_place_detection = PlaceDetection(
       query_original=query,
       query_without_place_substr="",
