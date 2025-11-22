@@ -1,5 +1,11 @@
 # Developer Guide
 
+## First Time Setup
+
+To get started with setting up the website for local development, see the [Setup Guide](first_time_setup.md).
+
+## Repo Overview
+
 Website is deployed in Kubernetes cluster. A deployment contains the following
 containers:
 
@@ -17,84 +23,15 @@ git submodule foreach git pull origin master
 git submodule update --init --recursive
 ```
 
-## Local Development with Flask
+## Running Flask Locally
 
 For changes that do not test GCP deployment or involve mixer changes, one can
-simply run in a local environment (Mac or Linux machine). This way the local
+simply run flask in a local environment (Mac or Linux machine). The local
 Flask app talks to the [autopush mixer](https://autopush.api.datacommons.org).
 
 Note: the `autopush mixer` contains the latest data and mixer code changes. It
 is necessary to update the mixer submodule if compatibility is required between
 website and mixer changes.
-
-### Prerequisites
-
-**WARNING**: Make sure to go through each of the following steps.
-
-- Python
-
-  Confirm the Python3 version is 3.11 or above. Otherwise install/upgrade your Python
-  and confirm the version:
-
-  ```bash
-  python3 --version
-  ```
-
-  Set up your Python environment and update packages with:
-  ```bash
-  ./run_test.sh --setup_python
-  ```
-
-  If using version 3.12.x or above, you also need to run the following command, on macOs:
-  ```bash
-  brew install python-setuptools
-  ```
-  or for linux:
-  ```bash
-  pip install python-setuptools
-  ```
-
-- Node.js 18.4.0
-
-  Install [`nodejs`](https://nodejs.org/en/download/) and
-  [nvm](https://github.com/nvm-sh/nvm#installing-and-updating). Run the
-  following command to use Node.js 18.4.0:
-
-  ```bash
-  nvm install 18.4.0
-  nvm use 18.4.0
-  ```
-
-  **On macOS machines with a M1 chip**, run the following command to install additional dependencies.
-  * These are required for the [node-canvas package](https://github.com/Automattic/node-canvas?tab=readme-ov-file#compiling).
-
-  ```bash
-  brew install pkg-config cairo pango libpng jpeg giflib librsvg
-  ```
-
-- Protoc 3.21.12
-
-  Install [`protoc`](https://grpc.io/docs/protoc-installation/) at version
-  3.21.12.
-
-  On MacOS, you can do this with Homebrew by running `brew install protobuf@21`.
-  Be sure to update your path as described in the output (likely it'll instruct
-  you to run
-  `echo 'export PATH="/opt/homebrew/opt/protobuf@21/bin:$PATH"' >> ~/.zshrc`).
-
-- [Optional] gcloud
-
-  gcloud is required to make the place search working locallly. This requires
-  installation of [`gcloud`](https://cloud.google.com/sdk/docs/install).
-
-  Then ask Data Commons team to grant you permission for the Google Maps API key
-  access.
-
-  Finally authenticate locally with
-
-  ```bash
-  gcloud auth application-default login
-  ```
 
 ### Package javascript and static assets
 
@@ -108,20 +45,21 @@ If there are errors, make sure to run `nvm use v18.4.0` to set the correct versi
 
 ### Start the Flask Server
 
-Start the flask webserver locally at localhost:8080
+Start the flask webserver locally at `localhost:8080`
 
 ```bash
 ./run_server.sh
 ```
 
-To enable NL search, language models must be enabled via `-m`:
+To enable NL search, follow the "Start NL Server" instructions in the next section.
+Then, enable language models via `-m`:
 
 ```bash
 ./run_server.sh -m
 ```
 
-If you don't have access to DataCommons maps API, can bring up website without
-place search functionality
+If you don't have access to the DataCommons Maps API, you can bring up website without
+place search functionality:
 
 ```bash
 ./run_server.sh -e lite
@@ -138,16 +76,18 @@ Please note the strict syntax requirements for the script, and leave a space
 after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
 
 #### 🛠️ Troubleshooting server startup
+
 <details>
   <summary>
     <b>ModuleNotFoundError</b>: missing python libraries...
   </summary>
   Clear the environment and rebuild all required libraries by running:
 
-  ```bash
-  rm -rf .env
-  ./run_test.sh --setup_python
-  ```
+```bash
+rm -rf .env
+./run_test.sh --setup_python
+```
+
 </details>
 
 ### Start NL Server
@@ -163,6 +103,7 @@ to be brought up locally (in a separate process):
 By default the NL server runs on port 6060.
 
 If you run into problems starting the server, try running these commands before restarting the server:
+
 ```bash
 ./run_test.sh --setup_python
 rm -rf ~/.datacommons
@@ -172,8 +113,8 @@ rm -rf /tmp/datcom-nl-models-dev
 
 ### Use Local Mixer
 
-If local mixer is needed, can start it locally by following [this
-instruction](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#develop-mixer-locally-as-a-go-server-recommended).
+If local mixer is needed, can start it locally by following [these
+instructions](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#develop-mixer-locally-as-a-go-server-recommended).
 This allows development with custom BigTable or mixer code change. Make sure to
 also [run ESP locally](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#running-esp-locally).
 
@@ -183,7 +124,90 @@ Then start the Flask server with `-l` option to let it use the local mixer:
 ./run_server.sh -l
 ```
 
-## Deploy local changes to dev insance in GCP
+## Running Tests
+
+### Prerequisite: Install web browser and webdriver
+
+:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is
+compatible with your **local Google Chrome version**.
+
+Before running the tests, install a browser and webdriver. We recommend
+you use Google Chrome browser and ChromeDriver.
+
+<details>
+<summary>Instructions for installing Google Chrome and ChromeDriver</summary>
+
+1.  Chrome browser can be downloaded [here](https://www.google.com/chrome/).
+
+1.  ChromeDriver can be downloaded
+    [here](https://chromedriver.chromium.org/downloads/version-selection). You can view the latest ChromeDriver version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Or, download it using a package manager directly:
+
+    ```bash
+    npm install chromedriver
+    ```
+
+1.  Make sure PATH is updated with ChromeDriver's location. You can view the latest ChromeDriver version
+    [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
+
+If you're using a Linux system, you can run the following commands to download Chrome
+browser and ChromeDriver, this will also include the path setup:
+
+```bash
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb; sudo apt-get -fy install
+CHROMEDRIVERV=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVERV}/chromedriver_linux64.zip
+unset CHROMEDRIVERV
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
+sudo chown root:root /usr/bin/chromedriver
+sudo chmod +x /usr/bin/chromedriver
+```
+
+</details>
+
+### Run tests
+
+:exclamation: NOTE: If using MacOS with an ARM processor (M1 chip), run local NL server before running the tests:
+
+```bash
+./run_nl_server.sh -p 6060
+```
+
+Run all tests:
+
+```bash
+./run_test.sh -a
+```
+
+Run client-side tests:
+
+```bash
+./run_test.sh -c
+```
+
+Run server-side tests:
+
+```bash
+./run_test.sh -p
+```
+
+Run webdriver tests:
+
+```bash
+./run_test.sh -w
+```
+
+### Update React test snapshots
+
+```bash
+cd static
+npm test . -- -u
+```
+
+## Deployment
+
+### Deploy local changes to dev instance in GCP
 
 Commit all changes locally, so the local change is identified by a git hash.
 Then run
@@ -213,63 +237,23 @@ Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autode
 
 View the deployoment at [link](https://dev.datacommons.org).
 
-## Run Tests
+### Deployment Issue: force stop
 
-### Install web browser and webdriver
+Force stop will create additional secrets pending/upgrading and stop future dev
+deployment by helm. Run below CLI to validate/find the blocking secrets.
 
-:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is
-compatible with your **local Google Chrome version**.
-
-Before running the tests, install the browser and webdriver. Here we recommend
-you use Google Chrome browser and ChromeDriver.
-
-- Chrome browser can be downloaded [here](https://www.google.com/chrome/).
-
-- ChromeDriver can be downloaded
-  [here](https://chromedriver.chromium.org/downloads/version-selection), or you
-  can download it using package manager directly:
-
-  ```bash
-  npm install chromedriver
-  ```
-
-You can view the latest ChromeDriver version
-[here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Also make
-sure PATH is updated with ChromeDriver location.
-
-If using Linux system, you can run the following commands to download Chrome
-browser and ChromeDriver, this will also include the path setup:
-
-```bash
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb; sudo apt-get -fy install
-CHROMEDRIVERV=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVERV}/chromedriver_linux64.zip
-unset CHROMEDRIVERV
-unzip chromedriver_linux64.zip
-sudo mv chromedriver /usr/bin/chromedriver
-sudo chown root:root /usr/bin/chromedriver
-sudo chmod +x /usr/bin/chromedriver
+```shell
+helm history --max 20 dc-website
+helm history --max 20 dc-mixer
 ```
 
-:exclamation: NOTE: If using MacOS with an ARM processor (M1 chip), run local NL server before running the tests:
+Then roll back to the previous version.
 
-```bash
-./run_nl_server.sh -p 6060
+```shell
+helm rollback <RELEASE_NAME> [REVISION]
 ```
 
-### Run all tests
-
-```bash
-./run_test.sh -a
-```
-
-### Update React test snapshots
-
-```bash
-cd static
-npm test . -- -u
-```
+After rollback, deployment can proceed again.
 
 ## Other Developing Tips
 
@@ -376,6 +360,8 @@ Feature flags are used to gate the rollout of features, and can easily be turned
   self.driver.save_screenshot(filename)
   ```
 
+  For more tips on working with webdriver tests, see the [WebDriver Test README](../server/webdriver/README.md).
+
 ### GKE config
 
 The GKE configuration is stored [here](../deploy/helm_charts/dc_website).
@@ -396,4 +382,4 @@ The Data Commons site makes use of Material Design icons. In certain cases, font
 flashes of unstyled content that can be avoided by using SVG icons.
 
 We have provided tools to facilitate the creation and use of Material SVG icons in both the Jinja template and in React components.
-For instructions  on how to generate and use these SVGs and components, please see: [Icon Readme](../tools/resources/icons/README.md):
+For instructions on how to generate and use these SVGs and components, please see: [Icon Readme](../tools/resources/icons/README.md):
