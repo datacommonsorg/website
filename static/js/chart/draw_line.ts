@@ -136,7 +136,7 @@ function getTooltipContent(
  * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
  * @param relativeBoundary tooltip boundary relative to its container element.
  */
-export function showTooltip(
+function showTooltip(
   contentHTML: string,
   tooltipDiv: d3.Selection<HTMLDivElement, any, any, any>,
   datapointX: number,

@@ -63,10 +63,10 @@ const SlideCarousel = ({
 
   useEffect(() => {
     if (autoslideInterval && !userHasInteracted) {
-      const interval = setInterval(() => {
+      const interval = window.setInterval(() => {
         setActiveIndex((prevIndex) => (prevIndex + 1) % slides.length);
       }, autoslideInterval);
-      return () => clearInterval(interval);
+      return () => window.clearInterval(interval);
     }
   }, [autoslideInterval, slides.length, activeIndex, userHasInteracted]);
 

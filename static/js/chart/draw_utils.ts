@@ -45,7 +45,7 @@ import {
 const AXIS_GRID_FILL = "#999";
 // max number of characters a unit can have and still be shown next to ticks
 // When a unit is longer, we show the unit as an axes label instead
-export const MAX_UNIT_LENGTH = 5;
+const MAX_UNIT_LENGTH = 5;
 const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
 const LEGEND_CIRCLE_RADIUS = 5;

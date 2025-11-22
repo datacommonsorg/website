@@ -165,7 +165,7 @@ interface DialogContextType {
 
 const DialogContext = createContext<DialogContextType | undefined>(undefined);
 
-export const useDialogContext = (): DialogContextType => {
+const useDialogContext = (): DialogContextType => {
   const context = useContext(DialogContext);
   if (!context) {
     throw new Error("Dialog components must be used within a Dialog component");

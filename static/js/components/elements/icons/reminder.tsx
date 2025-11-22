@@ -25,9 +25,7 @@
 
 import React, { ReactElement } from "react";
 
-export const Reminder = (
-  props: React.SVGProps<SVGSVGElement>
-): ReactElement => (
+const Reminder = (props: React.SVGProps<SVGSVGElement>): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1em"

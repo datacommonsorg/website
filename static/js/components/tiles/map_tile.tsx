@@ -179,7 +179,7 @@ export interface MapLayerData {
   // geoJson for border of parent places to plot
   borderGeoJson?: GeoJsonData;
   // color scale to use for data values
-  colorScale?: d3.ScaleLinear<number | string, number, never>;
+  colorScale?: d3.ScaleLinear<number | string, number>;
   // child place DCID -> observation value to plot mapping
   dataValues?: { [dcid: string]: number };
   // child place type DCID

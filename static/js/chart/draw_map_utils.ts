@@ -31,7 +31,7 @@ import { getColorFn } from "./base";
 export const LEGEND_MARGIN_VERTICAL = 6;
 export const LEGEND_MARGIN_RIGHT = 5;
 export const LEGEND_IMG_WIDTH = 10;
-export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
+const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 export const LEGEND_TICK_LABEL_MARGIN = 10;
 const MIN_COLOR = "#f0f0f0";
 const AXIS_TEXT_FILL = "#2b2929";
@@ -249,7 +249,7 @@ const genScaleImg = (
  * @param variableId id to give the legend bar
  * @returns
  */
-export function generateLegend(
+function generateLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
   height: number,
   color: d3.ScaleLinear<number, number>,
@@ -412,7 +412,7 @@ export function drawLegendSvg(
 ): [
   number,
   {
-    [variable: string]: d3.ScaleLinear<number, number, never>;
+    [variable: string]: d3.ScaleLinear<number, number>;
   }
 ] {
   // mapping of variable to values for computing color scale
@@ -420,7 +420,7 @@ export function drawLegendSvg(
   const variableNames: { [variable: string]: string } = {};
   const units: { [variable: string]: string } = {};
   const colorScales: {
-    [variable: string]: d3.ScaleLinear<number, number, never>;
+    [variable: string]: d3.ScaleLinear<number, number>;
   } = {};
   for (const layer of chartData.layerData) {
     // Build variable -> values mapping for color scale calculations
@@ -435,7 +435,7 @@ export function drawLegendSvg(
 
   // Calculate color scales for each variable and add legends
   const legendData: {
-    colorScale: d3.ScaleLinear<number, number, never>;
+    colorScale: d3.ScaleLinear<number, number>;
     unit: string;
     label?: string;
   }[] = [];
