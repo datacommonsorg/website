@@ -14,7 +14,7 @@
 
 from flask import Blueprint
 from flask import render_template
-
+from flask import current_app
 from server.lib.gcs import list_blobs
 
 _MAX_BLOBS = 1
