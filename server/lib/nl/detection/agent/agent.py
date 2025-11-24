@@ -26,8 +26,6 @@ from google.genai import types
 from server.lib.nl.detection.agent.instructions import AGENT_INSTRUCTIONS
 from server.lib.nl.detection.agent.types import AgentDetection
 
-AGENT_MODEL = "gemini-2.5-flash"
-
 
 class DetectionAgent:
   """Encapsulates the detection agent logic."""
@@ -113,6 +111,7 @@ class DetectionAgent:
             session_id=ephemeral_session_id)
         # toolset.close is meant to be called multiple times per runner to close
         # mcp session connections after a session is complete.
+        # TODO: Store the toolset as a member var and call toolset.close directly
         for toolset in self.runner.agent.tools:
           await toolset.close()
 

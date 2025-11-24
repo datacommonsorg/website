@@ -67,13 +67,12 @@ def detect(query: str, prev_utterance: utterance.Utterance,
 
   detection_agent = current_app.config.get('NL_DETECTION_AGENT')
 
-  if detection_agent:
-    # Run the agent detection asynchronously
-    agent_detection = asyncio.run(detection_agent.detect(query))
+  if not detection_agent:
+    # Return empty detection if no agent is configured
+    return _create_empty_detection(query)
 
-    # Convert AgentDetection to Detection
-    return convert_agent_detection_to_detection(agent_detection, query,
-                                                counters)
+  # Run the agent detection asynchronously
+  agent_detection = asyncio.run(detection_agent.detect(query))
 
-  # Fallback: return empty detection if no agent is configured
-  return _create_empty_detection(query)
+  # Convert AgentDetection to Detection
+  return convert_agent_detection_to_detection(agent_detection, query, counters)
