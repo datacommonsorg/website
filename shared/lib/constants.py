@@ -471,3 +471,7 @@ UNKNOWN_SURFACE = "unknown"
 # https://pantheon.corp.google.com/logs/router?e=13803378&mods=-monitoring_api_staging&project=datcom-website-prod
 MIXER_RESPONSE_ID_FIELD = "mixer_response_ids"
 MIXER_RESPONSE_ID_HEADER = "x-response-id"
+
+# Flask App env config constants
+LOG_EXTREME_MIXER_CALLS = "LOG_EXTREME_MIXER_CALLS"
+LOG_CACHED_MIXER_RESPONSE_USAGE = "LOG_CACHED_MIXER_RESPONSE_USAGE"
