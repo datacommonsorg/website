@@ -135,6 +135,17 @@ document.addEventListener('DOMContentLoaded', () => {
             historyPanel.classList.remove('open');
         });
     }
+
+    const clearHistoryBtn = document.getElementById('clearHistory');
+    if (clearHistoryBtn) {
+        clearHistoryBtn.addEventListener('click', async () => {
+            if (confirm('Are you sure you want to clear your history?')) {
+                if (!chrome.storage || !chrome.storage.local) return;
+                await chrome.storage.local.remove('history');
+                renderHistory();
+            }
+        });
+    }
 });
 
 // Listen for messages from the iframe (widget)
