@@ -1,0 +1,339 @@
+{#
+Copyright 2025 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+#}
+{%- extends BASE_HTML -%}
+
+{% set title = 'Fact Check' %}
+{% set main_id = 'factcheck-verify' %}
+{% set page_id = 'factcheck-verify-page' %}
+
+{% block head %}
+<style>
+  .factcheck-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  .factcheck-header {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .factcheck-header h1 {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .factcheck-header p {
+    color: #5f6368;
+    font-size: 16px;
+  }
+
+  .input-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    margin-bottom: 30px;
+  }
+
+  .claim-textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: 'Google Sans Text', sans-serif;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+
+  .claim-textarea:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 1px #1a73e8;
+  }
+
+  .verify-button {
+    background-color: #1a73e8;
+    color: white;
+    padding: 10px 24px;
+    font-family: 'Google Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+  }
+
+  .verify-button:hover {
+    background-color: #1765cc;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  }
+
+  .verify-button:disabled {
+    background-color: #dadce0;
+    color: #80868b;
+    cursor: default;
+    box-shadow: none;
+  }
+
+  .result-section {
+    display: none;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #dadce0;
+  }
+
+  .verdict-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .verdict-supported {
+    background-color: #e6f4ea;
+    color: #137333;
+  }
+
+  .verdict-refuted {
+    background-color: #fce8e6;
+    color: #c5221f;
+  }
+
+  .verdict-other {
+    background-color: #f1f3f4;
+    color: #5f6368;
+  }
+
+  .explanation-text {
+    font-family: 'Google Sans Text', sans-serif;
+    line-height: 1.6;
+    color: #202124;
+    font-size: 16px;
+  }
+
+  .loading-spinner {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    color: #5f6368;
+  }
+</style>
+<script src="https://datacommons.org/datacommons.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="factcheck-container">
+  <div class="factcheck-header">
+    <h1>Verify a Statistical Claim</h1>
+    <p>Enter a claim to verify it against Data Commons statistical data.</p>
+  </div>
+
+  <div class="input-section">
+    <textarea id="claimInput" class="claim-textarea" rows="4"
+      placeholder="e.g., The population of Italy is over 60 million."></textarea>
+    <button id="verifyBtn" class="verify-button" onclick="verifyClaim()">Verify Claim</button>
+    <div id="loading" class="loading-spinner">
+      <div class="spinner-border" role="status"></div>
+      <div>Verifying claim...</div>
+    </div>
+  </div>
+
+  <div id="resultBox" class="result-section">
+    <div class="result-header">
+      <div id="verdictBadge" class="verdict-badge"></div>
+    </div>
+    <div id="explanation" class="explanation-text"></div>
+
+    <div id="dataContext" class="data-context" style="display:none;">
+      <h3>Data Context</h3>
+      <div class="context-chips">
+        <span id="placeChip" class="context-chip"></span>
+        <span id="statVarChip" class="context-chip"></span>
+      </div>
+      <div id="chartContainer" class="chart-container">
+        <!-- Chart will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function verifyClaim() {
+    const claim = document.getElementById('claimInput').value;
+    if (!claim) return;
+
+    const btn = document.getElementById('verifyBtn');
+    const loading = document.getElementById('loading');
+    const resultBox = document.getElementById('resultBox');
+    const chartContainer = document.getElementById('chartContainer');
+    const dataContext = document.getElementById('dataContext');
+
+    btn.disabled = true;
+    loading.style.display = 'block';
+    resultBox.style.display = 'none';
+    chartContainer.innerHTML = ''; // Clear previous chart
+    dataContext.style.display = 'none';
+
+    try {
+      const response = await fetch('/factcheck/api/verify_claim', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ claim: claim }),
+      });
+
+      const data = await response.json();
+
+      loading.style.display = 'none';
+      btn.disabled = false;
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = ''; // Clear previous results
+
+      let results = [];
+      if (data.verification_verdict) {
+        if (Array.isArray(data.verification_verdict)) {
+          results = data.verification_verdict;
+        } else {
+          results = [data.verification_verdict];
+        }
+      } else if (data.verdict) {
+        results = [data];
+      } else if (data.error) {
+        results = [{ verdict: "ERROR", explanation: data.error }];
+      }
+
+      // Group results by StatVar
+      const groups = {};
+      results.forEach(result => {
+        const sv = result.stat_var_dcid;
+        if (sv) {
+          if (!groups[sv]) groups[sv] = [];
+          groups[sv].push(result);
+        } else {
+          // No SV, treat as standalone
+          if (!groups['__no_sv__']) groups['__no_sv__'] = [];
+          groups['__no_sv__'].push(result);
+        }
+      });
+
+      // Render groups
+      Object.keys(groups).forEach(sv => {
+        const groupResults = groups[sv];
+        const isNoSv = sv === '__no_sv__';
+
+        // Container for this group
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'result-group';
+        groupDiv.style.marginBottom = '40px';
+        if (resultBox.children.length > 0) {
+          groupDiv.style.borderTop = '1px solid #dadce0';
+          groupDiv.style.paddingTop = '30px';
+        }
+
+        // Render text explanations for each result in the group
+        groupResults.forEach(result => {
+          const verdict = result.verdict || "UNKNOWN";
+          const explanation = result.explanation || JSON.stringify(result);
+
+          let badgeClass = 'verdict-other';
+          const v = verdict.toLowerCase();
+          if (v.includes('support') || v.includes('true') || v.includes('correct')) {
+            badgeClass = 'verdict-supported';
+          } else if (v.includes('refute') || v.includes('false') || v.includes('incorrect') || v.includes('disputed')) {
+            badgeClass = 'verdict-refuted';
+          }
+
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'result-item';
+          itemDiv.style.marginBottom = '15px';
+          itemDiv.innerHTML = `
+                <div class="result-header">
+                    <div class="verdict-badge ${badgeClass}">${verdict}</div>
+                </div>
+                <div class="explanation-text">${explanation.replace(/\n/g, '<br>')}</div>
+            `;
+          groupDiv.appendChild(itemDiv);
+        });
+
+        // Render ONE chart for the group if it has an SV
+        if (!isNoSv) {
+          const places = [...new Set(groupResults.map(r => r.place_dcid).filter(p => p))];
+          if (places.length > 0) {
+            const placeStr = places.join(' ');
+            const placeUrl = `/place/${places[0]}`; // Just link to the first one for now or list them
+            const exploreUrl = `/explore?sv=${sv}&p=${places[0]}&chartType=TIMELINE_WITH_HIGHLIGHT`; // Link to first
+
+            const contextDiv = document.createElement('div');
+            contextDiv.className = 'data-context';
+            contextDiv.style.display = 'block';
+            contextDiv.style.marginTop = '20px';
+
+            let placesHtml = places.map(p => `<a href="/place/${p}" target="_blank">${p}</a>`).join(', ');
+
+            contextDiv.innerHTML = `
+                    <h3>Data Context</h3>
+                    <div class="context-chips">
+                        <span class="context-chip">Places: ${placesHtml}</span>
+                        <span class="context-chip">Variable: <a href="${exploreUrl}" target="_blank">${sv}</a></span>
+                    </div>
+                    <div class="chart-container"></div>
+                `;
+
+            const chart = document.createElement('datacommons-line');
+            chart.setAttribute('places', placeStr);
+            chart.setAttribute('variables', sv);
+            chart.setAttribute('title', 'Data Verification Source');
+            contextDiv.querySelector('.chart-container').appendChild(chart);
+
+            groupDiv.appendChild(contextDiv);
+          }
+        }
+
+        resultBox.appendChild(groupDiv);
+      });
+
+    } catch (error) {
+      console.error('Error:', error);
+      loading.style.display = 'none';
+      btn.disabled = false;
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = '<div class="verdict-badge verdict-refuted">ERROR</div><div class="explanation-text">An error occurred while verifying the claim.</div>';
+    }
+  }
+
+  window.addEventListener('load', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const claim = urlParams.get('claim');
+    if (claim) {
+      document.getElementById('claimInput').value = claim;
+      verifyClaim();
+    }
+  });
+</script>
+{% endblock %}
