@@ -46,6 +46,7 @@ import {
 } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
+import { isFeatureEnabled, ENABLE_RANKING_TILE_SCROLL } from "../../shared/feature_flags/util";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   RankingData,
@@ -263,18 +264,17 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       },
       chartWidth,
       chartHeight,
-      chartHtml,
       chartTitle,
-      "",
+      chartHtml,
+      props.footnote,
       props.sources || Array.from(sources),
       props.surface
     );
   }
   return (
     <div
-      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${
-        props.className
-      } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className
+        } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
       ref={containerRef}
       style={{
         gridTemplateColumns:
@@ -296,7 +296,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         Object.keys(rankingData).map((statVar) => {
           const errorMsg =
             _.isEmpty(rankingData[statVar]) ||
-            rankingData[statVar].numDataPoints === 0
+              rankingData[statVar].numDataPoints === 0
               ? getNoDataErrorMsg(props.variables)
               : "";
           return (
@@ -321,6 +321,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               title={props.title}
               statVarSpecs={props.variables}
               surface={props.surface}
+              enableScroll={isFeatureEnabled(ENABLE_RANKING_TILE_SCROLL)}
             />
           );
         })}

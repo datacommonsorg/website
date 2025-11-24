@@ -80,6 +80,7 @@ interface RankingUnitPropType {
   entityType?: string;
   isLoading?: boolean;
   statVar?: string;
+  enableScroll?: boolean;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -156,6 +157,138 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       </div>
       {props.errorMsg ? (
         <div>{props.errorMsg}</div>
+      ) : props.enableScroll ? (
+        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+          <table>
+            {props.svNames && !props.hideValue && (
+              <thead
+                style={{
+                  position: "sticky",
+                  top: 0,
+                  background: "white",
+                  zIndex: 1,
+                }}
+              >
+                <tr>
+                  <td></td>
+                  <td></td>
+                  {props.svNames.map((name, i) => (
+                    <td key={i} className="stat">
+                      {name}
+                    </td>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {pointsList.map((points, idx) => {
+                return (
+                  <React.Fragment key={`ranking-unit-list-${idx}`}>
+                    {idx > 0 && (
+                      <tr>
+                        <td>...</td>
+                      </tr>
+                    )}
+                    {points.map((point) => {
+                      return (
+                        <tr key={point.placeDcid}>
+                          <td
+                            className={`rank ${point.placeDcid === props.highlightedDcid
+                                ? "bold"
+                                : ""
+                              }`}
+                          >
+                            {point.rank}.
+                          </td>
+                          <td
+                            className={`place-name ${point.placeDcid === props.highlightedDcid
+                                ? "bold"
+                                : ""
+                              }`}
+                          >
+                            <LocalizedLink
+                              href={urlFunc(
+                                point.placeDcid,
+                                props.entityType,
+                                props.apiRoot
+                              )}
+                              text={
+                                <PlaceName
+                                  dcid={point.placeDcid}
+                                  apiRoot={props.apiRoot}
+                                ></PlaceName>
+                              }
+                              onMouseEnter={(): void => {
+                                if (!props.onHoverToggled) {
+                                  return;
+                                }
+                                props.onHoverToggled(point.placeDcid, true);
+                              }}
+                              onMouseLeave={(): void => {
+                                if (!props.onHoverToggled) {
+                                  return;
+                                }
+                                props.onHoverToggled(point.placeDcid, false);
+                              }}
+                            />
+                          </td>
+                          {!props.hideValue && _.isEmpty(point.values) && (
+                            <td className="stat">
+                              <span
+                                className={`num-value ${point.placeDcid === props.highlightedDcid
+                                    ? "bold"
+                                    : ""
+                                  }`}
+                              >
+                                {formatNumber(
+                                  !_.isEmpty(props.scaling) &&
+                                    props.scaling[0]
+                                    ? point.value * props.scaling[0]
+                                    : point.value,
+                                  props.unit && props.unit.length
+                                    ? props.unit[0]
+                                    : ""
+                                )}
+                              </span>
+                            </td>
+                          )}
+                          {!props.hideValue &&
+                            !_.isEmpty(point.values) &&
+                            point.values.map((v, i) => (
+                              <td key={i} className="stat">
+                                <span
+                                  className={`num-value ${point.placeDcid === props.highlightedDcid
+                                      ? "bold"
+                                      : ""
+                                    }`}
+                                >
+                                  {formatNumber(
+                                    !_.isEmpty(props.scaling) &&
+                                      props.scaling[i]
+                                      ? v * props.scaling[i]
+                                      : v,
+                                    props.unit && props.unit.length
+                                      ? props.unit[i]
+                                      : ""
+                                  )}
+                                </span>
+                              </td>
+                            ))}
+                          <td
+                            className="ranking-date-cell"
+                            title={point.date}
+                          >
+                            {point.date}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </React.Fragment>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <table>
           {props.svNames && !props.hideValue && (
@@ -235,7 +368,8 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                               }`}
                             >
                               {formatNumber(
-                                !_.isEmpty(props.scaling) && props.scaling[0]
+                                !_.isEmpty(props.scaling) &&
+                                  props.scaling[0]
                                   ? point.value * props.scaling[0]
                                   : point.value,
                                 props.unit && props.unit.length
@@ -257,7 +391,8 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                                 }`}
                               >
                                 {formatNumber(
-                                  !_.isEmpty(props.scaling) && props.scaling[i]
+                                  !_.isEmpty(props.scaling) &&
+                                    props.scaling[i]
                                     ? v * props.scaling[i]
                                     : v,
                                   props.unit && props.unit.length
@@ -267,7 +402,10 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                               </span>
                             </td>
                           ))}
-                        <td className="ranking-date-cell" title={point.date}>
+                        <td
+                          className="ranking-date-cell"
+                          title={point.date}
+                        >
                           {point.date}
                         </td>
                       </tr>
