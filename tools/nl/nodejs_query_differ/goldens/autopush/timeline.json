@@ -11,7 +11,7 @@
       "srcs": [
         {
           "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2023.S1901"
         }
       ],
       "title": "Average Income for Family Households in North Dakota",
@@ -36,7 +36,7 @@
       "srcs": [
         {
           "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2023.S1901"
         }
       ],
       "title": "Average Income for Family Households in Counties of North Dakota (2023)",
@@ -59,7 +59,7 @@
       "srcs": [
         {
           "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2023.S1901"
         }
       ],
       "title": "Median Family Household Income in North Dakota",
