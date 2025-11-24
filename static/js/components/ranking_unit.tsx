@@ -133,6 +133,116 @@ export function getPointsList(
   return pointsList;
 }
 
+function RankingRow(props: {
+  point: RankingPoint;
+  highlightedDcid?: string;
+  entityType?: string;
+  apiRoot?: string;
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void;
+  hideValue?: boolean;
+  scaling?: number[];
+  unit?: string[];
+  svNames?: string[];
+}): JSX.Element {
+  const {
+    point,
+    highlightedDcid,
+    entityType,
+    apiRoot,
+    onHoverToggled,
+    hideValue,
+    scaling,
+    unit,
+  } = props;
+  const [isVisible, setIsVisible] = React.useState(false);
+  const rowRef = React.useRef<HTMLTableRowElement>(null);
+  const urlFunc = React.useContext(RankingUnitUrlFuncContext);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    if (rowRef.current) {
+      observer.observe(rowRef.current);
+    }
+
+    return () => {
+      if (rowRef.current) {
+        observer.unobserve(rowRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <tr ref={rowRef}>
+      <td
+        className={`rank ${point.placeDcid === highlightedDcid ? "bold" : ""
+          }`}
+      >
+        {point.rank}.
+      </td>
+      <td
+        className={`place-name ${point.placeDcid === highlightedDcid ? "bold" : ""
+          }`}
+      >
+        <LocalizedLink
+          href={urlFunc(point.placeDcid, entityType, apiRoot)}
+          text={(
+            isVisible ? (
+              <PlaceName dcid={point.placeDcid} apiRoot={apiRoot} />
+            ) : (
+              <Spinner color="secondary" size="sm" />
+            )
+          )}
+          onMouseEnter={() => onHoverToggled && onHoverToggled(point.placeDcid, true)}
+          onMouseLeave={() => onHoverToggled && onHoverToggled(point.placeDcid, false)}
+        />
+      </td>
+      {!hideValue && _.isEmpty(point.values) && (
+        <td className="stat">
+          <span
+            className={`num-value ${point.placeDcid === highlightedDcid ? "bold" : ""
+              }`}
+          >
+            {formatNumber(
+              !_.isEmpty(scaling) && scaling[0]
+                ? point.value * scaling[0]
+                : point.value,
+              unit && unit.length ? unit[0] : ""
+            )}
+          </span>
+        </td>
+      )}
+      {!hideValue &&
+        !_.isEmpty(point.values) &&
+        point.values.map((v, i) => (
+          <td key={i} className="stat">
+            <span
+              className={`num-value ${point.placeDcid === highlightedDcid ? "bold" : ""
+                }`}
+            >
+              {formatNumber(
+                !_.isEmpty(scaling) && scaling[i]
+                  ? v * scaling[i]
+                  : v,
+                unit && unit.length ? unit[i] : ""
+              )}
+            </span>
+          </td>
+        ))}
+      <td className="ranking-date-cell" title={point.date}>
+        {point.date}
+      </td>
+    </tr>
+  );
+}
+
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   const urlFunc = useContext(RankingUnitUrlFuncContext);
   const pointsList = getPointsList(
@@ -190,98 +300,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                       </tr>
                     )}
                     {points.map((point) => {
-                      return (
-                        <tr key={point.placeDcid}>
-                          <td
-                            className={`rank ${point.placeDcid === props.highlightedDcid
-                                ? "bold"
-                                : ""
-                              }`}
-                          >
-                            {point.rank}.
-                          </td>
-                          <td
-                            className={`place-name ${point.placeDcid === props.highlightedDcid
-                                ? "bold"
-                                : ""
-                              }`}
-                          >
-                            <LocalizedLink
-                              href={urlFunc(
-                                point.placeDcid,
-                                props.entityType,
-                                props.apiRoot
-                              )}
-                              text={
-                                <PlaceName
-                                  dcid={point.placeDcid}
-                                  apiRoot={props.apiRoot}
-                                ></PlaceName>
-                              }
-                              onMouseEnter={(): void => {
-                                if (!props.onHoverToggled) {
-                                  return;
-                                }
-                                props.onHoverToggled(point.placeDcid, true);
-                              }}
-                              onMouseLeave={(): void => {
-                                if (!props.onHoverToggled) {
-                                  return;
-                                }
-                                props.onHoverToggled(point.placeDcid, false);
-                              }}
-                            />
-                          </td>
-                          {!props.hideValue && _.isEmpty(point.values) && (
-                            <td className="stat">
-                              <span
-                                className={`num-value ${point.placeDcid === props.highlightedDcid
-                                    ? "bold"
-                                    : ""
-                                  }`}
-                              >
-                                {formatNumber(
-                                  !_.isEmpty(props.scaling) &&
-                                    props.scaling[0]
-                                    ? point.value * props.scaling[0]
-                                    : point.value,
-                                  props.unit && props.unit.length
-                                    ? props.unit[0]
-                                    : ""
-                                )}
-                              </span>
-                            </td>
-                          )}
-                          {!props.hideValue &&
-                            !_.isEmpty(point.values) &&
-                            point.values.map((v, i) => (
-                              <td key={i} className="stat">
-                                <span
-                                  className={`num-value ${point.placeDcid === props.highlightedDcid
-                                      ? "bold"
-                                      : ""
-                                    }`}
-                                >
-                                  {formatNumber(
-                                    !_.isEmpty(props.scaling) &&
-                                      props.scaling[i]
-                                      ? v * props.scaling[i]
-                                      : v,
-                                    props.unit && props.unit.length
-                                      ? props.unit[i]
-                                      : ""
-                                  )}
-                                </span>
-                              </td>
-                            ))}
-                          <td
-                            className="ranking-date-cell"
-                            title={point.date}
-                          >
-                            {point.date}
-                          </td>
-                        </tr>
-                      );
+                      return <RankingRow key={point.placeDcid} point={point} {...props} />;
                     })}
                   </React.Fragment>
                 );
@@ -314,102 +333,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                     </tr>
                   )}
                   {points.map((point) => {
-                    return (
-                      <tr key={point.placeDcid}>
-                        <td
-                          className={`rank ${
-                            point.placeDcid === props.highlightedDcid
-                              ? "bold"
-                              : ""
-                          }`}
-                        >
-                          {point.rank}.
-                        </td>
-                        <td
-                          className={`place-name ${
-                            point.placeDcid === props.highlightedDcid
-                              ? "bold"
-                              : ""
-                          }`}
-                        >
-                          <LocalizedLink
-                            href={urlFunc(
-                              point.placeDcid,
-                              props.entityType,
-                              props.apiRoot
-                            )}
-                            text={
-                              <PlaceName
-                                dcid={point.placeDcid}
-                                apiRoot={props.apiRoot}
-                              ></PlaceName>
-                            }
-                            onMouseEnter={(): void => {
-                              if (!props.onHoverToggled) {
-                                return;
-                              }
-                              props.onHoverToggled(point.placeDcid, true);
-                            }}
-                            onMouseLeave={(): void => {
-                              if (!props.onHoverToggled) {
-                                return;
-                              }
-                              props.onHoverToggled(point.placeDcid, false);
-                            }}
-                          />
-                        </td>
-                        {!props.hideValue && _.isEmpty(point.values) && (
-                          <td className="stat">
-                            <span
-                              className={`num-value ${
-                                point.placeDcid === props.highlightedDcid
-                                  ? "bold"
-                                  : ""
-                              }`}
-                            >
-                              {formatNumber(
-                                !_.isEmpty(props.scaling) &&
-                                  props.scaling[0]
-                                  ? point.value * props.scaling[0]
-                                  : point.value,
-                                props.unit && props.unit.length
-                                  ? props.unit[0]
-                                  : ""
-                              )}
-                            </span>
-                          </td>
-                        )}
-                        {!props.hideValue &&
-                          !_.isEmpty(point.values) &&
-                          point.values.map((v, i) => (
-                            <td key={i} className="stat">
-                              <span
-                                className={`num-value ${
-                                  point.placeDcid === props.highlightedDcid
-                                    ? "bold"
-                                    : ""
-                                }`}
-                              >
-                                {formatNumber(
-                                  !_.isEmpty(props.scaling) &&
-                                    props.scaling[i]
-                                    ? v * props.scaling[i]
-                                    : v,
-                                  props.unit && props.unit.length
-                                    ? props.unit[i]
-                                    : ""
-                                )}
-                              </span>
-                            </td>
-                          ))}
-                        <td
-                          className="ranking-date-cell"
-                          title={point.date}
-                        >
-                          {point.date}
-                        </td>
-                      </tr>
-                    );
+                    return <RankingRow key={point.placeDcid} point={point} {...props} />;
                   })}
                 </React.Fragment>
               );
