@@ -44,7 +44,6 @@ os.environ["GOOGLE_API_KEY"] = "AIzaSyDeCnSYL7ONUIyd9MNdD4P8yABXw08fiME"
 async def main():
     mcp_server_process = None
     try:
-        mcp_server_process = await start_mcp_server()
         # runner, USER_ID, SESSION_ID, call_agent_async, logs = await initialize_mcp_session()
         llm_provider = None
         if args.llm_provider == "gemini":
@@ -55,6 +54,7 @@ async def main():
             llm_provider = AnthropicProvider()
         print(f"Using LLM Provider: {type(llm_provider).__name__}")
         
+        mcp_server_process = await start_mcp_server()
         datcom_agent = LlmAgent(
             name="datacommons_agent",
             model=AGENT_MODEL,

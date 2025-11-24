@@ -11,16 +11,25 @@ from google.genai import types
 from google.cloud import discoveryengine_v1 as discoveryengine
 from google.adk.agents import LlmAgent
 from typing import Any
-import vertex_ai
+from . import vertex_ai
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
-from constants import VERIFICATION_PROMPT
+from .constants import VERIFICATION_PROMPT
 
 # --- 1. Setup ---
 # Ensure you have 'GOOGLE_APPLICATION_CREDENTIALS' set in your env for Vertex AI
 # and 'GENAI_API_KEY' for the Gemini API.
 
-client = genai.Client(api_key=os.getenv('GENAI_API_KEY'))
+# client = genai.Client(api_key=os.getenv('GENAI_API_KEY'))
+try:
+    api_key = os.getenv('GENAI_API_KEY') or os.getenv('GOOGLE_API_KEY')
+    if not api_key:
+        print("Warning: No API key found in GENAI_API_KEY or GOOGLE_API_KEY")
+    client = genai.Client(api_key=api_key)
+except Exception as e:
+    print(f"Warning: Could not initialize genai.Client: {e}")
+    client = None
+
 
 # --- 2. Tool Definitions ---
 # The SDK uses docstrings and type hints to generate the schema.
@@ -225,6 +234,42 @@ async def call_agent_and_print(
     print("-" * 30)
     return final_response_content
 
+def extract_json_from_text(text: str) -> str | None:
+    """Extracts the first valid JSON object or list from text."""
+    text = text.strip()
+    
+    # Simple heuristic: find first [ or {
+    start_idx = -1
+    for i, char in enumerate(text):
+        if char in ['{', '[']:
+            start_idx = i
+            break
+            
+    if start_idx == -1:
+        return None
+        
+    # Stack-based extraction
+    stack = []
+    for i in range(start_idx, len(text)):
+        char = text[i]
+        if char in ['{', '[']:
+            stack.append(char)
+        elif char in ['}', ']']:
+            if not stack:
+                continue # Should not happen if we started at a valid open
+            
+            last_open = stack[-1]
+            if (char == '}' and last_open == '{') or (char == ']' and last_open == '['):
+                stack.pop()
+                if not stack:
+                    # Found the matching close for the outermost
+                    return text[start_idx : i+1]
+            else:
+                # Mismatched brackets - this path is likely invalid JSON or we started wrong
+                pass
+                
+    return None
+
 async def ask_data_commons(claim: str, datcom_agent: Any) -> dict:
     
     # call_agent_async is defined in init_mcp.py
@@ -241,17 +286,30 @@ async def ask_data_commons(claim: str, datcom_agent: Any) -> dict:
     if final_response_text:
         # Remove markdown
         final_response_text = final_response_text.replace("```json", "").replace("```", "")
-        match = re.search(r"\{.*\}", final_response_text, re.DOTALL)
-        if match:
-            json_str = match.group(0)
+        
+        json_str = extract_json_from_text(final_response_text)
+        
+        if json_str:
             try:
                 return json.loads(json_str)
-            except json.JSONDecodeError:
+            except json.JSONDecodeError as e:
                 return {
                     "verdict": "INVALID_JSON",
-                    "explanation": f"Could not parse JSON from LLM response: {final_response_text}"
+                    "explanation": f"JSON Decode Error: {e}. String: {json_str}"
                 }
         else:
+            # Fallback to regex if the stack extractor failed (unlikely but safe)
+            match = re.search(r"(\[.*\]|\{.*\})", final_response_text, re.DOTALL)
+            if match:
+                json_str = match.group(0)
+                try:
+                    return json.loads(json_str)
+                except json.JSONDecodeError as e:
+                    return {
+                        "verdict": "INVALID_JSON",
+                        "explanation": f"JSON Decode Error (Regex): {e}. String: {json_str}"
+                    }
+            
             return {
                 "verdict": "INVALID_JSON",
                 "explanation": f"No JSON object found in LLM response: {final_response_text}"
