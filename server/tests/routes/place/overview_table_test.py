@@ -19,10 +19,10 @@ from unittest import mock
 from flask import Flask
 from flask import g
 from flask import jsonify
-from flask_caching import Cache
 import pytest
 
 from server.lib import i18n_messages
+from server.lib.cache import cache
 from server.routes.place import api
 from server.routes.place.types import OverviewTableDataRow
 from server.routes.place.types import PlaceOverviewTableApiResponse
@@ -36,7 +36,7 @@ def app():
   app = Flask(__name__)
   app.config['BABEL_DEFAULT_LOCALE'] = 'en'
   app.config['SERVER_NAME'] = 'example.com'
-  app.config['CACHE_TYPE'] = 'null'
+  app.config['CACHE_TYPE'] = 'simple'
   app.config['CHART_CONFIG'] = [{
       'title': 'Chart',
       'title_id': 'Chart',
@@ -62,7 +62,7 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
   def setup_app_context(self, request):
     """Setup the app context and cache for each test."""
     self.app = request.getfixturevalue('app')
-    self.cache = Cache(self.app)
+    cache.init_app(self.app)
     self.app_context = self.app.app_context()
 
   def setUp(self):
@@ -86,7 +86,7 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
     self.mock_local_translate.side_effect = mock_local_translate_side_effect
 
   def tearDown(self):
-    self.cache.clear()
+    cache.clear()
     super().tearDown()
 
   def mock_v2node_api_data(self, response_list: list[dict]):
@@ -127,7 +127,9 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
                                  unit='count',
                                  value=123,
                                  variableDcid='Count_Person')
-      expected = jsonify(PlaceOverviewTableApiResponse(data=[row])).get_json()
+      expected = jsonify(
+          PlaceOverviewTableApiResponse(data=[row],
+                                        mixer_response_ids=[])).get_json()
 
       response = self.app.test_client().get(
           '/api/place/overview-table/geoId/06')
