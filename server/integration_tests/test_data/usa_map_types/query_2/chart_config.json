@@ -305,6 +305,68 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Women in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Men in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Earnings_Person_Female",
                       "Median_Earnings_Person_Male"
                     ],
@@ -374,6 +436,37 @@
               }
             ],
             "title": "Median Married Couple Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings in Census Tracts of Placer County"
           },
           {
             "columns": [

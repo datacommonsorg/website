@@ -20,6 +20,7 @@ import re
 from typing import Dict, List
 
 import server.services.datacommons as dc
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 COMPLEX_UNIT_REGEX = r'\[.+ [0-9]+\]'
 
@@ -131,6 +132,8 @@ def _compact_point(point_resp, all_facets):
         else:
           data[var][entity] = {}
   result['data'] = data
+  # Setting the response ID to reference in usage logs if this result is cached
+  result[MIXER_RESPONSE_ID_FIELD] = point_resp.get(MIXER_RESPONSE_ID_FIELD, [])
   return result
 
 
@@ -167,6 +170,8 @@ def _compact_series(series_resp, all_facets):
               'series': [],
           }
   result['data'] = data
+  # Setting the request ID to reference in the cache
+  result[MIXER_RESPONSE_ID_FIELD] = series_resp[MIXER_RESPONSE_ID_FIELD] if MIXER_RESPONSE_ID_FIELD in series_resp else []
   return result
 
 

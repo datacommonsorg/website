@@ -36,22 +36,30 @@ import {
 import { intl, localizeLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import {
+  WEBSITE_SURFACE,
+  WEBSITE_SURFACE_HEADER,
+} from "../../shared/constants";
+import {
+  GA_EVENT_HIGHLIGHT_CHART_INJECTED,
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
   GA_EVENT_PAGE_VIEW,
+  GA_PARAM_CHART_TYPE,
   GA_PARAM_PLACE,
   GA_PARAM_QUERY,
   GA_PARAM_SOURCE,
+  GA_PARAM_STAT_VAR,
   GA_PARAM_TIMING_MS,
   GA_PARAM_TOPIC,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
+import { extractFlagsToPropagate } from "../../shared/util";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import {
   extractUrlHashParams,
@@ -111,7 +119,8 @@ export function App(props: AppProps): ReactElement {
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
   const [highlightPageMetadata, setHighlightPageMetadata] =
     useState<SubjectPageMetadata>(null);
-  const [highlightFacet, setHighlightFacet] = useState<FacetMetadata>(null);
+  const [highlightFacet, setHighlightFacet] =
+    useState<FacetSelectionCriteria>(null);
   const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
@@ -182,7 +191,7 @@ export function App(props: AppProps): ReactElement {
               queryResult={queryResult}
               pageMetadata={pageMetadata}
               highlightPageMetadata={highlightPageMetadata}
-              highlightFacet={highlightFacet}
+              facetSelector={highlightFacet}
               userMessage={userMessage}
               hideHeaderSearchBar={props.hideHeaderSearchBar}
             />
@@ -337,7 +346,11 @@ export function App(props: AppProps): ReactElement {
     const query = urlHashParams.query;
 
     let topicsToUse = toApiList(urlHashParams.topic || DEFAULT_TOPIC);
-    setHighlightFacet(urlHashParams.facetMetadata);
+    const fsm = {
+      date: urlHashParams.date,
+      facetMetadata: urlHashParams.facetMetadata,
+    };
+    setHighlightFacet(fsm);
 
     let places = [];
     if (!urlHashParams.place) {
@@ -347,6 +360,8 @@ export function App(props: AppProps): ReactElement {
     } else {
       places = [urlHashParams.place];
     }
+
+    const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
     let fulfillmentPromise: Promise<unknown>;
     let highlightPromise: Promise<unknown>;
@@ -363,7 +378,7 @@ export function App(props: AppProps): ReactElement {
       [GA_PARAM_SOURCE]: urlHashParams.origin,
     });
     /* eslint-enable camelcase */
-    if (query) {
+    if (query && !urlHashParams.topic && !urlHashParams.statVars) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
       setStoreQueryString(query);
@@ -401,8 +416,8 @@ export function App(props: AppProps): ReactElement {
         });
     } else {
       client = client || CLIENT_TYPES.ENTITY;
-      setQuery("");
-      setStoreQueryString("");
+      setQuery(query || "");
+      setStoreQueryString(query || "");
 
       let data = {};
       if (urlHashParams.statVars) {
@@ -413,7 +428,7 @@ export function App(props: AppProps): ReactElement {
           statVars = [urlHashParams.statVars];
         }
 
-        data = await defaultDataCommonsWebClient.getNodePropvalsIn({
+        data = await dataCommonsClient.webClient.getNodePropvalsIn({
           dcids: statVars,
           prop: "relevantVariable",
         });
@@ -466,11 +481,17 @@ export function App(props: AppProps): ReactElement {
           if (highlightPageMetadataResp) {
             // If we have a highlight response, prevent any place page redirection.
             allowRedirect = false;
+            triggerGAEvent(GA_EVENT_HIGHLIGHT_CHART_INJECTED, {
+              [GA_PARAM_SOURCE]: urlHashParams.origin,
+              [GA_PARAM_STAT_VAR]: urlHashParams.statVars,
+              [GA_PARAM_CHART_TYPE]: urlHashParams.chartType,
+              [GA_PARAM_PLACE]: mainPlace.dcid,
+            });
 
             // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
             mainPageMetadata = filterBlocksFromPageMetadata(
               mainPageMetadata,
-              highlightPageMetadataResp.pageConfig.categories.flatMap(
+              highlightPageMetadataResp.pageConfig.categories?.flatMap(
                 (category) => category.blocks || []
               )
             );
@@ -530,13 +551,19 @@ const fetchFulfillData = async (
     }
     const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
-    const resp = await axios.post(`/api/explore/fulfill${args}`, {
-      dc,
-      entities: places,
-      variables: topics,
-      disableExploreMore,
-      skipRelatedThings,
-    });
+    const resp = await axios.post(
+      `/api/explore/fulfill${args}`,
+      {
+        dc,
+        entities: places,
+        variables: topics,
+        disableExploreMore,
+        skipRelatedThings,
+      },
+      {
+        headers: WEBSITE_SURFACE_HEADER,
+      }
+    );
     if (startTime) {
       const elapsedTime = window.performance
         ? window.performance.now() - startTime
@@ -588,22 +615,37 @@ const fetchDetectAndFufillData = async (
     [URL_HASH_PARAMS.MAX_TOPIC_SVS]: maxTopicSvs,
     [URL_HASH_PARAMS.MAX_CHARTS]: maxCharts,
   };
-  const argsMap = new Map<string, string>();
+  // Construct query URL with parameters to the server API.
+  const queryURL = new URLSearchParams();
+  // Set query param 'q' first so that it appears first in the URL.
+  queryURL.set("q", query);
+  // Extract Search Params to queryURL.
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  for (const [field, value] of urlParams.entries()) {
+    if (value) {
+      queryURL.set(field, value);
+    }
+  }
+  // Extract Hash Params to queryURL.
   for (const [field, value] of Object.entries(fieldsMap)) {
     if (value) {
-      argsMap.set(field, value);
+      queryURL.set(field, value);
     }
   }
 
-  const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}${args}`,
+      `/api/explore/detect-and-fulfill?${queryURL.toString()}`,
       {
         contextHistory: savedContext,
         dc,
         disableExploreMore,
+      },
+      {
+        // passing in a header indiciating that the call is made from the website
+        // used in Mixer usage logs
+        headers: WEBSITE_SURFACE_HEADER,
       }
     );
     if (startTime) {

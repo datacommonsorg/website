@@ -37,6 +37,10 @@ class Config:
   LOG_DC_REQUEST_PAYLOAD = False
   # Percentage of requests to log payload for (0-100)
   LOG_DC_REQUEST_PAYLOAD_PERCENTAGE = 0
+  # Whether to log large or long calls to mixer via ExtremeCallLogger
+  LOG_EXTREME_MIXER_CALLS = True
+  # Whether to log mixer responses retrieved from website cache.
+  LOG_CACHED_MIXER_RESPONSE_USAGE = True
   # Whether to show topic page
   SHOW_TOPIC = False
   # Whether to show disaster page
@@ -104,3 +108,8 @@ class Config:
   ENABLE_BQ = False
   # Whether to block all crawlers like GoogleBot from access to entire site
   DISABLE_CRAWLERS = False
+  # Whether to show the Google Maps component.
+  # Will use the value of the environment variable DISABLE_GOOGLE_MAPS.
+  # Defaults to False if not provided.
+  DISABLE_GOOGLE_MAPS = os.environ.get('DISABLE_GOOGLE_MAPS',
+                                       'False').lower() == 'true'

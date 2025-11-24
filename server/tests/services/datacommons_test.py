@@ -18,6 +18,7 @@ import unittest
 from unittest import mock
 
 from flask import Flask
+from requests import Response
 
 from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
@@ -199,7 +200,7 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
   def test_without_skip_topics(self, mock_post):
     idx_param = "fake_index"
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url, data, headers=None):
       assert url.endswith(f"/api/search_vars?idx={idx_param}")
       self.assertEqual(data, {"queries": ["foo", "bar"]})
       return {}
@@ -217,7 +218,7 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
   def test_with_skip_topics(self, mock_post):
     idx_param = "fake_index"
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url, data, headers=None):
       assert url.endswith(f"/api/search_vars?idx={idx_param}&skip_topics=true")
       self.assertEqual(data, {"queries": ["foo", "bar"]})
       return {}
@@ -270,7 +271,8 @@ class TestServiceDataCommonsCacheSkip(unittest.TestCase):
       self.assertFalse(should_skip_cache())
 
 
-class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
+class TestServiceDataCommonsNLSearchVarsInParallel(
+    unittest.IsolatedAsyncioTestCase):
 
   def setUp(self):
     self.app = Flask(__name__)
@@ -278,38 +280,63 @@ class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
     self.app.config["DC_API_KEY"] = "fake_key"
     self.app_context = self.app.app_context()
     self.app_context.push()
+    # Initialize cache with the test app
+    cache.init_app(self.app)
 
   def tearDown(self):
     self.app_context.pop()
 
-  @mock.patch("server.services.datacommons.nl_search_vars")
-  def test_basic(self, mock_nl_search_vars):
+  async def test_basic(self):
 
-    def side_effect(queries, index_types, skip_topics, nl_root, api_key):
-      # Assert that the config is passed down correctly from the app context
-      self.assertEqual(nl_root, "fake_root")
-      self.assertEqual(api_key, "fake_key")
-      self.assertEqual(queries, ["foo"])
-      self.assertEqual(skip_topics, "true")
-      # Return a unique value for each index to check the final dict
-      if index_types == ["idx1"]:
-        return {"result": "one"}
-      if index_types == ["idx2"]:
-        return {"result": "two"}
-      return {}
-
-    mock_nl_search_vars.side_effect = side_effect
-
-    result = nl_search_vars_in_parallel(queries=["foo"],
-                                        index_types=["idx1", "idx2"],
-                                        skip_topics=True)
-
-    self.assertEqual(result, {
-        "idx1": {
-            "result": "one"
+    # The function is called for each index type.
+    idx1_result = {
+        "queryResults": {
+            "foo": {
+                "SV": ["Count_Person"],
+                "CosineScore": [0.9],
+                "SV_to_Sentences": {
+                    "Count_Person": [{
+                        "sentence": "person count",
+                        "score": 0.9
+                    }]
+                },
+            }
         },
-        "idx2": {
-            "result": "two"
+        "scoreThreshold": 0.7,
+        "debugLogs": {
+            "sv_detection_query_index_types": ["idx1"]
         }
-    })
-    self.assertEqual(mock_nl_search_vars.call_count, 2)
+    }
+    idx2_result = {
+        "queryResults": {
+            "foo": {
+                "SV": ["Count_Criminal"],
+                "CosineScore": [0.8]
+            }
+        },
+        "scoreThreshold": 0.7,
+    }
+
+    def side_effect(url, *args, **kwargs):
+      resp = Response()
+      resp.status_code = 200
+
+      if "idx1" in url:
+        # Setting the ._content attribute automatically makes both resp.json() and resp.text available.
+        resp._content = json.dumps(idx1_result).encode('utf-8')
+
+      else:
+        resp._content = json.dumps(idx2_result).encode('utf-8')
+
+      return resp
+
+    with mock.patch('requests.post') as mock_post:
+      with self.app.test_request_context():
+        mock_post.side_effect = side_effect
+
+        result = await nl_search_vars_in_parallel(queries=["foo"],
+                                                  index_types=["idx1", "idx2"],
+                                                  skip_topics=True)
+
+        self.assertEqual(result, {"idx1": idx1_result, "idx2": idx2_result})
+        self.assertEqual(mock_post.call_count, 2)

@@ -277,6 +277,21 @@ export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
   "autocomplete_select_redirects_to_place";
 
 /**
+ * Triggered on autocomplete selections that redirect directly to the explore page for an SV.
+ * Parameters:
+ *  "selection_index": <index of the selected autocomplete result according to order shown to users>
+ */
+export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV =
+  "autocomplete_select_redirects_to_sv";
+
+/**
+ * Triggered when the "load more" button is clicked in autocomplete suggestions.
+ * Parameters:
+ *    "query": <the query text when load more was clicked>
+ */
+export const GA_EVENT_AUTOCOMPLETE_LOAD_MORE = "autocomplete_load_more";
+
+/**
  * Triggered on autocomplete trigger.
  * Parameters:
  *    "query": <sample query>
@@ -319,6 +334,11 @@ export const GA_EVENT_PAGE_OVERVIEW_CLICK = "page_overview_click";
  */
 export const GA_EVENT_TOTAL_ANCHOR_COUNT = "total_anchor_count";
 
+/**
+ * Triggered when a highlight chart is injected into the explore page.
+ */
+export const GA_EVENT_HIGHLIGHT_CHART_INJECTED = "highlight_chart_injected";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -335,9 +355,15 @@ export const GA_PARAM_ID = "id";
 export const GA_PARAM_SOURCE = "source";
 export const GA_PARAM_TOPIC = "topic";
 export const GA_PARAM_PLACE = "place";
+export const GA_PARAM_CHART_TYPE = "chart_type";
 export const GA_PARAM_TIMING_MS = "time_ms";
 export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
+export const GA_PARAM_SELECTION_TYPE = "selection_type";
+export const GA_PARAM_SELECTION_TEXT = "selection_text";
+export const GA_PARAM_QUERY_AT_SELECTION = "query_at_selection";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
+export const GA_EVENT_STATVAR_AUTOCOMPLETE_ENABLED =
+  "statvar_autocomplete_enabled";
 export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 export const GA_PARAM_RELATED_TOPICS_MODE = "related_topics_mode";
 export const GA_PARAM_PAGE_SOURCE = "page_source";

@@ -29,8 +29,8 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
-import { FacetMetadata } from "../types/facet_metadata";
-import { stringifyFn } from "./axios";
+import { FacetSelectionCriteria } from "../types/facet_selection_criteria";
+import { getSurfaceHeader, stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
 
 const EMPTY_UNIT = "EMPTY";
@@ -120,6 +120,31 @@ function getProcessedPointResponse(
   return processedResp;
 }
 
+export function findMatchingFacets(
+  facets: Record<string, StatMetadata>,
+  facetSelector: FacetSelectionCriteria
+): string[] | null {
+  for (const [facetId, f] of Object.entries(facets)) {
+    const highlightFacet = facetSelector?.facetMetadata;
+    if (
+      !highlightFacet ||
+      (!_.isEmpty(highlightFacet.importName) &&
+        highlightFacet.importName !== f.importName) ||
+      (!_.isEmpty(highlightFacet.measurementMethod) &&
+        highlightFacet.measurementMethod !== f.measurementMethod) ||
+      (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
+      (!_.isEmpty(highlightFacet.observationPeriod) &&
+        highlightFacet.observationPeriod !== f.observationPeriod) ||
+      (!_.isEmpty(highlightFacet.scalingFactor) &&
+        highlightFacet.scalingFactor !== f.scalingFactor)
+    ) {
+      continue;
+    }
+    return [facetId];
+  }
+  return [];
+}
+
 /**
  * Gets the data from /api/observations/point endpoint
  * @param apiRoot api root
@@ -127,6 +152,9 @@ function getProcessedPointResponse(
  * @param variables list of variables to get data for
  * @param highlightFacet a single facet (given by the facet keys) that is
  *        used to indicate the facet to be used in this fetch.
+ * @param surface Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  * @returns The Facet ID matching the highlight facet
  *          or null if no matching facet is found.
  */
@@ -134,29 +162,20 @@ async function selectFacet(
   apiRoot: string,
   entities: string[],
   variables: string[],
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria,
+  surface?: string
 ): Promise<string[] | null> {
-  if (!highlightFacet) {
+  if (!facetSelector) {
     return [];
   }
-  const facetsResponse = await getFacets(apiRoot, entities, variables);
+  const facetsResponse = await getFacets(apiRoot, entities, variables, surface);
   for (const svDcid of Object.keys(facetsResponse)) {
-    const facets = facetsResponse[svDcid];
-    for (const [facetId, f] of Object.entries(facets)) {
-      if (
-        (!_.isEmpty(highlightFacet.importName) &&
-          highlightFacet.importName !== f.importName) ||
-        (!_.isEmpty(highlightFacet.measurementMethod) &&
-          highlightFacet.measurementMethod !== f.measurementMethod) ||
-        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
-        (!_.isEmpty(highlightFacet.observationPeriod) &&
-          highlightFacet.observationPeriod !== f.observationPeriod) ||
-        (!_.isEmpty(highlightFacet.scalingFactor) &&
-          highlightFacet.scalingFactor !== f.scalingFactor)
-      ) {
-        continue;
-      }
-      return [facetId];
+    const matchingFacets = findMatchingFacets(
+      facetsResponse[svDcid],
+      facetSelector
+    );
+    if (!_.isEmpty(matchingFacets)) {
+      return matchingFacets;
     }
   }
 
@@ -175,6 +194,9 @@ async function selectFacet(
  * @param facetIds an array of facet ids that if given, will be used in
  *        the fetch. This is an alternative way to specify the facets to
  *        complement highlightFacet.
+ * @param surface Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getPoint(
   apiRoot: string,
@@ -182,22 +204,27 @@ export function getPoint(
   variables: string[],
   date: string,
   alignedVariables?: string[][],
-  highlightFacet?: FacetMetadata,
-  facetIds?: string[]
+  facetSelector?: FacetSelectionCriteria,
+  facetIds?: string[],
+  surface?: string
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(apiRoot, entities, variables, highlightFacet);
+    : selectFacet(apiRoot, entities, variables, facetSelector, surface);
 
   return facetPromise.then((resolvedFacetIds) => {
     const params: Record<string, unknown> = { date, entities, variables };
     if (!_.isEmpty(resolvedFacetIds)) {
       params["facetId"] = resolvedFacetIds;
     }
+    if (facetSelector?.date) {
+      params["date"] = facetSelector.date;
+    }
     return axios
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
         params,
         paramsSerializer: stringifyFn,
+        headers: getSurfaceHeader(surface),
       })
       .then((resp) => {
         return getProcessedPointResponse(resp.data, alignedVariables);
@@ -216,6 +243,9 @@ export function getPoint(
  * @param facetIds an array of facet ids that if given, will be used in
  *        the fetch. This is an alternative way to specify the facets to
  *        complement highlightFacet, and will take priority if both are given.
+ * @param surface Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getPointWithin(
   apiRoot: string,
@@ -224,20 +254,32 @@ export function getPointWithin(
   variables: string[],
   date: string,
   alignedVariables?: string[][],
-  facetIds?: string[]
+  facetIds?: string[],
+  surface?: string,
+  facetSelector?: FacetSelectionCriteria
 ): Promise<PointApiResponse> {
-  const params = { childType, date, parentEntity, variables };
-  if (facetIds) {
-    params["facetIds"] = facetIds;
-  }
-  return axios
-    .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
-      params,
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      return getProcessedPointResponse(resp.data, alignedVariables);
-    });
+  const facetPromise = !_.isEmpty(facetIds)
+    ? Promise.resolve(facetIds)
+    : selectFacet(apiRoot, [parentEntity], variables, facetSelector, surface);
+
+  return facetPromise.then((resolvedFacetIds) => {
+    const params = { childType, date, parentEntity, variables };
+    if (!_.isEmpty(resolvedFacetIds)) {
+      params["facetIds"] = [resolvedFacetIds];
+    }
+    if (facetSelector?.date) {
+      params["date"] = facetSelector.date;
+    }
+    return axios
+      .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
+        params,
+        paramsSerializer: stringifyFn,
+        headers: getSurfaceHeader(surface),
+      })
+      .then((resp) => {
+        return getProcessedPointResponse(resp.data, alignedVariables);
+      });
+  });
 }
 
 /**
@@ -249,6 +291,9 @@ export function getPointWithin(
  * @param variables list of variables to get data for
  * @param facetIds list of facet ids to get data for
  * @param highlightFacet the facet to highlight
+ * @param surface Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  * @returns The data for the given entities and variables, matching the provided facet if applicable.
  */
 export function getSeries(
@@ -256,11 +301,12 @@ export function getSeries(
   entities: string[],
   variables: string[],
   facetIds?: string[],
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria,
+  surface?: string
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, highlightFacet)
+    selectFacet(apiRoot, entities, variables, facetSelector, surface)
   ).then((resolvedFacetIds) => {
     if (!_.isEmpty(facetIds)) {
       params["facetIds"] = facetIds;
@@ -269,7 +315,9 @@ export function getSeries(
     }
 
     return axios
-      .post(`${apiRoot || ""}/api/observations/series`, params)
+      .post(`${apiRoot || ""}/api/observations/series`, params, {
+        headers: getSurfaceHeader(surface),
+      })
       .then((resp) => resp.data);
   });
 }
@@ -282,6 +330,9 @@ export function getSeries(
  * @param variables variables to get data for
  * @param facetIds an array of facet ids that if given, will be used in
  *        the fetch.
+ * @param surface Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  * @returns
  */
 export function getSeriesWithin(
@@ -289,7 +340,8 @@ export function getSeriesWithin(
   parentEntity: string,
   childType: string,
   variables: string[],
-  facetIds?: string[]
+  facetIds?: string[],
+  surface?: string
 ): Promise<SeriesApiResponse> {
   const params = { parentEntity, childType, variables };
   if (facetIds) {
@@ -299,6 +351,7 @@ export function getSeriesWithin(
     .get(`${apiRoot || ""}/api/observations/series/within`, {
       params,
       paramsSerializer: stringifyFn,
+      headers: getSurfaceHeader(surface),
     })
     .then((resp) => resp.data);
 }
@@ -317,18 +370,23 @@ export interface FacetResponse {
  * @param childType place type to get available facets for
  * @param variables variables to get available facets for
  * @param date date to get available facets for
+ * @param surface Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getFacetsWithin(
   apiRoot: string,
   parentEntity: string,
   childType: string,
   variables: string[],
-  date?: string
+  date?: string,
+  surface?: string
 ): Promise<FacetResponse> {
   return axios
     .get<PointAllApiResponse>(`${apiRoot || ""}/api/facets/within`, {
       params: { parentEntity, childType, variables, date: date || "LATEST" },
       paramsSerializer: stringifyFn,
+      headers: getSurfaceHeader(surface),
     })
     .then((resp) => {
       const respData = resp.data;
@@ -353,16 +411,21 @@ export function getFacetsWithin(
  * @param apiRoot api root
  * @param entities entities to get available facets for
  * @param variables variables to get available facets for
+ * @param surface Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getFacets(
   apiRoot: string,
   entities: string[],
-  variables: string[]
+  variables: string[],
+  surface?: string
 ): Promise<FacetResponse> {
   return axios
     .get<SeriesAllApiResponse>(`${apiRoot || ""}/api/facets`, {
       params: { entities, variables },
       paramsSerializer: stringifyFn,
+      headers: getSurfaceHeader(surface),
     })
     .then((resp) => {
       const respData = resp.data;

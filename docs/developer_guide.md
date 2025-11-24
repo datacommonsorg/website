@@ -65,10 +65,11 @@ website and mixer changes.
   nvm use 18.4.0
   ```
 
-  To set this version as default:
+  **On macOS machines with a M1 chip**, run the following command to install additional dependencies.
+  * These are required for the [node-canvas package](https://github.com/Automattic/node-canvas?tab=readme-ov-file#compiling).
 
   ```bash
-  nvm alias default 18.4.0
+  brew install pkg-config cairo pango libpng jpeg giflib librsvg
   ```
 
 - Protoc 3.21.12
@@ -103,12 +104,7 @@ website and mixer changes.
 
 This will watch static files change and re-build on code edit.
 
-> NOTE: On macOS machines with a M1 chip, run the following command before running the above command.
-> See [this](https://stackoverflow.com/a/71353060) for more details.
-
-```bash
-brew install pkg-config cairo pango libpng jpeg giflib librsvg
-```
+If there are errors, make sure to run `nvm use v18.4.0` to set the correct version.
 
 ### Start the Flask Server
 
@@ -195,12 +191,25 @@ Then run
 ```bash
 gcloud auth login
 gcloud auth configure-docker
-./scripts/push_image.sh
-./scripts/deploy_gke_helm.sh -e dev
+./scripts/push_image.sh datcom-ci DEV
+```
+
+Find your image hash for both datacommons-mixer and datacommons-website in [Artifact Registry](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io?e=13803378&inv=1&invt=Ab3CEA&mods=-monitoring_api_staging&project=datcom-ci)
+
+```bash
+website_hash=
+mixer_hash=
+# To deploy to website + its mixer:
+./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
+# and to deploy to mixer only:
+./scripts/deploy_mixer_cloud_deploy.sh $mixer_hash datacommons-mixer-dev
+
 ```
 
 The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE.
+hash at HEAD, then deploys to dev instance in GKE through Cloud Deploy.
+
+Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autodeployment.
 
 View the deployoment at [link](https://dev.datacommons.org).
 

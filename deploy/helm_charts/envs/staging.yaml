@@ -38,17 +38,11 @@ website:
       }
 
 mixer:
-  useSpannerGraph: true
-  enableV3: true
+  serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
+  hostProject: "datcom-website-staging"
   redis:
     enabled: true
-    configFile: |
-      instances:
-        - region: "us-central1"
-          host: "10.38.211.19"
-          port: "6379"
   enableOtlp: true
-  v3MirrorFraction: 0.01
 
 ingress:
   enabled: false
@@ -58,6 +52,8 @@ serviceAccount:
 
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -84,11 +80,19 @@ serviceGroups:
   default:
     replicas: 4
 
+nodejs:
+  enabled: true
+  apiRoot: "http://website-service:8080"
+  image:
+    tag: ""
+  replicas: 4
+
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
 
 cronTesting:
   enabled: true
-  screenshotDomain: "staging.datacommons.org"
+  webApiRoot: "https://staging.datacommons.org"
+  nodejsApiRoot: "" # skip nodejs tests in staging
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically

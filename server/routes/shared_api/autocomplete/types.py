@@ -27,6 +27,7 @@ class ScoredPrediction:
   place_dcid: Optional[str]
   matched_query: Optional[str]
   score: float
+  has_place: bool = False
   source: Optional[str] = None
 
 
@@ -37,6 +38,7 @@ class AutoCompleteResult:
   match_type: str
   matched_query: str
   dcid: str
+  has_place: bool = False
 
 
 @dataclass

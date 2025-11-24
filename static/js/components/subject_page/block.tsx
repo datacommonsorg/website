@@ -23,6 +23,7 @@
 // Import web components
 import "../../../library";
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, {
@@ -47,7 +48,11 @@ import {
 import { intl } from "../../i18n/i18n";
 import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { messages } from "../../i18n/i18n_messages";
-import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import {
+  DATE_HIGHEST_COVERAGE,
+  DATE_LATEST,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
 import { FacetSelector } from "../../shared/facet_selector/facet_selector";
 import {
   isFeatureEnabled,
@@ -59,7 +64,7 @@ import {
   fetchFacetChoices,
   fetchFacetChoicesWithin,
 } from "../../tools/shared/facet_choice_fetcher";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -136,7 +141,7 @@ export interface BlockPropType {
   startWithDenom?: boolean;
   // Whether to render tiles as web components
   showWebComponents?: boolean;
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
@@ -166,9 +171,12 @@ const FACET_GROUPING_ELIGIBLE_TILES = new Set(["BAR"]);
 function eligibleForSnapToHighestCoverage(
   columns: ColumnConfig[],
   statVarProvider: StatVarProvider,
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria
 ): boolean {
-  if (highlightFacet) {
+  if (
+    !_.isEmpty(facetSelector?.facetMetadata) ||
+    !_.isEmpty(facetSelector?.date)
+  ) {
     return false;
   }
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
@@ -282,6 +290,7 @@ function getBlockStatVarSpecs(
 }
 
 export function Block(props: BlockPropType): ReactElement {
+  const theme = useTheme();
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
@@ -291,7 +300,7 @@ export function Block(props: BlockPropType): ReactElement {
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
     props.statVarProvider,
-    props.highlightFacet
+    props.facetSelector
   );
   const [snapToHighestCoverage, setSnapToHighestCoverage] = useState(
     isEligibleForSnapToHighestCoverage
@@ -491,17 +500,33 @@ export function Block(props: BlockPropType): ReactElement {
 
   useEffect(() => {
     setDenom(props.denom || "");
-    if (props.highlightFacet) {
+    if (props.facetSelector?.facetMetadata) {
       setDenom("");
     }
-  }, [props.highlightFacet, props.denom]);
+  }, [props.facetSelector, props.denom]);
 
   return (
     <>
-      <div className={`block-controls ${!facetsLoading ? "show" : ""}`}>
+      <div
+        className={`block-controls ${!facetsLoading ? "show" : ""}`}
+        css={css`
+          && {
+            span,
+            label,
+            button,
+            input {
+              ${theme.typography.family.text}
+              ${theme.typography.text.sm}
+              margin: 0;
+              padding: 0;
+            }
+          }
+        `}
+      >
         {showFacetSelector && (
           <div className="block-modal-trigger">
             <FacetSelector
+              facetSelector={props.facetSelector}
               svFacetId={facetOverrides}
               facetList={facetList}
               loading={facetsLoading}
@@ -672,7 +697,8 @@ function renderTiles(
             description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
             statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -703,6 +729,8 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            surface={WEBSITE_SURFACE}
+            facetSelector={props.facetSelector}
           />
         );
       case "LINE":
@@ -732,7 +760,8 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "RANKING":
@@ -759,6 +788,8 @@ function renderTiles(
                   )
                 : undefined
             }
+            surface={WEBSITE_SURFACE}
+            facetSelector={props.facetSelector}
           />
         );
       case "BAR":
@@ -794,7 +825,8 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "SCATTER": {
@@ -823,6 +855,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -848,6 +881,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -873,6 +907,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></GaugeTile>
         );
       case "DONUT":
@@ -893,6 +928,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></DonutTile>
         );
       case "DESCRIPTION":

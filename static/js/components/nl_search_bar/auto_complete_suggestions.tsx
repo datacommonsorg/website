@@ -21,16 +21,12 @@
 import React, { ReactElement, useEffect, useState } from "react";
 
 import {
+  GA_EVENT_AUTOCOMPLETE_LOAD_MORE,
   GA_EVENT_AUTOCOMPLETE_TRIGGERED,
   GA_PARAM_QUERY,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import {
-  escapeRegExp,
-  replaceQueryWithSelection,
-  stripPatternFromQuery,
-} from "../../shared/util";
-import { ScatterPlot } from "../elements/icons/scatter_plot";
+import { stripPatternFromQuery } from "../../shared/util";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteResult } from "./auto_complete_input";
 
@@ -43,6 +39,7 @@ interface AutoCompleteSuggestionsPropType {
   baseInputLastQuery: string;
   onClick: (result: AutoCompleteResult, idx: number) => void;
   hoveredIdx: number;
+  hasLocation: boolean;
 }
 
 export function AutoCompleteSuggestions(
@@ -64,7 +61,7 @@ export function AutoCompleteSuggestions(
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
     if (result.matchType === "stat_var_search") {
       if (isExactMatch) {
-        return <ScatterPlot />;
+        return <Search />;
       }
     } else if (result.matchType === "location_search") {
       if (isExactMatch) {
@@ -81,7 +78,7 @@ export function AutoCompleteSuggestions(
         [GA_PARAM_QUERY]: props.baseInput,
       });
     }
-  }, [props.allResults]);
+  }, [props.allResults, props.baseInput, triggered]);
 
   const showLoadMore =
     props.allResults.length > visibleCount &&
@@ -95,7 +92,7 @@ export function AutoCompleteSuggestions(
       {props.allResults
         .slice(0, visibleCount)
         .map((result: AutoCompleteResult, idx: number) => {
-          const fullText = replaceQueryWithSelection(props.baseInput, result);
+          const fullText = result.fullText;
           const parts = fullText.split(result.name);
           return (
             <div key={idx}>
@@ -134,7 +131,12 @@ export function AutoCompleteSuggestions(
       {showLoadMore && (
         <div
           className="search-input-result-section load-more-section"
-          onClick={() => setVisibleCount(visibleCount + RESULTS_TO_LOAD)}
+          onClick={(): void => {
+            triggerGAEvent(GA_EVENT_AUTOCOMPLETE_LOAD_MORE, {
+              [GA_PARAM_QUERY]: props.baseInput,
+            });
+            setVisibleCount(visibleCount + RESULTS_TO_LOAD);
+          }}
         >
           <div className="search-input-result">
             <span className="search-result-icon">

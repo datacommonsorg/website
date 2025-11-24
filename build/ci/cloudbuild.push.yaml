@@ -39,6 +39,7 @@ steps:
         docker build -f build/web_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-website:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-website:latest \
+          -t gcr.io/datcom-ci/datacommons-website:cicd \
           .
         build_end_time=$(date +%s)
         build_duration=$((build_end_time - start_time))
@@ -47,6 +48,7 @@ steps:
         echo "Starting web server image push at $(date)"
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
+        docker push gcr.io/datcom-ci/datacommons-website:cicd
         push_end_time=$(date +%s)
         push_duration=$((push_end_time - build_end_time))
         total_duration=$((push_end_time - start_time))
@@ -64,9 +66,33 @@ steps:
         docker build -f build/nl_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-nl:latest \
+          -t gcr.io/datcom-ci/datacommons-nl:cicd \
           .
         docker push gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-nl:latest
+        docker push gcr.io/datcom-ci/datacommons-nl:cicd
+    waitFor: ["-"]
+
+  - id: push-datacommons-script-runner
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        # The datacommons-script-runner image needs git to be installed to fetch
+        # the submodules.
+        apt-get update && apt-get install -y git
+        git submodule update --init --recursive
+
+        docker build -f tools/script_runner/Dockerfile \
+          -t gcr.io/datcom-ci/datacommons-script-runner:$SHORT_SHA \
+          -t gcr.io/datcom-ci/datacommons-script-runner:latest \
+          -t gcr.io/datcom-ci/datacommons-script-runner:cicd \
+          .
+        docker push gcr.io/datcom-ci/datacommons-script-runner:$SHORT_SHA
+        docker push gcr.io/datcom-ci/datacommons-script-runner:latest
+        docker push gcr.io/datcom-ci/datacommons-script-runner:cicd
     waitFor: ["-"]
 
   - id: push-nodejs-server
@@ -79,9 +105,11 @@ steps:
         docker build -f build/nodejs_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-nodejs:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-nodejs:latest \
+          -t gcr.io/datcom-ci/datacommons-nodejs:cicd \
           .
         docker push gcr.io/datcom-ci/datacommons-nodejs:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-nodejs:latest
+        docker push gcr.io/datcom-ci/datacommons-nodejs:cicd
     waitFor: ["-"]
 
   - id: push-website-cron-testing
@@ -94,9 +122,11 @@ steps:
         docker build -f build/website_cron_testing/Dockerfile \
           -t gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA \
           -t gcr.io/datcom-ci/website-cron-testing:latest \
+          -t gcr.io/datcom-ci/website-cron-testing:cicd \
           .
         docker push gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA
-        docker push gcr.io/datcom-ci/website-cron-testing:latest\
+        docker push gcr.io/datcom-ci/website-cron-testing:latest
+        docker push gcr.io/datcom-ci/website-cron-testing:cicd
     waitFor: ["-"]
 
   # Trigger website autopush deployment by bumping the website autopush version
@@ -119,7 +149,18 @@ steps:
         git add website/autopush/commit_hash.txt
         git commit -m "Deployed website to autopush at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
         git push origin master
-    waitFor: ["push-web-server", "push-nl-server", "push-nodejs-server"]
+
+  # Publish a message to Pub/Sub to notify that the website image has been pushed.
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - pubsub
+      - topics
+      - publish
+      - website-image-pushed
+      - --project=datcom-ci
+      - --message=${SHORT_SHA}
+    waitFor: ["push-web-server", "push-nl-server", "push-nodejs-server", "push-datacommons-script-runner"]
 
 timeout: 3600s
 

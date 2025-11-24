@@ -24,7 +24,7 @@ import _ from "lodash";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
+import { getSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getPointWithin } from "../../utils/data_fetch_utils";
 import {
   Axis,
@@ -55,14 +55,14 @@ export const SCATTER_URL_PATH = "/tools/scatter";
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
  * @param apiRoot API root
- * @param dateOverride Optional. Use this date instead of dates associated with
- *        statVars
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string; facetId?: string }[],
-  apiRoot?: string
+  apiRoot?: string,
+  surface?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -80,7 +80,8 @@ export async function getStatWithinPlace(
         [statVar.statVarDcid],
         dataDate,
         [],
-        facetIds
+        facetIds,
+        surface
       )
     );
   }
@@ -104,12 +105,13 @@ export async function getStatWithinPlace(
  * @param parentPlace the place to get data within
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
- *
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatAllWithinPlace(
   parentPlace: string,
   childType: string,
-  statVars: { statVarDcid: string; date?: string }[]
+  statVars: { statVarDcid: string; date?: string }[],
+  surface: string
 ): Promise<PointAllApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -128,6 +130,7 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
+          headers: getSurfaceHeader(surface),
         })
         .then((resp) => resp.data)
     );
@@ -159,7 +162,7 @@ function addSuffix(key: string, isX: boolean): string {
  * @param params
  * @param isX
  */
-function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
+export function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
   const dcid = params.get(addSuffix(FieldToAbbreviation.statVarDcid, isX));
   if (!dcid) {
     return EmptyAxis;
@@ -186,7 +189,7 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
  * Uses the parsed hash to produce a `PlaceInfo`.
  * @param params
  */
-function applyHashPlace(params: URLSearchParams): PlaceInfo {
+export function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const place = _.cloneDeep(EmptyPlace);
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
   if (dcid) {
@@ -297,12 +300,27 @@ export function updateHash(context: ContextType): void {
 
 /**
  * Appends a key-value mapping to the hash.
- * @param hash
- * @param key
- * @param value
+ *
+ * If a key is provided with empty string as a value, `key=` will be appended
+ * to the hash instead of a "true" boolean to keep behavior consistent with
+ * URLSearchParams.
+ *
+ * @param currentHash The current URL hash.
+ * @param key key of a hash parameter to add to the URL hash.
+ * @param value value of a hash parameter to add to the URL hash.
+ * @returns a new URL hash string with the new key-value added.
  */
-function appendEntry(hash: string, key: string, value: string): string {
-  return `${hash}&${key}=${value}`;
+function appendEntry(currentHash = "", key = "", value = ""): string {
+  if (!key) {
+    // If key is not provided, don't append anything
+    console.error(
+      `Attempted to append a new hash entry with value ${value} without a key.`
+    );
+    return currentHash;
+  }
+
+  // If hash is empty, don't prefix with '&'
+  return currentHash ? `${currentHash}&${key}=${value}` : `${key}=${value}`;
 }
 
 /**
@@ -395,11 +413,15 @@ function updateHashDisplayOptions(
     FieldToAbbreviation.chartType,
     display.chartType === ScatterChartType.MAP
   );
-  hash = appendEntry(
-    hash,
-    FieldToAbbreviation.showPopulation,
-    display.showPopulation
-  );
+  if (display.showPopulation) {
+    // Only include population in hash if showPopulation is not empty
+    // This prevents verbose URLs with trailing `&pp=` hashes
+    hash = appendEntry(
+      hash,
+      FieldToAbbreviation.showPopulation,
+      display.showPopulation
+    );
+  }
   return hash;
 }
 

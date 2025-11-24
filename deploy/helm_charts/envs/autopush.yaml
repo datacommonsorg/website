@@ -42,11 +42,9 @@ website:
       }
 
 mixer:
-  hostProject:
-  serviceName:
+  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  hostProject: "datcom-website-autopush"
   cacheSVFormula: true
-  useSpannerGraph: true
-  enableV3: true
   redis:
     enabled: true
     configFile: |
@@ -55,13 +53,17 @@ mixer:
           host: "10.13.112.19"
           port: "6379"
   enableOtlp: true
-  v3MirrorFraction: 0.5
 
 serviceAccount:
   name: website-ksa
 
+ingress:
+  enabled: true
+
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -105,10 +107,14 @@ serviceGroups:
 
 nodejs:
   enabled: true
+  apiRoot: "http://website-service:8080"
+  image:
+    tag: ""
   replicas: 12
 
 cronTesting:
   enabled: true
-  screenshotDomain: "autopush.datacommons.org"
+  webApiRoot: "http://website-service:8080"
+  nodejsApiRoot: "http://website-nodejs-service:8080"
   nodePool: "pool-1"
   schedule: "0 */12 * * *"

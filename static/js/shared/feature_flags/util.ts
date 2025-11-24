@@ -24,6 +24,7 @@ export const PAGE_OVERVIEW_GA = "page_overview_ga";
 export const PAGE_OVERVIEW_LINKS = "page_overview_links";
 export const EXPLORE_RESULT_HEADER = "explore_result_header";
 export const STANDARDIZED_VIS_TOOL_FEATURE_FLAG = "standardized_vis_tool";
+export const ENABLE_STAT_VAR_AUTOCOMPLETE = "enable_stat_var_autocomplete";
 
 // Feature flag URL parameters
 export const ENABLE_FEATURE_URL_PARAM = "enable_feature";
@@ -55,8 +56,14 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
  * Returns the feature flags for the current environment.
  * @returns
  */
-export function getFeatureFlags(): Record<string, boolean> {
-  return globalThis.FEATURE_FLAGS as Record<string, boolean>;
+export function getFeatureFlags(): Record<
+  string,
+  { enabled: boolean; rolloutPercentage?: number }
+> {
+  return globalThis.FEATURE_FLAGS as Record<
+    string,
+    { enabled: boolean; rolloutPercentage?: number }
+  >;
 }
 
 /**
@@ -90,7 +97,14 @@ export function isFeatureEnabled(featureName: string): boolean {
   // Check if the feature flag is enabled in server config
   const featureFlags = getFeatureFlags();
   if (featureFlags && featureName in featureFlags) {
-    return featureFlags[featureName];
+    const feature = featureFlags[featureName];
+    if (!feature.enabled) {
+      return false;
+    }
+    if (feature.rolloutPercentage !== undefined) {
+      return Math.random() * 100 < feature.rolloutPercentage;
+    }
+    return true;
   }
   return false;
 }

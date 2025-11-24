@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+import axios from "axios";
 import _ from "lodash";
 import { URLSearchParams } from "url";
 
 import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_input";
 import { Theme } from "../theme/types";
+import { stringifyFn } from "../utils/axios";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
 
 // This has to be in sync with server/__init__.py
@@ -265,7 +267,7 @@ export function removeSpinner(containerId: string): void {
  */
 export function stripPatternFromQuery(query: string, pattern: string): string {
   // If the query ends with the pattern (case-insensitive), remove it.
-  if (query.toLowerCase().endsWith(pattern.toLowerCase())) {
+  if (query.trim().toLowerCase().endsWith(pattern.trim().toLowerCase())) {
     return query.substring(0, query.length - pattern.length);
   }
   // Otherwise, return the original query.
@@ -323,10 +325,24 @@ export function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
 }
 
+export async function getStatVarInfo(dcids: string[]): Promise<any> {
+  if (!dcids || dcids.length === 0) {
+    return Promise.resolve({});
+  }
+  return axios.get("/api/variable/info", {
+    params: {
+      dcids,
+    },
+    paramsSerializer: stringifyFn,
+  });
+}
+
 export function replaceQueryWithSelection(
   query: string,
-  result: AutoCompleteResult
-): string {
+  result: AutoCompleteResult,
+  hasLocation: boolean,
+  statVarInfo: any
+): { query: string; placeDcid: string } {
   if (
     result.matchType === "stat_var_search" ||
     result.matchType === "location_search"
@@ -338,9 +354,55 @@ export function replaceQueryWithSelection(
     const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
     if (lastIndex !== -1) {
       const prefix = query.substring(0, lastIndex);
-      return prefix + result.name;
+      if (
+        !hasLocation &&
+        result.matchType === "stat_var_search" &&
+        !result.hasPlace
+      ) {
+        const placeTypeSummary = statVarInfo?.[result.dcid]?.placeTypeSummary;
+        if (placeTypeSummary) {
+          // Check for Earth first.
+          const earthPlace = placeTypeSummary?.Place?.topPlaces?.find(
+            (p) => p.dcid === "Earth"
+          );
+          if (earthPlace) {
+            return {
+              query: `${prefix}${result.name} in the ${earthPlace.name}`,
+              placeDcid: earthPlace.dcid,
+            };
+          }
+
+          // Ordered list of other place types.
+          const placeTypes = [
+            "Continent",
+            "Country",
+            "State",
+            "AdministrativeArea1",
+            "EurostatNUTS1",
+          ];
+          for (const placeType of placeTypes) {
+            const places = placeTypeSummary?.[placeType]?.topPlaces;
+            if (places && places.length > 0) {
+              const randomIndex = Math.floor(Math.random() * places.length);
+              const randomPlace = places[randomIndex];
+              return {
+                query: `${prefix}${result.name} in ${randomPlace.name}`,
+                placeDcid: randomPlace.dcid,
+              };
+            }
+          }
+        }
+        return {
+          query: prefix + result.name + " on Earth",
+          placeDcid: "Earth",
+        };
+      }
+      return { query: prefix + result.name, placeDcid: "" };
     }
   }
   // Fallback for any other case.
-  return stripPatternFromQuery(query, result.matchedQuery) + result.name;
+  return {
+    query: stripPatternFromQuery(query, result.matchedQuery) + result.name,
+    placeDcid: "",
+  };
 }

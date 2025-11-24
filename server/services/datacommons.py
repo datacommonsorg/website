@@ -13,33 +13,56 @@
 # limitations under the License.
 """Copy of Data Commons Python Client API Core without pandas dependency."""
 
-from concurrent.futures import ThreadPoolExecutor
+import asyncio
 import json
 import logging
 from typing import Dict, List
 import urllib.parse
 
 from flask import current_app
+from flask import has_app_context
+from flask import has_request_context
+from flask import request
 import requests
 
 from server.lib import log
-from server.lib.cache import cache
+from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
+from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
+from shared.lib.constants import SURFACE_HEADER_NAME
+from shared.lib.constants import UNKNOWN_SURFACE
 
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def get_basic_request_headers() -> dict:
+  headers = {
+      "Content-Type": "application/json",
+      SURFACE_HEADER_NAME: UNKNOWN_SURFACE
+  }
+
+  if has_app_context():
+    headers["x-api-key"] = current_app.config.get("DC_API_KEY", "")
+
+  if has_request_context():
+    # Represents the DC surface (website, web components, etc.) where the call originates
+    # Used in mixer's usage logs
+    headers[SURFACE_HEADER_NAME] = request.headers.get(SURFACE_HEADER_NAME,
+                                                       UNKNOWN_SURFACE)
+
+  return headers
+
+
+# Log the mixer response IDs to capture this call to mixer in the mixer usage logs
+@memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
-  headers = {"Content-Type": "application/json"}
-  dc_api_key = current_app.config.get("DC_API_KEY", "")
-  if dc_api_key:
-    headers["x-api-key"] = dc_api_key
+  headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -49,40 +72,48 @@ def get(url: str):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
+  # This is used to log cached and uncached mixer usage and is a list to be compatible with other cachable
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json[MIXER_RESPONSE_ID_FIELD] = [response_id]
+  return res_json
 
 
-def post(url: str,
-         req: Dict,
-         api_key: str | None = None,
-         log_extreme_calls: bool = True):
+def post(url: str, req: Dict):
+
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
-  key_to_use = api_key
-  if key_to_use is None:
-    key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url, req_str, key_to_use, log_extreme_calls)
+  return post_wrapper(url, req_str)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
+# Log the mixer response IDs to capture this call to mixer in the mixer usage logs
+@memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
+def post_wrapper(url, req_str: str, headers_str: str | None = None):
+
   req = json.loads(req_str)
-  headers = {"Content-Type": "application/json"}
-  if dc_api_key:
-    headers["x-api-key"] = dc_api_key
+  headers = get_basic_request_headers()
+
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
-  if log_extreme_calls:
-    call_logger.finish(response)
+  call_logger.finish(response)
+
   if response.status_code != 200:
     raise ValueError(
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
+  # This is used to log cached mixer usage and is a list to be compatible with other cached
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json[MIXER_RESPONSE_ID_FIELD] = [response_id]
+  return res_json
 
 
 def obs_point(entities, variables, date="LATEST"):
@@ -96,8 +127,7 @@ def obs_point(entities, variables, date="LATEST"):
     """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["date", "value", "variable", "entity"],
           "entity": {
               "dcids": sorted(entities)
@@ -106,8 +136,7 @@ def obs_point(entities, variables, date="LATEST"):
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-  )
+      })
 
 
 def obs_point_within(parent_entity,
@@ -195,6 +224,7 @@ def obs_series_within(parent_entity, child_type, variables, facet_ids=None):
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
+
   return post(url, req)
 
 
@@ -207,8 +237,7 @@ def series_facet(entities, variables):
     """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "dcids": sorted(entities)
@@ -216,18 +245,16 @@ def series_facet(entities, variables):
           "variable": {
               "dcids": sorted(variables)
           },
-      },
-  )
+      })
 
 
 def point_within_facet(parent_entity, child_type, variables, date):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
-    """
+  """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "expression":
@@ -238,8 +265,7 @@ def point_within_facet(parent_entity, child_type, variables, date):
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-  )
+      })
 
 
 def v2observation(select, entity, variable):
@@ -257,14 +283,11 @@ def v2observation(select, entity, variable):
   if "dcids" in variable:
     variable["dcids"] = sorted([x for x in variable["dcids"] if x])
   url = get_service_url("/v2/observation")
-  return post(
-      url,
-      {
-          "select": select,
-          "entity": entity,
-          "variable": variable,
-      },
-  )
+  return post(url, {
+      "select": select,
+      "entity": entity,
+      "variable": variable,
+  })
 
 
 def v2node(nodes, prop):
@@ -384,14 +407,12 @@ def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
   url = get_service_url("/v1/bulk/observation-dates/linked")
   return post(
-      url,
-      {
+      url, {
           "linked_property": "containedInPlace",
           "linked_entity": parent_entity,
           "entity_type": child_type,
           "variables": variables,
-      },
-  )
+      })
 
 
 def bio(entity):
@@ -416,27 +437,22 @@ def nl_search_vars(
     index_types: List[str],
     reranker="",
     skip_topics="",
-    nl_root=None,
-    api_key=None,
 ):
   """Search sv from NL server."""
   idx_params = ",".join(index_types)
-  root = nl_root
-  if root is None:
-    root = current_app.config["NL_ROOT"]
-  url = f"{root}/api/search_vars?idx={idx_params}"
+  nl_root = current_app.config["NL_ROOT"]
+  url = f"{nl_root}/api/search_vars?idx={idx_params}"
   if reranker:
     url = f"{url}&reranker={reranker}"
   if skip_topics:
     url = f"{url}&skip_topics={skip_topics}"
-  return post(url, {"queries": queries},
-              api_key=api_key,
-              log_extreme_calls=False)
+  return post(url, {"queries": queries})
 
 
-def nl_search_vars_in_parallel(queries: list[str],
-                               index_types: list[str],
-                               skip_topics: bool = False) -> dict[str, dict]:
+async def nl_search_vars_in_parallel(
+    queries: list[str],
+    index_types: list[str],
+    skip_topics: bool = False) -> dict[str, dict]:
   """Search sv from NL server in parallel for multiple indexes.
 
     Args:
@@ -447,21 +463,19 @@ def nl_search_vars_in_parallel(queries: list[str],
     Returns:
         A dictionary mapping from index name to the search result from that index.
     """
-  # Get config from application context before starting threads.
-  nl_root = current_app.config["NL_ROOT"]
-  api_key = current_app.config.get("DC_API_KEY", "")
 
-  def search_for_index(index):
-    return index, nl_search_vars(queries, [index],
-                                 skip_topics="true" if skip_topics else "",
-                                 nl_root=nl_root,
-                                 api_key=api_key)
+  async def search_for_index(index):
+    result = await asyncio.to_thread(
+        nl_search_vars,
+        queries=queries,
+        index_types=[index],
+        skip_topics="true" if skip_topics else "",
+    )
+    return index, result
 
-  with ThreadPoolExecutor() as executor:
-    return {
-        index: result
-        for index, result in executor.map(search_for_index, index_types)
-    }
+  tasks = [search_for_index(index) for index in index_types]
+  results = await asyncio.gather(*tasks)
+  return {index: result for index, result in results}
 
 
 def nl_detect_verbs(query):
