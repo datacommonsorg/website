@@ -34,6 +34,10 @@ import {
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { DATE_HIGHEST_COVERAGE } from "../../shared/constants";
+import {
+  ENABLE_RANKING_TILE_SCROLL,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { useLazyLoad } from "../../shared/hooks";
 import {
   buildObservationSpecs,
@@ -46,7 +50,6 @@ import {
 } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { isFeatureEnabled, ENABLE_RANKING_TILE_SCROLL } from "../../shared/feature_flags/util";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   RankingData,
@@ -273,8 +276,9 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   }
   return (
     <div
-      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className
-        } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${
+        props.className
+      } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
       ref={containerRef}
       style={{
         gridTemplateColumns:
@@ -296,7 +300,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         Object.keys(rankingData).map((statVar) => {
           const errorMsg =
             _.isEmpty(rankingData[statVar]) ||
-              rankingData[statVar].numDataPoints === 0
+            rankingData[statVar].numDataPoints === 0
               ? getNoDataErrorMsg(props.variables)
               : "";
           return (

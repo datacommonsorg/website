@@ -265,45 +265,54 @@ class ExplorePageTestMixin():
 
   def test_ranking_scroll_enabled(self):
     """Test ranking tile on explore page with scroll feature enabled."""
-    self.driver.get(self.url_ + '/explore#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country/EARTH&pt=Country&ept=Country&chartType=RANKING_WITH_MAP&enable_feature=enable_ranking_tile_scroll')
+    self.driver.get(
+        self.url_ +
+        '/explore#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country/EARTH&pt=Country&ept=Country&chartType=RANKING_WITH_MAP&enable_feature=enable_ranking_tile_scroll'
+    )
 
     shared.wait_for_loading(self.driver)
 
-    highlight_div = find_elem(self.driver, By.CLASS_NAME, 'highlight-result-title')
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
     ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile)
 
-    table = find_elem(ranking_tile,
-                      by=By.TAG_NAME,
-                      value='table')
+    table = find_elem(ranking_tile, by=By.TAG_NAME, value='table')
     self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
                        5)
 
     # Check for scrollability
-    ranking_list = find_elem(ranking_tile, by=By.CLASS_NAME, value='ranking-list')
+    ranking_list = find_elem(ranking_tile,
+                             by=By.CLASS_NAME,
+                             value='ranking-list')
     scrollable_div = find_elem(ranking_list, by=By.XPATH, value='./div[1]')
     self.assertEqual(scrollable_div.value_of_css_property('overflow-y'), 'auto')
 
   def test_ranking_scroll_disabled(self):
     """Test ranking tile on explore page with scroll feature disabled."""
-    self.driver.get(self.url_ + '/explore#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country/EARTH&pt=Country&ept=Country&chartType=RANKING_WITH_MAP&disable_feature=enable_ranking_tile_scroll')
+    self.driver.get(
+        self.url_ +
+        '/explore#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country/EARTH&pt=Country&ept=Country&chartType=RANKING_WITH_MAP&disable_feature=enable_ranking_tile_scroll'
+    )
 
     shared.wait_for_loading(self.driver)
 
-    highlight_div = find_elem(self.driver, By.CLASS_NAME, 'highlight-result-title')
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
     ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile)
 
-    table = find_elem(ranking_tile,
-                      by=By.TAG_NAME,
-                      value='table')
-    self.assertLessEqual(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
-                         5)
+    table = find_elem(ranking_tile, by=By.TAG_NAME, value='table')
+    self.assertLessEqual(
+        len(find_elems(table, by=By.XPATH, value='.//tbody/tr')), 5)
 
     # Check for non-scrollability
-    ranking_list = find_elem(ranking_tile, by=By.CLASS_NAME, value='ranking-list')
+    ranking_list = find_elem(ranking_tile,
+                             by=By.CLASS_NAME,
+                             value='ranking-list')
     # There should be no div with overflow-y: auto
     scrollable_divs = find_elems(
-        ranking_list, by=By.XPATH,
+        ranking_list,
+        by=By.XPATH,
         value="./div[@style='max-height: 400px; overflow-y: auto;']")
     self.assertEqual(len(scrollable_divs), 0)

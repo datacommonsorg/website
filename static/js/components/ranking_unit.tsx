@@ -182,33 +182,38 @@ function RankingRow(props: {
   return (
     <tr ref={rowRef}>
       <td
-        className={`rank ${point.placeDcid === highlightedDcid ? "bold" : ""
-          }`}
+        className={`rank ${point.placeDcid === highlightedDcid ? "bold" : ""}`}
       >
         {point.rank}.
       </td>
       <td
-        className={`place-name ${point.placeDcid === highlightedDcid ? "bold" : ""
-          }`}
+        className={`place-name ${
+          point.placeDcid === highlightedDcid ? "bold" : ""
+        }`}
       >
         <LocalizedLink
           href={urlFunc(point.placeDcid, entityType, apiRoot)}
-          text={(
+          text={
             isVisible ? (
               <PlaceName dcid={point.placeDcid} apiRoot={apiRoot} />
             ) : (
               <Spinner color="secondary" size="sm" />
             )
-          )}
-          onMouseEnter={() => onHoverToggled && onHoverToggled(point.placeDcid, true)}
-          onMouseLeave={() => onHoverToggled && onHoverToggled(point.placeDcid, false)}
+          }
+          onMouseEnter={() =>
+            onHoverToggled && onHoverToggled(point.placeDcid, true)
+          }
+          onMouseLeave={() =>
+            onHoverToggled && onHoverToggled(point.placeDcid, false)
+          }
         />
       </td>
       {!hideValue && _.isEmpty(point.values) && (
         <td className="stat">
           <span
-            className={`num-value ${point.placeDcid === highlightedDcid ? "bold" : ""
-              }`}
+            className={`num-value ${
+              point.placeDcid === highlightedDcid ? "bold" : ""
+            }`}
           >
             {formatNumber(
               !_.isEmpty(scaling) && scaling[0]
@@ -224,13 +229,12 @@ function RankingRow(props: {
         point.values.map((v, i) => (
           <td key={i} className="stat">
             <span
-              className={`num-value ${point.placeDcid === highlightedDcid ? "bold" : ""
-                }`}
+              className={`num-value ${
+                point.placeDcid === highlightedDcid ? "bold" : ""
+              }`}
             >
               {formatNumber(
-                !_.isEmpty(scaling) && scaling[i]
-                  ? v * scaling[i]
-                  : v,
+                !_.isEmpty(scaling) && scaling[i] ? v * scaling[i] : v,
                 unit && unit.length ? unit[i] : ""
               )}
             </span>
@@ -300,7 +304,13 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                       </tr>
                     )}
                     {points.map((point) => {
-                      return <RankingRow key={point.placeDcid} point={point} {...props} />;
+                      return (
+                        <RankingRow
+                          key={point.placeDcid}
+                          point={point}
+                          {...props}
+                        />
+                      );
                     })}
                   </React.Fragment>
                 );
@@ -333,7 +343,13 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                     </tr>
                   )}
                   {points.map((point) => {
-                    return <RankingRow key={point.placeDcid} point={point} {...props} />;
+                    return (
+                      <RankingRow
+                        key={point.placeDcid}
+                        point={point}
+                        {...props}
+                      />
+                    );
                   })}
                 </React.Fragment>
               );

@@ -295,7 +295,9 @@ export function getRankingUnitPoints(
       ? rankingGroup.points.slice(-rankingCount).reverse()
       : rankingGroup.points.slice(0, rankingCount);
   } else {
-    topPoints = isHighest ? [...rankingGroup.points].reverse() : rankingGroup.points;
+    topPoints = isHighest
+      ? [...rankingGroup.points].reverse()
+      : rankingGroup.points;
   }
   let bottomPoints = null;
   if (!enableScroll && rankingMetadata.showHighestLowest) {
@@ -400,8 +402,8 @@ function getExploreLink(
   const places = isHighest
     ? rankingGroup.points.slice(-rankingCount).map((point) => point.placeDcid)
     : rankingGroup.points
-      .slice(0, rankingCount)
-      .map((point) => point.placeDcid);
+        .slice(0, rankingCount)
+        .map((point) => point.placeDcid);
   const hash = getHash(
     VisType.TIMELINE,
     places,
