@@ -34,6 +34,8 @@
     "enabled": false,
     "owner": "gmechali",
     "description": "Enables scrolling through Ranking tile rows."
+  },
+  {
     "name": "enable_nl_agent_detector",
     "enabled": true,
     "owner": "clincoln8",
