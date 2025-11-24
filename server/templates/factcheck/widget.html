@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Data Commons Fact Checker Widget</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <script src="https://datacommons.org/datacommons.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: 'Google Sans', sans-serif;
+      background-color: #f8f9fa;
+      overflow-x: hidden;
+    }
+
+    .widget-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #202124;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 12px;
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      resize: vertical;
+      font-family: 'Google Sans Text', sans-serif;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 1px #1a73e8;
+    }
+
+    button {
+      width: 100%;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    button:hover {
+      background-color: #1765cc;
+      box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3);
+    }
+
+    button:disabled {
+      background-color: #dadce0;
+      color: #80868b;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .result-item {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3);
+      margin-bottom: 16px;
+    }
+
+    .verdict-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .verdict-supported {
+      background-color: #e6f4ea;
+      color: #137333;
+    }
+
+    .verdict-refuted {
+      background-color: #fce8e6;
+      color: #c5221f;
+    }
+
+    .verdict-other {
+      background-color: #f1f3f4;
+      color: #5f6368;
+    }
+
+    .explanation {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #3c4043;
+      margin-bottom: 12px;
+    }
+
+    .chart-container {
+      height: 300px;
+      margin-top: 12px;
+      width: 100%;
+    }
+
+    .loading {
+      text-align: center;
+      color: #5f6368;
+      display: none;
+      margin-top: 20px;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #1a73e8;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 8px auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .context-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .context-chip {
+      background: #f1f3f4;
+      border-radius: 12px;
+      padding: 4px 8px;
+      font-size: 11px;
+      color: #5f6368;
+    }
+
+    .context-chip a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .context-chip a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="widget-container">
+    <div class="header">
+      <h2>Data Commons Fact Checker</h2>
+    </div>
+
+    <div>
+      <textarea id="claimInput" placeholder="Enter a claim or select text on a page..."></textarea>
+      <div style="display: flex; gap: 8px;">
+        <button id="verifyBtn" style="flex: 2;">Verify</button>
+        <button id="scanBtn" style="flex: 1; background-color: #f1f3f4; color: #3c4043;">Scan Page</button>
+      </div>
+    </div>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <div id="loadingText">Verifying...</div>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    const verifyBtn = document.getElementById('verifyBtn');
+    const scanBtn = document.getElementById('scanBtn');
+    const claimInput = document.getElementById('claimInput');
+    const loading = document.getElementById('loading');
+    const loadingText = document.getElementById('loadingText');
+    const resultsDiv = document.getElementById('results');
+
+    // Listen for messages from the parent (extension)
+    window.addEventListener('message', (event) => {
+      if (event.data.type === 'VERIFY_TEXT') {
+        claimInput.value = event.data.text;
+        verifyClaim(event.data.text);
+      } else if (event.data.type === 'VERIFY_ERROR') {
+        loading.style.display = 'none';
+        verifyBtn.disabled = false;
+        resultsDiv.innerHTML = `<div class="error-message" style="color: #d93025; padding: 10px; background: #fce8e6; border-radius: 4px;">${event.data.error}</div>`;
+      }
+    });
+
+    verifyBtn.addEventListener('click', () => {
+      const claim = claimInput.value.trim();
+      if (claim) verifyClaim(claim);
+    });
+
+    scanBtn.addEventListener('click', () => {
+      // Send message to parent (sidepanel.js) to scan the page
+      window.parent.postMessage({ type: 'SCAN_PAGE' }, '*');
+      loading.style.display = 'block';
+      loadingText.textContent = 'Scanning page content...';
+      resultsDiv.innerHTML = '';
+    });
+
+    async function verifyClaim(claim) {
+      verifyBtn.disabled = true;
+      loading.style.display = 'block';
+      resultsDiv.innerHTML = '';
+
+      try {
+        const response = await fetch('/factcheck/api/verify_claim', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ claim: claim })
+        });
+
+        const data = await response.json();
+
+        // Send results to parent (extension) for history
+        window.parent.postMessage({
+          type: 'VERIFICATION_COMPLETE',
+          claim: claim,
+          result: data
+        }, '*');
+
+        let results = [];
+        if (data.verification_verdict) {
+          results = Array.isArray(data.verification_verdict) ? data.verification_verdict : [data.verification_verdict];
+        } else if (data.verdict) {
+          results = [data];
+        } else if (data.error) {
+          results = [{ verdict: "ERROR", explanation: data.error }];
+        }
+
+        // Group results by StatVar
+        const groups = {};
+        results.forEach(result => {
+          const sv = result.stat_var_dcid;
+          if (sv) {
+            if (!groups[sv]) groups[sv] = [];
+            groups[sv].push(result);
+          } else {
+            if (!groups['__no_sv__']) groups['__no_sv__'] = [];
+            groups['__no_sv__'].push(result);
+          }
+        });
+
+        // Render groups
+        Object.keys(groups).forEach(sv => {
+          const groupResults = groups[sv];
+          const isNoSv = sv === '__no_sv__';
+
+          const groupDiv = document.createElement('div');
+          groupDiv.className = 'result-group';
+          groupDiv.style.marginBottom = '24px';
+          if (resultsDiv.children.length > 0) {
+            groupDiv.style.borderTop = '1px solid #dadce0';
+            groupDiv.style.paddingTop = '16px';
+          }
+
+          // Render text explanations
+          groupResults.forEach(result => {
+            const verdict = result.verdict || "UNKNOWN";
+            let badgeClass = 'verdict-other';
+            const v = verdict.toLowerCase();
+            if (v.includes('support') || v.includes('true')) badgeClass = 'verdict-supported';
+            else if (v.includes('refute') || v.includes('false') || v.includes('disputed')) badgeClass = 'verdict-refuted';
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'result-item';
+            itemDiv.innerHTML = `
+                    <div class="verdict-badge ${badgeClass}">${verdict}</div>
+                    <div class="explanation">${(result.explanation || "").replace(/\n/g, '<br>')}</div>
+                `;
+            groupDiv.appendChild(itemDiv);
+          });
+
+          // Render ONE chart for the group
+          if (!isNoSv) {
+            const places = [...new Set(groupResults.map(r => r.place_dcid).filter(p => p))];
+            if (places.length > 0) {
+              const placeStr = places.join(' ');
+              const exploreUrl = `/explore?sv=${sv}&p=${places[0]}&chartType=TIMELINE_WITH_HIGHLIGHT`;
+
+              const contextDiv = document.createElement('div');
+              contextDiv.style.marginTop = '12px';
+
+              let placesHtml = places.map(p => `<a href="/place/${p}" target="_blank" style="color:inherit;text-decoration:none">${p}</a>`).join(', ');
+
+              contextDiv.innerHTML = `
+                        <div class="context-chips">
+                            <span class="context-chip">Places: ${placesHtml}</span>
+                            <span class="context-chip">Variable: <a href="${exploreUrl}" target="_blank" style="color:inherit;text-decoration:none">${sv}</a></span>
+                        </div>
+                        <div class="chart-container"></div>
+                        <div style="margin-top: 12px; text-align: right;">
+                            <a href="${exploreUrl}" target="_blank" style="color: #1a73e8; text-decoration: none; font-size: 13px; font-weight: 500;">
+                                Explore in Data Commons &rarr;
+                            </a>
+                        </div>
+                    `;
+
+              const chart = document.createElement('datacommons-line');
+              chart.setAttribute('places', placeStr);
+              chart.setAttribute('variables', sv);
+              chart.setAttribute('title', 'Source Data');
+              contextDiv.querySelector('.chart-container').appendChild(chart);
+
+              groupDiv.appendChild(contextDiv);
+            }
+          }
+
+          resultsDiv.appendChild(groupDiv);
+        });
+
+      } catch (e) {
+        resultsDiv.innerHTML = `<div class="result-item" style="color:red">Error: ${e.message}</div>`;
+      } finally {
+        loading.style.display = 'none';
+        verifyBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+
+</html>
