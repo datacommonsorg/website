@@ -157,7 +157,10 @@
   <div id="historyPanel" class="history-panel">
     <div class="history-header">
       <h3>History</h3>
-      <button id="closeHistory" class="close-btn">&times;</button>
+      <div style="display: flex; gap: 8px;">
+        <button id="clearHistory" class="history-btn" style="padding: 4px 8px; font-size: 11px;">Clear</button>
+        <button id="closeHistory" class="close-btn">&times;</button>
+      </div>
     </div>
     <div id="historyList" class="history-list">
       <!-- History items will be populated here -->
