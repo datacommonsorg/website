@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Data Commons Fact Checker",
+  "version": "1.2",
+  "description": "Verify statistical claims using Data Commons.",
+  "permissions": [
+    "sidePanel",
+    "contextMenus",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open Fact Checker"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "icons": {}
+}

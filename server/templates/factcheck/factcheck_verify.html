@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2025 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Verify a Claim - {{ sitename }}</title>
+
+  {% include 'factcheck/gtm.html' %}
+  
+  <style>
+    .verify-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      font-family: 'Google Sans', sans-serif;
+    }
+    .claim-input {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+    .verify-btn {
+      background-color: #1a73e8;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .verify-btn:hover {
+      background-color: #1557b0;
+    }
+    .verify-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .result-box {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+      display: none;
+    }
+    .verdict {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .verdict.supported { color: #1e8e3e; }
+    .verdict.refuted { color: #d93025; }
+    .verdict.not_enough_info { color: #f9ab00; }
+    
+    .explanation {
+      line-height: 1.6;
+    }
+    .loading {
+      display: none;
+      margin-top: 20px;
+      color: #666;
+    }
+  </style>
+
+</head>
+<body>
+{% include 'factcheck/basicPageHeader.html' %}
+
+<div id="mainContent" class="factCheckSite">
+  <div class="verify-container">
+    <h1>Verify a Statistical Claim</h1>
+    <p>Enter a claim below to verify it against Data Commons statistical data.</p>
+    
+    <textarea id="claimInput" class="claim-input" rows="4" placeholder="e.g., The population of Italy is over 60 million."></textarea>
+    <button id="verifyBtn" class="verify-btn" onclick="verifyClaim()">Verify Claim</button>
+    
+    <div id="loading" class="loading">
+      Verifying claim... this may take a few seconds.
+    </div>
+
+    <div id="resultBox" class="result-box">
+      <div id="verdict" class="verdict"></div>
+      <div id="explanation" class="explanation"></div>
+    </div>
+  </div>
+</div>
+
+{% include 'factcheck/basicPageFooter.html' %}
+
+<script>
+async function verifyClaim() {
+  const claim = document.getElementById('claimInput').value;
+  if (!claim) return;
+
+  const btn = document.getElementById('verifyBtn');
+  const loading = document.getElementById('loading');
+  const resultBox = document.getElementById('resultBox');
+  
+  btn.disabled = true;
+  loading.style.display = 'block';
+  resultBox.style.display = 'none';
+
+  try {
+    const response = await fetch('/factcheck/api/verify_claim', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ claim: claim }),
+    });
+
+    const data = await response.json();
+    
+    loading.style.display = 'none';
+    btn.disabled = false;
+    resultBox.style.display = 'block';
+
+    const verdictEl = document.getElementById('verdict');
+    const explanationEl = document.getElementById('explanation');
+
+    // Handle the nested structure from dc_tool.py
+    // It returns { "verification_verdict": { "verdict": "...", "explanation": "..." } }
+    // Or sometimes just { "verdict": "...", "explanation": "..." } depending on how we wrap it.
+    // In utils.py verify_claim returns:
+    // { "original_claim": ..., "verification_verdict": response, "provider": ... }
+    // And response from ask_data_commons is { "verdict": ..., "explanation": ... }
+    
+    let verdict = "UNKNOWN";
+    let explanation = "No explanation provided.";
+    
+    if (data.verification_verdict) {
+        verdict = data.verification_verdict.verdict || "UNKNOWN";
+        explanation = data.verification_verdict.explanation || JSON.stringify(data.verification_verdict);
+    } else if (data.verdict) {
+        verdict = data.verdict;
+        explanation = data.explanation;
+    } else if (data.error) {
+        verdict = "ERROR";
+        explanation = data.error;
+    }
+
+    verdictEl.textContent = verdict;
+    verdictEl.className = 'verdict ' + verdict.toLowerCase().replace(/\s+/g, '_');
+    
+    // Simple markdown to HTML conversion for explanation if needed, or just text
+    explanationEl.innerHTML = explanation.replace(/\n/g, '<br>');
+
+  } catch (error) {
+    console.error('Error:', error);
+    loading.style.display = 'none';
+    btn.disabled = false;
+    resultBox.style.display = 'block';
+    document.getElementById('verdict').textContent = "ERROR";
+    document.getElementById('explanation').textContent = "An error occurred while verifying the claim.";
+  }
+}
+</script>
+
+</body>
+</html>
