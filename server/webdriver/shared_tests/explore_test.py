@@ -273,7 +273,7 @@ class ExplorePageTestMixin():
     shared.wait_for_loading(self.driver)
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
-                              'highlight-result-title')
+                              'ranking-unit-container')
     ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile)
 
@@ -298,7 +298,7 @@ class ExplorePageTestMixin():
     shared.wait_for_loading(self.driver)
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
-                              'highlight-result-title')
+                              'ranking-unit-container')
     ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile)
 
