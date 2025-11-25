@@ -32,8 +32,7 @@ The file structure is as follows:
 ├── nl_app.py            # Entry point for the NL server
 ├── web_app.py           # Entry point for the main website server
 ├── run_*.sh             # Various convenience scripts to run the servers/tests locally
-├── skaffold.yaml        # Configuration for Skaffold (Kubernetes development)
-└── README.md
+└── skaffold.yaml        # Configuration for Skaffold (Kubernetes development)
 ```
 
 ## Running Flask Locally
