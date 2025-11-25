@@ -177,9 +177,7 @@ function RankingRow(props: {
         <LocalizedLink
           href={urlFunc(point.placeDcid, entityType, apiRoot)}
           text={
-            point.placeName ? (
-              point.placeName
-            ) : shouldLoad ? (
+            shouldLoad ? (
               <PlaceName dcid={point.placeDcid} apiRoot={apiRoot} />
             ) : (
               <Spinner color="secondary" size="sm" />
