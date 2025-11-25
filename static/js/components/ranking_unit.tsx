@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { RefObject, useContext } from "react";
 import { Spinner } from "reactstrap";
 
+import { useLazyLoad } from "../shared/hooks";
 import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
@@ -143,6 +144,7 @@ function RankingRow(props: {
   scaling?: number[];
   unit?: string[];
   svNames?: string[];
+  eagerLoad?: boolean;
 }): JSX.Element {
   const {
     point,
@@ -153,34 +155,14 @@ function RankingRow(props: {
     hideValue,
     scaling,
     unit,
+    eagerLoad,
   } = props;
-  const [isVisible, setIsVisible] = React.useState(false);
-  const rowRef = React.useRef<HTMLTableRowElement>(null);
+  const { shouldLoad: lazyShouldLoad, containerRef } = useLazyLoad<HTMLTableRowElement>("200px");
   const urlFunc = React.useContext(RankingUnitUrlFuncContext);
-
-  React.useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-
-    if (rowRef.current) {
-      observer.observe(rowRef.current);
-    }
-
-    return () => {
-      if (rowRef.current) {
-        observer.unobserve(rowRef.current);
-      }
-    };
-  }, []);
+  const shouldLoad = eagerLoad || lazyShouldLoad;
 
   return (
-    <tr ref={rowRef}>
+    <tr ref={containerRef}>
       <td
         className={`rank ${point.placeDcid === highlightedDcid ? "bold" : ""}`}
       >
@@ -194,7 +176,7 @@ function RankingRow(props: {
         <LocalizedLink
           href={urlFunc(point.placeDcid, entityType, apiRoot)}
           text={
-            isVisible ? (
+            shouldLoad ? (
               <PlaceName dcid={point.placeDcid} apiRoot={apiRoot} />
             ) : (
               <Spinner color="secondary" size="sm" />
@@ -303,12 +285,13 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                         <td>...</td>
                       </tr>
                     )}
-                    {points.map((point) => {
+                    {points.map((point, i) => {
                       return (
                         <RankingRow
                           key={point.placeDcid}
                           point={point}
                           {...props}
+                          eagerLoad={idx === 0 && i < 20}
                         />
                       );
                     })}
@@ -342,12 +325,13 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                       <td>...</td>
                     </tr>
                   )}
-                  {points.map((point) => {
+                  {points.map((point, i) => {
                     return (
                       <RankingRow
                         key={point.placeDcid}
                         point={point}
                         {...props}
+                        eagerLoad={idx === 0 && i < 20}
                       />
                     );
                   })}
