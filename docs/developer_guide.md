@@ -6,23 +6,6 @@ To get started with setting up the website for local development, see the [Setup
 
 ## Repo Overview
 
-Website is deployed in Kubernetes cluster. A deployment contains the following
-containers:
-
-- website: A Flask app with static files complied by Webpack.
-- mixer: A Data Commons API server.
-- esp: Google Extensive Service Proxy used for endpoints management.
-
-[mixer](https://github.com/datacommonsorg/mixer) is a submodule of this Git
-repo. The exact commit of the submodule is deployed together with the website so
-it may not be the same version as in `https://api.datacommons.org/version`.
-Make sure to update and track the mixer changes for a new deployment:
-
-```bash
-git submodule foreach git pull origin master
-git submodule update --init --recursive
-```
-
 ## Running Flask Locally
 
 For changes that do not test GCP deployment or involve mixer changes, one can
@@ -206,6 +189,15 @@ npm test . -- -u
 ```
 
 ## Deployment
+
+Website is deployed in Kubernetes cluster. A deployment contains the following
+containers:
+
+- website: A Flask app with static files complied by Webpack.
+- mixer: A Data Commons API server.
+- esp: Google Extensive Service Proxy used for endpoints management.
+
+The code for mixer lives in our [mixer repo](https://github.com/datacommonsorg/mixer) and is included in website as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). We read mixer's deployment info from the submodule.
 
 ### Deploy local changes to dev instance in GCP
 
