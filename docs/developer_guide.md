@@ -26,7 +26,7 @@ The file structure is as follows:
 ├── shared/              # Shared resources and logic used across servers
 ├── static/              # Static assets: CSS, JavaScript, images, and data files
 ├── tools/               # Developer tools (e.g., golden generators, verifiers)
-├── nl_app.py            # Entry point for the Natural Language application
+├── nl_app.py            # Entry point for the NL server
 ├── web_app.py           # Entry point for the main Web application
 ├── run_*.sh             # Various convenience scripts to run the app/tests locally
 ├── skaffold.yaml        # Configuration for Skaffold (Kubernetes development)
