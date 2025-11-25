@@ -28,7 +28,7 @@ The file structure is as follows:
 ├── tools/               # Developer tools (e.g., golden generators, verifiers)
 ├── nl_app.py            # Entry point for the NL server
 ├── web_app.py           # Entry point for the main website server
-├── run_*.sh             # Various convenience scripts to run the app/tests locally
+├── run_*.sh             # Various convenience scripts to run the servers/tests locally
 ├── skaffold.yaml        # Configuration for Skaffold (Kubernetes development)
 └── README.md
 ```
