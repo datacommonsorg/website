@@ -52,7 +52,7 @@ Start the flask webserver locally at `localhost:8080`
 ```
 
 To enable NL search, follow the "Start NL Server" instructions in the next section.
-Then, enable language models via `-m`:
+Then, start the flask webserver with language models enabled via `-m`:
 
 ```bash
 ./run_server.sh -m
