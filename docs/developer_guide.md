@@ -22,7 +22,7 @@ The file structure is as follows:
 ├── nl_server/           # Code for the Natural Language (NL) search server
 ├── packages/            # Shared internal packages/libraries (often for UI)
 ├── scripts/             # Utility and maintenance scripts
-├── server/              # Main Python web server application code (Flask/endpoints)
+├── server/              # Main Python website server code (Flask/endpoints)
 ├── shared/              # Shared resources and logic used across servers
 ├── static/              # Static assets: CSS, JavaScript, images, and data files
 ├── tools/               # Developer tools (e.g., golden generators, verifiers)
