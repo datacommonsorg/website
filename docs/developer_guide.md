@@ -6,6 +6,33 @@ To get started with setting up the website for local development, see the [Setup
 
 ## Repo Overview
 
+This website repository ("website") holds code for the frontend of Data Commons, including https://datacommons.org, [Custom Data Commons](https://docs.datacommons.org/custom_dc/), the [JavaScript client](https://www.npmjs.com/package/@datacommonsorg/client), the [web components](https://docs.datacommons.org/api/web_components/), and more.
+
+The file structure is as follows:
+
+```
+├── .github/             # GitHub Actions workflows (CI/CD) and templates
+├── build/               # Build scripts and configuration
+├── custom_dc/           # Sample configurations for Custom Data Commons instances
+├── deploy/              # Deployment scripts (likely for GKE/Cloud Run)
+├── docs/                # Developer guides and documentation
+├── gke/                 # Google Kubernetes Engine configuration files
+├── mixer/               # Submodule: Code for the Data Commons Mixer (backend)
+├── model_server/        # Code for the model hosting server
+├── nl_server/           # Code for the Natural Language (NL) search server
+├── packages/            # Shared internal packages/libraries (often for UI)
+├── scripts/             # Utility and maintenance scripts
+├── server/              # Main Python web server application code (Flask/endpoints)
+├── shared/              # Shared resources and logic used across servers
+├── static/              # Static assets: CSS, JavaScript, images, and data files
+├── tools/               # Developer tools (e.g., golden generators, verifiers)
+├── nl_app.py            # Entry point for the Natural Language application
+├── web_app.py           # Entry point for the main Web application
+├── run_*.sh             # Various convenience scripts to run the app/tests locally
+├── skaffold.yaml        # Configuration for Skaffold (Kubernetes development)
+└── README.md
+```
+
 ## Running Flask Locally
 
 For changes that do not test GCP deployment or involve mixer changes, one can
