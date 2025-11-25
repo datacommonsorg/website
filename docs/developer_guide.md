@@ -17,6 +17,7 @@ The file structure is as follows:
 ├── deploy/              # Deployment scripts (GKE/Cloud Run)
 ├── docs/                # Developer guides and documentation
 ├── gke/                 # Google Kubernetes Engine configuration files
+├── import/            # Submodule: Import scripts used for loading Custom DC data
 ├── mixer/               # Submodule: Code for the Data Commons Mixer (backend)
 ├── model_server/        # Code for the model hosting server
 ├── nl_server/           # Code for the Natural Language (NL) search server
