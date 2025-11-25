@@ -22,10 +22,10 @@ import _ from "lodash";
 import React, { RefObject, useContext } from "react";
 import { Spinner } from "reactstrap";
 
-import { useLazyLoad } from "../shared/hooks";
 import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
+import { useLazyLoad } from "../shared/hooks";
 import { RankingPoint } from "../types/ranking_unit_types";
 import { PlaceName } from "./place_name";
 
@@ -157,7 +157,8 @@ function RankingRow(props: {
     unit,
     eagerLoad,
   } = props;
-  const { shouldLoad: lazyShouldLoad, containerRef } = useLazyLoad<HTMLTableRowElement>("200px");
+  const { shouldLoad: lazyShouldLoad, containerRef } =
+    useLazyLoad<HTMLTableRowElement>("200px");
   const urlFunc = React.useContext(RankingUnitUrlFuncContext);
   const shouldLoad = eagerLoad || lazyShouldLoad;
 
@@ -256,10 +257,10 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       {props.errorMsg ? (
         <div>{props.errorMsg}</div>
       ) : props.enableScroll ? (
-          <div
-            className="ranking-scroll-container"
-            style={{ maxHeight: "400px", overflowY: "auto" }}
-          >
+        <div
+          className="ranking-scroll-container"
+          style={{ maxHeight: "400px", overflowY: "auto" }}
+        >
           <table>
             {props.svNames && !props.hideValue && (
               <thead

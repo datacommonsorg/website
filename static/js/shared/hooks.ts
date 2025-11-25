@@ -46,7 +46,7 @@ export const useLazyLoad = <T extends HTMLElement = HTMLDivElement>(
   rootMargin?: string
 ): {
   shouldLoad: boolean;
-    containerRef: MutableRefObject<T | null>;
+  containerRef: MutableRefObject<T | null>;
 } => {
   const [isIntersecting, setIntersecting] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
