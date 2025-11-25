@@ -26,6 +26,7 @@ from flask_caching import Cache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
+from shared.lib.constants import LOG_CACHED_MIXER_RESPONSE_USAGE
 from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 logger = logging.getLogger(__name__)
@@ -183,6 +184,8 @@ def log_mixer_response_id(result: Union[dict, Response]) -> None:
   Args:
     result (dict or Flask Response): A cached result that may contain mixer response IDs.
   """
+  if not getattr(cfg, LOG_CACHED_MIXER_RESPONSE_USAGE, False):
+    return
   try:
     log_payload = {
         "message": "Mixer responses used in the website cache",
@@ -193,6 +196,10 @@ def log_mixer_response_id(result: Union[dict, Response]) -> None:
       data = result.get_json()
     ids = data.get(MIXER_RESPONSE_ID_FIELD)
     if ids:
+      # The GCP log router that directs these logs to BigQuery detects them
+      # Based on the presence of the MIXER_RESPONSE_ID_FIELD field in the jsonPayload.
+      # If you update the field name here, also update the filter on the website_cache_mixer_usage_logs log router here:
+      # https://pantheon.corp.google.com/logs/router?e=13803378&mods=-monitoring_api_staging&project=datcom-website-prod
       log_payload[MIXER_RESPONSE_ID_FIELD] = ids
       logger.info(json.dumps(log_payload))
   except Exception as e:
