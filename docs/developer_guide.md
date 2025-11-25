@@ -25,7 +25,9 @@ The file structure is as follows:
 ├── scripts/             # Utility and maintenance scripts
 ├── server/              # Main Python website server code (Flask/endpoints)
 ├── shared/              # Shared resources and logic used across servers
-├── static/              # Static assets: CSS, JavaScript, images, and data files
+├── static/              # Static assets: CSS, JavaScript, images, and data files for website
+│   └── src/        # Entry point for the NodeJS Charts server
+│   └── nodejs_server/        # Main lib code for the NodeJs Charts server
 ├── tools/               # Developer tools (e.g., golden generators, verifiers)
 ├── nl_app.py            # Entry point for the NL server
 ├── web_app.py           # Entry point for the main website server
