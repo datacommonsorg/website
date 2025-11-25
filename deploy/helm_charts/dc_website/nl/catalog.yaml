@@ -59,37 +59,37 @@ indexes:
     healthcheck_query: "Life expectancy"
   sdg_ft:
     store_type: MEMORY
-    source_path: ../../tools/nl/embeddings/input/sdg
+    source_path: ../../../../tools/nl/embeddings/input/sdg
     embeddings_path: gs://datcom-nl-models/sdg_ft_2024_06_24_23_45_46/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ft:
     store_type: MEMORY
-    source_path: ../../tools/nl/embeddings/input/undata
+    source_path: ../../../../tools/nl/embeddings/input/undata
     embeddings_path: gs://datcom-nl-models/undata_ft_2024_06_24_23_47_04/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ilo_ft:
     store_type: MEMORY
-    source_path: ../../tools/nl/embeddings/input/undata_ilo
+    source_path: ../../../../tools/nl/embeddings/input/undata_ilo
     embeddings_path: gs://datcom-nl-models/undata_ilo_ft_2024_10_14_13_45_50/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
   bio_ft:
     store_type: MEMORY
-    source_path: ../../tools/nl/embeddings/input/bio
+    source_path: ../../../../tools/nl/embeddings/input/bio
     embeddings_path: gs://datcom-nl-models/bio_ft_2024_11_08_19_00_38/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
   base_uae_mem:
     store_type: MEMORY
-    source_path: ../../tools/nl/embeddings/input/base
+    source_path: ../../../../tools/nl/embeddings/input/base
     embeddings_path:  gs://datcom-nl-models/base_uae_mem_2025_11_03_07_10_42/embeddings.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   base_mistral_mem:
     store_type: MEMORY
-    source_path: ../../tools/nl/embeddings/input/base
+    source_path: ../../../../tools/nl/embeddings/input/base
     embeddings_path: gs://datcom-nl-models/base_mistral_mem_2024_07_01_10_23_43/embeddings.csv
     model: sfr-embedding-mistral-model
     healthcheck_query: "Life expectancy"
