@@ -14,7 +14,7 @@ The file structure is as follows:
 ├── .github/             # GitHub Actions workflows (CI/CD) and templates
 ├── build/               # Build scripts and configuration
 ├── custom_dc/           # Sample configurations for Custom Data Commons instances
-├── deploy/              # Deployment scripts (likely for GKE/Cloud Run)
+├── deploy/              # Deployment scripts (GKE/Cloud Run)
 ├── docs/                # Developer guides and documentation
 ├── gke/                 # Google Kubernetes Engine configuration files
 ├── mixer/               # Submodule: Code for the Data Commons Mixer (backend)
