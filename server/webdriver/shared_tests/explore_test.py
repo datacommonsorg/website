@@ -272,8 +272,7 @@ class ExplorePageTestMixin():
 
     shared.wait_for_loading(self.driver)
 
-    first_block = find_elems(self.driver, By.CLASS_NAME,
-                              'block')[0]
+    first_block = find_elems(self.driver, By.CLASS_NAME, 'block')[0]
     ranking_tile = find_elem(first_block, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile)
 
@@ -298,8 +297,7 @@ class ExplorePageTestMixin():
 
     shared.wait_for_loading(self.driver)
 
-    first_block = find_elems(self.driver, By.CLASS_NAME,
-                              'block')[0]
+    first_block = find_elems(self.driver, By.CLASS_NAME, 'block')[0]
     ranking_tile = find_elem(first_block, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile)
 
