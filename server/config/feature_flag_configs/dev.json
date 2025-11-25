@@ -30,6 +30,12 @@
     "description": "Enabling Gemini 2.5 Flash Lite for NL detection."
   },
   {
+    "name": "enable_ranking_tile_scroll",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Enables scrolling through Ranking tile rows."
+  },
+  {
     "name": "enable_nl_agent_detector",
     "enabled": false,
     "owner": "clincoln8",
