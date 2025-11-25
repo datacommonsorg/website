@@ -325,7 +325,10 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               title={props.title}
               statVarSpecs={props.variables}
               surface={props.surface}
-              enableScroll={isFeatureEnabled(ENABLE_RANKING_TILE_SCROLL)}
+              enableScroll={
+                isFeatureEnabled(ENABLE_RANKING_TILE_SCROLL) &&
+                props.rankingMetadata.showHighestLowest
+              }
             />
           );
         })}

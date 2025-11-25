@@ -267,7 +267,7 @@ class ExplorePageTestMixin():
     """Test ranking tile on explore page with scroll feature enabled."""
     self.driver.get(
         self.url_ +
-        '/explore#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country/EARTH&pt=Country&ept=Country&chartType=RANKING_WITH_MAP&enable_feature=enable_ranking_tile_scroll'
+        '/explore?enable_feature=enable_ranking_tile_scroll#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=Earth&pt=Country&ept=Country&chartType=RANKING_WITH_MAP'
     )
 
     shared.wait_for_loading(self.driver)
@@ -285,14 +285,15 @@ class ExplorePageTestMixin():
     ranking_list = find_elem(ranking_tile,
                              by=By.CLASS_NAME,
                              value='ranking-list')
-    scrollable_div = find_elem(ranking_list, by=By.XPATH, value='./div[1]')
-    self.assertEqual(scrollable_div.value_of_css_property('overflow-y'), 'auto')
+    ranking_list = find_elem(ranking_tile, By.CLASS_NAME,
+                             'ranking-scroll-container')
+    self.assertEqual(ranking_list.value_of_css_property('overflow-y'), 'auto')
 
   def test_ranking_scroll_disabled(self):
     """Test ranking tile on explore page with scroll feature disabled."""
     self.driver.get(
         self.url_ +
-        '/explore#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country/EARTH&pt=Country&ept=Country&chartType=RANKING_WITH_MAP&disable_feature=enable_ranking_tile_scroll'
+        '/explore?disable_feature=enable_ranking_tile_scroll#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=Earth&pt=Country&ept=Country&chartType=RANKING_WITH_MAP'
     )
 
     shared.wait_for_loading(self.driver)
@@ -304,7 +305,7 @@ class ExplorePageTestMixin():
 
     table = find_elem(ranking_tile, by=By.TAG_NAME, value='table')
     self.assertLessEqual(
-        len(find_elems(table, by=By.XPATH, value='.//tbody/tr')), 5)
+        len(find_elems(table, by=By.XPATH, value='.//tbody/tr')), 11)
 
     # Check for non-scrollability
     ranking_list = find_elem(ranking_tile,

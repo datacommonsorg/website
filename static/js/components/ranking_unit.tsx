@@ -176,7 +176,9 @@ function RankingRow(props: {
         <LocalizedLink
           href={urlFunc(point.placeDcid, entityType, apiRoot)}
           text={
-            shouldLoad ? (
+            point.placeName ? (
+              point.placeName
+            ) : shouldLoad ? (
               <PlaceName dcid={point.placeDcid} apiRoot={apiRoot} />
             ) : (
               <Spinner color="secondary" size="sm" />
@@ -254,7 +256,10 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       {props.errorMsg ? (
         <div>{props.errorMsg}</div>
       ) : props.enableScroll ? (
-        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+          <div
+            className="ranking-scroll-container"
+            style={{ maxHeight: "400px", overflowY: "auto" }}
+          >
           <table>
             {props.svNames && !props.hideValue && (
               <thead
