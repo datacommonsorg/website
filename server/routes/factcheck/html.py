@@ -50,6 +50,8 @@ def download():
 def verify():
   return render_template('factcheck/factcheck_verify_v2.html')
 
+from flask import current_app
+
 @bp.route('/widget')
 def widget():
-  return render_template('factcheck/widget.html')
+  return render_template('factcheck/widget.html', feature_flags=current_app.config['FEATURE_FLAGS'])

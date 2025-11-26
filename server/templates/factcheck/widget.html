@@ -6,7 +6,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
     rel="stylesheet">
-  <script src="https://datacommons.org/datacommons.js"></script>
+  <script src="/datacommons.js"></script>
   <style>
     body {
       margin: 0;
@@ -117,7 +117,6 @@
     }
 
     .chart-container {
-      height: 300px;
       margin-top: 12px;
       width: 100%;
     }
@@ -195,12 +194,6 @@
       background-color: #f1f3f4;
       text-decoration: none;
     }
-
-    .chart-container {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 12px;
-    }
   </style>
 </head>
 
@@ -226,6 +219,9 @@
     <div id="results"></div>
   </div>
 
+  <script>
+    globalThis.FEATURE_FLAGS = {{ feature_flags | tojson }};
+  </script>
   <script>
     const verifyBtn = document.getElementById('verifyBtn');
     const scanBtn = document.getElementById('scanBtn');
@@ -388,7 +384,9 @@
                 chart.setAttribute('parentPlace', config.parent_place_dcid);
                 chart.setAttribute('childPlaceType', config.child_place_type);
                 chart.setAttribute('variable', svDcid);
-                chart.setAttribute('rankingCount', '10');
+                chart.setAttribute('rankingCount', '50');
+                chart.setAttribute('showHighestLowest', 'true');
+                chart.setAttribute('maxHeight', '220px');
 
               } else {
                 // Default to LINE

@@ -82,6 +82,7 @@ interface RankingUnitPropType {
   isLoading?: boolean;
   statVar?: string;
   enableScroll?: boolean;
+  maxHeight?: string;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -257,7 +258,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       ) : props.enableScroll ? (
         <div
           className="ranking-scroll-container"
-          style={{ maxHeight: "400px", overflowY: "auto" }}
+            style={{ maxHeight: props.maxHeight || "400px", overflowY: "auto" }}
         >
           <table>
             {props.svNames && !props.hideValue && (
