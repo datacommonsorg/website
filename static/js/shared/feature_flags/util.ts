@@ -25,6 +25,7 @@ export const PAGE_OVERVIEW_LINKS = "page_overview_links";
 export const EXPLORE_RESULT_HEADER = "explore_result_header";
 export const STANDARDIZED_VIS_TOOL_FEATURE_FLAG = "standardized_vis_tool";
 export const ENABLE_STAT_VAR_AUTOCOMPLETE = "enable_stat_var_autocomplete";
+export const ENABLE_RANKING_TILE_SCROLL = "enable_ranking_tile_scroll";
 
 // Feature flag URL parameters
 export const ENABLE_FEATURE_URL_PARAM = "enable_feature";
@@ -58,11 +59,11 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
  */
 export function getFeatureFlags(): Record<
   string,
-  { enabled: boolean; rollout_percentage?: number }
+  { enabled: boolean; rolloutPercentage?: number }
 > {
   return globalThis.FEATURE_FLAGS as Record<
     string,
-    { enabled: boolean; rollout_percentage?: number }
+    { enabled: boolean; rolloutPercentage?: number }
   >;
 }
 
@@ -101,8 +102,8 @@ export function isFeatureEnabled(featureName: string): boolean {
     if (!feature.enabled) {
       return false;
     }
-    if (feature.rollout_percentage !== undefined) {
-      return Math.random() * 100 < feature.rollout_percentage;
+    if (feature.rolloutPercentage !== undefined) {
+      return Math.random() * 100 < feature.rolloutPercentage;
     }
     return true;
   }
