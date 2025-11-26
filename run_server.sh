@@ -29,6 +29,7 @@ ENABLE_MODEL=false
 
 function help {
 cat << EOF
+
 Usage: $(basename "$0") [-e <env>] [-p <port>] [-m] [-d] [-l] [-g]
 
 Options:
@@ -38,6 +39,7 @@ Options:
   -d         Enable disaster JSON cache
   -l         Use local mixer
   -g         Use Gunicorn
+
 EOF
   exit 1
 }
