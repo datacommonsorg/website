@@ -314,4 +314,40 @@ async def ask_data_commons(claim: str, datcom_agent: Any) -> dict:
                 "verdict": "INVALID_JSON",
                 "explanation": f"No JSON object found in LLM response: {final_response_text}"
             }
+            return {
+                "verdict": "INVALID_JSON",
+                "explanation": f"No JSON object found in LLM response: {final_response_text}"
+            }
     return {"verdict": "NO_RESPONSE", "explanation": "No response generated."}
+
+async def extract_claims_from_text(text: str, datcom_agent: Any) -> list[str]:
+    from .constants import EXTRACTION_PROMPT
+    
+    Input = EXTRACTION_PROMPT + str(text)
+    session_id = str(uuid.uuid4())
+    session = await session_service.create_session(app_name=APP_NAME, user_id=USER_ID, session_id=session_id)
+    runner = Runner(agent=datcom_agent, app_name=APP_NAME, session_service=session_service)
+
+    final_response_text = await call_agent_and_print(runner, datcom_agent, session_id, Input)
+
+    if final_response_text:
+        # Remove markdown
+        final_response_text = final_response_text.replace("```json", "").replace("```", "")
+        
+        json_str = extract_json_from_text(final_response_text)
+        
+        if json_str:
+            try:
+                return json.loads(json_str)
+            except json.JSONDecodeError:
+                pass
+        
+        # Fallback regex
+        match = re.search(r"(\[.*\])", final_response_text, re.DOTALL)
+        if match:
+            try:
+                return json.loads(match.group(0))
+            except json.JSONDecodeError:
+                pass
+
+    return []

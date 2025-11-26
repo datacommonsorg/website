@@ -96,6 +96,14 @@ async def verify_claim():
         return jsonify({"error": "Missing 'claim' in request body."}), 400
         
     claim_text = data['claim']
+    context = data.get('context', '')
+    
+    if context:
+        # Append context to help the LLM
+        # We use a clear separator so the LLM knows what is the claim and what is context
+        full_query = f"Claim: {claim_text}\nContext: {context}"
+    else:
+        full_query = claim_text
     
     agent = get_agent()
     if not agent:
@@ -121,7 +129,7 @@ async def verify_claim():
         # Actually, let's just call dc_tool.ask_data_commons directly if utils is too specific to the batch flow.
         # utils.verify_claim returns a structure with "original_claim".
         
-        result = await dc_tool.ask_data_commons(claim_text, agent)
+        result = await dc_tool.ask_data_commons(full_query, agent)
         
         # Wrap it to match what our frontend expects (or what utils returns)
         response = {
@@ -132,4 +140,28 @@ async def verify_claim():
         
     except Exception as e:
         logging.exception("Error verifying claim")
+        return jsonify({"error": str(e)}), 500
+
+@bp.route('/extract_claims', methods=['POST'])
+async def extract_claims():
+    if not dc_tool:
+        return jsonify({"error": "Factchecking modules not available."}), 500
+        
+    data = request.get_json()
+    if not data or 'text' not in data:
+        return jsonify({"error": "Missing 'text' in request body."}), 400
+        
+    text = data['text']
+    
+    agent = get_agent()
+    if not agent:
+        return jsonify({"error": "Failed to initialize agent."}), 500
+        
+    try:
+        logging.info(f"Extracting claims from text (length {len(text)}): {text[:100]}...")
+        claims = await dc_tool.extract_claims_from_text(text, agent)
+        logging.info(f"Extracted {len(claims)} claims: {claims}")
+        return jsonify({"claims": claims})
+    except Exception as e:
+        logging.exception("Error extracting claims")
         return jsonify({"error": str(e)}), 500

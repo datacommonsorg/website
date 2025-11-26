@@ -239,101 +239,76 @@ window.addEventListener('message', async (event) => {
                 }
             }
 
-            const results = await chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                func: () => {
-                    // Smart extraction logic
-                    function extractContent() {
-                        // 1. Try to find the main content container
-                        const selectors = ['article', 'main', '[role="main"]', '#content', '.content', '#main', '.main'];
-                        let container = document.body;
+            // Send message to content script to extract text
+            try {
+                const response = await chrome.tabs.sendMessage(tab.id, { type: 'EXTRACT_TEXT' });
 
-                        for (const selector of selectors) {
-                            const el = document.querySelector(selector);
-                            if (el && el.innerText.length > 200) { // Ensure it has substantial content
-                                container = el;
-                                break;
-                            }
-                        }
+                if (response && response.text) {
+                    const text = response.text;
+                    // Truncate if too long
+                    const truncatedText = text.substring(0, 15000);
 
-                        // 2. Extract text from meaningful elements within the container
-                        // We prioritize paragraphs and lists to avoid navigation/footer noise
-                        const textNodes = [];
-                        const meaningfulTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE', 'TD'];
-
-                        // Helper to traverse and collect text
-                        function traverse(node) {
-                            if (node.nodeType === Node.TEXT_NODE) {
-                                const text = node.textContent.trim();
-                                if (text.length > 0) textNodes.push(text);
-                            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                                const tag = node.tagName;
-                                // Skip hidden or irrelevant elements
-                                if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'NAV', 'FOOTER', 'HEADER'].includes(tag)) return;
-                                if (node.style.display === 'none' || node.style.visibility === 'hidden') return;
-
-                                traverse(node.firstChild); // Recurse
-
-                                // Add a newline after block elements to preserve structure
-                                if (meaningfulTags.includes(tag) || window.getComputedStyle(node).display === 'block') {
-                                    textNodes.push('\n');
-                                }
-                            }
-                            if (node.nextSibling) traverse(node.nextSibling);
-                        }
-
-                        // If we found a specific container, use its innerText as it's likely cleaner
-                        // Otherwise, try to be smart about body content
-                        if (container !== document.body) {
-                            return container.innerText;
-                        }
-
-                        // Fallback: collect paragraphs from body if no container found
-                        const paragraphs = document.body.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li');
-                        if (paragraphs.length > 0) {
-                            return Array.from(paragraphs).map(p => p.innerText).join('\n\n');
-                        }
-
-                        return document.body.innerText;
+                    const iframe = document.getElementById('widgetFrame');
+                    if (iframe && iframe.contentWindow) {
+                        iframe.contentWindow.postMessage({
+                            type: 'PAGE_TEXT',
+                            text: truncatedText
+                        }, '*');
                     }
-
-                    return extractContent();
+                } else {
+                    throw new Error('No text returned from content script.');
                 }
-            });
-
-            if (results && results[0] && results[0].result) {
-                const text = results[0].result;
-                // Truncate if too long to avoid overwhelming the LLM
-                const truncatedText = text.substring(0, 15000);
-
+            } catch (err) {
+                console.error('Failed to scan page:', err);
                 const iframe = document.getElementById('widgetFrame');
                 if (iframe && iframe.contentWindow) {
                     iframe.contentWindow.postMessage({
-                        type: 'VERIFY_TEXT',
-                        text: truncatedText
+                        type: 'VERIFY_ERROR',
+                        error: 'Failed to scan page. Please ensure the extension is reloaded and you are on a valid web page.'
                     }, '*');
                 }
             }
         } catch (err) {
-            console.error('Failed to scan page:', err);
-
-            let errorMessage = 'Failed to scan page. Please try again.';
-            if (err.message.includes('ExtensionsSettings policy')) {
-                errorMessage = 'This page cannot be scanned due to browser security policies (e.g., Web Store, Settings, or Enterprise blocked pages).';
-            } else if (err.message.includes('Missing host permission')) {
-                errorMessage = 'Permission denied. Please reload the extension and ensure permissions are granted.';
+            console.error('Error in SCAN_PAGE handler:', err);
+        }
+    } else if (event.data.type === 'HIGHLIGHT_CLAIMS') {
+        // Forward highlight request to content script
+        try {
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            if (tab) {
+                chrome.tabs.sendMessage(tab.id, {
+                    type: 'HIGHLIGHT_CLAIMS',
+                    claims: event.data.claims
+                });
             }
-
-            const iframe = document.getElementById('widgetFrame');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage({
-                    type: 'VERIFY_ERROR',
-                    error: errorMessage
-                }, '*');
-            }
+        } catch (e) {
+            console.error('Failed to highlight claims:', e);
         }
     } else if (event.data.type === 'VERIFICATION_COMPLETE') {
         // Save to history
         saveHistory(event.data.claim, event.data.result);
+    }
+});
+
+// Listen for messages from content script (e.g. verify claim click)
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'VERIFY_CLAIM_FROM_PAGE') {
+        const iframe = document.getElementById('widgetFrame');
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({
+                type: 'VERIFY_TEXT',
+                text: message.claim,
+                context: message.context
+            }, '*');
+        }
+    } else if (message.type === 'VERIFY_TEXT') {
+        // Existing handler for context menu or other sources
+        const iframe = document.getElementById('widgetFrame');
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({
+                type: 'VERIFY_TEXT',
+                text: message.text
+            }, '*');
+        }
     }
 });

@@ -233,8 +233,14 @@
     // Listen for messages from the parent (extension)
     window.addEventListener('message', (event) => {
       if (event.data.type === 'VERIFY_TEXT') {
-        claimInput.value = event.data.text;
-        verifyClaim(event.data.text);
+        if (event.data.context) {
+          claimInput.value = `${event.data.text}\n\n[Extracted Context]: ${event.data.context}`;
+        } else {
+          claimInput.value = event.data.text;
+        }
+        verifyClaim(event.data.text, event.data.context);
+      } else if (event.data.type === 'PAGE_TEXT') {
+        extractClaims(event.data.text);
       } else if (event.data.type === 'VERIFY_ERROR') {
         loading.style.display = 'none';
         verifyBtn.disabled = false;
@@ -255,7 +261,53 @@
       resultsDiv.innerHTML = '';
     });
 
-    async function verifyClaim(claim) {
+            async function extractClaims(text) {
+              loading.style.display = 'block';
+              loadingText.textContent = 'Analyzing page for statistical claims...';
+              resultsDiv.innerHTML = '';
+
+              try {
+                const response = await fetch('/factcheck/api/extract_claims', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ text: text })
+                });
+                const data = await response.json();
+
+                if (data.claims && data.claims.length > 0) {
+                  // Send highlight request
+                  window.parent.postMessage({
+                    type: 'HIGHLIGHT_CLAIMS',
+                    claims: data.claims
+                  }, '*');
+
+                  resultsDiv.innerHTML = `
+                    <div class="result-item" style="text-align:center; padding: 20px;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🔍</div>
+                        <div style="font-weight: 500; margin-bottom: 4px;">Found ${data.claims.length} claims</div>
+                        <div style="color: #5f6368; font-size: 13px;">
+                            We've highlighted them on the page. <br>
+                            Click on any highlighted text to verify it.
+                        </div>
+                    </div>
+                `;
+                } else {
+                  resultsDiv.innerHTML = `
+                    <div class="result-item" style="text-align:center; padding: 20px;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🤷</div>
+                        <div style="font-weight: 500;">No statistical claims found</div>
+                        <div style="color: #5f6368; font-size: 13px;">Try selecting specific text to verify.</div>
+                    </div>
+                `;
+                }
+              } catch (e) {
+                resultsDiv.innerHTML = `<div class="result-item" style="color:red">Error extracting claims: ${e.message}</div>`;
+              } finally {
+                loading.style.display = 'none';
+              }
+            }
+
+            async function verifyClaim(claim, context) {
       verifyBtn.disabled = true;
       loading.style.display = 'block';
       resultsDiv.innerHTML = '';
@@ -264,7 +316,7 @@
         const response = await fetch('/factcheck/api/verify_claim', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ claim: claim })
+          body: JSON.stringify({ claim: claim, context: context })
         });
 
         const data = await response.json();
@@ -427,9 +479,11 @@
               } else {
                 // Default to LINE
                 chart = document.createElement('datacommons-line');
-                const placeStr = placeDcid || 'Earth';
-                chart.setAttribute('places', placeStr);
-                chart.setAttribute('variables', svDcid);
+                const places = config.places && config.places.length > 0 ? config.places.join(' ') : (placeDcid || 'Earth');
+                const variables = config.variables && config.variables.length > 0 ? config.variables.join(' ') : svDcid;
+
+                chart.setAttribute('places', places);
+                chart.setAttribute('variables', variables);
               }
 
               if (chart) {
