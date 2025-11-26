@@ -172,6 +172,35 @@
     .context-chip a:hover {
       text-decoration: underline;
     }
+
+    .explore-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #fff;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      color: #1a73e8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      position: relative;
+      /* Ensure z-index works */
+      z-index: 10;
+      /* Bring above chart if overlapping */
+      cursor: pointer;
+    }
+
+    .explore-btn:hover {
+      background-color: #f1f3f4;
+      text-decoration: none;
+    }
+
+    .chart-container {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 12px;
+    }
   </style>
 </head>
 
@@ -260,85 +289,137 @@
           results = [{ verdict: "ERROR", explanation: data.error }];
         }
 
-        // Group results by StatVar
-        const groups = {};
+        // Render results directly (no grouping)
         results.forEach(result => {
-          const sv = result.stat_var_dcid;
-          if (sv) {
-            if (!groups[sv]) groups[sv] = [];
-            groups[sv].push(result);
-          } else {
-            if (!groups['__no_sv__']) groups['__no_sv__'] = [];
-            groups['__no_sv__'].push(result);
+          const verdict = result.verdict || "UNKNOWN";
+          let badgeClass = 'verdict-other';
+          const v = verdict.toLowerCase();
+          if (v.includes('support') || v.includes('true')) badgeClass = 'verdict-supported';
+          else if (v.includes('refute') || v.includes('false') || v.includes('disputed')) badgeClass = 'verdict-refuted';
+
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'result-item';
+
+          // Metadata
+          const claimText = result.claim_text || result.claim || "Claim";
+          const svDcid = result.stat_var_dcid;
+          const svName = result.stat_var_name || svDcid;
+          const placeDcid = result.place_dcid;
+          const placeName = result.place_name || placeDcid;
+          const date = result.date;
+          const source = result.source;
+          const isNoSv = !svDcid;
+
+          // Construct Explore URL
+          let exploreUrl = "";
+          if (svDcid && placeDcid) {
+            exploreUrl = `https://datacommons.org/tools/statvar#sv=${svDcid}&p=${placeDcid}`;
+          } else if (placeDcid) {
+            exploreUrl = `https://datacommons.org/place/${placeDcid}`;
+          } else if (svDcid) {
+            exploreUrl = `https://datacommons.org/tools/statvar#sv=${svDcid}`;
           }
-        });
 
-        // Render groups
-        Object.keys(groups).forEach(sv => {
-          const groupResults = groups[sv];
-          const isNoSv = sv === '__no_sv__';
+          itemDiv.innerHTML = `
+              <div class="result-header" style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+                  <div style="font-weight:500; font-size:14px; color:#202124; flex:1;">${claimText}</div>
+                  <span class="verdict-badge ${badgeClass}" style="margin-bottom:0; flex-shrink:0;">${verdict}</span>
+              </div>
+              
+              <div class="result-details" style="display:block; margin-top: 12px;">
+                  <div class="explanation">${(result.explanation || "").replace(/\n/g, '<br>')}</div>
+                  
+                  <div class="metadata-grid" style="display:grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin-top:12px; font-size:12px; color:#5f6368;">
+                      ${placeDcid ? `<div>Place:</div><div><a href="https://datacommons.org/place/${placeDcid}" target="_blank" style="color:#1a73e8; text-decoration:none;">${placeName}</a></div>` : ''}
+                      ${svDcid ? `<div>Variable:</div><div><a href="https://datacommons.org/tools/statvar#sv=${svDcid}" target="_blank" style="color:#1a73e8; text-decoration:none;">${svName}</a></div>` : ''}
+                      ${date ? `<div>Date:</div><div style="color:#3c4043;">${date}</div>` : ''}
+                      ${source ? `<div>Source:</div><div style="color:#3c4043;">${source}</div>` : ''}
+                  </div>
 
-          const groupDiv = document.createElement('div');
-          groupDiv.className = 'result-group';
-          groupDiv.style.marginBottom = '24px';
-          if (resultsDiv.children.length > 0) {
-            groupDiv.style.borderTop = '1px solid #dadce0';
-            groupDiv.style.paddingTop = '16px';
-          }
+                  ${!isNoSv ? `<div class="chart-container"></div>` : ''}
+                  
+                  ${exploreUrl ? `
+                      <div style="margin-top: 12px; text-align: right;">
+                          <a href="${exploreUrl}" target="_blank" class="explore-btn">
+                              Explore in Data Commons
+                              <span style="font-size:14px; vertical-align:middle;">&nearr;</span>
+                          </a>
+                      </div>
+                  ` : ''}
+              </div>
+              <div class="expand-btn" style="text-align:center; margin-top:8px; cursor:pointer; color:#1a73e8; font-size:13px; font-weight:500;">
+                  Hide Details
+              </div>
+          `;
 
-          // Render text explanations
-          groupResults.forEach(result => {
-            const verdict = result.verdict || "UNKNOWN";
-            let badgeClass = 'verdict-other';
-            const v = verdict.toLowerCase();
-            if (v.includes('support') || v.includes('true')) badgeClass = 'verdict-supported';
-            else if (v.includes('refute') || v.includes('false') || v.includes('disputed')) badgeClass = 'verdict-refuted';
-
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'result-item';
-            itemDiv.innerHTML = `
-                    <div class="verdict-badge ${badgeClass}">${verdict}</div>
-                    <div class="explanation">${(result.explanation || "").replace(/\n/g, '<br>')}</div>
-                `;
-            groupDiv.appendChild(itemDiv);
-          });
-
-          // Render ONE chart for the group
+          // Render Chart based on config
           if (!isNoSv) {
-            const places = [...new Set(groupResults.map(r => r.place_dcid).filter(p => p))];
-            if (places.length > 0) {
-              const placeStr = places.join(' ');
-              const exploreUrl = `/explore?sv=${sv}&p=${places[0]}&chartType=TIMELINE_WITH_HIGHLIGHT`;
+            const chartContainer = itemDiv.querySelector('.chart-container');
+            if (chartContainer) {
+              const config = result.chart_config || { type: "LINE" };
+              const type = (config.type || "LINE").toUpperCase();
 
-              const contextDiv = document.createElement('div');
-              contextDiv.style.marginTop = '12px';
+              let chart;
 
-              let placesHtml = places.map(p => `<a href="/place/${p}" target="_blank" style="color:inherit;text-decoration:none">${p}</a>`).join(', ');
+              if (type === "BAR") {
+                chart = document.createElement('datacommons-bar');
+                const places = config.places && config.places.length > 0 ? config.places.join(' ') : (placeDcid || 'Earth');
+                const variables = config.variables && config.variables.length > 0 ? config.variables.join(' ') : svDcid;
 
-              contextDiv.innerHTML = `
-                        <div class="context-chips">
-                            <span class="context-chip">Places: ${placesHtml}</span>
-                            <span class="context-chip">Variable: <a href="${exploreUrl}" target="_blank" style="color:inherit;text-decoration:none">${sv}</a></span>
-                        </div>
-                        <div class="chart-container"></div>
-                        <div style="margin-top: 12px; text-align: right;">
-                            <a href="${exploreUrl}" target="_blank" style="color: #1a73e8; text-decoration: none; font-size: 13px; font-weight: 500;">
-                                Explore in Data Commons &rarr;
-                            </a>
-                        </div>
-                    `;
+                // If explicit places list, use it. Otherwise check for parent/child
+                if (config.places && config.places.length > 0) {
+                  chart.setAttribute('places', places);
+                } else if (config.parent_place_dcid && config.child_place_type) {
+                  chart.setAttribute('parentPlace', config.parent_place_dcid);
+                  chart.setAttribute('childPlaceType', config.child_place_type);
+                } else {
+                  chart.setAttribute('places', places);
+                }
+                chart.setAttribute('variables', variables);
 
-              const chart = document.createElement('datacommons-line');
-              chart.setAttribute('places', placeStr);
-              chart.setAttribute('variables', sv);
-              chart.setAttribute('title', 'Source Data');
-              contextDiv.querySelector('.chart-container').appendChild(chart);
+              } else if (type === "MAP" && config.parent_place_dcid && config.child_place_type) {
+                chart = document.createElement('datacommons-map');
+                chart.setAttribute('parentPlace', config.parent_place_dcid);
+                chart.setAttribute('childPlaceType', config.child_place_type);
+                chart.setAttribute('variable', svDcid);
 
-              groupDiv.appendChild(contextDiv);
+              } else if (type === "RANKING" && config.parent_place_dcid && config.child_place_type) {
+                chart = document.createElement('datacommons-ranking');
+                chart.setAttribute('parentPlace', config.parent_place_dcid);
+                chart.setAttribute('childPlaceType', config.child_place_type);
+                chart.setAttribute('variable', svDcid);
+                chart.setAttribute('rankingCount', '10');
+
+              } else {
+                // Default to LINE
+                chart = document.createElement('datacommons-line');
+                const placeStr = placeDcid || 'Earth';
+                chart.setAttribute('places', placeStr);
+                chart.setAttribute('variables', svDcid);
+              }
+
+              if (chart) {
+                chart.setAttribute('title', 'Source Data');
+                chartContainer.appendChild(chart);
+              }
             }
           }
 
-          resultsDiv.appendChild(groupDiv);
+          // Expand/Collapse
+          const detailsDiv = itemDiv.querySelector('.result-details');
+          const expandBtn = itemDiv.querySelector('.expand-btn');
+
+          expandBtn.addEventListener('click', () => {
+            if (detailsDiv.style.display === 'none') {
+              detailsDiv.style.display = 'block';
+              expandBtn.textContent = 'Hide Details';
+            } else {
+              detailsDiv.style.display = 'none';
+              expandBtn.textContent = 'Show Details';
+            }
+          });
+
+          resultsDiv.appendChild(itemDiv);
         });
 
       } catch (e) {

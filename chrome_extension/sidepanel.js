@@ -74,17 +74,27 @@ async function renderHistory() {
         // Determine verdict for badge
         let verdict = "UNKNOWN";
         let badgeClass = "v-other";
+        let explanation = "";
+        let sv = "";
+        let places = [];
 
         // Extract verdict from result
         if (item.result) {
+            let resultObj = null;
             if (item.result.verification_verdict) {
                 // Handle array or single object
-                const v = Array.isArray(item.result.verification_verdict)
-                    ? item.result.verification_verdict[0]?.verdict
-                    : item.result.verification_verdict.verdict;
-                if (v) verdict = v;
+                resultObj = Array.isArray(item.result.verification_verdict)
+                    ? item.result.verification_verdict[0]
+                    : item.result.verification_verdict;
             } else if (item.result.verdict) {
-                verdict = item.result.verdict;
+                resultObj = item.result;
+            }
+
+            if (resultObj) {
+                if (resultObj.verdict) verdict = resultObj.verdict;
+                if (resultObj.explanation) explanation = resultObj.explanation;
+                if (resultObj.stat_var_dcid) sv = resultObj.stat_var_dcid;
+                if (resultObj.place_dcid) places.push(resultObj.place_dcid);
             }
         }
 
@@ -92,16 +102,56 @@ async function renderHistory() {
         if (vLower.includes('support') || vLower.includes('true')) badgeClass = 'v-supported';
         else if (vLower.includes('refute') || vLower.includes('false') || vLower.includes('disputed')) badgeClass = 'v-refuted';
 
+        // Explore URL
+        let exploreUrl = "";
+        if (sv && places.length > 0) {
+            exploreUrl = `https://datacommons.org/tools/statvar#sv=${sv}&p=${places[0]}`;
+        } else if (places.length > 0) {
+            exploreUrl = `https://datacommons.org/place/${places[0]}`;
+        } else if (sv) {
+            exploreUrl = `https://datacommons.org/tools/statvar#sv=${sv}`;
+        }
+
+
         div.innerHTML = `
-            <div class="history-claim">${item.claim}</div>
-            <div class="history-meta">
+            <div class="history-header-row">
                 <span class="verdict-badge-small ${badgeClass}">${verdict}</span>
-                <span>${new Date(item.timestamp).toLocaleDateString()}</span>
+                <span class="history-date">${new Date(item.timestamp).toLocaleDateString()}</span>
+            </div>
+            <div class="history-claim">${item.claim}</div>
+            
+            <div class="history-details" style="display:none; margin-top: 8px; font-size: 13px; color: #3c4043;">
+                ${explanation ? `<div style="margin-bottom:8px;">${explanation}</div>` : ''}
+                ${exploreUrl ? `
+                    <a href="${exploreUrl}" target="_blank" class="explore-btn">
+                        Explore in Data Commons
+                        <span class="material-icons" style="font-size:12px; vertical-align:middle;">open_in_new</span>
+                    </a>
+                ` : ''}
+            </div>
+            <div class="expand-btn" style="text-align:center; margin-top:4px; cursor:pointer; color:#1a73e8; font-size:12px;">
+                Show Details
             </div>
         `;
 
-        div.addEventListener('click', () => {
-            // Restore state
+        // Expand/Collapse logic
+        const detailsDiv = div.querySelector('.history-details');
+        const expandBtn = div.querySelector('.expand-btn');
+
+        expandBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (detailsDiv.style.display === 'none') {
+                detailsDiv.style.display = 'block';
+                expandBtn.textContent = 'Hide Details';
+            } else {
+                detailsDiv.style.display = 'none';
+                expandBtn.textContent = 'Show Details';
+            }
+        });
+
+        // Click on card to restore (optional, maybe just keep expand logic?)
+        // Keeping restore logic on the claim text or header might be better to avoid conflict
+        div.querySelector('.history-claim').addEventListener('click', () => {
             const iframe = document.getElementById('widgetFrame');
             if (iframe && iframe.contentWindow) {
                 iframe.contentWindow.postMessage({
@@ -109,7 +159,6 @@ async function renderHistory() {
                     text: item.claim
                 }, '*');
             }
-            // Close panel
             document.getElementById('historyPanel').classList.remove('open');
         });
 
