@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: gcr.io/datcom-ci/node:2024-11-19
+    name: gcr.io/datcom-ci/node:${_NODE_VERSION}
     entrypoint: /bin/bash
     waitFor: ["-"]
     env:
@@ -24,14 +24,7 @@ steps:
     args:
       - -c
       - |
-        # The node docker image comes with a pre-installed node_modules directory.
-        # Copy node_modules onto the static folder and update the node_module packages instead of downloading from scratch.
-        # This step is done for speed, downloading the delta files is faster than downloading the entire dependencies.
-        rm -rf static/node_modules
-        cp -r /resources/node_modules -d static/
-
-        # ./run_test.sh -b will build client packages.
-        # These js files generated will be necessery for the flask_webdriver_test task.
+        ./build/node/load_preinstalled_modules.sh
         ./run_test.sh -b
 
   - id: setup_python
@@ -43,24 +36,6 @@ steps:
       - |
         ./run_test.sh --setup_python
 
-  - id: setup_website
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_website
-
-  - id: setup_nl
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_nl
-
   # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
@@ -71,19 +46,8 @@ steps:
       - |
         ./run_test.sh -w
 
-  # Run the Custom DC webdriver tests
-  - id: flask_cdc_webdriver_test
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/sh
-    waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
-    args:
-      - -c
-      - |
-        git submodule update --init --recursive
-        export STARTUP_WAIT_SEC=60
-        ./run_test.sh --cdc
-
 substitutions:
+  _NODE_VERSION: "2025-10-01"
   _FULL_ENV_VERSION: "2025-10-02"
 
 timeout: 1800s # 30 minutes

@@ -87,7 +87,8 @@ function getRankingUnitResult(
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     tileConfig?.rankingTileSpec,
     isHighest,
-    rankingGroup
+    rankingGroup,
+    false
   );
   const pointsList = getPointsList(
     topPoints,

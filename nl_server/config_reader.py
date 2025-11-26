@@ -48,7 +48,7 @@ def _path_from_current_file(rel_path: str) -> str:
 # When catalog.yaml is available in relative code path, use it; Otherwise use
 # the mounted file in the GCP deployment.
 _DEFAULT_CATALOG_PATHS = [
-    _path_from_current_file('../deploy/nl/catalog.yaml'),
+    _path_from_current_file('../deploy/helm_charts/dc_website/nl/catalog.yaml'),
     '/datacommons/nl/catalog.yaml'
 ]
 

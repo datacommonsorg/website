@@ -47,7 +47,7 @@ import {
 Enzyme.configure({ adapter: new Adapter() });
 
 function TestApp(): JSX.Element {
-  const context = useContextStore();
+  const context = useContextStore(new URLSearchParams());
   useEffect(() => {
     context.place.set({
       ...EmptyPlace,

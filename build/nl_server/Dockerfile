@@ -33,7 +33,7 @@ COPY nl_server/. /workspace/nl_server/
 COPY shared/. /workspace/shared/
 
 # Download nl files from gcs
-COPY deploy/nl/catalog.yaml .
+COPY deploy/helm_charts/dc_website/nl/catalog.yaml .
 COPY tools/nl/download_nl_files/requirements.txt /workspace/download_nl_files/requirements.txt
 COPY tools/nl/download_nl_files/download_nl_files.py .
 RUN pip3 install -r /workspace/download_nl_files/requirements.txt

@@ -34,6 +34,11 @@ steps:
         # 1. DETERMINE WEBSITE IMAGE HASH
         # If _SHORT_SHA is passed from a website repo trigger, use it.
         if [[ -n "${_SHORT_SHA}" ]]; then
+          # If the trigger hash is from a dev image, stop the deployment because the was built locally.
+          if [[ "${_SHORT_SHA}" == dev-* ]]; then
+            echo "Skipping deployment for dev image tag: ${_SHORT_SHA}"
+            exit 0
+          fi
           echo "Using provided _SHORT_SHA for website images: ${_SHORT_SHA}"
           website_githash="${_SHORT_SHA}"
         else
@@ -41,8 +46,8 @@ steps:
           echo "No _SHORT_SHA provided. Fetching latest website image hash from Artifact Registry."
           website_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website \
             --project=datcom-ci \
-            --filter="tags:latest" \
-            --format='get(tags)' | tr ';' '\n' | grep -v "latest")"
+            --filter="NOT tags ~ ^dev-" --sort-by=~TIMESTAMP --limit=1 \
+            --format='get(tags)' | tr ';' '\n' | grep -E '^[0-9a-f]{7,40}$' | head -n 1)"
         fi
 
         if [[ -z "$website_githash" ]]; then
@@ -55,8 +60,8 @@ steps:
         echo "Fetching latest mixer image hash..."
         mixer_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
           --project=datcom-ci \
-          --filter="tags:latest" \
-          --format='get(tags)' | tr ';' '\n' | grep -v "latest")"
+          --filter="NOT tags ~ ^dev-" --sort-by=~TIMESTAMP --limit=1 \
+          --format='get(tags)' | tr ';' '\n' | grep -E '^[0-9a-f]{7,40}$' | head -n 1)"
 
         if [[ -z "$mixer_githash" ]]; then
           echo "ERROR: Could not determine the mixer image hash from Artifact Registry. Exiting."

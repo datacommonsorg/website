@@ -26,12 +26,14 @@ from flask import request
 import requests
 
 from server.lib import log
-from server.lib.cache import cache
+from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
+from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
 
@@ -57,7 +59,8 @@ def get_basic_request_headers() -> dict:
   return headers
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+# Log the mixer response IDs to capture this call to mixer in the mixer usage logs
+@memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
   headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
@@ -69,7 +72,13 @@ def get(url: str):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
+  # This is used to log cached and uncached mixer usage and is a list to be compatible with other cachable
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json[MIXER_RESPONSE_ID_FIELD] = [response_id]
+  return res_json
 
 
 def post(url: str, req: Dict):
@@ -81,8 +90,9 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str):
+# Log the mixer response IDs to capture this call to mixer in the mixer usage logs
+@memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
+def post_wrapper(url, req_str: str, headers_str: str | None = None):
 
   req = json.loads(req_str)
   headers = get_basic_request_headers()
@@ -97,7 +107,13 @@ def post_wrapper(url, req_str: str):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  return response.json()
+  res_json = response.json()
+  response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
+  # This is used to log cached mixer usage and is a list to be compatible with other cached
+  # objects that include multiple mixer responses.
+  if response_id:
+    res_json[MIXER_RESPONSE_ID_FIELD] = [response_id]
+  return res_json
 
 
 def obs_point(entities, variables, date="LATEST"):
