@@ -149,14 +149,14 @@ async function renderHistory() {
             }
         });
 
-        // Click on card to restore (optional, maybe just keep expand logic?)
-        // Keeping restore logic on the claim text or header might be better to avoid conflict
+        // Click on card to restore
         div.querySelector('.history-claim').addEventListener('click', () => {
             const iframe = document.getElementById('widgetFrame');
             if (iframe && iframe.contentWindow) {
                 iframe.contentWindow.postMessage({
-                    type: 'VERIFY_TEXT',
-                    text: item.claim
+                    type: 'RESTORE_RESULT',
+                    claim: item.claim,
+                    result: item.result
                 }, '*');
             }
             document.getElementById('historyPanel').classList.remove('open');
@@ -306,15 +306,27 @@ window.addEventListener('message', async (event) => {
 });
 
 // Listen for messages from content script (e.g. verify claim click)
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     if (message.type === 'VERIFY_CLAIM_FROM_PAGE') {
         const iframe = document.getElementById('widgetFrame');
         if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage({
-                type: 'VERIFY_TEXT',
-                text: message.claim,
-                context: message.context
-            }, '*');
+            // Check history first
+            const history = await loadHistory();
+            const cachedItem = history.find(h => h.claim === message.claim);
+
+            if (cachedItem) {
+                iframe.contentWindow.postMessage({
+                    type: 'RESTORE_RESULT',
+                    claim: cachedItem.claim,
+                    result: cachedItem.result
+                }, '*');
+            } else {
+                iframe.contentWindow.postMessage({
+                    type: 'VERIFY_TEXT',
+                    text: message.claim,
+                    context: message.context
+                }, '*');
+            }
         }
     } else if (message.type === 'VERIFY_TEXT') {
         // Existing handler for context menu or other sources
