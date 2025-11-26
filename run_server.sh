@@ -28,17 +28,22 @@ PORT=8080
 ENABLE_MODEL=false
 
 function help {
-  echo "Usage: $0 -epmdl"
-  echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
-  echo "-p       Run on a specified port. Default: 8080"
-  echo "-m       Enable language models"
-  echo "-d       [Local dev] Enable disaster JSON cache"
-  echo "-l       [Local dev] Use local mixer"
-  echo "-g       [Local dev] Use Gunicorn"
+cat << EOF
+Usage: $(basename "$0") [-e <env>] [-p <port>] [-m] [-d] [-l] [-g]
+
+Options:
+  -e <env>   Run with a specified environment (lite, custom, etc.) [Default: local]
+  -p <port>  Run on a specified port [Default: 8080]
+  -m         Enable language models
+  -d         Enable disaster JSON cache
+  -l         Use local mixer
+  -g         Use Gunicorn
+EOF
   exit 1
 }
 
-while getopts ":e:p:m?d?l?g" OPTION; do
+# Leading ':' enables silent error mode. Flags followed by ':' require arguments; others are boolean switches.
+while getopts ":e:p:mdlg" OPTION; do
   case $OPTION in
   e)
     export FLASK_ENV=$OPTARG
