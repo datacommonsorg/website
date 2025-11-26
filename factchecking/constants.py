@@ -82,7 +82,6 @@ VERIFICATION_PROMPT = """
     Output:
     [
         {
-        {
             "claim_text": "South Korea overtook Japan in GDP in 2018",
             "verdict": "SUPPORTED",
             ...
