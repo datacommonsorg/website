@@ -38,8 +38,7 @@ QUERY = "What is the life expectancy in Italy in 2020?"
 
 os.environ["GOOGLE_CLOUD_PROJECT"] = "datcom-website-dev"
 os.environ["GOOGLE_CLOUD_LOCATION"] = "us-central1"
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDeCnSYL7ONUIyd9MNdD4P8yABXw08fiME"
-# os.environ["GEMINI_API_KEY"] = "AIzaSyDeCnSYL7ONUIyd9MNdD4P8yABXw08fiME"
+os.environ["GOOGLE_API_KEY"] = ""
 
 async def main():
     mcp_server_process = None
