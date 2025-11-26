@@ -46,8 +46,8 @@ echo "Embeddings name: $embeddings_name"
 echo "Output directory: $output_dir"
 
 cd ../../..
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip3 install -r tools/nl/embeddings/requirements.txt -q
 
 export TOKENIZERS_PARALLELISM=false
