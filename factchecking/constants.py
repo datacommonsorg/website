@@ -28,7 +28,29 @@ VERIFICATION_PROMPT = """
     - DATES: If the claim date differs slightly from the available Data Commons date (e.g., 2023 vs 2024) but the values are consistent, rate it as SUPPORTED.
     - CONTEXT: Consider rounding and unit conversions (e.g., 33k vs 33,121).
     
-    Return a JSON list of objects with fields: "verdict", "explanation", "place_dcid", and "stat_var_dcid".
+    Return a JSON list of objects with fields: 
+    - "claim_text": The specific statistical claim extracted from the text.
+    - "verdict": SUPPORTED, DISPUTED, or UNSUPPORTED.
+    - "explanation": A 1-sentence explanation citing the Data Commons value.
+    - "place_dcid": The DCID of the place.
+    - "place_name": The name of the place (e.g., "United States").
+    - "stat_var_dcid": The DCID of the statistical variable.
+    - "stat_var_name": The name of the statistical variable (e.g., "Population").
+    - "date": The date of the Data Commons value used for verification (e.g., "2021").
+    - "source": The source of the data (e.g., "World Bank").
+    - "chart_config": An object describing the best visualization for this claim.
+        - "type": "LINE", "BAR", "MAP", or "RANKING".
+        - "places": List of place DCIDs (for BAR comparison).
+        - "variables": List of stat var DCIDs (for BAR comparison).
+        - "parent_place_dcid": Parent place DCID (for MAP/RANKING, e.g., "country/USA").
+        - "child_place_type": Child place type (for MAP/RANKING, e.g., "State").
+
+    CHART SELECTION RULES:
+    - **LINE**: Default for single place/variable trends over time.
+    - **BAR**: For comparing multiple places (e.g., "US vs China") or multiple variables.
+    - **MAP**: For geographic distribution (e.g., "Unemployment in US States"). Requires `parent_place_dcid` and `child_place_type`.
+    - **RANKING**: For top/bottom lists (e.g., "Richest countries"). Requires `parent_place_dcid` and `child_place_type`.
+
     If no statistical claims are found, return an empty list [].
     
     Example:
@@ -36,11 +58,38 @@ VERIFICATION_PROMPT = """
     Output:
     [
         {
+            "claim_text": "The population of USA is 400 million",
             "verdict": "DISPUTED",
             "explanation": "According to Data Commons, the population of USA was 331.9 million in 2021.",
             "place_dcid": "country/USA",
-            "stat_var_dcid": "Count_Person"
+            "place_name": "United States",
+            "stat_var_dcid": "Count_Person",
+            "stat_var_name": "Population",
+            "date": "2021",
+            "source": "US Census Bureau",
+            "chart_config": {
+                "type": "LINE",
+                "places": ["country/USA"],
+                "variables": ["Count_Person"]
+            }
         },
+        {
+            "claim_text": "Italy is 60 million",
+            "verdict": "SUPPORTED",
+            "explanation": "According to Data Commons, the population of Italy was 59 million in 2021, which is close to 60 million.",
+            "place_dcid": "country/ITA",
+            "place_name": "Italy",
+            "stat_var_dcid": "Count_Person",
+            "stat_var_name": "Population",
+            "date": "2021",
+            "source": "World Bank",
+            "chart_config": {
+                "type": "LINE",
+                "places": ["country/ITA"],
+                "variables": ["Count_Person"]
+            }
+        }
+    ]
         {
             "verdict": "SUPPORTED",
             "explanation": "According to Data Commons, the population of Italy was 59 million in 2021, which is close to 60 million.",
