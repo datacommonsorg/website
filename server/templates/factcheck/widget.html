@@ -486,6 +486,23 @@
                 chart.setAttribute('variables', variables);
               }
 
+              // Send status update to sidepanel -> content script
+              let finalVerdict = "UNKNOWN";
+              if (data.verification_verdict) {
+                if (Array.isArray(data.verification_verdict) && data.verification_verdict.length > 0) {
+                  finalVerdict = data.verification_verdict[0].verdict;
+                } else if (data.verification_verdict.verdict) {
+                  finalVerdict = data.verification_verdict.verdict;
+                }
+              }
+
+              console.log("Sending UPDATE_CLAIM_STATUS:", data.claim, finalVerdict);
+              window.parent.postMessage({
+                type: 'UPDATE_CLAIM_STATUS',
+                claim: data.claim,
+                verdict: finalVerdict
+              }, '*');
+
               if (chart) {
                 chart.setAttribute('title', 'Source Data');
                 chartContainer.appendChild(chart);

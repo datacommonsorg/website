@@ -284,6 +284,21 @@ window.addEventListener('message', async (event) => {
         } catch (e) {
             console.error('Failed to highlight claims:', e);
         }
+    } else if (event.data.type === 'UPDATE_CLAIM_STATUS') {
+        // Forward to content script
+        console.log("Forwarding UPDATE_CLAIM_STATUS:", event.data.claim, event.data.verdict);
+        try {
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            if (tab) {
+                chrome.tabs.sendMessage(tab.id, {
+                    type: 'UPDATE_CLAIM_STATUS',
+                    claim: event.data.claim,
+                    verdict: event.data.verdict
+                });
+            }
+        } catch (e) {
+            console.error('Failed to update claim status:', e);
+        }
     } else if (event.data.type === 'VERIFICATION_COMPLETE') {
         // Save to history
         saveHistory(event.data.claim, event.data.result);

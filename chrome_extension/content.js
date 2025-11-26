@@ -12,9 +12,74 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else if (request.type === 'CLEAR_HIGHLIGHTS') {
     clearHighlights();
     sendResponse({ success: true });
+  } else if (request.type === 'UPDATE_CLAIM_STATUS') {
+    updateClaimStatus(request.claim, request.verdict);
+    sendResponse({ success: true });
   }
   return true; // Keep channel open for async response
 });
+
+// Inject styles for badges
+const style = document.createElement('style');
+style.textContent = `
+  .dc-verdict-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    white-space: nowrap;
+    vertical-align: middle;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    font-family: sans-serif;
+    line-height: 1.2;
+    cursor: default;
+  }
+  .dc-highlight {
+    /* position: relative; Removed as not needed for inline badge */
+    cursor: pointer;
+  }
+`;
+document.head.appendChild(style);
+
+function updateClaimStatus(claim, verdict) {
+  const highlights = document.querySelectorAll('.dc-highlight');
+  highlights.forEach(span => {
+    if (span.dataset.claim === claim) {
+      // Remove existing badge if any
+      const existingBadge = span.querySelector('.dc-verdict-badge');
+      if (existingBadge) existingBadge.remove();
+
+      // Create badge
+      const badge = document.createElement('span');
+      badge.className = 'dc-verdict-badge';
+
+      if (verdict === 'SUPPORTED') {
+        span.style.backgroundColor = '#e6f4ea'; // Light Green
+        span.style.borderBottom = '2px solid #137333'; // Green
+        span.title = 'Verified: SUPPORTED';
+        badge.textContent = '✅ Supported by Data Commons';
+        badge.style.backgroundColor = '#137333';
+      } else if (verdict === 'DISPUTED') {
+        span.style.backgroundColor = '#ffe0b2'; // Light Orange
+        span.style.borderBottom = '2px solid #e65100'; // Orange
+        span.title = 'Verified: DISPUTED';
+        badge.textContent = '⚠️ Disputed by Data Commons';
+        badge.style.backgroundColor = '#e65100';
+      } else if (verdict === 'UNSUPPORTED') {
+        span.style.backgroundColor = '#f1f3f4'; // Light Grey
+        span.style.borderBottom = '2px solid #5f6368'; // Grey
+        span.title = 'Verified: UNSUPPORTED';
+        badge.textContent = '❓ Unsupported';
+        badge.style.backgroundColor = '#5f6368';
+      }
+
+      span.appendChild(badge);
+    }
+  });
+}
 
 function extractContent() {
   // 1. Try to find the main content container
@@ -29,25 +94,28 @@ function extractContent() {
     }
   }
 
-  // 2. Extract text from meaningful elements within the container
-  const textNodes = [];
-  const meaningfulTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE', 'TD'];
-
-  // Helper to traverse and collect text (not used in final logic below but kept for reference if needed)
-  // The original logic used innerText which is simpler.
-
-  // If we found a specific container, use its innerText as it's likely cleaner
+  let text = "";
   if (container !== document.body) {
-    return container.innerText;
+    text = container.innerText;
+  } else {
+    // Fallback: collect paragraphs from body
+    const paragraphs = document.body.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li');
+    if (paragraphs.length > 0) {
+      text = Array.from(paragraphs).map(p => p.innerText).join('\n\n');
+    } else {
+      text = document.body.innerText;
+    }
   }
 
-  // Fallback: collect paragraphs from body if no container found
-  const paragraphs = document.body.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li');
-  if (paragraphs.length > 0) {
-    return Array.from(paragraphs).map(p => p.innerText).join('\n\n');
+  // Ensure Title/H1 is included if not already
+  const h1 = document.querySelector('h1');
+  const title = h1 ? h1.innerText : document.title;
+
+  if (title && !text.includes(title)) {
+    text = title + "\n\n" + text;
   }
 
-  return document.body.innerText;
+  return text;
 }
 
 function clearHighlights() {
