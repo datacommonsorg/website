@@ -28,18 +28,17 @@ PORT=8080
 ENABLE_MODEL=false
 
 function help {
-  echo "Usage: $0 -epmxdl"
+  echo "Usage: $0 -epmdl"
   echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   echo "-m       Enable language models"
-  echo "-x       Enable embedding eval playground"
   echo "-d       [Local dev] Enable disaster JSON cache"
   echo "-l       [Local dev] Use local mixer"
   echo "-g       [Local dev] Use Gunicorn"
   exit 1
 }
 
-while getopts ":e:p:m?d?l?xg" OPTION; do
+while getopts ":e:p:m?d?l?g" OPTION; do
   case $OPTION in
   e)
     export FLASK_ENV=$OPTARG
@@ -49,9 +48,6 @@ while getopts ":e:p:m?d?l?xg" OPTION; do
     ;;
   m)
     export ENABLE_MODEL=true
-    ;;
-  x)
-    export ENABLE_EVAL_TOOL=false
     ;;
   d)
     export ENABLE_DISASTER_JSON=true
