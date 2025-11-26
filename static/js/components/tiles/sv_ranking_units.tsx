@@ -67,6 +67,7 @@ interface SvRankingUnitsProps {
   containerRef: React.RefObject<HTMLElement>;
   surface: string;
   enableScroll?: boolean;
+  maxHeight?: string;
 }
 
 /**
@@ -123,7 +124,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.errorMsg,
             props.sources,
             props.isLoading,
-            props.enableScroll
+            props.enableScroll,
+            props.maxHeight
           )}
           {!props.hideFooter && (
             <ChartFooter
@@ -164,7 +166,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                props.maxHeight
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -198,7 +201,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                props.maxHeight
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -340,7 +344,8 @@ export function getRankingUnit(
   errorMsg?: string,
   sources?: string[],
   isLoading?: boolean,
-  enableScroll?: boolean
+  enableScroll?: boolean,
+  maxHeight?: string
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
@@ -389,6 +394,7 @@ export function getRankingUnit(
       apiRoot={apiRoot}
       entityType={entityType}
       enableScroll={enableScroll}
+      maxHeight={maxHeight}
     />
   );
 }

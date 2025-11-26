@@ -97,6 +97,10 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   perCapita?: string[];
 
+  // Optional: Max height of the chart, e.g. "400px"
+  @property()
+  maxHeight?: string;
+
   // Optional: How many places to show, e.g. "N" in "Top-N"
   // Defaults to 5.
   @property()
@@ -181,6 +185,7 @@ export class DatacommonsRankingComponent extends LitElement {
       variables: statVarSpecs,
       title: this.header || this.title,
       surface: WEB_COMPONENT_SURFACE,
+      maxHeight: this.maxHeight,
     };
     return createWebComponentElement(RankingTile, rankingTileProps);
   }
