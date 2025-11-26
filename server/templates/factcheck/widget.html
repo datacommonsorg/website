@@ -366,12 +366,48 @@
 
           // Construct Explore URL
           let exploreUrl = "";
-          if (svDcid && placeDcid) {
-            exploreUrl = `https://datacommons.org/tools/statvar#sv=${svDcid}&p=${placeDcid}`;
+          const config = result.chart_config || { type: "LINE" };
+          const type = (config.type || "LINE").toUpperCase();
+
+          let chartType = "TIMELINE_WITH_HIGHLIGHT";
+          if (type === "BAR") {
+            chartType = "BAR_CHART";
+          } else if (type === "RANKING" || type === "MAP") {
+            chartType = "RANKING_WITH_MAP";
+          }
+
+          let places = [];
+          if (config.places && config.places.length > 0) {
+            places = config.places;
+          } else if (chartType === "RANKING_WITH_MAP" && config.parent_place_dcid) {
+            // For ranking/map, use the parent place as the context
+            places = [config.parent_place_dcid];
           } else if (placeDcid) {
-            exploreUrl = `https://datacommons.org/place/${placeDcid}`;
+            places = [placeDcid];
+          } else if (config.parent_place_dcid) {
+            // For ranking/map, we might want the parent place? 
+            // Actually, ranking/map usually shows children of a parent.
+            // But the 'p' param usually expects the places being shown or the context.
+            // If it's ranking, we might not have a list of all children in 'places'.
+            // Let's use parent_place_dcid if available for context, or maybe we need to fetch children?
+            // The user example "p=country/USA" suggests parent place is fine for ranking?
+            // Or maybe "p=country/USA___country/FRA" means specific places.
+            // If it's a ranking of states in USA, p=country/USA is probably what we want?
+            // Let's assume parent_place_dcid is valid for 'p' if type is RANKING/MAP.
+            places = [config.parent_place_dcid];
+          }
+
+          let variables = [];
+          if (config.variables && config.variables.length > 0) {
+            variables = config.variables;
           } else if (svDcid) {
-            exploreUrl = `https://datacommons.org/tools/statvar#sv=${svDcid}`;
+            variables = [svDcid];
+          }
+
+          if (places.length > 0 && variables.length > 0) {
+            const pParam = places.join("___");
+            const svParam = variables.join("___");
+            exploreUrl = `https://datacommons.org/explore?p=${pParam}&sv=${svParam}&chartType=${chartType}`;
           }
 
           itemDiv.innerHTML = `
