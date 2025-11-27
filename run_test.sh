@@ -338,7 +338,7 @@ function run_integration_test {
   echo "Using ENV_PREFIX=$ENV_PREFIX"
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
-  export ENABLE_EVAL_TOOL=false
+
   start_servers
   python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
   stop_servers
@@ -353,7 +353,6 @@ function update_integration_test_golden {
   export TEST_MODE=write
   export DC_API_KEY=
   export LLM_API_KEY=
-  export ENABLE_EVAL_TOOL=false
 
   # Run integration test against staging mixer to make it stable.
   if [[ $ENV_PREFIX == "" ]]; then
