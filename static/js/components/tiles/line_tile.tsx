@@ -70,7 +70,9 @@ import {
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
+  StatVarDateRangeMap,
   transformCsvHeader,
+  updateStatVarDateRange,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -142,7 +144,7 @@ export interface LineChartData {
   // A mapping of which stat var used which facets
   statVarToFacets: StatVarFacetMap;
   // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  statVarDateRanges?: StatVarDateRangeMap;
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
@@ -503,7 +505,7 @@ function rawToChart(
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
   const allDates = new Set<string>();
-  const statVarDates = new Map<string, Set<string>>();
+  const statVarDateRanges: StatVarDateRangeMap = {};
   // TODO: make a new wrapper to fetch series data & do the processing there.
   const unit2count = {};
   for (const spec of props.statVarSpec) {
@@ -573,20 +575,12 @@ function rawToChart(
           currentSvDates.add(obs.date);
         }
 
-        if (!statVarDates.has(spec.statVar)) {
-          statVarDates.set(spec.statVar, new Set<string>());
-        }
-        currentSvDates.forEach((date) =>
-          statVarDates.get(spec.statVar).add(date)
-        );
-        if (spec.denom) {
-          if (!statVarDates.has(spec.denom)) {
-            statVarDates.set(spec.denom, new Set<string>());
+        currentSvDates.forEach((date) => {
+          updateStatVarDateRange(statVarDateRanges, spec.statVar, date);
+          if (spec.denom) {
+            updateStatVarDateRange(statVarDateRanges, spec.denom, date);
           }
-          currentSvDates.forEach((date) =>
-            statVarDates.get(spec.denom).add(date)
-          );
-        }
+        });
 
         const label = options.useBothLabels
           ? `${statVarDcidToName[spec.statVar]} for ${
@@ -607,20 +601,6 @@ function rawToChart(
   }
   for (let i = 0; i < dataGroups.length; i++) {
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
-  }
-
-  const statVarDateRanges: Record<
-    string,
-    { minDate: string; maxDate: string }
-  > = {};
-  for (const [dcid, dates] of statVarDates.entries()) {
-    const sortedSvDates = Array.from(dates).sort();
-    if (sortedSvDates.length > 0) {
-      statVarDateRanges[dcid] = {
-        minDate: sortedSvDates[0],
-        maxDate: sortedSvDates[sortedSvDates.length - 1],
-      };
-    }
   }
 
   const errorMsg = _.isEmpty(dataGroups)
