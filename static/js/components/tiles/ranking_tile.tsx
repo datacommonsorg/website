@@ -67,7 +67,9 @@ import {
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
+  StatVarDateRangeMap,
   transformCsvHeader,
+  updateStatVarDateRange,
 } from "../../utils/tile_utils";
 import { LoadingHeader } from "./loading_header";
 import { SvRankingUnits } from "./sv_ranking_units";
@@ -174,6 +176,32 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       (acc, svData) => ({ ...acc, ...svData.statVarToFacets }),
       {}
     );
+  }, [rankingData]);
+
+  /**
+    This hook merges the stat var date ranges across ranking units, to provide a single
+    map that is sent into the "About this data" (metadata modal) component.
+   */
+  const allStatVarDateRanges = useMemo(() => {
+    if (!rankingData) return {};
+    const merged: StatVarDateRangeMap = {};
+    Object.values(rankingData).forEach((svData) => {
+      if (svData.statVarDateRanges) {
+        for (const [sv, range] of Object.entries(svData.statVarDateRanges)) {
+          if (!merged[sv]) {
+            merged[sv] = { ...range };
+          } else {
+            if (range.minDate < merged[sv].minDate) {
+              merged[sv].minDate = range.minDate;
+            }
+            if (range.maxDate > merged[sv].maxDate) {
+              merged[sv].maxDate = range.maxDate;
+            }
+          }
+        }
+      }
+    });
+    return merged;
   }, [rankingData]);
 
   /*
@@ -338,6 +366,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         statVarSpecs={props.variables}
         facets={allFacets}
         statVarToFacets={allStatVarToFacets}
+        statVarDateRanges={allStatVarDateRanges}
         apiRoot={props.apiRoot}
       />
     </div>
@@ -481,12 +510,18 @@ function transformRankingDataForMultiColumn(
   const statVarToFacets = svs
     .map((sv) => rankingData[sv].statVarToFacets)
     .find((s) => s !== undefined);
+  const statVarDateRanges = svs
+    .map((sv) => rankingData[sv].statVarDateRanges)
+    .find((s) => s !== undefined);
 
   if (facets) {
     rankingData[sortSv].facets = facets;
   }
   if (statVarToFacets) {
     rankingData[sortSv].statVarToFacets = statVarToFacets;
+  }
+  if (statVarDateRanges) {
+    rankingData[sortSv].statVarDateRanges = statVarDateRanges;
   }
 
   return { [sortSv]: rankingData[sortSv] };
@@ -511,6 +546,7 @@ function pointApiToPerSvRankingData(
     const dates = new Set<string>();
     const facets: Record<string, StatMetadata> = {};
     const statVarToFacets: StatVarFacetMap = {};
+    const statVarDateRanges: StatVarDateRangeMap = {};
 
     const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
@@ -524,6 +560,9 @@ function pointApiToPerSvRankingData(
         console.log(`Skipping ${place}, missing ${spec.statVar}`);
         continue;
       }
+      // Update date range for the main stat var
+      updateStatVarDateRange(statVarDateRanges, spec.statVar, statPoint.date);
+
       if (spec.denom) {
         // find the denom data with the matching facet, and otherwise use the default data
         const denomInfo = getDenomInfo(
@@ -552,6 +591,8 @@ function pointApiToPerSvRankingData(
           }
           statVarToFacets[spec.denom].add(denomInfo.facetId);
         }
+        // Update date range for the denominator stat var
+        updateStatVarDateRange(statVarDateRanges, spec.denom, denomInfo.date);
       }
       rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
@@ -580,6 +621,7 @@ function pointApiToPerSvRankingData(
       sources,
       facets,
       statVarToFacets,
+      statVarDateRanges,
       dateRange: getDateRange(Array.from(dates)),
       svName: [getStatVarName(spec.statVar, [spec])],
     };

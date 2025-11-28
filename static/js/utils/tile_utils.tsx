@@ -233,6 +233,40 @@ export async function getStatVarNames(
   }
 }
 
+interface DateRange {
+  minDate: string;
+  maxDate: string;
+}
+
+// A map of stat var DCIDs to their specific min and max date range in the context of a chart
+export type StatVarDateRangeMap = Record<string, DateRange>;
+
+/**
+ * Function to update the date range for a stat var. It expands the existing range if the new date
+ * for a given stat var is outside the current bounds.
+ * @param statVarDateRanges The current mapping of stat var to date ranges
+ * @param statVar The stat var being updated
+ * @param date The date that may extend the range
+ */
+export function updateStatVarDateRange(
+  statVarDateRanges: StatVarDateRangeMap,
+  statVar: string,
+  date: string
+): void {
+  if (!date) return;
+
+  if (!statVarDateRanges[statVar]) {
+    statVarDateRanges[statVar] = { minDate: date, maxDate: date };
+  } else {
+    if (date < statVarDateRanges[statVar].minDate) {
+      statVarDateRanges[statVar].minDate = date;
+    }
+    if (date > statVarDateRanges[statVar].maxDate) {
+      statVarDateRanges[statVar].maxDate = date;
+    }
+  }
+}
+
 interface SVGInfo {
   // the svg as an xml string
   svgXml: string;
