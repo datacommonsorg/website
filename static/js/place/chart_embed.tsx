@@ -71,6 +71,8 @@ interface ChartEmbedPropsType {
   statVarSpecs?: StatVarSpec[];
   facets?: Record<string, StatMetadata>;
   statVarToFacets?: StatVarFacetMap;
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   apiRoot?: string;
 }
 interface ChartEmbedStateType {
@@ -392,7 +394,13 @@ class ChartEmbed extends React.Component<
     let citation: CitationPart[];
     try {
       const getCitationPromise = async (): Promise<CitationPart[]> => {
-        const { statVarSpecs, facets, statVarToFacets, apiRoot } = this.props;
+        const {
+          statVarSpecs,
+          facets,
+          statVarToFacets,
+          apiRoot,
+          statVarDateRanges,
+        } = this.props;
         if (!statVarSpecs || !facets || !statVarToFacets) {
           return [];
         }
@@ -416,7 +424,8 @@ class ChartEmbed extends React.Component<
         );
         return buildCitationParts(
           metadataResp.statVarList,
-          metadataResp.metadata
+          metadataResp.metadata,
+          statVarDateRanges
         );
       };
       citation = await getCitationPromise();
