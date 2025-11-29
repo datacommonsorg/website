@@ -71,7 +71,7 @@ export const enableDynamicPlacehoder = (
   (): void => clearTimeout(timerId);
 };
 
-export const loadSampleQuestions = (): string[] => {
+const loadSampleQuestions = (): string[] => {
   const metadataContainer = document.getElementById("metadata-base");
   let sampleQuestions = metadataContainer?.dataset?.sampleQuestions
     ? JSON.parse(metadataContainer.dataset.sampleQuestions).flatMap(
@@ -99,7 +99,7 @@ export const loadSampleQuestions = (): string[] => {
 };
 
 /* Start typing the sample questions through the Input's placeholder attribute while inactive. */
-export const cycleSampleQuestions = (
+const cycleSampleQuestions = (
   sampleQuestions: string[],
   index: number,
   questionCount: number,
