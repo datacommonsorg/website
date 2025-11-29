@@ -36,6 +36,7 @@ import {
 } from "../../../shared/ga_events";
 import { ObservationSpec } from "../../../shared/observation_specs";
 import { urlToDisplayText } from "../../../shared/util";
+import { FontFamily, TextVariant } from "../../../theme/types";
 
 interface ToolChartFooterProps {
   // Id of the chart this footer is being added to.
@@ -67,6 +68,47 @@ const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
 const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const SELECTOR_PREFIX = "chart-footer";
 
+const ChartFooterActionWrapper = styled.p`
+  display: flex;
+  align-items: center;
+  gap: ${(props): number => props.theme.spacing.xs}px;
+  margin: 0;
+  padding: 0;
+  ${(props): FontFamily => props.theme.typography.family.text}
+  ${(props): TextVariant => props.theme.typography.text.xs}
+  color: ${(props): string => props.theme.colors.link.primary.base};
+  & > a {
+    margin: 0;
+    padding: 0;
+  }
+  & > .material-icons-outlined {
+    ${(props): TextVariant => props.theme.typography.text.md}
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const ChartFooterMetaDataWrapper = styled.p`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  ${(props): FontFamily => props.theme.typography.family.text}
+  ${(props): TextVariant => props.theme.typography.text.xs}
+  line-height: 1.2rem;
+  color: ${(props): string => props.theme.colors.text.tertiary.base};
+  & > a {
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+    color: ${(props): string => props.theme.colors.text.tertiary.base};
+    &:hover {
+      color: ${(props): string => props.theme.colors.link.primary.base};
+    }
+  }
+`;
+
 export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
   const theme = useTheme();
 
@@ -75,47 +117,6 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
     : "";
   const ratioCheckboxId = props.chartId + "-ratio";
   const [chartOptionsOpened, setChartOptionsOpened] = useState(true);
-
-  const ChartFooterActionWrapper = styled.p`
-    display: flex;
-    align-items: center;
-    gap: ${theme.spacing.xs}px;
-    margin: 0;
-    padding: 0;
-    ${theme.typography.family.text}
-    ${theme.typography.text.xs}
-    color: ${theme.colors.link.primary.base};
-    & > a {
-      margin: 0;
-      padding: 0;
-    }
-    & > .material-icons-outlined {
-      ${theme.typography.text.md}
-      margin: 0;
-      padding: 0;
-    }
-  `;
-
-  const ChartFooterMetaDataWrapper = styled.p`
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-    ${theme.typography.family.text}
-    ${theme.typography.text.xs}
-    line-height: 1.2rem;
-    color: ${theme.colors.text.tertiary.base};
-    & > a {
-      margin: 0;
-      padding: 0;
-      text-decoration: underline;
-      color: ${theme.colors.text.tertiary.base};
-      &:hover {
-        color: ${theme.colors.link.primary.base};
-      }
-    }
-  `;
 
   return (
     <>
@@ -162,7 +163,6 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
               {globalThis.viaGoogle
                 ? " " + intl.formatMessage(messages.viaGoogle)
                 : ""}
-              .
             </ChartFooterMetaDataWrapper>
           )}
           {!_.isEmpty(mMethods) && (
@@ -170,7 +170,6 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
               {`Measurement method${
                 props.mMethods.size > 1 ? "s" : ""
               }: ${mMethods}`}
-              .
             </ChartFooterMetaDataWrapper>
           )}
         </div>
