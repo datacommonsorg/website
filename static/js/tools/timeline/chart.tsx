@@ -335,7 +335,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
    * Shows the chart embed (download) modal.
    */
   private handleEmbed(): void {
-    if (!this.embedModalElement.current) return;
+    if (!this.embedModalElement.current || !this.containerRef.current) return;
     const { svgXml, height, width } = getMergedSvg(this.containerRef.current);
     this.embedModalElement.current.show(
       svgXml,
@@ -433,6 +433,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       facetListError: false,
       facetListLoading: true,
       rawData: null,
+      isDataLoaded: false,
     });
 
     const places = Object.keys(this.props.placeNameMap);
