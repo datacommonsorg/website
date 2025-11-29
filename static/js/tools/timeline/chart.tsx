@@ -153,9 +153,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const embedStatVarSpecs: StatVarSpec[] = [];
     const embedStatVarToFacets: StatVarFacetMap = {};
     if (this.state.isDataLoaded) {
+      const firstPlace = Object.keys(this.props.placeNameMap)[0];
       for (const svDcid in this.props.statVarInfos) {
         const svInfo = this.props.statVarInfos[svDcid];
-        const firstPlace = Object.keys(this.props.placeNameMap)[0];
         const facetId = this.state.statData.data[svDcid][firstPlace]?.facet;
         embedStatVarSpecs.push({
           statVar: svDcid,
@@ -172,7 +172,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
       // Get the denom for ChartEmbed
       if (this.props.pc && this.props.denom) {
-        const firstPlace = Object.keys(this.props.placeNameMap)[0];
         const denomFacetId =
           this.state.rawData.statAllData[this.props.denom]?.[firstPlace]?.[0]
             .facet;
@@ -332,23 +331,29 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.processData();
   }
 
+  /**
+   * Shows the chart embed (download) modal.
+   */
   private handleEmbed(): void {
     if (!this.embedModalElement.current) return;
     const { svgXml, height, width } = getMergedSvg(this.containerRef.current);
-    const chartTitle = "";
     this.embedModalElement.current.show(
       svgXml,
       this.getDataCsv,
       width,
       height,
       "",
-      chartTitle,
+      "",
       "",
       this.state.statData ? Array.from(this.state.statData.sources) : [],
       WEBSITE_SURFACE
     );
   }
 
+  /**
+   * Returns callback for fetching chart CSV data
+   * @returns A promise that resolves to chart CSV data.
+   */
   private getDataCsv(): Promise<string> {
     const dataCommonsClient = getDataCommonsClient();
     const statVarSpecs = this.getStatVarSpecs();
@@ -361,6 +366,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     });
   }
 
+  /**
+   * Builds stat var specs for data fetching.
+   */
   private getStatVarSpecs(): StatVarSpec[] {
     const statVarSpecs: StatVarSpec[] = [];
     const statVars = Object.keys(this.props.statVarInfos);
@@ -379,6 +387,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     return statVarSpecs;
   }
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns An array of `ObservationSpec` objects.
+   */
   private getObservationSpecs(): ObservationSpec[] {
     const statVarSpecs = this.getStatVarSpecs();
     const options: ObservationSpecOptions = {
@@ -513,10 +528,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
       this.units = Array.from(units).sort();
     }
-    this.setState({ statData, ipccModels });
-    if (!this.state.isDataLoaded) {
-      this.setState({ isDataLoaded: true });
-    }
+    this.setState({
+      statData,
+      ipccModels,
+      isDataLoaded: true,
+    });
   }
 
   /**
