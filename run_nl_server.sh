@@ -27,7 +27,7 @@ function cleanup {
 }
 trap cleanup SIGINT
 
-source .env/bin/activate
+source .venv/bin/activate
 
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev

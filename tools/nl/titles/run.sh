@@ -14,7 +14,7 @@
 # limitations under the License.
 
 
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip3 install -r requirements.txt
 python3 gen_chart_titles_by_sv.py

@@ -33,8 +33,8 @@ fi
 
 # Install all the requirements. Need `nl_server` too since the tool uses it.
 cd ../../..
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 python3 -m pip install --upgrade pip
 pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
 pip3 install -r nl_server/requirements.txt -q

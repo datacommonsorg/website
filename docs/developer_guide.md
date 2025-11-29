@@ -96,7 +96,7 @@ after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
   Clear the environment and rebuild all required libraries by running:
 
 ```bash
-rm -rf .env
+rm -rf .venv
 ./run_test.sh --setup_python
 ```
 

@@ -38,8 +38,8 @@ NO_PIP=$2
 export FLASK_ENV=webdriver
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 if [[ $NO_PIP != "true" ]]; then
   python3 -m pip install --upgrade pip setuptools
   pip3 install -r server/requirements.txt
