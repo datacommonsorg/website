@@ -54,7 +54,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     super(props);
   }
 
-  render(): JSX.Element {
+  render(): React.JSX.Element {
     if (
       Object.keys(this.props.placeName).length === 0 ||
       Object.keys(this.props.statVarInfo).length === 0
@@ -103,7 +103,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
    * TODO(shifucun): extend this to accomodate other stats var properties.
    *
    * @param statVarOrder The input stat vars in the order they were selected.
-   * @param statVars The stat var info of the selected stat vars.
+   * @param statVarInfo
    */
   private groupStatVars(
     statVarOrder: string[],
