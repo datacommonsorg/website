@@ -27,8 +27,6 @@ website:
   flaskEnv: autopush
   replicas: 15
   nodePool: "default-pool"
-  evalTool:
-    enabled: true
   dataGemma:
     enabled: true
   redis:
@@ -45,8 +43,6 @@ mixer:
   serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
   hostProject: "datcom-website-autopush"
   cacheSVFormula: true
-  useSpannerGraph: true
-  enableV3: true
   redis:
     enabled: true
     configFile: |
@@ -55,7 +51,6 @@ mixer:
           host: "10.13.112.19"
           port: "6379"
   enableOtlp: true
-  v3MirrorFraction: 0.5
 
 serviceAccount:
   name: website-ksa

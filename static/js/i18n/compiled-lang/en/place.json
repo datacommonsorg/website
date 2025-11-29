@@ -325,12 +325,6 @@
       "value": "Choose a variable to view its metadata"
     }
   ],
-  "citationGuidance": [
-    {
-      "type": 0,
-      "value": "Citation guidance"
-    }
-  ],
   "close": [
     {
       "type": 0,
@@ -371,12 +365,6 @@
     {
       "type": 0,
       "value": "Error fetching data."
-    }
-  ],
-  "dataSources": [
-    {
-      "type": 0,
-      "value": "Data sources"
     }
   ],
   "data_overview": [
@@ -555,18 +543,6 @@
       "value": "Follow these steps:"
     }
   ],
-  "info_box_instruction_multi_variable_desktop": [
-    {
-      "type": 0,
-      "value": "Pick statistical variables in the left pane."
-    }
-  ],
-  "info_box_instruction_multi_variable_mobile": [
-    {
-      "type": 0,
-      "value": "Pick statistical variables using the \"select variables\" button above."
-    }
-  ],
   "info_box_instruction_places_map": [
     {
       "type": 0,
@@ -576,25 +552,49 @@
   "info_box_instruction_places_scatter": [
     {
       "type": 0,
-      "value": "Enter your desired location (city, state, county, or country) into the search box above, and then select the type of place you want to plot."
+      "value": "Enter your desired location (country, state, county, or city) into the search box above, and then select the type of place you want to plot."
     }
   ],
   "info_box_instruction_places_timeline": [
     {
       "type": 0,
-      "value": "Enter your desired location(s) (city, state, county, or country) into the search box above."
+      "value": "Enter your desired location(s) (country, state, county, or city) into the search box above."
     }
   ],
-  "info_box_instruction_variable_desktop": [
+  "info_box_instruction_variable_desktop_map": [
     {
       "type": 0,
       "value": "Pick a statistical variable in the left pane."
     }
   ],
-  "info_box_instruction_variable_mobile": [
+  "info_box_instruction_variable_desktop_scatter": [
+    {
+      "type": 0,
+      "value": "Pick two statistical variables in the left pane."
+    }
+  ],
+  "info_box_instruction_variable_desktop_timeline": [
+    {
+      "type": 0,
+      "value": "Pick one or more statistical variables in the left pane."
+    }
+  ],
+  "info_box_instruction_variable_mobile_map": [
     {
       "type": 0,
       "value": "Pick a statistical variable using the \"select variable\" button above."
+    }
+  ],
+  "info_box_instruction_variable_mobile_scatter": [
+    {
+      "type": 0,
+      "value": "Pick two statistical variables using the \"select variable\" button above."
+    }
+  ],
+  "info_box_instruction_variable_mobile_timeline": [
+    {
+      "type": 0,
+      "value": "Pick one or more statistical variables using the \"select variable\" button above."
     }
   ],
   "key_demographics": [
@@ -690,6 +690,12 @@
     {
       "type": 0,
       "value": "Go back to the new Map Explorer"
+    }
+  ],
+  "map_tool_search_box_placeholder": [
+    {
+      "type": 0,
+      "value": "Enter a country or state to get started"
     }
   ],
   "map_visualization_tool_description": [
@@ -1841,10 +1847,22 @@
       "value": "Scatter Tool"
     }
   ],
+  "scatter_tool_bivariate_chart_type_tooltip": [
+    {
+      "type": 0,
+      "value": "Visualize the geographical co-location of two statistical variables using a bivariate map"
+    }
+  ],
   "scatter_tool_go_back_message": [
     {
       "type": 0,
       "value": "Go back to the new Scatter Plot Explorer"
+    }
+  ],
+  "scatter_tool_scatter_chart_type_tooltip": [
+    {
+      "type": 0,
+      "value": "Visualize the relationship between two statistical variables using a scatter plot"
     }
   ],
   "scatter_visualization_tool_description": [
@@ -2130,7 +2148,7 @@
   "sourceAndCitation": [
     {
       "type": 0,
-      "value": "Source and citation"
+      "value": "Citation"
     }
   ],
   "sources": [

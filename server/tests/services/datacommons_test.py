@@ -280,6 +280,8 @@ class TestServiceDataCommonsNLSearchVarsInParallel(
     self.app.config["DC_API_KEY"] = "fake_key"
     self.app_context = self.app.app_context()
     self.app_context.push()
+    # Initialize cache with the test app
+    cache.init_app(self.app)
 
   def tearDown(self):
     self.app_context.pop()
@@ -329,11 +331,12 @@ class TestServiceDataCommonsNLSearchVarsInParallel(
       return resp
 
     with mock.patch('requests.post') as mock_post:
-      mock_post.side_effect = side_effect
+      with self.app.test_request_context():
+        mock_post.side_effect = side_effect
 
-      result = await nl_search_vars_in_parallel(queries=["foo"],
-                                                index_types=["idx1", "idx2"],
-                                                skip_topics=True)
+        result = await nl_search_vars_in_parallel(queries=["foo"],
+                                                  index_types=["idx1", "idx2"],
+                                                  skip_topics=True)
 
-      self.assertEqual(result, {"idx1": idx1_result, "idx2": idx2_result})
-      self.assertEqual(mock_post.call_count, 2)
+        self.assertEqual(result, {"idx1": idx1_result, "idx2": idx2_result})
+        self.assertEqual(mock_post.call_count, 2)

@@ -25,6 +25,7 @@ import { Spinner } from "reactstrap";
 import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
+import { useLazyLoad } from "../shared/hooks";
 import { RankingPoint } from "../types/ranking_unit_types";
 import { PlaceName } from "./place_name";
 
@@ -80,6 +81,7 @@ interface RankingUnitPropType {
   entityType?: string;
   isLoading?: boolean;
   statVar?: string;
+  enableScroll?: boolean;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -132,6 +134,102 @@ export function getPointsList(
   return pointsList;
 }
 
+function RankingRow(props: {
+  point: RankingPoint;
+  highlightedDcid?: string;
+  entityType?: string;
+  apiRoot?: string;
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void;
+  hideValue?: boolean;
+  scaling?: number[];
+  unit?: string[];
+  svNames?: string[];
+  eagerLoad?: boolean;
+}): JSX.Element {
+  const {
+    point,
+    highlightedDcid,
+    entityType,
+    apiRoot,
+    onHoverToggled,
+    hideValue,
+    scaling,
+    unit,
+    eagerLoad,
+  } = props;
+  const { shouldLoad: lazyShouldLoad, containerRef } =
+    useLazyLoad<HTMLTableRowElement>("200px");
+  const urlFunc = React.useContext(RankingUnitUrlFuncContext);
+  const shouldLoad = eagerLoad || lazyShouldLoad;
+
+  return (
+    <tr ref={containerRef}>
+      <td
+        className={`rank ${point.placeDcid === highlightedDcid ? "bold" : ""}`}
+      >
+        {point.rank}.
+      </td>
+      <td
+        className={`place-name ${
+          point.placeDcid === highlightedDcid ? "bold" : ""
+        }`}
+      >
+        <LocalizedLink
+          href={urlFunc(point.placeDcid, entityType, apiRoot)}
+          text={
+            shouldLoad ? (
+              <PlaceName dcid={point.placeDcid} apiRoot={apiRoot} />
+            ) : (
+              <Spinner color="secondary" size="sm" />
+            )
+          }
+          onMouseEnter={() =>
+            onHoverToggled && onHoverToggled(point.placeDcid, true)
+          }
+          onMouseLeave={() =>
+            onHoverToggled && onHoverToggled(point.placeDcid, false)
+          }
+        />
+      </td>
+      {!hideValue && _.isEmpty(point.values) && (
+        <td className="stat">
+          <span
+            className={`num-value ${
+              point.placeDcid === highlightedDcid ? "bold" : ""
+            }`}
+          >
+            {formatNumber(
+              !_.isEmpty(scaling) && scaling[0]
+                ? point.value * scaling[0]
+                : point.value,
+              unit && unit.length ? unit[0] : ""
+            )}
+          </span>
+        </td>
+      )}
+      {!hideValue &&
+        !_.isEmpty(point.values) &&
+        point.values.map((v, i) => (
+          <td key={i} className="stat">
+            <span
+              className={`num-value ${
+                point.placeDcid === highlightedDcid ? "bold" : ""
+              }`}
+            >
+              {formatNumber(
+                !_.isEmpty(scaling) && scaling[i] ? v * scaling[i] : v,
+                unit && unit.length ? unit[i] : ""
+              )}
+            </span>
+          </td>
+        ))}
+      <td className="ranking-date-cell" title={point.date}>
+        {point.date}
+      </td>
+    </tr>
+  );
+}
+
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   const urlFunc = useContext(RankingUnitUrlFuncContext);
   const pointsList = getPointsList(
@@ -156,6 +254,57 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       </div>
       {props.errorMsg ? (
         <div>{props.errorMsg}</div>
+      ) : props.enableScroll ? (
+        <div
+          className="ranking-scroll-container"
+          style={{ maxHeight: "400px", overflowY: "auto" }}
+        >
+          <table>
+            {props.svNames && !props.hideValue && (
+              <thead
+                style={{
+                  position: "sticky",
+                  top: 0,
+                  background: "white",
+                  zIndex: 1,
+                }}
+              >
+                <tr>
+                  <td></td>
+                  <td></td>
+                  {props.svNames.map((name, i) => (
+                    <td key={i} className="stat">
+                      {name}
+                    </td>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {pointsList.map((points, idx) => {
+                return (
+                  <React.Fragment key={`ranking-unit-list-${idx}`}>
+                    {idx > 0 && (
+                      <tr>
+                        <td>...</td>
+                      </tr>
+                    )}
+                    {points.map((point, i) => {
+                      return (
+                        <RankingRow
+                          key={point.placeDcid}
+                          point={point}
+                          {...props}
+                          eagerLoad={idx === 0 && i < 20}
+                        />
+                      );
+                    })}
+                  </React.Fragment>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <table>
           {props.svNames && !props.hideValue && (
@@ -180,98 +329,14 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                       <td>...</td>
                     </tr>
                   )}
-                  {points.map((point) => {
+                  {points.map((point, i) => {
                     return (
-                      <tr key={point.placeDcid}>
-                        <td
-                          className={`rank ${
-                            point.placeDcid === props.highlightedDcid
-                              ? "bold"
-                              : ""
-                          }`}
-                        >
-                          {point.rank}.
-                        </td>
-                        <td
-                          className={`place-name ${
-                            point.placeDcid === props.highlightedDcid
-                              ? "bold"
-                              : ""
-                          }`}
-                        >
-                          <LocalizedLink
-                            href={urlFunc(
-                              point.placeDcid,
-                              props.entityType,
-                              props.apiRoot,
-                              props.statVar
-                            )}
-                            text={
-                              <PlaceName
-                                dcid={point.placeDcid}
-                                apiRoot={props.apiRoot}
-                              ></PlaceName>
-                            }
-                            onMouseEnter={(): void => {
-                              if (!props.onHoverToggled) {
-                                return;
-                              }
-                              props.onHoverToggled(point.placeDcid, true);
-                            }}
-                            onMouseLeave={(): void => {
-                              if (!props.onHoverToggled) {
-                                return;
-                              }
-                              props.onHoverToggled(point.placeDcid, false);
-                            }}
-                          />
-                        </td>
-                        {!props.hideValue && _.isEmpty(point.values) && (
-                          <td className="stat">
-                            <span
-                              className={`num-value ${
-                                point.placeDcid === props.highlightedDcid
-                                  ? "bold"
-                                  : ""
-                              }`}
-                            >
-                              {formatNumber(
-                                !_.isEmpty(props.scaling) && props.scaling[0]
-                                  ? point.value * props.scaling[0]
-                                  : point.value,
-                                props.unit && props.unit.length
-                                  ? props.unit[0]
-                                  : ""
-                              )}
-                            </span>
-                          </td>
-                        )}
-                        {!props.hideValue &&
-                          !_.isEmpty(point.values) &&
-                          point.values.map((v, i) => (
-                            <td key={i} className="stat">
-                              <span
-                                className={`num-value ${
-                                  point.placeDcid === props.highlightedDcid
-                                    ? "bold"
-                                    : ""
-                                }`}
-                              >
-                                {formatNumber(
-                                  !_.isEmpty(props.scaling) && props.scaling[i]
-                                    ? v * props.scaling[i]
-                                    : v,
-                                  props.unit && props.unit.length
-                                    ? props.unit[i]
-                                    : ""
-                                )}
-                              </span>
-                            </td>
-                          ))}
-                        <td className="ranking-date-cell" title={point.date}>
-                          {point.date}
-                        </td>
-                      </tr>
+                      <RankingRow
+                        key={point.placeDcid}
+                        point={point}
+                        {...props}
+                        eagerLoad={idx === 0 && i < 20}
+                      />
                     );
                   })}
                 </React.Fragment>

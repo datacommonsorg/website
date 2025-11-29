@@ -164,12 +164,38 @@ class ExplorePageTestMixin():
     bar_chart = find_elem(highlight_div, By.CLASS_NAME, "bar-chart")
     self.assertIsNotNone(bar_chart)
 
-    expected_citation = (
-        "World Bank, World Development Indicators, with minor processing by Data Commons"
-    )
+  def test_highlight_chart_us_states_pop_ranking_with_map(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "#sv=Count_Person&p=country/USA&imp=USCensusPEP_Annual_Population&mm=CensusPEPSurvey&obsPer=P1Y&chartType=RANKING_WITH_MAP"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
-    wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
-                  "metadata-summary")
+    shared.wait_for_loading(self.driver)
+
+    # Test for the expected place names in either the new or legacy callout
+    locators = [(By.ID, 'place-callout'),
+                (By.ID, 'result-header-place-callout')]
+    header_element = find_any_of_elems(self.driver, locators)
+    header_id = header_element.get_attribute('id')
+    if header_id == 'place-callout':
+      # Legacy header
+      self.assertIn('United States', header_element.text)
+    elif header_id == 'result-header-place-callout':
+      wait_for_text(header_element, 'United States', By.TAG_NAME, 'p')
+
+    if not header_element:
+      self.fail(
+          "Neither legacy 'place-callout' nor new 'result-header-place-callout' was found."
+      )
+
+    self.assertIn('United States', header_element.text)
+
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    map_tile = find_elem(highlight_div, By.CLASS_NAME, 'map-chart')
+    self.assertIsNotNone(map_tile)
+
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
 
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
@@ -220,3 +246,72 @@ class ExplorePageTestMixin():
     highlight_divs = find_elems(self.driver, By.CLASS_NAME,
                                 'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
+
+  def test_highlight_chart_date_selection(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "?sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+
+    shared.wait_for_loading(self.driver)
+
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+    ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
+                                    'ranking-date-cell')
+    for cell in ranking_date_cells:
+      self.assertIn('2023', cell.text)
+
+  def test_ranking_scroll_enabled(self):
+    """Test ranking tile on explore page with scroll feature enabled."""
+    self.driver.get(
+        self.url_ +
+        '/explore?enable_feature=enable_ranking_tile_scroll#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=Earth&pt=Country&ept=Country&chartType=RANKING_WITH_MAP'
+    )
+
+    shared.wait_for_loading(self.driver)
+
+    first_block = find_elems(self.driver, By.CLASS_NAME, 'block')[0]
+    ranking_tile = find_elem(first_block, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+
+    table = find_elem(ranking_tile, by=By.TAG_NAME, value='table')
+    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
+                       5)
+
+    # Check for scrollability
+    ranking_list = find_elem(ranking_tile,
+                             by=By.CLASS_NAME,
+                             value='ranking-list')
+    ranking_list = find_elem(ranking_tile, By.CLASS_NAME,
+                             'ranking-scroll-container')
+    self.assertEqual(ranking_list.value_of_css_property('overflow-y'), 'auto')
+
+  def test_ranking_scroll_disabled(self):
+    """Test ranking tile on explore page with scroll feature disabled."""
+    self.driver.get(
+        self.url_ +
+        '/explore?disable_feature=enable_ranking_tile_scroll#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=Earth&pt=Country&ept=Country&chartType=RANKING_WITH_MAP'
+    )
+
+    shared.wait_for_loading(self.driver)
+
+    first_block = find_elems(self.driver, By.CLASS_NAME, 'block')[0]
+    ranking_tile = find_elem(first_block, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+
+    table = find_elem(ranking_tile, by=By.TAG_NAME, value='table')
+    self.assertLessEqual(
+        len(find_elems(table, by=By.XPATH, value='.//tbody/tr')), 11)
+
+    # Check for non-scrollability
+    ranking_list = find_elem(ranking_tile,
+                             by=By.CLASS_NAME,
+                             value='ranking-list')
+    # There should be no div with overflow-y: auto
+    scrollable_divs = find_elems(
+        ranking_list,
+        by=By.XPATH,
+        value="./div[@style='max-height: 400px; overflow-y: auto;']")
+    self.assertEqual(len(scrollable_divs), 0)
