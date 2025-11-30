@@ -72,6 +72,11 @@ interface ChartPropsType {
   // Whether the chart is on for the delta (increment) of the data.
   delta: boolean;
   removeStatVar: (statVar: string) => void;
+  onDataUpdate: (mprop: string, data: StatData) => void;
+  onMetadataMapUpdate: (
+    metadataMap: Record<string, Record<string, StatMetadata>>
+  ) => void;
+  // Map of stat var dcid to a facet id
   svFacetId: Record<string, string>;
 }
 
@@ -441,6 +446,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
 
     try {
       const rawData = await fetchRawData(places, statVars, this.props.denom);
+      this.props.onMetadataMapUpdate(rawData.metadataMap);
+
       this.setState({ rawData }, () => {
         void this.enrichFacets(statVars, rawData.metadataMap);
       });
@@ -529,6 +536,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
       this.units = Array.from(units).sort();
     }
+
+    this.props.onDataUpdate(this.props.chartId, statData);
     this.setState({
       statData,
       ipccModels,
