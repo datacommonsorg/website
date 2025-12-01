@@ -327,7 +327,9 @@ class ExplorePageTestMixin():
   def test_ranking_chart_hyperlink(self):
     """Test the hyperlink on a ranking chart."""
     query = "Total population in the USA"
-    self.driver.get(f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}")
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
     shared.wait_for_loading(self.driver)
 
     ranking_tile = find_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
@@ -353,7 +355,8 @@ class ExplorePageTestMixin():
 
   def test_bar_chart_hyperlink(self):
     """Test the hyperlink on a bar chart from a place page."""
-    self.driver.get(f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
+    self.driver.get(
+        f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
     shared.wait_for_loading(self.driver)
 
     bar_chart = find_elem(self.driver, By.CLASS_NAME, "bar-chart")
@@ -374,7 +377,8 @@ class ExplorePageTestMixin():
 
   def test_line_chart_hyperlink(self):
     """Test the hyperlink on a line chart from a place page."""
-    self.driver.get(f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
+    self.driver.get(
+        f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
     shared.wait_for_loading(self.driver)
 
     line_chart = shared.wait_elem(self.driver, By.CLASS_NAME, "line-chart")
@@ -387,7 +391,10 @@ class ExplorePageTestMixin():
     hyperlink_btn.click()
     self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    expected_params = {"chartType": "TIMELINE_WITH_HIGHLIGHT", "p": "country%2FBRA"}
+    expected_params = {
+        "chartType": "TIMELINE_WITH_HIGHLIGHT",
+        "p": "country%2FBRA"
+    }
     self._assert_url_params(self.driver.current_url, expected_params)
 
     self.driver.close()
@@ -401,7 +408,9 @@ class ExplorePageTestMixin():
     import_name = "WikipediaStatsData"
     measurement_method = "Wikipedia"
 
-    self.driver.get(f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}")
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
     shared.wait_for_loading(self.driver)
 
     pop_block = find_elem(self.driver, By.CLASS_NAME, 'block')

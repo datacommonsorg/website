@@ -25,6 +25,10 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
+import {
+  ENABLE_CHART_HYPERLINK,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { ObservationSpec } from "../../shared/observation_specs";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
@@ -35,10 +39,6 @@ import {
   getMergedSvg,
   ReplacementStrings,
 } from "../../utils/tile_utils";
-import {
-  ENABLE_CHART_HYPERLINK,
-  isFeatureEnabled,
-} from "../../shared/feature_flags/util";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
 interface ChartTileContainerProp {
