@@ -66,7 +66,6 @@ import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPoint, getPointWithin } from "../../utils/data_fetch_utils";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { buildExploreUrl } from "../../utils/url_utils";
 import {
   clearContainer,
   getDenomInfo,
@@ -78,6 +77,7 @@ import {
   ReplacementStrings,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
 import {
   ChartOptions,
@@ -498,11 +498,11 @@ export const fetchData = async (
       "enclosedPlaceType" in props
         ? props.enclosedPlaceType
         : await getPlaceType(
-          Array.from(popPoints)
-            .map((x) => x.placeDcid)
-            .pop(),
-          props.apiRoot
-        );
+            Array.from(popPoints)
+              .map((x) => x.placeDcid)
+              .pop(),
+            props.apiRoot
+          );
     const statVarDcidToName = await getStatVarNames(
       props.variables,
       props.apiRoot,
@@ -762,8 +762,8 @@ function getExploreLink(props: BarTilePropType): {
     "places" in props
       ? props.places
       : "parentPlace" in props
-        ? [props.parentPlace]
-        : [];
+      ? [props.parentPlace]
+      : [];
   const hash = getHash(
     VisType.TIMELINE,
     placeDcids,
@@ -777,7 +777,10 @@ function getExploreLink(props: BarTilePropType): {
   };
 }
 
-function getHyperlinkFn(props: BarTilePropType, chartData?: BarChartData): string {
+function getHyperlinkFn(
+  props: BarTilePropType,
+  chartData?: BarChartData
+): string {
   if (!props.variables || props.variables.length === 0) {
     return "";
   }
@@ -785,8 +788,8 @@ function getHyperlinkFn(props: BarTilePropType, chartData?: BarChartData): strin
     "places" in props
       ? props.places
       : "parentPlace" in props
-        ? [props.parentPlace]
-        : [];
+      ? [props.parentPlace]
+      : [];
   let facetMetadata: StatMetadata = undefined;
   if (chartData && chartData.statVarToFacets && chartData.facets) {
     // Attempt to get facet data from the first variable's facet
@@ -798,7 +801,11 @@ function getHyperlinkFn(props: BarTilePropType, chartData?: BarChartData): strin
     }
   }
   // Fallback to facetSelector prop
-  if (!facetMetadata && props.facetSelector && props.facetSelector.facetMetadata) {
+  if (
+    !facetMetadata &&
+    props.facetSelector &&
+    props.facetSelector.facetMetadata
+  ) {
     facetMetadata = props.facetSelector.facetMetadata;
   }
 }

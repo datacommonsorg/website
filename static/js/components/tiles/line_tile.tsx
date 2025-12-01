@@ -61,7 +61,6 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { buildExploreUrl } from "../../utils/url_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
@@ -73,6 +72,7 @@ import {
   ReplacementStrings,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -569,11 +569,12 @@ function rawToChart(
           allDates.add(obs.date);
         }
         const label = options.useBothLabels
-          ? `${statVarDcidToName[spec.statVar]} for ${placeDcidToName[placeDcid]
-          }`
+          ? `${statVarDcidToName[spec.statVar]} for ${
+              placeDcidToName[placeDcid]
+            }`
           : options.usePlaceLabels
-            ? placeDcidToName[placeDcid]
-            : statVarDcidToName[spec.statVar];
+          ? placeDcidToName[placeDcid]
+          : statVarDcidToName[spec.statVar];
         dataGroups.push(new DataGroup(label, dataPoints));
         sources.add(raw.facets[series.facet].provenanceUrl);
         facets[series.facet] = raw.facets[series.facet];
@@ -601,7 +602,6 @@ function rawToChart(
   };
 }
 
-
 function getExploreLink(props: LineTilePropType): {
   displayText: string;
   url: string;
@@ -619,7 +619,10 @@ function getExploreLink(props: LineTilePropType): {
   };
 }
 
-function getHyperlinkFn(props: LineTilePropType, chartData?: LineChartData): string {
+function getHyperlinkFn(
+  props: LineTilePropType,
+  chartData?: LineChartData
+): string {
   if (!props.place) {
     return ""; // Or null, depending on how ChartTileContainer handles it
   }
@@ -633,7 +636,11 @@ function getHyperlinkFn(props: LineTilePropType, chartData?: LineChartData): str
       facetMetadata = chartData.facets[firstFacetId];
     }
   }
-  if (!facetMetadata && props.facetSelector && props.facetSelector.facetMetadata) {
+  if (
+    !facetMetadata &&
+    props.facetSelector &&
+    props.facetSelector.facetMetadata
+  ) {
     facetMetadata = props.facetSelector.facetMetadata;
   }
   return buildExploreUrl(

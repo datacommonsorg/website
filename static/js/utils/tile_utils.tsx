@@ -454,21 +454,21 @@ export async function getDenomResp(
     denomPromises.push(
       useSeriesWithin
         ? getSeriesWithin(
-          apiRoot,
-          parentPlace,
-          placeType,
-          denoms,
-          [facetId],
-          surface
-        )
+            apiRoot,
+            parentPlace,
+            placeType,
+            denoms,
+            [facetId],
+            surface
+          )
         : getSeries(
-          apiRoot,
-          allPlaces,
-          denoms,
-          [facetId],
-          null /* highlight facet */,
-          surface
-        )
+            apiRoot,
+            allPlaces,
+            denoms,
+            [facetId],
+            null /* highlight facet */,
+            surface
+          )
     );
   }
 
@@ -476,7 +476,7 @@ export async function getDenomResp(
   const defaultDenomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
     : useSeriesWithin
-      ? getSeriesWithin(
+    ? getSeriesWithin(
         apiRoot,
         parentPlace,
         placeType,
@@ -484,7 +484,7 @@ export async function getDenomResp(
         null /* facetIds */,
         surface
       )
-      : getSeries(
+    : getSeries(
         apiRoot,
         allPlaces,
         denoms,
@@ -686,7 +686,8 @@ interface GetExploreLinkOptions {
  * @param options The options for generating the hyperlink.
  */
 export function getExploreLink(options: GetExploreLinkOptions): string {
-  const { apiRoot, chartType, placeDcids, statVarSpecs, facetMetadata } = options;
+  const { apiRoot, chartType, placeDcids, statVarSpecs, facetMetadata } =
+    options;
   if (!statVarSpecs || statVarSpecs.length === 0) {
     return "";
   }

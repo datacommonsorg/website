@@ -83,8 +83,8 @@ import {
 } from "../../utils/subject_page_utils";
 import {
   getComparisonPlaces,
-  getHighlightTileDescription,
   getExploreLink,
+  getHighlightTileDescription,
 } from "../../utils/tile_utils";
 import { Help } from "../elements/icons/help";
 import { Tooltip } from "../elements/tooltip/tooltip";
@@ -600,32 +600,32 @@ export function Block(props: BlockPropType): ReactElement {
                 tiles={
                   props.showWebComponents
                     ? renderWebComponents(
-                      column.tiles,
-                      props,
-                      id,
-                      minIdxToHide,
-                      overridePlaceTypes,
-                      columnTileClassName,
-                      useDenom ? denom : "",
-                      snapToHighestCoverage
-                        ? DATE_HIGHEST_COVERAGE
-                        : undefined
-                    )
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        columnTileClassName,
+                        useDenom ? denom : "",
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined
+                      )
                     : renderTiles(
-                      column.tiles,
-                      props,
-                      id,
-                      minIdxToHide,
-                      overridePlaceTypes,
-                      getStatVarSpec,
-                      getSingleStatVarSpec,
-                      columnTileClassName,
-                      useDenom ? denom : "",
-                      snapToHighestCoverage
-                        ? DATE_HIGHEST_COVERAGE
-                        : undefined,
-                      facetList
-                    )
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        getStatVarSpec,
+                        getSingleStatVarSpec,
+                        columnTileClassName,
+                        useDenom ? denom : "",
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined,
+                        facetList
+                      )
                 }
               />
             );
@@ -742,8 +742,11 @@ function renderTiles(
               placeDcids: [place.dcid],
               statVarSpecs: [getSingleStatVarSpec(tile.statVarKey[0])],
               facetMetadata: facetList?.find(
-                (f) => f.dcid === getSingleStatVarSpec(tile.statVarKey[0]).statVar
-              )?.metadataMap?.[getSingleStatVarSpec(tile.statVarKey[0]).facetId],
+                (f) =>
+                  f.dcid === getSingleStatVarSpec(tile.statVarKey[0]).statVar
+              )?.metadataMap?.[
+                getSingleStatVarSpec(tile.statVarKey[0]).facetId
+              ],
             })}
           />
         );
@@ -797,10 +800,10 @@ function renderTiles(
               blockDate == DATE_LATEST
                 ? intl.formatMessage(messages.rankingTileLatestDataFooter)
                 : blockDate === DATE_HIGHEST_COVERAGE
-                  ? intl.formatMessage(
+                ? intl.formatMessage(
                     messages.rankingTileLatestDataAvailableFooter
                   )
-                  : undefined
+                : undefined
             }
             surface={WEBSITE_SURFACE}
             facetSelector={props.facetSelector}
@@ -862,9 +865,9 @@ function renderTiles(
       case "SCATTER": {
         title = blockDenom
           ? addPerCapitaToVersusTitle(
-            tile.title,
-            getStatVarSpec(tile.statVarKey)
-          )
+              tile.title,
+              getStatVarSpec(tile.statVarKey)
+            )
           : tile.title;
         return (
           <ScatterTile
@@ -1086,9 +1089,9 @@ function renderWebComponents(
             }
             className={className}
             {...(props.showExploreMore &&
-              props.place.types.every(
-                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
-              )
+            props.place.types.every(
+              (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+            )
               ? { showExploreMore: true }
               : {})}
             {...(tile.mapTileSpec?.geoJsonProp

@@ -333,17 +333,18 @@ class ExplorePageTestMixin():
     ranking_tile = find_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile, "Ranking tile not found")
     scroll_to_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
-    
-    hyperlink_btn = find_elem(ranking_tile, By.CLASS_NAME, 'custom-link-outlink')
+
+    hyperlink_btn = find_elem(ranking_tile, By.CLASS_NAME,
+                              'custom-link-outlink')
     self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
 
     hyperlink_btn.click()
     self.driver.switch_to.window(self.driver.window_handles[-1])
 
     expected_params = {
-      "chartType": "RANKING_WITH_MAP",
-      "sv": "Count_Person",
-      "p": "country/USA"
+        "chartType": "RANKING_WITH_MAP",
+        "sv": "Count_Person",
+        "p": "country/USA"
     }
     self._assert_url_params(self.driver.current_url, expected_params)
 
@@ -359,19 +360,16 @@ class ExplorePageTestMixin():
     bar_chart = find_elem(self.driver, By.CLASS_NAME, "bar-chart")
     self.assertIsNotNone(bar_chart, "Bar chart not found")
     scroll_to_elem(self.driver, By.CLASS_NAME, 'bar-chart')
-    
+
     hyperlink_btn = find_elem(bar_chart, By.CLASS_NAME, 'custom-link-outlink')
     self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
 
     hyperlink_btn.click()
     self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    expected_params = {
-      "chartType": "BAR_CHART",
-      "p": place_dcid
-    }
+    expected_params = {"chartType": "BAR_CHART", "p": place_dcid}
     self._assert_url_params(self.driver.current_url, expected_params)
-    
+
     self.driver.close()
     self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -384,17 +382,14 @@ class ExplorePageTestMixin():
     line_chart = shared.wait_elem(self.driver, By.CLASS_NAME, "line-chart")
     self.assertIsNotNone(line_chart, "Line chart not found")
     scroll_to_elem(self.driver, By.CLASS_NAME, 'line-chart')
-    
+
     hyperlink_btn = find_elem(line_chart, By.CLASS_NAME, 'custom-link-outlink')
     self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
 
     hyperlink_btn.click()
     self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    expected_params = {
-      "chartType": "TIMELINE_WITH_HIGHLIGHT",
-      "p": place_dcid
-    }
+    expected_params = {"chartType": "TIMELINE_WITH_HIGHLIGHT", "p": place_dcid}
     self._assert_url_params(self.driver.current_url, expected_params)
 
     self.driver.close()
@@ -414,37 +409,42 @@ class ExplorePageTestMixin():
     pop_block = find_elem(self.driver, By.CLASS_NAME, 'block')
     self.assertIsNotNone(pop_block, "Highlight chart not found")
 
-    facet_button = find_elem(pop_block, By.CLASS_NAME, 'source-selector-open-modal-button')
+    facet_button = find_elem(pop_block, By.CLASS_NAME,
+                             'source-selector-open-modal-button')
     self.assertIsNotNone(facet_button, "Facet selector button not found")
     facet_button.click()
 
-    shared.wait_elem(self.driver, By.CLASS_NAME, 'source-selector-facet-option-title')
+    shared.wait_elem(self.driver, By.CLASS_NAME,
+                     'source-selector-facet-option-title')
 
-    wiki_label = find_elem(self.driver, By.XPATH, f"//label[contains(., '{import_name}')]")
+    wiki_label = find_elem(self.driver, By.XPATH,
+                           f"//label[contains(., '{import_name}')]")
     self.assertIsNotNone(wiki_label, f"{import_name} option not found")
-    
+
     wiki_input = find_elem(wiki_label, By.TAG_NAME, 'input')
     self.assertIsNotNone(wiki_input, f"{import_name} input not found")
     wiki_input.click()
 
-    update_button = find_elem(self.driver, By.CLASS_NAME, 'source-selector-update-source-button')
+    update_button = find_elem(self.driver, By.CLASS_NAME,
+                              'source-selector-update-source-button')
     self.assertIsNotNone(update_button, "Update button not found")
     update_button.click()
 
     shared.wait_for_loading(self.driver)
 
     hyperlink_btn = find_elem(pop_block, By.CLASS_NAME, 'custom-link-outlink')
-    self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found after facet change")
+    self.assertIsNotNone(hyperlink_btn,
+                         "Hyperlink button not found after facet change")
 
     hyperlink_href = hyperlink_btn.get_attribute('href')
     self.assertIsNotNone(hyperlink_href, "Hyperlink href not found")
 
     expected_href_params = {
-      "chartType": "TIMELINE_WITH_HIGHLIGHT",
-      "sv": stat_var,
-      "p": place_dcid,
-      "imp": import_name,
-      "mm": measurement_method
+        "chartType": "TIMELINE_WITH_HIGHLIGHT",
+        "sv": stat_var,
+        "p": place_dcid,
+        "imp": import_name,
+        "mm": measurement_method
     }
     self._assert_url_params(hyperlink_href, expected_href_params)
 
@@ -455,20 +455,28 @@ class ExplorePageTestMixin():
     self._assert_url_params(self.driver.current_url, expected_href_params)
 
     pop_block_new = find_elem(self.driver, By.CLASS_NAME, 'block')
-    self.assertIsNotNone(pop_block_new, "Highlight chart not found in new window")
+    self.assertIsNotNone(pop_block_new,
+                         "Highlight chart not found in new window")
 
-    facet_button_new = find_elem(pop_block_new, By.CLASS_NAME, 'source-selector-open-modal-button')
-    self.assertIsNotNone(facet_button_new, "Facet selector button not found in new window")
+    facet_button_new = find_elem(pop_block_new, By.CLASS_NAME,
+                                 'source-selector-open-modal-button')
+    self.assertIsNotNone(facet_button_new,
+                         "Facet selector button not found in new window")
     facet_button_new.click()
 
-    shared.wait_elem(self.driver, By.CLASS_NAME, 'source-selector-facet-option-title')
+    shared.wait_elem(self.driver, By.CLASS_NAME,
+                     'source-selector-facet-option-title')
 
-    wiki_label_new = find_elem(self.driver, By.XPATH, f"//label[contains(., '{import_name}')]")
-    self.assertIsNotNone(wiki_label_new, f"{import_name} option not found in new window")
-    
+    wiki_label_new = find_elem(self.driver, By.XPATH,
+                               f"//label[contains(., '{import_name}')]")
+    self.assertIsNotNone(wiki_label_new,
+                         f"{import_name} option not found in new window")
+
     wiki_input_new = find_elem(wiki_label_new, By.TAG_NAME, 'input')
-    self.assertIsNotNone(wiki_input_new, f"{import_name} input not found in new window")
-    self.assertTrue(wiki_input_new.is_selected(), f"{import_name} should be selected in new window")
+    self.assertIsNotNone(wiki_input_new,
+                         f"{import_name} input not found in new window")
+    self.assertTrue(wiki_input_new.is_selected(),
+                    f"{import_name} should be selected in new window")
 
     self.driver.close()
     self.driver.switch_to.window(self.driver.window_handles[0])

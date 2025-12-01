@@ -21,8 +21,8 @@
 import queryString from "query-string";
 
 import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
-import { FacetMetadata } from "../types/facet_metadata";
 import { StatVarSpec } from "../shared/types";
+import { FacetMetadata } from "../types/facet_metadata";
 
 // Hash params that should be persisted across pages.
 const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq"]);
@@ -273,14 +273,14 @@ export function buildExploreUrl(
   facetMetadata?: FacetMetadata
 ): string {
   const params: Record<string, string | string[]> = {
-    chartType: chartType,
+    chartType,
   };
 
   if (places && places.length > 0) {
     params["p"] = places.join("___");
   }
 
-  const svs = statVarSpecs.map(spec => spec.statVar);
+  const svs = statVarSpecs.map((spec) => spec.statVar);
   if (svs.length > 0) {
     params["sv"] = svs.join("___");
   }
@@ -288,8 +288,10 @@ export function buildExploreUrl(
   // Add facet metadata if provided
   if (facetMetadata) {
     if (facetMetadata.importName) params["imp"] = facetMetadata.importName;
-    if (facetMetadata.measurementMethod) params["mm"] = facetMetadata.measurementMethod;
-    if (facetMetadata.observationPeriod) params["op"] = facetMetadata.observationPeriod;
+    if (facetMetadata.measurementMethod)
+      params["mm"] = facetMetadata.measurementMethod;
+    if (facetMetadata.observationPeriod)
+      params["op"] = facetMetadata.observationPeriod;
     if (facetMetadata.scalingFactor) params["sf"] = facetMetadata.scalingFactor;
     if (facetMetadata.unit) params["unit"] = facetMetadata.unit;
   }

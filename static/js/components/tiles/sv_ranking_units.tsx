@@ -180,7 +180,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
-                    hyperlink={getHyperlinkUrl(props)}
+                  hyperlink={getHyperlinkUrl(props)}
                 ></ChartFooter>
               )}
             </div>
@@ -215,7 +215,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
-                    hyperlink={getHyperlinkUrl(props)}
+                  hyperlink={getHyperlinkUrl(props)}
                 ></ChartFooter>
               )}
             </div>
