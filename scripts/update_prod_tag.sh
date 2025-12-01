@@ -47,4 +47,4 @@ git push "$upstream_remote" :refs/tags/prod
 
 # Tag release as prod & push to github
 git tag prod
-git push "$upstream_remote" prod
+git push "$upstream_remote" :refs/tags/prod
