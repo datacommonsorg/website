@@ -34,7 +34,7 @@ import {
 } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { getCappedStatVarDate } from "../shared/util";
+import { extractFlagsToPropagate, getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
@@ -723,5 +723,6 @@ export function getExploreLink(options: GetExploreLinkOptions): string {
       hash += `&${URL_HASH_PARAMS.UNIT}=${encodeURIComponent(facet.unit)}`;
     }
   }
-  return `${apiRoot || ""}/explore#${hash}`;
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  return `${apiRoot || ""}/explore?${urlParams.toString()}#${hash}`;
 }
