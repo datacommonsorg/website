@@ -17,7 +17,7 @@ set -e
 
 ./run_test.sh --setup_python
 
-source .env/bin/activate
+source .venv/bin/activate
 export FLASK_ENV=webdriver
 
 test_filter=""

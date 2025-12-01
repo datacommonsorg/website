@@ -65,13 +65,13 @@ if lsof -i :12345 > /dev/null 2>&1; then
   exit 1
 fi
 
-# If .env_website or .env_nl folder doesn't exist, print an error and exit
-if [ ! -d ".env_website" ]; then
-  echo "Error: .env_website not found. Please run ./run_test.sh --setup_website first."
+# If .venv_website or .venv_nl folder doesn't exist, print an error and exit
+if [ ! -d ".venv_website" ]; then
+  echo "Error: .venv_website not found. Please run ./run_test.sh --setup_website first."
   exit 1
 fi
-if [ ! -d ".env_nl" ]; then
-  echo "Error: .env_nl not found. Please run ./run_test.sh --setup_nl first."
+if [ ! -d ".venv_nl" ]; then
+  echo "Error: .venv_nl not found. Please run ./run_test.sh --setup_nl first."
   exit 1
 fi
 
@@ -176,7 +176,7 @@ cd ..
 # Start NL server.
 NL_PID=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-  source .env_nl/bin/activate
+  source .venv_nl/bin/activate
   echo "Starting NL Server..."
   nl_command="python3 nl_app.py 6060"
   if [[ "$VERBOSE" == "true" ]]; then
@@ -190,7 +190,7 @@ else
   echo "$ENABLE_MODEL is not true, NL server will not be started."
 fi
 
-source .env_website/bin/activate
+source .venv_website/bin/activate
 echo "Starting Website Server..."
 website_command="python3 web_app.py 8080"
 if [[ "$VERBOSE" == "true" ]]; then
