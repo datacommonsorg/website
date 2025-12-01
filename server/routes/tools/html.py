@@ -19,6 +19,7 @@ import flask
 from flask import current_app
 from flask import g
 from flask import request
+from flask import url_for
 
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG

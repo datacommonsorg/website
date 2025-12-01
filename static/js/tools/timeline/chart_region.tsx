@@ -17,6 +17,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { getStatVarGroups } from "../../utils/app/timeline_utils";
