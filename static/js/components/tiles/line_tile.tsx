@@ -61,12 +61,12 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
   clearContainer,
   getDenomResp,
-  getHyperlink,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
@@ -619,48 +619,27 @@ function getExploreLink(props: LineTilePropType): {
   };
 }
 
-// New function to get a hyperlink (URL only)
 function getHyperlinkFn(props: LineTilePropType, chartData?: LineChartData): string {
-  const hl = `${props.apiRoot || ""}/explore#sv=${props.statVarSpec.map((v) => v.statVar).join('___')}&chartType=TIMELINE_WITH_HIGHLIGHT&p=${getPlaceDcids(
-    props
-  ).join(",")}`;
-
-  let url = hl;
-
-  // Try to get facet from chartData first
-  let facet: StatMetadata = undefined;
+  if (!props.place) {
+    return ""; // Or null, depending on how ChartTileContainer handles it
+  }
+  const placeDcids = getPlaceDcids(props);
+  let facetMetadata: StatMetadata = undefined;
   if (chartData && chartData.statVarToFacets && chartData.facets) {
     const firstVar = props.statVarSpec[0].statVar;
     const facetIds = chartData.statVarToFacets[firstVar];
     if (facetIds && facetIds.size > 0) {
       const firstFacetId = Array.from(facetIds)[0];
-      facet = chartData.facets[firstFacetId];
+      facetMetadata = chartData.facets[firstFacetId];
     }
   }
-
-  // Fallback to props.facetSelector
-  if (!facet && props.facetSelector && props.facetSelector.facetMetadata) {
-    facet = props.facetSelector.facetMetadata;
+  if (!facetMetadata && props.facetSelector && props.facetSelector.facetMetadata) {
+    facetMetadata = props.facetSelector.facetMetadata;
   }
-
-  if (facet) {
-    if (facet.importName) {
-      url += `&imp=${facet.importName}`;
-    }
-    if (facet.measurementMethod) {
-      url += `&mm=${facet.measurementMethod}`;
-    }
-    if (facet.observationPeriod) {
-      url += `&obsPer=${facet.observationPeriod}`;
-    }
-    if (facet.scalingFactor) {
-      url += `&scaling=${facet.scalingFactor}`;
-    }
-    if (facet.unit) {
-      url += `&unit=${facet.unit}`;
-    }
-  }
-
-  console.log("Hyperlink function called with props:", url);
-  return url;
+  return buildExploreUrl(
+    "TIMELINE_WITH_HIGHLIGHT",
+    placeDcids,
+    props.statVarSpec,
+    facetMetadata
+  );
 }

@@ -454,21 +454,21 @@ export async function getDenomResp(
     denomPromises.push(
       useSeriesWithin
         ? getSeriesWithin(
-            apiRoot,
-            parentPlace,
-            placeType,
-            denoms,
-            [facetId],
-            surface
-          )
+          apiRoot,
+          parentPlace,
+          placeType,
+          denoms,
+          [facetId],
+          surface
+        )
         : getSeries(
-            apiRoot,
-            allPlaces,
-            denoms,
-            [facetId],
-            null /* highlight facet */,
-            surface
-          )
+          apiRoot,
+          allPlaces,
+          denoms,
+          [facetId],
+          null /* highlight facet */,
+          surface
+        )
     );
   }
 
@@ -476,7 +476,7 @@ export async function getDenomResp(
   const defaultDenomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
     : useSeriesWithin
-    ? getSeriesWithin(
+      ? getSeriesWithin(
         apiRoot,
         parentPlace,
         placeType,
@@ -484,7 +484,7 @@ export async function getDenomResp(
         null /* facetIds */,
         surface
       )
-    : getSeries(
+      : getSeries(
         apiRoot,
         allPlaces,
         denoms,
@@ -673,29 +673,44 @@ export function getHighlightTileDescription(
  * @param placeDcid The DCID of the place.
  * @param facet Optional facet metadata.
  */
-export function getHyperlink(
-  statVarDcid: string,
-  chartType: string,
-  placeDcid: string,
-  facet?: StatMetadata
-): string {
-  let url = `/explore#${URL_HASH_PARAMS.STAT_VAR}=${statVarDcid}&${URL_HASH_PARAMS.CHART_TYPE}=${chartType}&${URL_HASH_PARAMS.PLACE}=${placeDcid}`;
+interface GetExploreLinkOptions {
+  apiRoot?: string;
+  chartType: string;
+  placeDcids: string[];
+  statVarSpecs: StatVarSpec[];
+  facetMetadata?: StatMetadata;
+}
+
+/**
+ * Generates a hyperlink to the explore page for a given set of parameters.
+ * @param options The options for generating the hyperlink.
+ */
+export function getExploreLink(options: GetExploreLinkOptions): string {
+  const { apiRoot, chartType, placeDcids, statVarSpecs, facetMetadata } = options;
+  if (!statVarSpecs || statVarSpecs.length === 0) {
+    return "";
+  }
+  const sv = statVarSpecs.map((spec) => spec.statVar).join("___");
+  const places = placeDcids.join("___");
+  let hash = `${URL_HASH_PARAMS.STAT_VAR}=${sv}&${URL_HASH_PARAMS.CHART_TYPE}=${chartType}&${URL_HASH_PARAMS.PLACE}=${places}`;
+
+  const facet = facetMetadata;
   if (facet) {
     if (facet.importName) {
-      url += `&${URL_HASH_PARAMS.IMPORT_NAME}=${facet.importName}`;
+      hash += `&${URL_HASH_PARAMS.IMPORT_NAME}=${facet.importName}`;
     }
     if (facet.measurementMethod) {
-      url += `&${URL_HASH_PARAMS.MEASUREMENT_METHOD}=${facet.measurementMethod}`;
+      hash += `&${URL_HASH_PARAMS.MEASUREMENT_METHOD}=${facet.measurementMethod}`;
     }
     if (facet.observationPeriod) {
-      url += `&${URL_HASH_PARAMS.OBSERVATION_PERIOD}=${facet.observationPeriod}`;
+      hash += `&${URL_HASH_PARAMS.OBSERVATION_PERIOD}=${facet.observationPeriod}`;
     }
     if (facet.scalingFactor) {
-      url += `&${URL_HASH_PARAMS.SCALING_FACTOR}=${facet.scalingFactor}`;
+      hash += `&${URL_HASH_PARAMS.SCALING_FACTOR}=${facet.scalingFactor}`;
     }
     if (facet.unit) {
-      url += `&${URL_HASH_PARAMS.UNIT}=${facet.unit}`;
+      hash += `&${URL_HASH_PARAMS.UNIT}=${facet.unit}`;
     }
   }
-  return url;
+  return `${apiRoot || ""}/explore#${hash}`;
 }
