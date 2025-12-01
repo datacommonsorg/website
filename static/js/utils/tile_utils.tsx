@@ -691,26 +691,36 @@ export function getExploreLink(options: GetExploreLinkOptions): string {
   if (!statVarSpecs || statVarSpecs.length === 0) {
     return "";
   }
-  const sv = statVarSpecs.map((spec) => spec.statVar).join("___");
-  const places = placeDcids.join("___");
+  const sv = encodeURIComponent(
+    statVarSpecs.map((spec) => spec.statVar).join("___")
+  );
+  const places = encodeURIComponent(placeDcids.join("___"));
   let hash = `${URL_HASH_PARAMS.STAT_VAR}=${sv}&${URL_HASH_PARAMS.CHART_TYPE}=${chartType}&${URL_HASH_PARAMS.PLACE}=${places}`;
 
   const facet = facetMetadata;
   if (facet) {
     if (facet.importName) {
-      hash += `&${URL_HASH_PARAMS.IMPORT_NAME}=${facet.importName}`;
+      hash += `&${URL_HASH_PARAMS.IMPORT_NAME}=${encodeURIComponent(
+        facet.importName
+      )}`;
     }
     if (facet.measurementMethod) {
-      hash += `&${URL_HASH_PARAMS.MEASUREMENT_METHOD}=${facet.measurementMethod}`;
+      hash += `&${URL_HASH_PARAMS.MEASUREMENT_METHOD}=${encodeURIComponent(
+        facet.measurementMethod
+      )}`;
     }
     if (facet.observationPeriod) {
-      hash += `&${URL_HASH_PARAMS.OBSERVATION_PERIOD}=${facet.observationPeriod}`;
+      hash += `&${URL_HASH_PARAMS.OBSERVATION_PERIOD}=${encodeURIComponent(
+        facet.observationPeriod
+      )}`;
     }
     if (facet.scalingFactor) {
-      hash += `&${URL_HASH_PARAMS.SCALING_FACTOR}=${facet.scalingFactor}`;
+      hash += `&${URL_HASH_PARAMS.SCALING_FACTOR}=${encodeURIComponent(
+        facet.scalingFactor
+      )}`;
     }
     if (facet.unit) {
-      hash += `&${URL_HASH_PARAMS.UNIT}=${facet.unit}`;
+      hash += `&${URL_HASH_PARAMS.UNIT}=${encodeURIComponent(facet.unit)}`;
     }
   }
   return `${apiRoot || ""}/explore#${hash}`;

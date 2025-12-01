@@ -35,6 +35,10 @@ import {
   getMergedSvg,
   ReplacementStrings,
 } from "../../utils/tile_utils";
+import {
+  ENABLE_CHART_HYPERLINK,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
 interface ChartTileContainerProp {
@@ -138,7 +142,9 @@ export function ChartTileContainer(
         apiRoot={props.apiRoot}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
-        hyperlink={props.hyperlink}
+        hyperlink={
+          isFeatureEnabled(ENABLE_CHART_HYPERLINK) ? props.hyperlink : undefined
+        }
         footnote={props.footnote}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={containerRef}
