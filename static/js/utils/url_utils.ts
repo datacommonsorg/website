@@ -22,6 +22,7 @@ import queryString from "query-string";
 
 import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
 import { StatVarSpec } from "../shared/types";
+import { extractFlagsToPropagate } from "../shared/util";
 import { FacetMetadata } from "../types/facet_metadata";
 
 // Hash params that should be persisted across pages.
@@ -308,5 +309,8 @@ export function buildExploreUrl(
     })
     .join("&");
 
-  return `/explore?${queryString}`;
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  const existingParams = urlParams.toString();
+  const separator = existingParams ? "&" : "";
+  return `/explore?${existingParams}${separator}${queryString}`;
 }
