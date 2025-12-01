@@ -55,13 +55,10 @@ def timeline():
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
-# This tool is used by the Harvard Data Science course
+# This tool was used by several data science course (but no traffic in 2025).
 @bp.route('/timeline/bulk_download')
 def timeline_bulk_download():
-  return flask.render_template('tools/timeline_bulk_download.html',
-                               sample_questions=json.dumps(
-                                   current_app.config.get(
-                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  return flask.redirect(url_for('tools.timeline', code=301))
 
 
 @bp.route('/map')
