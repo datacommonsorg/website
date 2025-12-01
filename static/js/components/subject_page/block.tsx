@@ -852,7 +852,7 @@ function renderTiles(
             )}
             facetSelector={props.facetSelector}
             hyperlink={getExploreLink({
-              chartType: "BAR",
+              chartType: "BAR_CHART",
               placeDcids: comparisonPlaces || [place.dcid],
               statVarSpecs: getStatVarSpec(tile.statVarKey),
               facetMetadata: facetList?.find(
