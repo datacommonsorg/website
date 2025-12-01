@@ -66,6 +66,7 @@ interface SvRankingUnitsProps {
   statVarSpecs: StatVarSpec[];
   containerRef: React.RefObject<HTMLElement>;
   surface: string;
+  enableScroll?: boolean;
 }
 
 /**
@@ -121,7 +122,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.onHoverToggled,
             props.errorMsg,
             props.sources,
-            props.isLoading
+            props.isLoading,
+            props.enableScroll
           )}
           {!props.hideFooter && (
             <ChartFooter
@@ -161,7 +163,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.onHoverToggled,
                 undefined,
                 props.sources,
-                props.isLoading
+                props.isLoading,
+                props.enableScroll
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -194,7 +197,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.onHoverToggled,
                 undefined,
                 props.sources,
-                props.isLoading
+                props.isLoading,
+                props.enableScroll
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -281,14 +285,22 @@ function getChartTitle(
 export function getRankingUnitPoints(
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
-  rankingGroup: RankingGroup
+  rankingGroup: RankingGroup,
+  enableScroll: boolean
 ): { topPoints: RankingPoint[]; bottomPoints: RankingPoint[] } {
   const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
-  const topPoints = isHighest
-    ? rankingGroup.points.slice(-rankingCount).reverse()
-    : rankingGroup.points.slice(0, rankingCount);
+  let topPoints = rankingGroup.points;
+  if (!enableScroll) {
+    topPoints = isHighest
+      ? rankingGroup.points.slice(-rankingCount).reverse()
+      : rankingGroup.points.slice(0, rankingCount);
+  } else {
+    topPoints = isHighest
+      ? [...rankingGroup.points].reverse()
+      : rankingGroup.points;
+  }
   let bottomPoints = null;
-  if (rankingMetadata.showHighestLowest) {
+  if (!enableScroll && rankingMetadata.showHighestLowest) {
     // we want a gap of at least 1 point between the top and bottom points
     const numBottomPoints = Math.min(
       rankingGroup.points.length - rankingCount - 1,
@@ -327,12 +339,14 @@ export function getRankingUnit(
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
   sources?: string[],
-  isLoading?: boolean
+  isLoading?: boolean,
+  enableScroll?: boolean
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
     isHighest,
-    rankingGroup
+    rankingGroup,
+    enableScroll
   );
   const title = getRankingUnitTitle(
     tileConfigTitle,
@@ -374,6 +388,7 @@ export function getRankingUnit(
       errorMsg={errorMsg}
       apiRoot={apiRoot}
       entityType={entityType}
+      enableScroll={enableScroll}
     />
   );
 }

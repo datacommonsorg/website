@@ -20,8 +20,8 @@ set -e
 cd "$(dirname "$0")/../../.."
 
 # Activate the virtual environment if it exists
-if [ -f ".env/bin/activate" ]; then
-  source .env/bin/activate
+if [ -f ".venv/bin/activate" ]; then
+  source .venv/bin/activate
 else
   echo "Virtual environment not found. Please run './run_test.sh --setup_python' first."
   exit 1

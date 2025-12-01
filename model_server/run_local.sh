@@ -14,8 +14,8 @@
 # limitations under the License.
 
 cd ../
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 cd model_server
 python3 -m pip install --upgrade pip
 pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu

@@ -28,9 +28,6 @@ website:
 
   nodePool:
 
-  evalTool:
-    enabled: false
-
   dataGemma:
     enabled: false
 

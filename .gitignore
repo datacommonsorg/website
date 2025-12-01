@@ -2,12 +2,11 @@
 __pycache__/
 .pytest_cache
 *.pyc
-.env/
-.env_website/
-.env_nl/
+.venv*/
 
 # Gemini
 .gemini/**
+.geminiignore
 !.gemini/
 !.gemini/config.yaml
 
@@ -23,6 +22,7 @@ __pycache__/
 .vscode
 .idea
 !.vscode/launch.json
+.env
 .env.list
 build/cdc/dev/.env-test
 
@@ -113,3 +113,7 @@ deploy/terraform-custom-datacommons/modules/backend.tf
 
 # NL tools ignores
 tools/nl/nl_metadata/.env
+
+# Gemini files
+GEMINI.md
+.gemini/
