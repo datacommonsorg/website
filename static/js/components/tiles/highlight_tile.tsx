@@ -231,8 +231,8 @@ export const fetchData = async (
     facetSelector && facetSelector.facetMetadata
       ? undefined
       : statVarSpec.facetId
-      ? [statVarSpec.facetId]
-      : undefined;
+        ? [statVarSpec.facetId]
+        : undefined;
   // Now assume highlight only talks about one stat var.
   const statResp = await getPoint(
     apiRoot,

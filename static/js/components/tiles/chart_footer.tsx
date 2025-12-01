@@ -49,6 +49,8 @@ interface ChartFooterPropType {
   getObservationSpecs?: () => ObservationSpec[];
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
+  // Hyperlink to show in footer. If this is non-empty, a custom link will be shown.
+  hyperlink?: string;
   // Text to show above buttons
   footnote?: string;
   // A ref to the chart container element.
@@ -69,6 +71,16 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
       <footer className="chart-container-footer" {...{ part: "tools-footer" }}>
         <div className="main-footer-section">
           <div className="outlinks">
+            {props.hyperlink && (
+              <a
+                className="outlink-item custom-link-outlink"
+                href={props.hyperlink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="material-icons-outlined">link</span>
+              </a>
+            )}
             {props.handleEmbed && (
               <div className="outlink-item download-outlink">
                 <span className="material-icons-outlined">download</span>

@@ -99,6 +99,7 @@ export interface RankingTilePropType
   surface?: string;
   // Metadata for the facet to highlight.
   facetSelector?: FacetSelectionCriteria;
+  hyperlink?: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -329,6 +330,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
                 isFeatureEnabled(ENABLE_RANKING_TILE_SCROLL) &&
                 props.rankingMetadata.showHighestLowest
               }
+              hyperlink={props.hyperlink}
             />
           );
         })}

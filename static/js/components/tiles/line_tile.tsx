@@ -66,6 +66,7 @@ import { getUnit } from "../../utils/stat_metadata_utils";
 import {
   clearContainer,
   getDenomResp,
+  getHyperlink,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
@@ -222,6 +223,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       apiRoot={props.apiRoot}
       className={`${props.className} line-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={getHyperlinkFn(props, chartData)}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
       getObservationSpecs={getObservationSpecs}
@@ -567,12 +569,11 @@ function rawToChart(
           allDates.add(obs.date);
         }
         const label = options.useBothLabels
-          ? `${statVarDcidToName[spec.statVar]} for ${
-              placeDcidToName[placeDcid]
-            }`
+          ? `${statVarDcidToName[spec.statVar]} for ${placeDcidToName[placeDcid]
+          }`
           : options.usePlaceLabels
-          ? placeDcidToName[placeDcid]
-          : statVarDcidToName[spec.statVar];
+            ? placeDcidToName[placeDcid]
+            : statVarDcidToName[spec.statVar];
         dataGroups.push(new DataGroup(label, dataPoints));
         sources.add(raw.facets[series.facet].provenanceUrl);
         facets[series.facet] = raw.facets[series.facet];
@@ -600,6 +601,7 @@ function rawToChart(
   };
 }
 
+
 function getExploreLink(props: LineTilePropType): {
   displayText: string;
   url: string;
@@ -615,4 +617,50 @@ function getExploreLink(props: LineTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+// New function to get a hyperlink (URL only)
+function getHyperlinkFn(props: LineTilePropType, chartData?: LineChartData): string {
+  const hl = `${props.apiRoot || ""}/explore#sv=${props.statVarSpec.map((v) => v.statVar).join('___')}&chartType=TIMELINE_WITH_HIGHLIGHT&p=${getPlaceDcids(
+    props
+  ).join(",")}`;
+
+  let url = hl;
+
+  // Try to get facet from chartData first
+  let facet: StatMetadata = undefined;
+  if (chartData && chartData.statVarToFacets && chartData.facets) {
+    const firstVar = props.statVarSpec[0].statVar;
+    const facetIds = chartData.statVarToFacets[firstVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facet = chartData.facets[firstFacetId];
+    }
+  }
+
+  // Fallback to props.facetSelector
+  if (!facet && props.facetSelector && props.facetSelector.facetMetadata) {
+    facet = props.facetSelector.facetMetadata;
+  }
+
+  if (facet) {
+    if (facet.importName) {
+      url += `&imp=${facet.importName}`;
+    }
+    if (facet.measurementMethod) {
+      url += `&mm=${facet.measurementMethod}`;
+    }
+    if (facet.observationPeriod) {
+      url += `&obsPer=${facet.observationPeriod}`;
+    }
+    if (facet.scalingFactor) {
+      url += `&scaling=${facet.scalingFactor}`;
+    }
+    if (facet.unit) {
+      url += `&unit=${facet.unit}`;
+    }
+  }
+
+  console.log("Hyperlink function called with props:", url);
+  return url;
 }

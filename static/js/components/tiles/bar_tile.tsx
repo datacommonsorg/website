@@ -71,6 +71,7 @@ import {
   getDenomInfo,
   getDenomResp,
   getFirstCappedStatVarSpecDate,
+  getHyperlink,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
@@ -220,7 +221,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
    * commands) for the user.
    *
    * @returns A function that builds an array of `ObservationSpec`
-   * objects, or `undefined` if chart data is not yet available.
+   * objects, or undefined if chart data is not yet available.
    */
   const getObservationSpecs = useMemo(() => {
     if (!barChartData) {
@@ -255,6 +256,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       apiRoot={props.apiRoot}
       className={`${props.className} bar-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={getHyperlinkFn(props, barChartData)}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
       getObservationSpecs={getObservationSpecs}
@@ -496,11 +498,11 @@ export const fetchData = async (
       "enclosedPlaceType" in props
         ? props.enclosedPlaceType
         : await getPlaceType(
-            Array.from(popPoints)
-              .map((x) => x.placeDcid)
-              .pop(),
-            props.apiRoot
-          );
+          Array.from(popPoints)
+            .map((x) => x.placeDcid)
+            .pop(),
+          props.apiRoot
+        );
     const statVarDcidToName = await getStatVarNames(
       props.variables,
       props.apiRoot,
@@ -760,8 +762,8 @@ function getExploreLink(props: BarTilePropType): {
     "places" in props
       ? props.places
       : "parentPlace" in props
-      ? [props.parentPlace]
-      : [];
+        ? [props.parentPlace]
+        : [];
   const hash = getHash(
     VisType.TIMELINE,
     placeDcids,
@@ -773,4 +775,55 @@ function getExploreLink(props: BarTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+
+// New function to get a hyperlink (URL only)
+function getHyperlinkFn(props: BarTilePropType, chartData?: BarChartData): string {
+  // Get the place dcids from props
+  const placeDcids =
+    "places" in props
+      ? props.places
+      : "parentPlace" in props
+        ? [props.parentPlace]
+        : [];
+
+  let hl = `${props.apiRoot || ""}/explore#sv=${props.variables.map((v) => v.statVar).join("___")}&chartType=BAR_CHART&p=${placeDcids.join("___")}`;
+
+  // Try to get facet from chartData first
+  let facet: StatMetadata = undefined;
+  if (chartData && chartData.statVarToFacets && chartData.facets) {
+    const firstVar = props.variables[0].statVar;
+    const facetIds = chartData.statVarToFacets[firstVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facet = chartData.facets[firstFacetId];
+    }
+  }
+
+  // Fallback to props.facetSelector
+  if (!facet && props.facetSelector && props.facetSelector.facetMetadata) {
+    facet = props.facetSelector.facetMetadata;
+  }
+
+  if (facet) {
+    if (facet.importName) {
+      hl += `&imp=${facet.importName}`;
+    }
+    if (facet.measurementMethod) {
+      hl += `&mm=${facet.measurementMethod}`;
+    }
+    if (facet.observationPeriod) {
+      hl += `&obsPer=${facet.observationPeriod}`;
+    }
+    if (facet.scalingFactor) {
+      hl += `&scaling=${facet.scalingFactor}`;
+    }
+    if (facet.unit) {
+      hl += `&unit=${facet.unit}`;
+    }
+  }
+
+  console.log("Hyperlink function called with props:", hl);
+  return hl;
 }

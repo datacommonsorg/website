@@ -53,7 +53,10 @@ import {
   DATE_LATEST,
   WEBSITE_SURFACE,
 } from "../../shared/constants";
-import { FacetSelector } from "../../shared/facet_selector/facet_selector";
+import {
+  FacetSelector,
+  FacetSelectorFacetInfo,
+} from "../../shared/facet_selector/facet_selector";
 import {
   isFeatureEnabled,
   METADATA_FEATURE_FLAG,
@@ -81,6 +84,7 @@ import {
 import {
   getComparisonPlaces,
   getHighlightTileDescription,
+  getHyperlink,
 } from "../../utils/tile_utils";
 import { Help } from "../elements/icons/help";
 import { Tooltip } from "../elements/tooltip/tooltip";
@@ -596,31 +600,32 @@ export function Block(props: BlockPropType): ReactElement {
                 tiles={
                   props.showWebComponents
                     ? renderWebComponents(
-                        column.tiles,
-                        props,
-                        id,
-                        minIdxToHide,
-                        overridePlaceTypes,
-                        columnTileClassName,
-                        useDenom ? denom : "",
-                        snapToHighestCoverage
-                          ? DATE_HIGHEST_COVERAGE
-                          : undefined
-                      )
+                      column.tiles,
+                      props,
+                      id,
+                      minIdxToHide,
+                      overridePlaceTypes,
+                      columnTileClassName,
+                      useDenom ? denom : "",
+                      snapToHighestCoverage
+                        ? DATE_HIGHEST_COVERAGE
+                        : undefined
+                    )
                     : renderTiles(
-                        column.tiles,
-                        props,
-                        id,
-                        minIdxToHide,
-                        overridePlaceTypes,
-                        getStatVarSpec,
-                        getSingleStatVarSpec,
-                        columnTileClassName,
-                        useDenom ? denom : "",
-                        snapToHighestCoverage
-                          ? DATE_HIGHEST_COVERAGE
-                          : undefined
-                      )
+                      column.tiles,
+                      props,
+                      id,
+                      minIdxToHide,
+                      overridePlaceTypes,
+                      getStatVarSpec,
+                      getSingleStatVarSpec,
+                      columnTileClassName,
+                      useDenom ? denom : "",
+                      snapToHighestCoverage
+                        ? DATE_HIGHEST_COVERAGE
+                        : undefined,
+                      facetList
+                    )
                 }
               />
             );
@@ -665,7 +670,8 @@ function renderTiles(
   getSingleStatVarSpec: (sv: string) => StatVarSpec,
   tileClassName?: string,
   blockDenom?: string,
-  blockDate?: string
+  blockDate?: string,
+  facetList?: FacetSelectorFacetInfo[]
 ): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -731,6 +737,16 @@ function renderTiles(
             footnote={props.footnote}
             surface={WEBSITE_SURFACE}
             facetSelector={props.facetSelector}
+            hyperlink={getHyperlink(
+              getSingleStatVarSpec(tile.statVarKey[0]).statVar,
+              "RANKING_WITH_MAP",
+              place.dcid,
+              facetList?.find(
+                (f) => f.dcid === getSingleStatVarSpec(tile.statVarKey[0]).statVar
+              )?.metadataMap?.[
+              getSingleStatVarSpec(tile.statVarKey[0]).facetId
+              ]
+            )}
           />
         );
       case "LINE":
@@ -783,13 +799,21 @@ function renderTiles(
               blockDate == DATE_LATEST
                 ? intl.formatMessage(messages.rankingTileLatestDataFooter)
                 : blockDate === DATE_HIGHEST_COVERAGE
-                ? intl.formatMessage(
+                  ? intl.formatMessage(
                     messages.rankingTileLatestDataAvailableFooter
                   )
-                : undefined
+                  : undefined
             }
             surface={WEBSITE_SURFACE}
             facetSelector={props.facetSelector}
+            hyperlink={getHyperlink(
+              getStatVarSpec(tile.statVarKey)[0].statVar,
+              "RANKING_WITH_MAP",
+              place.dcid,
+              facetList?.find(
+                (f) => f.dcid === getStatVarSpec(tile.statVarKey)[0].statVar
+              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0].facetId]
+            )}
           />
         );
       case "BAR":
@@ -832,9 +856,9 @@ function renderTiles(
       case "SCATTER": {
         title = blockDenom
           ? addPerCapitaToVersusTitle(
-              tile.title,
-              getStatVarSpec(tile.statVarKey)
-            )
+            tile.title,
+            getStatVarSpec(tile.statVarKey)
+          )
           : tile.title;
         return (
           <ScatterTile
@@ -1056,9 +1080,9 @@ function renderWebComponents(
             }
             className={className}
             {...(props.showExploreMore &&
-            props.place.types.every(
-              (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
-            )
+              props.place.types.every(
+                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+              )
               ? { showExploreMore: true }
               : {})}
             {...(tile.mapTileSpec?.geoJsonProp

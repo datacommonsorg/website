@@ -67,6 +67,7 @@ interface SvRankingUnitsProps {
   containerRef: React.RefObject<HTMLElement>;
   surface: string;
   enableScroll?: boolean;
+  hyperlink?: string;
 }
 
 /**
@@ -141,6 +142,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               containerRef={props.containerRef}
               getObservationSpecs={props.getObservationSpecs}
               surface={props.surface}
+              hyperlink={props.hyperlink}
             ></ChartFooter>
           )}
         </div>
@@ -176,6 +178,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
+                    hyperlink={props.hyperlink}
                 ></ChartFooter>
               )}
             </div>
@@ -210,6 +213,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
+                    hyperlink={props.hyperlink}
                 ></ChartFooter>
               )}
             </div>

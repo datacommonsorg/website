@@ -22,6 +22,7 @@ import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import { intl } from "../i18n/i18n";
@@ -663,4 +664,38 @@ export function getHighlightTileDescription(
     : tile.description + " (${date})";
   description = blockDenom ? addPerCapitaToTitle(description) : description;
   return description;
+}
+
+/**
+ * Generates a hyperlink to the explore page for a given stat var, chart type, and place.
+ * @param statVarDcid The DCID of the statistical variable.
+ * @param chartType The type of chart.
+ * @param placeDcid The DCID of the place.
+ * @param facet Optional facet metadata.
+ */
+export function getHyperlink(
+  statVarDcid: string,
+  chartType: string,
+  placeDcid: string,
+  facet?: StatMetadata
+): string {
+  let url = `/explore#${URL_HASH_PARAMS.STAT_VAR}=${statVarDcid}&${URL_HASH_PARAMS.CHART_TYPE}=${chartType}&${URL_HASH_PARAMS.PLACE}=${placeDcid}`;
+  if (facet) {
+    if (facet.importName) {
+      url += `&${URL_HASH_PARAMS.IMPORT_NAME}=${facet.importName}`;
+    }
+    if (facet.measurementMethod) {
+      url += `&${URL_HASH_PARAMS.MEASUREMENT_METHOD}=${facet.measurementMethod}`;
+    }
+    if (facet.observationPeriod) {
+      url += `&${URL_HASH_PARAMS.OBSERVATION_PERIOD}=${facet.observationPeriod}`;
+    }
+    if (facet.scalingFactor) {
+      url += `&${URL_HASH_PARAMS.SCALING_FACTOR}=${facet.scalingFactor}`;
+    }
+    if (facet.unit) {
+      url += `&${URL_HASH_PARAMS.UNIT}=${facet.unit}`;
+    }
+  }
+  return url;
 }
