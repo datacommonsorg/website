@@ -84,7 +84,7 @@ import {
 import {
   getComparisonPlaces,
   getHighlightTileDescription,
-  getHyperlink,
+  getExploreLink,
 } from "../../utils/tile_utils";
 import { Help } from "../elements/icons/help";
 import { Tooltip } from "../elements/tooltip/tooltip";
@@ -737,16 +737,14 @@ function renderTiles(
             footnote={props.footnote}
             surface={WEBSITE_SURFACE}
             facetSelector={props.facetSelector}
-            hyperlink={getHyperlink(
-              getSingleStatVarSpec(tile.statVarKey[0]).statVar,
-              "RANKING_WITH_MAP",
-              place.dcid,
-              facetList?.find(
+            hyperlink={getExploreLink({
+              chartType: "RANKING_WITH_MAP",
+              placeDcids: [place.dcid],
+              statVarSpecs: [getSingleStatVarSpec(tile.statVarKey[0])],
+              facetMetadata: facetList?.find(
                 (f) => f.dcid === getSingleStatVarSpec(tile.statVarKey[0]).statVar
-              )?.metadataMap?.[
-              getSingleStatVarSpec(tile.statVarKey[0]).facetId
-              ]
-            )}
+              )?.metadataMap?.[getSingleStatVarSpec(tile.statVarKey[0]).facetId],
+            })}
           />
         );
       case "LINE":
@@ -806,14 +804,14 @@ function renderTiles(
             }
             surface={WEBSITE_SURFACE}
             facetSelector={props.facetSelector}
-            hyperlink={getHyperlink(
-              getStatVarSpec(tile.statVarKey)[0].statVar,
-              "RANKING_WITH_MAP",
-              place.dcid,
-              facetList?.find(
+            hyperlink={getExploreLink({
+              chartType: "RANKING_WITH_MAP",
+              placeDcids: [place.dcid],
+              statVarSpecs: [getStatVarSpec(tile.statVarKey)[0]],
+              facetMetadata: facetList?.find(
                 (f) => f.dcid === getStatVarSpec(tile.statVarKey)[0].statVar
-              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0].facetId]
-            )}
+              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0].facetId],
+            })}
           />
         );
       case "BAR":
@@ -850,6 +848,14 @@ function renderTiles(
               tile.barTileSpec?.defaultVariableName
             )}
             facetSelector={props.facetSelector}
+            hyperlink={getExploreLink({
+              chartType: "BAR",
+              placeDcids: comparisonPlaces || [place.dcid],
+              statVarSpecs: getStatVarSpec(tile.statVarKey),
+              facetMetadata: facetList?.find(
+                (f) => f.dcid === getStatVarSpec(tile.statVarKey)[0]?.statVar
+              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0]?.facetId],
+            })}
             surface={WEBSITE_SURFACE}
           />
         );

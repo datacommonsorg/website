@@ -331,6 +331,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
                 props.rankingMetadata.showHighestLowest
               }
               hyperlink={props.hyperlink}
+              parentPlace={props.parentPlace}
             />
           );
         })}
