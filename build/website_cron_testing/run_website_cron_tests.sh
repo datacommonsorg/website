@@ -30,67 +30,195 @@ echo "==========================================================================
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
 echo "====================================================================================="
 
-# Run nodejs query tests if NODEJS_API_ROOT is set.
+# Initialize exit status
+# Initialize exit status
+EXIT_STATUS=0
+
+# Enable pipefail to capture exit codes through pipes
+set -o pipefail
+
+# PIDs for background processes
+NODEJS_PID=""
+SANITY_PID=""
+ADV_MAIN_PID=""
+ADV_SDG_PID=""
+
+echo "Starting tests in parallel..."
+
+# -----------------------------------------------------------------------------
+# Node.js Query Tests
+# -----------------------------------------------------------------------------
 if [[ $NODEJS_API_ROOT != "" ]]; then
-  echo "====================================================================================="
-  echo "Starting nodejs tests against domain: $NODEJS_API_ROOT"
-  echo "====================================================================================="
-  python3 nodejs_query.py --base_url="$NODEJS_API_ROOT"
-  gsutil cp ./output/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
-  rm -rf ./output/*
-  failure_email="failure_email.json"
-  python3 differ.py -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
-  if [[ -e "$failure_email" ]]; then
-    python3 send_email.py --recipient="datacommons-alerts+tests@google.com" --email_content="$failure_email"
-  fi
-  echo "Finished the nodejs Test."
-  echo "====================================================================================="
-  rm -rf ./output/*
+  (
+    echo "Starting nodejs tests against domain: $NODEJS_API_ROOT"
+    
+    # Create a private output directory for this parallel process
+    mkdir -p output_nodejs
+    
+    set +e
+    python3 nodejs_query.py --base_url="$NODEJS_API_ROOT" --output_dir="output_nodejs"
+    NODEJS_EXIT_CODE=$?
+    set -e
+    
+    if [[ $NODEJS_EXIT_CODE -ne 0 ]]; then
+      echo "Nodejs tests FAILED with exit code $NODEJS_EXIT_CODE"
+      exit 1
+    fi
+
+    gsutil cp ./output_nodejs/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
+    
+    failure_email="failure_email.json"
+    
+    # Note: differ.py reads from GCS, so we must ensure upload finished (it did above).
+    python3 differ.py -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
+    DIFFER_EXIT_CODE=$?
+    if [[ $DIFFER_EXIT_CODE -ne 0 ]]; then
+      echo "Nodejs differ found regressions with exit code $DIFFER_EXIT_CODE"
+      exit 1
+    fi
+
+    if [[ -e "$failure_email" ]]; then
+      python3 send_email.py --recipient="datacommons-alerts+tests@google.com" --email_content="$failure_email"
+    fi
+    
+    rm -rf ./output_nodejs
+    echo "Finished the nodejs Test."
+  ) 2>&1 | sed "s/^/[NodeJS] /" &
+  NODEJS_PID=$!
 else
-  echo "====================================================================================="
-  echo "Skipping nodejs tests because missing NODEJS_API_ROOT"
-  echo "====================================================================================="
+  echo "[NodeJS] Skipping nodejs tests (missing NODEJS_API_ROOT)"
 fi
 
-# Run sanity tests if ENABLE_SANITY is "true"
+# -----------------------------------------------------------------------------
+# Sanity Tests
+# -----------------------------------------------------------------------------
 if [[ $ENABLE_SANITY == "true" ]]; then
-  echo "====================================================================================="
-  echo "Starting sanity tests"
-  echo "====================================================================================="
-  python3 sanity.py --mode=home --url="$WEB_API_ROOT"
-  gsutil cp ./output/*.csv gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/sanity/
-  rm ./output/*.csv
-  echo "Finished the sanity tests."
-  echo "====================================================================================="
+  (
+    echo "Starting sanity tests"
+    
+    mkdir -p output_sanity
+    
+    set +e
+    python3 sanity.py --mode=home --url="$WEB_API_ROOT" --output_dir="output_sanity" --parallelism=10
+    SANITY_EXIT_CODE=$?
+    set -e
+
+    if [[ $SANITY_EXIT_CODE -ne 0 ]]; then
+      echo "Sanity tests FAILED with exit code $SANITY_EXIT_CODE"
+      exit 1
+    fi
+
+    gsutil cp ./output_sanity/*.csv gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/sanity/
+    rm -rf ./output_sanity
+    echo "Finished the sanity tests."
+  ) 2>&1 | sed "s/^/[Sanity] /" &
+  SANITY_PID=$!
 else
-  echo "====================================================================================="
-  echo "Sanity tests disabled."
-  echo "====================================================================================="
+  echo "[Sanity] Sanity tests disabled."
 fi
 
-# Run adversarial tests if ENABLE_ADVERSARIAL is "true"
+# -----------------------------------------------------------------------------
+# Adversarial Tests (Main)
+# -----------------------------------------------------------------------------
 if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
-  echo "====================================================================================="
-  echo "Starting adversarial tests"
-  echo "====================================================================================="
-  mkdir -p input
-  gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
-  dc_list=("main" "sdg")
-  for dc in "${dc_list[@]}"; do
-    echo "====================================================================================="
-    echo "Executing the Adversarial Test against the $dc index, detection and fulfillment."
-    python3 adversarial.py --mode=run_all --dc="$dc" --base_url="$WEB_API_ROOT"
-    gsutil cp ./output/$dc/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/$dc/
-    rm -rf ./output/$dc/*
-    echo "Finished the Adversarial Test against the $dc index, detection and fulfillment."
-    echo "====================================================================================="
-  done
-  rm -rf ./input/*
-  rm -rf ./output/*
-  echo "Finished the adversarial tests."
-  echo "====================================================================================="
-else
-  echo "====================================================================================="
-  echo "Adversarial tests disabled."
-  echo "====================================================================================="
+  (
+    echo "Starting adversarial tests (main)"
+    
+    mkdir -p input_main
+    gsutil cp gs://datcom-website-adversarial/input/frequent/* input_main/
+    
+    mkdir -p output_adv_main
+    
+    set +e
+    python3 adversarial.py --mode=run_all --dc="main" --base_url="$WEB_API_ROOT" --input_dir="input_main" --output_dir="output_adv_main"
+    EXIT_CODE=$?
+    set -e
+
+    if [[ $EXIT_CODE -ne 0 ]]; then
+      echo "Adversarial tests for main FAILED with exit code $EXIT_CODE"
+      exit 1
+    fi
+
+    gsutil cp ./output_adv_main/main/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/main/
+    rm -rf ./input_main
+    rm -rf ./output_adv_main
+    echo "Finished the Adversarial Test (main)."
+  ) 2>&1 | sed "s/^/[Adv-Main] /" &
+  ADV_MAIN_PID=$!
 fi
+
+# -----------------------------------------------------------------------------
+# Adversarial Tests (SDG)
+# -----------------------------------------------------------------------------
+if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
+  (
+    echo "Starting adversarial tests (sdg)"
+    
+    mkdir -p input_sdg
+    gsutil cp gs://datcom-website-adversarial/input/frequent/* input_sdg/
+    
+    mkdir -p output_adv_sdg
+    
+    set +e
+    python3 adversarial.py --mode=run_all --dc="sdg" --base_url="$WEB_API_ROOT" --input_dir="input_sdg" --output_dir="output_adv_sdg"
+    EXIT_CODE=$?
+    set -e
+
+    if [[ $EXIT_CODE -ne 0 ]]; then
+      echo "Adversarial tests for sdg FAILED with exit code $EXIT_CODE"
+      exit 1
+    fi
+
+    gsutil cp ./output_adv_sdg/sdg/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/sdg/
+    rm -rf ./input_sdg
+    rm -rf ./output_adv_sdg
+    echo "Finished the Adversarial Test (sdg)."
+  ) 2>&1 | sed "s/^/[Adv-SDG] /" &
+  ADV_SDG_PID=$!
+fi
+
+# -----------------------------------------------------------------------------
+# Wait for completion and collect results
+# -----------------------------------------------------------------------------
+
+# Wait for Node.js
+if [[ -n "$NODEJS_PID" ]]; then
+  wait "$NODEJS_PID"
+  if [[ $? -ne 0 ]]; then 
+    echo "[NodeJS] FAILED"
+    EXIT_STATUS=1
+  fi
+fi
+
+# Wait for Sanity
+if [[ -n "$SANITY_PID" ]]; then
+  wait "$SANITY_PID"
+  if [[ $? -ne 0 ]]; then 
+    echo "[Sanity] FAILED"
+    EXIT_STATUS=1
+  fi
+fi
+
+# Wait for Adversarial Main
+if [[ -n "$ADV_MAIN_PID" ]]; then
+  wait "$ADV_MAIN_PID"
+  if [[ $? -ne 0 ]]; then 
+    echo "[Adv-Main] FAILED"
+    EXIT_STATUS=1
+  fi
+fi
+
+# Wait for Adversarial SDG
+if [[ -n "$ADV_SDG_PID" ]]; then
+  wait "$ADV_SDG_PID"
+  if [[ $? -ne 0 ]]; then 
+    echo "[Adv-SDG] FAILED"
+    EXIT_STATUS=1
+  fi
+fi
+
+if [[ $EXIT_STATUS -ne 0 ]]; then
+  echo "One or more tests failed. Exiting with status 1."
+  exit 1
+fi
+

@@ -96,6 +96,24 @@ profiles:
               - "-c"
               - |
                 ./tools/clearcache/run.sh website dev
+      - name: verify-website-dev
+        containers:
+          - name: verifier
+            image: gcr.io/datcom-ci/website-cron-testing:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./run_website_cron_tests.sh
+            env:
+              - name: WEB_API_ROOT
+                value: "https://dev.datacommons.org"
+              - name: TESTING_ENV
+                value: "dev"
+              - name: ENABLE_SANITY
+                value: "true"
+              - name: ENABLE_ADVERSARIAL
+                value: "true"
     manifests:
       helm:
         releases:

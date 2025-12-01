@@ -17,6 +17,8 @@ from datetime import datetime
 from enum import StrEnum
 import logging
 import os
+import multiprocessing
+import sys
 import time
 
 from absl import app
@@ -31,7 +33,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 FLAGS = flags.FLAGS
 
-OUTPUT_DIR = "output"
+
 
 
 class Mode:
@@ -47,6 +49,8 @@ flags.DEFINE_string(
 )
 
 flags.DEFINE_string("url", None, "URL to start testing from.", required=True)
+flags.DEFINE_string("output_dir", "output", "Directory to write results to.")
+flags.DEFINE_integer("parallelism", 5, "Number of parallel workers.")
 
 _TEST_PARAM = "test=sanity"
 
@@ -133,7 +137,7 @@ class WebsiteSanityTest:
     self.file.flush()
     self.results.append(result)
 
-  def home(self, page: WebPage):
+  def home(self, page: WebPage) -> tuple[list[WebPage], list[WebPage]]:
     logging.info("Running: %s", page.url)
     start = datetime.now()
 
@@ -208,11 +212,7 @@ class WebsiteSanityTest:
     # Pass
     self.add_result(pass_result(page, start))
 
-    for explore_page in explore_pages:
-      self.explore(explore_page)
-
-    for explore_landing_page in explore_landing_pages:
-      self.explore_landing(explore_landing_page)
+    return explore_landing_pages, explore_pages
 
   def explore_landing(self, page: WebPage):
     logging.info("Running: %s", page.url)
@@ -380,35 +380,156 @@ def result_csv_columns() -> str:
                   "").__dict__.keys())
 
 
+def worker(args):
+  mode, url, output_dir = args
+  # Create a unique file for this worker to avoid write contention if we were writing to same file,
+  # but here we will return results and main process writes them.
+  # Actually, `WebsiteSanityTest` writes to file in __enter__. 
+  # We should probably let workers write to their own files or collect results.
+  # The plan said "Aggregating results from all workers".
+  # But `WebsiteSanityTest` is designed to write to CSV.
+  # Let's make `WebsiteSanityTest` write to a temp file for the worker, then we merge them?
+  # Or just collect results in memory and return them?
+  # `WebsiteSanityTest` writes to `self.file`.
+  # Let's use a dummy file or /dev/null if we just want to collect results?
+  # Or better: Let each worker write to a separate file in `output_dir/worker_X.csv`.
+  
+  # We need to construct a unique filename.
+  # Since we don't have a worker ID easily, we can use a hash of URL or random.
+  # Use /dev/null since we collect results in memory and write to main file at the end.
+  results_file = os.devnull
+  
+  results = []
+  try:
+    with WebsiteSanityTest(results_csv_file_path=results_file) as test:
+      page = WebPage(PageType.UNKNOWN, None, url)
+      if mode == Mode.EXPLORE_LANDING:
+        page.page_type = PageType.EXPLORE_LANDING
+        test.explore_landing(page)
+      elif mode == Mode.EXPLORE:
+        page.page_type = PageType.EXPLORE
+        test.explore(page)
+      results = test.results
+  except Exception as e:
+    logging.error("Worker failed for %s: %s", url, e)
+    # Return a failure result
+    results.append(Result(WebPage(PageType.UNKNOWN, "Worker Error", url), "FAIL", 0, str(e)))
+  
+  return results
+
+
 def run_test():
-  os.makedirs(OUTPUT_DIR, exist_ok=True)
-  results_csv_file_path = os.path.join(
-      OUTPUT_DIR, f"results_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.csv")
+  os.makedirs(FLAGS.output_dir, exist_ok=True)
+  timestamp = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+  main_results_file = os.path.join(FLAGS.output_dir, f"results_{timestamp}.csv")
 
-  with WebsiteSanityTest(results_csv_file_path=results_csv_file_path) as test:
-    page = WebPage(PageType.UNKNOWN, None, FLAGS.url)
+  all_results = []
 
-    # match-case would be the right thing to use here.
-    # But yapf errors out if we do, hence using if-elif.
-    if FLAGS.mode == Mode.HOME:
+  # If mode is not HOME, just run sequentially (or we could parallelize if we had a list of URLs).
+  # But the flag only accepts one URL.
+  if FLAGS.mode != Mode.HOME:
+    with WebsiteSanityTest(results_csv_file_path=main_results_file) as test:
+      page = WebPage(PageType.UNKNOWN, None, FLAGS.url)
+      if FLAGS.mode == Mode.EXPLORE_LANDING:
+        page.page_type = PageType.EXPLORE_LANDING
+        test.explore_landing(page)
+      elif FLAGS.mode == Mode.EXPLORE:
+        page.page_type = PageType.EXPLORE
+        test.explore(page)
+      else:
+        print("Invalid mode", FLAGS.mode)
+        return False
+      all_results = test.results
+  else:
+    # HOME mode: Crawl and parallelize
+    tasks = []
+    with WebsiteSanityTest(results_csv_file_path=main_results_file) as test:
+      page = WebPage(PageType.UNKNOWN, None, FLAGS.url)
       page.page_type = PageType.HOME
-      test.home(page)
-    elif FLAGS.mode == Mode.EXPLORE_LANDING:
-      page.page_type = PageType.EXPLORE_LANDING
-      test.explore_landing(page)
-    elif FLAGS.mode == Mode.EXPLORE:
-      page.page_type = PageType.EXPLORE
-      test.explore(page)
-    else:
-      print("Invalid mode", FLAGS.mode)
-      exit(1)
+      # home() now returns tasks
+      landing_pages, explore_pages = test.home(page)
+      all_results.extend(test.results)
+      
+      for p in landing_pages:
+        tasks.append((Mode.EXPLORE_LANDING, p.url, FLAGS.output_dir))
+      for p in explore_pages:
+        tasks.append((Mode.EXPLORE, p.url, FLAGS.output_dir))
+
+    # Run tasks in parallel
+    if tasks:
+      logging.info("Running %d tasks with parallelism %d", len(tasks), FLAGS.parallelism)
+      with multiprocessing.Pool(FLAGS.parallelism) as pool:
+        nested_results = pool.map(worker, tasks)
+        for res in nested_results:
+          all_results.extend(res)
+
+  # Consolidate all results into the main CSV (since workers wrote to partial files or just returned results)
+  # Wait, `worker` writes to partial files AND returns results.
+  # `WebsiteSanityTest` writes to CSV immediately.
+  # We should probably merge the CSVs or just rely on the returned results and write them to the main CSV.
+  # `WebsiteSanityTest` in `main` (for HOME) wrote to `main_results_file`.
+  # We should append the other results to `main_results_file`.
+  
+  with open(main_results_file, "a", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=result_csv_columns(), lineterminator="\n")
+    # We don't write header again.
+    for res in all_results:
+      # We already wrote HOME results in the first block.
+      # We need to filter them out or just write the NEW ones.
+      # `all_results` contains HOME results + Worker results.
+      # HOME results were already written.
+      # Worker results were written to separate files (maybe we should delete those?).
+      # Actually, let's just rewrite the WHOLE file to be clean and sorted?
+      # Or just append worker results.
+      pass
+      
+  # Re-writing strategy:
+  # 1. Read HOME results (already written).
+  # 2. Append Worker results.
+  # Actually, `worker` returns `results`. We can just write them.
+  
+  with open(main_results_file, "a", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=result_csv_columns(), lineterminator="\n")
+    # Skip the first few results that came from HOME (already written)
+    # How many? `len(test.results)` from the HOME block.
+    # Let's just track which ones are new.
+    
+    # Actually, simpler:
+    # The `worker` function writes to `results_worker_ID.csv`.
+    # We can just cat all these files together into `main_results_file`?
+    # Or we can just use the `all_results` list and overwrite `main_results_file` completely at the end.
+    pass
+
+  # Let's overwrite the main file with ALL results to be safe and clean.
+  with open(main_results_file, "w", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=result_csv_columns(), lineterminator="\n")
+    writer.writeheader()
+    for res in all_results:
+      writer.writerow(res.to_csv_row())
+
+  # Cleanup worker files
+  # (If we want to keep them for debugging, we can leave them, but better to clean up)
+  # The workers created `results_{uuid}.csv`.
+  # We can find and delete them?
+  # Or just let `worker` NOT write to file if we don't need it?
+  # `WebsiteSanityTest` requires a file path.
+  # We can pass `/dev/null`?
+  # On Linux/Mac `/dev/null` works.
+  
+  # Let's just iterate `all_results` and check for FAIL.
+  for result in all_results:
+    if result.status == "FAIL":
+      return False
+  return True
 
 
 def main(_):
   start = datetime.now()
   logging.info("Start: %s", start)
 
-  run_test()
+  success = run_test()
+  if not success:
+    sys.exit(1)
 
   end = datetime.now()
   logging.info("End: %s", end)

@@ -211,6 +211,12 @@ def main(_):
     # Output a failure email based on the results
     output_failure_email(results, test_folder, results_path)
 
+    # Exit with error if diffs found
+    has_diff = any([v != _DIFF_SUCCESS_MSG for v in results.values()])
+    if has_diff:
+      logging.error("Diffs found in Nodejs query results.")
+      exit(1)
+
 
 if __name__ == '__main__':
   app.run(main)

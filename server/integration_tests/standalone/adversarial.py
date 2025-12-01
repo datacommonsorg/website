@@ -21,6 +21,7 @@ import logging
 import multiprocessing
 import os
 import re
+import sys
 import urllib.parse
 
 from absl import app
@@ -445,23 +446,36 @@ def run_test():
     test.run_queries_from_files_in_dir(input_dir=FLAGS.input_dir,
                                        output_dir=output_dir)
     test.generate_reports(output_dir)
+    # Check for failures in the generated reports
+    stats = StatsResult()
+    for file_name in sorted(os.listdir(output_dir)):
+      if file_name.endswith('.csv'):
+        test.compute_stats_from_file(os.path.join(output_dir, file_name), stats)
+    
+    if stats.status_counts[ResultStatus.REQUEST_FAILED] > 0 or stats.status_counts[ResultStatus.TIMED_OUT] > 0:
+      return False
+    return True
 
   elif FLAGS.mode == Mode.RUN_QUERIES:
     test.run_queries_from_files_in_dir(input_dir=FLAGS.input_dir,
                                        output_dir=output_dir)
+    return True
   elif FLAGS.mode == Mode.RUN_QUERY:
     if not FLAGS.query:
       raise Exception("'--query' flag not specified.")
     result = test.run_query(FLAGS.query)
     logging.info("Result:\n %s", json.dumps(result.to_csv_row(), indent=1))
+    return True
   elif FLAGS.mode == Mode.GENERATE_REPORTS:
     test.generate_reports(output_dir)
+    return True
   elif FLAGS.mode == Mode.COMPUTE_FILE_STATS:
     if not FLAGS.results_csv_file:
       raise Exception("'--results_csv_file' flag not specified.")
     stats = test.compute_stats_from_file(
         results_csv_file=FLAGS.results_csv_file, stats=StatsResult())
     logging.info("Stats Result:\n%s", stats)
+    return True
   else:
     raise Exception("Invalid mode.")
 
@@ -470,7 +484,9 @@ def main(_):
   start = datetime.now()
   logging.info("Start: %s", start)
 
-  run_test()
+  success = run_test()
+  if not success:
+    sys.exit(1)
 
   end = datetime.now()
   logging.info("End: %s", end)

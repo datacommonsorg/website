@@ -92,7 +92,7 @@ serialPipeline:
           predeploy:
             actions: ["deploy-cloud-esp-dev"]
           postdeploy:
-            actions: ["clear-website-cache"]
+            actions: ["clear-website-cache", "verify-website-dev"]
 
 ---
 
