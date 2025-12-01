@@ -113,3 +113,10 @@ class Config:
   # Defaults to False if not provided.
   DISABLE_GOOGLE_MAPS = os.environ.get('DISABLE_GOOGLE_MAPS',
                                        'False').lower() == 'true'
+  # Whether to enable the embeddings playground (/nl/eval/embeddings).
+  # This tool is used for evaluating and debugging embeddings.
+  ENABLE_EMBEDDINGS_PLAYGROUND = False
+  # Whether to enable DataGemma evaluation tools:
+  # - /nl/eval/retrieval_generation (RIG Eval)
+  # - /nl/eval/retrieval_generation_sxs (SxS Eval)
+  ENABLE_DATAGEMMA_EVAL_TOOLS = False
