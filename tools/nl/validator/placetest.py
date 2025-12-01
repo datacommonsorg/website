@@ -201,7 +201,8 @@ def update_rows(ctx):
     for entity, einfo in resp['byVariable']['Count_Person']['byEntity'].items():
       if 'orderedFacets' not in einfo:  # No data for entity.
         continue
-      ctx.dcid_pop[entity] = einfo['orderedFacets'][0]['observations'][0]['value']
+      ctx.dcid_pop[entity] = einfo['orderedFacets'][0]['observations'][0][
+          'value']
 
   for row in ctx.rows:
     for k in ['BogusPlace', 'WrongPlace']:
