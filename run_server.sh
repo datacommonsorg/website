@@ -22,7 +22,7 @@ function cleanup {
 }
 trap cleanup SIGINT
 
-source .env/bin/activate
+source .venv/bin/activate
 
 PORT=8080
 ENABLE_MODEL=false

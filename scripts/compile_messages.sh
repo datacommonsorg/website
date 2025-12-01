@@ -28,10 +28,10 @@ do
 done
 cd ..
 
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip3 install -r server/requirements.txt -q
 for LOCALE in $LOCALES;
 do
-  .env/bin/pybabel compile -d server/i18n -f -D all -l $LOCALE
+  .venv/bin/pybabel compile -d server/i18n -f -D all -l $LOCALE
 done
