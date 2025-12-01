@@ -17,8 +17,8 @@
 set -e
 
 function setup_python {
-  python3 -m venv .env
-  source .env/bin/activate
+  python3 -m venv .venv
+  source .venv/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
@@ -28,8 +28,8 @@ function setup_python {
 }
 
 function setup_website_python {
-  python3 -m venv .env_website
-  source .env_website/bin/activate
+  python3 -m venv .venv_website
+  source .venv_website/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
@@ -37,8 +37,8 @@ function setup_website_python {
 }
 
 function setup_nl_python {
-  python3 -m venv .env_nl
-  source .env_nl/bin/activate
+  python3 -m venv .venv_nl
+  source .venv_nl/bin/activate
   echo "installing nl_server/requirements.txt"
   pip3 install -r nl_server/requirements.txt -q
   deactivate
@@ -171,10 +171,10 @@ function run_lint_fix {
     (
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
-      source .env/bin/activate
+      source .venv/bin/activate
       pip3 install yapf==0.40.2 isort -q
-      yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
-      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.env/** --profile=google
+      yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
+      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
       deactivate
     )
   }
@@ -235,7 +235,7 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   # Run server pytest.
-  source .env/bin/activate
+  source .venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
@@ -254,12 +254,12 @@ function run_py_test {
     pip3 install isort -q
   fi
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.env/**; then
+  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
-  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.env/** --profile google; then
+  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
     echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
@@ -279,7 +279,7 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  source .env/bin/activate
+  source .venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
@@ -308,7 +308,7 @@ function run_cdc_webdriver_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  source .env/bin/activate
+  source .venv/bin/activate
   local rerun_options=""
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     rerun_options=""
@@ -327,7 +327,7 @@ function run_cdc_webdriver_test {
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  source .env/bin/activate
+  source .venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export DC_API_KEY=
@@ -346,7 +346,7 @@ function run_integration_test {
 }
 
 function update_integration_test_golden {
-  source .env/bin/activate
+  source .venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
