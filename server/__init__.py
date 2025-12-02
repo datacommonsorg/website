@@ -497,7 +497,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
-      url = request.url.replace('http://', 'https://', 1)
+      url = f"https://{request.host}{request.full_path}"
       code = 301
       return redirect(url, code=code)
 

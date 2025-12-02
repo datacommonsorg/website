@@ -45,3 +45,9 @@ class TestRedirects(unittest.TestCase):
   def test_colab(self):
     response = app.test_client().get('/colab', follow_redirects=False)
     assert response.status_code == 302
+
+  def test_https_upgrade(self):
+    # Test that http request with X-Forwarded-Proto: http redirects to https
+    response = app.test_client().get('/', headers={'X-Forwarded-Proto': 'http'}, follow_redirects=False)
+    assert response.status_code == 301
+    assert response.location.startswith('https://')
