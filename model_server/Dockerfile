@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM us-docker.pkg.dev/vertex-ai/prediction/pytorch-cpu.2-1:dlenvx_build_20240225_1000_RC00
+FROM us-docker.pkg.dev/vertex-ai/prediction/pytorch-cpu.2-4:latest
 
 WORKDIR /app
 
