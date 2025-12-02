@@ -36,7 +36,6 @@ import {
 } from "../../shared/context";
 import {
   EXPLORE_RESULT_HEADER,
-  FOLLOW_UP_QUESTIONS_EXPERIMENT,
   FOLLOW_UP_QUESTIONS_GA,
   isFeatureEnabled,
   PAGE_OVERVIEW_EXPERIMENT,
@@ -65,18 +64,9 @@ import { UserMessage } from "./user_message";
 
 const PAGE_ID = "explore";
 
-const EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO = 0.2;
-const EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO = 0.2;
+const showFollowUpQuestions = isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA);
 
-const showFollowUpQuestions =
-  isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA) ||
-  (isFeatureEnabled(FOLLOW_UP_QUESTIONS_EXPERIMENT) &&
-    Math.random() < EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO);
-
-const showPageOverview =
-  isFeatureEnabled(PAGE_OVERVIEW_GA) ||
-  (isFeatureEnabled(PAGE_OVERVIEW_EXPERIMENT) &&
-    Math.random() < EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO);
+const showPageOverview = isFeatureEnabled(PAGE_OVERVIEW_GA);
 
 const showNewExploreResultHeader = isFeatureEnabled(EXPLORE_RESULT_HEADER);
 
