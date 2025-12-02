@@ -10,7 +10,18 @@ CONFIG_DIR = os.path.join(
 
 
 def load_configs() -> Dict[str, Dict[str, bool]]:
-  """Loads all feature flag configurations from the config directory."""
+  """Loads all feature flag configurations from the config directory.
+  
+       Returns:
+        Dict[str, Dict[str, bool]]: A nested dictionary mapping environment names
+        to their feature flag statuses.
+            The structure is:
+            {
+                "environment_name": {
+                    "feature_flag_name": is_enabled (bool)
+                }
+            }
+  """
   configs = {}
   if not os.path.exists(CONFIG_DIR):
     print(f"Error: Config directory not found at {CONFIG_DIR}")
