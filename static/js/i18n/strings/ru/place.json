@@ -2,6 +2,9 @@
   "alert-no_data_for_place": {
     "defaultMessage": "К сожалению, у нас нет данных о локации {placeName}"
   },
+  "category_in_place": {
+    "defaultMessage": "{category} ({placeName})"
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName} (на душу населения на {date})"
   },
@@ -56,6 +59,9 @@
   "close": {
     "defaultMessage": "Закрыть"
   },
+  "dateRange": {
+    "defaultMessage": "{minDate}–{maxDate}"
+  },
   "disasterTool": {
     "defaultMessage": "Инструмент \"Стихийное бедствие\""
   },
@@ -74,8 +80,14 @@
   "embed_export_chart_link": {
     "defaultMessage": "Экспортировать диаграмму"
   },
+  "enterQuery": {
+    "defaultMessage": "Введите вопрос, который нужно изучить"
+  },
   "exploreLink": {
     "defaultMessage": "Поиск с помощью инструмента \"{toolName}\""
+  },
+  "explore_data_on": {
+    "defaultMessage": "Изучить данные по вопросу… \"{sampleQuestion}\""
   },
   "header-overview": {
     "defaultMessage": "Обзор"
@@ -101,14 +113,23 @@
   "more_charts_link": {
     "defaultMessage": "Другие диаграммы"
   },
+  "no_charts": {
+    "defaultMessage": "Данные в категории \"{category}\" ({place}) не найдены."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeName}: {placeType}"
+  },
+  "place_not_found": {
+    "defaultMessage": "Местоположение \"{placeDcid}\" не найдено."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Рейтинги"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} из {total}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{placeType} ({parentPlaces})"
   },
   "plural_administrative_area": {
     "defaultMessage": "Административные районы"
@@ -121,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "Города"
+  },
+  "plural_continent": {
+    "defaultMessage": "Континенты"
   },
   "plural_country": {
     "defaultMessage": "Страны"
@@ -212,6 +236,9 @@
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Поиск другого места"
   },
+  "seePerCapita": {
+    "defaultMessage": "На душу населения"
+  },
   "selectVariable": {
     "defaultMessage": "Выберите переменную, данные которой хотите просмотреть. При нажатии на ссылки ниже проводник статистических переменных откроется в новой вкладке."
   },
@@ -229,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "Город"
+  },
+  "singular_continent": {
+    "defaultMessage": "Континент"
   },
   "singular_country": {
     "defaultMessage": "Страна"
@@ -274,6 +304,9 @@
   },
   "summary_overview": {
     "defaultMessage": "Общие сведения"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "Мы используем ИИ, чтобы создать сводку на основе полученных данных (ссылка есть на каждой диаграмме). Мы стараемся давать точные сведения, но тем не менее проверяйте сводку и обращайтесь к исходным данным."
   },
   "the_world": {
     "defaultMessage": "в мире"

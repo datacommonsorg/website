@@ -18,17 +18,20 @@
  * Top-level wrapper component for Stat Var Explorer page.
  */
 
+import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
 import { PropertyValues } from "../../shared/api_response_types";
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
   NamedNode,
   NamedTypedNode,
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
+import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
 import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
@@ -110,16 +113,26 @@ class Page extends Component<unknown, PageStateType> {
     const svs = this.state.statVar ? { [this.state.statVar]: {} } : {};
     const entities = this.state.entity.dcid ? [this.state.entity] : [];
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <StatVarWidget
           openSvHierarchyModal={this.state.showSvHierarchyModal}
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
           sampleEntities={entities}
-          deselectSVs={(): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
+          deselectSVs={async (): Promise<void> =>
+            updateHash(
+              { [SV_URL_PARAMS.STAT_VAR]: "" },
+              new Set([SV_URL_PARAMS.DATASET, SV_URL_PARAMS.SOURCE])
+            )
+          }
           selectedSVs={svs}
-          selectSV={(sv): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
+          selectSV={async (sv): Promise<void> =>
+            updateHash(
+              { [SV_URL_PARAMS.STAT_VAR]: sv },
+              new Set([SV_URL_PARAMS.DATASET, SV_URL_PARAMS.SOURCE])
+            )
+          }
           disableAlert={true}
         />
         <div id="plot-container">
@@ -139,8 +152,9 @@ class Page extends Component<unknown, PageStateType> {
               <>
                 <Info />
                 <Button
-                  className="d-lg-none"
+                  className="d-inline d-lg-none"
                   color="primary"
+                  id="select-variable-button"
                   onClick={this.toggleSvHierarchyModal}
                 >
                   Select variable
@@ -172,7 +186,7 @@ class Page extends Component<unknown, PageStateType> {
             )}
           </div>
         </div>
-      </>
+      </ThemeProvider>
     );
   }
 
@@ -191,10 +205,16 @@ class Page extends Component<unknown, PageStateType> {
         const sources = resp.data["Source"];
         const variables = STAT_VAR_HIERARCHY_CONFIG.nodes.map((n) => n.dcid);
         axios
-          .post("/api/observation/existence", {
-            entities: resp.data["Source"].map((s) => s.dcid),
-            variables,
-          })
+          .post(
+            "/api/observation/existence",
+            {
+              entities: resp.data["Source"].map((s) => s.dcid),
+              variables,
+            },
+            {
+              headers: WEBSITE_SURFACE_HEADER,
+            }
+          )
           .then((exResp) => {
             const filteredSources: NamedTypedNode[] = [];
             const sourcesSeen = new Set<string>();

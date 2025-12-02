@@ -17,14 +17,14 @@
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
-                      "country/LBY",
                       "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/SEN",
-                      "country/GMB",
                       "country/MWI",
-                      "country/SSD"
+                      "country/GMB",
+                      "country/ERI",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "FertilityRate_Person_Female_multiple_place_bar_block"
@@ -50,14 +50,14 @@
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
-                      "country/LBY",
                       "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/SEN",
-                      "country/GMB",
                       "country/MWI",
-                      "country/SSD"
+                      "country/GMB",
+                      "country/ERI",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
@@ -84,14 +84,14 @@
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
-                      "country/LBY",
                       "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/SEN",
-                      "country/GMB",
                       "country/MWI",
-                      "country/SSD"
+                      "country/GMB",
+                      "country/ERI",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
@@ -118,14 +118,14 @@
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
-                      "country/LBY",
                       "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/SEN",
-                      "country/GMB",
                       "country/MWI",
-                      "country/SSD"
+                      "country/GMB",
+                      "country/ERI",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "GrowthRate_Count_Person_multiple_place_bar_block"
@@ -136,6 +136,7 @@
                 ]
               }
             ],
+            "description": "The percentage change in the total number of people in a population over a specific period.",
             "title": "Rate of Population Growth"
           },
           {
@@ -151,14 +152,14 @@
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
-                      "country/LBY",
                       "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/SEN",
-                      "country/GMB",
                       "country/MWI",
-                      "country/SSD"
+                      "country/GMB",
+                      "country/ERI",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block"
@@ -185,14 +186,14 @@
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
-                      "country/LBY",
                       "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/SEN",
-                      "country/GMB",
                       "country/MWI",
-                      "country/SSD"
+                      "country/GMB",
+                      "country/ERI",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "Count_Person_multiple_place_bar_block"
@@ -203,6 +204,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population"
           }
         ],
@@ -267,33 +269,8 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/LBY",
-      "name": "Libya",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/TUN",
       "name": "Tunisia",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MLI",
-      "name": "Mali",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/ERI",
-      "name": "Eritrea",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GMB",
-      "name": "Gambia",
       "place_type": "Country"
     },
     {
@@ -302,8 +279,33 @@
       "place_type": "Country"
     },
     {
+      "dcid": "country/GMB",
+      "name": "Gambia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/ERI",
+      "name": "Eritrea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
+      "place_type": "Country"
+    },
+    {
       "dcid": "country/SSD",
       "name": "South Sudan",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/CMR",
+      "name": "Cameroon",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
       "place_type": "Country"
     }
   ],

@@ -22,15 +22,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
+import { getLocaleFromUrl } from "../../utils/url_utils";
 import { Page } from "./page";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      ReactDOM.render(
-        React.createElement(Page),
-        document.getElementById("main-pane")
-      );
-    }
-  );
+  const locale = getLocaleFromUrl();
+  loadLocaleData(locale, [
+    import(`../../i18n/compiled-lang/${locale}/units.json`),
+  ]).then(() => {
+    ReactDOM.render(
+      React.createElement(Page),
+      document.getElementById("main-pane")
+    );
+  });
 });

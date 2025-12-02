@@ -14,22 +14,49 @@
  * limitations under the License.
  */
 
+/** @jsxImportSource @emotion/react */
+
+//TODO (nick-next): Add the chart embed dialog to the screenshot test suite.
+
+import { css, ThemeContext } from "@emotion/react";
 import * as d3 from "d3";
-import React from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import React, { ReactElement, RefObject } from "react";
 
 import { wrap } from "../chart/base";
+import { Button } from "../components/elements/button/button";
+import { CopyToClipboardButton } from "../components/elements/button/copy_to_clipboard_button";
+import { CodeBlock } from "../components/elements/code/code_block";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../components/elements/dialog/dialog";
+import { Download } from "../components/elements/icons/download";
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import { intl } from "../i18n/i18n";
+import { chartComponentMessages } from "../i18n/i18n_chart_messages";
+import { messages } from "../i18n/i18n_messages";
+import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
 import {
   GA_EVENT_TILE_DOWNLOAD_CSV,
   GA_EVENT_TILE_DOWNLOAD_IMG,
   triggerGAEvent,
 } from "../shared/ga_events";
-import { randDomId, saveToFile, urlToDisplayText } from "../shared/util";
+import { StatMetadata } from "../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../shared/types";
+import { saveToFile, urlToDisplayText } from "../shared/util";
+import { Theme } from "../theme/types";
+import {
+  buildCitationNodes,
+  buildCitationParts,
+  CitationPart,
+} from "../tools/shared/metadata/citations";
+import { fetchMetadata } from "../tools/shared/metadata/metadata_fetcher";
+import { getDataCommonsClient } from "../utils/data_commons_client";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -41,9 +68,15 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 
 interface ChartEmbedPropsType {
   container?: HTMLElement;
+  statVarSpecs?: StatVarSpec[];
+  facets?: Record<string, StatMetadata>;
+  statVarToFacets?: StatVarFacetMap;
+  apiRoot?: string;
 }
 interface ChartEmbedStateType {
   modal: boolean;
+  loading: boolean;
+  citation: CitationPart[];
   svgXml: string;
   dataCsv: string;
   chartDate: string;
@@ -54,6 +87,7 @@ interface ChartEmbedStateType {
   sources: string[];
   chartDownloadXml: string;
   getDataCsv?: () => Promise<string>;
+  dataError: boolean;
 }
 
 /**
@@ -64,14 +98,19 @@ class ChartEmbed extends React.Component<
   ChartEmbedPropsType,
   ChartEmbedStateType
 > {
-  private modalId: string;
-  private svgContainerElement: React.RefObject<HTMLDivElement>;
-  private textareaElement: React.RefObject<HTMLTextAreaElement>;
+  static contextType: React.Context<Theme> =
+    ThemeContext as React.Context<Theme>;
+  declare context: Theme;
+
+  private readonly svgContainerElement: React.RefObject<HTMLDivElement>;
+  private readonly containerRef: RefObject<HTMLElement>;
 
   constructor(props: unknown) {
     super(props);
     this.state = {
       modal: false,
+      loading: false,
+      citation: [],
       svgXml: "",
       dataCsv: "",
       chartDate: "",
@@ -82,16 +121,29 @@ class ChartEmbed extends React.Component<
       sources: [],
       chartDownloadXml: "",
       getDataCsv: undefined,
+      dataError: false,
     };
-    this.modalId = randDomId();
     this.svgContainerElement = React.createRef();
-    this.textareaElement = React.createRef();
+    this.containerRef = React.createRef();
+
+    if (this.containerRef.current !== this.props.container) {
+      (
+        this.containerRef as React.MutableRefObject<HTMLElement | null>
+      ).current = this.props.container;
+    }
 
     this.toggle = this.toggle.bind(this);
     this.onOpened = this.onOpened.bind(this);
     this.onDownloadSvg = this.onDownloadSvg.bind(this);
     this.onDownloadData = this.onDownloadData.bind(this);
-    this.onClickTextarea = this.onClickTextarea.bind(this);
+  }
+
+  componentDidUpdate(prevProps: ChartEmbedPropsType): void {
+    if (this.props.container !== prevProps.container) {
+      (
+        this.containerRef as React.MutableRefObject<HTMLElement | null>
+      ).current = this.props.container;
+    }
   }
 
   /**
@@ -114,21 +166,275 @@ class ChartEmbed extends React.Component<
     chartHtml: string,
     chartTitle: string,
     chartDate: string,
-    sources: string[]
+    sources: string[],
+    surface: string
   ): void {
-    this.setState({
-      chartWidth,
-      chartHeight,
-      chartHtml,
-      chartTitle,
-      chartDate,
-      // Clear cached dataCSV to force CSV to refresh
-      dataCsv: "",
-      getDataCsv,
-      modal: true,
-      sources,
-      svgXml,
-    });
+    if (this.state.modal) {
+      return;
+    }
+    this.setState(
+      {
+        chartWidth,
+        chartHeight,
+        chartHtml,
+        chartTitle,
+        chartDate,
+        // Clear cached dataCSV to force CSV to refresh
+        dataCsv: "",
+        getDataCsv,
+        dataError: false,
+        modal: true,
+        loading: true,
+        citation: [],
+        sources,
+        svgXml,
+      },
+      () => this.loadModalData(getDataCsv, surface)
+    );
+  }
+
+  /**
+   * Callback for after the modal has been rendered and added to the DOM.
+   */
+  public onOpened(): void {
+    if (!this.svgContainerElement.current) {
+      return;
+    }
+
+    if (this.state.chartHtml) {
+      const chartDownloadXml = this.decorateChartHtml();
+      const imageElement = document.createElement("img");
+      imageElement.src =
+        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
+      this.svgContainerElement.current.append(imageElement);
+      imageElement.className = ASYNC_ELEMENT_CLASS;
+      this.setState({ chartDownloadXml });
+    }
+
+    if (this.state.svgXml) {
+      const chartDownloadXml = this.decorateSvgChart();
+      const imageElement = document.createElement("img");
+      imageElement.src =
+        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
+      imageElement.className = ASYNC_ELEMENT_CLASS;
+      this.svgContainerElement.current.append(imageElement);
+      this.setState({ chartDownloadXml });
+    }
+  }
+
+  /**
+   * On click handler for "Copy SVG to clipboard button".
+   */
+  public onDownloadSvg(): void {
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
+    const basename = this.state.chartTitle || "chart";
+    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
+  }
+
+  /**
+   * On click handler for "Download Data" button.
+   */
+  public onDownloadData(): void {
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
+    const basename = this.state.chartTitle || "export";
+    saveToFile(`${basename}.csv`, this.state.dataCsv);
+  }
+
+  public render(): ReactElement {
+    const theme = this.context;
+
+    return (
+      <Dialog
+        open={this.state.modal}
+        onClose={this.toggle}
+        maxWidth="lg"
+        fullWidth
+        containerRef={this.containerRef}
+        loading={this.state.loading}
+      >
+        <DialogTitle>
+          {intl.formatMessage(chartComponentMessages.ChartDownloadDialogTitle)}
+        </DialogTitle>
+        <DialogContent>
+          <div
+            css={css`
+              display: grid;
+              grid-template-columns: 0.3fr 0.7fr;
+              grid-template-rows: minmax(220px, 260px);
+              width: 100%;
+              gap: ${theme.spacing.lg}px;
+              @media (max-width: ${theme.breakpoints.md}px) {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+              }
+            `}
+          >
+            <div
+              ref={this.svgContainerElement}
+              className={`${ASYNC_ELEMENT_HOLDER_CLASS}`}
+              css={css`
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                border: 1px solid ${theme.colors.border.primary.light};
+                ${theme.radius.tertiary};
+                padding: ${theme.spacing.md}px;
+                & > svg,
+                & > img {
+                  display: block;
+                  width: 100%;
+                  height: auto;
+                  max-height: 220px;
+                  object-fit: contain;
+                }
+              `}
+            ></div>
+            <CodeBlock
+              language="csv"
+              code={this.state.dataCsv}
+              css={css`
+                width: 100%;
+                height: 100%;
+                overflow-x: auto;
+                overflow-y: auto;
+
+                pre,
+                code {
+                  white-space: pre;
+                }
+              `}
+            />
+          </div>
+          {this.state.citation.length > 0 && (
+            <div
+              css={css`
+                width: 100%;
+                && {
+                  h3 {
+                    ${theme.typography.family.heading}
+                    ${theme.typography.heading.xs}
+                    margin: 0 0 ${theme.spacing.sm}px 0;
+                    padding: 0 0 0 0;
+                  }
+                  p {
+                    ${theme.typography.family.text}
+                    ${theme.typography.text.md}
+                    white-space: pre-wrap;
+                    word-break: break-word;
+                    a {
+                      white-space: pre-wrap;
+                      word-break: break-word;
+                    }
+                  }
+                }
+              `}
+            >
+              <h3>
+                {intl.formatMessage(
+                  metadataComponentMessages.SourceAndCitation
+                )}
+              </h3>
+              <p>{buildCitationNodes(this.state.citation)}</p>
+              <p>
+                {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
+              </p>
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button variant="text" onClick={this.toggle}>
+            {intl.formatMessage(messages.close)}
+          </Button>
+          {this.state.chartDownloadXml && (
+            <Button startIcon={<Download />} onClick={this.onDownloadSvg}>
+              {intl.formatMessage(chartComponentMessages.DownloadSVG)}
+            </Button>
+          )}
+          {!this.state.dataError && (
+            <>
+              <Button startIcon={<Download />} onClick={this.onDownloadData}>
+                {intl.formatMessage(chartComponentMessages.DownloadCSV)}
+              </Button>
+              <CopyToClipboardButton valueToCopy={this.state.dataCsv}>
+                {intl.formatMessage(chartComponentMessages.CopyValues)}
+              </CopyToClipboardButton>
+            </>
+          )}
+        </DialogActions>
+      </Dialog>
+    );
+  }
+
+  /**
+   * Fetches CSV data and citation metadata when the dialog is opened.
+   */
+  private async loadModalData(
+    getDataCsv: () => Promise<string>,
+    surface: string
+  ): Promise<void> {
+    let dataCsv: string;
+    let dataFetchError = false;
+
+    try {
+      dataCsv = await getDataCsv();
+      if (!dataCsv) {
+        dataFetchError = true;
+        console.error("Error fetching data: Result was empty.");
+        dataCsv = intl.formatMessage(chartComponentMessages.DataError);
+      }
+    } catch (error) {
+      dataFetchError = true;
+      console.error("Error fetching data");
+      dataCsv = intl.formatMessage(chartComponentMessages.DataError);
+    }
+
+    let citation: CitationPart[];
+    try {
+      const getCitationPromise = async (): Promise<CitationPart[]> => {
+        const { statVarSpecs, facets, statVarToFacets, apiRoot } = this.props;
+        if (!statVarSpecs || !facets || !statVarToFacets) {
+          return [];
+        }
+        const statVarSet = new Set<string>();
+        for (const spec of statVarSpecs) {
+          statVarSet.add(spec.statVar);
+          if (spec.denom) {
+            statVarSet.add(spec.denom);
+          }
+        }
+        if (statVarSet.size === 0) {
+          return [];
+        }
+        const dataCommonsClient = getDataCommonsClient(apiRoot, surface);
+        const metadataResp = await fetchMetadata(
+          statVarSet,
+          facets,
+          dataCommonsClient,
+          statVarToFacets,
+          apiRoot
+        );
+        return buildCitationParts(
+          metadataResp.statVarList,
+          metadataResp.metadata
+        );
+      };
+      citation = await getCitationPromise();
+    } catch (error) {
+      console.error("Error loading citation");
+      citation = [];
+    }
+    this.setState(
+      {
+        dataCsv,
+        citation,
+        dataError: dataFetchError,
+        loading: false,
+      },
+      () => {
+        this.onOpened();
+      }
+    );
   }
 
   /**
@@ -303,162 +609,6 @@ class ChartEmbed extends React.Component<
     container.innerHTML = "";
 
     return svgXml;
-  }
-
-  /**
-   * Callback for after the modal has been rendered and added to the DOM.
-   */
-  public onOpened(): void {
-    if (!this.svgContainerElement.current) {
-      return;
-    }
-    if (this.textareaElement.current) {
-      this.textareaElement.current.style.width =
-        this.state.chartWidth + CHART_PADDING * 2 + "px";
-    }
-
-    if (this.state.chartHtml) {
-      const chartDownloadXml = this.decorateChartHtml();
-      const imageElement = document.createElement("img");
-      const chartBase64 =
-        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
-      imageElement.src = chartBase64;
-      this.svgContainerElement.current.append(imageElement);
-      imageElement.className = ASYNC_ELEMENT_CLASS;
-      this.setState({ chartDownloadXml });
-    }
-
-    if (this.state.svgXml) {
-      const chartDownloadXml = this.decorateSvgChart();
-      const imageElement = document.createElement("img");
-      const chartBase64 =
-        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
-      imageElement.src = chartBase64;
-      imageElement.className = ASYNC_ELEMENT_CLASS;
-      this.svgContainerElement.current.append(imageElement);
-      this.setState({ chartDownloadXml });
-    }
-  }
-
-  /**
-   * On click handler on the text area.
-   * - If the user clicks on the text area and doesn't drag the mouse,
-   *   select all of the text (to help them copy and paste)
-   * - If the user clicks and drags, don't select all of the text and allow them
-   *   to make their selection
-   */
-  public onClickTextarea(): void {
-    const selection = window.getSelection().toString();
-    // User is trying to select specific text.
-    if (selection) {
-      return;
-    }
-    // User single-clicked without dragging. Select the entire CSV text
-    this.textareaElement.current.focus();
-    this.textareaElement.current.setSelectionRange(
-      0,
-      this.textareaElement.current.value.length
-    );
-  }
-
-  /**
-   * On click handler for "Copy SVG to clipboard button".
-   */
-  public onDownloadSvg(): void {
-    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
-    const basename = this.state.chartTitle || "chart";
-    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
-  }
-
-  /**
-   * On click handler for "Download Data" button.
-   */
-  public onDownloadData(): void {
-    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
-    const basename = this.state.chartTitle || "export";
-    saveToFile(`${basename}.csv`, this.state.dataCsv);
-  }
-
-  async componentDidUpdate(): Promise<void> {
-    if (!this.state.dataCsv && this.state.getDataCsv) {
-      try {
-        const dataCsv = await this.state.getDataCsv();
-        if (!dataCsv) {
-          this.setState({
-            dataCsv: "Error fetching CSV",
-          });
-          return;
-        }
-        this.setState({
-          dataCsv,
-        });
-      } catch (e) {
-        this.setState({
-          dataCsv: "Error fetching CSV",
-        });
-      }
-    }
-  }
-
-  public render(): JSX.Element {
-    return (
-      <Modal
-        isOpen={this.state.modal}
-        toggle={this.toggle}
-        className="modal-dialog-centered modal-lg"
-        container={this.props.container}
-        onOpened={this.onOpened}
-        id={this.modalId}
-      >
-        <ModalHeader toggle={this.toggle}>
-          {intl.formatMessage({
-            id: "embed_export_chart_link",
-            defaultMessage: "Export this chart",
-            description:
-              "Text for the hyperlink text that will let users export data and export charts.",
-          })}
-        </ModalHeader>
-        <ModalBody>
-          <div
-            ref={this.svgContainerElement}
-            className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
-          ></div>
-          <textarea
-            className="copy-svg modal-textarea mt-3"
-            value={this.state.dataCsv}
-            readOnly
-            ref={this.textareaElement}
-            onClick={this.onClickTextarea}
-          ></textarea>
-        </ModalBody>
-        <ModalFooter>
-          {this.state.chartDownloadXml && (
-            <>
-              <Button color="primary" onClick={this.onDownloadSvg}>
-                {intl.formatMessage({
-                  id: "embed_download_chart_link",
-                  defaultMessage: "Download Chart Image",
-                  description:
-                    "Text for the hyperlink text that will download the chart image.",
-                })}
-              </Button>{" "}
-            </>
-          )}
-          <Button
-            color="primary"
-            onClick={this.onDownloadData}
-            disabled={!this.state.dataCsv}
-          >
-            {intl.formatMessage({
-              id: "embed_download_csv_link",
-              defaultMessage: "Download Data as CSV",
-              description:
-                "Text for the hyperlink text that will download the data as a CSV.",
-            })}
-          </Button>
-        </ModalFooter>
-      </Modal>
-    );
   }
 }
 

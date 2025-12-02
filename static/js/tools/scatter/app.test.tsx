@@ -16,8 +16,16 @@
 
 /* eslint-disable camelcase */
 
-jest.mock("axios");
+// Use website instead of test because this tests the scatter app where we set the header to 'website'
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
+import theme from "../../theme/theme";
 
+jest.mock("axios");
+jest.mock("../../tools/shared/metadata/metadata_fetcher", () => ({
+  fetchFacetsWithMetadata: jest.fn().mockResolvedValue({}),
+}));
+
+import { ThemeProvider } from "@emotion/react";
 import { act, waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
@@ -39,7 +47,7 @@ import {
 Enzyme.configure({ adapter: new Adapter() });
 
 function TestApp(): JSX.Element {
-  const context = useContextStore();
+  const context = useContextStore(new URLSearchParams());
   useEffect(() => {
     context.place.set({
       ...EmptyPlace,
@@ -51,9 +59,11 @@ function TestApp(): JSX.Element {
     });
   }, []);
   return (
-    <Context.Provider value={context}>
-      <App />
-    </Context.Provider>
+    <ThemeProvider theme={theme}>
+      <Context.Provider value={context}>
+        <App />
+      </Context.Provider>
+    </ThemeProvider>
   );
 }
 
@@ -90,7 +100,8 @@ function mockAxios(): void {
   // Counties in Delaware
   when(axios.get)
     .calledWith(
-      "/api/place/descendent/name?dcid=geoId/10&descendentType=County"
+      "/api/place/descendent/name?dcid=geoId/10&descendentType=County",
+      expect.anything()
     )
     .mockResolvedValue({
       data: {
@@ -282,6 +293,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -300,6 +312,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -318,6 +331,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -336,6 +350,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -354,6 +369,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -372,6 +388,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -389,6 +406,7 @@ function mockAxios(): void {
         entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -419,6 +437,7 @@ function mockAxios(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -707,7 +726,8 @@ test("all functionalities", async () => {
   });
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/place/descendent?dcids=geoId/10&descendentType=County"
+      "/api/place/descendent/name?dcid=geoId/10&descendentType=County",
+      expect.anything()
     );
   });
 

@@ -40,6 +40,12 @@ variable "maps_api_key" {
   default     = null
 }
 
+variable "disable_google_maps" {
+  description = "Whether to show Google Maps component on the website"
+  type        = bool
+  default     = false
+}
+
 variable "region" {
   description = "The GCP region where project resources will be created"
   type        = string

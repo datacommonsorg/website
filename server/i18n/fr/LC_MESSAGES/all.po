@@ -193,9 +193,6 @@ msgstr "La plus forte population"
 msgid "Life Expectancy"
 msgstr "Espérance de vie"
 
-msgid "Loading"
-msgstr "Chargement…"
-
 msgid "Map Explorer"
 msgstr "Explorateur de cartes"
 
@@ -273,9 +270,6 @@ msgstr "États des États-Unis"
 
 msgid "Statistical Variable Explorer"
 msgstr "Explorateur de variables statistiques"
-
-msgid "Statistics"
-msgstr "Statistics"
 
 msgid "Sustainability Explorer"
 msgstr "Explorateur de durabilité"
@@ -386,7 +380,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Énergie"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Environnement"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Capitaux propres"
@@ -861,4 +855,6 @@ msgstr "Émissions de protoxyde d'azote (non biogéniques)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Taux de prélèvement d'eau"
+
+
 

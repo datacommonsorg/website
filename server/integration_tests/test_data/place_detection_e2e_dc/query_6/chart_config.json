@@ -75,37 +75,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line (Per Capita) in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Women Below Poverty Line in Counties of United States (${date})",
@@ -384,8 +353,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Population Below International Poverty Line"
+            "title": "Proportion of Population Below International Poverty Line (%)"
           },
           {
             "columns": [
@@ -925,10 +893,6 @@
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-            "name": "Population Below poverty line (Per Capita)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-          },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
             "name": "Asians Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
@@ -1388,6 +1352,13 @@
       {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
         "name": "Poverty by Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
         "types": [
           "Topic"
         ]

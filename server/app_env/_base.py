@@ -33,6 +33,14 @@ class Config:
   # Eanbling this to "True" requires adding "bigtable/user" acccess for the
   # service account in datcom-store IAM settings
   LOG_QUERY = False
+  # Whether to log request payload for datacommons.py requests
+  LOG_DC_REQUEST_PAYLOAD = False
+  # Percentage of requests to log payload for (0-100)
+  LOG_DC_REQUEST_PAYLOAD_PERCENTAGE = 0
+  # Whether to log large or long calls to mixer via ExtremeCallLogger
+  LOG_EXTREME_MIXER_CALLS = True
+  # Whether to log mixer responses retrieved from website cache.
+  LOG_CACHED_MIXER_RESPONSE_USAGE = True
   # Whether to show topic page
   SHOW_TOPIC = False
   # Whether to show disaster page
@@ -98,3 +106,17 @@ class Config:
   # Whether to enable BigQuery for instance. This is primarily used for
   # accessing the observation browser pages.
   ENABLE_BQ = False
+  # Whether to block all crawlers like GoogleBot from access to entire site
+  DISABLE_CRAWLERS = False
+  # Whether to show the Google Maps component.
+  # Will use the value of the environment variable DISABLE_GOOGLE_MAPS.
+  # Defaults to False if not provided.
+  DISABLE_GOOGLE_MAPS = os.environ.get('DISABLE_GOOGLE_MAPS',
+                                       'False').lower() == 'true'
+  # Whether to enable the embeddings playground (/nl/eval/embeddings).
+  # This tool is used for evaluating and debugging embeddings.
+  ENABLE_EMBEDDINGS_PLAYGROUND = False
+  # Whether to enable DataGemma evaluation tools:
+  # - /nl/eval/retrieval_generation (RIG Eval)
+  # - /nl/eval/retrieval_generation_sxs (SxS Eval)
+  ENABLE_DATAGEMMA_EVAL_TOOLS = False

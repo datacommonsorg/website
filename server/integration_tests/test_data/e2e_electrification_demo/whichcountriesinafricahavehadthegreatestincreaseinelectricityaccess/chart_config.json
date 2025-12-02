@@ -12,14 +12,14 @@
                     "comparisonPlaces": [
                       "country/KEN",
                       "country/SOM",
+                      "country/RWA",
                       "country/GHA",
                       "country/ETH",
                       "country/MLI",
                       "country/MAR",
-                      "country/RWA",
                       "country/SEN",
-                      "country/GIN",
-                      "country/UGA"
+                      "country/BEN",
+                      "country/GIN"
                     ],
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS10"
@@ -55,6 +55,18 @@
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
                     "title": "Somalia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -110,18 +122,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
@@ -134,11 +134,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
-                    "title": "Guinea",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -146,11 +146,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
+                    "placeDcidOverride": "country/GIN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
-                    "title": "Uganda",
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -248,11 +248,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/TCD",
+                    "placeDcidOverride": "country/MOZ",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
                     ],
-                    "title": "Chad",
+                    "title": "Mozambique",
                     "type": "LINE"
                   }
                 ]
@@ -260,11 +260,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MOZ",
+                    "placeDcidOverride": "country/TCD",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
                     ],
-                    "title": "Mozambique",
+                    "title": "Chad",
                     "type": "LINE"
                   }
                 ]

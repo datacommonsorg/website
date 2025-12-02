@@ -193,9 +193,6 @@ msgstr "人口上位"
 msgid "Life Expectancy"
 msgstr "平均寿命"
 
-msgid "Loading"
-msgstr "読み込んでいます"
-
 msgid "Map Explorer"
 msgstr "マップ エクスプローラ"
 
@@ -273,9 +270,6 @@ msgstr "米国の州"
 
 msgid "Statistical Variable Explorer"
 msgstr "統計変数エクスプローラ"
-
-msgid "Statistics"
-msgstr "Statistics"
 
 msgid "Sustainability Explorer"
 msgstr "サステナビリティ エクスプローラ"
@@ -861,4 +855,6 @@ msgstr "亜酸化窒素排出量（非生物起源）"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "取水量"
+
+
 

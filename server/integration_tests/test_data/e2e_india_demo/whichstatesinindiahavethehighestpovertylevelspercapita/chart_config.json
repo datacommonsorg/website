@@ -117,81 +117,31 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/IND"
                     ],
-                    "title": "Population Below International Poverty Line in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Below International Poverty Line in India",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1"
+                      "sdg/SI_POV_DAY1_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Population Below International Poverty Line in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Population Below International Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y0T14",
-                      "sdg/SI_POV_DAY1.AGE--Y15T64",
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
-                    ],
-                    "title": "Population Below International Poverty Line by Age in India",
-                    "type": "LINE"
+                    "title": "Proportion of Population Below International Poverty Line (%) in India (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line by Age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.SEX--F",
-                      "sdg/SI_POV_DAY1.SEX--M"
-                    ],
-                    "title": "Population Below International Poverty Line by Gender in India",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below International Poverty Line by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--U",
-                      "sdg/SI_POV_DAY1.URBANISATION--R"
-                    ],
-                    "title": "Population Below International Poverty Line in Rural Vs. Urban Areas in India",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas"
+            "title": "Proportion of Population Below International Poverty Line (%)"
           },
           {
             "columns": [
@@ -219,6 +169,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
@@ -275,37 +226,37 @@
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
           },
-          "sdg/SI_POV_DAY1": {
-            "name": "Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y0T14": {
+          "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
             "name": "Population Age Under 15 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
           },
-          "sdg/SI_POV_DAY1.AGE--Y15T64": {
+          "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block": {
             "name": "Population Age 15 to 64 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
           },
-          "sdg/SI_POV_DAY1.AGE--Y_GE65": {
+          "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block": {
             "name": "Population Age 65 or Older Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
           },
-          "sdg/SI_POV_DAY1.SEX--F": {
+          "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block": {
             "name": "Women Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--F"
           },
-          "sdg/SI_POV_DAY1.SEX--M": {
+          "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block": {
             "name": "Men Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--M"
           },
-          "sdg/SI_POV_DAY1.URBANISATION--R": {
+          "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block": {
             "name": "Rural Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
           },
-          "sdg/SI_POV_DAY1.URBANISATION--U": {
+          "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block": {
             "name": "Urban Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
+          },
+          "sdg/SI_POV_DAY1_multiple_place_bar_block": {
+            "name": "Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1"
           }
         }
       }
@@ -453,6 +404,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q120971341",
+          "name": "Chandigarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q1353",
           "name": "Delhi",
           "types": [
@@ -518,6 +476,13 @@
         {
           "dcid": "wikidataId/Q1599",
           "name": "Nagaland",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q200130",
+          "name": "Azad Kashmir",
           "types": [
             "AdministrativeArea1"
           ]
@@ -619,6 +584,13 @@
           "types": [
             "AdministrativeArea1"
           ]
+        },
+        {
+          "dcid": "wikidataId/Q9357528",
+          "name": "National Capital Territory of Delhi",
+          "types": [
+            "AdministrativeArea1"
+          ]
         }
       ]
     },
@@ -626,6 +598,13 @@
       {
         "dcid": "dc/topic/PovertyByResidency",
         "name": "Poverty by Residency",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
         "types": [
           "Topic"
         ]
@@ -781,6 +760,13 @@
     ],
     "peerTopics": [
       {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
         "types": [
@@ -790,13 +776,6 @@
       {
         "dcid": "dc/topic/Income",
         "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
         "types": [
           "Topic"
         ]

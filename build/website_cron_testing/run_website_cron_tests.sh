@@ -68,22 +68,6 @@ else
   echo "====================================================================================="
 fi
 
-# Run screenshot tests if SCREENSHOT_DOMAIN is set
-if [[ $SCREENSHOT_DOMAIN != "" ]]; then
-  echo "====================================================================================="
-  echo "Starting screenshot tests on $SCREENSHOT_DOMAIN"
-  echo "====================================================================================="
-  python3 screenshot.py -d $SCREENSHOT_DOMAIN -u $WEB_API_ROOT
-  gsutil -o "GSUtil:parallel_process_count=1" -m cp ./screenshots/*.png ./screenshots/*.json gs://datcom-website-screenshot/$SCREENSHOT_DOMAIN/$date_str/
-  rm -rf ./screenshots/*
-  echo "Finished the screenshot tests."
-  echo "====================================================================================="
-else
-  echo "====================================================================================="
-  echo "Skipping screenshot tests because missing SCREENSHOT_DOMAIN"
-  echo "====================================================================================="
-fi
-
 # Run adversarial tests if ENABLE_ADVERSARIAL is "true"
 if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
   echo "====================================================================================="

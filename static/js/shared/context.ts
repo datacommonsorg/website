@@ -34,8 +34,6 @@ export interface ContextType {
 
 export const Context = createContext({} as ContextType);
 
-export const NlSessionContext = createContext("");
-
 export interface ExploreType {
   exploreMore: Record<string, Record<string, string[]>>;
   place: string;

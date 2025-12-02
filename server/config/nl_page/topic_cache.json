@@ -861,6 +861,61 @@
     },
     {
       "dcid": [
+        "dc/svpg/ConsumerPriceIndexByCategory"
+      ],
+      "memberList": [
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AllItemsExceptEnergy",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AllItemsExceptFood",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AllItemsExceptFoodAndShelter",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AllItemsExceptFoodShelterAndEnergy",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AllItemsExceptMedicalCare",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_ServicesExceptMedicalCareServices"
+      ],
+      "name": [
+        "Consumer Price Index by Category"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/ConsumerPriceIndexByCommodity"
+      ],
+      "memberList": [
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_CommoditiesExceptFood",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_CommoditiesExceptFoodAndBeverages",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_ComputersPeripheralsAndSmartHomeAssistantDevices",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_PersonalComputersAndPeripheralEquipment",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_FreshBiscuitsRollsMuffins",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_LambAndOrganMeats",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_LandlineTelephoneServices",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_NondurablesExceptFood",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AdmissionToMoviesTheatersAndConcerts",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AlcoholicBeveragesAtHome",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_AlcoholicBeveragesAwayFromHome",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_Appliances",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_BakeryProducts",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_GasolineUnleadedRegular",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_GasolineUnleadedPremium",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_MedicalCare",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_Milk",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_NewCars",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_PersonalCare",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_PetsPetProductsAndServices",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_Toys",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_Smartphones",
+        "SeasonallyUnadjusted_ConsumerPriceIndex_ConsumerGoodsAndServices_UrbanConsumer_SportingGoods"
+      ],
+      "name": [
+        "Consumer Price Index by Commodity"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/CountOfFarmInventoryByType"
       ],
       "memberList": [
@@ -1403,6 +1458,56 @@
       ],
       "name": [
         "CO2 Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/EmploymentByGender"
+      ],
+      "memberList": [
+        "Count_Person_Employed_Female",
+        "Count_Person_Employed_Male"
+      ],
+      "name": [
+        "Employment by Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/EmploymentByIndustry"
+      ],
+      "memberList": [
+        "Count_Person_Employed_TotalNonfarm",
+        "Count_Person_Employed_GoodsProducing",
+        "Count_Person_Employed_HealthCare",
+        "Count_Person_Employed_RetailTrade",
+        "Count_Person_Employed_PostalService",
+        "Count_Person_Employed_PrivatelyOwned",
+        "Count_Person_Employed_ProfessionalScientificTechnicalServices",
+        "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
+        "Count_Person_Employed_InvestmentBankingAndSecuritiesIntermediation",
+        "Count_Person_Employed_FederalGovernmentOwnedEstablishment_ExcludingPostalService",
+        "Count_Person_Employed_Utilities",
+        "Count_Worker_NAICSAccommodationFoodServices",
+        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        "Count_Worker_NAICSTotalAllIndustries",
+        "Count_Worker_NAICSWholesaleTrade",
+        "dc/01yc3k23tsyk",
+        "dc/e2mpgewwsl60c",
+        "dc/p69tpsldf99h7",
+        "dc/34t2kjrwbjd31",
+        "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+        "dc/j4v6keqwsl60h",
+        "dc/w5ve4140t8xsb"
+      ],
+      "name": [
+        "Employment by Industry"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -2839,6 +2944,21 @@
       ],
       "name": [
         "Male Population With Kidney Disease by Age"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/LaborForceByGender"
+      ],
+      "memberList": [
+        "Count_Person_InLaborForce_Female",
+        "Count_Person_InLaborForce_Male"
+      ],
+      "name": [
+        "Labor Force by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -5902,6 +6022,36 @@
     },
     {
       "dcid": [
+        "dc/svpg/UnemploymentByGender"
+      ],
+      "memberList": [
+        "Count_Person_Unemployed_Female",
+        "Count_Person_Unemployed_Male"
+      ],
+      "name": [
+        "Unemployment by Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/UnemploymentRateByGender"
+      ],
+      "memberList": [
+        "UnemploymentRate_Person_Female",
+        "UnemploymentRate_Person_Male"
+      ],
+      "name": [
+        "Unemployment Rate by Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/UnintentionalPoisonings_MortalityRatefromUnintentionalPoisoningsByGender"
       ],
       "memberList": [
@@ -6354,6 +6504,23 @@
       ],
       "name": [
         "Wildfire Emissions by Pollutant"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WindEvent_EventsByType"
+      ],
+      "memberList": [
+        "Count_HighWindEvent",
+        "Count_StrongWindEvent",
+        "Count_MarineHighWindEvent",
+        "Count_MarineStrongWindEvent"
+      ],
+      "name": [
+        "Wind Events by Type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10259,6 +10426,39 @@
     },
     {
       "dcid": [
+        "dc/topic/ConsumerPriceIndex"
+      ],
+      "name": [
+        "Consumer Price Index"
+      ],
+      "relevantVariableList": [
+        "worldBank/FP_CPI_TOTL",
+        "worldBank/FP_CPI_TOTL_ZG",
+        "dc/x6l3mg60hpe7c",
+        "worldBank/FP_WPI_TOTL",
+        "dc/topic/ConsumerPriceIndexCategory"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/ConsumerPriceIndexCategory"
+      ],
+      "name": [
+        "Consumer Price Index by Category"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/ConsumerPriceIndexByCategory",
+        "dc/svpg/ConsumerPriceIndexByCommodity"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Crime"
       ],
       "name": [
@@ -10934,9 +11134,15 @@
       ],
       "relevantVariableList": [
         "Count_Person_Employed",
+        "dc/svpg/EmploymentByGender",
+        "dc/nm9hcklgg5zb3",
         "dc/topic/Jobs",
         "dc/topic/UnemploymentRate",
-        "dc/topic/UnpaidFamilyWorkers"
+        "dc/topic/UnpaidFamilyWorkers",
+        "Count_Person_InLaborForce",
+        "dc/svpg/LaborForceByGender",
+        "Count_Person_Employed_TotalNonfarm",
+        "dc/svpg/EmploymentByIndustry"
       ],
       "typeOf": [
         "Topic"
@@ -11120,6 +11326,7 @@
       ],
       "relevantVariableList": [
         "Count_FireEvent",
+        "Count_WildfireEvent",
         "Count_WildlandFireEvent",
         "BurnedArea_FireEvent",
         "Percent_BurnedArea_FireEvent",
@@ -11139,10 +11346,25 @@
       ],
       "relevantVariableList": [
         "Area_FloodEvent",
+        "Count_CoastalFloodEvent",
         "Count_FloodEvent",
         "Count_FlashFloodEvent",
         "dc/topic/CoastalFlood",
         "dc/topic/RiverineFlood"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Fog"
+      ],
+      "name": [
+        "Fog"
+      ],
+      "relevantVariableList": [
+        "Count_DenseFogEvent"
       ],
       "typeOf": [
         "Topic"
@@ -11193,6 +11415,9 @@
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
         "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+        "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+        "RealValue_GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+        "InflationAdjustedGDP",
         "dc/topic/GDPByIndustry",
         "dc/topic/InflationAdjustedGDP"
       ],
@@ -13267,7 +13492,9 @@
         "dc/topic/Earthquake",
         "dc/topic/Avalanche",
         "dc/topic/Landslide",
-        "dc/topic/Tsunami"
+        "dc/topic/Tsunami",
+        "dc/topic/WindEvent",
+        "dc/topic/Fog"
       ],
       "typeOf": [
         "Topic"
@@ -14434,7 +14661,7 @@
         "dc/topic/PovertyByRace",
         "dc/topic/PovertyByResidency",
         "dc/topic/PovertyByLanguageSpokenAtHome",
-        "dc/topic/SDG_1"
+        "dc/topic/sdg_1"
       ],
       "typeOf": [
         "Topic"
@@ -14507,6 +14734,7 @@
         "HeavyPrecipitationIndex",
         "InterannualRange_Monthly_Precipitation",
         "PrecipitationRate",
+        "Count_SleetEvent",
         "dc/topic/Rainfall",
         "dc/topic/Snowfall"
       ],
@@ -14869,6 +15097,20 @@
       ],
       "relevantVariableList": [
         "dc/svpg/SeparatedPopulationByAge_SeparatedPopulationByAge"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Smoke"
+      ],
+      "name": [
+        "Smoke"
+      ],
+      "relevantVariableList": [
+        "Count_DenseSmokeEvent"
       ],
       "typeOf": [
         "Topic"
@@ -15422,8 +15664,10 @@
       ],
       "relevantVariableList": [
         "UnemploymentRate_Person",
-        "UnemploymentRate_Person_Female",
-        "UnemploymentRate_Person_Male"
+        "dc/svpg/UnemploymentRateByGender",
+        "UnemploymentRate_Person_Male",
+        "Count_Person_Unemployed",
+        "dc/svpg/UnemploymentByGender"
       ],
       "typeOf": [
         "Topic"
@@ -16014,6 +16258,20 @@
         "Count_Person_Widowed",
         "dc/svpg/dc/topic/WidowedPopulationByDemographic_WidowedPopulationByGender",
         "dc/svpg/dc/topic/WidowedPopulationByDemographic_WidowedPopulationByRace"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WindEvent"
+      ],
+      "name": [
+        "Wind Events"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/WindEvent_EventsByType"
       ],
       "typeOf": [
         "Topic"

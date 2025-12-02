@@ -2,9 +2,14 @@
 __pycache__/
 .pytest_cache
 *.pyc
-.env/
-screenshots/*.png
-screenshots/screenshot_url.json
+.venv*/
+
+# Gemini
+.gemini/**
+.geminiignore
+!.gemini/
+!.gemini/config.yaml
+
 
 # Production static files
 **/dist/**
@@ -17,7 +22,9 @@ screenshots/screenshot_url.json
 .vscode
 .idea
 !.vscode/launch.json
+.env
 .env.list
+build/cdc/dev/.env-test
 
 # Mac
 .DS_Store
@@ -104,3 +111,9 @@ build/cdc/dev/.env
 *.tfvars
 deploy/terraform-custom-datacommons/modules/backend.tf
 
+# NL tools ignores
+tools/nl/nl_metadata/.env
+
+# Gemini files
+GEMINI.md
+.gemini/

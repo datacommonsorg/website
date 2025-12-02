@@ -367,7 +367,7 @@ class TestTraversal(unittest.TestCase):
           'propE':
               embeddings_ordered_by_query_similarity[1],
           'query': [0.15, 0.45, 0.1, 0.7],
-          DESCRIPTION_OF_DESCRIPTION_PROPERTY: [0.0] * 4
+          DESCRIPTION_OF_DESCRIPTION_PROPERTY: [0.1] * 4
       }
       assert all(query in embeddings for query in queries)
 
@@ -393,7 +393,7 @@ class TestTraversal(unittest.TestCase):
     mock_embeddings.side_effect = encode_response
 
     props = path_finder.filter_paths_with_embeddings(
-        pct=0.3)  # Rounds up to top 2 props
+        pct=0.3, max_paths_before_filtering=0)  # Rounds up to top 2 props
 
     assert set(props) == {'propB', 'propE'}
 
@@ -674,7 +674,9 @@ class TestTraversal(unittest.TestCase):
         }
     }
 
-    entity_info = path_finder.get_traversed_entity_info()
+    entity_info, timed_out = path_finder.get_traversed_entity_info()
+    assert timed_out == False
+
     # start1 -propA-> dcid0 -propB-> dcid1, dcid2
     #        -propB-> x
     # start2 -propA-> dcid4 <-propD (Types)- dcid3
@@ -765,7 +767,7 @@ class TestTraversal(unittest.TestCase):
         },
         'property_descriptions': {}
     }
-    assert DeepDiff(entity_info, expected_entity_info, ignore_order=True) == {}
+    assert DeepDiff(expected_entity_info, entity_info, ignore_order=True) == {}
 
   @patch('server.services.datacommons.recognize_entities')
   @patch('server.lib.fetch.raw_property_values')

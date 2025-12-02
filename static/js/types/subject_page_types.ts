@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NamedTypedNode } from "../shared/types";
-import { SubjectPageConfig } from "../types/subject_page_proto_types";
-import { ChildPlacesByType } from "./../shared/types";
+import { ChildPlacesByType, NamedTypedNode } from "../shared/types";
+import { SubjectPageConfig } from "./subject_page_proto_types";
 
 export interface SubjectPageMetadata {
   /**

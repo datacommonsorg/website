@@ -33,6 +33,7 @@ import {
   BlockConfig,
   EventTypeSpec,
 } from "../js/types/subject_page_proto_types";
+import { getSurfaceHeader } from "../js/utils/axios";
 import {
   getDate,
   getSeverityFilters,
@@ -61,8 +62,8 @@ const TOOLFORMER_RIG_ALLOWED_CHARTS = new Set(["LINE", "HIGHLIGHT"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
-// Detector to use when handling nl queries
-const QUERY_DETECTOR = "heuristic";
+// Default detector type to use when handling nl queries
+const DEFAULT_QUERY_DETECTOR = "heuristic";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
 
@@ -88,7 +89,8 @@ function getBlockTileResults(
   apikey: string,
   apiRoot: string,
   allowedTilesTypes?: Set<string>,
-  mode?: string
+  mode?: string,
+  surface?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -113,7 +115,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surface
             )
           );
           break;
@@ -129,7 +132,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surface
             )
           );
           break;
@@ -146,7 +150,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surface
             )
           );
           break;
@@ -162,7 +167,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surface
             )
           );
           break;
@@ -175,7 +181,8 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot
+              apiRoot,
+              surface
             )
           );
           break;
@@ -183,7 +190,14 @@ function getBlockTileResults(
           tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tile.description = getHighlightTileDescription(tile, blockDenom);
           tilePromises.push(
-            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
+            getHighlightTileResult(
+              tileId,
+              tile,
+              place,
+              tileSvSpec,
+              apiRoot,
+              surface
+            )
           );
           break;
         default:
@@ -292,7 +306,9 @@ export async function getQueryResult(
   mode: string,
   varThreshold: string,
   wantRelatedQuestions: boolean,
-  idx?: string
+  detector: string,
+  idx?: string,
+  surface?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
 
@@ -304,11 +320,12 @@ export async function getQueryResult(
   } else if (mode === TOOLFORMER_RIG_MODE) {
     allowedTileTypes = TOOLFORMER_RIG_ALLOWED_CHARTS;
   }
-
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
-  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${QUERY_DETECTOR}`;
+  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${
+    detector || DEFAULT_QUERY_DETECTOR
+  }`;
   const params = {
     client,
     idx,
@@ -324,8 +341,11 @@ export async function getQueryResult(
       }
       url += `&${urlKey}=${params[urlKey]}`;
     });
+  const postConfig = {
+    headers: getSurfaceHeader(surface),
+  };
   try {
-    nlResp = await axios.post(url, {});
+    nlResp = await axios.post(url, {}, postConfig);
   } catch (e) {
     console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
@@ -402,7 +422,8 @@ export async function getQueryResult(
             apikey,
             apiRoot,
             allowedTileTypes,
-            mode
+            mode,
+            surface
           );
       }
       tilePromises.push(...blockTilePromises);

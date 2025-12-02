@@ -21,6 +21,10 @@
 @forward "tiles";
 @use "../base";
 
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
 /**
  * main pane
  */
@@ -35,6 +39,14 @@
 
   .col-12 {
     padding: 1em 0 1em 0;
+  }
+}
+
+#dc-explore #subject-page-main-pane {
+  .category:first-of-type {
+    .block:first-of-type {
+      padding-top: 0;
+    }
   }
 }
 
@@ -59,6 +71,25 @@ article.category {
   p {
     font-size: 0.95rem;
   }
+
+  .block-modal-trigger {
+    align-items: center;
+    display: flex;
+    gap: 6px;
+    width: auto;
+
+    span, p {
+      font-size: 14px !important;
+      line-height: 14px !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    span {
+      transform: translateX(-4px);
+    }
+  }
+
 }
 
 .subtopic {
@@ -75,6 +106,11 @@ article.category {
 
 .subtopic:first-of-type {
   border-top: none;
+}
+
+.highlight-result-title .subtopic:last-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: 1.5em;
 }
 
 .subtopic.notitle:not(:first-of-type) {
@@ -102,23 +138,46 @@ article.category {
 .block-body {
   display: flex;
   margin-top: 5px;
+  
+  @include media-breakpoint-down(sm) {
+    gap: 24px;
+  }
 }
 
 .block-controls {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  margin: 8px 0 16px 0;
+  min-height: 22px;
+
+  &.show {
+    opacity: 1;
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 16px 0;
+  }
 }
 
 .block-toggle {
-  align-items: center;
   display: flex;
-  padding: 14px 0;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: auto;
 
   label {
     align-items: center;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 0;
 
     .label-disabled {
@@ -137,6 +196,7 @@ article.category {
     align-items: center;
     display: flex;
     font-size: 14px;
+    line-height: 14px !important;
   }
 
   .material-icons {
@@ -144,7 +204,6 @@ article.category {
     cursor: default;
     font-size: 16px;
     margin-left: 4px;
-    width: 20px;
   }
 }
 

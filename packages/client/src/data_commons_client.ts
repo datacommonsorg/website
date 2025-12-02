@@ -20,7 +20,7 @@
 
 import rewind from "@turf/rewind";
 import { Feature, FeatureCollection, Geometry } from "geojson";
-import * as _ from "lodash";
+import _ from "lodash";
 
 import {
   DEFAULT_ENTITY_PROPS,
@@ -50,7 +50,7 @@ import {
   PointApiResponse,
   Series,
   SeriesApiResponse,
-  StatMetadata,
+  StatMetadata, StatVarSpec,
 } from "./data_commons_web_client_types";
 import {
   DEFAULT_FACET_OVERRIDE,
@@ -61,11 +61,19 @@ import {
   parseWebsiteApiRoot,
 } from "./utils";
 
+// used by the DataCommonsClient to group when facet id is empty
+const EMPTY_FACET_ID_KEY = "empty";
+
 export interface DatacommonsClientParams {
   /** Web api root endpoint. Default: `"https://datacommons.org/"` */
   apiRoot?: string;
   /** Overrides observation facet StatMetadata values by unit DCID. */
   facetOverride?: FacetOverride | null;
+  /**
+   * Passed into calls to mixer for usage logs. Indicates which DC surface
+   * (website, datagemma, etc.) the call originates from.
+   */
+  surface?: string | null;
 }
 
 class DataCommonsClient {
@@ -73,14 +81,19 @@ class DataCommonsClient {
   apiRoot?: string;
   webClient: DataCommonsWebClient;
   facetOverride: FacetOverride;
+  // indicates if a call originates from another DataCommons surface
+  // passed through to mixer calls for usage metrics
+  surface?: string | null;
 
   constructor(params?: DatacommonsClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
+    this.surface = p.surface;
     // Initialize DataCommonsWebClient with p.apiRoot since the client will call
     // parseWebsiteApiRoot on its own
     this.webClient = new DataCommonsWebClient({
       apiRoot: p.apiRoot,
+      surface: p.surface,
     });
     if (p.facetOverride === undefined) {
       this.facetOverride = DEFAULT_FACET_OVERRIDE;
@@ -184,11 +197,89 @@ class DataCommonsClient {
    */
   async getDataRows(params: GetDataRowsParams): Promise<DataRow[]> {
     // Fetch variable observations
-    const pointApiResponse =
-      "parentEntity" in params
-        ? await this.webClient.getObservationsPointWithin(params)
-        : await this.webClient.getObservationsPoint(params);
-    if (!pointApiResponse) {
+    let variables: string[];
+    let perCapitaVariables: string[];
+    let denoms: string[];
+    const observationPromises: Promise<PointApiResponse>[] = [];
+    const isWithin = "parentEntity" in params;
+
+    if (params.statVarSpecs && params.statVarSpecs.length > 0) {
+      variables = params.statVarSpecs.map((spec) => spec.statVar);
+      denoms = params.statVarSpecs
+        .map((spec) => spec.denom)
+        .filter((denom): denom is string => Boolean(denom));
+
+      const specsByFacet = _.groupBy(
+        params.statVarSpecs,
+        (spec) => spec.facetId || EMPTY_FACET_ID_KEY
+      );
+
+      for (const facetId in specsByFacet) {
+        const specs = specsByFacet[facetId];
+        const statVarVariables = specs.map((spec) => spec.statVar);
+
+        const facetIdsParam =
+          facetId === EMPTY_FACET_ID_KEY ? undefined : [facetId];
+
+        if (isWithin) {
+          observationPromises.push(
+            this.webClient.getObservationsPointWithin({
+              parentEntity: params.parentEntity,
+              childType: params.childType,
+              variables: statVarVariables,
+              date: params.date,
+              facetIds: facetIdsParam,
+            })
+          );
+        } else {
+          observationPromises.push(
+            this.webClient.getObservationsPoint({
+              entities: params.entities,
+              variables: statVarVariables,
+              date: params.date,
+              facetIds: facetIdsParam,
+            })
+          );
+        }
+      }
+    } else {
+      variables = params.variables;
+      perCapitaVariables = params.perCapitaVariables || [];
+      denoms = perCapitaVariables.length > 0 ? [TOTAL_POPULATION_VARIABLE] : [];
+
+      if (isWithin) {
+        observationPromises.push(
+          this.webClient.getObservationsPointWithin({
+            parentEntity: params.parentEntity,
+            childType: params.childType,
+            variables: params.variables,
+            date: params.date,
+          })
+        );
+      } else {
+        observationPromises.push(
+          this.webClient.getObservationsPoint({
+            entities: params.entities,
+            variables: params.variables,
+            date: params.date,
+          })
+        );
+      }
+    }
+
+    const responses = await Promise.all(observationPromises);
+    const pointApiResponse: PointApiResponse = { data: {}, facets: {} };
+
+    responses.forEach((resp) => {
+      if (resp && resp.data) {
+        _.merge(pointApiResponse.data, resp.data);
+      }
+      if (resp && resp.facets) {
+        Object.assign(pointApiResponse.facets, resp.facets);
+      }
+    });
+
+    if (_.isEmpty(pointApiResponse.data)) {
       return [];
     }
     pointApiResponse.facets = this.overrideFacetValues(
@@ -203,42 +294,39 @@ class DataCommonsClient {
       params.entityProps || DEFAULT_ENTITY_PROPS
     );
     const variablePropValues = await this.getNodePropValues(
-      params.variables,
+      variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
-    const validPerCapitaVariables = _.intersection(
-      params.perCapitaVariables,
-      params.variables
-    );
-    const populationPropValues = !_.isEmpty(params.perCapitaVariables)
+
+    denoms = [...new Set(denoms)];
+    const denomPropValues = !_.isEmpty(denoms)
       ? await this.getNodePropValues(
-          [TOTAL_POPULATION_VARIABLE],
-          DEFAULT_VARIABLE_PROPS
-        )
+        denoms,
+        DEFAULT_VARIABLE_PROPS
+      )
       : ({} as NodePropValues);
 
     // Fetch population data for per capita calculations
-    let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
-    if (!_.isEmpty(validPerCapitaVariables)) {
-      populationObservations =
-        "parentEntity" in params
-          ? await this.webClient.getObservationsSeriesWithin({
-              ...params,
-              variables: [TOTAL_POPULATION_VARIABLE],
-            })
-          : await this.webClient.getObservationsSeries({
-              ...params,
-              variables: [TOTAL_POPULATION_VARIABLE],
-            });
+    // Match the numerator facet with the denominator if available
+    let denomsByFacet: Record<string, SeriesApiResponse | null> = {};
+    let defaultDenomData: SeriesApiResponse | null = null;
+    if (!_.isEmpty(denoms)) {
+      [denomsByFacet, defaultDenomData] = await this.getDenomData(
+        denoms,
+        pointApiResponse.facets,
+        params
+      );
     }
     const rows = this.getDataRowsFromPointObservations(
       entityDcids,
-      params.variables,
+      variables,
       pointApiResponse,
       entityPropValues,
       variablePropValues,
-      populationPropValues,
-      populationObservations
+      denomPropValues,
+      denomsByFacet,
+      defaultDenomData,
+      params.statVarSpecs
     );
     return Promise.resolve(rows);
   }
@@ -331,6 +419,62 @@ class DataCommonsClient {
   }
 
   /**
+   * Fetches denominator data for per capita calculations.
+   * Gets a map of denominator data for each facet used in the numerator
+   * API response, as well as the default denominator data with no facet
+   * filter that serves as a fallback if facet-specific data is not available.
+   *
+   * @param denoms List of denominator variable dcids (usually Count_Person)
+   * @param apiResponseFacets Facet store from the numerator API response
+   * @param params Parameters for fetching data rows
+   * @returns A record of denominator data by facet and the default denominator data
+   */
+  private async getDenomData(
+    denoms: string[],
+    apiResponseFacets: FacetStore,
+    params: GetDataRowSeriesParams
+  ): Promise<
+    [Record<string, SeriesApiResponse | null>, SeriesApiResponse | null]
+  > {
+    if (_.isEmpty(denoms)) {
+      return [{}, null];
+    }
+
+    const denomsByFacet: Record<string, SeriesApiResponse | null> = {};
+    let defaultDenomData: SeriesApiResponse | null = null;
+    const facetIds = apiResponseFacets ? Object.keys(apiResponseFacets) : [];
+
+    for (const facetId of facetIds) {
+      denomsByFacet[facetId] =
+        "parentEntity" in params
+          ? await this.webClient.getObservationsSeriesWithin({
+            ...params,
+            variables: denoms,
+            facetIds: [facetId],
+          })
+          : await this.webClient.getObservationsSeries({
+            ...params,
+            variables: denoms,
+            facetIds: [facetId],
+          });
+    }
+
+    // default denom data with no facet filter
+    defaultDenomData =
+      "parentEntity" in params
+        ? await this.webClient.getObservationsSeriesWithin({
+          ...params,
+          variables: denoms,
+        })
+        : await this.webClient.getObservationsSeries({
+          ...params,
+          variables: denoms,
+        });
+
+    return [denomsByFacet, defaultDenomData];
+  }
+
+  /**
    * Fetches data commons observation series about an entity or entities. Each
    * result row has data about a single entity and single variable observation.
    *
@@ -339,11 +483,87 @@ class DataCommonsClient {
    */
   async getDataRowSeries(params: GetDataRowSeriesParams): Promise<DataRow[]> {
     // Fetch variable observations
-    const seriesApiResponse =
-      "parentEntity" in params
-        ? await this.webClient.getObservationsSeriesWithin(params)
-        : await this.webClient.getObservationsSeries(params);
-    if (!seriesApiResponse) {
+    let variables: string[];
+    let perCapitaVariables: string[];
+    let denoms: string[];
+    const observationPromises: Promise<SeriesApiResponse>[] = [];
+    const isWithin = "parentEntity" in params;
+
+    //if we are provided a list of StatVarSpecs, we will use these to fetch the data
+    if (params.statVarSpecs && params.statVarSpecs.length > 0) {
+      variables = params.statVarSpecs.map((spec) => spec.statVar);
+      denoms = params.statVarSpecs
+        .map((spec) => spec.denom)
+        .filter((denom): denom is string => Boolean(denom));
+
+      //we group API calls by facet (to pull the data as efficiently as possible).
+      const specsByFacet = _.groupBy(
+        params.statVarSpecs,
+        (spec) => spec.facetId || EMPTY_FACET_ID_KEY
+      );
+      for (const facetId in specsByFacet) {
+        const specs = specsByFacet[facetId];
+        const varsForThisCall = specs.map((spec) => spec.statVar);
+        const facetIdsParam =
+          facetId === EMPTY_FACET_ID_KEY ? undefined : [facetId];
+
+        if (isWithin) {
+          observationPromises.push(
+            this.webClient.getObservationsSeriesWithin({
+              parentEntity: params.parentEntity,
+              childType: params.childType,
+              variables: varsForThisCall,
+              facetIds: facetIdsParam,
+            })
+          );
+        } else {
+          observationPromises.push(
+            this.webClient.getObservationsSeries({
+              entities: params.entities,
+              variables: varsForThisCall,
+              facetIds: facetIdsParam,
+            })
+          );
+        }
+      }
+    } else {
+      // if we are given a list of variables, we follow the older path and fetch data for those variables
+      // note that when given variables, we can neither fetch a specific facet nor use a non-default denom
+      variables = params.variables;
+      perCapitaVariables = params.perCapitaVariables || [];
+      denoms = perCapitaVariables.length > 0 ? [TOTAL_POPULATION_VARIABLE] : [];
+
+      if (isWithin) {
+        observationPromises.push(
+          this.webClient.getObservationsSeriesWithin({
+            parentEntity: params.parentEntity,
+            childType: params.childType,
+            variables: params.variables,
+          })
+        );
+      } else {
+        observationPromises.push(
+          this.webClient.getObservationsSeries({
+            entities: params.entities,
+            variables: params.variables,
+          })
+        );
+      }
+    }
+
+    const responses = await Promise.all(observationPromises);
+    const seriesApiResponse: SeriesApiResponse = { data: {}, facets: {} };
+
+    responses.forEach((resp) => {
+      if (resp && resp.data) {
+        _.merge(seriesApiResponse.data, resp.data);
+      }
+      if (resp && resp.facets) {
+        Object.assign(seriesApiResponse.facets, resp.facets);
+      }
+    });
+
+    if (_.isEmpty(seriesApiResponse.data)) {
       return [];
     }
 
@@ -359,42 +579,38 @@ class DataCommonsClient {
       params.entityProps || DEFAULT_ENTITY_PROPS
     );
     const variablePropValues = await this.getNodePropValues(
-      params.variables,
+      variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
-    const validPerCapitaVariables = _.intersection(
-      params.perCapitaVariables,
-      params.variables
-    );
-    const populationPropValues = !_.isEmpty(params.perCapitaVariables)
+    denoms = [...new Set(denoms)];
+    const denomPropValues = !_.isEmpty(denoms)
       ? await this.getNodePropValues(
-          [TOTAL_POPULATION_VARIABLE],
-          DEFAULT_VARIABLE_PROPS
-        )
+        denoms,
+        DEFAULT_VARIABLE_PROPS
+      )
       : ({} as NodePropValues);
 
     // Fetch population data for per capita calculations
-    let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
-    if (!_.isEmpty(validPerCapitaVariables)) {
-      populationObservations =
-        "parentEntity" in params
-          ? await this.webClient.getObservationsSeriesWithin({
-              ...params,
-              variables: [TOTAL_POPULATION_VARIABLE],
-            })
-          : await this.webClient.getObservationsSeries({
-              ...params,
-              variables: [TOTAL_POPULATION_VARIABLE],
-            });
+    // Match the numerator facet with the denominator if available
+    let denomsByFacet: Record<string, SeriesApiResponse | null> = {};
+    let defaultDenomData: SeriesApiResponse | null = null;
+    if (!_.isEmpty(denoms)) {
+      [denomsByFacet, defaultDenomData] = await this.getDenomData(
+        denoms,
+        seriesApiResponse.facets,
+        params
+      );
     }
     const dataRows = this.getDataRowsFromSeriesObservations(
       entityDcids,
-      params.variables,
+      variables,
       seriesApiResponse,
       entityPropValues,
       variablePropValues,
-      populationPropValues,
-      populationObservations
+      denomPropValues,
+      denomsByFacet,
+      defaultDenomData,
+      params.statVarSpecs
     );
 
     // Filter by start/end date if specified
@@ -457,7 +673,7 @@ class DataCommonsClient {
     dcids: string[];
     prop: string;
   }): Promise<Record<string, string | null>> {
-    const nodePropvals = await this.webClient.getNodePropvals(params);
+    const nodePropvals = await this.webClient.getNodePropvalsOut(params);
     const nodeValues: Record<string, string | null> = {};
     Object.keys(nodePropvals).forEach((nodeDcid) => {
       nodeValues[nodeDcid] =
@@ -536,13 +752,74 @@ class DataCommonsClient {
   }
 
   /**
+   * Gets information needed to calculate per capita for a single stat data point.
+   * Uses the denom value with the closest date to the mainStatDate and returns
+   * null if no matching value is found or matching value is 0. If available, uses
+   * the denom value that comes from the same facet as the data point. Otherwise, the best
+   * general denom option is used.
+   * has denominator data, we use information from that facet.
+   * @param denomVar
+   * @param denomsByFacet
+   * @param defaultDenomData If there isn't denominator data available for the facet used in
+   * svSpec, we use the default data that is fetched with no particular facet
+   * @param placeDcid place of the data point
+   * @param numeratorFacet
+   */
+
+  // --> Need the series for this particular entity, and the facet ID it comes from
+  // then we do this if that denom info exists
+  private getDenomSeries(
+    denomVar: string,
+    denomsByFacet: Record<string, SeriesApiResponse | null>,
+    defaultDenomData: SeriesApiResponse | null,
+    placeDcid: string,
+    numeratorFacet?: string
+  ): [Series | null, StatMetadata | null] {
+    let matchingDenomData: SeriesApiResponse | null = null;
+    let placeDenomData: Series | undefined | null = null;
+    let facetUsed: StatMetadata | null = null;
+
+    // find the matching denominator data if it exists, for the facet used in the numerator
+    if (numeratorFacet) {
+      matchingDenomData = denomsByFacet?.[numeratorFacet];
+      placeDenomData = matchingDenomData?.data?.[denomVar]?.[placeDcid];
+
+      // getting the facet metadata for the facet we're using
+      facetUsed = _.get(
+        denomsByFacet?.[numeratorFacet]?.facets,
+        numeratorFacet || "",
+        {} as StatMetadata
+      );
+    }
+
+    if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
+      matchingDenomData = defaultDenomData;
+      placeDenomData = matchingDenomData?.data?.[denomVar]?.[placeDcid];
+      facetUsed = placeDenomData
+        ? _.get(
+            defaultDenomData?.facets,
+            placeDenomData.facet || "",
+            {} as StatMetadata
+          )
+        : null;
+    }
+
+    placeDenomData = placeDenomData ?? null;
+
+    return [placeDenomData, facetUsed];
+  }
+
+  /**
    * Enriches PointApiResponse and converts response into a list of `DataRow`s
    * @param entityDcids Entity DCIDs
    * @param variableDcids Variable DCIDs
    * @param pointApiResponse Entity/variable observations
    * @param entityPropValues Additional entity properties to fetch
    * @param variablePropValues Additional variable properties to fetch
-   * @param populationObservations Population observations for our list of entities for per-capita calculations
+   * @param denomPropValues
+   * @param denomsByFacet Population observations for our list of entities, keyed by facet ID
+   * @param defaultDenomData Population observations for our list of entities with no facet filter
+   * @param statVarSpecs Full StatVarSpec set to pull facet-specific data. This will be used over variables if provided
    * @returns data rows
    */
   private getDataRowsFromPointObservations(
@@ -551,15 +828,29 @@ class DataCommonsClient {
     pointApiResponse: PointApiResponse,
     entityPropValues: NodePropValues,
     variablePropValues: NodePropValues,
-    populationPropValues: NodePropValues,
-    populationObservations: SeriesApiResponse
+    denomPropValues: NodePropValues,
+    denomsByFacet: Record<string, SeriesApiResponse | null>,
+    defaultDenomData: SeriesApiResponse | null,
+    statVarSpecs?: StatVarSpec[]
   ): DataRow[] {
     const dataRows: DataRow[] = [];
+
+    const specMap = _.keyBy(statVarSpecs || [], "statVar");
+
     entityDcids.forEach((entityDcid) => {
       variableDcids.forEach((variableDcid) => {
-        const observation =
-          pointApiResponse.data[variableDcid][entityDcid] || {};
-        if (_.isEmpty(observation)) {
+        const spec = specMap[variableDcid];
+        let observationData =
+          pointApiResponse.data[variableDcid][entityDcid] || null;
+        // the endpoint will sometimes give us the point nested in an array.
+        // the below lines mirror a very similar line in barchart.
+        if (Array.isArray(observationData) && observationData.length > 0) {
+          observationData = observationData[0];
+        }
+
+        const observation = observationData;
+
+        if (!observation || observation.value === undefined) {
           return;
         }
         const facet = _.get(
@@ -576,42 +867,42 @@ class DataCommonsClient {
           facet
         );
         // Set per-capita data
-        if (
-          TOTAL_POPULATION_VARIABLE in populationObservations.data &&
-          entityDcid in
-            populationObservations.data[TOTAL_POPULATION_VARIABLE] &&
-          populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid]
-            .series.length > 0
-        ) {
-          const series =
-            populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
-          const populationFacet = _.get(
-            populationObservations.facets,
-            series.facet || "",
-            {} as StatMetadata
+        const denomVar = spec?.denom;
+        if (denomVar) {
+          const [series, denomFacetMeta] = this.getDenomSeries(
+            denomVar,
+            denomsByFacet,
+            defaultDenomData,
+            entityDcid,
+            observation.facet
           );
 
-          const closestPopulationObservation = this.getClosestObservationToDate(
-            series.series,
-            observation.date
-          );
-          const scalingFactor = facet.scalingFactor || 1;
-          const quotientValue =
-            !_.isEmpty(closestPopulationObservation) &&
-            closestPopulationObservation?.value > 0
-              ? observation.value /
-                closestPopulationObservation?.value /
-                scalingFactor
-              : 0;
-          const perCapitaQuotientObservation: PerCapitaObservation = {
-            ...closestPopulationObservation,
-            perCapitaValue: quotientValue,
-          };
-          row.variable.perCapita = this.buildDataRowPerCapitaVariable(
-            perCapitaQuotientObservation,
-            populationPropValues,
-            populationFacet
-          );
+          if (series && denomFacetMeta) {
+            const closestDenomObservation = this.getClosestObservationToDate(
+              series.series,
+              observation.date
+            );
+
+            if (closestDenomObservation && closestDenomObservation.value > 0) {
+              const scalingFactor = facet.scalingFactor || 1;
+              const quotientValue =
+                observation.value /
+                closestDenomObservation.value /
+                scalingFactor;
+
+              const perCapitaQuotientObservation: PerCapitaObservation = {
+                ...closestDenomObservation,
+                perCapitaValue: quotientValue,
+              };
+
+              row.variable.perCapita = this.buildDataRowPerCapitaVariable(
+                perCapitaQuotientObservation,
+                denomPropValues,
+                denomFacetMeta,
+                denomVar
+              );
+            }
+          }
         }
         dataRows.push(row);
       });
@@ -626,20 +917,21 @@ class DataCommonsClient {
    * @param perCapitaVariablePropValues per capita population variable property
    *        values
    * @param perCapitaFacet facet for per capita population observation
+   * @param denomVarDcid The DCID of the denominator variable used.
    * @returns data row per capita variable
    */
   private buildDataRowPerCapitaVariable(
     perCapitaObservation: PerCapitaObservation,
     perCapitaVariablePropValues: NodePropValues,
-    perCapitaFacet: StatMetadata
+    perCapitaFacet: StatMetadata,
+    denomVarDcid: string
   ): DataRowPerCapitaVariable {
+    const denomName = perCapitaVariablePropValues?.[NAME_ATTRIBUTE]?.[denomVarDcid] || denomVarDcid;
+
     return {
-      dcid: TOTAL_POPULATION_VARIABLE,
+      dcid: denomVarDcid,
       properties: {
-        name:
-          perCapitaVariablePropValues[NAME_ATTRIBUTE][
-            TOTAL_POPULATION_VARIABLE
-          ] || "",
+        name: denomName,
       },
       observation: {
         date: perCapitaObservation.date,
@@ -667,7 +959,10 @@ class DataCommonsClient {
    * @param seriesApiResponse Entity/variable observations
    * @param entityPropValues Additional entity properties to fetch
    * @param variablePropValues Additional variable properties to fetch
-   * @param populationObservations Population observations for our list of entities for per-capita calculations
+   * @param denomPropValues Property values for the denominator variables used in per-capita calculations
+   * @param denomsByFacet Population observations for our list of entities, keyed by facet ID
+   * @param defaultDenomData Population observations for our list of entities with no facet filter
+   * @param statVarSpecs Full StatVarSpec set to pull facet-specific data. This will be used over variables if provided
    * @returns data rows
    */
   private getDataRowsFromSeriesObservations(
@@ -676,12 +971,17 @@ class DataCommonsClient {
     seriesApiResponse: SeriesApiResponse,
     entityPropValues: NodePropValues,
     variablePropValues: NodePropValues,
-    populationPropValues: NodePropValues,
-    populationObservations: SeriesApiResponse
+    denomPropValues: NodePropValues,
+    denomsByFacet: Record<string, SeriesApiResponse | null>,
+    defaultDenomData: SeriesApiResponse | null,
+    statVarSpecs?: StatVarSpec[]
   ): DataRow[] {
     const dataRows: DataRow[] = [];
+    const specMap = _.keyBy(statVarSpecs || [], "statVar");
+
     entityDcids.forEach((entityDcid) => {
       variableDcids.forEach((variableDcid) => {
+        const spec = specMap[variableDcid];
         const series = seriesApiResponse.data[variableDcid][entityDcid] || {};
         if (_.isEmpty(series)) {
           return;
@@ -691,20 +991,30 @@ class DataCommonsClient {
           series.facet || "",
           {} as StatMetadata
         );
-        let perCapitaObservations: PerCapitaObservation[] = [];
-        let populationSeries: Series | null = null;
-        if (
-          TOTAL_POPULATION_VARIABLE in populationObservations.data &&
-          entityDcid in populationObservations.data[TOTAL_POPULATION_VARIABLE]
-        ) {
-          populationSeries =
-            populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
-          perCapitaObservations = computePerCapitaRatio(
-            series.series,
-            populationSeries.series,
-            facet.scalingFactor || 1
+        let perCapitaObservations: PerCapitaObservation[] | null = null;
+        // Set per-capita data
+        const denomVar = spec?.denom;
+
+        let denomSeries: Series | null = null;
+        let denomFacetMeta: StatMetadata | null = null;
+
+        if (denomVar) {
+          [denomSeries, denomFacetMeta] = this.getDenomSeries(
+            denomVar,
+            denomsByFacet,
+            defaultDenomData,
+            entityDcid,
+            series.facet
           );
+          if (denomSeries && denomFacetMeta && !_.isEmpty(denomSeries.series)) {
+            perCapitaObservations = computePerCapitaRatio(
+              series.series,
+              denomSeries.series,
+              facet.scalingFactor || 1
+            );
+          }
         }
+        // if we have denom data
         series.series.forEach((observation, observationIndex) => {
           const row: DataRow = this.buildDataRow(
             entityDcid,
@@ -715,23 +1025,20 @@ class DataCommonsClient {
             facet
           );
           // Set per-capita data
-          if (perCapitaObservations.length === series.series.length) {
+          if (
+            denomVar &&
+            perCapitaObservations &&
+            perCapitaObservations.length === series.series.length &&
+            denomFacetMeta
+          ) {
             // perCapitaObservations is a parallel array with the data series
-            const populationFacetName =
-              populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid]
-                .facet;
-            const populationFacet = _.get(
-              populationObservations.facets,
-              populationFacetName || "",
-              {} as StatMetadata
-            );
-
             const perCapitaObservation =
               perCapitaObservations[observationIndex];
             row.variable.perCapita = this.buildDataRowPerCapitaVariable(
               perCapitaObservation,
-              populationPropValues,
-              populationFacet
+              denomPropValues,
+              denomFacetMeta,
+              denomVar
             );
           }
           dataRows.push(row);

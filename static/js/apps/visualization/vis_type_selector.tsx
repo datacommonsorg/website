@@ -20,8 +20,13 @@
 
 import React, { useContext } from "react";
 
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import { AppContext } from "./app_context";
-import { ORDERED_VIS_TYPE, VIS_TYPE_CONFIG } from "./vis_type_configs";
+import { getStandardizedToolUrl } from "./redirect_utils";
+import { ORDERED_VIS_TYPE, VIS_TYPE_CONFIG, VisType } from "./vis_type_configs";
 
 export function VisTypeSelector(): JSX.Element {
   const { visType, setVisType } = useContext(AppContext);
@@ -32,7 +37,7 @@ export function VisTypeSelector(): JSX.Element {
         return (
           <div
             className={`vis-type-option${visType === type ? " selected" : ""}`}
-            onClick={(): void => setVisType(type)}
+            onClick={(): void => onTypeSelected(type)}
             key={type}
           >
             <span className="label">{visTypeConfig.displayName}</span>
@@ -41,4 +46,13 @@ export function VisTypeSelector(): JSX.Element {
       })}
     </div>
   );
+
+  function onTypeSelected(type: VisType): void {
+    if (isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
+      // redirect to old tool
+      window.location.href = getStandardizedToolUrl(type);
+    } else {
+      setVisType(type);
+    }
+  }
 }

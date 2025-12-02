@@ -22,6 +22,7 @@ import json
 import logging
 from operator import itemgetter
 import os
+import re
 import time
 from typing import Dict, List, Set
 import urllib
@@ -82,7 +83,8 @@ UN_GEOJSON_PROP = 'geoJsonCoordinatesUN'
 # place + place type combination.
 # To generate cached geojson files, follow instructions/use the endpoint here:
 # https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
-# TODO: add 'LatinAmericaAndCaribbean' and 'SubSaharanAfrica' for UN_GEOJSON_PROP.
+# To update the UN geojson files, follow instructions here:
+# https://github.com/datacommonsorg/data/tree/master/scripts/un/boundaries
 CACHED_GEOJSON_FILES = {
     "Earth": {
         "Country": {
@@ -298,14 +300,6 @@ def get_subject_page_config(filepath):
     return subject_page_config
 
 
-# Returns generated summaries for place explorer.
-def get_place_summaries():
-  filepath = os.path.join(get_repo_root(), "config", "summaries",
-                          "place_summaries.json")
-  with open(filepath, 'r') as f:
-    return json.load(f)
-
-
 # Returns topic pages loaded as SubjectPageConfig protos:
 # { topic_id: [SubjectPageConfig,...] }
 def get_topic_page_config():
@@ -392,9 +386,19 @@ def get_nl_no_percapita_vars():
     return nopc_vars
 
 
+def load_redirects() -> Dict[str, str]:
+  """Loads the redirects mapping from GCS."""
+  storage_client = storage.Client()
+  bucket_name = "datcom-website-config"
+  bucket = storage_client.get_bucket(bucket_name)
+  redirection_mapping = json.loads(
+      bucket.get_blob("redirects.json").download_as_bytes())
+  return redirection_mapping
+
+
 def get_feature_flag_bucket_name(environment: str) -> str:
   """Returns the bucket name containing the feature flags."""
-  if environment in ['integration_test', 'test', 'webdriver']:
+  if environment in ['integration_test', 'test', 'webdriver', 'custom_test']:
     env_for_bucket = 'autopush'
   elif environment == 'production':
     env_for_bucket = 'prod'
@@ -436,6 +440,8 @@ def load_fallback_feature_flags(environment: str):
 
   if environment in testing_environments:
     env_to_use = 'autopush'
+  elif environment == 'custom_test':
+    env_to_use = 'custom'
   elif environment in environments_with_local_files:
     env_to_use = environment
   else:
@@ -461,12 +467,14 @@ def load_feature_flags():
   if not data:
     data = load_fallback_feature_flags(environment)
 
-  # Create the dictionary using a dictionary comprehension
-  feature_flag_dict = {
-      flag["name"]: flag["enabled"]
-      for flag in data
-      if 'name' in flag and 'enabled' in flag
-  }
+  feature_flag_dict = {}
+  for flag in data:
+    feature_flag_dict[flag['name']] = {
+        'enabled': flag['enabled'],
+    }
+    if 'rollout_percentage' in flag:
+      feature_flag_dict[
+          flag['name']]['rollout_percentage'] = flag['rollout_percentage']
   return feature_flag_dict
 
 
@@ -623,9 +631,9 @@ def flatten_obs_series_response(obs_series_response):
   """
   Flatten the observation series response into a list of dictionaries.
 
-  This function processes an observation series response, extracting and 
-  flattening the nested data structure into a simple list of dictionaries. 
-  Each dictionary in the list represents a single observation with the 
+  This function processes an observation series response, extracting and
+  flattening the nested data structure into a simple list of dictionaries.
+  Each dictionary in the list represents a single observation with the
   following keys: 'variable', 'entity', 'date', 'value', and 'facet'.
 
   Example:
@@ -674,10 +682,10 @@ def flattened_observations_to_dates_by_variable(
   """
   Group flattened observation data by variable, then date, then facet, and count entities for each facet.
 
-  This function takes a list of flattened observation dictionaries and organizes them into a nested 
-  structure grouped by variable, date, and facet. The resulting structure provides counts of entities 
+  This function takes a list of flattened observation dictionaries and organizes them into a nested
+  structure grouped by variable, date, and facet. The resulting structure provides counts of entities
   for each facet on each date for each variable.
-                  
+
   Example:
   >>> flattened_observations = [
           {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
@@ -763,7 +771,7 @@ def get_series_dates_from_entities(entities: List[str], variables: List[str]):
                     - 'facet' (str): The facet ID.
                     - 'count' (int): The number of entities for this facet on this date.
         - 'facets' (dict): The facets information from the observation series response.
-        
+
   Example:
   >>> entities = ["country/USA", "country/CAN"]
   >>> variables = ["Count_Person", "Count_Household"]
@@ -845,7 +853,7 @@ def get_series_dates_from_entities(entities: List[str], variables: List[str]):
 
 
 def _get_highest_coverage_date(observation_dates_by_variable,
-                               facet_ids: Set[str], max_dates_to_check: int,
+                               max_dates_to_check: int,
                                max_years_to_check: int) -> str | None:
   """
   Heuristic for fetching "latest date with highest coverage":
@@ -866,7 +874,7 @@ def _get_highest_coverage_date(observation_dates_by_variable,
   recent_date_counts_dict = {}
   for observation_entity_counts_by_date in observation_dates_by_variable:
     recent_date_counts = _get_recent_date_counts(
-        observation_entity_counts_by_date, facet_ids, max_dates_to_check,
+        observation_entity_counts_by_date, max_dates_to_check,
         max_years_to_check)
     for date_count in recent_date_counts:
       date_count_date = date_count["date"]
@@ -884,7 +892,7 @@ def _get_highest_coverage_date(observation_dates_by_variable,
 
 
 def _get_recent_date_counts(observation_entity_counts_by_date,
-                            facet_ids: Set[str], max_dates_to_check: int,
+                            max_dates_to_check: int,
                             max_years_to_check: int) -> List[Dict]:
   # Get observation dates in descending order
   descending_observation_dates = [
@@ -914,19 +922,68 @@ def _get_recent_date_counts(observation_entity_counts_by_date,
                          max_dates_to_check)
   observation_dates = descending_observation_dates[:obs_dates_cutoff]
 
-  # finds the greatest entity (observation) count among all facets in the
+  # finds the greatest entity (observation) count among the facets in the
   # given list of observation dates
-  date_counts = [{
-      'date':
-          obs['date'],
-      'count':
-          max([
-              entity_count_item for entity_count_item in obs['entityCount'] if
-              (len(facet_ids) == 0 or entity_count_item['facet'] in facet_ids)
-          ],
-              key=lambda item: item['count'])['count']
-  } for obs in observation_dates]
+  date_counts = []
+  for obs in observation_dates:
+    entity_counts = obs.get('entityCount', [])
+
+    count = 0
+    if entity_counts:
+      count = max(entity_counts,
+                  key=lambda item: item.get('count', 0)).get('count', 0)
+
+    date_counts.append({'date': obs.get('date'), 'count': count})
+
   return date_counts
+
+
+def _filter_series_dates_by_facet(series_dates_response: Dict,
+                                  facet_ids: List[str]) -> Dict:
+  """
+    Filters a series dates response object in-place to keep only provided facets.
+
+    This function removes data for non-matching facets from each date's
+    entityCount, as well as removing the facet from the facet listing.
+
+    Args:
+      series_dates_response: The response object from a get_series_dates or
+        get_series_dates_from_entities call.
+      facet_ids: The facets that we want to include in the final data set.
+
+    Returns:
+      The mutated series_dates_response object containing only the data and
+      facets from the list of facets given.
+    """
+  facet_ids_set = set(facet_ids)
+  used_facets = set()
+  for var_data in series_dates_response.get("datesByVariable", []):
+    if "observationDates" in var_data:
+      filtered_observation_dates = []
+      for date_data in var_data["observationDates"]:
+        if "entityCount" in date_data:
+          filtered_entity_count_list = [
+              entity_count for entity_count in date_data["entityCount"]
+              if entity_count.get("facet") in facet_ids_set
+          ]
+          date_data["entityCount"] = filtered_entity_count_list
+
+          for entity_count in filtered_entity_count_list:
+            used_facets.add(entity_count.get("facet"))
+
+        if date_data.get("entityCount"):
+          filtered_observation_dates.append(date_data)
+
+      var_data["observationDates"] = filtered_observation_dates
+
+  if "facets" in series_dates_response:
+    series_dates_response["facets"] = {
+        fid: finfo
+        for fid, finfo in series_dates_response["facets"].items()
+        if fid in used_facets
+    }
+
+  return series_dates_response
 
 
 def fetch_highest_coverage(variables: List[str],
@@ -971,12 +1028,13 @@ def fetch_highest_coverage(variables: List[str],
   else:
     series_dates_response = dc.get_series_dates(parent_entity, child_type,
                                                 variables)
-  facet_ids_set = set(facet_ids or [])
+  if facet_ids:
+    series_dates_response = _filter_series_dates_by_facet(
+        series_dates_response, facet_ids)
 
   observation_dates_by_variable = series_dates_response['datesByVariable']
   highest_coverage_date = _get_highest_coverage_date(
       observation_dates_by_variable,
-      facet_ids=facet_ids_set,
       max_dates_to_check=MAX_DATES_TO_CHECK,
       max_years_to_check=MAX_YEARS_TO_CHECK)
 
@@ -998,11 +1056,11 @@ def fetch_highest_coverage(variables: List[str],
 def post_body_cache_key():
   """
   Builds flask cache key for GET and POST requests.
-  
+
   GET: Key is URL path + query string parameters. Example: '/test?key=value'
   POST: (Requires Content-Type:application/json): Key is URL path + query string
   + JSON body. Example: '/test?key=value,{"jsonkey":"jsonvalue"}'
-  
+
   """
   full_path = request.full_path
   if request.method == 'POST':
@@ -1050,3 +1108,56 @@ def error_response(message, status_code=400):
       "code": status_code,
   }
   return jsonify(error_response), status_code
+
+
+def add_the_if_needed(name):
+  """
+  Heuristic to determine if the name should be preceded by "the" in a sentence.
+  Used to generate the first sentence of the place summary. Works in English
+  only.
+
+  For example, "the United States" or "the United Kingdom", but not "Chicago" or "Illinois".
+
+  Args:
+    name: The name of the place
+
+  Returns:
+    The name with "the" prepended if needed, otherwise the original name.
+  """
+  needs_the = bool(
+      re.search(
+          r"\b(States|Republic|Kingdom|Emirates|Islands|Union|Federation|Netherlands|Congo)\b",
+          name))
+  return f"the {name}" if needs_the else name
+
+
+def split_camel_case(s):
+  """
+  Splits a camel case string into a list of words.
+
+  Example: "CongressionalDistrict" -> "congressional district"
+
+  Args:
+    s: The string to split
+
+  Returns:
+    A list of words
+  """
+  if not s:
+    return ""
+  parts = re.findall(r'[A-Z]?[a-z]+|[A-Z]+(?=[A-Z]|$)', s)
+  return " ".join([part.lower() for part in parts])
+
+
+def capitalize_first_letter(s):
+  """
+  Capitalizes the first letter of the given string.
+
+  Example: "the United States" -> "The United States"
+
+  Note: Python's built-in str.capitalize() method downcases everything except
+  the first letter, so it would return "The united states" in the above case.
+  """
+  if len(s) == 0:
+    return s
+  return s[0].upper() + s[1:]

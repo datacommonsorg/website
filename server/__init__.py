@@ -32,11 +32,14 @@ import server.lib.cache as lib_cache
 import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
+from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
+from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
+from server.lib.nl.detection.agent.agent import create_detection_agent
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -108,9 +111,6 @@ def register_routes_base_dc(app):
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
-
-  from server.routes.screenshot import html as screenshot_html
-  app.register_blueprint(screenshot_html.bp)
 
   from server.routes.special_announcement import \
       html as special_announcement_html
@@ -239,8 +239,8 @@ def register_routes_common(app):
   from server.routes.place import html as place_html
   app.register_blueprint(place_html.bp)
 
-  from server.routes.dev_place import api as dev_place_api
-  app.register_blueprint(dev_place_api.bp)
+  from server.routes.place import api as place_api
+  app.register_blueprint(place_api.bp)
 
   from server.routes.ranking import html as ranking_html
   app.register_blueprint(ranking_html.bp)
@@ -254,9 +254,6 @@ def register_routes_common(app):
   # TODO: Extract more out to base_dc
   from server.routes.browser import api as browser_api
   app.register_blueprint(browser_api.bp)
-
-  from server.routes.place import api as place_api
-  app.register_blueprint(place_api.bp)
 
   from server.routes.ranking import api as ranking_api
   app.register_blueprint(ranking_api.bp)
@@ -352,6 +349,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)
   app.config['FEATURE_FLAGS'] = libutil.load_feature_flags()
+  app.config['REDIRECTS'] = libutil.load_redirects() if not cfg.CUSTOM else {}
 
   # Configure ingress
   # See deployment yamls.
@@ -376,6 +374,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if is_feature_enabled(BIOMED_NL_FEATURE_FLAG, app):
     register_routes_biomed_nl(app, cfg)
+
+  if is_feature_enabled(DATA_OVERVIEW_FEATURE_FLAG, app):
+    from server.routes.data_overview import html as data_overview_html
+    app.register_blueprint(data_overview_html.bp)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -440,6 +442,11 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       app.config['LLM_API_KEY'] = _get_api_key(['LLM_API_KEY'],
                                                cfg.SECRET_PROJECT,
                                                'palm-api-key')
+      if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
+        os.environ['GEMINI_API_KEY'] = app.config['LLM_API_KEY']
+        app.config['NL_DETECTION_AGENT'] = create_detection_agent(
+            os.environ.get("AGENT_MODEL", "gemini-2.5-flash"),
+            os.environ.get("DC_MCP_URL"))
 
     app.config[
         'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(

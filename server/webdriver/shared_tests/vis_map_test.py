@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 import server.webdriver.shared as shared
 
-MAP_URL = '/tools/visualization#visType=map'
+MAP_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=map'
 URL_HASH_1 = '&place=geoId/06&placeType=County&sv=%7B"dcid"%3A"Count_Person_Female"%7D'
-PLACE_SEARCH_CA = 'California'
 
 
 class VisMapTestMixin():
@@ -95,7 +95,8 @@ class VisMapTestMixin():
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
     # Wait until the chart has loaded.
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert place name is correct.
     place_name_chip = self.driver.find_element(
@@ -110,12 +111,12 @@ class VisMapTestMixin():
     # Assert stat var is correct.
     stat_var_chip = self.driver.find_element(
         By.CSS_SELECTOR, '.selected-option-chip.stat-var .chip-content')
-    self.assertTrue('Female Population' in stat_var_chip.text)
+    self.assertTrue('female population' in stat_var_chip.text.lower())
 
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Female Population ", chart_title.text)
+    self.assertIn("female population ", chart_title.text.lower())
     self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.
@@ -134,8 +135,7 @@ class VisMapTestMixin():
 
     # Click per capita and assert results are correct.
     per_capita_checkbox = self.driver.find_element(
-        By.CSS_SELECTOR,
-        '.chart-footer-options .chart-option .form-check-input')
+        By.CSS_SELECTOR, '.chart-options .option-inputs .form-check-input')
     per_capita_checkbox.click()
     shared.wait_for_loading(self.driver)
     self.assertEqual(len(self.get_chart_map_regions()), 58)
@@ -149,17 +149,20 @@ class VisMapTestMixin():
         By.CLASS_NAME, 'source-selector-open-modal-button')
     edit_source_button.click()
     element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'modal-body'))
+        (By.CSS_SELECTOR,
+         '.source-selector-facet-options-section input[type="radio"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
-                         "Count_Person_Female")
-    update_button = self.driver.find_element(By.CSS_SELECTOR,
-                                             '.modal-footer .btn')
+    shared.select_source(self.driver, [
+        "Wonder: Mortality, Underlying Cause Of Death",
+        "CDC_Mortality_UnderlyingCause"
+    ], "Count_Person_Female")
+    update_button = self.driver.find_element(
+        By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Female Population ", chart_title.text)
+    self.assertIn("female population ", chart_title.text.lower())
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
     self.assertTrue("wonder.cdc.gov" in chart_source.text)
@@ -175,69 +178,26 @@ class VisMapTestMixin():
     """
     self.driver.get(self.url_ + MAP_URL)
 
-    # Click the start button
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'start-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'start-button').click()
-
-    # Type california into the search box.
-    element_present = EC.presence_of_element_located((By.ID, 'location-field'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element(By.ID, 'ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # Click on the first result.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'pac-item'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    first_result = self.driver.find_element(By.CSS_SELECTOR,
-                                            '.pac-item:nth-child(1)')
-    first_result.click()
-
-    # Click continue
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
-
-    # Wait for place types to load and click on 'County'
-    element_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, '.place-type-selector .form-check-input'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    place_type_inputs = self.driver.find_elements(By.CSS_SELECTOR,
-                                                  '.place-type-selector label')
-    for place_type_input in place_type_inputs:
-      if place_type_input.text == 'County':
-        place_type_input.click()
-        break
-
-    # Click continue
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             place_type="County")
 
     # Choose stat var
-    shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")
-    element_present = EC.presence_of_element_located(
+    shared.wait_for_loading(self.driver)
+    shared.click_el(
+        self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Click continue
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
+    shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct.
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Median Age of Population ", chart_title.text)
+    self.assertIn("median age of population ", chart_title.text.lower())
     self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.
@@ -272,3 +232,26 @@ class VisMapTestMixin():
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertGreater(len(map_regions), 1)
+
+  def test_hover_tooltip(self):
+    """Test hover tooltip shows up correctly."""
+    self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
+
+    # Wait until the chart has loaded.
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
+
+    # Find the map region for Kern County (geoId/06029)
+    kern_county = self.driver.find_element(
+        By.XPATH,
+        '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]',
+    )
+
+    # Hover over the region using ActionChains
+    actions = ActionChains(self.driver)
+    actions.move_to_element(kern_county).perform()
+
+    # Wait for tooltip to appear and verify contents
+    tooltip = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located((By.ID, "tooltip")))
+    self.assertIn("Female population", tooltip.text)

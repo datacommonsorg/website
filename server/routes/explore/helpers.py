@@ -252,6 +252,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
                                context_history,
                                debug_logs,
                                counters,
+                               query_detection=query_detection,
                                test=test,
                                client=client)
       return None, err_json
@@ -274,15 +275,15 @@ def update_insight_ctx_for_chart_fulfill(request: Dict,
   utterance.insight_ctx[params.Params.DC.value] = dc_name
   # iterate through numeric parameters and set in the insight context
   for p in [
-      params.Params.MAX_TOPIC_SVS, params.Params.MAX_TOPICS,
-      params.Params.MAX_CHARTS
+      params.Params.MAX_TOPIC_SVS,
+      params.Params.MAX_TOPICS,
+      params.Params.MAX_CHARTS,
+      params.Params.CHART_TYPE,
   ]:
     param_val = request.args.get(p, None)
     if param_val != None:
       if param_val.isnumeric():
         param_val = int(param_val)
-      else:
-        param_val = None
     utterance.insight_ctx[p] = param_val
 
 
@@ -434,14 +435,17 @@ def prepare_response_common(data_dict: Dict,
 # Preliminary abort with the given error message
 # TODO: Test the flow of context in this case
 #
-def abort(error_message: str,
-          original_query: str,
-          context_history: List[Dict],
-          debug_logs: Dict = None,
-          counters: ctr.Counters = None,
-          blocked: bool = False,
-          test: str = '',
-          client: str = '') -> Dict:
+def abort(
+    error_message: str,
+    original_query: str,
+    context_history: List[Dict],
+    debug_logs: Dict = None,
+    counters: ctr.Counters = None,
+    blocked: bool = False,
+    test: str = '',
+    client: str = '',
+    query_detection: Detection = None,
+) -> Dict:
   query = shared_utils.escape_strings(
       shared_utils.remove_punctuations(original_query))
   escaped_context_history = shared_utils.escape_strings(context_history)
@@ -464,13 +468,14 @@ def abort(error_message: str,
     debug_logs = {}
     debug_logs["original_query"] = query
 
-  query_detection = Detection(original_query=original_query,
-                              cleaned_query=query,
-                              places_detected=dutils.empty_place_detection(),
-                              svs_detected=dutils.create_sv_detection(
-                                  query, dutils.empty_var_detection_result()),
-                              classifications=[],
-                              llm_resp={})
+  if not query_detection:
+    query_detection = Detection(original_query=original_query,
+                                cleaned_query=query,
+                                places_detected=dutils.empty_place_detection(),
+                                svs_detected=dutils.create_sv_detection(
+                                    query, dutils.empty_var_detection_result()),
+                                classifications=[],
+                                llm_resp={})
   data_dict = dbg.result_with_debug_info(data_dict=res,
                                          status=error_message,
                                          query_detection=query_detection,

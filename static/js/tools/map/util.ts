@@ -62,6 +62,7 @@ import {
   MALAYSIA_PLACE_DCID,
   MALI_PLACE_DCID,
   MEXICO_PLACE_DCID,
+  MONGOLIA_PLACE_DCID,
   MOROCCO_PLACE_DCID,
   MYANMAR_PLACE_DCID,
   NEPAL_PLACE_DCID,
@@ -75,6 +76,7 @@ import {
   SAINT_LUCIA_PLACE_DCID,
   SLOVAKIA_PLACE_DCID,
   SOUTH_AFRICA_PLACE_DCID,
+  SOUTH_KOREA_PLACE_DCID,
   SWITZERLAND_PLACE_DCID,
   UAE_PLACE_DCID,
   USA_PLACE_DCID,
@@ -194,6 +196,7 @@ const AA1_AA2_PLACES = new Set([
   MALAYSIA_PLACE_DCID,
   MALI_PLACE_DCID,
   MEXICO_PLACE_DCID,
+  MONGOLIA_PLACE_DCID,
   MOROCCO_PLACE_DCID,
   MYANMAR_PLACE_DCID,
   NEPAL_PLACE_DCID,
@@ -207,6 +210,7 @@ const AA1_AA2_PLACES = new Set([
   SAINT_LUCIA_PLACE_DCID,
   SLOVAKIA_PLACE_DCID,
   SOUTH_AFRICA_PLACE_DCID,
+  SOUTH_KOREA_PLACE_DCID,
   SWITZERLAND_PLACE_DCID,
   UAE_PLACE_DCID,
 ]);
@@ -828,6 +832,20 @@ export function getGeoJsonDataFeatures(
 export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
   return (
     !_.isNull(statVar.info) &&
+    !_.isEmpty(placeInfo.enclosingPlace.dcid) &&
+    !_.isEmpty(placeInfo.enclosedPlaceType)
+  );
+}
+
+/**
+ * Determine whether instructions specific for selecting stat vars should be shown
+ */
+export function shouldShowStatVarInstructions(
+  statVar: StatVar,
+  placeInfo: PlaceInfo
+): boolean {
+  return (
+    _.isNull(statVar.info) &&
     !_.isEmpty(placeInfo.enclosingPlace.dcid) &&
     !_.isEmpty(placeInfo.enclosedPlaceType)
   );

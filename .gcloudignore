@@ -27,6 +27,6 @@ static/node_modules/
 
 server/dist/
 
-**/.env/
-
-screenshots/*.png
+**/.venv/
+**/.venv_website/
+**/.venv_nl/

@@ -43,7 +43,7 @@ def click_file(file_name):
   pool = Pool(5)
   with open(file_name, 'r') as f:
     urls = [
-        url.replace('place', 'api/landingpage/data').strip()
+        url.replace('place', 'api/place/charts').strip()
         for url in f.readlines()
     ]
     pool.map(req_url, urls)

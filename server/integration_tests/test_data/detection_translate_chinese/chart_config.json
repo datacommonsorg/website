@@ -34,6 +34,7 @@
     "Count_CriminalActivities_Burglary",
     "Count_CriminalActivities_PropertyCrime",
     "Count_CriminalActivities_CombinedCrime",
-    "dc/topic/Crime"
+    "dc/topic/Crime",
+    "Count_CriminalIncidents"
   ]
 }
