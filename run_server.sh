@@ -15,13 +15,6 @@
 
 set -e
 
-function cleanup {
-  echo "Cleaning up before exit..."
-  deactivate
-  exit 1
-}
-trap cleanup SIGINT
-
 # ANSI color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
