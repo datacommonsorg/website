@@ -106,7 +106,7 @@ Open a new terminal window and enter the following commands into a shell:
     brew install chromedriver
     ```
 
-9. [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
+9.  [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
 
     The Google Cloud CLI is required to make place search work locally. To enable place search locally:
 
