@@ -451,8 +451,10 @@ def run_test():
     for file_name in sorted(os.listdir(output_dir)):
       if file_name.endswith('.csv'):
         test.compute_stats_from_file(os.path.join(output_dir, file_name), stats)
-    
-    if stats.status_counts[ResultStatus.REQUEST_FAILED] > 0 or stats.status_counts[ResultStatus.TIMED_OUT] > 0:
+
+    if stats.status_counts[
+        ResultStatus.REQUEST_FAILED] > 0 or stats.status_counts[
+            ResultStatus.TIMED_OUT] > 0:
       return False
     return True
 
