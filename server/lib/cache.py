@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import functools
+import json
 import logging
 import os
 from pathlib import Path
+from typing import Callable, Optional
 
 from flask import has_request_context
 from flask import request
@@ -22,6 +25,9 @@ from flask_caching import Cache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
+
+logger = logging.getLogger(__name__)
 
 # _redis_cache is a redis cache client when a redis config is available.
 # It will be used by the regular flask "cache" and/or the flask "model_cache".
@@ -88,3 +94,123 @@ def should_skip_cache():
     logging.warning("Error checking X-Skip-Cache header.", exc_info=True)
     # Any error should default to False to preserve normal caching behavior
     return False
+
+
+def cache_and_log_mixer_usage(timeout: int = 300,
+                              query_string: bool = False,
+                              make_cache_key: Optional[Callable] = None,
+                              unless: Callable = None) -> Callable:
+  """
+  Decorator that memoizes a function's result and logs mixer response IDs.
+
+  The Mixer usage logs can't track usage from the website cache, so this decorator
+  wraps cache.cached and logs mixer response IDs (IDs unique to each mixer response) which are 
+  ingested in GCP cloud logging and incoroporated into the usage logs.
+
+  Notes that this decorator should only be applied to uses where mixer results are used meaningfully
+  and should be included in the Mixer usage logs. There are some places like `place_charts` 
+  and `filter_chart_config_for_data_existence` in the place page, for example, that make mixer calls
+  to check if data exists, but these results aren't meaningfully shown to users so we don't log them.
+
+  Args:
+    timeout (int): The cache timeout in seconds.
+    query_string (bool): Whether to include the query string in the cache key.
+    make_cache_key (function): A function to generate a custom cache key.
+    unless (bool or function): A condition to skip caching. If it evaluates to
+      True, caching is skipped.
+
+  Returns:
+    function: A decorator that wraps the target function with caching and
+      logging.
+  """
+
+  def decorator(fn: Callable) -> Callable:
+    # This is either the cached result or the evaluation of the function,
+    # if it wasn't cached previously
+    cached_fn = cache.cached(timeout=timeout,
+                             query_string=query_string,
+                             make_cache_key=make_cache_key,
+                             unless=unless)(fn)
+
+    # Handles logging the mixer response ID
+    return _cache_wrapper(fn, cached_fn)
+
+  return decorator
+
+
+def memoize_and_log_mixer_usage(timeout: int = 300,
+                                unless: Callable = None) -> Callable:
+  """
+  Decorator that memoizes a function's result and logs Mixer response IDs.
+
+  This decorator is similar to `cache_and_log_mixer_usage` but uses
+  `cache.memoize` instead of `cache.cached`.
+
+  Args:
+    timeout (int): The cache timeout in seconds.
+    unless (bool or function): A condition to skip memoization. If it
+      evaluates to True, memoization is skipped.
+
+  Returns:
+    function: A decorator that wraps the target function with memoization and
+      logging.
+  """
+
+  def decorator(fn: Callable) -> Callable:
+    # This is either the memoized result or the evaluation of the function,
+    # if it wasn't cached previously
+    memoized_fn = cache.memoize(timeout=timeout, unless=unless)(fn)
+
+    # Handles logging the mixer response ID
+    return _cache_wrapper(fn, memoized_fn)
+
+  return decorator
+
+
+def log_mixer_response_id(result: dict) -> None:
+  """Extracts and logs Mixer response IDs from a function's result.
+
+  If an error occurs during logging, a message with the error details
+  is logged.
+
+  Note that it is expected in some cases for the result
+  to not have a mixer response ID because the IDs are only found on `v2/observation`
+  endpoint calls, and certain cached functions like `get` and `post` are 
+  used by other endpoints as well, so we don't print an error if the ID is missing, 
+  only when the logging itself fails.
+
+  Args:
+    result (dict): A cached result that may contain mixer response IDs.
+  """
+  try:
+    log_payload = {
+        "message": "Mixer responses used in the website cache",
+    }
+    ids = result.get(MIXER_RESPONSE_ID_FIELD)
+    if ids:
+      log_payload[MIXER_RESPONSE_ID_FIELD] = ids
+      logger.info(json.dumps(log_payload))
+  except Exception as e:
+    logger.info(f"Error logging the mixer response ID for result {result}: {e}")
+
+
+def _cache_wrapper(fn: Callable, cached_fn: Callable) -> Callable:
+  """Wraps a cached or memoized function to log Mixer response IDs.
+
+  Args:
+    fn (function): The original function being wrapped.
+    cached_fn (function): The cached or memoized version of the original
+      function.
+
+  Returns:
+    function: A wrapper function that executes the cached function and logs
+      mixer response IDs.
+  """
+
+  @functools.wraps(fn)
+  def wrapper(*args, **kwargs) -> dict:
+    result = cached_fn(*args, **kwargs)
+    log_mixer_response_id(result)
+    return result
+
+  return wrapper
