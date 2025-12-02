@@ -1,3 +1,27 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Audits feature flags across different environments.
+
+This script scans the feature flag configuration files in
+server/config/feature_flag_configs/ and prints a matrix showing the status
+(Enabled/Disabled/Missing) of each flag across all environments.
+
+Usage:
+    python3 tools/feature_flags/audit_flags.py
+"""
+
 import json
 import os
 import sys
@@ -45,7 +69,12 @@ def print_audit_table(configs: Dict[str, Dict[str, bool]]):
     all_flags.update(env_flags.keys())
 
   sorted_flags = sorted(list(all_flags))
-  sorted_envs = sorted(list(configs.keys()))
+  env_order = {
+      name: i for i, name in enumerate(
+          ['local', 'custom', 'dev', 'autopush', 'staging', 'production'])
+  }
+  sorted_envs = sorted(list(configs.keys()),
+                       key=lambda x: env_order.get(x, 999))
 
   # Determine column widths
   flag_col_width = max(len(flag) for flag in sorted_flags) + 2
