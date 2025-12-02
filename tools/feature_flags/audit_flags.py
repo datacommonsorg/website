@@ -69,7 +69,7 @@ def print_audit_table(configs: Dict[str, Dict[str, bool]]):
       elif status is False:
         symbol = "❌"
       else:
-        symbol = "MISSING"  # Should not happen if configs are consistent, but good to handle
+        symbol = "MISSING" 
 
       # Padding for emoji alignment can be tricky, using simple spacing
       row += f"{symbol:<{env_col_width}}"
