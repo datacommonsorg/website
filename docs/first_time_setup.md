@@ -56,30 +56,32 @@ Open a new terminal window and enter the following commands into a shell:
 
 ## 3. Install dependencies
 
-1.  Install [Python](https://www.python.org/) at version 3.12 (3.13 or above has
+1.  Install [uv](https://uv.pypa.io/en/stable/)
+
+2.  Install [Python](https://www.python.org/) at version 3.12 (3.13 or above has
     an unmatched torch version). For version control, we recommend installing
     python using [pyenv](https://github.com/pyenv/pyenv).
 
-2.  Install `gcloud` following the instructions here:
+3.  Install `gcloud` following the instructions here:
     <https://cloud.google.com/sdk/docs/install>
 
-3.  Install Python setup tools.
+4.  Install Python setup tools.
 
     ```shell
     pip install setuptools
     ```
 
-4.  Install nvm following the instructions here:
+5.  Install nvm following the instructions here:
     <https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating>
 
-5.  Use nvm to install node at version 18.4.0:
+6.  Use nvm to install node at version 18.4.0:
 
     ```shell
     nvm install 18.4.0
     nvm use 18.4.0
     ```
 
-6.  Install [protoc](https://protobuf.dev/installation/) at version 3.21.12:
+7.  Install [protoc](https://protobuf.dev/installation/) at version 3.21.12:
 
     On macs, you can [install via Homebrew](https://formulae.brew.sh/formula/protobuf@21):
 
@@ -88,7 +90,7 @@ Open a new terminal window and enter the following commands into a shell:
     brew install protobuf@21
     ```
 
-7.  On Macs with ARM Processors (M series chips), you'll also need the
+8.  On Macs with ARM Processors (M series chips), you'll also need the
     following:
 
     ```shell
@@ -96,7 +98,7 @@ Open a new terminal window and enter the following commands into a shell:
     brew install pkg-config cairo pango libpng jpeg giflib librsvg
     ```
 
-8.  Make sure you have [Google
+9.  Make sure you have [Google
     Chrome](https://www.google.com/chrome/dr/download) installed and install
     [chromedriver](https://developer.chrome.com/docs/chromedriver/). Make sure
     the version of chromedriver you install matches the version of Google Chrome
@@ -109,7 +111,7 @@ Open a new terminal window and enter the following commands into a shell:
     brew install chromedriver
     ```
 
-9.  [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
+10. [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
 
     The Google Cloud CLI is required to make place search work locally. To enable place search locally:
 
@@ -123,7 +125,7 @@ Open a new terminal window and enter the following commands into a shell:
     gcloud auth application-default login
     ```
 
-10. Setup all python environments
+11. Setup all python environments
 
     ```shell
     cd <your local repository>
