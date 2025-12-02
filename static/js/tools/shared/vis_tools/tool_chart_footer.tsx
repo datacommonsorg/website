@@ -124,14 +124,29 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
         className={`${SELECTOR_PREFIX}-container ${
           chartOptionsOpened ? "no-bottom-border" : ""
         }`}
+        css={css`
+          && {
+            display: flex;
+            @media (max-width: ${theme.breakpoints.sm}px) {
+              flex-direction: column;
+              align-items: stretch;
+              justify-content: stretch;
+              gap: ${theme.spacing.md}px;
+            }
+          }
+        `}
       >
         <div
           className={`${SELECTOR_PREFIX}-metadata-section`}
           css={css`
             display: flex;
             align-items: center;
-            gap: ${theme.spacing.md}px;
+            gap: ${theme.spacing.xs}px ${theme.spacing.md}px;
             flex-wrap: wrap;
+            @media (max-width: ${theme.breakpoints.sm}px) {
+              border-bottom: 1px solid ${theme.colors.border.primary.light};
+              padding-bottom: ${theme.spacing.md}px;
+            }
           `}
         >
           {props.handleEmbed && (
@@ -176,6 +191,12 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
         <div
           onClick={(): void => setChartOptionsOpened(!chartOptionsOpened)}
           className={`${SELECTOR_PREFIX}-options-button`}
+          css={css`
+            && {
+              margin: 0;
+              flex-shrink: 0;
+            }
+          `}
         >
           <span>Chart Options</span>
           {chartOptionsOpened ? UP_ARROW_HTML : DOWN_ARROW_HTML}
