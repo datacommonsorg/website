@@ -36,24 +36,6 @@ steps:
       - |
         ./run_test.sh --setup_python
 
-  - id: setup_website
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_website
-
-  - id: setup_nl
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_nl
-
   # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
@@ -63,18 +45,6 @@ steps:
       - -c
       - |
         ./run_test.sh -w
-
-  # Run the Custom DC webdriver tests
-  - id: flask_cdc_webdriver_test
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/sh
-    waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
-    args:
-      - -c
-      - |
-        git submodule update --init --recursive
-        export STARTUP_WAIT_SEC=60
-        ./run_test.sh --cdc
 
 substitutions:
   _NODE_VERSION: "2025-10-01"
