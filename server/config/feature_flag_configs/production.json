@@ -12,12 +12,6 @@
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
   {
-    "name": "enable_gemini_2_5_flash",
-    "enabled": true,
-    "owner": "shixiao",
-    "description": "Enabling Gemini 2.5 Flash for NL detection."
-  },
-  {
     "name": "enable_stat_var_autocomplete",
     "enabled": false,
     "owner": "gmechali",
@@ -30,22 +24,10 @@
     "description": "Enables the display of an updated explore page results header."
   },
   {
-    "name": "follow_up_questions_experiment",
-    "enabled": true,
-    "owner": "javiervazquez",
-    "description": "Enables the follow up questions generated from related topics as an experiment."
-  },
-  {
     "name": "follow_up_questions_ga",
     "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
-  },
-  {
-    "name": "page_overview_experiment",
-    "enabled": false,
-    "owner": "javiervazquez",
-    "description": "Enables the page overview generated from query and relevant stat vars as an experiment."
   },
   {
     "name": "page_overview_ga",
