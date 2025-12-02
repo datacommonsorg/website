@@ -65,23 +65,17 @@ Open a new terminal window and enter the following commands into a shell:
 3.  Install `gcloud` following the instructions here:
     <https://cloud.google.com/sdk/docs/install>
 
-4.  Install Python setup tools.
-
-    ```shell
-    pip install setuptools
-    ```
-
-5.  Install nvm following the instructions here:
+4.  Install nvm following the instructions here:
     <https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating>
 
-6.  Use nvm to install node at version 18.4.0:
+5.  Use nvm to install node at version 18.4.0:
 
     ```shell
     nvm install 18.4.0
     nvm use 18.4.0
     ```
 
-7.  Install [protoc](https://protobuf.dev/installation/) at version 3.21.12:
+6.  Install [protoc](https://protobuf.dev/installation/) at version 3.21.12:
 
     On macs, you can [install via Homebrew](https://formulae.brew.sh/formula/protobuf@21):
 
@@ -90,7 +84,7 @@ Open a new terminal window and enter the following commands into a shell:
     brew install protobuf@21
     ```
 
-8.  On Macs with ARM Processors (M series chips), you'll also need the
+7.  On Macs with ARM Processors (M series chips), you'll also need the
     following:
 
     ```shell
@@ -98,7 +92,7 @@ Open a new terminal window and enter the following commands into a shell:
     brew install pkg-config cairo pango libpng jpeg giflib librsvg
     ```
 
-9.  Make sure you have [Google
+8.  Make sure you have [Google
     Chrome](https://www.google.com/chrome/dr/download) installed and install
     [chromedriver](https://developer.chrome.com/docs/chromedriver/). Make sure
     the version of chromedriver you install matches the version of Google Chrome
@@ -111,7 +105,7 @@ Open a new terminal window and enter the following commands into a shell:
     brew install chromedriver
     ```
 
-10. [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
+9. [Optional] Install [Google Cloud CLI](https://cloud.google.com/sdk?hl=en)
 
     The Google Cloud CLI is required to make place search work locally. To enable place search locally:
 
@@ -125,7 +119,7 @@ Open a new terminal window and enter the following commands into a shell:
     gcloud auth application-default login
     ```
 
-11. Setup all python environments
+10. Setup all python environments
 
     ```shell
     cd <your local repository>
