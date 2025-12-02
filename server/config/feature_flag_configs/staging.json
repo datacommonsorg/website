@@ -60,12 +60,6 @@
     "description": "Feature flag to redirect the Fact Check page to the new ClaimReview page."
   },
   {
-    "name": "follow_up_questions_experiment",
-    "enabled": true,
-    "owner": "javiervazquez",
-    "description": "Enables the follow up questions generated from related topics as an experiment."
-  },
-  {
     "name": "follow_up_questions_ga",
     "enabled": true,
     "owner": "javiervazquez",
@@ -76,12 +70,6 @@
     "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
-  },
-  {
-    "name": "page_overview_experiment",
-    "enabled": false,
-    "owner": "javiervazquez",
-    "description": "Enables the page overview generated from query and relevant stat vars as an experiment."
   },
   {
     "name": "page_overview_ga",
