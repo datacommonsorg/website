@@ -24,8 +24,7 @@ def load_configs() -> Dict[str, Dict[str, bool]]:
         with open(file_path, 'r') as f:
           flags_list = json.load(f)
           # Convert list of dicts to dict of name: enabled
-          flags_dict = {flag['name']: flag['enabled'] for flag in flags_list}
-          configs[env_name] = flags_dict
+          configs[env_name] = {flag['name']: flag['enabled'] for flag in flags_list}
       except json.JSONDecodeError as e:
         print(f"Error parsing {filename}: {e}")
       except Exception as e:
