@@ -3,6 +3,10 @@ __pycache__/
 .pytest_cache
 *.pyc
 .venv*/
+.env/
+.env_website/
+.env_nl/
+.venv/
 
 # Gemini
 .gemini/**
