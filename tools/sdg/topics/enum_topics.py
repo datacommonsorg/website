@@ -49,7 +49,7 @@ _UNDATA_ENUM_TOPICS_MCF = os.path.join(_TMP_DIR,
                                        'custom_enum_topics_undata.mcf')
 _UNDATA_ENUM_TOPICS_JSON = '../../../server/config/nl_page/undata_enum_topic_cache.json'
 
-API_PATH = 'https://autopush.api.datacommons.org/v2/node'
+API_PATH_NODE = 'https://autopush.api.datacommons.org/v2/node'
 
 
 @dataclass
@@ -86,7 +86,7 @@ def parse_var(var: str) -> Var:
 def get_topics() -> Dict[str, TopicVal]:
   # Get the enum instances.
   req = {'nodes': list(_SLICE_DEFINITION.keys()), 'property': '<-typeOf'}
-  resp = common.call_api(API_PATH, req)
+  resp = common.call_api(API_PATH_NODE, req)
   topics = {}
   for t, arcs in resp.get('data', {}).items():
     for nodes in arcs.get('arcs', {}).values():
@@ -109,7 +109,7 @@ def get_topics() -> Dict[str, TopicVal]:
   # Get all SVs for each enum instance.
   nsvs = 0
   for prop, enums in prop2enums.items():
-    resp = common.call_api(API_PATH, {'nodes': enums, 'property': '<-' + prop})
+    resp = common.call_api(API_PATH_NODE, {'nodes': enums, 'property': '<-' + prop})
     for t, arcs in resp.get('data', {}).items():
       for nodes in arcs.get('arcs', {}).values():
         for n in nodes.get('nodes', []):
@@ -130,7 +130,7 @@ def get_series_info(topics: Dict[str, TopicVal]) -> Dict[str, str]:
     for v in tval.vars:
       series_set.add(v.series)
 
-  resp = common.call_api(API_PATH, {
+  resp = common.call_api(API_PATH_NODE, {
       'nodes': list(series_set),
       'property': '->name'
   })

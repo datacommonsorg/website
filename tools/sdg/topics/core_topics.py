@@ -62,9 +62,9 @@ REMOVE_SVG_PREFIX = "Custom_"
 
 # TODO(dwnoble): Extract API_ROOT (and potentially some of the variables above)
 # to command line args or a config file
-API_ROOT = "https://staging.unsdg.datacommons.org"
+API_ROOT = 'https://undata-staging-datacommons-web-service-91813941917.us-central1.run.app/core/api'
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
-API_PATH_PROP_OUT = API_ROOT + '/v1/bulk/property/values/out'
+API_PATH_NODE = API_ROOT = '/v2/node'
 
 
 def _svg2t(svg, remove_svg_prefix=""):
@@ -378,22 +378,22 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
           if id not in series_topics:
             logging.error(f'ERROR: Missing topic {id}')
 
-    resp = common.call_api(API_PATH_PROP_OUT, {
-        'nodes': sorted(list(sv_dcids)),
-        'property': 'name'
+    resp = common.call_api(API_PATH_NODE, {
+      'nodes': sorted(list(sv_dcids)), 
+      'property': '->name'
     })
-    for n in resp.get('data', []):
-      sv = n.get('node')
-      name = n.get('values', [{}])[0].get('value')
-      if name and name != sv:
-        alt_name, name = alt_nl_name(name)
-        csvw.writerow({
+    for sv, arcs in resp.get('data', {}).items():
+      for nodes in arcs.get('arcs', {}).values():
+        name = nodes.get('nodes', [{}])[0].get('value')
+        if name and name != sv:
+          alt_name, name = alt_nl_name(name)
+          csvw.writerow({
             'dcid': sv,
             'Name': name,
             'Description': '',
             'Override_Alternatives': '',
             'Curated_Alternatives': alt_name,
-        })
+          })
   print(f"Wrote NL descriptions to: {nl_desc_file}")
 
 
