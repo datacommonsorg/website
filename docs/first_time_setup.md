@@ -56,11 +56,12 @@ Open a new terminal window and enter the following commands into a shell:
 
 ## 3. Install dependencies
 
-1.  Install [uv](https://uv.pypa.io/en/stable/)
+1.  Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
+    * Easiest way to install is with brew: `brew install uv`
 
 2.  Install [Python](https://www.python.org/) at version 3.12 (3.13 or above has
-    an unmatched torch version). For version control, we recommend installing
-    python using [pyenv](https://github.com/pyenv/pyenv).
+an unmatched torch version).
+    `uv python install 3.12`
 
 3.  Install `gcloud` following the instructions here:
     <https://cloud.google.com/sdk/docs/install>
