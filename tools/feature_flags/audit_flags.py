@@ -34,7 +34,18 @@ CONFIG_DIR = os.path.join(
 
 
 def load_configs() -> Dict[str, Dict[str, bool]]:
-  """Loads all feature flag configurations from the config directory."""
+  """Loads all feature flag configurations from the config directory.
+  
+       Returns:
+        Dict[str, Dict[str, bool]]: A nested dictionary mapping environment names
+        to their feature flag statuses.
+            The structure is:
+            {
+                "environment_name": {
+                    "feature_flag_name": is_enabled (bool)
+                }
+            }
+  """
   configs = {}
   if not os.path.exists(CONFIG_DIR):
     print(f"Error: Config directory not found at {CONFIG_DIR}")
@@ -42,14 +53,13 @@ def load_configs() -> Dict[str, Dict[str, bool]]:
 
   for filename in sorted(os.listdir(CONFIG_DIR)):
     if filename.endswith('.json'):
-      env_name = filename[:-5]  # Remove .json extension
+      env_name = filename.removesuffix('json')
       file_path = os.path.join(CONFIG_DIR, filename)
       try:
         with open(file_path, 'r') as f:
           flags_list = json.load(f)
           # Convert list of dicts to dict of name: enabled
-          flags_dict = {flag['name']: flag['enabled'] for flag in flags_list}
-          configs[env_name] = flags_dict
+          configs[env_name] = {flag['name']: flag['enabled'] for flag in flags_list}
       except json.JSONDecodeError as e:
         print(f"Error parsing {filename}: {e}")
       except Exception as e:
@@ -99,7 +109,7 @@ def print_audit_table(configs: Dict[str, Dict[str, bool]]):
       elif status is False:
         symbol = "❌"
       else:
-        symbol = "MISSING"  # Should not happen if configs are consistent, but good to handle
+        symbol = "MISSING" 
 
       # Padding for emoji alignment can be tricky, using simple spacing
       row += f"{symbol:<{env_col_width}}"
