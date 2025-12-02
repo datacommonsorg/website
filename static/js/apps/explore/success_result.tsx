@@ -38,7 +38,6 @@ import {
   EXPLORE_RESULT_HEADER,
   FOLLOW_UP_QUESTIONS_GA,
   isFeatureEnabled,
-  PAGE_OVERVIEW_EXPERIMENT,
   PAGE_OVERVIEW_GA,
 } from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
