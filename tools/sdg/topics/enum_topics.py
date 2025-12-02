@@ -49,9 +49,7 @@ _UNDATA_ENUM_TOPICS_MCF = os.path.join(_TMP_DIR,
                                        'custom_enum_topics_undata.mcf')
 _UNDATA_ENUM_TOPICS_JSON = '../../../server/config/nl_page/undata_enum_topic_cache.json'
 
-API_ROOT = "https://autopush.api.datacommons.org"
-API_PATH_PROP_IN = API_ROOT + '/v1/bulk/property/values/in'
-API_PATH_PROP_OUT = API_ROOT + '/v1/bulk/property/values/out'
+API_PATH = 'https://autopush.api.datacommons.org/v2/node'
 
 
 @dataclass
@@ -87,17 +85,17 @@ def parse_var(var: str) -> Var:
 
 def get_topics() -> Dict[str, TopicVal]:
   # Get the enum instances.
-  req = {'nodes': list(_SLICE_DEFINITION.keys()), 'property': 'typeOf'}
-  resp = common.call_api(API_PATH_PROP_IN, req)
+  req = {'nodes': list(_SLICE_DEFINITION.keys()), 'property': '<-typeOf'}
+  resp = common.call_api(API_PATH, req)
   topics = {}
-  for n in resp.get('data', []):
-    t = n.get('node')
-    for v in n.get('values', []):
-      if not v.get('name') or not v.get('dcid'):
-        continue
-      if v['dcid'] in _ENUMS_TO_SKIP:
-        continue
-      topics[v['dcid']] = TopicVal(name=v['name'], enum_type=t, vars=[])
+  for t, arcs in resp.get('data', {}).items():
+    for nodes in arcs.get('arcs', {}).values():
+      for n in nodes.get('nodes', []):
+        if not n.get('name') or not n.get('dcid'):
+          continue
+        if n['dcid'] in _ENUMS_TO_SKIP:
+          continue
+        topics[n['dcid']] = TopicVal(name=n['name'], enum_type=t, vars=[])
   print(f'Gathered {len(topics)} enum topics')
 
   # Arrange by property to query.
@@ -111,16 +109,16 @@ def get_topics() -> Dict[str, TopicVal]:
   # Get all SVs for each enum instance.
   nsvs = 0
   for prop, enums in prop2enums.items():
-    resp = common.call_api(API_PATH_PROP_IN, {'nodes': enums, 'property': prop})
-    for n in resp.get('data', []):
-      t = n.get('node')
-      for v in n.get('values', []):
-        if not v.get('name') or not v.get('dcid'):
-          continue
-        v = parse_var(v['dcid'])
-        if v:
-          topics[t].vars.append(v)
-          nsvs += 1
+    resp = common.call_api(API_PATH, {'nodes': enums, 'property': '<-' + prop})
+    for t, arcs in resp.get('data', {}).items():
+      for nodes in arcs.get('arcs', {}).values():
+        for n in nodes.get('nodes', []):
+          if not n.get('name') or not n.get('dcid'):
+            continue
+          v = parse_var(n['dcid'])
+          if v:
+            topics[t].vars.append(v)
+            nsvs += 1
   print(f'Gathered {nsvs} SVs assigned to different topics')
 
   return topics
@@ -132,16 +130,16 @@ def get_series_info(topics: Dict[str, TopicVal]) -> Dict[str, str]:
     for v in tval.vars:
       series_set.add(v.series)
 
-  resp = common.call_api(API_PATH_PROP_OUT, {
+  resp = common.call_api(API_PATH, {
       'nodes': list(series_set),
-      'property': 'name'
+      'property': '->name'
   })
   series2name = {}
-  for n in resp.get('data', []):
-    series = n.get('node')
-    name = n.get('values', [{}])[0].get('value')
-    if name:
-      series2name[series] = name
+  for series, arcs in resp.get('data', {}).items():
+    for nodes in arcs.get('arcs', {}).values():
+      name = nodes.get('nodes', [{}])[0].get('value')
+      if name:
+        series2name[series] = name
   print(f'Gathered {len(series2name)} names for series')
 
   return series2name
