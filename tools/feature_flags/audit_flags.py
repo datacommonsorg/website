@@ -24,7 +24,7 @@ Usage:
 import json
 import os
 import sys
-from typing import Dict, List, Set
+from typing import Dict, Set
 
 # Constants
 CONFIG_DIR = os.path.join(
