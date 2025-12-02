@@ -36,19 +36,6 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
-    "name": "page_overview_links",
-    "enabled": true,
-    "owner": "javiervazquez",
-    "description": "A flag to guard if the embedded links in the overview are enabled."
-  },
-  {
-    "name": "show_api_modal",
-    "enabled": false,
-    "owner": "dwnoble",
-    "deprecated": true,
-    "description": "Feature flag to show the API modal on web components."
-  },
-  {
     "name": "data_overview",
     "enabled": false,
     "owner": "nick-next",
@@ -65,11 +52,5 @@
     "enabled": true,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
-  },
-  {
-    "name": "vai_medium_relevance_threshold",
-    "enabled": false,
-    "owner": "alyssaguo",
-    "description": "Enables setting the relevance threshold to \"MEDIUM\" for Vertex AI stat var search application."
   }
 ]
