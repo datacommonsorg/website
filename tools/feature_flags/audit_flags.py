@@ -18,7 +18,7 @@ def load_configs() -> Dict[str, Dict[str, bool]]:
 
   for filename in sorted(os.listdir(CONFIG_DIR)):
     if filename.endswith('.json'):
-      env_name = filename[:-5]  # Remove .json extension
+      env_name = filename.removesuffix('json')
       file_path = os.path.join(CONFIG_DIR, filename)
       try:
         with open(file_path, 'r') as f:
