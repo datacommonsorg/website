@@ -60,8 +60,8 @@ Open a new terminal window and enter the following commands into a shell:
     * Easiest way to install is with brew: `brew install uv`
 
 2.  Install [Python](https://www.python.org/) at version 3.12 (3.13 or above has
-an unmatched torch version).
-    `uv python install 3.12`
+    an unmatched torch version). For version control, we recommend installing
+    python using [pyenv](https://github.com/pyenv/pyenv).
 
 3.  Install `gcloud` following the instructions here:
     <https://cloud.google.com/sdk/docs/install>
