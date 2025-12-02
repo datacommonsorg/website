@@ -26,6 +26,7 @@ __pycache__/
 .vscode
 .idea
 !.vscode/launch.json
+.venv
 .env
 .env.list
 custom_dc/.env-test

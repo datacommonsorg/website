@@ -4,6 +4,7 @@ import re
 import itertools
 import math
 import uuid
+import functools
 import datacommons as dc
 from datacommons_client.client import DataCommonsClient
 from google import genai
@@ -35,6 +36,19 @@ except Exception as e:
 # The SDK uses docstrings and type hints to generate the schema.
 # Make sure these are descriptive!
 
+# Global Data Commons Client
+_DC_CLIENT = None
+
+def get_dc_client():
+    global _DC_CLIENT
+    if _DC_CLIENT is None:
+        dc_client_args = {
+            "api_key": os.getenv("DATACOMMONS_API_KEY"),
+        }
+        _DC_CLIENT = DataCommonsClient(**dc_client_args)
+    return _DC_CLIENT
+
+@functools.lru_cache(maxsize=128)
 def ground_place_query(place_query: str) -> dict:
     """
     Finds the most relevant place DCID for a given query string.
@@ -50,12 +64,12 @@ def ground_place_query(place_query: str) -> dict:
             engine_id='place-search-app_1762536747176',
             serving_config_id='default_config',
             query=place_query,
-            page_size=1,
+            page_size=10,
             page_token=None,
             relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM
         )
         
-        results = list(itertools.islice(pager, 20))
+        results = list(itertools.islice(pager, 10))
         if not results:
             return {"error": "No place found."}
 
@@ -70,6 +84,7 @@ def ground_place_query(place_query: str) -> dict:
     except Exception as e:
         return {"error": str(e)}
 
+@functools.lru_cache(maxsize=128)
 def ground_statvar_query(stat_var_query: str) -> dict:
     """
     Finds the most relevant statistical variable DCID for a given query string.
@@ -82,12 +97,12 @@ def ground_statvar_query(stat_var_query: str) -> dict:
             engine_id='full-statvar-search-prod-p_1757437817854',
             serving_config_id='default_config',
             query=stat_var_query,
-            page_size=1,
+            page_size=10,
             page_token=None,
             relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM
         )
         
-        results = list(itertools.islice(pager, 20))
+        results = list(itertools.islice(pager, 10))
         if not results:
             return {"error": "No statistical variable found."}
 
@@ -111,6 +126,7 @@ def get_ranking_stat(place_dcid: str, stat_var_dcid: str, date: str | None = Non
     print(f"   ---> 🏃 FETCHING RANKING: {stat_var_dcid} for {place_dcid} ({date or 'Latest'})")
     return {}
 
+@functools.lru_cache(maxsize=128)
 def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None = None) -> dict:
     """
     Retrieves a statistical value from Data Commons for a single place and date.
@@ -122,10 +138,7 @@ def get_datacommons_stat(place_dcid: str, stat_var_dcid: str, date: str | None =
     """
     print(f"   ---> 🏃 FETCHING: {stat_var_dcid} for {place_dcid} ({date or 'Latest'})")
     try:
-        dc_client_args = {
-            "api_key": os.getenv("DATACOMMONS_API_KEY"),
-        }
-        dc2 = DataCommonsClient(**dc_client_args)
+        dc2 = get_dc_client()
         data = dc2.observation.fetch(
             variable_dcids=[stat_var_dcid],
             entity_dcids=[place_dcid],
@@ -177,12 +190,11 @@ tools_list = [ground_place_query, ground_statvar_query, get_datacommons_stat, ge
 function_map = {func.__name__: func for func in tools_list}
 
 DC_SYSTEM_PROMPT = """
-You are a Data Commons assistant. 
-1. Use `ground_statvar_query` and `ground_statvar_query` to find DCIDs first.
-2. Use `ground_place_query` to find the place DCID. However, for World/Earth, use "Earth" as the DCID directly.
-3. Use `get_datacommons_stat` to get actual data using the DCIDs found.
-4. Use `get_ranking_stat` if you need rankings and pass in the parent place's DCID. For example, for Ranking of italy in Europe, use ground Europe to a DCID, then use it.
-3. If data is missing, say so. Do not invent numbers.
+You are a Data Commons assistant.
+1. call `ground_statvar_query` and `ground_place_query` in parallel to find DCIDs.
+2. Use `get_datacommons_stat` to get actual data using the DCIDs found.
+3. Use `get_ranking_stat` if you need rankings and pass in the parent place's DCID.
+4. If data is missing, say so. Do not invent numbers.
 
 You may find multiple statistical variables which match the desired intent, they could point to data from different sources or have slightly different definitions. In such cases, you can try to fetch data for multiple statvars and use your judgement to pick the most appropriate one based on the returned data and sources.
 For example, you could ground_statvar_query, pick one and get_datacommons_stat. But then try get_datacommons_stat for another grounded statvar and compare the results and sources. You can do this multiple times in a row if needed.
