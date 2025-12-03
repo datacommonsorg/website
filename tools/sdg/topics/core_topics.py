@@ -383,17 +383,19 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
         'property': '->name'
     })
     for sv, arcs in resp.get('data', {}).items():
-      for nodes in arcs.get('arcs', {}).values():
-        name = nodes.get('nodes', [{}])[0].get('value')
-        if name and name != sv:
-          alt_name, name = alt_nl_name(name)
-          csvw.writerow({
-              'dcid': sv,
-              'Name': name,
-              'Description': '',
-              'Override_Alternatives': '',
-              'Curated_Alternatives': alt_name,
-          })
+      nodes = arcs.get('arcs', {}).get('name', {}).get('nodes')
+      if not nodes:
+        continue
+      name = nodes[0].get('value')
+      if name and name != sv:
+        alt_name, name = alt_nl_name(name)
+        csvw.writerow({
+            'dcid': sv,
+            'Name': name,
+            'Description': '',
+            'Override_Alternatives': '',
+            'Curated_Alternatives': alt_name,
+        })
   print(f"Wrote NL descriptions to: {nl_desc_file}")
 
 

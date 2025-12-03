@@ -139,10 +139,12 @@ def get_series_info(topics: Dict[str, TopicVal]) -> Dict[str, str]:
   })
   series2name = {}
   for series, arcs in resp.get('data', {}).items():
-    for nodes in arcs.get('arcs', {}).values():
-      name = nodes.get('nodes', [{}])[0].get('value')
-      if name:
-        series2name[series] = name
+    nodes = arcs.get('arcs', {}).get('name', {}).get('nodes')
+    if not nodes:
+      continue
+    name = nodes[0].get('value')
+    if name:
+      series2name[series] = name
   print(f'Gathered {len(series2name)} names for series')
 
   return series2name
