@@ -13,7 +13,7 @@
   },
   {
     "name": "data_overview",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Enables the data_overview/<place> routes."
   },
@@ -37,25 +37,25 @@
   },
   {
     "name": "explore_result_header",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Enables the display of an updated explore page results header."
   },
   {
     "name": "factcheck_redirect",
-    "enabled": false,
+    "enabled": true,
     "owner": "dwnoble",
     "description": "Feature flag to redirect the Fact Check page to the new ClaimReview page."
   },
   {
     "name": "follow_up_questions_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
   {
     "name": "metadata_modal",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
@@ -67,7 +67,7 @@
   },
   {
     "name": "standardized_vis_tool",
-    "enabled": false,
+    "enabled": true,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
