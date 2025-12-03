@@ -150,10 +150,12 @@ class Result:
 class StatsResult:
   status_counts: dict[ResultStatus, int]
   llm_detection_type_counts: dict[str, int]
+  failed_results: list[Result]
 
   def __init__(self) -> None:
     self.status_counts = dict((status, 0) for status in ResultStatus)
     self.llm_detection_type_counts = {}
+    self.failed_results = []
 
   def inspect_result(self, result: Result) -> None:
     self.status_counts[result.status] += 1
@@ -161,6 +163,9 @@ class StatsResult:
       self.llm_detection_type_counts[
           result.llm_detection_type] = self.llm_detection_type_counts.get(
               result.llm_detection_type, 0) + 1
+    
+    if result.status in [ResultStatus.REQUEST_FAILED, ResultStatus.TIMED_OUT]:
+      self.failed_results.append(result)
 
   def to_str_rows(self) -> list[str]:
     rows = []
@@ -458,6 +463,27 @@ def run_test():
     for file_name in sorted(os.listdir(output_dir)):
       if file_name.endswith('.csv'):
         test.compute_stats_from_file(os.path.join(output_dir, file_name), stats)
+
+    # Print Summary
+    logging.info("=" * 40)
+    logging.info("ADVERSARIAL TEST SUMMARY")
+    logging.info("=" * 40)
+    
+    total_tests = sum(stats.status_counts.values())
+    failed_count = len(stats.failed_results)
+    passed_count = total_tests - failed_count
+
+    logging.info("Total Tests: %d", total_tests)
+    logging.info("PASSED:      %d", passed_count)
+    logging.info("FAILED:      %d", failed_count)
+
+    if stats.failed_results:
+      logging.info("-" * 40)
+      logging.info("FAILED TESTS:")
+      for f in stats.failed_results:
+        logging.info("  [%s] %s", f.status, f.query)
+    
+    logging.info("=" * 40)
 
     if stats.status_counts[
         ResultStatus.REQUEST_FAILED] > 0 or stats.status_counts[

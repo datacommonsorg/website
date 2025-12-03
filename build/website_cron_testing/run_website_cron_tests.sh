@@ -43,6 +43,82 @@ SANITY_PID=""
 ADV_MAIN_PID=""
 ADV_SDG_PID=""
 
+# Define script paths (default to current dir for container)
+NODEJS_SCRIPT="nodejs_query.py"
+SANITY_SCRIPT="sanity.py"
+ADVERSARIAL_SCRIPT="adversarial.py"
+DIFFER_SCRIPT="differ.py"
+SEND_EMAIL_SCRIPT="send_email.py"
+
+# If running locally (files not in current dir), try to find them in repo
+if [[ ! -f "$ADVERSARIAL_SCRIPT" && -f "server/integration_tests/standalone/adversarial.py" ]]; then
+  echo "Running locally, using repo paths..."
+  NODEJS_SCRIPT="server/integration_tests/standalone/nodejs_query.py"
+  SANITY_SCRIPT="server/webdriver/tests/standalone/sanity.py"
+  ADVERSARIAL_SCRIPT="server/integration_tests/standalone/adversarial.py"
+  DIFFER_SCRIPT="tools/nl/nodejs_query_differ/differ.py"
+  SEND_EMAIL_SCRIPT="tools/send_email/send_email.py"
+fi
+
+# Function to sample 10% of queries if in autopush
+sample_input_files() {
+  local input_dir=$1
+  if [[ "$ENABLE_ADVERSARIAL_SAMPLING" == "true" ]]; then
+    echo "Sampling 10% of queries in $input_dir (ENABLE_ADVERSARIAL_SAMPLING=true)..."
+    
+    # Create temp file for sampled data to avoid reading it back
+    local temp_sampled_file="$input_dir/sampled.tmp"
+    local sampled_file="$input_dir/sampled.tsv"
+    
+    # Get header from the first file found
+    local first_file=$(ls "$input_dir"/*.tsv | head -n 1)
+    
+    if [[ -z "$first_file" ]]; then
+      echo "No TSV files found in $input_dir"
+      return
+    fi
+    head -n 1 "$first_file" > "$temp_sampled_file"
+    
+    # Count total lines (excluding headers)
+    local total_lines=$(awk 'FNR>1' "$input_dir"/*.tsv | wc -l)
+    local sample_size=$(( total_lines / 10 ))
+    
+    if [[ $sample_size -eq 0 ]]; then
+       sample_size=1
+    fi
+    
+    echo "Total lines: $total_lines. Sampling: $sample_size"
+    
+    # Sample and append to temp_sampled_file using portable shuffle (awk)
+    
+    # Step 1: Combine files
+    awk 'FNR>1' "$input_dir"/*.tsv > "$input_dir/combined.tmp"
+    
+    # Step 2: Add random numbers
+    awk 'BEGIN{srand()}{print rand()"\t"$0}' "$input_dir/combined.tmp" > "$input_dir/randomized.tmp"
+    
+    # Step 3: Sort
+    sort -n "$input_dir/randomized.tmp" > "$input_dir/sorted.tmp"
+    
+    # Step 4: Cut and Head
+    # Disable pipefail temporarily because head closing the pipe causes SIGPIPE in cut/sort
+    set +o pipefail
+    cut -f2- "$input_dir/sorted.tmp" | head -n "$sample_size" >> "$temp_sampled_file"
+    set -o pipefail
+    
+    # Cleanup intermediate files
+    rm "$input_dir/combined.tmp" "$input_dir/randomized.tmp" "$input_dir/sorted.tmp"
+    
+    # Move temp file to final location
+    mv "$temp_sampled_file" "$sampled_file"
+    
+    # Remove original files, keep only sampled.tsv
+    find "$input_dir" -name "*.tsv" ! -name "sampled.tsv" -delete
+    
+    echo "Sampling complete. Created $sampled_file"
+  fi
+}
+
 echo "Starting tests in parallel..."
 
 # -----------------------------------------------------------------------------
@@ -56,7 +132,7 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
     mkdir -p output_nodejs
     
     set +e
-    python3 nodejs_query.py --base_url="$NODEJS_API_ROOT" --output_dir="output_nodejs"
+    python3 $NODEJS_SCRIPT --base_url="$NODEJS_API_ROOT" --output_dir="output_nodejs"
     NODEJS_EXIT_CODE=$?
     set -e
     
@@ -70,7 +146,7 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
     failure_email="failure_email.json"
     
     # Note: differ.py reads from GCS, so we must ensure upload finished (it did above).
-    python3 differ.py -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
+    python3 $DIFFER_SCRIPT -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
     DIFFER_EXIT_CODE=$?
     if [[ $DIFFER_EXIT_CODE -ne 0 ]]; then
       echo "Nodejs differ found regressions with exit code $DIFFER_EXIT_CODE"
@@ -78,7 +154,7 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
     fi
 
     if [[ -e "$failure_email" ]]; then
-      python3 send_email.py --recipient="datacommons-alerts+tests@google.com" --email_content="$failure_email"
+      python3 $SEND_EMAIL_SCRIPT --recipient="datacommons-alerts+tests@google.com" --email_content="$failure_email"
     fi
     
     rm -rf ./output_nodejs
@@ -99,7 +175,7 @@ if [[ $ENABLE_SANITY == "true" ]]; then
     mkdir -p output_sanity
     
     set +e
-    python3 sanity.py --mode=home --url="$WEB_API_ROOT" --output_dir="output_sanity" --parallelism=10
+    python3 $SANITY_SCRIPT --mode=home --url="$WEB_API_ROOT" --output_dir="output_sanity" --parallelism=10
     SANITY_EXIT_CODE=$?
     set -e
 
@@ -127,10 +203,12 @@ if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
     mkdir -p input_main
     gsutil cp gs://datcom-website-adversarial/input/frequent/* input_main/
     
+    sample_input_files "input_main"
+    
     mkdir -p output_adv_main
     
     set +e
-    python3 adversarial.py --mode=run_all --dc="main" --base_url="$WEB_API_ROOT" --input_dir="input_main" --output_dir="output_adv_main"
+    python3 $ADVERSARIAL_SCRIPT --mode=run_all --dc="main" --base_url="$WEB_API_ROOT" --input_dir="input_main" --output_dir="output_adv_main"
     EXIT_CODE=$?
     set -e
 
@@ -157,10 +235,12 @@ if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
     mkdir -p input_sdg
     gsutil cp gs://datcom-website-adversarial/input/frequent/* input_sdg/
     
+    sample_input_files "input_sdg"
+    
     mkdir -p output_adv_sdg
     
     set +e
-    python3 adversarial.py --mode=run_all --dc="sdg" --base_url="$WEB_API_ROOT" --input_dir="input_sdg" --output_dir="output_adv_sdg"
+    python3 $ADVERSARIAL_SCRIPT --mode=run_all --dc="sdg" --base_url="$WEB_API_ROOT" --input_dir="input_sdg" --output_dir="output_adv_sdg"
     EXIT_CODE=$?
     set -e
 

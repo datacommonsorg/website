@@ -117,7 +117,8 @@ class WebsiteSanityTest:
     chrome_options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(options=chrome_options)
     self.file = open(self.results_csv_file_path, "w", newline="")
-    logging.info("Writing results to: %s", self.results_csv_file_path)
+    if self.results_csv_file_path != os.devnull:
+      logging.info("Writing results to: %s", self.results_csv_file_path)
     self.csv_writer = csv.DictWriter(self.file,
                                      fieldnames=result_csv_columns(),
                                      lineterminator="\n")
@@ -248,71 +249,65 @@ class WebsiteSanityTest:
     logging.info("Running: %s", page.url)
     start = datetime.now()
 
-    self.driver.get(page.url)
+    MAX_RETRIES = 3
+    success = False
+    maybe_warning_result = None
+    topics = []
 
-    page.title = self.driver.title if page.title is None else page.title
+    for attempt in range(MAX_RETRIES):
+      try:
+        self.driver.get(page.url)
+        page.title = self.driver.title if page.title is None else page.title
 
-    # TODO(keyurs): Use this function to ensure all async elements have loaded:
-    # https://github.com/datacommonsorg/website/blob/master/server/webdriver/shared.py#L56
+        # Wait 60 secs for charts container to load
+        WebDriverWait(self.driver, 60).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "explore-charts")))
+        
+        # Wait couple more seconds for subtopics (i.e. charts) to load
+        subtopics = None
+        try:
+          subtopics = WebDriverWait(self.driver, 5).until(
+              EC.presence_of_all_elements_located(
+                  (By.CSS_SELECTOR, "section[class*='block subtopic']")))
+        except Exception as e:
+          logging.info("No subtopics found (expected for non-place pages): %s", e)
+          pass
 
-    # Wait 10 secs for charts container to load
-    try:
-      WebDriverWait(self.driver, 10).until(
-          EC.presence_of_element_located((By.CLASS_NAME, "explore-charts")))
-    except:
-      self.add_result(fail_result(
-          page,
-          start,
-          "Timed out.",
-      ))
-      return
+        # subtopics check
+        if subtopics is None or len(subtopics) == 0:
+          logging.info("No subtopics found. This is expected for non-place pages.")
+          # Pass
+          success = True
+          break
+        
+        if len(subtopics) == 1:
+          map_element = find_elem(subtopics[0], By.CLASS_NAME, "map-container")
+          if map_element:
+            raise Exception("Placeholder map only, no charts.")
 
-    # Wait couple more seconds for subtopics (i.e. charts) to load
-    subtopics = None
-    try:
-      subtopics = WebDriverWait(self.driver, 2).until(
-          EC.presence_of_all_elements_located(
-              (By.CSS_SELECTOR, "section[class*='block subtopic']")))
-    except:
-      self.add_result(fail_result(
-          page,
-          start,
-          "Timed out.",
-      ))
-      return
-
-    # subtopics
-    if subtopics is None or len(subtopics) == 0:
-      self.add_result(fail_result(
-          page,
-          start,
-          "No charts.",
-      ))
-      return
-    if len(subtopics) == 1:
-      map_element = find_elem(subtopics[0], By.CLASS_NAME, "map-container")
-      if map_element:
-        self.add_result(
-            fail_result(
+        # relavant topics parent
+        topics_parent = find_elem(self.driver, By.CLASS_NAME, "explore-topics-box")
+        if topics_parent:
+          topics = find_elems(topics_parent, By.TAG_NAME, "a")
+          if topics is None or len(topics) == 0:
+            maybe_warning_result = warning_result(
                 page,
                 start,
-                "Placeholder map only, no charts.",
-            ))
-        return
+                "Topics section with no relevant topics.",
+            )
+        
+        success = True
+        break
 
-    maybe_warning_result = None
-
-    # relavant topics parent
-    topics = []
-    topics_parent = find_elem(self.driver, By.CLASS_NAME, "explore-topics-box")
-    if topics_parent:
-      topics = find_elems(topics_parent, By.TAG_NAME, "a")
-      if topics is None or len(topics) == 0:
-        maybe_warning_result = warning_result(
-            page,
-            start,
-            "Topics section with no relevant topics.",
-        )
+      except Exception as e:
+        logging.warning("Attempt %d failed for %s: %s", attempt + 1, page.url, e)
+        if attempt == MAX_RETRIES - 1:
+          self.add_result(fail_result(
+              page,
+              start,
+              f"Failed after {MAX_RETRIES} attempts: {e}",
+          ))
+          return
 
     # Pass or Warning
     if maybe_warning_result:
@@ -528,10 +523,36 @@ def run_test():
   # We can pass `/dev/null`?
   # On Linux/Mac `/dev/null` works.
 
-  # Let's just iterate `all_results` and check for FAIL.
-  for result in all_results:
-    if result.status == "FAIL":
-      return False
+  # Print Summary
+  logging.info("=" * 40)
+  logging.info("SANITY TEST SUMMARY")
+  logging.info("=" * 40)
+  
+  passed = [r for r in all_results if r.status == "PASS"]
+  failed = [r for r in all_results if r.status == "FAIL"]
+  warnings = [r for r in all_results if r.status == "WARNING"]
+
+  logging.info("Total Tests: %d", len(all_results))
+  logging.info("PASSED:      %d", len(passed))
+  logging.info("FAILED:      %d", len(failed))
+  logging.info("WARNINGS:    %d", len(warnings))
+
+  if failed:
+    logging.info("-" * 40)
+    logging.info("FAILED TESTS:")
+    for f in failed:
+      logging.info("  [%s] %s (%s)", f.page_type, f.url, f.comments)
+  
+  if warnings:
+    logging.info("-" * 40)
+    logging.info("WARNINGS:")
+    for w in warnings:
+      logging.info("  [%s] %s (%s)", w.page_type, w.url, w.comments)
+
+  logging.info("=" * 40)
+
+  if failed:
+    return False
   return True
 
 

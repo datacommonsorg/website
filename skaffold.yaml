@@ -99,7 +99,7 @@ profiles:
       - name: verify-website-dev
         containers:
           - name: verifier
-            image: gcr.io/datcom-ci/website-cron-testing:latest
+            image: gcr.io/datcom-ci/website-cron-testing:dev-1ac974c
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -108,11 +108,15 @@ profiles:
             env:
               - name: WEB_API_ROOT
                 value: "https://dev.datacommons.org"
+              - name: NODEJS_API_ROOT
+                value: "https://dev.datacommons.org"
               - name: TESTING_ENV
                 value: "dev"
               - name: ENABLE_SANITY
                 value: "true"
               - name: ENABLE_ADVERSARIAL
+                value: "true"
+              - name: ENABLE_ADVERSARIAL_SAMPLING
                 value: "true"
     manifests:
       helm:
