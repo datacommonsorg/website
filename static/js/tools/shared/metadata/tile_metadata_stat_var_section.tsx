@@ -37,6 +37,7 @@ import { humanizeIsoDuration } from "../../../shared/periodicity";
 import { NamedNode } from "../../../shared/types";
 import { stripProtocol } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
+import { formatDateRange } from "./citations";
 import { StatVarMetadata } from "./metadata";
 
 interface TileMetadataStatVarSectionProps {
@@ -44,6 +45,8 @@ interface TileMetadataStatVarSectionProps {
   statVar: NamedNode;
   // the list of metadata for this section (a mix of stat var and source metadata)
   metadataList: StatVarMetadata[];
+  // The specific date range for this stat var from the chart data
+  chartDataDateRange?: { minDate: string; maxDate: string };
   // whether this stat var is used as a denominator
   isDenom?: boolean;
   // root URL used to generate stat var explorer and license links
@@ -55,6 +58,7 @@ const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 export const TileMetadataStatVarSection = ({
   statVar,
   metadataList,
+  chartDataDateRange,
   isDenom,
   apiRoot,
 }: TileMetadataStatVarSectionProps): ReactElement | null => {
@@ -155,14 +159,55 @@ export const TileMetadataStatVarSection = ({
                 : humanizedPeriod;
           }
 
-          const hasDateRange = !!(
+          const hasChartRange = !!chartDataDateRange;
+          const hasMetaRange = !!(
             metadata.dateRangeStart || metadata.dateRangeEnd
           );
+          const showDateRangeBlock = hasChartRange || hasMetaRange;
+
+          let dateRangeValue: string;
+
+          const chartRangeString = formatDateRange(
+            chartDataDateRange?.minDate,
+            chartDataDateRange?.maxDate
+          );
+          const metaRangeString = formatDateRange(
+            metadata.dateRangeStart,
+            metadata.dateRangeEnd
+          );
+
+          /*
+            We display the date by the following logic:
+            If we have neither a metadata date range nor a chart range, we display nothing.
+            If we have only a metadata date range, we display that.
+            If we have only a chart-derived date range, we display that.
+            If we have both, but they are the same, we display that shared range.
+            If we have both and they are different, we display both, with the chart range in
+              parentheses
+           */
+          if (hasChartRange && !hasMetaRange) {
+            dateRangeValue = chartRangeString;
+          } else if (!hasChartRange && hasMetaRange) {
+            dateRangeValue = metaRangeString;
+          } else if (hasChartRange && hasMetaRange) {
+            if (metaRangeString === chartRangeString || !metaRangeString) {
+              dateRangeValue = chartRangeString;
+            } else if (!chartRangeString) {
+              dateRangeValue = metaRangeString;
+            } else {
+              const displayedString = intl.formatMessage(
+                metadataComponentMessages.DisplayedDateRange,
+                { dateRange: chartRangeString }
+              );
+              dateRangeValue = `${metaRangeString}, ${displayedString}`;
+            }
+          }
+
           const hasUnit = !!unitDisplay;
           const hasObservationPeriod = !!observationPeriodDisplay;
 
           const optionalFieldsCount = [
-            hasDateRange,
+            showDateRangeBlock,
             hasUnit,
             hasObservationPeriod,
           ].filter(Boolean).length;
@@ -256,18 +301,14 @@ export const TileMetadataStatVarSection = ({
                   )}
                 </ContentWrapper>
 
-                {hasDateRange && (
+                {showDateRangeBlock && (
                   <ContentWrapper>
                     <h4>
                       {intl.formatMessage(
                         metadataComponentMessages.MetadataDateRange
                       )}
                     </h4>
-                    <p>
-                      {[metadata.dateRangeStart, metadata.dateRangeEnd]
-                        .filter(Boolean)
-                        .join(" – ")}
-                    </p>
+                    <p>{dateRangeValue}</p>
                   </ContentWrapper>
                 )}
 
