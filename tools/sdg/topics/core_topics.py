@@ -64,7 +64,7 @@ REMOVE_SVG_PREFIX = "Custom_"
 # to command line args or a config file
 API_ROOT = 'https://undata-staging-datacommons-web-service-91813941917.us-central1.run.app/core/api'
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
-API_PATH_NODE = API_ROOT = '/v2/node'
+API_PATH_NODE = API_ROOT + '/v2/node'
 
 
 def _svg2t(svg, remove_svg_prefix=""):
