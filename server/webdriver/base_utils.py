@@ -28,6 +28,9 @@ TIMEOUT = 60
 # Charts can take a long time to load.
 # This is a custom, longer timeout to use for charts we know are slow.
 LONG_TIMEOUT = 120  # seconds
+# Charts can take a long time to load.
+# This is a custom, extra longer timeout to use for charts we know are slow.
+EXTRA_LONG_TIMEOUT = 240  # seconds
 
 
 def create_driver(preferences=None):

@@ -18,6 +18,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import LONG_TIMEOUT
 from server.webdriver.base_utils import wait_elem
 from server.webdriver.base_utils import wait_for_text
 import server.webdriver.shared as shared
@@ -203,7 +204,7 @@ class VisTimelineTestMixin():
 
     # Assert chart is correct
     shared.wait_for_charts_to_render(self.driver,
-                                     timeout_seconds=self.TIMEOUT_SEC)
+                                     timeout_seconds=LONG_TIMEOUT)
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
     self.assertEqual(len(charts), 2)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')

@@ -17,6 +17,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import EXTRA_LONG_TIMEOUT
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import LONG_TIMEOUT
@@ -135,8 +136,8 @@ class ScatterTestMixin():
 
     # Wait for chart to load
     # This chart can be particularly slow, so use extra wait time
-    shared.wait_for_loading(self.driver, timeout_seconds=LONG_TIMEOUT)
-    shared.wait_for_charts_to_render(self.driver, timeout_seconds=LONG_TIMEOUT)
+    shared.wait_for_loading(self.driver, timeout_seconds=EXTRA_LONG_TIMEOUT)
+    shared.wait_for_charts_to_render(self.driver, timeout_seconds=EXTRA_LONG_TIMEOUT)
 
     # Assert circles loaded
     circles = find_elems(self.driver,
