@@ -137,7 +137,8 @@ class ScatterTestMixin():
     # Wait for chart to load
     # This chart can be particularly slow, so use extra wait time
     shared.wait_for_loading(self.driver, timeout_seconds=EXTRA_LONG_TIMEOUT)
-    shared.wait_for_charts_to_render(self.driver, timeout_seconds=EXTRA_LONG_TIMEOUT)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=EXTRA_LONG_TIMEOUT)
 
     # Assert circles loaded
     circles = find_elems(self.driver,

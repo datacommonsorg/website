@@ -203,8 +203,7 @@ class VisTimelineTestMixin():
     shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct
-    shared.wait_for_charts_to_render(self.driver,
-                                     timeout_seconds=LONG_TIMEOUT)
+    shared.wait_for_charts_to_render(self.driver, timeout_seconds=LONG_TIMEOUT)
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
     self.assertEqual(len(charts), 2)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
