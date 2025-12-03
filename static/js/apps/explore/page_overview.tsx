@@ -29,10 +29,7 @@ import { Loading } from "../../components/elements/loading";
 import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import {
-  isFeatureEnabled,
-  PAGE_OVERVIEW_LINKS,
-} from "../../shared/feature_flags/util";
+import { isFeatureEnabled } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_PAGE_OVERVIEW_CLICK,
   GA_EVENT_TOTAL_ANCHOR_COUNT,
@@ -256,10 +253,7 @@ const getPageOverview = async (
         "$1"
       );
       // If the markers still exist, the links were not marked properly so the overview with no links is returned
-      if (
-        CHECK_MARKERS_EXIST.test(testStatSyntax) ||
-        !isFeatureEnabled(PAGE_OVERVIEW_LINKS)
-      ) {
+      if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
         const cleanedOverview: string = testStatSyntax.replace(
           GLOBAL_MARKERS,
           ""
