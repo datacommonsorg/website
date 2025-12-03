@@ -26,7 +26,7 @@ import { extractFlagsToPropagate } from "../shared/util";
 import { FacetMetadata } from "../types/facet_metadata";
 
 // Hash params that should be persisted across pages.
-const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq"]);
+const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq", "detector"]);
 
 /**
  * Returns token for URL param.

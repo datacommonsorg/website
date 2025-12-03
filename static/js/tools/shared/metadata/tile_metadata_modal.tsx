@@ -52,6 +52,8 @@ interface TileMetadataModalPropType {
   statVarToFacets?: StatVarFacetMap;
   // the stat vars used in the chart
   statVarSpecs: StatVarSpec[];
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   containerRef?: React.RefObject<HTMLElement>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
@@ -187,6 +189,7 @@ export function TileMetadataModal(
                 statVars={statVars}
                 metadataMap={metadataMap}
                 denomStatVarDcids={denomStatVarDcids}
+                statVarDateRanges={props.statVarDateRanges}
                 apiRoot={props.apiRoot}
               />
             )

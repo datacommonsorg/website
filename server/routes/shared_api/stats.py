@@ -27,7 +27,6 @@ from server.lib import vertex_ai
 from server.lib.cache import cache
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
-from server.lib.feature_flags import VAI_MEDIUM_RELEVANCE_FEATURE_FLAG
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
@@ -122,8 +121,6 @@ def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
   is_vai_enabled = is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
                                       request=request)
-  is_vai_medium_relevance_enabled = is_feature_enabled(
-      VAI_MEDIUM_RELEVANCE_FEATURE_FLAG, request=request)
   if request.method == 'GET':
     query = request.args.get("query")
     entities = request.args.getlist("entities")
@@ -142,10 +139,7 @@ def search_statvar():
     # No buffer if the limit is set to 1000, as otherwise VAI search would take too long.
     # TODO: Add the ability to load more results when filtering by sources.
     initial_limit = limit * 3 if limit == 100 and len(entities) else limit
-    relevance_threshold = (
-        discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM
-        if is_vai_medium_relevance_enabled else
-        discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+    relevance_threshold = discoveryengine.SearchRequest.RelevanceThreshold.LOW
 
     while len(statVars) < initial_limit:
       search_results = vertex_ai.search(project_id=VAI_PROJECT_ID,
