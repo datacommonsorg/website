@@ -1479,8 +1479,6 @@ describe("test ga event for Page Overview experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
-
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
       Promise.resolve({
@@ -1520,8 +1518,6 @@ describe("test ga event for Page Overview experiment", () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
-
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
@@ -1578,8 +1574,6 @@ describe("test ga event for Page Overview experiment", () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
-
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
