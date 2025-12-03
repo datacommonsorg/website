@@ -134,7 +134,6 @@ endpoints = Endpoints([
     '/translate',
     '/search',
     # v1
-    '/v1/query',
     '/v1/bulk/info/place',
     '/v1/bulk/info/variable',
     '/v1/bulk/info/variable-group',
@@ -154,6 +153,7 @@ endpoints = Endpoints([
     '/v2/resolve',
     '/v2/event',
     '/v2/variable/filter',
+    '/v2/sparql',
 ])
 
 
