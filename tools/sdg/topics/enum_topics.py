@@ -89,13 +89,13 @@ def get_topics() -> Dict[str, TopicVal]:
   resp = common.call_api(API_PATH_NODE, req)
   topics = {}
   for t, arcs in resp.get('data', {}).items():
-    for nodes in arcs.get('arcs', {}).values():
-      for n in nodes.get('nodes', []):
-        if not n.get('name') or not n.get('dcid'):
-          continue
-        if n['dcid'] in _ENUMS_TO_SKIP:
-          continue
-        topics[n['dcid']] = TopicVal(name=n['name'], enum_type=t, vars=[])
+    nodes = arcs.get('arcs', {}).get('typeOf', {})
+    for n in nodes.get('nodes', []):
+      if not n.get('name') or not n.get('dcid'):
+        continue
+      if n['dcid'] in _ENUMS_TO_SKIP:
+        continue
+      topics[n['dcid']] = TopicVal(name=n['name'], enum_type=t, vars=[])
   print(f'Gathered {len(topics)} enum topics')
 
   # Arrange by property to query.
