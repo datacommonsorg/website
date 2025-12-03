@@ -18,8 +18,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 cd model_server
 python3 -m pip install --upgrade pip
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 
 export MODEL_NAME=${1:-"cross-encoder/ms-marco-MiniLM-L-6-v2"}
 python3 main.py
