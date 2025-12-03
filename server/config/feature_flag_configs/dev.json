@@ -18,18 +18,6 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
-    "name": "enable_gemini_2_5_flash",
-    "enabled": true,
-    "owner": "shixiao",
-    "description": "Enabling Gemini 2.5 Flash for NL detection."
-  },
-  {
-    "name": "enable_gemini_2_5_flash_lite",
-    "enabled": false,
-    "owner": "shixiao",
-    "description": "Enabling Gemini 2.5 Flash Lite for NL detection."
-  },
-  {
     "name": "enable_ranking_tile_scroll",
     "enabled": true,
     "owner": "gmechali",
