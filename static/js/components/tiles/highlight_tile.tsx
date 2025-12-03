@@ -269,11 +269,10 @@ export const fetchData = async (
   }
   // Update date range for the main stat var
   if (mainStatData.date) {
-    const facetId = mainStatData.facet || "";
     updateStatVarFacetDateRange(
       statVarFacetDateRanges,
       statVarSpec.statVar,
-      facetId,
+      mainStatData.facet,
       mainStatData.date
     );
   }
@@ -318,11 +317,10 @@ export const fetchData = async (
       }
       // Update date range for the denominator stat var
       if (denomInfo.date) {
-        const denomFacetId = denomInfo.facetId || "";
         updateStatVarFacetDateRange(
           statVarFacetDateRanges,
           statVarSpec.denom,
-          denomFacetId,
+          denomInfo.facetId,
           denomInfo.date
         );
       }
