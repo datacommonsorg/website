@@ -45,6 +45,7 @@ const SEARCH_PARAMS_TO_PROPAGATE = new Set([
   "hl",
   "enable_feature",
   "disable_feature",
+  "detector",
 ]);
 
 const NO_DATE_CAP_RCP_STATVARS = [
