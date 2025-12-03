@@ -109,7 +109,10 @@ def get_topics() -> Dict[str, TopicVal]:
   # Get all SVs for each enum instance.
   nsvs = 0
   for prop, enums in prop2enums.items():
-    resp = common.call_api(API_PATH_NODE, {'nodes': enums, 'property': '<-' + prop})
+    resp = common.call_api(API_PATH_NODE, {
+        'nodes': enums,
+        'property': '<-' + prop
+    })
     for t, arcs in resp.get('data', {}).items():
       for nodes in arcs.get('arcs', {}).values():
         for n in nodes.get('nodes', []):

@@ -379,8 +379,8 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
             logging.error(f'ERROR: Missing topic {id}')
 
     resp = common.call_api(API_PATH_NODE, {
-      'nodes': sorted(list(sv_dcids)), 
-      'property': '->name'
+        'nodes': sorted(list(sv_dcids)),
+        'property': '->name'
     })
     for sv, arcs in resp.get('data', {}).items():
       for nodes in arcs.get('arcs', {}).values():
@@ -388,11 +388,11 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
         if name and name != sv:
           alt_name, name = alt_nl_name(name)
           csvw.writerow({
-            'dcid': sv,
-            'Name': name,
-            'Description': '',
-            'Override_Alternatives': '',
-            'Curated_Alternatives': alt_name,
+              'dcid': sv,
+              'Name': name,
+              'Description': '',
+              'Override_Alternatives': '',
+              'Curated_Alternatives': alt_name,
           })
   print(f"Wrote NL descriptions to: {nl_desc_file}")
 
