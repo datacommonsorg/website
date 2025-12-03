@@ -45,8 +45,8 @@ interface TileMetadataStatVarSectionProps {
   statVar: NamedNode;
   // the list of metadata for this section (a mix of stat var and source metadata)
   metadataList: StatVarMetadata[];
-  // The specific date range for this stat var from the chart data
-  chartDataDateRange?: { minDate: string; maxDate: string };
+  // A map of facet IDs to their specific date range for this stat var from the chart data
+  statVarFacetDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   // whether this stat var is used as a denominator
   isDenom?: boolean;
   // root URL used to generate stat var explorer and license links
@@ -58,7 +58,7 @@ const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 export const TileMetadataStatVarSection = ({
   statVar,
   metadataList,
-  chartDataDateRange,
+  statVarFacetDateRanges,
   isDenom,
   apiRoot,
 }: TileMetadataStatVarSectionProps): ReactElement | null => {
@@ -159,7 +159,13 @@ export const TileMetadataStatVarSection = ({
                 : humanizedPeriod;
           }
 
+          const facetId = metadata.facetId;
+          const chartDataDateRange =
+            facetId && statVarFacetDateRanges
+              ? statVarFacetDateRanges[facetId]
+              : undefined;
           const hasChartRange = !!chartDataDateRange;
+
           const hasMetaRange = !!(
             metadata.dateRangeStart || metadata.dateRangeEnd
           );

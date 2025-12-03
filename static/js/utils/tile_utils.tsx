@@ -238,31 +238,40 @@ interface DateRange {
   maxDate: string;
 }
 
-// A map of stat var DCIDs to their specific min and max date range in the context of a chart
-export type StatVarDateRangeMap = Record<string, DateRange>;
+// A map of stat var DCIDs to facet IDs to their specific min and max date range in the context of a chart
+export type StatVarFacetDateRangeMap = Record<
+  string,
+  Record<string, DateRange>
+>;
 
 /**
  * Function to update the date range for a stat var. It expands the existing range if the new date
  * for a given stat var is outside the current bounds.
- * @param statVarDateRanges The current mapping of stat var to date ranges
+ * @param statVarFacetDateRanges The current mapping of stat var to facet to date ranges
  * @param statVar The stat var being updated
+ * @param facetId The facet id being updated
  * @param date The date that may extend the range
  */
-export function updateStatVarDateRange(
-  statVarDateRanges: StatVarDateRangeMap,
+export function updateStatVarFacetDateRange(
+  statVarFacetDateRanges: StatVarFacetDateRangeMap,
   statVar: string,
+  facetId: string,
   date: string
 ): void {
-  if (!date) return;
+  if (!date || !facetId) return;
 
-  if (!statVarDateRanges[statVar]) {
-    statVarDateRanges[statVar] = { minDate: date, maxDate: date };
+  if (!statVarFacetDateRanges[statVar]) {
+    statVarFacetDateRanges[statVar] = {};
+  }
+
+  if (!statVarFacetDateRanges[statVar][facetId]) {
+    statVarFacetDateRanges[statVar][facetId] = { minDate: date, maxDate: date };
   } else {
-    if (date < statVarDateRanges[statVar].minDate) {
-      statVarDateRanges[statVar].minDate = date;
+    if (date < statVarFacetDateRanges[statVar][facetId].minDate) {
+      statVarFacetDateRanges[statVar][facetId].minDate = date;
     }
-    if (date > statVarDateRanges[statVar].maxDate) {
-      statVarDateRanges[statVar].maxDate = date;
+    if (date > statVarFacetDateRanges[statVar][facetId].maxDate) {
+      statVarFacetDateRanges[statVar][facetId].maxDate = date;
     }
   }
 }

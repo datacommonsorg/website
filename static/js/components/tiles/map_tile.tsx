@@ -95,9 +95,9 @@ import {
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  StatVarDateRangeMap,
+  StatVarFacetDateRangeMap,
   transformCsvHeader,
-  updateStatVarDateRange,
+  updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "./tile_types";
@@ -216,8 +216,8 @@ export interface MapChartData {
   facets?: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
-  // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: StatVarDateRangeMap;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   // Set if the component receives a date value from a subscribed event
   dateOverride?: string;
   // A mapping of stat var to the name of the variable
@@ -388,7 +388,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
       sources={props.sources || (mapChartData && mapChartData.sources)}
       facets={mapChartData?.facets}
       statVarToFacets={mapChartData?.statVarToFacets}
-      statVarDateRanges={mapChartData?.statVarDateRanges}
+      statVarFacetDateRanges={mapChartData?.statVarFacetDateRanges}
       forwardRef={containerRef}
       replacementStrings={
         mapChartData && getReplacementStrings(props, mapChartData)
@@ -633,7 +633,7 @@ function rawToChart(
   const sources: Set<string> = new Set();
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
-  const statVarDateRanges: StatVarDateRangeMap = {};
+  const statVarFacetDateRanges: StatVarFacetDateRangeMap = {};
   let isUsaPlace = true; // whether all layers are about USA places
 
   for (const rawData of rawDataArray) {
@@ -706,9 +706,10 @@ function rawToChart(
         }
       });
 
-      updateStatVarDateRange(
-        statVarDateRanges,
+      updateStatVarFacetDateRange(
+        statVarFacetDateRanges,
         rawData.variable.statVar,
+        placeStat[placeDcid].facet,
         placeChartData.date
       );
 
@@ -738,7 +739,13 @@ function rawToChart(
           }
           statVarToFacets[denomStatVar].add(denomInfo.facetId);
         }
-        updateStatVarDateRange(statVarDateRanges, denomStatVar, denomInfo.date);
+        const denomFacetId = denomInfo.facetId;
+        updateStatVarFacetDateRange(
+          statVarFacetDateRanges,
+          denomStatVar,
+          denomFacetId,
+          denomInfo.date
+        );
       }
       if (scaling) {
         value = value * scaling;
@@ -776,7 +783,7 @@ function rawToChart(
     sources,
     facets,
     statVarToFacets,
-    statVarDateRanges,
+    statVarFacetDateRanges,
     dateOverride,
     statVarToVariableName,
   };

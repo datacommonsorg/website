@@ -67,9 +67,9 @@ import {
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
-  StatVarDateRangeMap,
+  StatVarFacetDateRangeMap,
   transformCsvHeader,
-  updateStatVarDateRange,
+  updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
 import { LoadingHeader } from "./loading_header";
 import { SvRankingUnits } from "./sv_ranking_units";
@@ -179,23 +179,29 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   }, [rankingData]);
 
   /**
-    This hook merges the stat var date ranges across ranking units, to provide a single
+    This hook merges the stat var / facet id date ranges across ranking units, to provide a single
     map that is sent into the "About this data" (metadata modal) component.
    */
-  const allStatVarDateRanges = useMemo(() => {
+  const allStatVarFacetDateRanges = useMemo(() => {
     if (!rankingData) return {};
-    const merged: StatVarDateRangeMap = {};
+    const merged: StatVarFacetDateRangeMap = {};
     Object.values(rankingData).forEach((svData) => {
-      if (svData.statVarDateRanges) {
-        for (const [sv, range] of Object.entries(svData.statVarDateRanges)) {
+      const ranges = svData.statVarFacetDateRanges;
+      if (ranges) {
+        for (const [sv, facetMap] of Object.entries(ranges)) {
           if (!merged[sv]) {
-            merged[sv] = { ...range };
-          } else {
-            if (range.minDate < merged[sv].minDate) {
-              merged[sv].minDate = range.minDate;
-            }
-            if (range.maxDate > merged[sv].maxDate) {
-              merged[sv].maxDate = range.maxDate;
+            merged[sv] = {};
+          }
+          for (const [facetId, range] of Object.entries(facetMap)) {
+            if (!merged[sv][facetId]) {
+              merged[sv][facetId] = { ...range };
+            } else {
+              if (range.minDate < merged[sv][facetId].minDate) {
+                merged[sv][facetId].minDate = range.minDate;
+              }
+              if (range.maxDate > merged[sv][facetId].maxDate) {
+                merged[sv][facetId].maxDate = range.maxDate;
+              }
             }
           }
         }
@@ -366,7 +372,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         statVarSpecs={props.variables}
         facets={allFacets}
         statVarToFacets={allStatVarToFacets}
-        statVarDateRanges={allStatVarDateRanges}
+        statVarFacetDateRanges={allStatVarFacetDateRanges}
         apiRoot={props.apiRoot}
       />
     </div>
@@ -510,8 +516,9 @@ function transformRankingDataForMultiColumn(
   const statVarToFacets = svs
     .map((sv) => rankingData[sv].statVarToFacets)
     .find((s) => s !== undefined);
-  const statVarDateRanges = svs
-    .map((sv) => rankingData[sv].statVarDateRanges)
+
+  const statVarFacetDateRanges = svs
+    .map((sv) => rankingData[sv].statVarFacetDateRanges)
     .find((s) => s !== undefined);
 
   if (facets) {
@@ -520,8 +527,8 @@ function transformRankingDataForMultiColumn(
   if (statVarToFacets) {
     rankingData[sortSv].statVarToFacets = statVarToFacets;
   }
-  if (statVarDateRanges) {
-    rankingData[sortSv].statVarDateRanges = statVarDateRanges;
+  if (statVarFacetDateRanges) {
+    rankingData[sortSv].statVarFacetDateRanges = statVarFacetDateRanges;
   }
 
   return { [sortSv]: rankingData[sortSv] };
@@ -546,7 +553,7 @@ function pointApiToPerSvRankingData(
     const dates = new Set<string>();
     const facets: Record<string, StatMetadata> = {};
     const statVarToFacets: StatVarFacetMap = {};
-    const statVarDateRanges: StatVarDateRangeMap = {};
+    const statVarFacetDateRanges: StatVarFacetDateRangeMap = {};
 
     const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
@@ -560,8 +567,13 @@ function pointApiToPerSvRankingData(
         console.log(`Skipping ${place}, missing ${spec.statVar}`);
         continue;
       }
-      // Update date range for the main stat var
-      updateStatVarDateRange(statVarDateRanges, spec.statVar, statPoint.date);
+
+      updateStatVarFacetDateRange(
+        statVarFacetDateRanges,
+        spec.statVar,
+        statPoint.facet,
+        statPoint.date
+      );
 
       if (spec.denom) {
         // find the denom data with the matching facet, and otherwise use the default data
@@ -592,7 +604,12 @@ function pointApiToPerSvRankingData(
           statVarToFacets[spec.denom].add(denomInfo.facetId);
         }
         // Update date range for the denominator stat var
-        updateStatVarDateRange(statVarDateRanges, spec.denom, denomInfo.date);
+        updateStatVarFacetDateRange(
+          statVarFacetDateRanges,
+          spec.denom,
+          denomInfo.facetId,
+          denomInfo.date
+        );
       }
       rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
@@ -621,7 +638,7 @@ function pointApiToPerSvRankingData(
       sources,
       facets,
       statVarToFacets,
-      statVarDateRanges,
+      statVarFacetDateRanges,
       dateRange: getDateRange(Array.from(dates)),
       svName: [getStatVarName(spec.statVar, [spec])],
     };
