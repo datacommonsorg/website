@@ -249,7 +249,7 @@ class ExplorePageTestMixin():
 
   def test_highlight_chart_date_selection(self):
     """Test the highlight chart for Population ranking with map of US States."""
-    highlight_params = "?sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
+    highlight_params = "?sv=Count_Person&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
     shared.wait_for_loading(self.driver)
@@ -261,7 +261,7 @@ class ExplorePageTestMixin():
     ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
                                     'ranking-date-cell')
     for cell in ranking_date_cells:
-      self.assertIn('2023', cell.text)
+      self.assertIn('2024', cell.text)
 
   def test_ranking_scroll_enabled(self):
     """Test ranking tile on explore page with scroll feature enabled."""
