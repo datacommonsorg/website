@@ -24,13 +24,10 @@ from google import genai
 from google.genai import types
 import json5
 
-from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
-from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_LITE_FLAG
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
 _GEMINI_2_5_FLASH = 'gemini-2.5-flash'
-_GEMINI_2_5_FLASH_LITE = 'gemini-2.5-flash-lite'
 _API_VERSION = 'v1'
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
@@ -189,6 +186,4 @@ def _extract_answer(resp: str) -> str:
 
 
 def detect_model_name() -> str:
-  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
-    return _GEMINI_2_5_FLASH_LITE
   return _GEMINI_2_5_FLASH
