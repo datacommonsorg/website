@@ -28,8 +28,6 @@ DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
 STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
-ENABLE_GEMINI_2_5_FLASH_FLAG = 'enable_gemini_2_5_flash'
-ENABLE_GEMINI_2_5_FLASH_LITE_FLAG = 'enable_gemini_2_5_flash_lite'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
 
 
