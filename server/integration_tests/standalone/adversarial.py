@@ -208,6 +208,13 @@ class ResultsFileWriter:
     self.file.close()
 
 
+def init_worker():
+  logging.basicConfig(
+      level=logging.INFO,
+      format='%(asctime)s %(levelname)s [Worker] %(message)s',
+      force=True)
+
+
 class AdversarialQueriesTest:
   base_url: str
   dc: str
@@ -299,7 +306,7 @@ class AdversarialQueriesTest:
                                   fieldnames=Result.get_csv_columns(),
                                   lineterminator="\n")
       csv_writer.writeheader()
-      with multiprocessing.Pool() as pool:
+      with multiprocessing.Pool(initializer=init_worker) as pool:
         for result in pool.imap_unordered(self.run_query, queries):
           csv_writer.writerow(result.to_csv_row())
 

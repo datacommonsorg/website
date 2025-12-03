@@ -379,6 +379,11 @@ def result_csv_columns() -> str:
 
 
 def worker(args):
+  # Initialize logging for the worker process
+  logging.basicConfig(
+      level=logging.INFO,
+      format='%(asctime)s %(levelname)s [Worker] %(message)s',
+      force=True)
   mode, url, output_dir = args
   # Create a unique file for this worker to avoid write contention if we were writing to same file,
   # but here we will return results and main process writes them.
