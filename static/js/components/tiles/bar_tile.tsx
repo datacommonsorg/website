@@ -575,7 +575,7 @@ function rawToChart(
       }
       if (spec.denom) {
         const denomInfo = getDenomInfo(
-          spec,
+          spec.denom,
           denomsByFacet,
           placeDcid,
           stat.date,
