@@ -537,8 +537,8 @@ def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
 def query(query_string):
   # Get the API Key and perform the POST request.
   logging.info("[ Mixer Request ]: \n" + query_string)
-  url = get_service_url("/v1/query")
-  resp = post(url, {"sparql": query_string})
+  url = get_service_url("/v2/sparql")
+  resp = post(url, {"query": query_string})
   return resp["header"], resp.get("rows", [])
 
 
