@@ -21,9 +21,8 @@ function setup_python {
   source .venv/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
-  pip3 install torch==$(grep '^torch==' nl_requirements.txt | cut -d'=' -f3) --extra-index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
+  pip3 install -r nl_server/requirements.txt -q --extra-index-url https://download.pytorch.org/whl/cpu
   deactivate
 }
 
