@@ -233,12 +233,17 @@ export async function getStatVarNames(
   }
 }
 
+/**
+ * Represents a date range with a start (min) and end (max) date.
+ */
 interface DateRange {
   minDate: string;
   maxDate: string;
 }
 
-// A map of stat var DCIDs to facet IDs to their specific min and max date range in the context of a chart
+/**
+ * A map of stat var DCIDs to facet IDs to their specific min and max date range in the context of a chart.
+ */
 export type StatVarFacetDateRangeMap = Record<
   string,
   Record<string, DateRange>
@@ -260,18 +265,19 @@ export function updateStatVarFacetDateRange(
 ): void {
   if (!date || !facetId) return;
 
-  if (!statVarFacetDateRanges[statVar]) {
-    statVarFacetDateRanges[statVar] = {};
-  }
+  const dateRange = _.get(statVarFacetDateRanges, [statVar, facetId]);
 
-  if (!statVarFacetDateRanges[statVar][facetId]) {
-    statVarFacetDateRanges[statVar][facetId] = { minDate: date, maxDate: date };
+  if (!dateRange) {
+    _.set(statVarFacetDateRanges, [statVar, facetId], {
+      minDate: date,
+      maxDate: date,
+    });
   } else {
-    if (date < statVarFacetDateRanges[statVar][facetId].minDate) {
-      statVarFacetDateRanges[statVar][facetId].minDate = date;
+    if (date < dateRange.minDate) {
+      dateRange.minDate = date;
     }
-    if (date > statVarFacetDateRanges[statVar][facetId].maxDate) {
-      statVarFacetDateRanges[statVar][facetId].maxDate = date;
+    if (date > dateRange.maxDate) {
+      dateRange.maxDate = date;
     }
   }
 }
