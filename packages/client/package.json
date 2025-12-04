@@ -59,7 +59,7 @@
     "typedoc": "^0.25.4",
     "vega-embed": "^7.0.0",
     "vega-lite": "^6.0.0",
-    "vite": "^7.2.4"
+    "vite": "^6.2.2"
   },
   "dependencies": {
     "lodash": "^4.17.21",
