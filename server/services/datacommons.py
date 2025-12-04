@@ -29,6 +29,7 @@ from server.lib import log
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.recorder import record_replay_mixer
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -61,6 +62,7 @@ def get_basic_request_headers() -> dict:
 
 # Log the mixer response IDs to capture this call to mixer in the mixer usage logs
 @memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
+@record_replay_mixer
 def get(url: str):
   headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
@@ -92,6 +94,7 @@ def post(url: str, req: Dict):
 
 # Log the mixer response IDs to capture this call to mixer in the mixer usage logs
 @memoize_and_log_mixer_usage(timeout=TIMEOUT, unless=should_skip_cache)
+@record_replay_mixer
 def post_wrapper(url, req_str: str, headers_str: str | None = None):
 
   req = json.loads(req_str)
