@@ -32,9 +32,9 @@ RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v21.12/pr
 COPY server/requirements.txt /app/requirements.txt
 
 # Create the python virtual environment and install dependencies
-RUN python3 -m venv /app/.env \
-    && /app/.env/bin/pip install --upgrade pip \
-    && /app/.env/bin/pip install -r /app/requirements.txt
+RUN python3 -m venv /app/.venv \
+    && /app/.venv/bin/pip install --upgrade pip \
+    && /app/.venv/bin/pip install -r /app/requirements.txt
 
 # Copy source files to the container
 COPY server/. /app/server/
@@ -53,4 +53,4 @@ COPY web_app.py /app/web_app.py
 EXPOSE 8080
 
 # Set the command to run the Flask app
-CMD ["/app/.env/bin/python3", "web_app.py", "7070"]
+CMD ["/app/.venv/bin/python3", "web_app.py", "7070"]

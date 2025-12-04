@@ -15,14 +15,33 @@
 
 set -e
 
-function cleanup {
-  echo "Cleaning up before exit..."
-  deactivate
-  exit 1
-}
-trap cleanup SIGINT
+# ANSI color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
 
-source .env/bin/activate
+# Ensure uv is installed
+if ! command -v uv &> /dev/null; then
+  echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
+  exit 1
+fi
+
+# Ensure protoc v3.21.12 is installed
+if [[ $(protoc --version) != *"3.21.12"* ]]; then
+  echo -e "${RED}Error: protoc version 3.21.12 is required.${NC}"
+  echo -e "${YELLOW}Current version: $(protoc --version)${NC}"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo -e "${YELLOW}On Mac, you can install this version with: brew install protobuf@21 && brew link protobuf@21${NC}"
+  fi
+  exit 1
+fi
+
+# Sync uv dependencies for the datacommons-website-server package
+if ! uv sync --project server; then
+  echo -e "${RED}Error: uv sync failed.${NC}"
+  exit 1
+fi
 
 PORT=8080
 ENABLE_MODEL=false
@@ -87,8 +106,14 @@ fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 if [[ $USE_GUNICORN ]]; then
-  gunicorn --log-level info --preload --timeout 1000 --bind localhost:${PORT} -w 4 web_app:app
+  uv run --project server/ gunicorn --log-level info --preload --timeout 1000 --bind localhost:${PORT} -w 4 web_app:app
 else
-  protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto
-  python3 web_app.py $PORT
+  if ! protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto; then
+    echo -e "${RED}Error: protoc compilation failed.${NC}"
+    exit 1
+  fi
+  if ! uv run --project server/ python3 web_app.py $PORT; then
+    echo -e "${RED}Error: uv run failed.${NC}"
+    exit 1
+  fi
 fi
