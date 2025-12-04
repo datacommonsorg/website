@@ -11,7 +11,7 @@
     "sass-loader": "^13.3.2",
     "tslib": "^2.6.2",
     "typescript": "^5.0.2",
-    "vite": "^5.4.21"
+    "vite": "^7.2.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.199",
