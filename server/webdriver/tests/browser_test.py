@@ -27,7 +27,6 @@ from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
-AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
 SEARCH_INPUT = 'male asian count '
 
