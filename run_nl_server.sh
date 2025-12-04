@@ -20,6 +20,10 @@
 
 set -e
 
+# ANSI color codes
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export FLASK_ENV=local
