@@ -16,7 +16,7 @@
 
 # DNS
 ip:
-domain: staging.bard.datacommons.org
+domain: staging.nl.datacommons.org
 
 # Helm config
 project: "datcom-bard-staging"
