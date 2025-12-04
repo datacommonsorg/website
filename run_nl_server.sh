@@ -31,4 +31,10 @@ if ! command -v uv &> /dev/null; then
   exit 1
 fi
 
+# Sync uv dependencies for the datacommons-website-server package
+if ! uv sync --project server; then
+  echo -e "${RED}Error: uv sync failed.${NC}"
+  exit 1
+fi
+
 uv run --project nl_server/ python3 nl_app.py $PORT $1

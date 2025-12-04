@@ -38,10 +38,10 @@ if [[ $(protoc --version) != *"3.21.12"* ]]; then
 fi
 
 # Sync uv dependencies for the datacommons-website-server package
-#if ! uv sync --project server; then
-#  echo -e "${RED}Error: uv sync failed.${NC}"
-#  exit 1
-#fi
+if ! uv sync --project server; then
+  echo -e "${RED}Error: uv sync failed.${NC}"
+  exit 1
+fi
 
 PORT=8080
 ENABLE_MODEL=false
