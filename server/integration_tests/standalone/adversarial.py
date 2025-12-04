@@ -26,7 +26,6 @@ import urllib.parse
 
 from absl import app
 from absl import flags
-from absl import flags
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -166,7 +165,7 @@ class StatsResult:
       self.llm_detection_type_counts[
           result.llm_detection_type] = self.llm_detection_type_counts.get(
               result.llm_detection_type, 0) + 1
-    
+
     if result.status in [ResultStatus.REQUEST_FAILED, ResultStatus.TIMED_OUT]:
       self.failed_results.append(result)
 
@@ -217,10 +216,9 @@ class ResultsFileWriter:
 
 
 def init_worker():
-  logging.basicConfig(
-      level=logging.INFO,
-      format='%(asctime)s %(levelname)s [Worker] %(message)s',
-      force=True)
+  logging.basicConfig(level=logging.INFO,
+                      format='%(asctime)s %(levelname)s [Worker] %(message)s',
+                      force=True)
 
 
 class AdversarialQueriesTest:
@@ -233,12 +231,10 @@ class AdversarialQueriesTest:
     self.session = self._get_session()
 
   def _get_session(self):
-    retry_strategy = Retry(
-        total=3,
-        backoff_factor=1,
-        status_forcelist=[500, 502, 503, 504],
-        allowed_methods=["POST"]
-    )
+    retry_strategy = Retry(total=3,
+                           backoff_factor=1,
+                           status_forcelist=[500, 502, 503, 504],
+                           allowed_methods=["POST"])
     adapter = HTTPAdapter(max_retries=retry_strategy)
     session = requests.Session()
     session.mount("https://", adapter)
@@ -485,7 +481,7 @@ def run_test():
     logging.info("=" * 40)
     logging.info("ADVERSARIAL TEST SUMMARY")
     logging.info("=" * 40)
-    
+
     total_tests = sum(stats.status_counts.values())
     failed_count = len(stats.failed_results)
     passed_count = total_tests - failed_count
@@ -499,7 +495,7 @@ def run_test():
       logging.info("FAILED TESTS:")
       for f in stats.failed_results:
         logging.info("  [%s] %s", f.status, f.query)
-    
+
     logging.info("=" * 40)
 
     if stats.status_counts[

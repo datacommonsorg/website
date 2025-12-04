@@ -262,7 +262,7 @@ class WebsiteSanityTest:
         # Wait 60 secs for charts container to load
         WebDriverWait(self.driver, 60).until(
             EC.presence_of_element_located((By.CLASS_NAME, "explore-charts")))
-        
+
         # Wait couple more seconds for subtopics (i.e. charts) to load
         subtopics = None
         try:
@@ -270,23 +270,26 @@ class WebsiteSanityTest:
               EC.presence_of_all_elements_located(
                   (By.CSS_SELECTOR, "section[class*='block subtopic']")))
         except Exception as e:
-          logging.info("No subtopics found (expected for non-place pages): %s", e)
+          logging.info("No subtopics found (expected for non-place pages): %s",
+                       e)
           pass
 
         # subtopics check
         if subtopics is None or len(subtopics) == 0:
-          logging.info("No subtopics found. This is expected for non-place pages.")
+          logging.info(
+              "No subtopics found. This is expected for non-place pages.")
           # Pass
           success = True
           break
-        
+
         if len(subtopics) == 1:
           map_element = find_elem(subtopics[0], By.CLASS_NAME, "map-container")
           if map_element:
             raise Exception("Placeholder map only, no charts.")
 
         # relavant topics parent
-        topics_parent = find_elem(self.driver, By.CLASS_NAME, "explore-topics-box")
+        topics_parent = find_elem(self.driver, By.CLASS_NAME,
+                                  "explore-topics-box")
         if topics_parent:
           topics = find_elems(topics_parent, By.TAG_NAME, "a")
           if topics is None or len(topics) == 0:
@@ -295,18 +298,20 @@ class WebsiteSanityTest:
                 start,
                 "Topics section with no relevant topics.",
             )
-        
+
         success = True
         break
 
       except Exception as e:
-        logging.warning("Attempt %d failed for %s: %s", attempt + 1, page.url, e)
+        logging.warning("Attempt %d failed for %s: %s", attempt + 1, page.url,
+                        e)
         if attempt == MAX_RETRIES - 1:
-          self.add_result(fail_result(
-              page,
-              start,
-              f"Failed after {MAX_RETRIES} attempts: {e}",
-          ))
+          self.add_result(
+              fail_result(
+                  page,
+                  start,
+                  f"Failed after {MAX_RETRIES} attempts: {e}",
+              ))
           return
 
     # Pass or Warning
@@ -375,10 +380,9 @@ def result_csv_columns() -> str:
 
 def worker(args):
   # Initialize logging for the worker process
-  logging.basicConfig(
-      level=logging.INFO,
-      format='%(asctime)s %(levelname)s [Worker] %(message)s',
-      force=True)
+  logging.basicConfig(level=logging.INFO,
+                      format='%(asctime)s %(levelname)s [Worker] %(message)s',
+                      force=True)
   mode, url, output_dir = args
   # Use /dev/null since we collect results in memory and write to main file at the end.
   results_file = os.devnull
@@ -459,13 +463,11 @@ def run_test():
     for res in all_results:
       writer.writerow(res.to_csv_row())
 
-
-
   # Print Summary
   logging.info("=" * 40)
   logging.info("SANITY TEST SUMMARY")
   logging.info("=" * 40)
-  
+
   passed = [r for r in all_results if r.status == "PASS"]
   failed = [r for r in all_results if r.status == "FAIL"]
   warnings = [r for r in all_results if r.status == "WARNING"]
@@ -480,7 +482,7 @@ def run_test():
     logging.info("FAILED TESTS:")
     for f in failed:
       logging.info("  [%s] %s (%s)", f.page_type, f.url, f.comments)
-  
+
   if warnings:
     logging.info("-" * 40)
     logging.info("WARNINGS:")
