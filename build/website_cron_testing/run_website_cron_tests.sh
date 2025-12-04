@@ -264,26 +264,37 @@ fi
 
 # Wait for Node.js
 if [[ -n "$NODEJS_PID" ]]; then
+  set +e
   wait "$NODEJS_PID"
-  if [[ $? -ne 0 ]]; then 
+  NODEJS_RC=$?
+  set -e
+  if [[ $NODEJS_RC -ne 0 ]]; then 
     echo "[NodeJS] FAILED"
     EXIT_STATUS=1
   fi
 fi
 
 # Wait for Sanity
+# Wait for Sanity
 if [[ -n "$SANITY_PID" ]]; then
+  set +e
   wait "$SANITY_PID"
-  if [[ $? -ne 0 ]]; then 
+  SANITY_RC=$?
+  set -e
+  if [[ $SANITY_RC -ne 0 ]]; then 
     echo "[Sanity] FAILED"
     EXIT_STATUS=1
   fi
 fi
 
 # Wait for Adversarial Main
+# Wait for Adversarial Main
 if [[ -n "$ADV_MAIN_PID" ]]; then
+  set +e
   wait "$ADV_MAIN_PID"
-  if [[ $? -ne 0 ]]; then 
+  ADV_MAIN_RC=$?
+  set -e
+  if [[ $ADV_MAIN_RC -ne 0 ]]; then 
     echo "[Adv-Main] FAILED"
     EXIT_STATUS=1
   fi
@@ -291,8 +302,11 @@ fi
 
 # Wait for Adversarial SDG
 if [[ -n "$ADV_SDG_PID" ]]; then
+  set +e
   wait "$ADV_SDG_PID"
-  if [[ $? -ne 0 ]]; then 
+  ADV_SDG_RC=$?
+  set -e
+  if [[ $ADV_SDG_RC -ne 0 ]]; then 
     echo "[Adv-SDG] FAILED"
     EXIT_STATUS=1
   fi

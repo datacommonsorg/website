@@ -26,7 +26,7 @@ serialPipeline:
           predeploy:
             actions: ["deploy-cloud-esp-autopush"]
           postdeploy:
-            actions: ["clear-website-cache"]
+            actions: ["clear-website-cache", "run-website-cron-tests-autopush"]
     - targetId: website-staging
       profiles: [website-staging]
       strategy:
@@ -34,7 +34,7 @@ serialPipeline:
           predeploy:
             actions: ["deploy-cloud-esp-staging"]
           postdeploy:
-            actions: ["clear-website-cache", "run-percy-snapshots"]
+            actions: ["clear-website-cache", "run-percy-snapshots", "run-website-cron-tests-staging"]
     - targetId: website-prod
       profiles: [website-prod]
       strategy:
@@ -42,7 +42,7 @@ serialPipeline:
           predeploy:
             actions: ["deploy-cloud-esp-prod"]
           postdeploy:
-            actions: ["clear-website-cache", "run-percy-snapshots"]
+            actions: ["clear-website-cache", "run-percy-snapshots", "run-website-cron-tests-prod"]
 
 ---
 
@@ -92,7 +92,7 @@ serialPipeline:
           predeploy:
             actions: ["deploy-cloud-esp-dev"]
           postdeploy:
-            actions: ["clear-website-cache", "verify-website-dev"]
+            actions: ["clear-website-cache", "run-website-cron-tests-dev"]
 
 ---
 

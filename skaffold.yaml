@@ -96,10 +96,10 @@ profiles:
               - "-c"
               - |
                 ./tools/clearcache/run.sh website dev
-      - name: verify-website-dev
+      - name: run-website-cron-tests-dev
         containers:
           - name: verifier
-            image: gcr.io/datcom-ci/website-cron-testing:dev-2c5fe1b
+            image: gcr.io/datcom-ci/website-cron-testing:dev-8c76048
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -202,6 +202,30 @@ profiles:
               - "-c"
               - |
                 ./tools/clearcache/run.sh website autopush
+      - name: run-website-cron-tests-autopush
+        containers:
+          - name: verifier
+            image: gcr.io/datcom-ci/website-cron-testing:dev-8c76048
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./run_website_cron_tests.sh
+            env:
+              - name: WEB_API_ROOT
+                value: "https://autopush.datacommons.org"
+              - name: NODEJS_API_ROOT
+                value: "https://autopush.datacommons.org"
+              - name: TESTING_ENV
+                value: "autopush"
+              - name: ENABLE_SANITY
+                value: "true"
+              - name: ENABLE_ADVERSARIAL
+                value: "true"
+              - name: ENABLE_ADVERSARIAL_SAMPLING
+                value: "true"
+              - name: ADVERSARIAL_SAMPLING_PERCENTAGE
+                value: "1"
     manifests:
       helm:
         releases:
@@ -305,6 +329,17 @@ profiles:
               - "-c"
               - |
                 gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=staging --project=datcom-ci
+      - name: run-website-cron-tests-staging
+        containers:
+          - name: verifier
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                gcloud builds submit --config build/website_cron_testing/cloudbuild.cron_tests.yaml \
+                  --substitutions=_WEB_API_ROOT="https://staging.datacommons.org",_NODEJS_API_ROOT="",_TESTING_ENV="staging",_ENABLE_SANITY="true",_ENABLE_ADVERSARIAL="true",_ENABLE_ADVERSARIAL_SAMPLING="false",_ADVERSARIAL_SAMPLING_PERCENTAGE="100" \
+                  --project=datcom-ci --async
     manifests:
       helm:
         releases:
@@ -438,6 +473,18 @@ profiles:
               - "-c"
               - |
                 gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=production --project=datcom-ci --async
+                  --project=datcom-ci --async
+      - name: run-website-cron-tests-prod
+        containers:
+          - name: verifier
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                gcloud builds submit --config build/website_cron_testing/cloudbuild.cron_tests.yaml \
+                  --substitutions=_WEB_API_ROOT="https://datacommons.org",_NODEJS_API_ROOT="",_TESTING_ENV="prod",_ENABLE_SANITY="true",_ENABLE_ADVERSARIAL="true",_ENABLE_ADVERSARIAL_SAMPLING="false",_ADVERSARIAL_SAMPLING_PERCENTAGE="100" \
+                  --project=datcom-ci --async
     manifests:
       helm:
         releases:

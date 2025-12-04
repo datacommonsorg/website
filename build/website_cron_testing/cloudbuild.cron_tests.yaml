@@ -1,5 +1,5 @@
 steps:
-- name: 'gcr.io/datcom-ci/website-cron-testing:dev-1ac974c'
+- name: 'gcr.io/datcom-ci/website-cron-testing:latest'
   entrypoint: '/bin/bash'
   args:
   - '-c'
