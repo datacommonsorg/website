@@ -20,18 +20,15 @@
 
 set -e
 
-function cleanup {
-  echo "Cleaning up before exit..."
-  deactivate
-  exit 1
-}
-trap cleanup SIGINT
-
-source .venv_nl/bin/activate
-
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export FLASK_ENV=local
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
-python3 nl_app.py $PORT $1
+# Ensure uv is installed
+if ! command -v uv &> /dev/null; then
+  echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
+  exit 1
+fi
+
+uv run --project nl_server/ python3 nl_app.py $PORT $1
