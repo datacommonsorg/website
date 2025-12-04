@@ -26,7 +26,10 @@ import urllib.parse
 
 from absl import app
 from absl import flags
+from absl import flags
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 FLAGS = flags.FLAGS
 
@@ -227,6 +230,20 @@ class AdversarialQueriesTest:
   def __init__(self, base_url: str, dc: str) -> None:
     self.base_url = base_url
     self.dc = dc
+    self.session = self._get_session()
+
+  def _get_session(self):
+    retry_strategy = Retry(
+        total=3,
+        backoff_factor=1,
+        status_forcelist=[500, 502, 503, 504],
+        allowed_methods=["POST"]
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session = requests.Session()
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
 
   def generate_reports(self, output_dir: str) -> None:
     reports_dir = os.path.join(output_dir, REPORTS_DIR)
@@ -333,7 +350,7 @@ class AdversarialQueriesTest:
 
     resp = None
     try:
-      resp = requests.post(
+      resp = self.session.post(
           self.base_url +
           f'/api/explore/detect-and-fulfill?q={query}&{_TEST_PARAM}',
           json={

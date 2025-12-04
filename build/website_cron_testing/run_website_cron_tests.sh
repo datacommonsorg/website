@@ -81,13 +81,14 @@ sample_input_files() {
     
     # Count total lines (excluding headers)
     local total_lines=$(awk 'FNR>1' "$input_dir"/*.tsv | wc -l)
-    local sample_size=$(( total_lines / 10 ))
+    local percentage=${ADVERSARIAL_SAMPLING_PERCENTAGE:-10}
+    local sample_size=$(( total_lines * percentage / 100 ))
     
     if [[ $sample_size -eq 0 ]]; then
        sample_size=1
     fi
     
-    echo "Total lines: $total_lines. Sampling: $sample_size"
+    echo "Total lines: $total_lines. Sampling $percentage%: $sample_size"
     
     # Sample and append to temp_sampled_file using portable shuffle (awk)
     
@@ -136,12 +137,12 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
     NODEJS_EXIT_CODE=$?
     set -e
     
+    gsutil cp ./output_nodejs/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
+    
     if [[ $NODEJS_EXIT_CODE -ne 0 ]]; then
       echo "Nodejs tests FAILED with exit code $NODEJS_EXIT_CODE"
       exit 1
     fi
-
-    gsutil cp ./output_nodejs/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
     
     failure_email="failure_email.json"
     
@@ -179,12 +180,12 @@ if [[ $ENABLE_SANITY == "true" ]]; then
     SANITY_EXIT_CODE=$?
     set -e
 
+    gsutil cp ./output_sanity/*.csv gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/sanity/
+
     if [[ $SANITY_EXIT_CODE -ne 0 ]]; then
       echo "Sanity tests FAILED with exit code $SANITY_EXIT_CODE"
       exit 1
     fi
-
-    gsutil cp ./output_sanity/*.csv gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/sanity/
     rm -rf ./output_sanity
     echo "Finished the sanity tests."
   ) 2>&1 | sed "s/^/[Sanity] /" &
@@ -212,12 +213,12 @@ if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
     EXIT_CODE=$?
     set -e
 
+    gsutil cp ./output_adv_main/main/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/main/
+
     if [[ $EXIT_CODE -ne 0 ]]; then
       echo "Adversarial tests for main FAILED with exit code $EXIT_CODE"
       exit 1
     fi
-
-    gsutil cp ./output_adv_main/main/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/main/
     rm -rf ./input_main
     rm -rf ./output_adv_main
     echo "Finished the Adversarial Test (main)."
@@ -244,12 +245,12 @@ if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
     EXIT_CODE=$?
     set -e
 
+    gsutil cp ./output_adv_sdg/sdg/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/sdg/
+
     if [[ $EXIT_CODE -ne 0 ]]; then
       echo "Adversarial tests for sdg FAILED with exit code $EXIT_CODE"
       exit 1
     fi
-
-    gsutil cp ./output_adv_sdg/sdg/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/sdg/
     rm -rf ./input_sdg
     rm -rf ./output_adv_sdg
     echo "Finished the Adversarial Test (sdg)."

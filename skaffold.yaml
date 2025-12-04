@@ -99,7 +99,7 @@ profiles:
       - name: verify-website-dev
         containers:
           - name: verifier
-            image: gcr.io/datcom-ci/website-cron-testing:dev-1ac974c
+            image: gcr.io/datcom-ci/website-cron-testing:dev-2c5fe1b
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -118,6 +118,8 @@ profiles:
                 value: "true"
               - name: ENABLE_ADVERSARIAL_SAMPLING
                 value: "true"
+              - name: ADVERSARIAL_SAMPLING_PERCENTAGE
+                value: "1"
     manifests:
       helm:
         releases:

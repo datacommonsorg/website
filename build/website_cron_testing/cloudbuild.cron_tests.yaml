@@ -1,0 +1,26 @@
+steps:
+- name: 'gcr.io/datcom-ci/website-cron-testing:dev-1ac974c'
+  entrypoint: '/bin/bash'
+  args:
+  - '-c'
+  - |
+    ./run_website_cron_tests.sh
+  env:
+  - 'WEB_API_ROOT=${_WEB_API_ROOT}'
+  - 'NODEJS_API_ROOT=${_NODEJS_API_ROOT}'
+  - 'TESTING_ENV=${_TESTING_ENV}'
+  - 'ENABLE_SANITY=${_ENABLE_SANITY}'
+  - 'ENABLE_ADVERSARIAL=${_ENABLE_ADVERSARIAL}'
+  - 'ENABLE_ADVERSARIAL_SAMPLING=${_ENABLE_ADVERSARIAL_SAMPLING}'
+  - 'ADVERSARIAL_SAMPLING_PERCENTAGE=${_ADVERSARIAL_SAMPLING_PERCENTAGE}'
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_32'
+substitutions:
+  _WEB_API_ROOT: "https://dev.datacommons.org"
+  _NODEJS_API_ROOT: ""
+  _TESTING_ENV: "dev"
+  _ENABLE_SANITY: "true"
+  _ENABLE_ADVERSARIAL: "true"
+  _ENABLE_ADVERSARIAL_SAMPLING: "true"
+  _ADVERSARIAL_SAMPLING_PERCENTAGE: "10"
