@@ -13,33 +13,27 @@
   },
   {
     "name": "data_overview",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Enables the data_overview/<place> routes."
   },
   {
-    "name": "enable_gemini_2_5_flash",
-    "enabled": true,
-    "owner": "shixiao",
-    "description": "Enabling Gemini 2.5 Flash for NL detection."
-  },
-  {
-    "name": "enable_gemini_2_5_flash_lite",
+    "name": "enable_chart_hyperlink",
     "enabled": false,
-    "owner": "shixiao",
-    "description": "Enabling Gemini 2.5 Flash Lite for NL detection."
-  },
-  {
-    "name": "enable_ranking_tile_scroll",
-    "enabled": true,
     "owner": "gmechali",
-    "description": "Enables scrolling through Ranking tile rows."
+    "description": "Adds the ability to deep link to bar charts, line charts, ranking and map charts"
   },
   {
     "name": "enable_nl_agent_detector",
     "enabled": false,
     "owner": "clincoln8",
     "description": "Enables detector=agent to be a valid detection mode for NL parsing."
+  },
+  {
+    "name": "enable_ranking_tile_scroll",
+    "enabled": true,
+    "owner": "gmechali",
+    "description": "Enables scrolling through ranking tile rows to show them all."
   },
   {
     "name": "enable_stat_var_autocomplete",
@@ -49,25 +43,25 @@
   },
   {
     "name": "explore_result_header",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Enables the display of an updated explore page results header."
   },
   {
     "name": "factcheck_redirect",
-    "enabled": false,
+    "enabled": true,
     "owner": "dwnoble",
     "description": "Feature flag to redirect the Fact Check page to the new ClaimReview page."
   },
   {
     "name": "follow_up_questions_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
   {
     "name": "metadata_modal",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
@@ -79,7 +73,7 @@
   },
   {
     "name": "standardized_vis_tool",
-    "enabled": false,
+    "enabled": true,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
@@ -88,11 +82,5 @@
     "enabled": true,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
-  },
-  {
-    "name": "vai_medium_relevance_threshold",
-    "enabled": false,
-    "owner": "alyssaguo",
-    "description": "Enables setting the relevance threshold to \"MEDIUM\" for Vertex AI stat var search application."
   }
 ]
