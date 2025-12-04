@@ -33,7 +33,7 @@
     "name": "enable_ranking_tile_scroll",
     "enabled": true,
     "owner": "gmechali",
-    "description": "Enables scrolling through Ranking tile rows."
+    "description": "Enables scrolling through ranking tile rows to show them all."
   },
   {
     "name": "enable_stat_var_autocomplete",

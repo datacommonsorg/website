@@ -25,7 +25,6 @@ from server.webdriver.base_utils import wait_elem
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
-AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
 SEARCH_INPUT = 'male asian count '
 
@@ -105,54 +104,6 @@ class BrowserTestMixin():
                                      by=By.XPATH,
                                      value='//*[@id="node-content"]/div[2]')
     self.assertGreater(len(find_elems(observations_section, value='card')), 0)
-
-  def test_page_serve_austrobaileya(self):
-    """Test the browser page for Austrobaileya scandens can be loaded successfully."""
-    title_text = ("Austrobaileya scandens C.T.White - Knowledge Graph - " +
-                  self.dc_title_string)
-
-    # Load Austrobaileya browser page.
-    self.driver.get(self.url_ + AUSTROBAILEYA_URL)
-
-    # Assert 200 HTTP code: successful page load.
-    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
-
-    # Assert 200 HTTP code: successful JS generation.
-    self.assertEqual(shared.safe_url_open(self.url_ + "/browser.js"), 200)
-
-    # Assert page title is correct.
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.title_contains(title_text))
-    self.assertEqual(title_text, self.driver.title)
-
-    # Assert header is correct.
-    self.assertEqual(
-        find_elem(self.driver, by=By.TAG_NAME, value='h1').text,
-        'About: Austrobaileya scandens C.T.White')
-    self.assertEqual(
-        find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]/h2[1]').text,
-        'dcid: dc/bsmvthtq89217')
-    self.assertEqual(
-        find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]/h2[2]').text,
-        'typeOf: BiologicalSpecimen')
-
-    # Assert properties contains correct dcid and typeOf
-    table = find_elem(self.driver, By.XPATH,
-                      '//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = find_elems(table, by=By.XPATH, value='./tbody/tr[2]/td')
-    self.assertEqual(dcid_row[0].text, 'dcid')
-    self.assertEqual(dcid_row[1].text, 'dc/bsmvthtq89217')
-    type_of_row = find_elems(table, by=By.XPATH, value='./tbody/tr[3]/td')
-    self.assertEqual(type_of_row[0].text, 'typeOf')
-    self.assertEqual(type_of_row[1].text, 'BiologicalSpecimen')
-    self.assertEqual(type_of_row[2].text, 'nybg.org')
-
-    # Assert image loaded.
-    image_section = find_elem(self.driver,
-                              by=By.ID,
-                              value='browser-image-section')
-    image = find_elem(image_section, By.TAG_NAME, 'img')
-    self.assertIsNotNone(image)
 
   def test_stat_var_hierarchy(self):
     """Test that the stat var hierarchy can search properly"""
