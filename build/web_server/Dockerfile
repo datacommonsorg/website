@@ -12,17 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.12-slim-bookworm
 
-# Install uv
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+FROM nikolaik/python-nodejs:python3.11-nodejs18-slim as base
 
-# Install git and nodejs/npm
-RUN apt-get update && apt-get install -y \
-  git \
-  nodejs \
-  npm \
-  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 
 ARG ENV
 ENV ENV=${ENV}
@@ -30,14 +23,11 @@ ENV ENV=${ENV}
 WORKDIR /workspace
 
 COPY web_app.py /workspace/web_app.py
-COPY server/pyproject.toml /workspace/server/pyproject.toml
-COPY server/uv.lock /workspace/server/uv.lock
-
-# Install dependencies
-WORKDIR /workspace/server
-RUN uv sync --frozen --project .
-
-WORKDIR /workspace
+COPY server/requirements.txt /workspace/server/requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+# --no-cache-dir removes ~/.cache files, which can be a few GB.
+RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
 COPY packages/web-components/package.json /workspace/packages/web-components/package.json
 COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
@@ -61,7 +51,6 @@ RUN npm run-script build
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 WORKDIR /workspace
-
 # The number of workers (8) is the number of requests that the app can support
 # at a time.
-CMD exec uv run --project server gunicorn --preload --timeout 1000 --bind :8080 -w 8 web_app:app
+CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 8 web_app:app
