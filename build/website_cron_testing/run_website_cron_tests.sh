@@ -262,6 +262,9 @@ fi
 # Wait for completion and collect results
 # -----------------------------------------------------------------------------
 
+# Initialize failure list
+FAILED_TESTS=""
+
 # Wait for Node.js
 if [[ -n "$NODEJS_PID" ]]; then
   set +e
@@ -271,10 +274,10 @@ if [[ -n "$NODEJS_PID" ]]; then
   if [[ $NODEJS_RC -ne 0 ]]; then 
     echo "[NodeJS] FAILED"
     EXIT_STATUS=1
+    FAILED_TESTS+="NodeJS "
   fi
 fi
 
-# Wait for Sanity
 # Wait for Sanity
 if [[ -n "$SANITY_PID" ]]; then
   set +e
@@ -284,10 +287,10 @@ if [[ -n "$SANITY_PID" ]]; then
   if [[ $SANITY_RC -ne 0 ]]; then 
     echo "[Sanity] FAILED"
     EXIT_STATUS=1
+    FAILED_TESTS+="Sanity "
   fi
 fi
 
-# Wait for Adversarial Main
 # Wait for Adversarial Main
 if [[ -n "$ADV_MAIN_PID" ]]; then
   set +e
@@ -297,6 +300,7 @@ if [[ -n "$ADV_MAIN_PID" ]]; then
   if [[ $ADV_MAIN_RC -ne 0 ]]; then 
     echo "[Adv-Main] FAILED"
     EXIT_STATUS=1
+    FAILED_TESTS+="Adv-Main "
   fi
 fi
 
@@ -309,11 +313,13 @@ if [[ -n "$ADV_SDG_PID" ]]; then
   if [[ $ADV_SDG_RC -ne 0 ]]; then 
     echo "[Adv-SDG] FAILED"
     EXIT_STATUS=1
+    FAILED_TESTS+="Adv-SDG "
   fi
 fi
 
 if [[ $EXIT_STATUS -ne 0 ]]; then
-  echo "One or more tests failed. Exiting with status 1."
+  echo "The following tests failed: $FAILED_TESTS"
+  echo "Exiting with status 1."
   exit 1
 fi
 
