@@ -27,8 +27,6 @@ set -e
 
 # ANSI color codes
 RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
 VERBOSE=false
@@ -100,12 +98,12 @@ WEB_PID=$!
 
 while true; do
   if ! ps -p $WEB_PID > /dev/null; then
-    echo "Website server exited early. Run with --verbose to debug."
+    echo "${RED}Website server exited early. Run with --verbose to debug.${NC}"
     exit 1
   fi
 
   if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
-    echo "NL server exited early. Run with --verbose to debug."
+    echo "${RED}NL server exited early. Run with --verbose to debug.${NC}"
     exit 1
   fi
 
