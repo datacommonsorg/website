@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import pytest
+import time
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -417,7 +418,9 @@ class ExplorePageTestMixin():
     pop_block = find_elem(self.driver, By.CLASS_NAME, 'block')
     self.assertIsNotNone(pop_block, "Highlight chart not found")
 
-    facet_button = find_elem(pop_block, By.CLASS_NAME,
+    # sleep for 5 seconds:
+    time.sleep(5)
+    facet_button = find_elem(self.driver, By.CLASS_NAME,
                              'source-selector-open-modal-button')
     self.assertIsNotNone(facet_button, "Facet selector button not found")
     facet_button.click()
@@ -466,7 +469,7 @@ class ExplorePageTestMixin():
     self.assertIsNotNone(pop_block_new,
                          "Highlight chart not found in new window")
 
-    facet_button_new = find_elem(pop_block_new, By.CLASS_NAME,
+    facet_button_new = find_elem(self.driver, By.CLASS_NAME,
                                  'source-selector-open-modal-button')
     self.assertIsNotNone(facet_button_new,
                          "Facet selector button not found in new window")
