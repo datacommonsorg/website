@@ -31,5 +31,6 @@ steps:
     args:
       - -c
       - |
+        pip install uv
         ./run_test.sh --setup_python
         ./run_test.sh -p
