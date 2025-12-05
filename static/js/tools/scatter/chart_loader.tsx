@@ -211,6 +211,11 @@ export function ChartLoader(): ReactElement {
    * @returns A promise that resolves to chart CSV data.
    */
   const getDataCsv = useCallback(async (): Promise<string> => {
+    // Assume both variables will have the same date
+    /*
+     TODO (nick-next): Update getDataCsv to handle different dates for different variables
+        see also scatter_tile.tsx.
+     */
     if (
       currentStatVarSpecs.length === 0 ||
       !place.value.enclosingPlace.dcid ||
