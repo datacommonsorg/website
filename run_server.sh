@@ -46,8 +46,8 @@ fi
 
 # Ensure website venv is present and activated
 if [ ! -d "server/.venv" ]; then
-  echo -e "${RED}Error: server/.venv directory not found. Please run './run_test.sh --setup_website' first.${NC}"
-  exit 1
+  echo -e "${YELLOW}Error: server/.venv directory not found. Running './run_test.sh --setup_website'.${NC}"
+  ./run_test.sh --setup_website
 fi
 source server/.venv/bin/activate
 

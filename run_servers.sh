@@ -15,7 +15,7 @@
 
 # Runs both NL and website servers.
 #
-# - Assumes that ./run_test.sh -b and ./run_test.sh --setup_python
+# - Assumes that ./run_test.sh -b and ./run_test.sh --setup_all
 #   have already been run, and that environment variables
 #   (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
 # - Both servers use different ports than the development server defaults:
@@ -40,12 +40,12 @@ export ENABLE_MODEL="${ENABLE_MODEL:-true}"
 
 # Check for virtual environments
 if [ ! -d "nl_server/.venv" ]; then
-  echo -e "${RED}Error: nl_server/.venv directory not found. Please run './run_test.sh --setup_nl' first.${NC}"
-  exit 1
+  echo "${YELLOW}nl_server/.venv directory not found. Running './run_test.sh --setup_nl'.${NC}"
+  ./run_test.sh --setup_nl
 fi
 if [ ! -d "server/.venv" ]; then
-  echo -e "${RED}Error: server/.venv directory not found. Please run './run_test.sh --setup_website' first.${NC}"
-  exit 1
+  echo "${YELLOW}server/.venv directory not found. Running './run_test.sh --setup_website'.${NC}"
+  ./run_test.sh --setup_website
 fi
 
 echo "FLASK_ENV=$FLASK_ENV"

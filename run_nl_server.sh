@@ -20,6 +20,10 @@
 
 set -e
 
+# ANSI color codes
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
 function cleanup {
   echo "Cleaning up before exit..."
   deactivate
@@ -28,8 +32,8 @@ function cleanup {
 trap cleanup SIGINT
 
 if [ ! -d "nl_server/.venv" ]; then
-  echo -e "${RED}Error: nl_server/.venv directory not found. Please run './run_test.sh --setup_nl' first.${NC}"
-  exit 1
+  echo -e "${YELLOW}Error: nl_server/.venv directory not found. Running './run_test.sh --setup_nl'.${NC}"
+  ./run_test.sh --setup_nl
 fi
 source nl_server/.venv/bin/activate
 
