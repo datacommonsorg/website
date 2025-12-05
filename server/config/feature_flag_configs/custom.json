@@ -61,7 +61,7 @@
   },
   {
     "name": "metadata_modal",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
