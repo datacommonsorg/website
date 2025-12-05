@@ -537,8 +537,8 @@ def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
 def query(query_string):
   # Get the API Key and perform the POST request.
   logging.info("[ Mixer Request ]: \n" + query_string)
-  url = get_service_url("/v1/query")
-  resp = post(url, {"sparql": query_string})
+  url = get_service_url("/v2/sparql")
+  resp = post(url, {"query": query_string})
   return resp["header"], resp.get("rows", [])
 
 
@@ -597,14 +597,6 @@ def filter_statvars(stat_vars, entities):
           "entities": entities,
       },
   )
-
-
-def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
-  req = {"node": dcid, "category": category, "seed": seed}
-  if new_stat_vars:
-    req["newStatVars"] = new_stat_vars
-  url = get_service_url("/v1/internal/page/place")
-  return post(url, req)
 
 
 def safe_obs_point(entities, variables, date='LATEST'):
