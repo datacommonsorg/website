@@ -115,12 +115,12 @@ function ensure_cdc_test_env_file {
   local project_id="${GOOGLE_CLOUD_PROJECT:-datcom-website-dev}"
 
   if [[ -z "$cdc_env_file_path" ]]; then
-    echo "Error: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file."
+    echo "${RED}Error: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file.${NC}"
     exit 1
   fi
 
   if [ ! -f "$cdc_env_file_path" ]; then
-    echo "File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager..."
+    echo "${YELLOW}File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager...${NC}"
     echo "Secret: $secret_name, Project: $project_id"
 
     # Ensure the target directory exists
@@ -128,9 +128,9 @@ function ensure_cdc_test_env_file {
 
     # Fetch the secret
     if gcloud secrets versions access latest --secret="$secret_name" --project="$project_id" > "$cdc_env_file_path"; then
-      echo "Successfully fetched $cdc_env_file_path from GCP Secret Manager."
+      echo "${GREEN}Successfully fetched $cdc_env_file_path from GCP Secret Manager.${NC}"
     else
-      echo "Error: Failed to fetch $secret_name from GCP Secret Manager for project $project_id."
+      echo "${RED}Error: Failed to fetch $secret_name from GCP Secret Manager for project $project_id.${NC}"
       rm -f "$cdc_env_file_path" # Clean up potentially empty/partial file
       exit 1
     fi
@@ -154,7 +154,7 @@ function run_npm_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
-    echo "Fix lint errors by running ./run_test.sh -f"
+    echo "${YELLOW}Fix lint errors by running ./run_test.sh -f${NC}"
     exit 1
   fi
   cd ..
@@ -276,12 +276,12 @@ function run_py_test {
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
-    echo "Fix Python lint errors by running ./run_test.sh -f"
+    echo "${YELLOW}Fix Python lint errors by running ./run_test.sh -f${NC}"
     exit 1
   fi
 
   if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
-    echo "Fix Python import sort orders by running ./run_test.sh -f"
+    echo "${YELLOW}Fix Python import sort orders by running ./run_test.sh -f${NC}"
     exit 1
   fi
   deactivate
@@ -291,7 +291,7 @@ function run_py_test {
 function run_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    echo "${YELLOW}no dist folder, please run ./run_test.sh -b to build js first.${NC}"
     exit 1
   fi
   export FLASK_ENV=webdriver
@@ -316,7 +316,7 @@ function run_webdriver_test {
 function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    echo "${YELLOW}no dist folder, please run ./run_test.sh -b to build js first.${NC}"
     exit 1
   fi
   export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
