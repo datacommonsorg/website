@@ -51,6 +51,8 @@ interface ChartTileContainerProp {
   facets?: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -129,6 +131,7 @@ export function ChartTileContainer(
               facets={props.facets}
               statVarToFacets={props.statVarToFacets}
               statVarSpecs={props.statVarSpecs}
+              statVarDateRanges={props.statVarDateRanges}
               surface={props.surface}
             />
           )}
@@ -158,6 +161,7 @@ export function ChartTileContainer(
           statVarSpecs={props.statVarSpecs}
           facets={props.facets}
           statVarToFacets={props.statVarToFacets}
+          statVarDateRanges={props.statVarDateRanges}
           apiRoot={props.apiRoot}
         />
       )}
