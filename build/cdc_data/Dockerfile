@@ -52,10 +52,10 @@ ENV PATH="/workspace/venv/bin:$PATH"
 # Install embeddings importer requirements.
 RUN pip3 install -r ./import/simple/requirements.txt
 
-# Install data requirements.\
+# Install data requirements.
 # Force install CPU version of torch
-RUN pip3 install -r ./torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu
-RUN pip3 install -r ./tools/nl/embeddings/requirements.txt
+RUN pip3 install -r ./torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
+    && pip3 install -r ./tools/nl/embeddings/requirements.txt
 
 # Copy the embeddings builder module.
 COPY tools/nl/embeddings/. ./tools/nl/embeddings/

@@ -33,7 +33,7 @@ function setup_website_python {
   source .venv_website/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
-  pip3 install torch==$(grep '^torch==' torch_requirements.txt | cut -d'=' -f3) --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   deactivate
 }
 

@@ -36,9 +36,9 @@ COPY torch_requirements.txt /app/torch_requirements.txt
 # Create the python virtual environment and install dependencies
 RUN python3 -m venv /app/.venv
 # RUN /app/.venv/bin/pip install --upgrade pip setuptools wheel
-RUN /app/.venv/bin/pip install -r /app/server/requirements.txt
-RUN /app/.venv/bin/pip install -r /app/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu
-RUN /app/.venv/bin/pip install -r /app/nl_server/requirements.txt
+RUN /app/.venv/bin/pip install -r /app/server/requirements.txt \
+    && /app/.venv/bin/pip install -r /app/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
+    && /app/.venv/bin/pip install -r /app/nl_server/requirements.txt
 
 # Copy source files to the container
 COPY nl_server/. /app/nl_server/
