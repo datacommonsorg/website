@@ -60,11 +60,11 @@ if [[ ! -f "$ADVERSARIAL_SCRIPT" && -f "server/integration_tests/standalone/adve
   SEND_EMAIL_SCRIPT="tools/send_email/send_email.py"
 fi
 
-# Function to sample 10% of queries if in autopush
+# Function to sample the specified % of queries in the specified environment
 sample_input_files() {
   local input_dir=$1
   if [[ "$ENABLE_ADVERSARIAL_SAMPLING" == "true" ]]; then
-    echo "Sampling 10% of queries in $input_dir (ENABLE_ADVERSARIAL_SAMPLING=true)..."
+    echo "Sampling ${ADVERSARIAL_SAMPLING_PERCENTAGE}% of queries in $input_dir (ENABLE_ADVERSARIAL_SAMPLING=true)..."
     
     # Create temp file for sampled data to avoid reading it back
     local temp_sampled_file="$input_dir/sampled.tmp"
