@@ -11,14 +11,20 @@ exports[`Single place and single stat var 1`] = `
     </div>
     <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
-  <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\">
-      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/\\">census.gov</a></span></span></div>
-      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusACS5yrSurvey</span></div>
+  <div class=\\"chart-footer-container no-bottom-border css-bq95un\\">
+    <div class=\\"chart-footer-metadata-section css-f32tc2\\">
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
+      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/\\">census.gov</a></span></p>
+      <p class=\\"css-8z25eu\\">Measurement method: CensusACS5yrSurvey</p>
     </div>
-    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
+    <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
 </div>"
 `;
 
@@ -33,14 +39,20 @@ exports[`Single place and single stat var 2`] = `
     </div>
     <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
-  <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\">
-      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
-      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
+  <div class=\\"chart-footer-container no-bottom-border css-bq95un\\">
+    <div class=\\"chart-footer-metadata-section css-f32tc2\\">
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
+      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></p>
+      <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
     </div>
-    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
+    <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
 </div>
 <div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
@@ -52,14 +64,20 @@ exports[`Single place and single stat var 2`] = `
     </div>
     <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
-  <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\">
-      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/\\">census.gov</a></span></span></div>
-      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusACS5yrSurvey</span></div>
+  <div class=\\"chart-footer-container no-bottom-border css-bq95un\\">
+    <div class=\\"chart-footer-metadata-section css-f32tc2\\">
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
+      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/\\">census.gov</a></span></p>
+      <p class=\\"css-8z25eu\\">Measurement method: CensusACS5yrSurvey</p>
     </div>
-    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
+    <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
 </div>"
 `;
 
@@ -74,14 +92,20 @@ exports[`Single place and single stat var 3`] = `
     </div>
     <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
-  <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\">
-      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
-      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
+  <div class=\\"chart-footer-container no-bottom-border css-bq95un\\">
+    <div class=\\"chart-footer-metadata-section css-f32tc2\\">
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
+      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></p>
+      <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
     </div>
-    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
+    <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
 </div>"
 `;
 
@@ -123,27 +147,7 @@ exports[`Single place and single stat var 4`] = `
 </div>"
 `;
 
-exports[`chart options 1`] = `
-"<div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
-  </div>
-  <div class=\\"card\\">
-    <div class=\\"statVarChipRegion\\">
-      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
-    </div>
-    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  </div>
-  <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\">
-      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
-      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
-    </div>
-    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
-  </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
-</div>"
-`;
+exports[`chart options 1`] = `""`;
 
 exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
@@ -156,14 +160,20 @@ exports[`statVar not in PV-tree 1`] = `
     </div>
     <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
-  <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\">
-      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
-      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
+  <div class=\\"chart-footer-container no-bottom-border css-bq95un\\">
+    <div class=\\"chart-footer-metadata-section css-f32tc2\\">
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
+      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
+      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></p>
+      <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
     </div>
-    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
+    <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
 </div>"
 `;
 
