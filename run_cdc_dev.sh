@@ -24,6 +24,10 @@
 
 set -e
 
+# ANSI color codes
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
 VERBOSE=false
 if [[ "$1" == "--verbose" ]]; then
   VERBOSE=true
@@ -62,16 +66,6 @@ if lsof -i :8081 > /dev/null 2>&1; then
 fi
 if lsof -i :12345 > /dev/null 2>&1; then
   echo "Port 12345 (for mixer) is already in use. Please stop the process using that port."
-  exit 1
-fi
-
-# If .venv_website or .venv_nl folder doesn't exist, print an error and exit
-if [ ! -d ".venv_website" ]; then
-  echo "Error: .venv_website not found. Please run ./run_test.sh --setup_website first."
-  exit 1
-fi
-if [ ! -d ".venv_nl" ]; then
-  echo "Error: .venv_nl not found. Please run ./run_test.sh --setup_nl first."
   exit 1
 fi
 
@@ -176,7 +170,11 @@ cd ..
 # Start NL server.
 NL_PID=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-  source .venv_nl/bin/activate
+  if [ ! -d "nl_server/.venv" ]; then
+    echo -e "${YELLOW}NOTICE: nl_server/.venv directory not found. Running './run_test.sh --setup_nl'.${NC}"
+    ./run_test.sh --setup_nl
+  fi
+  source nl_server/.venv/bin/activate
   echo "Starting NL Server..."
   nl_command="python3 nl_app.py 6060"
   if [[ "$VERBOSE" == "true" ]]; then
@@ -190,7 +188,12 @@ else
   echo "$ENABLE_MODEL is not true, NL server will not be started."
 fi
 
-source .venv_website/bin/activate
+# Start Website server.
+if [ ! -d "server/.venv" ]; then
+  echo -e "${YELLOW}NOTICE: server/.venv directory not found. Running './run_test.sh --setup_website'.${NC}"
+  ./run_test.sh --setup_website
+fi
+source server/.venv/bin/activate
 echo "Starting Website Server..."
 website_command="python3 web_app.py 8080"
 if [[ "$VERBOSE" == "true" ]]; then

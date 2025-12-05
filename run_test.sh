@@ -16,6 +16,12 @@
 
 set -e
 
+# ANSI Color Codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
 function setup_python {
   python3 -m venv .venv
   source .venv/bin/activate
@@ -28,8 +34,8 @@ function setup_python {
 }
 
 function setup_website_python {
-  python3 -m venv .venv_website
-  source .venv_website/bin/activate
+  python3 -m venv server/.venv
+  source server/.venv/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
@@ -37,11 +43,27 @@ function setup_website_python {
 }
 
 function setup_nl_python {
-  python3 -m venv .venv_nl
-  source .venv_nl/bin/activate
+  python3 -m venv nl_server/.venv
+  source nl_server/.venv/bin/activate
   echo "installing nl_server/requirements.txt"
   pip3 install -r nl_server/requirements.txt -q
   deactivate
+}
+
+# Assert that website python is set up. If not, set it up.
+function assert_website_python {
+  if [[ ! -d server/.venv ]]; then
+    echo "${YELLOW}NOTICE: server/.venv does not exist. Setting up website python virtual environment...${NC}"
+    setup_website_python
+  fi
+}
+
+# Assert that NL python is set up. If not, set it up.
+function assert_nl_python {
+  if [[ ! -d nl_server/.venv ]]; then
+    echo "${YELLOW}NOTICE: nl_server/.venv does not exist. Setting up NL python virtual environment...${NC}"
+    setup_nl_python
+  fi
 }
 
 # Start website and NL servers in a subprocess and ensure they are stopped
@@ -171,7 +193,8 @@ function run_lint_fix {
     (
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
-      source .venv/bin/activate
+      assert_website_python
+      source server/.venv/bin/activate # Note: using server virtual environment for linting
       pip3 install yapf==0.40.2 isort -q
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
       isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
@@ -235,19 +258,26 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   # Run server pytest.
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   python3 -m pytest -n auto shared/tests/ -s ${@}
   python3 -m pytest nl_server/tests/ -s ${@}
+  deactivate
 
   # Tests within tools/nl/embeddings
+  assert_nl_python
+  source nl_server/.venv/bin/activate
   echo "Running tests within tools/nl/embeddings:"
   pip3 install -r tools/nl/embeddings/requirements.txt -q
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
+  deactivate
 
+  # Check Python style using server virtual environment
+  source server/.venv/bin/activate
   pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
@@ -279,7 +309,8 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
@@ -304,11 +335,12 @@ function run_cdc_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
+  assert_website_python
   start_servers "cdc"
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  source .venv/bin/activate
+  source server/.venv/bin/activate
   local rerun_options=""
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     rerun_options=""
@@ -327,7 +359,8 @@ function run_cdc_webdriver_test {
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export DC_API_KEY=
@@ -346,7 +379,8 @@ function run_integration_test {
 }
 
 function update_integration_test_golden {
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
