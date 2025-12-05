@@ -599,14 +599,6 @@ def filter_statvars(stat_vars, entities):
   )
 
 
-def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
-  req = {"node": dcid, "category": category, "seed": seed}
-  if new_stat_vars:
-    req["newStatVars"] = new_stat_vars
-  url = get_service_url("/v1/internal/page/place")
-  return post(url, req)
-
-
 def safe_obs_point(entities, variables, date='LATEST'):
   """
     Calls obs_point with error handling.
