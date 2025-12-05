@@ -63,6 +63,25 @@ import { getMetahash, setChartOption, setMetahash } from "./util";
 
 const CHART_HEIGHT = 300;
 
+/**
+ * This function finds the first available facet ID across all places for a given accessor function.
+ * @param places - Array of place identifiers we need to search through
+ * @param getFacetForPlace - Function that returns the facet ID for a given place, or undefined
+ * @returns The first found facet ID, or undefined if none found
+ */
+function findFirstAvailableFacet(
+  places: string[],
+  getFacetForPlace: (place: string) => string | undefined
+): string | undefined {
+  for (const place of places) {
+    const facetId = getFacetForPlace(place);
+    if (facetId) {
+      return facetId;
+    }
+  }
+  return undefined;
+}
+
 interface ChartPropsType {
   chartId: string; // id used for this chart
   placeNameMap: Record<string, string>; // Place dcid to name mapping.
@@ -158,10 +177,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const embedStatVarSpecs: StatVarSpec[] = [];
     const embedStatVarToFacets: StatVarFacetMap = {};
     if (this.state.isDataLoaded) {
-      const firstPlace = Object.keys(this.props.placeNameMap)[0];
+      const places = Object.keys(this.props.placeNameMap);
       for (const svDcid in this.props.statVarInfos) {
         const svInfo = this.props.statVarInfos[svDcid];
-        const facetId = this.state.statData.data[svDcid][firstPlace]?.facet;
+        const facetId = findFirstAvailableFacet(
+          places,
+          (place) => this.state.statData.data[svDcid]?.[place]?.facet
+        );
         embedStatVarSpecs.push({
           statVar: svDcid,
           name: svInfo.title,
@@ -177,9 +199,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
       // Get the denom for ChartEmbed
       if (this.props.pc && this.props.denom) {
-        const denomFacetId =
-          this.state.rawData.statAllData[this.props.denom]?.[firstPlace]?.[0]
-            .facet;
+        const denomFacetId = findFirstAvailableFacet(
+          places,
+          (place) =>
+            this.state.rawData.statAllData[this.props.denom]?.[place]?.[0]
+              ?.facet
+        );
         if (denomFacetId) {
           embedStatVarToFacets[this.props.denom] = new Set([denomFacetId]);
         }
