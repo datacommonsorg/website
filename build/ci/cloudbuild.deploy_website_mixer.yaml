@@ -57,17 +57,23 @@ steps:
         echo "Found latest website image hash: $website_githash"
 
         # 2. DETERMINE MIXER IMAGE HASH
-        echo "Fetching latest mixer image hash..."
-        mixer_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
-          --project=datcom-ci \
-          --filter="NOT tags ~ ^dev-" --sort-by=~TIMESTAMP --limit=1 \
-          --format='get(tags)' | tr ';' '\n' | grep -E '^[0-9a-f]{7,40}$' | head -n 1)"
+        echo "Fetching mixer image hash from submodule..."
+        cd mixer
+        mixer_githash="$(git rev-parse HEAD)"
+        cd ..
 
         if [[ -z "$mixer_githash" ]]; then
-          echo "ERROR: Could not determine the mixer image hash from Artifact Registry. Exiting."
+          echo "ERROR: Could not determine the mixer image hash from submodule. Exiting."
           exit 1
         fi
-        echo "Found latest mixer image hash: $mixer_githash"
+        echo "Found mixer submodule hash: $mixer_githash"
+
+        # Verify that the image exists
+        echo "Verifying mixer image existence for hash: $mixer_githash"
+        if ! gcloud container images describe "us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$mixer_githash" --project=datcom-ci > /dev/null 2>&1; then
+          echo "ERROR: Mixer image for hash $mixer_githash not found in Artifact Registry. Exiting."
+          exit 1
+        fi
 
         # 3. CREATE DEPLOYMENT RELEASE
         # Use a timestamp for a consistently unique release name.
