@@ -34,7 +34,6 @@ steps:
     args:
       - -c
       - |
-        pip install uv
         ./run_test.sh --setup_all
 
   # Run the webdriver tests

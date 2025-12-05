@@ -44,7 +44,6 @@ steps:
       python3 -m venv .venv
       source .venv/bin/activate
       pip install --upgrade pip
-      pip install uv
 
       echo "Installing Python and NL dependencies..."
       ./run_test.sh --setup_python
