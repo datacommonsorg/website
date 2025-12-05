@@ -194,8 +194,8 @@ function run_lint_fix {
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
       assert_website_python
-      source server/.venv/bin/activate # Note: using server virtual environment for linting
-      pip3 install yapf==0.40.2 isort -q
+      source server/.venv/bin/activate
+      pip3 install yapf==0.40.2 isort==5.10.0 -q -i https://pypi.org/simple
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
       isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
       deactivate
@@ -277,11 +277,14 @@ function run_py_test {
   deactivate
 
   # Check Python style using server virtual environment
-  source server/.venv/bin/activate
-  pip3 install yapf==0.40.2 -q
+  source nl_server/.venv/bin/activate
+  if ! command v yapf &> /dev/null
+  then
+    pip3 install yapf==0.40.2 -q -i https://pypi.org/simple
+  fi
   if ! command -v isort &> /dev/null
   then
-    pip3 install isort -q
+    pip3 install isort==5.12.0 -q -i https://pypi.org/simple
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
