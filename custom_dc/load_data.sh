@@ -74,12 +74,15 @@ function setup_python {
 
     # Setup python for building NL embeddings
     embeddings_req="$WEBSITE_DIR/tools/nl/embeddings/requirements.txt"
-    if [[ -f "$embeddings_req" ]]; then
+    torch_req="$WEBSITE_DIR/torch_requirements.txt"
+    if [[ -f "$embeddings_req" && -f "$torch_req" ]]; then
       echo_log "Installing Pytorch"
       run_cmd python -m pip install --upgrade pip
-      echo_log "Installing Python requirements from $embeddings_req"
-      run_cmd pip3 install -r "$embeddings_req" --extra-index-url \
+      echo_log "Installing Python Troch requirements from $torch_req"
+      run_cmd pip3 install -r "$torch_req" --index-url \
         "https://download.pytorch.org/whl/cpu"
+      echo_log "Installing Python requirements from $embeddings_req"
+      run_cmd pip3 install -r "$embeddings_req"
     fi
   fi
 }
