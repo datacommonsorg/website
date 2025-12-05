@@ -430,25 +430,17 @@ class ExplorePageTestMixin():
 
     wiki_label = find_elem(self.driver, By.XPATH,
                            f"//label[contains(., '{import_name}')]")
-    self.assertIsNotNone(wiki_label, f"{import_name} option not found")
-
     wiki_input = find_elem(wiki_label, By.TAG_NAME, 'input')
-    self.assertIsNotNone(wiki_input, f"{import_name} input not found")
     wiki_input.click()
 
     update_button = find_elem(self.driver, By.CLASS_NAME,
                               'source-selector-update-source-button')
-    self.assertIsNotNone(update_button, "Update button not found")
     update_button.click()
 
     shared.wait_for_loading(self.driver)
 
     hyperlink_btn = find_elem(pop_block, By.CLASS_NAME, 'custom-link-outlink')
-    self.assertIsNotNone(hyperlink_btn,
-                         "Hyperlink button not found after facet change")
-
     hyperlink_href = hyperlink_btn.get_attribute('href')
-    self.assertIsNotNone(hyperlink_href, "Hyperlink href not found")
 
     expected_href_params = {
         "chartType": "TIMELINE_WITH_HIGHLIGHT",
@@ -466,13 +458,8 @@ class ExplorePageTestMixin():
     self._assert_url_params(self.driver.current_url, expected_href_params)
 
     pop_block_new = find_elem(self.driver, By.CLASS_NAME, 'block')
-    self.assertIsNotNone(pop_block_new,
-                         "Highlight chart not found in new window")
-
     facet_button_new = find_elem(self.driver, By.CLASS_NAME,
                                  'source-selector-open-modal-button')
-    self.assertIsNotNone(facet_button_new,
-                         "Facet selector button not found in new window")
     facet_button_new.click()
 
     shared.wait_elem(self.driver, By.CLASS_NAME,
@@ -480,12 +467,7 @@ class ExplorePageTestMixin():
 
     wiki_label_new = find_elem(self.driver, By.XPATH,
                                f"//label[contains(., '{import_name}')]")
-    self.assertIsNotNone(wiki_label_new,
-                         f"{import_name} option not found in new window")
-
     wiki_input_new = find_elem(wiki_label_new, By.TAG_NAME, 'input')
-    self.assertIsNotNone(wiki_input_new,
-                         f"{import_name} input not found in new window")
     self.assertTrue(wiki_input_new.is_selected(),
                     f"{import_name} should be selected in new window")
 
