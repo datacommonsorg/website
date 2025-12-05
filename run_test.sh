@@ -18,8 +18,9 @@ set -e
 
 # ANSI Color Codes
 RED='\033[0;31m'
+GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
-NC='\033[0m'
+NC='\033[0m' # No Color
 
 function setup_python {
   python3 -m venv .venv
@@ -101,7 +102,7 @@ function start_servers() {
   # don't pass, but this is quicker if the servers fail to start up immediately.
   sleep "$startup_wait_sec"
   if ! ps -p $SERVERS_PID > /dev/null; then
-    echo "Server script not running after $startup_wait_sec seconds."
+    echo -e "${RED}ERROR: Server script not running after $startup_wait_sec seconds.${NC}"
     exit 1
   fi
 }
@@ -122,12 +123,12 @@ function ensure_cdc_test_env_file {
   local project_id="${GOOGLE_CLOUD_PROJECT:-datcom-website-dev}"
 
   if [[ -z "$cdc_env_file_path" ]]; then
-    echo "Error: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file."
+    echo -e "${RED}ERROR: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file.${NC}"
     exit 1
   fi
 
   if [ ! -f "$cdc_env_file_path" ]; then
-    echo "File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager..."
+    echo -e "${YELLOW}NOTICE: File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager...${NC}"
     echo "Secret: $secret_name, Project: $project_id"
 
     # Ensure the target directory exists
@@ -135,9 +136,9 @@ function ensure_cdc_test_env_file {
 
     # Fetch the secret
     if gcloud secrets versions access latest --secret="$secret_name" --project="$project_id" > "$cdc_env_file_path"; then
-      echo "Successfully fetched $cdc_env_file_path from GCP Secret Manager."
+      echo -e "${GREEN}Successfully fetched $cdc_env_file_path from GCP Secret Manager.${NC}"
     else
-      echo "Error: Failed to fetch $secret_name from GCP Secret Manager for project $project_id."
+      echo -e "${RED}ERROR: Failed to fetch $secret_name from GCP Secret Manager for project $project_id.${NC}"
       rm -f "$cdc_env_file_path" # Clean up potentially empty/partial file
       exit 1
     fi
@@ -161,7 +162,7 @@ function run_npm_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
-    echo "Fix lint errors by running ./run_test.sh -f"
+    echo -e "${RED}ERROR: Fix lint errors by running ./run_test.sh -f${NC}"
     exit 1
   fi
   cd ..
@@ -203,7 +204,7 @@ function run_lint_fix {
 
   # Validate that at most one argument is provided.
   if [[ $# -gt 1 ]]; then
-    echo "Error: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'" >&2
+    echo -e "${RED}ERROR: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'${NC}" >&2
     return 1
   fi
 
@@ -223,7 +224,7 @@ function run_lint_fix {
       run_py_fix
       ;;
     *)
-      echo "Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'." >&2
+      echo -e "${RED}ERROR: Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'.${NC}" >&2
       return 1
       ;;
   esac
@@ -284,12 +285,12 @@ function run_py_test {
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
-    echo "Fix Python lint errors by running ./run_test.sh -f"
+    echo -e "${RED}ERROR: Fix Python lint errors by running ./run_test.sh -f${NC}"
     exit 1
   fi
 
   if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
-    echo "Fix Python import sort orders by running ./run_test.sh -f"
+    echo -e "${RED}ERROR: Fix Python import sort orders by running ./run_test.sh -f${NC}"
     exit 1
   fi
   deactivate
@@ -299,7 +300,7 @@ function run_py_test {
 function run_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    echo -e "${RED}ERROR: no dist folder, please run ./run_test.sh -b to build js first.${NC}"
     exit 1
   fi
   export FLASK_ENV=webdriver
@@ -325,7 +326,7 @@ function run_webdriver_test {
 function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    echo -e "${RED}ERROR: no dist folder, please run ./run_test.sh -b to build js first.${NC}"
     exit 1
   fi
   export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
