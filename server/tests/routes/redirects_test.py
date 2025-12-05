@@ -50,5 +50,4 @@ class TestRedirects(unittest.TestCase):
     # Test that http request with X-Forwarded-Proto: http redirects to https
     response = app.test_client().get('/path?query=param', headers={'X-Forwarded-Proto': 'http'}, follow_redirects=False)
     assert response.status_code == 301
-    assert response.location.startswith('https://')
-    assert response.location.endswith('/path?query=param')
+    assert response.location == 'https://localhost/path?query=param'
