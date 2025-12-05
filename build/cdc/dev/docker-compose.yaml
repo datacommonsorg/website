@@ -116,6 +116,7 @@ services:
       - ../../../run_nl_server.sh:/app/run_nl_server.sh
       - ../../../nl_app.py:/app/nl_app.py
       - ../../../nl_requirements.txt:/app/nl_requirements.txt
+      - ../../../torch_requirements.txt:/app/torch_requirements.txt
       # GCP credentials
       - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
       # Custom DC output dir containing NL embeddings
