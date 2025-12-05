@@ -58,7 +58,7 @@ steps:
 
         # 2. DETERMINE MIXER IMAGE HASH
         echo "Fetching mixer image hash from submodule..."
-        mixer_githash="$(git -C mixer rev-parse HEAD)"
+        mixer_githash="$(git rev-parse :mixer)"
 
         if [[ -z "$mixer_githash" ]]; then
           echo "ERROR: Could not determine the mixer image hash from submodule. Exiting."
