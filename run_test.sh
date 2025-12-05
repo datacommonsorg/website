@@ -22,20 +22,29 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
-# Assert that uv is installed
+# Helper function to make sure uv is installed.
+# If uv is not already installed, installs uv via pip.
 function assert_uv {
   if ! command -v uv &> /dev/null; then
-    echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
-    exit 1
+    echo "${Yellow} uv could not be found. Installing uv via pip...${NC}"
+    pip3 install uv
   fi
 }
 
 
+# Note: This function uses pip instead of uv to install dependencies.
+# The .venv environment is being deprecated, this setup function is being kept as is
+# to keep --setup_python working for now.
+# TODO(juliawu): Remove this function after deprecating .venv and */requirements.txt.
 function setup_python {
-  assert_uv
-  uv venv .venv --allow-existing
+  assert_uv # assert uv is installed so that other ./run_test.sh functions can use it
+  python3 -m venv .venv
   source .venv/bin/activate
-  uv sync --project . --active
+  echo "installing server/requirements.txt"
+  pip3 install -r server/requirements.txt -q
+  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  echo "installing nl_server/requirements.txt"
+  pip3 install -r nl_server/requirements.txt -q
   deactivate
 }
 
@@ -250,6 +259,12 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   assert_uv
+  # If server environment is not set up, set it up.
+  if [ ! -d server/.venv ]
+  then
+    echo "${YELLOW}No server/.venv found, setting up website server virtual environment...${NC}"
+    setup_website_python
+  fi
   # Run server pytest.
   source server/.venv/bin/activate
   export FLASK_ENV=test
@@ -259,6 +274,12 @@ function run_py_test {
   python3 -m pytest -n auto shared/tests/ -s ${@}
   deactivate
 
+  # If nl_server environment is not set up, set it up.
+  if [ ! -d nl_server/.venv ]
+  then
+    echo "${YELLOW}No nl_server/.venv found, setting up nl_server virtual environment...${NC}"
+    setup_nl_python
+  fi
   # Run nl_server pytest.
   source nl_server/.venv/bin/activate
   python3 -m pytest -n auto nl_server/tests/ -s ${@}
@@ -268,6 +289,7 @@ function run_py_test {
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
   deactivate
 
+  # Use server/.venv to check linting.
   source server/.venv/bin/activate
   uv pip install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
@@ -291,8 +313,8 @@ function run_py_test {
 function run_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "${YELLOW}no dist folder, please run ./run_test.sh -b to build js first.${NC}"
-    exit 1
+    echo "${YELLOW}No dist folder found, building js...${NC}"
+    run_npm_build "${PROD:-false}"
   fi
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
@@ -316,8 +338,8 @@ function run_webdriver_test {
 function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "${YELLOW}no dist folder, please run ./run_test.sh -b to build js first.${NC}"
-    exit 1
+    echo "${YELLOW}No dist folder found, building js...${NC}"
+    run_npm_build "${PROD:-false}"
   fi
   export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
   ensure_cdc_test_env_file
