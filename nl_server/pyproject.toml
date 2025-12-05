@@ -1,0 +1,48 @@
+
+[project]
+name = "datacommons-website-nl-server"
+version = "0.1.0"
+description = "Data Commons Website NL Server"
+requires-python = ">=3.11"
+dependencies = [
+    "dacite==1.8.1",
+    "Flask==2.3.2",
+    "google-cloud-logging>=3.11.0,<4.0.0",
+    "gunicorn==23.0.0",
+    "markupsafe==2.1.2",
+    "Werkzeug==3.0.6",
+    "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl",
+    "frozendict==2.3.4",
+    "fsspec==2024.2.0",
+    "datasets==2.18.0",
+    "google-cloud-aiplatform==1.125.0",
+    "google-cloud-storage==3.0.0",
+    "pandas==2.1.1",
+    "scikit-learn==1.5.0",
+    "sentence-transformers==2.7.0",
+    "spacy==3.7.4",
+    "torch==2.2.2",
+    "torchvision",
+    "huggingface_hub==0.25.2",
+    "transformers==4.45.2",
+    "safetensors==0.4.3",
+    "numpy<2.0",
+]
+
+[tool.uv]
+managed = true
+
+# Use PyPI as the default index so public packages work
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
+
+# Add pytorch index
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }

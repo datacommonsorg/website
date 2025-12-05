@@ -16,31 +16,40 @@
 
 set -e
 
+# ANSI color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+# Ensure uv is installed
+if ! command -v uv &> /dev/null; then
+  echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
+  exit 1
+fi
+
+
 function setup_python {
-  python3 -m venv .venv
+  uv venv .venv --allow-existing
   source .venv/bin/activate
-  echo "installing server/requirements.txt"
-  pip3 install -r server/requirements.txt -q
-  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-  echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
+  uv sync --project . --active
   deactivate
 }
 
+
 function setup_website_python {
-  python3 -m venv .venv_website
-  source .venv_website/bin/activate
-  echo "installing server/requirements.txt"
-  pip3 install -r server/requirements.txt -q
-  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  uv venv server/.venv --allow-existing
+  source server/.venv/bin/activate
+  echo "installing server requirements to server/.venv"
+  uv sync --project server --active
   deactivate
 }
 
 function setup_nl_python {
-  python3 -m venv .venv_nl
-  source .venv_nl/bin/activate
-  echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
+  uv venv nl_server/.venv --allow-existing
+  source nl_server/.venv/bin/activate
+  echo "installing nl_server requirements to nl_server/.venv"
+  uv sync --project nl_server --active
   deactivate
 }
 
@@ -172,7 +181,7 @@ function run_lint_fix {
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
       source .venv/bin/activate
-      pip3 install yapf==0.40.2 isort -q
+      uv pip install yapf==0.40.2 isort -q
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
       isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
       deactivate
@@ -235,23 +244,28 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   # Run server pytest.
-  source .venv/bin/activate
+  source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   python3 -m pytest -n auto shared/tests/ -s ${@}
-  python3 -m pytest nl_server/tests/ -s ${@}
+  deactivate
 
+  # Run nl_server pytest.
+  source nl_server/.venv/bin/activate
+  python3 -m pytest -n auto nl_server/tests/ -s ${@}
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
-  pip3 install -r tools/nl/embeddings/requirements.txt -q
+  uv pip install -r tools/nl/embeddings/requirements.txt -q
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
+  deactivate
 
-  pip3 install yapf==0.40.2 -q
+  source server/.venv/bin/activate
+  uv pip install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
-    pip3 install isort -q
+    uv pip install isort -q
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
@@ -279,7 +293,7 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  source .venv/bin/activate
+  source server/.venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
@@ -308,7 +322,7 @@ function run_cdc_webdriver_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  source .venv/bin/activate
+  source server/.venv/bin/activate
   local rerun_options=""
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     rerun_options=""
@@ -327,7 +341,7 @@ function run_cdc_webdriver_test {
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  source .venv/bin/activate
+  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export DC_API_KEY=
@@ -346,7 +360,7 @@ function run_integration_test {
 }
 
 function update_integration_test_golden {
-  source .venv/bin/activate
+  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging

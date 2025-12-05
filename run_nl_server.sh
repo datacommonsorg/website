@@ -27,7 +27,11 @@ function cleanup {
 }
 trap cleanup SIGINT
 
-source .venv_nl/bin/activate
+if [ ! -d "nl_server/.venv" ]; then
+  echo -e "${RED}Error: nl_server/.venv directory not found. Please run './run_test.sh --setup_nl' first.${NC}"
+  exit 1
+fi
+source nl_server/.venv/bin/activate
 
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev

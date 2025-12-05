@@ -25,6 +25,12 @@
 
 set -e
 
+# ANSI color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
 VERBOSE=false
 if [[ "$1" == "--verbose" ]]; then
   VERBOSE=true
@@ -33,6 +39,16 @@ fi
 export FLASK_ENV="${FLASK_ENV:-integration_test}"
 export GOOGLE_CLOUD_PROJECT="${GOOGLE_CLOUD_PROJECT:-datcom-website-staging}"
 export ENABLE_MODEL="${ENABLE_MODEL:-true}"
+
+# Check for virtual environments
+if [ ! -d "nl_server/.venv" ]; then
+  echo -e "${RED}Error: nl_server/.venv directory not found. Please run './run_test.sh --setup_nl' first.${NC}"
+  exit 1
+fi
+if [ ! -d "server/.venv" ]; then
+  echo -e "${RED}Error: server/.venv directory not found. Please run './run_test.sh --setup_website' first.${NC}"
+  exit 1
+fi
 
 echo "FLASK_ENV=$FLASK_ENV"
 echo "GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT"
@@ -55,19 +71,19 @@ trap 'exit_with=$?; cleanup' EXIT
 trap 'exit_with=0; cleanup' SIGINT SIGTERM
 
 if lsof -i :6070 > /dev/null 2>&1; then
-  echo "Port 6070 (for NL server) is already in use. Please stop the process using that port."
+  echo -e "${RED}Port 6070 (for NL server) is already in use. Please stop the process using that port.${NC}"
   exit 1
 fi
 if lsof -i :8090 > /dev/null 2>&1; then
-  echo "Port 8090 (for website server) is already in use. Please stop the process using that port."
+  echo -e "${RED}Port 8090 (for website server) is already in use. Please stop the process using that port.${NC}"
   exit 1
 fi
 
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
-  python3 nl_app.py 6070 &
+  ./nl_server/.venv/bin/python3 nl_app.py 6070 &
 else
-  python3 nl_app.py 6070 > /dev/null 2>&1 &
+  ./nl_server/.venv/bin/python3 nl_app.py 6070 > /dev/null 2>&1 &
 fi
 NL_PID=$!
 
@@ -76,9 +92,9 @@ export NL_SERVICE_ROOT_URL="http://localhost:6070"
 
 echo "Starting Website server..."
 if [[ $VERBOSE == "true" ]]; then
-  python3 web_app.py 8090 &
+  ./server/.venv/bin/python3 web_app.py 8090 &
 else
-  python3 web_app.py 8090 > /dev/null 2>&1 &
+  ./server/.venv/bin/python3 web_app.py 8090 > /dev/null 2>&1 &
 fi
 WEB_PID=$!
 

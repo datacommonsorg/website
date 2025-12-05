@@ -21,6 +21,13 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
+function cleanup {
+  deactivate
+  exit 1
+}
+
+trap cleanup SIGINT
+
 # Ensure uv is installed
 if ! command -v uv &> /dev/null; then
   echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
@@ -37,10 +44,17 @@ if [[ $(protoc --version) != *"3.21.12"* ]]; then
   exit 1
 fi
 
-# Sync uv dependencies for the datacommons-website-server package
-if ! uv sync --project server; then
-  echo -e "${RED}Error: uv sync failed.${NC}"
+# Ensure website venv is present and activated
+if [ ! -d "server/.venv" ]; then
+  echo -e "${RED}Error: server/.venv directory not found. Please run './run_test.sh --setup_website' first.${NC}"
   exit 1
+fi
+source server/.venv/bin/activate
+
+# Sync uv dependencies for the datacommons-website-server package
+if ! uv sync --project server --active; then
+  echo -e "${RED}Error: uv sync failed.${NC}"
+  cleanup
 fi
 
 PORT=8080
@@ -110,10 +124,10 @@ if [[ $USE_GUNICORN ]]; then
 else
   if ! protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto; then
     echo -e "${RED}Error: protoc compilation failed.${NC}"
-    exit 1
+    cleanup
   fi
   if ! uv run --project server/ python3 web_app.py $PORT; then
     echo -e "${RED}Error: uv run failed.${NC}"
-    exit 1
+    cleanup
   fi
 fi
