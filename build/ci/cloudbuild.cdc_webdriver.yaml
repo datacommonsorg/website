@@ -25,7 +25,6 @@ steps:
       - -c
       - |
         ./build/node/load_preinstalled_modules.sh
-        pip install uv
         ./run_test.sh -b
 
   - id: setup_python

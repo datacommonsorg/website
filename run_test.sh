@@ -22,14 +22,17 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
-# Ensure uv is installed
-if ! command -v uv &> /dev/null; then
-  echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
-  exit 1
-fi
+# Assert that uv is installed
+function assert_uv {
+  if ! command -v uv &> /dev/null; then
+    echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
+    exit 1
+  fi
+}
 
 
 function setup_python {
+  assert_uv
   uv venv .venv --allow-existing
   source .venv/bin/activate
   uv sync --project . --active
@@ -38,6 +41,7 @@ function setup_python {
 
 
 function setup_website_python {
+  assert_uv
   uv venv server/.venv --allow-existing
   source server/.venv/bin/activate
   echo "installing server requirements to server/.venv"
@@ -46,6 +50,7 @@ function setup_website_python {
 }
 
 function setup_nl_python {
+  assert_uv
   uv venv nl_server/.venv --allow-existing
   source nl_server/.venv/bin/activate
   echo "installing nl_server requirements to nl_server/.venv"
@@ -177,6 +182,7 @@ function run_lint_fix {
   # Helper function to fix Python code.
   run_py_fix() {
     echo -e "#### Fixing Python code"
+    assert_uv
     (
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
@@ -243,6 +249,7 @@ function run_npm_build () {
 
 # Run test and check lint for Python code.
 function run_py_test {
+  assert_uv
   # Run server pytest.
   source server/.venv/bin/activate
   export FLASK_ENV=test
