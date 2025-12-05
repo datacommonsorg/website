@@ -18,7 +18,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 cd model_server
 python3 -m pip install --upgrade pip
-pip3 install torch==2.2.2 --index-url \
+pip3 install torch==2.8.0 --index-url \
         "https://download.pytorch.org/whl/cpu"
 pip3 install -r requirements.txt
 
