@@ -1,5 +1,5 @@
 {#
- Copyright 2023 Google LLC
+ Copyright 2025 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,9 +18,18 @@
 
 {% set main_id = 'homepage' %}
 {% set page_id = 'page-homepage' %}
+{% set title = 'Home' %}
+{% macro external_icon() -%}
+
+<svg class="icon"xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="12px" fill="#660000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+{%- endmacro %}
+
+{% block head %}
+<link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
+<script src={{url_for('static', filename='homepage_custom_dc.js', t=config['VERSION'])}} async></script>
+{% endblock %}
 
 {% block content %}
-  <section class="container">
-    <h1>Home Page</h1>
-  </section>
+  <div id="app-container">
+  </div>
 {% endblock %}
