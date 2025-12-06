@@ -25,6 +25,10 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
+import {
+  ENABLE_CHART_HYPERLINK,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { ObservationSpec } from "../../shared/observation_specs";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
@@ -65,6 +69,8 @@ interface ChartTileContainerProp {
   isInitialLoading?: boolean;
   // Object used for the explore link
   exploreLink?: { displayText: string; url: string };
+  // Optional: Hyperlink
+  hyperlink?: string;
   // Optional: Error message
   errorMsg?: string;
   // Text to show in footer
@@ -139,6 +145,9 @@ export function ChartTileContainer(
         apiRoot={props.apiRoot}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
+        hyperlink={
+          isFeatureEnabled(ENABLE_CHART_HYPERLINK) ? props.hyperlink : undefined
+        }
         footnote={props.footnote}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={containerRef}

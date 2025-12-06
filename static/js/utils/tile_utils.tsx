@@ -22,6 +22,7 @@ import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import { intl } from "../i18n/i18n";
@@ -33,7 +34,7 @@ import {
 } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { getCappedStatVarDate } from "../shared/util";
+import { extractFlagsToPropagate, getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
@@ -663,4 +664,65 @@ export function getHighlightTileDescription(
     : tile.description + " (${date})";
   description = blockDenom ? addPerCapitaToTitle(description) : description;
   return description;
+}
+
+/**
+ * Generates a hyperlink to the explore page for a given stat var, chart type, and place.
+ * @param statVarDcid The DCID of the statistical variable.
+ * @param chartType The type of chart.
+ * @param placeDcid The DCID of the place.
+ * @param facet Optional facet metadata.
+ */
+interface GetExploreLinkOptions {
+  apiRoot?: string;
+  chartType: string;
+  placeDcids: string[];
+  statVarSpecs: StatVarSpec[];
+  facetMetadata?: StatMetadata;
+}
+
+/**
+ * Generates a hyperlink to the explore page for a given set of parameters.
+ * @param options The options for generating the hyperlink.
+ */
+export function getExploreLink(options: GetExploreLinkOptions): string {
+  const { apiRoot, chartType, placeDcids, statVarSpecs, facetMetadata } =
+    options;
+  if (!statVarSpecs || statVarSpecs.length === 0) {
+    return "";
+  }
+  const sv = encodeURIComponent(
+    statVarSpecs.map((spec) => spec.statVar).join("___")
+  );
+  const places = encodeURIComponent(placeDcids.join("___"));
+  let hash = `${URL_HASH_PARAMS.STAT_VAR}=${sv}&${URL_HASH_PARAMS.CHART_TYPE}=${chartType}&${URL_HASH_PARAMS.PLACE}=${places}`;
+
+  const facet = facetMetadata;
+  if (facet) {
+    if (facet.importName) {
+      hash += `&${URL_HASH_PARAMS.IMPORT_NAME}=${encodeURIComponent(
+        facet.importName
+      )}`;
+    }
+    if (facet.measurementMethod) {
+      hash += `&${URL_HASH_PARAMS.MEASUREMENT_METHOD}=${encodeURIComponent(
+        facet.measurementMethod
+      )}`;
+    }
+    if (facet.observationPeriod) {
+      hash += `&${URL_HASH_PARAMS.OBSERVATION_PERIOD}=${encodeURIComponent(
+        facet.observationPeriod
+      )}`;
+    }
+    if (facet.scalingFactor) {
+      hash += `&${URL_HASH_PARAMS.SCALING_FACTOR}=${encodeURIComponent(
+        facet.scalingFactor
+      )}`;
+    }
+    if (facet.unit) {
+      hash += `&${URL_HASH_PARAMS.UNIT}=${encodeURIComponent(facet.unit)}`;
+    }
+  }
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  return `${apiRoot || ""}/explore?${urlParams.toString()}#${hash}`;
 }
