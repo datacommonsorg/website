@@ -17,19 +17,18 @@
 source utils.sh
 set -e
 
-# Note: This function uses pip instead of uv to install dependencies.
-# The .venv environment is being deprecated, this setup function is being kept as is
-# to keep --setup_python working for now.
+# Note: The .venv environment is being deprecated, this setup function
+# is being kept as is to keep --setup_python working for now.
 # TODO(juliawu): Remove this function after deprecating .venv and */requirements.txt.
 function setup_python {
-  python3 -m venv .venv
+  uv venv .venv --allow-existing
   source .venv/bin/activate
   echo "installing server/requirements.txt"
-  pip3 install -r server/requirements.txt -q
+  uv pip install -r server/requirements.txt -q
   echo "installing torch_requirements.txt"
-  pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
+  uv pip install -r torch_requirements.txt -q --extra-index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
+  uv pip install -r nl_server/requirements.txt -q
   deactivate
 }
 
@@ -178,7 +177,7 @@ function run_lint_fix {
       cd "$(dirname "$0")"
       assert_uv
       source .venv/bin/activate
-      uv pip install yapf==0.40.2 isort -q
+      uv pip install yapf==0.40.2 isort -q -i https://pypi.org/simple
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
       isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
       deactivate
@@ -255,10 +254,10 @@ function run_py_test {
   uv pip install -r tools/nl/embeddings/requirements.txt -q
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
 
-  uv pip install yapf==0.40.2 -q
+  uv pip install yapf==0.40.2 -q -i https://pypi.org/simple
   if ! command -v isort &> /dev/null
   then
-    uv pip install isort -q
+    uv pip install isort -q -i https://pypi.org/simple
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then

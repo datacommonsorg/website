@@ -21,10 +21,10 @@ dependencies = [
     "scikit-learn==1.5.0",
     "sentence-transformers==2.7.0",
     "spacy==3.7.4",
-    "torch==2.2.2",
+    "torch==2.8.0",
     "torchvision",
     "huggingface_hub==0.25.2",
-    "transformers==4.45.2",
+    "transformers",
     "safetensors==0.4.3",
     "numpy<2.0",
 ]
@@ -46,3 +46,4 @@ explicit = true
 
 [tool.uv.sources]
 torch = { index = "pytorch-cpu" }
+
