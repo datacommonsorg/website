@@ -1,0 +1,51 @@
+Using LLM Provider: VertexAIProvider
+Ingesting claims from file...
+
+--- Step 2: Verifying all Claims ---
+"
+Verifying Claim #1: {'claim_text': 'According to the World Bank, life expectancy at birth in Italy was 82.9 years in 2020.', 'statistic_value': 82.9, 'statistic_unit': 'years', 'topic': 'Life expectancy in Italy'}
+   ---> 🏃 GROUNDING PLACE QUERY: Italy
+   ---> 🏃 GROUNDING STATVAR QUERY: life expectancy at birth
+   ---> 🏃 FETCHING: worldBank/SP_DYN_LE00_IN for country/ITA (2020)
+{'verdict': 'DISPUTED', 'explanation': 'According to Data Commons, life expectancy at birth in Italy was 82.195 years in 2020.'}
+----------------------------------------
+"
+Verifying Claim #2: {'claim_text': 'According to Eurostat, life expectancy at birth in Italy was 82.4 years in 2020.', 'statistic_value': 82.4, 'statistic_unit': 'years', 'topic': 'Life expectancy in Italy'}
+   ---> 🏃 GROUNDING PLACE QUERY: Italy
+   ---> 🏃 GROUNDING STATVAR QUERY: life expectancy at birth
+   ---> 🏃 FETCHING: WHO/WHOSIS_000001 for country/ITA (2020)
+   ---> 🏃 FETCHING: worldBank/SP_DYN_LE00_IN for country/ITA (2020)
+{'verdict': 'DISPUTED', 'explanation': 'According to Data Commons (World Bank), life expectancy at birth in Italy was 82.2 years in 2020.'}
+----------------------------------------
+"
+Verifying Claim #3: {'claim_text': "Italy's national statistics office, Istat, reported that life expectancy fell to 82 years in 2020.", 'statistic_value': 82, 'statistic_unit': 'years', 'topic': 'Life expectancy in Italy'}
+   ---> 🏃 GROUNDING PLACE QUERY: Italy
+   ---> 🏃 GROUNDING STATVAR QUERY: life expectancy
+   ---> 🏃 FETCHING: LifeExpectancy_Person for country/ITA (2020)
+{'verdict': 'SUPPORTED', 'explanation': 'According to Data Commons, the life expectancy in Italy was 82.1951219512 years in 2020.'}
+----------------------------------------
+"
+Verifying Claim #4: {'claim_text': 'According to Istat, life expectancy for men in Italy was 79.7 years in 2020.', 'statistic_value': 79.7, 'statistic_unit': 'years', 'topic': 'Life expectancy in Italy'}
+   ---> 🏃 GROUNDING PLACE QUERY: Italy
+   ---> 🏃 GROUNDING STATVAR QUERY: life expectancy for men
+   ---> 🏃 FETCHING: LifeExpectancy_Person_Male_Resident for country/ITA (2020)
+   ---> 🏃 GROUNDING STATVAR QUERY: Life Expectancy Male
+   ---> 🏃 GROUNDING STATVAR QUERY: Life Expectancy at birth male
+   ---> 🏃 FETCHING: worldBank/SP_DYN_LE00_MA_IN for country/ITA (2020)
+{'verdict': 'SUPPORTED', 'explanation': 'According to Data Commons, life expectancy at birth for men in Italy was 80 years in 2020.'}
+----------------------------------------
+"
+Verifying Claim #5: {'claim_text': 'According to Istat, life expectancy for women in Italy was 84.4 years in 2020.', 'statistic_value': 84.4, 'statistic_unit': 'years', 'topic': 'Life expectancy in Italy'}
+   ---> 🏃 GROUNDING PLACE QUERY: Italy
+   ---> 🏃 GROUNDING STATVAR QUERY: life expectancy for women
+   ---> 🏃 FETCHING: LifeExpectancy_Person_Female for country/ITA (2020)
+{'verdict': 'SUPPORTED', 'explanation': 'According to Data Commons, the life expectancy for women in Italy was 84.5 years in 2020.'}
+----------------------------------------
+
+--- Final Tally ---
+{
+    "SUPPORTED": 3,
+    "DISPUTED": 2,
+    "UNSUPPORTED": 0,
+    "OTHER": 0
+}

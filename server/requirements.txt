@@ -53,3 +53,4 @@ Werkzeug==3.0.6
 wheel==0.38.1
 # TODO: publish the library to pypi so we don't have to install from git
 git+https://github.com/datacommonsorg/llm-tools.git
+datacommons==1.4.3
