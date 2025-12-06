@@ -21,7 +21,8 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --setup_python
+        ./run_test.sh --setup_website
+        ./run_test.sh --setup_nl
 
   - id: explore_tests
     name: python:3.11.3

@@ -15,11 +15,10 @@
 
 # Script used by cdc/dev docker container to start the mixer
 
-# Define color codes
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+source "$(dirname "$0")/../../../utils.sh"
+set -e
 
-echo -e "${GREEN}Starting mixer...${NC}"
+log_notice "Starting mixer..."
 /go/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
@@ -31,5 +30,5 @@ echo -e "${GREEN}Starting mixer...${NC}"
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
     --remote_mixer_domain=$DC_API_ROOT &
 
-echo -e "${GREEN}Starting envoy proxy...${NC}"
+log_notice "Starting envoy proxy..."
 envoy -l warning --config-path /app/esp/envoy-config.yaml
