@@ -21,7 +21,13 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import ReactDOMServer from "react-dom/server";
 import { Card } from "reactstrap";
 
@@ -42,6 +48,7 @@ import {
   GA_PARAM_STAT_VAR,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ObservationSpec } from "../../shared/observation_specs";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -71,6 +78,15 @@ interface ChartPropsType {
   facetListLoading: boolean;
   facetListError: boolean;
   onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
+  // A function passed through from the chart that handles the task
+  // of creating the embedding used in the download functionality.
+  handleEmbed?: () => void;
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
+  // A ref to the chart container element.
+  containerRef?: RefObject<HTMLElement>;
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -197,6 +213,9 @@ export function Chart(props: ChartPropsType): ReactElement {
         sources={props.sources}
         mMethods={null}
         hideIsRatio={true}
+        handleEmbed={props.handleEmbed}
+        getObservationSpecs={props.getObservationSpecs}
+        containerRef={props.containerRef}
       >
         <PlotOptions />
       </ToolChartFooter>

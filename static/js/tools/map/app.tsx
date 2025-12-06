@@ -20,6 +20,7 @@
 
 import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -133,9 +134,11 @@ export function AppWithContext(): ReactElement {
 
   return (
     <ThemeProvider theme={theme}>
-      <Context.Provider value={store}>
-        <App />
-      </Context.Provider>
+      <RawIntlProvider value={intl}>
+        <Context.Provider value={store}>
+          <App />
+        </Context.Provider>
+      </RawIntlProvider>
     </ThemeProvider>
   );
 }

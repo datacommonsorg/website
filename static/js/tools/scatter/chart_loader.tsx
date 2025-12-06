@@ -19,15 +19,30 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
+import { dataRowsToCsv } from "@datacommonsorg/client";
 import _ from "lodash";
-import React, { ReactElement, useContext, useEffect, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { Point } from "../../chart/draw_scatter";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { ChartEmbed } from "../../place/chart_embed";
 import {
   DEFAULT_POPULATION_DCID,
   WEBSITE_SURFACE,
 } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   EntityObservation,
   EntityObservationList,
@@ -36,10 +51,13 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { saveToFile } from "../../shared/util";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
+import { getCappedStatVarDate, saveToFile } from "../../shared/util";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
+import { getMergedSvg, transformCsvHeader } from "../../utils/tile_utils";
 import { Chart } from "./chart";
 import { useFacetMetadata } from "./compute/facet_metadata";
 import {
@@ -84,10 +102,169 @@ export function ChartLoader(): ReactElement {
   const { facetSelectorMetadata, facetListLoading, facetListError } =
     useFacetMetadata(cache?.baseFacets || null);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const embedModalElement = useRef<ChartEmbed>(null);
+
   const xVal = x.value;
   const yVal = y.value;
   const shouldRenderChart =
     areStatVarInfoLoaded(xVal, yVal) && !_.isEmpty(chartData);
+
+  /**
+   * The stat var specs for the current chart configuration.
+   */
+  const currentStatVarSpecs: StatVarSpec[] = useMemo(() => {
+    if (!xVal.statVarDcid || !yVal.statVarDcid) return [];
+    return [
+      {
+        statVar: xVal.statVarDcid,
+        denom: xVal.perCapita ? xVal.denom : undefined,
+        unit: chartData?.xUnit || undefined,
+        scaling: undefined,
+        log: xVal.log,
+        name: xVal.statVarInfo?.title || xVal.statVarDcid,
+        facetId: xVal.metahash || undefined,
+        date: xVal.date || undefined,
+      },
+      {
+        statVar: yVal.statVarDcid,
+        denom: yVal.perCapita ? yVal.denom : undefined,
+        unit: chartData?.yUnit || undefined,
+        scaling: undefined,
+        log: yVal.log,
+        name: yVal.statVarInfo?.title || yVal.statVarDcid,
+        facetId: yVal.metahash || undefined,
+        date: yVal.date || undefined,
+      },
+    ];
+  }, [xVal, yVal, chartData]);
+
+  /**
+   * Convert facet metadata and mappings (derived from the chart store) into a format
+   * to be used for citation display in the embed modal.
+   */
+  const { facets, statVarToFacets } = useMemo(() => {
+    const facets: Record<string, StatMetadata> = {};
+    const statVarToFacets: StatVarFacetMap = {};
+
+    if (!cache) return { facets, statVarToFacets };
+
+    // We create the facet map from the cache's metadataMap.
+    if (cache.metadataMap) {
+      for (const facetId in cache.metadataMap) {
+        facets[facetId] = cache.metadataMap[facetId];
+      }
+    }
+
+    // We then build the statVar to facet mapping from baseFacets.
+    if (cache.baseFacets) {
+      for (const statVarDcid in cache.baseFacets) {
+        if (!statVarToFacets[statVarDcid]) {
+          statVarToFacets[statVarDcid] = new Set();
+        }
+        for (const facetId in cache.baseFacets[statVarDcid]) {
+          statVarToFacets[statVarDcid].add(facetId);
+        }
+      }
+    }
+
+    return { facets, statVarToFacets };
+  }, [cache]);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns An array of `ObservationSpec` objects.
+   */
+  const getObservationSpecs = useCallback((): ObservationSpec[] => {
+    if (
+      currentStatVarSpecs.length === 0 ||
+      !place.value.enclosingPlace.dcid ||
+      !place.value.enclosedPlaceType
+    ) {
+      return [];
+    }
+
+    const entityExpression = `${place.value.enclosingPlace.dcid}<-containedInPlace+{typeOf:${place.value.enclosedPlaceType}}`;
+
+    const specsWithDate = currentStatVarSpecs.map((spec) => ({
+      ...spec,
+      date: getCappedStatVarDate(spec.statVar, spec.date) || "LATEST",
+    }));
+
+    return buildObservationSpecs({
+      statVarSpecs: specsWithDate,
+      statVarToFacets,
+      entityExpression,
+    });
+  }, [
+    currentStatVarSpecs,
+    place.value.enclosingPlace.dcid,
+    place.value.enclosedPlaceType,
+    statVarToFacets,
+  ]);
+
+  /**
+   * Returns callback for fetching chart CSV data.
+   * @returns A promise that resolves to chart CSV data.
+   */
+  const getDataCsv = useCallback(async (): Promise<string> => {
+    // Assume both variables will have the same date
+    /*
+     TODO (nick-next): Update getDataCsv to handle different dates for different variables
+        see also scatter_tile.tsx.
+     */
+    if (
+      currentStatVarSpecs.length === 0 ||
+      !place.value.enclosingPlace.dcid ||
+      !place.value.enclosedPlaceType
+    ) {
+      return "";
+    }
+
+    const dataCommonsClient = getDataCommonsClient();
+    const date = getCappedStatVarDate(
+      currentStatVarSpecs[0].statVar,
+      currentStatVarSpecs[0].date
+    );
+
+    const rows = await dataCommonsClient.getDataRows({
+      childType: place.value.enclosedPlaceType,
+      date,
+      parentEntity: place.value.enclosingPlace.dcid,
+      variables: [],
+      statVarSpecs: currentStatVarSpecs,
+    });
+
+    return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
+  }, [
+    currentStatVarSpecs,
+    place.value.enclosingPlace.dcid,
+    place.value.enclosedPlaceType,
+  ]);
+
+  /**
+   * Shows the chart embed (download) modal.
+   */
+  const handleEmbed = useCallback((): void => {
+    if (!embedModalElement.current || !containerRef.current) return;
+
+    const { svgXml, height, width } = getMergedSvg(containerRef.current);
+    embedModalElement.current.show(
+      svgXml,
+      getDataCsv,
+      width,
+      height,
+      "",
+      "",
+      "",
+      chartData?.sources ? Array.from(chartData.sources) : [],
+      WEBSITE_SURFACE
+    );
+  }, [getDataCsv, chartData?.sources]);
+
   if (!shouldRenderChart) {
     return <></>;
   }
@@ -110,7 +287,7 @@ export function ChartLoader(): ReactElement {
     }
   };
   return (
-    <>
+    <div ref={containerRef}>
       {shouldRenderChart && (
         <>
           {cache.noDataError || cache.error || _.isEmpty(chartData.points) ? (
@@ -141,12 +318,21 @@ export function ChartLoader(): ReactElement {
                 facetList={[xFacetInfo, yFacetInfo]}
                 facetListLoading={facetListLoading}
                 facetListError={facetListError}
+                handleEmbed={handleEmbed}
+                getObservationSpecs={getObservationSpecs}
+                containerRef={containerRef}
+              />
+              <ChartEmbed
+                ref={embedModalElement}
+                facets={facets}
+                statVarSpecs={currentStatVarSpecs}
+                statVarToFacets={statVarToFacets}
               />
             </>
           )}
         </>
       )}
-    </>
+    </div>
   );
 }
 
