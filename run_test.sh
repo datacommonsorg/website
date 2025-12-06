@@ -14,8 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+source utils.sh
 set -e
 
+# Note: This function uses pip instead of uv to install dependencies.
+# The .venv environment is being deprecated, this setup function is being kept as is
+# to keep --setup_python working for now.
+# TODO(juliawu): Remove this function after deprecating .venv and */requirements.txt.
 function setup_python {
   python3 -m venv .venv
   source .venv/bin/activate
@@ -29,20 +34,19 @@ function setup_python {
 }
 
 function setup_website_python {
-  python3 -m venv .venv_website
-  source .venv_website/bin/activate
-  echo "installing server/requirements.txt"
-  pip3 install -r server/requirements.txt -q
-  pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
-  deactivate
+  assert_uv
+  uv venv server/.venv --allow-existing
+  source server/.venv/bin/activate
+  echo "installing server requirements to server/.venv"
+  uv sync --project server
 }
 
 function setup_nl_python {
-  python3 -m venv .venv_nl
-  source .venv_nl/bin/activate
-  echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
-  deactivate
+  assert_uv
+  uv venv nl_server/.venv --allow-existing
+  source nl_server/.venv/bin/activate
+  echo "installing nl_server requirements to nl_server/.venv"
+  uv sync --project nl_server
 }
 
 # Start website and NL servers in a subprocess and ensure they are stopped
@@ -172,8 +176,9 @@ function run_lint_fix {
     (
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
+      assert_uv
       source .venv/bin/activate
-      pip3 install yapf==0.40.2 isort -q
+      uv pip install yapf==0.40.2 isort -q
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
       isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
       deactivate
@@ -235,6 +240,7 @@ function run_npm_build () {
 
 # Run test and check lint for Python code.
 function run_py_test {
+  assert_uv
   # Run server pytest.
   source .venv/bin/activate
   export FLASK_ENV=test
@@ -246,13 +252,13 @@ function run_py_test {
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
-  pip3 install -r tools/nl/embeddings/requirements.txt -q
+  uv pip install -r tools/nl/embeddings/requirements.txt -q
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
 
-  pip3 install yapf==0.40.2 -q
+  uv pip install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
-    pip3 install isort -q
+    uv pip install isort -q
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
