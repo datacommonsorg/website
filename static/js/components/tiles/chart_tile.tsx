@@ -34,6 +34,7 @@ import {
   getChartTitle,
   getMergedSvg,
   ReplacementStrings,
+  StatVarFacetDateRangeMap,
 } from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
@@ -47,8 +48,8 @@ interface ChartTileContainerProp {
   facets?: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
-  // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -125,7 +126,7 @@ export function ChartTileContainer(
               facets={props.facets}
               statVarToFacets={props.statVarToFacets}
               statVarSpecs={props.statVarSpecs}
-              statVarDateRanges={props.statVarDateRanges}
+              statVarFacetDateRanges={props.statVarFacetDateRanges}
               surface={props.surface}
             />
           )}
@@ -152,7 +153,7 @@ export function ChartTileContainer(
           statVarSpecs={props.statVarSpecs}
           facets={props.facets}
           statVarToFacets={props.statVarToFacets}
-          statVarDateRanges={props.statVarDateRanges}
+          statVarFacetDateRanges={props.statVarFacetDateRanges}
           apiRoot={props.apiRoot}
         />
       )}
