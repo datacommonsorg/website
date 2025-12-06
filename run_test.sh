@@ -264,9 +264,11 @@ function run_py_test {
   deactivate
 
   # Tests within tools/nl/embeddings
-  assert_nl_python
-  source nl_server/.venv/bin/activate
   echo "Running tests within tools/nl/embeddings:"
+  if [ ! -d "tools/nl/embeddings/.venv" ]; then
+    python3 -m venv tools/nl/embeddings/.venv
+  fi
+  source tools/nl/embeddings/.venv/bin/activate
   pip3 install -r tools/nl/embeddings/requirements.txt -q
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
   deactivate
