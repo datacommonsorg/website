@@ -15,7 +15,7 @@
 
 # Runs both NL and website servers.
 #
-# - Assumes that ./run_test.sh -b and ./run_test.sh --setup_all
+# - Assumes that ./run_test.sh -b
 #   have already been run, and that environment variables
 #   (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
 # - Both servers use different ports than the development server defaults:
