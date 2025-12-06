@@ -21,11 +21,14 @@ import logging
 import multiprocessing
 import os
 import re
+import sys
 import urllib.parse
 
 from absl import app
 from absl import flags
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 FLAGS = flags.FLAGS
 
@@ -149,10 +152,12 @@ class Result:
 class StatsResult:
   status_counts: dict[ResultStatus, int]
   llm_detection_type_counts: dict[str, int]
+  failed_results: list[Result]
 
   def __init__(self) -> None:
     self.status_counts = dict((status, 0) for status in ResultStatus)
     self.llm_detection_type_counts = {}
+    self.failed_results = []
 
   def inspect_result(self, result: Result) -> None:
     self.status_counts[result.status] += 1
@@ -160,6 +165,9 @@ class StatsResult:
       self.llm_detection_type_counts[
           result.llm_detection_type] = self.llm_detection_type_counts.get(
               result.llm_detection_type, 0) + 1
+
+    if result.status in [ResultStatus.REQUEST_FAILED, ResultStatus.TIMED_OUT]:
+      self.failed_results.append(result)
 
   def to_str_rows(self) -> list[str]:
     rows = []
@@ -207,6 +215,12 @@ class ResultsFileWriter:
     self.file.close()
 
 
+def init_worker():
+  logging.basicConfig(level=logging.INFO,
+                      format='%(asctime)s %(levelname)s [Worker] %(message)s',
+                      force=True)
+
+
 class AdversarialQueriesTest:
   base_url: str
   dc: str
@@ -214,6 +228,18 @@ class AdversarialQueriesTest:
   def __init__(self, base_url: str, dc: str) -> None:
     self.base_url = base_url
     self.dc = dc
+    self.session = self._get_session()
+
+  def _get_session(self):
+    retry_strategy = Retry(total=3,
+                           backoff_factor=1,
+                           status_forcelist=[500, 502, 503, 504],
+                           allowed_methods=["POST"])
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session = requests.Session()
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
 
   def generate_reports(self, output_dir: str) -> None:
     reports_dir = os.path.join(output_dir, REPORTS_DIR)
@@ -298,7 +324,7 @@ class AdversarialQueriesTest:
                                   fieldnames=Result.get_csv_columns(),
                                   lineterminator="\n")
       csv_writer.writeheader()
-      with multiprocessing.Pool() as pool:
+      with multiprocessing.Pool(initializer=init_worker) as pool:
         for result in pool.imap_unordered(self.run_query, queries):
           csv_writer.writerow(result.to_csv_row())
 
@@ -320,7 +346,7 @@ class AdversarialQueriesTest:
 
     resp = None
     try:
-      resp = requests.post(
+      resp = self.session.post(
           self.base_url +
           f'/api/explore/detect-and-fulfill?q={query}&{_TEST_PARAM}',
           json={
@@ -445,23 +471,59 @@ def run_test():
     test.run_queries_from_files_in_dir(input_dir=FLAGS.input_dir,
                                        output_dir=output_dir)
     test.generate_reports(output_dir)
+    # Check for failures in the generated reports
+    stats = StatsResult()
+    for file_name in sorted(os.listdir(output_dir)):
+      if file_name.endswith('.csv'):
+        test.compute_stats_from_file(os.path.join(output_dir, file_name), stats)
+
+    # Print Summary
+    logging.info("=" * 40)
+    logging.info("ADVERSARIAL TEST SUMMARY")
+    logging.info("=" * 40)
+
+    total_tests = sum(stats.status_counts.values())
+    failed_count = len(stats.failed_results)
+    passed_count = total_tests - failed_count
+
+    logging.info("Total Tests: %d", total_tests)
+    logging.info("PASSED:      %d", passed_count)
+    logging.info("FAILED:      %d", failed_count)
+
+    if stats.failed_results:
+      logging.info("-" * 40)
+      logging.info("FAILED TESTS:")
+      for f in stats.failed_results:
+        logging.info("  [%s] %s", f.status, f.query)
+
+    logging.info("=" * 40)
+
+    if stats.status_counts[
+        ResultStatus.REQUEST_FAILED] > 0 or stats.status_counts[
+            ResultStatus.TIMED_OUT] > 0:
+      return False
+    return True
 
   elif FLAGS.mode == Mode.RUN_QUERIES:
     test.run_queries_from_files_in_dir(input_dir=FLAGS.input_dir,
                                        output_dir=output_dir)
+    return True
   elif FLAGS.mode == Mode.RUN_QUERY:
     if not FLAGS.query:
       raise Exception("'--query' flag not specified.")
     result = test.run_query(FLAGS.query)
     logging.info("Result:\n %s", json.dumps(result.to_csv_row(), indent=1))
+    return True
   elif FLAGS.mode == Mode.GENERATE_REPORTS:
     test.generate_reports(output_dir)
+    return True
   elif FLAGS.mode == Mode.COMPUTE_FILE_STATS:
     if not FLAGS.results_csv_file:
       raise Exception("'--results_csv_file' flag not specified.")
     stats = test.compute_stats_from_file(
         results_csv_file=FLAGS.results_csv_file, stats=StatsResult())
     logging.info("Stats Result:\n%s", stats)
+    return True
   else:
     raise Exception("Invalid mode.")
 
@@ -470,7 +532,9 @@ def main(_):
   start = datetime.now()
   logging.info("Start: %s", start)
 
-  run_test()
+  success = run_test()
+  if not success:
+    sys.exit(1)
 
   end = datetime.now()
   logging.info("End: %s", end)
