@@ -16,18 +16,13 @@
 # One-time setup script for creating a GCR artifact repository
 
 # Takes two arguments: the GCP project ID and optionally the region.
+source "$(dirname "$0")/../../utils.sh"
 set -e
-
-# Define color codes
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
 
 # Check if the GCP project ID is provided
 if [ -z "$1" ]; then
-    echo -e "${RED}Error: GCP project ID is required.${NC}"
-    echo -e  "${YELLOW}Usage: $0 <gcp-project-id>${NC}"
+    log_error "Error: GCP project ID is required."
+    log_error "Usage: $0 <gcp-project-id>"
     exit 1
 fi
 
@@ -43,8 +38,8 @@ fi
 
 # Validate region format
 if ! [[ $REGION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
-    echo -e "${RED}Error: Invalid region format.${NC}"
-    echo -e "${YELLOW}Region should be in format like 'us-central1'${NC}"
+    log_error "Error: Invalid region format."
+    log_error "Region should be in format like 'us-central1'"
     exit 1
 fi
 
@@ -58,5 +53,4 @@ gcloud artifacts repositories create $PROJECT_ID-artifacts \
   --location=$REGION \
   --description="Artifact repository for $PROJECT_ID"
 
-
-echo -e "${GREEN}Artifact repository created successfully.${NC}"
+log_success "Artifact repository created successfully."

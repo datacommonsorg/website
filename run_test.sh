@@ -14,13 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+source utils.sh
 set -e
-
-# ANSI Color Codes
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
 
 function setup_python {
   python3 -m venv .venv
@@ -53,7 +48,7 @@ function setup_nl_python {
 # Assert that website python is set up. If not, set it up.
 function assert_website_python {
   if [[ ! -d server/.venv ]]; then
-    echo "${YELLOW}NOTICE: server/.venv does not exist. Setting up website python virtual environment...${NC}"
+    log_notice "server/.venv does not exist. Setting up website python virtual environment..."
     setup_website_python
   fi
 }
@@ -61,7 +56,7 @@ function assert_website_python {
 # Assert that NL python is set up. If not, set it up.
 function assert_nl_python {
   if [[ ! -d nl_server/.venv ]]; then
-    echo "${YELLOW}NOTICE: nl_server/.venv does not exist. Setting up NL python virtual environment...${NC}"
+    log_notice "nl_server/.venv does not exist. Setting up NL python virtual environment..."
     setup_nl_python
   fi
 }
@@ -102,7 +97,7 @@ function start_servers() {
   # don't pass, but this is quicker if the servers fail to start up immediately.
   sleep "$startup_wait_sec"
   if ! ps -p $SERVERS_PID > /dev/null; then
-    echo -e "${RED}ERROR: Server script not running after $startup_wait_sec seconds.${NC}"
+    log_error "Server script not running after $startup_wait_sec seconds."
     exit 1
   fi
 }
@@ -123,12 +118,12 @@ function ensure_cdc_test_env_file {
   local project_id="${GOOGLE_CLOUD_PROJECT:-datcom-website-dev}"
 
   if [[ -z "$cdc_env_file_path" ]]; then
-    echo -e "${RED}ERROR: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file.${NC}"
+    log_error "RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file."
     exit 1
   fi
 
   if [ ! -f "$cdc_env_file_path" ]; then
-    echo -e "${YELLOW}NOTICE: File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager...${NC}"
+    log_notice "File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager..."
     echo "Secret: $secret_name, Project: $project_id"
 
     # Ensure the target directory exists
@@ -136,9 +131,9 @@ function ensure_cdc_test_env_file {
 
     # Fetch the secret
     if gcloud secrets versions access latest --secret="$secret_name" --project="$project_id" > "$cdc_env_file_path"; then
-      echo -e "${GREEN}Successfully fetched $cdc_env_file_path from GCP Secret Manager.${NC}"
+      log_success "Successfully fetched $cdc_env_file_path from GCP Secret Manager."
     else
-      echo -e "${RED}ERROR: Failed to fetch $secret_name from GCP Secret Manager for project $project_id.${NC}"
+      log_error "Failed to fetch $secret_name from GCP Secret Manager for project $project_id."
       rm -f "$cdc_env_file_path" # Clean up potentially empty/partial file
       exit 1
     fi
@@ -162,7 +157,7 @@ function run_npm_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
-    echo -e "${RED}ERROR: Fix lint errors by running ./run_test.sh -f${NC}"
+    log_error "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
   cd ..
@@ -204,7 +199,7 @@ function run_lint_fix {
 
   # Validate that at most one argument is provided.
   if [[ $# -gt 1 ]]; then
-    echo -e "${RED}ERROR: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'${NC}" >&2
+    log_error "Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'"
     return 1
   fi
 
@@ -224,7 +219,7 @@ function run_lint_fix {
       run_py_fix
       ;;
     *)
-      echo -e "${RED}ERROR: Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'.${NC}" >&2
+      log_error "Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'."
       return 1
       ;;
   esac
@@ -288,12 +283,12 @@ function run_py_test {
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
-    echo -e "${RED}ERROR: Fix Python lint errors by running ./run_test.sh -f${NC}"
+    log_error "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
   if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
-    echo -e "${RED}ERROR: Fix Python import sort orders by running ./run_test.sh -f${NC}"
+    log_error "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
   deactivate
@@ -303,7 +298,7 @@ function run_py_test {
 function run_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo -e "${RED}ERROR: no dist folder, please run ./run_test.sh -b to build js first.${NC}"
+    log_error "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
   export FLASK_ENV=webdriver
@@ -329,7 +324,7 @@ function run_webdriver_test {
 function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo -e "${RED}ERROR: no dist folder, please run ./run_test.sh -b to build js first.${NC}"
+    log_error "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
   export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"

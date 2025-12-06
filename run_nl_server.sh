@@ -18,11 +18,8 @@
 # use in local e2e tests.
 #
 
+source utils.sh
 set -e
-
-# ANSI color codes
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
 
 function cleanup {
   echo "Cleaning up before exit..."
@@ -32,7 +29,7 @@ function cleanup {
 trap cleanup SIGINT
 
 if [ ! -d "nl_server/.venv" ]; then
-  echo -e "${YELLOW}NOTICE: nl_server/.venv directory not found. Running './run_test.sh --setup_nl'.${NC}"
+  log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
   ./run_test.sh --setup_nl
 fi
 source nl_server/.venv/bin/activate

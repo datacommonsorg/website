@@ -17,18 +17,13 @@
 #  * Enables required APIs
 
 # This script requires a single argument: the GCP project ID.
+source "$(dirname "$0")/../../utils.sh"
 set -e
-
-# Define color codes
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
 
 # Check if the GCP project ID is provided
 if [ -z "$1" ]; then
-    echo -e "${RED}Error: GCP project ID is required.${NC}"
-    echo -e  "${YELLOW}Usage: $0 <gcp-project-id>${NC}"
+    log_error "Error: GCP project ID is required."
+    log_error "Usage: $0 <gcp-project-id>"
     exit 1
 fi
 
@@ -36,10 +31,10 @@ fi
 PROJECT_ID=$1
 
 # Get the default service account
-echo -e "${GREEN}Configuring GCP project ID: $PROJECT_ID${NC}"
+log_notice "Configuring GCP project ID: $PROJECT_ID"
 PROJECT_NUM=$(gcloud projects list --filter="$(gcloud config get-value project)" --format="value(PROJECT_NUMBER)")
 SERVICE_ACCOUNT="$PROJECT_NUM-compute@developer.gserviceaccount.com"
-echo -e "${GREEN}Service account: $SERVICE_ACCOUNT${NC}"
+log_notice "Service account: $SERVICE_ACCOUNT"
 
 gcloud config set project $PROJECT_ID
 
@@ -58,7 +53,7 @@ REQUIRED_APIS=(
 )
 # Enable each API
 for api in "${REQUIRED_APIS[@]}"; do
-    echo -e "${GREEN}Enabling API: $api${NC}"
+    log_notice "Enabling API: $api"
     gcloud services enable $api --project $PROJECT_ID
 done
-echo -e "${GREEN}All required APIs have been enabled for project $PROJECT_ID.${NC}"
+log_success "All required APIs have been enabled for project $PROJECT_ID."

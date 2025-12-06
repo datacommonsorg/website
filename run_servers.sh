@@ -23,12 +23,8 @@
 #   - NL server uses port 6070 instead of 6060.
 # - Server processes are silent unless '--verbose' is specified.
 
+source utils.sh
 set -e
-
-# ANSI color codes
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
 
 VERBOSE=false
 if [[ "$1" == "--verbose" ]]; then
@@ -41,11 +37,11 @@ export ENABLE_MODEL="${ENABLE_MODEL:-true}"
 
 # Check for virtual environments
 if [ ! -d "nl_server/.venv" ]; then
-  echo -e "${YELLOW}NOTICE: nl_server/.venv directory not found. Running './run_test.sh --setup_nl'.${NC}"
+  log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
   ./run_test.sh --setup_nl
 fi
 if [ ! -d "server/.venv" ]; then
-  echo -e "${YELLOW}NOTICE: server/.venv directory not found. Running './run_test.sh --setup_website'.${NC}"
+  log_notice "server/.venv directory not found. Running './run_test.sh --setup_website'."
   ./run_test.sh --setup_website
 fi
 
@@ -70,11 +66,11 @@ trap 'exit_with=$?; cleanup' EXIT
 trap 'exit_with=0; cleanup' SIGINT SIGTERM
 
 if lsof -i :6070 > /dev/null 2>&1; then
-  echo -e "${RED}ERROR: Port 6070 (for NL server) is already in use. Please stop the process using that port.${NC}"
+  log_error "Port 6070 (for NL server) is already in use. Please stop the process using that port."
   exit 1
 fi
 if lsof -i :8090 > /dev/null 2>&1; then
-  echo -e "${RED}ERROR: Port 8090 (for website server) is already in use. Please stop the process using that port.${NC}"
+  log_error "Port 8090 (for website server) is already in use. Please stop the process using that port."
   exit 1
 fi
 
@@ -99,12 +95,12 @@ WEB_PID=$!
 
 while true; do
   if ! ps -p $WEB_PID > /dev/null; then
-    echo -e "${RED}ERROR: Website server exited early. Run with --verbose to debug.${NC}"
+    log_error "Website server exited early. Run with --verbose to debug."
     exit 1
   fi
 
   if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
-    echo -e "${RED}ERROR: NL server exited early. Run with --verbose to debug.${NC}"
+    log_error "NL server exited early. Run with --verbose to debug."
     exit 1
   fi
 
