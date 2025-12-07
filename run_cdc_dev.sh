@@ -70,6 +70,9 @@ ENV_FILE=${RUN_CDC_DEV_ENV_FILE:-.run_cdc_dev.env}
 echo "Using environment file: $ENV_FILE"
 source $ENV_FILE && export $(sed '/^#/d' $ENV_FILE | cut -d= -f1)
 
+
+
+
 # Print commit hashes.
 log_notice "website hash: $(git rev-parse --short=7 HEAD)"
 log_notice "mixer hash: $(git rev-parse --short=7 HEAD:mixer)"

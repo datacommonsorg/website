@@ -13,6 +13,7 @@
 # limitations under the License.
 """Utilities used by the base webddriver test."""
 
+import os
 from typing import List
 
 from selenium import webdriver

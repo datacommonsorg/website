@@ -318,6 +318,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   cfg = lib_config.get_config()
 
+  # Initialize Mixer recorder/replay if enabled
+  if os.environ.get('MIXER_MODE'):
+    # Initialize Mixer recorder/replay if enabled
+    from server.lib import recorder
+    recorder.register_recorder(app)
+
   if lib_gcp.in_google_network() and not lib_utils.is_test_env():
     client = google.cloud.logging.Client()
     client.setup_logging()

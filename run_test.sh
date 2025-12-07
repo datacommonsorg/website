@@ -321,6 +321,7 @@ function run_webdriver_test {
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
+
   else
     # TODO: Stop using reruns once tests are deflaked.
     python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
@@ -345,6 +346,7 @@ function run_cdc_webdriver_test {
   export MIXER_LOG_LEVEL=${MIXER_LOG_LEVEL:-WARN}
   assert_website_python
   start_servers "cdc"
+
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
@@ -357,8 +359,7 @@ function run_cdc_webdriver_test {
     rerun_options="--reruns 2"
   fi
 
-  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
-  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ ${@}
 
   stop_servers
   deactivate
@@ -446,7 +447,7 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a)
+    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a | --compress_webdriver_recordings)
         if [[ -n "$command" ]]; then
             # If a command has already been set, break the loop to process it with the collected extra_args
             break
@@ -468,6 +469,34 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
+# Helper to manage recordings
+function manage_recordings {
+  local action=$1
+  local recordings_dir="server/tests/test_data/webdriver_recordings"
+  local tarball="server/tests/test_data/webdriver_recordings.tar.gz"
+
+  if [[ "$action" == "extract" ]]; then
+    if [[ " ${extra_args[@]} " =~ " --no_extract " ]]; then
+      echo "Skipping recording extraction (--no_extract passed)."
+      return
+    fi
+    if [[ -f "$tarball" ]]; then
+      echo "Extracting $tarball..."
+      # Extract to the parent directory since the tarball contains the folder name
+      tar -xzf "$tarball" -C "server/tests/test_data"
+    fi
+  elif [[ "$action" == "compress" ]]; then
+    if [[ " ${extra_args[@]} " =~ " --no_compress " ]]; then
+      echo "Skipping recording compression (--no_compress passed)."
+      return
+    fi
+    if [[ -d "$recordings_dir" ]]; then
+      echo "Compressing recordings to $tarball..."
+      tar -czf "$tarball" -C server/tests/test_data webdriver_recordings
+    fi
+  fi
+}
+
 # Use "${extra_args[@]}" to correctly pass array elements as separate words
 case "$command" in
   -p)
@@ -476,11 +505,19 @@ case "$command" in
       ;;
   -w)
       echo -e "### Running webdriver tests"
+      manage_recordings "extract"
       run_webdriver_test "${extra_args[@]}"
+      if [[ "$WEBDRIVER_RECORDING_MODE" == "record" ]]; then
+        manage_recordings "compress"
+      fi
       ;;
   --cdc)
       echo -e "### Running Custom DC webdriver tests"
+      manage_recordings "extract"
       run_cdc_webdriver_test "${extra_args[@]}"
+      if [[ "$WEBDRIVER_RECORDING_MODE" == "record" ]]; then
+        manage_recordings "compress"
+      fi
       ;;
   --explore)
       echo --explore "### Running explore page integration tests"
@@ -527,6 +564,11 @@ case "$command" in
   -c)
       echo -e "### Running client tests"
       run_npm_test "${extra_args[@]}"
+      ;;
+  --compress_webdriver_recordings)
+      echo -e "### Compressing webdriver recordings"
+      # Force compression by temporarily unsetting any no-compress flag if present (though unlikely to be passed with this command)
+      manage_recordings "compress"
       ;;
   -f)
       echo -e "### Fix lint errors"
