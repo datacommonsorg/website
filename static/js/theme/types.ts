@@ -55,6 +55,7 @@ export interface Theme {
     xl: number;
   };
   spacing: {
+    x2s: number;
     xs: number;
     sm: number;
     md: number;

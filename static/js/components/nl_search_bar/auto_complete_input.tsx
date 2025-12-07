@@ -446,6 +446,10 @@ export function AutoCompleteInput(
             ? theme.search.active.background
             : theme.search.base.background};
           border-radius: ${theme.search.radius};
+          overflow: hidden;
+          max-height: calc(
+            ${theme.searchSuggestions.height} + ${theme.search.height}
+          );
         `}
       >
         <InputGroup
@@ -522,7 +526,7 @@ export function AutoCompleteInput(
                 color: ${props.value
                   ? inputActive
                     ? theme.search.active.button
-                    : theme.search.base.button
+                    : theme.search.base.text
                   : theme.search.base.button};
               }
             `}
