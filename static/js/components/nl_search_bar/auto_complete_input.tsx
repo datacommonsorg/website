@@ -17,7 +17,9 @@
 /**
  * Standard version of the auto-complete capable NL Search bar.
  */
+/** @jsxImportSource @emotion/react */
 
+import { css } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, {
@@ -54,10 +56,12 @@ import {
   replaceQueryWithSelection,
   stripPatternFromQuery,
 } from "../../shared/util";
+import theme from "../../theme/theme";
 import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
 } from "../../utils/click_alerter";
+import { Button } from "../elements/button/button";
 import { ArrowForward } from "../elements/icons/arrow_forward";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
@@ -429,39 +433,104 @@ export function AutoCompleteInput(
   return (
     <>
       <div
-        className={`search-box-section ${
-          results.length == 0 ? "radiused" : "unradiused"
-        } ${inputActive ? "search-box-section-active" : ""}`}
         ref={wrapperRef}
+        css={css`
+          display: flex;
+          flex-direction: column;
+          border: 1px solid
+            ${inputActive
+              ? theme.search.active.border
+              : theme.search.base.border};
+          width: 100%;
+          background-color: ${inputActive
+            ? theme.search.active.background
+            : theme.search.base.background};
+          border-radius: ${theme.search.radius};
+        `}
       >
-        <div
-          className={`search-bar${props.value ? " non-empty" : ""} ${
-            results.length == 0 ? "radiused" : "unradiused"
-          }`}
+        <InputGroup
+          css={css`
+            margin: 0;
+            padding: 0;
+            border: 0;
+            display: flex;
+            align-items: center;
+            gap: ${theme.spacing.md}px;
+            padding: 0 ${theme.spacing.lg}px;
+          `}
         >
-          <InputGroup className="search-bar-content">
-            {isHeaderBar && (
-              <span className="search-bar-icon">
-                <Search />
-              </span>
-            )}
-            <Input
-              id={props.inputId}
-              invalid={props.invalid}
-              placeholder={placeholderText}
-              aria-label={placeholderText}
-              value={inputText}
-              onChange={onInputChange}
-              onKeyDown={(event): void => handleKeydownEvent(event)}
-              className="pac-target-input search-input-text"
-              autoComplete="one-time-code"
-              autoFocus={props.shouldAutoFocus}
-            ></Input>
-            <div onClick={executeQuery} id="rich-search-button">
-              {isHeaderBar && <ArrowForward />}
-            </div>
-          </InputGroup>
-        </div>
+          <div
+            css={css`
+              ${theme.typography.text.lg}
+              line-height: 1rem;
+              margin: 0;
+              padding: 0;
+              color: ${inputActive
+                ? theme.search.active.icon
+                : theme.search.base.icon};
+            `}
+          >
+            <Search />
+          </div>
+          <Input
+            id={props.inputId}
+            invalid={props.invalid}
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            value={inputText}
+            onChange={onInputChange}
+            onKeyDown={(event): void => handleKeydownEvent(event)}
+            autoComplete="one-time-code"
+            autoFocus={props.shouldAutoFocus}
+            css={css`
+              && {
+                // Reset default input styles
+                margin: 0;
+                padding: 0;
+                border: none;
+                background-image: none;
+                background-color: transparent;
+                box-shadow: none;
+                cursor: default;
+                // Custom styles
+                ${theme.typography.family.text}
+                ${theme.typography.text.md}
+                line-height: 1rem;
+                height: ${theme.search.height};
+                background-color: ${inputActive
+                  ? theme.search.active.background
+                  : theme.search.base.background};
+                color: ${inputActive
+                  ? theme.search.active.text
+                  : theme.search.base.text};
+              }
+              &&:focus,
+              &&:active {
+                border: none;
+                box-shadow: none !important; // Override CSS Important
+                outline: none;
+              }
+            `}
+          />
+          <Button
+            variant="naked"
+            size="lg"
+            onClick={executeQuery}
+            id="rich-search-button"
+            css={css`
+              && {
+                color: ${props.value
+                  ? inputActive
+                    ? theme.search.active.button
+                    : theme.search.base.button
+                  : theme.search.base.button};
+              }
+            `}
+          >
+            <ArrowForward />
+          </Button>
+        </InputGroup>
+
         {props.enableAutoComplete && !_.isEmpty(results) && (
           <AutoCompleteSuggestions
             baseInput={baseInput}

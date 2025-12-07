@@ -489,6 +489,39 @@ const theme: Theme = {
   tooltip: {
     width: "300px",
   },
+  search: {
+    height: "48px",
+    radius: "32px",
+    base: {
+      border: "#5E5E5E",
+      background: "#FFFFFF",
+      icon: "#5E5E5E",
+      button: "#F1F1F1",
+      text: "#5E5E5E",
+    },
+    active: {
+      border: "#0B57D0",
+      background: "#F6F9FF",
+      icon: "#0B57D0",
+      button: "#0B57D0",
+      text: "#666666",
+    },
+  },
+  searchSuggestions: {
+    height: "red",
+    base: {
+      border: "red",
+      background: "red",
+      icon: "red",
+      text: "red",
+    },
+    hover: {
+      border: "red",
+      background: "red",
+      icon: "red",
+      text: "red",
+    },
+  },
 };
 
 export default theme;

@@ -80,6 +80,7 @@ export function Search({ className, children }: SearchProps): ReactElement {
         }}
         initialValue={""}
         shouldAutoFocus={false}
+        variant="standard"
       />
     </div>
   );
