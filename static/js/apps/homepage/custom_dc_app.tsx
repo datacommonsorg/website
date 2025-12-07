@@ -17,7 +17,9 @@
 /**
  * Main component for the homepage.
  */
+/** @jsxImportSource @emotion/react */
 
+import { css } from "@emotion/react";
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
@@ -37,11 +39,13 @@ interface AppProps {
 export function App({ routes }: AppProps): ReactElement {
   return (
     <ThemeProvider theme={theme}>
-      <Section colorVariant="light" variant="large">
-        <Search />
+      <Section colorVariant="base" variant="standard">
+        <Search>
+          <h3>Search your Data Commons</h3>
+        </Search>
       </Section>
 
-      <Section variant="small">
+      <Section colorVariant="light" variant="large">
         <Tools
           routes={routes}
           tools={["statVarExplorer", "timeline"]}

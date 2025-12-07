@@ -401,4 +401,37 @@ export interface Theme {
   tooltip: {
     width?: string;
   };
+  search: {
+    height: string;
+    radius: string;
+    base: {
+      border: string;
+      background: string;
+      icon: string;
+      button: string;
+      text: string;
+    };
+    active: {
+      border: string;
+      background: string;
+      icon: string;
+      button: string;
+      text: string;
+    };
+  };
+  searchSuggestions: {
+    height: string;
+    base: {
+      border: string;
+      background: string;
+      icon: string;
+      text: string;
+    };
+    hover: {
+      border: string;
+      background: string;
+      icon: string;
+      text: string;
+    };
+  };
 }
