@@ -17,7 +17,9 @@
 /**
  * Standard version of the suggested results for the auto-complete capable NL Search bar.
  */
+/** @jsxImportSource @emotion/react */
 
+import { css } from "@emotion/react";
 import React, { ReactElement, useEffect, useState } from "react";
 
 import {
@@ -27,6 +29,8 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { stripPatternFromQuery } from "../../shared/util";
+import theme from "../../theme/theme";
+import { Location } from "../elements/icons/location";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteResult } from "./auto_complete_input";
 
@@ -65,7 +69,7 @@ export function AutoCompleteSuggestions(
       }
     } else if (result.matchType === "location_search") {
       if (isExactMatch) {
-        return <span className="material-icons-outlined">location_on</span>;
+        return <Location />;
       }
     }
     return <Search />;
@@ -86,8 +90,15 @@ export function AutoCompleteSuggestions(
 
   return (
     <div
-      className="autocomplete-search-input-results-list scrollable-container"
       tabIndex={-1}
+      css={css`
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        overflow-y: auto;
+        overfow-x: hidden;
+      `}
     >
       {props.allResults
         .slice(0, visibleCount)
@@ -95,36 +106,52 @@ export function AutoCompleteSuggestions(
           const fullText = result.fullText;
           const parts = fullText.split(result.name);
           return (
-            <div key={idx}>
-              <div
-                className={`search-input-result-section  ${
-                  idx === props.hoveredIdx
-                    ? "search-input-result-section-highlighted"
-                    : ""
-                }`}
+            <div
+              data-testid="search-input-result-section"
+              key={"search-input-result-" + result.dcid}
+              onClick={(): void => props.onClick(result, idx)}
+              css={css`
+                && {
+                  margin: 0;
+                  padding: 0;
+                  border: 0;
+                  display: flex;
+                  align-items: center;
+                  gap: ${theme.spacing.md}px;
+                  padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
+                  cursor: pointer;
+                  border-top: 1px solid ${theme.searchSuggestions.base.border};
+                  background-color: ${theme.searchSuggestions.base.background};
+                }
+                &&:hover {
+                  background-color: ${idx === props.hoveredIdx
+                    ? "red"
+                    : "white"};
+                }
+              `}
+            >
+              <span
+                css={css`
+                  ${theme.typography.text.lg}
+                  line-height: 1rem;
+                  color: ${theme.searchSuggestions.base.icon};
+                `}
               >
-                <div
-                  className="search-input-result"
-                  key={"search-input-result-" + result.dcid}
-                  onClick={(): void => props.onClick(result, idx)}
-                >
-                  <span className="search-result-icon">
-                    {getIcon(result, props.baseInput)}
-                  </span>
-                  <div className="query-result">
-                    <span>
-                      {parts[0]}
-                      <span className="query-suggestion">{result.name}</span>
-                      {parts.length > 1 && parts[1]}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              {idx !== props.allResults.slice(0, visibleCount).length - 1 ? (
-                <hr className="result-divider"></hr>
-              ) : (
-                <></>
-              )}
+                {getIcon(result, props.baseInput)}
+              </span>
+              <span
+                className="query-result"
+                css={css`
+                  ${theme.typography.family.text}
+                  ${theme.typography.text.md}
+                  line-height: 1rem;
+                  color: ${theme.searchSuggestions.base.text};
+                `}
+              >
+                {parts[0]}
+                {result.name}
+                {parts.length > 1 && parts[1]}
+              </span>
             </div>
           );
         })}
@@ -138,7 +165,17 @@ export function AutoCompleteSuggestions(
             setVisibleCount(visibleCount + RESULTS_TO_LOAD);
           }}
         >
-          <div className="search-input-result">
+          <div
+            css={css`
+              margin: 0;
+              padding: 0;
+              border: 0;
+              display: flex;
+              align-items: center;
+              gap: ${theme.spacing.md}px;
+              padding: 0 ${theme.spacing.lg}px;
+            `}
+          >
             <span className="search-result-icon">
               <span className="material-icons-outlined">expand_more</span>
             </span>

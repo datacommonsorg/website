@@ -29,6 +29,7 @@ const BREAKPOINTS = {
 };
 
 const SPACING = {
+  x2s: 2,
   xs: 4,
   sm: 8,
   md: 16,
@@ -490,7 +491,7 @@ const theme: Theme = {
     width: "300px",
   },
   search: {
-    height: "48px",
+    height: "50px",
     radius: "32px",
     base: {
       border: "#5E5E5E",
@@ -508,12 +509,12 @@ const theme: Theme = {
     },
   },
   searchSuggestions: {
-    height: "red",
+    height: "300px",
     base: {
-      border: "red",
-      background: "red",
-      icon: "red",
-      text: "red",
+      border: "#dddddd",
+      background: "#F6F9FF",
+      icon: "#777777",
+      text: "#5e5e5e",
     },
     hover: {
       border: "red",

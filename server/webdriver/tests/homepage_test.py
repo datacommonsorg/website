@@ -115,7 +115,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     search_box_input.send_keys("California")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.presence_of_element_located(
-            (By.CLASS_NAME, 'search-input-result-section')))
+            (By.CSS_SELECTOR, "[data-testid='search-input-result-section']")))
     results = find_elems(self.driver, value='search-input-result-section')
     self.assertGreater(len(results), 0)
     search_box_input.clear()
@@ -124,7 +124,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     search_box_input.send_keys("Population of Calif")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.presence_of_element_located(
-            (By.CLASS_NAME, 'search-input-result-section')))
+            (By.CSS_SELECTOR, "[data-testid='search-input-result-section']")))
     first_result = find_elem(self.driver,
                              by=By.CLASS_NAME,
                              value='search-input-result-section')
