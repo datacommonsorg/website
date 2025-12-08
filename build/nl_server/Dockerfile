@@ -24,9 +24,10 @@ WORKDIR /workspace
 COPY nl_app.py /workspace/nl_app.py
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
 COPY nl_requirements.txt /workspace/nl_requirements.txt
+COPY torch_requirements.txt /workspace/torch_requirements.txt
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip install --upgrade pip setuptools
-RUN pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+RUN pip3 install --no-cache-dir -r /workspace/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu
 RUN pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
 # Flask
 COPY nl_server/. /workspace/nl_server/
