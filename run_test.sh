@@ -33,6 +33,7 @@ function setup_website_python {
   python3 -m venv server/.venv
   source server/.venv/bin/activate
   echo "installing server/requirements.txt"
+  pip3 install --upgrade pip setuptools wheel -q
   pip3 install -r server/requirements.txt -q
   pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   deactivate
