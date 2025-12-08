@@ -15,9 +15,8 @@
 
 # Runs both NL and website servers.
 #
-# - Assumes that ./run_test.sh -b and ./run_test.sh --setup_python
-#   have already been run, and that environment variables
-#   (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
+# - Assumes that ./run_test.sh -b has already been run, and that environment
+#   variables (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
 # - Both servers use different ports than the development server defaults:
 #   - Website server uses port 8090 instead of 8080.
 #   - NL server uses port 6070 instead of 6060.
@@ -63,11 +62,23 @@ if lsof -i :8090 > /dev/null 2>&1; then
   exit 1
 fi
 
+# Check if .venv_nl exists. If not, run ./run_test.sh --setup_nl.
+if [ ! -d ".venv_nl" ]; then
+  echo "NL server virtual environment not found. Running ./run_test.sh --setup_nl..."
+  ./run_test.sh --setup_nl
+fi
+
+# Check if .venv_website exists. If not, run ./run_test.sh --setup_website.
+if [ ! -d ".venv_website" ]; then
+  echo "Website server virtual environment not found. Running ./run_test.sh --setup_website..."
+  ./run_test.sh --setup_website
+fi
+
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
-  python3 nl_app.py 6070 &
+  ./.venv_nl/bin/python3 nl_app.py 6070 &
 else
-  python3 nl_app.py 6070 > /dev/null 2>&1 &
+  ./.venv_nl/bin/python3 nl_app.py 6070 > /dev/null 2>&1 &
 fi
 NL_PID=$!
 
@@ -76,9 +87,9 @@ export NL_SERVICE_ROOT_URL="http://localhost:6070"
 
 echo "Starting Website server..."
 if [[ $VERBOSE == "true" ]]; then
-  python3 web_app.py 8090 &
+  ./.venv_website/bin/python3 web_app.py 8090 &
 else
-  python3 web_app.py 8090 > /dev/null 2>&1 &
+  ./.venv_website/bin/python3 web_app.py 8090 > /dev/null 2>&1 &
 fi
 WEB_PID=$!
 

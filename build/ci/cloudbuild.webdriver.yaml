@@ -35,8 +35,7 @@ steps:
       - -c
       - |
         pip install uv
-        ./run_test.sh --setup_python
-
+        ./run_test.sh --setup_all
   # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
