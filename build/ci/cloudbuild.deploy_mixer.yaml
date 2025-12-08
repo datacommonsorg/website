@@ -22,10 +22,6 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     id: 'Initialize Submodules'
     args: ['submodule', 'update', '--init', '--recursive']
-  
-  - name: 'gcr.io/cloud-builders/git'
-    id: 'Update Mixer Submodule'
-    args: ['submodule', 'update', '--remote', 'mixer']
 
   # STEP 2: Fetch the hash and create the release.
   - name: 'gcr.io/datcom-ci/datacommons-script-runner:latest'
@@ -47,6 +43,11 @@ steps:
           exit 1
         fi
         echo "Found latest mixer image hash: $mixer_githash"
+
+        # Update mixer submodule to the specific hash
+        echo "Updating mixer submodule to $mixer_githash"
+        git -C mixer fetch origin
+        git -C mixer checkout "$mixer_githash"
 
         # 2. CREATE DEPLOYMENT RELEASE
         # Use standard bash variable syntax ($variable or ${variable})
