@@ -21,6 +21,7 @@ from flask import Flask
 from flask import request
 from flask import Response
 
+from server.lib.recorder.fallbacks import FAKE_RESPONSE_HEADER
 from server.lib.recorder.fallbacks import FALLBACK_RESPONSES
 from server.lib.recorder.fallbacks import PREFIX_FALLBACK_RESPONSES
 from server.lib.recorder.hashing import RequestHasher
@@ -99,8 +100,8 @@ class Recorder:
     if self.mode not in [MODE_RECORD, MODE_REPLAY]:
       return response
 
-    # Check for dummy response header
-    if response.headers.get('X-Webdriver-Dummy-Response') == 'true':
+    # Check for fake response header
+    if response.headers.get(FAKE_RESPONSE_HEADER) == 'true':
       return response
 
     # Only record API calls
@@ -140,7 +141,7 @@ class Recorder:
       logging.debug(
           f"Recording not found for {request.path}. Returning fallback response."
       )
-      self.stats.increment_fallback_dummy()
+      self.stats.increment_fallback_fake()
 
       if callable(handler):
         return handler(request)
@@ -148,7 +149,7 @@ class Recorder:
         # Should not happen with current implementation but for safety
         return Response(self._json_dumps(handler),
                         mimetype='application/json',
-                        headers={'X-Webdriver-Dummy-Response': 'true'})
+                        headers={FAKE_RESPONSE_HEADER: 'true'})
 
     self.stats.increment_fallback_live(request.path)
 

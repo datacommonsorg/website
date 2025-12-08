@@ -20,7 +20,7 @@ class RecorderStats:
 
   def __init__(self):
     self.found_count = 0
-    self.fallback_dummy_count = 0
+    self.fallback_fake_count = 0
     self.fallback_live_count = 0
     self.not_found_by_path: dict[str, int] = {}
     self.recorded_hashes: set[str] = set()
@@ -38,9 +38,9 @@ class RecorderStats:
     self.found_count += 1
     self.log_if_needed()
 
-  def increment_fallback_dummy(self):
-    """Increments the count of requests handled by a fallback dummy response."""
-    self.fallback_dummy_count += 1
+  def increment_fallback_fake(self):
+    """Increments the count of requests handled by a fallback fake response."""
+    self.fallback_fake_count += 1
     self.log_if_needed()
 
   def increment_fallback_live(self, path: str):
@@ -51,7 +51,7 @@ class RecorderStats:
 
   def log_if_needed(self):
     """Logs stats if the total count is a multiple of 50."""
-    total = (self.found_count + self.fallback_dummy_count +
+    total = (self.found_count + self.fallback_fake_count +
              self.fallback_live_count)
     if total % 50 == 0:
       self.log_stats()
@@ -59,7 +59,7 @@ class RecorderStats:
   def log_stats(self):
     """Logs the current statistics to stdout."""
     print(
-        f"Recording Stats - Found: {self.found_count}, Fallback Dummy: {self.fallback_dummy_count}, Fallback Live: {self.fallback_live_count}",
+        f"Recording Stats - Found: {self.found_count}, Fallback Fake: {self.fallback_fake_count}, Fallback Live: {self.fallback_live_count}",
         flush=True)
     if self.not_found_by_path:
       print(
