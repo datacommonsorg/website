@@ -34,6 +34,7 @@ steps:
     args:
       - -c
       - |
+        pip install uv
         ./run_test.sh --setup_python
 
   - id: setup_website
@@ -43,6 +44,7 @@ steps:
     args:
       - -c
       - |
+        pip install uv
         ./run_test.sh --setup_website
 
   - id: setup_nl
@@ -52,6 +54,7 @@ steps:
     args:
       - -c
       - |
+        pip install uv
         ./run_test.sh --setup_nl
 
   # Run the Custom DC webdriver tests

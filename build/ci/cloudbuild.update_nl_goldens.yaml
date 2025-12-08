@@ -46,6 +46,7 @@ steps:
       pip install --upgrade pip
 
       echo "Installing Python and NL dependencies..."
+      pip install uv
       ./run_test.sh --setup_python
 
       echo "Installing Protoc 3.21.12 and netcat..."

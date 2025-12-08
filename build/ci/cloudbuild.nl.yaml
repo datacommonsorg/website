@@ -21,6 +21,7 @@ steps:
     args:
       - -c
       - |
+        pip install uv
         ./run_test.sh --setup_python
 
   - id: explore_tests
