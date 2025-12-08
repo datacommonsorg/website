@@ -120,17 +120,23 @@ export function AutoCompleteSuggestions(
                   gap: ${theme.spacing.md}px;
                   padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
                   cursor: pointer;
-                  border-top: 1px solid ${theme.searchSuggestions.base.border};
+                  border-top: 1px solid ${theme.searchSuggestions.border};
                   background-color: ${theme.searchSuggestions.base.background};
                 }
                 &&:hover {
                   background-color: ${idx === props.hoveredIdx
-                    ? "red"
-                    : "white"};
+                    ? theme.searchSuggestions.base.background
+                    : theme.searchSuggestions.hover.background};
+                  div {
+                    color: ${theme.searchSuggestions.hover.icon};
+                  }
+                  span {
+                    color: ${theme.searchSuggestions.hover.text};
+                  }
                 }
               `}
             >
-              <span
+              <div
                 css={css`
                   ${theme.typography.text.lg}
                   line-height: 1rem;
@@ -138,9 +144,9 @@ export function AutoCompleteSuggestions(
                 `}
               >
                 {getIcon(result, props.baseInput)}
-              </span>
+              </div>
               <span
-                className="query-result"
+                data-testid="query-result"
                 css={css`
                   ${theme.typography.family.text}
                   ${theme.typography.text.md}

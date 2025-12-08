@@ -19,7 +19,6 @@
  */
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
@@ -41,7 +40,7 @@ export function App({ routes }: AppProps): ReactElement {
     <ThemeProvider theme={theme}>
       <Section colorVariant="base" variant="standard">
         <Search>
-          <h3>Search your Data Commons</h3>
+          <h3>Search Your Data Commons</h3>
         </Search>
       </Section>
 
@@ -50,7 +49,12 @@ export function App({ routes }: AppProps): ReactElement {
           routes={routes}
           tools={["statVarExplorer", "timeline"]}
           showDescriptions
-        />
+        >
+          <h3>Your Data Commons tools</h3>
+          <p>
+            Your Data Commons comes with tools to browse the available datasets
+          </p>
+        </Tools>
       </Section>
     </ThemeProvider>
   );

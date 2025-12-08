@@ -106,8 +106,8 @@ export const LinkIconBox = ({
         }}
       >
         {icon}
-        {link.title}
-        {description && <span>{description}</span>}
+        {link.title && <span className="link-title">{link.title}</span>}
+        {description && <span className="link-description">{description}</span>}
       </a>
     </div>
   );

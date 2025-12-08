@@ -157,6 +157,7 @@ export const Tools = ({
           & > p {
             ${theme.typography.family.text};
             ${theme.typography.text.lg};
+            color: ${theme.colors.text.tertiary.base};
           }
         }
 
@@ -167,6 +168,17 @@ export const Tools = ({
           gap: ${theme.spacing.lg}px;
           margin: 0;
           padding: 0;
+        }
+
+        & > .tools .link-title {
+          ${theme.typography.family.heading};
+          ${theme.typography.heading.sm};
+          color: ${theme.colors.link.primary.base};
+        }
+        & > .tools .link-description {
+          ${theme.typography.family.text};
+          ${theme.typography.text.sm};
+          color: ${theme.colors.text.tertiary.base};
         }
       `}
     >
