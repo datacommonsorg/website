@@ -150,8 +150,6 @@ class TimelineTestMixin():
 
     # Assert there are no charts.
     shared.wait_for_loading(self.driver)
-    # Assert there are no charts.
-    shared.wait_for_loading(self.driver)
     charts = self.driver.find_elements(
         By.XPATH, '//*[@id="chart-region"]/div[@class="chart-container"]')
     self.assertEqual(len(charts), 0)

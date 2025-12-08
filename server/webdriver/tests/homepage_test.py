@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,23 +24,6 @@ from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
 
 class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
   """Tests for Homepage. Some tests come from HomepageTestMixin."""
-
-  def set_search_box_input(self, search_box_input, text):
-    """Sets the search box input value.
-    
-    Currently uses send_keys() which simulates typing.
-    We use select-all + delete to clear the input to ensure no residual text.
-    """
-    import sys
-
-    from selenium.webdriver.common.keys import Keys
-
-    cmd_ctrl = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
-
-    # Select all and delete to clear
-    search_box_input.send_keys(cmd_ctrl + 'a')
-    search_box_input.send_keys(Keys.BACK_SPACE)
-    search_box_input.send_keys(text)
 
   def test_homepage_en_by_css(self):
     """Test homepage in EN."""
@@ -136,7 +117,6 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     results = find_elems(self.driver, value='search-input-result-section')
     self.assertGreater(len(results), 0)
     search_box_input.clear()
-    time.sleep(1)
 
     # Test complex query with place at the end
     search_box_input.send_keys("Population of Calif")
@@ -164,15 +144,14 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
                                  value='query-search-input')
 
     # Test autocomplete for stat vars
-    self.set_search_box_input(search_box_input, "gdp")
+    search_box_input.send_keys("gdp")
     initial_results = find_elems(self.driver,
                                  value='search-input-result-section')
     self.assertEqual(len(initial_results), 6)
     search_box_input.clear()
-    time.sleep(1)
 
     # Test load more stat var results
-    self.set_search_box_input(search_box_input, "Household Income")
+    search_box_input.send_keys("Household Income")
     initial_results = find_elems(self.driver,
                                  value='search-input-result-section')
     self.assertEqual(len(initial_results), 6)

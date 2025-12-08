@@ -585,7 +585,6 @@ case "$command" in
       ;;
   --compress_webdriver_recordings)
       echo -e "### Compressing webdriver recordings"
-      # Force compression by temporarily unsetting any no-compress flag if present (though unlikely to be passed with this command)
       manage_recordings "compress"
       ;;
   -f)
