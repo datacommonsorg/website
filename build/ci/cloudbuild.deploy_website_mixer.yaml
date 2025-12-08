@@ -27,4 +27,4 @@ steps:
   - name: 'gcr.io/datcom-ci/datacommons-script-runner'
     entrypoint: 'bash'
     args:
-      - './build/ci/deploy_website_mixer.sh'
+      - './scripts/deploy_website_mixer_latest.sh'
