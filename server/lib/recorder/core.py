@@ -15,7 +15,6 @@
 import base64
 import logging
 import os
-from typing import Dict
 
 from flask import Flask
 from flask import request

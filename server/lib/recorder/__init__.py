@@ -13,3 +13,5 @@
 # limitations under the License.
 
 from server.lib.recorder.core import init_recorder
+
+__all__ = ['init_recorder']

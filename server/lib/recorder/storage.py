@@ -18,7 +18,6 @@ import threading
 
 from pydantic import BaseModel
 from pydantic import ConfigDict
-from pydantic import Field
 from werkzeug.utils import secure_filename
 
 RECORDING_DIR_ENV = 'RECORDING_DIR'
