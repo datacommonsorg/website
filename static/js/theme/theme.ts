@@ -510,17 +510,16 @@ const theme: Theme = {
   },
   searchSuggestions: {
     height: "300px",
+    border: "#dddddd",
     base: {
-      border: "#dddddd",
       background: "#F6F9FF",
       icon: "#777777",
       text: "#5e5e5e",
     },
     hover: {
-      border: "red",
-      background: "red",
-      icon: "red",
-      text: "red",
+      background: "#e9eef6",
+      icon: "#0B57D0",
+      text: "#222222",
     },
   },
 };

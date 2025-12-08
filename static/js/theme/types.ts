@@ -422,14 +422,13 @@ export interface Theme {
   };
   searchSuggestions: {
     height: string;
+    border: string;
     base: {
-      border: string;
       background: string;
       icon: string;
       text: string;
     };
     hover: {
-      border: string;
       background: string;
       icon: string;
       text: string;
