@@ -24,7 +24,7 @@ __pycache__/
 !.vscode/launch.json
 .env
 .env.list
-build/cdc/dev/.env-test
+custom_dc/.env-test
 
 # Mac
 .DS_Store
@@ -107,7 +107,6 @@ custom_dc/data/*.db
 *.egg-info
 
 # Custom DC dev and terraform ignores
-build/cdc/dev/.env
 *.tfvars
 deploy/terraform-custom-datacommons/modules/backend.tf
 
