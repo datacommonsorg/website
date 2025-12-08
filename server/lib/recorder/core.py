@@ -12,6 +12,7 @@ from typing import Any, Dict, Optional, Set
 from flask import Flask
 from flask import request
 from flask import Response
+from werkzeug.utils import secure_filename
 
 from server.lib.recorder.fallbacks import FALLBACK_RESPONSES
 from server.lib.recorder.fallbacks import PREFIX_FALLBACK_RESPONSES
@@ -108,7 +109,6 @@ def _get_request_hash(request) -> str:
   # Sort args
   args = request.args.to_dict(flat=False)
   # Normalize args
-  args = _normalize_data(args, req_path)
   args = _normalize_data(args, req_path, PATH_ALLOWED_ARG_FIELDS)
   # Sort lists in args to ensure determinism for multi-value params
   args = _sort_lists(args)
@@ -153,11 +153,13 @@ def _get_cassette_path(req_path: str, hash_key: str) -> str:
 
   if not slug:
     # Clean up path for filename if no group found
-    slug = req_path.strip('/').replace('/', '_')
+    # Use secure_filename to ensure the filename is safe
+    slug = secure_filename(req_path)
     if not slug:
       slug = "root"
 
-  return os.path.join(_get_cassette_dir(), slug, f"{hash_key}.json")
+  cassette_dir = _get_cassette_dir()
+  return os.path.join(cassette_dir, slug, f"{hash_key}.json")
 
 
 def _create_response_from_cassette(data: Dict) -> Response:
