@@ -19,7 +19,7 @@ from server.lib.recorder.fallbacks import PREFIX_FALLBACK_RESPONSES
 
 # Environment variables
 RECORDING_MODE_ENV = 'WEBDRIVER_RECORDING_MODE'
-CASSETTE_DIR_ENV = 'CASSETTE_DIR'
+RECORDING_DIR_ENV = 'RECORDING_DIR'
 
 # Modes
 MODE_RECORD = 'record'
@@ -27,27 +27,27 @@ MODE_REPLAY = 'replay'
 MODE_LIVE = 'live'
 
 # Stats
-CASSETTE_FOUND_COUNT = 0
-CASSETTE_NOT_FOUND_COUNT = 0
-CASSETTE_SKIPPED_COUNT = 0
+RECORDING_FOUND_COUNT = 0
+RECORDING_NOT_FOUND_COUNT = 0
+RECORDING_SKIPPED_COUNT = 0
 RECORDED_HASHES: Set[str] = set()
-CASSETTE_NOT_FOUND_BY_PATH: Dict[str, int] = {}
+RECORDING_NOT_FOUND_BY_PATH: Dict[str, int] = {}
 
 
-def log_cassette_stats():
-  """Logs cassette stats to stdout."""
-  global CASSETTE_FOUND_COUNT, CASSETTE_NOT_FOUND_COUNT, CASSETTE_SKIPPED_COUNT, CASSETTE_NOT_FOUND_BY_PATH
+def log_recording_stats():
+  """Logs recording stats to stdout."""
+  global RECORDING_FOUND_COUNT, RECORDING_NOT_FOUND_COUNT, RECORDING_SKIPPED_COUNT, RECORDING_NOT_FOUND_BY_PATH
   print(
-      f"Cassette Stats - Found: {CASSETTE_FOUND_COUNT}, Not Found: {CASSETTE_NOT_FOUND_COUNT}, Skipped: {CASSETTE_SKIPPED_COUNT}",
+      f"Recording Stats - Found: {RECORDING_FOUND_COUNT}, Not Found: {RECORDING_NOT_FOUND_COUNT}, Skipped: {RECORDING_SKIPPED_COUNT}",
       flush=True)
-  if CASSETTE_NOT_FOUND_BY_PATH:
+  if RECORDING_NOT_FOUND_BY_PATH:
     print(
-        f"Missing Cassettes by Path: {json.dumps(CASSETTE_NOT_FOUND_BY_PATH, sort_keys=True)}",
+        f"Missing Recordings by Path: {json.dumps(RECORDING_NOT_FOUND_BY_PATH, sort_keys=True)}",
         flush=True)
 
 
-def _get_cassette_dir() -> str:
-  return os.environ.get(CASSETTE_DIR_ENV,
+def _get_recording_dir() -> str:
+  return os.environ.get(RECORDING_DIR_ENV,
                         'server/tests/test_data/webdriver_recordings')
 
 
@@ -142,8 +142,8 @@ PATH_GROUPING = {
 }
 
 
-def _get_cassette_path(req_path: str, hash_key: str) -> str:
-  """Generates the file path for the cassette."""
+def _get_recording_path(req_path: str, hash_key: str) -> str:
+  """Generates the file path for the recording."""
   # Check for path grouping
   slug = None
   for prefix, group_name in PATH_GROUPING.items():
@@ -158,12 +158,12 @@ def _get_cassette_path(req_path: str, hash_key: str) -> str:
     if not slug:
       slug = "root"
 
-  cassette_dir = _get_cassette_dir()
-  return os.path.join(cassette_dir, slug, f"{hash_key}.json")
+  recording_dir = _get_recording_dir()
+  return os.path.join(recording_dir, slug, f"{hash_key}.json")
 
 
-def _create_response_from_cassette(data: Dict) -> Response:
-  """Creates a Flask Response object from cassette data."""
+def _create_response_from_recording(data: Dict) -> Response:
+  """Creates a Flask Response object from recording data."""
   resp_data = data['response_body']
   mimetype = data.get('mimetype', 'application/json')
   encoding = data.get('encoding')
@@ -205,35 +205,35 @@ def register_recorder(app: Flask):
     try:
       req_json = request.get_json(silent=True)
       hash_key = _get_request_hash(request)
-      cassette_path = _get_cassette_path(request.path, hash_key)
+      recording_path = _get_recording_path(request.path, hash_key)
 
-      global CASSETTE_FOUND_COUNT, CASSETTE_NOT_FOUND_COUNT, CASSETTE_SKIPPED_COUNT, CASSETTE_NOT_FOUND_BY_PATH
+      global RECORDING_FOUND_COUNT, RECORDING_NOT_FOUND_COUNT, RECORDING_SKIPPED_COUNT, RECORDING_NOT_FOUND_BY_PATH
 
       # Short-circuit for RECORD mode if already recorded in this session
       if mode == MODE_RECORD:
         if hash_key in RECORDED_HASHES:
           # If we have it in memory, we can try to return it from disk to simulate the response
           # This avoids hitting the backend.
-          if os.path.exists(cassette_path):
-            with open(cassette_path, 'r') as f:
+          if os.path.exists(recording_path):
+            with open(recording_path, 'r') as f:
               data = json.load(f)
-              CASSETTE_SKIPPED_COUNT += 1
-              if CASSETTE_SKIPPED_COUNT % 50 == 0:
-                log_cassette_stats()
+              RECORDING_SKIPPED_COUNT += 1
+              if RECORDING_SKIPPED_COUNT % 50 == 0:
+                log_recording_stats()
               logging.warning(
                   f"Skipping backend for {request.path} (already recorded)")
-              return _create_response_from_cassette(data)
+              return _create_response_from_recording(data)
         return
 
     # REPLAY MODE
-      if os.path.exists(cassette_path):
-        with open(cassette_path, 'r') as f:
+      if os.path.exists(recording_path):
+        with open(recording_path, 'r') as f:
           data = json.load(f)
-          CASSETTE_FOUND_COUNT += 1
-          if (CASSETTE_FOUND_COUNT + CASSETTE_NOT_FOUND_COUNT) % 50 == 0:
-            log_cassette_stats()
+          RECORDING_FOUND_COUNT += 1
+          if (RECORDING_FOUND_COUNT + RECORDING_NOT_FOUND_COUNT) % 50 == 0:
+            log_recording_stats()
 
-          return _create_response_from_cassette(data)
+          return _create_response_from_recording(data)
       else:
         # Check for fallback responses (static or dynamic)
         handler = FALLBACK_RESPONSES.get(request.path)
@@ -247,9 +247,9 @@ def register_recorder(app: Flask):
 
         if handler:
           logging.warning(
-              f"Cassette not found for {request.path}. Returning fallback response."
+              f"Recording not found for {request.path}. Returning fallback response."
           )
-          log_cassette_stats()
+          log_recording_stats()
           if callable(handler):
             return handler(request)
           else:
@@ -258,18 +258,18 @@ def register_recorder(app: Flask):
                             mimetype='application/json',
                             headers={'X-Webdriver-Dummy-Response': 'true'})
 
-        CASSETTE_NOT_FOUND_COUNT += 1
-        if request.path not in CASSETTE_NOT_FOUND_BY_PATH:
-          CASSETTE_NOT_FOUND_BY_PATH[request.path] = 0
-        CASSETTE_NOT_FOUND_BY_PATH[request.path] += 1
+        RECORDING_NOT_FOUND_COUNT += 1
+        if request.path not in RECORDING_NOT_FOUND_BY_PATH:
+          RECORDING_NOT_FOUND_BY_PATH[request.path] = 0
+        RECORDING_NOT_FOUND_BY_PATH[request.path] += 1
 
-        if (CASSETTE_FOUND_COUNT + CASSETTE_NOT_FOUND_COUNT) % 50 == 0:
-          log_cassette_stats()
+        if (RECORDING_FOUND_COUNT + RECORDING_NOT_FOUND_COUNT) % 50 == 0:
+          log_recording_stats()
 
         # If not found and no fallback, we let it fall through to the backend (which might be mocked or live)
         # In strict replay mode, we might want to error out here.
         logging.warning(
-            f"Cassette not found for {request.path}. Hash: {hash_key}. Falling through to live backend."
+            f"Recording not found for {request.path}. Hash: {hash_key}. Falling through to live backend."
         )
         return None
 
@@ -301,14 +301,14 @@ def register_recorder(app: Flask):
       if hash_key in RECORDED_HASHES:
         return response
 
-      cassette_path = _get_cassette_path(request.path, hash_key)
+      recording_path = _get_recording_path(request.path, hash_key)
 
-      # Don't overwrite existing cassettes (especially important in REPLAY mode)
-      if os.path.exists(cassette_path):
+      # Don't overwrite existing recordings (especially important in REPLAY mode)
+      if os.path.exists(recording_path):
         return response
 
       logging.warning(
-          f"Recording new cassette for {request.path}. Hash: {hash_key}")
+          f"Recording new recording for {request.path}. Hash: {hash_key}")
 
       encoding = None
 
@@ -336,18 +336,18 @@ def register_recorder(app: Flask):
           'response_body': resp_body
       }
 
-      os.makedirs(os.path.dirname(cassette_path), exist_ok=True)
+      os.makedirs(os.path.dirname(recording_path), exist_ok=True)
       # Atomic write to avoid race conditions
-      temp_path = f"{cassette_path}.tmp.{os.getpid()}.{threading.get_ident()}"
+      temp_path = f"{recording_path}.tmp.{os.getpid()}.{threading.get_ident()}"
 
       with open(temp_path, 'w') as f:
         json.dump(record_data, f, indent=2)
-      os.rename(temp_path, cassette_path)
+      os.rename(temp_path, recording_path)
 
       # Add to cache
       RECORDED_HASHES.add(hash_key)
 
-      logging.warning(f"Recorded {request.path} to {cassette_path}")
+      logging.warning(f"Recorded {request.path} to {recording_path}")
 
     except Exception as e:
       logging.warning(f"Failed to record response for {request.path}: {e}")
