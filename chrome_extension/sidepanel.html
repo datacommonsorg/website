@@ -188,6 +188,7 @@
 
 <body>
   <div class="header-bar">
+    <button id="settingsBtn" class="history-btn" style="margin-right: 8px;">Keys</button>
     <button id="historyBtn" class="history-btn">History</button>
   </div>
 
@@ -204,7 +205,25 @@
     </div>
   </div>
 
-  <iframe id="widgetFrame" src="http://localhost:8080/factcheck/widget"></iframe>
+  <div id="settingsPanel" class="settings-panel" style="display: none; padding: 20px; text-align: center;">
+    <h3>Welcome to Data Commons</h3>
+    <p style="color: #5f6368; font-size: 13px; margin-bottom: 16px;">
+      To use this extension, please enter your Gemini API Key.
+    </p>
+    <input type="password" id="apiKeyInput" placeholder="Enter Gemini API Key"
+      style="width: 100%; padding: 8px; margin-bottom: 16px; border: 1px solid #dadce0; border-radius: 4px; box-sizing: border-box;">
+    <button id="saveKeyBtn" class="history-btn"
+      style="background-color: #1a73e8; color: white; border: none; width: 100%;">Save Key</button>
+    <p style="margin-top: 12px; font-size: 11px;">
+      <a href="https://aistudio.google.com/app/apikey" target="_blank"
+        style="color: #1a73e8; text-decoration: none;">Get
+        an API Key</a>
+    </p>
+  </div>
+
+  <div id="mainContent" style="display: none; height: 100%;">
+    <iframe id="widgetFrame" src="http://localhost:8080/factcheck/widget"></iframe>
+  </div>
   <script src="sidepanel.js"></script>
 </body>
 

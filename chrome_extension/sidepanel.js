@@ -11,6 +11,59 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 });
 
+// API Key Management
+async function checkApiKey() {
+    const { geminiApiKey } = await chrome.storage.local.get('geminiApiKey');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const mainContent = document.getElementById('mainContent');
+    const iframe = document.getElementById('widgetFrame');
+
+    if (geminiApiKey) {
+        settingsPanel.style.display = 'none';
+        mainContent.style.display = 'block';
+        // Pass key to iframe
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({
+                type: 'SET_API_KEY',
+                key: geminiApiKey
+            }, '*');
+        }
+    } else {
+        settingsPanel.style.display = 'flex';
+        mainContent.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    checkApiKey();
+
+    const saveKeyBtn = document.getElementById('saveKeyBtn');
+    if (saveKeyBtn) {
+        saveKeyBtn.addEventListener('click', async () => {
+            const input = document.getElementById('apiKeyInput');
+            const key = input.value.trim();
+            if (key) {
+                await chrome.storage.local.set({ geminiApiKey: key });
+                checkApiKey();
+            }
+        });
+    }
+
+    // Also listen for iframe load to send key
+    const iframe = document.getElementById('widgetFrame');
+    if (iframe) {
+        iframe.addEventListener('load', async () => {
+            const { geminiApiKey } = await chrome.storage.local.get('geminiApiKey');
+            if (geminiApiKey && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                    type: 'SET_API_KEY',
+                    key: geminiApiKey
+                }, '*');
+            }
+        });
+    }
+});
+
 // History Management
 const MAX_HISTORY_ITEMS = 10;
 
@@ -185,6 +238,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const settingsBtn = document.getElementById('settingsBtn');
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', async () => {
+            const settingsPanel = document.getElementById('settingsPanel');
+            const mainContent = document.getElementById('mainContent');
+            const apiKeyInput = document.getElementById('apiKeyInput');
+
+            // Pre-fill with current key (optional, maybe masked?)
+            const { geminiApiKey } = await chrome.storage.local.get('geminiApiKey');
+            if (geminiApiKey) {
+                apiKeyInput.value = geminiApiKey;
+            }
+
+            settingsPanel.style.display = 'flex';
+            mainContent.style.display = 'none';
+        });
+    }
+
     const clearHistoryBtn = document.getElementById('clearHistory');
     if (clearHistoryBtn) {
         clearHistoryBtn.addEventListener('click', async () => {
@@ -199,7 +270,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Listen for messages from the iframe (widget)
 window.addEventListener('message', async (event) => {
-    if (event.data.type === 'SCAN_PAGE') {
+    if (event.data.type === 'AUTH_ERROR') {
+        // Show settings panel if auth fails
+        const settingsPanel = document.getElementById('settingsPanel');
+        const mainContent = document.getElementById('mainContent');
+        if (settingsPanel && mainContent) {
+            settingsPanel.style.display = 'flex';
+            mainContent.style.display = 'none';
+            alert("Authentication failed. Please check your API Key.");
+        }
+    } else if (event.data.type === 'SCAN_PAGE') {
         try {
             const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
             if (!tab) return;

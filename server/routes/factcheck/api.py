@@ -43,30 +43,28 @@ except ImportError as e:
 # Define blueprint
 bp = Blueprint("factcheck_api", __name__, url_prefix='/factcheck/api')
 
-# Global agent instance (lazy loaded)
-_AGENT = None
+# Global agent instance (lazy loaded) - REMOVED for BYOK
+# _AGENT = None
 _MCP_PORT = 3000
 
-def get_agent():
-    global _AGENT
-    if _AGENT:
-        return _AGENT
-    
+def get_agent(api_key=None):
     # Initialize the agent
     # This matches init_mcp.py logic roughly
     agent_model = "gemini-2.5-flash"
     agent_instructions = "Use the Data Commons MCP tools to respond to user queries. Cite the data source when possible."
     
-    # Check if we should use MCP or local tools?
-    # The current dc_tool.py seems to rely on MCP if we pass an agent with McpToolset.
-    # But dc_tool.py also has 'tools_list' and 'function_map' for local execution?
-    # Actually ask_data_commons uses 'runner = Runner(agent=datcom_agent...)'
-    # So we need an agent.
+    if api_key:
+        # Set the API key in the environment for this agent's lifecycle
+        # Note: This is not thread-safe for concurrent requests with different keys in the same process
+        # if the underlying library reads env vars dynamically.
+        # Assuming LlmAgent/genai reads it at initialization.
+        os.environ['GOOGLE_API_KEY'] = api_key
+        os.environ['GENAI_API_KEY'] = api_key
     
     try:
         # Check if port 3000 is open before trying to connect?
         # For now, just try to create the agent.
-        _AGENT = LlmAgent(
+        agent = LlmAgent(
             name="datacommons_agent",
             model=agent_model,
             instruction=agent_instructions,
@@ -78,13 +76,11 @@ def get_agent():
                 )
             ],
         )
-        logging.info(f"Agent '{_AGENT.name}' created using model '{agent_model}'.")
+        logging.info(f"Agent '{agent.name}' created using model '{agent_model}'.")
+        return agent
     except Exception as e:
         logging.error(f"Failed to create agent (MCP server might be down): {e}")
-        # Return None so we can handle it in the route
         return None
-        
-    return _AGENT
 
 @bp.route('/verify_claim', methods=['POST'])
 async def verify_claim():
@@ -94,6 +90,11 @@ async def verify_claim():
     data = request.get_json()
     if not data or 'claim' not in data:
         return jsonify({"error": "Missing 'claim' in request body."}), 400
+
+    # Get API Key from header
+    api_key = request.headers.get('X-Gemini-Api-Key')
+    if not api_key:
+        return jsonify({"error": "Missing API Key"}), 401
         
     claim_text = data['claim']
     context = data.get('context', '')
@@ -105,30 +106,11 @@ async def verify_claim():
     else:
         full_query = claim_text
     
-    agent = get_agent()
+    agent = get_agent(api_key)
     if not agent:
         return jsonify({"error": "Failed to initialize agent. Is the MCP server running?"}), 500
         
     try:
-        # We use utils.verify_claim which wraps dc_tool.ask_data_commons
-        # utils.verify_claim(claim: Dict[str, Any], datcom_agent: Any)
-        # It expects a dict for claim? Let's check utils.py again.
-        # utils.py: async def verify_claim(claim: Dict[str, Any], datcom_agent: Any) -> Dict[str, Any]:
-        #   response = await ask_data_commons(claim, datcom_agent)
-        # dc_tool.py: async def ask_data_commons(claim: str, datcom_agent: Any) -> dict:
-        #   Input = VERIFICATION_PROMPT + str(claim)
-        
-        # So utils.verify_claim passes 'claim' (dict) to ask_data_commons (expects str usually, but casts to str).
-        # If we pass a string to utils.verify_claim, it might work if ask_data_commons handles it.
-        # ask_data_commons does `str(claim)`.
-        # So we can pass the string directly or a dict.
-        
-        # Let's pass the string directly to ask_data_commons to be safe or match utils usage.
-        # utils.py seems to expect 'claim' to be the object we want to verify.
-        
-        # Actually, let's just call dc_tool.ask_data_commons directly if utils is too specific to the batch flow.
-        # utils.verify_claim returns a structure with "original_claim".
-        
         result = await dc_tool.ask_data_commons(full_query, agent)
         
         # Wrap it to match what our frontend expects (or what utils returns)
@@ -150,10 +132,15 @@ async def extract_claims():
     data = request.get_json()
     if not data or 'text' not in data:
         return jsonify({"error": "Missing 'text' in request body."}), 400
+
+    # Get API Key from header
+    api_key = request.headers.get('X-Gemini-Api-Key')
+    if not api_key:
+        return jsonify({"error": "Missing API Key"}), 401
         
     text = data['text']
     
-    agent = get_agent()
+    agent = get_agent(api_key)
     if not agent:
         return jsonify({"error": "Failed to initialize agent."}), 500
         
