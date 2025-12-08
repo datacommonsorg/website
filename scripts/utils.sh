@@ -65,8 +65,8 @@ log_error() {
 
 # Assert that uv is installed. If not, install it via pip.
 assert_uv() {
-  if ! command -v uv &> /dev/null; then
-    log_notice "uv could not be found. Installing uv via pip..."
-    pip3 install uv
-  fi
+    if ! command -v uv &> /dev/null; then
+    log "${RED}Error: uv could not be found. Please install it and try again.${NC}"
+    exit 1
+    fi
 }

@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-source utils.sh
+source scripts/utils.sh
 set -e
 
 # Note: The .venv environment is being deprecated, this setup function
