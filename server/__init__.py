@@ -321,7 +321,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Initialize Webdriver recorder/replay if enabled
   if os.environ.get('WEBDRIVER_RECORDING_MODE'):
     from server.lib import recorder
-    recorder.register_recorder(app)
+    recorder.init_recorder(app)
 
   if lib_gcp.in_google_network() and not lib_utils.is_test_env():
     client = google.cloud.logging.Client()

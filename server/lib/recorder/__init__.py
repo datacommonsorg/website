@@ -1,1 +1,1 @@
-from server.lib.recorder.core import register_recorder
+from server.lib.recorder.core import init_recorder
