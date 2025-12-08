@@ -22,7 +22,7 @@ steps:
       - -c
       - |
         pip install uv
-        ./run_test.sh --setup_python
+        ./run_test.sh --setup_all
 
   - id: explore_tests
     name: python:3.11.3
