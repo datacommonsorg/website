@@ -37,7 +37,7 @@ function setup_website_python {
   uv venv .venv_website --allow-existing
   source .venv_website/bin/activate
   echo "installing server requirements to .venv_website"
-  uv sync --project server
+  uv sync --project server --active
 }
 
 function setup_nl_python {
@@ -45,7 +45,7 @@ function setup_nl_python {
   uv venv .venv_nl --allow-existing
   source .venv_nl/bin/activate
   echo "installing nl_server requirements to .venv_nl"
-  uv sync --project nl_server
+  uv sync --project nl_server --active
 }
 
 # Start website and NL servers in a subprocess and ensure they are stopped
