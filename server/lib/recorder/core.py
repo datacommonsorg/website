@@ -16,6 +16,7 @@ from werkzeug.utils import secure_filename
 
 from server.lib.recorder.fallbacks import FALLBACK_RESPONSES
 from server.lib.recorder.fallbacks import PREFIX_FALLBACK_RESPONSES
+from server.lib.recorder.stats import RecorderStats
 
 # Environment variables
 RECORDING_MODE_ENV = 'WEBDRIVER_RECORDING_MODE'
@@ -27,23 +28,7 @@ MODE_REPLAY = 'replay'
 MODE_LIVE = 'live'
 
 # Stats
-RECORDING_FOUND_COUNT = 0
-RECORDING_NOT_FOUND_COUNT = 0
-RECORDING_SKIPPED_COUNT = 0
-RECORDED_HASHES: Set[str] = set()
-RECORDING_NOT_FOUND_BY_PATH: Dict[str, int] = {}
-
-
-def log_recording_stats():
-  """Logs recording stats to stdout."""
-  global RECORDING_FOUND_COUNT, RECORDING_NOT_FOUND_COUNT, RECORDING_SKIPPED_COUNT, RECORDING_NOT_FOUND_BY_PATH
-  print(
-      f"Recording Stats - Found: {RECORDING_FOUND_COUNT}, Not Found: {RECORDING_NOT_FOUND_COUNT}, Skipped: {RECORDING_SKIPPED_COUNT}",
-      flush=True)
-  if RECORDING_NOT_FOUND_BY_PATH:
-    print(
-        f"Missing Recordings by Path: {json.dumps(RECORDING_NOT_FOUND_BY_PATH, sort_keys=True)}",
-        flush=True)
+STATS = RecorderStats()
 
 
 def _get_recording_dir() -> str:
@@ -207,19 +192,14 @@ def register_recorder(app: Flask):
       hash_key = _get_request_hash(request)
       recording_path = _get_recording_path(request.path, hash_key)
 
-      global RECORDING_FOUND_COUNT, RECORDING_NOT_FOUND_COUNT, RECORDING_SKIPPED_COUNT, RECORDING_NOT_FOUND_BY_PATH
-
       # Short-circuit for RECORD mode if already recorded in this session
       if mode == MODE_RECORD:
-        if hash_key in RECORDED_HASHES:
+        if STATS.is_recorded(hash_key):
           # If we have it in memory, we can try to return it from disk to simulate the response
           # This avoids hitting the backend.
           if os.path.exists(recording_path):
             with open(recording_path, 'r') as f:
               data = json.load(f)
-              RECORDING_SKIPPED_COUNT += 1
-              if RECORDING_SKIPPED_COUNT % 50 == 0:
-                log_recording_stats()
               logging.warning(
                   f"Skipping backend for {request.path} (already recorded)")
               return _create_response_from_recording(data)
@@ -229,9 +209,7 @@ def register_recorder(app: Flask):
       if os.path.exists(recording_path):
         with open(recording_path, 'r') as f:
           data = json.load(f)
-          RECORDING_FOUND_COUNT += 1
-          if (RECORDING_FOUND_COUNT + RECORDING_NOT_FOUND_COUNT) % 50 == 0:
-            log_recording_stats()
+          STATS.increment_found()
 
           return _create_response_from_recording(data)
       else:
@@ -249,7 +227,8 @@ def register_recorder(app: Flask):
           logging.warning(
               f"Recording not found for {request.path}. Returning fallback response."
           )
-          log_recording_stats()
+          STATS.increment_fallback_dummy()
+
           if callable(handler):
             return handler(request)
           else:
@@ -258,13 +237,7 @@ def register_recorder(app: Flask):
                             mimetype='application/json',
                             headers={'X-Webdriver-Dummy-Response': 'true'})
 
-        RECORDING_NOT_FOUND_COUNT += 1
-        if request.path not in RECORDING_NOT_FOUND_BY_PATH:
-          RECORDING_NOT_FOUND_BY_PATH[request.path] = 0
-        RECORDING_NOT_FOUND_BY_PATH[request.path] += 1
-
-        if (RECORDING_FOUND_COUNT + RECORDING_NOT_FOUND_COUNT) % 50 == 0:
-          log_recording_stats()
+        STATS.increment_fallback_live(request.path)
 
         # If not found and no fallback, we let it fall through to the backend (which might be mocked or live)
         # In strict replay mode, we might want to error out here.
@@ -298,7 +271,7 @@ def register_recorder(app: Flask):
       hash_key = _get_request_hash(request)
 
       # Check in-memory cache
-      if hash_key in RECORDED_HASHES:
+      if STATS.is_recorded(hash_key):
         return response
 
       recording_path = _get_recording_path(request.path, hash_key)
@@ -345,7 +318,7 @@ def register_recorder(app: Flask):
       os.rename(temp_path, recording_path)
 
       # Add to cache
-      RECORDED_HASHES.add(hash_key)
+      STATS.add_recorded_hash(hash_key)
 
       logging.warning(f"Recorded {request.path} to {recording_path}")
 
