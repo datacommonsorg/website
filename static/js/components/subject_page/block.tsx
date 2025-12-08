@@ -53,7 +53,10 @@ import {
   DATE_LATEST,
   WEBSITE_SURFACE,
 } from "../../shared/constants";
-import { FacetSelector } from "../../shared/facet_selector/facet_selector";
+import {
+  FacetSelector,
+  FacetSelectorFacetInfo,
+} from "../../shared/facet_selector/facet_selector";
 import {
   isFeatureEnabled,
   METADATA_FEATURE_FLAG,
@@ -80,6 +83,7 @@ import {
 } from "../../utils/subject_page_utils";
 import {
   getComparisonPlaces,
+  getExploreLink,
   getHighlightTileDescription,
 } from "../../utils/tile_utils";
 import { Help } from "../elements/icons/help";
@@ -619,7 +623,8 @@ export function Block(props: BlockPropType): ReactElement {
                         useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
-                          : undefined
+                          : undefined,
+                        facetList
                       )
                 }
               />
@@ -665,7 +670,8 @@ function renderTiles(
   getSingleStatVarSpec: (sv: string) => StatVarSpec,
   tileClassName?: string,
   blockDenom?: string,
-  blockDate?: string
+  blockDate?: string,
+  facetList?: FacetSelectorFacetInfo[]
 ): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -731,6 +737,17 @@ function renderTiles(
             footnote={props.footnote}
             surface={WEBSITE_SURFACE}
             facetSelector={props.facetSelector}
+            hyperlink={getExploreLink({
+              chartType: "RANKING_WITH_MAP",
+              placeDcids: [place.dcid],
+              statVarSpecs: [getSingleStatVarSpec(tile.statVarKey[0])],
+              facetMetadata: facetList?.find(
+                (f) =>
+                  f.dcid === getSingleStatVarSpec(tile.statVarKey[0]).statVar
+              )?.metadataMap?.[
+                getSingleStatVarSpec(tile.statVarKey[0]).facetId
+              ],
+            })}
           />
         );
       case "LINE":
@@ -790,6 +807,14 @@ function renderTiles(
             }
             surface={WEBSITE_SURFACE}
             facetSelector={props.facetSelector}
+            hyperlink={getExploreLink({
+              chartType: "RANKING_WITH_MAP",
+              placeDcids: [place.dcid],
+              statVarSpecs: [getStatVarSpec(tile.statVarKey)[0]],
+              facetMetadata: facetList?.find(
+                (f) => f.dcid === getStatVarSpec(tile.statVarKey)[0].statVar
+              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0].facetId],
+            })}
           />
         );
       case "BAR":
@@ -826,6 +851,14 @@ function renderTiles(
               tile.barTileSpec?.defaultVariableName
             )}
             facetSelector={props.facetSelector}
+            hyperlink={getExploreLink({
+              chartType: "BAR_CHART",
+              placeDcids: comparisonPlaces || [place.dcid],
+              statVarSpecs: getStatVarSpec(tile.statVarKey),
+              facetMetadata: facetList?.find(
+                (f) => f.dcid === getStatVarSpec(tile.statVarKey)[0]?.statVar
+              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0]?.facetId],
+            })}
             surface={WEBSITE_SURFACE}
           />
         );
