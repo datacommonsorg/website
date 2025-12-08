@@ -305,6 +305,14 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
+  # Filter out --no_extract and --no_compress from arguments passed to pytest
+  local pytest_args=()
+  for arg in "$@"; do
+    if [[ "$arg" != "--no_extract" && "$arg" != "--no_compress" ]]; then
+      pytest_args+=("$arg")
+    fi
+  done
+
   if [ ! -d server/dist  ]
   then
     log_error "no dist folder, please run ./run_test.sh -b to build js first."
@@ -313,6 +321,7 @@ function run_webdriver_test {
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export WEBDRIVER_RECORDING_MODE=${WEBDRIVER_RECORDING_MODE:-replay}
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
@@ -320,11 +329,11 @@ function run_webdriver_test {
   source server/.venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
-    python3 -m pytest -n auto server/webdriver/tests/ ${@}
+    python3 -m pytest -n auto server/webdriver/tests/ "${pytest_args[@]}"
 
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ "${pytest_args[@]}"
   fi
   stop_servers
   deactivate
@@ -340,6 +349,7 @@ function run_cdc_webdriver_test {
   export RUN_CDC_DEV_ENV_FILE="custom_dc/.env-test"
   ensure_cdc_test_env_file
   export CDC_TEST_BASE_URL="http://localhost:8080"
+  export WEBDRIVER_RECORDING_MODE=${WEBDRIVER_RECORDING_MODE:-replay}
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi

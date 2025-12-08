@@ -13,8 +13,11 @@ from flask import Flask
 from flask import request
 from flask import Response
 
+from server.lib.recorder.fallbacks import FALLBACK_RESPONSES
+from server.lib.recorder.fallbacks import PREFIX_FALLBACK_RESPONSES
+
 # Environment variables
-MIXER_MODE_ENV = 'WEBDRIVER_RECORDING_MODE'
+RECORDING_MODE_ENV = 'WEBDRIVER_RECORDING_MODE'
 CASSETTE_DIR_ENV = 'CASSETTE_DIR'
 
 # Modes
@@ -27,7 +30,6 @@ CASSETTE_FOUND_COUNT = 0
 CASSETTE_NOT_FOUND_COUNT = 0
 CASSETTE_SKIPPED_COUNT = 0
 RECORDED_HASHES: Set[str] = set()
-FALLBACK_RESPONSES: Dict[str, Any] = {}
 CASSETTE_NOT_FOUND_BY_PATH: Dict[str, int] = {}
 
 
@@ -180,150 +182,14 @@ def _create_response_from_cassette(data: Dict) -> Response:
                   headers=headers)
 
 
-def _dummy_place_name_response(request):
-  req_json = request.get_json(silent=True) or {}
-  dcids = req_json.get('dcids', [])
-  return Response(json.dumps({dcid: "" for dcid in dcids}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_variable_info_response(request):
-  dcids = request.args.get('dcids', '').split(',')
-  return Response(json.dumps({dcid: {} for dcid in dcids if dcid}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_observation_response(request):
-  return Response(json.dumps({
-      "data": {},
-      "facets": {}
-  }),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_place_parent_response(request):
-  return Response(json.dumps([]),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_observation_existence_response(request):
-  req_json = request.get_json(silent=True) or {}
-  entities = req_json.get('entities', [])
-  variables = req_json.get('variables', [])
-  return Response(json.dumps(
-      {var: {
-          entity: True for entity in entities
-      } for var in variables}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_choropleth_geojson_response(request):
-  return Response(json.dumps({
-      "type": "FeatureCollection",
-      "features": [],
-      "properties": {
-          "current_geo": "06"
-      }
-  }),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_facets_response(request):
-  return Response(json.dumps([]),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_facets_within_response(request):
-  return Response(json.dumps({}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_node_propvals_out_response(request):
-  return Response(json.dumps({}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_node_triples_out_response(request):
-  return Response(json.dumps({}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_place_name_i18n_response(request):
-  return Response(json.dumps({}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_stat_var_property_response(request):
-  return Response(json.dumps({}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_variable_group_info_response(request):
-  return Response(json.dumps({
-      "childStatVarGroups": [],
-      "childStatVars": [],
-      "descendentStatVarCount": 0
-  }),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-def _dummy_disaster_event_data_response(request):
-  return Response(json.dumps(
-      {"eventCollection": {
-          "events": [],
-          "provenanceInfo": {}
-      }}),
-                  mimetype='application/json',
-                  headers={'X-Mixer-Dummy-Response': 'true'})
-
-
-# Register fallback responses
-FALLBACK_RESPONSES = {
-    '/api/place/name': _dummy_place_name_response,
-    '/api/place/displayname': _dummy_place_name_response,
-    '/api/place/parent': _dummy_place_parent_response,
-    '/api/observations/point': _dummy_observation_response,
-    '/api/observations/point/within': _dummy_observation_response,
-    '/api/observations/series': _dummy_observation_response,
-    '/api/variable/info': _dummy_variable_info_response,
-    '/api/variable-group/info': _dummy_variable_group_info_response,
-    '/api/observation/existence': _dummy_observation_existence_response,
-    '/api/choropleth/geojson': _dummy_choropleth_geojson_response,
-    '/api/facets': _dummy_facets_response,
-    '/api/facets/within': _dummy_facets_within_response,
-    '/api/node/propvals/out': _dummy_node_propvals_out_response,
-    '/api/place/name/i18n': _dummy_place_name_i18n_response,
-    '/api/stats/stat-var-property': _dummy_stat_var_property_response,
-    '/api/disaster-dashboard/event-data': _dummy_disaster_event_data_response
-}
-
-# Prefix fallback responses
-PREFIX_FALLBACK_RESPONSES = {
-    '/api/node/triples/out/': _dummy_node_triples_out_response
-}
-
-
 def register_recorder(app: Flask):
   """Registers the recorder middleware with the Flask app."""
-  mode = os.environ.get(MIXER_MODE_ENV, MODE_LIVE).lower()
+  mode = os.environ.get(RECORDING_MODE_ENV, MODE_LIVE).lower()
 
   if mode not in [MODE_RECORD, MODE_REPLAY]:
     return
 
-  logging.warning(f"Initializing Mixer Recorder in {mode} mode")
+  logging.warning(f"Initializing Webdriver Recorder in {mode} mode")
 
   @app.before_request
   def handle_before_request():
@@ -388,7 +254,7 @@ def register_recorder(app: Flask):
             # Should not happen with current implementation but for safety
             return Response(json.dumps(handler),
                             mimetype='application/json',
-                            headers={'X-Mixer-Dummy-Response': 'true'})
+                            headers={'X-Webdriver-Dummy-Response': 'true'})
 
         CASSETTE_NOT_FOUND_COUNT += 1
         if request.path not in CASSETTE_NOT_FOUND_BY_PATH:
@@ -414,7 +280,7 @@ def register_recorder(app: Flask):
       return response
 
     # Check for dummy response header
-    if response.headers.get('X-Mixer-Dummy-Response') == 'true':
+    if response.headers.get('X-Webdriver-Dummy-Response') == 'true':
       return response
 
     # Only record API calls

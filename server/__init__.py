@@ -318,9 +318,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   cfg = lib_config.get_config()
 
-  # Initialize Mixer recorder/replay if enabled
-  if os.environ.get('MIXER_MODE'):
-    # Initialize Mixer recorder/replay if enabled
+  # Initialize Webdriver recorder/replay if enabled
+  if os.environ.get('WEBDRIVER_RECORDING_MODE'):
     from server.lib import recorder
     recorder.register_recorder(app)
 
