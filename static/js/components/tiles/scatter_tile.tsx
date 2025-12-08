@@ -529,7 +529,7 @@ function rawToChart(
     if (xStatVar.denom) {
       const xPlaceFacet = xPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
-        xStatVar,
+        xStatVar.denom,
         rawData.denomsByFacet,
         place,
         point.xDate,
@@ -559,7 +559,7 @@ function rawToChart(
     if (yStatVar.denom) {
       const yPlaceFacet = yPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
-        yStatVar,
+        yStatVar.denom,
         rawData.denomsByFacet,
         place,
         point.yDate,

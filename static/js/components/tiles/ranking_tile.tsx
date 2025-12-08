@@ -530,7 +530,7 @@ function pointApiToPerSvRankingData(
       if (spec.denom) {
         // find the denom data with the matching facet, and otherwise use the default data
         const denomInfo = getDenomInfo(
-          spec,
+          spec.denom,
           denomData,
           place,
           statPoint.date,
