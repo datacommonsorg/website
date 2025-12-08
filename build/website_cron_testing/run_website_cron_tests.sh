@@ -43,6 +43,10 @@ SANITY_PID=""
 ADV_MAIN_PID=""
 ADV_SDG_PID=""
 
+# Parse optional test suite argument
+TEST_SUITE=$1
+
+
 # Define script paths (default to current dir for container)
 NODEJS_SCRIPT="nodejs_query.py"
 SANITY_SCRIPT="sanity.py"
@@ -125,7 +129,7 @@ echo "Starting tests in parallel..."
 # -----------------------------------------------------------------------------
 # Node.js Query Tests
 # -----------------------------------------------------------------------------
-if [[ $NODEJS_API_ROOT != "" ]]; then
+if [[ $NODEJS_API_ROOT != "" && ( -z "$TEST_SUITE" || "$TEST_SUITE" == "nodejs" ) ]]; then
   (
     echo "Starting nodejs tests against domain: $NODEJS_API_ROOT"
     
@@ -169,7 +173,7 @@ fi
 # -----------------------------------------------------------------------------
 # Sanity Tests
 # -----------------------------------------------------------------------------
-if [[ $ENABLE_SANITY == "true" ]]; then
+if [[ $ENABLE_SANITY == "true" && ( -z "$TEST_SUITE" || "$TEST_SUITE" == "sanity" ) ]]; then
   (
     echo "Starting sanity tests"
     
@@ -197,7 +201,7 @@ fi
 # -----------------------------------------------------------------------------
 # Adversarial Tests (Main)
 # -----------------------------------------------------------------------------
-if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
+if [[ $ENABLE_ADVERSARIAL == "true" && ( -z "$TEST_SUITE" || "$TEST_SUITE" == "adversarial" ) ]]; then
   (
     echo "Starting adversarial tests (main)"
     
@@ -229,7 +233,7 @@ fi
 # -----------------------------------------------------------------------------
 # Adversarial Tests (SDG)
 # -----------------------------------------------------------------------------
-if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
+if [[ $ENABLE_ADVERSARIAL == "true" && ( -z "$TEST_SUITE" || "$TEST_SUITE" == "adversarial" ) ]]; then
   (
     echo "Starting adversarial tests (sdg)"
     

@@ -14,11 +14,47 @@
 
 steps:
 - name: 'gcr.io/datcom-ci/website-cron-testing:latest'
+  id: 'run-nodejs-tests'
+  waitFor: ['-']
   entrypoint: '/bin/bash'
   args:
   - '-c'
   - |
-    ./run_website_cron_tests.sh
+    ./run_website_cron_tests.sh nodejs
+  env:
+  - 'WEB_API_ROOT=${_WEB_API_ROOT}'
+  - 'NODEJS_API_ROOT=${_NODEJS_API_ROOT}'
+  - 'TESTING_ENV=${_TESTING_ENV}'
+  - 'ENABLE_SANITY=${_ENABLE_SANITY}'
+  - 'ENABLE_ADVERSARIAL=${_ENABLE_ADVERSARIAL}'
+  - 'ENABLE_ADVERSARIAL_SAMPLING=${_ENABLE_ADVERSARIAL_SAMPLING}'
+  - 'ADVERSARIAL_SAMPLING_PERCENTAGE=${_ADVERSARIAL_SAMPLING_PERCENTAGE}'
+
+- name: 'gcr.io/datcom-ci/website-cron-testing:latest'
+  id: 'run-sanity-tests'
+  waitFor: ['-']
+  entrypoint: '/bin/bash'
+  args:
+  - '-c'
+  - |
+    ./run_website_cron_tests.sh sanity
+  env:
+  - 'WEB_API_ROOT=${_WEB_API_ROOT}'
+  - 'NODEJS_API_ROOT=${_NODEJS_API_ROOT}'
+  - 'TESTING_ENV=${_TESTING_ENV}'
+  - 'ENABLE_SANITY=${_ENABLE_SANITY}'
+  - 'ENABLE_ADVERSARIAL=${_ENABLE_ADVERSARIAL}'
+  - 'ENABLE_ADVERSARIAL_SAMPLING=${_ENABLE_ADVERSARIAL_SAMPLING}'
+  - 'ADVERSARIAL_SAMPLING_PERCENTAGE=${_ADVERSARIAL_SAMPLING_PERCENTAGE}'
+
+- name: 'gcr.io/datcom-ci/website-cron-testing:latest'
+  id: 'run-adversarial-tests'
+  waitFor: ['-']
+  entrypoint: '/bin/bash'
+  args:
+  - '-c'
+  - |
+    ./run_website_cron_tests.sh adversarial
   env:
   - 'WEB_API_ROOT=${_WEB_API_ROOT}'
   - 'NODEJS_API_ROOT=${_NODEJS_API_ROOT}'
