@@ -6,6 +6,10 @@ __pycache__/
 .env_website/
 .env_nl/
 .venv*/
+.env/
+.env_website/
+.env_nl/
+.venv/
 
 # Gemini
 .gemini/**
@@ -26,7 +30,7 @@ __pycache__/
 .idea
 !.vscode/launch.json
 .env.list
-build/cdc/dev/.env-test
+custom_dc/.env-test
 
 # Mac
 .DS_Store
@@ -109,7 +113,6 @@ custom_dc/data/*.db
 *.egg-info
 
 # Custom DC dev and terraform ignores
-build/cdc/dev/.env
 *.tfvars
 deploy/terraform-custom-datacommons/modules/backend.tf
 
