@@ -304,12 +304,13 @@ function run_cdc_webdriver_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
-  export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
+  export RUN_CDC_DEV_ENV_FILE="custom_dc/.env-test"
   ensure_cdc_test_env_file
   export CDC_TEST_BASE_URL="http://localhost:8080"
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
+  export MIXER_LOG_LEVEL=${MIXER_LOG_LEVEL:-WARN}
   start_servers "cdc"
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver

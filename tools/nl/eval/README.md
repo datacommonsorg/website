@@ -3,7 +3,7 @@
 ## Produce Eval Golden Data from Explore Landing Pages
 
 ```bash
-export NODEJS_API_KEY=<api key for bard.datacommons.org>
+export NODEJS_API_KEY=<api key for nl.datacommons.org>
 python3 fetch_explore_queries.py
 ```
 
