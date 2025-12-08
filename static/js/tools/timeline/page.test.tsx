@@ -55,7 +55,7 @@ async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
 
 test("Single place and single stat var", async () => {
   globalAny.window = Object.create(window);
-  document.body.innerHTML = '';
+  document.body.innerHTML = "";
   // Set url hash
   Object.defineProperty(window, "location", {
     writable: true,
