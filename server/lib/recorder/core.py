@@ -32,8 +32,11 @@ from server.lib.recorder.storage import RecordingStorage
 RECORDING_MODE_ENV = 'WEBDRIVER_RECORDING_MODE'
 
 # Modes
+# Record new responses and save to disk
 MODE_RECORD = 'record'
+# Replay responses from disk (default for local and cloud testing)
 MODE_REPLAY = 'replay'
+# Bypass recorder entirely (can be used for releases)
 MODE_LIVE = 'live'
 
 
