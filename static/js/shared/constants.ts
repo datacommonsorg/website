@@ -75,7 +75,7 @@ export const UAE_PLACE_DCID = "country/ARE";
 export const USA_PLACE_DCID = "country/USA";
 
 export const NORTHERN_EUROPE_DCID = "NorthernEurope";
-export const EASTERN_EUROPE_DCID = "EasternEurope";
+const EASTERN_EUROPE_DCID = "EasternEurope";
 export const WESTERN_EUROPE_DCID = "WesternEurope";
 export const EU_DCID = "EuropeanUnion";
 export const MELANESIA_DCID = "Melanesia";
@@ -106,8 +106,7 @@ export const MAX_DATE = "2050-06";
 
 export const DEFAULT_POPULATION_DCID = "Count_Person";
 
-export const DENOM_INPUT_PLACEHOLDER =
-  "Enter a variable dcid e.g. Count_Person";
+const DENOM_INPUT_PLACEHOLDER = "Enter a variable dcid e.g. Count_Person";
 
 export const SOURCE_DISPLAY_NAME = {
   "https://unstats.un.org/sdgs/dataportal": "Global SDG Database",

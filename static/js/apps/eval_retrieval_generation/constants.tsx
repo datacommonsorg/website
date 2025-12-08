@@ -43,7 +43,7 @@ const FB_SUFFIX = "_feedback";
 export const DC_QUESTION_FEEDBACK_COL = DC_QUESTION_COL + FB_SUFFIX;
 export const DC_RESPONSE_FEEDBACK_COL = DC_RESPONSE_COL + FB_SUFFIX;
 export const LLM_STAT_FEEDBACK_COL = LLM_STAT_COL + FB_SUFFIX;
-export const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
+const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
 export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
 
 // Call Id to use for a new query

@@ -414,7 +414,6 @@ export {
   loadLocaleData,
   LocalizedLink,
   localizeLink,
-  localizeSearchParams,
   translateUnit,
   translateVariableString,
 };

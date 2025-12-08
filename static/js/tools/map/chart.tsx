@@ -65,7 +65,7 @@ interface ChartProps {
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
-export const LEGEND_CONTAINER_ID = "choropleth-legend";
+const LEGEND_CONTAINER_ID = "choropleth-legend";
 const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 export const SECTION_CONTAINER_ID = "map-chart";

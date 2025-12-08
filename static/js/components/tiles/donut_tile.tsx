@@ -182,7 +182,7 @@ function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
 }
 
 // Get the ReplacementStrings object used for formatting the title
-export function getReplacementStrings(
+function getReplacementStrings(
   props: DonutTilePropType,
   chartData: DonutChartData
 ): ReplacementStrings {
@@ -192,9 +192,7 @@ export function getReplacementStrings(
   };
 }
 
-export const fetchData = async (
-  props: DonutTilePropType
-): Promise<DonutChartData> => {
+const fetchData = async (props: DonutTilePropType): Promise<DonutChartData> => {
   // Assume all variables will have the same date
   // TODO: Handle different dates for different variables
   const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -334,7 +332,7 @@ function rawToChart(
   };
 }
 
-export function draw(
+function draw(
   props: DonutTilePropType,
   chartData: DonutChartData,
   svgContainer: HTMLDivElement,

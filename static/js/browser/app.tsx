@@ -250,7 +250,7 @@ interface BrowserSectionTriggerPropType {
   opened: boolean;
 }
 
-export class BrowserSectionTrigger extends React.Component<BrowserSectionTriggerPropType> {
+class BrowserSectionTrigger extends React.Component<BrowserSectionTriggerPropType> {
   render(): JSX.Element {
     return (
       <div className="browser-section-trigger">

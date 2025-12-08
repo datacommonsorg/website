@@ -96,7 +96,7 @@ function ChartFacetSelector({
   );
 }
 
-export function getChartArea(
+function getChartArea(
   appContext: AppContextType,
   chartHeight: number
 ): ReactElement {

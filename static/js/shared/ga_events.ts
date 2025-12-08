@@ -101,7 +101,7 @@ export const GA_EVENT_TOTAL_COMPONENT_VIEW_TIME = "total_component_view_time";
  *                         place_category_click: "Overview" or "Economics" or "Health"...,
  *                        }
  */
-export const GA_EVENT_PLACE_CATEGORY_CLICK = "place_category_click";
+const GA_EVENT_PLACE_CATEGORY_CLICK = "place_category_click";
 /**
  * Event name: place_chart_click
  * Triggered when: users click on any of the buttons below a place explorer chart.
@@ -234,7 +234,7 @@ export const GA_EVENT_TILE_EXPLORE_MORE = "tile_explore_more";
  * Parameters:
  *    "url": <destination source URL>
  */
-export const GA_EVENT_TILE_SOURCE = "tile_source";
+const GA_EVENT_TILE_SOURCE = "tile_source";
 
 /**
  * Triggered on header menu & navigation clicks.
@@ -281,7 +281,7 @@ export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
  * Parameters:
  *  "selection_index": <index of the selected autocomplete result according to order shown to users>
  */
-export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV =
+const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV =
   "autocomplete_select_redirects_to_sv";
 
 /**
@@ -340,9 +340,8 @@ export const GA_EVENT_TOTAL_ANCHOR_COUNT = "total_anchor_count";
 export const GA_EVENT_HIGHLIGHT_CHART_INJECTED = "highlight_chart_injected";
 
 // GA event parameters
-export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
-  "place_category_click_source";
-export const GA_PARAM_PLACE_CATEGORY_CLICK = "place_category_click";
+const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE = "place_category_click_source";
+const GA_PARAM_PLACE_CATEGORY_CLICK = "place_category_click";
 export const GA_PARAM_PLACE_CHART_CLICK = "place_chart_click";
 export const GA_PARAM_STAT_VAR = "stat_var";
 export const GA_PARAM_PLACE_DCID = "place_dcid";
@@ -375,13 +374,13 @@ export const GA_PARAM_COUNT_ANCHOR_ELEMENTS = "count_anchor_elements";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
-export const GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE = "data source";
-export const GA_VALUE_PLACE_CHART_CLICK_EXPORT = "export";
-export const GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE = "explore more";
-export const GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW = "overview";
-export const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR = "sidebar";
-export const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER = "chart header";
-export const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS = "more charts";
+const GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE = "data source";
+const GA_VALUE_PLACE_CHART_CLICK_EXPORT = "export";
+const GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE = "explore more";
+const GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW = "overview";
+const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR = "sidebar";
+const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER = "chart header";
+const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS = "more charts";
 export const GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA = "per capita";
 export const GA_VALUE_TOOL_CHART_OPTION_DELTA = "delta";
 export const GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE = "log scale";
@@ -399,9 +398,9 @@ export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
 export const GA_VALUE_PAGE_EXPLORE = "explore";
-export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
+const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
-export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
+const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY = "sv_hierarchy";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH = "sv_search";
 // Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Follow Up Questions mode.
