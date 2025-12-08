@@ -51,7 +51,7 @@
     "easy-peasy": "^6.0.1",
     "express": "^4.21.2",
     "file-loader": "^6.1.0",
-    "firebase": "^10.12.2",
+    "firebase": "^12.6.0",
     "full-icu": "^1.4.0",
     "geo-albers-usa-territories": "0.1.0",
     "geoblaze": "^1.2.0",
