@@ -34,17 +34,17 @@ function setup_python {
 
 function setup_website_python {
   assert_uv
-  uv venv server/.venv --allow-existing
-  source server/.venv/bin/activate
-  echo "installing server requirements to server/.venv"
+  uv venv .venv_website --allow-existing
+  source .venv_website/bin/activate
+  echo "installing server requirements to .venv_website"
   uv sync --project server
 }
 
 function setup_nl_python {
   assert_uv
-  uv venv nl_server/.venv --allow-existing
-  source nl_server/.venv/bin/activate
-  echo "installing nl_server requirements to nl_server/.venv"
+  uv venv .venv_nl --allow-existing
+  source .venv_nl/bin/activate
+  echo "installing nl_server requirements to .venv_nl"
   uv sync --project nl_server
 }
 
