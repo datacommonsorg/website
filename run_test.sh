@@ -21,7 +21,8 @@ function setup_python {
   source .venv/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
-  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  echo "installing torch_requirements.txt"
+  pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
   pip3 install -r nl_server/requirements.txt -q
   deactivate
@@ -32,7 +33,7 @@ function setup_website_python {
   source .venv_website/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
-  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   deactivate
 }
 
@@ -298,7 +299,7 @@ function run_cdc_webdriver_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
-  export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
+  export RUN_CDC_DEV_ENV_FILE="custom_dc/.env-test"
   ensure_cdc_test_env_file
   export CDC_TEST_BASE_URL="http://localhost:8080"
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
