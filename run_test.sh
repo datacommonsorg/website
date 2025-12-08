@@ -369,7 +369,15 @@ function run_cdc_webdriver_test {
     rerun_options="--reruns 2"
   fi
 
-  python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ ${@}
+  # Filter out --no_extract and --no_compress from arguments passed to pytest
+  local pytest_args=()
+  for arg in "$@"; do
+    if [[ "$arg" != "--no_extract" && "$arg" != "--no_compress" ]]; then
+      pytest_args+=("$arg")
+    fi
+  done
+
+  python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ "${pytest_args[@]}"
 
   stop_servers
   deactivate
