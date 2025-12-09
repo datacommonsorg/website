@@ -36,7 +36,7 @@ cd ../../..
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install --upgrade pip
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
+pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
 pip3 install -r nl_server/requirements.txt -q
 pip3 install -r tools/nl/svindex_differ/requirements.txt -q
 
