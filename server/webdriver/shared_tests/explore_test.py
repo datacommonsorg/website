@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 import pytest
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -22,6 +24,7 @@ from server.webdriver import shared
 from server.webdriver.base_utils import find_any_of_elems
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import scroll_to_elem
 from server.webdriver.base_utils import wait_for_text
 
 EXPLORE_URL = '/explore'
@@ -316,3 +319,158 @@ class ExplorePageTestMixin():
         by=By.XPATH,
         value="./div[@style='max-height: 400px; overflow-y: auto;']")
     self.assertEqual(len(scrollable_divs), 0)
+
+  def _assert_url_params(self, url, expected_params):
+    for key, value in expected_params.items():
+      if value is None:
+        self.assertNotIn(f"{key}=", url)
+      else:
+        self.assertIn(f"{key}={value}", url)
+
+  def test_ranking_chart_hyperlink(self):
+    """Test the hyperlink on a ranking chart."""
+    query = "Total population in the USA"
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
+    shared.wait_for_loading(self.driver)
+
+    ranking_tile = find_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile, "Ranking tile not found")
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+
+    hyperlink_btn = find_elem(ranking_tile, By.CLASS_NAME,
+                              'custom-link-outlink')
+    self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
+
+    hyperlink_btn.click()
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    expected_params = {
+        "chartType": "RANKING_WITH_MAP",
+        "sv": "Count_Person",
+        "p": "country%2FUSA"
+    }
+    self._assert_url_params(self.driver.current_url, expected_params)
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])
+
+  def test_bar_chart_hyperlink(self):
+    """Test the hyperlink on a bar chart from a place page."""
+    self.driver.get(
+        f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
+    shared.wait_for_loading(self.driver)
+
+    bar_chart = find_elem(self.driver, By.CLASS_NAME, "bar-chart")
+    self.assertIsNotNone(bar_chart, "Bar chart not found")
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'bar-chart')
+
+    hyperlink_btn = find_elem(bar_chart, By.CLASS_NAME, 'custom-link-outlink')
+    self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
+
+    hyperlink_btn.click()
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    expected_params = {"chartType": "BAR_CHART", "p": "country%2FBRA"}
+    self._assert_url_params(self.driver.current_url, expected_params)
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])
+
+  def test_line_chart_hyperlink(self):
+    """Test the hyperlink on a line chart from a place page."""
+    self.driver.get(
+        f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
+    shared.wait_for_loading(self.driver)
+
+    line_chart = shared.wait_elem(self.driver, By.CLASS_NAME, "line-chart")
+    self.assertIsNotNone(line_chart, "Line chart not found")
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'line-chart')
+
+    hyperlink_btn = find_elem(line_chart, By.CLASS_NAME, 'custom-link-outlink')
+    self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
+
+    hyperlink_btn.click()
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    expected_params = {
+        "chartType": "TIMELINE_WITH_HIGHLIGHT",
+        "p": "country%2FBRA"
+    }
+    self._assert_url_params(self.driver.current_url, expected_params)
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])
+
+  def test_facet_selection_hyperlink(self):
+    """Test hyperlink after selecting a different facet."""
+    query = "Population of France"
+    place_dcid = "country%2FFRA"
+    stat_var = "Count_Person"
+    import_name = "WikipediaStatsData"
+    measurement_method = "Wikipedia"
+
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
+    shared.wait_for_loading(self.driver)
+
+    pop_block = find_elem(self.driver, By.CLASS_NAME, 'block')
+    self.assertIsNotNone(pop_block, "Highlight chart not found")
+
+    # sleep for 5 seconds:
+    time.sleep(5)
+    facet_button = find_elem(self.driver, By.CLASS_NAME,
+                             'source-selector-open-modal-button')
+    self.assertIsNotNone(facet_button, "Facet selector button not found")
+    facet_button.click()
+
+    shared.wait_elem(self.driver, By.CLASS_NAME,
+                     'source-selector-facet-option-title')
+
+    wiki_label = find_elem(self.driver, By.XPATH,
+                           f"//label[contains(., '{import_name}')]")
+    wiki_input = find_elem(wiki_label, By.TAG_NAME, 'input')
+    wiki_input.click()
+
+    update_button = find_elem(self.driver, By.CLASS_NAME,
+                              'source-selector-update-source-button')
+    update_button.click()
+
+    shared.wait_for_loading(self.driver)
+
+    hyperlink_btn = find_elem(pop_block, By.CLASS_NAME, 'custom-link-outlink')
+    hyperlink_href = hyperlink_btn.get_attribute('href')
+
+    expected_href_params = {
+        "chartType": "TIMELINE_WITH_HIGHLIGHT",
+        "sv": stat_var,
+        "p": place_dcid,
+        "imp": import_name,
+        "mm": measurement_method
+    }
+    self._assert_url_params(hyperlink_href, expected_href_params)
+
+    hyperlink_btn.click()
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+    shared.wait_for_loading(self.driver)
+
+    self._assert_url_params(self.driver.current_url, expected_href_params)
+
+    pop_block_new = find_elem(self.driver, By.CLASS_NAME, 'block')
+    facet_button_new = find_elem(self.driver, By.CLASS_NAME,
+                                 'source-selector-open-modal-button')
+    facet_button_new.click()
+
+    shared.wait_elem(self.driver, By.CLASS_NAME,
+                     'source-selector-facet-option-title')
+
+    wiki_label_new = find_elem(self.driver, By.XPATH,
+                               f"//label[contains(., '{import_name}')]")
+    wiki_input_new = find_elem(wiki_label_new, By.TAG_NAME, 'input')
+    self.assertTrue(wiki_input_new.is_selected(),
+                    f"{import_name} should be selected in new window")
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])
