@@ -28,7 +28,6 @@ import { ApiButton } from "../../../components/tiles/components/api_button";
 import { NL_SOURCE_REPLACEMENTS } from "../../../constants/app/explore_constants";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
-
 import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
@@ -78,8 +77,6 @@ export function TileSources(props: {
   if (!facets && !sources) {
     return null;
   }
-
-
 
   const sourceList: string[] = facets
     ? Array.from(

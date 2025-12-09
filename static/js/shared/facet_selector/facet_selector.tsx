@@ -26,7 +26,6 @@
 import React, { ReactElement } from "react";
 
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
-
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorRich } from "./facet_selector_rich";
 

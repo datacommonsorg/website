@@ -57,7 +57,6 @@ import {
   FacetSelector,
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector/facet_selector";
-
 import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {

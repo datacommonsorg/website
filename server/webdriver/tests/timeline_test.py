@@ -27,6 +27,3 @@ from server.webdriver.shared_tests.timeline_test import TimelineTestMixin
 class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
                    BaseDcWebdriverTest):
   """Class to test scatter page. Tests come from TimelineTestMixin."""
-
-
-
