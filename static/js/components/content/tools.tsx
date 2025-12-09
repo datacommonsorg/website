@@ -175,7 +175,7 @@ export const Tools = ({
         & > .tools .link-description {
           ${theme.typography.family.text};
           ${theme.typography.text.sm};
-          color: ${theme.colors.text.tertiary.base};
+          color: ${theme.colors.text.primary.base};
         }
       `}
     >
