@@ -24,7 +24,7 @@ dependencies = [
     "torch==2.8.0",
     "torchvision",
     "huggingface_hub==0.25.2",
-    "transformers==4.45.2",
+    "transformers==4.48.0",
     "safetensors==0.4.3",
     "numpy<2.0",
 ]
