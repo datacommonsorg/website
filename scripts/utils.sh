@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2023 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@
 # We use colors only if:
 # 1. [-t 1]  -> STDOUT is a terminal (not a file or CI pipe)
 # 2. [-z "${NO_COLOR}"] -> The user hasn't explicitly disabled color (standard practice)
+# To disable color formatting, set NO_COLOR=1 as an environment variable.
 if [ -t 1 ] && [ -z "${NO_COLOR}" ]; then
     RED='\033[0;31m'
     GREEN='\033[0;32m'
