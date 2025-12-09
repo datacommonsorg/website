@@ -23,7 +23,7 @@
 #   - NL server uses port 6070 instead of 6060.
 # - Server processes are silent unless '--verbose' is specified.
 
-source utils.sh
+source scripts/utils.sh
 set -e
 
 VERBOSE=false

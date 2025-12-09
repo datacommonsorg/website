@@ -17,7 +17,7 @@
 #  * Enables required APIs
 
 # This script requires a single argument: the GCP project ID.
-source "$(dirname "$0")/../../utils.sh"
+source "$(dirname "$0")/../../scripts/utils.sh"
 set -e
 
 # Check if the GCP project ID is provided

@@ -22,7 +22,7 @@
 # ./run_test.sh --setup_all
 # ./scripts/update_git_submodules.sh
 
-source utils.sh
+source scripts/utils.sh
 set -e
 
 VERBOSE=false

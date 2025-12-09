@@ -15,7 +15,7 @@
 
 # Script used by cdc/dev docker container to start the mixer
 
-source "$(dirname "$0")/../../../utils.sh"
+source "$(dirname "$0")/../../../scripts/utils.sh"
 set -e
 
 log_notice "Starting mixer..."

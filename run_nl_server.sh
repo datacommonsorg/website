@@ -18,7 +18,7 @@
 # use in local e2e tests.
 #
 
-source utils.sh
+source scripts/utils.sh
 set -e
 
 function cleanup {

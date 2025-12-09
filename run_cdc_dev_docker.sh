@@ -138,7 +138,7 @@ EOF
 }
 
 cd $(dirname "$0")
-source utils.sh
+source scripts/utils.sh
 set -e
 
 # Build custom image

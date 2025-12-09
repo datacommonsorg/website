@@ -16,7 +16,7 @@
 # One-time setup script for creating a GCR artifact repository
 
 # Takes two arguments: the GCP project ID and optionally the region.
-source "$(dirname "$0")/../../utils.sh"
+source "$(dirname "$0")/../../scripts/utils.sh"
 set -e
 
 # Check if the GCP project ID is provided
