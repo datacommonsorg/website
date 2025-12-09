@@ -30,11 +30,6 @@ if [[ "$1" == "--verbose" ]]; then
   VERBOSE=true
 fi
 
-VERBOSE=false
-if [[ "$1" == "--verbose" ]]; then
-  VERBOSE=true
-fi
-
 exit_with=0
 
 # Kill forked processes, then exit with the status code stored in a variable.
