@@ -39,7 +39,7 @@ import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
-from server.lib.nl.detection.agent.runner import get_detection_agent_runner
+from server.lib.nl.detection.agent.agent import create_detection_agent
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -444,7 +444,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                                'palm-api-key')
       if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
         os.environ['GEMINI_API_KEY'] = app.config['LLM_API_KEY']
-        app.config['NL_DETECTION_AGENT_RUNNER'] = get_detection_agent_runner()
+        app.config['NL_DETECTION_AGENT'] = create_detection_agent(
+            os.environ.get("AGENT_MODEL", "gemini-2.5-flash"),
+            os.environ.get("DC_MCP_URL"))
 
     app.config[
         'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(

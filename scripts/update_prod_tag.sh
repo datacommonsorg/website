@@ -44,4 +44,3 @@ fi
 # Force-update the 'prod' tag to the current commit and push to remote
 git tag --force prod
 git push --force-with-lease "$upstream_remote" refs/tags/prod
-

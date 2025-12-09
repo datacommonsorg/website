@@ -18,6 +18,7 @@ import os
 
 import flask
 from flask import Blueprint
+from flask import current_app
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -32,7 +33,7 @@ _TEST_SHEET_ID = '1egx7AzQ47wxxQL_7oawWnnD-oIblx1i9xGmjslabZic'
 
 @bp.route('/eval/embeddings')
 def eval_embeddings():
-  if os.environ.get('FLASK_ENV') not in ['local', 'test', 'autopush']:
+  if not current_app.config.get('ENABLE_EMBEDDINGS_PLAYGROUND', False):
     flask.abort(404)
   server_config = dc.nl_server_config()
   return render_template('/eval_embeddings.html',
@@ -46,7 +47,7 @@ def eval_rig():
 
 @bp.route('/eval/retrieval_generation')
 def eval_retrieval_generation():
-  if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
+  if not current_app.config.get('ENABLE_DATAGEMMA_EVAL_TOOLS', False):
     flask.abort(404)
   sheet_id = request.args.get('sheet_id')
   if not sheet_id:
@@ -58,7 +59,7 @@ def eval_retrieval_generation():
 
 @bp.route('/eval/retrieval_generation_sxs')
 def eval_retrieval_generation_sxs():
-  if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
+  if not current_app.config.get('ENABLE_DATAGEMMA_EVAL_TOOLS', False):
     flask.abort(404)
   sheet_id_a = request.args.get('sheetIdA', '')
   sheet_id_b = request.args.get('sheetIdB', '')

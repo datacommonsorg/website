@@ -49,6 +49,9 @@
 # env yaml files for all the environments you're enabling it for.
 #
 
+# TODO: DELETE THIS FILE ONCE MIGRATION IS COMPLETE.
+# THIS FILE IS NO LONGER PART OF THE RELEASE PROCESS. PLEASE USE deploy/helm_charts/dc_website/nl/catalog.yaml INSTEAD.
+
 version: "1"
 
 indexes:
