@@ -12,6 +12,12 @@
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
   {
+    "name": "enable_ranking_tile_scroll",
+    "enabled": true,
+    "owner": "gmechali",
+    "description": "Enables scrolling through Ranking tile rows."
+  },
+  {
     "name": "enable_stat_var_autocomplete",
     "enabled": false,
     "owner": "gmechali",
