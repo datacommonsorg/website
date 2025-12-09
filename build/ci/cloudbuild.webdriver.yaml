@@ -27,20 +27,11 @@ steps:
         ./build/node/load_preinstalled_modules.sh
         ./run_test.sh -b
 
-  - id: setup_website_python
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_website
-
   # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
     entrypoint: /bin/sh
-    waitFor: ["package_js", "setup_website_python"]
+    waitFor: ["package_js"]
     args:
       - -c
       - |
