@@ -35,6 +35,7 @@ steps:
     args:
       - -c
       - |
+        export WERKZEUG_LOG_LEVEL=ERROR
         ./run_test.sh -w
 
 substitutions:
