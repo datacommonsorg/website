@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import wait_for_text
 import server.webdriver.shared as shared
 
 MAP_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=map'
@@ -90,7 +92,7 @@ class VisMapTestMixin():
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
     self.assertEqual(selected_tab.text, 'Map Explorer')
 
-  def test_charts_from_url(self):
+  def test_charts_from_url_dev(self):
     """Given the url directly, test the page shows up correctly"""
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
@@ -160,12 +162,12 @@ class VisMapTestMixin():
         By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
-    chart_title = self.driver.find_element(By.CSS_SELECTOR,
-                                           '.map-chart .chart-headers h4')
-    self.assertIn("female population ", chart_title.text.lower())
-    chart_source = self.driver.find_element(
-        By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
-    self.assertTrue("wonder.cdc.gov" in chart_source.text)
+    # "Female population" should show up in the title
+    wait_for_text(self.driver, "Female population", By.CSS_SELECTOR,
+                  '.map-chart .chart-headers h4')
+    # "wonder.cdc.gov" should show up in sources
+    wait_for_text(self.driver, "wonder.cdc.gov", By.CSS_SELECTOR,
+                  '.map-chart .chart-headers .sources')
     self.assertEqual(len(self.get_chart_map_regions()), 58)
     ranking_items = self.get_ranking_items()
     self.assertEqual(len(ranking_items), 10)
@@ -233,7 +235,7 @@ class VisMapTestMixin():
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertGreater(len(map_regions), 1)
 
-  def test_hover_tooltip(self):
+  def test_hover_tooltip_dev(self):
     """Test hover tooltip shows up correctly."""
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
@@ -242,16 +244,28 @@ class VisMapTestMixin():
                                      timeout_seconds=self.TIMEOUT_SEC)
 
     # Find the map region for Kern County (geoId/06029)
-    kern_county = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]',
-    )
+    # Wait for visibility, not just presence, in case of re-renders
+    kern_county = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.visibility_of_element_located((
+            By.XPATH,
+            '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]'
+        )))
 
     # Hover over the region using ActionChains
     actions = ActionChains(self.driver)
     actions.move_to_element(kern_county).perform()
 
-    # Wait for tooltip to appear and verify contents
-    tooltip = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.ID, "tooltip")))
-    self.assertIn("Female population", tooltip.text)
+    # Wait for tooltip to be visible, not just presence, in case of re-renders
+    try:
+      WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+          EC.visibility_of_element_located((By.ID, "tooltip")))
+    except:
+      self.driver.save_screenshot(f"tooltip_not_visible_{time.time()}.png")
+      raise TimeoutError
+
+    # Check that tooltip contains stat var
+    try:
+      wait_for_text(self.driver, "Female population", By.ID, "tooltip")
+    except:
+      self.driver.save_screenshot(f"text_not_found_{time.time()}.png")
+      raise TimeoutError
