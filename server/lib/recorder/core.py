@@ -111,6 +111,12 @@ class Recorder:
 
     try:
       if self.mode == RecorderMode.RECORD:
+        if response.status_code != 200:
+          logging.warning(
+              f"Skipping recording for {request.path} due to status code {response.status_code}"
+          )
+          return response
+
         hash_key = self.hasher.get_hash(request)
         recording_path = self.storage.get_recording_path(request.path, hash_key)
         self._save_recording(request, response, hash_key, recording_path)
