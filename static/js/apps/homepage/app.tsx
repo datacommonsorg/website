@@ -80,7 +80,13 @@ export function App({
         <Tools
           routes={routes}
           tools={["map", "scatter", "timeline", "download", "api"]}
-        />
+        >
+          <h3>Data Commons tools</h3>
+          <p>
+            Data Commons offers data exploration tools and cloud-based APIs to
+            access and integrate cleaned datasets.
+          </p>
+        </Tools>
       </Section>
 
       <Separator border={false} variant="small" />

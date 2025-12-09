@@ -157,7 +157,6 @@ export const Tools = ({
           & > p {
             ${theme.typography.family.text};
             ${theme.typography.text.lg};
-            color: ${theme.colors.text.tertiary.base};
           }
         }
 
@@ -171,8 +170,6 @@ export const Tools = ({
         }
 
         & > .tools .link-title {
-          ${theme.typography.family.heading};
-          ${theme.typography.heading.sm};
           color: ${theme.colors.link.primary.base};
         }
         & > .tools .link-description {
