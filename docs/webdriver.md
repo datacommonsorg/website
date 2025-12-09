@@ -6,6 +6,8 @@ This guide covers how to run, write, and maintain WebDriver tests for Data Commo
 
 By default, tests run in **Replay Mode**. This uses recorded API responses from `server/tests/test_data/webdriver_recordings`, ensuring tests are fast and deterministic.
 
+> **Note**: Tests are not fully hermetic. We fallback to live backends for unrecorded requests, and Server-Side Rendered (SSR) pages do not intercept internal API calls, meaning they will still hit live backends. However, traffic to live backends is significantly reduced compared to Record Mode.
+
 ### Run all tests
 ```bash
 ./run_test.sh -w
