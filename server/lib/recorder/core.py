@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import base64
+from enum import Enum
 import logging
 import os
 
@@ -31,13 +32,15 @@ from server.lib.recorder.storage import RecordingStorage
 # Environment variables
 RECORDING_MODE_ENV = 'WEBDRIVER_RECORDING_MODE'
 
-# Modes
-# Record new responses and save to disk
-MODE_RECORD = 'record'
-# Replay responses from disk (default for local and cloud testing)
-MODE_REPLAY = 'replay'
-# Bypass recorder entirely (can be used for releases)
-MODE_LIVE = 'live'
+
+class RecorderMode(str, Enum):
+  """Enum for recorder modes."""
+  # Record new responses and save to disk
+  RECORD = 'record'
+  # Replay responses from disk (default for local and cloud testing)
+  REPLAY = 'replay'
+  # Bypass recorder entirely (can be used for releases)
+  LIVE = 'live'
 
 
 class Recorder:
@@ -47,13 +50,14 @@ class Recorder:
     self.stats = RecorderStats()
     self.hasher = RequestHasher()
     self.storage = RecordingStorage()
-    self.mode = os.environ.get(RECORDING_MODE_ENV, MODE_LIVE).lower()
+    self.mode = RecorderMode(
+        os.environ.get(RECORDING_MODE_ENV, RecorderMode.LIVE).lower())
     if app:
       self.init_app(app)
 
   def init_app(self, app: Flask):
     """Registers the recorder middleware with the Flask app."""
-    if self.mode not in [MODE_RECORD, MODE_REPLAY]:
+    if self.mode not in [RecorderMode.RECORD, RecorderMode.REPLAY]:
       return
 
     print(f"Initializing Webdriver Recorder in {self.mode} mode")
@@ -63,9 +67,6 @@ class Recorder:
 
   def _handle_before_request(self):
     """Handles request interception before it reaches the view."""
-    if self.mode not in [MODE_RECORD, MODE_REPLAY]:
-      return
-
     # Only record API calls
     if not request.path.startswith('/api/'):
       return
@@ -74,17 +75,21 @@ class Recorder:
       hash_key = self.hasher.get_hash(request)
 
       # Short-circuit for RECORD mode if already recorded in this session
-      if self.mode == MODE_RECORD:
-        if self.stats.is_recorded(hash_key):
-          # If we have it in memory, we can try to return it from disk to simulate the response
-          # This avoids hitting the backend.
-          recording_path = self.storage.get_recording_path(
-              request.path, hash_key)
-          data = self.storage.load_record(recording_path)
-          if data:
-            logging.debug(
-                f"Skipping backend for {request.path} (already recorded)")
-            return self._create_response_from_recording(data)
+      if self.mode == RecorderMode.RECORD:
+        if not self.stats.is_recorded(hash_key):
+          # Not yet recorded in this session, proceed to backend to capture it.
+          return
+
+        # If we have it in memory, we can try to return it from disk to simulate the response
+        # This avoids hitting the backend.
+        recording_path = self.storage.get_recording_path(request.path, hash_key)
+        data = self.storage.load_record(recording_path)
+        if data:
+          logging.debug(
+              f"Skipping backend for {request.path} (already recorded)")
+          return self._create_response_from_recording(data)
+
+        # Fallback: if file load failed despite being in stats, proceed to backend.
         return
 
       # REPLAY MODE
@@ -96,9 +101,6 @@ class Recorder:
 
   def _handle_after_request(self, response: Response) -> Response:
     """Handles response interception after the view has processed it."""
-    if self.mode not in [MODE_RECORD, MODE_REPLAY]:
-      return response
-
     # Check for fake response header
     if response.headers.get(FAKE_RESPONSE_HEADER) == 'true':
       return response
@@ -108,7 +110,7 @@ class Recorder:
       return response
 
     try:
-      if self.mode == MODE_RECORD:
+      if self.mode == RecorderMode.RECORD:
         hash_key = self.hasher.get_hash(request)
         recording_path = self.storage.get_recording_path(request.path, hash_key)
         self._save_recording(request, response, hash_key, recording_path)
