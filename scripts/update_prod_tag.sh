@@ -42,8 +42,12 @@ if [[ ! "$response" =~ ^[Yy]$ ]]; then
 fi
 
 # Delete the old prod tag locally and remotely
-git tag -d prod
-git push "$upstream_remote" :refs/tags/prod
+if git show-ref --tags --quiet --verify refs/tags/prod; then
+  git tag -d prod
+fi
+if git ls-remote --exit-code --tags "$upstream_remote" prod >/dev/null 2>&1; then
+  git push "$upstream_remote" :refs/tags/prod
+fi
 
 # Tag release as prod & push to github
 git tag prod
