@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -91,7 +92,7 @@ class VisMapTestMixin():
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
     self.assertEqual(selected_tab.text, 'Map Explorer')
 
-  def test_charts_from_url(self):
+  def test_charts_from_url_dev(self):
     """Given the url directly, test the page shows up correctly"""
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
@@ -234,7 +235,7 @@ class VisMapTestMixin():
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertGreater(len(map_regions), 1)
 
-  def test_hover_tooltip(self):
+  def test_hover_tooltip_dev(self):
     """Test hover tooltip shows up correctly."""
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
@@ -252,11 +253,19 @@ class VisMapTestMixin():
 
     # Hover over the region using ActionChains
     actions = ActionChains(self.driver)
-    actions.move_to_element(kern_county).pause(0.5).perform()
+    actions.move_to_element(kern_county).perform()
 
     # Wait for tooltip to be visible, not just presence, in case of re-renders
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.visibility_of_element_located((By.ID, "tooltip")))
+    try:
+      WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+          EC.visibility_of_element_located((By.ID, "tooltip")))
+    except:
+      self.driver.save_screenshot(f"tooltip_not_visible_{time.time()}.png")
+      raise TimeoutError
 
     # Check that tooltip contains stat var
-    wait_for_text(self.driver, "Female population", By.ID, "tooltip")
+    try:
+      wait_for_text(self.driver, "Female population", By.ID, "tooltip")
+    except:
+      self.driver.save_screenshot(f"text_not_found_{time.time()}.png")
+      raise TimeoutError

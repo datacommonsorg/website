@@ -285,7 +285,8 @@ function run_webdriver_test {
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    #python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    python3 -m pytest -n auto server/webdriver/tests/ ${@}
   fi
   stop_servers
   deactivate
@@ -314,7 +315,7 @@ function run_cdc_webdriver_test {
     rerun_options=""
   else
     # TODO: Stop using reruns once tests are deflaked.
-    rerun_options="--reruns 2"
+    rerun_options= "" #"--reruns 2"
   fi
 
   python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
