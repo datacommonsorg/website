@@ -17,9 +17,11 @@
 /**
  * Main component for the homepage.
  */
+
 /** @jsxImportSource @emotion/react */
 
 import { ThemeProvider } from "@emotion/react";
+import { CSSObject } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import Search from "../../components/content/search";
@@ -51,7 +53,11 @@ export function App({ routes }: AppProps): ReactElement {
           showDescriptions
         >
           <h3>Your Data Commons tools</h3>
-          <p>
+          <p
+            css={(theme): CSSObject => ({
+              color: theme.colors.text.tertiary.base,
+            })}
+          >
             Your Data Commons comes with tools to browse the available datasets
           </p>
         </Tools>
