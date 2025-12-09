@@ -16,7 +16,7 @@
 
 // Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-export const METADATA_FEATURE_FLAG = "metadata_modal";
+
 export const FOLLOW_UP_QUESTIONS_GA = "follow_up_questions_ga";
 export const PAGE_OVERVIEW_GA = "page_overview_ga";
 export const EXPLORE_RESULT_HEADER = "explore_result_header";

@@ -28,7 +28,7 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
                    BaseDcWebdriverTest):
   """Class to test scatter page. Tests come from TimelineTestMixin."""
 
-  # TODO(nick-next): Move to shared_tests once metadata_modal feature flag is dropped
+
   def test_per_capita_metadata(self):
     """Test that per capita toggle affects metadata dialog content."""
 

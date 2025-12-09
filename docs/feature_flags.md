@@ -92,7 +92,7 @@ For example, to enable the "autocomplete" feature:
 
 To enable both the autocomplete and metadata_modal features:
 
-* Enable: https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal
+* Enable: https://datacommons.org/explore?enable_feature=autocomplete
 
 To manually disable a feature flag, use the `disable_feature` URL parameter.
 

@@ -22,10 +22,7 @@ import React, { RefObject, useState } from "react";
 
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import {
-  isFeatureEnabled,
-  METADATA_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
+
 import {
   GA_EVENT_TILE_DOWNLOAD,
   GA_EVENT_TILE_EXPLORE_MORE,
@@ -99,8 +96,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
               </div>
             )}
 
-            {props.getObservationSpecs &&
-              isFeatureEnabled(METADATA_FEATURE_FLAG) && (
+            {props.getObservationSpecs && (
                 <div className="outlink-item api-outlink">
                   <ApiButton
                     apiRoot={props.apiRoot}

@@ -26,10 +26,9 @@
 import React, { ReactElement } from "react";
 
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
-import { isFeatureEnabled, METADATA_FEATURE_FLAG } from "../feature_flags/util";
+
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorRich } from "./facet_selector_rich";
-import { FacetSelectorSimple } from "./facet_selector_simple";
 
 export interface FacetSelectorFacetInfo {
   // dcid of the stat var
@@ -71,10 +70,5 @@ interface FacetSelectorPropType {
 }
 
 export function FacetSelector(props: FacetSelectorPropType): ReactElement {
-  const useRichSelector = isFeatureEnabled(METADATA_FEATURE_FLAG);
-
-  if (useRichSelector) {
-    return <FacetSelectorRich {...props} />;
-  }
-  return <FacetSelectorSimple {...props} />;
+  return <FacetSelectorRich {...props} />;
 }
