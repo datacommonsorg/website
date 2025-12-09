@@ -64,6 +64,8 @@ steps:
       - |
         git submodule update --init --recursive
         export STARTUP_WAIT_SEC=60
+        export MIXER_LOG_LEVEL=WARN
+        export WERKZEUG_LOG_LEVEL=ERROR
         ./run_test.sh --cdc
 
 substitutions:
