@@ -27,41 +27,11 @@ steps:
         ./build/node/load_preinstalled_modules.sh
         ./run_test.sh -b
 
-  - id: setup_python
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        pip install uv
-        ./run_test.sh --setup_python
-
-  - id: setup_website
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        pip install uv
-        ./run_test.sh --setup_website
-
-  - id: setup_nl
-    name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        pip install uv
-        ./run_test.sh --setup_nl
-
   # Run the Custom DC webdriver tests
   - id: flask_cdc_webdriver_test
     name: gcr.io/datcom-ci/full-env:${_FULL_ENV_VERSION}
     entrypoint: /bin/sh
-    waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
+    waitFor: ["package_js"]
     args:
       - -c
       - |
@@ -69,6 +39,7 @@ steps:
         export STARTUP_WAIT_SEC=60
         export MIXER_LOG_LEVEL=WARN
         export WERKZEUG_LOG_LEVEL=ERROR
+        pip install uv
         ./run_test.sh --cdc
 
 substitutions:

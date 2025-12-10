@@ -28,22 +28,22 @@ function setup_python {
   echo "installing torch_requirements.txt"
   uv pip install -r torch_requirements.txt -q --extra-index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
-  uv pip install -r nl_server/requirements.txt -q
+  uv pip install -r nl_server/requirements.txt -q --index-url https://pypi.org/simple
   deactivate
 }
 
 function setup_website_python {
   assert_uv
-  uv venv .venv_website --allow-existing
-  source .venv_website/bin/activate
+  uv venv server/.venv --allow-existing
+  source server/.venv/bin/activate
   echo "installing server requirements to .venv_website"
   uv sync --project server --active
 }
 
 function setup_nl_python {
   assert_uv
-  uv venv .venv_nl --allow-existing
-  source .venv_nl/bin/activate
+  uv venv nl_server/.venv --allow-existing
+  source nl_server/.venv/bin/activate
   echo "installing nl_server requirements to .venv_nl"
   uv sync --project nl_server --active
 }
@@ -257,25 +257,24 @@ function run_npm_build () {
 function run_py_test {
   assert_uv
   # Run server pytest.
-  assert_website_python
-  source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
-  python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
-  python3 -m pytest -n auto shared/tests/ -s ${@}
-  python3 -m pytest nl_server/tests/ -s ${@}
-  deactivate
+  uv run --project server python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
+  uv run --project server python3 -m pytest -n auto shared/tests/ -s ${@}
+  uv run --project nl_server python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
+  # TODO: Migrate tools/nl/embeddings to use uv
   echo "Running tests within tools/nl/embeddings:"
-  uv venv tools/nl/embeddings/.venv --allow-existing
+  python -m venv tools/nl/embeddings/.venv
   source tools/nl/embeddings/.venv/bin/activate
-  uv pip install -r tools/nl/embeddings/requirements.txt -q
-  python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
+  pip install -r tools/nl/embeddings/requirements.txt -q
+  python -m pytest -n auto tools/nl/embeddings/ -s ${@}
   deactivate
 
   # Check Python style using server virtual environment
+  assert_website_python
   source server/.venv/bin/activate
   if ! command v yapf &> /dev/null
   then
@@ -311,14 +310,12 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  assert_website_python
-  source server/.venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
-    python3 -m pytest -n auto server/webdriver/tests/ ${@}
+    uv run --project server python3 -m pytest -n auto server/webdriver/tests/ ${@}
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    uv run --project server python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
   fi
   stop_servers
   deactivate
@@ -338,12 +335,10 @@ function run_cdc_webdriver_test {
     export FLAKE_FINDER=true
   fi
   export MIXER_LOG_LEVEL=${MIXER_LOG_LEVEL:-WARN}
-  assert_website_python
   start_servers "cdc"
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  source server/.venv/bin/activate
   local rerun_options=""
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     rerun_options=""
@@ -352,18 +347,15 @@ function run_cdc_webdriver_test {
     rerun_options="--reruns 2"
   fi
 
-  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
-  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  uv run --project server python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  uv run --project server python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
 
   stop_servers
-  deactivate
 }
 
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  assert_website_python
-  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export DC_API_KEY=
@@ -376,14 +368,11 @@ function run_integration_test {
   export TEST_MODE=test
 
   start_servers
-  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
+  uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
   stop_servers
-  deactivate
 }
 
 function update_integration_test_golden {
-  assert_website_python
-  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
@@ -398,10 +387,9 @@ function update_integration_test_golden {
   echo "Using ENV_PREFIX=$ENV_PREFIX"
   start_servers
   # Should update topic cache first as it's used by the following tests.
-  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
-  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
+  uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
+  uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
   stop_servers
-  deactivate
 }
 
 function run_all_tests {
