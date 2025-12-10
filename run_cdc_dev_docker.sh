@@ -386,12 +386,6 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Handle garbage input (getopt doesn't do it)
-if [ $# -gt 0 ]; then
-  log_error "Invalid input.\nPlease try again. See '--help' for correct usage.\n"
-  exit 1
-fi
-
 # Get options from the selected env.list file
 source "$ENV_FILE"
 
