@@ -288,7 +288,7 @@ wheels = [
 ]
 
 [[package]]
-name = "datacommons-website-nl-server"
+name = "datacommons-nl-server"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
