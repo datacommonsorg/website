@@ -358,7 +358,7 @@ while [[ $# -gt 0 ]]; do
       if [ -f "$val" ]; then
         ENV_FILE="$val"
       else
-        log_error "File does not exist.\nPlease specify a valid path and file name."
+        log_error "Error parsing --env_file: File '$val' does not exist.\nPlease specify a valid path and file name."
         exit 1
       fi
       ;;
