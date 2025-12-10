@@ -17,27 +17,23 @@
 # An optional "opt" parameter runs the NL server without debug mode, for
 # use in local e2e tests.
 #
-
 set -e
-
-# ANSI color codes
-RED='\033[0;31m'
-NC='\033[0m' # No Color
+source scripts/utils.sh
 
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export FLASK_ENV=local
-echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
+log_notice "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 # Ensure uv is installed
 if ! command -v uv &> /dev/null; then
-  echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
+  log_error "uv could not be found. Please install it and try again."
   exit 1
 fi
 
 # Sync uv dependencies for the datacommons-website-server package
 if ! uv sync --project server; then
-  echo -e "${RED}Error: uv sync failed.${NC}"
+  log_error "uv sync failed."
   exit 1
 fi
 

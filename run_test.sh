@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+source scripts/utils.sh
 set -e
 
 function setup_python {
@@ -29,8 +30,8 @@ function setup_python {
 }
 
 function setup_website_python {
-  python3 -m venv .venv_website
-  source .venv_website/bin/activate
+  python3 -m venv server/.venv
+  source server/.venv/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
   pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
@@ -38,11 +39,27 @@ function setup_website_python {
 }
 
 function setup_nl_python {
-  python3 -m venv .venv_nl
-  source .venv_nl/bin/activate
+  python3 -m venv nl_server/.venv
+  source nl_server/.venv/bin/activate
   echo "installing nl_server/requirements.txt"
   pip3 install -r nl_server/requirements.txt -q
   deactivate
+}
+
+# Assert that website python is set up. If not, set it up.
+function assert_website_python {
+  if [[ ! -d server/.venv ]]; then
+    log_notice "server/.venv does not exist. Setting up website python virtual environment..."
+    setup_website_python
+  fi
+}
+
+# Assert that NL python is set up. If not, set it up.
+function assert_nl_python {
+  if [[ ! -d nl_server/.venv ]]; then
+    log_notice "nl_server/.venv does not exist. Setting up NL python virtual environment..."
+    setup_nl_python
+  fi
 }
 
 # Start website and NL servers in a subprocess and ensure they are stopped
@@ -81,7 +98,7 @@ function start_servers() {
   # don't pass, but this is quicker if the servers fail to start up immediately.
   sleep "$startup_wait_sec"
   if ! ps -p $SERVERS_PID > /dev/null; then
-    echo "Server script not running after $startup_wait_sec seconds."
+    log_error "Server script not running after $startup_wait_sec seconds."
     exit 1
   fi
 }
@@ -102,12 +119,12 @@ function ensure_cdc_test_env_file {
   local project_id="${GOOGLE_CLOUD_PROJECT:-datcom-website-dev}"
 
   if [[ -z "$cdc_env_file_path" ]]; then
-    echo "Error: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file."
+    log_error "RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file."
     exit 1
   fi
 
   if [ ! -f "$cdc_env_file_path" ]; then
-    echo "File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager..."
+    log_notice "File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager..."
     echo "Secret: $secret_name, Project: $project_id"
 
     # Ensure the target directory exists
@@ -115,9 +132,9 @@ function ensure_cdc_test_env_file {
 
     # Fetch the secret
     if gcloud secrets versions access latest --secret="$secret_name" --project="$project_id" > "$cdc_env_file_path"; then
-      echo "Successfully fetched $cdc_env_file_path from GCP Secret Manager."
+      log_success "Successfully fetched $cdc_env_file_path from GCP Secret Manager."
     else
-      echo "Error: Failed to fetch $secret_name from GCP Secret Manager for project $project_id."
+      log_error "Failed to fetch $secret_name from GCP Secret Manager for project $project_id."
       rm -f "$cdc_env_file_path" # Clean up potentially empty/partial file
       exit 1
     fi
@@ -141,7 +158,7 @@ function run_npm_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
-    echo "Fix lint errors by running ./run_test.sh -f"
+    log_error "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
   cd ..
@@ -172,8 +189,9 @@ function run_lint_fix {
     (
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
-      source .venv/bin/activate
-      pip3 install yapf==0.40.2 isort -q
+      assert_website_python
+      source server/.venv/bin/activate
+      pip3 install yapf==0.40.2 isort==5.10.0 -q -i https://pypi.org/simple
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
       isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
       deactivate
@@ -182,7 +200,7 @@ function run_lint_fix {
 
   # Validate that at most one argument is provided.
   if [[ $# -gt 1 ]]; then
-    echo "Error: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'" >&2
+    log_error "Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'"
     return 1
   fi
 
@@ -202,7 +220,7 @@ function run_lint_fix {
       run_py_fix
       ;;
     *)
-      echo "Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'." >&2
+      log_error "Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'."
       return 1
       ;;
   esac
@@ -236,32 +254,44 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   # Run server pytest.
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   python3 -m pytest -n auto shared/tests/ -s ${@}
   python3 -m pytest nl_server/tests/ -s ${@}
+  deactivate
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
+  if [ ! -d "tools/nl/embeddings/.venv" ]; then
+    python3 -m venv tools/nl/embeddings/.venv
+  fi
+  source tools/nl/embeddings/.venv/bin/activate
   pip3 install -r tools/nl/embeddings/requirements.txt -q
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
+  deactivate
 
-  pip3 install yapf==0.40.2 -q
+  # Check Python style using server virtual environment
+  source nl_server/.venv/bin/activate
+  if ! command v yapf &> /dev/null
+  then
+    pip3 install yapf==0.40.2 -q -i https://pypi.org/simple
+  fi
   if ! command -v isort &> /dev/null
   then
-    pip3 install isort -q
+    pip3 install isort==5.12.0 -q -i https://pypi.org/simple
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
-    echo "Fix Python lint errors by running ./run_test.sh -f"
+    log_error "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
   if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
-    echo "Fix Python import sort orders by running ./run_test.sh -f"
+    log_error "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
   deactivate
@@ -271,7 +301,7 @@ function run_py_test {
 function run_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    log_error "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
   export FLASK_ENV=webdriver
@@ -280,7 +310,8 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
@@ -296,7 +327,7 @@ function run_webdriver_test {
 function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    log_error "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
   export RUN_CDC_DEV_ENV_FILE="custom_dc/.env-test"
@@ -306,11 +337,12 @@ function run_cdc_webdriver_test {
     export FLAKE_FINDER=true
   fi
   export MIXER_LOG_LEVEL=${MIXER_LOG_LEVEL:-WARN}
+  assert_website_python
   start_servers "cdc"
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  source .venv/bin/activate
+  source server/.venv/bin/activate
   local rerun_options=""
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     rerun_options=""
@@ -329,7 +361,8 @@ function run_cdc_webdriver_test {
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export DC_API_KEY=
@@ -348,7 +381,8 @@ function run_integration_test {
 }
 
 function update_integration_test_golden {
-  source .venv/bin/activate
+  assert_website_python
+  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
