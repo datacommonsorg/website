@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Core logic for the WebDriver recorder.
+
+This module implements the Flask middleware that intercepts requests and
+decides whether to record them, replay them from disk, or pass them through
+to the live backend based on the current recording mode.
+"""
 
 import base64
 from enum import Enum

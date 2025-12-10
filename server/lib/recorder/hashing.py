@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Request hashing logic for the WebDriver recorder.
+
+This module handles the normalization and hashing of requests to generate
+stable keys for storing and retrieving recordings. It strips volatile
+parameters (like timestamps) to ensure deterministic hashes.
+"""
 
 import hashlib
 import json

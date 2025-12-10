@@ -11,6 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Fallback responses for the WebDriver recorder.
+
+These functions provide "fake" responses during REPLAY mode when a recording is
+missing. This typically happens for async requests that were triggered by the
+browser but not completed/recorded during the RECORD phase (e.g., because the
+test finished before they completed).
+
+Since these requests were not recorded, they are assumed to be non-critical for
+the test assertions. These fallbacks prevent the replay from hitting the live
+backend (which improves speed and hermeticity) or failing when the live backend
+is unavailable.
+
+New fake responses should be added when:
+1.  We observe unrecorded requests hitting the live backend during replay.
+2.  These requests are incidental (not critical for the test).
+3.  We want to keep replay fast and self-contained.
+"""
 
 import json
 

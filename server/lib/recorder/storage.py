@@ -11,6 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""File storage operations for the WebDriver recorder.
+
+This module handles reading and writing recording files to disk, including
+path generation and JSON serialization.
+"""
 
 import json
 import os

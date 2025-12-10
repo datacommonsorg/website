@@ -11,6 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Statistics tracking for the WebDriver recorder.
+
+This module provides thread-safe statistics collection for the recorder,
+tracking metrics like new recordings, recording hits, and fallbacks.
+"""
 
 from functools import wraps
 import json
