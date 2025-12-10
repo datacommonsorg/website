@@ -311,64 +311,100 @@ PACKAGE=""
 # Parse command-line options
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -e | --env_file)
-      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-      if [ -f "$2" ]; then
-        ENV_FILE="$2"
+    -e | --env_file | --env_file=*)
+      if [[ "$1" == *"="* ]]; then
+        val="${1#*=}"
+        shift 1
+      else
+        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+        val="$2"
         shift 2
+      fi
+      if [ -f "$val" ]; then
+        ENV_FILE="$val"
       else
         log_error "File does not exist.\nPlease specify a valid path and file name."
         exit 1
       fi
       ;;
-    -a | --actions)
-      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-      if [[ "$2" =~ ^(run|build|build_run|build_upload|upload)$ ]]; then
-        ACTIONS="$2"
+    -a | --actions | --actions=*)
+      if [[ "$1" == *"="* ]]; then
+        val="${1#*=}"
+        shift 1
+      else
+        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+        val="$2"
         shift 2
+      fi
+      if [[ "$val" =~ ^(run|build|build_run|build_upload|upload)$ ]]; then
+        ACTIONS="$val"
       else
         log_error "That is not a valid action. Valid options are:\nrun\nbuild\nbuild_run\nbuild_upload\nupload\n"
         exit 1
       fi
       ;;
-    -c | --container)
-      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-      if [[ "$2" =~ ^(all|service)$ ]]; then
-        CONTAINER="$2"
+    -c | --container | --container=*)
+      if [[ "$1" == *"="* ]]; then
+        val="${1#*=}"
+        shift 1
+      else
+        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+        val="$2"
         shift 2
+      fi
+      if [[ "$val" =~ ^(all|service|data)$ ]]; then
+        CONTAINER="$val"
       else
         log_error "That is not a valid container option. Valid options are 'all' or 'service' or 'data'\n"
         exit 1
       fi
       ;;
-    -r | --release)
-      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-      if [[ "$2" =~ ^(latest|stable)$ ]]; then
-        RELEASE="$2"
+    -r | --release | --release=*)
+      if [[ "$1" == *"="* ]]; then
+        val="${1#*=}"
+        shift 1
+      else
+        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+        val="$2"
         shift 2
+      fi
+      if [[ "$val" =~ ^(latest|stable)$ ]]; then
+        RELEASE="$val"
       else
         log_error "That is not a valid release option. Valid options are 'stable' or 'latest'\n"
         exit 1
       fi
       ;;
-    -i | --image)
-      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-      if [[ "$2" == "latest" ]] || [[ "$2" == "stable" ]]; then
+    -i | --image | --image=*)
+      if [[ "$1" == *"="* ]]; then
+        val="${1#*=}"
+        shift 1
+      else
+        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+        val="$2"
+        shift 2
+      fi
+      if [[ "$val" == "latest" ]] || [[ "$val" == "stable" ]]; then
         log_error "That is not a valid custom image name. Did you mean to use the '--release' option?\n"
         exit 1
       else
-        IMAGE="$2"
-        shift 2
+        IMAGE="$val"
       fi
       ;;
     -s | --schema_update)
       SCHEMA_UPDATE=true
       shift
       ;;
-    -p | --package)
-      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-      PACKAGE="$2"
-      shift 2
+    -p | --package | --package=*)
+      if [[ "$1" == *"="* ]]; then
+        val="${1#*=}"
+        shift 1
+      else
+        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+        val="$2"
+        shift 2
+      fi
+      PACKAGE="$val"
       ;;
     -h | --help)
       help
