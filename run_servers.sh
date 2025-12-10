@@ -63,6 +63,9 @@ if lsof -i :8090 > /dev/null 2>&1; then
   exit 1
 fi
 
+# Check that uv is installed
+assert_uv
+
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
   uv run --project nl_server python3 nl_app.py 6070 &
