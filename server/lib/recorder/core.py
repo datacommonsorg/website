@@ -170,6 +170,8 @@ class Recorder:
                       recording_path: str):
     """Saves the response to a recording file."""
     # Don't overwrite existing recordings
+    # This enables incremental recording: if a file exists from a previous run, we skip it.
+    # To regenerate everything, use --clean.
     if os.path.exists(recording_path):
       logging.debug(
           f"Recording already exists for {request.path} at {recording_path}. Skipping write."
