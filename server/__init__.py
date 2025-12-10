@@ -227,7 +227,7 @@ def register_routes_common(app):
   from server.routes.browser import html as browser_html
   app.register_blueprint(browser_html.bp)
 
-  if os.environ.get('FLASK_ENV') in ['local', 'autopush']:
+  if os.environ.get('FLASK_ENV') in ['local', 'autopush', 'test', 'webdriver']:
     from server.routes.factcheck import html as factcheck_html
     app.register_blueprint(factcheck_html.bp)
 
