@@ -309,39 +309,31 @@ IMAGE=""
 PACKAGE=""
 
 # Parse command-line options
-OPTS=$(getopt -o e:a:c:r:i:sp:hd --long env_file:,actions:,container:,release:,image:,schema_update,package:,help,debug -n 'run_cdc_dev_docker.sh' -- "$@")
-
-if [ $? != 0 ]; then
-  echo "Failed to parse options." >&2
-  exit 1
-fi
-
-eval set -- "$OPTS"
-
-# Process command-line options
-# getopt handles invalid options and missing arguments
-while true; do
+while [[ $# -gt 0 ]]; do
   case "$1" in
     -e | --env_file)
+      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
       if [ -f "$2" ]; then
         ENV_FILE="$2"
+        shift 2
       else
         log_error "File does not exist.\nPlease specify a valid path and file name."
         exit 1
       fi
-      shift 2
       ;;
     -a | --actions)
-      if [ "$2" == "run" ] || [ "$2" == "build" ] || [ "$2" == "build_run" ] || [ "$2" == "build_upload" ] || [ "$2" == "upload" ]; then
+      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+      if [[ "$2" =~ ^(run|build|build_run|build_upload|upload)$ ]]; then
         ACTIONS="$2"
-        shift 2  
+        shift 2
       else
         log_error "That is not a valid action. Valid options are:\nrun\nbuild\nbuild_run\nbuild_upload\nupload\n"
         exit 1
       fi
       ;;
     -c | --container)
-      if [ "$2" == "all" ] || [ "$2" == "service" ]; then
+      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+      if [[ "$2" =~ ^(all|service)$ ]]; then
         CONTAINER="$2"
         shift 2
       else
@@ -350,7 +342,8 @@ while true; do
       fi
       ;;
     -r | --release)
-      if [ "$2" == "latest" ] || [ "$2" == "stable" ]; then
+      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+      if [[ "$2" =~ ^(latest|stable)$ ]]; then
         RELEASE="$2"
         shift 2
       else
@@ -359,12 +352,13 @@ while true; do
       fi
       ;;
     -i | --image)
-      if [ "$2" == "latest" ] || [ "$2" == "stable" ]; then
+      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
+      if [[ "$2" == "latest" ]] || [[ "$2" == "stable" ]]; then
         log_error "That is not a valid custom image name. Did you mean to use the '--release' option?\n"
         exit 1
       else
-       IMAGE="$2"
-       shift 2
+        IMAGE="$2"
+        shift 2
       fi
       ;;
     -s | --schema_update)
@@ -372,23 +366,24 @@ while true; do
       shift
       ;;
     -p | --package)
+      if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
       PACKAGE="$2"
       shift 2
       ;;
     -h | --help)
       help
       exit 0
+      ;;
+    -d | --debug)
+      set -x
       shift
       ;;
-    -d | --debug) 
-      set -x 
-      shift
+    *)
+      log_error "Invalid input: $1"
+      log_error "Please try again. See '--help' for correct usage."
+      exit 1
       ;;
-    --) 
-      shift
-      break 
-      ;;
-    esac
+  esac
 done
 
 # Handle garbage input (getopt doesn't do it)
