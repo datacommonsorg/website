@@ -92,7 +92,11 @@ async def verify_claim():
         return jsonify({"error": "Missing 'claim' in request body."}), 400
 
     # Get API Key from header
+    # Get API Key from header or environment
     api_key = request.headers.get('X-Gemini-Api-Key')
+    if not api_key:
+        api_key = os.environ.get('GENAI_API_KEY') or os.environ.get('GOOGLE_API_KEY')
+    
     if not api_key:
         return jsonify({"error": "Missing API Key"}), 401
         
@@ -134,7 +138,11 @@ async def extract_claims():
         return jsonify({"error": "Missing 'text' in request body."}), 400
 
     # Get API Key from header
+    # Get API Key from header or environment
     api_key = request.headers.get('X-Gemini-Api-Key')
+    if not api_key:
+        api_key = os.environ.get('GENAI_API_KEY') or os.environ.get('GOOGLE_API_KEY')
+
     if not api_key:
         return jsonify({"error": "Missing API Key"}), 401
         
