@@ -414,6 +414,10 @@ while [[ $# -gt 0 ]]; do
       set -x
       shift
       ;;
+    --)
+      shift
+      break
+      ;;
     *)
       log_error "Invalid input: $1"
       log_error "Please try again. See '--help' for correct usage."
