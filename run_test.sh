@@ -443,6 +443,10 @@ function help {
   echo "Usage: $0 -pwblcsaf"
   echo "-p              Run server python tests"
   echo "-w              Run webdriver tests"
+  echo "--record          Run in record mode (regenerate recordings)"
+  echo "--replay          Run in replay mode (default)"
+  echo "--live            Run in live mode (no recording)"
+  echo "--clean           Delete existing recordings before running (requires --record and full run)"
   echo "--cdc           Run Custom DC webdriver tests"
   echo "                Respects the STARTUP_WAIT_SEC environment variable for startup wait time (default 10)."
   echo "--explore       Run explore integration tests"
@@ -474,6 +478,22 @@ while [[ "$#" -gt 0 ]]; do
         command=$1  # Store the command to call the appropriate function
         shift  # Move to the next command-line argument
         ;;
+    --record)
+        export WEBDRIVER_RECORDING_MODE=record
+        shift
+        ;;
+    --replay)
+        export WEBDRIVER_RECORDING_MODE=replay
+        shift
+        ;;
+    --live)
+        export WEBDRIVER_RECORDING_MODE=live
+        shift
+        ;;
+    --clean)
+        CLEAN_RECORDINGS=true
+        shift
+        ;;
     *)
         if [[ -n "$command" ]]; then
             # Collect extra args only if a command is already set
@@ -488,6 +508,21 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
+# Check safety of --clean flag
+if [[ "$CLEAN_RECORDINGS" == "true" ]]; then
+  if [[ "$WEBDRIVER_RECORDING_MODE" != "record" ]]; then
+    echo "Error: --clean can only be used with --record mode."
+    exit 1
+  fi
+  # Check for filters in extra_args
+  for arg in "${extra_args[@]}"; do
+    if [[ "$arg" == "-k" || "$arg" == "-m" || "$arg" == *"test.py" ]]; then
+      echo "Error: --clean cannot be used with test filters or specific test files. It requires a full run to avoid data loss."
+      exit 1
+    fi
+  done
+fi
+
 # Helper to manage recordings
 function manage_recordings {
   local action=$1
@@ -495,6 +530,12 @@ function manage_recordings {
   local tarball="server/tests/test_data/webdriver_recordings.tar.gz"
 
   if [[ "$action" == "extract" ]]; then
+    if [[ "$CLEAN_RECORDINGS" == "true" ]]; then
+      echo "Cleaning recordings directory..."
+      rm -rf "$recordings_dir"
+      echo "Skipping extraction because --clean was passed."
+      return
+    fi
     if [[ " ${extra_args[@]} " =~ " --no_extract " ]]; then
       echo "Skipping recording extraction (--no_extract passed)."
       return

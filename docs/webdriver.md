@@ -16,7 +16,7 @@ By default, tests run in **Replay Mode**. This uses recorded API responses from 
 Same as:
 
 ```bash
-WEBDRIVER_RECORDING_MODE=replay ./run_test.sh -w
+./run_test.sh -w --replay
 ```
 
 ### Run specific tests
@@ -38,11 +38,11 @@ To write a new test, you need to capture real API traffic.
     - `server/webdriver/cdc_tests/`: Tests specific to Custom Data Commons (CDC).
 2.  **Record traffic**: Run the test in **Record Mode**. This hits the real API and saves responses to JSON.
     ```bash
-    WEBDRIVER_RECORDING_MODE=record ./run_test.sh -w -k "my_new_test"
+    ./run_test.sh -w --record -k "my_new_test"
     ```
 3.  **Verify**: Run in **Replay Mode** (default) to ensure it passes with the recorded data.
     ```bash
-    WEBDRIVER_RECORDING_MODE=replay ./run_test.sh -w -k "my_new_test"
+    ./run_test.sh -w --replay -k "my_new_test"
     ```
 4.  **Commit**: Commit the new test file and the generated JSON recordings.
 
@@ -50,16 +50,13 @@ To write a new test, you need to capture real API traffic.
 
 If the API changes or data becomes stale, you must regenerate recordings.
 
-### How to Regenerate
-1.  **Delete old recordings** (Optional but recommended to avoid orphans):
-    ```bash
-    rm -rf server/tests/test_data/webdriver_recordings/
-    ```
-2.  **Run in Record Mode**:
-    ```bash
-    WEBDRIVER_RECORDING_MODE=record ./run_test.sh -w
-    ```
-    *Note: This will take a while as it hits the real API.*
+### How to Regenerate All Recordings
+
+```bash
+./run_test.sh -w --record --clean
+```
+*Note: `--clean` deletes all existing recordings before running. It requires a full run (no filters) to prevent accidental data loss.*
+*Note: This will take a while as it hits the real API.*
 
 ## Troubleshooting
 
@@ -101,3 +98,4 @@ To avoid hitting inode limits and improving git performance (currently ~2.5k rec
 #### Optimization Flags
 - `--no_extract`: Use when you have already extracted recordings and want to preserve manual changes or save time.
 - `--no_compress`: Use in `record` mode to inspect generated JSON files before they are bundled.
+    - *Note: If you use this, you must run `./run_test.sh --compress_webdriver_recordings` before merging.*
