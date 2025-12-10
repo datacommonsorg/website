@@ -34,16 +34,6 @@ export FLASK_ENV="${FLASK_ENV:-integration_test}"
 export GOOGLE_CLOUD_PROJECT="${GOOGLE_CLOUD_PROJECT:-datcom-website-staging}"
 export ENABLE_MODEL="${ENABLE_MODEL:-true}"
 
-# Check for virtual environments
-if [ ! -d "nl_server/.venv" ]; then
-  log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
-  ./run_test.sh --setup_nl
-fi
-if [ ! -d "server/.venv" ]; then
-  log_notice "server/.venv directory not found. Running './run_test.sh --setup_website'."
-  ./run_test.sh --setup_website
-fi
-
 echo "FLASK_ENV=$FLASK_ENV"
 echo "GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT"
 echo "ENABLE_MODEL=$ENABLE_MODEL"
@@ -75,9 +65,9 @@ fi
 
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
-  ./nl_server/.venv/bin/python3 nl_app.py 6070 &
+  uv run --project nl_server python3 nl_app.py 6070 &
 else
-  ./nl_server/.venv/bin/python3 nl_app.py 6070 > /dev/null 2>&1 &
+  uv run --project nl_server python3 nl_app.py 6070 > /dev/null 2>&1 &
 fi
 NL_PID=$!
 
@@ -86,9 +76,9 @@ export NL_SERVICE_ROOT_URL="http://localhost:6070"
 
 echo "Starting Website server..."
 if [[ $VERBOSE == "true" ]]; then
-  ./server/.venv/bin/python3 web_app.py 8090 &
+  uv run --project server python3 web_app.py 8090 &
 else
-  ./server/.venv/bin/python3 web_app.py 8090 > /dev/null 2>&1 &
+  uv run --project server python3 web_app.py 8090 > /dev/null 2>&1 &
 fi
 WEB_PID=$!
 
