@@ -18,6 +18,7 @@
 # use in local e2e tests.
 #
 
+source scripts/utils.sh
 set -e
 
 function cleanup {
@@ -27,7 +28,11 @@ function cleanup {
 }
 trap cleanup SIGINT
 
-source .venv_nl/bin/activate
+if [ ! -d "nl_server/.venv" ]; then
+  log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
+  ./run_test.sh --setup_nl
+fi
+source nl_server/.venv/bin/activate
 
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev

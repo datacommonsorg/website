@@ -22,6 +22,7 @@
 #   - NL server uses port 6070 instead of 6060.
 # - Server processes are silent unless '--verbose' is specified.
 
+source scripts/utils.sh
 set -e
 
 VERBOSE=false
@@ -32,6 +33,16 @@ fi
 export FLASK_ENV="${FLASK_ENV:-integration_test}"
 export GOOGLE_CLOUD_PROJECT="${GOOGLE_CLOUD_PROJECT:-datcom-website-staging}"
 export ENABLE_MODEL="${ENABLE_MODEL:-true}"
+
+# Check for virtual environments
+if [ ! -d "nl_server/.venv" ]; then
+  log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
+  ./run_test.sh --setup_nl
+fi
+if [ ! -d "server/.venv" ]; then
+  log_notice "server/.venv directory not found. Running './run_test.sh --setup_website'."
+  ./run_test.sh --setup_website
+fi
 
 echo "FLASK_ENV=$FLASK_ENV"
 echo "GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT"
@@ -54,11 +65,11 @@ trap 'exit_with=$?; cleanup' EXIT
 trap 'exit_with=0; cleanup' SIGINT SIGTERM
 
 if lsof -i :6070 > /dev/null 2>&1; then
-  echo "Port 6070 (for NL server) is already in use. Please stop the process using that port."
+  log_error "Port 6070 (for NL server) is already in use. Please stop the process using that port."
   exit 1
 fi
 if lsof -i :8090 > /dev/null 2>&1; then
-  echo "Port 8090 (for website server) is already in use. Please stop the process using that port."
+  log_error "Port 8090 (for website server) is already in use. Please stop the process using that port."
   exit 1
 fi
 
@@ -76,9 +87,9 @@ fi
 
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
-  ./.venv_nl/bin/python3 nl_app.py 6070 &
+  ./nl_server/.venv/bin/python3 nl_app.py 6070 &
 else
-  ./.venv_nl/bin/python3 nl_app.py 6070 > /dev/null 2>&1 &
+  ./nl_server/.venv/bin/python3 nl_app.py 6070 > /dev/null 2>&1 &
 fi
 NL_PID=$!
 
@@ -87,20 +98,20 @@ export NL_SERVICE_ROOT_URL="http://localhost:6070"
 
 echo "Starting Website server..."
 if [[ $VERBOSE == "true" ]]; then
-  ./.venv_website/bin/python3 web_app.py 8090 &
+  ./server/.venv/bin/python3 web_app.py 8090 &
 else
-  ./.venv_website/bin/python3 web_app.py 8090 > /dev/null 2>&1 &
+  ./server/.venv/bin/python3 web_app.py 8090 > /dev/null 2>&1 &
 fi
 WEB_PID=$!
 
 while true; do
   if ! ps -p $WEB_PID > /dev/null; then
-    echo "Website server exited early. Run with --verbose to debug."
+    log_error "Website server exited early. Run with --verbose to debug."
     exit 1
   fi
 
   if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
-    echo "NL server exited early. Run with --verbose to debug."
+    log_error "NL server exited early. Run with --verbose to debug."
     exit 1
   fi
 
