@@ -36,7 +36,7 @@ function setup_website_python {
   assert_uv
   uv venv server/.venv --allow-existing
   source server/.venv/bin/activate
-  echo "installing server requirements to .venv_website"
+  echo "installing server requirements to server/.venv"
   uv sync --project server --active
 }
 
@@ -44,7 +44,7 @@ function setup_nl_python {
   assert_uv
   uv venv nl_server/.venv --allow-existing
   source nl_server/.venv/bin/activate
-  echo "installing nl_server requirements to .venv_nl"
+  echo "installing nl_server requirements to nl_server/.venv"
   uv sync --project nl_server --active
 }
 
@@ -95,14 +95,14 @@ function start_servers() {
   fi
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
-  # Wait a few seconds and make sure the server script subprocess hasn't failed.
-  # Tests will time out eventually if health checks for website and NL servers
-  # don't pass, but this is quicker if the servers fail to start up immediately.
-  sleep "$startup_wait_sec"
-  if ! ps -p $SERVERS_PID > /dev/null; then
-    log_error "Server script not running after $startup_wait_sec seconds."
-    exit 1
-  fi
+  # Wait for the servers to start up, but check periodically if the script has failed.
+  for ((i=0; i<startup_wait_sec; i++)); do
+    sleep 1
+    if ! ps -p $SERVERS_PID > /dev/null; then
+      log_error "Server exited early (PID $SERVERS_PID). Check logs for details."
+      exit 1
+    fi
+  done
 }
 
 # Stop the subprocess that is running website and NL servers and remove the
