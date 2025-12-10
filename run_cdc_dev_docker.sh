@@ -336,15 +336,11 @@ parse_arg() {
     val="${current_arg#*=}"
     shift_count=1
   else
-    if [[ $remaining_count -lt 2 ]]; then
+    if [[ $remaining_count -lt 2 || "$next_arg" == -* ]]; then
       log_error "Option $current_arg requires an argument."
       exit 1
     fi
     val="$next_arg"
-    if [[ "$val" == -* ]]; then
-      log_error "Option $current_arg requires an argument."
-      exit 1
-    fi
     shift_count=2
   fi
   echo "$val|$shift_count"
