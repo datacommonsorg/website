@@ -68,6 +68,7 @@ interface SvRankingUnitsProps {
   containerRef: React.RefObject<HTMLElement>;
   surface: string;
   enableScroll?: boolean;
+  maxHeight?: string;
   hyperlink?: string;
   parentPlace: string;
 }
@@ -126,7 +127,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.errorMsg,
             props.sources,
             props.isLoading,
-            props.enableScroll
+            props.enableScroll,
+            props.maxHeight
           )}
           {!props.hideFooter && (
             <ChartFooter
@@ -168,7 +170,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                props.maxHeight
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -203,7 +206,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                props.maxHeight
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -346,7 +350,8 @@ export function getRankingUnit(
   errorMsg?: string,
   sources?: string[],
   isLoading?: boolean,
-  enableScroll?: boolean
+  enableScroll?: boolean,
+  maxHeight?: string
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
@@ -395,6 +400,7 @@ export function getRankingUnit(
       apiRoot={apiRoot}
       entityType={entityType}
       enableScroll={enableScroll}
+      maxHeight={maxHeight}
     />
   );
 }
@@ -427,8 +433,8 @@ function getExploreLink(
   const places = isHighest
     ? rankingGroup.points.slice(-rankingCount).map((point) => point.placeDcid)
     : rankingGroup.points
-        .slice(0, rankingCount)
-        .map((point) => point.placeDcid);
+      .slice(0, rankingCount)
+      .map((point) => point.placeDcid);
   const hash = getHash(
     VisType.TIMELINE,
     places,

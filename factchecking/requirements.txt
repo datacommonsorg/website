@@ -1,0 +1,10 @@
+google-generativeai
+google-cloud-aiplatform
+openai
+anthropic
+datacommons
+google-cloud-discoveryengine
+datacommons-client
+google-adk
+aiohttp
+ipython

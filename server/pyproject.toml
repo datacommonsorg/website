@@ -59,6 +59,8 @@ dependencies = [
     "Werkzeug==3.0.6",
     "wheel==0.38.1",
     "data-gemma",
+    "datacommons",
+    "datacommons_client",
 ]
 
 [tool.uv]

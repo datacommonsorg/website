@@ -14,7 +14,7 @@
 
 from flask import Blueprint
 from flask import render_template
-
+from flask import current_app
 from server.lib.gcs import list_blobs
 
 _MAX_BLOBS = 1
@@ -44,3 +44,14 @@ def download():
   recent_blobs = list_blobs(_FC_FEEDS_BUCKET, _MAX_BLOBS)
   return render_template('factcheck/factcheck_download.html',
                          recent_blobs=recent_blobs)
+
+
+@bp.route('/verify')
+def verify():
+  return render_template('factcheck/factcheck_verify_v2.html')
+
+from flask import current_app
+
+@bp.route('/widget')
+def widget():
+  return render_template('factcheck/widget.html', feature_flags=current_app.config['FEATURE_FLAGS'])

@@ -99,6 +99,7 @@ export interface RankingTilePropType
   surface?: string;
   // Metadata for the facet to highlight.
   facetSelector?: FacetSelectionCriteria;
+  maxHeight?: string;
   hyperlink?: string;
 }
 
@@ -277,9 +278,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   }
   return (
     <div
-      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${
-        props.className
-      } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className
+        } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
       ref={containerRef}
       style={{
         gridTemplateColumns:
@@ -301,7 +301,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         Object.keys(rankingData).map((statVar) => {
           const errorMsg =
             _.isEmpty(rankingData[statVar]) ||
-            rankingData[statVar].numDataPoints === 0
+              rankingData[statVar].numDataPoints === 0
               ? getNoDataErrorMsg(props.variables)
               : "";
           return (
@@ -330,6 +330,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
                 isFeatureEnabled(ENABLE_RANKING_TILE_SCROLL) &&
                 props.rankingMetadata.showHighestLowest
               }
+              maxHeight={props.maxHeight}
               hyperlink={props.hyperlink}
               parentPlace={props.parentPlace}
             />

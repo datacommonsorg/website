@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Data Commons Fact Checker</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .header-bar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 8px;
+      z-index: 100;
+    }
+
+    .history-btn {
+      background: white;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: sans-serif;
+      font-size: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .history-btn:hover {
+      background: #f1f3f4;
+    }
+
+    .history-panel {
+      position: absolute;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .history-panel.open {
+      right: 0;
+    }
+
+    .history-header {
+      padding: 16px;
+      border-bottom: 1px solid #dadce0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: sans-serif;
+    }
+
+    .history-header h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #5f6368;
+    }
+
+    .history-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .history-item {
+      padding: 12px;
+      border-bottom: 1px solid #f1f3f4;
+      cursor: pointer;
+      font-family: sans-serif;
+    }
+
+    .history-item:hover {
+      background: #f8f9fa;
+    }
+
+    .history-claim {
+      font-size: 13px;
+      color: #202124;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .history-meta {
+      font-size: 11px;
+      color: #5f6368;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .verdict-badge-small {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .v-supported {
+      background: #e6f4ea;
+      color: #137333;
+    }
+
+    .v-refuted {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+
+    .v-other {
+      background: #f1f3f4;
+      color: #5f6368;
+    }
+
+    .empty-history {
+      padding: 20px;
+      text-align: center;
+      color: #5f6368;
+      font-family: sans-serif;
+      font-size: 13px;
+    }
+
+    /* New Styles */
+    .history-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .history-date {
+      font-size: 11px;
+      color: #5f6368;
+    }
+
+    .explore-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background-color: #fff;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      color: #1a73e8;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .explore-btn:hover {
+      background-color: #f1f3f4;
+    }
+
+    .chart-container {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header-bar">
+    <button id="settingsBtn" class="history-btn" style="margin-right: 8px;">Keys</button>
+    <button id="historyBtn" class="history-btn">History</button>
+  </div>
+
+  <div id="historyPanel" class="history-panel">
+    <div class="history-header">
+      <h3>History</h3>
+      <div style="display: flex; gap: 8px;">
+        <button id="clearHistory" class="history-btn" style="padding: 4px 8px; font-size: 11px;">Clear</button>
+        <button id="closeHistory" class="close-btn">&times;</button>
+      </div>
+    </div>
+    <div id="historyList" class="history-list">
+      <!-- History items will be populated here -->
+    </div>
+  </div>
+
+  <div id="settingsPanel" class="settings-panel" style="display: none; padding: 20px; text-align: center;">
+    <h3>Welcome to Data Commons</h3>
+    <p style="color: #5f6368; font-size: 13px; margin-bottom: 16px;">
+      To use this extension, please enter your Gemini API Key.
+    </p>
+    <input type="password" id="apiKeyInput" placeholder="Enter Gemini API Key"
+      style="width: 100%; padding: 8px; margin-bottom: 16px; border: 1px solid #dadce0; border-radius: 4px; box-sizing: border-box;">
+    <button id="saveKeyBtn" class="history-btn"
+      style="background-color: #1a73e8; color: white; border: none; width: 100%;">Save Key</button>
+    <p style="margin-top: 12px; font-size: 11px;">
+      <a href="https://aistudio.google.com/app/apikey" target="_blank"
+        style="color: #1a73e8; text-decoration: none;">Get
+        an API Key</a>
+    </p>
+  </div>
+
+  <div id="mainContent" style="display: none; height: 100%;">
+    <iframe id="widgetFrame" src="http://localhost:8080/factcheck/widget"></iframe>
+  </div>
+  <script src="sidepanel.js"></script>
+</body>
+
+</html>

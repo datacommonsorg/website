@@ -1,0 +1,30 @@
+Show me which countries have had a high rate of electricity availability without increasing their per person carbon footprint.
+Do the US states with high coal fired power also have high rates of COPD?
+Is obesity in America continuing to increase?
+Which US states have the highest percentage of uninsured children?
+Which Indian States are going to have the highest change in average temperature due to climate change?
+Are gender equality and poverty correlated in Africa?
+what percentage of the Indian population lives in slums?
+In which countries are more women getting college degrees than men?
+Which industries are growing the fastest in New Jersey?
+Which US states have the highest cancer rates?
+How have CO2 emissions changed in France over the last 10 years?
+How many US households have individuals over than 65 in them
+Which New Jersey schools have the highest student to teacher ratio?
+Show me a breakdown of income distribution for Seattle.
+Is there a correlation between crime rate and abortion?
+What are the record highs and low temperatures in chennai, India?
+Graph population density ranking by state
+How much wealth does the bottom 80 percent own in following countries: Pakistan, India, china, srilanka, Bangladesh, Indonesia, Taiwan, Vietnam, Philippines, Iran? Present a list in descending order and write down their respective percentage of contribution in tax collection.
+What is the percentage of the financial sector in GDP for different countries like the United States and China, based on the latest data?
+What is the annual change in inflation from July 2022 to July 2023 in North Carolina?
+What was the annual deficit for U.S. Government from FY 2010 to FY 2020?
+Which New Jersey cities have the best commute times for workers?
+Which US cities have the highest per capita number of starbucks stores?
+Which US states have the highest percentage of women in their state legislature?
+Which Indian States have the highest rate of diabetic retinopathy?
+What is the foreign corporate debt held in US dollar denomination?
+Which Indian States have the highest penetration of smart phones?
+What is the average number of electronic devices in U.S. households these days?
+Can you please show me a graph of expected traffic volume around Atlanta after a Hawks game?
+EV sales by state 2023.

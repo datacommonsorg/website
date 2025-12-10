@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Data Commons Fact Checker Widget</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <script src="/datacommons.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: 'Google Sans', sans-serif;
+      background-color: #f8f9fa;
+      overflow-x: hidden;
+    }
+
+    .widget-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #202124;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 12px;
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      resize: vertical;
+      font-family: 'Google Sans Text', sans-serif;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 1px #1a73e8;
+    }
+
+    button {
+      width: 100%;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    button:hover {
+      background-color: #1765cc;
+      box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3);
+    }
+
+    button:disabled {
+      background-color: #dadce0;
+      color: #80868b;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .result-item {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3);
+      margin-bottom: 16px;
+    }
+
+    .verdict-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .verdict-supported {
+      background-color: #e6f4ea;
+      color: #137333;
+    }
+
+    .verdict-refuted {
+      background-color: #fce8e6;
+      color: #c5221f;
+    }
+
+    .verdict-other {
+      background-color: #f1f3f4;
+      color: #5f6368;
+    }
+
+    .explanation {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #3c4043;
+      margin-bottom: 12px;
+    }
+
+    .chart-container {
+      margin-top: 12px;
+      width: 100%;
+    }
+
+    .loading {
+      text-align: center;
+      color: #5f6368;
+      display: none;
+      margin-top: 20px;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #1a73e8;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 8px auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .context-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .context-chip {
+      background: #f1f3f4;
+      border-radius: 12px;
+      padding: 4px 8px;
+      font-size: 11px;
+      color: #5f6368;
+    }
+
+    .context-chip a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .context-chip a:hover {
+      text-decoration: underline;
+    }
+
+    .explore-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #fff;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      color: #1a73e8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      position: relative;
+      /* Ensure z-index works */
+      z-index: 10;
+      /* Bring above chart if overlapping */
+      cursor: pointer;
+    }
+
+    .explore-btn:hover {
+      background-color: #f1f3f4;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="widget-container">
+    <div class="header">
+      <h2>Data Commons Fact Checker</h2>
+    </div>
+
+    <div>
+      <textarea id="claimInput" placeholder="Enter a claim or select text on a page..."></textarea>
+      <div style="display: flex; gap: 8px;">
+        <button id="verifyBtn" style="flex: 2;">Verify</button>
+        <button id="scanBtn" style="flex: 1; background-color: #f1f3f4; color: #3c4043;">Scan Page</button>
+      </div>
+    </div>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <div id="loadingText">Verifying...</div>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    globalThis.FEATURE_FLAGS = {{ feature_flags | tojson }};
+  </script>
+  <script>
+    const verifyBtn = document.getElementById('verifyBtn');
+    const scanBtn = document.getElementById('scanBtn');
+    const claimInput = document.getElementById('claimInput');
+    const loading = document.getElementById('loading');
+    const loadingText = document.getElementById('loadingText');
+    const resultsDiv = document.getElementById('results');
+
+    // Listen for messages from the parent (extension)
+    window.addEventListener('message', (event) => {
+      if (event.data.type === 'SET_API_KEY') {
+        geminiApiKey = event.data.key;
+        console.log("API Key received in widget");
+      } else if (event.data.type === 'VERIFY_TEXT') {
+        if (event.data.context) {
+          claimInput.value = `${event.data.text}\n\n[Extracted Context]: ${event.data.context}`;
+        } else {
+          claimInput.value = event.data.text;
+        }
+        verifyClaim(event.data.text, event.data.context);
+      } else if (event.data.type === 'PAGE_TEXT') {
+        extractClaims(event.data.text);
+      } else if (event.data.type === 'VERIFY_ERROR') {
+        loading.style.display = 'none';
+        verifyBtn.disabled = false;
+        resultsDiv.innerHTML = `<div class="error-message" style="color: #d93025; padding: 10px; background: #fce8e6; border-radius: 4px;">${event.data.error}</div>`;
+      }
+    });
+
+    verifyBtn.addEventListener('click', () => {
+      const claim = claimInput.value.trim();
+      if (claim) verifyClaim(claim);
+    });
+
+    scanBtn.addEventListener('click', () => {
+      // Send message to parent (sidepanel.js) to scan the page
+      window.parent.postMessage({ type: 'SCAN_PAGE' }, '*');
+      loading.style.display = 'block';
+      loadingText.textContent = 'Scanning page content...';
+      resultsDiv.innerHTML = '';
+    });
+
+    async function extractClaims(text) {
+      loading.style.display = 'block';
+      loadingText.textContent = 'Analyzing page for statistical claims...';
+      resultsDiv.innerHTML = '';
+
+      try {
+        const response = await fetch('/factcheck/api/extract_claims', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: text })
+        });
+        const data = await response.json();
+
+        if (data.claims && data.claims.length > 0) {
+          // Send highlight request
+          window.parent.postMessage({
+            type: 'HIGHLIGHT_CLAIMS',
+            claims: data.claims
+          }, '*');
+
+          resultsDiv.innerHTML = `
+                    <div class="result-item" style="text-align:center; padding: 20px;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🔍</div>
+                        <div style="font-weight: 500; margin-bottom: 4px;">Found ${data.claims.length} claims</div>
+                        <div style="color: #5f6368; font-size: 13px;">
+                            We've highlighted them on the page. <br>
+                            Click on any highlighted text to verify it.
+                        </div>
+                    </div>
+                `;
+        } else {
+          resultsDiv.innerHTML = `
+                    <div class="result-item" style="text-align:center; padding: 20px;">
+                        <div style="font-size: 24px; margin-bottom: 8px;">🤷</div>
+                        <div style="font-weight: 500;">No statistical claims found</div>
+                        <div style="color: #5f6368; font-size: 13px;">Try selecting specific text to verify.</div>
+                    </div>
+                `;
+        }
+      } catch (e) {
+        resultsDiv.innerHTML = `<div class="result-item" style="color:red">Error extracting claims: ${e.message}</div>`;
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    async function verifyClaim(claim, context) {
+      verifyBtn.disabled = true;
+      loading.style.display = 'block';
+      resultsDiv.innerHTML = '';
+
+      try {
+        const response = await fetch('/factcheck/api/verify_claim', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ claim: claim, context: context })
+        });
+
+        const data = await response.json();
+
+        // Send results to parent (extension) for history
+        window.parent.postMessage({
+          type: 'VERIFICATION_COMPLETE',
+          claim: claim,
+          result: data
+        }, '*');
+
+        let results = [];
+        if (data.verification_verdict) {
+          results = Array.isArray(data.verification_verdict) ? data.verification_verdict : [data.verification_verdict];
+        } else if (data.verdict) {
+          results = [data];
+        } else if (data.error) {
+          results = [{ verdict: "ERROR", explanation: data.error }];
+        }
+
+        // Render results directly (no grouping)
+        results.forEach(result => {
+          const verdict = result.verdict || "UNKNOWN";
+          let badgeClass = 'verdict-other';
+          const v = verdict.toLowerCase();
+          if (v.includes('support') || v.includes('true')) badgeClass = 'verdict-supported';
+          else if (v.includes('refute') || v.includes('false') || v.includes('disputed')) badgeClass = 'verdict-refuted';
+
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'result-item';
+
+          // Metadata
+          const claimText = result.claim_text || result.claim || "Claim";
+          const svDcid = result.stat_var_dcid;
+          const svName = result.stat_var_name || svDcid;
+          const placeDcid = result.place_dcid;
+          const placeName = result.place_name || placeDcid;
+          const date = result.date;
+          const source = result.source;
+          const isNoSv = !svDcid;
+
+          // Construct Explore URL
+          let exploreUrl = "";
+          const config = result.chart_config || { type: "LINE" };
+          const type = (config.type || "LINE").toUpperCase();
+
+          let chartType = "TIMELINE_WITH_HIGHLIGHT";
+          if (type === "BAR") {
+            chartType = "BAR_CHART";
+          } else if (type === "RANKING" || type === "MAP") {
+            chartType = "RANKING_WITH_MAP";
+          }
+
+          let places = [];
+          if (config.places && config.places.length > 0) {
+            places = config.places;
+          } else if (chartType === "RANKING_WITH_MAP" && config.parent_place_dcid) {
+            // For ranking/map, use the parent place as the context
+            places = [config.parent_place_dcid];
+          } else if (placeDcid) {
+            places = [placeDcid];
+          } else if (config.parent_place_dcid) {
+            // For ranking/map, we might want the parent place? 
+            // Actually, ranking/map usually shows children of a parent.
+            // But the 'p' param usually expects the places being shown or the context.
+            // If it's ranking, we might not have a list of all children in 'places'.
+            // Let's use parent_place_dcid if available for context, or maybe we need to fetch children?
+            // The user example "p=country/USA" suggests parent place is fine for ranking?
+            // Or maybe "p=country/USA___country/FRA" means specific places.
+            // If it's a ranking of states in USA, p=country/USA is probably what we want?
+            // Let's assume parent_place_dcid is valid for 'p' if type is RANKING/MAP.
+            places = [config.parent_place_dcid];
+          }
+
+          let variables = [];
+          if (config.variables && config.variables.length > 0) {
+            variables = config.variables;
+          } else if (svDcid) {
+            variables = [svDcid];
+          }
+
+          if (places.length > 0 && variables.length > 0) {
+            const pParam = places.join("___");
+            const svParam = variables.join("___");
+            exploreUrl = `https://datacommons.org/explore?p=${pParam}&sv=${svParam}&chartType=${chartType}`;
+          }
+
+          itemDiv.innerHTML = `
+              <div class="result-header" style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+                  <div style="font-weight:500; font-size:14px; color:#202124; flex:1;">${claimText}</div>
+                  <span class="verdict-badge ${badgeClass}" style="margin-bottom:0; flex-shrink:0;">${verdict}</span>
+              </div>
+              
+              <div class="result-details" style="display:block; margin-top: 12px;">
+                  <div class="explanation">${(result.explanation || "").replace(/\n/g, '<br>')}</div>
+                  
+                  <div class="metadata-grid" style="display:grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin-top:12px; font-size:12px; color:#5f6368;">
+                      ${placeDcid ? `<div>Place:</div><div><a href="https://datacommons.org/place/${placeDcid}" target="_blank" style="color:#1a73e8; text-decoration:none;">${placeName}</a></div>` : ''}
+                      ${svDcid ? `<div>Variable:</div><div><a href="https://datacommons.org/tools/statvar#sv=${svDcid}" target="_blank" style="color:#1a73e8; text-decoration:none;">${svName}</a></div>` : ''}
+                      ${date ? `<div>Date:</div><div style="color:#3c4043;">${date}</div>` : ''}
+                      ${source ? `<div>Source:</div><div style="color:#3c4043;">${source}</div>` : ''}
+                  </div>
+
+                  ${!isNoSv ? `<div class="chart-container"></div>` : ''}
+                  
+                  ${exploreUrl ? `
+                      <div style="margin-top: 12px; text-align: right;">
+                          <a href="${exploreUrl}" target="_blank" class="explore-btn">
+                              Explore in Data Commons
+                              <span style="font-size:14px; vertical-align:middle;">&nearr;</span>
+                          </a>
+                      </div>
+                  ` : ''}
+              </div>
+              <div class="expand-btn" style="text-align:center; margin-top:8px; cursor:pointer; color:#1a73e8; font-size:13px; font-weight:500;">
+                  Hide Details
+              </div>
+          `;
+
+          // Render Chart based on config
+          if (!isNoSv) {
+            const chartContainer = itemDiv.querySelector('.chart-container');
+            if (chartContainer) {
+              const config = result.chart_config || { type: "LINE" };
+              const type = (config.type || "LINE").toUpperCase();
+
+              let chart;
+
+              if (type === "BAR") {
+                chart = document.createElement('datacommons-bar');
+                const places = config.places && config.places.length > 0 ? config.places.join(' ') : (placeDcid || 'Earth');
+                const variables = config.variables && config.variables.length > 0 ? config.variables.join(' ') : svDcid;
+
+                // If explicit places list, use it. Otherwise check for parent/child
+                if (config.places && config.places.length > 0) {
+                  chart.setAttribute('places', places);
+                } else if (config.parent_place_dcid && config.child_place_type) {
+                  chart.setAttribute('parentPlace', config.parent_place_dcid);
+                  chart.setAttribute('childPlaceType', config.child_place_type);
+                } else {
+                  chart.setAttribute('places', places);
+                }
+                chart.setAttribute('variables', variables);
+
+              } else if (type === "MAP" && config.parent_place_dcid && config.child_place_type) {
+                chart = document.createElement('datacommons-map');
+                chart.setAttribute('parentPlace', config.parent_place_dcid);
+                chart.setAttribute('childPlaceType', config.child_place_type);
+                chart.setAttribute('variable', svDcid);
+
+              } else if (type === "RANKING" && config.parent_place_dcid && config.child_place_type) {
+                chart = document.createElement('datacommons-ranking');
+                chart.setAttribute('parentPlace', config.parent_place_dcid);
+                chart.setAttribute('childPlaceType', config.child_place_type);
+                chart.setAttribute('variable', svDcid);
+                chart.setAttribute('rankingCount', '50');
+                chart.setAttribute('showHighestLowest', 'true');
+                chart.setAttribute('maxHeight', '220px');
+
+              } else {
+                // Default to LINE
+                chart = document.createElement('datacommons-line');
+                const places = config.places && config.places.length > 0 ? config.places.join(' ') : (placeDcid || 'Earth');
+                const variables = config.variables && config.variables.length > 0 ? config.variables.join(' ') : svDcid;
+
+                chart.setAttribute('places', places);
+                chart.setAttribute('variables', variables);
+              }
+
+              // Send status update to sidepanel -> content script
+              let finalVerdict = "UNKNOWN";
+              if (data.verification_verdict) {
+                if (Array.isArray(data.verification_verdict) && data.verification_verdict.length > 0) {
+                  finalVerdict = data.verification_verdict[0].verdict;
+                } else if (data.verification_verdict.verdict) {
+                  finalVerdict = data.verification_verdict.verdict;
+                }
+              }
+
+              console.log("Sending UPDATE_CLAIM_STATUS:", data.claim, finalVerdict);
+              window.parent.postMessage({
+                type: 'UPDATE_CLAIM_STATUS',
+                claim: data.claim,
+                verdict: finalVerdict
+              }, '*');
+
+              if (chart) {
+                chart.setAttribute('title', 'Source Data');
+                chartContainer.appendChild(chart);
+              }
+            }
+          }
+
+          // Expand/Collapse
+          const detailsDiv = itemDiv.querySelector('.result-details');
+          const expandBtn = itemDiv.querySelector('.expand-btn');
+
+          expandBtn.addEventListener('click', () => {
+            if (detailsDiv.style.display === 'none') {
+              detailsDiv.style.display = 'block';
+              expandBtn.textContent = 'Hide Details';
+            } else {
+              detailsDiv.style.display = 'none';
+              expandBtn.textContent = 'Show Details';
+            }
+          });
+
+          resultsDiv.appendChild(itemDiv);
+        });
+
+      } catch (e) {
+        resultsDiv.innerHTML = `<div class="result-item" style="color:red">Error: ${e.message}</div>`;
+      } finally {
+        loading.style.display = 'none';
+        verifyBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+
+</html>

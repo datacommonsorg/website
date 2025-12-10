@@ -24,10 +24,16 @@
     "description": "Adds the ability to deep link to bar charts, line charts, ranking and map charts"
   },
   {
-    "name": "enable_nl_agent_detector",
+    "name": "enable_gemini_2_5_flash",
     "enabled": true,
-    "owner": "clincoln8",
-    "description": "Enables detector=agent to be a valid detection mode for NL parsing."
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash for NL detection."
+  },
+  {
+    "name": "enable_gemini_2_5_flash_lite",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash Lite for NL detection."
   },
   {
     "name": "enable_ranking_tile_scroll",
@@ -35,6 +41,13 @@
     "owner": "gmechali",
     "description": "Enables scrolling through Ranking tile rows."
   },
+  {
+    "name": "enable_nl_agent_detector",
+    "enabled": true,
+    "owner": "clincoln8",
+    "description": "Enables detector=agent to be a valid detection mode for NL parsing."
+  },
+
   {
     "name": "enable_stat_var_autocomplete",
     "enabled": true,
