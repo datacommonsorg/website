@@ -73,18 +73,6 @@ if lsof -i :8090 > /dev/null 2>&1; then
   exit 1
 fi
 
-# Check if .venv_nl exists. If not, run ./run_test.sh --setup_nl.
-if [ ! -d ".venv_nl" ]; then
-  echo "NL server virtual environment not found. Running ./run_test.sh --setup_nl..."
-  ./run_test.sh --setup_nl
-fi
-
-# Check if .venv_website exists. If not, run ./run_test.sh --setup_website.
-if [ ! -d ".venv_website" ]; then
-  echo "Website server virtual environment not found. Running ./run_test.sh --setup_website..."
-  ./run_test.sh --setup_website
-fi
-
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
   ./nl_server/.venv/bin/python3 nl_app.py 6070 &
