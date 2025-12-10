@@ -23,6 +23,9 @@ steps:
     args:
       - -c
       - |
+        # Exit immediately if any command exits with a non-zero status
+        set -e
+
         ./build/node/load_preinstalled_modules.sh
         # Run lint test
         ./run_test.sh -l
