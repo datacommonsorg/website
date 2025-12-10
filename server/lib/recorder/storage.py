@@ -27,7 +27,10 @@ from werkzeug.utils import secure_filename
 
 RECORDING_DIR_ENV = 'RECORDING_DIR'
 
-# Path grouping configuration
+# Path grouping configuration.
+# Maps URL prefixes to fixed directory names. This is used to group recordings
+# for paths that have dynamic segments (e.g., /api/node/triples/out/<dcid>)
+# into a single directory, preventing the creation of thousands of folders.
 PATH_GROUPING = {
     '/api/node/triples/out/': 'api_node_triples_out',
     '/api/place/charts/': 'api_place_charts',
