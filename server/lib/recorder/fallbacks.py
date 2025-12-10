@@ -29,12 +29,15 @@ def _create_fake_response(data):
 def _fake_place_name_response(request):
   req_json = request.get_json(silent=True) or {}
   dcids = req_json.get('dcids', [])
-  return _create_fake_response({dcid: "" for dcid in dcids})
+  return _create_fake_response({dcid: "[Fake Name]" for dcid in dcids})
 
 
 def _fake_variable_info_response(request):
   dcids = request.args.get('dcids', '').split(',')
-  return _create_fake_response({dcid: {} for dcid in dcids if dcid})
+  return _create_fake_response(
+      {dcid: {
+          "name": "[Fake Var]"
+      } for dcid in dcids if dcid})
 
 
 def _fake_observation_response(request):
