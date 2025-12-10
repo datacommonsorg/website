@@ -22,8 +22,13 @@ import hashlib
 import json
 from typing import Any, Dict, Set
 
-# Constants for hashing normalization
-PATH_ALLOWED_JSON_FIELDS = {
+# Constants for hashing normalization.
+# These act as allowlists: only the parameters listed here will be included
+# in the request hash. All other parameters are ignored to ensure determinism
+# (e.g., ignoring timestamps or random session IDs).
+
+# For POST requests (JSON body)
+API_RECORDED_POST_PARAMS = {
     '/api/explore/fulfill': {
         'entities', 'variables', 'childEntityType', 'comparisonEntities'
     },
@@ -32,7 +37,8 @@ PATH_ALLOWED_JSON_FIELDS = {
     '/api/variable-group/info': {'dcid', 'numEntitiesExistence'}
 }
 
-PATH_ALLOWED_ARG_FIELDS = {
+# For GET requests (Query parameters)
+API_RECORDED_GET_PARAMS = {
     '/api/explore/fulfill': {'chartType'},
     '/api/explore/detect-and-fulfill': {'q', 'chartType'}
 }
@@ -48,7 +54,7 @@ class RequestHasher:
     # Sort args
     args = request.args.to_dict(flat=False)
     # Normalize args
-    args = self._normalize_data(args, req_path, PATH_ALLOWED_ARG_FIELDS)
+    args = self._normalize_data(args, req_path, API_RECORDED_GET_PARAMS)
     # Sort lists in args to ensure determinism for multi-value params
     args = self._sort_lists(args)
     sorted_args = json.dumps(args, sort_keys=True)
@@ -58,7 +64,7 @@ class RequestHasher:
     # Normalize and sort lists in the request JSON to ensure determinism.
     if req_json:
       req_json = self._normalize_data(req_json, req_path,
-                                      PATH_ALLOWED_JSON_FIELDS)
+                                      API_RECORDED_POST_PARAMS)
       req_json = self._sort_lists(req_json)
 
     # Sort JSON body if it's a dict or list
