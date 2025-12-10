@@ -428,10 +428,9 @@ class ExplorePageTestMixin():
 
     shared.wait_elem(self.driver, By.CLASS_NAME,
                      'source-selector-facet-option-title')
-
-    wiki_label = find_elem(self.driver, By.XPATH,
-                           f"//label[contains(., '{import_name}')]")
-    wiki_input = find_elem(wiki_label, By.TAG_NAME, 'input')
+    time.sleep(3)
+    wiki_input = find_elem(self.driver, By.XPATH,
+                           f"//label[contains(., '{import_name}')]//input")
     wiki_input.click()
 
     update_button = find_elem(self.driver, By.CLASS_NAME,
@@ -465,10 +464,9 @@ class ExplorePageTestMixin():
 
     shared.wait_elem(self.driver, By.CLASS_NAME,
                      'source-selector-facet-option-title')
-
-    wiki_label_new = find_elem(self.driver, By.XPATH,
-                               f"//label[contains(., '{import_name}')]")
-    wiki_input_new = find_elem(wiki_label_new, By.TAG_NAME, 'input')
+    time.sleep(3)
+    wiki_input_new = find_elem(self.driver, By.XPATH,
+                               f"//label[contains(., '{import_name}')]//input")
     self.assertTrue(wiki_input_new.is_selected(),
                     f"{import_name} should be selected in new window")
 
