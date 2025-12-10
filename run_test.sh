@@ -21,12 +21,13 @@ set -e
 # is being kept as is to keep --setup_python working for now.
 # TODO(juliawu): Remove this function after deprecating .venv and */requirements.txt.
 function setup_python {
+  assert_uv
   uv venv .venv --allow-existing
   source .venv/bin/activate
   echo "installing server/requirements.txt"
   uv pip install -r server/requirements.txt -q
   echo "installing torch_requirements.txt"
-  uv pip install -r torch_requirements.txt -q --extra-index-url https://download.pytorch.org/whl/cpu
+  uv pip install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
   uv pip install -r nl_server/requirements.txt -q --index-url https://pypi.org/simple
   deactivate
@@ -95,14 +96,14 @@ function start_servers() {
   fi
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
-  # Wait for the servers to start up, but check periodically if the script has failed.
-  for ((i=0; i<startup_wait_sec; i++)); do
-    sleep 1
-    if ! ps -p $SERVERS_PID > /dev/null; then
-      log_error "Server exited early (PID $SERVERS_PID). Check logs for details."
-      exit 1
-    fi
-  done
+  # Wait a few seconds and make sure the server script subprocess hasn't failed.
+  # Tests will time out eventually if health checks for website and NL servers
+  # don't pass, but this is quicker if the servers fail to start up immediately.
+  sleep "$startup_wait_sec"
+  if ! ps -p $SERVERS_PID > /dev/null; then
+    log_error "Server script not running after $startup_wait_sec seconds."
+    exit 1
+  fi
 }
 
 # Stop the subprocess that is running website and NL servers and remove the
