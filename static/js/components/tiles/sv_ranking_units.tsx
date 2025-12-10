@@ -23,12 +23,12 @@ import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { ObservationSpec } from "../../shared/observation_specs";
-import { StatVarSpec } from "../../shared/types";
 import {
   ENABLE_CHART_HYPERLINK,
   isFeatureEnabled,
 } from "../../shared/feature_flags/util";
+import { ObservationSpec } from "../../shared/observation_specs";
+import { StatVarSpec } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
   RankingData,
@@ -443,8 +443,8 @@ function getExploreLink(
   const places = isHighest
     ? rankingGroup.points.slice(-rankingCount).map((point) => point.placeDcid)
     : rankingGroup.points
-      .slice(0, rankingCount)
-      .map((point) => point.placeDcid);
+        .slice(0, rankingCount)
+        .map((point) => point.placeDcid);
   const hash = getHash(
     VisType.TIMELINE,
     places,
