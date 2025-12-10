@@ -79,6 +79,7 @@ import {
   transformCsvHeader,
   updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
 import {
   ChartOptions,
@@ -130,6 +131,7 @@ interface BarTileSpecificSpec {
   disableEntityLink?: boolean;
   // Metadata for the facet to highlight.
   facetSelector?: FacetSelectionCriteria;
+  hyperlink?: string;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -224,7 +226,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
    * commands) for the user.
    *
    * @returns A function that builds an array of `ObservationSpec`
-   * objects, or `undefined` if chart data is not yet available.
+   * objects, or undefined if chart data is not yet available.
    */
   const getObservationSpecs = useMemo(() => {
     if (!barChartData) {
@@ -258,7 +260,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       allowEmbed={true}
       apiRoot={props.apiRoot}
       className={`${props.className} bar-chart`}
-      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={props.hyperlink}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
       getObservationSpecs={getObservationSpecs}
@@ -795,4 +797,37 @@ function getExploreLink(props: BarTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+function getHyperlinkFn(
+  props: BarTilePropType,
+  chartData?: BarChartData
+): string {
+  if (!props.variables || props.variables.length === 0) {
+    return "";
+  }
+  const placeDcids =
+    "places" in props
+      ? props.places
+      : "parentPlace" in props
+      ? [props.parentPlace]
+      : [];
+  let facetMetadata: StatMetadata = undefined;
+  if (chartData && chartData.statVarToFacets && chartData.facets) {
+    // Attempt to get facet data from the first variable's facet
+    const firstVar = props.variables[0].statVar;
+    const facetIds = chartData.statVarToFacets[firstVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facetMetadata = chartData.facets[firstFacetId];
+    }
+  }
+  // Fallback to facetSelector prop
+  if (
+    !facetMetadata &&
+    props.facetSelector &&
+    props.facetSelector.facetMetadata
+  ) {
+    facetMetadata = props.facetSelector.facetMetadata;
+  }
 }

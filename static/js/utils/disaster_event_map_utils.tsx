@@ -18,9 +18,9 @@
  * Util functions used for disaster event map.
  */
 
+import rewind from "@mapbox/geojson-rewind";
 import axios from "axios";
 import * as d3 from "d3";
-import rewind from "geojson-rewind";
 import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";

@@ -74,6 +74,7 @@ import {
   transformCsvHeader,
   updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -226,6 +227,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       apiRoot={props.apiRoot}
       className={`${props.className} line-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={getHyperlinkFn(props, chartData)}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
       getObservationSpecs={getObservationSpecs}
@@ -645,4 +647,36 @@ function getExploreLink(props: LineTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+function getHyperlinkFn(
+  props: LineTilePropType,
+  chartData?: LineChartData
+): string {
+  if (!props.place) {
+    return ""; // Or null, depending on how ChartTileContainer handles it
+  }
+  const placeDcids = getPlaceDcids(props);
+  let facetMetadata: StatMetadata = undefined;
+  if (chartData && chartData.statVarToFacets && chartData.facets) {
+    const firstVar = props.statVarSpec[0].statVar;
+    const facetIds = chartData.statVarToFacets[firstVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facetMetadata = chartData.facets[firstFacetId];
+    }
+  }
+  if (
+    !facetMetadata &&
+    props.facetSelector &&
+    props.facetSelector.facetMetadata
+  ) {
+    facetMetadata = props.facetSelector.facetMetadata;
+  }
+  return buildExploreUrl(
+    "TIMELINE_WITH_HIGHLIGHT",
+    placeDcids,
+    props.statVarSpec,
+    facetMetadata
+  );
 }

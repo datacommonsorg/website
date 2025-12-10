@@ -34,6 +34,7 @@ import {
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
 import { formatString } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
@@ -67,6 +68,8 @@ interface SvRankingUnitsProps {
   containerRef: React.RefObject<HTMLElement>;
   surface: string;
   enableScroll?: boolean;
+  hyperlink?: string;
+  parentPlace: string;
 }
 
 /**
@@ -141,6 +144,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               containerRef={props.containerRef}
               getObservationSpecs={props.getObservationSpecs}
               surface={props.surface}
+              hyperlink={getHyperlinkUrl(props)}
             ></ChartFooter>
           )}
         </div>
@@ -176,6 +180,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
+                  hyperlink={getHyperlinkUrl(props)}
                 ></ChartFooter>
               )}
             </div>
@@ -210,6 +215,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
+                  hyperlink={getHyperlinkUrl(props)}
                 ></ChartFooter>
               )}
             </div>
@@ -391,6 +397,25 @@ export function getRankingUnit(
       entityType={entityType}
       enableScroll={enableScroll}
     />
+  );
+}
+
+function getHyperlinkUrl(props: SvRankingUnitsProps): string {
+  const { statVar, statVarSpecs, parentPlace, rankingData } = props;
+  const rankingGroup = rankingData[statVar];
+  let facetMetadata = undefined;
+  if (rankingGroup && rankingGroup.facets && rankingGroup.statVarToFacets) {
+    const facetIds = rankingGroup.statVarToFacets[statVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facetMetadata = rankingGroup.facets[firstFacetId];
+    }
+  }
+  return buildExploreUrl(
+    "RANKING_WITH_MAP",
+    [parentPlace],
+    statVarSpecs,
+    facetMetadata
   );
 }
 

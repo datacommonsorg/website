@@ -161,6 +161,7 @@ export interface MapTilePropType {
   surface?: string;
   // Metadata for the facet to highlight.
   facetSelector?: FacetSelectionCriteria;
+  hyperlink?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -433,6 +434,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
           : [props.statVarSpec]
       }
       surface={props.surface}
+      hyperlink={props.hyperlink}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
