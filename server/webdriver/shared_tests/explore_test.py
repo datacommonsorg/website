@@ -416,32 +416,33 @@ class ExplorePageTestMixin():
     )
     shared.wait_for_loading(self.driver)
 
+    # Find the first block chart and click on the facet selector
     pop_block = find_elem(self.driver, By.CLASS_NAME, 'block')
     self.assertIsNotNone(pop_block, "Highlight chart not found")
 
-    # sleep for 5 seconds:
-    time.sleep(5)
-    facet_button = find_elem(self.driver, By.CLASS_NAME,
+    facet_button = find_elem(pop_block, By.CLASS_NAME,
                              'source-selector-open-modal-button')
-    self.assertIsNotNone(facet_button, "Facet selector button not found")
-    facet_button.click()
+    shared.click_el(self.driver, facet_button)
 
+    # Find and select the Wikipedia facet
     shared.wait_elem(self.driver, By.CLASS_NAME,
                      'source-selector-facet-option-title')
-    time.sleep(3)
-    wiki_input = find_elem(self.driver, By.XPATH,
-                           f"//label[contains(., '{import_name}')]//input")
-    wiki_input.click()
-
+    wiki_input_locator = (By.XPATH,
+                          f"//label[contains(., '{import_name}')]//input")
+    shared.click_el(self.driver, wiki_input_locator)
     update_button = find_elem(self.driver, By.CLASS_NAME,
                               'source-selector-update-source-button')
-    update_button.click()
+    shared.click_el(self.driver, update_button)
 
     shared.wait_for_loading(self.driver)
 
+    # Find and click on the hyperlink button
     hyperlink_btn = find_elem(pop_block, By.CLASS_NAME, 'custom-link-outlink')
-    hyperlink_href = hyperlink_btn.get_attribute('href')
+    shared.click_el(self.driver, hyperlink_btn)
 
+    shared.wait_for_loading(self.driver)
+
+    hyperlink_href = self.driver.current_url
     expected_href_params = {
         "chartType": "TIMELINE_WITH_HIGHLIGHT",
         "sv": stat_var,
@@ -451,21 +452,17 @@ class ExplorePageTestMixin():
     }
     self._assert_url_params(hyperlink_href, expected_href_params)
 
-    hyperlink_btn.click()
     self.driver.switch_to.window(self.driver.window_handles[-1])
     shared.wait_for_loading(self.driver)
 
-    self._assert_url_params(self.driver.current_url, expected_href_params)
-
     pop_block_new = find_elem(self.driver, By.CLASS_NAME, 'block')
-    facet_button_new = find_elem(self.driver, By.CLASS_NAME,
+    facet_button_new = find_elem(pop_block_new, By.CLASS_NAME,
                                  'source-selector-open-modal-button')
-    facet_button_new.click()
+    shared.click_el(self.driver, facet_button_new)
 
     shared.wait_elem(self.driver, By.CLASS_NAME,
                      'source-selector-facet-option-title')
-    time.sleep(3)
-    wiki_input_new = find_elem(self.driver, By.XPATH,
+    wiki_input_new = find_elem(pop_block_new, By.XPATH,
                                f"//label[contains(., '{import_name}')]//input")
     self.assertTrue(wiki_input_new.is_selected(),
                     f"{import_name} should be selected in new window")
