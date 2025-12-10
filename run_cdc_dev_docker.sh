@@ -309,11 +309,28 @@ IMAGE=""
 PACKAGE=""
 
 # Helper to parse arguments (handles both --opt=val and --opt val)
-# Sets global variables 'val' and 'shift_count'
+# Echoes "value|shift_count" to stdout
+#
+# IMPORTANT: This function is ONLY for options that REQUIRE a value.
+# Do NOT use this for boolean flags (like -d or -h). If you do, it will 
+# incorrectly attempt to consume the next argument as a value.
+#
+# Arguments:
+#   $1: current_arg (the flag being parsed, e.g. "-e" or "--env_file=foo")
+#   $2: next_arg (the argument following the flag in the command line)
+#   $3: remaining_count (total number of arguments remaining in "$@")
+#
+# Logic:
+#   - If current_arg contains '=', value is extracted from it. shift_count is 1.
+#   - If not, it checks if next_arg exists and is NOT a flag (doesn't start with -).
+#     If valid, value is next_arg and shift_count is 2.
+#   - If next_arg is missing or is another flag, exits with error.
 parse_arg() {
   local current_arg="$1"
   local next_arg="$2"
   local remaining_count="$3"
+  local val
+  local shift_count
 
   if [[ "$current_arg" == *"="* ]]; then
     val="${current_arg#*=}"
@@ -324,15 +341,22 @@ parse_arg() {
       exit 1
     fi
     val="$next_arg"
+    if [[ "$val" == -* ]]; then
+      log_error "Option $current_arg requires an argument."
+      exit 1
+    fi
     shift_count=2
   fi
+  echo "$val|$shift_count"
 }
 
 # Parse command-line options
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -e | --env_file | --env_file=*)
-      parse_arg "$1" "$2" "$#"
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
       shift $shift_count
       
       if [ -f "$val" ]; then
@@ -343,7 +367,9 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -a | --actions | --actions=*)
-      parse_arg "$1" "$2" "$#"
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
       shift $shift_count
 
       if [[ "$val" =~ ^(run|build|build_run|build_upload|upload)$ ]]; then
@@ -354,7 +380,9 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -c | --container | --container=*)
-      parse_arg "$1" "$2" "$#"
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
       shift $shift_count
 
       if [[ "$val" =~ ^(all|service|data)$ ]]; then
@@ -365,7 +393,9 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -r | --release | --release=*)
-      parse_arg "$1" "$2" "$#"
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
       shift $shift_count
 
       if [[ "$val" =~ ^(latest|stable)$ ]]; then
@@ -376,7 +406,9 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -i | --image | --image=*)
-      parse_arg "$1" "$2" "$#"
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
       shift $shift_count
 
       if [[ "$val" =~ ^(latest|stable)$ ]]; then
@@ -391,7 +423,9 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     -p | --package | --package=*)
-      parse_arg "$1" "$2" "$#"
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
       shift $shift_count
       PACKAGE="$val"
       ;;
