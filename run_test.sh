@@ -301,8 +301,8 @@ function run_py_test {
 function run_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    log_error "no dist folder, please run ./run_test.sh -b to build js first."
-    exit 1
+    log_notice "no dist folder, building js..."
+    run_npm_build false
   fi
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
@@ -325,8 +325,8 @@ function run_webdriver_test {
 function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    log_error "no dist folder, please run ./run_test.sh -b to build js first."
-    exit 1
+    log_notice "no dist folder, building js..."
+    run_npm_build false
   fi
   export RUN_CDC_DEV_ENV_FILE="custom_dc/.env-test"
   ensure_cdc_test_env_file

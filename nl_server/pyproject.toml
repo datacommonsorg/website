@@ -46,4 +46,5 @@ explicit = true
 
 [tool.uv.sources]
 torch = { index = "pytorch-cpu" }
+transformers = { index = "pytorch-cpu" }
 
