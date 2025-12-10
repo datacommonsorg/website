@@ -308,18 +308,33 @@ SCHEMA_UPDATE=false
 IMAGE=""
 PACKAGE=""
 
+# Helper to parse arguments (handles both --opt=val and --opt val)
+# Sets global variables 'val' and 'shift_count'
+parse_arg() {
+  local current_arg="$1"
+  local next_arg="$2"
+  local remaining_count="$3"
+
+  if [[ "$current_arg" == *"="* ]]; then
+    val="${current_arg#*=}"
+    shift_count=1
+  else
+    if [[ $remaining_count -lt 2 ]]; then
+      log_error "Option $current_arg requires an argument."
+      exit 1
+    fi
+    val="$next_arg"
+    shift_count=2
+  fi
+}
+
 # Parse command-line options
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -e | --env_file | --env_file=*)
-      if [[ "$1" == *"="* ]]; then
-        val="${1#*=}"
-        shift 1
-      else
-        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-        val="$2"
-        shift 2
-      fi
+      parse_arg "$1" "$2" "$#"
+      shift $shift_count
+      
       if [ -f "$val" ]; then
         ENV_FILE="$val"
       else
@@ -328,14 +343,9 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -a | --actions | --actions=*)
-      if [[ "$1" == *"="* ]]; then
-        val="${1#*=}"
-        shift 1
-      else
-        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-        val="$2"
-        shift 2
-      fi
+      parse_arg "$1" "$2" "$#"
+      shift $shift_count
+
       if [[ "$val" =~ ^(run|build|build_run|build_upload|upload)$ ]]; then
         ACTIONS="$val"
       else
@@ -344,14 +354,9 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -c | --container | --container=*)
-      if [[ "$1" == *"="* ]]; then
-        val="${1#*=}"
-        shift 1
-      else
-        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-        val="$2"
-        shift 2
-      fi
+      parse_arg "$1" "$2" "$#"
+      shift $shift_count
+
       if [[ "$val" =~ ^(all|service|data)$ ]]; then
         CONTAINER="$val"
       else
@@ -360,14 +365,9 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -r | --release | --release=*)
-      if [[ "$1" == *"="* ]]; then
-        val="${1#*=}"
-        shift 1
-      else
-        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-        val="$2"
-        shift 2
-      fi
+      parse_arg "$1" "$2" "$#"
+      shift $shift_count
+
       if [[ "$val" =~ ^(latest|stable)$ ]]; then
         RELEASE="$val"
       else
@@ -376,15 +376,10 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -i | --image | --image=*)
-      if [[ "$1" == *"="* ]]; then
-        val="${1#*=}"
-        shift 1
-      else
-        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-        val="$2"
-        shift 2
-      fi
-      if [[ "$val" == "latest" ]] || [[ "$val" == "stable" ]]; then
+      parse_arg "$1" "$2" "$#"
+      shift $shift_count
+
+      if [[ "$val" =~ ^(latest|stable)$ ]]; then
         log_error "That is not a valid custom image name. Did you mean to use the '--release' option?\n"
         exit 1
       else
@@ -396,14 +391,8 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     -p | --package | --package=*)
-      if [[ "$1" == *"="* ]]; then
-        val="${1#*=}"
-        shift 1
-      else
-        if [[ $# -lt 2 ]]; then log_error "Option $1 requires an argument."; exit 1; fi
-        val="$2"
-        shift 2
-      fi
+      parse_arg "$1" "$2" "$#"
+      shift $shift_count
       PACKAGE="$val"
       ;;
     -h | --help)
