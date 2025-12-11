@@ -440,6 +440,8 @@ class ExplorePageTestMixin():
     hyperlink_btn = find_elem(pop_block, By.CLASS_NAME, 'custom-link-outlink')
     shared.click_el(self.driver, hyperlink_btn)
 
+    # Switch to the new window
+    self.driver.switch_to.window(self.driver.window_handles[-1])
     shared.wait_for_loading(self.driver)
 
     hyperlink_href = self.driver.current_url
@@ -451,9 +453,6 @@ class ExplorePageTestMixin():
         "mm": measurement_method
     }
     self._assert_url_params(hyperlink_href, expected_href_params)
-
-    self.driver.switch_to.window(self.driver.window_handles[-1])
-    shared.wait_for_loading(self.driver)
 
     pop_block_new = find_elem(self.driver, By.CLASS_NAME, 'block')
     facet_button_new = find_elem(pop_block_new, By.CLASS_NAME,
