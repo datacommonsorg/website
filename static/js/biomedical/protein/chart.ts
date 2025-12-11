@@ -505,7 +505,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d: ProteinNumData) => `Name: ${d.name}<br>Expression: ${TISSUE_SCORE_TO_LABEL[d.value]}`,
+      (d: ProteinNumData) =>
+        `Name: ${d.name}<br>Expression: ${TISSUE_SCORE_TO_LABEL[d.value]}`,
       PTI_BRIGHTEN_PERCENTAGE
     );
 }
@@ -657,7 +658,8 @@ export function drawProteinInteractionChart(
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d: InteractingProteinType) => `Protein Name: ${d.name}<br>Confidence Score: ${d.value}`
+      (d: InteractingProteinType) =>
+        `Protein Name: ${d.name}<br>Confidence Score: ${d.value}`
     );
 }
 
@@ -976,7 +978,8 @@ export function drawVarGeneAssocChart(
     .call(
       handleMouseEvents,
       circleIdFunc,
-      (d: VarGeneDataPoint) => `Variant ID: ${d.id}<br>Log2 Fold Change: ${d.value}`
+      (d: VarGeneDataPoint) =>
+        `Variant ID: ${d.id}<br>Log2 Fold Change: ${d.value}`
     );
 
   svg
@@ -1299,6 +1302,7 @@ export function drawChemGeneAssocChart(
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d: ProteinNumData) => `Association Type: ${formatChemName(d.name)}<br>Count: ${d.value}`
+      (d: ProteinNumData) =>
+        `Association Type: ${formatChemName(d.name)}<br>Count: ${d.value}`
     );
 }

@@ -15,7 +15,10 @@
  */
 import * as d3 from "d3";
 
-import { DiseaseGeneAssociationData, DiseaseSymptomAssociationData } from "./disease/types";
+import {
+  DiseaseGeneAssociationData,
+  DiseaseSymptomAssociationData,
+} from "./disease/types";
 import { ProteinNumData } from "./protein/chart";
 import { DiseaseAssociationType } from "./protein/page";
 import { InteractionLink, ProteinNode } from "./protein/types";
