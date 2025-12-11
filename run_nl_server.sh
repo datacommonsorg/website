@@ -17,26 +17,24 @@
 # An optional "opt" parameter runs the NL server without debug mode, for
 # use in local e2e tests.
 #
-
-source scripts/utils.sh
 set -e
-
-function cleanup {
-  echo "Cleaning up before exit..."
-  deactivate
-  exit 1
-}
-trap cleanup SIGINT
-
-if [ ! -d "nl_server/.venv" ]; then
-  log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
-  ./run_test.sh --setup_nl
-fi
-source nl_server/.venv/bin/activate
+source scripts/utils.sh
 
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export FLASK_ENV=local
-echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
+log_notice "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
-python3 nl_app.py $PORT $1
+# Ensure uv is installed
+if ! command -v uv &> /dev/null; then
+  log_error "uv could not be found. Please install it and try again."
+  exit 1
+fi
+
+# Sync uv dependencies for the datacommons-website-server package
+if ! uv sync --project server; then
+  log_error "uv sync failed."
+  exit 1
+fi
+
+uv run --project nl_server/ python3 nl_app.py $PORT $1
