@@ -23,6 +23,13 @@ steps:
     args:
       - -c
       - |
+        # Enable strict mode:
+        # -e: Exit immediately if any command exits with a non-zero status
+        # -u: Treat unset variables as an error and exit
+        # -x: Print commands and arguments as they are executed (verbose logging)
+        # -o pipefail: Fail the whole pipeline if any part of a pipe fails
+        set -euxo pipefail
+
         ./build/node/load_preinstalled_modules.sh
         # Run lint test
         ./run_test.sh -l
