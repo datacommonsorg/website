@@ -640,28 +640,28 @@
       "MiddleSchool": [
         {
           "dcid": "nces/061029001127",
-          "name": "Cupertino Middle",
+          "name": "CUPERTINO INTERMEDIATE",
           "types": [
             "MiddleSchool"
           ]
         },
         {
           "dcid": "nces/063543007867",
-          "name": "Marian A. Peterson Middle",
+          "name": "MARIAN A. PETERSON MIDDLE",
           "types": [
             "MiddleSchool"
           ]
         },
         {
           "dcid": "nces/063846006464",
-          "name": "Columbia Middle",
+          "name": "COLUMBIA COMMUNITY ELEMENTARY",
           "types": [
             "MiddleSchool"
           ]
         },
         {
           "dcid": "nces/063846006465",
-          "name": "Sunnyvale Middle",
+          "name": "SUNNYVALE JUNIOR HIGH",
           "types": [
             "MiddleSchool"
           ]
