@@ -258,8 +258,10 @@ function run_npm_build () {
 function run_py_test {
   assert_uv
   # Run server pytest.
+  source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
+  # Run website server tests
   # Disabled nodejs e2e test to avoid dependency on dev
   uv run --project server python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   uv run --project server python3 -m pytest -n auto shared/tests/ -s ${@}
