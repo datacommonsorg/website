@@ -15,7 +15,7 @@
  */
 import * as d3 from "d3";
 
-import { DiseaseGeneAssociationData } from "./disease/types";
+import { DiseaseGeneAssociationData, DiseaseSymptomAssociationData } from "./disease/types";
 import { ProteinNumData } from "./protein/chart";
 import { DiseaseAssociationType } from "./protein/page";
 import { InteractionLink, ProteinNode } from "./protein/types";
@@ -35,6 +35,7 @@ export const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
 export const X_LABEL_SHIFT = 40;
 export type Datum =
   | DiseaseGeneAssociationData
+  | DiseaseSymptomAssociationData
   | ProteinNumData
   | ProteinNode
   | InteractionLink
@@ -60,10 +61,10 @@ export function onMouseOver(
 /**
  * Update position of global tooltip to track mouse.
  */
-export function onMouseMove(): void {
-  TOOL_TIP.style("left", d3.event.pageX - TOOL_TIP_SHIFT + "px").style(
+export function onMouseMove(event: any): void {
+  TOOL_TIP.style("left", event.pageX - TOOL_TIP_SHIFT + "px").style(
     "top",
-    d3.event.pageY - TOOL_TIP_SHIFT + "px"
+    event.pageY - TOOL_TIP_SHIFT + "px"
   );
 }
 

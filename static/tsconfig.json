@@ -10,7 +10,7 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "CommonJS",
-    "target": "es6",
+    "target": "es2021",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "allowJs": true,
