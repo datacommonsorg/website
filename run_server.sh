@@ -13,33 +13,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+source scripts/utils.sh
 set -e
-
-# ANSI color codes
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
 
 # Ensure uv is installed
 if ! command -v uv &> /dev/null; then
-  echo -e "${RED}Error: uv could not be found. Please install it and try again.${NC}"
+  log_error "uv could not be found. Please install it and try again."
   exit 1
 fi
 
 # Ensure protoc v3.21.12 is installed
 if [[ $(protoc --version) != *"3.21.12"* ]]; then
-  echo -e "${RED}Error: protoc version 3.21.12 is required.${NC}"
-  echo -e "${YELLOW}Current version: $(protoc --version)${NC}"
+  log_error "protoc version 3.21.12 is required."
+  log_error "Current version: $(protoc --version)"
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo -e "${YELLOW}On Mac, you can install this version with: brew install protobuf@21 && brew link protobuf@21${NC}"
+    log_error "On Mac, you can install this version with: brew install protobuf@21 && brew link protobuf@21"
   fi
   exit 1
 fi
 
 # Sync uv dependencies for the datacommons-website-server package
 if ! uv sync --project server; then
-  echo -e "${RED}Error: uv sync failed.${NC}"
+  log_error "uv sync failed."
   exit 1
 fi
 
@@ -109,11 +104,11 @@ if [[ $USE_GUNICORN ]]; then
   uv run --project server/ gunicorn --log-level info --preload --timeout 1000 --bind localhost:${PORT} -w 4 web_app:app
 else
   if ! protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto; then
-    echo -e "${RED}Error: protoc compilation failed.${NC}"
+    log_error "protoc compilation failed."
     exit 1
   fi
   if ! uv run --project server/ python3 web_app.py $PORT; then
-    echo -e "${RED}Error: uv run failed.${NC}"
+    log_error "uv run failed."
     exit 1
   fi
 fi

@@ -22,6 +22,7 @@
 # ./run_test.sh --setup_all
 # ./scripts/update_git_submodules.sh
 
+source scripts/utils.sh
 set -e
 
 VERBOSE=false
@@ -49,29 +50,19 @@ trap 'exit_with=$?; cleanup' EXIT
 trap 'exit_with=0; cleanup' SIGINT SIGTERM
 
 if lsof -i :6060 > /dev/null 2>&1; then
-  echo "Port 6060 (for NL server) is already in use. Please stop the process using that port."
+  log_error "Port 6060 (for NL server) is already in use. Please stop the process using that port."
   exit 1
 fi
 if lsof -i :8080 > /dev/null 2>&1; then
-  echo "Port 8080 (for website server) is already in use. Please stop the process using that port."
+  log_error "Port 8080 (for website server) is already in use. Please stop the process using that port."
   exit 1
 fi
 if lsof -i :8081 > /dev/null 2>&1; then
-  echo "Port 8081 (for envoy) is already in use. Please stop the process using that port."
+  log_error "Port 8081 (for envoy) is already in use. Please stop the process using that port."
   exit 1
 fi
 if lsof -i :12345 > /dev/null 2>&1; then
-  echo "Port 12345 (for mixer) is already in use. Please stop the process using that port."
-  exit 1
-fi
-
-# If .venv_website or .venv_nl folder doesn't exist, print an error and exit
-if [ ! -d ".venv_website" ]; then
-  echo "Error: .venv_website not found. Please run ./run_test.sh --setup_website first."
-  exit 1
-fi
-if [ ! -d ".venv_nl" ]; then
-  echo "Error: .venv_nl not found. Please run ./run_test.sh --setup_nl first."
+  log_error "Port 12345 (for mixer) is already in use. Please stop the process using that port."
   exit 1
 fi
 
@@ -80,20 +71,18 @@ echo "Using environment file: $ENV_FILE"
 source $ENV_FILE && export $(sed '/^#/d' $ENV_FILE | cut -d= -f1)
 
 # Print commit hashes.
-echo -e "\033[0;32m" # Set different color.
-echo "website hash: $(git rev-parse --short=7 HEAD)"
-echo "mixer hash: $(git rev-parse --short=7 HEAD:mixer)"
-echo "import hash: $(git rev-parse --short=7 HEAD:import)"
-echo -e "\033[0m" # Reset color.
+log_notice "website hash: $(git rev-parse --short=7 HEAD)"
+log_notice "mixer hash: $(git rev-parse --short=7 HEAD:mixer)"
+log_notice "import hash: $(git rev-parse --short=7 HEAD:import)"
 
 
 if [[ $DC_API_KEY == "" ]]; then
-  echo "DC_API_KEY not specified."
+  log_error "DC_API_KEY not specified."
   exit 1
 fi
 
 if [[ $MAPS_API_KEY == "" ]]; then
-  echo "MAPS_API_KEY not specified."
+  log_error "MAPS_API_KEY not specified."
   exit 1
 fi
 
@@ -101,10 +90,10 @@ echo "DC_API_KEY = $DC_API_KEY"
 
 if [[ $USE_CLOUDSQL == "true" ]]; then
   if [[ $DB_PASS == "" ]]; then
-    echo "DB_PASS must be specified when using Cloud SQL."
+    log_error "DB_PASS must be specified when using Cloud SQL."
     exit 1
   else
-    echo "DB_PASS = $DB_PASS"
+    log_notice "DB_PASS = $DB_PASS"
   fi
 fi
 
@@ -116,7 +105,7 @@ echo "Calling API to validate key: $url"
 response=$(curl --silent --output /dev/null --write-out "%{http_code}" "$url")
 status_code=$(echo "$response" | tail -n 1)  # Extract the status code
 if [ "$status_code" -ne 200 ]; then
-  echo "API request failed with status code: $status_code"
+  log_error "API request failed with status code: $status_code"
   exit 1
 fi
 echo "API request was successful."
@@ -176,7 +165,11 @@ cd ..
 # Start NL server.
 NL_PID=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-  source .venv_nl/bin/activate
+  if [ ! -d "nl_server/.venv" ]; then
+    log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
+    ./run_test.sh --setup_nl
+  fi
+  source nl_server/.venv/bin/activate
   echo "Starting NL Server..."
   nl_command="python3 nl_app.py 6060"
   if [[ "$VERBOSE" == "true" ]]; then
@@ -187,10 +180,15 @@ if [[ $ENABLE_MODEL == "true" ]]; then
   NL_PID=$!
   deactivate
 else
-  echo "$ENABLE_MODEL is not true, NL server will not be started."
+  log_notice "$ENABLE_MODEL is not true, NL server will not be started."
 fi
 
-source .venv_website/bin/activate
+# Start Website server.
+if [ ! -d "server/.venv" ]; then
+  log_notice "server/.venv directory not found. Running './run_test.sh --setup_website'."
+  ./run_test.sh --setup_website
+fi
+source server/.venv/bin/activate
 echo "Starting Website Server..."
 website_command="python3 web_app.py 8080"
 if [[ "$VERBOSE" == "true" ]]; then
@@ -205,22 +203,22 @@ deactivate
 # Monitor server processes
 while true; do
   if ! ps -p $MIXER_PID > /dev/null; then
-    echo "Mixer server exited early. Run with --verbose to debug."
+    log_error "Mixer server exited early. Run with --verbose to debug."
     exit 1
   fi
 
   if ! ps -p $ENVOY_PID > /dev/null; then
-    echo "Envoy proxy exited early. Run with --verbose to debug."
+    log_error "Envoy proxy exited early. Run with --verbose to debug."
     exit 1
   fi
 
   if ! ps -p $WEBSITE_PID > /dev/null; then
-    echo "Website server exited early. Run with --verbose to debug."
+    log_error "Website server exited early. Run with --verbose to debug."
     exit 1
   fi
 
   if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
-    echo "NL server exited early. Run with --verbose to debug."
+    log_error "NL server exited early. Run with --verbose to debug."
     exit 1
   fi
 
