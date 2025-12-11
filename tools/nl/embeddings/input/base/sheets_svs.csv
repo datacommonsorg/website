@@ -3168,6 +3168,7 @@ Median_Area_Farm,Median area of farm
 Median_Earnings_Person,median earnings
 Median_Earnings_Person_Female,median earnings of females
 Median_Earnings_Person_Male,median earnings of males
+Median_Earnings_Person_16OrMoreYears,median earning of person of age 16 years and above
 Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied,Median Gross Rent for Cash-Rent Housing Units
 Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied,Median home value for owner occupied housing units
 Median_Income_Household,Median household income
