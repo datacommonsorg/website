@@ -82,7 +82,7 @@ Use the flake finder to run a test multiple times:
 ### Recorder Middleware
 The recorder is a Flask middleware (`server/lib/recorder/core.py`) that intercepts requests.
 - **Record Mode**: Proxies to the real API, saves response to disk.
-- **Replay Mode**: Looks up response from disk based on request hash.
+- **Replay Mode**: Looks up response from disk based on request hash. If not found, returns a configured fake response or falls back to the live backend.
 - **Live Mode**: Bypasses recorder entirely (used in production).
 
 ### Storage
