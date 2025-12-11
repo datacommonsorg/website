@@ -59,12 +59,10 @@ class TimelineTestMixin():
     # Load Timeline Tool page.
     self.driver.get(self.url_ + TIMELINE_URL)
 
-    # Find the group of charts.
-    charts = find_elems(self.driver,
-                        by=By.XPATH,
-                        value='//*[@id="chart-region"]/div[@class="chart"]')
-
     # Assert no card is present since no search has been performed.
+    # Use find_elements to avoid waiting for timeout when asserting non-existence
+    charts = self.driver.find_elements(
+        By.XPATH, '//*[@id="chart-region"]/div[@class="chart"]')
     self.assertEqual(len(charts), 0)
 
   def test_charts_from_url_directly_and_uncheck_statvar(self):
@@ -120,10 +118,8 @@ class TimelineTestMixin():
     shared.wait_for_loading(self.driver)
     self.assertIsNotNone(
         wait_elem(self.driver, by=By.ID, value='hierarchy-section'))
-    charts = find_elems(
-        self.driver,
-        by=By.XPATH,
-        value='//*[@id="chart-region"]/div[@class="chart-container"]')
+    charts = self.driver.find_elements(
+        By.XPATH, '//*[@id="chart-region"]/div[@class="chart-container"]')
 
     # Assert there is no chart.
     self.assertEqual(len(charts), 0)
@@ -154,10 +150,8 @@ class TimelineTestMixin():
 
     # Assert there are no charts.
     shared.wait_for_loading(self.driver)
-    charts = find_elems(
-        self.driver,
-        by=By.XPATH,
-        value='//*[@id="chart-region"]/div[@class="chart-container"]')
+    charts = self.driver.find_elements(
+        By.XPATH, '//*[@id="chart-region"]/div[@class="chart-container"]')
     self.assertEqual(len(charts), 0)
 
   def test_place_search_box_and_remove_place(self):
