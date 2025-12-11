@@ -258,6 +258,7 @@ function run_npm_build () {
 function run_py_test {
   assert_uv
   # Run server pytest.
+  assert_website_python
   source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
@@ -265,6 +266,9 @@ function run_py_test {
   # Disabled nodejs e2e test to avoid dependency on dev
   uv run --project server python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   uv run --project server python3 -m pytest -n auto shared/tests/ -s ${@}
+
+  # Run nl server tests
+  assert_nl_python
   uv run --project nl_server python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
@@ -277,7 +281,6 @@ function run_py_test {
   deactivate
 
   # Check Python style using server virtual environment
-  assert_website_python
   source server/.venv/bin/activate
   if ! command v yapf &> /dev/null
   then
@@ -313,6 +316,7 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
+  assert_website_python
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     uv run --project server python3 -m pytest -n auto server/webdriver/tests/ ${@}
@@ -350,6 +354,7 @@ function run_cdc_webdriver_test {
     rerun_options="--reruns 2"
   fi
 
+  assert_website_python
   uv run --project server python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
   uv run --project server python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
 
@@ -371,6 +376,7 @@ function run_integration_test {
   export TEST_MODE=test
 
   start_servers
+  assert_website_python
   uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
   stop_servers
 }
@@ -389,6 +395,7 @@ function update_integration_test_golden {
   fi
   echo "Using ENV_PREFIX=$ENV_PREFIX"
   start_servers
+  assert_website_python
   # Should update topic cache first as it's used by the following tests.
   uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
   uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
