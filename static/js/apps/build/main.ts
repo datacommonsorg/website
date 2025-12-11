@@ -26,7 +26,7 @@ import { Partner } from "../../shared/types/homepage";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+  loadLocaleData("en", [require("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       renderPage();
     }

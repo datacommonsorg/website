@@ -32,7 +32,7 @@ window.addEventListener("load", async (): Promise<void> => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
   await loadLocaleData(locale, [
-    import(`../../i18n/compiled-lang/${locale}/units.json`),
+    require(`../../i18n/compiled-lang/${locale}/units.json`),
   ]);
 
   // Render the page

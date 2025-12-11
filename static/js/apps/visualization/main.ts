@@ -30,7 +30,7 @@ import { App } from "./app";
 import { getStandardizedToolUrl } from "./redirect_utils";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+  loadLocaleData("en", [require("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       if (isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
         // If standardized vis tool flag is on, redirect to the old tools

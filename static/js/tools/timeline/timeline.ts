@@ -28,7 +28,7 @@ import { Page } from "./page";
 window.addEventListener("load", (): void => {
   const locale = getLocaleFromUrl();
   loadLocaleData(locale, [
-    import(`../../i18n/compiled-lang/${locale}/units.json`),
+    require(`../../i18n/compiled-lang/${locale}/units.json`),
   ]).then(() => {
     ReactDOM.render(
       React.createElement(Page),

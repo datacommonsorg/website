@@ -54,7 +54,7 @@ function loadLocaleData(
   return Promise.all(modules)
     .then((messages) => {
       for (const msg of messages) {
-        Object.assign(allMessages, msg.default);
+        Object.assign(allMessages, msg.default || msg);
       }
       intl = createIntl({ locale, messages: allMessages }, intlCache);
     })

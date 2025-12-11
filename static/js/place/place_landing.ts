@@ -23,7 +23,7 @@ window.addEventListener("load", (): void => {
   const locale = metadataContainer.dataset.locale;
 
   loadLocaleData(locale, [
-    import(`../i18n/compiled-lang/${locale}/place.json`),
+    require(`../i18n/compiled-lang/${locale}/place.json`),
   ]).then(() => {
     initSearchAutocomplete("/place");
   });
