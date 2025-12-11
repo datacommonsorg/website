@@ -266,7 +266,6 @@ function run_py_test {
   deactivate
 
   # Run nl_server tests.
-  assert_nl_python
   source nl_server/.venv/bin/activate
   python3 -m pytest nl_server/tests/ -s ${@}
   deactivate
