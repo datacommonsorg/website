@@ -27,6 +27,8 @@ dependencies = [
     "transformers==4.48.0",
     "safetensors==0.4.3",
     "numpy<2.0",
+    "pytest==9.0.2",
+    "parameterized==0.9.0"
 ]
 
 [[tool.uv.index]]
