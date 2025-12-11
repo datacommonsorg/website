@@ -91,21 +91,19 @@ function App(): ReactElement {
           {!showChart && (
             <Row>
               {useStandardizedUi ? (
-                <>
+                showStatVarInstructions ? (
                   <VisToolInstructionsBox
                     toolType="map"
-                    showStatVarInstructionsOnly={showStatVarInstructions}
                   />
-                  {!showStatVarInstructions && (
-                    <div
+                ) : (
+                  <div
                       css={css`
                         margin-top: ${theme.spacing.xl}px;
                       `}
                     >
                       <ChartLinkChips toolType="map" />
                     </div>
-                  )}
-                </>
+                  )
               ) : (
                 <Info />
               )}

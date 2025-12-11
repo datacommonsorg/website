@@ -108,23 +108,19 @@ function App(): ReactElement {
           {!showChart && (
             <>
               {useStandardizedUi ? (
-                <>
+                showChooseStatVarMessage ? (
                   <Row>
-                    <VisToolInstructionsBox
-                      toolType="scatter"
-                      showStatVarInstructionsOnly={showChooseStatVarMessage}
-                    />
+                    <VisToolInstructionsBox toolType="scatter" />
                   </Row>
-                  {!showChooseStatVarMessage && (
-                    <Row
-                      css={css`
-                        margin-top: ${theme.spacing.xl}px;
-                      `}
-                    >
-                      <ChartLinkChips toolType="scatter" />
-                    </Row>
-                  )}
-                </>
+                ) : (
+                  <Row
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="scatter" />
+                  </Row>
+                )
               ) : (
                 <Row>
                   <MemoizedInfo />
