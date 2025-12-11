@@ -3,3 +3,4 @@
 absl-py==1.4.0
 dacite==1.8.1
 parameterized==0.8.1
+pytest==9.0.2
