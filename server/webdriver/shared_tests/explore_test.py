@@ -356,6 +356,23 @@ class ExplorePageTestMixin():
     self.driver.close()
     self.driver.switch_to.window(self.driver.window_handles[0])
 
+  def test_ranking_chart_hyperlink_disabled(self):
+    """Test the hyperlink on a ranking chart."""
+    query = "Total population in the USA"
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?disable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
+    shared.wait_for_loading(self.driver)
+
+    ranking_tile = find_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+
+    hyperlink_btn = find_elem(ranking_tile, By.CLASS_NAME,
+                              'custom-link-outlink')
+    self.assertIsNone(
+        hyperlink_btn,
+        "Hyperlink button should not be found when feature is disabled")
+
   def test_bar_chart_hyperlink(self):
     """Test the hyperlink on a bar chart from a place page."""
     self.driver.get(
