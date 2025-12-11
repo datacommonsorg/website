@@ -452,6 +452,7 @@ class ExplorePageTestMixin():
     }
     self._assert_url_params(hyperlink_href, expected_href_params)
 
+    # just does random
     hyperlink_btn.click()
     self.driver.switch_to.window(self.driver.window_handles[-1])
     shared.wait_for_loading(self.driver)
