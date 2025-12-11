@@ -255,12 +255,18 @@ function run_npm_build () {
 function run_py_test {
   # Run server pytest.
   assert_website_python
+  assert_nl_python
   source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
+  # Run website server tests
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   python3 -m pytest -n auto shared/tests/ -s ${@}
+  deactivate
+
+  # Run nl_server tests.
+  source nl_server/.venv/bin/activate
   python3 -m pytest nl_server/tests/ -s ${@}
   deactivate
 
