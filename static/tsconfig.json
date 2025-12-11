@@ -9,7 +9,7 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "esnext",
+    "module": "CommonJS",
     "target": "es2021",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",

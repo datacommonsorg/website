@@ -178,7 +178,7 @@ export function drawDiseaseGeneAssocChart(
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d) => `Gene Name: ${d.name}<br>Confidence Score: ${d.score}`
+      (d: DiseaseGeneAssociationData) => `Gene Name: ${d.name}<br>Confidence Score: ${d.score}`
     );
 }
 
@@ -255,7 +255,7 @@ export function drawDiseaseSymptomAssociationChart(
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
+      (d: DiseaseSymptomAssociationData) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
     );
 }
 /**
