@@ -52,6 +52,7 @@ def wait_for_loading(driver, timeout_seconds=LOADING_WAIT_TIME_SEC):
   screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
   screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
   num_tries = 0
+
   while (num_tries < MAX_NUM_SPINNERS):
     try:
       WebDriverWait(driver, timeout_seconds).until(screen_present)
