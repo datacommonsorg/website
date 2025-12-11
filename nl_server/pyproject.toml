@@ -1,9 +1,9 @@
-
 [project]
-name = "datacommons-website-nl-server"
+name = "datacommons-nl-server"
 version = "0.1.0"
-description = "Data Commons Website NL Server"
-requires-python = ">=3.11"
+description = "Data Commons NL Server"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
 dependencies = [
     "dacite==1.8.1",
     "Flask==2.3.2",
