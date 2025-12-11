@@ -58,7 +58,6 @@ interface ChartProps {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
-  geoRaster: any;
   mapType: MAP_TYPE;
   children: ReactNode;
   borderGeoJsonData?: GeoJsonData;
@@ -128,15 +127,6 @@ export function Chart(props: ChartProps): ReactElement {
                 map.
               </div>
             </div>
-            {/* Disable LEAFLET as georaster-layer-for-leaflet can not be compiled server side in commonjs mode, see tsconfing.json "module": "CommonJS" */}
-            {/* {props.mapType === MAP_TYPE.LEAFLET ? (
-              <LeafletMap
-                geoJsonData={props.geoJsonData}
-                geoRaster={props.geoRaster}
-                metadata={props.metadata}
-                unit={props.unit}
-              />
-            ) : ( */}
             <D3Map
               geoJsonData={props.geoJsonData}
               mapDataValues={props.mapDataValues}

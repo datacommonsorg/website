@@ -53,7 +53,6 @@ import { useFetchDefaultStat } from "./fetcher/default_stat";
 import { useFetchDenomStat } from "./fetcher/denom_stat";
 import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import { useFetchGeoJson } from "./fetcher/geojson";
-import { useFetchGeoRaster } from "./fetcher/georaster";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { useFetchStatVarSummary } from "./fetcher/stat_var_summary";
@@ -86,7 +85,6 @@ export function ChartLoader(): ReactElement {
   useFetchMapPointStat(dispatchChartStore);
   useFetchBreadcrumbStat(dispatchChartStore);
   useFetchBreadcrumbDenomStat(chartStore, dispatchChartStore);
-  useFetchGeoRaster(dispatchChartStore);
   useFetchAllDates(dispatchChartStore);
   useFetchStatVarSummary(dispatchChartStore);
   useFetchBorderGeoJson(dispatchChartStore);
@@ -127,22 +125,6 @@ export function ChartLoader(): ReactElement {
       display.setDomain(legendDomain);
     }
   }, [display, legendDomain]);
-
-  // Set map type to leaflet if georaster data is available before data needed
-  // for d3 maps
-  useEffect(() => {
-    if (
-      (_.isEmpty(chartStore.mapValuesDates.data) ||
-        _.isEmpty(chartStore.geoJson.data)) &&
-      !_.isEmpty(chartStore.geoRaster.data)
-    ) {
-      setMapType(MAP_TYPE.LEAFLET);
-    }
-  }, [
-    chartStore.mapValuesDates.data,
-    chartStore.geoJson.data,
-    chartStore.geoRaster.data,
-  ]);
 
   useEffect(() => {
     if (
@@ -223,7 +205,6 @@ export function ChartLoader(): ReactElement {
           europeanCountries={europeanCountries}
           rankingLink={rankingLink}
           facetList={facetList}
-          geoRaster={chartStore.geoRaster.data}
           mapType={mapType}
           borderGeoJsonData={
             shouldShowBorder(placeInfo.value.enclosedPlaceType)
