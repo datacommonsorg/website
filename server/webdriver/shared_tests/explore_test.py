@@ -420,8 +420,7 @@ class ExplorePageTestMixin():
     self.driver.close()
     self.driver.switch_to.window(self.driver.window_handles[0])
 
-  @pytest.mark.skip(
-      reason="Skipping - test works locally only, hyperlink not launching.")
+  @pytest.mark.skip(reason="Skipping - test works locally only, hyperlink not launching.")
   def test_facet_selection_hyperlink(self):
     """Test hyperlink after selecting a different facet."""
     query = "Population of France"
