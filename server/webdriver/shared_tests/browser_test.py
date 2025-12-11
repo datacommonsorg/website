@@ -117,7 +117,6 @@ class BrowserTestMixin():
 
     # Search for "male asian " and select the first result
     search_input.send_keys(SEARCH_INPUT)
-    wait_elem(self.driver, By.ID, 'sv-search-spinner')
     sv_hierarchy_results_section = scroll_to_elem(
         self.driver, value='statvar-hierarchy-search-results')
 

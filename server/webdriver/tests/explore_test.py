@@ -52,18 +52,21 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     query = "#q=Which countries have the highest college-educated population in the world?"
 
     self.driver.get(self.url_ + EXPLORE_URL + follow_up_flag + query)
+    shared.wait_for_loading(self.driver)
 
-    empty_loading = find_elem(parent=self.driver, value="loading-container")
-    self.assertIsNone(
-        empty_loading,
+    # Use find_elements directly to avoid waiting for the element to appear (since we expect it to be missing)
+    empty_loading = self.driver.find_elements(By.CLASS_NAME,
+                                              "loading-container")
+    self.assertEqual(
+        len(empty_loading), 0,
         "Follow Up Questions component is not empty despite having no related topics."
     )
-    shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
 
-    empty_follow_up = find_elem(parent=self.driver,
-                                value="follow-up-questions-container")
-    self.assertIsNone(
-        empty_follow_up,
+    # Use find_elements directly to avoid waiting for the element to appear (since we expect it to be missing)
+    empty_follow_up = self.driver.find_elements(
+        By.CLASS_NAME, "follow-up-questions-container")
+    self.assertEqual(
+        len(empty_follow_up), 0,
         "Follow Up Questions component is not empty despite having no related topics."
     )
 
