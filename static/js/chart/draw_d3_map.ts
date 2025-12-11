@@ -123,7 +123,7 @@ function fitSize(
  */
 
 function showTooltip(
-  event,
+  event: any,
   containerElement: HTMLDivElement,
   place: NamedPlace,
   getTooltipHtml: (place: NamedPlace) => string
@@ -191,7 +191,7 @@ const onMouseOut =
 
 const onMouseMove =
   (
-    event,
+    event: any,
     canClickRegion: (placeDcid: string) => boolean,
     containerElement: HTMLDivElement,
     getTooltipHtml: (place: NamedPlace) => string
@@ -524,10 +524,9 @@ export function drawD3Map(
       })
       .on("mouseover", onMouseOver(canClickRegion, containerElement))
       .on("mouseout", onMouseOut(containerElement))
-      .on(
-        "mousemove",
-        onMouseMove(event, canClickRegion, containerElement, getTooltipHtml)
-      );
+      .on("mousemove", (event: any) => {
+        onMouseMove(event, canClickRegion, containerElement, getTooltipHtml);
+      });
     if (layer.showMapBoundaries) {
       mapObjectLayer
         .attr("stroke-width", STROKE_WIDTH)
@@ -561,7 +560,7 @@ export function drawD3Map(
         [0, 0],
         [chartWidth, chartHeight],
       ])
-      .on("zoom", function (event): void {
+      .on("zoom", function (event: any): void {
         mapObjects.forEach((mapObjectLayer) => {
           mapObjectLayer.on("mousemove", null).on("mouseover", null);
         });
@@ -572,7 +571,7 @@ export function drawD3Map(
           .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false)
           .attr("transform", event.transform);
       })
-      .on("end", function (event): void {
+      .on("end", function (event: any): void {
         mapObjects.forEach((mapObjectLayer) => {
           mapObjectLayer
             .on(
@@ -711,7 +710,7 @@ export function addMapPoints(
     });
   if (getTooltipHtml) {
     mapPointsLayer
-      .on("mouseover", (event, point: MapPoint) => {
+      .on("mouseover", (event: any, point: MapPoint) => {
         const place = {
           dcid: point.placeDcid,
           name: point.placeName,
@@ -743,7 +742,7 @@ export function addPolygonLayer(
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
   getRegionBorder: (geoDcid: string) => string,
-  onClick: (event, geoFeature: GeoJsonFeature) => void,
+  onClick: (event: any, geoFeature: GeoJsonFeature) => void,
   allowMouseover = true
 ): void {
   // Build the map objects
@@ -794,7 +793,7 @@ export function addPathLayer(
   geoJson: GeoJsonData,
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
-  onClick: (event, feature: GeoJsonFeature) => void
+  onClick: (event: any, feature: GeoJsonFeature) => void
 ): void {
   // Build map objects.
   const mapObjects = addGeoJsonLayer(

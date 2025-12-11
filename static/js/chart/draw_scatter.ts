@@ -540,7 +540,7 @@ function addTooltip(
   yPerCapita: boolean
 ): void {
   const div = d3.select(tooltip).style("visibility", "hidden");
-  const onTooltipMouseover = (event, point: Point): void => {
+  const onTooltipMouseover = (event: any, point: Point): void => {
     const element = getTooltipElement(
       point,
       xLabel,
