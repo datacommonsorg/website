@@ -23,6 +23,10 @@ import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
+import {
+  ENABLE_CHART_HYPERLINK,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { ObservationSpec } from "../../shared/observation_specs";
 import { StatVarSpec } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
@@ -144,7 +148,11 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               containerRef={props.containerRef}
               getObservationSpecs={props.getObservationSpecs}
               surface={props.surface}
-              hyperlink={getHyperlinkUrl(props)}
+              hyperlink={
+                isFeatureEnabled(ENABLE_CHART_HYPERLINK)
+                  ? getHyperlinkUrl(props)
+                  : undefined
+              }
             ></ChartFooter>
           )}
         </div>
@@ -180,7 +188,11 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
-                  hyperlink={getHyperlinkUrl(props)}
+                  hyperlink={
+                    isFeatureEnabled(ENABLE_CHART_HYPERLINK)
+                      ? getHyperlinkUrl(props)
+                      : undefined
+                  }
                 ></ChartFooter>
               )}
             </div>
@@ -215,7 +227,11 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
                   surface={props.surface}
-                  hyperlink={getHyperlinkUrl(props)}
+                  hyperlink={
+                    isFeatureEnabled(ENABLE_CHART_HYPERLINK)
+                      ? getHyperlinkUrl(props)
+                      : undefined
+                  }
                 ></ChartFooter>
               )}
             </div>
