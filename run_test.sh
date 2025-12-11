@@ -282,7 +282,7 @@ function run_py_test {
   deactivate
 
   # Check Python style using server virtual environment
-  source nl_server/.venv/bin/activate
+  source server/.venv/bin/activate
   if ! command v yapf &> /dev/null
   then
     pip3 install yapf==0.40.2 -q -i https://pypi.org/simple
