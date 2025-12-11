@@ -30,17 +30,17 @@ import { App } from "./app";
 import { getStandardizedToolUrl } from "./redirect_utils";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [require("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      if (isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
-        // If standardized vis tool flag is on, redirect to the old tools
-        window.location.href = getStandardizedToolUrl();
-      } else {
-        ReactDOM.render(
-          React.createElement(App),
-          document.getElementById("main-pane")
-        );
-      }
+  loadLocaleData("en", [
+    require("../../i18n/compiled-lang/en/units.json"),
+  ]).then(() => {
+    if (isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
+      // If standardized vis tool flag is on, redirect to the old tools
+      window.location.href = getStandardizedToolUrl();
+    } else {
+      ReactDOM.render(
+        React.createElement(App),
+        document.getElementById("main-pane")
+      );
     }
-  );
+  });
 });

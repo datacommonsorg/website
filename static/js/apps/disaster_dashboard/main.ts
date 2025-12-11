@@ -29,11 +29,11 @@ import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils"
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [require("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
+  loadLocaleData("en", [
+    require("../../i18n/compiled-lang/en/units.json"),
+  ]).then(() => {
+    renderPage();
+  });
 });
 
 function renderPage(): void {

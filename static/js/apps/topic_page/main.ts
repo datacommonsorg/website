@@ -28,11 +28,11 @@ import { TopicsSummary } from "../../types/app/topic_page_types";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [require("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
+  loadLocaleData("en", [
+    require("../../i18n/compiled-lang/en/units.json"),
+  ]).then(() => {
+    renderPage();
+  });
 });
 
 function renderPage(): void {

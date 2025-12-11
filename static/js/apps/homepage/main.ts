@@ -31,11 +31,11 @@ import { extractRoutes } from "../base/utilities/utilities";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [require("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
+  loadLocaleData("en", [
+    require("../../i18n/compiled-lang/en/units.json"),
+  ]).then(() => {
+    renderPage();
+  });
 });
 
 function renderPage(): void {
