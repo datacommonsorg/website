@@ -194,7 +194,7 @@ function run_lint_fix {
       source server/.venv/bin/activate
       pip3 install yapf==0.40.2 isort==5.10.0 -q -i https://pypi.org/simple
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
-      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
+      isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
       deactivate
     )
   }
@@ -297,7 +297,7 @@ function run_py_test {
     exit 1
   fi
 
-  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
+  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob '*pb2.py' --skip-glob '**/.venv/**' --profile google; then
     log_error "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
