@@ -78,7 +78,7 @@ Options:
     locally (with the data container in the cloud) Exclusive with '--schema-update'.
   * data: Only run the data container. This is only valid if you are running the 
     data container locally (with the service container in the cloud).
-    Only valid with 'run' and 'build_run'. Ignored otherwise.
+    Only valid with 'run'. Ignored otherwise.
   For "hybrid" setups, the script will infer the correct container to run from the 
   env.list file; this setting will be ignored.
 
