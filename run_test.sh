@@ -33,6 +33,7 @@ function setup_website_python {
   python3 -m venv server/.venv
   source server/.venv/bin/activate
   echo "installing server/requirements.txt"
+  pip3 install --upgrade pip setuptools wheel -q
   pip3 install -r server/requirements.txt -q
   pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   deactivate
@@ -193,7 +194,7 @@ function run_lint_fix {
       source server/.venv/bin/activate
       pip3 install yapf==0.40.2 isort==5.10.0 -q -i https://pypi.org/simple
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
-      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
+      isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
       deactivate
     )
   }
@@ -281,7 +282,7 @@ function run_py_test {
   deactivate
 
   # Check Python style using server virtual environment
-  source nl_server/.venv/bin/activate
+  source server/.venv/bin/activate
   if ! command v yapf &> /dev/null
   then
     pip3 install yapf==0.40.2 -q -i https://pypi.org/simple
@@ -296,7 +297,7 @@ function run_py_test {
     exit 1
   fi
 
-  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
+  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob '*pb2.py' --skip-glob '**/.venv/**' --profile google; then
     log_error "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
@@ -305,6 +306,14 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
+  # Filter out --no_extract and --no_compress from arguments passed to pytest
+  local pytest_args=()
+  for arg in "$@"; do
+    if [[ "$arg" != "--no_extract" && "$arg" != "--no_compress" ]]; then
+      pytest_args+=("$arg")
+    fi
+  done
+
   if [ ! -d server/dist  ]
   then
     log_error "no dist folder, please run ./run_test.sh -b to build js first."
@@ -313,6 +322,7 @@ function run_webdriver_test {
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export WEBDRIVER_RECORDING_MODE=${WEBDRIVER_RECORDING_MODE:-replay}
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
@@ -320,10 +330,11 @@ function run_webdriver_test {
   source server/.venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
-    python3 -m pytest -n auto server/webdriver/tests/ ${@}
+    python3 -m pytest -n auto server/webdriver/tests/ "${pytest_args[@]}"
+
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ "${pytest_args[@]}"
   fi
   stop_servers
   deactivate
@@ -339,12 +350,14 @@ function run_cdc_webdriver_test {
   export RUN_CDC_DEV_ENV_FILE="custom_dc/.env-test"
   ensure_cdc_test_env_file
   export CDC_TEST_BASE_URL="http://localhost:8080"
+  export WEBDRIVER_RECORDING_MODE=${WEBDRIVER_RECORDING_MODE:-replay}
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
   export MIXER_LOG_LEVEL=${MIXER_LOG_LEVEL:-WARN}
   assert_website_python
   start_servers "cdc"
+
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
@@ -357,8 +370,15 @@ function run_cdc_webdriver_test {
     rerun_options="--reruns 2"
   fi
 
-  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
-  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  # Filter out --no_extract and --no_compress from arguments passed to pytest
+  local pytest_args=()
+  for arg in "$@"; do
+    if [[ "$arg" != "--no_extract" && "$arg" != "--no_compress" ]]; then
+      pytest_args+=("$arg")
+    fi
+  done
+
+  python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ "${pytest_args[@]}"
 
   stop_servers
   deactivate
@@ -423,6 +443,10 @@ function help {
   echo "Usage: $0 -pwblcsaf"
   echo "-p              Run server python tests"
   echo "-w              Run webdriver tests"
+  echo "--record        Run in record mode (regenerate recordings)"
+  echo "--replay        Run in replay mode (default)"
+  echo "--live          Run in live mode (no recording)"
+  echo "--clean         Delete existing recordings before running (requires --record and full run)"
   echo "--cdc           Run Custom DC webdriver tests"
   echo "                Respects the STARTUP_WAIT_SEC environment variable for startup wait time (default 10)."
   echo "--explore       Run explore integration tests"
@@ -446,13 +470,29 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a)
+    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a | --compress_webdriver_recordings)
         if [[ -n "$command" ]]; then
             # If a command has already been set, break the loop to process it with the collected extra_args
             break
         fi
         command=$1  # Store the command to call the appropriate function
         shift  # Move to the next command-line argument
+        ;;
+    --record)
+        export WEBDRIVER_RECORDING_MODE=record
+        shift
+        ;;
+    --replay)
+        export WEBDRIVER_RECORDING_MODE=replay
+        shift
+        ;;
+    --live)
+        export WEBDRIVER_RECORDING_MODE=live
+        shift
+        ;;
+    --clean)
+        CLEAN_RECORDINGS=true
+        shift
         ;;
     *)
         if [[ -n "$command" ]]; then
@@ -468,6 +508,55 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
+# Check safety of --clean flag
+if [[ "$CLEAN_RECORDINGS" == "true" ]]; then
+  if [[ "$WEBDRIVER_RECORDING_MODE" != "record" ]]; then
+    echo "Error: --clean can only be used with --record mode."
+    exit 1
+  fi
+  # Check for filters in extra_args
+  for arg in "${extra_args[@]}"; do
+    if [[ "$arg" == "-k" || "$arg" == "-m" || "$arg" == *"test.py" ]]; then
+      echo "Error: --clean cannot be used with test filters or specific test files. It requires a full run to avoid data loss."
+      exit 1
+    fi
+  done
+fi
+
+# Helper to manage recordings
+function manage_recordings {
+  local action=$1
+  local recordings_dir="server/tests/test_data/webdriver_recordings"
+  local tarball="server/tests/test_data/webdriver_recordings.tar.gz"
+
+  if [[ "$action" == "extract" ]]; then
+    if [[ "$CLEAN_RECORDINGS" == "true" ]]; then
+      echo "Cleaning recordings directory..."
+      rm -rf "$recordings_dir"
+      echo "Skipping extraction because --clean was passed."
+      return
+    fi
+    if [[ " ${extra_args[@]} " =~ " --no_extract " ]]; then
+      echo "Skipping recording extraction (--no_extract passed)."
+      return
+    fi
+    if [[ -f "$tarball" ]]; then
+      echo "Extracting $tarball..."
+      # Extract to the parent directory since the tarball contains the folder name
+      tar -xzf "$tarball" -C "server/tests/test_data"
+    fi
+  elif [[ "$action" == "compress" ]]; then
+    if [[ " ${extra_args[@]} " =~ " --no_compress " ]]; then
+      echo "Skipping recording compression (--no_compress passed)."
+      return
+    fi
+    if [[ -d "$recordings_dir" ]]; then
+      echo "Compressing recordings to $tarball..."
+      tar -czf "$tarball" -C server/tests/test_data webdriver_recordings
+    fi
+  fi
+}
+
 # Use "${extra_args[@]}" to correctly pass array elements as separate words
 case "$command" in
   -p)
@@ -476,11 +565,19 @@ case "$command" in
       ;;
   -w)
       echo -e "### Running webdriver tests"
+      manage_recordings "extract"
       run_webdriver_test "${extra_args[@]}"
+      if [[ "$WEBDRIVER_RECORDING_MODE" == "record" ]]; then
+        manage_recordings "compress"
+      fi
       ;;
   --cdc)
       echo -e "### Running Custom DC webdriver tests"
+      manage_recordings "extract"
       run_cdc_webdriver_test "${extra_args[@]}"
+      if [[ "$WEBDRIVER_RECORDING_MODE" == "record" ]]; then
+        manage_recordings "compress"
+      fi
       ;;
   --explore)
       echo --explore "### Running explore page integration tests"
@@ -527,6 +624,10 @@ case "$command" in
   -c)
       echo -e "### Running client tests"
       run_npm_test "${extra_args[@]}"
+      ;;
+  --compress_webdriver_recordings)
+      echo -e "### Compressing webdriver recordings"
+      manage_recordings "compress"
       ;;
   -f)
       echo -e "### Fix lint errors"

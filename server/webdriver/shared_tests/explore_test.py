@@ -231,8 +231,9 @@ class ExplorePageTestMixin():
     self.assertIsNotNone(line_chart)
 
     # Click on the topic button
-    topic_buttons = find_elem(self.driver, By.CLASS_NAME,
-                              'explore-relevant-topics')
+    # Use find_elements directly to avoid waiting for the element to appear (since it might be missing due to feature flag)
+    topic_buttons = self.driver.find_elements(By.CLASS_NAME,
+                                              'explore-relevant-topics')
     if not topic_buttons:
       self.skipTest(
           "Topic buttons not found, skipping remaining checks (feature flag).")
@@ -314,10 +315,9 @@ class ExplorePageTestMixin():
                              by=By.CLASS_NAME,
                              value='ranking-list')
     # There should be no div with overflow-y: auto
-    scrollable_divs = find_elems(
-        ranking_list,
-        by=By.XPATH,
-        value="./div[@style='max-height: 400px; overflow-y: auto;']")
+    # Use find_elements directly to avoid waiting for the element to appear (since we expect it to be missing)
+    scrollable_divs = ranking_list.find_elements(
+        By.XPATH, "./div[@style='max-height: 400px; overflow-y: auto;']")
     self.assertEqual(len(scrollable_divs), 0)
 
   def _assert_url_params(self, url, expected_params):
@@ -420,7 +420,8 @@ class ExplorePageTestMixin():
     self.driver.close()
     self.driver.switch_to.window(self.driver.window_handles[0])
 
-  @pytest.mark.skip(reason="Skipping - test works locally only, hyperlink not launching.")
+  @pytest.mark.skip(
+      reason="Skipping - test works locally only, hyperlink not launching.")
   def test_facet_selection_hyperlink(self):
     """Test hyperlink after selecting a different facet."""
     query = "Population of France"
