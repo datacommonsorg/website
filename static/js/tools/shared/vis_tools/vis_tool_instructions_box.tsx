@@ -29,7 +29,6 @@ import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
 const toolInstructions = {
   map: {
-    place: intl.formatMessage(toolMessages.infoBoxInstructionsPlacesMap),
     variable: {
       desktop: intl.formatMessage(
         toolMessages.infoBoxInstructionsVariableDesktopMap
@@ -40,7 +39,6 @@ const toolInstructions = {
     },
   },
   scatter: {
-    place: intl.formatMessage(toolMessages.infoBoxInstructionsPlacesScatter),
     variable: {
       desktop: intl.formatMessage(
         toolMessages.infoBoxInstructionsVariableDesktopScatter
@@ -51,7 +49,6 @@ const toolInstructions = {
     },
   },
   timeline: {
-    place: intl.formatMessage(toolMessages.infoBoxInstructionsPlacesTimeline),
     variable: {
       desktop: intl.formatMessage(
         toolMessages.infoBoxInstructionsVariableDesktopTimeline
@@ -66,8 +63,6 @@ const toolInstructions = {
 interface VisToolInstructionsBoxProps {
   // Which tool the instructions are for
   toolType: VisType;
-  // Whether to only show instructions for selecting stat vars
-  showStatVarInstructionsOnly?: boolean;
 }
 
 export function VisToolInstructionsBox(
@@ -81,25 +76,10 @@ export function VisToolInstructionsBox(
   // Uses bootstrap classes to match the implementation of the stat var
   // selection sidebar and "show variables" button.
   // TODO (juliawu): Switch all of these classes over to emotion styling.
-  const StatVarInstructions = (
-    <>
+  return (
+    <InfoBox>
       <span className="d-none d-lg-inline">{desktopText}</span>
       <span className="d-inline d-lg-none">{mobileText}</span>
-    </>
+    </InfoBox>
   );
-
-  if (props.showStatVarInstructionsOnly) {
-    return <InfoBox>{StatVarInstructions}</InfoBox>;
-  } else {
-    return (
-      <InfoBox
-        heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
-      >
-        <ol>
-          <li>{instructions.place}</li>
-          <li>{StatVarInstructions}</li>
-        </ol>
-      </InfoBox>
-    );
-  }
 }
