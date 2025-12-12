@@ -92,18 +92,16 @@ function App(): ReactElement {
             <Row>
               {useStandardizedUi ? (
                 showStatVarInstructions ? (
-                  <VisToolInstructionsBox
-                    toolType="map"
-                  />
+                  <VisToolInstructionsBox toolType="map" />
                 ) : (
                   <div
-                      css={css`
-                        margin-top: ${theme.spacing.xl}px;
-                      `}
-                    >
-                      <ChartLinkChips toolType="map" />
-                    </div>
-                  )
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="map" />
+                  </div>
+                )
               ) : (
                 <Info />
               )}

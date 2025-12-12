@@ -76,8 +76,10 @@ export function VisToolInstructionsBox(
   // Uses bootstrap classes to match the implementation of the stat var
   // selection sidebar and "show variables" button.
   // TODO (juliawu): Switch all of these classes over to emotion styling.
-    return <InfoBox>
+  return (
+    <InfoBox>
       <span className="d-none d-lg-inline">{desktopText}</span>
       <span className="d-inline d-lg-none">{mobileText}</span>
-    </InfoBox>;
+    </InfoBox>
+  );
 }
