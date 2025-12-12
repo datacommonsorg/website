@@ -180,7 +180,7 @@ export function loadSubjectPageMetadataFromPage(): SubjectPageMetadata {
 
   const placeDcid = placeEl.dataset.dcid;
   const placeName = placeEl.dataset.name || placeDcid;
-  const placeTypes = [placeEl.dataset.type];
+  const placeTypes = placeEl.dataset.type ? [placeEl.dataset.type] : [];
   const place = { dcid: placeDcid, name: placeName, types: placeTypes };
   const parentPlaces = JSON.parse(placeEl.dataset.parents);
   const pageConfig = JSON.parse(
