@@ -44,9 +44,9 @@ window.addEventListener("load", (): void => {
 
   // Load locale data
   loadLocaleData(locale, [
-    require(`../i18n/compiled-lang/${locale}/place.json`),
-    require(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
-    require(`../i18n/compiled-lang/${locale}/units.json`),
+    import(`../i18n/compiled-lang/${locale}/place.json`),
+    import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
+    import(`../i18n/compiled-lang/${locale}/units.json`),
   ]).then(() => {
     renderRankingComponent(document.getElementById("main-pane"), {
       placeName,

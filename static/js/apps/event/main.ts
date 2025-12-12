@@ -28,11 +28,11 @@ import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_util
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [
-    require("../../i18n/compiled-lang/en/units.json"),
-  ]).then(() => {
-    renderPage();
-  });
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
 });
 
 function renderPage(): void {

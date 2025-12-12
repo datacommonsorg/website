@@ -28,7 +28,7 @@ window.addEventListener("load", async (): Promise<void> => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
   await loadLocaleData(locale, [
-    require(`../../i18n/compiled-lang/${locale}/place.json`),
+    import(`../../i18n/compiled-lang/${locale}/place.json`),
   ]);
 
   renderPage();

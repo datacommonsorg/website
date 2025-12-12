@@ -28,11 +28,11 @@ import { TopicsSummary } from "../../types/app/topic_page_types";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [
-    require("../../i18n/compiled-lang/en/units.json"),
-  ]).then(() => {
-    renderPage();
-  });
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
 });
 
 function renderPage(): void {
@@ -56,10 +56,10 @@ function renderPage(): void {
   // TODO(beets): use locale from URL
   const locale = "en";
   void loadLocaleData(locale, [
-    require(`../../i18n/compiled-lang/${locale}/place.json`),
+    import(`../../i18n/compiled-lang/${locale}/place.json`),
     // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.
-    require(`../../i18n/compiled-lang/${locale}/stats_var_labels.json`),
-    require(`../../i18n/compiled-lang/${locale}/units.json`),
+    import(`../../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    import(`../../i18n/compiled-lang/${locale}/units.json`),
   ]);
   const place: NamedTypedPlace = {
     dcid,

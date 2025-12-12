@@ -238,7 +238,7 @@ test("formatNumber", async () => {
 
   for (const locale of ["de", "en", "es", "fr", "hi", "it", "ja", "ko", "ru"]) {
     await loadLocaleData(locale, [
-      require(`../i18n/compiled-lang/${locale}/units.json`),
+      import(`../i18n/compiled-lang/${locale}/units.json`),
     ]);
     for (const c of cases) {
       const text = formatNumber(c.value, c.unit);
@@ -375,7 +375,7 @@ test("translateUnit", async () => {
 
   for (const locale of ["de", "en", "es", "fr", "hi", "it", "ja", "ko", "ru"]) {
     await loadLocaleData(locale, [
-      require(`../i18n/compiled-lang/${locale}/units.json`),
+      import(`../i18n/compiled-lang/${locale}/units.json`),
     ]);
     for (const c of cases) {
       const text = translateUnit(c.unit);
