@@ -195,7 +195,7 @@ function run_lint_fix {
       assert_uv
       uv venv .venv-test --allow-existing
       source .venv-test/bin/activate
-      uv pip install yapf==0.40.2 isort -q -i https://pypi.org/simple
+      uv pip install yapf==0.40.2 isort==5.13.0 -q -i https://pypi.org/simple
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
       isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
       deactivate
@@ -282,7 +282,7 @@ function run_py_test {
   python -m pytest -n auto tools/nl/embeddings/ -s ${@}
   deactivate
 
-  # Check Python style using server virtual environment
+  # Check Python style
   uv venv .venv-test --allow-existing
   source .venv-test/bin/activate
   if ! command v yapf &> /dev/null
@@ -291,7 +291,7 @@ function run_py_test {
   fi
   if ! command -v isort &> /dev/null
   then
-    uv pip install isort -q -i https://pypi.org/simple
+    uv pip install isort==5.13.0 -q -i https://pypi.org/simple
   fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
@@ -299,7 +299,7 @@ function run_py_test {
     exit 1
   fi
 
-  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.venv/** --profile google; then
+  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile google; then
     log_error "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
@@ -400,7 +400,7 @@ function run_integration_test {
 
   start_servers
   assert_website_python
-  uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
+  uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
   stop_servers
 }
 
