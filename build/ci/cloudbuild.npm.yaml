@@ -38,8 +38,11 @@ steps:
         # Run client tests
         ./run_test.sh -c
 
+
 substitutions:
   _NODE_VERSION: "2025-10-01"
 
 options:
   machineType: "N1_HIGHCPU_8"
+
+timeout: 600s # 10 minutes
