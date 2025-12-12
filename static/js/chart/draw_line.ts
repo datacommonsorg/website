@@ -262,7 +262,7 @@ function addHighlightOnHover(
       highlightArea.style("opacity", "0");
       tooltip.style("display", "none");
     })
-    .on("mousemove", (event: any) => {
+    .on("mousemove", (event: MouseEvent) => {
       const mouseX = d3.pointer(event, container.node() as HTMLElement)[0];
       if (mouseX > chartAreaBoundary.right) {
         highlightArea.style("opacity", "0");

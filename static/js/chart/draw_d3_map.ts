@@ -123,7 +123,7 @@ function fitSize(
  */
 
 function showTooltip(
-  event: any,
+  event: MouseEvent,
   containerElement: HTMLDivElement,
   place: NamedPlace,
   getTooltipHtml: (place: NamedPlace) => string
@@ -195,7 +195,7 @@ const onMouseMove =
     containerElement: HTMLDivElement,
     getTooltipHtml: (place: NamedPlace) => string
   ) =>
-  (event: any, geo: GeoJsonFeature): void => {
+  (event: MouseEvent, geo: GeoJsonFeature): void => {
     const placeDcid = geo.properties.geoDcid;
     mouseHoverAction(
       containerElement,
@@ -705,7 +705,7 @@ export function addMapPoints(
     });
   if (getTooltipHtml) {
     mapPointsLayer
-      .on("mouseover", (event: any, point: MapPoint) => {
+      .on("mouseover", (event: MouseEvent, point: MapPoint) => {
         const place = {
           dcid: point.placeDcid,
           name: point.placeName,
@@ -737,7 +737,7 @@ export function addPolygonLayer(
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
   getRegionBorder: (geoDcid: string) => string,
-  onClick: (event: any, geoFeature: GeoJsonFeature) => void,
+  onClick: (event: MouseEvent, geoFeature: GeoJsonFeature) => void,
   allowMouseover = true
 ): void {
   // Build the map objects
@@ -788,7 +788,7 @@ export function addPathLayer(
   geoJson: GeoJsonData,
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
-  onClick: (event: any, feature: GeoJsonFeature) => void
+  onClick: (event: MouseEvent, feature: GeoJsonFeature) => void
 ): void {
   // Build map objects.
   const mapObjects = addGeoJsonLayer(

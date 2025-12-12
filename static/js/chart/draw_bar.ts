@@ -212,7 +212,7 @@ function addHighlightOnHover(
       tooltip.style("display", "none");
     }, HIGHLIGHT_TIMEOUT);
   };
-  const mousemoveFn = function (event: any): void {
+  const mousemoveFn = function (event: MouseEvent): void {
     const [mouseX, mouseY] = d3.pointer(event, container.node() as HTMLElement);
     positionTooltip(tooltip, mouseX, mouseY, chartAreaBoundary);
   };
