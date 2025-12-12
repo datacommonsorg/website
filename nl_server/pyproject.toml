@@ -32,6 +32,7 @@ dependencies = [
 
 [dependency-groups]
 test = [
+    "pytest==9.0.2",
     "pytest-xdist==3.2.1",
 ]
 
