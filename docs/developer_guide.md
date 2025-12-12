@@ -366,22 +366,7 @@ Feature flags are used to gate the rollout of features, and can easily be turned
 
 ### Debugging Webdriver tests
 
-- Disable headless mode in webdriver to follow the test in Chrome. Chrome
-  features like the dev inspector are available in this mode which is useful
-  combined with `sleep()` to give you time to inspect the page. To enter this
-  mode, comment out this line in [base.py](../server/webdriver/base.py):
-
-  ```python
-  chrome_options.add_argument('--headless')
-  ```
-
-- Another option is to save a screenshot at various points of the test:
-
-  ```python
-  self.driver.save_screenshot(filename)
-  ```
-
-  For more tips on working with webdriver tests, see the [WebDriver Test README](../server/webdriver/README.md).
+For detailed debugging instructions (disabling headless mode, screenshots, flakiness), see the [WebDriver Testing Guide](webdriver.md#troubleshooting).
 
 ### GKE config
 
