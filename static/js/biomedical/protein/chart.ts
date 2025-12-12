@@ -307,7 +307,10 @@ function dragNode(
 ): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
   // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
-  function dragstarted(event: any, nodeDatum: ProteinNode): void {
+  function dragstarted(
+    event: { active: number },
+    nodeDatum: ProteinNode
+  ): void {
     if (!event.active) {
       // start up simulation
       simulation.alphaTarget(0.3).restart();
@@ -316,12 +319,15 @@ function dragNode(
     nodeDatum.fy = nodeDatum.y;
   }
 
-  function dragged(event: any, nodeDatum: ProteinNode): void {
+  function dragged(
+    event: { x: number; y: number },
+    nodeDatum: ProteinNode
+  ): void {
     nodeDatum.fx = event.x;
     nodeDatum.fy = event.y;
   }
 
-  function dragended(event: any, nodeDatum: ProteinNode): void {
+  function dragended(event: { active: number }, nodeDatum: ProteinNode): void {
     if (!event.active) {
       // cool down simulation
       simulation.alphaTarget(0);
