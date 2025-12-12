@@ -193,10 +193,11 @@ function run_lint_fix {
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
       assert_uv
-      source .venv/bin/activate
+      uv venv .venv-test --allow-existing
+      source .venv-test/bin/activate
       uv pip install yapf==0.40.2 isort -q -i https://pypi.org/simple
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
-      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.venv/** --profile=google
+      isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
       deactivate
     )
   }
@@ -264,12 +265,12 @@ function run_py_test {
   export TOKENIZERS_PARALLELISM=false
   # Run website server tests
   # Disabled nodejs e2e test to avoid dependency on dev
-  uv run --project server python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
-  uv run --project server python3 -m pytest -n auto shared/tests/ -s ${@}
+  uv run --project server --group test python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
+  uv run --project server --group test python3 -m pytest -n auto shared/tests/ -s ${@}
 
   # Run nl server tests
   assert_nl_python
-  uv run --project nl_server python3 -m pytest nl_server/tests/ -s ${@}
+  uv run --project nl_server --group test python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
   # TODO: Migrate tools/nl/embeddings to use uv
@@ -277,11 +278,13 @@ function run_py_test {
   python -m venv tools/nl/embeddings/.venv
   source tools/nl/embeddings/.venv/bin/activate
   pip install -r tools/nl/embeddings/requirements.txt -q
+  pip install pytest pytest-xdist -q
   python -m pytest -n auto tools/nl/embeddings/ -s ${@}
   deactivate
 
   # Check Python style using server virtual environment
-  source server/.venv/bin/activate
+  uv venv .venv-test --allow-existing
+  source .venv-test/bin/activate
   if ! command v yapf &> /dev/null
   then
     uv pip install yapf==0.40.2 -q -i https://pypi.org/simple
@@ -328,11 +331,11 @@ function run_webdriver_test {
   assert_website_python
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
-    uv run --project server python3 -m pytest -n auto server/webdriver/tests/ "${pytest_args[@]}"
+    uv run --project server --group test python3 -m pytest -n auto server/webdriver/tests/ "${pytest_args[@]}"
 
   else
     # TODO: Stop using reruns once tests are deflaked.
-    uv run --project server python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ "${pytest_args[@]}"
+    uv run --project server --group test python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ "${pytest_args[@]}"
   fi
   stop_servers
   deactivate
@@ -375,7 +378,7 @@ function run_cdc_webdriver_test {
   done
 
   assert_website_python
-  uv run --project server python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ "${pytest_args[@]}"
+  uv run --project server --group test python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ "${pytest_args[@]}"
 
 
   stop_servers

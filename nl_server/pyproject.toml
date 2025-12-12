@@ -6,27 +6,33 @@ readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "dacite==1.8.1",
-    "Flask==2.3.2",
-    "google-cloud-logging>=3.11.0,<4.0.0",
-    "gunicorn==23.0.0",
-    "markupsafe==2.1.2",
-    "Werkzeug==3.0.6",
+    "datasets==2.18.0",
     "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl",
+    "Flask==2.3.2",
     "frozendict==2.3.4",
     "fsspec==2024.2.0",
-    "datasets==2.18.0",
     "google-cloud-aiplatform==1.125.0",
+    "google-cloud-logging>=3.11.0,<4.0.0",
     "google-cloud-storage==3.0.0",
+    "gunicorn==23.0.0",
+    "huggingface_hub==0.25.2",
+    "markupsafe==2.1.2",
+    "numpy<2.0",
     "pandas==2.1.1",
+    "parameterized==0.8.1",
+    "safetensors==0.4.3",
     "scikit-learn==1.5.0",
     "sentence-transformers==2.7.0",
     "spacy==3.7.4",
     "torch==2.8.0",
     "torchvision",
-    "huggingface_hub==0.25.2",
     "transformers==4.48.0",
-    "safetensors==0.4.3",
-    "numpy<2.0",
+    "Werkzeug==3.0.6",
+]
+
+[dependency-groups]
+test = [
+    "pytest-xdist==3.2.1",
 ]
 
 [tool.uv]
