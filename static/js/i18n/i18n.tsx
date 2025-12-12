@@ -42,7 +42,7 @@ let intl: IntlShape = createIntl({ locale: "en", messages: {} }, intlCache);
  */
 function loadLocaleData(
   locale: string,
-  modules: Promise<Record<string, any>>[]
+  modules: (Promise<Record<string, any>> | Record<string, any>)[]
 ): Promise<void> {
   const allMessages = {};
   // If no i18n modules are provided, just set the locale and return.
