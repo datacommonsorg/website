@@ -189,7 +189,7 @@ export function decompressChartProps(propString: string): ChartProps {
   // Convert all the manually escaped characters back to their original
   // characters.
   decompressedStr = zlib
-    .inflateSync(Buffer.from(decompressedStr, "base64").toString())
+    .inflateSync(Buffer.from(decompressedStr, "base64"))
     .toString();
   return JSON.parse(decompressedStr);
 }
