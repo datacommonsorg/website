@@ -54,7 +54,6 @@ dependencies = [
     "redis==4.5.4",
     "requests==2.32.4",
     "selenium==4.21.0",
-    "torch==2.8.0",
     "typing-extensions==4.12.2",
     "webdriver-manager==4.0.0",
     "Werkzeug==3.0.6",
@@ -71,12 +70,5 @@ name = "pypi"
 url = "https://pypi.org/simple"
 default = true
 
-# Add pytorch index
-[[tool.uv.index]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
-explicit = true
-
 [tool.uv.sources]
 data-gemma = { git = "https://github.com/datacommonsorg/llm-tools.git" }
-torch = { index = "pytorch-cpu" }
