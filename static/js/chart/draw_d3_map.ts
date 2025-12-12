@@ -560,7 +560,7 @@ export function drawD3Map(
         [0, 0],
         [chartWidth, chartHeight],
       ])
-      .on("zoom", function (event: any): void {
+      .on("zoom", function (event: d3.D3ZoomEvent<SVGElement, unknown>): void {
         mapObjects.forEach((mapObjectLayer) => {
           mapObjectLayer.on("mousemove", null).on("mouseover", null);
         });
@@ -569,7 +569,7 @@ export function drawD3Map(
           .selectAll("path,circle")
           .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
           .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false)
-          .attr("transform", event.transform);
+          .attr("transform", event.transform.toString());
       })
       .on("end", function (): void {
         mapObjects.forEach((mapObjectLayer) => {
