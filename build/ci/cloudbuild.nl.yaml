@@ -20,6 +20,7 @@ steps:
     args:
       - -c
       - |
+        pip install uv
         ./run_test.sh --explore
 
   - id: nl_tests
@@ -28,6 +29,7 @@ steps:
     args:
       - -c
       - |
+        pip install uv
         ./run_test.sh --nl
 
 options:

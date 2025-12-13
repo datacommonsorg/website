@@ -21,7 +21,7 @@
 # Configuration & Color Detection
 # ----------------------------------
 
-# We use colors only if:
+# We use color formatting only if:
 # 1. [-t 1]  -> STDOUT is a terminal (not a file or CI pipe)
 # 2. [-z "${NO_COLOR}"] -> The user hasn't explicitly disabled color (standard practice)
 # To disable color formatting, set NO_COLOR=1 as an environment variable.
@@ -30,7 +30,7 @@ if [ -t 1 ] && [ -z "${NO_COLOR}" ]; then
     GREEN='\033[0;32m'
     YELLOW='\033[0;33m'
     BLUE='\033[0;34m'
-    NC='\033[0m' # No Color
+    NC='\033[0m' # No Color, which is used to reset color formatting
 else
     RED=''
     GREEN=''
@@ -58,4 +58,16 @@ log_warn() {
 # Errors sent to STDERR so they don't corrupt pipes if you pipe your script output
 log_error() {
     echo -e "${RED}[ERROR]${NC} $1" >&2
+}
+
+# ----------------------------------
+# uv Detection
+# ----------------------------------
+
+# Assert that uv is installed. If not, exit with an error.
+assert_uv() {
+    if ! command -v uv &> /dev/null; then
+    log_error "Error: uv could not be found. Please install it and try again."
+    exit 1
+    fi
 }
