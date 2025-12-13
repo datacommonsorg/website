@@ -25,7 +25,7 @@ describe("redirect_utils", () => {
 
   afterAll(() => {
     // Reset the original window.location for future tests
-    window.location = originalLocation;
+    window.location.href = originalLocation.href;
   });
 
   // Mocks window.location with a new URL for the given relative path
