@@ -507,6 +507,7 @@ export async function fetchMetadata(
         statVarName:
           statVarList.find((node) => node.dcid === statVarId)?.name ??
           statVarId,
+        facetId,
         categories: statVarCategoryMap[statVarId] ?? [],
         sourceName,
         provenanceUrl: provenanceData?.url?.[0]?.value,

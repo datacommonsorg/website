@@ -54,6 +54,8 @@ import {
   getNoDataErrorMsg,
   getStatFormat,
   ReplacementStrings,
+  StatVarFacetDateRangeMap,
+  updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
 
 // units that should be formatted as part of the number
@@ -85,6 +87,8 @@ export interface HighlightData extends Observation {
   facets: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets: StatVarFacetMap;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges: StatVarFacetDateRangeMap;
   numFractionDigits?: number;
   errorMsg: string;
 }
@@ -195,6 +199,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
           facets={highlightData.facets}
           statVarToFacets={highlightData.statVarToFacets}
           statVarSpecs={[props.statVarSpec]}
+          statVarFacetDateRanges={highlightData.statVarFacetDateRanges}
           getObservationSpecs={getObservationSpecs}
           surface={props.surface}
         />
@@ -251,6 +256,7 @@ export const fetchData = async (
 
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
+  const statVarFacetDateRanges: StatVarFacetDateRangeMap = {};
 
   const facet = statResp.facets[mainStatData.facet];
 
@@ -260,6 +266,15 @@ export const fetchData = async (
       statVarToFacets[statVarSpec.statVar] = new Set();
     }
     statVarToFacets[statVarSpec.statVar].add(mainStatData.facet);
+  }
+  // Update date range for the main stat var
+  if (mainStatData.date) {
+    updateStatVarFacetDateRange(
+      statVarFacetDateRanges,
+      statVarSpec.statVar,
+      mainStatData.facet,
+      mainStatData.date
+    );
   }
 
   const sources = new Set<string>();
@@ -300,6 +315,15 @@ export const fetchData = async (
         }
         statVarToFacets[statVarSpec.denom].add(denomInfo.facetId);
       }
+      // Update date range for the denominator stat var
+      if (denomInfo.date) {
+        updateStatVarFacetDateRange(
+          statVarFacetDateRanges,
+          statVarSpec.denom,
+          denomInfo.facetId,
+          denomInfo.date
+        );
+      }
     } else {
       value = null;
     }
@@ -328,6 +352,7 @@ export const fetchData = async (
     sources,
     facets,
     statVarToFacets,
+    statVarFacetDateRanges,
     errorMsg,
   };
 };

@@ -24,6 +24,7 @@ import { intl } from "../../../i18n/i18n";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
 import { stripProtocol } from "../../../shared/util";
+import { StatVarFacetDateRangeMap } from "../../../utils/tile_utils";
 import { StatVarMetadata } from "./metadata";
 
 export interface CitationPart {
@@ -126,14 +127,14 @@ interface ProvenanceData {
  *
  * @param statVars - An array of `NamedNode` objects for the stat vars.
  * @param metadataMap - A mapping from stat var DCIDs to their metadata.
- * @param statVarDateRanges - Optional. A map of stat var dcids to their specific dates from the chart.
+ * @param statVarFacetDateRanges - Optional. A map of stat vars to facet ids to their specific dates from the chart.
  * @param skipUrls - Optional. If true, provenance URLs are excluded.
  * @returns An array of `CitationPart` objects for rendering.
  */
 export function buildCitationParts(
   statVars: NamedNode[],
   metadataMap: Record<string, StatVarMetadata[]>,
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>,
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap,
   skipUrls?: boolean
 ): CitationPart[] {
   const parts: CitationPart[] = [];
@@ -159,9 +160,11 @@ export function buildCitationParts(
       }
 
       // we update the date range for the provenance (always expanding it where necessary)
-      const svDateRange = statVarDateRanges
-        ? statVarDateRanges[statVar.dcid]
-        : undefined;
+      const facetId = metadata.facetId;
+      const svDateRange =
+        statVarFacetDateRanges && facetId
+          ? statVarFacetDateRanges[statVar.dcid]?.[facetId]
+          : undefined;
 
       if (svDateRange) {
         const entry = provenanceDataMap.get(provName);

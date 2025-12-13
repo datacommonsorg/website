@@ -70,7 +70,9 @@ import {
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
+  StatVarFacetDateRangeMap,
   transformCsvHeader,
+  updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
 import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -142,8 +144,8 @@ export interface LineChartData {
   facets: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets: StatVarFacetMap;
-  // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
@@ -237,7 +239,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       sources={props.sources || (chartData && chartData.sources)}
       facets={chartData?.facets}
       statVarToFacets={chartData?.statVarToFacets}
-      statVarDateRanges={chartData?.statVarDateRanges}
+      statVarFacetDateRanges={chartData?.statVarFacetDateRanges}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
@@ -505,7 +507,7 @@ function rawToChart(
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
   const allDates = new Set<string>();
-  const statVarDates = new Map<string, Set<string>>();
+  const statVarFacetDateRanges: StatVarFacetDateRangeMap = {};
   // TODO: make a new wrapper to fetch series data & do the processing there.
   const unit2count = {};
   for (const spec of props.statVarSpec) {
@@ -538,6 +540,7 @@ function rawToChart(
     for (const placeDcid in entityToSeries) {
       const series = raw.data[spec.statVar][placeDcid];
       let obsList = series.series;
+      let denomFacetId: string;
       if (spec.denom) {
         let denomInfo = denomsByFacet[series.facet];
         // if the placeDcid is not available in the facet-specific denom, use best available
@@ -558,6 +561,7 @@ function rawToChart(
           }
           statVarToFacets[spec.denom].add(denomSeries.facet);
         }
+        denomFacetId = denomSeries?.facet;
       }
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
@@ -575,20 +579,22 @@ function rawToChart(
           currentSvDates.add(obs.date);
         }
 
-        if (!statVarDates.has(spec.statVar)) {
-          statVarDates.set(spec.statVar, new Set<string>());
-        }
-        currentSvDates.forEach((date) =>
-          statVarDates.get(spec.statVar).add(date)
-        );
-        if (spec.denom) {
-          if (!statVarDates.has(spec.denom)) {
-            statVarDates.set(spec.denom, new Set<string>());
-          }
-          currentSvDates.forEach((date) =>
-            statVarDates.get(spec.denom).add(date)
+        currentSvDates.forEach((date) => {
+          updateStatVarFacetDateRange(
+            statVarFacetDateRanges,
+            spec.statVar,
+            series.facet,
+            date
           );
-        }
+          if (spec.denom && denomFacetId) {
+            updateStatVarFacetDateRange(
+              statVarFacetDateRanges,
+              spec.denom,
+              denomFacetId,
+              date
+            );
+          }
+        });
 
         const label = options.useBothLabels
           ? `${statVarDcidToName[spec.statVar]} for ${
@@ -611,20 +617,6 @@ function rawToChart(
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
   }
 
-  const statVarDateRanges: Record<
-    string,
-    { minDate: string; maxDate: string }
-  > = {};
-  for (const [dcid, dates] of statVarDates.entries()) {
-    const sortedSvDates = Array.from(dates).sort();
-    if (sortedSvDates.length > 0) {
-      statVarDateRanges[dcid] = {
-        minDate: sortedSvDates[0],
-        maxDate: sortedSvDates[sortedSvDates.length - 1],
-      };
-    }
-  }
-
   const errorMsg = _.isEmpty(dataGroups)
     ? getNoDataErrorMsg(props.statVarSpec)
     : "";
@@ -636,7 +628,7 @@ function rawToChart(
     unit,
     props,
     errorMsg,
-    statVarDateRanges,
+    statVarFacetDateRanges,
   };
 }
 

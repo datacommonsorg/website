@@ -30,6 +30,7 @@ import { NamedTypedNode, ProvenanceLiteral } from "../../../shared/types";
 export interface StatVarMetadata {
   statVarId: string; // DCID of the stat var
   statVarName: string; // Label of the stat var
+  facetId: string; // The facet id associated with the dataset
   categories: string[]; // Category names of the stat var (e.g., "Demographics")
   sourceName?: string; // Source name
   provenanceUrl?: string; // Provenance source URL

@@ -42,6 +42,7 @@ import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../../shared/types";
 import { urlToDisplayText } from "../../../shared/util";
 import { isNlInterface } from "../../../utils/explore_utils";
+import { StatVarFacetDateRangeMap } from "../../../utils/tile_utils";
 import { TileMetadataModal } from "./tile_metadata_modal";
 import { TileMetadataModalSimple } from "./tile_metadata_modal_simple";
 
@@ -59,8 +60,8 @@ export function TileSources(props: {
   // If given and the facets and mappings are not given, we
   // fall back to the old sources.
   sources?: Set<string> | string[];
-  // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
   // A callback function passed through from the chart that will collate
@@ -75,7 +76,7 @@ export function TileSources(props: {
     statVarToFacets,
     statVarSpecs,
     sources,
-    statVarDateRanges,
+    statVarFacetDateRanges,
     getObservationSpecs,
   } = props;
   if (!facets && !sources) {
@@ -139,7 +140,7 @@ export function TileSources(props: {
                     statVarSpecs={statVarSpecs}
                     facets={facets}
                     statVarToFacets={statVarToFacets}
-                    statVarDateRanges={statVarDateRanges}
+                    statVarFacetDateRanges={statVarFacetDateRanges}
                     surface={props.surface}
                   />
                 ) : (
