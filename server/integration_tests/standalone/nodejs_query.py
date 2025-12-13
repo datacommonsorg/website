@@ -16,6 +16,7 @@ from datetime import datetime
 import json
 import logging
 import os
+import sys
 
 from absl import app
 from absl import flags
@@ -55,20 +56,30 @@ TEST_CASES = [{
 
 
 def run_test():
-  os.makedirs(os.path.join(FLAGS.output_dir), exist_ok=True)
-  for test_case in TEST_CASES:
-    query = test_case.get('query', '')
-    all_charts = test_case.get('all_charts', '')
-    client = test_case.get('client', '')
-    resp = requests.get(
-        f'{FLAGS.base_url}/nodejs/query?q={query}&allCharts={all_charts}&client={client}'
-    ).json()
-    for chart in resp.get('charts', []):
-      chart['chartUrl'] = ''
-    file_name = test_case.get('name', '') + '.json'
-    json_file = os.path.join(FLAGS.output_dir, file_name)
-    with open(json_file, 'w') as out:
-      out.write(json.dumps(resp))
+  try:
+    os.makedirs(os.path.join(FLAGS.output_dir), exist_ok=True)
+    for test_case in TEST_CASES:
+      query = test_case.get('query', '')
+      all_charts = test_case.get('all_charts', '')
+      client = test_case.get('client', '')
+      logging.info('Running test case: %s', test_case.get('name'))
+      resp = requests.get(
+          f'{FLAGS.base_url}/nodejs/query?q={query}&allCharts={all_charts}&client={client}'
+      )
+      resp.raise_for_status()
+      resp = resp.json()
+      for chart in resp.get('charts', []):
+        chart['chartUrl'] = ''
+      file_name = test_case.get('name', '') + '.json'
+      json_file = os.path.join(FLAGS.output_dir, file_name)
+      with open(json_file, 'w') as out:
+        out.write(json.dumps(resp))
+      logging.info('Finished test case: %s', test_case.get('name'))
+    logging.info('SUCCESS: All Node.js query tests passed.')
+    return True
+  except Exception as e:
+    logging.error('Test failed: %s', e)
+    return False
 
 
 def main(_):
@@ -79,7 +90,8 @@ def main(_):
   start = datetime.now()
   logging.info('Start: %s', start)
 
-  run_test()
+  if not run_test():
+    sys.exit(1)
 
   end = datetime.now()
   logging.info('End: %s', end)
