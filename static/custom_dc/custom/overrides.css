@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
+ @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 :root {
   --dc-primary: #5d5f65;
   --link-color: #514ea3;
   --footer-background: white;
   --dc-red-fade: #40d4e033;
+  --font-family: "Open Sans", Arial, sans-serif !important;
+}
+
+
+html, body {
+  font-family: "Open Sans", sans-serif !important;
 }
 
 #main-header {
