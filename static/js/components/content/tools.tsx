@@ -21,7 +21,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useMemo } from "react";
 
 import { resolveHref } from "../../apps/base/utilities/utilities";
 import { Download } from "../elements/icons/download";
@@ -52,6 +52,16 @@ interface ToolsProps {
   children?: ReactNode;
 }
 
+// An icon map for all the possible different tools
+const ICONS = {
+  statVarExplorer: <IntegrationInstructions height={32} />,
+  map: <Public height={32} />,
+  scatter: <ScatterPlot height={32} />,
+  timeline: <Timeline height={32} />,
+  download: <Download height={32} />,
+  api: <IntegrationInstructions height={32} />,
+};
+
 export const Tools = ({
   tools,
   routes,
@@ -61,78 +71,83 @@ export const Tools = ({
 }: ToolsProps): ReactElement => {
   const theme = useTheme();
 
-  const toolMap: Record<
-    Tool,
-    {
-      icon: React.JSX.Element;
-      link: {
-        id: string;
-        title: string;
-        url: string;
-        description: string;
-      };
-    }
-  > = {
-    statVarExplorer: {
-      icon: <IntegrationInstructions height={32} />,
-      link: {
-        id: "stat-var-explorer",
-        title: "Statistical Variable Explorer",
-        url: resolveHref("{tools.stat_var}", routes),
-        description:
-          "Explorer statistical variable details including metadata and observations",
+  const toolList = useMemo(() => {
+    const allTools: Record<
+      Tool,
+      {
+        icon: React.JSX.Element;
+        link: {
+          id: string;
+          title: string;
+          url: string;
+          description: string;
+        };
+      }
+    > = {
+      statVarExplorer: {
+        icon: ICONS.statVarExplorer,
+        link: {
+          id: "stat-var-explorer",
+          title: "Statistical Variable Explorer",
+          url: resolveHref("{tools.stat_var}", routes),
+          description:
+            "Explorer statistical variable details including metadata and observations",
+        },
       },
-    },
-    map: {
-      icon: <Public height={32} />,
-      link: {
-        id: "map",
-        title: "Map Explorer",
-        url: resolveHref("{tools.visualization}#visType=map", routes),
-        description:
-          "See how selected statistical variables vary across geographic regions",
+      map: {
+        icon: ICONS.map,
+        link: {
+          id: "map",
+          title: "Map Explorer",
+          url: resolveHref("{tools.visualization}#visType=map", routes),
+          description:
+            "See how selected statistical variables vary across geographic regions",
+        },
       },
-    },
-    scatter: {
-      icon: <ScatterPlot height={32} />,
-      link: {
-        id: "scatter",
-        title: "Scatter Plot Explorer",
-        url: resolveHref("{tools.visualization}#visType=scatter", routes),
-        description:
-          "Visualize the correlation between two statistical variables",
+      scatter: {
+        icon: ICONS.scatter,
+        link: {
+          id: "scatter",
+          title: "Scatter Plot Explorer",
+          url: resolveHref("{tools.visualization}#visType=scatter", routes),
+          description:
+            "Visualize the correlation between two statistical variables",
+        },
       },
-    },
-    timeline: {
-      icon: <Timeline height={32} />,
-      link: {
-        id: "timeline",
-        title: "Timelines Explorer",
-        url: resolveHref("{tools.visualization}#visType=timeline", routes),
-        description: "See trends over time for selected statistical variables",
+      timeline: {
+        icon: ICONS.timeline,
+        link: {
+          id: "timeline",
+          title: "Timelines Explorer",
+          url: resolveHref("{tools.visualization}#visType=timeline", routes),
+          description:
+            "See trends over time for selected statistical variables",
+        },
       },
-    },
-    download: {
-      icon: <Download height={32} />,
-      link: {
-        id: "download",
-        title: "Data Download Tool",
-        url: resolveHref("{tools.download}", routes),
-        description: "Download data for selected statistical variables",
+      download: {
+        icon: ICONS.download,
+        link: {
+          id: "download",
+          title: "Data Download Tool",
+          url: resolveHref("{tools.download}", routes),
+          description: "Download data for selected statistical variables",
+        },
       },
-    },
-    api: {
-      icon: <IntegrationInstructions height={32} />,
-      link: {
-        id: "api",
-        title: "API Access",
-        url: "https://docs.datacommons.org/api/",
-        description: "Access Data Commons data programmatically using our APIs",
+      api: {
+        icon: ICONS.api,
+        link: {
+          id: "api",
+          title: "API Access",
+          url: "https://docs.datacommons.org/api/",
+          description:
+            "Access Data Commons data programmatically using our APIs",
+        },
       },
-    },
-  };
+    };
+    const displayedToolKeys = tools || Object.keys(allTools);
 
-  const toolsToDisplay = tools === undefined ? Object.keys(toolMap) : tools;
+    return displayedToolKeys.map((key) => allTools[key]);
+  }, [routes, tools]);
 
   const hasChildren = React.Children.count(children) > 0;
 
@@ -182,11 +197,10 @@ export const Tools = ({
     >
       {hasChildren && <header>{children}</header>}
       <div className="tools">
-        {toolsToDisplay.map((toolId) => {
-          const tool = toolMap[toolId];
+        {toolList.map((tool) => {
           return (
             <LinkIconBox
-              key={toolId}
+              key={tool.link.id}
               icon={tool.icon}
               link={tool.link}
               description={showDescriptions ? tool.link.description : undefined}
