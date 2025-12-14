@@ -455,7 +455,6 @@ export function AutoCompleteInput(
         <InputGroup
           css={css`
             margin: 0;
-            padding: 0;
             border: 0;
             display: flex;
             align-items: center;
@@ -493,7 +492,6 @@ export function AutoCompleteInput(
                 padding: 0;
                 border: none;
                 background-image: none;
-                background-color: transparent;
                 box-shadow: none;
                 cursor: default;
                 // Custom styles
