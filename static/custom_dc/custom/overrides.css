@@ -21,12 +21,12 @@
   --link-color: #514ea3;
   --footer-background: white;
   --dc-red-fade: #40d4e033;
-  --font-family: "Open Sans", Arial, sans-serif !important;
+  --font-family: "Open Sans", Arial, sans-serif;
 }
 
 
 html, body {
-  font-family: "Open Sans", sans-serif !important;
+  font-family: var(--font-family);
 }
 
 #main-header {
