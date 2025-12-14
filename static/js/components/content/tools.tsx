@@ -157,6 +157,7 @@ export const Tools = ({
           & > p {
             ${theme.typography.family.text};
             ${theme.typography.text.lg};
+            color: ${theme.colors.text.primary.base};
           }
         }
 
