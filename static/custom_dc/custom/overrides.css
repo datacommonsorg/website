@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
- @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
 :root {
   --dc-primary: #5d5f65;
   --link-color: #514ea3;
   --footer-background: white;
   --dc-red-fade: #40d4e033;
-  --font-family: "Open Sans", Arial, sans-serif;
+  --font-family: "Open Sans", Arial, sans-serif; /* Setup at base.html **/
 }
-
 
 html, body {
   font-family: var(--font-family);
