@@ -19,7 +19,8 @@
  */
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
+import { type SerializedStyles, css } from "@emotion/react";
+import styled from "@emotion/styled";
 import axios from "axios";
 import _ from "lodash";
 import React, {
@@ -111,6 +112,89 @@ function convertJSONToAutoCompleteResults(
   }));
 }
 
+type SearchWrapperProps = {
+  $active: boolean;
+};
+
+const SearchWrapper = styled("div", {
+  shouldForwardProp: (prop) => prop !== "$active",
+})<SearchWrapperProps>`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid
+    ${({ $active }): string =>
+      $active ? theme.search.active.border : theme.search.base.border};
+  width: 100%;
+  background-color: ${({ $active }): string =>
+    $active ? theme.search.active.background : theme.search.base.background};
+  border-radius: ${theme.search.radius};
+  overflow: hidden;
+  max-height: calc(${theme.searchSuggestions.height} + ${theme.search.height});
+  & > .searchGroup {
+    margin: 0;
+    border: 0;
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.md}px;
+    padding: 0 ${theme.spacing.lg}px;
+  }
+  & > .searchInputIcon {
+    ${theme.typography.text.lg}
+    line-height: 1rem;
+    margin: 0;
+    padding: 0;
+    color: ${({ $active }): string =>
+      $active ? theme.search.active.icon : theme.search.base.icon};
+  }
+`;
+
+type SearchButtonProps = {
+  $active: boolean;
+  $hasValue: boolean;
+};
+
+export const SearchButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "$active" && prop !== "$hasValue",
+})<SearchButtonProps>`
+  && {
+    color: ${({ $hasValue, $active }): string =>
+      $hasValue
+        ? $active
+          ? theme.search.active.button
+          : theme.search.base.text
+        : theme.search.base.button};
+  }
+`;
+
+const searchInputCss = (active: boolean): SerializedStyles => css`
+  && {
+    margin: 0;
+    padding: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    transition: none;
+    cursor: default;
+
+    ${theme.typography.family.text}
+    ${theme.typography.text.md}
+    line-height: 1rem;
+    height: ${theme.search.height};
+
+    background-color: ${active
+      ? theme.search.active.background
+      : theme.search.base.background};
+    color: ${active ? theme.search.active.text : theme.search.base.text};
+
+    &:focus,
+    &:active {
+      border: none;
+      box-shadow: none !important;
+      outline: none;
+      -webkit-appearance: none;
+    }
+  }
+`;
 export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
@@ -135,7 +219,7 @@ export function AutoCompleteInput(
   const [statVarInfo, setStatVarInfo] = useState({});
   const [processedResults, setProcessedResults] = useState([]);
 
-  const isHeaderBar = props.barType == "header";
+  // const isHeaderBar = props.barType == "header"; Not being used currently
 
   const { placeholder } = useQueryStore();
 
@@ -432,47 +516,9 @@ export function AutoCompleteInput(
 
   return (
     <>
-      <div
-        ref={wrapperRef}
-        css={css`
-          display: flex;
-          flex-direction: column;
-          border: 1px solid
-            ${inputActive
-              ? theme.search.active.border
-              : theme.search.base.border};
-          width: 100%;
-          background-color: ${inputActive
-            ? theme.search.active.background
-            : theme.search.base.background};
-          border-radius: ${theme.search.radius};
-          overflow: hidden;
-          max-height: calc(
-            ${theme.searchSuggestions.height} + ${theme.search.height}
-          );
-        `}
-      >
-        <InputGroup
-          css={css`
-            margin: 0;
-            border: 0;
-            display: flex;
-            align-items: center;
-            gap: ${theme.spacing.md}px;
-            padding: 0 ${theme.spacing.lg}px;
-          `}
-        >
-          <div
-            css={css`
-              ${theme.typography.text.lg}
-              line-height: 1rem;
-              margin: 0;
-              padding: 0;
-              color: ${inputActive
-                ? theme.search.active.icon
-                : theme.search.base.icon};
-            `}
-          >
+      <SearchWrapper ref={wrapperRef} $active={inputActive}>
+        <InputGroup className="searchGroup">
+          <div className="searchInputIcon">
             <Search />
           </div>
           <Input
@@ -480,57 +526,24 @@ export function AutoCompleteInput(
             invalid={props.invalid}
             placeholder={placeholderText}
             aria-label={placeholderText}
+            name="searchInput"
             value={inputText}
             onChange={onInputChange}
             onKeyDown={(event): void => handleKeydownEvent(event)}
             autoComplete="one-time-code"
             autoFocus={props.shouldAutoFocus}
-            css={css`
-              && {
-                // Reset default input styles
-                margin: 0;
-                padding: 0;
-                border: none;
-                background-image: none;
-                box-shadow: none;
-                cursor: default;
-                // Custom styles
-                ${theme.typography.family.text}
-                ${theme.typography.text.md}
-                line-height: 1rem;
-                height: ${theme.search.height};
-                background-color: ${inputActive
-                  ? theme.search.active.background
-                  : theme.search.base.background};
-                color: ${inputActive
-                  ? theme.search.active.text
-                  : theme.search.base.text};
-              }
-              &&:focus,
-              &&:active {
-                border: none;
-                box-shadow: none !important; // Override CSS Important
-                outline: none;
-              }
-            `}
+            css={searchInputCss(inputActive)}
           />
-          <Button
+          <SearchButton
             variant="naked"
             size="lg"
             onClick={executeQuery}
             id="rich-search-button"
-            css={css`
-              && {
-                color: ${props.value
-                  ? inputActive
-                    ? theme.search.active.button
-                    : theme.search.base.text
-                  : theme.search.base.button};
-              }
-            `}
+            $active={inputActive}
+            $hasValue={Boolean(props.value)}
           >
             <ArrowForward />
-          </Button>
+          </SearchButton>
         </InputGroup>
 
         {props.enableAutoComplete && !_.isEmpty(results) && (
@@ -543,7 +556,7 @@ export function AutoCompleteInput(
             hasLocation={hasLocation}
           />
         )}
-      </div>
+      </SearchWrapper>
     </>
   );
 }
