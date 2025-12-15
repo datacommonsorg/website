@@ -46,10 +46,6 @@ import { D3Map } from "./d3_map";
 // import { LeafletMap } from "./leaflet_map";
 import { getTitle } from "./util";
 
-export enum MAP_TYPE {
-  LEAFLET,
-  D3,
-}
 interface ChartProps {
   geoJsonData: GeoJsonData;
   mapDataValues: { [dcid: string]: number };
@@ -65,7 +61,6 @@ interface ChartProps {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
-  mapType: MAP_TYPE;
   children: ReactNode;
   borderGeoJsonData?: GeoJsonData;
   // A function passed through from the chart that handles the task
@@ -186,7 +181,7 @@ export function Chart(props: ChartProps): ReactElement {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        hideIsRatio={props.mapType === MAP_TYPE.LEAFLET}
+        hideIsRatio={false}
         isPerCapita={statVar.value.perCapita}
         onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
           statVar.setPerCapita(isPerCapita)

@@ -29,7 +29,6 @@ import React, {
   useMemo,
   useReducer,
   useRef,
-  useState,
 } from "react";
 
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
@@ -49,7 +48,7 @@ import {
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { getMergedSvg, transformCsvHeader } from "../../utils/tile_utils";
-import { Chart, MAP_TYPE } from "./chart";
+import { Chart } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
 import { useComputeFacetList } from "./compute/facets";
@@ -80,9 +79,6 @@ import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
 export function ChartLoader(): ReactElement {
   // +++++++  Context
   const { dateCtx, placeInfo, statVar, display } = useContext(Context);
-
-  // +++++++  State
-  const [mapType, setMapType] = useState(MAP_TYPE.D3);
 
   // +++++++  Refs
   const containerRef = useRef<HTMLDivElement>(null);
@@ -306,7 +302,7 @@ export function ChartLoader(): ReactElement {
   }, [getDataCsv, sources]);
 
   function renderContent(): ReactElement {
-    if (!renderReady(mapType)) {
+    if (!renderReady()) {
       return null;
     }
     if (
@@ -328,7 +324,7 @@ export function ChartLoader(): ReactElement {
       );
     }
 
-    if (mapType === MAP_TYPE.D3 && chartStore.geoJson.error) {
+    if (chartStore.geoJson.error) {
       removeSpinner(CHART_LOADER_SCREEN);
       return (
         <div className="p-5">
@@ -365,7 +361,6 @@ export function ChartLoader(): ReactElement {
           europeanCountries={europeanCountries}
           rankingLink={rankingLink}
           facetList={facetList}
-          mapType={mapType}
           borderGeoJsonData={
             shouldShowBorder(placeInfo.value.enclosedPlaceType)
               ? chartStore.borderGeoJson.data
