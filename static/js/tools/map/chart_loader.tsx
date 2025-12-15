@@ -19,21 +19,36 @@
  * and passing the data to a `Chart` component that draws the choropleth.
  */
 
+import { dataRowsToCsv } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, {
   ReactElement,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useReducer,
+  useRef,
   useState,
 } from "react";
 
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { ChartEmbed } from "../../place/chart_embed";
+import { WEBSITE_SURFACE } from "../../shared/constants";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
+import { FacetStore, StatMetadata } from "../../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import {
   getCappedStatVarDate,
   loadSpinner,
   removeSpinner,
 } from "../../shared/util";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
+import { getMergedSvg, transformCsvHeader } from "../../utils/tile_utils";
 import { Chart, MAP_TYPE } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
@@ -68,6 +83,10 @@ export function ChartLoader(): ReactElement {
 
   // +++++++  State
   const [mapType, setMapType] = useState(MAP_TYPE.D3);
+
+  // +++++++  Refs
+  const containerRef = useRef<HTMLDivElement>(null);
+  const embedModalElement = useRef<ChartEmbed>(null);
 
   // +++++++  Chart Store
   const [chartStore, dispatchChartStore] = useReducer(
@@ -145,6 +164,147 @@ export function ChartLoader(): ReactElement {
     placeInfo.value.enclosedPlaceType,
   ]);
 
+  // Functions for handling the logic required for the embed (download) dialog and the API dialog
+
+  /**
+   * The stat var spec for the current chart configuration.
+   */
+  const currentStatVarSpec: StatVarSpec = useMemo(() => {
+    if (!statVar.value.dcid) return null;
+    return {
+      statVar: statVar.value.dcid,
+      denom: statVar.value.perCapita ? statVar.value.denom : undefined,
+      unit: chartStore.mapValuesDates.data?.unit || undefined,
+      scaling: undefined,
+      log: false,
+      name:
+        statVar.value.info?.[statVar.value.dcid]?.title || statVar.value.dcid,
+      facetId: statVar.value.metahash || undefined,
+    };
+  }, [statVar.value, chartStore.mapValuesDates.data?.unit]);
+
+  /**
+   * Convert facet metadata and mappings (derived from the chart store) into a format
+   * to be used for citation display in the embed modal.
+   */
+  const { facets, statVarToFacets } = useMemo(() => {
+    const facets: Record<string, StatMetadata> = {};
+    const statVarToFacets: StatVarFacetMap = {};
+
+    const mergeFacets = (
+      facetStore: FacetStore,
+      statVarDcid?: string
+    ): void => {
+      if (!facetStore) return;
+      for (const facetId in facetStore) {
+        facets[facetId] = facetStore[facetId];
+        if (statVarDcid) {
+          if (!statVarToFacets[statVarDcid]) {
+            statVarToFacets[statVarDcid] = new Set();
+          }
+          statVarToFacets[statVarDcid].add(facetId);
+        }
+      }
+    };
+
+    if (chartStore.defaultStat.data?.facets) {
+      mergeFacets(chartStore.defaultStat.data.facets, statVar.value.dcid);
+    }
+    if (chartStore.denomStat.data?.facets && statVar.value.denom) {
+      mergeFacets(chartStore.denomStat.data.facets, statVar.value.denom);
+    }
+    return { facets, statVarToFacets };
+  }, [chartStore.defaultStat.data, chartStore.denomStat.data, statVar.value]);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns An array of `ObservationSpec` objects.
+   */
+  const getObservationSpecs = useCallback((): ObservationSpec[] => {
+    if (
+      !currentStatVarSpec ||
+      !placeInfo.value.enclosingPlace.dcid ||
+      !placeInfo.value.enclosedPlaceType
+    ) {
+      return [];
+    }
+
+    const entityExpression = `${placeInfo.value.enclosingPlace.dcid}<-containedInPlace+{typeOf:${placeInfo.value.enclosedPlaceType}}`;
+    const date =
+      getCappedStatVarDate(currentStatVarSpec.statVar, dateCtx.value) ||
+      "LATEST";
+
+    return buildObservationSpecs({
+      statVarSpecs: [{ ...currentStatVarSpec, date }],
+      statVarToFacets,
+      entityExpression,
+    });
+  }, [
+    currentStatVarSpec,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    dateCtx.value,
+    statVarToFacets,
+  ]);
+
+  /**
+   * Returns callback for fetching chart CSV data.
+   * @returns A promise that resolves to chart CSV data.
+   */
+  const getDataCsv = useCallback(async (): Promise<string> => {
+    if (
+      !currentStatVarSpec ||
+      !placeInfo.value.enclosingPlace.dcid ||
+      !placeInfo.value.enclosedPlaceType
+    ) {
+      return "";
+    }
+
+    const dataCommonsClient = getDataCommonsClient();
+    const date = getCappedStatVarDate(
+      currentStatVarSpec.statVar,
+      dateCtx.value
+    );
+
+    const rows = await dataCommonsClient.getDataRows({
+      childType: placeInfo.value.enclosedPlaceType,
+      date,
+      parentEntity: placeInfo.value.enclosingPlace.dcid,
+      variables: [],
+      statVarSpecs: [currentStatVarSpec],
+    });
+
+    return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
+  }, [
+    currentStatVarSpec,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    dateCtx.value,
+  ]);
+
+  /**
+   * Shows the chart embed (download) modal.
+   */
+  const handleEmbed = useCallback((): void => {
+    if (!embedModalElement.current || !containerRef.current) return;
+
+    const { svgXml, height, width } = getMergedSvg(containerRef.current);
+    embedModalElement.current.show(
+      svgXml,
+      getDataCsv,
+      width,
+      height,
+      "",
+      "",
+      "",
+      sources ? Array.from(sources) : [],
+      WEBSITE_SURFACE
+    );
+  }, [getDataCsv, sources]);
+
   function renderContent(): ReactElement {
     if (!renderReady(mapType)) {
       return null;
@@ -191,7 +351,7 @@ export function ChartLoader(): ReactElement {
 
     const footer = document.getElementById("metadata").dataset.footer || "";
     return (
-      <div className="chart-region">
+      <div className="chart-region" ref={containerRef}>
         <Chart
           geoJsonData={chartStore.geoJson.data}
           mapDataValues={chartStore.mapValuesDates.data.mapValues}
@@ -213,6 +373,9 @@ export function ChartLoader(): ReactElement {
           }
           facetListLoading={facetListLoading}
           facetListError={facetListError}
+          handleEmbed={handleEmbed}
+          getObservationSpecs={getObservationSpecs}
+          containerRef={containerRef}
         >
           {display.value.showTimeSlider &&
             sampleDates &&
@@ -245,6 +408,12 @@ export function ChartLoader(): ReactElement {
           />
         )}
         {footer && <div className="footer">* {footer}</div>}
+        <ChartEmbed
+          ref={embedModalElement}
+          facets={facets}
+          statVarSpecs={currentStatVarSpec ? [currentStatVarSpec] : []}
+          statVarToFacets={statVarToFacets}
+        />
       </div>
     );
   }
