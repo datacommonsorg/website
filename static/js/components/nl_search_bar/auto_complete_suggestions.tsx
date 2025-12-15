@@ -129,6 +129,17 @@ export function AutoCompleteSuggestions(
         color: ${theme.searchSuggestions.hover.icon};
       }
     }
+    & > .SuggestionIconwrapper {
+      ${theme.typography.text.lg}
+      line-height: 1rem;
+      color: ${theme.searchSuggestions.base.icon};
+    }
+    & > span {
+      ${theme.typography.family.text}
+      ${theme.typography.text.md}
+                  line-height: 1rem;
+      color: ${theme.searchSuggestions.base.text};
+    }
   `;
 
   const LoadMoreWrapper = styled.div`
@@ -148,6 +159,15 @@ export function AutoCompleteSuggestions(
     &&:hover {
       background-color: ${theme.searchSuggestions.hover.background};
     }
+    & > .LoadMoreIconWrapper {
+      ${theme.typography.text.lg}
+      line-height: 1rem;
+    }
+    & > span {
+      ${theme.typography.family.text}
+      ${theme.typography.text.md}
+      line-height: 1rem;
+    }
   `;
 
   return (
@@ -164,24 +184,10 @@ export function AutoCompleteSuggestions(
               onClick={(): void => props.onClick(result, idx)}
               $hovered={idx === props.hoveredIdx}
             >
-              <div
-                css={css`
-                  ${theme.typography.text.lg}
-                  line-height: 1rem;
-                  color: ${theme.searchSuggestions.base.icon};
-                `}
-              >
+              <div className="SuggestionIconwrapper">
                 {getIcon(result, props.baseInput)}
               </div>
-              <span
-                data-testid="query-result"
-                css={css`
-                  ${theme.typography.family.text}
-                  ${theme.typography.text.md}
-                  line-height: 1rem;
-                  color: ${theme.searchSuggestions.base.text};
-                `}
-              >
+              <span data-testid="query-result">
                 {parts[0]}
                 {result.name}
                 {parts.length > 1 && parts[1]}
@@ -200,24 +206,10 @@ export function AutoCompleteSuggestions(
           }}
         >
           <LoadMoreWrapper>
-            <div
-              css={css`
-                ${theme.typography.text.lg}
-                line-height: 1rem;
-              `}
-            >
+            <div className="loadMoreIconWrapper">
               <KeyboardArrowDown />
             </div>
-            <span
-              data-testid="query-result"
-              css={css`
-                ${theme.typography.family.text}
-                ${theme.typography.text.md}
-                  line-height: 1rem;
-              `}
-            >
-              Load More Results
-            </span>
+            <span data-testid="query-result">Load More Results</span>
           </LoadMoreWrapper>
         </div>
       )}
