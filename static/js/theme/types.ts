@@ -31,6 +31,12 @@ export interface TextVariant {
       };
 }
 
+export interface FontFamily {
+  fontFamily: string;
+  fontStyle: string;
+  [key: string]: string;
+}
+
 interface ButtonVariant {
   backgroundColor: string;
   color: string;
