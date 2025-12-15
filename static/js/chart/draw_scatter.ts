@@ -941,7 +941,7 @@ export function drawScatter(
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
     .style("opacity", "0.7")
-    .on("click", (point: Point) => redirectAction(point.place.dcid));
+    .on("click", (_: MouseEvent, point: Point) => redirectAction(point.place.dcid));
 
   const pointSizeScale = options.showPopulation
     ? getPointSizeScale(points, options.showPopulation === SHOW_POPULATION_LOG)
