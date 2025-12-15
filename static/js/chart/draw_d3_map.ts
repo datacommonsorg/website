@@ -167,7 +167,7 @@ const onMouseOver =
     canClickRegion: (placeDcid: string) => boolean,
     containerElement: HTMLDivElement
   ) =>
-  (geo: GeoJsonFeature): void => {
+  (_: MouseEvent, geo: GeoJsonFeature): void => {
     mouseHoverAction(
       containerElement,
       geo.properties.geoDcid,
@@ -179,7 +179,7 @@ const onMouseOver =
 
 const onMouseOut =
   (containerElement: HTMLDivElement) =>
-  (geo: GeoJsonFeature): void => {
+  (_: MouseEvent, geo: GeoJsonFeature): void => {
     mouseOutAction(containerElement, geo.properties.geoDcid, [
       HOVER_HIGHLIGHTED_CLASS_NAME,
       HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
@@ -217,7 +217,7 @@ const onMapClick =
     containerElement: HTMLDivElement,
     redirectAction: (properties: GeoJsonFeatureProperties) => void
   ) =>
-  (geo: GeoJsonFeature): void => {
+  (_: MouseEvent, geo: GeoJsonFeature): void => {
     if (!canClickRegion(geo.properties.geoDcid)) return;
     redirectAction(geo.properties);
     mouseOutAction(containerElement, geo.properties.geoDcid, [
@@ -760,14 +760,14 @@ export function addPolygonLayer(
     .on("click", onClick);
   if (allowMouseover) {
     mapObjects
-      .on("mouseover", (d: GeoJsonFeature) => {
+      .on("mouseover", (_: MouseEvent, d: GeoJsonFeature) => {
         mouseHoverAction(
           containerElement,
           d.properties.geoDcid,
           MAP_POLYGON_HIGHLIGHT_CLASS
         );
       })
-      .on("mouseout", (d: GeoJsonFeature) => {
+      .on("mouseout", (_: MouseEvent, d: GeoJsonFeature) => {
         mouseOutAction(containerElement, d.properties.geoDcid, [
           MAP_POLYGON_HIGHLIGHT_CLASS,
         ]);
@@ -806,14 +806,14 @@ export function addPathLayer(
       return getRegionColor(d.properties.geoDcid);
     })
     .attr("opacity", MAP_PATH_OPACITY)
-    .on("mouseover", (d: GeoJsonFeature) => {
+    .on("mouseover", (_: MouseEvent, d: GeoJsonFeature) => {
       mouseHoverAction(
         containerElement,
         d.properties.geoDcid,
         MAP_PATH_HIGHLIGHT_CLASS
       );
     })
-    .on("mouseout", (d: GeoJsonFeature) => {
+    .on("mouseout", (_: MouseEvent, d: GeoJsonFeature) => {
       mouseOutAction(containerElement, d.properties.geoDcid, [
         MAP_PATH_HIGHLIGHT_CLASS,
       ]);
