@@ -195,6 +195,7 @@ const searchInputCss = (active: boolean): SerializedStyles => css`
     }
   }
 `;
+
 export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
