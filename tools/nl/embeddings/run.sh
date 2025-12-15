@@ -52,7 +52,7 @@ pip3 install -r tools/nl/embeddings/requirements.txt -q
 
 export TOKENIZERS_PARALLELISM=false
 
-python3 -m tools.nl.embeddings.build_embeddings \
+python -m tools.nl.embeddings.build_embeddings \
   --embeddings_name=$embeddings_name \
   --output_dir=$output_dir
 

@@ -30,6 +30,7 @@
     "Median_Earnings_Person_Male",
     "dc/topic/MedianHouseholdIncomeByGender",
     "dc/topic/MedianHouseholdIncomeByRace",
+    "Median_Earnings_Person_16OrMoreYears",
     "Median_Income_Person_25OrMoreYears_EducationalAttainmentGraduateOrProfessionalDegree_WithIncome",
     "Mean_Income_Household",
     "Median_Income_Person_18OrMoreYears_Civilian_WithIncome",
@@ -37,7 +38,6 @@
     "Median_Income_Person_25OrMoreYears_EducationalAttainmentSomeCollegeOrAssociatesDegree_WithIncome",
     "Median_Income_Household_MarriedCoupleFamilyHousehold",
     "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn",
-    "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
-    "Median_Income_Household_HouseholderRaceWhiteAlone"
+    "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
   ]
 }
