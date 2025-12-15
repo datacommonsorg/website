@@ -19,14 +19,6 @@
   --link-color: #514ea3;
   --footer-background: white;
   --dc-red-fade: #40d4e033;
-  /* 
-  * TODO: Update the font stack when custom fonts are added, and replace the use of font-family elements. 
-  */
-  --font-family: "Open Sans", "Roboto", "Segoe UI", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", Arial, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-}
-
-html, body {
-  font-family: var(--font-family);
 }
 
 #main-header {
