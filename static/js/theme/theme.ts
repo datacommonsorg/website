@@ -514,12 +514,17 @@ const theme: Theme = {
     base: {
       background: "#F6F9FF",
       icon: "#777777",
-      text: "#5e5e5e",
+      text: "#111111",
     },
     hover: {
       background: "#e9eef6",
       icon: "#0B57D0",
-      text: "#222222",
+      text: "#5e5e5e",
+    },
+    more: {
+      background: "#F6F9FF",
+      icon: "#0B57D0",
+      text: "#0B57D0",
     },
   },
 };

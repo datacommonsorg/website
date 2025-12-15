@@ -30,6 +30,7 @@ import {
 } from "../../shared/ga_events";
 import { stripPatternFromQuery } from "../../shared/util";
 import theme from "../../theme/theme";
+import { KeyboardArrowDown } from "../elements/icons/keyboard_arrow_down";
 import { Location } from "../elements/icons/location";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteResult } from "./auto_complete_input";
@@ -121,17 +122,19 @@ export function AutoCompleteSuggestions(
                   padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
                   cursor: pointer;
                   border-top: 1px solid ${theme.searchSuggestions.border};
-                  background-color: ${theme.searchSuggestions.base.background};
+                  background-color: ${idx === props.hoveredIdx
+                    ? theme.searchSuggestions.hover.background
+                    : theme.searchSuggestions.base.background};
+                  span {
+                    color: ${theme.searchSuggestions.base.text};
+                  }
                 }
                 &&:hover {
                   background-color: ${idx === props.hoveredIdx
-                    ? theme.searchSuggestions.base.background
-                    : theme.searchSuggestions.hover.background};
+                    ? theme.searchSuggestions.hover.background
+                    : theme.searchSuggestions.base.background};
                   div {
                     color: ${theme.searchSuggestions.hover.icon};
-                  }
-                  span {
-                    color: ${theme.searchSuggestions.hover.text};
                   }
                 }
               `}
@@ -173,21 +176,42 @@ export function AutoCompleteSuggestions(
         >
           <div
             css={css`
-              margin: 0;
-              padding: 0;
-              border: 0;
-              display: flex;
-              align-items: center;
-              gap: ${theme.spacing.md}px;
-              padding: 0 ${theme.spacing.lg}px;
+              && {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                display: flex;
+                align-items: center;
+                gap: ${theme.spacing.md}px;
+                padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
+                cursor: pointer;
+                border-top: 1px solid ${theme.searchSuggestions.border};
+                background-color: ${theme.searchSuggestions.more.background};
+                color: ${theme.searchSuggestions.more.text};
+              }
+              &&:hover {
+                background-color: ${theme.searchSuggestions.hover.background};
+              }
             `}
           >
-            <span className="search-result-icon">
-              <span className="material-icons-outlined">expand_more</span>
-            </span>
-            <div className="query-result">
-              <span>Load More</span>
+            <div
+              css={css`
+                ${theme.typography.text.lg}
+                line-height: 1rem;
+              `}
+            >
+              <KeyboardArrowDown />
             </div>
+            <span
+              data-testid="query-result"
+              css={css`
+                ${theme.typography.family.text}
+                ${theme.typography.text.md}
+                  line-height: 1rem;
+              `}
+            >
+              Load More Results
+            </span>
           </div>
         </div>
       )}
