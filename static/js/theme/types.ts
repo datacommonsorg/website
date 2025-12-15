@@ -433,5 +433,10 @@ export interface Theme {
       icon: string;
       text: string;
     };
+    more: {
+      background: string;
+      icon: string;
+      text: string;
+    };
   };
 }
