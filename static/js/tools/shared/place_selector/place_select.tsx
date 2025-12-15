@@ -70,7 +70,7 @@ export function PlaceSelect(props: PlaceSelectProps): JSX.Element {
 
           // Override old search icon styling
           #search-icon {
-            margin: 0 -32px 0 16px !important;
+            margin: 32px -32px 0 16px !important;
             position: relative !important;
             top: 0 !important;
           }
