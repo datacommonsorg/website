@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -149,6 +151,11 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
                                  value='search-input-result-section')
     self.assertEqual(len(initial_results), 6)
     search_box_input.clear()
+    # Sleeping this way is not ideal.
+    # However, without it, it does not always clear the search box,
+    # and the call below ends up searching for "gdpHousehold Income".
+    # The sleep gives it time to clear and deflakes the test.
+    time.sleep(1)
 
     # Test load more stat var results
     search_box_input.send_keys("Household Income")
