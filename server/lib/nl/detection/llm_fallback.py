@@ -93,8 +93,18 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     ptype = utils.get_contained_in_type(heuristic.classifications)
     if ptype != ContainedInPlaceType.COUNTRY and not futils.has_place(
         prev_uttr) and not futils.has_entity(prev_uttr):
-      ctr.info('info_fallback_no_place_found', '')
-      need_place = True
+      # If we have detected comparison/correlation and multiple SVs, we should
+      # trust the heuristic detector even if no place is found (defaulting to
+      # Earth etc).
+      has_comparison = any(cl.type == ClassificationType.COMPARISON or
+                           cl.type == ClassificationType.CORRELATION
+                           for cl in heuristic.classifications)
+      # Check if we have multi-sv pair.
+      has_multi_sv = bool(dutils.get_multi_sv_pair(heuristic))
+      
+      if not (has_comparison and has_multi_sv):
+        ctr.info('info_fallback_no_place_found', '')
+        need_place = True
 
   # 3. Use some heuristics to tell if it is a complex query.
   if _is_complex_query(heuristic, ctr):
