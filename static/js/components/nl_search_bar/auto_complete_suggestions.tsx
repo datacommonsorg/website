@@ -19,7 +19,6 @@
  */
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { ReactElement, useEffect, useState } from "react";
 
@@ -38,6 +37,85 @@ import { AutoCompleteResult } from "./auto_complete_input";
 
 const INITIAL_VISIBLE_RESULTS = 5;
 const RESULTS_TO_LOAD = 20;
+
+// Styled Components
+
+const AutoCompleteSuggestionsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
+
+type SuggestionRowProps = {
+  $hovered: boolean;
+};
+
+const SuggestionRow = styled("div", {
+  shouldForwardProp: (prop) => prop !== "$hovered",
+})<SuggestionRowProps>`
+  && {
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.md}px;
+    padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
+    cursor: pointer;
+    border-top: 1px solid ${theme.searchSuggestions.border};
+    background-color: ${({ $hovered }): string =>
+      $hovered
+        ? theme.searchSuggestions.hover.background
+        : theme.searchSuggestions.base.background};
+    span {
+      color: ${theme.searchSuggestions.base.text};
+    }
+  }
+  &&:hover {
+    background-color: ${theme.searchSuggestions.hover.background};
+    div {
+      color: ${theme.searchSuggestions.hover.icon};
+    }
+  }
+  & > .SuggestionIconwrapper {
+    ${theme.typography.text.lg}
+    line-height: 1rem;
+    color: ${theme.searchSuggestions.base.icon};
+  }
+  & > span {
+    ${theme.typography.family.text}
+    ${theme.typography.text.md}
+                line-height: 1rem;
+    color: ${theme.searchSuggestions.base.text};
+  }
+`;
+
+const LoadMoreWrapper = styled.div`
+  && {
+    margin: 0;
+    border: 0;
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.md}px;
+    padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
+    cursor: pointer;
+    border-top: 1px solid ${theme.searchSuggestions.border};
+    background-color: ${theme.searchSuggestions.more.background};
+    color: ${theme.searchSuggestions.more.text};
+  }
+  &&:hover {
+    background-color: ${theme.searchSuggestions.hover.background};
+  }
+  & > .loadMoreIconWrapper {
+    ${theme.typography.text.lg}
+    line-height: 1rem;
+  }
+  & > span {
+    ${theme.typography.family.text}
+    ${theme.typography.text.md}
+    line-height: 1rem;
+  }
+`;
 
 interface AutoCompleteSuggestionsPropType {
   allResults: AutoCompleteResult[];
@@ -90,88 +168,8 @@ export function AutoCompleteSuggestions(
     props.allResults.length > visibleCount &&
     props.allResults.some((r) => r.matchType === "stat_var_search");
 
-  // Styled Components
-
-  const ComponentWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    overflow-y: auto;
-    overfow-x: hidden;
-  `;
-
-  type SuggestionRowProps = {
-    $hovered: boolean;
-  };
-
-  const SuggestionRow = styled("div", {
-    shouldForwardProp: (prop) => prop !== "$hovered",
-  })<SuggestionRowProps>`
-    && {
-      display: flex;
-      align-items: center;
-      gap: ${theme.spacing.md}px;
-      padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
-      cursor: pointer;
-      border-top: 1px solid ${theme.searchSuggestions.border};
-      background-color: ${({ $hovered }) =>
-        $hovered
-          ? theme.searchSuggestions.hover.background
-          : theme.searchSuggestions.base.background};
-      span {
-        color: ${theme.searchSuggestions.base.text};
-      }
-    }
-    &&:hover {
-      background-color: ${theme.searchSuggestions.hover.background};
-      div {
-        color: ${theme.searchSuggestions.hover.icon};
-      }
-    }
-    & > .SuggestionIconwrapper {
-      ${theme.typography.text.lg}
-      line-height: 1rem;
-      color: ${theme.searchSuggestions.base.icon};
-    }
-    & > span {
-      ${theme.typography.family.text}
-      ${theme.typography.text.md}
-                  line-height: 1rem;
-      color: ${theme.searchSuggestions.base.text};
-    }
-  `;
-
-  const LoadMoreWrapper = styled.div`
-    && {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      display: flex;
-      align-items: center;
-      gap: ${theme.spacing.md}px;
-      padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
-      cursor: pointer;
-      border-top: 1px solid ${theme.searchSuggestions.border};
-      background-color: ${theme.searchSuggestions.more.background};
-      color: ${theme.searchSuggestions.more.text};
-    }
-    &&:hover {
-      background-color: ${theme.searchSuggestions.hover.background};
-    }
-    & > .LoadMoreIconWrapper {
-      ${theme.typography.text.lg}
-      line-height: 1rem;
-    }
-    & > span {
-      ${theme.typography.family.text}
-      ${theme.typography.text.md}
-      line-height: 1rem;
-    }
-  `;
-
   return (
-    <ComponentWrapper tabIndex={-1}>
+    <AutoCompleteSuggestionsWrapper tabIndex={-1}>
       {props.allResults
         .slice(0, visibleCount)
         .map((result: AutoCompleteResult, idx: number) => {
@@ -213,6 +211,6 @@ export function AutoCompleteSuggestions(
           </LoadMoreWrapper>
         </div>
       )}
-    </ComponentWrapper>
+    </AutoCompleteSuggestionsWrapper>
   );
 }
