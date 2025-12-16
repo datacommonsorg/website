@@ -43,3 +43,5 @@ substitutions:
 
 options:
   machineType: "N1_HIGHCPU_8"
+
+timeout: 600s # 10 minutes
