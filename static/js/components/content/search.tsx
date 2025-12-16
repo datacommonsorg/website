@@ -85,5 +85,3 @@ export function Search({ className, children }: SearchProps): ReactElement {
     </div>
   );
 }
-
-export default Search;
