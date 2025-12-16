@@ -37,4 +37,4 @@ if [[ -n "${test_filter}" ]]; then
   pytest_args+=("-m" "${test_filter}")
 fi
 
-python3 -m pytest "${pytest_args[@]}" server/webdriver/cdc_tests/ "$@"
+uv run --project server --group test -- pytest "${pytest_args[@]}" server/webdriver/cdc_tests/ "$@"
