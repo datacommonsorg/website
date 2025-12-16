@@ -28,12 +28,6 @@ import theme from "../../theme/theme";
 import { NlSearchBar } from "../nl_search_bar";
 
 export interface SearchProps {
-  // Pre-fill text in the search box (overrides URL hash).
-  query?: string;
-  // Debug data forwarded to <SearchSection/> (optional).
-  debugData?: any;
-  // Custom explore context; derived from URL if omitted.
-  exploreContext?: any;
   // Custom class name for the outer <div>.
   className?: string;
   // Optional Markdown/JSX shown as an introduction above the search bar.
