@@ -39,12 +39,6 @@ test = [
 [tool.uv]
 managed = true
 
-# Use PyPI as the default index so public packages work
-[[tool.uv.index]]
-name = "pypi"
-url = "https://pypi.org/simple"
-default = true
-
 # Add pytorch index
 [[tool.uv.index]]
 name = "pytorch-cpu"
