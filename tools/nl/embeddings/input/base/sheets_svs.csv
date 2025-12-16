@@ -3667,3 +3667,4 @@ Count_Person_WageAndSalaryWorker_Employed,Number of salaried workers
 Count_Person_EducationalAttainmentUniversityGraduate_Unemployed,Number of unemployed graduates
 Count_Person_EducationalAttainmentMiddleSchool_Unemployed,Number of unemployed people with middle school education
 Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange,Adjusted Quarterly Real GDP growth
+Median_Earnings_Person_16OrMoreYears,median earning of person of age 16 years and above
