@@ -45,8 +45,12 @@ const AutoCompleteSuggestionsWrapper = styled.div`
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
+  .SuggestionsResults {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
 `;
 
 type SuggestionRowProps = {
@@ -77,7 +81,7 @@ const SuggestionRow = styled("div", {
       color: ${theme.searchSuggestions.hover.icon};
     }
   }
-  & > .SuggestionIconwrapper {
+  .SuggestionIconwrapper {
     ${theme.typography.text.lg}
     line-height: 1rem;
     color: ${theme.searchSuggestions.base.icon};
@@ -85,7 +89,7 @@ const SuggestionRow = styled("div", {
   & > span {
     ${theme.typography.family.text}
     ${theme.typography.text.md}
-                line-height: 1rem;
+    line-height: 1rem;
     color: ${theme.searchSuggestions.base.text};
   }
 `;
@@ -129,12 +133,22 @@ interface AutoCompleteSuggestionsPropType {
 export function AutoCompleteSuggestions(
   props: AutoCompleteSuggestionsPropType
 ): ReactElement {
+  const showLoadMoreEligible = props.allResults.some(
+    (r) => r.matchType === "stat_var_search"
+  );
+  const calculatedInitalVisibleResults = showLoadMoreEligible
+    ? INITIAL_VISIBLE_RESULTS - 1
+    : INITIAL_VISIBLE_RESULTS;
   const [triggered, setTriggered] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_RESULTS);
+  const [visibleCount, setVisibleCount] = useState(
+    calculatedInitalVisibleResults
+  );
+  const showLoadMore =
+    props.allResults.length > visibleCount && showLoadMoreEligible;
 
   useEffect(() => {
     // Whenever the results change for a new query, reset the visible count.
-    setVisibleCount(INITIAL_VISIBLE_RESULTS);
+    setVisibleCount(calculatedInitalVisibleResults);
   }, [props.allResults]);
 
   function getIcon(
@@ -164,53 +178,51 @@ export function AutoCompleteSuggestions(
     }
   }, [props.allResults, props.baseInput, triggered]);
 
-  const showLoadMore =
-    props.allResults.length > visibleCount &&
-    props.allResults.some((r) => r.matchType === "stat_var_search");
-
   return (
     <AutoCompleteSuggestionsWrapper tabIndex={-1}>
-      {props.allResults
-        .slice(0, visibleCount)
-        .map((result: AutoCompleteResult, idx: number) => {
-          const fullText = result.fullText;
-          const parts = fullText.split(result.name);
-          return (
-            <SuggestionRow
-              data-testid="search-input-result-section"
-              key={"search-input-result-" + result.dcid}
-              onClick={(): void => props.onClick(result, idx)}
-              $hovered={idx === props.hoveredIdx}
-            >
-              <div className="SuggestionIconwrapper">
-                {getIcon(result, props.baseInput)}
+      <div className="SuggestionsResults">
+        {props.allResults
+          .slice(0, visibleCount)
+          .map((result: AutoCompleteResult, idx: number) => {
+            const fullText = result.fullText;
+            const parts = fullText.split(result.name);
+            return (
+              <SuggestionRow
+                data-testid="search-input-result-section"
+                key={"search-input-result-" + result.dcid}
+                onClick={(): void => props.onClick(result, idx)}
+                $hovered={idx === props.hoveredIdx}
+              >
+                <div className="SuggestionIconwrapper">
+                  {getIcon(result, props.baseInput)}
+                </div>
+                <span data-testid="query-result">
+                  {parts[0]}
+                  {result.name}
+                  {parts.length > 1 && parts[1]}
+                </span>
+              </SuggestionRow>
+            );
+          })}
+        {showLoadMore && (
+          <div
+            className="search-input-result-section load-more-section"
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_AUTOCOMPLETE_LOAD_MORE, {
+                [GA_PARAM_QUERY]: props.baseInput,
+              });
+              setVisibleCount(visibleCount + RESULTS_TO_LOAD);
+            }}
+          >
+            <LoadMoreWrapper>
+              <div className="loadMoreIconWrapper">
+                <KeyboardArrowDown />
               </div>
-              <span data-testid="query-result">
-                {parts[0]}
-                {result.name}
-                {parts.length > 1 && parts[1]}
-              </span>
-            </SuggestionRow>
-          );
-        })}
-      {showLoadMore && (
-        <div
-          className="search-input-result-section load-more-section"
-          onClick={(): void => {
-            triggerGAEvent(GA_EVENT_AUTOCOMPLETE_LOAD_MORE, {
-              [GA_PARAM_QUERY]: props.baseInput,
-            });
-            setVisibleCount(visibleCount + RESULTS_TO_LOAD);
-          }}
-        >
-          <LoadMoreWrapper>
-            <div className="loadMoreIconWrapper">
-              <KeyboardArrowDown />
-            </div>
-            <span data-testid="query-result">Load More Results</span>
-          </LoadMoreWrapper>
-        </div>
-      )}
+              <span data-testid="query-result">Load More Results</span>
+            </LoadMoreWrapper>
+          </div>
+        )}
+      </div>
     </AutoCompleteSuggestionsWrapper>
   );
 }
