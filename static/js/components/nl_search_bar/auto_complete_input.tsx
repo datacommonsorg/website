@@ -130,7 +130,7 @@ const SearchWrapper = styled("div", {
   border-radius: ${theme.search.radius};
   overflow: hidden;
   max-height: calc(${theme.searchSuggestions.height} + ${theme.search.height});
-  & > .searchGroup {
+  .searchGroup {
     margin: 0;
     border: 0;
     display: flex;
@@ -138,7 +138,7 @@ const SearchWrapper = styled("div", {
     gap: ${theme.spacing.md}px;
     padding: 0 ${theme.spacing.lg}px;
   }
-  & > .searchInputIcon {
+  .searchInputIcon {
     ${theme.typography.text.lg}
     line-height: 1rem;
     margin: 0;
