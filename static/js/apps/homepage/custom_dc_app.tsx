@@ -20,11 +20,10 @@
 
 /** @jsxImportSource @emotion/react */
 
-import { ThemeProvider } from "@emotion/react";
-import { CSSObject } from "@emotion/react";
+import { CSSObject, ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import Search from "../../components/content/search";
+import { Search } from "../../components/content/search";
 import { Tools } from "../../components/content/tools";
 import { Section } from "../../components/elements/layout/section";
 import { Routes } from "../../shared/types/base";
