@@ -1,12 +1,6 @@
 version = 1
 revision = 3
 requires-python = ">=3.11, <3.13"
-resolution-markers = [
-    "python_full_version >= '3.12' and sys_platform != 'darwin'",
-    "python_full_version < '3.12' and sys_platform != 'darwin'",
-    "python_full_version >= '3.12' and sys_platform == 'darwin'",
-    "python_full_version < '3.12' and sys_platform == 'darwin'",
-]
 
 [[package]]
 name = "absl-py"
@@ -345,6 +339,9 @@ dependencies = [
     { name = "pydantic" },
     { name = "pygithub" },
     { name = "pyopenssl" },
+    { name = "pytest-flakefinder" },
+    { name = "pytest-rerunfailures" },
+    { name = "pytest-xdist" },
     { name = "python-dateutil" },
     { name = "pyyaml" },
     { name = "redis" },
@@ -354,14 +351,6 @@ dependencies = [
     { name = "webdriver-manager" },
     { name = "werkzeug" },
     { name = "wheel" },
-]
-
-[package.dev-dependencies]
-test = [
-    { name = "pytest" },
-    { name = "pytest-flakefinder" },
-    { name = "pytest-rerunfailures" },
-    { name = "pytest-xdist" },
 ]
 
 [package.metadata]
@@ -408,6 +397,9 @@ requires-dist = [
     { name = "pydantic", specifier = "==2.11.1" },
     { name = "pygithub", specifier = "==1.58.2" },
     { name = "pyopenssl", specifier = "==23.2.0" },
+    { name = "pytest-flakefinder", specifier = "==1.1.0" },
+    { name = "pytest-rerunfailures", specifier = "==10.2" },
+    { name = "pytest-xdist", specifier = "==3.2.1" },
     { name = "python-dateutil", specifier = ">=2.9.0.post0,<3.0.0" },
     { name = "pyyaml", specifier = "==6.0.2" },
     { name = "redis", specifier = "==4.5.4" },
@@ -417,14 +409,6 @@ requires-dist = [
     { name = "webdriver-manager", specifier = "==4.0.0" },
     { name = "werkzeug", specifier = "==3.0.6" },
     { name = "wheel", specifier = "==0.38.1" },
-]
-
-[package.metadata.requires-dev]
-test = [
-    { name = "pytest", specifier = "==9.0.2" },
-    { name = "pytest-flakefinder", specifier = "==1.1.0" },
-    { name = "pytest-rerunfailures", specifier = "==10.2" },
-    { name = "pytest-xdist", specifier = "==3.2.1" },
 ]
 
 [[package]]
@@ -1897,7 +1881,7 @@ wheels = [
 
 [[package]]
 name = "pytest"
-version = "9.0.2"
+version = "9.0.1"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
 dependencies = [
     { name = "colorama", marker = "sys_platform == 'win32'" },
@@ -1906,9 +1890,9 @@ dependencies = [
     { name = "pluggy" },
     { name = "pygments" },
 ]
-sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pytest/pytest-9.0.2.tar.gz", hash = "sha256:75186651a92bd89611d1d9fc20f0b4345fd827c41ccd5c299a868a05d70edf11" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pytest/pytest-9.0.1.tar.gz", hash = "sha256:3e9c069ea73583e255c3b21cf46b8d3c56f6e3a1a8f6da94ccb0fcf57b9d73c8" }
 wheels = [
-    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pytest/pytest-9.0.2-py3-none-any.whl", hash = "sha256:711ffd45bf766d5264d487b917733b453d917afd2b0ad65223959f59089f875b" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pytest/pytest-9.0.1-py3-none-any.whl", hash = "sha256:67be0030d194df2dfa7b556f2e56fb3c3315bd5c8822c6951162b92b32ce7dad" },
 ]
 
 [[package]]
@@ -2322,7 +2306,7 @@ version = "0.32.0"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
 dependencies = [
     { name = "attrs" },
-    { name = "cffi", marker = "implementation_name != 'pypy' and os_name == 'nt' and sys_platform != 'darwin'" },
+    { name = "cffi", marker = "implementation_name != 'pypy' and os_name == 'nt'" },
     { name = "idna" },
     { name = "outcome" },
     { name = "sniffio" },
