@@ -60,6 +60,7 @@ dependencies = [
 
 [dependency-groups]
 test = [
+    "pytest==9.0.2",
     "pytest-flakefinder==1.1.0",
     "pytest-rerunfailures==10.2",
     "pytest-xdist==3.2.1",
