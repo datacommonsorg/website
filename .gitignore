@@ -29,6 +29,7 @@ __pycache__/
 .env
 .env.list
 custom_dc/.env-test
+*.code-workspace
 
 # Mac
 .DS_Store
