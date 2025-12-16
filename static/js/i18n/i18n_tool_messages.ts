@@ -281,4 +281,34 @@ export const VisToolExampleChartMessages = defineMessages({
     description:
       "Title of a line chart plotting the statistical variable 'poverty' for both Berkeley, USA and Piedmont, USA",
   },
+  projectedTemperatureRiseInUsa: {
+    id: "projected_temperature_rise_in_the_usa",
+    defaultMessage: "Projected temperature rise in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'projected temperature rise' in counties of the USA",
+  },
+  medianAgeInUsa: {
+    id: "median_age_in_the_usa",
+    defaultMessage: "Median age in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'median age' in counties of the USA",
+  },
+  noSchoolingCompletedInUsa: {
+    id: "no_schooling_completed_in_the_usa",
+    defaultMessage: "No schooling completed in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'no schooling completed' in counties of the USA",
+  },
+  carbonDioxideEmissionsInUsCounties: {
+    id: "carbon_dioxide_emissions_in_us_counties",
+    defaultMessage: "Carbon dioxide emissions in US counties",
+    description:
+      "Title of a map plotting the statistical variable 'carbon dioxide emissions' in counties of the USA",
+  },
+  populationInPovertyPerCapitaVsMeanSolarInsolationInCaliforniaCounties: {
+    id: "population_in_poverty_per_capita_vs_mean_solar_insolation_in_california_counties",
+    defaultMessage: "Population in poverty per capita vs mean solar insolation in California counties",
+    description:
+      "Title of a scatter plot showing the correlation between the population in poverty per capita and mean solar insolation in California counties",
+  },
 });

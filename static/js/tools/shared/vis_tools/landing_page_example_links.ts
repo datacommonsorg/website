@@ -58,6 +58,34 @@ export const landingPageLinks: LandingPageLinkConfig = {
       ),
       url: "/tools/map#%26sv%3DCount_Person_EducationalAttainmentBachelorsDegreeOrHigher%26pc%3D1%26denom%3DCount_Person%26pd%3DgeoId%2F08%26ept%3DCounty",
     },
+    {
+      id: "map_projected_temperature_rise_in_the_usa",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.projectedTemperatureRiseInUsa
+      ),
+      url: "/tools/map#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    },
+    {
+      id: "map_median_age_in_usa",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.medianAgeInUsa
+      ),
+      url: "/tools/map#%26sv%3DMedian_Age_Person%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    },
+    {
+      id: "map_no_schooling_completed_in_usa",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.noSchoolingCompletedInUsa
+      ),
+      url: "/tools/map#%26sv%3DCount_Person_EducationalAttainmentNoSchoolingCompleted%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    },
+    {
+      id: "map_carbon_dioxide_emissions_in_us_counties",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.carbonDioxideEmissionsInUsCounties
+      ),
+      url: "/tools/map#%26sv%3DCount_Person_EducationalAttainmentNoSchoolingCompleted%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    }
   ],
   scatterLinks: [
     {
@@ -74,6 +102,13 @@ export const landingPageLinks: LandingPageLinkConfig = {
       ),
       url: "/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26pcx%3D1%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3Dcountry%2FIND%26ept%3DAdministrativeArea1%26ct%3D1%26pp%3D",
     },
+    {
+      id: "scatter_population_in_poverty_per_capita_vs_mean_solar_insolation_in_california_counties",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.populationInPovertyPerCapitaVsMeanSolarInsolationInCaliforniaCounties
+      ),
+      url: "/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26pcx%3D1%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F06%26ept%3DCounty%26ct%3D1%26pp%3D",
+    }
   ],
   timelineLinks: [
     {
