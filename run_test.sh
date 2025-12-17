@@ -413,8 +413,8 @@ function update_integration_test_golden {
   start_servers
   assert_website_python
   # Should update topic cache first as it's used by the following tests.
-  uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
-  uv run --project server python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
+  uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
+  uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
   stop_servers
 }
 
