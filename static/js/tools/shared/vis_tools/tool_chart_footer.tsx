@@ -17,20 +17,26 @@
 /**
  * Footer for charts created by the different tools
  */
-
+/** @jsxImportSource @emotion/react */
+import { css, useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 import _ from "lodash";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, RefObject, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
+import { ApiButton } from "../../../components/tiles/components/api_button";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   triggerGAEvent,
 } from "../../../shared/ga_events";
+import { ObservationSpec } from "../../../shared/observation_specs";
 import { urlToDisplayText } from "../../../shared/util";
+import { FontFamily, TextVariant } from "../../../theme/types";
 
 interface ToolChartFooterProps {
   // Id of the chart this footer is being added to.
@@ -47,13 +53,65 @@ interface ToolChartFooterProps {
   onIsPerCapitaUpdated?: (isPerCapita: boolean) => void;
   // children components
   children?: React.ReactNode;
+  // a function passed through from the chart that handles the task
+  // of creating the embedding used in the download functionality.
+  handleEmbed?: () => void;
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
+  // A ref to the chart container element.
+  containerRef?: RefObject<HTMLElement>;
 }
 
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
 const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const SELECTOR_PREFIX = "chart-footer";
 
+const ChartFooterActionWrapper = styled.p`
+  display: flex;
+  align-items: center;
+  gap: ${(props): number => props.theme.spacing.xs}px;
+  margin: 0;
+  padding: 0;
+  ${(props): FontFamily => props.theme.typography.family.text}
+  ${(props): TextVariant => props.theme.typography.text.xs}
+  color: ${(props): string => props.theme.colors.link.primary.base};
+  & > a {
+    margin: 0;
+    padding: 0;
+  }
+  & > .material-icons-outlined {
+    ${(props): TextVariant => props.theme.typography.text.md}
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const ChartFooterMetaDataWrapper = styled.p`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  ${(props): FontFamily => props.theme.typography.family.text}
+  ${(props): TextVariant => props.theme.typography.text.xs}
+  line-height: 1.2rem;
+  color: ${(props): string => props.theme.colors.text.tertiary.base};
+  & > a {
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+    color: ${(props): string => props.theme.colors.text.tertiary.base};
+    &:hover {
+      color: ${(props): string => props.theme.colors.link.primary.base};
+    }
+  }
+`;
+
 export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
+  const theme = useTheme();
+
   const mMethods = !_.isEmpty(props.mMethods)
     ? Array.from(props.mMethods).join(", ")
     : "";
@@ -66,27 +124,79 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
         className={`${SELECTOR_PREFIX}-container ${
           chartOptionsOpened ? "no-bottom-border" : ""
         }`}
+        css={css`
+          && {
+            display: flex;
+            @media (max-width: ${theme.breakpoints.sm}px) {
+              flex-direction: column;
+              align-items: stretch;
+              justify-content: stretch;
+              gap: ${theme.spacing.md}px;
+            }
+          }
+        `}
       >
-        <div className={`${SELECTOR_PREFIX}-metadata-section`}>
+        <div
+          className={`${SELECTOR_PREFIX}-metadata-section`}
+          css={css`
+            display: flex;
+            align-items: center;
+            gap: ${theme.spacing.xs}px ${theme.spacing.md}px;
+            flex-wrap: wrap;
+            @media (max-width: ${theme.breakpoints.sm}px) {
+              border-bottom: 1px solid ${theme.colors.border.primary.light};
+              padding-bottom: ${theme.spacing.md}px;
+            }
+          `}
+        >
+          {props.handleEmbed && (
+            <ChartFooterActionWrapper>
+              <span className="material-icons-outlined">download</span>
+              <a
+                href="#"
+                onClick={(e): void => {
+                  e.preventDefault();
+                  props.handleEmbed();
+                }}
+              >
+                {intl.formatMessage(messages.download)}
+              </a>
+            </ChartFooterActionWrapper>
+          )}
+          {props.getObservationSpecs && (
+            <ChartFooterActionWrapper>
+              <ApiButton
+                getObservationSpecs={props.getObservationSpecs}
+                containerRef={props.containerRef}
+                surface={WEBSITE_SURFACE}
+              />
+            </ChartFooterActionWrapper>
+          )}
           {!_.isEmpty(props.sources) && (
-            <div className={`${SELECTOR_PREFIX}-metadata`}>
-              <span>Data from {getSourcesJsx(props.sources)}</span>
+            <ChartFooterMetaDataWrapper>
+              Data from:&nbsp;{getSourcesJsx(props.sources)}
               {globalThis.viaGoogle
                 ? " " + intl.formatMessage(messages.viaGoogle)
                 : ""}
-            </div>
+            </ChartFooterMetaDataWrapper>
           )}
           {!_.isEmpty(mMethods) && (
-            <div className={`${SELECTOR_PREFIX}-metadata`}>
-              <span>{`Measurement method${
+            <ChartFooterMetaDataWrapper>
+              {`Measurement method${
                 props.mMethods.size > 1 ? "s" : ""
-              }: ${mMethods}`}</span>
-            </div>
+              }: ${mMethods}`}
+            </ChartFooterMetaDataWrapper>
           )}
         </div>
         <div
           onClick={(): void => setChartOptionsOpened(!chartOptionsOpened)}
           className={`${SELECTOR_PREFIX}-options-button`}
+          css={css`
+            && {
+              margin: 0;
+              flex-shrink: 0;
+            }
+          `}
         >
           <span>Chart Options</span>
           {chartOptionsOpened ? UP_ARROW_HTML : DOWN_ARROW_HTML}

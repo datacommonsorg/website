@@ -17,6 +17,7 @@
 import { css, ThemeProvider } from "@emotion/react";
 import _ from "lodash";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
 import { FormBox } from "../../components/form_components/form_box";
@@ -137,96 +138,100 @@ class Page extends Component<unknown, PageStateType> {
     const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
     return (
       <ThemeProvider theme={theme}>
-        <StatVarWidget
-          openSvHierarchyModal={this.state.showSvHierarchyModal}
-          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
-          collapsible={true}
-          svHierarchyType={StatVarHierarchyType.SCATTER}
-          sampleEntities={namedPlaces}
-          deselectSVs={deselectSVs}
-          selectedSVs={svToSvInfo}
-          selectSV={(sv): void =>
-            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
-          }
-          isCollapsedOverride={this.state.statVarWidgetIsCollapsed}
-          setIsCollapsedOverride={this.setStatVarWidgetIsCollapsed}
-        />
-        <div id="plot-container">
-          <Container fluid={true}>
-            {useStandardizedUi ? (
-              <ToolHeader
-                title={intl.formatMessage(toolMessages.timelineToolTitle)}
-                subtitle={intl.formatMessage(toolMessages.timelineToolSubtitle)}
-              />
-            ) : (
-              <div className="app-header">
-                <h1 className="mb-4">
-                  {intl.formatMessage(toolMessages.timelineToolTitle)}
-                </h1>
-                <a href="/tools/visualization#visType%3Dtimeline">
-                  {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
-                </a>
-              </div>
-            )}
-            <div
-              css={css`
-                margin-bottom: ${theme.spacing.lg}px;
-              `}
-            >
-              <FormBox>
-                <PlaceSelect
-                  selectedPlaces={this.state.placeName}
-                  onPlaceSelected={(placeDcid: string): void => {
-                    addToken(
-                      TIMELINE_URL_PARAM_KEYS.PLACE,
-                      placeSep,
-                      placeDcid
-                    );
-                  }}
-                  onPlaceUnselected={(placeDcid: string): void => {
-                    removeToken(
-                      TIMELINE_URL_PARAM_KEYS.PLACE,
-                      placeSep,
-                      placeDcid
-                    );
-                  }}
-                  searchBarInstructionText={intl.formatMessage(
-                    toolMessages.enterPotentiallyMultiplePlacesInstruction
+        <RawIntlProvider value={intl}>
+          <StatVarWidget
+            openSvHierarchyModal={this.state.showSvHierarchyModal}
+            openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
+            collapsible={true}
+            svHierarchyType={StatVarHierarchyType.SCATTER}
+            sampleEntities={namedPlaces}
+            deselectSVs={deselectSVs}
+            selectedSVs={svToSvInfo}
+            selectSV={(sv): void =>
+              addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
+            }
+            isCollapsedOverride={this.state.statVarWidgetIsCollapsed}
+            setIsCollapsedOverride={this.setStatVarWidgetIsCollapsed}
+          />
+          <div id="plot-container">
+            <Container fluid={true}>
+              {useStandardizedUi ? (
+                <ToolHeader
+                  title={intl.formatMessage(toolMessages.timelineToolTitle)}
+                  subtitle={intl.formatMessage(
+                    toolMessages.timelineToolSubtitle
                   )}
                 />
-                <StatVarHierarchyToggleButton
-                  onClickCallback={this.toggleSvHierarchyModal}
-                  text={"Select variable(s)"}
-                />
-              </FormBox>
-            </div>
-            {!showChart &&
+              ) : (
+                <div className="app-header">
+                  <h1 className="mb-4">
+                    {intl.formatMessage(toolMessages.timelineToolTitle)}
+                  </h1>
+                  <a href="/tools/visualization#visType%3Dtimeline">
+                    {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
+                  </a>
+                </div>
+              )}
+              <div
+                css={css`
+                  margin-bottom: ${theme.spacing.lg}px;
+                `}
+              >
+                <FormBox>
+                  <PlaceSelect
+                    selectedPlaces={this.state.placeName}
+                    onPlaceSelected={(placeDcid: string): void => {
+                      addToken(
+                        TIMELINE_URL_PARAM_KEYS.PLACE,
+                        placeSep,
+                        placeDcid
+                      );
+                    }}
+                    onPlaceUnselected={(placeDcid: string): void => {
+                      removeToken(
+                        TIMELINE_URL_PARAM_KEYS.PLACE,
+                        placeSep,
+                        placeDcid
+                      );
+                    }}
+                    searchBarInstructionText={intl.formatMessage(
+                      toolMessages.enterPotentiallyMultiplePlacesInstruction
+                    )}
+                  />
+                  <StatVarHierarchyToggleButton
+                    onClickCallback={this.toggleSvHierarchyModal}
+                    text={"Select variable(s)"}
+                  />
+                </FormBox>
+              </div>
+              {!showChart &&
               (useStandardizedUi ? (
                 showStatVarInstructions ? (
                   <VisToolInstructionsBox toolType="timeline" />
+                  ) : (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="timeline" />
+                    </div>
+                  )
                 ) : (
-                  <div
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="timeline" />
-                  </div>
-                )
-              ) : (
-                <MemoizedInfo />
-              ))}
-            {showChart && (
-              <div id="chart-region">
-                <ChartRegion
-                  placeName={this.state.placeName}
-                  statVarInfo={this.state.statVarInfo}
-                  statVarOrder={statVars}
-                ></ChartRegion>
-              </div>
-            )}
-          </Container>
-        </div>
+                  <MemoizedInfo />
+                ))}
+              {showChart && (
+                <div id="chart-region">
+                  <ChartRegion
+                    placeName={this.state.placeName}
+                    statVarInfo={this.state.statVarInfo}
+                    statVarOrder={statVars}
+                  ></ChartRegion>
+                </div>
+              )}
+            </Container>
+          </div>
+        </RawIntlProvider>
       </ThemeProvider>
     );
   }

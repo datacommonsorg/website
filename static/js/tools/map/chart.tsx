@@ -19,7 +19,13 @@
  */
 
 import * as d3 from "d3";
-import React, { ReactElement, ReactNode, useContext, useEffect } from "react";
+import React, {
+  ReactElement,
+  ReactNode,
+  RefObject,
+  useContext,
+  useEffect,
+} from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
@@ -30,6 +36,7 @@ import {
   GA_PARAM_STAT_VAR,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ObservationSpec } from "../../shared/observation_specs";
 import { StatVarInfo } from "../../shared/stat_var";
 import { DataPointMetadata, NamedPlace } from "../../shared/types";
 import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
@@ -39,10 +46,6 @@ import { D3Map } from "./d3_map";
 // import { LeafletMap } from "./leaflet_map";
 import { getTitle } from "./util";
 
-export enum MAP_TYPE {
-  LEAFLET,
-  D3,
-}
 interface ChartProps {
   geoJsonData: GeoJsonData;
   mapDataValues: { [dcid: string]: number };
@@ -58,10 +61,17 @@ interface ChartProps {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
-  geoRaster: any;
-  mapType: MAP_TYPE;
   children: ReactNode;
   borderGeoJsonData?: GeoJsonData;
+  // A function passed through from the chart that handles the task
+  // of creating the embedding used in the download functionality.
+  handleEmbed?: () => void;
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
+  // A ref to the chart container element.
+  containerRef?: RefObject<HTMLElement>;
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -128,15 +138,6 @@ export function Chart(props: ChartProps): ReactElement {
                 map.
               </div>
             </div>
-            {/* Disable LEAFLET as georaster-layer-for-leaflet can not be compiled server side in commonjs mode, see tsconfing.json "module": "CommonJS" */}
-            {/* {props.mapType === MAP_TYPE.LEAFLET ? (
-              <LeafletMap
-                geoJsonData={props.geoJsonData}
-                geoRaster={props.geoRaster}
-                metadata={props.metadata}
-                unit={props.unit}
-              />
-            ) : ( */}
             <D3Map
               geoJsonData={props.geoJsonData}
               mapDataValues={props.mapDataValues}
@@ -180,11 +181,14 @@ export function Chart(props: ChartProps): ReactElement {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        hideIsRatio={props.mapType === MAP_TYPE.LEAFLET}
+        hideIsRatio={false}
         isPerCapita={statVar.value.perCapita}
         onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
           statVar.setPerCapita(isPerCapita)
         }
+        handleEmbed={props.handleEmbed}
+        getObservationSpecs={props.getObservationSpecs}
+        containerRef={props.containerRef}
       >
         {placeInfo.value.mapPointPlaceType && (
           <div className="chart-option">

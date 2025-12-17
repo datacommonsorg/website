@@ -26,10 +26,6 @@ from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
-# this flag should be the same as ALLOW_LEAFLET_URL_ARG in
-# ../../static/js/tools/map/util.ts
-ALLOW_LEAFLET_FLAG = "leaflet"
-
 
 def get_example_file(tool):
   example_file = os.path.join(current_app.root_path, 'templates/custom_dc',
@@ -64,7 +60,6 @@ def timeline_bulk_download():
 
 @bp.route('/map')
 def map():
-  allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
   with open(get_example_file('map')) as f:
     info_json = json.load(f)
     return flask.render_template(
@@ -73,7 +68,6 @@ def map():
         info_json=info_json,
         use_standardized_ui=is_feature_enabled(
             STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
-        allow_leaflet=allow_leaflet,
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
