@@ -66,8 +66,5 @@ test = [
     "pytest-xdist==3.2.1",
 ]
 
-[tool.uv]
-managed = true
-
 [tool.uv.sources]
 data-gemma = { git = "https://github.com/datacommonsorg/llm-tools.git" }

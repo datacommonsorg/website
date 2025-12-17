@@ -36,9 +36,6 @@ test = [
     "pytest-xdist==3.2.1",
 ]
 
-[tool.uv]
-managed = true
-
 # Add pytorch index
 [[tool.uv.index]]
 name = "pytorch-cpu"
