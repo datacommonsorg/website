@@ -45,22 +45,6 @@ function setup_nl_python {
   uv sync --project nl_server --active
 }
 
-# Assert that website python is set up. If not, set it up.
-function assert_website_python {
-  if [[ ! -d server/.venv ]]; then
-    log_notice "server/.venv does not exist. Setting up website python virtual environment..."
-    setup_website_python
-  fi
-}
-
-# Assert that NL python is set up. If not, set it up.
-function assert_nl_python {
-  if [[ ! -d nl_server/.venv ]]; then
-    log_notice "nl_server/.venv does not exist. Setting up NL python virtual environment..."
-    setup_nl_python
-  fi
-}
-
 # Start website and NL servers in a subprocess and ensure they are stopped
 # if the test script exits before stop_servers is called.
 function start_servers() {
@@ -304,7 +288,6 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  assert_website_python
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     uv run --project server --group test python3 -m pytest -n auto server/webdriver/tests/ "${pytest_args[@]}"
@@ -314,7 +297,6 @@ function run_webdriver_test {
     uv run --project server --group test python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ "${pytest_args[@]}"
   fi
   stop_servers
-  deactivate
 }
 
 # Run test for webdriver automation test codes.
@@ -353,7 +335,6 @@ function run_cdc_webdriver_test {
     fi
   done
 
-  assert_website_python
   uv run --project server --group test python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ "${pytest_args[@]}"
 
 
@@ -375,7 +356,6 @@ function run_integration_test {
   export TEST_MODE=test
 
   start_servers
-  assert_website_python
   uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
   stop_servers
 }
@@ -394,7 +374,6 @@ function update_integration_test_golden {
   fi
   echo "Using ENV_PREFIX=$ENV_PREFIX"
   start_servers
-  assert_website_python
   # Should update topic cache first as it's used by the following tests.
   uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
   uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
