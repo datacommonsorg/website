@@ -38,9 +38,6 @@ function start_servers() {
   # Called on exit via trap, configured below.
   function cleanup() {
     pkill -P $$ || true
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-      deactivate
-    fi
     exit $exit_with
   }
   # On exit, assign status code to a variable and call cleanup.
