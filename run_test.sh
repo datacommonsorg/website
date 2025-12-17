@@ -23,20 +23,17 @@ set -e
 function setup_python {
   assert_uv
   uv venv .venv --allow-existing
-  source .venv/bin/activate
   echo "installing server/requirements.txt"
   uv pip install -r server/requirements.txt -q
   echo "installing torch_requirements.txt"
   uv pip install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
   uv pip install -r nl_server/requirements.txt -q --index-url https://pypi.org/simple
-  deactivate
 }
 
 function setup_website_python {
   assert_uv
   uv venv server/.venv --allow-existing
-  source server/.venv/bin/activate
   echo "installing server requirements to server/.venv"
   uv sync --project server --active
 }
@@ -44,7 +41,6 @@ function setup_website_python {
 function setup_nl_python {
   assert_uv
   uv venv nl_server/.venv --allow-existing
-  source nl_server/.venv/bin/activate
   echo "installing nl_server requirements to nl_server/.venv"
   uv sync --project nl_server --active
 }
