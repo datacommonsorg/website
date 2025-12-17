@@ -20,6 +20,7 @@
 
 import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Container, Row } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -108,23 +109,19 @@ function App(): ReactElement {
           {!showChart && (
             <>
               {useStandardizedUi ? (
-                <>
+                showChooseStatVarMessage ? (
                   <Row>
-                    <VisToolInstructionsBox
-                      toolType="scatter"
-                      showStatVarInstructionsOnly={showChooseStatVarMessage}
-                    />
+                    <VisToolInstructionsBox toolType="scatter" />
                   </Row>
-                  {!showChooseStatVarMessage && (
-                    <Row
-                      css={css`
-                        margin-top: ${theme.spacing.xl}px;
-                      `}
-                    >
-                      <ChartLinkChips toolType="scatter" />
-                    </Row>
-                  )}
-                </>
+                ) : (
+                  <Row
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="scatter" />
+                  </Row>
+                )
               ) : (
                 <Row>
                   <MemoizedInfo />
@@ -155,9 +152,11 @@ function AppWithContext(): ReactElement {
 
   return (
     <ThemeProvider theme={theme}>
-      <Context.Provider value={store}>
-        <App />
-      </Context.Provider>
+      <RawIntlProvider value={intl}>
+        <Context.Provider value={store}>
+          <App />
+        </Context.Provider>
+      </RawIntlProvider>
     </ThemeProvider>
   );
 }
