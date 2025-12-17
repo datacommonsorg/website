@@ -107,6 +107,7 @@ serviceGroups:
     resources:
       memoryRequest: "8G"
       memoryLimit: "8G"
+    cacheSVG: true
     nodePool:
   default:
     urlPaths:
