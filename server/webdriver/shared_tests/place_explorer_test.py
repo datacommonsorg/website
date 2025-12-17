@@ -243,7 +243,9 @@ class PlaceExplorerTestMixin():
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
-    self.assertIsNone(find_elem(self.driver, value='subheader'))
+    # Use find_elements to avoid waiting for timeout when asserting non-existence
+    self.assertEqual(len(self.driver.find_elements(By.CLASS_NAME, 'subheader')),
+                     0)
 
     # Asert the related places box exists
     self.assertEqual(
@@ -501,7 +503,10 @@ class PlaceExplorerTestMixin():
     )
 
     # Asert the related places box does not exist
-    self.assertIsNone(find_elem(self.driver, value='related-places-callout'))
+    # Use find_elements to avoid waiting for timeout when asserting non-existence
+    self.assertEqual(
+        len(self.driver.find_elements(By.CLASS_NAME, 'related-places-callout')),
+        0)
 
     # Assert the overview exists, has a map. Zips have no summaries.
     self.assertIsNotNone(find_elem(self.driver, value='map-container'))
