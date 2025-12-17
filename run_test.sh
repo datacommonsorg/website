@@ -31,20 +31,6 @@ function setup_python {
   uv pip install -r nl_server/requirements.txt -q --index-url https://pypi.org/simple
 }
 
-function setup_website_python {
-  assert_uv
-  uv venv server/.venv --allow-existing
-  echo "installing server requirements to server/.venv"
-  uv sync --project server --active
-}
-
-function setup_nl_python {
-  assert_uv
-  uv venv nl_server/.venv --allow-existing
-  echo "installing nl_server requirements to nl_server/.venv"
-  uv sync --project nl_server --active
-}
-
 # Start website and NL servers in a subprocess and ensure they are stopped
 # if the test script exits before stop_servers is called.
 function start_servers() {
@@ -541,20 +527,6 @@ case "$command" in
   --setup_python)
       echo --setup_python "### Set up python environment"
       setup_python
-      ;;
-  --setup_website)
-      echo --setup_website "### Set up website python requirements"
-      setup_website_python
-      ;;
-  --setup_nl)
-      echo --setup_nl "### Set up NL python requirements"
-      setup_nl_python
-      ;;
-  --setup_all)
-      echo --setup_all "### Set up all Python venvs"
-      setup_python
-      setup_website_python
-      setup_nl_python
       ;;
   -g)
       echo -e "### Updating integration test goldens"
