@@ -262,14 +262,12 @@ function run_py_test {
   uv run --project nl_server --group test python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
-  # TODO: Migrate tools/nl/embeddings to use uv
+  # TODO: Migrate tools/nl/embeddings to use uv and pyproject.toml
   echo "Running tests within tools/nl/embeddings:"
-  python -m venv tools/nl/embeddings/.venv
+  uv venv tools/nl/embeddings/.venv --allow-existing
   source tools/nl/embeddings/.venv/bin/activate
-  pip install -r tools/nl/embeddings/requirements.txt -q
-  pip install pytest pytest-xdist -q
-  python -m pytest -n auto tools/nl/embeddings/ -s ${@}
-  deactivate
+  uv pip install -r tools/nl/embeddings/requirements.txt -q
+  uv run python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
 
   # Check Python style
   echo -e "#### Checking Python style"
