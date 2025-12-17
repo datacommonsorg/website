@@ -205,9 +205,9 @@ class Page extends Component<unknown, PageStateType> {
                 </FormBox>
               </div>
               {!showChart &&
-              (useStandardizedUi ? (
-                showStatVarInstructions ? (
-                  <VisToolInstructionsBox toolType="timeline" />
+                (useStandardizedUi ? (
+                  showStatVarInstructions ? (
+                    <VisToolInstructionsBox toolType="timeline" />
                   ) : (
                     <div
                       css={css`
