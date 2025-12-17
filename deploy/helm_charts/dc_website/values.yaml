@@ -97,8 +97,8 @@ serviceGroups:
       - "/v2/observation"
     replicas: 1
     resources:
-      memoryRequest: "2G"
-      memoryLimit: "2G"
+      memoryRequest: "4G"
+      memoryLimit: "4G"
     nodePool:
   node:
     urlPaths:
