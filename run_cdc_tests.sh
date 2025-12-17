@@ -14,10 +14,8 @@
 # limitations under the License.
 
 set -e
+source run_test.sh
 
-./run_test.sh --setup_website
-
-source server/.venv/bin/activate
 export FLASK_ENV=webdriver
 
 test_filter=""
@@ -37,4 +35,5 @@ if [[ -n "${test_filter}" ]]; then
   pytest_args+=("-m" "${test_filter}")
 fi
 
+assert_uv
 uv run --project server --group test -- pytest "${pytest_args[@]}" server/webdriver/cdc_tests/ "$@"
