@@ -105,8 +105,8 @@ serviceGroups:
       - "/v2/node"
     replicas: 1
     resources:
-      memoryRequest: "3G"
-      memoryLimit: "3G"
+      memoryRequest: "8G"
+      memoryLimit: "8G"
     nodePool:
   default:
     urlPaths:
