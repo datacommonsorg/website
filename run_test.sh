@@ -189,12 +189,8 @@ function run_lint_fix {
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
       assert_uv
-      uv venv .venv-test --allow-existing
-      source .venv-test/bin/activate
-      uv pip install -r lint_requirements.txt -q
-      yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
-      isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
-      deactivate
+      uv run --project server --group lint yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
+      uv run --project server --group lint isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
     )
   }
 
@@ -255,8 +251,6 @@ function run_npm_build () {
 function run_py_test {
   assert_uv
   # Run server pytest.
-  assert_website_python
-  source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Run website server tests
@@ -265,7 +259,6 @@ function run_py_test {
   uv run --project server --group test python3 -m pytest -n auto shared/tests/ -s ${@}
 
   # Run nl server tests
-  assert_nl_python
   uv run --project nl_server --group test python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
@@ -279,20 +272,16 @@ function run_py_test {
   deactivate
 
   # Check Python style
-  uv venv .venv_test --allow-existing
-  source .venv_test/bin/activate
-  uv pip install -r lint_requirements.txt -q
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
+  if ! uv run --project server --group lint yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
     log_error "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
-  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile google; then
+  if ! uv run --project server --group lint isort server/ nl_server/ shared/ tools/ -c --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile google; then
     log_error "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
-  deactivate
 }
 
 # Run test for webdriver automation test codes.
