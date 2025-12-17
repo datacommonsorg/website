@@ -40,14 +40,8 @@ steps:
   args:
     - '-c'
     - |
-      echo "Setting up Python virtual environment..."
-      python3 -m venv .venv
-      source .venv/bin/activate
-      pip install --upgrade pip
-
-      echo "Installing Python and NL dependencies..."
+      echo "Installing uv..."
       pip install uv
-      ./run_test.sh --setup_python
 
       echo "Installing Protoc 3.21.12 and netcat..."
       apt-get update && apt-get install -y protobuf-compiler netcat-traditional || apt-get install -y netcat-openbsd
@@ -58,6 +52,7 @@ steps:
       rm -rf /tmp/datcom-nl-models || true
       rm -rf /tmp/datcom-nl-models-dev || true
 
+      echo "Running goldens update..."
       ./run_test.sh -g
       echo "Goldens update completed. Cleaning up NL Server..."
   waitFor: ['unshallow-git-clone']
