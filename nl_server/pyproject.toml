@@ -36,6 +36,12 @@ test = [
     "pytest-xdist==3.2.1",
 ]
 
+# Explicitly set pypi index as default for Cloud Build
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
+
 # Add pytorch index
 [[tool.uv.index]]
 name = "pytorch-cpu"

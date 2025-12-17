@@ -69,7 +69,11 @@ test = [
     "pytest-xdist==3.2.1",
 ]
 
-
+# Explicitly set pypi index as default for Cloud Build
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
 
 [tool.uv.sources]
 data-gemma = { git = "https://github.com/datacommonsorg/llm-tools.git" }
