@@ -14,7 +14,7 @@
 # limitations under the License.
 
 set -e
-source run_test.sh
+source scripts/utils.sh
 
 export FLASK_ENV=webdriver
 
