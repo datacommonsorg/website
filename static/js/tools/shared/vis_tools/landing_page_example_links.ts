@@ -108,6 +108,13 @@ export const landingPageLinks: LandingPageLinkConfig = {
         VisToolExampleChartMessages.populationInPovertyPerCapitaVsMeanSolarInsolationInCaliforniaCounties
       ),
       url: "/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26pcx%3D1%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F06%26ept%3DCounty%26ct%3D1%26pp%3D",
+    },
+    {
+      id: "scatter_water_withdrawal_for_irrigation_vs_project_temperature_rise_in_usa",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.waterWithdrawalForIrrigationVsProjectedTemperatureRiseInUsa
+      ),
+      url: "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DWithdrawalRate_Water_Irrigation%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26qd%3D1%26dd%3D1%26pp%3D",
     }
   ],
   timelineLinks: [
@@ -132,5 +139,19 @@ export const landingPageLinks: LandingPageLinkConfig = {
       ),
       url: '/tools/timeline#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Count_Person_BelowPovertyLevelInThePast12Months&chart=%7B"count"%3A%7B"pc"%3Atrue%2C"denom"%3A"Count_Person"%7D%7D',
     },
+    {
+      id: "timeline_close_but_different_palo_alto_and_east_palo_alto",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.closeButDifferentPaloAltoAndEastPaloAlto
+      ),
+      url: '/tools/timeline#place=geoId%2F0655282%2CgeoId%2F0620956&statsVar=Median_Income_Person__UnemploymentRate_Person__Count_Person_HispanicOrLatino__Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_WhiteAlone&chart=%7B"count-none"%3A%7B"pc"%3Afalse%2C"delta"%3Afalse%7D%2C"age-none"%3A%7B"pc"%3Afalse%2C"delta"%3Afalse%7D%7D',
+    },
+    {
+      id: "timeline_extremes_imperial_county_and_santa_clara_county",
+      title: intl.formatMessage(
+        VisToolExampleChartMessages.extremesImperialCountyAndSantaClaraCounty
+      ),
+      url: '/tools/timeline#place=geoId%2F06085%2CgeoId%2F06025&statsVar=Count_Death_DiseasesOfTheCirculatorySystem__Count_Death_ExternalCauses__Median_Income_Person&chart=%7B%22none-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D',
+    }
   ],
 };

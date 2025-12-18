@@ -311,4 +311,19 @@ export const VisToolExampleChartMessages = defineMessages({
     description:
       "Title of a scatter plot showing the correlation between the population in poverty per capita and mean solar insolation in California counties",
   },
+  closeButDifferentPaloAltoAndEastPaloAlto: {
+    id: "close_but_different_palo_alto_and_east_palo_alto",
+    defaultMessage: "Close but different: Palo Alto and East Palo Alto",
+    description: "Title of a timeline showing the differences between Palo Alto and East Palo Alto",
+  },
+  extremesImperialCountyAndSantaClaraCounty: {
+    id: "extremes_imperial_county_and_santa_clara_county",
+    defaultMessage: "Extremes: Imperial County and Santa Clara County",
+    description: "Title of a timeline showing the differences between Imperial County and Santa Clara County",
+  },
+  waterWithdrawalForIrrigationVsProjectedTemperatureRiseInUsa: {
+    id: "water_withdrawal_for_irrigation_vs_projected_temperature_rise_in_the_usa",
+    defaultMessage: "Water withdrawal for irrigation vs projected temperature rise in the USA",
+    description: "Title of a scatter plot showing the correlation between water withdrawal for irrigation and projected temperature rise in the USA",
+  },
 });
