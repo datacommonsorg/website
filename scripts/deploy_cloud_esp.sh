@@ -81,6 +81,13 @@ export API_TITLE=$SERVICE_NAME
 cp "$ENDPOINTS_TEMPLATE_FILE" endpoints.yaml
 yq eval -i '.name = env(SERVICE_NAME)' endpoints.yaml
 yq eval -i '.title = env(API_TITLE)' endpoints.yaml
+if [[ "$DEPLOYMENT" == "mixer" ]]; then
+  export IP=$(yq eval '.ip' $HELM_VALUES_FILE)
+  yq eval -i '.endpoints[0].target = env(IP)' endpoints.yaml
+  yq eval -i '.endpoints[0].name = env(SERVICE_NAME)' endpoints.yaml
+  echo "endpoints.yaml content:"
+  cat endpoints.yaml
+fi
 
 # Deploy ESP configuration
 echo "Downloading mixer-grpc.$MIXER_HASH.pb..."
