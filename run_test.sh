@@ -386,9 +386,6 @@ function help {
   echo "--explore       Run explore integration tests"
   echo "--nl            Run nl integration tests"
   echo "--setup_python  Setup python environment"
-  echo "--setup_website Setup website python requirements"
-  echo "--setup_nl      Setup NL python requirements"
-  echo "--setup_all     Setup all python venvs"
   echo "-g              Update integration test golden files"
   echo "-o              Build for production (ignores dev dependencies)"
   echo "-b              Run client install and build"
@@ -404,7 +401,7 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a | --compress_webdriver_recordings)
+    -p | -w | --cdc | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a | --compress_webdriver_recordings)
         if [[ -n "$command" ]]; then
             # If a command has already been set, break the loop to process it with the collected extra_args
             break
