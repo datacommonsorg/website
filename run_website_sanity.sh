@@ -46,6 +46,9 @@ if [[ $NO_PIP != "true" ]]; then
 fi
 
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
+# Clean domain for GCS path (remove protocol and trailing slash)
+clean_domain=$(echo "$domain" | sed -E 's|https?://||; s|/$||')
+
 python3 server/webdriver/tests/standalone/sanity.py --mode=home --url="$domain"
-gsutil cp ./output/*.csv gs://datcom-website-sanity/$domain/$date_str/
+gsutil cp ./output/*.csv gs://datcom-website-sanity/$clean_domain/$date_str/
 rm ./output/*.csv
