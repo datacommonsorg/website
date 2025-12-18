@@ -82,6 +82,7 @@ if [[ $MAPS_API_KEY == "" ]]; then
   exit 1
 fi
 
+echo "DC_API_KEY = $DC_API_KEY"
 
 if [[ $USE_CLOUDSQL == "true" ]]; then
   if [[ $DB_PASS == "" ]]; then
