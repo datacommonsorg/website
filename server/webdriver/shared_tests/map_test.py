@@ -84,11 +84,11 @@ class MapTestMixin():
     shared.click_el(self.driver, (By.LINK_TEXT, 'United States'))
 
     # Assert redirect was correct
-    wait_elem(self.driver, By.ID, 'place-list')
-    place_list = find_elem(self.driver, by=By.ID, value='place-list')
     shared.wait_for_loading(self.driver)
     self.assertEqual(
-        find_elem(place_list, by=By.XPATH, value='./div/span').text,
+        find_elem(self.driver,
+                  by=By.CSS_SELECTOR,
+                  value='#place-list > div > span').text,
         'United States of America')
 
     # Select State place type
