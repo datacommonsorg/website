@@ -223,6 +223,16 @@ class WebsiteSanityTest:
     page.title = self.driver.title if page.title is None else page.title
 
     # queries
+    try:
+      WebDriverWait(self.driver, 3).until(
+          EC.presence_of_all_elements_located(
+              (By.CSS_SELECTOR, '[data-testid^="query-link-"]')))
+    except:
+      self.add_result(
+          fail_result(page, start,
+                      "Timed out waiting for query links in explore landing page."))
+      return
+
     queries = find_elems(self.driver, By.CSS_SELECTOR,
                          '[data-testid^="query-link-"]')
     if queries is None or len(queries) == 0:
@@ -272,7 +282,7 @@ class WebsiteSanityTest:
     # Wait couple more seconds for subtopics (i.e. charts) to load
     subtopics = None
     try:
-      subtopics = WebDriverWait(self.driver, 2).until(
+      subtopics = WebDriverWait(self.driver, 3).until(
           EC.presence_of_all_elements_located(
               (By.CSS_SELECTOR, "section[class*='block subtopic']")))
     except:

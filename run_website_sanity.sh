@@ -45,6 +45,9 @@ if [[ $NO_PIP != "true" ]]; then
   pip3 install -r server/requirements.txt
 fi
 
+# Clean up any potential previous output
+rm -f ./output/*.csv
+
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
 # Clean domain for GCS path (remove protocol and trailing slash)
 clean_domain=$(echo "$domain" | sed -E 's|https?://||; s|/$||')
