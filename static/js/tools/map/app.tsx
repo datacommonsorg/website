@@ -41,7 +41,6 @@ import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
 import { Title } from "./title";
 import {
-  ALLOW_LEAFLET_URL_ARG,
   applyHashDate,
   applyHashDisplay,
   applyHashPlaceInfo,
@@ -92,21 +91,17 @@ function App(): ReactElement {
           {!showChart && (
             <Row>
               {useStandardizedUi ? (
-                <>
-                  <VisToolInstructionsBox
-                    toolType="map"
-                    showStatVarInstructionsOnly={showStatVarInstructions}
-                  />
-                  {!showStatVarInstructions && (
-                    <div
-                      css={css`
-                        margin-top: ${theme.spacing.xl}px;
-                      `}
-                    >
-                      <ChartLinkChips toolType="map" />
-                    </div>
-                  )}
-                </>
+                showStatVarInstructions ? (
+                  <VisToolInstructionsBox toolType="map" />
+                ) : (
+                  <div
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="map" />
+                  </div>
+                )
               ) : (
                 <Info />
               )}
@@ -160,14 +155,6 @@ function updateHash(context: ContextType): void {
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
   hash = updateHashDisplay(hash, context.display.value);
   const args = new URLSearchParams(location.search);
-  // leaflet flag is part of the search arguments instead of hash, so need to
-  // update that separately
-  if (context.display.value.allowLeaflet) {
-    args.set(ALLOW_LEAFLET_URL_ARG, "1");
-  } else {
-    // Do not propagate this argument. Let context settings control this instead.
-    args.delete(ALLOW_LEAFLET_URL_ARG);
-  }
   const newHash = hash ? `#${encodeURIComponent(hash)}` : "";
   const newArgs = args.toString() ? `?${args.toString()}` : "";
   const currentHash = location.hash.replace("#", "");
