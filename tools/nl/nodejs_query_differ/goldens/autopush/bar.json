@@ -1,7 +1,7 @@
 {
   "charts": [
     {
-      "dataCsv": "label,Santa Clara County\r\nHealth Care and Social Assistance Industry Workers,164195\r\n\"Professional, Scientific, and Technical Services Workers\",161462\r\nManufacturing Workers,122912\r\nInformation Industry Workers,92743\r\nEducational Services Industry Workers,85685\r\nAccommodation/Food Industry Workers,81548\r\nRetail Trade Workers,70145\r\nPopulation Working in the Management of Companies and Enterprises Industry,61130\r\nAdmin / Waste Management Service Industry Workers,57588\r\nPopulation Working in the Construction Industry,51647\r\nPublic Administration Workers,28471\r\nWholesale Trade Workers,27691\r\nOther Services (except Public Admin) Workers,25719\r\nFinance and Insurance Industry Workers,20644\r\n\"Arts, Entertainment, Recreation Industry Workers\",20376\r\nTransportation And Warehousing Workers,19322\r\nReal Estate and Rental and Leasing Workers,15389\r\nUtilities Workers,3582\r\n\"Agriculture, Forestry, Fishing, Hunting Workers\",2998\r\nUnclassified Workers,225\r\n\"Mining, Quarrying, Oil and Gas Extraction Industry Workers\",149",
+      "dataCsv": "label,Santa Clara County\r\nHealth Care and Social Assistance Industry Workers,170761\r\n\"Professional, Scientific, and Technical Services Workers\",155379\r\nManufacturing Workers,124092\r\nInformation Industry Workers,95573\r\nEducational Services Industry Workers,89994\r\nAccommodation/Food Industry Workers,82929\r\nRetail Trade Workers,69613\r\nPopulation Working in the Management of Companies and Enterprises Industry,57396\r\nAdmin / Waste Management Service Industry Workers,54523\r\nPopulation Working in the Construction Industry,49874\r\nPublic Administration Workers,27805\r\nWholesale Trade Workers,26859\r\nOther Services (except Public Admin) Workers,26416\r\nFinance and Insurance Industry Workers,20068\r\nTransportation And Warehousing Workers,19283\r\n\"Arts, Entertainment, Recreation Industry Workers\",19028\r\nReal Estate and Rental and Leasing Workers,15158\r\nUtilities Workers,3681\r\n\"Agriculture, Forestry, Fishing, Hunting Workers\",2743\r\nUnclassified Workers,679\r\n\"Mining, Quarrying, Oil and Gas Extraction Industry Workers\",138",
       "placeType": "City",
       "places": [
         "geoId/06085"
@@ -27,15 +27,15 @@
         "Wholesale Trade Workers",
         "Other Services (except Public Admin) Workers",
         "Finance and Insurance Industry Workers",
-        "Arts, Entertainment, Recreation Industry Workers",
         "Transportation And Warehousing Workers",
+        "Arts, Entertainment, Recreation Industry Workers",
         "Real Estate and Rental and Leasing Workers",
         "Utilities Workers",
         "Agriculture, Forestry, Fishing, Hunting Workers",
         "Unclassified Workers",
         "Mining, Quarrying, Oil and Gas Extraction Industry Workers"
       ],
-      "title": "Categories of Jobs in Santa Clara County (Jan, 2024 to Mar, 2024)",
+      "title": "Categories of Jobs in Santa Clara County (Mar, 2025)",
       "type": "BAR",
       "unit": "",
       "vars": [
