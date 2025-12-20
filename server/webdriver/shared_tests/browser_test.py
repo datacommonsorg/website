@@ -79,31 +79,37 @@ class BrowserTestMixin():
     self.assertEqual(title_text, self.driver.title)
 
     # Assert header is correct.
-    node = find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]')
+    # Assert header is correct.
     self.assertEqual(
-        find_elem(node, by=By.XPATH, value='./h1[1]').text,
+        find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]/h1[1]').text,
         'Statistical Variable: Count_Person')
     self.assertEqual(
-        find_elem(node, by=By.XPATH, value='./h1[2]').text, 'About: California')
+        find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]/h1[2]').text,
+        'About: California')
 
     # Assert properties section shows dcid and typeOf values for the statistical variable
     # Count_Person.
-    table = find_elem(self.driver,
-                      by=By.XPATH,
-                      value='//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = find_elems(table, by=By.XPATH, value='./tbody/tr[2]/td')
+    dcid_row = find_elems(
+        self.driver,
+        by=By.XPATH,
+        value='//*[@id="node-content"]/div[1]/div/table/tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'Count_Person')
-    type_of_row = find_elems(table, by=By.XPATH, value='./tbody/tr[3]/td')
+    type_of_row = find_elems(
+        self.driver,
+        by=By.XPATH,
+        value='//*[@id="node-content"]/div[1]/div/table/tbody/tr[3]/td')
     self.assertEqual(type_of_row[0].text, 'typeOf')
     self.assertEqual(type_of_row[1].text, 'StatisticalVariable')
     self.assertEqual(type_of_row[2].text, 'datacommons.org')
 
     # Assert observation charts loaded.
-    observations_section = find_elem(self.driver,
-                                     by=By.XPATH,
-                                     value='//*[@id="node-content"]/div[2]')
-    self.assertGreater(len(find_elems(observations_section, value='card')), 0)
+    self.assertGreater(
+        len(
+            find_elems(
+                self.driver,
+                by=By.XPATH,
+                value='//*[@id="node-content"]/div[2]//*[@class="card"]')), 0)
 
   def test_stat_var_hierarchy(self):
     """Test that the stat var hierarchy can search properly"""
@@ -111,17 +117,18 @@ class BrowserTestMixin():
     self.driver.get(self.url_ + MTV_URL)
 
     # Wait for the search box of the statvar hierarchy section to be present
-    sv_hierarchy_section = find_elem(self.driver, By.ID,
-                                     'stat-var-hierarchy-section')
-    search_input = find_elem(sv_hierarchy_section, By.TAG_NAME, 'input')
+    search_input = find_elem(self.driver, By.CSS_SELECTOR,
+                             '#stat-var-hierarchy-section input')
 
     # Search for "male asian " and select the first result
     search_input.send_keys(SEARCH_INPUT)
     sv_hierarchy_results_section = scroll_to_elem(
         self.driver, value='statvar-hierarchy-search-results')
 
-    first_result = find_elem(sv_hierarchy_results_section, By.XPATH,
-                             './div[2]/div[1]')
+    first_result = find_elem(
+        self.driver, By.CSS_SELECTOR,
+        ".statvar-hierarchy-search-results > div:nth-child(2) > div:nth-child(1)"
+    )
     first_result_name = first_result.text.strip()
     first_result.click()
 
@@ -133,10 +140,14 @@ class BrowserTestMixin():
 
     # Assert that the section for the clicked stat var opened and shows at
     # least one chart
-    highlighted_sv = find_elem(self.driver, value='highlighted-stat-var')
-    wait_elem(highlighted_sv, value='observation-chart')
+    wait_elem(self.driver,
+              By.CSS_SELECTOR,
+              value='.highlighted-stat-var .observation-chart')
 
     # Assert has at least one observation.
-    charts_section = find_elem(self.driver, value='statvars-charts-section')
     self.assertTrue(
-        len(find_elems(charts_section, value='observation-chart')) > 0)
+        len(
+            find_elems(self.driver,
+                       By.CSS_SELECTOR,
+                       value='.statvars-charts-section .observation-chart')) >
+        0)
