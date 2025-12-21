@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,6 +73,9 @@ const SuggestionRow = styled("div", {
         : theme.searchSuggestions.base.background};
     span {
       color: ${theme.searchSuggestions.base.text};
+      strong {
+        font-weight: 500;
+      }
     }
   }
   &&:hover {
@@ -198,7 +201,7 @@ export function AutoCompleteSuggestions(
                 </div>
                 <span data-testid="query-result">
                   {parts[0]}
-                  {result.name}
+                  <strong>{result.name}</strong>
                   {parts.length > 1 && parts[1]}
                 </span>
               </SuggestionRow>
