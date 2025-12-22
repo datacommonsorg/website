@@ -1037,6 +1037,20 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/WindEvent",
+        "name": "Wind Events",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Fog",
+        "name": "Fog",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
