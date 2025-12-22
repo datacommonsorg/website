@@ -79,7 +79,6 @@ class BrowserTestMixin():
     self.assertEqual(title_text, self.driver.title)
 
     # Assert header is correct.
-    # Assert header is correct.
     self.assertEqual(
         find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]/h1[1]').text,
         'Statistical Variable: Count_Person')

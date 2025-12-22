@@ -63,7 +63,6 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
         EC.presence_of_element_located((By.CSS_SELECTOR, '.dialog-content h3')))
 
     # Search for "Total population" text in dialog-content h3 elements
-    # Search for "Total population" text in dialog-content h3 elements
     h3_elements = find_elems(self.driver,
                              by=By.CSS_SELECTOR,
                              value='.dialog-content h3')
@@ -116,7 +115,6 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
             "//div[contains(@class, 'dialog-content')]//h3[contains(text(), 'Total population')]"
         )))
 
-    # Search for "Total population" text in dialog-content h3 elements
     # Search for "Total population" text in dialog-content h3 elements
     h3_elements = find_elems(self.driver,
                              by=By.CSS_SELECTOR,
