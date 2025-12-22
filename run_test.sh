@@ -17,50 +17,18 @@
 source scripts/utils.sh
 set -e
 
+# Note: The .venv environment is being deprecated, this setup function
+# is being kept as is to keep --setup_python working for now.
+# TODO(juliawu): Remove this function after deprecating .venv and */requirements.txt.
 function setup_python {
-  python3 -m venv .venv
-  source .venv/bin/activate
+  assert_uv
+  uv venv .venv --allow-existing
   echo "installing server/requirements.txt"
-  pip3 install -r server/requirements.txt -q
+  uv pip install -r server/requirements.txt -q
   echo "installing torch_requirements.txt"
-  pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
+  uv pip install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
-  deactivate
-}
-
-function setup_website_python {
-  python3 -m venv server/.venv
-  source server/.venv/bin/activate
-  echo "installing server/requirements.txt"
-  pip3 install --upgrade pip setuptools wheel -q
-  pip3 install -r server/requirements.txt -q
-  pip3 install -r torch_requirements.txt -q --index-url https://download.pytorch.org/whl/cpu
-  deactivate
-}
-
-function setup_nl_python {
-  python3 -m venv nl_server/.venv
-  source nl_server/.venv/bin/activate
-  echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
-  deactivate
-}
-
-# Assert that website python is set up. If not, set it up.
-function assert_website_python {
-  if [[ ! -d server/.venv ]]; then
-    log_notice "server/.venv does not exist. Setting up website python virtual environment..."
-    setup_website_python
-  fi
-}
-
-# Assert that NL python is set up. If not, set it up.
-function assert_nl_python {
-  if [[ ! -d nl_server/.venv ]]; then
-    log_notice "nl_server/.venv does not exist. Setting up NL python virtual environment..."
-    setup_nl_python
-  fi
+  uv pip install -r nl_server/requirements.txt -q --index-url https://pypi.org/simple
 }
 
 # Start website and NL servers in a subprocess and ensure they are stopped
@@ -70,9 +38,6 @@ function start_servers() {
   # Called on exit via trap, configured below.
   function cleanup() {
     pkill -P $$ || true
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-      deactivate
-    fi
     exit $exit_with
   }
   # On exit, assign status code to a variable and call cleanup.
@@ -190,12 +155,9 @@ function run_lint_fix {
     (
       # Run commands in a subshell to avoid changing the current directory.
       cd "$(dirname "$0")"
-      assert_website_python
-      source server/.venv/bin/activate
-      pip3 install yapf==0.40.2 isort==5.10.0 -q -i https://pypi.org/simple
-      yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
-      isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
-      deactivate
+      assert_uv
+      uv run --project server --group lint yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.venv/**
+      uv run --project server --group lint isort server/ nl_server/ shared/ tools/ --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile=google
     )
   }
 
@@ -254,54 +216,37 @@ function run_npm_build () {
 
 # Run test and check lint for Python code.
 function run_py_test {
+  assert_uv
   # Run server pytest.
-  assert_website_python
-  assert_nl_python
-  source server/.venv/bin/activate
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Run website server tests
   # Disabled nodejs e2e test to avoid dependency on dev
-  python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
-  python3 -m pytest -n auto shared/tests/ -s ${@}
-  deactivate
+  uv run --project server --group test python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
+  uv run --project server --group test python3 -m pytest -n auto shared/tests/ -s ${@}
 
-  # Run nl_server tests.
-  source nl_server/.venv/bin/activate
-  python3 -m pytest nl_server/tests/ -s ${@}
-  deactivate
+  # Run nl server tests
+  uv run --project nl_server --group test python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
+  # TODO: Migrate tools/nl/embeddings to use uv and pyproject.toml
   echo "Running tests within tools/nl/embeddings:"
-  if [ ! -d "tools/nl/embeddings/.venv" ]; then
-    python3 -m venv tools/nl/embeddings/.venv
-  fi
+  uv venv tools/nl/embeddings/.venv --allow-existing
   source tools/nl/embeddings/.venv/bin/activate
-  pip3 install -r tools/nl/embeddings/requirements.txt -q
-  python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
-  deactivate
+  uv pip install -r tools/nl/embeddings/requirements.txt -q
+  uv run python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
 
-  # Check Python style using server virtual environment
-  source server/.venv/bin/activate
-  if ! command v yapf &> /dev/null
-  then
-    pip3 install yapf==0.40.2 -q -i https://pypi.org/simple
-  fi
-  if ! command -v isort &> /dev/null
-  then
-    pip3 install isort==5.12.0 -q -i https://pypi.org/simple
-  fi
+  # Check Python style
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
+  if ! uv run --project server --group lint yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.venv/**; then
     log_error "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
-  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob '*pb2.py' --skip-glob '**/.venv/**' --profile google; then
+  if ! uv run --project server --group lint isort server/ nl_server/ shared/ tools/ -c --skip-glob='*pb2.py' --skip-glob='**/.venv/**' --profile google; then
     log_error "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
-  deactivate
 }
 
 # Run test for webdriver automation test codes.
@@ -316,8 +261,8 @@ function run_webdriver_test {
 
   if [ ! -d server/dist  ]
   then
-    log_error "no dist folder, please run ./run_test.sh -b to build js first."
-    exit 1
+    log_notice "no dist folder, building js..."
+    run_npm_build false
   fi
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
@@ -326,26 +271,23 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  assert_website_python
-  source server/.venv/bin/activate
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
-    python3 -m pytest -n auto server/webdriver/tests/ "${pytest_args[@]}"
+    uv run --project server --group test python3 -m pytest -n auto server/webdriver/tests/ "${pytest_args[@]}"
 
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ "${pytest_args[@]}"
+    uv run --project server --group test python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ "${pytest_args[@]}"
   fi
   stop_servers
-  deactivate
 }
 
 # Run test for webdriver automation test codes.
 function run_cdc_webdriver_test {
   if [ ! -d server/dist  ]
   then
-    log_error "no dist folder, please run ./run_test.sh -b to build js first."
-    exit 1
+    log_notice "no dist folder, building js..."
+    run_npm_build false
   fi
   export RUN_CDC_DEV_ENV_FILE="custom_dc/.env-test"
   ensure_cdc_test_env_file
@@ -355,13 +297,11 @@ function run_cdc_webdriver_test {
     export FLAKE_FINDER=true
   fi
   export MIXER_LOG_LEVEL=${MIXER_LOG_LEVEL:-WARN}
-  assert_website_python
   start_servers "cdc"
 
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  source server/.venv/bin/activate
   local rerun_options=""
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     rerun_options=""
@@ -378,17 +318,15 @@ function run_cdc_webdriver_test {
     fi
   done
 
-  python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ "${pytest_args[@]}"
+  uv run --project server --group test python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ "${pytest_args[@]}"
+
 
   stop_servers
-  deactivate
 }
 
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  assert_website_python
-  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export DC_API_KEY=
@@ -401,14 +339,11 @@ function run_integration_test {
   export TEST_MODE=test
 
   start_servers
-  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
+  uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
   stop_servers
-  deactivate
 }
 
 function update_integration_test_golden {
-  assert_website_python
-  source server/.venv/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
@@ -423,10 +358,9 @@ function update_integration_test_golden {
   echo "Using ENV_PREFIX=$ENV_PREFIX"
   start_servers
   # Should update topic cache first as it's used by the following tests.
-  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
-  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
+  uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
+  uv run --project server --group test python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
   stop_servers
-  deactivate
 }
 
 function run_all_tests {
@@ -452,9 +386,6 @@ function help {
   echo "--explore       Run explore integration tests"
   echo "--nl            Run nl integration tests"
   echo "--setup_python  Setup python environment"
-  echo "--setup_website Setup website python requirements"
-  echo "--setup_nl      Setup NL python requirements"
-  echo "--setup_all     Setup all python venvs"
   echo "-g              Update integration test golden files"
   echo "-o              Build for production (ignores dev dependencies)"
   echo "-b              Run client install and build"
@@ -470,7 +401,7 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a | --compress_webdriver_recordings)
+    -p | -w | --cdc | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a | --compress_webdriver_recordings)
         if [[ -n "$command" ]]; then
             # If a command has already been set, break the loop to process it with the collected extra_args
             break
@@ -590,20 +521,6 @@ case "$command" in
   --setup_python)
       echo --setup_python "### Set up python environment"
       setup_python
-      ;;
-  --setup_website)
-      echo --setup_website "### Set up website python requirements"
-      setup_website_python
-      ;;
-  --setup_nl)
-      echo --setup_nl "### Set up NL python requirements"
-      setup_nl_python
-      ;;
-  --setup_all)
-      echo --setup_all "### Set up all Python venvs"
-      setup_python
-      setup_website_python
-      setup_nl_python
       ;;
   -g)
       echo -e "### Updating integration test goldens"

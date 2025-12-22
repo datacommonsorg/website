@@ -19,7 +19,6 @@
 
 # Make sure the following are run before running this script:
 # ./run_test.sh -b
-# ./run_test.sh --setup_all
 # ./scripts/update_git_submodules.sh
 
 source scripts/utils.sh
@@ -36,9 +35,6 @@ exit_with=0
 # Called on exit via trap, configured below.
 function cleanup() {
   pkill -P $$ || true
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    deactivate
-  fi
   exit $exit_with
 }
 
@@ -165,40 +161,27 @@ cd ..
 # Start NL server.
 NL_PID=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-  if [ ! -d "nl_server/.venv" ]; then
-    log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
-    ./run_test.sh --setup_nl
-  fi
-  source nl_server/.venv/bin/activate
   echo "Starting NL Server..."
-  nl_command="python3 nl_app.py 6060"
+  nl_command="uv run --project nl_server python3 nl_app.py 6060"
   if [[ "$VERBOSE" == "true" ]]; then
     eval "$nl_command &"
   else
     eval "$nl_command > /dev/null 2>&1 &"
   fi
   NL_PID=$!
-  deactivate
 else
   log_notice "$ENABLE_MODEL is not true, NL server will not be started."
 fi
 
 # Start Website server.
-if [ ! -d "server/.venv" ]; then
-  log_notice "server/.venv directory not found. Running './run_test.sh --setup_website'."
-  ./run_test.sh --setup_website
-fi
-source server/.venv/bin/activate
 echo "Starting Website Server..."
-website_command="python3 web_app.py 8080"
+website_command="uv run --project server python3 web_app.py 8080"
 if [[ "$VERBOSE" == "true" ]]; then
   eval "$website_command &"
 else
   eval "$website_command > /dev/null 2>&1 &"
 fi
 WEBSITE_PID=$!
-
-deactivate
 
 # Monitor server processes
 while true; do
