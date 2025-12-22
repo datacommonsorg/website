@@ -121,7 +121,7 @@ export const landingPageLinks: LandingPageLinkConfig = {
       title: intl.formatMessage(
         VisToolExampleChartMessages.closeButDifferentBerkeleyAndPiedmont
       ),
-      url: "/tools/timeline#place=geoId%2F0606000%2C%2CgeoId%2F0656938&statsVar=Median_Income_Person__Percent_Person_18OrMoreYears_WithPoorGeneralHealth__Monthly_Median_GrossRent_HousingUnit__Count_CriminalActivities_CombinedCrime&chart=%7B%22count-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22age-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22grossRent-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22unemploymentRate-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D",
+      url: "/tools/timeline#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Median_Income_Person__Percent_Person_18OrMoreYears_WithPoorGeneralHealth__Monthly_Median_GrossRent_HousingUnit__Count_CriminalActivities_CombinedCrime&chart=%7B%22count-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22age-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22grossRent-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22unemploymentRate-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D",
     },
     {
       id: "timeline_close_but_different_palo_alto_and_east_palo_alto",
