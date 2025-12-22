@@ -80,12 +80,12 @@ export const landingPageLinks: LandingPageLinkConfig = {
       url: "/tools/map#%26sv%3DCount_Person_EducationalAttainmentNoSchoolingCompleted%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
     },
     {
-      id: "map_carbon_dioxide_emissions_in_us_counties",
+      id: "map_carbon_dioxide_emissions_in_world_countries",
       title: intl.formatMessage(
-        VisToolExampleChartMessages.carbonDioxideEmissionsInUsCounties
+        VisToolExampleChartMessages.carbonDioxideEmissionsInWorldCountries
       ),
-      url: "/tools/map#%26sv%3DCount_Person_EducationalAttainmentNoSchoolingCompleted%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
-    }
+      url: "/tools/map#%26sv%3DAmount_Emissions_CarbonDioxide_PerCapita%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry%26ppt%3DEpaReportingFacility",
+    },
   ],
   scatterLinks: [
     {
@@ -102,20 +102,6 @@ export const landingPageLinks: LandingPageLinkConfig = {
       ),
       url: "/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26pcx%3D1%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3Dcountry%2FIND%26ept%3DAdministrativeArea1%26ct%3D1%26pp%3D",
     },
-    {
-      id: "scatter_population_in_poverty_per_capita_vs_mean_solar_insolation_in_california_counties",
-      title: intl.formatMessage(
-        VisToolExampleChartMessages.populationInPovertyPerCapitaVsMeanSolarInsolationInCaliforniaCounties
-      ),
-      url: "/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26pcx%3D1%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F06%26ept%3DCounty%26ct%3D1%26pp%3D",
-    },
-    {
-      id: "scatter_water_withdrawal_for_irrigation_vs_project_temperature_rise_in_usa",
-      title: intl.formatMessage(
-        VisToolExampleChartMessages.waterWithdrawalForIrrigationVsProjectedTemperatureRiseInUsa
-      ),
-      url: "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DWithdrawalRate_Water_Irrigation%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26qd%3D1%26dd%3D1%26pp%3D",
-    }
   ],
   timelineLinks: [
     {
@@ -133,18 +119,18 @@ export const landingPageLinks: LandingPageLinkConfig = {
       url: "/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Income_Person",
     },
     {
-      id: "timeline_berkeley_and_piedmont_poverty",
+      id: "timeline_close_but_different_berkeley_and_piedmont",
       title: intl.formatMessage(
-        VisToolExampleChartMessages.berkeleyAndPiedmontPoverty
+        VisToolExampleChartMessages.closeButDifferentBerkeleyAndPiedmont
       ),
-      url: '/tools/timeline#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Count_Person_BelowPovertyLevelInThePast12Months&chart=%7B"count"%3A%7B"pc"%3Atrue%2C"denom"%3A"Count_Person"%7D%7D',
+      url: '/tools/timeline#place=geoId%2F0606000%2C%2CgeoId%2F0656938&statsVar=Median_Income_Person__Percent_Person_18OrMoreYears_WithPoorGeneralHealth__Monthly_Median_GrossRent_HousingUnit__Count_CriminalActivities_CombinedCrime&chart=%7B%22count-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22age-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22grossRent-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22unemploymentRate-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D',
     },
     {
       id: "timeline_close_but_different_palo_alto_and_east_palo_alto",
       title: intl.formatMessage(
         VisToolExampleChartMessages.closeButDifferentPaloAltoAndEastPaloAlto
       ),
-      url: '/tools/timeline#place=geoId%2F0655282%2CgeoId%2F0620956&statsVar=Median_Income_Person__UnemploymentRate_Person__Count_Person_HispanicOrLatino__Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_WhiteAlone&chart=%7B"count-none"%3A%7B"pc"%3Afalse%2C"delta"%3Afalse%7D%2C"age-none"%3A%7B"pc"%3Afalse%2C"delta"%3Afalse%7D%7D',
+      url: '/tools/timeline#place=geoId%2F0655282%2CgeoId%2F0620956&statsVar=Median_Income_Person__UnemploymentRate_Person__Count_Person_HispanicOrLatino__Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_WhiteAlone__Percent_Person_18OrMoreYears_WithPoorGeneralHealth__Monthly_Median_GrossRent_HousingUnit&chart=%7B%22count-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22age-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22grossRent-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D',
     },
     {
       id: "timeline_extremes_imperial_county_and_santa_clara_county",
@@ -152,6 +138,6 @@ export const landingPageLinks: LandingPageLinkConfig = {
         VisToolExampleChartMessages.extremesImperialCountyAndSantaClaraCounty
       ),
       url: '/tools/timeline#place=geoId%2F06085%2CgeoId%2F06025&statsVar=Count_Death_DiseasesOfTheCirculatorySystem__Count_Death_ExternalCauses__Median_Income_Person&chart=%7B%22none-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D',
-    }
+    },
   ],
 };
