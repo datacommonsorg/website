@@ -2,6 +2,9 @@
 __pycache__/
 .pytest_cache
 *.pyc
+.env/
+.env_website/
+.env_nl/
 .venv*/
 .env/
 .env_website/
@@ -26,7 +29,6 @@ __pycache__/
 .vscode
 .idea
 !.vscode/launch.json
-.env
 .env.list
 custom_dc/.env-test
 
