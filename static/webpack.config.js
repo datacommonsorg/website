@@ -47,12 +47,10 @@ const config = {
       __dirname + "/js/apps/biomed_nl/main.ts",
       __dirname + "/css/biomed_nl.scss",
     ],
-    diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",
     ],
-    timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     queryStore: path.resolve(__dirname, "js/shared/stores/query_store.ts"),
     base: [__dirname + "/js/apps/base/main.ts", __dirname + "/css/core.scss"],
@@ -201,6 +199,12 @@ const config = {
             },
           },
         ],
+      },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
       },
     ],
   },

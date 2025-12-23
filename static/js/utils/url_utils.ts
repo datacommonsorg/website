@@ -21,10 +21,12 @@
 import queryString from "query-string";
 
 import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
+import { StatVarSpec } from "../shared/types";
+import { extractFlagsToPropagate } from "../shared/util";
 import { FacetMetadata } from "../types/facet_metadata";
 
 // Hash params that should be persisted across pages.
-const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq"]);
+const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq", "detector"]);
 
 /**
  * Returns token for URL param.
@@ -256,4 +258,59 @@ export function getQueryParamFromUrl(parameter: string): string | null {
  */
 export function getLocaleFromUrl(): string {
   return getQueryParamFromUrl("hl") || "en";
+}
+
+/**
+ * Builds a URL for the explore page with the given parameters.
+ * @param chartType The type of chart to display.
+ * @param places Array of place DCIDs.
+ * @param statVarSpecs Array of StatVarSpec objects.
+ * @returns A string representing the explore page URL.
+ */
+export function buildExploreUrl(
+  chartType: string,
+  places: string[],
+  statVarSpecs: StatVarSpec[],
+  facetMetadata?: FacetMetadata
+): string {
+  const params: Record<string, string | string[]> = {
+    chartType,
+  };
+
+  if (places && places.length > 0) {
+    params["p"] = places.join("___");
+  }
+
+  const svs = statVarSpecs.map((spec) => spec.statVar);
+  if (svs.length > 0) {
+    params["sv"] = svs.join("___");
+  }
+
+  // Add facet metadata if provided
+  if (facetMetadata) {
+    if (facetMetadata.importName) params["imp"] = facetMetadata.importName;
+    if (facetMetadata.measurementMethod)
+      params["mm"] = facetMetadata.measurementMethod;
+    if (facetMetadata.observationPeriod)
+      params["op"] = facetMetadata.observationPeriod;
+    if (facetMetadata.scalingFactor) params["sf"] = facetMetadata.scalingFactor;
+    if (facetMetadata.unit) params["unit"] = facetMetadata.unit;
+  }
+
+  const queryString = Object.keys(params)
+    .map((key) => {
+      const value = params[key];
+      if (Array.isArray(value)) {
+        return value
+          .map((v) => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`)
+          .join("&");
+      }
+      return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    })
+    .join("&");
+
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  const existingParams = urlParams.toString();
+  const separator = existingParams ? "&" : "";
+  return `/explore?${existingParams}${separator}${queryString}`;
 }

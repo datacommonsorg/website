@@ -72,6 +72,7 @@ import {
   ReplacementStrings,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -141,6 +142,8 @@ export interface LineChartData {
   facets: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets: StatVarFacetMap;
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
@@ -222,6 +225,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       apiRoot={props.apiRoot}
       className={`${props.className} line-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={getHyperlinkFn(props, chartData)}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
       getObservationSpecs={getObservationSpecs}
@@ -233,6 +237,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       sources={props.sources || (chartData && chartData.sources)}
       facets={chartData?.facets}
       statVarToFacets={chartData?.statVarToFacets}
+      statVarDateRanges={chartData?.statVarDateRanges}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
@@ -500,6 +505,7 @@ function rawToChart(
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
   const allDates = new Set<string>();
+  const statVarDates = new Map<string, Set<string>>();
   // TODO: make a new wrapper to fetch series data & do the processing there.
   const unit2count = {};
   for (const spec of props.statVarSpec) {
@@ -555,6 +561,7 @@ function rawToChart(
       }
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
+        const currentSvDates = new Set<string>();
         for (const obs of obsList) {
           if (!isDateInRange(obs.date, props.startDate, props.endDate)) {
             continue;
@@ -565,7 +572,24 @@ function rawToChart(
             value: scaling ? obs.value * scaling : obs.value,
           });
           allDates.add(obs.date);
+          currentSvDates.add(obs.date);
         }
+
+        if (!statVarDates.has(spec.statVar)) {
+          statVarDates.set(spec.statVar, new Set<string>());
+        }
+        currentSvDates.forEach((date) =>
+          statVarDates.get(spec.statVar).add(date)
+        );
+        if (spec.denom) {
+          if (!statVarDates.has(spec.denom)) {
+            statVarDates.set(spec.denom, new Set<string>());
+          }
+          currentSvDates.forEach((date) =>
+            statVarDates.get(spec.denom).add(date)
+          );
+        }
+
         const label = options.useBothLabels
           ? `${statVarDcidToName[spec.statVar]} for ${
               placeDcidToName[placeDcid]
@@ -586,6 +610,21 @@ function rawToChart(
   for (let i = 0; i < dataGroups.length; i++) {
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
   }
+
+  const statVarDateRanges: Record<
+    string,
+    { minDate: string; maxDate: string }
+  > = {};
+  for (const [dcid, dates] of statVarDates.entries()) {
+    const sortedSvDates = Array.from(dates).sort();
+    if (sortedSvDates.length > 0) {
+      statVarDateRanges[dcid] = {
+        minDate: sortedSvDates[0],
+        maxDate: sortedSvDates[sortedSvDates.length - 1],
+      };
+    }
+  }
+
   const errorMsg = _.isEmpty(dataGroups)
     ? getNoDataErrorMsg(props.statVarSpec)
     : "";
@@ -597,6 +636,7 @@ function rawToChart(
     unit,
     props,
     errorMsg,
+    statVarDateRanges,
   };
 }
 
@@ -615,4 +655,36 @@ function getExploreLink(props: LineTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+function getHyperlinkFn(
+  props: LineTilePropType,
+  chartData?: LineChartData
+): string {
+  if (!props.place) {
+    return ""; // Or null, depending on how ChartTileContainer handles it
+  }
+  const placeDcids = getPlaceDcids(props);
+  let facetMetadata: StatMetadata = undefined;
+  if (chartData && chartData.statVarToFacets && chartData.facets) {
+    const firstVar = props.statVarSpec[0].statVar;
+    const facetIds = chartData.statVarToFacets[firstVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facetMetadata = chartData.facets[firstFacetId];
+    }
+  }
+  if (
+    !facetMetadata &&
+    props.facetSelector &&
+    props.facetSelector.facetMetadata
+  ) {
+    facetMetadata = props.facetSelector.facetMetadata;
+  }
+  return buildExploreUrl(
+    "TIMELINE_WITH_HIGHLIGHT",
+    placeDcids,
+    props.statVarSpec,
+    facetMetadata
+  );
 }

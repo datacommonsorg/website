@@ -19,15 +19,12 @@ import flask
 from flask import current_app
 from flask import g
 from flask import request
+from flask import url_for
 
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
-
-# this flag should be the same as ALLOW_LEAFLET_URL_ARG in
-# ../../static/js/tools/map/util.ts
-ALLOW_LEAFLET_FLAG = "leaflet"
 
 
 def get_example_file(tool):
@@ -55,18 +52,14 @@ def timeline():
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
-# This tool is used by the Harvard Data Science course
+# This tool was used by several data science course (but no traffic in 2025).
 @bp.route('/timeline/bulk_download')
 def timeline_bulk_download():
-  return flask.render_template('tools/timeline_bulk_download.html',
-                               sample_questions=json.dumps(
-                                   current_app.config.get(
-                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  return flask.redirect(url_for('tools.timeline', code=301))
 
 
 @bp.route('/map')
 def map():
-  allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
   with open(get_example_file('map')) as f:
     info_json = json.load(f)
     return flask.render_template(
@@ -75,7 +68,6 @@ def map():
         info_json=info_json,
         use_standardized_ui=is_feature_enabled(
             STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
-        allow_leaflet=allow_leaflet,
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 

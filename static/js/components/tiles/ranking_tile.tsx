@@ -34,6 +34,10 @@ import {
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { DATE_HIGHEST_COVERAGE } from "../../shared/constants";
+import {
+  ENABLE_RANKING_TILE_SCROLL,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { useLazyLoad } from "../../shared/hooks";
 import {
   buildObservationSpecs,
@@ -95,6 +99,7 @@ export interface RankingTilePropType
   surface?: string;
   // Metadata for the facet to highlight.
   facetSelector?: FacetSelectionCriteria;
+  hyperlink?: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -263,9 +268,9 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       },
       chartWidth,
       chartHeight,
-      chartHtml,
       chartTitle,
-      "",
+      chartHtml,
+      props.footnote,
       props.sources || Array.from(sources),
       props.surface
     );
@@ -321,6 +326,12 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               title={props.title}
               statVarSpecs={props.variables}
               surface={props.surface}
+              enableScroll={
+                isFeatureEnabled(ENABLE_RANKING_TILE_SCROLL) &&
+                props.rankingMetadata.showHighestLowest
+              }
+              hyperlink={props.hyperlink}
+              parentPlace={props.parentPlace}
             />
           );
         })}

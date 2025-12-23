@@ -16,7 +16,6 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { URLSearchParams } from "url";
 
 import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_input";
 import { Theme } from "../theme/types";
@@ -45,6 +44,7 @@ const SEARCH_PARAMS_TO_PROPAGATE = new Set([
   "hl",
   "enable_feature",
   "disable_feature",
+  "detector",
 ]);
 
 const NO_DATE_CAP_RCP_STATVARS = [

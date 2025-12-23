@@ -35,14 +35,19 @@ steps:
         echo "Fetching latest mixer image hash..."
         mixer_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
           --project=datcom-ci \
-          --filter="tags:latest" \
-          --format='get(tags)' | tr ';' '\n' | grep -v "latest")"
+          --filter="NOT tags ~ ^dev-" --sort-by=~TIMESTAMP --limit=1 \
+          --format='get(tags)' | tr ';' '\n' | grep -E '^[0-9a-f]{7,40}$' | head -n 1)"
 
         if [[ -z "$mixer_githash" ]]; then
           echo "ERROR: Could not determine the mixer image hash from Artifact Registry. Exiting."
           exit 1
         fi
         echo "Found latest mixer image hash: $mixer_githash"
+
+        # Update mixer submodule to the specific hash
+        echo "Updating mixer submodule to $mixer_githash"
+        git -C mixer fetch origin
+        git -C mixer checkout "$mixer_githash"
 
         # 2. CREATE DEPLOYMENT RELEASE
         # Use standard bash variable syntax ($variable or ${variable})

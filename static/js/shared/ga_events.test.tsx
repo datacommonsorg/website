@@ -83,7 +83,7 @@ import { ResultHeaderSection } from "../apps/explore/result_header_section";
 import { GeoJsonData, MapPoint } from "../chart/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
-import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
+import { Chart as MapToolChart } from "../tools/map/chart";
 import {
   Context as MapContext,
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
@@ -227,7 +227,6 @@ const MAP_PROPS = {
   onPlay: (): null => null,
   updateDate: (): null => null,
   geoRaster: null,
-  mapType: MAP_TYPE.D3,
   children: null,
 };
 
@@ -370,7 +369,6 @@ const MAP_CONTEXT = {
       domain: [NUMBER, NUMBER, NUMBER] as [number, number, number],
       showMapPoints: false,
       showTimeSlider: false,
-      allowLeaflet: false,
     },
   } as MapDisplayOptionsWrapper,
   placeInfo: {
@@ -1479,8 +1477,6 @@ describe("test ga event for Page Overview experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
-
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
       Promise.resolve({
@@ -1520,8 +1516,6 @@ describe("test ga event for Page Overview experiment", () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
-
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
@@ -1578,8 +1572,6 @@ describe("test ga event for Page Overview experiment", () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
-
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>

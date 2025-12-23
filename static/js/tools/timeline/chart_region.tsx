@@ -20,7 +20,6 @@ import React, { Component } from "react";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
-import { saveToFile } from "../../shared/util";
 import { getStatVarGroups } from "../../utils/app/timeline_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
@@ -53,8 +52,6 @@ interface ChartRegionPropsType {
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
-  downloadLink: HTMLAnchorElement;
-  bulkDownloadLink: HTMLAnchorElement;
   allStatData: { [key: string]: StatData };
   // map of stat var dcid to map of metahash to source metadata
   metadataMap: Record<string, Record<string, StatMetadata>>;
@@ -63,30 +60,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     super(props);
     this.allStatData = {};
     this.metadataMap = {};
-    this.downloadLink = document.getElementById(
-      "download-link"
-    ) as HTMLAnchorElement;
-    if (this.downloadLink) {
-      this.downloadLink.onclick = (): void => {
-        saveToFile("export.csv", this.createDataCsv(this.props.placeName));
-      };
-    }
-    this.bulkDownloadLink = document.getElementById(
-      "bulk-download-link"
-    ) as HTMLAnchorElement;
-    if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.onclick = (): void => {
-        // Carry over hash params, which is used by the bulk download tool for
-        // stat var parsing.
-        window.location.href = window.location.href.replace(
-          "/timeline",
-          "/timeline/bulk_download"
-        );
-      };
-    }
   }
 
-  render(): JSX.Element {
+  render(): React.JSX.Element {
     if (
       Object.keys(this.props.placeName).length === 0 ||
       Object.keys(this.props.statVarInfo).length === 0
@@ -132,25 +108,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     );
   }
 
-  componentWillUnmount(): void {
-    if (this.downloadLink) {
-      this.downloadLink.style.display = "none";
-    }
-    if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.style.display = "none";
-    }
-  }
-
   private onDataUpdate(groupId: string, data: StatData): void {
     this.allStatData[groupId] = data;
-    const displayStyle =
-      Object.keys(this.allStatData).length > 0 ? "inline-block" : "none";
-    if (this.downloadLink) {
-      this.downloadLink.style.display = displayStyle;
-    }
-    if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.style.display = displayStyle;
-    }
   }
 
   /**
@@ -160,7 +119,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
    * TODO(shifucun): extend this to accomodate other stats var properties.
    *
    * @param statVarOrder The input stat vars in the order they were selected.
-   * @param statVars The stat var info of the selected stat vars.
+   * @param statVarInfo
    */
   private groupStatVars(
     statVarOrder: string[],

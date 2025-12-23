@@ -69,6 +69,11 @@ steps:
         fi
         echo "Found latest mixer image hash: $mixer_githash"
 
+        # Update mixer submodule to the specific hash
+        echo "Updating mixer submodule to $mixer_githash"
+        git -C mixer fetch origin
+        git -C mixer checkout "$mixer_githash"
+
         # 3. CREATE DEPLOYMENT RELEASE
         # Use a timestamp for a consistently unique release name.
         release_name="v-${website_githash}-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"

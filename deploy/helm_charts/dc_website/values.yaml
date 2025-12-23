@@ -28,9 +28,6 @@ website:
 
   nodePool:
 
-  evalTool:
-    enabled: false
-
   dataGemma:
     enabled: false
 
@@ -100,16 +97,17 @@ serviceGroups:
       - "/v2/observation"
     replicas: 1
     resources:
-      memoryRequest: "2G"
-      memoryLimit: "2G"
+      memoryRequest: "4G"
+      memoryLimit: "4G"
     nodePool:
   node:
     urlPaths:
       - "/v2/node"
     replicas: 1
     resources:
-      memoryRequest: "3G"
-      memoryLimit: "3G"
+      memoryRequest: "8G"
+      memoryLimit: "8G"
+    cacheSVG: true
     nodePool:
   default:
     urlPaths:

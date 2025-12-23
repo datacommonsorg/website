@@ -29,6 +29,8 @@ from flask import current_app
 from flask import has_app_context
 import requests
 
+from shared.lib.constants import LOG_EXTREME_MIXER_CALLS
+
 # 3500 may seem v high,  but there are known paths (like ranking across
 # counties in US) ask for very many entities (3.2K)
 _ENTITY_LIMIT = 3500
@@ -84,6 +86,9 @@ class ExtremeCallLogger:
 
     # Do not log extreme calls from async processes that have no access to global flask.current_app
     if not has_app_context():
+      return
+
+    if not current_app.config.get(LOG_EXTREME_MIXER_CALLS):
       return
 
     self._try_log_payload(
