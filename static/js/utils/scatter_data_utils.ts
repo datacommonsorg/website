@@ -25,7 +25,6 @@ import {
 } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
 import { getMatchingObservation } from "../tools/shared_util";
-import { isBetween } from "./number_utils";
 import { getUnit } from "./stat_metadata_utils";
 
 interface PlaceAxisChartData {
@@ -90,6 +89,9 @@ function getPlaceAxisChartData(
       : null;
     if (popSeries && popSeries.series) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
+      if (!popObs) {
+        return null;
+      }
       // If this axis is using a population denominator, use that for the population value as well
       // Otherwise, use the default "Count_Person" variable.
       popValue = popValue || popObs.value;

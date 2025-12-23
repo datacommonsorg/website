@@ -496,7 +496,6 @@ function useChartData(cache: Cache): ChartData {
       xVal,
       yVal,
       placeVal,
-      display.chartType,
       cache
     );
     setChartData(chartData);
@@ -549,7 +548,6 @@ function getChartData(
   x: Axis,
   y: Axis,
   place: PlaceInfo,
-  chartType: ScatterChartType,
   cache: Cache
 ): ChartData {
   let xStatData = extractFacetData(
