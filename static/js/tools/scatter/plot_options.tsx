@@ -15,8 +15,7 @@
  */
 
 /**
- * Plot options for log scale, per capita, swapping axes, and
- * lower and upper bounds for populations.
+ * Plot options for log scale, per capita, and swapping axes.
  */
 
 import React, { useContext } from "react";

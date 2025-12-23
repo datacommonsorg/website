@@ -87,9 +87,6 @@ interface PlaceInfo {
   enclosedPlaces: Array<NamedPlace>;
   // The parent places of the selected place
   parentPlaces: Array<NamedTypedPlace>;
-  // Only plot places with populations between these
-  lowerBound: number;
-  upperBound: number;
 }
 
 interface PlaceInfoWrapper {
@@ -112,8 +109,6 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   enclosedPlaceType: "",
   enclosedPlaces: null,
   parentPlaces: null,
-  lowerBound: 0,
-  upperBound: 1e10,
 });
 
 interface DisplayOptionsWrapper {
@@ -176,8 +171,6 @@ const FieldToAbbreviation = {
   // PlaceInfo fields
   enclosingPlaceDcid: "epd",
   enclosedPlaceType: "ept",
-  lowerBound: "lb",
-  upperBound: "ub",
 
   // DisplayOptions fields
   showQuadrant: "qd",

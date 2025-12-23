@@ -203,12 +203,6 @@ export function applyHashPlace(params: URLSearchParams): PlaceInfo {
   if (type) {
     place.enclosedPlaceType = type;
   }
-  for (const key of ["lowerBound", "upperBound"]) {
-    const value = params.get(FieldToAbbreviation[key]);
-    if (value) {
-      place[key] = Number.parseInt(value);
-    }
-  }
   return place;
 }
 
@@ -376,7 +370,7 @@ export function updateHashPlace(hash: string, place: PlaceInfo): string {
       place.enclosingPlace.dcid
     );
   }
-  for (const key of ["enclosedPlaceType", "lowerBound", "upperBound"]) {
+  for (const key of ["enclosedPlaceType"]) {
     if (place[key] !== EmptyPlace[key]) {
       hash = appendEntry(hash, FieldToAbbreviation[key], place[key].toString());
     }

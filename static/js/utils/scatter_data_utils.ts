@@ -46,7 +46,6 @@ function getPlaceAxisChartData(
   defaultDenomData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
-  popBounds?: [number, number],
   denom?: string,
   scaling?: number
 ): PlaceAxisChartData {
@@ -91,12 +90,6 @@ function getPlaceAxisChartData(
       : null;
     if (popSeries && popSeries.series) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
-      if (
-        popBounds &&
-        (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
-      ) {
-        return null;
-      }
       // If this axis is using a population denominator, use that for the population value as well
       // Otherwise, use the default "Count_Person" variable.
       popValue = popValue || popObs.value;
@@ -127,7 +120,6 @@ interface PlaceScatterData {
  * @param metadataMap map of metahash to metadata for stat var data
  * @param xDenom optional denominator to use for x axis value calculation
  * @param yDenom optional denominator to use for y axis value calculation
- * @param popBounds optional range for population of accepted points
  * @param scaling optional amount to scale the value by
  * @returns
  */
@@ -140,7 +132,6 @@ export function getPlaceScatterData(
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,
   yDenom?: string,
-  popBounds?: [number, number],
   xScaling?: number,
   yScaling?: number
 ): PlaceScatterData {
@@ -150,7 +141,6 @@ export function getPlaceScatterData(
     defaultDenomData,
     namedPlace.dcid,
     metadataMap,
-    popBounds,
     xDenom,
     xScaling
   );
@@ -163,7 +153,6 @@ export function getPlaceScatterData(
     defaultDenomData,
     namedPlace.dcid,
     metadataMap,
-    popBounds,
     yDenom,
     yScaling
   );

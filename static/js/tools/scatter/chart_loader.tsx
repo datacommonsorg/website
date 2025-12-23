@@ -566,10 +566,6 @@ function getChartData(
   if (_.isEmpty(yStatData)) {
     yStatData = cache.statVarsData[y.statVarDcid];
   }
-  const popBounds: [number, number] =
-    chartType === ScatterChartType.MAP
-      ? null
-      : [place.lowerBound, place.upperBound];
   const points = {};
   const sources: Set<string> = new Set();
   let xUnit = "";
@@ -586,7 +582,6 @@ function getChartData(
       cache.metadataMap,
       xDenom,
       yDenom,
-      popBounds
     );
     if (_.isEmpty(placeChartData)) {
       continue;
