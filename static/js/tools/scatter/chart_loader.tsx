@@ -492,12 +492,7 @@ function useChartData(cache: Cache): ChartData {
     ) {
       return;
     }
-    const chartData = getChartData(
-      xVal,
-      yVal,
-      placeVal,
-      cache
-    );
+    const chartData = getChartData(xVal, yVal, placeVal, cache);
     setChartData(chartData);
 
     const downloadButton = document.getElementById("download-link");
