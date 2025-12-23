@@ -453,8 +453,6 @@ const SCATTER_CONTEXT = {
       enclosedPlaceType: "",
       enclosedPlaces: [],
       parentPlaces: [],
-      lowerBound: NUMBER,
-      upperBound: NUMBER,
     },
   } as ScatterPlaceInfoWrapper,
   display: {
