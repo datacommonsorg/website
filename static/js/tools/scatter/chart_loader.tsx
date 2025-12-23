@@ -581,7 +581,7 @@ function getChartData(
       cache.populationData,
       cache.metadataMap,
       xDenom,
-      yDenom,
+      yDenom
     );
     if (_.isEmpty(placeChartData)) {
       continue;

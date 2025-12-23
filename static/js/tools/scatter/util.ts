@@ -370,10 +370,13 @@ export function updateHashPlace(hash: string, place: PlaceInfo): string {
       place.enclosingPlace.dcid
     );
   }
-  for (const key of ["enclosedPlaceType"]) {
-    if (place[key] !== EmptyPlace[key]) {
-      hash = appendEntry(hash, FieldToAbbreviation[key], place[key].toString());
-    }
+
+  if (place.enclosedPlaceType) {
+    hash = appendEntry(
+      hash,
+      FieldToAbbreviation.enclosedPlaceType,
+      place.enclosedPlaceType
+    );
   }
   return hash;
 }
