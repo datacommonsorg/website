@@ -19,14 +19,13 @@
  * lower and upper bounds for populations.
  */
 
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Container } from "reactstrap";
 
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
@@ -42,7 +41,6 @@ import {
   AxisWrapper,
   Context,
   DisplayOptionsWrapper,
-  PlaceInfoWrapper,
   SHOW_POPULATION_LINEAR,
   SHOW_POPULATION_LOG,
   SHOW_POPULATION_OFF,
@@ -121,49 +119,11 @@ function selectShowPopulation(
   }
 }
 
-/**
- * Sets the lower bound for populations.
- * @param place
- * @param event
- */
-function selectLowerBound(
-  place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>,
-  setLowerBound: (lowerBound: string) => void
-): void {
-  if (event.target.value) {
-    place.setLowerBound(parseInt(event.target.value));
-  }
-  setLowerBound(event.target.value);
-}
-
-/**
- * Sets the upper bound for populations.
- * @param place
- * @param event
- */
-function selectUpperBound(
-  place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>,
-  setUpperBound: (upperBound: string) => void
-): void {
-  if (event.target.value) {
-    place.setUpperBound(parseInt(event.target.value));
-  }
-  setUpperBound(event.target.value);
-}
-
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
 // returns the available dates for the statvar. Then, fill the datapicker with
 // the dates.
 function PlotOptions(): JSX.Element {
-  const { place, x, y, display } = useContext(Context);
-  const [lowerBound, setLowerBound] = useState(
-    place.value.lowerBound.toString()
-  );
-  const [upperBound, setUpperBound] = useState(
-    place.value.upperBound.toString()
-  );
+  const { x, y, display } = useContext(Context);
   const yAxisLabel =
     display.chartType === ScatterChartType.SCATTER
       ? "Y-axis"
@@ -433,50 +393,6 @@ function PlotOptions(): JSX.Element {
                     Log scale
                   </Label>
                 </FormGroup>
-              </div>
-            </div>
-            <div className="plot-options-row">
-              <div className="plot-options-label">Filter by population:</div>
-              <div className="plot-options-input-section pop-filter">
-                <div className="plot-options-input">
-                  <FormGroup check>
-                    <Input
-                      className="pop-filter-input"
-                      type="number"
-                      onChange={(e): void =>
-                        selectLowerBound(place, e, setLowerBound)
-                      }
-                      value={lowerBound}
-                      onBlur={(): void => {
-                        setLowerBound(place.value.lowerBound.toString());
-                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]:
-                            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
-                        });
-                      }}
-                    />
-                  </FormGroup>
-                </div>
-                <span>to</span>
-                <div className="plot-options-input">
-                  <FormGroup check>
-                    <Input
-                      className="pop-filter-input"
-                      type="number"
-                      onChange={(e): void =>
-                        selectUpperBound(place, e, setUpperBound)
-                      }
-                      value={upperBound}
-                      onBlur={(): void => {
-                        setUpperBound(place.value.upperBound.toString());
-                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]:
-                            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
-                        });
-                      }}
-                    />
-                  </FormGroup>
-                </div>
               </div>
             </div>
           </>

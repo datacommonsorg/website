@@ -101,8 +101,6 @@ interface PlaceInfoWrapper {
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<NamedPlace>>;
   setParentPlaces: Setter<Array<NamedTypedPlace>>;
-  setLowerBound: Setter<number>;
-  setUpperBound: Setter<number>;
 }
 
 const EmptyPlace: PlaceInfo = Object.freeze({
@@ -252,8 +250,6 @@ function useContextStore(params: URLSearchParams): ContextType {
       setEnclosingPlace: getSetEnclosingPlace(setPlace),
       setEnclosedPlaceType: getSetEnclosedPlaceType(setPlace),
       setEnclosedPlaces: getSetEnclosedPlaces(setPlace),
-      setLowerBound: getSetLowerBound(setPlace),
-      setUpperBound: getSetUpperBound(setPlace),
       setParentPlaces: (parentPlaces) =>
         setPlace((prev) => ({ ...prev, parentPlaces })),
     },
@@ -405,26 +401,6 @@ function getSetDate(
       date,
     }));
   };
-}
-
-function getSetLowerBound(
-  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): Setter<number> {
-  return (lowerBound) =>
-    setPlace((prevPlace) => ({
-      ...prevPlace,
-      lowerBound,
-    }));
-}
-
-function getSetUpperBound(
-  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): Setter<number> {
-  return (upperBound) =>
-    setPlace((prevPlace) => ({
-      ...prevPlace,
-      upperBound,
-    }));
 }
 
 export {

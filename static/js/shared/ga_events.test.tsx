@@ -141,7 +141,6 @@ import {
   GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
-  GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
@@ -1039,24 +1038,6 @@ describe("test ga event tool chart plot option", () => {
       ]);
       // Check gtag is called once, seven times in total.
       expect(mockgtag.mock.calls.length).toEqual(7);
-    });
-
-    // Blur the input of population filter.
-    fireEvent.blur(
-      scatterToolChart.container.getElementsByClassName("pop-filter-input")[0]
-    );
-    await waitFor(() => {
-      // Check the parameters passed to the gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_TOOL_CHART_OPTION_CLICK,
-        {
-          [GA_PARAM_TOOL_CHART_OPTION]:
-            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
-        },
-      ]);
-      // Check gtag is called once, eight times in total.
-      expect(mockgtag.mock.calls.length).toEqual(8);
     });
   });
   test("call gtag when map tool chart option is clicked", async () => {
