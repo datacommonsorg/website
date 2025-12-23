@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,10 @@
 /**
  * Standard version of the auto-complete capable NL Search bar.
  */
+/** @jsxImportSource @emotion/react */
 
+import { type SerializedStyles, css } from "@emotion/react";
+import styled from "@emotion/styled";
 import axios from "axios";
 import _ from "lodash";
 import React, {
@@ -54,10 +57,12 @@ import {
   replaceQueryWithSelection,
   stripPatternFromQuery,
 } from "../../shared/util";
+import theme from "../../theme/theme";
 import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
 } from "../../utils/click_alerter";
+import { Button } from "../elements/button/button";
 import { ArrowForward } from "../elements/icons/arrow_forward";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
@@ -107,6 +112,90 @@ function convertJSONToAutoCompleteResults(
   }));
 }
 
+type SearchWrapperProps = {
+  $active: boolean;
+};
+
+const SearchWrapper = styled("div", {
+  shouldForwardProp: (prop) => prop !== "$active",
+})<SearchWrapperProps>`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid
+    ${({ $active }): string =>
+      $active ? theme.search.active.border : theme.search.base.border};
+  width: 100%;
+  background-color: ${({ $active }): string =>
+    $active ? theme.search.active.background : theme.search.base.background};
+  border-radius: ${theme.search.radius};
+  overflow: hidden;
+  max-height: calc(${theme.searchSuggestions.height} + ${theme.search.height});
+  .searchGroup {
+    margin: 0;
+    border: 0;
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.md}px;
+    padding: 0 ${theme.spacing.lg}px;
+  }
+  .searchInputIcon {
+    ${theme.typography.text.lg}
+    line-height: 1rem;
+    margin: 0;
+    padding: 0;
+    color: ${({ $active }): string =>
+      $active ? theme.search.active.icon : theme.search.base.icon};
+  }
+`;
+
+type SearchButtonProps = {
+  $active: boolean;
+  $hasValue: boolean;
+};
+
+export const SearchButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "$active" && prop !== "$hasValue",
+})<SearchButtonProps>`
+  && {
+    color: ${({ $hasValue, $active }): string =>
+      $hasValue
+        ? $active
+          ? theme.search.active.button
+          : theme.search.base.text
+        : theme.search.base.button};
+  }
+`;
+
+const searchInputCss = (active: boolean): SerializedStyles => css`
+  && {
+    margin: 0;
+    padding: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    transition: none;
+    cursor: text;
+
+    ${theme.typography.family.text}
+    ${theme.typography.text.md}
+    line-height: 1rem;
+    height: ${theme.search.height};
+
+    background-color: ${active
+      ? theme.search.active.background
+      : theme.search.base.background};
+    color: ${active ? theme.search.active.text : theme.search.base.text};
+
+    &:focus,
+    &:active {
+      border: none;
+      box-shadow: none !important;
+      outline: none;
+      -webkit-appearance: none;
+    }
+  }
+`;
+
 export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
@@ -131,7 +220,7 @@ export function AutoCompleteInput(
   const [statVarInfo, setStatVarInfo] = useState({});
   const [processedResults, setProcessedResults] = useState([]);
 
-  const isHeaderBar = props.barType == "header";
+  // const isHeaderBar = props.barType == "header"; Not being used currently
 
   const { placeholder } = useQueryStore();
 
@@ -428,40 +517,36 @@ export function AutoCompleteInput(
 
   return (
     <>
-      <div
-        className={`search-box-section ${
-          results.length == 0 ? "radiused" : "unradiused"
-        } ${inputActive ? "search-box-section-active" : ""}`}
-        ref={wrapperRef}
-      >
-        <div
-          className={`search-bar${props.value ? " non-empty" : ""} ${
-            results.length == 0 ? "radiused" : "unradiused"
-          }`}
-        >
-          <InputGroup className="search-bar-content">
-            {isHeaderBar && (
-              <span className="search-bar-icon">
-                <Search />
-              </span>
-            )}
-            <Input
-              id={props.inputId}
-              invalid={props.invalid}
-              placeholder={placeholderText}
-              aria-label={placeholderText}
-              value={inputText}
-              onChange={onInputChange}
-              onKeyDown={(event): void => handleKeydownEvent(event)}
-              className="pac-target-input search-input-text"
-              autoComplete="one-time-code"
-              autoFocus={props.shouldAutoFocus}
-            ></Input>
-            <div onClick={executeQuery} id="rich-search-button">
-              {isHeaderBar && <ArrowForward />}
-            </div>
-          </InputGroup>
-        </div>
+      <SearchWrapper ref={wrapperRef} $active={inputActive}>
+        <InputGroup className="searchGroup">
+          <div className="searchInputIcon">
+            <Search />
+          </div>
+          <Input
+            id={props.inputId}
+            invalid={props.invalid}
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            name="searchInput"
+            value={inputText}
+            onChange={onInputChange}
+            onKeyDown={(event): void => handleKeydownEvent(event)}
+            autoComplete="one-time-code"
+            autoFocus={props.shouldAutoFocus}
+            css={searchInputCss(inputActive)}
+          />
+          <SearchButton
+            variant="naked"
+            size="lg"
+            onClick={executeQuery}
+            id="rich-search-button"
+            $active={inputActive}
+            $hasValue={Boolean(props.value)}
+          >
+            <ArrowForward />
+          </SearchButton>
+        </InputGroup>
+
         {props.enableAutoComplete && !_.isEmpty(results) && (
           <AutoCompleteSuggestions
             baseInput={baseInput}
@@ -472,7 +557,7 @@ export function AutoCompleteInput(
             hasLocation={hasLocation}
           />
         )}
-      </div>
+      </SearchWrapper>
     </>
   );
 }
