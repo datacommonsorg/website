@@ -34,9 +34,7 @@ import {
 import { MAP_CONTAINER_ID } from "./chart";
 import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
-  getAllChildPlaceTypes,
   getParentPlaces,
-  getRedirectLink,
 } from "./util";
 
 interface PlaceDetailsPropType {
@@ -133,8 +131,8 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   );
 }
 
-function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>): void {
-  const target = e.target as HTMLAnchorElement;
+function highlightPlace(e: React.MouseEvent<HTMLElement>): void {
+  const target = e.target as HTMLElement;
   const placeDcid = target.dataset.geodcid;
   highlightPlaceToggle(
     document.getElementById(MAP_CONTAINER_ID),
@@ -143,8 +141,8 @@ function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>): void {
   );
 }
 
-function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>): void {
-  const target = e.target as HTMLAnchorElement;
+function unhighlightPlace(e: React.MouseEvent<HTMLElement>): void {
+  const target = e.target as HTMLElement;
   const placeDcid = target.dataset.geodcid;
   highlightPlaceToggle(
     document.getElementById(MAP_CONTAINER_ID),
@@ -183,31 +181,18 @@ function getListItemElement(
     enclosingPlace,
     placeInfo.parentPlaces
   );
-  const redirectLink = getRedirectLink(
-    statVar,
-    place,
-    parentPlaces,
-    placeInfo.mapPointPlaceType,
-    display
-  );
-  const shouldBeClickable = !_.isEmpty(
-    getAllChildPlaceTypes(place, parentPlaces)
-  );
+
   return (
     <div key={place.dcid}>
       {itemNumber && `${itemNumber}. `}
-      {shouldBeClickable ? (
-        <a
-          href={redirectLink}
+      {
+        <span
           data-geodcid={place.dcid}
           onMouseEnter={highlightPlace}
           onMouseLeave={unhighlightPlace}
         >
           {place.name}
-        </a>
-      ) : (
-        `${place.name}`
-      )}
+        </span>}
       {date}: {value}
     </div>
   );
