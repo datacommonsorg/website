@@ -78,7 +78,7 @@ Options:
     locally (with the data container in the cloud) Exclusive with '--schema-update'.
   * data: Only run the data container. This is only valid if you are running the 
     data container locally (with the service container in the cloud).
-    Only valid with 'run' and 'build_run'. Ignored otherwise.
+    Only valid with 'run'. Ignored otherwise.
   For "hybrid" setups, the script will infer the correct container to run from the 
   env.list file; this setting will be ignored.
 
@@ -308,94 +308,142 @@ SCHEMA_UPDATE=false
 IMAGE=""
 PACKAGE=""
 
+# Helper to parse arguments (handles both --opt=val and --opt val)
+# Echoes "value|shift_count" to stdout
+#
+# IMPORTANT: This function is ONLY for options that REQUIRE a value.
+# Do NOT use this for boolean flags (like -d or -h). If you do, it will 
+# incorrectly attempt to consume the next argument as a value.
+#
+# Arguments:
+#   $1: current_arg (the flag being parsed, e.g. "-e" or "--env_file=foo")
+#   $2: next_arg (the argument following the flag in the command line)
+#   $3: remaining_count (total number of arguments remaining in "$@")
+#
+# Logic:
+#   - If current_arg contains '=', value is extracted from it. shift_count is 1.
+#   - If not, it checks if next_arg exists and is NOT a flag (doesn't start with -).
+#     If valid, value is next_arg and shift_count is 2.
+#   - If next_arg is missing or is another flag, exits with error.
+parse_arg() {
+  local current_arg="$1"
+  local next_arg="$2"
+  local remaining_count="$3"
+  local val
+  local shift_count
+
+  if [[ "$current_arg" == *"="* ]]; then
+    val="${current_arg#*=}"
+    shift_count=1
+  else
+    if [[ $remaining_count -lt 2 || "$next_arg" == -* ]]; then
+      log_error "Option $current_arg requires an argument."
+      exit 1
+    fi
+    val="$next_arg"
+    shift_count=2
+  fi
+  echo "$val|$shift_count"
+}
+
 # Parse command-line options
-OPTS=$(getopt -o e:a:c:r:i:sp:hd --long env_file:,actions:,container:,release:,image:,schema_update,package:,help,debug -n 'run_cdc_dev_docker.sh' -- "$@")
-
-if [ $? != 0 ]; then
-  echo "Failed to parse options." >&2
-  exit 1
-fi
-
-eval set -- "$OPTS"
-
-# Process command-line options
-# getopt handles invalid options and missing arguments
-while true; do
+while [[ $# -gt 0 ]]; do
   case "$1" in
-    -e | --env_file)
-      if [ -f "$2" ]; then
-        ENV_FILE="$2"
+    -e | --env_file | --env_file=*)
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
+      shift $shift_count
+      
+      if [ -f "$val" ]; then
+        ENV_FILE="$val"
       else
-        log_error "File does not exist.\nPlease specify a valid path and file name."
+        log_error "Error parsing --env_file: File '$val' does not exist.\nPlease specify a valid path and file name."
         exit 1
       fi
-      shift 2
       ;;
-    -a | --actions)
-      if [ "$2" == "run" ] || [ "$2" == "build" ] || [ "$2" == "build_run" ] || [ "$2" == "build_upload" ] || [ "$2" == "upload" ]; then
-        ACTIONS="$2"
-        shift 2  
+    -a | --actions | --actions=*)
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
+      shift $shift_count
+
+      if [[ "$val" =~ ^(run|build|build_run|build_upload|upload)$ ]]; then
+        ACTIONS="$val"
       else
         log_error "That is not a valid action. Valid options are:\nrun\nbuild\nbuild_run\nbuild_upload\nupload\n"
         exit 1
       fi
       ;;
-    -c | --container)
-      if [ "$2" == "all" ] || [ "$2" == "service" ]; then
-        CONTAINER="$2"
-        shift 2
+    -c | --container | --container=*)
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
+      shift $shift_count
+
+      if [[ "$val" =~ ^(all|service|data)$ ]]; then
+        CONTAINER="$val"
       else
         log_error "That is not a valid container option. Valid options are 'all' or 'service' or 'data'\n"
         exit 1
       fi
       ;;
-    -r | --release)
-      if [ "$2" == "latest" ] || [ "$2" == "stable" ]; then
-        RELEASE="$2"
-        shift 2
+    -r | --release | --release=*)
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
+      shift $shift_count
+
+      if [[ "$val" =~ ^(latest|stable)$ ]]; then
+        RELEASE="$val"
       else
         log_error "That is not a valid release option. Valid options are 'stable' or 'latest'\n"
         exit 1
       fi
       ;;
-    -i | --image)
-      if [ "$2" == "latest" ] || [ "$2" == "stable" ]; then
+    -i | --image | --image=*)
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
+      shift $shift_count
+
+      if [[ "$val" =~ ^(latest|stable)$ ]]; then
         log_error "That is not a valid custom image name. Did you mean to use the '--release' option?\n"
         exit 1
       else
-       IMAGE="$2"
-       shift 2
+        IMAGE="$val"
       fi
       ;;
     -s | --schema_update)
       SCHEMA_UPDATE=true
       shift
       ;;
-    -p | --package)
-      PACKAGE="$2"
-      shift 2
+    -p | --package | --package=*)
+      parsed=$(parse_arg "$1" "$2" "$#")
+      val="${parsed%|*}"
+      shift_count="${parsed#*|}"
+      shift $shift_count
+      PACKAGE="$val"
       ;;
     -h | --help)
       help
       exit 0
+      ;;
+    -d | --debug)
+      set -x
       shift
       ;;
-    -d | --debug) 
-      set -x 
+    --)
       shift
+      break
       ;;
-    --) 
-      shift
-      break 
+    *)
+      log_error "Invalid input: $1"
+      log_error "Please try again. See '--help' for correct usage."
+      exit 1
       ;;
-    esac
+  esac
 done
-
-# Handle garbage input (getopt doesn't do it)
-if [ $# -gt 0 ]; then
-  log_error "Invalid input.\nPlease try again. See '--help' for correct usage.\n"
-  exit 1
-fi
 
 # Get options from the selected env.list file
 source "$ENV_FILE"
