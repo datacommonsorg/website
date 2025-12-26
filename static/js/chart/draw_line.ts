@@ -616,8 +616,7 @@ export function drawGroupLineChart(
     return;
   }
 
-  container.selectAll("svg").remove();
-  container.selectAll(".draw-tooltip").remove();
+  container.selectAll("svg, .draw-tooltip").remove();
 
   const svg = container
     .append("svg")
