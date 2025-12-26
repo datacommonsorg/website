@@ -76,12 +76,13 @@ fi
 echo "Remote for main repo is '${upstream_remote}'".
 
 # Find the remote associated with the forked repo.
-# Defaults to "origin" if it exists and is not the upstream repo.
+# Selects "origin" if it exists and is not the upstream repo.
 # Otherwise, picks the first remote that is not the upstream repo.
-if git remote -v | grep "^origin" | grep -v "datacommonsorg" > /dev/null; then
+fork_remotes=$(git remote -v | grep -v "datacommonsorg" | awk '{print $1}' | sort -u)
+if echo "${fork_remotes}" | grep -q -x "origin"; then
   fork_remote="origin"
 else
-  fork_remote=$(git remote -v | grep -v "datacommonsorg" | awk '{print $1}' | head -n 1)
+  fork_remote=$(echo "${fork_remotes}" | head -n 1)
 fi
 if [ -z "$fork_remote" ]; then
   echo "No remote found without 'datacommonsorg' in its URL."
