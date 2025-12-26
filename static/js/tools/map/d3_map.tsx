@@ -37,7 +37,6 @@ import {
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import {
   GeoJsonData,
-  GeoJsonFeatureProperties,
   MapPoint,
 } from "../../chart/types";
 import { MapLayerData } from "../../components/tiles/map_tile";
@@ -51,12 +50,11 @@ import { DataPointMetadata, NamedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
-import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
+import { Context, PlaceInfo } from "./context";
 import {
   CHART_LOADER_SCREEN,
   getAllChildPlaceTypes,
   getParentPlaces,
-  getRedirectLink,
 } from "./util";
 import { shouldShowBorder } from "./util";
 
@@ -101,12 +99,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
     ).innerHTML = `<div id="legend-unit">${props.unit || ""}</div>`;
     const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
     const height = (width * 2) / 5;
-    const redirectAction = getMapRedirectAction(
-      statVar.value,
-      placeInfo.value,
-      display.value,
-      props.europeanCountries
-    );
     const zoomDcid =
       placeInfo.value.enclosingPlace.dcid !== placeInfo.value.selectedPlace.dcid
         ? placeInfo.value.selectedPlace.dcid
@@ -189,7 +181,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       [layerData],
       height,
       width - legendWidth,
-      redirectAction,
+      () => {},
       getTooltipHtml(
         props.metadata,
         props.mapDataValues,
@@ -306,40 +298,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
     );
   }
 }
-
-const getMapRedirectAction =
-  (
-    statVar: StatVar,
-    placeInfo: PlaceInfo,
-    displayOptions: DisplayOptions,
-    europeanCountries: Array<NamedPlace>
-  ) =>
-  (geoProperties: GeoJsonFeatureProperties): void => {
-    const selectedPlace = {
-      dcid: geoProperties.geoDcid,
-      name: geoProperties.name,
-      types: [placeInfo.enclosedPlaceType],
-    };
-    const enclosingPlace =
-      europeanCountries.findIndex(
-        (country) => country.dcid === selectedPlace.dcid
-      ) > -1
-        ? EUROPE_NAMED_TYPED_PLACE
-        : placeInfo.enclosingPlace;
-    const parentPlaces = getParentPlaces(
-      selectedPlace,
-      enclosingPlace,
-      placeInfo.parentPlaces
-    );
-    const redirectLink = getRedirectLink(
-      statVar,
-      selectedPlace,
-      parentPlaces,
-      placeInfo.mapPointPlaceType,
-      displayOptions
-    );
-    window.open(redirectLink, "_self");
-  };
 
 const getTooltipHtml =
   (
