@@ -84,7 +84,7 @@ class MapTestMixin():
     find_elem(self.driver, value='explore-timeline-text').click()
 
     # Assert rankings page loaded
-    expected_ranking_page_title = 'Ranking by Median Age - Counties in California - Place Rankings -' + self.dc_title_string
+    expected_ranking_page_title = 'Ranking by Median Age - Counties in California - Place Rankings - ' + self.dc_title_string
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(expected_ranking_page_title))
     self.assertEqual(expected_ranking_page_title, self.driver.title)
