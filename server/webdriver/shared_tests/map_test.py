@@ -85,8 +85,8 @@ class MapTestMixin():
 
     # Assert rankings page loaded
     expected_ranking_page_title = 'Ranking by Median Age - Counties in California - Place Rankings -' + self.dc_title_string
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.title_contains(expected_ranking_page_title))
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(EC.title_contains(expected_ranking_page_title))
     self.assertEqual(expected_ranking_page_title, self.driver.title)
 
   @pytest.mark.one_at_a_time
