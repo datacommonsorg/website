@@ -124,7 +124,7 @@ Open a new terminal window and enter the following commands into a shell:
 
     ```shell
     cd <your local repository>
-    ./run_test.sh --setup_all
+    ./run_test.sh --setup_python
     ```
 
 ## 4. Verify setup

@@ -96,6 +96,57 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below poverty line (Per Capita) vs. Prevalence of Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
@@ -252,6 +303,26 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter",
+                      "dc/4lvmzr1h1ylk1_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) (${yDate}) Vs. Prevalence: Female, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below poverty line (Per Capita) vs. Prevalence: Female, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "dc/4lvmzr1h1ylk1_scatter"
                     ],
@@ -347,6 +418,27 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter",
+                      "dc/x13tvt8jsgrm4_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) (${yDate}) Vs. Prevalence: Male, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line (Per Capita) vs. Prevalence: Male, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "dc/x13tvt8jsgrm4_scatter"
                     ],
@@ -385,6 +477,15 @@
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+            "name": "Population Below poverty line (Per Capita)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter": {
+            "name": "Population Below poverty line (Per Capita)",
+            "noPerCapita": true,
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
             "name": "Population Below poverty line",

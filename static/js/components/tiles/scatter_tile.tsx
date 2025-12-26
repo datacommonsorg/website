@@ -313,7 +313,10 @@ function getDataCsvCallback(
       props.surface
     );
     // Assume both variables will have the same date
-    // TODO: Update getCsv to handle different dates for different variables
+    /*
+     TODO (nick-next): Update getDataCsv to handle different dates for different variables
+        see also chart_loader.tsx in the scatter viz tool.
+     */
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
     const clientStatVarSpecs = [
       scatterChartData.xStatVar,
