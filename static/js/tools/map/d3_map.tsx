@@ -55,7 +55,6 @@ interface D3MapProps {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
-  europeanCountries: Array<NamedPlace>;
   // Geojson for drawing border of containing place
   borderGeoJsonData?: GeoJsonData;
 }
@@ -223,7 +222,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
     removeSpinner(CHART_LOADER_SCREEN);
   }, [
     props.borderGeoJsonData,
-    props.europeanCountries,
     props.geoJsonData,
     props.mapDataValues,
     props.mapPointValues,
