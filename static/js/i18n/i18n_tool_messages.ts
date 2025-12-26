@@ -249,10 +249,46 @@ export const VisToolExampleChartMessages = defineMessages({
     description:
       "Title of a line chart plotting the statistical variable 'income' in a set of towns known for having a university",
   },
-  berkeleyAndPiedmontPoverty: {
-    id: "berkeley_and_piedmont_poverty",
-    defaultMessage: "Berkeley & Piedmont poverty",
+  closeButDifferentBerkeleyAndPiedmont: {
+    id: "close_but_different_berkeley_and_piedmont",
+    defaultMessage: "Close but different: Berkeley & Piedmont",
     description:
-      "Title of a line chart plotting the statistical variable 'poverty' for both Berkeley, USA and Piedmont, USA",
+      "Title of a timeline showing the differences between Berkeley, USA and Piedmont, USA",
+  },
+  projectedTemperatureRiseInUsa: {
+    id: "projected_temperature_rise_in_the_usa",
+    defaultMessage: "Projected temperature rise in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'projected temperature rise' in counties of the USA",
+  },
+  medianAgeInUsa: {
+    id: "median_age_in_the_usa",
+    defaultMessage: "Median age in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'median age' in counties of the USA",
+  },
+  noSchoolingCompletedInUsa: {
+    id: "no_schooling_completed_in_the_usa",
+    defaultMessage: "No schooling completed in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'no schooling completed' in counties of the USA",
+  },
+  carbonDioxideEmissionsInWorldCountries: {
+    id: "carbon_dioxide_emissions_in_world_countries",
+    defaultMessage: "Carbon dioxide emissions in world countries",
+    description:
+      "Title of a map plotting the statistical variable 'carbon dioxide emissions' in countries of the world",
+  },
+  closeButDifferentPaloAltoAndEastPaloAlto: {
+    id: "close_but_different_palo_alto_and_east_palo_alto",
+    defaultMessage: "Close but different: Palo Alto & East Palo Alto",
+    description:
+      "Title of a timeline showing the differences between Palo Alto and East Palo Alto",
+  },
+  extremesImperialCountyAndSantaClaraCounty: {
+    id: "extremes_imperial_county_and_santa_clara_county",
+    defaultMessage: "Extremes: Imperial County & Santa Clara County",
+    description:
+      "Title of a timeline showing the differences between Imperial County and Santa Clara County",
   },
 });
