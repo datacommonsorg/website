@@ -26,6 +26,9 @@
 
 # To skip branch creation and reuse existing branches:
 #   ./scripts/create_customdc_stable_update_pr.sh --reuse
+#
+# To specify a custom fork remote (defaults to 'origin'):
+#   ./scripts/create_customdc_stable_update_pr.sh --fork-remote my-fork
 
 set -e
 
@@ -33,17 +36,36 @@ MASTER_BRANCH=master
 STABLE_BRANCH=customdc_stable
 UPDATE_BRANCH=cdcStableUpdate
 
-# Parse option flag if present
+# Parse option flags
 mode="create"
-if [[ "$1" == "--delete" ]]; then
-  mode="delete"
-elif [[ "$1" == "--reuse" ]]; then
-  mode="reuse"
-elif [[ "$1" != "" ]]; then
-  echo "Unknown option: $1"
-  echo "Available options are '--delete' and '--reuse'."
-  exit 1
-fi
+fork_remote="origin"
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --delete)
+      mode="delete"
+      shift
+      ;;
+    --reuse)
+      mode="reuse"
+      shift
+      ;;
+    --fork-remote)
+      if [[ -n "$2" && "$2" != --* ]]; then
+        fork_remote="$2"
+        shift 2
+      else
+        echo "Error: --fork-remote requires a non-empty argument."
+        exit 1
+      fi
+      ;;
+    *)
+      echo "Unknown option: $1"
+      echo "Available options: --delete, --reuse, --fork-remote <remote>"
+      exit 1
+      ;;
+  esac
+done
 
 # Check if GitHub CLI is installed
 if ! command -v gh &> /dev/null; then
@@ -75,23 +97,16 @@ if [ -z "$upstream_remote" ]; then
 fi
 echo "Remote for main repo is '${upstream_remote}'".
 
-# Find the remote associated with the forked repo.
-# Selects "origin" if it exists and is not the upstream repo.
-# Otherwise, picks the first remote that is not the upstream repo.
-fork_remotes=$(git remote -v | grep -v "datacommonsorg" | awk '{print $1}' | sort -u)
-if echo "${fork_remotes}" | grep -q -x "origin"; then
-  fork_remote="origin"
-else
-  fork_remote=$(echo "${fork_remotes}" | head -n 1)
-fi
-if [ -z "$fork_remote" ]; then
-  echo "No remote found without 'datacommonsorg' in its URL."
+# Verify the fork remote exists
+if ! git remote get-url "$fork_remote" &> /dev/null; then
+  echo "Remote '${fork_remote}' not found."
+  echo "Please specify a valid remote using --fork-remote or explicitly create 'origin'."
   exit 1
 fi
 echo "Remote for forked repo is '${fork_remote}'".
 
-fork_owner=$(gh repo view $(git remote get-url origin) --json owner --jq '.owner.login')
-fork_name=$(gh repo view $(git remote get-url origin) --json name --jq '.name')
+fork_owner=$(gh repo view $(git remote get-url "$fork_remote") --json owner --jq '.owner.login')
+fork_name=$(gh repo view $(git remote get-url "$fork_remote") --json name --jq '.name')
 echo "${fork_remote} = ${fork_owner}/${fork_name}"
 echo ""
 
