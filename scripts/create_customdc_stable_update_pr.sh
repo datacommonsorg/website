@@ -105,8 +105,9 @@ if ! git remote get-url "$fork_remote" &> /dev/null; then
 fi
 echo "Remote for forked repo is '${fork_remote}'".
 
-fork_owner=$(gh repo view $(git remote get-url "$fork_remote") --json owner --jq '.owner.login')
-fork_name=$(gh repo view $(git remote get-url "$fork_remote") --json name --jq '.name')
+# Fetch fork owner and name in a single call, then parse into variables
+fork_info=$(gh repo view $(git remote get-url "$fork_remote") --json owner,name --jq '.owner.login + " " + .name')
+read -r fork_owner fork_name <<< "$fork_info"
 echo "${fork_remote} = ${fork_owner}/${fork_name}"
 echo ""
 
