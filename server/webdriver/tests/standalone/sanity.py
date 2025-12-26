@@ -15,7 +15,6 @@
 # To run this test, please use the convenience script:
 # ./run_website_sanity.sh
 
-
 import csv
 from datetime import datetime
 from enum import StrEnum
@@ -56,8 +55,6 @@ _TEST_PARAM = "test=sanity"
 _ELEMENT_LOAD_TIMEOUT_SEC = 3
 _PAGE_LOAD_WAIT_SEC = 1
 _CHARTS_LOAD_TIMEOUT_SEC = 10
-
-
 
 
 def url_with_test_param(url: str):
@@ -238,8 +235,9 @@ class WebsiteSanityTest:
               (By.CSS_SELECTOR, '[data-testid^="query-link-"]')))
     except:
       self.add_result(
-          fail_result(page, start,
-                      "Timed out waiting for query links in explore landing page."))
+          fail_result(
+              page, start,
+              "Timed out waiting for query links in explore landing page."))
       return
 
     # Pass
