@@ -35,27 +35,17 @@ import {
   getProjection,
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
-import {
-  GeoJsonData,
-  MapPoint,
-} from "../../chart/types";
+import { GeoJsonData, MapPoint } from "../../chart/types";
 import { MapLayerData } from "../../components/tiles/map_tile";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
-import {
-  EUROPE_NAMED_TYPED_PLACE,
-  USA_PLACE_DCID,
-} from "../../shared/constants";
+import { USA_PLACE_DCID } from "../../shared/constants";
 import { DataPointMetadata, NamedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
-import { Context, PlaceInfo } from "./context";
-import {
-  CHART_LOADER_SCREEN,
-  getAllChildPlaceTypes,
-  getParentPlaces,
-} from "./util";
+import { Context } from "./context";
+import { CHART_LOADER_SCREEN } from "./util";
 import { shouldShowBorder } from "./util";
 
 interface D3MapProps {
@@ -181,14 +171,14 @@ export function D3Map(props: D3MapProps): JSX.Element {
       [layerData],
       height,
       width - legendWidth,
-      () => {},
+      _.noop,
       getTooltipHtml(
         props.metadata,
         props.mapDataValues,
         statVar.value.perCapita,
         props.unit
       ),
-      canClickRegion(placeInfo.value, props.europeanCountries),
+      () => false,
       projection,
       zoomDcid,
       zoomParams
@@ -341,26 +331,4 @@ const getTooltipHtml =
         showPopDateMessage ? "<sup>1</sup>" : ""
       }<br />` + footer;
     return html;
-  };
-
-const canClickRegion =
-  (placeInfo: PlaceInfo, europeanCountries: Array<NamedPlace>) =>
-  (placeDcid: string): boolean => {
-    const enclosingPlace =
-      europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
-        ? EUROPE_NAMED_TYPED_PLACE
-        : placeInfo.enclosingPlace;
-    const parentPlaces = getParentPlaces(
-      placeInfo.selectedPlace,
-      enclosingPlace,
-      placeInfo.parentPlaces
-    );
-    const placeAsNamedTypedPlace = {
-      dcid: placeDcid,
-      name: placeDcid,
-      types: [placeInfo.enclosedPlaceType],
-    };
-    return !_.isEmpty(
-      getAllChildPlaceTypes(placeAsNamedTypedPlace, parentPlaces)
-    );
   };
