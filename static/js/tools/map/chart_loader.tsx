@@ -358,7 +358,6 @@ export function ChartLoader(): ReactElement {
           unit={chartStore.mapValuesDates.data.unit}
           mapPointValues={chartStore.mapPointValues.data}
           mapPoints={chartStore.mapPointCoordinate.data}
-          europeanCountries={europeanCountries}
           rankingLink={rankingLink}
           facetList={facetList}
           borderGeoJsonData={

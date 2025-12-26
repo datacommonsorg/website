@@ -56,7 +56,6 @@ interface ChartProps {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
-  europeanCountries: Array<NamedPlace>;
   rankingLink: string;
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
@@ -145,7 +144,6 @@ export function Chart(props: ChartProps): ReactElement {
               unit={props.unit}
               mapPointValues={props.mapPointValues}
               mapPoints={props.mapPoints}
-              europeanCountries={props.europeanCountries}
               borderGeoJsonData={props.borderGeoJsonData}
             />
             {/* )} */}
