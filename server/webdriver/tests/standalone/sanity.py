@@ -11,6 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# To run this test, please use the convenience script:
+# ./run_website_sanity.sh
+
 
 import csv
 from datetime import datetime
@@ -49,6 +53,11 @@ flags.DEFINE_string(
 flags.DEFINE_string("url", None, "URL to start testing from.", required=True)
 
 _TEST_PARAM = "test=sanity"
+_ELEMENT_LOAD_TIMEOUT_SEC = 3
+_PAGE_LOAD_WAIT_SEC = 1
+_CHARTS_LOAD_TIMEOUT_SEC = 10
+
+
 
 
 def url_with_test_param(url: str):
@@ -142,7 +151,7 @@ class WebsiteSanityTest:
     page.title = self.driver.title if page.title is None else page.title
 
     # Wait 1 second for the page to load.
-    time.sleep(1)
+    time.sleep(_PAGE_LOAD_WAIT_SEC)
 
     # topic items
     topic_items = find_elems(self.driver, By.CSS_SELECTOR,
@@ -224,21 +233,13 @@ class WebsiteSanityTest:
 
     # queries
     try:
-      WebDriverWait(self.driver, 3).until(
+      queries = WebDriverWait(self.driver, _ELEMENT_LOAD_TIMEOUT_SEC).until(
           EC.presence_of_all_elements_located(
               (By.CSS_SELECTOR, '[data-testid^="query-link-"]')))
     except:
       self.add_result(
           fail_result(page, start,
                       "Timed out waiting for query links in explore landing page."))
-      return
-
-    queries = find_elems(self.driver, By.CSS_SELECTOR,
-                         '[data-testid^="query-link-"]')
-    if queries is None or len(queries) == 0:
-      self.add_result(
-          fail_result(page, start,
-                      "No query links found in explore landing page."))
       return
 
     # Pass
@@ -269,7 +270,7 @@ class WebsiteSanityTest:
 
     # Wait 10 secs for charts container to load
     try:
-      WebDriverWait(self.driver, 10).until(
+      WebDriverWait(self.driver, _CHARTS_LOAD_TIMEOUT_SEC).until(
           EC.presence_of_element_located((By.CLASS_NAME, "explore-charts")))
     except:
       self.add_result(fail_result(
@@ -282,7 +283,7 @@ class WebsiteSanityTest:
     # Wait couple more seconds for subtopics (i.e. charts) to load
     subtopics = None
     try:
-      subtopics = WebDriverWait(self.driver, 3).until(
+      subtopics = WebDriverWait(self.driver, _ELEMENT_LOAD_TIMEOUT_SEC).until(
           EC.presence_of_all_elements_located(
               (By.CSS_SELECTOR, "section[class*='block subtopic']")))
     except:

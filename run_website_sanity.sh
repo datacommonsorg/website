@@ -12,6 +12,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# Description:
+#   Runs the python sanity test: server/webdriver/tests/standalone/sanity.py
+#   Outputs are written to: [datcom-website-dev] gs://datcom-website-sanity/<domain>/<timestamp>/
+#
+# Usage: ./run_website_sanity.sh <domain> [NO_PIP]
+#
+# Arguments:
+#   <domain>: The DC instance domain to test (e.g., "autopush.datacommons.org", "datacommons.org").
+#             The script will prepend https:// if missing.
+#   [NO_PIP]: Optional. Set to "true" to skip installing python dependencies.
+#
+# Example:
+#   ./run_website_sanity.sh autopush.datacommons.org
+
 
 set -e
 
