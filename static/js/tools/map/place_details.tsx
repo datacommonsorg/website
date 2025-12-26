@@ -33,9 +33,7 @@ import {
 } from "../../shared/types";
 import { MAP_CONTAINER_ID } from "./chart";
 import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
-import {
-  getParentPlaces,
-} from "./util";
+import { getParentPlaces } from "./util";
 
 interface PlaceDetailsPropType {
   breadcrumbDataValues: { [dcid: string]: number };
@@ -185,14 +183,13 @@ function getListItemElement(
   return (
     <div key={place.dcid}>
       {itemNumber && `${itemNumber}. `}
-      {
-        <span
-          data-geodcid={place.dcid}
-          onMouseEnter={highlightPlace}
-          onMouseLeave={unhighlightPlace}
-        >
-          {place.name}
-        </span>}
+      <span
+        data-geodcid={place.dcid}
+        onMouseEnter={highlightPlace}
+        onMouseLeave={unhighlightPlace}
+      >
+        {place.name}
+      </span>
       {date}: {value}
     </div>
   );
