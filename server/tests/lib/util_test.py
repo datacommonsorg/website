@@ -1474,7 +1474,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
   def test_fetch_highest_coverage_with_entities_single_variable(
       self, mock_obs_series, mock_point_core):
     with patch('server.lib.util.datetime') as mock_datetime:
-      # Set today to 2025-01-01 so that 2025 data (from the test response) is
+      # Set today to 2025-01-01 so that 2021 data (from the test response) is
       # considered "recent" (within the last 5 years).
       mock_datetime.date.today.return_value = datetime.date(2025, 1, 1)
       variables = ['Count_Person_InLaborForce']
