@@ -1473,15 +1473,19 @@ class TestFetchHighestCoverage(unittest.TestCase):
   @patch('server.services.datacommons.obs_series')
   def test_fetch_highest_coverage_with_entities_single_variable(
       self, mock_obs_series, mock_point_core):
-    variables = ['Count_Person_InLaborForce']
-    entities = ['country/USA', 'country/RUS', 'country/MEX']
+    with patch('server.lib.util.datetime') as mock_datetime:
+      # Set today to 2025-01-01 so that 2025 data (from the test response) is
+      # considered "recent" (within the last 5 years).
+      mock_datetime.date.today.return_value = datetime.date(2025, 1, 1)
+      variables = ['Count_Person_InLaborForce']
+      entities = ['country/USA', 'country/RUS', 'country/MEX']
 
-    mock_obs_series.return_value = self.mock_obs_series_labor_force_response
+      mock_obs_series.return_value = self.mock_obs_series_labor_force_response
 
-    lib_util.fetch_highest_coverage(variables=variables,
-                                    all_facets=False,
-                                    entities=entities)
-    mock_point_core.assert_called_with(entities, variables, '2021', False)
+      lib_util.fetch_highest_coverage(variables=variables,
+                                      all_facets=False,
+                                      entities=entities)
+      mock_point_core.assert_called_with(entities, variables, '2021', False)
 
   @patch('server.lib.util.datetime.date')
   @patch('server.lib.fetch.point_core')

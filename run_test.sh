@@ -231,7 +231,7 @@ function run_py_test {
   # Tests within tools/nl/embeddings
   # TODO: Migrate tools/nl/embeddings to use uv and pyproject.toml
   echo "Running tests within tools/nl/embeddings:"
-  uv venv tools/nl/embeddings/.venv --allow-existing
+  uv venv tools/nl/embeddings/.venv --python 3.11 --allow-existing
   source tools/nl/embeddings/.venv/bin/activate
   uv pip install -r tools/nl/embeddings/requirements.txt -q
   uv run python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
