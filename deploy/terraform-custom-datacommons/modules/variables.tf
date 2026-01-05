@@ -151,6 +151,12 @@ variable "mysql_deletion_protection" {
 
 # Data Commons Cloud Run service variables
 
+variable "mysql_use_private_ip" {
+  description = "Set Cloud Run containers to connect to MySQL using private IP (internal VPC) instead of public IP"
+  type        = bool
+  default     = false
+}
+
 variable "dc_web_service_image" {
   description = "Container image for Cloud Run service"
   type        = string
