@@ -35,8 +35,11 @@ cd $ROOT
 # These variables are sourced from the helm values file.
 if [[ "$DEPLOYMENT" == "mixer" ]]; then
   HELM_VALUES_FILE="$ROOT/mixer/deploy/helm_charts/envs/mixer_$ENV.yaml"
+  ENDPOINTS_TEMPLATE_FILE="$ROOT/mixer/esp/endpoints.yaml.tmpl"
+
 elif [[ "$DEPLOYMENT" == "website" ]]; then
   HELM_VALUES_FILE="$ROOT/deploy/helm_charts/envs/$ENV.yaml"
+  ENDPOINTS_TEMPLATE_FILE="$ROOT/gke/endpoints.yaml.tpl"
 fi
 
 if [ ! -f "$HELM_VALUES_FILE" ]; then
@@ -75,9 +78,16 @@ echo "Mixer Hash: $MIXER_HASH"
 # Deploy Cloud Endpoints
 export SERVICE_NAME=$ESP_SERVICE_NAME
 export API_TITLE=$SERVICE_NAME
-cp $ROOT/gke/endpoints.yaml.tpl endpoints.yaml
+cp "$ENDPOINTS_TEMPLATE_FILE" endpoints.yaml
 yq eval -i '.name = env(SERVICE_NAME)' endpoints.yaml
 yq eval -i '.title = env(API_TITLE)' endpoints.yaml
+if [[ "$DEPLOYMENT" == "mixer" ]]; then
+  export IP=$(yq eval '.ip' $HELM_VALUES_FILE)
+  yq eval -i '.endpoints[0].target = env(IP)' endpoints.yaml
+  yq eval -i '.endpoints[0].name = env(SERVICE_NAME)' endpoints.yaml
+  echo "endpoints.yaml content:"
+  cat endpoints.yaml
+fi
 
 # Deploy ESP configuration
 echo "Downloading mixer-grpc.$MIXER_HASH.pb..."

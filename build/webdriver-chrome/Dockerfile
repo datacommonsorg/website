@@ -13,6 +13,7 @@
 # limitations under the License.
 
 FROM python:3.11.6
+COPY --from=ghcr.io/astral-sh/uv:0.9.18 /uv /uvx /bin/
 
 WORKDIR /resources
 
