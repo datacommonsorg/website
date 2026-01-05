@@ -64,12 +64,6 @@ resource "google_compute_global_address" "private_ip_address" {
 }
 
 # Create private VPC connection for Cloud SQL
-# Note: A service account (service-PROJECT_NUMBER@service-networking.iam.gserviceaccount.com)
-# is automatically granted the servicenetworking.serviceAgent role during connection creation.
-# If you encounter permission errors, run:
-# gcloud projects add-iam-policy-binding PROJECT_ID \
-#   --member=serviceAccount:service-PROJECT_NUMBER@service-networking.iam.gserviceaccount.com \
-#   --role=roles/servicenetworking.serviceAgent
 resource "google_service_networking_connection" "private_vpc_connection" {
   count                   = var.mysql_use_private_ip ? 1 : 0
   network                 = data.google_compute_network.default.id
