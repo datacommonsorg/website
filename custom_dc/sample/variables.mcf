@@ -1,4 +1,3 @@
-# Used to control display in Explorer
 Node: dcid:OECD
 typeOf: dcid:StatVarGroup
 name: "OECD"
@@ -8,17 +7,16 @@ Node: dcid:gender_wage_gap
 typeOf: dcid:StatisticalVariable
 name: "Gender wage gap"
 description: "Percentage difference between median earnings of men and women relative to median earnings of men"
-populationType: dcid:wagesAnnual
-measuredProperty: dcid:Percentage
-unit: dcid:USD
+populationType: dcid:Person
+measuredProperty: dcid:wagesAnnual
+statType: "percentage points"
 memberOf: dcid:OECD
 
 Node: dcid:average_annual_wage
 typeOf: dcid:StatisticalVariable
 name: "Average annual wage"
 description: "Annual rates paid per employee in full-time equivalent unit in the total economy."
-populationType: dcid:wagesAnnual
-measuredProperty: dcid:medianValue
-unit: dcid:USD
+populationType: dcid:Person
+measuredProperty: dcid:wagesAnnual
+statType: dcid:medianValue
 memberOf: dcid:OECD
-
