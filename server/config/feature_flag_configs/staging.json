@@ -31,7 +31,7 @@
   },
   {
     "name": "enable_ranking_tile_scroll",
-    "enabled": true,
+    "enabled": false,
     "owner": "gmechali",
     "description": "Enables scrolling through Ranking tile rows."
   },
