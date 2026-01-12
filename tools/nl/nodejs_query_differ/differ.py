@@ -28,6 +28,7 @@ class Mode:
 
 
 _GCS_URL = 'https://console.cloud.google.com/storage/browser'
+_GCS_DOWNLOAD_URL = 'https://storage.mtls.cloud.google.com'
 _GCS_BUCKET = 'datcom-website-periodic-testing'
 _OUTPUT_FILE = 'differ_results.json'
 _GOLDEN_FOLDER = 'goldens'
@@ -38,7 +39,12 @@ _EMAIL_SUBJECT_KEY = 'subject'
 # group conversations.
 _EMAIL_SUBJECT_TEMPLATE = '({env}) Failure: Nodejs Query Test'
 _EMAIL_MESSAGE_KEY = 'message'
-_EMAIL_MESSAGE_TEMPLATE = 'There were diffs found when testing Nodejs Query results against goldens in {env}.<br><br><b>Nodejs Query Results</b>: {test_path}<br><b>Diff results</b>: {results_path}<br>Instructions for debugging: https://playbooks-preview.corp.google.com/datacommons/index.md?cl=head#debugging-nodejs-query-diffs'
+_EMAIL_MESSAGE_TEMPLATE = (
+    'There were diffs found when testing Nodejs Query results against goldens in {env}.<br><br>'
+    '<b>Nodejs Query Results</b>: {test_path}<br>'
+    '<b>Diff results</b> (click to download): {results_path}<br>'
+    'Instructions for debugging: https://playbooks-preview.corp.google.com/datacommons/index.md?cl=head#debugging-nodejs-query-diffs'
+)
 
 FLAGS = flags.FLAGS
 
@@ -127,7 +133,7 @@ def output_results(results, gcs_bucket) -> str:
     blob = gcs_bucket.blob(gcs_filename)
     with blob.open('w') as f:
       f.write(json.dumps(results, indent=2))
-    results_path = f'{_GCS_URL}/{_GCS_BUCKET}/{gcs_filename}'
+    results_path = f'{_GCS_DOWNLOAD_URL}/{_GCS_BUCKET}/{gcs_filename}'
     logging.info(f'Diff results saved to gcs path: {results_path}')
     return results_path
   else:
