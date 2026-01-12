@@ -222,44 +222,76 @@ npm test . -- -u
 Website is deployed in Kubernetes cluster. A deployment contains the following
 containers:
 
-- website: A Flask app with static files complied by Webpack.
+- website: A Flask app with static files compiled by Webpack.
 - mixer: A Data Commons API server.
 - esp: Google Extensive Service Proxy used for endpoints management.
 
-The code for mixer lives in our [mixer repo](https://github.com/datacommonsorg/mixer) and is included in website as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). We read mixer's deployment info from the submodule.
-* For instructions on deploying to datcom-**mixer**-dev, see [mixer/deploy/README.md#deploy-to-mixer-dev-instance](https://github.com/datacommonsorg/mixer/blob/master/deploy/README.md#deploy-to-mixer-dev-instance)
+The code for mixer lives in our [mixer repo](https://github.com/datacommonsorg/mixer) and is included in website as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). **We read mixer's deployment info from the submodule.**
 
-### Deploy local changes to dev instance in GCP
+### Deploy to datcom-website-dev
 
-Commit all changes locally, so the local change is identified by a git hash.
-Then run
+**Note:** This section covers deploying the full website stack (Website + Mixer) to `datcom-website-dev`. 
+*   If you need to deploy mixer changes to `datcom-mixer-dev`, please see [mixer/deploy/README.md](https://github.com/datacommonsorg/mixer/blob/master/deploy/README.md#deploy-to-mixer-dev-instance).
+
+The deployment process involves:
+1.  **Building and pushing artifacts** (Docker images) for Website and/or Mixer servers to Artifact Registry.
+2.  **Triggering a rollout** via Google Cloud Deploy using those artifacts.
+
+#### 1. Push Website Image
+
+If you have website changes, commit them locally. Then run:
 
 ```bash
 gcloud auth login
 gcloud auth configure-docker
+# Builds and pushes website image to GCR
 ./scripts/push_image.sh datcom-ci DEV
 ```
-* NOTE: scripts/push_image.sh does not push a mixer image. If you need to include local mixer changes, follow [mixer/deploy/README.md#deploy-to-mixer-dev-instance](https://github.com/datacommonsorg/mixer/blob/master/deploy/README.md#deploy-to-mixer-dev-instance) to push a mixer image. Then follow the step below to deploy that image to the datacommons-mixer-dev Cloud Deploy Pipeline.
+*   This will push the `datacommons-website`, `datacommons-nl`, and `datacommons-nodejs` images tagged with `dev-<git-hash>` (e.g., `dev-72c634f`).
+  *   **Note**: This script does not push a mixer image.
+  * Check for the image in [Artifact Registry (datacommons-website)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-website?project=datcom-ci)
 
-Find your image hash for both datacommons-mixer and datacommons-website in [Artifact Registry](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io?e=13803378&inv=1&invt=Ab3CEA&mods=-monitoring_api_staging&project=datcom-ci)
+#### 2. (optional) Incorporate local mixer changes
+
+<details>
+  <summary>Click to expand if you have local Mixer changes</summary>
+
+**Server Change**: Push the mixer image to Artifact Registry:
+    1.  In your fork of **the `mixer` repo**, run 
+        ```bash
+        # in mixer repo
+        ./scripts/push_image.sh datcom-ci DEV
+        ```
+      *  This will push an image tagged with `dev-<mixer-git-hash>`.
+
+**Deployment Change**:
+    **If you have modified deployment configurations** (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
+    * Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
+
+</details>
+
+Otherwise, use an existing image tag available in Artifact Registry.
+* Mixer: [Artifact Registry (datacommons-mixer)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-mixer?project=datcom-ci)
+
+#### 3. Trigger Deployment
+
+Once you have your hashes, run the cloud deploy script.
 
 ```bash
-# hash should include `dev-` prefix if applicable
+# Set your hashes (include the "dev-" prefix)
+# Example: website_hash="dev-72c634f"
 website_hash=
 mixer_hash=
-# To deploy to website + its mixer:
-./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
-# and to deploy to mixer only:
-./scripts/deploy_mixer_cloud_deploy.sh $mixer_hash datacommons-mixer-dev
 
+# Deploy BOTH Website and Mixer to datcom-website-dev using datacommons-website-dev Delivery pipeline
+./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
 ```
 
-The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE through Cloud Deploy.
+The `deploy_website_cloud_deploy.sh` script creates a new release in Google Cloud Deploy using the specified image tags. It does not build images locally; it deploys the already-pushed artifacts to the GKE dev instance.
 
 Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autodeployment.
 
-View the deployoment at [link](https://dev.datacommons.org).
+View the deployment at [link](https://dev.datacommons.org).
 
 ### Deployment Issue: force stop
 
