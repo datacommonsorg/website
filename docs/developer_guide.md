@@ -256,22 +256,21 @@ gcloud auth configure-docker
 **Standard Case**: Use an existing image tag available in Artifact Registry.
 *   Mixer: [Artifact Registry (datacommons-mixer)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-mixer?project=datcom-ci)
 
-**Alternative**: If you need to incorporate local mixer changes, expand the section below.
-
 <details>
-  <summary><strong>📋 Click to expand if you have local Mixer changes</strong></summary>
+  <summary><strong>Alternative</strong>: If you need to incorporate local mixer changes, click to expand</summary>
 <br>
-**Server Code Change**: Push the mixer image to Artifact Registry:
 
-1. In your fork of **the `mixer` repo**, run 
-    ```bash
-    # in mixer repo
-    ./scripts/push_image.sh datcom-ci DEV
-    ```
-2. This will push an image tagged with `dev-<mixer-git-hash>`.
+* **Server Code Change**: Push the mixer image to Artifact Registry:
 
-**Deployment Change**: If you have **modified deployment configurations** (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
-*   Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
+  1. In your fork of **the `mixer` repo**, run 
+      ```bash
+      # in mixer repo
+      ./scripts/push_image.sh datcom-ci DEV
+      ```
+  2. This will push an image tagged with `dev-<mixer-git-hash>`.
+
+*  **Deployment Change**: If you have modified deployment configurations (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
+  *   Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
 
 </details>
 
