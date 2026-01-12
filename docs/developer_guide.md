@@ -254,7 +254,7 @@ gcloud auth configure-docker
 #### 2. (optional) Incorporate local mixer changes
 
 <details>
-  <summary>Click to expand if you have local Mixer changes</summary>
+  <summary><strong>📋 Click to expand if you have local Mixer changes</strong></summary>
 
 **Server Change**: Push the mixer image to Artifact Registry:
 
