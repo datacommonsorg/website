@@ -257,16 +257,18 @@ gcloud auth configure-docker
   <summary>Click to expand if you have local Mixer changes</summary>
 
 **Server Change**: Push the mixer image to Artifact Registry:
-    1.  In your fork of **the `mixer` repo**, run 
-        ```bash
-        # in mixer repo
-        ./scripts/push_image.sh datcom-ci DEV
-        ```
-      *  This will push an image tagged with `dev-<mixer-git-hash>`.
+
+1. In your fork of **the `mixer` repo**, run 
+    ```bash
+    # in mixer repo
+    ./scripts/push_image.sh datcom-ci DEV
+    ```
+2. This will push an image tagged with `dev-<mixer-git-hash>`.
 
 **Deployment Change**:
-    **If you have modified deployment configurations** (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
-    * Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
+
+**If you have modified deployment configurations** (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
+* Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
 
 </details>
 
