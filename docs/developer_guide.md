@@ -227,6 +227,7 @@ containers:
 - esp: Google Extensive Service Proxy used for endpoints management.
 
 The code for mixer lives in our [mixer repo](https://github.com/datacommonsorg/mixer) and is included in website as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). We read mixer's deployment info from the submodule.
+* For instructions on deploying to datcom-**mixer**-dev, see [mixer/deploy/README.md#deploy-to-mixer-dev-instance](https://github.com/datacommonsorg/mixer/blob/master/deploy/README.md#deploy-to-mixer-dev-instance)
 
 ### Deploy local changes to dev instance in GCP
 
@@ -238,10 +239,12 @@ gcloud auth login
 gcloud auth configure-docker
 ./scripts/push_image.sh datcom-ci DEV
 ```
+* NOTE: scripts/push_image.sh does not push a mixer image. If you need to include local mixer changes, follow [mixer/deploy/README.md#deploy-to-mixer-dev-instance](https://github.com/datacommonsorg/mixer/blob/master/deploy/README.md#deploy-to-mixer-dev-instance) to push a mixer image. Then follow the step below to deploy that image to the datacommons-mixer-dev Cloud Deploy Pipeline.
 
 Find your image hash for both datacommons-mixer and datacommons-website in [Artifact Registry](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io?e=13803378&inv=1&invt=Ab3CEA&mods=-monitoring_api_staging&project=datcom-ci)
 
 ```bash
+# hash should include `dev-` prefix if applicable
 website_hash=
 mixer_hash=
 # To deploy to website + its mixer:
