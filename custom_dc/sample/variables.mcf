@@ -9,7 +9,7 @@ name: "Gender wage gap"
 description: "Percentage difference between median earnings of men and women relative to median earnings of men"
 populationType: dcid:Person
 measuredProperty: dcid:wagesAnnual
-statType: "percentage points"
+statType: dcid:meanValue
 memberOf: dcid:OECD
 
 Node: dcid:average_annual_wage
@@ -18,5 +18,5 @@ name: "Average annual wage"
 description: "Annual rates paid per employee in full-time equivalent unit in the total economy."
 populationType: dcid:Person
 measuredProperty: dcid:wagesAnnual
-statType: dcid:medianValue
+statType: dcid:meanValue
 memberOf: dcid:OECD
