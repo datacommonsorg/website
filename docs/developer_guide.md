@@ -270,7 +270,7 @@ gcloud auth configure-docker
   2. This will push an image tagged with `dev-<mixer-git-hash>`.
 
 *  **Deployment Change**: If you have modified deployment configurations (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
-  *   Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
+   *  Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
 
 </details>
 
