@@ -251,12 +251,17 @@ gcloud auth configure-docker
   *   **Note**: This script does not push a mixer image.
   * Check for the image in [Artifact Registry (datacommons-website)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-website?project=datcom-ci)
 
-#### 2. (optional) Incorporate local mixer changes
+#### 2. Get Mixer Image Hash
+
+**Standard Case**: Use an existing image tag available in Artifact Registry.
+*   Mixer: [Artifact Registry (datacommons-mixer)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-mixer?project=datcom-ci)
+
+**Alternative**: If you need to incorporate local mixer changes, expand the section below.
 
 <details>
   <summary><strong>📋 Click to expand if you have local Mixer changes</strong></summary>
-
-**Server Change**: Push the mixer image to Artifact Registry:
+<br>
+**Server Code Change**: Push the mixer image to Artifact Registry:
 
 1. In your fork of **the `mixer` repo**, run 
     ```bash
@@ -265,15 +270,10 @@ gcloud auth configure-docker
     ```
 2. This will push an image tagged with `dev-<mixer-git-hash>`.
 
-**Deployment Change**:
-
-**If you have modified deployment configurations** (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
-* Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
+**Deployment Change**: If you have **modified deployment configurations** (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
+*   Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
 
 </details>
-
-Otherwise, use an existing image tag available in Artifact Registry.
-* Mixer: [Artifact Registry (datacommons-mixer)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-mixer?project=datcom-ci)
 
 #### 3. Trigger Deployment
 
