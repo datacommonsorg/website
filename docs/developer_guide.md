@@ -294,6 +294,8 @@ Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autode
 
 View the deployment at [link](https://dev.datacommons.org).
 
+Monitor rollout progress at: [Cloud Deploy Delivery Pipeline](https://pantheon.corp.google.com/deploy/delivery-pipelines/us-central1/datacommons-website-dev?project=datcom-ci)
+
 ### Deployment Issue: force stop
 
 Force stop will create additional secrets pending/upgrading and stop future dev
