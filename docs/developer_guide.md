@@ -12,27 +12,27 @@ The file structure is as follows:
 
 ```
 ├── .github/             # GitHub Actions workflows (CI/CD) and templates
-├── build/               # Build scripts and configuration
+├── build/               # Build scripts and configuration (Dockerfiles)
 ├── custom_dc/           # Sample configurations for Custom Data Commons instances
 ├── deploy/              # Deployment scripts (GKE/Cloud Run)
 ├── docs/                # Developer guides and documentation
 ├── gke/                 # Google Kubernetes Engine configuration files
-├── import/            # Submodule: Import scripts used for loading Custom DC data
+├── import/              # Submodule: Import scripts used for loading Custom DC data
 ├── mixer/               # Submodule: Code for the Data Commons Mixer (backend)
 ├── model_server/        # Code for the model hosting server
 ├── nl_server/           # Code for the Natural Language (NL) search server
 ├── packages/            # Shared internal packages/libraries (often for UI)
 ├── scripts/             # Utility and maintenance scripts
 ├── server/              # Main Python website server code (Flask/endpoints)
-├── shared/              # Shared resources and logic used across servers
+├── shared/              # Shared resources and logic used across website and nl servers
 ├── static/              # Static assets: CSS, JavaScript, images, and data files for website
-│   └── src/        # Entry point for the NodeJS Charts server
-│   └── nodejs_server/        # Main lib code for the NodeJs Charts server
+│   └── src/               # Entry point for the NodeJS Charts server
+│   └── nodejs_server/     # Main lib code for the NodeJs Charts server
 ├── tools/               # Developer tools (e.g., golden generators, verifiers)
 ├── nl_app.py            # Entry point for the NL server
 ├── web_app.py           # Entry point for the main website server
 ├── run_*.sh             # Various convenience scripts to run the servers/tests locally
-└── skaffold.yaml        # Configuration for Skaffold (Kubernetes development)
+└── skaffold.yaml        # Configuration for Skaffold (Kubernetes development, Cloud Deploy)
 ```
 
 ## Running Flask Locally
