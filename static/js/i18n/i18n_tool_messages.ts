@@ -251,7 +251,7 @@ export const VisToolExampleChartMessages = defineMessages({
   },
   closeButDifferentBerkeleyAndPiedmont: {
     id: "close_but_different_berkeley_and_piedmont",
-    defaultMessage: "Close but different: Berkeley & Piedmont",
+    defaultMessage: "Close but different: Quality of life indicators in Berkeley & Piedmont",
     description:
       "Title of a timeline showing the differences between Berkeley, USA and Piedmont, USA",
   },
