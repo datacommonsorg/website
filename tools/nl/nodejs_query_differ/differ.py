@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import html
 import json
 import logging
 import os
@@ -27,18 +28,33 @@ class Mode:
   UPDATE_GOLDENS = 'update'
 
 
-_GCS_URL = 'https://console.cloud.google.com/storage/browser'
+# Base URL for viewing files in the Google Cloud Console UI.
+_GCS_BROWSER_URL = 'https://console.cloud.google.com/storage/browser'
+# Base URL for directly downloading files from GCS (requires authenticated access).
+_GCS_DOWNLOAD_URL = 'https://storage.mtls.cloud.google.com'
 _GCS_BUCKET = 'datcom-website-periodic-testing'
 _OUTPUT_FILE = 'differ_results.json'
 _GOLDEN_FOLDER = 'goldens'
 _DIFF_SUCCESS_MSG = 'Success'
 _EMAIL_SUBJECT_KEY = 'subject'
-# Use parentheses instead of square brackets to wrap env because otherwise
-# Google Groups will ignore that part of the subject when deciding how to
-# group conversations.
 _EMAIL_SUBJECT_TEMPLATE = '({env}) Failure: Nodejs Query Test'
+
+_DEBUGGING_INSTRUCTIONS_URL = 'https://playbooks-preview.corp.google.com/datacommons/index.md?cl=head#debugging-nodejs-query-diffs'
+
 _EMAIL_MESSAGE_KEY = 'message'
-_EMAIL_MESSAGE_TEMPLATE = 'There were diffs found when testing Nodejs Query results against goldens in {env}.<br><br><b>Nodejs Query Results</b>: {test_path}<br><b>Diff results</b>: {results_path}<br>Instructions for debugging: https://playbooks-preview.corp.google.com/datacommons/index.md?cl=head#debugging-nodejs-query-diffs'
+_EMAIL_MESSAGE_TEMPLATE = (
+    '<p><b>Action Required:</b> Node.js Query Test differences detected in <b>{env}</b>.</p>'
+    '<ul>'
+    '<li><a href="{output_dir}">View full test outputs in GCS</a></li>'
+    '<li><a href="{summary_download_link}">Download Diff Summary (JSON)</a></li>'
+    '</ul>'
+    '<p><b>Next Steps:</b></p>'
+    '<ol>'
+    '<li>Analyze the diff summary to determine if changes are expected.</li>'
+    '<li>If expected, run the <code>update_goldens</code> script to approve.</li>'
+    '</ol>'
+    f'<p>For detailed instructions, see the <a href="{_DEBUGGING_INSTRUCTIONS_URL}">Debugging Guide</a>.</p>'
+)
 
 FLAGS = flags.FLAGS
 
@@ -127,9 +143,9 @@ def output_results(results, gcs_bucket) -> str:
     blob = gcs_bucket.blob(gcs_filename)
     with blob.open('w') as f:
       f.write(json.dumps(results, indent=2))
-    results_path = f'{_GCS_URL}/{_GCS_BUCKET}/{gcs_filename}'
-    logging.info(f'Diff results saved to gcs path: {results_path}')
-    return results_path
+    summary_download_link = f'{_GCS_DOWNLOAD_URL}/{_GCS_BUCKET}/{gcs_filename}'
+    logging.info(f'Diff results saved to gcs path: {summary_download_link}')
+    return summary_download_link
   else:
     with open(_OUTPUT_FILE, 'w') as f:
       f.write(json.dumps(results, indent=2))
@@ -137,7 +153,7 @@ def output_results(results, gcs_bucket) -> str:
     return _OUTPUT_FILE
 
 
-def output_failure_email(results, test_folder, results_path):
+def output_failure_email(results, test_folder, summary_download_link):
   """Outputs an email template file if there are diffs found"""
   # Checks for if failure email needs to be written
   email_file = FLAGS.failure_email_file
@@ -149,12 +165,14 @@ def output_failure_email(results, test_folder, results_path):
     return
 
   # generate the email template
-  test_path = f'{_GCS_URL}/{_GCS_BUCKET}/{test_folder}'
+  output_dir = f'{_GCS_BROWSER_URL}/{_GCS_BUCKET}/{test_folder}'
   email_template = {}
   email_template[_EMAIL_SUBJECT_KEY] = _EMAIL_SUBJECT_TEMPLATE.format(
       env=FLAGS.env)
   email_template[_EMAIL_MESSAGE_KEY] = _EMAIL_MESSAGE_TEMPLATE.format(
-      env=FLAGS.env, test_path=test_path, results_path=results_path)
+      env=FLAGS.env,
+      output_dir=html.escape(output_dir),
+      summary_download_link=html.escape(summary_download_link))
 
   # write email template to email file
   with open(email_file, 'w') as f:
@@ -207,9 +225,9 @@ def main(_):
     # Get the diffs
     results = get_diff(test_blobs)
     # Output the diffs
-    results_path = output_results(results, bucket)
+    summary_download_link = output_results(results, bucket)
     # Output a failure email based on the results
-    output_failure_email(results, test_folder, results_path)
+    output_failure_email(results, test_folder, summary_download_link)
 
 
 if __name__ == '__main__':
