@@ -133,6 +133,7 @@ profiles:
               project: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               serviceGroups.recon.enableEmbeddingsSidecar: "false"
+              serviceGroups.default.enableEmbeddingsSidecar: "true"
               mixer.githash: ${MIXER_GITHASH}
   - name: mixer-dev
     customActions:
