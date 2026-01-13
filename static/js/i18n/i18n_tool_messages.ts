@@ -269,7 +269,7 @@ export const VisToolExampleChartMessages = defineMessages({
   },
   noSchoolingCompletedInUsa: {
     id: "no_schooling_completed_in_the_usa",
-    defaultMessage: "No schooling completed in the USA",
+    defaultMessage: "Population with no schooling completed in the USA",
     description:
       "Title of a map plotting the statistical variable 'no schooling completed' in counties of the USA",
   },
