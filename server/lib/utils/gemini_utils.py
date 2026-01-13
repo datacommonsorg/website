@@ -19,12 +19,11 @@ from google import genai
 from pydantic import BaseModel
 
 
-def call_gemini_with_retries(
+def call_gemini(
     api_key: str,
     formatted_prompt: str,
     schema: Optional[BaseModel] = None,
-    gemini_model: str = "gemini-2.5-flash",
-    retries: int = 3) -> Optional[Union[BaseModel, str]]:
+    gemini_model: str = "gemini-2.5-flash") -> Optional[Union[BaseModel, str]]:
   """A helper for all Gemini generations through the Python Gen AI client.
     Args:
         api_key: A string representing the API key required for authentication with the Gemini service.
@@ -44,30 +43,15 @@ def call_gemini_with_retries(
       "response_schema": schema
   } if schema else {}
   gemini = genai.Client(api_key=api_key)
-  for _ in range(retries):
-    try:
-      gemini_response = gemini.models.generate_content(
-          model=gemini_model,
-          contents=formatted_prompt,
-          config=generate_content_config)
-      if schema:
-        if not gemini_response.parsed:
-          continue
-        return gemini_response.parsed
-      else:
-        if not gemini_response.text:
-          continue
-        return gemini_response.text
-
-    except Exception as e:
-      if schema:
-        logging.error(
-            f"Failure while calling Gemini with {schema.model_json_schema()['title']} schema | Exception Caught: {e}",
-            exc_info=True)
-      else:
-        logging.error(
-            f"Failure while calling Gemini for text generation | Exception Caught: {e}",
-            exc_info=True)
-      continue
+  gemini_response = gemini.models.generate_content(
+      model=gemini_model,
+      contents=formatted_prompt,
+      config=generate_content_config)
+  if schema and gemini_response and gemini_response.parsed:
+    if not gemini_response.parsed:
+      return None
+    return gemini_response.parsed
+  elif gemini_response and gemini_response.text:
+    return gemini_response.text
 
   return None
