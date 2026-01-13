@@ -221,7 +221,6 @@ def main(_):
       return
     # Get the test blobs
     test_folder = f'{FLAGS.env}/{test_folder_date}/nodejs_query/'
-    print(test_folder)
     test_blobs = bucket.list_blobs(prefix=test_folder)
     # Get the diffs
     results = get_diff(test_blobs)
