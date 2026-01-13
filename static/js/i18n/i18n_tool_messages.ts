@@ -251,7 +251,8 @@ export const VisToolExampleChartMessages = defineMessages({
   },
   closeButDifferentBerkeleyAndPiedmont: {
     id: "close_but_different_berkeley_and_piedmont",
-    defaultMessage: "Close but different: Quality of life indicators in Berkeley & Piedmont",
+    defaultMessage:
+      "Close but different: Quality of life indicators in Berkeley & Piedmont",
     description:
       "Title of a timeline showing the differences between Berkeley, USA and Piedmont, USA",
   },
@@ -281,14 +282,9 @@ export const VisToolExampleChartMessages = defineMessages({
   },
   closeButDifferentPaloAltoAndEastPaloAlto: {
     id: "close_but_different_palo_alto_and_east_palo_alto",
-    defaultMessage: "Close but different: Palo Alto & East Palo Alto",
+    defaultMessage:
+      "Close but different: Quality of life indicators in Palo Alto & East Palo Alto",
     description:
       "Title of a timeline showing the differences between Palo Alto and East Palo Alto",
-  },
-  extremesImperialCountyAndSantaClaraCounty: {
-    id: "extremes_imperial_county_and_santa_clara_county",
-    defaultMessage: "Extremes: Imperial County & Santa Clara County",
-    description:
-      "Title of a timeline showing the differences between Imperial County and Santa Clara County",
   },
 });

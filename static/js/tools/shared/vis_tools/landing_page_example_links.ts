@@ -130,12 +130,5 @@ export const landingPageLinks: LandingPageLinkConfig = {
       ),
       url: "/tools/timeline#place=geoId%2F0655282%2CgeoId%2F0620956&statsVar=Median_Income_Person__UnemploymentRate_Person__Count_Person_HispanicOrLatino__Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_WhiteAlone__Percent_Person_18OrMoreYears_WithPoorGeneralHealth__Monthly_Median_GrossRent_HousingUnit&chart=%7B%22count-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22age-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22grossRent-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D",
     },
-    {
-      id: "timeline_extremes_imperial_county_and_santa_clara_county",
-      title: intl.formatMessage(
-        VisToolExampleChartMessages.extremesImperialCountyAndSantaClaraCounty
-      ),
-      url: "/tools/timeline#place=geoId%2F06085%2CgeoId%2F06025&statsVar=Count_Death_DiseasesOfTheCirculatorySystem__Count_Death_ExternalCauses__Median_Income_Person&chart=%7B%22none-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D",
-    },
   ],
 };
