@@ -58,8 +58,6 @@ steps:
           --region=us-central1 \
           --project=datcom-ci
 
-        echo "Successfully created release ${release_name}."
-
         # 3. TAG NL IMAGE FOR SIDE CAR
         # The Mixer deployment includes an embeddings sidecar (datacommons-nl image).
         # We need to explicitly tag the 'cicd' version of this image as 'mixer-sidecar'
