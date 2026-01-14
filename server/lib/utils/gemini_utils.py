@@ -43,15 +43,25 @@ def call_gemini(
       "response_schema": schema
   } if schema else {}
   gemini = genai.Client(api_key=api_key)
-  gemini_response = gemini.models.generate_content(
-      model=gemini_model,
-      contents=formatted_prompt,
-      config=generate_content_config)
-  if schema and gemini_response and gemini_response.parsed:
-    if not gemini_response.parsed:
-      return None
-    return gemini_response.parsed
-  elif gemini_response and gemini_response.text:
-    return gemini_response.text
+  
+  try:
+    gemini_response = gemini.models.generate_content(
+        model=gemini_model,
+        contents=formatted_prompt,
+        config=generate_content_config)
+    if schema and gemini_response.parsed:
+      return gemini_response.parsed
+    elif gemini_response.text:
+      return gemini_response.text
+
+  except Exception as e:
+    if schema:
+      logging.error(
+          f"Failure while calling Gemini with {schema.model_json_schema()['title']} schema | Exception Caught: {e}",
+          exc_info=True)
+    else:
+      logging.error(
+          f"Failure while calling Gemini for text generation | Exception Caught: {e}",
+          exc_info=True)
 
   return None
