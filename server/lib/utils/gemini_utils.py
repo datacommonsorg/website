@@ -43,7 +43,7 @@ def call_gemini(
       "response_schema": schema
   } if schema else {}
   gemini = genai.Client(api_key=api_key)
-  
+
   try:
     gemini_response = gemini.models.generate_content(
         model=gemini_model,
