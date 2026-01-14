@@ -77,13 +77,6 @@ export const landingPageLinks: LandingPageLinkConfig = {
       ),
       url: "/tools/map#%26sv%3DCount_Person_EducationalAttainmentNoSchoolingCompleted%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
     },
-    {
-      id: "map_carbon_dioxide_emissions_in_world_countries",
-      title: intl.formatMessage(
-        VisToolExampleChartMessages.carbonDioxideEmissionsInWorldCountries
-      ),
-      url: "/tools/map#%26sv%3DAmount_Emissions_CarbonDioxide_PerCapita%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry%26ppt%3DEpaReportingFacility",
-    },
   ],
   scatterLinks: [
     {

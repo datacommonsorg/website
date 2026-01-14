@@ -103,7 +103,7 @@ const URL_PARAM_DOMAIN_SEPARATOR = ":";
 export const URL_PARAM_KEYS = {
   SELECTED_PLACE_DCID: "pd",
   ENCLOSED_PLACE_TYPE: "ept",
-  MAP_POINTS_PLACE_TYPE: "ppt",
+  DEPRECATED_MAP_POINTS_PLACE_TYPE: "ppt", // This param key is deprecated, but we keep it to prevent reusing it for something else.
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
   DATE: "dt",
@@ -297,7 +297,6 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
 export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
   const selectedPlaceDcid = params.get(URL_PARAM_KEYS.SELECTED_PLACE_DCID);
   const enclosedPlaceType = params.get(URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE);
-  const mapPointPlaceType = params.get(URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE);
   return {
     selectedPlace: {
       dcid: selectedPlaceDcid ? selectedPlaceDcid : "",
@@ -310,7 +309,7 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
     },
     enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
     parentPlaces: null,
-    mapPointPlaceType: mapPointPlaceType ? mapPointPlaceType : "",
+    mapPointPlaceType: "",
   };
 }
 
@@ -389,9 +388,6 @@ export function updateHashPlaceInfo(
   let params = `&${URL_PARAM_KEYS.SELECTED_PLACE_DCID}=${placeInfo.selectedPlace.dcid}`;
   if (!_.isEmpty(placeInfo.enclosedPlaceType)) {
     params = `${params}&${URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE}=${placeInfo.enclosedPlaceType}`;
-  }
-  if (!_.isEmpty(placeInfo.mapPointPlaceType)) {
-    params = `${params}&${URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE}=${placeInfo.mapPointPlaceType}`;
   }
   return hash + params;
 }

@@ -274,12 +274,6 @@ export const VisToolExampleChartMessages = defineMessages({
     description:
       "Title of a map plotting the statistical variable 'no schooling completed' in counties of the USA",
   },
-  carbonDioxideEmissionsInWorldCountries: {
-    id: "carbon_dioxide_emissions_in_world_countries",
-    defaultMessage: "Carbon dioxide emissions in world countries",
-    description:
-      "Title of a map plotting the statistical variable 'carbon dioxide emissions' in countries of the world",
-  },
   closeButDifferentPaloAltoAndEastPaloAlto: {
     id: "close_but_different_palo_alto_and_east_palo_alto",
     defaultMessage:
