@@ -128,6 +128,15 @@ class TestPageOverview(unittest.TestCase):
                   query=QUERY, stat_var_titles=STAT_VARS)
 
   @patch('google.genai.Client', autospec=True)
+  def test_generate_page_overview_unsafe_request(self, mock_gemini):
+    mock_gemini.return_value.models.generate_content.return_value.parsed.overview = ""
+    mock_gemini.return_value.models.generate_content.return_value.parsed.stat_var_links = []
+    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
+    with app.app_context():
+      assert ('', []) == generate_page_overview(query=QUERY,
+                                                stat_var_titles=STAT_VARS)
+
+  @patch('google.genai.Client', autospec=True)
   def test_generate_page_overview_error_request(self, mock_gemini):
     mock_gemini.return_value.models.generate_content.side_effect = [
         None, None, None
