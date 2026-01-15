@@ -217,7 +217,7 @@ profiles:
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
-                mixer.githash: ${MIXER_GITHASH}
+              mixer.githash: ${MIXER_GITHASH}
   - name: website-staging
     customActions:
       - name: deploy-cloud-esp-staging
@@ -326,7 +326,7 @@ profiles:
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
-              mixer.githash: ${MIXER_GITHASH} 
+              mixer.githash: ${MIXER_GITHASH}
   - name: website-prod
     customActions:
       - name: deploy-cloud-esp-prod
