@@ -44,6 +44,9 @@ website:
 # Ingress and Service, which is not what we want for this environment.
 ingress:
   enabled: false
+
+nl:
+  enabled: true
   image:
     tag: ""
   env:

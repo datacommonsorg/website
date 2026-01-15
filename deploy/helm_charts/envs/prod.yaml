@@ -48,6 +48,9 @@ website:
 # Ingress and Service, which is not what we want for this multi-cluster environment.
 ingress:
   enabled: false
+
+nl:
+  enabled: true
   env:
     default_indexes:
       - base_uae_mem

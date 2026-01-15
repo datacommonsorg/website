@@ -186,7 +186,6 @@ profiles:
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               mixer.githash: ${MIXER_GITHASH}
-             
   - name: mixer-autopush
     customActions:
       - name: deploy-cloud-esp-mixer-autopush
@@ -219,7 +218,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-
+            setValues:
+                mixer.githash: ${MIXER_GITHASH}
   - name: website-staging
     customActions:
       - name: deploy-cloud-esp-staging
@@ -328,8 +328,7 @@ profiles:
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
-              mixer.githash: ${MIXER_GITHASH}
-              
+              mixer.githash: ${MIXER_GITHASH} 
   - name: website-prod
     customActions:
       - name: deploy-cloud-esp-prod
