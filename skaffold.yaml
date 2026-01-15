@@ -257,7 +257,6 @@ profiles:
             valuesFiles:
               - deploy/helm_charts/envs/staging.yaml
             setValues:
-              serviceAccount.name: website-ksa
               website.githash: ${WEBSITE_GITHASH}
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
@@ -270,21 +269,7 @@ profiles:
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
-              serviceGroups.svg.nodePool: pool-1
-              mixer.redis.enabled: "true"
-              mixer.redis.configFile: |
-                instances:
-                  - region: "us-central1"
-                    host: "10.38.211.19"
-                    port: "6379"
-              mixer.enableOtlp: true
-              serviceAccount.name: website-ksa
-              ingress.enabled: "true"
-              mixer.useRedis: "true"
               mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-website-staging"
-              project: "datcom-website-staging"
-              mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   - name: mixer-staging
     customActions:
       - name: deploy-cloud-esp-mixer-staging
@@ -318,12 +303,7 @@ profiles:
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
-              serviceGroups.svg.nodePool: pool-2
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
               mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-mixer-staging"
-              mixer.serviceName: "staging.api.datacommons.org"
   - name: mixer-prod
     customActions:
       - name: deploy-cloud-esp-mixer-prod
@@ -348,12 +328,8 @@ profiles:
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
               mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-mixer"
-              mixer.serviceName: "api.datacommons.org"
-
+              
   - name: website-prod
     customActions:
       - name: deploy-cloud-esp-prod
@@ -391,7 +367,6 @@ profiles:
             valuesFiles:
               - deploy/helm_charts/envs/prod.yaml
             setValues:
-              serviceAccount.name: website-ksa
               website.githash: ${WEBSITE_GITHASH}
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
@@ -404,17 +379,4 @@ profiles:
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
-              mixer.redis.enabled: true
-              mixer.redis.configFile: |
-                instances:
-                  - region: "us-central1"
-                    host: "10.212.232.163"
-                    port: "6379"
-              mixer.enableOtlp: true
-              serviceAccount.name: website-ksa
-              ingress.enabled: "true"
-              mixer.useRedis: "false"
               mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-website-prod"
-              project: "datcom-website-prod"
-              mixer.serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"

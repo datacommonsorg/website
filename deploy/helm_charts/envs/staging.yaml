@@ -37,21 +37,13 @@ website:
         }
       }
 
-mixer:
-  serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
-  hostProject: "datcom-website-staging"
-  redis:
-    enabled: true
-  enableOtlp: true
 
+# Ingress is disabled because we use Multi Cluster Ingress (MCI) and Multi Cluster Service (MCS)
+# defined in gke/ which manage networking independently of this Helm chart.
+# Enabling ingress here would mean using templates/single_cluster.yaml to set up a standard
+# Ingress and Service, which is not what we want for this environment.
 ingress:
   enabled: false
-
-serviceAccount:
-  name: website-ksa
-
-nl:
-  enabled: true
   image:
     tag: ""
   env:
