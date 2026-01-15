@@ -64,16 +64,5 @@ nl:
         prediction_endpoint_id: "430892009855647744"
     enable_reranking: false
 
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 10
-  observation:
-    replicas: 100
-  node:
-    replicas: 100
-  default:
-    replicas: 50
-
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

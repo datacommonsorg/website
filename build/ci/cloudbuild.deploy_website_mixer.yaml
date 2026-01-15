@@ -89,7 +89,7 @@ steps:
           --region=us-central1 \
           --skaffold-file=skaffold.yaml \
           --images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$${website_githash},gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash},gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$${website_githash},gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$${website_githash}" \
-          --deploy-parameters="mixer.githash=$${mixer_githash},MIXER_GITHASH=$${mixer_githash},website.githash=$${website_githash}" \
+          --deploy-parameters="MIXER_GITHASH=$${mixer_githash},WEBSITE_GITHASH=$${website_githash}" \
           --project=datcom-ci
 
         echo "Successfully created release $${release_name}."

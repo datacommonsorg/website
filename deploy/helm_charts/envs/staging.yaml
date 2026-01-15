@@ -69,17 +69,6 @@ nl:
         prediction_endpoint_id: "8435477397553283072"
     enable_reranking: false
 
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 2
-  node:
-    replicas: 4
-  observation:
-    replicas: 4
-  default:
-    replicas: 4
-
 nodejs:
   enabled: true
   apiRoot: "http://website-service:8080"
