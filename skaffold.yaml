@@ -110,8 +110,6 @@ profiles:
             valuesFiles:
               - mixer/deploy/helm_charts/envs/mixer_dev.yaml
               - deploy/helm_charts/envs/website_mixer_dev.yaml
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
             namespace: website
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
