@@ -103,8 +103,8 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/dev.yaml
-            setValues:
-              website.githash: ${WEBSITE_GITHASH}
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
@@ -115,8 +115,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-dev
     customActions:
       - name: deploy-cloud-esp-mixer-dev
@@ -140,8 +140,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
 
   - name: website-autopush
     customActions:
@@ -170,8 +170,8 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/autopush.yaml
-            setValues:
-              website.githash: ${WEBSITE_GITHASH}
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
@@ -182,8 +182,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-autopush
     customActions:
       - name: deploy-cloud-esp-mixer-autopush
@@ -216,8 +216,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: website-staging
     customActions:
       - name: deploy-cloud-esp-staging
@@ -254,8 +254,8 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/staging.yaml
-            setValues:
-              website.githash: ${WEBSITE_GITHASH}
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
@@ -266,8 +266,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-staging
     customActions:
       - name: deploy-cloud-esp-mixer-staging
@@ -300,8 +300,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-prod
     customActions:
       - name: deploy-cloud-esp-mixer-prod
@@ -325,8 +325,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: website-prod
     customActions:
       - name: deploy-cloud-esp-prod
@@ -363,8 +363,8 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/prod.yaml
-            setValues:
-              website.githash: ${WEBSITE_GITHASH}
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
@@ -375,5 +375,5 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
