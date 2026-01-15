@@ -1,4 +1,7 @@
-
+# Overrides for datcom-website-autopush's mixer deployments
+# Default values are defined by 
+#  priority: /mixer/deploy/helm_charts/envs/mixer_autopush.yaml
+#  fallback: /mixer/deploy/helm_charts/values.yaml
 
 mixer:
   serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"

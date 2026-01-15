@@ -1,3 +1,7 @@
+# Overrides for datcom-website-staging's mixer deployments
+# Default values are defined by 
+#  priority: /mixer/deploy/helm_charts/envs/mixer_staging.yaml
+#  fallback: /mixer/deploy/helm_charts/values.yaml
 
 project: "datcom-website-staging"
 mixer:
