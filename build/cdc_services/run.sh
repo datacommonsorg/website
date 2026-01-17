@@ -58,6 +58,11 @@ fi
 
 nginx -c /workspace/nginx.conf
 
+MIXER_ARGS=""
+if [[ $ENABLE_MODEL == "true" ]]; then
+    MIXER_ARGS="--embedding_server_url=localhost:6060"
+fi
+
 /workspace/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
@@ -67,7 +72,8 @@ nginx -c /workspace/nginx.conf
     --use_sqlite=$USE_SQLITE \
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
-    --remote_mixer_domain=$DC_API_ROOT &
+    --remote_mixer_domain=$DC_API_ROOT \
+    $MIXER_ARGS &
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
