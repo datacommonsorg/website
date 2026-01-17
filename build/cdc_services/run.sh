@@ -60,7 +60,7 @@ nginx -c /workspace/nginx.conf
 
 MIXER_ARGS=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-    MIXER_ARGS="--embedding_server_url=localhost:6060"
+    MIXER_ARGS="--embeddings_server_url=localhost:6060"
 fi
 
 /workspace/bin/mixer \
