@@ -54,6 +54,11 @@ build:
       context: build/web_server
     - image: gcr.io/datcom-ci/datacommons-nl
       context: build/nl_server
+    # This is an alias for the datacommons-nl image (tagged as mixer-sidecar).
+    # We use a separate artifact name here so Skaffold can track it independently
+    # from the main datacommons-nl artifact used by the website.
+    - image: gcr.io/datcom-ci/datacommons-embeddings-sidecar
+      context: build/nl_server
     - image: gcr.io/datcom-ci/datacommons-nodejs
       context: build/nodejs_server
     - image: gcr.io/datcom-ci/datacommons-mixer

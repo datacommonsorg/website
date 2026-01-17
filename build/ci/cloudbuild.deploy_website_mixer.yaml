@@ -83,12 +83,26 @@ steps:
           --region=us-central1 \
           --project=datcom-ci
 
-        # Note the '$$' to use the shell variables defined above inside this command.
+        # Run the deployment creation.
+        # Note the addition of 'datacommons-embeddings-sidecar' in the images flag.
+        # This maps the Artifact Registry image (specifically the 'mixer-sidecar' tag)
+        # to the 'gcr.io/datcom-ci/datacommons-embeddings-sidecar' artifact alias in skaffold.yaml.
+        # Unlike the pure mixer pipeline, we DO NOT re-tag the image here; we rely on the tag
+        # established by the datacommons-mixer pipeline to ensure stability/sync with mixer releases.
+        images_arr=(
+          "gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$${website_githash}"
+          "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash}"
+          "gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$${website_githash}"
+          "gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$${website_githash}"
+          "gcr.io/datcom-ci/datacommons-embeddings-sidecar=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:mixer-sidecar"
+        )
+        images_str=$$(IFS=,; echo "$${images_arr[*]}")
+
         gcloud deploy releases create "$${release_name}" \
           --delivery-pipeline=datacommons-website \
           --region=us-central1 \
           --skaffold-file=skaffold.yaml \
-          --images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$${website_githash},gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash},gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$${website_githash},gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$${website_githash}" \
+          --images="$${images_str}" \
           --deploy-parameters="MIXER_GITHASH=$${mixer_githash},WEBSITE_GITHASH=$${website_githash}" \
           --project=datcom-ci
 
