@@ -283,7 +283,7 @@ export const fetchData = async (
       null
     );
     const denomInfo = getDenomInfo(
-      statVarSpec,
+      statVarSpec.denom,
       denomsByFacet,
       place.dcid,
       mainStatData.date,

@@ -27,6 +27,7 @@ import { NamedPlace } from "../shared/types";
 import { getMatchingObservation } from "../tools/shared_util";
 import { isBetween } from "./number_utils";
 import { getUnit } from "./stat_metadata_utils";
+import { getDenomInfo } from "./tile_utils";
 
 interface PlaceAxisChartData {
   value: number;
@@ -54,15 +55,15 @@ function getPlaceAxisChartData(
   if (_.isEmpty(obs)) {
     return null;
   }
-  // finding the denom data that matches the facet of the current observation
-  const populationData = denomsByFacet?.[obs.facet]
-    ? denomsByFacet[obs.facet]
-    : defaultDenomData;
-  const denomSeries =
-    denom && populationData.data[denom] && populationData.data[denom][placeDcid]
-      ? populationData.data[denom][placeDcid]
-      : null;
-  if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.series))) {
+  const denomInfo = getDenomInfo(
+    denom,
+    denomsByFacet,
+    placeDcid,
+    obs.date,
+    obs.facet,
+    defaultDenomData
+  );
+  if (denom && (!denomInfo || !denomInfo.value)) {
     return null;
   }
   const sources = [];
@@ -74,10 +75,9 @@ function getPlaceAxisChartData(
   let value = obs.value || 0;
   let denomValue = null;
   let denomDate = null;
-  if (!_.isEmpty(denomSeries)) {
-    const denomObs = getMatchingObservation(denomSeries.series, obs.date);
-    denomValue = denomObs.value;
-    denomDate = denomObs.date;
+  if (!_.isEmpty(denomInfo?.series)) {
+    denomValue = denomInfo.value;
+    denomDate = denomInfo.date;
     value /= denomValue;
   }
   if (scaling) {
@@ -85,22 +85,28 @@ function getPlaceAxisChartData(
   }
   let popValue = denomValue;
   let popDate = denomDate;
-  if (!_.isNull(populationData)) {
-    const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
-      ? populationData.data[DEFAULT_POPULATION_DCID][placeDcid]
-      : null;
-    if (popSeries && popSeries.series) {
-      const popObs = getMatchingObservation(popSeries.series, obs.date);
+  // Checking if there is any population data
+  if (!_.isNull(denomsByFacet) && !_.isNull(defaultDenomData)) {
+    // Getting population info for DEFAULT_POPULATION_DCID
+    const popInfo = getDenomInfo(
+      DEFAULT_POPULATION_DCID,
+      denomsByFacet,
+      placeDcid,
+      obs.date,
+      obs.facet,
+      defaultDenomData
+    );
+    if (popInfo.series) {
       if (
         popBounds &&
-        (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
+        (!popInfo || !isBetween(popInfo.value, popBounds[0], popBounds[1]))
       ) {
         return null;
       }
       // If this axis is using a population denominator, use that for the population value as well
       // Otherwise, use the default "Count_Person" variable.
-      popValue = popValue || popObs.value;
-      popDate = popDate || popObs.date;
+      popValue = popValue || popInfo.value;
+      popDate = popDate || popInfo.date;
     } else {
       console.log(`No population data for ${placeDcid}`);
     }
@@ -123,7 +129,6 @@ interface PlaceScatterData {
  * @param yStatVarData data for the y axis stat var
  * @param denomsByFacet map of facetId to denominator series result
  * @param defaultDenomData default denominator series result, queried without specifying facet
- * @param populationData data for the population stat vars
  * @param metadataMap map of metahash to metadata for stat var data
  * @param xDenom optional denominator to use for x axis value calculation
  * @param yDenom optional denominator to use for y axis value calculation

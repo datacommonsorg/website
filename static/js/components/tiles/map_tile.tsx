@@ -704,7 +704,7 @@ function rawToChart(
       if (rawData.variable.denom) {
         const facet = placeStat[placeDcid].facet;
         const denomInfo = getDenomInfo(
-          rawData.variable,
+          rawData.variable.denom,
           rawData.denomsByFacet,
           placeDcid,
           placeChartData.date,

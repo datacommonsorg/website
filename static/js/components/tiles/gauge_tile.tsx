@@ -192,7 +192,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
     let value = statData.value;
     if (props.statVarSpec.denom) {
       const denomInfo = getDenomInfo(
-        props.statVarSpec,
+        props.statVarSpec.denom,
         denomsByFacet,
         props.place.dcid,
         statData.date,
