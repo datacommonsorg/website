@@ -176,21 +176,23 @@ function PlotOptions(): JSX.Element {
             </div>
             <div className="plot-options-input">
               <FormGroup check>
-                <Input
-                  id="log-y"
-                  type="checkbox"
-                  checked={y.value.log}
-                  onChange={(e): void => {
-                    checkLog(y, e);
-                    if (!y.value.log) {
-                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                        [GA_PARAM_TOOL_CHART_OPTION]:
-                          GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
-                      });
-                    }
-                  }}
-                />
-                <Label check>Log scale</Label>
+                <Label check>
+                  <Input
+                    id="log-y"
+                    type="checkbox"
+                    checked={y.value.log}
+                    onChange={(e): void => {
+                      checkLog(y, e);
+                      if (!y.value.log) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+                        });
+                      }
+                    }}
+                  />
+                  Log scale
+                </Label>
               </FormGroup>
             </div>
           </div>
@@ -223,21 +225,23 @@ function PlotOptions(): JSX.Element {
             </div>
             <div className="plot-options-input">
               <FormGroup check>
-                <Input
-                  id="log-x"
-                  type="checkbox"
-                  checked={x.value.log}
-                  onChange={(e): void => {
-                    checkLog(x, e);
-                    if (!x.value.log) {
-                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                        [GA_PARAM_TOOL_CHART_OPTION]:
-                          GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
-                      });
-                    }
-                  }}
-                />
-                <Label check>Log scale</Label>
+                <Label check>
+                  <Input
+                    id="log-x"
+                    type="checkbox"
+                    checked={x.value.log}
+                    onChange={(e): void => {
+                      checkLog(x, e);
+                      if (!x.value.log) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+                        });
+                      }
+                    }}
+                  />
+                  Log scale
+                </Label>
               </FormGroup>
             </div>
           </div>

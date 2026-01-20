@@ -6,7 +6,6 @@ __pycache__/
 .env/
 .env_website/
 .env_nl/
-.venv/
 
 # Gemini
 .gemini/**
