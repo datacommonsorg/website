@@ -12,27 +12,27 @@ The file structure is as follows:
 
 ```
 ├── .github/             # GitHub Actions workflows (CI/CD) and templates
-├── build/               # Build scripts and configuration
+├── build/               # Build scripts and configuration (Dockerfiles)
 ├── custom_dc/           # Sample configurations for Custom Data Commons instances
 ├── deploy/              # Deployment scripts (GKE/Cloud Run)
 ├── docs/                # Developer guides and documentation
 ├── gke/                 # Google Kubernetes Engine configuration files
-├── import/            # Submodule: Import scripts used for loading Custom DC data
+├── import/              # Submodule: Import scripts used for loading Custom DC data
 ├── mixer/               # Submodule: Code for the Data Commons Mixer (backend)
 ├── model_server/        # Code for the model hosting server
 ├── nl_server/           # Code for the Natural Language (NL) search server
 ├── packages/            # Shared internal packages/libraries (often for UI)
 ├── scripts/             # Utility and maintenance scripts
 ├── server/              # Main Python website server code (Flask/endpoints)
-├── shared/              # Shared resources and logic used across servers
+├── shared/              # Shared resources and logic used across website and nl servers
 ├── static/              # Static assets: CSS, JavaScript, images, and data files for website
-│   └── src/        # Entry point for the NodeJS Charts server
-│   └── nodejs_server/        # Main lib code for the NodeJs Charts server
+│   └── src/               # Entry point for the NodeJS Charts server
+│   └── nodejs_server/     # Main lib code for the NodeJs Charts server
 ├── tools/               # Developer tools (e.g., golden generators, verifiers)
 ├── nl_app.py            # Entry point for the NL server
 ├── web_app.py           # Entry point for the main website server
 ├── run_*.sh             # Various convenience scripts to run the servers/tests locally
-└── skaffold.yaml        # Configuration for Skaffold (Kubernetes development)
+└── skaffold.yaml        # Configuration for Skaffold (Kubernetes development, Cloud Deploy)
 ```
 
 ## Running Flask Locally
@@ -222,41 +222,79 @@ npm test . -- -u
 Website is deployed in Kubernetes cluster. A deployment contains the following
 containers:
 
-- website: A Flask app with static files complied by Webpack.
+- website: A Flask app with static files compiled by Webpack.
 - mixer: A Data Commons API server.
 - esp: Google Extensive Service Proxy used for endpoints management.
 
-The code for mixer lives in our [mixer repo](https://github.com/datacommonsorg/mixer) and is included in website as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). We read mixer's deployment info from the submodule.
+The code for mixer lives in our [mixer repo](https://github.com/datacommonsorg/mixer) and is included in website as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). **We read mixer's deployment info from the submodule.**
 
-### Deploy local changes to dev instance in GCP
+### Deploy to datcom-website-dev
 
-Commit all changes locally, so the local change is identified by a git hash.
-Then run
+**Note:** This section covers deploying the full website stack (Website + Mixer) to `datcom-website-dev`. 
+*   If you need to deploy mixer changes to `datcom-mixer-dev`, please see [mixer/deploy/README.md](https://github.com/datacommonsorg/mixer/blob/master/deploy/README.md#deploy-to-mixer-dev-instance).
+
+The deployment process involves:
+1.  **Building and pushing artifacts** (Docker images) for Website and/or Mixer servers to Artifact Registry.
+2.  **Triggering a rollout** via Google Cloud Deploy using those artifacts.
+
+#### 1. Push Website Image
+
+If you have website changes, commit them locally. Then run:
 
 ```bash
 gcloud auth login
 gcloud auth configure-docker
+# Builds and pushes website image to GCR
 ./scripts/push_image.sh datcom-ci DEV
 ```
+*   This will push the `datacommons-website`, `datacommons-nl`, and `datacommons-nodejs` images tagged with `dev-<git-hash>` (e.g., `dev-72c634f`).
+  *   **Note**: This script does not push a mixer image.
+  * Check for the image in [Artifact Registry (datacommons-website)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-website?project=datcom-ci)
 
-Find your image hash for both datacommons-mixer and datacommons-website in [Artifact Registry](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io?e=13803378&inv=1&invt=Ab3CEA&mods=-monitoring_api_staging&project=datcom-ci)
+#### 2. Get Mixer Image Hash
+
+**Standard Case**: Use an existing image tag available in Artifact Registry.
+*   Mixer: [Artifact Registry (datacommons-mixer)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-mixer?project=datcom-ci)
+
+<details>
+  <summary><strong>Alternative</strong>: If you need to incorporate local mixer changes, click to expand</summary>
+<br>
+
+* **Server Code Change**: Push the mixer image to Artifact Registry:
+
+  1. In your fork of **the `mixer` repo**, run 
+      ```bash
+      # in mixer repo
+      ./scripts/push_image.sh datcom-ci DEV
+      ```
+  2. This will push an image tagged with `dev-<mixer-git-hash>`.
+
+*  **Deployment Change**: If you have modified deployment configurations (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
+   *  Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
+
+</details>
+
+#### 3. Trigger Deployment
+
+Once you have your hashes, run the cloud deploy script.
 
 ```bash
+# Set your hashes (include the "dev-" prefix)
+# Example: website_hash="dev-72c634f"
 website_hash=
 mixer_hash=
-# To deploy to website + its mixer:
-./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
-# and to deploy to mixer only:
-./scripts/deploy_mixer_cloud_deploy.sh $mixer_hash datacommons-mixer-dev
 
+# Deploy BOTH Website and Mixer to datcom-website-dev using datacommons-website-dev Delivery pipeline
+./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
 ```
 
-The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE through Cloud Deploy.
+The `deploy_website_cloud_deploy.sh` script creates a new release in Google Cloud Deploy using the specified image tags. It does not build images locally; it deploys the already-pushed artifacts to the GKE dev instance.
 
 Images tagged with "dev-" will not be picked up by our CI/CD pipeline for autodeployment.
 
-View the deployoment at [link](https://dev.datacommons.org).
+View the deployment at [link](https://dev.datacommons.org).
+
+Monitor rollout progress at: [Cloud Deploy Delivery Pipeline](https://pantheon.corp.google.com/deploy/delivery-pipelines/us-central1/datacommons-website-dev?project=datcom-ci)
 
 ### Deployment Issue: force stop
 
