@@ -40,7 +40,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2024"
+                      "startDate": "2025"
                     },
                     "statVarKey": [
                       "Count_FireEvent_285042123"
@@ -102,7 +102,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2024"
+                      "startDate": "2025"
                     },
                     "statVarKey": [
                       "Count_WildfireEvent_2519150620"
@@ -126,68 +126,9 @@
               }
             ],
             "title": "Wildfires"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_OxidesOfNitrogen_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM10_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_SulfurDioxide_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound_multiple_place_bar_block"
-                    ],
-                    "title": "Wildfire Emissions by Pollutant in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Wildfire Emissions by Pollutant"
           }
         ],
         "statVarSpec": {
-          "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Ammonia",
-            "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_Ammonia"
-          },
-          "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Carbon Monoxide",
-            "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_CarbonMonoxide"
-          },
-          "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_OxidesOfNitrogen_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Oxides of Nitrogen",
-            "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_OxidesOfNitrogen"
-          },
-          "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM10_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, PM 10",
-            "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM10"
-          },
-          "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, PM 2.5",
-            "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5"
-          },
-          "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_SulfurDioxide_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Sulfur Dioxide",
-            "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_SulfurDioxide"
-          },
-          "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Volatile Organic Compound",
-            "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound"
-          },
           "Count_FireEvent": {
             "name": "Count of Fire Event",
             "statVar": "Count_FireEvent"
