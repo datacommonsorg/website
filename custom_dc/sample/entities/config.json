@@ -1,12 +1,11 @@
 {
   "inputFiles": {
     "alaska_hospitals_unplanned_visits.csv": {
-      "importType": "observations",
       "format": "variablePerRow",
-      "entityType": "Hospital",
       "provenance": "Unplanned Hospital Visits"
     }
   },
+
   "sources": {
     "Center for Medicare and Medicaid Services": {
       "url": "https://data.cms.gov",

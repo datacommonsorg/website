@@ -1,124 +1,145 @@
 Node: dcid:A20001
+typeOf: dcid:Hospital
 name: "Providence Alaska Medical Center"
 address: "3200 Providence Drive"
 City: geoId/02
 zip: zip/99508
 
 Node: dcid:A20006
+typeOf: dcid:Hospital
 name: "Mat-Su Regional Medical Center"
 address: "2500 South Woodworth Loop"
 City: geoId/02
 zip: zip/99645
 
 Node: dcid:A20008
+typeOf: dcid:Hospital
 name: "Bartlett Regional Hospital"
 address: "3260 Hospital Dr"
 City: geoId/02
 zip: zip/99801
 
 Node: dcid:A20012
+typeOf: dcid:Hospital
 name: "Fairbanks Memorial Hospital"
 address: "1650 Cowles Street"
 City: geoId/02
 zip: zip/99701
 
 Node: dcid:A20017
+typeOf: dcid:Hospital
 name: "Alaska Regional Hospital"
 address: "2801 Debarr Road"
 City: geoId/02
 zip: zip/99508
 
 Node: dcid:A20018
+typeOf: dcid:Hospital
 name: "Yukon Kuskokwim Delta Reg Hospital"
 address: "Po Box 287"
 City: geoId/02
 zip: zip/99559
 
 Node: dcid:A20024
+typeOf: dcid:Hospital
 name: "Central Peninsula General Hospital"
 address: "250 Hospital Place"
 City: geoId/02
 zip: zip/99669
 
 Node: dcid:A20026
+typeOf: dcid:Hospital
 name: "Alaska Native Medical Center"
 address: "4315 Diplomacy Dr"
 City: geoId/02
 zip: zip/99508
 
 Node: dcid:A21301
+typeOf: dcid:Hospital
 name: "Providence Valdez Medical Center"
 address: "Po Box 550"
 City: geoId/02
 zip: zip/99686
 
 Node: dcid:A21302
+typeOf: dcid:Hospital
 name: "Providence Seward Hospital"
 address: "417 First Avenue, Po Box 365"
 City: geoId/02
 zip: zip/99664
 
 Node: dcid:A21304
+typeOf: dcid:Hospital
 name: "Petersburg Medical Center"
 address: "Po Box 589"
 City: geoId/02
 zip: zip/99833
 
 Node: dcid:A21305
+typeOf: dcid:Hospital
 name: "Searhc Wrangell Medical Center-Cah"
 address: "232 Wood Street"
 City: geoId/02
 zip: zip/99929
 
 Node: dcid:A21306
+typeOf: dcid:Hospital
 name: "Providence Kodiak Island Medical Ctr"
 address: "1915 East Rezanof Drive"
 City: geoId/02
 zip: zip/99615
 
 Node: dcid:A21307
+typeOf: dcid:Hospital
 name: "Cordova Community Medical Center"
 address: "Po Box 160 - 602 Chase Avenue"
 City: geoId/02
 zip: zip/99574
 
 Node: dcid:A21308
+typeOf: dcid:Hospital
 name: "Norton Sound Regional Hospital"
 address: "1000 Greg Kruschek Avenue (P O Box 966)"
 City: geoId/02
 zip: zip/99762
 
 Node: dcid:A21309
+typeOf: dcid:Hospital
 name: "Bristol Bay Area Health Corporation"
 address: "P O Box 130"
 City: geoId/02
 zip: zip/99576
 
 Node: dcid:A21310
+typeOf: dcid:Hospital
 name: "Maniilaq Health Center"
 address: "Po Box 43"
 City: geoId/02
 zip: zip/99752
 
 Node: dcid:A21311
+typeOf: dcid:Hospital
 name: "Peacehealth Ketchikan Medical Center"
 address: "3100 Tongass Avenue"
 City: geoId/02
 zip: zip/99901
 
 Node: dcid:A21312
+typeOf: dcid:Hospital
 name: "Samuel Simmonds Memorial Hospital"
 address: "7000 Uula St"
 City: geoId/02
 zip: zip/99723
 
 Node: dcid:A21313
+typeOf: dcid:Hospital
 name: "South Peninsula Hospital"
 address: "4300 Bartlett St"
 City: geoId/02
 zip: zip/99603
 
 Node: dcid:A21314
+typeOf: dcid:Hospital
 name: "Southeast Alaska Regional Health Consortium"
 address: "222 Tongass Dr"
 City: geoId/02
