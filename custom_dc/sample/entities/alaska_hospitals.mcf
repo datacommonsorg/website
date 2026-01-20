@@ -1,0 +1,125 @@
+Node: dcid:A20001
+name: Providence Alaska Medical Center
+address: 3200 Providence Drive
+City: geoId/02
+zip: 99508
+
+Node: dcid:A20006
+name: Mat-Su Regional Medical Center
+address: 2500 South Woodworth Loop
+City: geoId/02
+zip: 99645
+
+Node: dcid:A20008
+name: Bartlett Regional Hospital
+address: 3260 Hospital Dr
+City: geoId/02
+zip: 99801
+
+Node: dcid:A20012
+name: Fairbanks Memorial Hospital
+address: 1650 Cowles Street
+City: geoId/02
+zip: 99701
+
+Node: dcid:A20017
+name: Alaska Regional Hospital
+address: 2801 Debarr Road
+City: geoId/02
+zip: 99508
+
+Node: dcid:A20018
+name: Yukon Kuskokwim Delta Reg Hospital
+address: Po Box 287
+City: geoId/02
+zip: 99559
+
+Node: dcid:A20024
+name: Central Peninsula General Hospital
+address: 250 Hospital Place
+City: geoId/02
+zip: 99669
+
+Node: dcid:A20026
+name: Alaska Native Medical Center
+address: 4315 Diplomacy Dr
+City: geoId/02
+zip: 99508
+
+Node: dcid:A21301
+name: Providence Valdez Medical Center
+address: Po Box 550
+City: geoId/02
+zip: 99686
+
+Node: dcid:A21302
+name: Providence Seward Hospital
+address: 417 First Avenue, Po Box 365
+City: geoId/02
+zip: 99664
+
+Node: dcid:A21304
+name: Petersburg Medical Center
+address: Po Box 589
+City: geoId/02
+zip: 99833
+
+Node: dcid:A21305
+name: Searhc Wrangell Medical Center-Cah
+address: 232 Wood Street
+City: geoId/02
+zip: 99929
+
+Node: dcid:A21306
+name: Providence Kodiak Island Medical Ctr
+address: 1915 East Rezanof Drive
+City: geoId/02
+zip: 99615
+
+Node: dcid:A21307
+name: Cordova Community Medical Center
+address: Po Box 160 - 602 Chase Avenue
+City: geoId/02
+zip: 99574
+
+Node: dcid:A21308
+name: Norton Sound Regional Hospital
+address: 1000 Greg Kruschek Avenue (P O Box 966)
+City: geoId/02
+zip: 99762
+
+Node: dcid:A21309
+name: Bristol Bay Area Health Corporation
+address: P O Box 130
+City: geoId/02
+zip: 99576
+
+Node: dcid:A21310
+name: Maniilaq Health Center
+address: Po Box 43
+City: geoId/02
+zip: 99752
+
+Node: dcid:A21311
+name: Peacehealth Ketchikan Medical Center
+address: 3100 Tongass Avenue
+City: geoId/02
+zip: 99901
+
+Node: dcid:A21312
+name: Samuel Simmonds Memorial Hospital
+address: 7000 Uula St
+City: geoId/02
+zip: 99723
+
+Node: dcid:A21313
+name: South Peninsula Hospital
+address: 4300 Bartlett St
+City: geoId/02
+zip: 99603
+
+Node: dcid:A21314
+name: Southeast Alaska Regional Health Consortium
+address: 222 Tongass Dr
+City: geoId/02
+zip: 99835
