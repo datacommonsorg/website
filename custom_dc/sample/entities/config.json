@@ -1,7 +1,19 @@
 {
   "inputFiles": {
+    "entities.csv": {
+      "importType": "entities",
+      "rowEntityType": "Hospital",
+      "idColumn": "facility_id",
+      "entityColumns": [
+        "City",
+        "zip"
+      ],
+      "provenance": "Unplanned Hospital Visits"
+    },
     "alaska_hospitals_unplanned_visits.csv": {
-      "format": "variablePerRow",
+      "importType": "observations",
+      "entityType": "Hospital",
+      "format": "variablePerRow", 
       "provenance": "Unplanned Hospital Visits"
     }
   },
