@@ -1,6 +1,6 @@
 {
   "inputFiles": {
-    "entities.csv": {
+    "alaska_hospital_entities.csv": {
       "importType": "entities",
       "rowEntityType": "Hospital",
       "idColumn": "facility_id",
