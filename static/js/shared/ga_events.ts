@@ -148,6 +148,7 @@ export const GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT =
  *                         tool_chart_option: "per capita" or "log scale" or "show quadrants"
  *                         or "show labels" or "show density" or "edit sources" or "filter by population"
  *                        }
+ * Note: "delta" was a tool_chart_option until January 2026.
  */
 export const GA_EVENT_TOOL_CHART_OPTION_CLICK = "tool_chart_option_click";
 
