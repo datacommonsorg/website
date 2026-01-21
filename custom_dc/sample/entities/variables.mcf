@@ -12,7 +12,7 @@ measuredProperty: dcid:count
 statType: dcid:measuredValue
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:EDAC_30_AMI_RETURN 
+Node: dcid:EDAC_30_AMI_RETURN
 typeOf: dcid:StatisticalVariable
 name: "Count of heart attack patients returned"
 description: "Per-hospital number of heart attack patients returned unplanned in a 30-day period"
@@ -30,7 +30,7 @@ measuredProperty: dcid:count
 statType: dcid:measuredValue
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:EDAC_30_HF_RETURN 
+Node: dcid:EDAC_30_HF_RETURN
 typeOf: dcid:StatisticalVariable
 name: "Count of heart failure patients returned"
 description: "Per-hospital number of heart failure patients returned unplanned in a 30-day period"
@@ -48,7 +48,7 @@ measuredProperty: dcid:count
 statType: dcid:measuredValue
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:EDAC_30_PN_RETURN 
+Node: dcid:EDAC_30_PN_RETURN
 typeOf: dcid:StatisticalVariable
 name: "Count of pneumonia patients returned"
 description: "Per-hospital number of pneumonia patients returned unplanned in a 30-day period"
