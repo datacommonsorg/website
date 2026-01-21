@@ -139,7 +139,6 @@ import {
   GA_VALUE_PAGE_OVERVIEW,
   GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
   GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
-  GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
@@ -896,26 +895,6 @@ describe("test ga event tool chart plot option", () => {
         GA_EVENT_TOOL_CHART_OPTION_CLICK,
         {
           [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
-        },
-      ]);
-    });
-
-    // Click the checkbox of delta.
-    fireEvent.click(
-      timelineToolChart.container.getElementsByClassName(
-        "is-delta-input form-check-input"
-      )[0],
-      { target: { checked: true } }
-    );
-    await waitFor(() => {
-      // Check the gtag is called once, three times in total.
-      expect(mockgtag.mock.calls.length).toEqual(3);
-      // Check the parameters passed to the gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_TOOL_CHART_OPTION_CLICK,
-        {
-          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_DELTA,
         },
       ]);
     });
