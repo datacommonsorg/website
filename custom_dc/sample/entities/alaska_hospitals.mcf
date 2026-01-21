@@ -2,145 +2,145 @@ Node: dcid:CCN20001
 name: "Providence Alaska Medical Center"
 typeOf: schema:Hospital
 address: "3200 Providence Drive"
-City: dcid:geoId/02
+City: dcid:geoId/0203000
 zip: dcid:zip/99508
 
 Node: dcid:CCN20006
 name: "Mat-Su Regional Medical Center"
 typeOf: schema:Hospital
 address: "2500 South Woodworth Loop"
-City: dcid:geoId/02
+City: dcid:geoId/0258660
 zip: dcid:zip/99645
 
 Node: dcid:CCN20008
 name: "Bartlett Regional Hospital"
 typeOf: schema:Hospital
 address: "3260 Hospital Dr"
-City: dcid:geoId/02
+City: dcid:geoId/0236400
 zip: dcid:zip/99801
 
 Node: dcid:CCN20012
 name: "Fairbanks Memorial Hospital"
 typeOf: schema:Hospital
 address: "1650 Cowles Street"
-City: dcid:geoId/02
+City: dcid:geoId/0224230
 zip: dcid:zip/99701
 
 Node: dcid:CCN20017
 name: "Alaska Regional Hospital"
 typeOf: schema:Hospital
 address: "2801 Debarr Road"
-City: dcid:geoId/02
+City: dcid:geoId/0203000
 zip: dcid:zip/99508
 
 Node: dcid:CCN20018
 name: "Yukon Kuskokwim Delta Reg Hospital"
 typeOf: schema:Hospital
 address: "Po Box 287"
-City: dcid:geoId/02
+City: dcid:geoId/0206520
 zip: dcid:zip/99559
 
 Node: dcid:CCN20024
 name: "Central Peninsula General Hospital"
 typeOf: schema:Hospital
 address: "250 Hospital Place"
-City: dcid:geoId/02
+City: dcid:geoId/0271640
 zip: dcid:zip/99669
 
 Node: dcid:CCN20026
 name: "Alaska Native Medical Center"
 typeOf: schema:Hospital
 address: "4315 Diplomacy Dr"
-City: dcid:geoId/02
+City: dcid:geoId/0203000
 zip: dcid:zip/99508
 
 Node: dcid:CCN21301
 name: "Providence Valdez Medical Center"
 typeOf: schema:Hospital
 address: "Po Box 550"
-City: dcid:geoId/02
+City: dcid:geoId/0282200
 zip: dcid:zip/99686
 
 Node: dcid:CCN21302
 name: "Providence Seward Hospital"
 typeOf: schema:Hospital
 address: "417 First Avenue, Po Box 365"
-City: dcid:geoId/02
+City: dcid:geoId/0268560
 zip: dcid:zip/99664
 
 Node: dcid:CCN21304
 name: "Petersburg Medical Center"
 typeOf: schema:Hospital
 address: "Po Box 589"
-City: dcid:geoId/02
+City: dcid:geoId/0260310
 zip: dcid:zip/99833
 
 Node: dcid:CCN21305
 name: "Searhc Wrangell Medical Center-Cah"
 typeOf: schema:Hospital
 address: "232 Wood Street"
-City: dcid:geoId/02
+City: dcid:geoId/0286380
 zip: dcid:zip/99929
 
 Node: dcid:CCN21306
 name: "Providence Kodiak Island Medical Ctr"
 typeOf: schema:Hospital
 address: "1915 East Rezanof Drive"
-City: dcid:geoId/02
+City: dcid:geoId/0240950
 zip: dcid:zip/99615
 
 Node: dcid:CCN21307
 name: "Cordova Community Medical Center"
 typeOf: schema:Hospital
 address: "Po Box 160 - 602 Chase Avenue"
-City: dcid:geoId/02
+City: dcid:geoId/0217410
 zip: dcid:zip/99574
 
 Node: dcid:CCN21308
 name: "Norton Sound Regional Hospital"
 typeOf: schema:Hospital
 address: "1000 Greg Kruschek Avenue (P O Box 966)"
-City: dcid:geoId/02
+City: dcid:geoId/0254920
 zip: dcid:zip/99762
 
 Node: dcid:CCN21309
 name: "Bristol Bay Area Health Corporation"
 typeOf: schema:Hospital
 address: "P O Box 130"
-City: dcid:geoId/02
+City: dcid:geoId/0219720
 zip: dcid:zip/99576
 
 Node: dcid:CCN21310
 name: "Maniilaq Health Center"
 typeOf: schema:Hospital
 address: "Po Box 43"
-City: dcid:geoId/02
+City: dcid:geoId/0241830
 zip: dcid:zip/99752
 
 Node: dcid:CCN21311
 name: "Peacehealth Ketchikan Medical Center"
 typeOf: schema:Hospital
 address: "3100 Tongass Avenue"
-City: dcid:geoId/02
+City: dcid:geoId/0238970
 zip: dcid:zip/99901
 
 Node: dcid:CCN21312
 name: "Samuel Simmonds Memorial Hospital"
 typeOf: schema:Hospital
 address: "7000 Uula St"
-City: dcid:geoId/02
+City: dcid:geoId/0205200
 zip: dcid:zip/99723
 
 Node: dcid:CCN21313
 name: "South Peninsula Hospital"
 typeOf: schema:Hospital
 address: "4300 Bartlett St"
-City: dcid:geoId/02
+City: dcid:geoId/0233140
 zip: dcid:zip/99603
 
 Node: dcid:CCN21314
 name: "Southeast Alaska Regional Health Consortium"
 typeOf: schema:Hospital
 address: "222 Tongass Dr"
-City: dcid:geoId/02
+City: dcid:geoId/0270540
 zip: dcid:zip/99835
