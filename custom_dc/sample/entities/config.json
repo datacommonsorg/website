@@ -13,7 +13,7 @@
     "alaska_hospitals_unplanned_visits.csv": {
       "importType": "observations",
       "entityType": "Hospital",
-      "format": "variablePerRow", 
+      "format": "variablePerRow",
       "provenance": "Unplanned Hospital Visits"
     }
   },
