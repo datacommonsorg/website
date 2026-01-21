@@ -27,12 +27,9 @@ import { Chip } from "../../shared/chip";
 import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
-  GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_STAT_VAR,
-  GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_TOOL_CHART_OPTION_DELTA,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import {
@@ -50,7 +47,6 @@ import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
 import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
 import {
-  convertToDelta,
   fetchRawData,
   getStatData,
   getStatVarGroupWithTime,
@@ -88,8 +84,6 @@ interface ChartPropsType {
   statVarInfos: Record<string, StatVarInfo>;
   pc: boolean;
   denom: string;
-  // Whether the chart is on for the delta (increment) of the data.
-  delta: boolean;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
   onMetadataMapUpdate: (
@@ -166,7 +160,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNameMap)[0];
-    const deltaCheckboxId = `delta-cb-${this.props.chartId}`;
     const svFacetId = {};
     for (const sv of statVars) {
       svFacetId[sv] =
@@ -264,34 +257,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           handleEmbed={this.handleEmbed}
           getObservationSpecs={this.getObservationSpecs}
           containerRef={this.containerRef}
-        >
-          <span className="chart-option">
-            <FormGroup check>
-              <Label check>
-                <Input
-                  id={deltaCheckboxId}
-                  className="is-delta-input"
-                  type="checkbox"
-                  checked={this.props.delta}
-                  onChange={(): void => {
-                    setChartOption(
-                      this.props.chartId,
-                      "delta",
-                      !this.props.delta
-                    );
-                    if (!this.props.delta) {
-                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                        [GA_PARAM_TOOL_CHART_OPTION]:
-                          GA_VALUE_TOOL_CHART_OPTION_DELTA,
-                      });
-                    }
-                  }}
-                />
-                Delta
-              </Label>
-            </FormGroup>
-          </span>
-        </ToolChartFooter>
+        ></ToolChartFooter>
         {this.state.isDataLoaded && (
           <ChartEmbed
             ref={this.embedModalElement}
@@ -321,7 +287,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     }
     // reset the options to default value if the chart is removed
     setChartOption(this.props.chartId, "pc", false);
-    setChartOption(this.props.chartId, "delta", false);
   }
 
   componentDidUpdate(
@@ -537,12 +502,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       statData = processedStat;
       ipccModels = modelStat;
       ipccModels = shortenStatData(ipccModels, this.minYear, this.maxYear);
-    }
-    if (this.props.delta) {
-      statData = convertToDelta(statData);
-      if (ipccModels) {
-        ipccModels = convertToDelta(ipccModels);
-      }
     }
     // Get from all stat vars. In most cases there should be only one
     // unit.

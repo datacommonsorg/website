@@ -145,9 +145,10 @@ export const GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT =
  * Event name: tool_chart_option_click
  * Triggered when: a tool chart option is selected or blured (population filter) or updated (sources).
  * Parameters with value: {
- *                         tool_chart_option: "per capita" or "delta" or "log scale" or "show quadrants"
+ *                         tool_chart_option: "per capita" or "log scale" or "show quadrants"
  *                         or "show labels" or "show density" or "edit sources" or "filter by population"
  *                        }
+ * Note: "delta" was a tool_chart_option until January 2026.
  */
 export const GA_EVENT_TOOL_CHART_OPTION_CLICK = "tool_chart_option_click";
 
@@ -383,7 +384,6 @@ export const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR = "sidebar";
 export const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER = "chart header";
 export const GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS = "more charts";
 export const GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA = "per capita";
-export const GA_VALUE_TOOL_CHART_OPTION_DELTA = "delta";
 export const GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE = "log scale";
 export const GA_VALUE_TOOL_CHART_OPTION_SWAP = "swap x and y axis";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS = "show quadrants";
