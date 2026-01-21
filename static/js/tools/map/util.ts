@@ -103,7 +103,8 @@ const URL_PARAM_DOMAIN_SEPARATOR = ":";
 export const URL_PARAM_KEYS = {
   SELECTED_PLACE_DCID: "pd",
   ENCLOSED_PLACE_TYPE: "ept",
-  DEPRECATED_MAP_POINTS_PLACE_TYPE: "ppt", // This param key is deprecated, but we keep it to prevent reusing it for something else.
+  // Map points place type is deprecated, but we keep it to prevent reusing it for something else.
+  DEPRECATED_MAP_POINTS_PLACE_TYPE: "ppt",
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
   DATE: "dt",
