@@ -73,7 +73,10 @@ export const CONTINENT_PLACE_TYPES = [
 // For "Earth", explicitly list only high level place types to show in the dropdown.
 // Smaller place types often result in blank maps or error out because of high data volume.
 export const PLANET_PLACE_TYPES = [
- "Country", "AdministrativeArea1", "EurostatNUTS1"];
+  "Country",
+  "AdministrativeArea1",
+  "EurostatNUTS1",
+];
 export const CHILD_PLACE_TYPES = {
   AdministrativeArea1: AA1_CHILD_PLACE_TYPES,
   AdministrativeArea2: AA2_CHILD_PLACE_TYPES,
