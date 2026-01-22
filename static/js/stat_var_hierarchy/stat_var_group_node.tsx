@@ -311,8 +311,8 @@ export class StatVarGroupNode extends React.Component<
         }
       })
       .catch((error) => {
-        // Ignore abort errors
         if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
           return;
         }
         this.dataFetchingEntities = null;

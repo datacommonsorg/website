@@ -69,8 +69,8 @@ export function useFetchGeoJson(dispatch: Dispatch<ChartStoreAction>): void {
         dispatch(action);
       })
       .catch((error) => {
-        // Ignore abort errors
         if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
           return;
         }
         action.error = "error fetching geo json data";

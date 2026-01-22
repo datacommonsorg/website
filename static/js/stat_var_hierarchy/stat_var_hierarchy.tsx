@@ -376,10 +376,11 @@ export class StatVarHierarchy extends React.Component<
         this.togglePath(selection, path, /*isSearchSelection=*/ true);
       })
       .catch((error) => {
-        // Ignore abort errors
-        if (!axios.isCancel(error) && error.name !== "AbortError") {
-          console.error(error);
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
         }
+        console.error(error);
       });
   }
 
