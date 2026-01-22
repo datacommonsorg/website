@@ -96,7 +96,7 @@ export function useFetchBreadcrumbStat(
       .catch((error) => {
         if (axios.isCancel(error) || error.name === "AbortError") {
           // Ignore abort errors
-          return; 
+          return;
         }
         action.error = "error fetching breadcrumb stat data";
         dispatch(action);

@@ -90,7 +90,7 @@ export function useFetchBreadcrumbDenomStat(
       .catch((error) => {
         if (axios.isCancel(error) || error.name === "AbortError") {
           // Ignore abort errors
-          return; 
+          return;
         }
         action.error = "error fetching breadcrumb denom stat data";
         dispatch(action);

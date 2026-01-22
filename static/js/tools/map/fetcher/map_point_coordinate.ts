@@ -74,7 +74,7 @@ export function useFetchMapPointCoordinate(
       .catch((error) => {
         if (axios.isCancel(error) || error.name === "AbortError") {
           // Ignore abort errors
-          return; 
+          return;
         }
         action.error = "error fetching map point coordinate data";
         dispatch(action);

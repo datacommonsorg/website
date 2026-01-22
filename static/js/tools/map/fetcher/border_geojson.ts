@@ -82,7 +82,7 @@ export function useFetchBorderGeoJson(
       .catch((error) => {
         if (axios.isCancel(error) || error.name === "AbortError") {
           // Ignore abort errors
-          return; 
+          return;
         }
         action.error = "error fetching border geo json data";
         dispatch(action);

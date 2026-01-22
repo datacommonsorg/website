@@ -85,7 +85,7 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
       .catch((error) => {
         if (axios.isCancel(error) || error.name === "AbortError") {
           // Ignore abort errors
-          return; 
+          return;
         }
         action.error = "error fetching all the dates";
         dispatch(action);

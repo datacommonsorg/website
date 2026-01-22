@@ -69,7 +69,7 @@ export function useFetchStatVarSummary(
       .catch((error) => {
         if (axios.isCancel(error) || error.name === "AbortError") {
           // Ignore abort errors
-          return; 
+          return;
         }
         action.error = "error fetching stat var summary data";
         dispatch(action);

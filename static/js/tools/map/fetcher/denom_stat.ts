@@ -82,7 +82,7 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
       .catch((error) => {
         if (axios.isCancel(error) || error.name === "AbortError") {
           // Ignore abort errors
-          return; 
+          return;
         }
         action.error = "error fetching denom stat data";
         dispatch(action);
