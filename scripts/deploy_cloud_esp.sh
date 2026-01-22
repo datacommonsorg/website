@@ -87,6 +87,7 @@ if [[ "$DEPLOYMENT" == "mixer" ]]; then
   yq eval -i '.endpoints[0].name = env(SERVICE_NAME)' endpoints.yaml
 
   # Check for V2Resolve override
+  # TODO(/v2/resolve cleanup): Delete once /v2/resolve always requires an api key.
   V2_RESOLVE_ALLOW_UNREGISTERED=$(yq eval '.esp.v2_resolve_allow_unregistered' $HELM_VALUES_FILE)
   if [[ "$V2_RESOLVE_ALLOW_UNREGISTERED" == "false" ]]; then
     echo "Overriding allow_unregistered_calls to false for datacommons.Mixer.V2Resolve"
