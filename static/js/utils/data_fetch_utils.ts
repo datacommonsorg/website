@@ -218,14 +218,7 @@ export function getPoint(
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(
-        apiRoot,
-        entities,
-        variables,
-        facetSelector,
-        surface,
-        signal
-      );
+    : selectFacet(apiRoot, entities, variables, facetSelector, surface, signal);
 
   return facetPromise.then((resolvedFacetIds) => {
     const params: Record<string, unknown> = { date, entities, variables };
