@@ -327,11 +327,12 @@ export function getSeries(
   variables: string[],
   facetIds?: string[],
   facetSelector?: FacetSelectionCriteria,
-  surface?: string
+  surface?: string,
+  signal?: AbortSignal
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, facetSelector, surface)
+    selectFacet(apiRoot, entities, variables, facetSelector, surface, signal)
   ).then((resolvedFacetIds) => {
     if (!_.isEmpty(facetIds)) {
       params["facetIds"] = facetIds;
@@ -342,6 +343,7 @@ export function getSeries(
     return axios
       .post(`${apiRoot || ""}/api/observations/series`, params, {
         headers: getSurfaceHeader(surface),
+        signal,
       })
       .then((resp) => resp.data);
   });
@@ -366,7 +368,8 @@ export function getSeriesWithin(
   childType: string,
   variables: string[],
   facetIds?: string[],
-  surface?: string
+  surface?: string,
+  signal?: AbortSignal
 ): Promise<SeriesApiResponse> {
   const params = { parentEntity, childType, variables };
   if (facetIds) {
@@ -377,6 +380,7 @@ export function getSeriesWithin(
       params,
       paramsSerializer: stringifyFn,
       headers: getSurfaceHeader(surface),
+      signal,
     })
     .then((resp) => resp.data);
 }
