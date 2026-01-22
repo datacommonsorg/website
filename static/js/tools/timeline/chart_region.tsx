@@ -35,7 +35,6 @@ import {
 interface ChartOptions {
   perCapita: boolean;
   denom: string;
-  delta: boolean;
 }
 export interface ChartGroupInfo {
   chartOrder: string[];
@@ -88,7 +87,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               )}
               pc={chartGroupInfo.chartIdToOptions[mprop].perCapita}
               denom={chartGroupInfo.chartIdToOptions[mprop].denom}
-              delta={chartGroupInfo.chartIdToOptions[mprop].delta}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar): void => {
                 removeToken("statsVar", statVarSep, statVar);
@@ -131,7 +129,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     const options = {};
     for (const chartId of chartOrder) {
       options[chartId] = {
-        delta: getChartOption(chartId, "delta"),
         denom: getDenom(chartId) || DEFAULT_POPULATION_DCID,
         perCapita: getChartOption(chartId, "pc"),
       };
