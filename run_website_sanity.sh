@@ -12,6 +12,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# Description:
+#   Runs the python sanity test: server/webdriver/tests/standalone/sanity.py
+#   Outputs are written to: [datcom-website-dev] gs://datcom-website-sanity/<domain>/<timestamp>/
+#
+# Usage: ./run_website_sanity.sh <domain> [NO_PIP]
+#
+# Arguments:
+#   <domain>: The DC instance domain to test (e.g., "autopush.datacommons.org", "datacommons.org").
+#             The script will prepend https:// if missing.
+#   [NO_PIP]: Optional. Set to "true" to skip installing python dependencies.
+#
+# Example:
+#   ./run_website_sanity.sh autopush.datacommons.org
+
 
 set -e
 
@@ -45,7 +60,13 @@ if [[ $NO_PIP != "true" ]]; then
   pip3 install -r server/requirements.txt
 fi
 
+# Clean up any potential previous output
+rm -f ./output/*.csv
+
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
+# Clean domain for GCS path (remove protocol and trailing slash)
+clean_domain=$(echo "$domain" | sed -E 's|https?://||; s|/$||')
+
 python3 server/webdriver/tests/standalone/sanity.py --mode=home --url="$domain"
-gsutil cp ./output/*.csv gs://datcom-website-sanity/$domain/$date_str/
+gsutil cp ./output/*.csv gs://datcom-website-sanity/$clean_domain/$date_str/
 rm ./output/*.csv
