@@ -12,14 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+substitutions:
+  _TAG_NAME: latest
+
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - build
-      - --tag=gcr.io/datcom-ci/datacommons-script-runner:latest
+      - --tag=gcr.io/datcom-ci/datacommons-script-runner:${_TAG_NAME}
       - "."
       - -f
       - "tools/script_runner/Dockerfile"
 
 images:
-  - "gcr.io/datcom-ci/datacommons-script-runner:latest"
+  - "gcr.io/datcom-ci/datacommons-script-runner:${_TAG_NAME}"
