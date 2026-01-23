@@ -81,40 +81,6 @@ export function getStatVarGroupWithTime(
   return result;
 }
 
-/**
- * For each time series of the input stat data, compute the delta beteen
- * consecutive date and return the delta series.
- * TODO: Make this a function of StatData
- *
- * @param statData
- */
-export function convertToDelta(statData: StatData): StatData {
-  const result = _.cloneDeep(statData);
-  for (const statVar in result.data) {
-    for (const place in result.data[statVar]) {
-      const series = result.data[statVar][place].series;
-      const delta: Series = {
-        facet: result.data[statVar][place].facet,
-        series: [],
-      };
-      if (series.length > 1) {
-        for (let i = 0; i < series.length - 1; i++) {
-          delta.series.push({
-            date: series[i + 1].date,
-            value: series[i + 1].value - series[i].value,
-          });
-        }
-      }
-      result.data[statVar][place] = delta;
-      const index = result.dates.indexOf(series[0].date);
-      if (index !== -1) {
-        result.dates.splice(index, 1);
-      }
-    }
-  }
-  return result;
-}
-
 export function shortenStatData(
   statData: StatData,
   minYear: string,
