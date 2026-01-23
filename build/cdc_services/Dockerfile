@@ -158,6 +158,8 @@ COPY --from=download /tmp/datcom-nl-models /tmp/datcom-nl-models
 # Copy executable script.
 COPY build/cdc_services/run.sh .
 
+COPY build/cdc_services/mixer_custom.yaml .
+
 # Make script executable.
 RUN chmod +x run.sh
 
