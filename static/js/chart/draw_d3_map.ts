@@ -123,6 +123,7 @@ function fitSize(
  */
 
 function showTooltip(
+  event: MouseEvent,
   containerElement: HTMLDivElement,
   place: NamedPlace,
   getTooltipHtml: (place: NamedPlace) => string
@@ -142,7 +143,7 @@ function showTooltip(
   const leftOffset = 2 * offset;
   const topOffset = -tooltipHeight - offset;
   let left = Math.min(
-    d3.event.offsetX + leftOffset,
+    event.offsetX + leftOffset,
     containerWidth - tooltipWidth - offset // account for decoration around the tooltip
   );
   if (left < 0) {
@@ -151,9 +152,9 @@ function showTooltip(
   } else {
     tooltipSelect.style("width", "fit-content");
   }
-  let top = d3.event.offsetY + topOffset;
+  let top = event.offsetY + topOffset;
   if (top < 0) {
-    top = d3.event.offsetY + offset;
+    top = event.offsetY + offset;
   }
   tooltipSelect
     .html(tooltipHtml)
@@ -166,7 +167,7 @@ const onMouseOver =
     canClickRegion: (placeDcid: string) => boolean,
     containerElement: HTMLDivElement
   ) =>
-  (geo: GeoJsonFeature): void => {
+  (_: MouseEvent, geo: GeoJsonFeature): void => {
     mouseHoverAction(
       containerElement,
       geo.properties.geoDcid,
@@ -178,7 +179,7 @@ const onMouseOver =
 
 const onMouseOut =
   (containerElement: HTMLDivElement) =>
-  (geo: GeoJsonFeature): void => {
+  (_: MouseEvent, geo: GeoJsonFeature): void => {
     mouseOutAction(containerElement, geo.properties.geoDcid, [
       HOVER_HIGHLIGHTED_CLASS_NAME,
       HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
@@ -194,7 +195,7 @@ const onMouseMove =
     containerElement: HTMLDivElement,
     getTooltipHtml: (place: NamedPlace) => string
   ) =>
-  (geo: GeoJsonFeature): void => {
+  (event: MouseEvent, geo: GeoJsonFeature): void => {
     const placeDcid = geo.properties.geoDcid;
     mouseHoverAction(
       containerElement,
@@ -207,7 +208,7 @@ const onMouseMove =
       dcid: placeDcid,
       name: geo.properties.name,
     };
-    showTooltip(containerElement, place, getTooltipHtml);
+    showTooltip(event, containerElement, place, getTooltipHtml);
   };
 
 const onMapClick =
@@ -216,7 +217,7 @@ const onMapClick =
     containerElement: HTMLDivElement,
     redirectAction: (properties: GeoJsonFeatureProperties) => void
   ) =>
-  (geo: GeoJsonFeature): void => {
+  (_: MouseEvent, geo: GeoJsonFeature): void => {
     if (!canClickRegion(geo.properties.geoDcid)) return;
     redirectAction(geo.properties);
     mouseOutAction(containerElement, geo.properties.geoDcid, [
@@ -559,7 +560,7 @@ export function drawD3Map(
         [0, 0],
         [chartWidth, chartHeight],
       ])
-      .on("zoom", function (): void {
+      .on("zoom", function (event: d3.D3ZoomEvent<SVGElement, unknown>): void {
         mapObjects.forEach((mapObjectLayer) => {
           mapObjectLayer.on("mousemove", null).on("mouseover", null);
         });
@@ -568,7 +569,7 @@ export function drawD3Map(
           .selectAll("path,circle")
           .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
           .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false)
-          .attr("transform", d3.event.transform);
+          .attr("transform", event.transform.toString());
       })
       .on("end", function (): void {
         mapObjects.forEach((mapObjectLayer) => {
@@ -704,12 +705,12 @@ export function addMapPoints(
     });
   if (getTooltipHtml) {
     mapPointsLayer
-      .on("mouseover", (point: MapPoint) => {
+      .on("mouseover", (event: MouseEvent, point: MapPoint) => {
         const place = {
           dcid: point.placeDcid,
           name: point.placeName,
         };
-        showTooltip(containerElement, place, getTooltipHtml);
+        showTooltip(event, containerElement, place, getTooltipHtml);
       })
       .on("mouseout", () => {
         d3.select(containerElement)
@@ -736,7 +737,7 @@ export function addPolygonLayer(
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
   getRegionBorder: (geoDcid: string) => string,
-  onClick: (geoFeature: GeoJsonFeature) => void,
+  onClick: (event: MouseEvent, geoFeature: GeoJsonFeature) => void,
   allowMouseover = true
 ): void {
   // Build the map objects
@@ -759,14 +760,14 @@ export function addPolygonLayer(
     .on("click", onClick);
   if (allowMouseover) {
     mapObjects
-      .on("mouseover", (d: GeoJsonFeature) => {
+      .on("mouseover", (_: MouseEvent, d: GeoJsonFeature) => {
         mouseHoverAction(
           containerElement,
           d.properties.geoDcid,
           MAP_POLYGON_HIGHLIGHT_CLASS
         );
       })
-      .on("mouseout", (d: GeoJsonFeature) => {
+      .on("mouseout", (_: MouseEvent, d: GeoJsonFeature) => {
         mouseOutAction(containerElement, d.properties.geoDcid, [
           MAP_POLYGON_HIGHLIGHT_CLASS,
         ]);
@@ -787,7 +788,7 @@ export function addPathLayer(
   geoJson: GeoJsonData,
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
-  onClick: (feature: GeoJsonFeature) => void
+  onClick: (event: MouseEvent, feature: GeoJsonFeature) => void
 ): void {
   // Build map objects.
   const mapObjects = addGeoJsonLayer(
@@ -805,14 +806,14 @@ export function addPathLayer(
       return getRegionColor(d.properties.geoDcid);
     })
     .attr("opacity", MAP_PATH_OPACITY)
-    .on("mouseover", (d: GeoJsonFeature) => {
+    .on("mouseover", (_: MouseEvent, d: GeoJsonFeature) => {
       mouseHoverAction(
         containerElement,
         d.properties.geoDcid,
         MAP_PATH_HIGHLIGHT_CLASS
       );
     })
-    .on("mouseout", (d: GeoJsonFeature) => {
+    .on("mouseout", (_: MouseEvent, d: GeoJsonFeature) => {
       mouseOutAction(containerElement, d.properties.geoDcid, [
         MAP_PATH_HIGHLIGHT_CLASS,
       ]);

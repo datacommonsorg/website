@@ -262,8 +262,8 @@ function addHighlightOnHover(
       highlightArea.style("opacity", "0");
       tooltip.style("display", "none");
     })
-    .on("mousemove", () => {
-      const mouseX = d3.mouse(container.node() as HTMLElement)[0];
+    .on("mousemove", (event: MouseEvent) => {
+      const mouseX = d3.pointer(event, container.node() as HTMLElement)[0];
       if (mouseX > chartAreaBoundary.right) {
         highlightArea.style("opacity", "0");
         tooltip.style("display", "none");
@@ -448,7 +448,7 @@ export function drawLineChart(
   let hasFilledInValues = false;
   const timePoints = new Set<number>();
   for (const dataGroup of dataGroups) {
-    const dataset = dataGroup.value.map((dp) => {
+    const dataset = dataGroup.value.map((dp): [number, number] => {
       if (dp.time) {
         timePoints.add(dp.time);
       }
@@ -720,7 +720,7 @@ export function drawGroupLineChart(
       const dGroups = options?.modelsDataGroupsDict[place];
       for (const dataGroup of dGroups) {
         const dataset = dataGroup.value
-          .map((dp) => {
+          .map((dp): [number, number] => {
             return [dp.time, dp.value];
           })
           .filter((dp) => {
@@ -754,7 +754,7 @@ export function drawGroupLineChart(
     const dGroups = dataGroupsDict[place];
     for (const dataGroup of dGroups) {
       const dataset = dataGroup.value
-        .map((dp) => {
+        .map((dp): [number, number] => {
           timePoints.add(dp.time);
           return [dp.time, dp.value];
         })

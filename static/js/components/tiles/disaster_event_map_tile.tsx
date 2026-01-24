@@ -559,13 +559,13 @@ export function draw(
       projection,
       () => props.eventTypeSpec[eventType].color,
       () => "none",
-      (geoFeature: GeoJsonFeature) => {
+      (event: PointerEvent, geoFeature: GeoJsonFeature) => {
         if (infoCard) {
           onPointClicked(
             infoCard,
             svgContainer,
             pointsMap[geoFeature.properties.geoDcid],
-            d3.event
+            event
           );
         }
       }
@@ -583,13 +583,13 @@ export function draw(
       chartData.pathGeoJson[eventType],
       projection,
       () => props.eventTypeSpec[eventType].color,
-      (geoFeature: GeoJsonFeature) => {
+      (event: PointerEvent, geoFeature: GeoJsonFeature) => {
         if (infoCard) {
           onPointClicked(
             infoCard,
             svgContainer,
             pointsMap[geoFeature.properties.geoDcid],
-            d3.event
+            event
           );
         }
       }
@@ -616,11 +616,14 @@ export function draw(
         ? MAP_POINTS_MIN_RADIUS_EARTH
         : MAP_POINTS_MIN_RADIUS
     );
-    pointsLayer.on("click", (point: DisasterEventPoint) => {
-      if (infoCard) {
-        onPointClicked(infoCard, svgContainer, point, d3.event);
+    pointsLayer.on(
+      "click",
+      (event: PointerEvent, point: DisasterEventPoint) => {
+        if (infoCard) {
+          onPointClicked(infoCard, svgContainer, point, event);
+        }
       }
-    });
+    );
   }
 }
 

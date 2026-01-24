@@ -206,7 +206,7 @@ export class ObservationChart extends React.Component<
     );
   }
 
-  private handleDotClick = (dotData: DataPoint): void => {
+  private handleDotClick = (_: MouseEvent, dotData: DataPoint): void => {
     const date = dotData.label;
     this.redirectToObsPage(date);
   };
