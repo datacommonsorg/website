@@ -60,7 +60,9 @@ nginx -c /workspace/nginx.conf
 
 MIXER_ARGS=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-    MIXER_ARGS="--embeddings_server_url=localhost:6060"
+    # Custom embeddings index built at 
+    # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
+    MIXER_ARGS="--embeddings_server_url=http://localhost:6060 --resolve_embeddings_indexes=user_all_minilm_mem"
 fi
 
 /workspace/bin/mixer \
