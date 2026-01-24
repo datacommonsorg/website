@@ -58,11 +58,15 @@ fi
 
 nginx -c /workspace/nginx.conf
 
-MIXER_ARGS=""
+MIXER_ARGS=()
 if [[ $ENABLE_MODEL == "true" ]]; then
     # Custom embeddings index built at 
     # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
-    MIXER_ARGS="--embeddings_server_url=http://localhost:6060 --resolve_embeddings_indexes=user_all_minilm_mem"
+    export CUSTOM_EMBEDDINGS_INDEX=${CUSTOM_EMBEDDINGS_INDEX:-"user_all_minilm_mem"}
+    MIXER_ARGS+=(
+        "--embeddings_server_url=http://localhost:6060"
+        "--resolve_embeddings_indexes=$CUSTOM_EMBEDDINGS_INDEX"
+    )
 fi
 
 /workspace/bin/mixer \
@@ -75,7 +79,7 @@ fi
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
     --remote_mixer_domain=$DC_API_ROOT \
-    $MIXER_ARGS &
+    "${MIXER_ARGS[@]}" &
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
