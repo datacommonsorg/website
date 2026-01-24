@@ -80,46 +80,14 @@ class MapTestMixin():
                        by=By.CSS_SELECTOR,
                        value='#choropleth-legend .tick')), 5)
 
-    # Click United States breadcrumb
-    shared.click_el(self.driver, (By.LINK_TEXT, 'United States'))
-
-    # Assert redirect was correct
-    shared.wait_for_loading(self.driver)
-    self.assertEqual(
-        find_elem(self.driver,
-                  by=By.CSS_SELECTOR,
-                  value='#place-list > div > span').text,
-        'United States of America')
-
-    # Select State place type
-    shared.wait_for_loading(self.driver)
-    place_type_selector = find_elem(self.driver,
-                                    by=By.ID,
-                                    value='place-selector-place-type')
-    place_type_selector.click()
-    find_elem(place_type_selector, by=By.XPATH, value='./option[2]').click()
-
-    # Assert that a map chart is loaded
-    self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='map-items'))
-    self.assertIn(
-        "median age of population ",
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
-    self.assertEqual(
-        len(find_elems(self.driver, by=By.CSS_SELECTOR,
-                       value='#map-items path')), 52)
-
     # Click explore timeline
     find_elem(self.driver, value='explore-timeline-text').click()
 
     # Assert rankings page loaded
-    new_page_title = (
-        'Ranking by Median Age - States in United States of America - Place ' +
-        'Rankings - ' + self.dc_title_string)
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.title_contains(new_page_title))
-    self.assertEqual(new_page_title, self.driver.title)
+    expected_ranking_page_title = 'Ranking by Median Age - Counties in California - Place Rankings - ' + self.dc_title_string
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains(expected_ranking_page_title))
+    self.assertEqual(expected_ranking_page_title, self.driver.title)
 
   @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):

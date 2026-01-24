@@ -108,6 +108,10 @@ function ensure_cdc_test_env_file {
 }
 
 # Run test for client side code.
+# If the snapshots used by the tests are outdated, the tests will fail.
+# Run the tests with the -u flag to update the snapshots:
+#     ./run_test.sh -c -- -u
+
 function run_npm_test {
   cd packages/web-components
   npm install --update
