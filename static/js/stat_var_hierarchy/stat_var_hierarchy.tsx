@@ -440,6 +440,12 @@ export class StatVarHierarchy extends React.Component<
         // This is to make jest test working, should find a better way to let
         // mock return new object each time.
         return _.cloneDeep(resp.data).reverse();
+      }).catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
+        console.error(error);
       });
   }
 
