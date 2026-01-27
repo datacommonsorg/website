@@ -163,7 +163,7 @@ export function sanitizeSourceUrl(url: string): string {
     return trimmedUrl;
   }
 
-  // Otherwise, assume it is relative andneeds https://
+  // Otherwise, assume it is relative and needs https://
   return "https://" + trimmedUrl;
 }
 
