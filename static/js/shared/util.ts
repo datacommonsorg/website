@@ -21,6 +21,9 @@ import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_in
 import { Theme } from "../theme/types";
 import { stringifyFn } from "../utils/axios";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
+import { FacetSelectorFacetInfo } from "./facet_selector/facet_selector_rich";
+import { StatMetadata } from "./stat_types";
+import { StatVarFacetMap, StatVarSpec } from "./types";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -405,4 +408,63 @@ export function replaceQueryWithSelection(
     query: stripPatternFromQuery(query, result.matchedQuery) + result.name,
     placeDcid: "",
   };
+}
+
+/**
+ * Returns a map of facet ids to stat metadata for the metadata modal.
+ *
+ * @param facetList list of facets from facet selector
+ * @returns map of facet ids to stat metadata
+ */
+export function getFacetMetadataFromFacetList(
+  facetList: FacetSelectorFacetInfo[]
+): Record<string, StatMetadata> {
+  return Object.assign({}, ...facetList.map((facet) => facet.metadataMap));
+}
+
+/**
+ * Returns a map of stat var dcids to facets and a list of stat var specs
+ * to be used in the metadata modal.
+ * The secondAxis parameters are used for the scatter plot.
+ *
+ * @param facetList list of facets from facet selector
+ * @param svFacetId mapping of stat var dcids to facet ids
+ * @param perCapita whether the stat var is per capita
+ * @param unit unit of the stat var
+ * @param log whether the stat var is log scaled
+ * @param secondAxisPerCapita whether the stat var is per capita on the second axis
+ * @param secondAxisUnit unit of the stat var on the second axis
+ * @param secondAxisLog
+ */
+export function getStatVarMetadataFromFacets(
+  facetList: FacetSelectorFacetInfo[],
+  svFacetId: Record<string, string>,
+  perCapita: boolean,
+  unit: string,
+  log: boolean,
+  secondAxisPerCapita?: boolean,
+  secondAxisUnit?: string,
+  secondAxisLog?: boolean
+): {
+  statVarToFacets: StatVarFacetMap;
+  statVarSpecs: StatVarSpec[];
+} {
+  const statVarToFacets: StatVarFacetMap = {};
+  const statVarSpecs: StatVarSpec[] = [];
+  facetList.forEach((facet, index) => {
+    statVarToFacets[facet.dcid] = new Set(Object.keys(facet.metadataMap));
+    const isFirstAxis = index === 0;
+    statVarSpecs.push({
+      statVar: facet.dcid,
+      name: facet.name,
+      denom: (isFirstAxis ? perCapita : secondAxisPerCapita)
+        ? "Count_Person"
+        : "",
+      unit: (isFirstAxis ? unit : secondAxisUnit) || "",
+      scaling: 1,
+      log: isFirstAxis ? log : secondAxisLog,
+      facetId: svFacetId[facet.dcid] || "",
+    });
+  });
+  return { statVarToFacets, statVarSpecs };
 }
