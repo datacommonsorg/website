@@ -832,7 +832,7 @@ export function addPathLayer(
 }
 
 /**
- * Clear the hover state of a map
+ * Clear the hover state of a map region
  * @param containerElement containing element of the map
  * @param placeDcid dcid of the place to clear hover state for
  */
