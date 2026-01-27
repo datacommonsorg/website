@@ -149,6 +149,11 @@ export function sanitizeSourceUrl(url: string): string {
   const trimmedUrl = url.trim();
   const lowerUrl = trimmedUrl.toLowerCase();
 
+  // If it starts with http:// or https://, return as is
+  if (lowerUrl.startsWith("http://") || lowerUrl.startsWith("https://")) {
+    return trimmedUrl;
+  }
+
   // Block unsafe protocols
   if (
     lowerUrl.startsWith("javascript:") ||
@@ -156,11 +161,6 @@ export function sanitizeSourceUrl(url: string): string {
     lowerUrl.startsWith("data:")
   ) {
     return "";
-  }
-
-  // If it starts with http:// or https://, return as is
-  if (lowerUrl.startsWith("http://") || lowerUrl.startsWith("https://")) {
-    return trimmedUrl;
   }
 
   // Otherwise, assume it is relative and needs https://
