@@ -434,7 +434,7 @@ export function getFacetMetadataFromFacetList(
  * @param log whether the stat var is log scaled
  * @param secondAxisPerCapita whether the stat var is per capita on the second axis
  * @param secondAxisUnit unit of the stat var on the second axis
- * @param secondAxisLog
+ * @param secondAxisLog whether the stat var is log scaled on the second axis
  */
 export function getStatVarMetadataFromFacets(
   facetList: FacetSelectorFacetInfo[],
