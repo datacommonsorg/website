@@ -190,7 +190,7 @@ export function Chart(props: ChartPropsType): ReactElement {
     });
   }, [statVars[0], statVars[1], props.placeInfo.enclosingPlace.dcid]);
 
-  // Get stat var metadata to use inmetadata modal
+  // Get stat var metadata to use in metadata modal
   const { statVarToFacets, statVarSpecs } = getStatVarMetadataFromFacets(
     props.facetList,
     props.svFacetId,
