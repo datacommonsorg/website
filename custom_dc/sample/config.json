@@ -2,11 +2,13 @@
   "inputFiles": {
     "average_annual_wage.csv": {
       "entityType": "Country",
-      "provenance": "OECD average annual wages"
+      "provenance": "OECD average annual wages",
+      "format": "variablePerRow"
     },
     "gender_wage_gap.csv": {
       "entityType": "Country",
-      "provenance": "OECD gender wage gap"
+      "provenance": "OECD gender wage gap",
+      "format": "variablePerRow"
     }
   },
 
