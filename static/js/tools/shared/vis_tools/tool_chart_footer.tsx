@@ -38,7 +38,6 @@ import {
 import { ObservationSpec } from "../../../shared/observation_specs";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarFacetMap } from "../../../shared/types";
-import { urlToDisplayText } from "../../../shared/util";
 import { FontFamily, TextVariant } from "../../../theme/types";
 import { TileSources } from "../metadata/tile_sources";
 
@@ -247,24 +246,4 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
       )}
     </>
   );
-}
-
-function getSourcesJsx(sources: Set<string>): ReactElement[] {
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceText = new Set();
-  return sourceList.map((source, index) => {
-    const sourceText = urlToDisplayText(source);
-    if (seenSourceText.has(sourceText)) {
-      return null;
-    }
-    seenSourceText.add(sourceText);
-    // handle relative url that doesn't contain https or http or www
-    const processedUrl = sourceText === source ? "https://" + source : source;
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={processedUrl}>{sourceText}</a>
-      </span>
-    );
-  });
 }

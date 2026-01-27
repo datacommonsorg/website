@@ -138,6 +138,36 @@ export function urlToDisplayText(url: string): string {
 }
 
 /**
+ * Processes a source url for display in the UI.
+ * Sanitizes the url to prevent XSS attacks while also
+ * prepending https:// if the url is missing a protocol.
+ */
+export function sanitizeSourceUrl(url: string): string {
+  if (!url) {
+    return "";
+  }
+  const trimmedUrl = url.trim();
+  const lowerUrl = trimmedUrl.toLowerCase();
+
+  // Block unsafe protocols
+  if (
+    lowerUrl.startsWith("javascript:") ||
+    lowerUrl.startsWith("vbscript:") ||
+    lowerUrl.startsWith("data:")
+  ) {
+    return "";
+  }
+
+  // If it starts with http:// or https://, return as is
+  if (lowerUrl.startsWith("http://") || lowerUrl.startsWith("https://")) {
+    return trimmedUrl;
+  }
+
+  // Otherwise, assume it is relative andneeds https://
+  return "https://" + trimmedUrl;
+}
+
+/**
  * This function removes the protocol from a url.
  *
  * Example:

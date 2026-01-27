@@ -40,7 +40,7 @@ import {
 import { ObservationSpec } from "../../../shared/observation_specs";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../../shared/types";
-import { urlToDisplayText } from "../../../shared/util";
+import { sanitizeSourceUrl, urlToDisplayText } from "../../../shared/util";
 import { isNlInterface } from "../../../utils/explore_utils";
 import { TileMetadataModal } from "./tile_metadata_modal";
 import { TileMetadataModalSimple } from "./tile_metadata_modal_simple";
@@ -101,7 +101,7 @@ export function TileSources(props: {
       <span key={sourceUrl}>
         {index > 0 ? ", " : ""}
         <a
-          href={sourceUrl}
+          href={sanitizeSourceUrl(sourceUrl)}
           rel="noreferrer"
           target="_blank"
           title={sourceUrl}

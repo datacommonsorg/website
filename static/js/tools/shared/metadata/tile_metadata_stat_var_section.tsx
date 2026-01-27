@@ -35,7 +35,7 @@ import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { humanizeIsoDuration } from "../../../shared/periodicity";
 import { NamedNode } from "../../../shared/types";
-import { stripProtocol } from "../../../shared/util";
+import { sanitizeSourceUrl, stripProtocol } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
 import { formatDateRange } from "./citations";
 import { StatVarMetadata } from "./metadata";
@@ -246,7 +246,7 @@ export const TileMetadataStatVarSection = ({
                   {metadata.provenanceUrl && (
                     <p>
                       <a
-                        href={metadata.provenanceUrl}
+                        href={sanitizeSourceUrl(metadata.provenanceUrl)}
                         target="_blank"
                         rel="noreferrer"
                         css={css`
