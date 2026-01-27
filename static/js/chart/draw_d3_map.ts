@@ -179,13 +179,7 @@ const onMouseOver =
 const onMouseOut =
   (containerElement: HTMLDivElement) =>
   (geo: GeoJsonFeature): void => {
-    mouseOutAction(containerElement, geo.properties.geoDcid, [
-      HOVER_HIGHLIGHTED_CLASS_NAME,
-      HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
-    ]);
-    d3.select(containerElement)
-      .select(`#${TOOLTIP_ID}`)
-      .style("display", "none");
+    clearHoverState(containerElement, geo.properties.geoDcid);
   };
 
 const onMouseMove =
@@ -219,13 +213,7 @@ const onMapClick =
   (geo: GeoJsonFeature): void => {
     if (!canClickRegion(geo.properties.geoDcid)) return;
     redirectAction(geo.properties);
-    mouseOutAction(containerElement, geo.properties.geoDcid, [
-      HOVER_HIGHLIGHTED_CLASS_NAME,
-      HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
-    ]);
-    d3.select(containerElement)
-      .select(`#${TOOLTIP_ID}`)
-      .style("display", "none");
+    clearHoverState(containerElement, geo.properties.geoDcid);
   };
 
 function mouseOutAction(
@@ -506,13 +494,7 @@ export function drawD3Map(
     .attr("height", chartHeight)
     .attr("fill", "transparent")
     .on("mouseover", () => {
-      mouseOutAction(containerElement, null, [
-        HOVER_HIGHLIGHTED_CLASS_NAME,
-        HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
-      ]);
-      d3.select(containerElement)
-        .select(`#${TOOLTIP_ID}`)
-        .style("display", "none");
+      clearHoverState(containerElement, null);
     });
 
   // Build the map objects
@@ -847,4 +829,20 @@ export function addPathLayer(
       ]);
     })
     .on("click", onClick);
+}
+
+/**
+ * Clear the hover state of a map
+ * @param containerElement containing element of the map
+ * @param placeDcid dcid of the place to clear hover state for
+ */
+function clearHoverState(
+  containerElement: HTMLDivElement,
+  placeDcid: string | null
+): void {
+  mouseOutAction(containerElement, placeDcid, [
+    HOVER_HIGHLIGHTED_CLASS_NAME,
+    HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
+  ]);
+  d3.select(containerElement).select(`#${TOOLTIP_ID}`).style("display", "none");
 }
