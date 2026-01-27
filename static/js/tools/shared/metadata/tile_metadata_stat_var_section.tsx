@@ -138,7 +138,7 @@ export const TileMetadataStatVarSection = ({
           margin-top: ${theme.spacing.md}px;
         `}
       >
-        {metadataList.map((metadata) => {
+        {metadataList.map((metadata, index) => {
           let sourceUrl: string = metadata.provenanceUrl;
           if (metadata.provenanceUrl) {
             sourceUrl = prepareSourceUrl(metadata.provenanceUrl);
@@ -215,7 +215,7 @@ export const TileMetadataStatVarSection = ({
 
           return (
             <div
-              key={`${metadata.statVarId}-${metadata.provenanceName}`}
+              key={`${metadata.statVarId}-${metadata.provenanceName}-${index}`}
               css={css`
                 ${metadataList.length > 1
                   ? `padding-bottom:${theme.spacing.md}px; 
