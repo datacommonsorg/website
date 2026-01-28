@@ -131,6 +131,14 @@ class TestFollowUpQuestions(unittest.TestCase):
     assert [] == generate_follow_up_questions(query=query,
                                               related_topics=RELATED_TOPICS)
 
+  @patch('google.genai.Client', autospec=True)
+  def test_generate_follow_up_questions_unsafe_request(self, mock_gemini):
+    mock_gemini.return_value.models.generate_content.return_value.parsed.questions = []
+    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
+    with app.app_context():
+      assert [] == generate_follow_up_questions(query=QUERY,
+                                                related_topics=RELATED_TOPICS)
+
   def test_generate_follow_up_questions_no_api_key(self):
     app.config.pop("LLM_API_KEY", None)
     with app.app_context():
