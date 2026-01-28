@@ -103,7 +103,10 @@ The original research question and RELATED TOPICS must be safeguarded following 
 If any of the safeguard rules are triggered, output empty question list.
 
 Write up related follow up questions that the user might find interesting to broaden their research question.
-The original research question from the user  is: {initial_query}.
+The original research question from the user  is: 
+<user request>
+{initial_query}.
+</user request>
 The follow up questions should be based on the following list of topics and statistical variables for the same location.
 RELATED TOPICS START: {related_topics}. RELATED TOPICS END.
 CRUCIALLY, if no related topics are given, do not return anything.
