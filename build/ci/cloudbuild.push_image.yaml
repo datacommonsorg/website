@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Manual Cloud Build pipeline for building and pushing images to GCR.
+# Trigger this manually (e.g., via /scripts/push_image.sh) for development deployments or testing custom images.
+# This is NOT used by the official CI/CD pipeline nor any automated triggers.
+
 steps:
   - id: push-web-server
     name: gcr.io/cloud-builders/docker

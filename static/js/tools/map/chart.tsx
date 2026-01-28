@@ -38,12 +38,15 @@ import {
 } from "../../shared/ga_events";
 import { ObservationSpec } from "../../shared/observation_specs";
 import { StatVarInfo } from "../../shared/stat_var";
-import { DataPointMetadata, NamedPlace } from "../../shared/types";
+import { DataPointMetadata } from "../../shared/types";
+import {
+  getFacetMetadataFromFacetList,
+  getStatVarMetadataFromFacets,
+} from "../../shared/util";
 import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
 import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
 import { Context } from "./context";
 import { D3Map } from "./d3_map";
-// import { LeafletMap } from "./leaflet_map";
 import { getTitle } from "./util";
 
 interface ChartProps {
@@ -56,7 +59,6 @@ interface ChartProps {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
-  europeanCountries: Array<NamedPlace>;
   rankingLink: string;
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
@@ -103,6 +105,31 @@ export function Chart(props: ChartProps): ReactElement {
     });
   }, [statVar.value.dcid, placeInfo.value.enclosingPlace.dcid]);
 
+  // Get stat var metadata to use in metadata modal
+  const { statVarToFacets, statVarSpecs } = getStatVarMetadataFromFacets(
+    props.facetList,
+    { [statVar.value.dcid]: statVar.value.metahash },
+    statVar.value.perCapita,
+    props.unit,
+    false // There is no log option for maps
+  );
+
+  // Calculate date ranges for each stat var to use in metadata modal
+  const statVarDateRanges: Record<
+    string,
+    { minDate: string; maxDate: string }
+  > = {};
+  if (props.dates.size > 0) {
+    const datesArr = Array.from(props.dates);
+    let minDate = datesArr[0];
+    let maxDate = datesArr[0];
+    datesArr.forEach((date) => {
+      if (date < minDate) minDate = date;
+      if (date > maxDate) maxDate = date;
+    });
+    statVarDateRanges[statVar.value.dcid] = { minDate, maxDate };
+  }
+
   return (
     <div className="chart-section-container">
       <ToolChartHeader
@@ -145,7 +172,6 @@ export function Chart(props: ChartProps): ReactElement {
               unit={props.unit}
               mapPointValues={props.mapPointValues}
               mapPoints={props.mapPoints}
-              europeanCountries={props.europeanCountries}
               borderGeoJsonData={props.borderGeoJsonData}
             />
             {/* )} */}
@@ -189,6 +215,10 @@ export function Chart(props: ChartProps): ReactElement {
         handleEmbed={props.handleEmbed}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={props.containerRef}
+        facets={getFacetMetadataFromFacetList(props.facetList)}
+        statVarSpecs={statVarSpecs}
+        statVarToFacets={statVarToFacets}
+        statVarDateRanges={statVarDateRanges}
       >
         {placeInfo.value.mapPointPlaceType && (
           <div className="chart-option">
