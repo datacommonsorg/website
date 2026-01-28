@@ -257,6 +257,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           handleEmbed={this.handleEmbed}
           getObservationSpecs={this.getObservationSpecs}
           containerRef={this.containerRef}
+          facets={this.state.statData?.facets}
+          statVarSpecs={embedStatVarSpecs}
+          statVarToFacets={embedStatVarToFacets}
         ></ToolChartFooter>
         {this.state.isDataLoaded && (
           <ChartEmbed
