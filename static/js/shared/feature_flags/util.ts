@@ -59,10 +59,28 @@ export function getFeatureFlags(): Record<
   string,
   { enabled: boolean; rolloutPercentage?: number }
 > {
-  return globalThis.FEATURE_FLAGS as Record<
+  const flags = (globalThis.FEATURE_FLAGS || {}) as Record<
+    string,
+    {
+      enabled: boolean;
+      // rollout_percentage is not camelcase because it is defined in the
+      // feature flag config JSON files.
+      // eslint-disable-next-line camelcase
+      rollout_percentage?: number;
+    }
+  >;
+  const result: Record<
     string,
     { enabled: boolean; rolloutPercentage?: number }
-  >;
+  > = {};
+  for (const key in flags) {
+    const flag = flags[key];
+    result[key] = {
+      enabled: flag.enabled,
+      rolloutPercentage: flag.rollout_percentage, // convert to camelCase
+    };
+  }
+  return result;
 }
 
 /**
