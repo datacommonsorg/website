@@ -58,11 +58,32 @@ steps:
           --region=us-central1 \
           --project=datcom-ci
 
+        # 3. TAG NL IMAGE FOR SIDE CAR
+        # The Mixer deployment includes an embeddings sidecar (datacommons-nl image).
+        # We need to explicitly tag the 'cicd' version of this image as 'mixer-sidecar'
+        # so that we can deploy it using a specific alias in Skaffold.
+        # This alias (datacommons-embeddings-sidecar) allows us to deploy the same physical image
+        # with a different tag/purpose than the main website NL image, avoiding version conflicts.
+        echo "Tagging datacommons-nl:cicd image with mixer-sidecar..."
+        gcloud container images add-tag \
+          "us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:cicd" \
+          "us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:mixer-sidecar" \
+          --project=datcom-ci --quiet
+
+        # Run the deployment creation.
+        # Note the addition of the 'datacommons-embeddings-sidecar' image in the --images flag.
+        # This maps the physical image (with our new tag) to the artifact alias defined in skaffold.yaml.
+        images_arr=(
+          "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:${mixer_githash}"
+          "gcr.io/datcom-ci/datacommons-embeddings-sidecar=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:mixer-sidecar"
+        )
+        images_str=$(IFS=,; echo "${images_arr[*]}")
+
         gcloud deploy releases create "${release_name}" \
           --delivery-pipeline=datacommons-mixer \
           --region=us-central1 \
           --skaffold-file=skaffold.yaml \
-          --images="gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:${mixer_githash}" \
+          --images="${images_str}" \
           --deploy-parameters="mixer.githash=${mixer_githash},MIXER_GITHASH=${mixer_githash}" \
           --project=datcom-ci
 
