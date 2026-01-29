@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { result } from "lodash";
+
 // Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
 export const METADATA_FEATURE_FLAG = "metadata_modal";
@@ -52,8 +54,11 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
 }
 
 /**
- * Returns the feature flags for the current environment.
- * @returns
+ * Returns the feature flags for the current environment as defined in the
+ * corrensponding feature flag config <env>.json file. The returned object has
+ * the same shape as the feature flag config JSON files, but with camelCase keys,
+ * to match TypeScript naming conventions.
+ * @returns feature flags for the current environment
  */
 export function getFeatureFlags(): Record<
   string,
@@ -69,18 +74,15 @@ export function getFeatureFlags(): Record<
       rollout_percentage?: number;
     }
   >;
-  const result: Record<
-    string,
-    { enabled: boolean; rolloutPercentage?: number }
-  > = {};
-  for (const key in flags) {
-    const flag = flags[key];
-    result[key] = {
-      enabled: flag.enabled,
-      rolloutPercentage: flag.rollout_percentage, // convert to camelCase
-    };
-  }
-  return result;
+  return Object.fromEntries(
+    Object.entries(flags).map(([key, value]) => [
+      key,
+      {
+        enabled: value.enabled,
+        rolloutPercentage: value.rollout_percentage, // convert to camelCase
+      },
+    ])
+  );
 }
 
 /**
