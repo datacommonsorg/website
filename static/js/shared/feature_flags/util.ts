@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { result } from "lodash";
-
 // Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
 export const METADATA_FEATURE_FLAG = "metadata_modal";
