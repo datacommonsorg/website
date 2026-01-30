@@ -146,25 +146,39 @@ export function sanitizeSourceUrl(url: string): string {
   if (!url) {
     return "";
   }
+
   const trimmedUrl = url.trim();
-  const lowerUrl = trimmedUrl.toLowerCase();
 
-  // If it starts with http:// or https://, return as is
-  if (lowerUrl.startsWith("http://") || lowerUrl.startsWith("https://")) {
-    return trimmedUrl;
-  }
+  // Ensure we have a protocol for the parser to work
+  // If the input is missing a protocol, we prepend https://
+  const urlToParse =
+    trimmedUrl.toLowerCase().startsWith("http://") ||
+    trimmedUrl.toLowerCase().startsWith("https://")
+      ? trimmedUrl
+      : "https://" + trimmedUrl;
 
-  // Block unsafe protocols
-  if (
-    lowerUrl.startsWith("javascript:") ||
-    lowerUrl.startsWith("vbscript:") ||
-    lowerUrl.startsWith("data:")
-  ) {
+  try {
+    const parsed = new URL(urlToParse);
+
+    // Block unsafe protocols
+    const blockedProtocols = ["javascript:", "vbscript:", "data:"];
+    if (blockedProtocols.includes(parsed.protocol.toLowerCase())) {
+      return "";
+    }
+
+    // Check for script injection in the HOSTNAME
+    if (
+      parsed.hostname.includes("javascript") &&
+      parsed.hostname.includes(":")
+    ) {
+      return "";
+    }
+
+    return parsed.href;
+  } catch (e) {
+    // If it's not a valid URL structure at all, return empty
     return "";
   }
-
-  // Otherwise, assume it is relative and needs https://
-  return "https://" + trimmedUrl;
 }
 
 /**
