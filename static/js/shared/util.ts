@@ -159,18 +159,15 @@ export function sanitizeSourceUrl(url: string): string {
 
   try {
     const parsed = new URL(urlToParse);
+    const blockedKeywords = ["javascript:", "vbscript:", "data:"];
 
     // Block unsafe protocols
-    const blockedProtocols = ["javascript:", "vbscript:", "data:"];
-    if (blockedProtocols.includes(parsed.protocol.toLowerCase())) {
+    if (blockedKeywords.includes(parsed.protocol.toLowerCase())) {
       return "";
     }
 
     // Check for script injection in the HOSTNAME
-    if (
-      parsed.hostname.includes("javascript") &&
-      parsed.hostname.includes(":")
-    ) {
+    if (blockedKeywords.includes(parsed.hostname.toLowerCase())) {
       return "";
     }
 
