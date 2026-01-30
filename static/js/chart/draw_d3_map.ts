@@ -222,17 +222,21 @@ function mouseOutAction(
   hoverClassNames: string[]
 ): void {
   const container = d3.select(containerElement);
+  const hoverClassesToRemove = hoverClassNames.join(" ");
+
+  // Remove global highlight class
   container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
+
   if (placeDcid) {
+    // Remove highlight class from the specific place
     const pathSelection = container.select(`#${getPlacePathId(placeDcid)}`);
-    for (const className of hoverClassNames) {
-      pathSelection.classed(className, false);
-    }
+    pathSelection.classed(hoverClassesToRemove, false);
   } else {
     // If no placeDcid is provided, clear all highlights
-    for (const className of hoverClassNames) {
-      container.selectAll("." + className).classed(className, false);
-    }
+    const allHighlightsSelector = hoverClassNames.map((c) => `.${c}`).join(",");
+    container
+      .selectAll(allHighlightsSelector)
+      .classed(hoverClassesToRemove, false);
   }
   // bring original highlighted region back to the top
   container.select("." + HIGHLIGHTED_CLASS_NAME).raise();
