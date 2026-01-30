@@ -52,17 +52,35 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
 }
 
 /**
- * Returns the feature flags for the current environment.
- * @returns
+ * Returns the feature flags for the current environment as defined in the
+ * corrensponding feature flag config <env>.json file. The returned object has
+ * the same shape as the feature flag config JSON files, but with camelCase keys,
+ * to match TypeScript naming conventions.
+ * @returns feature flags for the current environment
  */
 export function getFeatureFlags(): Record<
   string,
   { enabled: boolean; rolloutPercentage?: number }
 > {
-  return globalThis.FEATURE_FLAGS as Record<
+  const flags = (globalThis.FEATURE_FLAGS || {}) as Record<
     string,
-    { enabled: boolean; rolloutPercentage?: number }
+    {
+      enabled: boolean;
+      // rollout_percentage is not camelcase because it is defined in the
+      // feature flag config JSON files.
+      // eslint-disable-next-line camelcase
+      rollout_percentage?: number;
+    }
   >;
+  return Object.fromEntries(
+    Object.entries(flags).map(([key, value]) => [
+      key,
+      {
+        enabled: value.enabled,
+        rolloutPercentage: value.rollout_percentage, // convert to camelCase
+      },
+    ])
+  );
 }
 
 /**
