@@ -285,16 +285,20 @@ function mockAxios(): void {
   };
 
   when(axios.get)
-    .calledWith("/api/observations/point/within", {
-      params: {
-        parentEntity: "geoId/10",
-        childType: "County",
-        variables: ["Count_Person_Employed"],
-        date: "",
+    .calledWith(
+      "/api/observations/point/within",
+      {
+        params: {
+          parentEntity: "geoId/10",
+          childType: "County",
+          variables: ["Count_Person_Employed"],
+          date: "",
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -304,16 +308,20 @@ function mockAxios(): void {
       },
     });
   when(axios.get)
-    .calledWith("/api/observations/point/within", {
-      params: {
-        parentEntity: "geoId/10",
-        childType: "County",
-        variables: ["Count_HousingUnit"],
-        date: "",
+    .calledWith(
+      "/api/observations/point/within",
+      {
+        params: {
+          parentEntity: "geoId/10",
+          childType: "County",
+          variables: ["Count_HousingUnit"],
+          date: "",
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -323,16 +331,20 @@ function mockAxios(): void {
       },
     });
   when(axios.get)
-    .calledWith("/api/observations/point/within", {
-      params: {
-        parentEntity: "geoId/10",
-        childType: "County",
-        variables: ["Count_Establishment"],
-        date: "",
+    .calledWith(
+      "/api/observations/point/within",
+      {
+        params: {
+          parentEntity: "geoId/10",
+          childType: "County",
+          variables: ["Count_Establishment"],
+          date: "",
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -342,16 +354,20 @@ function mockAxios(): void {
       },
     });
   when(axios.get)
-    .calledWith("/api/observations/point/within/all", {
-      params: {
-        parentEntity: "geoId/10",
-        childType: "County",
-        variables: ["Count_Person_Employed"],
-        date: "",
+    .calledWith(
+      "/api/observations/point/within/all",
+      {
+        params: {
+          parentEntity: "geoId/10",
+          childType: "County",
+          variables: ["Count_Person_Employed"],
+          date: "",
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -361,16 +377,20 @@ function mockAxios(): void {
       },
     });
   when(axios.get)
-    .calledWith("/api/observations/point/within/all", {
-      params: {
-        parentEntity: "geoId/10",
-        childType: "County",
-        variables: ["Count_HousingUnit"],
-        date: "",
+    .calledWith(
+      "/api/observations/point/within/all",
+      {
+        params: {
+          parentEntity: "geoId/10",
+          childType: "County",
+          variables: ["Count_HousingUnit"],
+          date: "",
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -380,16 +400,20 @@ function mockAxios(): void {
       },
     });
   when(axios.get)
-    .calledWith("/api/observations/point/within/all", {
-      params: {
-        parentEntity: "geoId/10",
-        childType: "County",
-        variables: ["Count_Establishment"],
-        date: "",
+    .calledWith(
+      "/api/observations/point/within/all",
+      {
+        params: {
+          parentEntity: "geoId/10",
+          childType: "County",
+          variables: ["Count_Establishment"],
+          date: "",
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -400,14 +424,18 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/observations/point", {
-      params: {
-        variables: ["Count_Person"],
-        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+    .calledWith(
+      "/api/observations/point",
+      {
+        params: {
+          variables: ["Count_Person"],
+          entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -430,15 +458,19 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/observations/series/within", {
-      params: {
-        parentEntity: "geoId/10",
-        childType: "County",
-        variables: ["Count_Person"],
+    .calledWith(
+      "/api/observations/series/within",
+      {
+        params: {
+          parentEntity: "geoId/10",
+          childType: "County",
+          variables: ["Count_Person"],
+        },
+        paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -509,107 +541,159 @@ function mockAxios(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 0,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: [],
+        numEntitiesExistence: 0,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
@@ -625,28 +709,41 @@ function mockAxios(): void {
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_Establishment")
+    .calledWith(
+      "/api/variable/path?dcid=Count_Establishment",
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({ data: pathsData.Count_Establishment });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_HousingUnit")
+    .calledWith(
+      "/api/variable/path?dcid=Count_HousingUnit",
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({ data: pathsData.Count_HousingUnit });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_Person_Employed")
+    .calledWith(
+      "/api/variable/path?dcid=Count_Person_Employed",
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({ data: pathsData.Count_Person_Employed });
 
   when(axios.get)
-    .calledWith("/api/variable/info", {
-      params: {
-        dcids: [
-          "Count_Person_Employed",
-          "Count_HousingUnit",
-          "Count_Establishment",
-        ],
+    .calledWith(
+      "/api/variable/info",
+      {
+        params: {
+          dcids: [
+            "Count_Person_Employed",
+            "Count_HousingUnit",
+            "Count_Establishment",
+          ],
+        },
+        paramsSerializer: stringifyFn,
       },
-      paramsSerializer: stringifyFn,
-    })
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       data: {
         Count_Person_Employed: {
@@ -677,7 +774,10 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/choropleth/geojson?placeDcid=geoId/10&placeType=County")
+    .calledWith(
+      "/api/choropleth/geojson?placeDcid=geoId/10&placeType=County",
+      expect.anything() // mock abort signal
+    )
     .mockResolvedValue({
       features: [],
       type: "FeatureCollection",
@@ -709,11 +809,15 @@ test("all functionalities", async () => {
   mockAxios();
   const app = mount(<TestApp />);
   await waitFor(() => {
-    expect(axios.post).toHaveBeenCalledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 0,
-    });
+    expect(axios.post).toHaveBeenCalledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: [],
+        numEntitiesExistence: 0,
+      },
+      expect.anything() // mock abort signal
+    );
   });
   await app.update();
 

@@ -18,6 +18,7 @@
  * Fetch the breadcrumb (parent places) denominator stat data
  */
 
+import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
@@ -43,6 +44,10 @@ export function useFetchBreadcrumbDenomStat(
     const placeDcids = placeInfo.value.parentPlaces.map((x) => x.dcid);
     placeDcids.push(placeInfo.value.selectedPlace.dcid);
 
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.BREADCRUMB_DENOM_STAT,
       context: {
@@ -67,7 +72,8 @@ export function useFetchBreadcrumbDenomStat(
       [statVar.value.denom],
       null, // facetIds
       null, // highlightFacet
-      WEBSITE_SURFACE
+      WEBSITE_SURFACE,
+      signal
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[statVar.value.denom])) {
@@ -81,10 +87,19 @@ export function useFetchBreadcrumbDenomStat(
         console.log("[Map Fetch] breadcrumb denom stat");
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching breadcrumb denom stat data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [
     placeInfo.value.selectedPlace.dcid,
     placeInfo.value.parentPlaces,

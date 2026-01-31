@@ -45,6 +45,10 @@ export function useFetchBorderGeoJson(
     if (!contextOk || !shouldShowBorder(placeInfo.value.enclosedPlaceType)) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.BORDER_GEO_JSON,
       error: null,
@@ -59,10 +63,14 @@ export function useFetchBorderGeoJson(
       },
     };
     axios
-      .post("/api/choropleth/node-geojson", {
-        nodes: [placeInfo.value.enclosingPlace.dcid],
-        geoJsonProp: BORDER_GEOJSON_PROPERTY,
-      })
+      .post(
+        "/api/choropleth/node-geojson",
+        {
+          nodes: [placeInfo.value.enclosingPlace.dcid],
+          geoJsonProp: BORDER_GEOJSON_PROPERTY,
+        },
+        { signal }
+      )
       .then((resp) => {
         if (_.isEmpty(resp.data)) {
           action.error = "error fetching border geo json data";
@@ -71,10 +79,19 @@ export function useFetchBorderGeoJson(
         }
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching border geo json data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [
     placeInfo.value.enclosingPlace,
     placeInfo.value.enclosedPlaceType,

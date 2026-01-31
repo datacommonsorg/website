@@ -100,6 +100,11 @@ export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
 > {
+  // Abort controller to cancel any in-flight data requests
+  private _dataAbortController: AbortController;
+  // Abort controller to cancel any in-flight search requests
+  private _searchAbortController: AbortController;
+
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
@@ -119,6 +124,17 @@ export class StatVarHierarchy extends React.Component<
 
   componentDidMount(): void {
     this.fetchData();
+  }
+
+  componentWillUnmount(): void {
+    if (this._dataAbortController) {
+      // Abort any in-flight data requests
+      this._dataAbortController.abort();
+    }
+    if (this._searchAbortController) {
+      // Abort any in-flight search requests
+      this._searchAbortController.abort();
+    }
   }
 
   componentDidUpdate(prevProps: StatVarHierarchyPropType): void {
@@ -257,6 +273,13 @@ export class StatVarHierarchy extends React.Component<
   }
 
   private async fetchData(): Promise<void> {
+    if (this._dataAbortController) {
+      // Abort the previous data request
+      this._dataAbortController.abort();
+    }
+    this._dataAbortController = new AbortController();
+    const signal = this._dataAbortController.signal;
+
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     const entityList = this.props.entities.map((entity) => entity.dcid);
     const variableGroupInfoPromises: Promise<StatVarGroupNodeType>[] =
@@ -267,11 +290,15 @@ export class StatVarHierarchy extends React.Component<
           ? [statVarHierarchyConfigNode.dataSourceDcid]
           : [];
         return axios
-          .post("/api/variable-group/info", {
-            dcid: statVarHierarchyConfigNode.dcid,
-            entities: [...entityList, ...dataSourceEntities],
-            numEntitiesExistence: this.props.numEntitiesExistence,
-          })
+          .post(
+            "/api/variable-group/info",
+            {
+              dcid: statVarHierarchyConfigNode.dcid,
+              entities: [...entityList, ...dataSourceEntities],
+              numEntitiesExistence: this.props.numEntitiesExistence,
+            },
+            { signal }
+          )
           .then((resp) => {
             return resp.data;
           });
@@ -283,7 +310,7 @@ export class StatVarHierarchy extends React.Component<
         if (this.state.svPath && sv in this.state.svPath) {
           svPath[sv] = this.state.svPath[sv];
         } else {
-          statVarPathPromises.push(this.getPath(sv));
+          statVarPathPromises.push(this.getPath(sv, signal));
         }
       }
     }
@@ -329,8 +356,12 @@ export class StatVarHierarchy extends React.Component<
         rootSVGs,
         svPath,
       });
-    } catch {
+    } catch (error) {
       removeSpinner(SV_HIERARCHY_SECTION_ID);
+      // Ignore request cancellation errors
+      if (axios.isCancel(error) || error.name === "AbortError") {
+        return;
+      }
       this.setState({
         errorMessage: "Error retrieving stat var group root nodes",
       });
@@ -338,17 +369,29 @@ export class StatVarHierarchy extends React.Component<
   }
 
   private onSearchSelectionChange(selection: string): void {
-    this.getPath(selection).then((path) => {
-      const searchSelectionCleared =
-        !_.isEmpty(this.state.focusPath) && _.isEmpty(path);
-      this.setState({
-        focus: selection,
-        focusPath: path,
-        searchSelectionCleared,
-        expandedPath: searchSelectionCleared ? this.state.focusPath : [],
+    if (this._searchAbortController) {
+      this._searchAbortController.abort();
+    }
+    this._searchAbortController = new AbortController();
+    this.getPath(selection, this._searchAbortController.signal)
+      .then((path) => {
+        const searchSelectionCleared =
+          !_.isEmpty(this.state.focusPath) && _.isEmpty(path);
+        this.setState({
+          focus: selection,
+          focusPath: path,
+          searchSelectionCleared,
+          expandedPath: searchSelectionCleared ? this.state.focusPath : [],
+        });
+        this.togglePath(selection, path, /*isSearchSelection=*/ true);
+      })
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
+        console.error(error);
       });
-      this.togglePath(selection, path, /*isSearchSelection=*/ true);
-    });
   }
 
   // Add or remove a stat var and its path from the state.
@@ -387,16 +430,22 @@ export class StatVarHierarchy extends React.Component<
   }
 
   // Get the path of a stat var from the hierarchy.
-  private getPath(sv: string): Promise<string[]> {
+  private getPath(sv: string, signal?: AbortSignal): Promise<string[]> {
     if (sv == "") {
       return Promise.resolve([]);
     }
     return axios
-      .get(`/api/variable/path?dcid=${encodeURIComponent(sv)}`)
+      .get(`/api/variable/path?dcid=${encodeURIComponent(sv)}`, { signal })
       .then((resp) => {
         // This is to make jest test working, should find a better way to let
         // mock return new object each time.
         return _.cloneDeep(resp.data).reverse();
+      }).catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
+        console.error(error);
       });
   }
 

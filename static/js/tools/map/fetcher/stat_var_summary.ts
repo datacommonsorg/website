@@ -36,6 +36,10 @@ export function useFetchStatVarSummary(
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.STAT_VAR_SUMMARY,
       error: null,
@@ -51,6 +55,7 @@ export function useFetchStatVarSummary(
           dcids: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,
+        signal,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data)) {
@@ -61,9 +66,18 @@ export function useFetchStatVarSummary(
         console.log("[Map Fetch] stat var summary");
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching stat var summary data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [statVar.value.dcid, display.value.showTimeSlider, dispatch]);
 }

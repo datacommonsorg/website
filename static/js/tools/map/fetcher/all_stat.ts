@@ -44,6 +44,10 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts.
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.ALL_STAT,
       context: {
@@ -72,6 +76,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
         },
         paramsSerializer: stringifyFn,
         headers: WEBSITE_SURFACE_HEADER,
+        signal,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {
@@ -85,10 +90,19 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
         console.log(`[Map Fetch] all stat for date: ${date}`);
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching all stat data";
         dispatch(action);
       });
+
+    return () => {
+      // Abort the request if the component unmounts.
+      abortController.abort();
+    };
   }, [
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
