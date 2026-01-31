@@ -18,6 +18,8 @@
  * Inline-header version of the NL Search Component - used in Version 2 of the header
  */
 
+/** @jsxImportSource @emotion/react */
+
 import React, { ReactElement, useEffect, useState } from "react";
 
 import {
