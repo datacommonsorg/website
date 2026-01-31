@@ -4356,6 +4356,7 @@ median age of native people,Median_Age_Person_Native
 median age of people without health insurance,Median_Age_Person_NoHealthInsurance
 median age of white females,Median_Age_Person_Female_WhiteAlone
 median age of white males,Median_Age_Person_Male_WhiteAlone
+median earning of person of age 16 years and above,Median_Earnings_Person_16OrMoreYears
 median earnings,Median_Earnings_Person
 median earnings of females,Median_Earnings_Person_Female
 median earnings of males,Median_Earnings_Person_Male
