@@ -79,6 +79,7 @@ describe("sanitizeSourceUrl", () => {
       "https://my-app.com/api?data=dataPayload",
       "https://my-app.com/api?data=dataPayload",
     ],
+    ["http://javascript.com", "http://javascript.com/"],
     // empty string should not result in error
     ["", ""],
   ])("should convert %p to %p", (input, expected) => {

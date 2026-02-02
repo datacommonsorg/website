@@ -150,31 +150,19 @@ export function sanitizeSourceUrl(url: string): string {
   const trimmedUrl = url.trim();
 
   // Ensure we have a protocol for the parser to work
-  // If the input is missing a protocol, we prepend https://
+  // If the input is missing a valid protocol, we prepend https://
+  // Prepending https:// blocks unsafe protocols like javascript:// or vbscript://
   const urlToParse =
-    trimmedUrl.toLowerCase().startsWith("http://") ||
-    trimmedUrl.toLowerCase().startsWith("https://")
+    trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")
       ? trimmedUrl
       : "https://" + trimmedUrl;
 
   try {
     const parsed = new URL(urlToParse);
-
-    // Block unsafe protocols
-    const blockedProtocols = ["javascript:", "vbscript:", "data:"];
-    if (blockedProtocols.includes(parsed.protocol.toLowerCase())) {
-      return "";
-    }
-
-    // Check for script injection in the HOSTNAME
-    const blockedHostnames = ["javascript", "vbscript", "data"];
-    if (blockedHostnames.includes(parsed.hostname.toLowerCase())) {
-      return "";
-    }
-
     return parsed.href;
   } catch (e) {
-    // If it's not a valid URL structure at all, return empty
+    // If the URL does not have a valid URL structure, return empty
+    // This will block urls with scripts like http://javascript:alert(1)
     return "";
   }
 }
