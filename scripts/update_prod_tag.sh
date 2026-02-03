@@ -21,7 +21,7 @@ set -o pipefail
 
 # Find the remote associated with the main repo
 # If there are multiple remotes with 'datacommonsorg' in their URL, pick the first one
-upstream_remote=$(git remote -v | grep "datacommonsorg" | cut -f1 | uniq | head -n 1)
+upstream_remote=$(git remote -v | grep "datacommonsorg" | grep "(push)" | cut -f1 | head -n 1)
 if [ -z "$upstream_remote" ]; then
   echo "No remote found with 'datacommonsorg' in its URL."
   exit 1
