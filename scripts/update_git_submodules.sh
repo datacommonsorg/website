@@ -20,7 +20,8 @@
 #
 # Usage: ./update_git_submodules.sh from root directory
 
-# Detect the name of the fork remote (i.e. not the main repo 'datacommonsorg')
+# Detect the name of your forked repo (i.e. not the main repo 'datacommonsorg')
+# If there are multiple names for the remote fork, pick the first one
 fork_remote_name=$(git remote -v | grep "(push)" | grep -v "datacommonsorg" | cut -f1 | uniq | head -n 1)
 
 # Fallback to 'origin' if nothing is found (e.g., if checking out main repo directly)
