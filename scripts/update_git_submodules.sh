@@ -20,5 +20,13 @@
 #
 # Usage: ./update_git_submodules.sh from root directory
 
-git submodule foreach git pull origin master
+# Detect the name of the fork remote (i.e. not the main repo 'datacommonsorg')
+fork_remote_name=$(git remote -v | grep "(push)" | grep -v "datacommonsorg" | cut -f1 | uniq | head -n 1)
+
+# Fallback to 'origin' if nothing is found (e.g., if checking out main repo directly)
+fork_remote_name=${fork_remote_name:-origin}
+echo "Detected fork remote name: $fork_remote_name"
+
+# Update submodules
+git submodule foreach git pull $fork_remote_name master
 git submodule update --init --recursive
