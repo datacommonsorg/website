@@ -18,7 +18,7 @@
 # 
 # Requires: git to be installed
 #
-# Usage: ./update_git_submodules.sh from root directory
+# Usage: ./scripts/update_git_submodules.sh from root directory
 
 # Detect the name of your forked repo (i.e. not the main repo 'datacommonsorg')
 # If there are multiple names for the remote fork, pick the first one
