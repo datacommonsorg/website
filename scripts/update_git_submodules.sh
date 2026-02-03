@@ -22,7 +22,7 @@
 
 # Detect the name of your forked repo (i.e. not the main repo 'datacommonsorg')
 # If there are multiple names for the remote fork, pick the first one
-fork_remote_name=$(git remote -v | grep "(push)" | grep -v "datacommonsorg" | cut -f1 | uniq | head -n 1)
+fork_remote_name=$(git remote -v | grep "(push)" | grep -v "datacommonsorg" | cut -f1 | head -n 1)
 
 # Fallback to 'origin' if nothing is found (e.g., if checking out main repo directly)
 fork_remote_name=${fork_remote_name:-origin}
