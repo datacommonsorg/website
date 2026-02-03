@@ -91,7 +91,7 @@ export const landingPageLinks: LandingPageLinkConfig = {
       title: intl.formatMessage(
         VisToolExampleChartMessages.literatePopulationVsPopulationBelowPovertyLevel
       ),
-      url: "/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26pcx%3D1%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3Dcountry%2FIND%26ept%3DAdministrativeArea1%26ct%3D1%26pp%3D",
+      url: "/tools/scatter#svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3Dcountry%2FIND%26ept%3DAdministrativeArea1",
     },
   ],
   timelineLinks: [
