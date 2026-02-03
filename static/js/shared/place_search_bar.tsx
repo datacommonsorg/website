@@ -29,8 +29,10 @@ const HARDCODED_RESULTS = {
   earth: "Earth",
   europe: "europe",
   "north america": "northamerica",
+  northamerica: "northamerica",
   oceania: "oceania",
   "south america": "southamerica",
+  southamerica: "southamerica",
 };
 const CHIP_COLOR = "rgba(66, 133, 244, 0.08)";
 
