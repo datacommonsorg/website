@@ -436,11 +436,14 @@ async function loadData(
     }
 
     const allStatVarsData = statAllResponse.data;
+    const noDataError =
+      _.isEmpty(statResponse.data) ||
+      Object.values(statResponse.data).every(_.isEmpty);
     const cache: Cache = {
       allStatVarsData,
       metadataMap,
       baseFacets,
-      noDataError: _.isEmpty(statResponse.data),
+      noDataError,
       error: false,
       populationData,
       statVarsData: statResponse.data,
@@ -643,9 +646,7 @@ function areDataLoaded(
   const yStatVar = y.statVarDcid;
   return (
     xStatVar in cache.statVarsData &&
-    !_.isEmpty(cache.statVarsData[xStatVar]) &&
     yStatVar in cache.statVarsData &&
-    !_.isEmpty(cache.statVarsData[yStatVar]) &&
     cache.xAxis.date === x.date &&
     cache.yAxis.date === y.date &&
     cache.xAxis.denom === x.denom &&
