@@ -24,7 +24,7 @@
 
 # Helper function to pull latest master branch from datacommonsorg remote
 pull_upstream_master() {
-  # Find the name of the remote associated with the main datacommonsorg repo
+  # Find the name of the remote associated with the datacommonsorg repo for the current submodule
   # If there are multiple remotes with 'datacommonsorg' in their URL, pick the first one
   upstream_remote=$(git remote -v | awk '/datacommonsorg/ && /\(push\)/ {print $1; exit}')
   if [ -z "$upstream_remote" ]; then
