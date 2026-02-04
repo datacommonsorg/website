@@ -30,7 +30,6 @@ import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import {
   isFeatureEnabled,
-  METADATA_FEATURE_FLAG,
 } from "../../../shared/feature_flags/util";
 import {
   GA_EVENT_TILE_EXPLORE_MORE,
@@ -82,8 +81,6 @@ export function TileSources(props: {
     return null;
   }
 
-  const allowNewMetadataModal = isFeatureEnabled(METADATA_FEATURE_FLAG);
-
   const sourceList: string[] = facets
     ? Array.from(
         new Set(Object.values(facets).map((facet) => facet.provenanceUrl))
@@ -132,7 +129,7 @@ export function TileSources(props: {
             <>
               <span {...{ part: "source-separator" }}> • </span>
               <span {...{ part: "source-show-metadata-link" }}>
-                {allowNewMetadataModal && facets && statVarToFacets ? (
+                {facets && statVarToFacets ? (
                   <TileMetadataModal
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}

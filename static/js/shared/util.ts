@@ -21,7 +21,7 @@ import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_in
 import { Theme } from "../theme/types";
 import { stringifyFn } from "../utils/axios";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
-import { FacetSelectorFacetInfo } from "./facet_selector/facet_selector_rich";
+import { FacetSelectorFacetInfo } from "./facet_selector/facet_selector";
 import { StatMetadata } from "./stat_types";
 import { StatVarFacetMap, StatVarSpec } from "./types";
 
