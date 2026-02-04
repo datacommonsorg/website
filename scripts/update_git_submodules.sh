@@ -20,14 +20,15 @@
 #
 # Usage: ./scripts/update_git_submodules.sh from root directory
 
-# Detect the name of your forked repo (i.e. not the main repo 'datacommonsorg')
-# If there are multiple names for the remote fork, pick the first one
-fork_remote_name=$(git remote -v | grep "(push)" | grep -v "datacommonsorg" | cut -f1 | head -n 1)
-
-# Fallback to 'origin' if nothing is found (e.g., if checking out main repo directly)
-fork_remote_name=${fork_remote_name:-origin}
-echo "Detected fork remote name: $fork_remote_name"
+# Find the remote associated with the main repo
+# If there are multiple remotes with 'datacommonsorg' in their URL, pick the first one
+upstream_remote=$(git remote -v | grep "datacommonsorg" | grep "(push)" | cut -f1 | head -n 1)
+if [ -z "$upstream_remote" ]; then
+  echo "No remote found with 'datacommonsorg' in its URL."
+  exit 1
+fi
+echo "Remote for main repo is '${upstream_remote}'".
 
 # Update submodules
-git submodule foreach git pull $fork_remote_name master
+git submodule foreach git pull $upstream_remote master
 git submodule update --init --recursive
