@@ -26,7 +26,7 @@
 pull_upstream_master() {
   # Find the name of the remote associated with the main datacommonsorg repo
   # If there are multiple remotes with 'datacommonsorg' in their URL, pick the first one
-  upstream_remote=$(git remote -v | grep "datacommonsorg" | grep "(push)" | cut -f1 | head -n 1)
+  upstream_remote=$(git remote -v | awk '/datacommonsorg/ && /\(push\)/ {print $1; exit}')
   if [ -z "$upstream_remote" ]; then
     echo "No remote found with 'datacommonsorg' in its URL."
     exit 1
