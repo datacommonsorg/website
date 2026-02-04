@@ -126,24 +126,6 @@ def register_routes_base_dc(app):
   app.register_blueprint(disaster_api.bp)
 
 
-def register_routes_biomedical_dc(app):
-  # Apply the blueprints specific to biomedical dc
-  from server.routes.biomedical import html as bio_html
-  app.register_blueprint(bio_html.bp)
-
-  from server.routes.disease import api as disease_api
-  app.register_blueprint(disease_api.bp)
-
-  from server.routes.disease import html as disease_html
-  app.register_blueprint(disease_html.bp)
-
-  from server.routes.protein import api as protein_api
-  app.register_blueprint(protein_api.bp)
-
-  from server.routes.protein import html as protein_html
-  app.register_blueprint(protein_html.bp)
-
-
 def register_routes_disasters(app):
   # Install blueprints specific to disasters
   from server.routes.disaster import html as disaster_html
@@ -361,9 +343,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   ingress_config_path = os.environ.get('INGRESS_CONFIG_PATH')
   if ingress_config_path:
     configure_endpoints_from_ingress(ingress_config_path)
-
-  if os.environ.get('FLASK_ENV') == 'biomedical':
-    register_routes_biomedical_dc(app)
 
   register_routes_common(app)
   register_routes_base_dc(app)
