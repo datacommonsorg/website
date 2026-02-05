@@ -517,8 +517,7 @@ def get_series_dates(parent_place_dcid, child_place_type, variable_dcids):
       "select": ["date", "variable", "entity"],
       "entity": {
           "expression":
-              "{0}<-containedInPlace+{{typeOf:{1}}}".format(
-                  parent_place_dcid, child_place_type)
+              f"{parent_place_dcid}<-containedInPlace+{{typeOf:{child_place_type}}}"
       },
       "variable": {
           "dcids": sorted(variable_dcids)
