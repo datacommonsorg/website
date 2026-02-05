@@ -2,6 +2,17 @@
   "childEntityType": "State",
   "classifications": [
     {
+      "quantity": {
+        "idx": 0,
+        "qval": {
+          "cmp": "GE",
+          "val": 2.2250738585072014e-308
+        }
+      },
+      "type": 3
+    },
+    {
+      
       "ranking_type": [
         1
       ],
