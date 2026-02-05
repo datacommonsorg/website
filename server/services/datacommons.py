@@ -491,7 +491,7 @@ def _process_variable_dates(variable_dcid: str,
       lambda: collections.defaultdict(int))
 
   by_entity = variable_observation_data.get("byEntity", {})
-  for entity, entity_data in by_entity.items():
+  for _, entity_data in by_entity.items():
     for facet_item in entity_data.get("orderedFacets", []):
       facet_id = facet_item.get("facetId")
       for obs in facet_item.get("observations", []):
