@@ -66,7 +66,7 @@ function getEnclosedPlaceTypes(
   parentPlaces: NamedTypedPlace[]
 ): string[] {
   let enclosedChildTypes = {};
-  if (selectedPlace.types.indexOf("Eurostat") === 0) {
+  if (selectedPlace.types.some((type) => type.startsWith("Eurostat"))) {
     // If place is a Eurostat place, use the europe child place types
     enclosedChildTypes = EUROPE_CHILD_PLACE_TYPES;
   } else {
@@ -95,9 +95,7 @@ function getEnclosedPlaceTypes(
       childPlaceTypes.push(...ALL_PLACE_CHILD_TYPES[type]);
     }
   }
-  return childPlaceTypes.filter(
-    (type, idx) => childPlaceTypes.indexOf(type) === idx
-  );
+  return Array.from(new Set(childPlaceTypes));
 }
 
 /**
