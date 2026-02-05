@@ -1,0 +1,164 @@
+{#-
+Copyright 2024 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+{#-
+Required variables:
+title: page title
+main_id: DOM Element ID for the main content block
+page_id: DOM Element ID for the html element
+
+Optional variables:
+
+is_hide_header_search_bar: boolean, if true, the header will not contain a search bar. Default false.
+is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
+locale: string, value for html lang attr
+brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
+manual_ga_pageview: boolean, if true, will set the Google Analytics config to
+stop pageview tracking, relying on the app to do all pageview tracking.
+
+Blocks to override:
+head - additional head elements
+content - main page content
+-#}
+<!DOCTYPE html>
+
+<html lang={{ locale }} id={{ page_id }}>
+
+<head>
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
+      client_storage: 'none',
+      anonymize_ip: true,
+    {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
+    {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
+    });
+  </script>
+  {% endif %}
+
+  <title>{{ title }}{{' - ' if title else ''}}Data Commons</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {% block meta %}
+  <meta property="og:type" content="website" />
+  {% if title == "Home" %}
+  <meta property="og:title" content="Data Commons" />
+  {% else %}
+  <meta property="og:title" content="{{ title }}{{' - ' if title else ''}}Data Commons" />
+  {% endif %}
+  <meta property="twitter:card" content="summary" />
+  <meta name="description" content="{{ description|default('Explore our data on the dynamic people and economies throughout Africa, and understand how the continent is evolving in a volatile world.') }}">
+  {% include 'custom_dc/one/partials/favicon.html' %}
+  {% include 'custom_dc/one/partials/usercentrics.html' %}
+  {% endblock %}
+
+  {% if config['LOCAL'] %}
+  <link rel="icon" href="/images/favicon-local.png" type="image/png">
+  {% else %}
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  {% endif %}
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+  <style>
+      @font-face{font-family:colfax-web;font-style:normal;font-weight:400;font-display:fallback;src:url('/custom_dc/one/fonts/ColfaxRegular.woff2') format('woff2');font-stretch:normal;}
+      @font-face{font-family:colfax-web;font-style:normal;font-weight:500;font-display:fallback;src:url('/custom_dc/one/fonts/ColfaxMedium.woff2') format('woff2');font-stretch:normal;}
+      @font-face{font-family:colfax-web;font-style:normal;font-weight:700;font-display:fallback;src:url('/custom_dc/one/fonts/ColfaxBold.woff2') format('woff2');font-stretch:normal;}
+      @font-face{font-family:colfax-web;font-style:normal;font-weight:900;font-display:fallback;src:url('/custom_dc/one/fonts/ColfaxBlack.woff2') format('woff2');font-stretch:normal;}
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
+  <link rel="stylesheet" href={{url_for('static', filename='css/core.min.css', t=config['VERSION'])}}>
+  {% block head %}
+  {% endblock %}
+  {% if OVERRIDE_CSS_PATH %}
+  <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
+  {% endif %}
+  <script>
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
+    globalThis.enableBQ = {{ config['ENABLE_BQ']|int }};
+  </script>
+  <script>
+    // This script is to allow embedding the website as an iframe and allow the
+    // parent to request the iframe's URL. This is used by the /dev/diff tool.
+    window.addEventListener('message', function(event) {
+      // The parent should send a postMessage event.
+      // MUST verify the origin to be autopush DC
+      if (event.origin === 'https://autopush.datacommons.org') {
+        // Send the iframe's URL back to the parent
+        if (event.data === 'Request URL') {
+          event.source.postMessage(
+            { type: 'URLResponse', url: window.location.href },
+            event.origin
+          );
+        }
+      }
+    });
+  </script>
+</head>
+
+<body {% if is_hide_header_search_bar %}class="no-header-search-bar"{% endif %}>
+
+<div id="metadata-base" class="d-none"
+     data-header="{{ HEADER_MENU_V2 }}"
+     data-footer="{{ FOOTER_MENU }}"
+     data-logo-path="{{ LOGO_PATH }}"
+     data-logo-width="{{ LOGO_WIDTH }}"
+     data-name="{{ NAME }}"
+     data-primary-site-web-root="{{ PRIMARY_SITE_WEB_ROOT }}"
+     data-show-disaster="{{ SHOW_DISASTER }}"
+     data-show-sustainability="{{ SHOW_SUSTAINABILITY }}"
+     data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
+     data-ga-value-search-source="{{ ga_value_search_source }}"
+     data-search-bar-hash-mode="{{ is_search_bar_hash_mode }}"
+     data-hide-full-footer="{{ is_hide_full_footer }}"
+     data-hide-sub-footer="{{ is_hide_sub_footer }}"
+     data-subfooter-extra="{{ subfooter_extra_content|safe }}"
+     data-brand-logo-light="{{ brand_logo_light }}"
+     data-locale="{{ locale }}"
+>
+</div>
+
+{% include 'metadata/labels.html' %}
+{% include 'metadata/routes.html' %}
+
+<script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
+<script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
+
+<div id="main">
+  <header id="main-header">
+  </header>
+  <main id="{{ main_id }}" class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
+</div>
+
+{# Compile this down (or manually implement). Used only for nav bar so far #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+{% block footer %}
+{% endblock %}
+</body>
+
+</html>

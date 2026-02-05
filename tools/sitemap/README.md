@@ -42,3 +42,22 @@ WHERE
   AND CAST(`datcom-store.dc_kg_latest.StatVarObservation`.value AS FLOAT64) >= 500000
 ORDER BY population DESC;
 ```
+
+## Updating stat_vars sitemap
+
+./run.sh stat_vars_only
+
+Reads a list of stat_vars from
+
+https://api.github.com/repos/datacommonsorg/schema/contents/stat_vars
+
+and creates a sitemap that includes all of the
+
+https://datacommons.org/browser/{sv}
+
+and
+
+https://datacommons.org/tools/statvar#sv={sv}
+
+pages.
+

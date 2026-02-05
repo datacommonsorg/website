@@ -22,74 +22,64 @@
 
 import React from "react";
 
+import { VisType } from "../../../apps/visualization/redirect_constants";
 import { InfoBox } from "../../../components/content/info_box";
 import { intl } from "../../../i18n/i18n";
 import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
+const toolInstructions = {
+  map: {
+    variable: {
+      desktop: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableDesktopMap
+      ),
+      mobile: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableMobileMap
+      ),
+    },
+  },
+  scatter: {
+    variable: {
+      desktop: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableDesktopScatter
+      ),
+      mobile: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableMobileScatter
+      ),
+    },
+  },
+  timeline: {
+    variable: {
+      desktop: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableDesktopTimeline
+      ),
+      mobile: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableMobileTimeline
+      ),
+    },
+  },
+};
+
 interface VisToolInstructionsBoxProps {
   // Which tool the instructions are for
-  toolType: "map" | "scatter" | "timeline";
-}
-
-/**
- * Helper function to determine which variation on the instructions for
- * inputting a place the box should show.
- * @param props props passed into VisToolInstructionsBox
- * @returns an i18n formatted string to display in the instructions
- */
-function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
-  switch (props.toolType) {
-    case "map": {
-      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesMap);
-    }
-    case "scatter": {
-      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesScatter);
-    }
-    default: {
-      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesTimeline);
-    }
-  }
+  toolType: VisType;
 }
 
 export function VisToolInstructionsBox(
   props: VisToolInstructionsBoxProps
 ): JSX.Element {
+  const instructions = toolInstructions[props.toolType];
+  const desktopText = instructions.variable.desktop;
+  const mobileText = instructions.variable.mobile;
+
+  // Instructions shown are responsive to desktop vs mobile screensizes
+  // Uses bootstrap classes to match the implementation of the stat var
+  // selection sidebar and "show variables" button.
+  // TODO (juliawu): Switch all of these classes over to emotion styling.
   return (
-    <InfoBox
-      heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
-    >
-      <ol>
-        <li>{getPlaceInstructionToShow(props)}</li>
-        <li>
-          {props.toolType == "map" ? (
-            <>
-              <span className="d-none d-lg-inline">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsVariableDesktop
-                )}
-              </span>
-              <span className="d-inline d-lg-none">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsVariableMobile
-                )}
-              </span>
-            </>
-          ) : (
-            <>
-              <span className="d-none d-lg-inline">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableDesktop
-                )}
-              </span>
-              <span className="d-inline d-lg-none">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableMobile
-                )}
-              </span>
-            </>
-          )}
-        </li>
-      </ol>
+    <InfoBox>
+      <span className="d-none d-lg-inline">{desktopText}</span>
+      <span className="d-inline d-lg-none">{mobileText}</span>
     </InfoBox>
   );
 }

@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { WEBSITE_SURFACE_HEADER } from "../shared/constants";
 import {
   Series,
   SeriesAllApiResponse,
@@ -134,6 +135,7 @@ export class ObservationChartSection extends React.Component<
           variables: [this.props.statVarId],
         },
         paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       })
       .then((resp) => {
         removeSpinner(this.containerId);

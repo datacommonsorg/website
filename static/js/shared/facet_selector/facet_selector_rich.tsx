@@ -27,7 +27,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import { isEqual } from "lodash";
+import _, { isEqual } from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
@@ -41,11 +41,24 @@ import {
 import { intl } from "../../i18n/i18n";
 import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
 import { messages } from "../../i18n/i18n_messages";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
+import { findMatchingFacets } from "../../utils/data_fetch_utils";
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
 import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
 
 export const SELECTOR_PREFIX = "source-selector";
+
+/**
+ * If true, the facet selector will show all available facet options, even if they
+ * are inconsistent across different statistical variables in grouped mode. It will
+ * also display a debug flag in debug mode to indicate the issue.
+ * If false, it will filter the list to only show facet options that are common to
+ * all statistical variables.
+ *
+ * In non-grouped mode, this flag will have no effect.
+ */
+const SHOW_INCONSISTENT_FACETS = false;
 
 // The information needed in SourceSelector component for a single stat var to
 // get the list of available facets
@@ -80,11 +93,77 @@ interface FacetSelectorRichProps {
     svFacetId: Record<string, string>,
     metadataMap: Record<string, StatMetadata>
   ) => void;
-  // If set, when a facet is selected for one stat var, the corresponding
-  // facet is selected for all other stat vars. This only applies if all
-  // stat vars have the same facet choices.
+  // If set, when a facet is selected for one stat var, the corresponding facet
+  // is selected for all other stat vars. Only facets in common with all stat
+  // vars will be selectable. This is currently used only for bar charts.
   allowSelectionGrouping?: boolean;
+  // Facet Selector
+  facetSelector?: FacetSelectionCriteria;
+  // useInjectedFacet
+  useInjectedFacet?: boolean;
+  setUseInjectedFacet?: (useInjectedFacet: boolean) => void;
 }
+
+/**
+ * This function builds the final list of stat vars and their respective facets that
+ * will be used by the selector.
+ *
+ * In standard mode (not grouping selections into a single list), it returns the list unchanged.
+ * In grouped mode, it removes facets that are not common to all stat vars,
+ * unless showInconsistentFacets is true.
+ *
+ * @param originalFacetList {FacetSelectorFacetInfo[] | null} List of stat vars with facets passed into the component
+ * @param allowSelectionGrouping {boolean} If true, the component plans to display a single list of facet.
+ * @param showInconsistentFacets {boolean} If true, in grouped mode the selector will not drop inconsistent facets.
+ */
+const buildFinalFacetList = (
+  originalFacetList: FacetSelectorFacetInfo[] | null,
+  allowSelectionGrouping: boolean,
+  showInconsistentFacets: boolean
+): FacetSelectorFacetInfo[] | null => {
+  if (showInconsistentFacets || !allowSelectionGrouping || !originalFacetList) {
+    return originalFacetList;
+  }
+
+  const totalStatVars = originalFacetList.length;
+  if (totalStatVars <= 1) {
+    return originalFacetList;
+  }
+
+  // 1. We determine the facet ids in common with all stat vars
+  let commonFacetIds = new Set(Object.keys(originalFacetList[0].metadataMap));
+
+  for (let i = 1; i < totalStatVars; i++) {
+    if (commonFacetIds.size === 0) {
+      break;
+    }
+    const currentFacetIds = Object.keys(originalFacetList[i].metadataMap);
+    const intersection = new Set<string>();
+    for (const facetId of currentFacetIds) {
+      if (commonFacetIds.has(facetId)) {
+        intersection.add(facetId);
+      }
+    }
+    commonFacetIds = intersection;
+  }
+
+  // 2. We rebuild the facetList, only including those consistent facets.
+  const filteredList: FacetSelectorFacetInfo[] = [];
+  for (const originalFacetInfo of originalFacetList) {
+    const newMetadataMap: Record<string, StatMetadata> = {};
+    for (const facetId of commonFacetIds) {
+      if (originalFacetInfo.metadataMap[facetId]) {
+        newMetadataMap[facetId] = originalFacetInfo.metadataMap[facetId];
+      }
+    }
+    filteredList.push({
+      ...originalFacetInfo,
+      metadataMap: newMetadataMap,
+    });
+  }
+
+  return filteredList;
+};
 
 export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
   const {
@@ -97,13 +176,22 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
   } = props;
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
+  const [useInjectedFacet, setUseInjectedFacet] = useState(true);
+
+  const finalFacetList = useMemo(() => {
+    return buildFinalFacetList(
+      facetList,
+      allowSelectionGrouping,
+      SHOW_INCONSISTENT_FACETS
+    );
+  }, [facetList, allowSelectionGrouping]);
 
   const totalFacetOptionCount = useMemo(() => {
-    if (!facetList) {
+    if (!finalFacetList) {
       return 0;
     }
     const uniqueFacetIds = new Set<string>();
-    facetList.forEach((facetInfo) => {
+    finalFacetList.forEach((facetInfo) => {
       Object.keys(facetInfo.metadataMap).forEach((facetId) => {
         if (facetId !== "") {
           uniqueFacetIds.add(facetId);
@@ -111,16 +199,16 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
       });
     });
     return uniqueFacetIds.size;
-  }, [facetList]);
+  }, [finalFacetList]);
 
   const hasAlternativeSources = useMemo(() => {
-    if (loading || !facetList) {
+    if (loading || !finalFacetList) {
       return false;
     }
-    return facetList.some(
+    return finalFacetList.some(
       (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
     );
-  }, [facetList, loading]);
+  }, [finalFacetList, loading]);
 
   function areFacetsConsistent(
     facetList: FacetSelectorFacetInfo[] | null
@@ -146,10 +234,18 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
   }
 
   const showInconsistentFacetFlag =
+    SHOW_INCONSISTENT_FACETS &&
     allowSelectionGrouping &&
     !loading &&
     !error &&
     !areFacetsConsistent(facetList);
+
+  /*
+   This is true if more than one choice can be made in the dialog (i.e.,
+   we are not in grouped mode, and we have more than one stat var).
+   */
+  const multipleChoicesAvailable =
+    !allowSelectionGrouping && finalFacetList && finalFacetList.length > 1;
 
   return (
     <>
@@ -173,7 +269,7 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
       >
         {intl.formatMessage(
           mode === "download"
-            ? facetList && facetList.length > 1
+            ? multipleChoicesAvailable
               ? facetSelectionComponentMessages.SelectDatasets
               : facetSelectionComponentMessages.SelectDataset
             : facetSelectionComponentMessages.ExploreOtherDatasets
@@ -192,8 +288,12 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
       )}
       <FacetSelectorModal
         {...props}
+        facetList={finalFacetList}
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
+        multipleChoicesAvailable={multipleChoicesAvailable}
+        useInjectedFacet={useInjectedFacet}
+        setUseInjectedFacet={setUseInjectedFacet}
       />
     </>
   );
@@ -214,7 +314,9 @@ function NoFacetChoicesMessage({
         padding-left: ${variant === "inline" ? "0" : theme.spacing.sm}px;
         border: 1px solid transparent;
         line-height: 1rem;
-        color: ${theme.colors.text.primary.base};
+        && {
+          color: ${theme.colors.text.tertiary.base};
+        }
         flex-shrink: 0;
         visibility: ${loading ? "hidden" : "visible"};
         margin: 0;
@@ -231,6 +333,7 @@ function FacetSelectorModal(
   props: FacetSelectorRichProps & {
     open: boolean;
     onClose: () => void;
+    multipleChoicesAvailable: boolean;
   }
 ): ReactElement {
   const {
@@ -243,13 +346,20 @@ function FacetSelectorModal(
     onSvFacetIdUpdated,
     allowSelectionGrouping,
     mode,
+    useInjectedFacet,
   } = props;
   const [modalSelections, setModalSelections] = useState(svFacetId);
 
   useEffect(() => {
+    const injectedFacetId = useInjectedFacet
+      ? findMatchingFacets(facetList[0]["metadataMap"], props?.facetSelector)
+      : undefined;
+    if (!_.isEmpty(injectedFacetId)) {
+      setModalSelections({ [facetList[0]["dcid"]]: injectedFacetId[0] });
+    }
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
-    if (!open) {
+    if (!open && !useInjectedFacet) {
       setModalSelections(svFacetId);
     }
   }, [svFacetId, open]);
@@ -283,6 +393,7 @@ function FacetSelectorModal(
       }
     });
     onSvFacetIdUpdated(modalSelections, metadataMap);
+    props.setUseInjectedFacet(false);
     onClose();
   }
 
@@ -298,7 +409,7 @@ function FacetSelectorModal(
     >
       <DialogTitle>
         {intl.formatMessage(
-          facetList?.length > 1
+          props.multipleChoicesAvailable
             ? facetSelectionComponentMessages.SelectDatasets
             : facetSelectionComponentMessages.SelectDataset
         )}

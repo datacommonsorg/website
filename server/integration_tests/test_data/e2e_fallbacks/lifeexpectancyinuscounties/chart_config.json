@@ -759,7 +759,7 @@
             "statVar": "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
-            "name": "% of Suicide Events",
+            "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {

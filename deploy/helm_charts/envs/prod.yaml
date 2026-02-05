@@ -40,6 +40,10 @@ website:
         }
       }
 
+mixer:
+  serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
+  hostProject: "datcom-website-prod"
+
 serviceAccount:
   name: website-ksa
 

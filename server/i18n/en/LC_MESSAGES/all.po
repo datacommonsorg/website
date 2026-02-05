@@ -259,10 +259,6 @@ msgstr ""
 msgid "Life Expectancy"
 msgstr "Life Expectancy"
 
-#. A message shown on the page while the content is loading.
-msgid "Loading"
-msgstr ""
-
 #. The name of a tool to explore maps of statistical variables for places.
 msgid "Map Explorer"
 msgstr ""
@@ -364,9 +360,6 @@ msgstr "States, United States"
 
 #. The name of a tool that provides observation and import information about statistical variables.
 msgid "Statistical Variable Explorer"
-msgstr ""
-
-msgid "Statistics"
 msgstr ""
 
 #. The name of a tool that allows users to explore sustainability data.
@@ -1148,4 +1141,10 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 #. Title of a place chart: Water withdrawal rate
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+#~ msgid "Loading"
+#~ msgstr ""
+
+#~ msgid "Statistics"
+#~ msgstr ""
 

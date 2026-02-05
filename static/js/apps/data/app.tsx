@@ -22,10 +22,10 @@
 
 import { css, ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
+import theme from "theme";
 
 import { IntroText } from "../../components/content/intro_text";
 import { Section } from "../../components/elements/layout/section";
-import theme from "../../theme/theme";
 import { DataSources, DataSourceTopic } from "./components/data_sources";
 import dataSourceData from "./data_sources.json";
 

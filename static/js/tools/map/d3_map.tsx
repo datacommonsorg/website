@@ -35,29 +35,17 @@ import {
   getProjection,
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
-import {
-  GeoJsonData,
-  GeoJsonFeatureProperties,
-  MapPoint,
-} from "../../chart/types";
+import { GeoJsonData, MapPoint } from "../../chart/types";
 import { MapLayerData } from "../../components/tiles/map_tile";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
-import {
-  EUROPE_NAMED_TYPED_PLACE,
-  USA_PLACE_DCID,
-} from "../../shared/constants";
+import { USA_PLACE_DCID } from "../../shared/constants";
 import { DataPointMetadata, NamedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
-import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
-import {
-  CHART_LOADER_SCREEN,
-  getAllChildPlaceTypes,
-  getParentPlaces,
-  getRedirectLink,
-} from "./util";
+import { Context } from "./context";
+import { CHART_LOADER_SCREEN } from "./util";
 import { shouldShowBorder } from "./util";
 
 interface D3MapProps {
@@ -67,7 +55,6 @@ interface D3MapProps {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
-  europeanCountries: Array<NamedPlace>;
   // Geojson for drawing border of containing place
   borderGeoJsonData?: GeoJsonData;
 }
@@ -101,12 +88,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
     ).innerHTML = `<div id="legend-unit">${props.unit || ""}</div>`;
     const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
     const height = (width * 2) / 5;
-    const redirectAction = getMapRedirectAction(
-      statVar.value,
-      placeInfo.value,
-      display.value,
-      props.europeanCountries
-    );
     const zoomDcid =
       placeInfo.value.enclosingPlace.dcid !== placeInfo.value.selectedPlace.dcid
         ? placeInfo.value.selectedPlace.dcid
@@ -189,14 +170,14 @@ export function D3Map(props: D3MapProps): JSX.Element {
       [layerData],
       height,
       width - legendWidth,
-      redirectAction,
+      _.noop,
       getTooltipHtml(
         props.metadata,
         props.mapDataValues,
         statVar.value.perCapita,
         props.unit
       ),
-      canClickRegion(placeInfo.value, props.europeanCountries),
+      () => false,
       projection,
       zoomDcid,
       zoomParams
@@ -241,7 +222,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
     removeSpinner(CHART_LOADER_SCREEN);
   }, [
     props.borderGeoJsonData,
-    props.europeanCountries,
     props.geoJsonData,
     props.mapDataValues,
     props.mapPointValues,
@@ -307,40 +287,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
   }
 }
 
-const getMapRedirectAction =
-  (
-    statVar: StatVar,
-    placeInfo: PlaceInfo,
-    displayOptions: DisplayOptions,
-    europeanCountries: Array<NamedPlace>
-  ) =>
-  (geoProperties: GeoJsonFeatureProperties): void => {
-    const selectedPlace = {
-      dcid: geoProperties.geoDcid,
-      name: geoProperties.name,
-      types: [placeInfo.enclosedPlaceType],
-    };
-    const enclosingPlace =
-      europeanCountries.findIndex(
-        (country) => country.dcid === selectedPlace.dcid
-      ) > -1
-        ? EUROPE_NAMED_TYPED_PLACE
-        : placeInfo.enclosingPlace;
-    const parentPlaces = getParentPlaces(
-      selectedPlace,
-      enclosingPlace,
-      placeInfo.parentPlaces
-    );
-    const redirectLink = getRedirectLink(
-      statVar,
-      selectedPlace,
-      parentPlaces,
-      placeInfo.mapPointPlaceType,
-      displayOptions
-    );
-    window.open(redirectLink, "_self");
-  };
-
 const getTooltipHtml =
   (
     metadataMapping: { [dcid: string]: DataPointMetadata },
@@ -383,26 +329,4 @@ const getTooltipHtml =
         showPopDateMessage ? "<sup>1</sup>" : ""
       }<br />` + footer;
     return html;
-  };
-
-const canClickRegion =
-  (placeInfo: PlaceInfo, europeanCountries: Array<NamedPlace>) =>
-  (placeDcid: string): boolean => {
-    const enclosingPlace =
-      europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
-        ? EUROPE_NAMED_TYPED_PLACE
-        : placeInfo.enclosingPlace;
-    const parentPlaces = getParentPlaces(
-      placeInfo.selectedPlace,
-      enclosingPlace,
-      placeInfo.parentPlaces
-    );
-    const placeAsNamedTypedPlace = {
-      dcid: placeDcid,
-      name: placeDcid,
-      types: [placeInfo.enclosedPlaceType],
-    };
-    return !_.isEmpty(
-      getAllChildPlaceTypes(placeAsNamedTypedPlace, parentPlaces)
-    );
   };

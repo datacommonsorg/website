@@ -20,13 +20,13 @@
 
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
+import theme from "theme";
 
 import Partners from "../../components/content/partners";
 import { Section } from "../../components/elements/layout/section";
 import { Separator } from "../../components/elements/layout/separator";
 import { GA_EVENT_BUILDPAGE_CLICK } from "../../shared/ga_events";
 import { Partner } from "../../shared/types/homepage";
-import theme from "../../theme/theme";
 import { BuildHero } from "./components/build_hero";
 import { DataCommonsGlance } from "./components/data_commons_glance";
 import { GetStarted } from "./components/get_started";

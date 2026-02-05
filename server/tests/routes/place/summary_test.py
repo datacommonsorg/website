@@ -106,7 +106,7 @@ class TestPlaceSummary(unittest.IsolatedAsyncioTestCase):
 
   async def test_place_summary_90210(self):
     """Tests that the place summary for zip code 90210 succeeds."""
-    with self.app.app_context():
+    with self.app.test_request_context():
       g.locale = 'en'
 
       # Mock place data
@@ -157,7 +157,7 @@ class TestPlaceSummary(unittest.IsolatedAsyncioTestCase):
 
   async def test_earth_summary(self):
     """Tests that the summary for Earth succeeds."""
-    with self.app.app_context():
+    with self.app.test_request_context():
       g.locale = 'en'
 
       # Mock place data
@@ -192,7 +192,7 @@ class TestPlaceSummary(unittest.IsolatedAsyncioTestCase):
 
   async def test_usa_summary(self):
     """Tests that the summary for USA succeeds."""
-    with self.app.app_context():
+    with self.app.test_request_context():
       g.locale = 'en'
 
       # Mock place data

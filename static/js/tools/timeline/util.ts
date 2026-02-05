@@ -71,7 +71,6 @@ export function removeToken(name: string, sep: string, token: string): void {
 
 // Set option for a chart, current support options are:
 // - "pc": per capita.
-// - "delta": increment of consecutive point in the time series.
 export function setChartOption(
   mprop: string,
   name: string,
@@ -130,7 +129,6 @@ export function setDenom(mprop: string, denom: string): void {
 
 // Get option for a chart, current support options are:
 // - "pc": per capita.
-// - "delta": increment of consecutive point in the time series.
 export function getChartOption(mprop: string, name: string): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   if (urlParams.get(name) != null) {

@@ -13,6 +13,7 @@
 # limitations under the License.
 """Place Explorer related handlers."""
 
+import html
 import json
 import logging
 import os
@@ -29,8 +30,6 @@ from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
-from shared.lib.place_summaries import get_shard_filename_by_dcid
-from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -52,9 +51,6 @@ CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
-# Location of place summary jsons on GKE
-PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
-
 # Parent place types to include in listing of containing places at top of page
 # Keep sorted!
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
@@ -67,32 +63,6 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'Country',
     'Continent',
 ]
-
-
-def get_place_summaries(dcid: str) -> dict:
-  """Load place summary content from disk containing summary for a given dcid"""
-  # Get shard matching the given dcid
-  shard_name = get_shard_name(dcid)
-  if not shard_name:
-    shard_name = 'others'
-  # When deployed in GKE, the config is a config mounted as volume. Check this
-  # first.
-  filepath = os.path.join(PLACE_SUMMARY_DIR, shard_name, "place_summaries.json")
-  logging.info(
-      f"Attempting to load summaries from ConfigMap mounted at {filepath}")
-  if os.path.isfile(filepath):
-    logging.info(f"Loading summaries from {filepath}")
-    with open(filepath) as f:
-      return json.load(f)
-  # If no mounted config file, use the config that is in the code base.
-  filename = get_shard_filename_by_dcid(dcid)
-  logging.info(
-      f"ConfigMap not found. Loading summaries locally from config/summaries/{filename}"
-  )
-  local_path = os.path.join(current_app.root_path,
-                            f'config/summaries/{filename}')
-  with open(local_path) as f:
-    return json.load(f)
 
 
 def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
@@ -132,7 +102,7 @@ def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
   query_params = {}
   if place_category and place_category != 'Overview':
     query_params['category'] = place_category
-  canonical_url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+  canonical_url = PROD_PLACE_PAGE_BASE_URL + html.escape(place_dcid)
   if query_params:
     canonical_url += '?' + urlencode(query_params)
   links.append(f'<link rel="canonical" href="{canonical_url}">')
@@ -148,7 +118,7 @@ def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
       query_params['category'] = place_category
     if lang != DEFAULT_LOCALE:
       query_params['hl'] = lang
-    url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+    url = PROD_PLACE_PAGE_BASE_URL + html.escape(place_dcid)
     if query_params:
       url += '?' + urlencode(query_params)
     links.append(f'<link rel="alternate" hreflang="{lang}" href="{url}">')

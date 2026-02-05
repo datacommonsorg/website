@@ -18,9 +18,12 @@
  * Component for rendering a default block (block with no type).
  */
 
+/** @jsxImportSource @emotion/react */
+
 // Import web components
 import "../../../library";
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, {
@@ -31,8 +34,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { FormattedMessage } from "react-intl";
-import { Input, UncontrolledTooltip } from "reactstrap";
+import { Input } from "reactstrap";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
@@ -44,9 +46,17 @@ import {
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
+import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { messages } from "../../i18n/i18n_messages";
-import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
-import { FacetSelector } from "../../shared/facet_selector/facet_selector";
+import {
+  DATE_HIGHEST_COVERAGE,
+  DATE_LATEST,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
+import {
+  FacetSelector,
+  FacetSelectorFacetInfo,
+} from "../../shared/facet_selector/facet_selector";
 import {
   isFeatureEnabled,
   METADATA_FEATURE_FLAG,
@@ -57,7 +67,7 @@ import {
   fetchFacetChoices,
   fetchFacetChoicesWithin,
 } from "../../tools/shared/facet_choice_fetcher";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -73,8 +83,11 @@ import {
 } from "../../utils/subject_page_utils";
 import {
   getComparisonPlaces,
+  getExploreLink,
   getHighlightTileDescription,
 } from "../../utils/tile_utils";
+import { Help } from "../elements/icons/help";
+import { Tooltip } from "../elements/tooltip/tooltip";
 import { AnswerMessageTile } from "../tiles/answer_message_tile";
 import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
@@ -132,7 +145,7 @@ export interface BlockPropType {
   startWithDenom?: boolean;
   // Whether to render tiles as web components
   showWebComponents?: boolean;
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
@@ -141,6 +154,7 @@ const FACET_ELIGIBLE_TILE_GROUPS = [
   new Set(["LINE", "HIGHLIGHT"]),
   new Set(["SCATTER"]),
   new Set(["BAR"]),
+  new Set(["MAP", "RANKING"]),
 ];
 
 const FACET_ELIGIBLE_TILES = new Set(
@@ -160,8 +174,15 @@ const FACET_GROUPING_ELIGIBLE_TILES = new Set(["BAR"]);
  */
 function eligibleForSnapToHighestCoverage(
   columns: ColumnConfig[],
-  statVarProvider: StatVarProvider
+  statVarProvider: StatVarProvider,
+  facetSelector?: FacetSelectionCriteria
 ): boolean {
+  if (
+    !_.isEmpty(facetSelector?.facetMetadata) ||
+    !_.isEmpty(facetSelector?.date)
+  ) {
+    return false;
+  }
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
   const statVarKeys = _.flatten(tiles.map((tile) => tile.statVarKey));
   const tileTypes = _.flatten(
@@ -169,13 +190,13 @@ function eligibleForSnapToHighestCoverage(
   );
   const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
 
-  const isEligibleForSnapToHighestCoverage =
+  return (
     !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
     !_.find(
       tileTypes,
       (tileType) => tileType !== "MAP" && tileType !== "RANKING"
-    );
-  return isEligibleForSnapToHighestCoverage;
+    )
+  );
 }
 
 /**
@@ -191,7 +212,8 @@ async function shouldEnableSnapToHighestCoverage(
   placeDcid: string,
   enclosedPlaceType: string,
   columns: ColumnConfig[],
-  statVarProvider: StatVarProvider
+  statVarProvider: StatVarProvider,
+  facetIds?: string[]
 ): Promise<boolean> {
   // Check if highest coverage & latest date observations are the same
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
@@ -200,9 +222,11 @@ async function shouldEnableSnapToHighestCoverage(
   const variableDcids = statVarSpecs.map((svs) => svs.statVar);
   const isHighestCoverageDateEqualToLatestDates =
     await highestCoverageDatesEqualLatestDates(
+      "",
       placeDcid,
       enclosedPlaceType,
-      variableDcids
+      variableDcids,
+      facetIds
     );
 
   // Only enable the snap to highest coverage checkbox if the highest coverage
@@ -270,6 +294,7 @@ function getBlockStatVarSpecs(
 }
 
 export function Block(props: BlockPropType): ReactElement {
+  const theme = useTheme();
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
@@ -278,7 +303,8 @@ export function Block(props: BlockPropType): ReactElement {
   const [denom, setDenom] = useState<string>("");
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
-    props.statVarProvider
+    props.statVarProvider,
+    props.facetSelector
   );
   const [snapToHighestCoverage, setSnapToHighestCoverage] = useState(
     isEligibleForSnapToHighestCoverage
@@ -295,7 +321,6 @@ export function Block(props: BlockPropType): ReactElement {
   const [blockSVs, setBlockSVs] = useState<StatVarSpec[]>([]);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
-  const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
 
   const { getStatVarSpec, getSingleStatVarSpec } = useStatVarSpec(
     snapToHighestCoverage,
@@ -356,6 +381,7 @@ export function Block(props: BlockPropType): ReactElement {
 
     switch (firstEligibleTile.type) {
       case "SCATTER":
+      case "MAP":
         return true;
       case "LINE":
       case "HIGHLIGHT":
@@ -417,15 +443,6 @@ export function Block(props: BlockPropType): ReactElement {
     error: facetsError,
   } = usePromiseResolver(fetchFacets);
 
-  const hasAlternativeSources = useMemo(() => {
-    if (facetsLoading || !facetList) {
-      return false;
-    }
-    return facetList.some(
-      (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
-    );
-  }, [facetList, facetsLoading]);
-
   const onSvFacetIdUpdated = useCallback(
     (svFacetId: Record<string, string>): void => {
       setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
@@ -463,33 +480,69 @@ export function Block(props: BlockPropType): ReactElement {
     if (!isEligibleForSnapToHighestCoverage) {
       return;
     }
+    setShowSnapToHighestCoverageCheckbox(false);
     (async (): Promise<void> => {
       const enableSnapToHighestCoverage =
         await shouldEnableSnapToHighestCoverage(
           props.place.dcid,
           props.enclosedPlaceType,
           props.columns,
-          props.statVarProvider
+          props.statVarProvider,
+          Object.values(facetOverrides)
         );
       setEnableSnapToLatestData(enableSnapToHighestCoverage);
-
-      // We want to disable the block controls for the highlight chart.
-      setShowSnapToHighestCoverageCheckbox(!props.highlightFacet);
+      setShowSnapToHighestCoverageCheckbox(true);
     })();
-  }, [props]);
+  }, [
+    isEligibleForSnapToHighestCoverage,
+    facetOverrides,
+    props.place.dcid,
+    props.enclosedPlaceType,
+    props.columns,
+    props.statVarProvider,
+  ]);
 
   useEffect(() => {
     setDenom(props.denom || "");
-    if (props.highlightFacet) {
+    if (props.facetSelector?.facetMetadata) {
       setDenom("");
     }
-  }, [props.highlightFacet, props.denom]);
+  }, [props.facetSelector, props.denom]);
 
   return (
     <>
-      <div className="block-controls">
+      <div
+        className={`block-controls ${!facetsLoading ? "show" : ""}`}
+        css={css`
+          && {
+            span,
+            label,
+            button,
+            input {
+              ${theme.typography.family.text}
+              ${theme.typography.text.sm}
+              margin: 0;
+              padding: 0;
+            }
+          }
+        `}
+      >
+        {showFacetSelector && (
+          <div className="block-modal-trigger">
+            <FacetSelector
+              facetSelector={props.facetSelector}
+              svFacetId={facetOverrides}
+              facetList={facetList}
+              loading={facetsLoading}
+              error={!!facetsError}
+              onSvFacetIdUpdated={onSvFacetIdUpdated}
+              variant="inline"
+              allowSelectionGrouping={shouldGroupFacetSelections}
+            />
+          </div>
+        )}
         {denom && (
-          <span className="block-toggle">
+          <div className="block-toggle">
             <label>
               <Input
                 type="checkbox"
@@ -500,10 +553,10 @@ export function Block(props: BlockPropType): ReactElement {
                 {intl.formatMessage(messages.seePerCapita)}
               </span>
             </label>
-          </span>
+          </div>
         )}
         {showSnapToHighestCoverageCheckbox && (
-          <span className="block-toggle">
+          <div className="block-toggle">
             <label>
               <Input
                 checked={snapToHighestCoverage}
@@ -514,51 +567,20 @@ export function Block(props: BlockPropType): ReactElement {
                 type="checkbox"
               />
               <span className={enableSnapToLatestData ? "" : "label-disabled"}>
-                <FormattedMessage
-                  description="Checkbox label for an option that tells a chart visualization to show the latest data available"
-                  defaultMessage="Snap to date with highest coverage"
-                  id="snap-to-latest-data-checkbox-label"
-                />
+                {intl.formatMessage(
+                  chartComponentMessages.SnapToDateHighestCoverageLabel
+                )}
               </span>
             </label>
-            <span className="material-icons" ref={snapToLatestDataInfoRef}>
-              help_outlined
-            </span>
-            <UncontrolledTooltip
-              className="dc-tooltip"
-              placement="auto"
-              target={snapToLatestDataInfoRef}
-            >
-              {enableSnapToLatestData ? (
-                <FormattedMessage
-                  description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
-                  defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
-                  id="snap-to-latest-data-help-tooltip"
-                />
-              ) : (
-                <FormattedMessage
-                  description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
-                  defaultMessage="The highest coverage data is also the latest data available for this chart."
-                  id="snap-to-latest-data-overlap-help-tooltip"
-                />
+            <Tooltip
+              title={intl.formatMessage(
+                enableSnapToLatestData
+                  ? chartComponentMessages.SnapToDateHighestCoverageTooltip
+                  : chartComponentMessages.SnapToDateHighestCoverageOverlapTooltip
               )}
-            </UncontrolledTooltip>
-          </span>
-        )}
-        {showFacetSelector && hasAlternativeSources && (
-          <div className="block-modal-trigger">
-            {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
-              <span>•</span>
-            )}
-            <FacetSelector
-              svFacetId={facetOverrides}
-              facetList={facetList}
-              loading={facetsLoading}
-              error={!!facetsError}
-              onSvFacetIdUpdated={onSvFacetIdUpdated}
-              variant="inline"
-              allowSelectionGrouping={shouldGroupFacetSelections}
-            />
+            >
+              <Help className="material-icons" />
+            </Tooltip>
           </div>
         )}
       </div>
@@ -601,7 +623,8 @@ export function Block(props: BlockPropType): ReactElement {
                         useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
-                          : undefined
+                          : undefined,
+                        facetList
                       )
                 }
               />
@@ -647,7 +670,8 @@ function renderTiles(
   getSingleStatVarSpec: (sv: string) => StatVarSpec,
   tileClassName?: string,
   blockDenom?: string,
-  blockDate?: string
+  blockDate?: string,
+  facetList?: FacetSelectorFacetInfo[]
 ): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -679,7 +703,8 @@ function renderTiles(
             description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
             statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -710,6 +735,19 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            surface={WEBSITE_SURFACE}
+            facetSelector={props.facetSelector}
+            hyperlink={getExploreLink({
+              chartType: "RANKING_WITH_MAP",
+              placeDcids: [place.dcid],
+              statVarSpecs: [getSingleStatVarSpec(tile.statVarKey[0])],
+              facetMetadata: facetList?.find(
+                (f) =>
+                  f.dcid === getSingleStatVarSpec(tile.statVarKey[0]).statVar
+              )?.metadataMap?.[
+                getSingleStatVarSpec(tile.statVarKey[0]).facetId
+              ],
+            })}
           />
         );
       case "LINE":
@@ -739,7 +777,8 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "RANKING":
@@ -766,6 +805,16 @@ function renderTiles(
                   )
                 : undefined
             }
+            surface={WEBSITE_SURFACE}
+            facetSelector={props.facetSelector}
+            hyperlink={getExploreLink({
+              chartType: "RANKING_WITH_MAP",
+              placeDcids: [place.dcid],
+              statVarSpecs: [getStatVarSpec(tile.statVarKey)[0]],
+              facetMetadata: facetList?.find(
+                (f) => f.dcid === getStatVarSpec(tile.statVarKey)[0].statVar
+              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0].facetId],
+            })}
           />
         );
       case "BAR":
@@ -801,7 +850,16 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
-            highlightFacet={props.highlightFacet}
+            facetSelector={props.facetSelector}
+            hyperlink={getExploreLink({
+              chartType: "BAR_CHART",
+              placeDcids: comparisonPlaces || [place.dcid],
+              statVarSpecs: getStatVarSpec(tile.statVarKey),
+              facetMetadata: facetList?.find(
+                (f) => f.dcid === getStatVarSpec(tile.statVarKey)[0]?.statVar
+              )?.metadataMap?.[getStatVarSpec(tile.statVarKey)[0]?.facetId],
+            })}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "SCATTER": {
@@ -830,6 +888,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -855,6 +914,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -880,6 +940,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></GaugeTile>
         );
       case "DONUT":
@@ -900,6 +961,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></DonutTile>
         );
       case "DESCRIPTION":

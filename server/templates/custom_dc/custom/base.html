@@ -54,6 +54,7 @@
   {% endif %}
   <script>
     globalThis.FEATURE_FLAGS = {{ config['FEATURE_FLAGS'] | tojson }};
+    globalThis.disableGoogleMaps = {{ config['DISABLE_GOOGLE_MAPS'] | tojson }};
   </script>
 
   <title>{{ title }} - Custom Data Commons</title>

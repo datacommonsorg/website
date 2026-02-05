@@ -41,7 +41,7 @@ You will use the `cloudbuild.push_image.yaml` file.
 **Command:**
 
 ```bash
-gcloud builds submit --project=datcom-ci --config=cloudbuild.push_image.yaml .
+gcloud builds submit --project=datcom-ci --config=tools/release_automation/percy_snapshot_script/cloudbuild.push_image.yaml .
 ```
 
 ### 2. Run Percy Runner
@@ -49,5 +49,5 @@ gcloud builds submit --project=datcom-ci --config=cloudbuild.push_image.yaml .
 This step triggers the Google Cloud Build Action to run the percy runner on a specific environment.
 
 ```bash
-gcloud builds submit --project=datcom-ci --config cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=production .
+gcloud builds submit --project=datcom-ci --config=tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=staging .
 ```

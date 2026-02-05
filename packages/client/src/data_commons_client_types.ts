@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import { Observation, StatMetadata } from "./data_commons_web_client_types";
+import {
+  Observation,
+  StatMetadata,
+  StatVarSpec,
+} from "./data_commons_web_client_types";
 
 /**
  * Interface definitions supporting DataCommonsClient
@@ -38,6 +42,11 @@ export interface PerCapitaObservation extends Observation {
 export interface BaseGetDataRowsVariableParams {
   /** Variable DCIDs */
   variables: string[];
+  /**
+   * List of stat var specs. If provided, `variables` and `perCapitaVariables`
+   * will be ignored and derived from this list.
+   */
+  statVarSpecs?: StatVarSpec[];
   /** Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]` */
   entityProps?: string[];
   /** Fetch these variable properties from the knowledge graph. Default: `["name"]` */

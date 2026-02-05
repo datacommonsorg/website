@@ -120,8 +120,6 @@ export interface DisplayOptions {
   showMapPoints: boolean;
   // TEMPORARY: whether to show the time slider
   showTimeSlider: boolean;
-  // TEMPORARY: whether to allow leaflet map
-  allowLeaflet: boolean;
 }
 
 export interface DisplayOptionsWrapper {

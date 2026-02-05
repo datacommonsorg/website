@@ -64,13 +64,14 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 COPY server/requirements.txt ./server/requirements.txt
 COPY nl_server/requirements.txt ./nl_server/requirements.txt
 COPY nl_requirements.txt ./nl_requirements.txt
+COPY torch_requirements.txt ./torch_requirements.txt
 
 # Create a virtual env and install requirements.
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install --upgrade pip setuptools \
-    && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
+    && pip3 install --no-cache-dir -r /workspace/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
     && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
 
 # Copy website app script.

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
+// import _ from "lodash";
 import React, { Component } from "react";
 
-import { MemoizedInfoExamples } from "../shared/info_examples";
+// import { MemoizedInfoExamples } from "../shared/info_examples";
 
 class Info extends Component {
   render(): JSX.Element {
@@ -30,19 +30,19 @@ class Info extends Component {
           one or more statistical variables in the pane. There are thousands of
           statistical variables to choose from, arranged in a topical hierarchy.
         </p>
-        {!_.isEmpty(window.infoConfig["timeline"]) && (
-          <p>
-            Or you can start your exploration from these interesting points ...
-          </p>
-        )}
+        {/*{!_.isEmpty(window.infoConfig["timeline"]) && (*/}
+        {/*  <p>*/}
+        {/*    Or you can start your exploration from these interesting points ...*/}
+        {/*  </p>*/}
+        {/*)}*/}
 
-        <MemoizedInfoExamples configKey="timeline" />
+        {/*<MemoizedInfoExamples configKey="timeline" />*/}
 
-        <p>Take the data and use it on your site!</p>
-        <p>
-          <a href="mailto:collaborations@datacommons.org">Send</a> us your
-          discoveries!
-        </p>
+        {/*<p>Take the data and use it on your site!</p>*/}
+        {/*<p>*/}
+        {/*  <a href="mailto:collaborations@datacommons.org">Send</a> us your*/}
+        {/*  discoveries!*/}
+        {/*</p>*/}
       </div>
     );
   }

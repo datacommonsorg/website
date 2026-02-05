@@ -77,7 +77,10 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
             value={props.dataset}
             onChange={(e): void => {
               const dcid = e.currentTarget.value ? e.currentTarget.value : "";
-              updateHash({ [SV_URL_PARAMS.DATASET]: dcid });
+              updateHash({
+                [SV_URL_PARAMS.SOURCE]: props.source,
+                [SV_URL_PARAMS.DATASET]: dcid,
+              });
             }}
           >
             <option value="">Dataset</option>

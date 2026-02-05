@@ -179,13 +179,7 @@ const onMouseOver =
 const onMouseOut =
   (containerElement: HTMLDivElement) =>
   (geo: GeoJsonFeature): void => {
-    mouseOutAction(containerElement, geo.properties.geoDcid, [
-      HOVER_HIGHLIGHTED_CLASS_NAME,
-      HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
-    ]);
-    d3.select(containerElement)
-      .select(`#${TOOLTIP_ID}`)
-      .style("display", "none");
+    clearHoverState(containerElement, geo.properties.geoDcid);
   };
 
 const onMouseMove =
@@ -219,13 +213,7 @@ const onMapClick =
   (geo: GeoJsonFeature): void => {
     if (!canClickRegion(geo.properties.geoDcid)) return;
     redirectAction(geo.properties);
-    mouseOutAction(containerElement, geo.properties.geoDcid, [
-      HOVER_HIGHLIGHTED_CLASS_NAME,
-      HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
-    ]);
-    d3.select(containerElement)
-      .select(`#${TOOLTIP_ID}`)
-      .style("display", "none");
+    clearHoverState(containerElement, geo.properties.geoDcid);
   };
 
 function mouseOutAction(
@@ -235,9 +223,16 @@ function mouseOutAction(
 ): void {
   const container = d3.select(containerElement);
   container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
-  const pathSelection = container.select(`#${getPlacePathId(placeDcid)}`);
-  for (const className of hoverClassNames) {
-    pathSelection.classed(className, false);
+  if (placeDcid) {
+    const pathSelection = container.select(`#${getPlacePathId(placeDcid)}`);
+    for (const className of hoverClassNames) {
+      pathSelection.classed(className, false);
+    }
+  } else {
+    // If no placeDcid is provided, clear all highlights
+    for (const className of hoverClassNames) {
+      container.selectAll("." + className).classed(className, false);
+    }
   }
   // bring original highlighted region back to the top
   container.select("." + HIGHLIGHTED_CLASS_NAME).raise();
@@ -251,6 +246,10 @@ function mouseHoverAction(
   const container = d3
     .select(containerElement)
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
+
+  // Clear any existing highlights first to prevent sticky states
+  container.selectAll("." + hoverClassName).classed(hoverClassName, false);
+
   container
     .select(`#${getPlacePathId(placeDcid)}`)
     .raise()
@@ -486,6 +485,18 @@ export function drawD3Map(
     .attr("viewBox", `0 0 ${chartWidth} ${chartHeight}`)
     .attr("preserveAspectRatio", "xMidYMid meet");
   const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
+
+  // Add a transparent background rect to catch mouse events that fall between/outside regions
+  // This ensures that hovering "empty" space clears the highlights.
+  map
+    .append("rect")
+    .attr("width", chartWidth)
+    .attr("height", chartHeight)
+    .attr("fill", "transparent")
+    .on("mouseover", () => {
+      clearHoverState(containerElement, null);
+    });
+
   // Build the map objects
   const mapObjects = [];
   for (const layer of layers) {
@@ -818,4 +829,20 @@ export function addPathLayer(
       ]);
     })
     .on("click", onClick);
+}
+
+/**
+ * Clear the hover state of a map region
+ * @param containerElement containing element of the map
+ * @param placeDcid dcid of the place to clear hover state for
+ */
+function clearHoverState(
+  containerElement: HTMLDivElement,
+  placeDcid: string | null
+): void {
+  mouseOutAction(containerElement, placeDcid, [
+    HOVER_HIGHLIGHTED_CLASS_NAME,
+    HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
+  ]);
+  d3.select(containerElement).select(`#${TOOLTIP_ID}`).style("display", "none");
 }

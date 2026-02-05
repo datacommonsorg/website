@@ -17,7 +17,7 @@
 /* eslint-disable camelcase */
 
 import { MAX_DATE, MAX_YEAR } from "./constants";
-import { getCappedStatVarDate, isDateTooFar } from "./util";
+import { getCappedStatVarDate, isDateTooFar, sanitizeSourceUrl } from "./util";
 
 test("isDateTooFar", () => {
   const data = {
@@ -50,4 +50,25 @@ test("getCappedStatVarDate", () => {
     // Setting a default date should always return the default
     expect(getCappedStatVarDate(sv, "1995")).toEqual("1995");
   }
+});
+
+describe("sanitizeSourceUrl", () => {
+  test.each([
+    // http and https urls should be returned as is
+    ["https://example.com", "https://example.com"],
+    ["http://example.com", "http://example.com"],
+    // urls without protocol should be prefixed with https
+    ["example.com", "https://example.com"],
+    ["www.example.com", "https://www.example.com"],
+    // whitespace should be handled elegantly
+    ["  example.com  ", "https://example.com"],
+    // urls with javascript, vbscript, or data should be sanitized
+    ["javascript:alert(1)", ""],
+    ["vbscript:alert(1)", ""],
+    ["data:text/html,<html></html>", ""],
+    // empty string should not result in error
+    ["", ""],
+  ])("should convert %p to %p", (input, expected) => {
+    expect(sanitizeSourceUrl(input)).toEqual(expected);
+  });
 });

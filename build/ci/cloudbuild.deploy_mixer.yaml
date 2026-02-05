@@ -1,0 +1,90 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This cloud build is triggered when there is a new mixer image pushed to artifact registry. It starts the mixer deployment via cloud deploy.
+
+# In the cloudbuild.yaml for the Cloud Deploy pipeline.
+substitutions:
+  _SHORT_SHA: ""
+
+steps:
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'Initialize Submodules'
+    args: ['submodule', 'update', '--init', '--recursive']
+
+  # STEP 2: Fetch the hash and create the release.
+  - name: 'gcr.io/datcom-ci/datacommons-script-runner:latest'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        set -euo pipefail # Exit on error
+
+        # 1. DETERMINE MIXER IMAGE HASH
+        echo "Fetching latest mixer image hash..."
+        mixer_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
+          --project=datcom-ci \
+          --filter="NOT tags ~ ^dev-" --sort-by=~TIMESTAMP --limit=1 \
+          --format='get(tags)' | tr ';' '\n' | grep -E '^[0-9a-f]{7,40}$' | head -n 1)"
+
+        if [[ -z "$mixer_githash" ]]; then
+          echo "ERROR: Could not determine the mixer image hash from Artifact Registry. Exiting."
+          exit 1
+        fi
+        echo "Found latest mixer image hash: $mixer_githash"
+
+        # Update mixer submodule to the specific hash
+        echo "Updating mixer submodule to $mixer_githash"
+        git -C mixer fetch origin
+        git -C mixer checkout "$mixer_githash"
+
+        # 2. CREATE DEPLOYMENT RELEASE
+        # Use standard bash variable syntax ($variable or ${variable})
+        release_name="release-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"
+        echo "Creating release: ${release_name}"
+
+        gcloud deploy apply --file=deploy/helm_charts/clouddeploy.yaml \
+          --region=us-central1 \
+          --project=datcom-ci
+
+        # 3. TAG NL IMAGE FOR SIDE CAR
+        # The Mixer deployment includes an embeddings sidecar (datacommons-nl image).
+        # We need to explicitly tag the 'cicd' version of this image as 'mixer-sidecar'
+        # so that we can deploy it using a specific alias in Skaffold.
+        # This alias (datacommons-embeddings-sidecar) allows us to deploy the same physical image
+        # with a different tag/purpose than the main website NL image, avoiding version conflicts.
+        echo "Tagging datacommons-nl:cicd image with mixer-sidecar..."
+        gcloud container images add-tag \
+          "us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:cicd" \
+          "us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:mixer-sidecar" \
+          --project=datcom-ci --quiet
+
+        # Run the deployment creation.
+        # Note the addition of the 'datacommons-embeddings-sidecar' image in the --images flag.
+        # This maps the physical image (with our new tag) to the artifact alias defined in skaffold.yaml.
+        images_arr=(
+          "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:${mixer_githash}"
+          "gcr.io/datcom-ci/datacommons-embeddings-sidecar=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:mixer-sidecar"
+        )
+        images_str=$(IFS=,; echo "${images_arr[*]}")
+
+        gcloud deploy releases create "${release_name}" \
+          --delivery-pipeline=datacommons-mixer \
+          --region=us-central1 \
+          --skaffold-file=skaffold.yaml \
+          --images="${images_str}" \
+          --deploy-parameters="mixer.githash=${mixer_githash},MIXER_GITHASH=${mixer_githash}" \
+          --project=datcom-ci
+
+        echo "Successfully created release ${release_name}."

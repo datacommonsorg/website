@@ -52,10 +52,13 @@ export const TabSet = ({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tabSetRef = useRef<HTMLDivElement>(null);
 
-  const alignmentMap: Record<TabSetAlignment, string> = {
-    left: "flex-start",
-    center: "center",
-    right: "flex-end",
+  const marginStyles: Record<TabSetAlignment, string> = {
+    left: "",
+    center: `
+      margin-left: auto;
+      margin-right: auto;
+    `,
+    right: "margin-left: auto;",
   };
 
   const [indicatorStyle, setIndicatorStyle] = useState<{
@@ -278,12 +281,8 @@ export const TabSet = ({
 
           display: flex;
           align-items: flex-end;
-          justify-content: ${alignmentMap[alignment]};
+          justify-content: flex-start;
           gap: 0;
-
-          @media (max-width: ${theme.breakpoints.xl}px) {
-            justify-content: flex-start;
-          }
 
           -ms-overflow-style: none;
           scrollbar-width: none;
@@ -299,6 +298,7 @@ export const TabSet = ({
             align-items: flex-end;
             height: 100%;
             gap: 0;
+            ${marginStyles[alignment]}
           `}
           role="tablist"
           aria-label="tabs"

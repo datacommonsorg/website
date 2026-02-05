@@ -17,7 +17,6 @@ The MCF is saved under a `tmp` folder and should be submitted to g3
 To run it:
 
 ```bash
-export DC_API_KEY=<AUTOPUSH KEY>
 ./run.sh [--dc=sdg | --dc=undata | --dc=undata_ilo]
 ```
 

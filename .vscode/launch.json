@@ -15,7 +15,7 @@
       "type": "debugpy",
       "request": "launch",
       "stopOnEntry": false,
-      "python": "${workspaceFolder}/.env/bin/python3",
+      "python": "${workspaceFolder}/.venv/bin/python3",
       "program": "${workspaceRoot}/web_app.py",
       "env": {
         "FLASK_APP": "${workspaceRoot}/web_app.py",
@@ -36,7 +36,7 @@
       "type": "debugpy",
       "request": "launch",
       "stopOnEntry": false,
-      "python": "${workspaceFolder}/.env/bin/python3",
+      "python": "${workspaceFolder}/.venv/bin/python3",
       "program": "${workspaceRoot}/web_app.py",
       "env": {
         "FLASK_APP": "${workspaceRoot}/web_app.py",
@@ -58,7 +58,7 @@
       "justMyCode": false,
       "request": "launch",
       "stopOnEntry": false,
-      "python": "${workspaceFolder}/.env/bin/python3",
+      "python": "${workspaceFolder}/.venv/bin/python3",
       "program": "${workspaceRoot}/web_app.py",
       "env": {
         "FLASK_APP": "${workspaceRoot}/web_app.py",

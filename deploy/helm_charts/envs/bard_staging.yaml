@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# NOTE: This has "bard" in the name, but is used by staging.nl.datacommons.org
+
 # DNS
 ip:
-domain: staging.bard.datacommons.org
+domain: staging.nl.datacommons.org
 
 # Helm config
 project: "datcom-bard-staging"

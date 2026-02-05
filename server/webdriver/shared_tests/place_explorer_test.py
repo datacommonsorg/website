@@ -116,15 +116,11 @@ class PlaceExplorerTestMixin():
     self.driver.get(self.url_ + CA_URL)
 
     # Find demographic link in explore topics box
-    topics_for_ca = [
-        "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-        "Housing", "Environment", "Energy"
-    ]
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=topics_for_ca)
+                         expected_topics=ORDERED_TOPICS)
 
     demographics = find_elem(
         self.driver,
@@ -247,7 +243,9 @@ class PlaceExplorerTestMixin():
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
-    self.assertIsNone(find_elem(self.driver, value='subheader'))
+    # Use find_elements to avoid waiting for timeout when asserting non-existence
+    self.assertEqual(len(self.driver.find_elements(By.CLASS_NAME, 'subheader')),
+                     0)
 
     # Asert the related places box exists
     self.assertEqual(
@@ -298,10 +296,9 @@ class PlaceExplorerTestMixin():
     map_container = scroll_to_elem(self.driver, value='map-chart')
     self.assertIsNotNone(map_container)
 
-    map_geo_regions = find_elem(map_container,
-                                by=By.ID,
-                                value='map-geo-regions',
-                                path_to_elem=['map-items'])
+    map_geo_regions = find_elem(self.driver,
+                                by=By.CSS_SELECTOR,
+                                value='.map-chart #map-items #map-geo-regions')
     self.assertIsNotNone(map_geo_regions)
     self.assertEqual(
         len(find_elems(map_geo_regions, by=By.TAG_NAME, value='path')),
@@ -347,8 +344,9 @@ class PlaceExplorerTestMixin():
     self.assertEqual(
         len(
             find_elems(self.driver,
-                       value='key-demographics-row',
-                       path_to_elem=['key-demographics-table'])), 4)
+                       by=By.CSS_SELECTOR,
+                       value='.key-demographics-table .key-demographics-row')),
+        4)
 
     shared.assert_topics(self,
                          self.driver,
@@ -399,8 +397,9 @@ class PlaceExplorerTestMixin():
     self.assertEqual(
         len(
             find_elems(self.driver,
-                       value='key-demographics-row',
-                       path_to_elem=['key-demographics-table'])), 4)
+                       by=By.CSS_SELECTOR,
+                       value='.key-demographics-table .key-demographics-row')),
+        4)
 
     # And that the categories have data
     topics_in_overview = [
@@ -454,8 +453,9 @@ class PlaceExplorerTestMixin():
     self.assertEqual(
         len(
             find_elems(self.driver,
-                       value='key-demographics-row',
-                       path_to_elem=['key-demographics-table'])), 4)
+                       by=By.CSS_SELECTOR,
+                       value='.key-demographics-table .key-demographics-row')),
+        4)
 
     # And that the categories have data
     topics_in_overview = [
@@ -505,7 +505,10 @@ class PlaceExplorerTestMixin():
     )
 
     # Asert the related places box does not exist
-    self.assertIsNone(find_elem(self.driver, value='related-places-callout'))
+    # Use find_elements to avoid waiting for timeout when asserting non-existence
+    self.assertEqual(
+        len(self.driver.find_elements(By.CLASS_NAME, 'related-places-callout')),
+        0)
 
     # Assert the overview exists, has a map. Zips have no summaries.
     self.assertIsNotNone(find_elem(self.driver, value='map-container'))
@@ -514,8 +517,9 @@ class PlaceExplorerTestMixin():
     self.assertEqual(
         len(
             find_elems(self.driver,
-                       value='key-demographics-row',
-                       path_to_elem=['key-demographics-table'])), 3)
+                       by=By.CSS_SELECTOR,
+                       value='.key-demographics-table .key-demographics-row')),
+        3)
 
     # And that the categories have data
     topics_in_overview = [
@@ -592,6 +596,18 @@ class PlaceExplorerTestMixin():
         'Explore in Timeline tool',
     )
 
+  def test_tulum_loads(self):
+    """Test that Tulum loads with no data"""
+    self.driver.get(self.url_ + '/place/wikidataId/Q277408')
+
+    # Wait for and assert that "No data found" message appears for Tulum
+    wait_for_text(self.driver, "Tulum is a place in", By.CSS_SELECTOR,
+                  '.place-summary')
+
+    # Assert text Place in Tulum Municipality is present
+    wait_for_text(self.driver, "Place in Tulum Municipality", By.CSS_SELECTOR,
+                  '.page-content-container .subheader')
+
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
   def test_place_ai_spark_icon_hover(self):
     self.driver.get(self.url_ + '/place/geoId/04')
@@ -613,3 +629,28 @@ class PlaceExplorerTestMixin():
     # Assert that the tooltip element is visible.
     self.assertTrue(tooltip_element.is_displayed())
     self.assertIn("We use AI to summarize", tooltip_element.text)
+
+  def test_place_page_has_no_xss_vulnerability(self):
+    """Test that the place page does not have XSS vulnerability."""
+    # Intercept alerts before page load
+    self.driver.get("about:blank")
+    self.driver.execute_script("""
+        window.alertTriggered = false;
+        window.alert = function(msg) {
+            window.alertTriggered = true;
+        };
+    """)
+
+    # Now navigate to the test URL
+    self.driver.get(
+        self.url_ +
+        '/place/%22%3E%3Csvg%2Fonload%3D%22alert(document.domain)%22')
+
+    # Wait for expected text
+    wait_for_text(self.driver, "Place not found.", By.ID, 'place-page-content')
+
+    # Check if alert was triggered
+    alert_triggered = self.driver.execute_script(
+        "return window.alertTriggered;")
+    self.assertFalse(alert_triggered,
+                     "XSS vulnerability detected! `alert()` was triggered.")

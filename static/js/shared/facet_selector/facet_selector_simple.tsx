@@ -39,6 +39,7 @@ import { intl } from "../../i18n/i18n";
 import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
 import { messages } from "../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { humanizeIsoDuration } from "../periodicity";
 import { StatMetadata } from "../stat_types";
 
@@ -72,6 +73,8 @@ interface FacetSelectorSimpleProps {
   loading: boolean;
   // An error message to display if the fetch fails
   error: boolean;
+  // Facet Selector
+  facetSelector?: FacetSelectionCriteria;
   // Callback function that is run when new facets are selected
   onSvFacetIdUpdated: (
     svFacetId: Record<string, string>,
@@ -91,7 +94,6 @@ export function FacetSelectorSimple({
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSelections, setModalSelections] = useState(svFacetId);
-
   const totalFacetOptionCount = useMemo(() => {
     if (!facetList) return 0;
     return facetList.reduce((sum: number, facetInfo) => {

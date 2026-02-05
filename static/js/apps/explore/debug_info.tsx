@@ -22,6 +22,7 @@ import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useState } from "react";
 
+import { Button } from "../../components/elements/button/button";
 import {
   MultiSVCandidate,
   QueryResult,
@@ -459,13 +460,14 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
                   {JSON.stringify(debugInfo.queryDetectionDebugLogs, null, 2)}
                 </pre>
               </div>
-
               <div className="show-more">
-                <a onClick={(): void => setIsCollapsed(!isCollapsed)}>
+                <Button
+                  variant="flat"
+                  onClick={(): void => setIsCollapsed(!isCollapsed)}
+                >
                   {isCollapsed ? "Show More" : "Show Less"}
-                </a>
+                </Button>
               </div>
-
               {!isCollapsed && (
                 <>
                   <div className="block">

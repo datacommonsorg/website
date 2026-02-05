@@ -1,0 +1,16 @@
+# Upstream files that ONE replaces via webpack aliases or entry point overrides.
+# After syncing upstream, changes to these files may require updating
+# the corresponding ONE custom version.
+#
+# Format: <upstream file> -> <ONE replacement>
+# Lines starting with # are comments.
+
+# Theme types interface (ONE's base_theme must implement the same interface)
+static/js/theme/types.ts -> static/js/theme/base_theme/types.ts
+
+# Base app entry point (replaced in webpack.custom_dc.js)
+static/js/apps/base/main.ts -> static/js/apps/custom_dc/one/base/main.ts
+
+# Homepage entry point (replaced in webpack.custom_dc.js)
+static/js/apps/homepage/main.ts -> static/js/apps/custom_dc/one/homepage/main.ts
+static/js/apps/homepage/main_custom_dc.ts -> static/js/apps/custom_dc/one/homepage/main.ts

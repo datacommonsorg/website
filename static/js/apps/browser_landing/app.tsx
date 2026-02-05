@@ -20,11 +20,11 @@
 
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
+import theme from "theme";
 
 import { IntroText } from "../../components/content/intro_text";
 import { Section } from "../../components/elements/layout/section";
 import { KnowledgeGraphCategory } from "../../shared/types/knowledge_graph";
-import theme from "../../theme/theme";
 import { KnowledgeGraphBrowser } from "./components/knowledge_graph_browser";
 import knowledgeGraphData from "./knowledge_graph.json";
 

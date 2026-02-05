@@ -18,19 +18,31 @@
  * Place options for selecting the child place type and the enclosing place.
  */
 
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { PlaceSelector } from "../../shared/place_selector";
+import { FormBox } from "../../components/form_components/form_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { getAllChildPlaceTypes } from "../map/util";
+import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
+import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
+import { ChartTypeToggle } from "./chart_type_toggle";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
+
+// A specific parent place and enclosed place type combination
+interface PlaceAndTypeSettings {
+  placeDcid: string;
+  enclosedPlaceType: string;
+}
+
 interface PlaceAndTypeOptionsProps {
   // Callback function to toggle the stat var widget (modal for small screen sizes).
   toggleSvHierarchyModal: () => void;
@@ -38,6 +50,9 @@ interface PlaceAndTypeOptionsProps {
 
 function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
+  // Store the last place and place type combination that resulted in a failed fetch
+  const [failedEnclosedPlaces, setFailedEnclosedPlaces] =
+    useState<PlaceAndTypeSettings | null>(null);
 
   /**
    * Watch and update place info
@@ -60,9 +75,27 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
       return;
     }
     if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
-      loadEnclosedPlaces(place, isLoading);
+      if (
+        failedEnclosedPlaces &&
+        place.value.enclosingPlace.dcid == failedEnclosedPlaces.placeDcid &&
+        place.value.enclosedPlaceType == failedEnclosedPlaces.enclosedPlaceType
+      ) {
+        // Place options selected match a previously failed fetch, do not repeat
+        return;
+      }
+      const controller = new AbortController();
+      loadEnclosedPlaces(
+        place,
+        isLoading,
+        setFailedEnclosedPlaces,
+        controller.signal
+      );
+      return () => {
+        // Abort any old axios calls if component re-renders
+        controller.abort();
+      };
     }
-  }, [place, isLoading]);
+  }, [place, isLoading, failedEnclosedPlaces]);
 
   /**
    * If map view is selected, check that map view is possible before rendering
@@ -89,53 +122,44 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   }, [place.value, display]);
 
   return (
-    <PlaceSelector
-      selectedPlace={place.value.enclosingPlace}
-      enclosedPlaceType={place.value.enclosedPlaceType}
-      onPlaceSelected={place.setEnclosingPlace}
-      onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
-    >
-      <div className="d-inline d-lg-none" id="btn-sv-widget-modal">
-        <div className="btn btn-primary" onClick={props.toggleSvHierarchyModal}>
-          Select variables
-        </div>
-      </div>
-      <div className="chart-type-toggle">
-        <div
-          className={`${
-            display.chartType === ScatterChartType.SCATTER
-              ? "selected-chart-option"
-              : "chart-type-option"
-          }`}
-          onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
-        >
-          <i className="material-icons-outlined">scatter_plot</i>
-        </div>
-        <div
-          className={`${
-            display.chartType === ScatterChartType.MAP
-              ? "selected-chart-option"
-              : "chart-type-option"
-          }`}
-          onClick={(): void => display.setChartType(ScatterChartType.MAP)}
-        >
-          <i className="material-icons-outlined">public</i>
-        </div>
-      </div>
-    </PlaceSelector>
+    <FormBox flexDirection="column">
+      <EnclosedPlacesSelector
+        enclosedPlaceType={place.value.enclosedPlaceType}
+        onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
+        onPlaceSelected={place.setEnclosingPlace}
+        selectedParentPlace={place.value.enclosingPlace}
+        additionalControls={<ChartTypeToggle />}
+      />
+      <StatVarHierarchyToggleButton
+        onClickCallback={props.toggleSvHierarchyModal}
+        text={intl.formatMessage(
+          toolMessages.selectMultipleVariablesInstruction
+        )}
+      />
+    </FormBox>
   );
 }
 
+/**
+ * Fetches enclosed places within a parent place for a specific child place type.
+ * @param place State object holding the enclosing place and child place type.
+ * @param isLoading State object for tracking loading status.
+ * @param setEnclosedPlacesError Callback to record settings that caused a fetch failure.
+ * @param signal Signal for aborting the axios request.
+ */
 function loadEnclosedPlaces(
   place: PlaceInfoWrapper,
-  isLoading: IsLoadingWrapper
+  isLoading: IsLoadingWrapper,
+  setEnclosedPlacesError: (failedSettings: PlaceAndTypeSettings) => void,
+  signal: AxiosRequestConfig["signal"]
 ): void {
   const placeDcid = place.value.enclosingPlace.dcid;
   const enclosedPlaceType = place.value.enclosedPlaceType;
-  let placeNamesRetrieved = false;
+  isLoading.setArePlacesLoading(true);
   axios
     .get(
-      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`,
+      { signal }
     )
     .then((resp) => {
       const enclosedPlacesToNames = resp.data;
@@ -149,31 +173,41 @@ function loadEnclosedPlaces(
           }
         );
         place.setEnclosedPlaces(enclosedPlaces);
-        placeNamesRetrieved = true;
+        isLoading.setArePlacesLoading(false);
       }
     })
-    .catch(() => (placeNamesRetrieved = false));
-  isLoading.setArePlacesLoading(true);
-  getEnclosedPlacesPromise(placeDcid, enclosedPlaceType)
-    .then((enclosedPlaces) => {
-      isLoading.setArePlacesLoading(false);
-      if (!placeNamesRetrieved) {
-        if (!_.isEmpty(enclosedPlaces)) {
-          place.setEnclosedPlaces(enclosedPlaces);
-        } else {
-          place.setEnclosedPlaceType("");
+    .catch((error) => {
+      if (axios.isCancel(error)) {
+        // Skip catch actions if request is canceled
+        return;
+      }
+      // Get enclosed place dcids as backup if names can't be found
+      getEnclosedPlacesPromise(placeDcid, enclosedPlaceType, signal)
+        .then((enclosedPlaces) => {
+          isLoading.setArePlacesLoading(false);
+          if (!_.isEmpty(enclosedPlaces)) {
+            place.setEnclosedPlaces(enclosedPlaces);
+          } else {
+            // Record the place and enclosed place type that resulted in no enclosed places
+            setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
+            alert(
+              `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
+                `${enclosedPlaceType}. Try picking another type or place.`
+            );
+          }
+        })
+        .catch(() => {
+          if (axios.isCancel(error)) {
+            // Skip catch actions if request is canceled
+            return;
+          }
+          // Record the place and enclosed place type that resulted in an error
+          setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
+          isLoading.setArePlacesLoading(false);
           alert(
-            `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
-              `${enclosedPlaceType}. Try picking another type or place.`
+            `Error fetching places of type ${enclosedPlaceType} for ${place.value.enclosingPlace.name}.`
           );
-        }
-      }
-    })
-    .catch(() => {
-      isLoading.setArePlacesLoading(false);
-      alert(
-        `Error fetching places of type ${enclosedPlaceType} for ${place.value.enclosingPlace.name}.`
-      );
+        });
     });
 }
 

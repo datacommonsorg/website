@@ -52,9 +52,13 @@ interface TileMetadataModalPropType {
   statVarToFacets?: StatVarFacetMap;
   // the stat vars used in the chart
   statVarSpecs: StatVarSpec[];
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   containerRef?: React.RefObject<HTMLElement>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
+  // used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+  surface: string;
 }
 
 export function TileMetadataModal(
@@ -67,7 +71,19 @@ export function TileMetadataModal(
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
+
+  const denomStatVarDcids = useMemo(() => {
+    const result = new Set<string>();
+    if (props.statVarSpecs) {
+      for (const spec of props.statVarSpecs) {
+        if (spec.denom) {
+          result.add(spec.denom);
+        }
+      }
+    }
+    return result;
+  }, [props.statVarSpecs]);
 
   const statVarSet = useMemo(() => {
     const result = new Set<string>();
@@ -96,8 +112,21 @@ export function TileMetadataModal(
       props.apiRoot
     )
       .then((resp) => {
+        // Sort stat vars: non-denominators first, then denominators.
+        // Secondary sort is alphabetical.
+        const sortedStatVars = resp.statVarList.sort((a, b) => {
+          const aIsDenom = denomStatVarDcids.has(a.dcid);
+          const bIsDenom = denomStatVarDcids.has(b.dcid);
+          if (aIsDenom && !bIsDenom) {
+            return 1;
+          }
+          if (!aIsDenom && bIsDenom) {
+            return -1;
+          }
+          return a.name.localeCompare(b.name);
+        });
         setMetadataMap(resp.metadata);
-        setStatVars(resp.statVarList);
+        setStatVars(sortedStatVars);
       })
       .catch(() => {
         console.error("Error loading metadata");
@@ -114,6 +143,7 @@ export function TileMetadataModal(
     props.apiRoot,
     props.statVarToFacets,
     props.facets,
+    denomStatVarDcids,
   ]);
 
   useEffect(() => {
@@ -158,6 +188,8 @@ export function TileMetadataModal(
               <TileMetadataModalContent
                 statVars={statVars}
                 metadataMap={metadataMap}
+                denomStatVarDcids={denomStatVarDcids}
+                statVarDateRanges={props.statVarDateRanges}
                 apiRoot={props.apiRoot}
               />
             )

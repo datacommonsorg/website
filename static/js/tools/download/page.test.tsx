@@ -28,6 +28,7 @@ import Enzyme, { mount, ReactWrapper } from "enzyme";
 import pretty from "pretty";
 import React from "react";
 
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import * as SharedUtil from "../../shared/util";
 import { InfoPlace } from "./info";
 import { axiosMock } from "./mock_functions";
@@ -83,16 +84,22 @@ test("Loading options from URL", async () => {
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
   wrapper.find(".download-button").at(0).simulate("click");
-  expect(axios.post).toHaveBeenCalledWith("/api/csv/within", {
-    childType: "County",
-    facetMap: {
-      Count_Person: "",
+  expect(axios.post).toHaveBeenCalledWith(
+    "/api/csv/within",
+    {
+      childType: "County",
+      facetMap: {
+        Count_Person: "",
+      },
+      maxDate: "latest",
+      minDate: "latest",
+      parentPlace: "geoId/06",
+      statVars: ["Count_Person"],
     },
-    maxDate: "latest",
-    minDate: "latest",
-    parentPlace: "geoId/06",
-    statVars: ["Count_Person"],
-  });
+    {
+      headers: WEBSITE_SURFACE_HEADER,
+    }
+  );
   let savedFile = "";
   jest.spyOn(SharedUtil, "saveToFile").mockImplementation((fileName) => {
     savedFile = fileName;
@@ -127,7 +134,8 @@ test("Manually updating options", async () => {
     .simulate("change", { target: { value: "County" } });
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/place/descendent?dcids=geoId/06&descendentType=County"
+      "/api/place/descendent?dcids=geoId/06&descendentType=County",
+      expect.anything()
     );
   });
   await waitForComponentUpdates(wrapper);
@@ -169,16 +177,22 @@ test("Manually updating options", async () => {
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
   wrapper.find(".download-button").at(0).simulate("click");
-  expect(axios.post).toHaveBeenCalledWith("/api/csv/within", {
-    childType: "County",
-    facetMap: {
-      Count_Person: "",
+  expect(axios.post).toHaveBeenCalledWith(
+    "/api/csv/within",
+    {
+      childType: "County",
+      facetMap: {
+        Count_Person: "",
+      },
+      maxDate: "",
+      minDate: "2020",
+      parentPlace: "geoId/06",
+      statVars: ["Count_Person"],
     },
-    maxDate: "",
-    minDate: "2020",
-    parentPlace: "geoId/06",
-    statVars: ["Count_Person"],
-  });
+    {
+      headers: WEBSITE_SURFACE_HEADER,
+    }
+  );
   let savedFile = "";
   jest.spyOn(SharedUtil, "saveToFile").mockImplementation((fileName) => {
     savedFile = fileName;

@@ -67,22 +67,24 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
         >
           <div id="search-icon"></div>
           <span id="prompt">Find : </span>
-          <span id="place-list">
-            {placeIds.map((placeId) => (
-              <Chip
-                id={placeId}
-                title={
-                  this.props.places[placeId]
-                    ? this.props.places[placeId]
-                    : placeId
-                }
-                key={placeId}
-                removeChip={this.props.removePlace}
-                color={CHIP_COLOR}
-              ></Chip>
-            ))}
-          </span>
-          <input ref={this.inputElem} id="ac" type="text" />
+          <div id="place-list-container">
+            <span id="place-list">
+              {placeIds.map((placeId) => (
+                <Chip
+                  id={placeId}
+                  title={
+                    this.props.places[placeId]
+                      ? this.props.places[placeId]
+                      : placeId
+                  }
+                  key={placeId}
+                  removeChip={this.props.removePlace}
+                  color={CHIP_COLOR}
+                ></Chip>
+              ))}
+            </span>
+            <input ref={this.inputElem} id="ac" type="text" />
+          </div>
           {!hideInput && <i className="material-icons search-icon">search</i>}
           <span id="place-name"></span>
         </div>

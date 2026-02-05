@@ -40,7 +40,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2024"
+                      "startDate": "2025"
                     },
                     "statVarKey": [
                       "Count_FireEvent_285042123"
@@ -133,7 +133,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2024"
+                      "startDate": "2025"
                     },
                     "statVarKey": [
                       "Count_WildfireEvent_2519150620"
@@ -1034,6 +1034,20 @@
       {
         "dcid": "dc/topic/Tsunami",
         "name": "Tsunami",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/WindEvent",
+        "name": "Wind Events",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Fog",
+        "name": "Fog",
         "types": [
           "Topic"
         ]

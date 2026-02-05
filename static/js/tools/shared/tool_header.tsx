@@ -19,21 +19,15 @@
  * Title component for the tools
  */
 
-import { css, useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
 import React from "react";
-
-import { Button } from "../../components/elements/button/button";
-import { intl, localizeLink } from "../../i18n/i18n";
-import { toolMessages } from "../../i18n/i18n_tool_messages";
 
 interface ToolHeaderProps {
   title: string; // Name of the tool to use as a title
   subtitle?: string; // Text to show below the title
-  switchToolsUrl?: string; // URL of an alternate version of the tool
 }
 
 export function ToolHeader(props: ToolHeaderProps): JSX.Element {
-  const theme = useTheme();
   return (
     <div
       css={css`
@@ -60,16 +54,6 @@ export function ToolHeader(props: ToolHeaderProps): JSX.Element {
         >
           {props.title}
         </h1>
-        {props.switchToolsUrl && (
-          <Button
-            href={localizeLink(props.switchToolsUrl)}
-            css={css`
-              ${theme.typography.text.sm}
-            `}
-          >
-            {intl.formatMessage(toolMessages.switchToolVersion)}
-          </Button>
-        )}
       </div>
       {props.subtitle && (
         <div

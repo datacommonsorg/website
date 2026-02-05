@@ -31,6 +31,94 @@ export interface CitationPart {
   url?: string;
 }
 
+enum DatePrecision {
+  year,
+  month,
+  day,
+}
+
+/**
+ * This function returns the precision level of a date string.
+ * @param date the date string in ISO format (YYYY-mm-dd, YYYY-mm, or YYYY).
+ * @returns the precision of the date:
+ *  YYYY-mm-dd: day
+ *  YYYY-mm: month
+ *  YYYY: year
+ */
+function getDatePrecision(date: string): DatePrecision {
+  if (date.length === 10) return DatePrecision.day;
+  if (date.length === 7) return DatePrecision.month;
+  return DatePrecision.year;
+}
+
+/**
+ * This function truncates a date string to the target date precision level.
+ * This is used to ensure that date ranges with different dates are rendered
+ * at the same precision level.
+ * @param date the date string in ISO format (YYYY-mm-dd, YYYY-mm, or YYYY).
+ * @param precision the precision of desired truncation.
+ * @returns the date truncated to the given precision level:
+ *  day: YYYY-mm-dd
+ *  month: YYYY-mm
+ *  year: YYYY
+ */
+function truncateDate(date: string, precision: DatePrecision): string {
+  if (precision === DatePrecision.year) return date.substring(0, 4);
+  if (precision === DatePrecision.month) return date.substring(0, 7);
+  return date.substring(0, 10);
+}
+
+/**
+ * This function takes a date range and returns a string version where each
+ * end of the date range has a precision equal to the lowest precision of either
+ * of the two dates. In other words, if the start date is "2020" and the end date
+ * is "2025-05", the range will be "2020 - 2025".
+ *
+ * If the start and the end of the range are the same, a single date is returned.
+ * If only one date is provided, that date is returned directly. If no dates are
+ * provided, we return a blank string.
+ *
+ * Some examples are:
+ *  ("2010-12-01", "2020") => "2010 – 2020"
+ *  ("2010-12-01", "2020-05") => "2010-12 – 2020-05"
+ *  ("2020-01", "2020-01") => "2020-01"
+ *
+ *  @param minDate a string representing the start of the range
+ *  @param maxDate a string representing the end of the range
+ *  @returns the formatted date range as per the above examples.
+ */
+export function formatDateRange(minDate?: string, maxDate?: string): string {
+  if (!minDate && !maxDate) {
+    return "";
+  }
+  if (!minDate) {
+    return maxDate;
+  }
+  if (!maxDate) {
+    return minDate;
+  }
+
+  // We start by determining the lower bound of the precision on the two dates
+  const minPrecision = getDatePrecision(minDate);
+  const maxPrecision = getDatePrecision(maxDate);
+  const targetPrecision = Math.min(minPrecision, maxPrecision);
+
+  // We then truncate the two dates to that precision.
+  const formattedMin = truncateDate(minDate, targetPrecision);
+  const formattedMax = truncateDate(maxDate, targetPrecision);
+
+  if (formattedMin === formattedMax) return formattedMin;
+  return `${formattedMin} – ${formattedMax}`;
+}
+
+// This interface is used internally by the citation parts function to map and collate provenance data
+interface ProvenanceData {
+  sourceName?: string;
+  url?: string;
+  minDate?: string;
+  maxDate?: string;
+}
+
 /**
  * This function builds the citation data object that later can
  * be used to either create a text citation string or a jsx-
@@ -38,40 +126,75 @@ export interface CitationPart {
  *
  * @param statVars - An array of `NamedNode` objects for the stat vars.
  * @param metadataMap - A mapping from stat var DCIDs to their metadata.
+ * @param statVarDateRanges - Optional. A map of stat var dcids to their specific dates from the chart.
  * @param skipUrls - Optional. If true, provenance URLs are excluded.
  * @returns An array of `CitationPart` objects for rendering.
  */
 export function buildCitationParts(
   statVars: NamedNode[],
   metadataMap: Record<string, StatVarMetadata[]>,
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>,
   skipUrls?: boolean
 ): CitationPart[] {
-  const seen = new Set<string>();
   const parts: CitationPart[] = [];
+  // for the citation, we have to aggregate the stat var ranges to the provenance level
+  const provenanceDataMap = new Map<string, ProvenanceData>();
 
   statVars.forEach((statVar) => {
     const metadataList = metadataMap[statVar.dcid] || [];
 
     metadataList.forEach((metadata) => {
-      if (
-        !metadata ||
-        !metadata.provenanceName ||
-        seen.has(metadata.provenanceName)
-      )
-        return;
+      if (!metadata || !metadata.provenanceName) return;
 
-      seen.add(metadata.provenanceName);
+      const provName = metadata.provenanceName;
 
-      const label = metadata.sourceName
-        ? `${metadata.sourceName}, ${metadata.provenanceName}`
-        : metadata.provenanceName;
-
-      const part: CitationPart = { label };
-      if (!skipUrls && metadata.provenanceUrl) {
-        part.url = metadata.provenanceUrl.replace(/\/$/, "");
+      // if this is the first time we've seen this provenance, we add it to the map.
+      if (!provenanceDataMap.has(provName)) {
+        provenanceDataMap.set(provName, {
+          sourceName: metadata.sourceName,
+          url: metadata.provenanceUrl,
+          minDate: undefined,
+          maxDate: undefined,
+        });
       }
-      parts.push(part);
+
+      // we update the date range for the provenance (always expanding it where necessary)
+      const svDateRange = statVarDateRanges
+        ? statVarDateRanges[statVar.dcid]
+        : undefined;
+
+      if (svDateRange) {
+        const entry = provenanceDataMap.get(provName);
+        if (
+          svDateRange.minDate &&
+          (!entry.minDate || svDateRange.minDate < entry.minDate)
+        ) {
+          entry.minDate = svDateRange.minDate;
+        }
+        if (
+          svDateRange.maxDate &&
+          (!entry.maxDate || svDateRange.maxDate > entry.maxDate)
+        ) {
+          entry.maxDate = svDateRange.maxDate;
+        }
+      }
     });
+  });
+
+  // finally we loop through the provenance data map to build the final list.
+  provenanceDataMap.forEach((data, provenanceName) => {
+    let label = data.sourceName
+      ? `${data.sourceName}, ${provenanceName}`
+      : provenanceName;
+    if (data.minDate && data.maxDate) {
+      const dateString = formatDateRange(data.minDate, data.maxDate);
+      label += ` (${dateString})`;
+    }
+    const part: CitationPart = { label };
+    if (!skipUrls && data.url) {
+      part.url = data.url.replace(/\/$/, "");
+    }
+    parts.push(part);
   });
 
   if (parts.length !== 0) {

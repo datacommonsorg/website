@@ -1,0 +1,24 @@
+# Files and directories intentionally customized by ONE.
+# During upstream sync, conflicts in these paths require manual review.
+# Everything else auto-resolves to the upstream version.
+#
+# Use directory prefixes (with trailing /) to protect entire directories.
+# Use exact file paths for individual files.
+# Lines starting with # are comments.
+
+# ONE custom DC configuration and data
+custom_dc/one/
+
+# ONE custom templates and static assets
+server/templates/custom_dc/one/
+static/custom_dc/one/
+
+# ONE-specific files (not in upstream)
+justfile
+CONTRIBUTING-AT-ONE.md
+.one-protected-paths
+
+# Files with ONE-specific modifications
+.gitignore
+static/package.json
+static/tsconfig.json

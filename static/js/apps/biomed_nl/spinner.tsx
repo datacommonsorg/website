@@ -21,7 +21,7 @@
 import { css, ThemeProvider } from "@emotion/react";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
-import theme from "../../theme/theme";
+import theme from "theme";
 
 const THIRTY_SECONDS = 3000;
 const SIXTY_SECONDS = 60000;

@@ -13,6 +13,8 @@
 # limitations under the License.
 """Common library for functions related to feature flags"""
 
+import random
+
 from flask import current_app
 
 # URL Query Parameters
@@ -25,7 +27,8 @@ BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
 STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
-VAI_MEDIUM_RELEVANCE_FEATURE_FLAG = 'vai_medium_relevance_threshold'
+ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
+ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
@@ -75,4 +78,11 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if is_feature_override_disabled(feature_name, request):
     return False
 
-  return app.config['FEATURE_FLAGS'].get(feature_name, False)
+  feature_flags = app.config['FEATURE_FLAGS']
+  is_feature_enabled = feature_flags.get(feature_name, {}).get('enabled', False)
+  if is_feature_enabled and 'rollout_percentage' in feature_flags.get(
+      feature_name, {}):
+    rollout_percentage = feature_flags[feature_name]['rollout_percentage']
+    return random.random() * 100 < rollout_percentage
+
+  return is_feature_enabled

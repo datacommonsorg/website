@@ -21,10 +21,10 @@ import axios from "axios";
 import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import { SeriesAllApiResponse } from "../../shared/stat_types";
 import { stringifyFn } from "../../utils/axios";
 import {
-  convertToDelta,
   fetchRawData,
   getStatData,
   getStatVarGroupWithTime,
@@ -43,6 +43,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -122,6 +123,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -1305,91 +1307,6 @@ test("StatsData test", () => {
     measurementMethods: new Set(),
   };
   expect(getStatVarGroupWithTime(statData, "geoId/01")).toEqual([]);
-});
-
-test("convert to delta", () => {
-  let statData: StatData = {
-    facets: {},
-    data: {
-      UnemploymentRate_Person_Female: {
-        "geoId/05": {
-          series: [
-            {
-              date: "2011",
-              value: 11000,
-            },
-            {
-              date: "2012",
-              value: 12000,
-            },
-          ],
-          facet: "facet2",
-        },
-      },
-      UnemploymentRate_Person_Male: {
-        "country/USA": {
-          series: [
-            {
-              date: "2011",
-              value: 21000,
-            },
-            {
-              date: "2012",
-              value: 22000,
-            },
-          ],
-          facet: "facet1",
-        },
-      },
-    },
-    dates: ["2011", "2012"],
-    places: ["geoId/05", "country/USA"],
-    statVars: [
-      "UnemploymentRate_Person_Male",
-      "UnemploymentRate_Person_Female",
-    ],
-    sources: new Set(["source2", "source1"]),
-    measurementMethods: new Set(),
-  };
-
-  const expected: StatData = {
-    facets: {},
-    data: {
-      UnemploymentRate_Person_Female: {
-        "geoId/05": {
-          series: [
-            {
-              date: "2012",
-              value: 1000,
-            },
-          ],
-          facet: "facet2",
-        },
-      },
-      UnemploymentRate_Person_Male: {
-        "country/USA": {
-          series: [
-            {
-              date: "2012",
-              value: 1000,
-            },
-          ],
-          facet: "facet1",
-        },
-      },
-    },
-    dates: ["2012"],
-    places: ["geoId/05", "country/USA"],
-    statVars: [
-      "UnemploymentRate_Person_Male",
-      "UnemploymentRate_Person_Female",
-    ],
-    sources: new Set(["source2", "source1"]),
-    measurementMethods: new Set(),
-  };
-
-  statData = convertToDelta(statData);
-  expect(statData).toEqual(expected);
 });
 
 test("transform from models - multiple places", () => {

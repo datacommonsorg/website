@@ -19,10 +19,10 @@
  */
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
+import theme from "theme";
 
 import { Section } from "../../components/elements/layout/section";
 import { TopicConfig, TopicData } from "../../shared/topic_config";
-import theme from "../../theme/theme";
 import { ExploreIntro } from "./components/explore_intro";
 import { Queries } from "./components/queries";
 import { StatVarQueries } from "./components/stat_var_queries";

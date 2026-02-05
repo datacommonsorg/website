@@ -21,6 +21,7 @@
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { EntityObservationWrapper } from "../../../shared/stat_types";
 import { getCappedStatVarDate } from "../../../shared/util";
 import { getPointWithin } from "../../../utils/data_fetch_utils";
@@ -63,7 +64,10 @@ export function useFetchDefaultStat(
       placeInfo.value.enclosedPlaceType,
       placeInfo.value.enclosingPlace.dcid,
       [statVar.value.dcid],
-      date
+      date,
+      null, // alignedVariables
+      null, // facetIds
+      WEBSITE_SURFACE
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[statVar.value.dcid])) {

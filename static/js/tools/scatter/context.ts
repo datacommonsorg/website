@@ -23,7 +23,13 @@ import { createContext, useState } from "react";
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { Setter } from "../../shared/util";
-import { ScatterChartType } from "./util";
+import {
+  applyHashAxis,
+  applyHashBoolean,
+  applyHashPlace,
+  applyHashPopulation,
+  ScatterChartType,
+} from "./util";
 
 type PointScaleState = "linear" | "log" | "";
 const SHOW_POPULATION_LINEAR: PointScaleState = "linear";
@@ -81,9 +87,6 @@ interface PlaceInfo {
   enclosedPlaces: Array<NamedPlace>;
   // The parent places of the selected place
   parentPlaces: Array<NamedTypedPlace>;
-  // Only plot places with populations between these
-  lowerBound: number;
-  upperBound: number;
 }
 
 interface PlaceInfoWrapper {
@@ -95,8 +98,6 @@ interface PlaceInfoWrapper {
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<NamedPlace>>;
   setParentPlaces: Setter<Array<NamedTypedPlace>>;
-  setLowerBound: Setter<number>;
-  setUpperBound: Setter<number>;
 }
 
 const EmptyPlace: PlaceInfo = Object.freeze({
@@ -108,8 +109,6 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   enclosedPlaceType: "",
   enclosedPlaces: null,
   parentPlaces: null,
-  lowerBound: 0,
-  upperBound: 1e10,
 });
 
 interface DisplayOptionsWrapper {
@@ -172,8 +171,6 @@ const FieldToAbbreviation = {
   // PlaceInfo fields
   enclosingPlaceDcid: "epd",
   enclosedPlaceType: "ept",
-  lowerBound: "lb",
-  upperBound: "ub",
 
   // DisplayOptions fields
   showQuadrant: "qd",
@@ -186,54 +183,68 @@ const FieldToAbbreviation = {
 
 /**
  * Hook that constructs an initial context.
+ * If a hash parameter value is provided, will use those value in the returned context.
+ *
+ * @param params URL hash parameter values to use in the context
  */
-function useContextStore(): ContextType {
-  const [x, setX] = useState(EmptyAxis);
-  const [y, setY] = useState(EmptyAxis);
-  const [place, setPlace] = useState(EmptyPlace);
-  const [showQuadrants, setQuadrants] = useState(false);
-  const [showLabels, setLabels] = useState(false);
-  const [showDensity, setDensity] = useState(false);
-  const [showPopulation, setPopulation] = useState(SHOW_POPULATION_OFF);
+function useContextStore(params: URLSearchParams): ContextType {
+  const [x, setX] = useState(applyHashAxis(params, true));
+  const [y, setY] = useState(applyHashAxis(params, false));
+  const [place, setPlace] = useState(applyHashPlace(params));
+  const [showQuadrants, setQuadrants] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
+  );
+  const [showLabels, setLabels] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
+  );
+  const [showDensity, setDensity] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
+  const [showPopulation, setPopulation] = useState(applyHashPopulation(params));
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
-  const [chartType, setChartType] = useState(ScatterChartType.SCATTER);
-  const [showRegression, setRegression] = useState(false);
+  const initialChartState =
+    params.get(FieldToAbbreviation.chartType) === "1"
+      ? ScatterChartType.MAP
+      : ScatterChartType.SCATTER;
+  const [chartType, setChartType] = useState(initialChartState);
+  const [showRegression, setRegression] = useState(
+    applyHashBoolean(params, FieldToAbbreviation.showRegression)
+  );
   return {
     x: {
       value: x,
       set: (axis) => setX(axis),
-      setStatVarDcid: getSetStatVarDcid(x, setX),
-      unsetStatVarDcid: getUnsetStatVarDcid(x, setX),
-      setStatVarInfo: getSetStatVarInfo(x, setX),
-      setLog: getSetLog(x, setX),
-      setPerCapita: getSetPerCapita(x, setX),
-      setDate: getSetDate(x, setX),
-      setMetahash: (metahash) => setX({ ...x, metahash }),
-      setDenom: (denom) => setX({ ...x, denom }),
+      setStatVarDcid: getSetStatVarDcid(setX),
+      unsetStatVarDcid: getUnsetStatVarDcid(setX),
+      setStatVarInfo: getSetStatVarInfo(setX),
+      setLog: getSetLog(setX),
+      setPerCapita: getSetPerCapita(setX),
+      setDate: getSetDate(setX),
+      setMetahash: (metahash) => setX((prev) => ({ ...prev, metahash })),
+      setDenom: (denom) => setX((prev) => ({ ...prev, denom })),
     },
     y: {
       value: y,
       set: (axis) => setY(axis),
-      setStatVarDcid: getSetStatVarDcid(y, setY),
-      unsetStatVarDcid: getUnsetStatVarDcid(y, setY),
-      setStatVarInfo: getSetStatVarInfo(y, setY),
-      setLog: getSetLog(y, setY),
-      setPerCapita: getSetPerCapita(y, setY),
-      setDate: getSetDate(y, setY),
-      setMetahash: (metahash) => setY({ ...y, metahash }),
-      setDenom: (denom) => setY({ ...y, denom }),
+      setStatVarDcid: getSetStatVarDcid(setY),
+      unsetStatVarDcid: getUnsetStatVarDcid(setY),
+      setStatVarInfo: getSetStatVarInfo(setY),
+      setLog: getSetLog(setY),
+      setPerCapita: getSetPerCapita(setY),
+      setDate: getSetDate(setY),
+      setMetahash: (metahash) => setY((prev) => ({ ...prev, metahash })),
+      setDenom: (denom) => setY((prev) => ({ ...prev, denom })),
     },
     place: {
       value: place,
       set: (place) => setPlace(place),
-      setEnclosingPlace: getSetEnclosingPlace(place, setPlace),
-      setEnclosedPlaceType: getSetEnclosedPlaceType(place, setPlace),
-      setEnclosedPlaces: getSetEnclosedPlaces(place, setPlace),
-      setLowerBound: getSetLowerBound(place, setPlace),
-      setUpperBound: getSetUpperBound(place, setPlace),
-      setParentPlaces: (parentPlaces) => setPlace({ ...place, parentPlaces }),
+      setEnclosingPlace: getSetEnclosingPlace(setPlace),
+      setEnclosedPlaceType: getSetEnclosedPlaceType(setPlace),
+      setEnclosedPlaces: getSetEnclosedPlaces(setPlace),
+      setParentPlaces: (parentPlaces) =>
+        setPlace((prev) => ({ ...prev, parentPlaces })),
     },
     display: {
       showQuadrants,
@@ -263,158 +274,126 @@ function useContextStore(): ContextType {
 /**
  * Returns a setter for the parent place and additionally
  * clearing the child places.
- * @param place
  * @param setPlace
  */
 function getSetEnclosingPlace(
-  place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
 ): Setter<NamedTypedPlace> {
   return (enclosingPlace) =>
-    setPlace({
-      ...place,
+    setPlace((prevPlace) => ({
+      ...prevPlace,
       enclosedPlaces: [],
       enclosingPlace,
       parentPlaces: null,
-      enclosedPlaceType: "",
-    });
+      enclosedPlaceType:
+        prevPlace.enclosingPlace.dcid !== enclosingPlace.dcid
+          ? ""
+          : prevPlace.enclosedPlaceType,
+    }));
 }
 
 /**
  * Returns a setter for child place type and additionally
  * clearing the child places.
- * @param place
  * @param setPlace
  */
 function getSetEnclosedPlaceType(
-  place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
 ): Setter<string> {
   return (enclosedPlaceType) =>
-    setPlace({
-      ...place,
+    setPlace((prevPlace) => ({
+      ...prevPlace,
       enclosedPlaceType,
       enclosedPlaces: [],
-    });
+    }));
 }
 
 function getSetEnclosedPlaces(
-  place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
 ): Setter<Array<NamedPlace>> {
   return (enclosedPlaces) =>
-    setPlace({
-      ...place,
+    setPlace((prevPlace) => ({
+      ...prevPlace,
       enclosedPlaces,
-    });
+    }));
 }
 
 /**
  * Returns a setter for the statvar for an axis and additionally
  * clearing the name of the statvar.
- * @param axis
  * @param setAxis
  */
 function getSetStatVarInfo(
-  axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<StatVarNode> {
   return (statVarInfo) => {
-    setAxis({
-      ...axis,
+    setAxis((prevAxis) => ({
+      ...prevAxis,
       statVarInfo,
-    });
+    }));
   };
 }
 
 /**
  * Returns a setter for an axis that clears the statvar and the name
  * of the statvar.
- * @param axis
  * @param setAxis
  */
 function getUnsetStatVarDcid(
-  axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<void> {
   return () => {
-    setAxis({
-      ...axis,
+    setAxis((prevAxis) => ({
+      ...prevAxis,
       statVarDcid: "",
       statVarInfo: null,
-    });
+    }));
   };
 }
 
 function getSetStatVarDcid(
-  axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<string> {
   return (dcid) => {
-    setAxis({
-      ...axis,
+    setAxis((prevAxis) => ({
+      ...prevAxis,
       statVarDcid: dcid,
       statVarInfo: null,
-    });
+    }));
   };
 }
 
 function getSetLog(
-  axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<boolean> {
   return (log) => {
-    setAxis({
-      ...axis,
+    setAxis((prevAxis) => ({
+      ...prevAxis,
       log,
-    });
+    }));
   };
 }
 
 function getSetPerCapita(
-  axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<boolean> {
   return (perCapita) => {
-    setAxis({
-      ...axis,
+    setAxis((prevAxis) => ({
+      ...prevAxis,
       perCapita,
-    });
+    }));
   };
 }
 
 function getSetDate(
-  axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<string> {
   return (date) => {
-    setAxis({
-      ...axis,
+    setAxis((prevAxis) => ({
+      ...prevAxis,
       date,
-    });
+    }));
   };
-}
-
-function getSetLowerBound(
-  place: PlaceInfo,
-  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): Setter<number> {
-  return (lowerBound) =>
-    setPlace({
-      ...place,
-      lowerBound,
-    });
-}
-
-function getSetUpperBound(
-  place: PlaceInfo,
-  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): Setter<number> {
-  return (upperBound) =>
-    setPlace({
-      ...place,
-      upperBound,
-    });
 }
 
 export {

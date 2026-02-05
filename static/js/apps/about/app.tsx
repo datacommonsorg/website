@@ -20,10 +20,10 @@
 
 import { css, ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
+import theme from "theme";
 
 import { Section } from "../../components/elements/layout/section";
 import { Routes } from "../../shared/types/base";
-import theme from "../../theme/theme";
 import { Collaborations } from "./components/collaborations";
 import { Disclaimers } from "./components/disclaimers";
 import { SplashQuote } from "./components/splash_quote";

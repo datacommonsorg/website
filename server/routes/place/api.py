@@ -23,6 +23,7 @@ from flask import jsonify
 from flask import request
 
 from server.lib.cache import cache
+from server.lib.cache import cache_and_log_mixer_usage
 from server.lib.util import error_response
 from server.lib.util import log_execution_time
 from server.routes import TIMEOUT
@@ -214,14 +215,19 @@ async def related_places(place_dcid: str):
 
 @bp.route('/overview-table/<path:place_dcid>')
 @log_execution_time
-@cache.cached(timeout=TIMEOUT, query_string=True)
+# Log the mixer response IDs used to populate the table.
+# This allows the usage to be tracked in mixer usage logs because it is
+# a meaningful use of mixer results that are shown to users.
+@cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows = place_utils.fetch_overview_table_data(place_dcid)
-
-  return jsonify(PlaceOverviewTableApiResponse(data=data_rows))
+  data_rows, mixer_response_ids = place_utils.fetch_overview_table_data(
+      place_dcid)
+  response_data = PlaceOverviewTableApiResponse(
+      data=data_rows, mixer_response_ids=mixer_response_ids)
+  return jsonify(response_data)
 
 
 @bp.route('/summary/<path:place_dcid>')

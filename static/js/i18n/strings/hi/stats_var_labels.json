@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "जहरीली हवा से होने वाले कैंसर का खतरा"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "एक्यूआई"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "अल्कोहल की खपत"
   },
@@ -53,6 +59,24 @@
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का %)"
   },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "बिजली का शुल्क"
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "कार्बन डाइऑक्साइड (बड़े सोर्स, नॉन-बायोजनिक)"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "ग्रीनहाउस गैस (बड़े सोर्स, नॉन-बायोजनिक)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "मीथेन (बड़े सोर्स, नॉन-बायोजनिक)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "नाइट्रस ऑक्साइड (बड़े सोर्स, नॉन-बायोजनिक)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "बिजली का सालाना उत्पादन"
+  },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "आगज़नी"
   },
@@ -65,8 +89,11 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "हिंसक अपराधों की संख्या"
   },
-  "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "नफ़रत से जुड़े हिंसक अपराध"
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "दिव्यांगों के ख़िलाफ़ नफ़रत फैलाने वाले अपराध"
+  },
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
+    "defaultMessage": "जाति के आधार पर नफ़रत फैलाने वाले अपराध"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
     "defaultMessage": "लिंग के आधार पर नफ़रत फैलाने वाले अपराध"
@@ -77,14 +104,11 @@
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
     "defaultMessage": "धर्म के आधार पर नफ़रत फैलाने वाले अपराध"
   },
-  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "जाति के आधार पर नफ़रत फैलाने वाले अपराध"
-  },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
     "defaultMessage": "यौन रुझान के आधार पर नफ़रत फैलाने वाले अपराध"
   },
-  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "दिव्यांगों के ख़िलाफ़ नफ़रत फैलाने वाले अपराध"
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "नफ़रत से जुड़े हिंसक अपराध"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "चक्रवात"
@@ -614,6 +638,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19 की वजह से हुई मौतें"
   },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
+    "defaultMessage": "आरसीपी 2.6 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
+    "defaultMessage": "आरसीपी 4.5 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
+    "defaultMessage": "आरसीपी 6.0 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
+    "defaultMessage": "आरसीपी 8.5 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "प्रजनन दर"
   },
@@ -628,6 +664,15 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "औसत उम्र"
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "डीज़ल पीएम"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "ओज़ोन"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "PM2.5"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "कामकाजी व्यक्ति को हर दिन मिलने वाला वेतन"
@@ -716,6 +761,9 @@
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "पुरुष"
   },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "पीडीएसआई"
+  },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "महिला"
   },
@@ -791,6 +839,9 @@
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "शहरी"
   },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "पानी निकाले जाने की दर"
+  },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "बौद्ध"
   },
@@ -814,56 +865,5 @@
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "सिख"
-  },
-  "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "एक्यूआई"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "आरसीपी 2.6 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "आरसीपी 4.5 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "आरसीपी 6.0 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "आरसीपी 8.5 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
-  },
-  "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "PM2.5"
-  },
-  "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "ओज़ोन"
-  },
-  "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "डीज़ल पीएम"
-  },
-  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "कार्बन डाइऑक्साइड (बड़े सोर्स, नॉन-बायोजनिक)"
-  },
-  "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "मीथेन (बड़े सोर्स, नॉन-बायोजनिक)"
-  },
-  "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "नाइट्रस ऑक्साइड (बड़े सोर्स, नॉन-बायोजनिक)"
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "ग्रीनहाउस गैस (बड़े सोर्स, नॉन-बायोजनिक)"
-  },
-  "WithdrawalRate_Water": {
-    "defaultMessage": "पानी निकाले जाने की दर"
-  },
-  "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "पीडीएसआई"
-  },
-  "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "जहरीली हवा से होने वाले कैंसर का खतरा"
-  },
-  "Annual_Generation_Electricity": {
-    "defaultMessage": "बिजली का सालाना उत्पादन"
-  },
-  "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "बिजली का शुल्क"
   }
 }

@@ -50,14 +50,12 @@ function getSortedQueryIds(docInfoA: DocInfo, docInfoB: DocInfo): number[] {
 
 /** Returns the ID of the first unevaluated query. */
 async function getStartingQueryId(
-  props: AppPropType,
+  sheetIdA: string,
+  sheetIdB: string,
+  sessionId: string,
   sortedQueryIds: number[]
 ): Promise<number> {
-  const completedIds = await getRatedQueryIds(
-    props.sheetIdA,
-    props.sheetIdB,
-    props.sessionId
-  );
+  const completedIds = await getRatedQueryIds(sheetIdA, sheetIdB, sessionId);
   for (const queryId of sortedQueryIds) {
     if (!completedIds.includes(queryId)) {
       return queryId;
@@ -75,15 +73,24 @@ export function App(props: AppPropType): JSX.Element {
   useEffect(() => {
     let subscribed = true;
     if (combinedDocInfo?.sortedQueryIds.length) {
-      getStartingQueryId(props, combinedDocInfo.sortedQueryIds).then(
-        (startingQueryId) => {
-          if (!subscribed) return;
-          setSessionQueryId(startingQueryId);
-        }
-      );
+      getStartingQueryId(
+        props.sheetIdA,
+        props.sheetIdB,
+        props.sessionId,
+        combinedDocInfo.sortedQueryIds
+      ).then((startingQueryId) => {
+        if (!subscribed) return;
+        setSessionQueryId(startingQueryId);
+      });
     }
     return () => void (subscribed = false);
-  }, [combinedDocInfo]);
+  }, [
+    combinedDocInfo,
+    props.sheetIdA,
+    props.sheetIdB,
+    props.sessionId,
+    setSessionQueryId,
+  ]);
 
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
     props.sessionId,
@@ -124,7 +131,7 @@ export function App(props: AppPropType): JSX.Element {
     };
 
     signInWithGoogle(scopes, handleUserSignIn);
-  }, []);
+  }, [props.sheetIdA, props.sheetIdB]);
 
   const initialLoadCompleted = combinedDocInfo && sessionQueryId;
   return (

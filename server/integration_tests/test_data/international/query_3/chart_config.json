@@ -253,6 +253,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+                    ],
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in Spain",
+                    "statVarKey": [
+                      "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+                    ],
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
                     "title": "Domestic Material Consumption Per Unit of GDP in Spain",
@@ -278,6 +306,10 @@
           }
         ],
         "statVarSpec": {
+          "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange": {
+            "name": "Adjusted GDP Growth Rate (Quarter-over-Quarter)",
+            "statVar": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+          },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"

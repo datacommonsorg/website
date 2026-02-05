@@ -9,6 +9,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Student_MiddleSchool"
+                    ],
+                    "title": "Students in Middle School in Middle Schools of Sunnyvale (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Students in Middle School in Middle Schools of Sunnyvale"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_DetailedMiddleSchool"
                     ],
@@ -404,35 +425,6 @@
               }
             ],
             "title": "Student-Teacher Ratio in Middle Schools of Sunnyvale"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool"
-                    ],
-                    "title": "Population Currently Enrolled in School in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Currently Enrolled in School in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool"
-                    ],
-                    "title": "Population Currently Enrolled in School in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Currently Enrolled in School"
           }
         ],
         "statVarSpec": {
@@ -456,10 +448,6 @@
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
-          "Count_Person_EnrolledInSchool": {
-            "name": "Population Currently Enrolled in School",
-            "statVar": "Count_Person_EnrolledInSchool"
-          },
           "Count_Student_DirectCertificationLunch": {
             "name": "Count of Student: Direct Certification Lunch",
             "statVar": "Count_Student_DirectCertificationLunch"
@@ -467,6 +455,10 @@
           "Count_Student_FreeLunch": {
             "name": "Count of Student: Free Lunch",
             "statVar": "Count_Student_FreeLunch"
+          },
+          "Count_Student_MiddleSchool": {
+            "name": "Students in Middle School",
+            "statVar": "Count_Student_MiddleSchool"
           },
           "Percent_Student_AsAFractionOf_Count_Teacher": {
             "name": "Student-Teacher Ratio",
@@ -644,7 +636,38 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "MiddleSchool": [
+        {
+          "dcid": "nces/061029001127",
+          "name": "Cupertino Middle",
+          "types": [
+            "MiddleSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063543007867",
+          "name": "Marian A. Peterson Middle",
+          "types": [
+            "MiddleSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063846006464",
+          "name": "Columbia Middle",
+          "types": [
+            "MiddleSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063846006465",
+          "name": "Sunnyvale Middle",
+          "types": [
+            "MiddleSchool"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {
       "Count_Person_DetailedEnrolledInCollegeUndergraduateYears": {
@@ -710,20 +733,6 @@
           "dc/p4jzvj8q1lnmd",
           "dc/wk2vjrzfgyq5d",
           "dc/x9e7150515yt7"
-        ]
-      },
-      "Count_Person_EnrolledInSchool": {
-        "gender": [
-          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
-          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
-        ],
-        "race": [
-          "dc/4wdtyd2bbf9m9",
-          "dc/5qnjtqc0w783b",
-          "dc/8cnhmxe67qddf",
-          "dc/jbv3zc0ezvcyc",
-          "dc/km8en9ep7bwh6",
-          "dc/zq864lhfql079"
         ]
       },
       "dc/g8kg52zcxzw9f": {

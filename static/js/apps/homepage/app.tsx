@@ -20,6 +20,7 @@
 
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
+import theme from "theme";
 
 import Partners from "../../components/content/partners";
 import { Section } from "../../components/elements/layout/section";
@@ -32,7 +33,6 @@ import {
   SampleQuestionCategory,
   Topic,
 } from "../../shared/types/homepage";
-import theme from "../../theme/theme";
 import { BuildYourOwn } from "./components/build_your_own";
 import { HomeHero } from "./components/home_hero";
 import { SampleQuestions } from "./components/sample_questions";

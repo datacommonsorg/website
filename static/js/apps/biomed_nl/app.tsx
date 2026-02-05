@@ -32,7 +32,7 @@ import remarkGfm from "remark-gfm";
 import SimpleText from "../../components/content/simple_text";
 import { Search } from "../../components/elements/icons/search";
 import { Link, LinkBox } from "../../components/elements/link_box";
-import theme from "../../theme/theme";
+import theme from "theme";
 import { stringifyFn } from "../../utils/axios";
 import {
   getInArcSubsectionElementId,

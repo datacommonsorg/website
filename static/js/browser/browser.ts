@@ -20,6 +20,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { PropertyValues } from "../shared/api_response_types";
+import { WEBSITE_SURFACE_HEADER } from "../shared/constants";
 import { BrowserPage } from "./app";
 import { getPageDisplayType, PageDisplayType } from "./types";
 
@@ -39,7 +40,9 @@ window.addEventListener("load", (): void => {
     .get<PropertyValues>(`/api/node/propvals/out?prop=typeOf&dcids=${dcid}`)
     .then((resp) => resp.data);
   const numStatVarsPromise = axios
-    .get(`/api/place/variable/count?dcids=${dcid}`)
+    .get(`/api/place/variable/count?dcids=${dcid}`, {
+      headers: WEBSITE_SURFACE_HEADER,
+    })
     .then((resp) => resp.data[dcid])
     .catch(() => {
       return 0;

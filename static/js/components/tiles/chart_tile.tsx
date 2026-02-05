@@ -25,6 +25,11 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
+import {
+  ENABLE_CHART_HYPERLINK,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
+import { ObservationSpec } from "../../shared/observation_specs";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
@@ -46,6 +51,8 @@ interface ChartTileContainerProp {
   facets?: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -53,12 +60,17 @@ interface ChartTileContainerProp {
   // callback function for getting the chart data as a csv. Only used for
   // embedding.
   getDataCsv?: () => Promise<string>;
-  // Extra classes to add to the container.
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
   className?: string;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
   // Object used for the explore link
   exploreLink?: { displayText: string; url: string };
+  // Optional: Hyperlink
+  hyperlink?: string;
   // Optional: Error message
   errorMsg?: string;
   // Text to show in footer
@@ -73,6 +85,8 @@ interface ChartTileContainerProp {
   forwardRef?: MutableRefObject<HTMLDivElement | null>;
   // Optional: Chart height
   chartHeight?: number;
+  // Passed into calls to mixer to use in usage logs
+  surface: string;
 }
 
 export function ChartTileContainer(
@@ -117,6 +131,8 @@ export function ChartTileContainer(
               facets={props.facets}
               statVarToFacets={props.statVarToFacets}
               statVarSpecs={props.statVarSpecs}
+              statVarDateRanges={props.statVarDateRanges}
+              surface={props.surface}
             />
           )}
         </div>
@@ -126,10 +142,18 @@ export function ChartTileContainer(
         {props.children}
       </div>
       <ChartFooter
+        apiRoot={props.apiRoot}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
+        hyperlink={
+          isFeatureEnabled(ENABLE_CHART_HYPERLINK) ? props.hyperlink : undefined
+        }
         footnote={props.footnote}
-      ></ChartFooter>
+        getObservationSpecs={props.getObservationSpecs}
+        containerRef={containerRef}
+        surface={props.surface}
+      />
+
       {showEmbed && (
         <ChartEmbed
           container={containerRef.current}
@@ -137,6 +161,7 @@ export function ChartTileContainer(
           statVarSpecs={props.statVarSpecs}
           facets={props.facets}
           statVarToFacets={props.statVarToFacets}
+          statVarDateRanges={props.statVarDateRanges}
           apiRoot={props.apiRoot}
         />
       )}
@@ -157,7 +182,8 @@ export function ChartTileContainer(
       "",
       chartTitle,
       "",
-      Array.from(props.sources)
+      Array.from(props.sources),
+      props.surface
     );
   }
 }

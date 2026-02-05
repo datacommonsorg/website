@@ -89,6 +89,16 @@ export const loadSampleQuestions = (): string[] => {
     "Bolivia",
     "India",
     "Malaysia",
+    "Nigeria",
+    "Kenya",
+    "Ghana",
+    "Ethiopia",
+    "Tanzania",
+    "Senegal",
+    "Rwanda",
+    "Uganda",
+    "Mozambique",
+    "Côte d'Ivoire",
   ];
   sampleQuestions.sort(() => Math.random() - 0.5);
   countries.sort(() => Math.random() - 0.5);

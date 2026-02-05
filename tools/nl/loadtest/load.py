@@ -22,7 +22,7 @@ import requests
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('instance', 'bard', 'The instance name of the website')
+flags.DEFINE_string('instance', 'nl', 'The instance name of the website')
 flags.DEFINE_integer('parallel_requests', 1,
                      'Number of requests to run in parallel')
 flags.DEFINE_integer('total_requests', None, 'Total number of requests to run')

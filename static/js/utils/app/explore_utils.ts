@@ -22,9 +22,13 @@ import {
   DEFAULT_TOPIC,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import {
+  DATE_HIGHEST_COVERAGE,
+  DATE_LATEST,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { defaultDataCommonsWebClient } from "../data_commons_client";
+import { getPointWithin } from "../data_fetch_utils";
 import { getUpdatedHash } from "../url_utils";
 
 /**
@@ -81,24 +85,33 @@ export function getTopics(
  * @returns boolean
  */
 export async function highestCoverageDatesEqualLatestDates(
+  apiRoot: string,
   parentEntity: string,
   childType: string,
-  variables: string[]
+  variables: string[],
+  facetIds?: string[]
 ): Promise<boolean> {
-  const highestCoverageObservations =
-    await defaultDataCommonsWebClient.getObservationsPointWithin({
-      parentEntity,
-      childType,
-      variables,
-      date: DATE_HIGHEST_COVERAGE,
-    });
-  const latestObservations =
-    await defaultDataCommonsWebClient.getObservationsPointWithin({
-      parentEntity,
-      childType,
-      variables,
-      date: DATE_LATEST,
-    });
+  const highestCoverageObservations = await getPointWithin(
+    apiRoot,
+    childType,
+    parentEntity,
+    variables,
+    DATE_HIGHEST_COVERAGE,
+    undefined,
+    facetIds,
+    WEBSITE_SURFACE
+  );
+
+  const latestObservations = await getPointWithin(
+    apiRoot,
+    childType,
+    parentEntity,
+    variables,
+    DATE_LATEST,
+    undefined,
+    facetIds,
+    WEBSITE_SURFACE
+  );
 
   // Return false if we find any "latest observation dates" that differ from the
   // "highest coverage date"
@@ -106,7 +119,7 @@ export async function highestCoverageDatesEqualLatestDates(
     highestCoverageObservations.data
   );
   for (const variableDcid of highestCoverageVariableDcids) {
-    // Get the date of highest coverage for this variable. all entites are
+    // Get the date of highest coverage for this variable. All entities are
     // guaranteed to have the same date, so just check the first entity for its
     // date
     const entityDcid = Object.keys(

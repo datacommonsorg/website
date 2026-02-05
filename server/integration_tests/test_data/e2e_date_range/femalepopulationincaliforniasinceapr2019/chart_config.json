@@ -1453,8 +1453,7 @@
           "Count_MortalityEvent_AllOtherDiseases(Residual)_Female",
           "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female",
           "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female",
-          "Count_MortalityEvent_AlzheimersDisease_Female",
-          "Count_MortalityEvent_AorticAneurysmAndDissection_Female"
+          "Count_MortalityEvent_AlzheimersDisease_Female"
         ]
       },
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
@@ -1477,7 +1476,6 @@
         "age": [
           "Count_Person_15To44Years_Female",
           "Count_Person_21OrMoreYears_Female",
-          "Count_Person_60OrMoreYears_Female",
           "Count_Person_62OrMoreYears_Female",
           "Count_Person_65To66Years_Female",
           "Count_Person_67To69Years_Female",
@@ -1726,7 +1724,6 @@
         "age": [
           "Count_Person_15To44Years_Male",
           "Count_Person_21OrMoreYears_Male",
-          "Count_Person_60OrMoreYears_Male",
           "Count_Person_62OrMoreYears_Male",
           "Count_Person_65To66Years_Male",
           "Count_Person_67To69Years_Male",

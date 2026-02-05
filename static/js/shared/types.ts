@@ -198,6 +198,11 @@ declare global {
   }
 }
 
+/*
+  StatVarSpec has a corresponding client library interface in:
+    packages/client/src/data_commons_web_client_types.ts
+  When updating this interface, update the client library definition to match.
+ */
 export interface StatVarSpec {
   statVar: string;
   denom: string;

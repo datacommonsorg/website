@@ -16,5 +16,5 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.vis_scatter_test import VisScatterTestMixin
 
 
-class TestVisMap(VisScatterTestMixin, BaseDcWebdriverTest):
+class TestVisScatter(VisScatterTestMixin, BaseDcWebdriverTest):
   """Class to test scatter visualization page. Tests come from VisScatterTestMixin."""
