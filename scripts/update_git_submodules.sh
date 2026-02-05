@@ -15,20 +15,29 @@
 
 
 # Convenience script for updating git submodules
+# This will sync each submodule with the latest master branch from datacommonsorg
 # 
 # Requires: git to be installed
 #
 # Usage: ./scripts/update_git_submodules.sh from root directory
 
-# Find the remote associated with the main repo
-# If there are multiple remotes with 'datacommonsorg' in their URL, pick the first one
-upstream_remote=$(git remote -v | grep "datacommonsorg" | grep "(push)" | cut -f1 | head -n 1)
-if [ -z "$upstream_remote" ]; then
-  echo "No remote found with 'datacommonsorg' in its URL."
-  exit 1
-fi
-echo "Remote for main repo is '${upstream_remote}'".
+
+# Helper function to pull latest master branch from datacommonsorg remote
+pull_upstream_master() {
+  # Find the name of the remote associated with the datacommonsorg repo for the current submodule
+  # If there are multiple remotes with 'datacommonsorg' in their URL, pick the first one
+  upstream_remote=$(git remote -v | awk '/datacommonsorg/ && /\(push\)/ {print $1; exit}')
+  if [ -z "$upstream_remote" ]; then
+    echo "No remote found with 'datacommonsorg' in its URL."
+    exit 1
+  fi
+  echo "Remote for submodule is '${upstream_remote}'"
+
+  # Pull from master branch of datacommonsorg remote
+  git pull $upstream_remote master
+}
+export -f pull_upstream_master
 
 # Update submodules
-git submodule foreach git pull $upstream_remote master
+git submodule foreach 'bash -c pull_upstream_master'
 git submodule update --init --recursive
