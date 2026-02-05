@@ -23,9 +23,6 @@ import React, { RefObject, useState } from "react";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import {
-  isFeatureEnabled,
-} from "../../shared/feature_flags/util";
-import {
   GA_EVENT_TILE_DOWNLOAD,
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_TILE_TYPE,
@@ -99,15 +96,15 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
             )}
 
             {props.getObservationSpecs && (
-                <div className="outlink-item api-outlink">
-                  <ApiButton
-                    apiRoot={props.apiRoot}
-                    getObservationSpecs={props.getObservationSpecs}
-                    containerRef={props.containerRef}
-                    surface={props.surface}
-                  />
-                </div>
-              )}
+              <div className="outlink-item api-outlink">
+                <ApiButton
+                  apiRoot={props.apiRoot}
+                  getObservationSpecs={props.getObservationSpecs}
+                  containerRef={props.containerRef}
+                  surface={props.surface}
+                />
+              </div>
+            )}
 
             {props.exploreLink && (
               <div className="outlink-item explore-in-outlink">

@@ -29,9 +29,6 @@ import { NL_SOURCE_REPLACEMENTS } from "../../../constants/app/explore_constants
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import {
-  isFeatureEnabled,
-} from "../../../shared/feature_flags/util";
-import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
   triggerGAEvent,

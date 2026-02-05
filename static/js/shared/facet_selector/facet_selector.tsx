@@ -262,8 +262,8 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
           ${variant === "inline" ? "padding: 0;" : ""}
           &:hover:not(:disabled):not([aria-disabled]) {
             ${variant === "inline"
-            ? "text-decoration: underline; border: 1px solid transparent;"
-            : ""}
+              ? "text-decoration: underline; border: 1px solid transparent;"
+              : ""}
           }
         `}
       >
