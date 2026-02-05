@@ -66,12 +66,6 @@
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
   {
-    "name": "metadata_modal",
-    "enabled": true,
-    "owner": "nick-next",
-    "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
-  },
-  {
     "name": "page_overview_ga",
     "enabled": false,
     "owner": "javiervazquez",
