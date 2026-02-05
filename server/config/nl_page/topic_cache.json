@@ -3399,6 +3399,30 @@
     },
     {
       "dcid": [
+        "dc/svpg/NominalGDPByIndustry"
+      ],
+      "memberList": [
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_AgricultureForestryFishingSector",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_ConstructionSector",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_ElectricityGasSteamAirConditionSupply",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_FinanceService",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_MOSPIOtherService",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_ManufacturingSector",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_MiningQuarrying",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_PublicAdministrationAndDefenceOrMOSPIOtherService",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_TradeSector",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_TradeSectorOrTransportStorageSectorOrPublishingBroadcastingInformationActivities",
+        "Nominal_Amount_EconomicActivity_GrossValueAdded_TransportStorageSectorOrPublishingBroadcastingInformationActivities"
+      ],
+      "name": [
+        "Breakdown of nominal GDP by industry"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/NonEnglishLanguageAtHomeBreakdown"
       ],
       "memberList": [
@@ -5285,10 +5309,21 @@
         "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue",
         "dc/62n3z7mvfpjx1",
         "dc/qt7ewllmt3826",
-        "dc/zz6gwv838v9w"
+        "dc/zz6gwv838v9w",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_AgricultureForestryFishingSector",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_ConstructionSector",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_ElectricityGasSteamAirConditionSupply",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_FinanceService",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_MOSPIOtherService",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_ManufacturingSector",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_MiningQuarrying",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_PublicAdministrationAndDefenceOrMOSPIOtherService",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_TradeSector",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_TradeSectorOrTransportStorageSectorOrPublishingBroadcastingInformationActivities",
+        "RealValue_Amount_EconomicActivity_GrossValueAdded_TransportStorageSectorOrPublishingBroadcastingInformationActivities"
       ],
       "name": [
-        "Breakdown of GDP by Industry"
+        "Breakdown of real GDP by industry"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7840,6 +7875,21 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/IndividualIncomeByGender"
+      ],
+      "memberList": [
+        "Mean_WagesMonthly_Worker_Female",
+        "Mean_WagesMonthly_Worker_Male"
+      ],
+      "name": [
+        "Individual worker income by gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/IndividualIncomeByIndustry_IndividualIncomeByIndustryType"
       ],
       "memberList": [
@@ -7861,6 +7911,21 @@
       ],
       "name": [
         "Individual Income by Industry Type"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/IndividualIncomeByPlaceOfResidence"
+      ],
+      "memberList": [
+        "Mean_WagesMonthly_Worker_Urban",
+        "Mean_WagesMonthly_Worker_Rural"
+      ],
+      "name": [
+        "Individual worker income by place of residence"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -11419,7 +11484,9 @@
         "RealValue_GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
         "InflationAdjustedGDP",
         "dc/topic/GDPByIndustry",
-        "dc/topic/InflationAdjustedGDP"
+        "dc/topic/InflationAdjustedGDP",
+        "RealValue_GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+        "Nominal_GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
       ],
       "typeOf": [
         "Topic"
@@ -11433,7 +11500,8 @@
         "GDP by Industry"
       ],
       "relevantVariableList": [
-        "dc/svpg/RealGDPByIndustry"
+        "dc/svpg/RealGDPByIndustry",
+        "dc/svpg/NominalGDPByIndustry"
       ],
       "typeOf": [
         "Topic"
@@ -12598,7 +12666,9 @@
         "Monthly_Mean_Income_Person_Years14Onwards_Employed_AllJobs_IncomeActuallyReceived",
         "dc/topic/IndividualIncomeDistribution",
         "dc/topic/IndividualIncomeByIndustry",
-        "dc/topic/HouseholdIncomeDistribution"
+        "dc/topic/HouseholdIncomeDistribution",
+        "dc/topic/IndividualIncomeByPlaceOfResidence",
+        "dc/topic/IndividualIncomeByGender"
       ],
       "typeOf": [
         "Topic"
@@ -12622,6 +12692,20 @@
     },
     {
       "dcid": [
+        "dc/topic/IndividualIncomeByGender"
+      ],
+      "name": [
+        "Individual income by gender"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/IndividualIncomeByGender"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/IndividualIncomeByIndustry"
       ],
       "name": [
@@ -12629,6 +12713,20 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/IndividualIncomeByIndustry_IndividualIncomeByIndustryType"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/IndividualIncomeByPlaceOfResidence"
+      ],
+      "name": [
+        "Individual income by place of residence"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/IndividualIncomeByPlaceOfResidence"
       ],
       "typeOf": [
         "Topic"
