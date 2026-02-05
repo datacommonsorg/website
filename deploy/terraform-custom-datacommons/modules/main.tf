@@ -212,7 +212,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       }
 
       resources {
-        cpu_idle = false
+        cpu_idle = var.dc_web_service_cpu_idle
         limits = {
           cpu    = var.dc_web_service_cpu
           memory = var.dc_web_service_memory

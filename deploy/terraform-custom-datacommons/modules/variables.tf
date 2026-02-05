@@ -187,6 +187,12 @@ variable "make_dc_web_service_public" {
   default     = true
 }
 
+variable "dc_web_service_cpu_idle" {
+  description = "Whether CPU is only allocated during request processing (request-based billing). When true, enables request-based billing with lower costs but CPU is throttled between requests."
+  type        = bool
+  default     = true
+}
+
 #  Data Commons Cloud Run job variables
 variable "dc_data_job_image" {
   description = "The container image for the data job"
