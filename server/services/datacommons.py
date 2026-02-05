@@ -35,6 +35,7 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
+from shared.lib import constants
 from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
 from shared.lib.constants import SURFACE_HEADER_NAME
@@ -373,7 +374,7 @@ def v2event(node, prop):
   return post(url, {"node": node, "property": prop})
 
 
-def _extract_place_info(node_response_item: Dict, type_ranking: Dict) -> Dict:
+def _extract_place_info(node_response_item: Dict) -> Dict:
   """Extracts place info (name, type) from a V2 Node response item."""
   info = {}
   # Extract name
@@ -388,7 +389,7 @@ def _extract_place_info(node_response_item: Dict, type_ranking: Dict) -> Dict:
       chosen_type = types[0].get("dcid", "")
       for t in types:
         t_dcid = t.get("dcid", "")
-        if t_dcid in type_ranking:
+        if t_dcid in constants.PLACE_TYPE_RANK:
           chosen_type = t_dcid
           break
       info["type"] = chosen_type
@@ -397,32 +398,7 @@ def _extract_place_info(node_response_item: Dict, type_ranking: Dict) -> Dict:
 
 def get_place_info(place_dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
-  # Define a rank for sorting parents (City -> State -> Country)
-  # Smaller number means "smaller" place (child).
-  place_type_rank = {
-      "CensusZipCodeTabulationArea": 1,
-      "AdministrativeArea5": 2,
-      "AdministrativeArea4": 2,
-      "Village": 5,
-      "City": 5,
-      "Town": 5,
-      "Borough": 5,
-      "AdministrativeArea3": 5,
-      "County": 10,
-      "AdministrativeArea2": 10,
-      "EurostatNUTS3": 10,
-      "CensusDivision": 15,
-      "State": 20,
-      "AdministrativeArea1": 20,
-      "EurostatNUTS2": 20,
-      "EurostatNUTS1": 20,
-      "Country": 30,
-      "CensusRegion": 35,
-      "GeoRegion": 38,
-      "Continent": 40,
-      "Place": 50,
-  }
-
+  
   # Step 1: Fetch details for the requested nodes
   place_node_resp = v2node(place_dcids, "->[name, typeOf, containedInPlace]")
 
@@ -432,7 +408,7 @@ def get_place_info(place_dcids: List[str]) -> Dict:
 
   if "data" in place_node_resp:
     for dcid, data in place_node_resp["data"].items():
-      info = {"self": _extract_place_info(data, place_type_rank), "parents": []}
+      info = {"self": _extract_place_info(data), "parents": []}
 
       # Extract parents
       parents = []
@@ -451,7 +427,7 @@ def get_place_info(place_dcids: List[str]) -> Dict:
     parent_node_resp = v2node(list(unique_parent_dcids), "->[name, typeOf]")
     if "data" in parent_node_resp:
       for dcid, data in parent_node_resp["data"].items():
-        p_info = _extract_place_info(data, place_type_rank)
+        p_info = _extract_place_info(data)
         p_info["dcid"] = dcid
         parent_info_map[dcid] = p_info
 
@@ -470,7 +446,7 @@ def get_place_info(place_dcids: List[str]) -> Dict:
       # Sort parents
       entry["info"]["parents"] = sorted(
           parents_list,
-          key=lambda x: place_type_rank.get(x.get("type", ""), 100))
+          key=lambda x: constants.PLACE_TYPE_RANK.get(x.get("type", ""), 100))
 
       result_data.append(entry)
 
