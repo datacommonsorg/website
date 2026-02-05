@@ -18,21 +18,17 @@
  * Helper functions for the place selector on our visualization tools
  */
 
-import _ from "lodash";
-
-import {
-  EARTH_NAMED_TYPED_PLACE,
-  USA_PLACE_DCID,
-} from "../../../shared/constants";
 import { NamedTypedPlace } from "../../../shared/types";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../../utils/place_utils";
-import { isChildPlaceOf } from "../../shared_util";
 import {
-  CHILD_PLACE_TYPES,
-  USA_CHILD_PLACE_TYPES,
+  AA1_AA2_CHILD_PLACE_TYPES,
+  AA1_AA2_PLACES,
+  ALL_PLACE_CHILD_TYPES,
+  CHILD_PLACE_TYPE_MAPPING,
+  EUROPE_CHILD_PLACE_TYPES,
 } from "./place_select_constants";
 
 type NamedTypedCallbackFn = (place: NamedTypedPlace) => void;
@@ -69,29 +65,39 @@ function getEnclosedPlaceTypes(
   selectedPlace: NamedTypedPlace,
   parentPlaces: NamedTypedPlace[]
 ): string[] {
-  if (selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    return CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]];
-  }
-  if (_.isEmpty(selectedPlace.types)) {
-    return [];
-  }
-  const isUSPlace = isChildPlaceOf(
-    selectedPlace.dcid,
-    USA_PLACE_DCID,
-    parentPlaces
-  );
-  for (const type of selectedPlace.types) {
-    if (isUSPlace) {
-      if (type in USA_CHILD_PLACE_TYPES) {
-        return USA_CHILD_PLACE_TYPES[type];
+  let enclosedChildTypes = {};
+  if (selectedPlace.types.indexOf("Eurostat") === 0) {
+    // If place is a Eurostat place, use the europe child place types
+    enclosedChildTypes = EUROPE_CHILD_PLACE_TYPES;
+  } else {
+    // Iterate through parent places (including the current place) to figure out
+    // which child place type mapping to use.
+    for (const parentPlace of [selectedPlace, ...parentPlaces]) {
+      if (parentPlace.dcid in CHILD_PLACE_TYPE_MAPPING) {
+        enclosedChildTypes = CHILD_PLACE_TYPE_MAPPING[parentPlace.dcid];
+        break;
       }
-    } else {
-      if (type in CHILD_PLACE_TYPES) {
-        return CHILD_PLACE_TYPES[type];
+      if (AA1_AA2_PLACES.has(parentPlace.dcid)) {
+        enclosedChildTypes = AA1_AA2_CHILD_PLACE_TYPES;
+        break;
       }
     }
   }
-  return [];
+  const childPlaceTypes = [];
+  for (const type of selectedPlace.types) {
+    if (type in enclosedChildTypes) {
+      childPlaceTypes.push(...enclosedChildTypes[type]);
+      break;
+    }
+  }
+  for (const type in ALL_PLACE_CHILD_TYPES) {
+    if (selectedPlace.types.indexOf(type) > -1) {
+      childPlaceTypes.push(...ALL_PLACE_CHILD_TYPES[type]);
+    }
+  }
+  return childPlaceTypes.filter(
+    (type, idx) => childPlaceTypes.indexOf(type) === idx
+  );
 }
 
 /**
