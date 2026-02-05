@@ -35,9 +35,9 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
-from shared.lib import constants
 from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
+from shared.lib.constants import PLACE_TYPE_RANK
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
 
@@ -389,7 +389,7 @@ def _extract_place_info(node_response_item: Dict) -> Dict:
       chosen_type = types[0].get("dcid", "")
       for t in types:
         t_dcid = t.get("dcid", "")
-        if t_dcid in constants.PLACE_TYPE_RANK:
+        if t_dcid in PLACE_TYPE_RANK:
           chosen_type = t_dcid
           break
       info["type"] = chosen_type
@@ -446,7 +446,7 @@ def get_place_info(place_dcids: List[str]) -> Dict:
       # Sort parents
       entry["info"]["parents"] = sorted(
           parents_list,
-          key=lambda x: constants.PLACE_TYPE_RANK.get(x.get("type", ""), 100))
+          key=lambda x: PLACE_TYPE_RANK.get(x.get("type", ""), 100))
 
       result_data.append(entry)
 
