@@ -402,6 +402,9 @@ def get_place_info(place_dcids: List[str]) -> Dict:
   # Step 1: Fetch details for the requested nodes
   place_node_resp = v2node(place_dcids, "->[name, typeOf, containedInPlace]")
 
+  if "data" not in place_node_resp:
+    logger.warning("V2 Node API response missing 'data' key.")
+
   # Intermediate storage
   place_hierarchy_map = {}
   unique_parent_dcids = set()
@@ -526,6 +529,11 @@ def get_series_dates(parent_place_dcid, child_place_type, variable_dcids):
   resp = post(url, req)
 
   # Aggregate counts locally
+  if "byVariable" not in resp:
+    logger.warning("V2 Observation API response missing 'byVariable' key.")
+  if "facets" not in resp:
+    logger.warning("V2 Observation API response missing 'facets' key.")
+
   observations_by_variable = resp.get("byVariable", {})
   facets = resp.get("facets", {})
 
