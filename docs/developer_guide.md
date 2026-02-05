@@ -281,8 +281,8 @@ Once you have your hashes, run the cloud deploy script.
 ```bash
 # Set your hashes (include the "dev-" prefix)
 # Example: website_hash="dev-72c634f"
-website_hash=
-mixer_hash=
+website_hash=dev-ac24b1f
+mixer_hash=56ad581
 
 # Deploy BOTH Website and Mixer to datcom-website-dev using datacommons-website-dev Delivery pipeline
 ./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
