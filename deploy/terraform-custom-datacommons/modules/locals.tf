@@ -66,11 +66,11 @@ locals {
     },
     {
       name  = "REDIS_HOST"
-      value = try(local.redis_instance.host, "")
+      value = var.redis_host != null ? var.redis_host : try(local.redis_instance.host, "")
     },
     {
       name  = "REDIS_PORT"
-      value = try(local.redis_instance.port, "")
+      value = var.redis_port != null ? var.redis_port : try(tostring(local.redis_instance.port), "")
     }
   ]
 

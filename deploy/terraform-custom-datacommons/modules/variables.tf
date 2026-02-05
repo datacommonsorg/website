@@ -268,3 +268,23 @@ variable "redis_replica_count" {
   type        = number
   default     = 1
 }
+
+# ONE overrides
+
+variable "flask_env" {
+  description = "FLASK_ENV value for the Cloud Run service (e.g. 'custom', 'one')"
+  type        = string
+  default     = "one"
+}
+
+variable "redis_host" {
+  description = "Override Redis host (e.g. to share a single instance across environments). When set, enable_redis should be false."
+  type        = string
+  default     = null
+}
+
+variable "redis_port" {
+  description = "Override Redis port (used with redis_host)"
+  type        = string
+  default     = null
+}

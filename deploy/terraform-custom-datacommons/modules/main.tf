@@ -21,6 +21,11 @@ provider "google" {
   billing_project       = local.billing_project_id
 }
 
+# Look up the numeric project ID (avoids API key replacement drift)
+data "google_project" "current" {
+  project_id = var.project_id
+}
+
 # Reference the default VPC network
 data "google_compute_network" "default" {
   name = var.vpc_network_name
@@ -152,7 +157,7 @@ resource "random_id" "api_key_suffix" {
 resource "google_apikeys_key" "maps_api_key" {
   name         = "${var.namespace}-maps-api-key-${random_id.api_key_suffix.hex}"
   display_name = "${var.namespace}-maps-api-key-${random_id.api_key_suffix.hex}"
-  project      = var.project_id
+  project      = data.google_project.current.number
 
   restrictions {
     api_targets {
@@ -260,7 +265,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
       env {
         name  = "FLASK_ENV"
-        value = "custom"
+        value = var.flask_env
       }
 
       env {

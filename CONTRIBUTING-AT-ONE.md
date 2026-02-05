@@ -55,6 +55,10 @@ Run `just` or `just --list` for the full list. Here are the most common ones:
 | `just sync` | Guided upstream sync from `customdc_stable` |
 | `just sync-auto` | Automatic upstream sync (merge + submodule update) |
 | `just deploy` | Build and push to Artifact Registry |
+| `just deploy-staging` | Build, push, and deploy to staging via Terraform |
+| `just deploy-prod` | Build, push, and deploy to production via Terraform |
+| `just tf-plan-staging` | Preview staging infrastructure changes |
+| `just tf-plan-prod` | Preview production infrastructure changes |
 | `just status` | Show current branch, remotes, Docker images |
 | `just stop` | Stop running containers |
 | `just clean` | Remove built Docker images |
@@ -268,17 +272,27 @@ These prompts additionally ask for:
 
 ## Deployment
 
-Staging deployment happens automatically when you push to the `staging` branch.
-
-For manual deployment:
+To deploy to staging or production, use the combined commands that build the Docker image, push it to Artifact Registry (tagged with the git hash), and apply Terraform:
 
 ```bash
-# Build and push to Artifact Registry
-just deploy
+# Preview what Terraform will change first
+just tf-plan-staging    # or just tf-plan-prod
 
-# Or step by step:
-just build   # Build image
-just push    # Tag and push to registry
+# Build, push, and deploy
+just deploy-staging     # or just deploy-prod
+```
+
+These commands:
+1. Build the Docker image locally
+2. Tag it as `staging-<git-hash>` (or `prod-<git-hash>`)
+3. Push to Artifact Registry
+4. Select the correct Terraform workspace
+5. Run `terraform apply` with the environment's tfvars
+
+For pushing to the registry only (without Terraform apply):
+
+```bash
+just deploy   # Build and push as :latest
 ```
 
 The registry path is configured via `DOCKER_REGISTRY` in your env file. Default: `us-east4-docker.pkg.dev/one-data-commons/datacommons/website-compose`.
@@ -289,3 +303,73 @@ The registry path is configured via `DOCKER_REGISTRY` in your env file. Default:
 - `staging` — Auto-deploys to staging environment
 - `customdc_stable` — Tracks upstream stable releases
 - Feature branches — Branch off `master`, merge back via PR
+
+## Infrastructure (Terraform)
+
+Infrastructure is managed with Terraform in `deploy/terraform-custom-datacommons/modules/`.
+
+### Workspaces
+
+We use Terraform workspaces to manage staging and production in the same GCP project:
+
+| Workspace | Namespace | tfvars file |
+|-----------|-----------|-------------|
+| `STAGING` | `staging` | `terraform.tfvars` |
+| `PROD`    | `prod`    | `terraform_prod.tfvars` |
+
+Select a workspace before running any terraform command:
+
+```bash
+cd deploy/terraform-custom-datacommons/modules
+terraform workspace select STAGING   # or PROD
+terraform plan -var-file=terraform.tfvars   # or terraform_prod.tfvars
+```
+
+### State Management
+
+Terraform state is stored **locally** in `terraform.tfstate.d/` (one file per workspace). These files are **gitignored** because they contain secrets (database passwords, API keys).
+
+If state is ever lost (new machine, accidental deletion), use the import script to rebuild it:
+
+```bash
+terraform workspace select STAGING
+bash import_workspace.sh staging
+
+terraform workspace select PROD
+bash import_workspace.sh prod
+```
+
+The script is idempotent — it skips resources already in state.
+
+### Shared Redis
+
+Staging creates and owns the Redis instance. Production shares it via override variables instead of creating a separate instance:
+
+```hcl
+# terraform_prod.tfvars
+enable_redis = false
+redis_host = "10.67.34.172"
+redis_port = "6379"
+```
+
+### ONE Overrides vs Upstream
+
+The terraform module is upstream code with three ONE-specific changes:
+
+| File | Change | Why |
+|------|--------|-----|
+| `main.tf` | `data "google_project" "current"` + API key uses `data.google_project.current.number` | Prevents API key replacement on every apply (project name vs numeric ID drift) |
+| `main.tf` | `FLASK_ENV = var.flask_env` instead of `"custom"` | ONE needs `FLASK_ENV=one` for custom Flask config |
+| `locals.tf` | `REDIS_HOST`/`REDIS_PORT` support override variables | Allows sharing a single Redis instance across environments |
+| `variables.tf` | Added `flask_env`, `redis_host`, `redis_port` | Support variables for the above changes |
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `main.tf` | All GCP resource definitions (Cloud Run, SQL, Redis, IAM, etc.) |
+| `variables.tf` | Variable declarations with defaults |
+| `locals.tf` | Computed values, shared env vars for Cloud Run |
+| `terraform.tfvars` | Staging variable values |
+| `terraform_prod.tfvars` | Production variable values |
+| `import_workspace.sh` | Disaster recovery: rebuild state from live GCP resources |

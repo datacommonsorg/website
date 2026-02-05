@@ -766,8 +766,68 @@ push: _check-env
     @echo "Pushing to {{DOCKER_REGISTRY}}:{{IMAGE_TAG}}..."
     docker push {{DOCKER_REGISTRY}}:{{IMAGE_TAG}}
 
-# Build and push in one step
+# Build and push in one step (tags as :latest -- prefer deploy-staging or deploy-prod)
 deploy: build push
+
+# ── Terraform & Deployment ────────────────────
+
+TF_DIR := "deploy/terraform-custom-datacommons/modules"
+TF_STAGING_VARS := TF_DIR / "terraform.tfvars"
+TF_PROD_VARS := TF_DIR / "terraform_prod.tfvars"
+
+# Preview staging infrastructure changes
+tf-plan-staging:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TAG="staging-$(git rev-parse --short HEAD)"
+    cd {{TF_DIR}} && terraform workspace select STAGING \
+      && terraform plan \
+      -var-file={{justfile_directory()}}/{{TF_STAGING_VARS}} \
+      -var="dc_web_service_image={{DOCKER_REGISTRY}}:$TAG"
+
+# Preview production infrastructure changes
+tf-plan-prod:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TAG="prod-$(git rev-parse --short HEAD)"
+    cd {{TF_DIR}} && terraform workspace select PROD \
+      && terraform plan \
+      -var-file={{justfile_directory()}}/{{TF_PROD_VARS}} \
+      -var="dc_web_service_image={{DOCKER_REGISTRY}}:$TAG"
+
+# Build, push, and deploy to staging (image tagged staging-<git-hash>)
+deploy-staging: build
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TAG="staging-$(git rev-parse --short HEAD)"
+    IMAGE_REF="{{DOCKER_REGISTRY}}:$TAG"
+    echo "Tagging {{IMAGE}} -> $IMAGE_REF..."
+    docker tag {{IMAGE}} "$IMAGE_REF"
+    echo "Pushing $IMAGE_REF..."
+    docker push "$IMAGE_REF"
+    echo ""
+    echo "Applying terraform for staging (staging-datacommons-web-service)..."
+    cd {{TF_DIR}} && terraform workspace select STAGING \
+      && terraform apply \
+      -var-file={{justfile_directory()}}/{{TF_STAGING_VARS}} \
+      -var="dc_web_service_image=$IMAGE_REF"
+
+# Build, push, and deploy to production (image tagged prod-<git-hash>)
+deploy-prod: build
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TAG="prod-$(git rev-parse --short HEAD)"
+    IMAGE_REF="{{DOCKER_REGISTRY}}:$TAG"
+    echo "Tagging {{IMAGE}} -> $IMAGE_REF..."
+    docker tag {{IMAGE}} "$IMAGE_REF"
+    echo "Pushing $IMAGE_REF..."
+    docker push "$IMAGE_REF"
+    echo ""
+    echo "Applying terraform for production (prod-datacommons-web-service)..."
+    cd {{TF_DIR}} && terraform workspace select PROD \
+      && terraform apply \
+      -var-file={{justfile_directory()}}/{{TF_PROD_VARS}} \
+      -var="dc_web_service_image=$IMAGE_REF"
 
 # ── Utilities ─────────────────────────────────
 
