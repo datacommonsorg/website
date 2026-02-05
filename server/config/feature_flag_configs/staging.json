@@ -75,8 +75,7 @@
     "name": "standardized_vis_tool",
     "enabled": true,
     "owner": "juliawu",
-    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages",
-    "rollout_percentage": 20
+    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
   {
     "name": "vai_for_statvar_search",
