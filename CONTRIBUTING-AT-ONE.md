@@ -57,6 +57,8 @@ Run `just` or `just --list` for the full list. Here are the most common ones:
 | `just deploy` | Build and push to Artifact Registry |
 | `just deploy-staging` | Build, push, and deploy to staging via Terraform |
 | `just deploy-prod` | Build, push, and deploy to production via Terraform |
+| `just tf-setup-staging` | First-time terraform setup for staging (generates tfvars + imports state) |
+| `just tf-setup-prod` | First-time terraform setup for prod (generates tfvars + imports state) |
 | `just tf-plan-staging` | Preview staging infrastructure changes |
 | `just tf-plan-prod` | Preview production infrastructure changes |
 | `just status` | Show current branch, remotes, Docker images |
@@ -325,13 +327,45 @@ terraform workspace select STAGING   # or PROD
 terraform plan -var-file=terraform.tfvars   # or terraform_prod.tfvars
 ```
 
+### First-Time Setup (New Developer)
+
+Both tfvars files and terraform state are **gitignored** because they contain secrets. New developers need to generate them from the live GCP resources:
+
+```bash
+# Option 1: One-step setup (recommended)
+just tf-setup-staging   # generates tfvars + imports state
+just tf-setup-prod
+
+# Option 2: Manual steps
+cd deploy/terraform-custom-datacommons/modules
+
+# Copy template and fill in values (ask a team member for API keys)
+cp terraform.tfvars.example terraform.tfvars
+cp terraform_prod.tfvars.example terraform_prod.tfvars
+# Edit the files...
+
+# Import state from live GCP resources
+terraform workspace select STAGING && bash import_workspace.sh staging
+terraform workspace select PROD && bash import_workspace.sh prod
+```
+
+The `just tf-setup-*` commands query GCP for current resource configurations and generate matching tfvars files, then import state. This is the easiest way to get started.
+
 ### State Management
 
 Terraform state is stored **locally** in `terraform.tfstate.d/` (one file per workspace). These files are **gitignored** because they contain secrets (database passwords, API keys).
 
-If state is ever lost (new machine, accidental deletion), use the import script to rebuild it:
+If state is ever lost (new machine, accidental deletion), use the setup commands to rebuild:
 
 ```bash
+just tf-setup-staging
+just tf-setup-prod
+```
+
+Or manually:
+
+```bash
+cd deploy/terraform-custom-datacommons/modules
 terraform workspace select STAGING
 bash import_workspace.sh staging
 
@@ -339,7 +373,7 @@ terraform workspace select PROD
 bash import_workspace.sh prod
 ```
 
-The script is idempotent — it skips resources already in state.
+The import script is idempotent — it skips resources already in state.
 
 ### Shared Redis
 
@@ -370,6 +404,9 @@ The terraform module is upstream code with three ONE-specific changes:
 | `main.tf` | All GCP resource definitions (Cloud Run, SQL, Redis, IAM, etc.) |
 | `variables.tf` | Variable declarations with defaults |
 | `locals.tf` | Computed values, shared env vars for Cloud Run |
-| `terraform.tfvars` | Staging variable values |
-| `terraform_prod.tfvars` | Production variable values |
-| `import_workspace.sh` | Disaster recovery: rebuild state from live GCP resources |
+| `terraform.tfvars` | Staging variable values (gitignored) |
+| `terraform_prod.tfvars` | Production variable values (gitignored) |
+| `terraform.tfvars.example` | Staging template for new developers |
+| `terraform_prod.tfvars.example` | Production template for new developers |
+| `generate_tfvars.sh` | Generate tfvars from live GCP resources |
+| `import_workspace.sh` | Import terraform state from live GCP resources |

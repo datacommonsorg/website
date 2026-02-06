@@ -1,0 +1,45 @@
+# ONE Data Commons — STAGING Terraform Variables
+#
+# Copy this file to terraform.tfvars and fill in the values.
+# Alternatively, run: just tf-setup-staging
+#
+# See variables.tf for all available options and defaults.
+
+# ── Required ─────────────────────────────────────────────────────────────────
+
+project_id = "one-data-commons"
+namespace = "staging"
+dc_api_key = "YOUR_DC_API_KEY"
+
+# ── Region ───────────────────────────────────────────────────────────────────
+
+region = "northamerica-northeast1"
+
+# ── Cloud Run Service ────────────────────────────────────────────────────────
+
+# Image is usually set via `just deploy-staging`, this is a fallback
+dc_web_service_image = "us-east4-docker.pkg.dev/one-data-commons/datacommons/website-compose:latest"
+
+# Reduced resources for staging (saves ~$500/month vs prod settings)
+dc_web_service_cpu = "2"
+dc_web_service_memory = "8G"
+
+# Request-based billing (cheaper, CPU throttled between requests)
+dc_web_service_cpu_idle = true
+
+# ── Cloud Run Job ────────────────────────────────────────────────────────────
+
+dc_data_job_image = "gcr.io/datcom-ci/datacommons-data:latest"
+dc_data_job_timeout = "5400s"  # 90 minutes
+dc_data_job_cpu = "4"
+dc_data_job_memory = "16G"
+
+# ── Redis ────────────────────────────────────────────────────────────────────
+
+enable_redis = true
+redis_location_id = "northamerica-northeast1-a"
+redis_alternative_location_id = "northamerica-northeast1-b"
+
+# ── Database ─────────────────────────────────────────────────────────────────
+
+mysql_deletion_protection = true

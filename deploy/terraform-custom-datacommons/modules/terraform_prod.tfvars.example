@@ -1,0 +1,47 @@
+# ONE Data Commons — PRODUCTION Terraform Variables
+#
+# Copy this file to terraform_prod.tfvars and fill in the values.
+# Alternatively, run: just tf-setup-prod
+#
+# See variables.tf for all available options and defaults.
+
+# ── Required ─────────────────────────────────────────────────────────────────
+
+project_id = "one-data-commons"
+namespace = "prod"
+dc_api_key = "YOUR_DC_API_KEY"
+
+# ── Region ───────────────────────────────────────────────────────────────────
+
+region = "northamerica-northeast1"
+
+# ── Cloud Run Service ────────────────────────────────────────────────────────
+
+# Image is usually set via `just deploy-prod`, this is a fallback
+dc_web_service_image = "us-east4-docker.pkg.dev/one-data-commons/datacommons/website-compose:latest"
+
+# Full resources for production
+dc_web_service_cpu = "4"
+dc_web_service_memory = "16G"
+
+# Request-based billing with min 1 instance (cost-effective, no cold starts)
+dc_web_service_cpu_idle = true
+
+# ── Cloud Run Job ────────────────────────────────────────────────────────────
+
+dc_data_job_image = "gcr.io/datcom-ci/datacommons-data:latest"
+dc_data_job_timeout = "5400s"  # 90 minutes
+dc_data_job_cpu = "4"
+dc_data_job_memory = "16G"
+
+# ── Redis ────────────────────────────────────────────────────────────────────
+
+# Production shares staging's Redis instance (cost savings)
+# Get the IP from: gcloud redis instances describe staging-datacommons-redis-instance --region=northamerica-northeast1 --format="value(host)"
+enable_redis = false
+redis_host = "10.67.34.172"
+redis_port = "6379"
+
+# ── Database ─────────────────────────────────────────────────────────────────
+
+mysql_deletion_protection = true

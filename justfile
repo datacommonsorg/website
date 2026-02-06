@@ -775,6 +775,48 @@ TF_DIR := "deploy/terraform-custom-datacommons/modules"
 TF_STAGING_VARS := TF_DIR / "terraform.tfvars"
 TF_PROD_VARS := TF_DIR / "terraform_prod.tfvars"
 
+# Generate staging tfvars from live GCP resources
+tf-generate-staging:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{TF_DIR}}
+    bash generate_tfvars.sh staging
+
+# Generate prod tfvars from live GCP resources
+tf-generate-prod:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{TF_DIR}}
+    bash generate_tfvars.sh prod
+
+# Import existing GCP resources into staging terraform state
+tf-import-staging:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{TF_DIR}}
+    terraform workspace select STAGING || terraform workspace new STAGING
+    bash import_workspace.sh staging
+
+# Import existing GCP resources into prod terraform state
+tf-import-prod:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{TF_DIR}}
+    terraform workspace select PROD || terraform workspace new PROD
+    bash import_workspace.sh prod
+
+# Full staging terraform setup: generate tfvars + import state
+tf-setup-staging: tf-generate-staging tf-import-staging
+    @echo ""
+    @echo "Staging terraform setup complete!"
+    @echo "Run 'just tf-plan-staging' to verify."
+
+# Full prod terraform setup: generate tfvars + import state
+tf-setup-prod: tf-generate-prod tf-import-prod
+    @echo ""
+    @echo "Production terraform setup complete!"
+    @echo "Run 'just tf-plan-prod' to verify."
+
 # Preview staging infrastructure changes
 tf-plan-staging:
     #!/usr/bin/env bash
