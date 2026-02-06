@@ -1,0 +1,18 @@
+#explore {
+    align-self: center;
+    top: -5rem;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 89vh;
+    height: auto;
+}
+
+
+#screen {
+    width: 10rem;
+    background: transparent;
+}

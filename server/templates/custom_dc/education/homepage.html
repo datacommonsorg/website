@@ -1,0 +1,104 @@
+{%- extends BASE_HTML -%}
+{% from 'custom_dc/education/_macros.html' import metric_card, kpi_card %}
+
+{% set main_id = 'faq' %}
+{% set page_id = 'page-faq' %}
+{% set title = 'Frequently Asked Questions' %}
+
+
+{% block content %}
+<link href="{{url_for('static', filename='custom_dc/education/css/pages/_homepage.css')}}" rel="stylesheet">
+<!-- Data Commons Web Components -->
+<script src="https://datacommons.org/datacommons.js"></script>
+
+<!-- Hero Section -->
+<div class="hero-section" id="heroSection">
+  <div class="hero-content">
+    <h1 class="hero-title" id="descriptionTitle"></h1>
+    <p class="hero-description" id="descriptionBody"></p>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+  <!-- Filters -->
+  <div class="filters-card">
+    <div class="filter-label">
+      <span class="filter-label-icon">
+        <md-icon class="filter-icon-small">filter_alt</md-icon>
+      </span>
+      <span>Filters</span>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-text">Target Year:</span>
+      <md-outlined-select id="targetYear">
+        <md-select-option value="2025" selected>
+          <div slot="headline">2025</div>
+        </md-select-option>
+        <md-select-option value="2024">
+          <div slot="headline">2024</div>
+        </md-select-option>
+        <md-select-option value="2023">
+          <div slot="headline">2023</div>
+        </md-select-option>
+      </md-outlined-select>
+    </div>
+  </div>
+
+  <!-- Metrics Summary -->
+  <div class="metrics-header">
+    <h2 class="metrics-title">Key Metrics Overview</h2>
+    <p class="metrics-subtitle">Real-time performance indicators for your recruitment strategy</p>
+  </div>
+
+  <div class="metrics-grid">
+    {{ metric_card('blue', 'totalApplicantsLabel', 'Total Applicants', 'totalApplicants', 'Recruitment_Insights_Applicants', 'group') }}
+    {{ metric_card('green', 'avgOpportunityScoreLabel', 'Avg Opportunity Score', 'avgOpportunityScore', 'Recruitment_Insights_Opportunity_Score', 'trending_up') }}
+    {{ metric_card('yellow', 'avgApplicationsPerRegionLabel', 'Avg Applications per Region', 'avgApplicationsPerRegion', 'Recruitment_Insights_Avg_Applicants_Per_Region', 'target') }}
+    {{ metric_card('gray', 'avgHouseHoldIncomeLabel', 'Avg Household Income', 'avgHouseHoldIncome', 'Recruitment_Insights_Household_Income', 'attach_money') }}
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="main-grid">
+    <!-- Map Visualization -->
+    <div class="map-card">
+      <!-- Data Commons Map Widget -->
+      <datacommons-map id="dc-map" parentPlace="country/USA" childPlaceType="State" variable="Recruitment_Insights_Applicants_Per_Capita"
+                       date="2025" colors="#ff0000 #00ff00 #0000ff" allowZoom
+                       header="Recruitment Potential by State"></datacommons-map>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div>
+      <!-- Opportunity Cards -->
+      <div class="opportunity-card">
+        <div id="ranking-container">
+          <!-- Data Commons Ranking Widget -->
+          <datacommons-ranking id="dc-ranking" parentPlace="country/USA" childPlaceType="State"
+                               variable="Recruitment_Insights_Opportunity_Score" rankingCount="8" showMultiColumn
+                               lowestTitle="Top regions by their potential"
+                               variables="Recruitment_Insights_Applicants Recruitment_Insights_Opportunity_Score Recruitment_Insights_Household_Income" showExploreMore
+                               highestTitle="Opportunity Regions (Ranking)"></datacommons-ranking>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Performance Indicators -->
+  <div class="kpi-section">
+    <h2 class="card-title">Key Performance Indicators</h2>
+
+    <div class="kpi-grid kpi-grid-spacing">
+      {{ kpi_card('gray', 'acceptedEnrollmentsByYearLabel', 'Accepted Enrollments', 'acceptedEnrollmentsByYear', 'Recruitment_Insights_Accepted_Enrollments') }}
+      {{ kpi_card('green', 'highOpportunityRegionsLabel', 'High-Opportunity Regions', 'highOpportunityRegions', 'Recruitment_Insights_High_Opportunity_Regions_Count') }}
+      {{ kpi_card('yellow', 'regionsWithDecliningInterestLabel', 'Regions with Declining Interest', 'regionsWithDecliningInterest', 'Recruitment_Insights_Is_Declining_Interest_Region') }}
+    </div>
+  </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="module" src="{{url_for('static', filename='custom_dc/education/js/pages/homepage.js')}}"></script>
+
+{% endblock %}

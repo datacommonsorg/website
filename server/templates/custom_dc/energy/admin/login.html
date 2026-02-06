@@ -1,0 +1,83 @@
+{#-
+Copyright 2023 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Methane Insights</title>
+
+  <link rel="icon" id="faviconLogo" href="https://docs.datacommons.org/assets/images/favicon.png" type="image/png">
+
+  {% include 'custom_dc/energy/includes/head_common.html' %}
+
+  <link href="{{url_for('static', filename='custom_dc/energy/css/pages/_login.css')}}" rel="stylesheet">
+</head>
+
+<body>
+  <div class="header">
+    <div class="university-badge">
+      <md-icon id="domainLogo">check_box_outline_blank</md-icon>
+      <img id="domainLogoImg" class="login-image hidden" src="{{ url_for('admin_panel.domain_logo') }}" />
+      <span id="domainName">Methane Insights</span>
+    </div>
+    <p>Sign in to access methane insights</p>
+  </div>
+
+  <md-card>
+    <form id="loginForm">
+      <div class="form-field">
+        <label>Username</label>
+        <md-outlined-text-field placeholder="Enter your username" type="text" id="username" required>
+        </md-outlined-text-field>
+      </div>
+
+      <div class="form-field">
+        <label>Password</label>
+        <md-outlined-text-field placeholder="Enter your password" type="password" id="password" required>
+        </md-outlined-text-field>
+      </div>
+
+      <md-filled-button type="submit">
+        <md-icon slot="icon">login</md-icon>
+        Sign In
+      </md-filled-button>
+
+      <!-- Error Alert (Initially Hidden) -->
+      <div id="loginAlerts" class="form-error hidden" role="alert" aria-live="polite">
+        <span class="material-symbols-outlined form-error__icon">error</span>
+        <span id="errorMessage" class="form-error__text"></span>
+      </div>
+
+      <p class="support-text">
+        Need help? Contact <span id="contactEmail"></span>
+      </p>
+    </form>
+
+  </md-card>
+
+  <div class="footer-link">
+    <md-text-button href="{{ url_for('static.homepage') }}">
+      View as guest
+    </md-text-button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script type="module" src="{{url_for('static', filename='custom_dc/energy/js/pages/login.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+Node: dcid:Count_Person_HighRiskIssues
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Person
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+name: "High-risk issues (private, last 30 days)"
+
+Node: dcid:Count_Asset_WithRegulatoryOverlap
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Thing
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+name: "Assets with regulatory overlap (private)"
+
+# =====================================================
+# OIL & GAS LEASE STATISTICAL VARIABLES
+# Used by the Leases tab in the energy dashboard
+# =====================================================
+
+# Total count of oil and gas leases in a geographic area
+Node: dcid:Count_OilGasLease
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasLease
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+name: "Total Oil & Gas Leases"
+description: "Total number of oil and gas leases in the area"
+
+# Count of active oil and gas leases
+Node: dcid:Count_OilGasLease_Active
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasLease
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+operationalStatus: dcid:Active
+name: "Active Oil & Gas Leases"
+description: "Number of currently active oil and gas leases"
+
+# Count of idle oil and gas leases
+Node: dcid:Count_OilGasLease_Idle
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasLease
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+operationalStatus: dcid:Idle
+name: "Idle Oil & Gas Leases"
+description: "Number of idle oil and gas leases"
+
+# Count of abandoned oil and gas leases
+Node: dcid:Count_OilGasLease_Abandoned
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasLease
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+operationalStatus: dcid:Abandoned
+name: "Abandoned Oil & Gas Leases"
+description: "Number of abandoned oil and gas leases"
+
+# Count of wellhead assets
+Node: dcid:Count_OilGasAsset_Wellhead
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasAsset
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+assetType: dcid:Wellhead
+name: "Wellhead Assets"
+description: "Number of wellhead assets in the area"
+
+# Count of compressor station assets
+Node: dcid:Count_OilGasAsset_CompressorStation
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasAsset
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+assetType: dcid:CompressorStation
+name: "Compressor Station Assets"
+description: "Number of compressor station assets in the area"
+
+# Count of pipeline valve assets
+Node: dcid:Count_OilGasAsset_PipelineValve
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasAsset
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+assetType: dcid:PipelineValve
+name: "Pipeline Valve Assets"
+description: "Number of pipeline valve assets in the area"
+
+# Count of tank battery assets
+Node: dcid:Count_OilGasAsset_TankBattery
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasAsset
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+assetType: dcid:TankBattery
+name: "Tank Battery Assets"
+description: "Number of tank battery assets in the area"
+
+# Count of employees working on oil and gas leases
+Node: dcid:Count_Person_OilGasLeaseEmployee
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Person
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+employment: dcid:OilAndGasLease
+name: "Oil & Gas Lease Employees"
+description: "Number of employees working on oil and gas leases"
+
+# Last inspection date (encoded as YYYYMMDD integer)
+Node: dcid:Date_LastInspection_OilGasLease
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasLease
+measuredProperty: dcid:date
+statType: dcid:measuredValue
+name: "Last Inspection Date"
+description: "Date of last LDAR inspection (YYYYMMDD format)"
+
+# Days since last inspection
+Node: dcid:Count_DaysSinceLastInspection_OilGasLease
+typeOf: dcid:StatisticalVariable
+populationType: dcid:OilAndGasLease
+measuredProperty: dcid:count
+statType: dcid:measuredValue
+name: "Days Since Last Inspection"
+description: "Number of days since last LDAR inspection"

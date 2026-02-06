@@ -1,0 +1,141 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Status Box */
+.status-box {
+  border: 1px solid #E8EAED;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background: #F8F9FA;
+  margin-top: 1.5rem;
+  max-width: 42rem;
+}
+
+.status-box md-filter-chip {
+  --md-filter-chip-container-shape: 1rem;
+  pointer-events: none;
+}
+
+.status-chips-container {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.status-box .status-chip-success {
+  --md-filter-chip-container-color: #E6F4EA;
+  --md-filter-chip-label-text-color: #1E8E3E;
+  --md-filter-chip-icon-color: #1E8E3E;
+  --md-filter-chip-disabled-container-color: #E6F4EA;
+  --md-filter-chip-disabled-label-text-color: #1E8E3E;
+  --md-filter-chip-disabled-icon-color: #1E8E3E;
+}
+
+.status-box .status-chip-error {
+  --md-filter-chip-container-color: #FCE8E6;
+  --md-filter-chip-label-text-color: #C5221F;
+  --md-filter-chip-icon-color: #C5221F;
+  --md-filter-chip-disabled-container-color: #FCE8E6;
+  --md-filter-chip-disabled-label-text-color: #C5221F;
+  --md-filter-chip-disabled-icon-color: #C5221F;
+}
+
+.status-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.status-label {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #5F6368;
+}
+
+.status-value {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #202124;
+}
+
+.status-value.error {
+  color: #EA4335;
+}
+
+.error-list {
+  padding-top: 1rem;
+  border-top: 1px solid #E8EAED;
+  margin-top: 1rem;
+}
+
+.error-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #202124;
+  margin: 0 0 0.5rem 0;
+}
+
+.error-subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #202124;
+  margin: 0.5rem 0 0.25rem 0;
+}
+
+.error-item {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #EA4335;
+  font-family: 'Courier New', monospace;
+  margin: 0.25rem 0 0 1rem;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border: 0.09375rem solid;
+  text-align: center;
+  min-width: 3.125rem;
+}
+
+.badge-high {
+  background-color: #E6F4EA;
+  color: #34A853;
+  border-color: #34A853;
+}
+
+.badge-medium {
+  background-color: #FEF7E0;
+  color: #F9AB00;
+  border-color: #F9AB00;
+}
+
+.badge-low {
+  background-color: #F8F9FA;
+  color: #9AA0A6;
+  border-color: #9AA0A6;
+}
+
+/* Utility Classes */
+.hidden {
+  display: none;
+}

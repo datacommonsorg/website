@@ -1,0 +1,32 @@
+{#-
+Copyright 2023 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+{# Import macros for use in this file #}
+{% from 'custom_dc/health/_macros.html' import material_web_imports, google_fonts_imports %}
+
+<!-- Meta Tags -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Material Design Web Components -->
+{{ material_web_imports() }}
+
+<!-- Google Fonts and Material Symbols -->
+{{ google_fonts_imports() }}
+
+<!-- Additional Common Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">

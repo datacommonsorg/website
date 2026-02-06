@@ -1,0 +1,15 @@
+#main-pane {
+    top: 0rem;
+}
+
+.main-content {
+    top: 5rem;
+}
+
+#explore.main-content {
+    padding-top: 0;
+}
+
+#screen {
+    background: transparent;
+}

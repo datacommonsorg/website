@@ -1,0 +1,157 @@
+:root {
+  /* Material Design 3 Color Tokens */
+  --md-sys-color-primary: #6750a4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #eaddff;
+  --md-sys-color-on-primary-container: #21005d;
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+  --md-sys-color-success: #4caf50;
+  --md-sys-color-on-success: #ffffff;
+  --md-sys-color-surface: #fffbfe;
+  --md-sys-color-on-surface: #1c1b1f;
+  --md-sys-color-surface-container: #f3edf7;
+  --md-sys-color-surface-container-high: #ece6f0;
+
+  /* Material Design 3 Elevation Tokens */
+  --md-sys-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+
+  /* Material Design 3 Typography Tokens */
+  --md-sys-typescale-body-medium-size: 0.875rem;
+  --md-sys-typescale-body-medium-weight: 400;
+  --md-sys-typescale-body-medium-line-height: 1.25rem;
+  --md-sys-typescale-label-large-size: 0.875rem;
+  --md-sys-typescale-label-large-weight: 500;
+  --md-sys-typescale-label-large-line-height: 1.25rem;
+
+  /* Material Design 3 Shape Tokens */
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+
+  /* Material Design 3 Spacing Tokens */
+  --md-sys-spacing-1: 4px;
+  --md-sys-spacing-2: 8px;
+  --md-sys-spacing-3: 12px;
+  --md-sys-spacing-4: 16px;
+  --md-sys-spacing-6: 24px;
+
+  /* Snackbar Configuration */
+  --snackbar-display-duration: 5000ms;
+  --snackbar-stagger-delay: 500ms;
+  --snackbar-animation-duration: 300ms;
+  --snackbar-animation-exit-duration: 250ms;
+}
+
+/* Snackbar Container - Top Right */
+.snackbar-container {
+  position: fixed;
+  top: var(--md-sys-spacing-4);
+  right: var(--md-sys-spacing-4);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-3);
+  pointer-events: none;
+}
+
+/* Material Design 3 Snackbar */
+.md3-snackbar {
+  display: none;
+  align-items: center;
+  gap: var(--md-sys-spacing-2);
+  min-width: 344px;
+  max-width: 672px;
+  padding: 14px var(--md-sys-spacing-4);
+  border-radius: var(--md-sys-shape-corner-extra-small);
+  box-shadow: var(--md-sys-elevation-level3);
+  pointer-events: auto;
+  animation: slideInRight var(--snackbar-animation-duration) cubic-bezier(0.2, 0, 0, 1);
+}
+
+.md3-snackbar.show {
+  display: flex;
+}
+
+.md3-snackbar.hide {
+  animation: slideOutRight var(--snackbar-animation-exit-duration) cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* Success Snackbar - Green */
+.md3-snackbar.success {
+  background-color: var(--md-sys-color-success);
+  color: var(--md-sys-color-on-success);
+}
+
+/* Error Snackbar - Red */
+.md3-snackbar.error {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+
+.md3-snackbar-content {
+  flex: 1;
+  font-size: var(--md-sys-typescale-body-medium-size);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+}
+
+.md3-snackbar-action {
+  margin-left: auto;
+  --md-icon-button-icon-color: var(--md-sys-color-on-success);
+}
+
+.md3-snackbar.error .md3-snackbar-action {
+  --md-icon-button-icon-color: var(--md-sys-color-on-error);
+}
+
+/* Stacked positioning - dynamic spacing */
+.snackbar-container .md3-snackbar:not(:first-child).show {
+  margin-top: 64px;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .md3-snackbar {
+    animation: none;
+  }
+
+  .md3-snackbar.hide {
+    animation: none;
+  }
+}
+
+/* Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Focus styles for accessibility */
+.md3-snackbar-action:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 50%;
+}

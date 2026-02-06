@@ -1,0 +1,127 @@
+{#-
+Copyright 2023 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+{# Material Web Components import map #}
+{% macro material_web_imports() %}
+<script type="importmap">
+  {
+    "imports": {
+      "@material/web/": "https://esm.run/@material/web/"
+    }
+  }
+</script>
+<script type="module">
+  import '@material/web/all.js';
+  import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+  document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+</script>
+{% endmacro %}
+
+{# Google Fonts and Material Symbols imports #}
+{% macro google_fonts_imports() %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endmacro %}
+
+{# Key indicator item for homepage health metrics #}
+{% macro key_indicator(icon, color, highlight_id, place, variable, label) %}
+<div class="key-indicator-item">
+  <div class="key-indicator-header">
+    <md-icon class="key-indicator-icon key-indicator-icon-{{ color }}">{{ icon }}</md-icon>
+    <div class="key-indicator-date"></div>
+  </div>
+  <div class="key-indicator-value key-indicator-value-{{ color }}">
+    <datacommons-highlight
+      id="{{ highlight_id }}"
+      place="{{ place }}"
+      variable="{{ variable }}"
+    ></datacommons-highlight>
+  </div>
+  <div class="key-indicator-label">{{ label }}</div>
+</div>
+{% endmacro %}
+
+{# Mega menu item for navigation dropdowns #}
+{% macro mega_menu_item(url, title, description, target='') %}
+<a href="{{ url }}" class="mega-menu-item" {% if target %}target="{{ target }}"{% endif %}>
+  <h4>{{ title }}</h4>
+  <p>{{ description }}</p>
+</a>
+{% endmacro %}
+
+{# Mega menu dropdown for navigation #}
+{% macro mega_menu_dropdown(dropdown_id, label, header_title, header_desc, items) %}
+<div class="nav-dropdown" id="{{ dropdown_id }}">
+  <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+    <span>{{ label }}</span>
+    <span class="material-symbols-outlined dropdown-arrow" aria-hidden="true">expand_more</span>
+  </button>
+  <div class="mega-menu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <h3>{{ header_title }}</h3>
+        <p>{{ header_desc }}</p>
+      </div>
+      <div class="mega-menu-items">
+        {% for item in items %}
+        <a href="{{ item.url }}" class="mega-menu-item" {% if item.target %}target="{{ item.target }}"{% endif %}>
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.description }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{# Form field macro for admin dashboard #}
+{% macro form_field(label, field_id, field_type='text', placeholder='', error_id='', value='', rows='') %}
+<div class="form-field">
+  <label class="form-label">{{ label }}</label>
+  {% if field_type == 'textarea' %}
+  <md-outlined-text-field id="{{ field_id }}" type="textarea" rows="{{ rows or 3 }}" placeholder="{{ placeholder }}" class="text-field-wide" value="{{ value }}"></md-outlined-text-field>
+  {% else %}
+  <md-outlined-text-field id="{{ field_id }}" type="{{ field_type }}" placeholder="{{ placeholder }}" value="{{ value }}"></md-outlined-text-field>
+  {% endif %}
+  {% if error_id %}
+  <p id="{{ error_id }}" class="field-error hidden">{{ caller() if caller else 'Required' }}</p>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{# Card header macro for dashboard cards #}
+{% macro card_header(icon, title, description='') %}
+<div class="card-header">
+  <div class="card-icon-wrapper">
+    <md-icon>{{ icon }}</md-icon>
+  </div>
+  <div class="card-title-group">
+    <h2 class="card-title">{{ title }}</h2>
+    {% if description %}
+    <p class="card-description">{{ description }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{# Status chip macro for success/error indicators #}
+{% macro status_chip(chip_id, label, chip_type='success') %}
+<md-filter-chip label="{{ label }}" id="{{ chip_id }}" class="status-chip-{{ chip_type }} hidden">
+</md-filter-chip>
+{% endmacro %}

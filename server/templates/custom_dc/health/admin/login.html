@@ -1,0 +1,68 @@
+{%- extends "custom_dc/health/admin/base.html" -%}
+
+{% set title = 'Login - Health Custom Data Commons Center' %}
+
+{% block head %}
+<link href="{{url_for('static', filename='custom_dc/health/css/pages/_login.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="header">
+    <div class="university-badge" >
+      <md-icon id="domainLogo">trending_up</md-icon>
+      <img id="domainLogoImg" class="login-image hidden" src="{{ url_for('admin_panel.domain_logo') }}" />
+      <span id="domainName">City Name</span>
+    </div>
+    <h1 id="descriptionTitle">Health Custom Data Commons</h1>
+    <p>Sign in to access health insights</p>
+  </div>
+
+  <md-card>
+    <form id="loginForm">
+      <div class="form-field">
+        <label>Username</label>
+        <md-outlined-text-field placeholder="Enter your username" type="text" id="username" required>
+        </md-outlined-text-field>
+      </div>
+
+      <div class="form-field">
+        <label>Password</label>
+        <md-outlined-text-field placeholder="Enter your password" type="password" id="password" required>
+        </md-outlined-text-field>
+      </div>
+
+      <md-filled-button type="submit">
+        <md-icon slot="icon">login</md-icon>
+        Sign In
+      </md-filled-button>
+
+      <!-- Error Alert (Initially Hidden) -->
+      <div id="loginAlerts" class="form-error hidden" role="alert" aria-live="polite">
+        <span class="material-symbols-outlined form-error__icon">error</span>
+        <span id="errorMessage" class="form-error__text"></span>
+      </div>
+
+      <p class="support-text">
+        Need help? Contact <span id="contactEmail"></span>
+      </p>
+    </form>
+
+  </md-card>
+
+  <div class="footer-link">
+    <md-text-button href="{{ url_for('static.homepage') }}">
+      View as guest
+    </md-text-button>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script type="module">
+  import { initializeLogin } from '{{ url_for('static', filename='custom_dc/health/js/pages/login.js') }}';
+
+  initializeLogin({
+    logoUrl: "{{ url_for('admin_panel.domain_logo') }}",
+    dashboardUrl: "{{ url_for('admin_panel.dashboard') }}"
+  });
+</script>
+{% endblock %}

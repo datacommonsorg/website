@@ -1,0 +1,49 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Material Design 3 System Colors */
+:root {
+  --md-sys-color-primary: #FFA115;
+  --md-sys-color-secondary: #8B5CF6;
+  --md-sys-color-error: #FF4D4F;
+  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-surface-variant: #F5F5F7;
+  --md-sys-color-surface-container: #f1f3f4;
+  --md-sys-color-on-surface: #1F1F1F;
+  --md-sys-color-on-surface-variant: #6B6B6B;
+  --md-sys-color-outline: #E0E0E0;
+  --md-sys-color-outline-variant: #F0F0F0;
+
+  /* Custom theme colors for severity indicators */
+  --critical: #FF4D4F;
+  --high: #FFA115;
+  --medium: #FFC350;
+  --low: #52C41A;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Border radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}

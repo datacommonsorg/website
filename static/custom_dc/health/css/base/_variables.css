@@ -1,0 +1,62 @@
+/**
+ * CSS Custom Properties (Design Tokens)
+ * Material Design 3 inspired color system
+ */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #1A73E8;
+  --color-primary-light: #4285F4;
+  --color-primary-dark: #1557B0;
+
+  /* Surface Colors */
+  --color-surface: #FFFFFF;
+  --color-surface-variant: #F8F9FA;
+  --color-background: #F8F9FA;
+
+  /* Text Colors */
+  --color-text-primary: #202124;
+  --color-text-secondary: #5F6368;
+  --color-text-tertiary: #9E9E9E;
+
+  /* Border Colors */
+  --color-border: #E8EAED;
+  --color-border-light: #E0E0E0;
+
+  /* Status Colors */
+  --color-error: #F44336;
+  --color-success: #4CAF50;
+  --color-warning: #FFC107;
+  --color-info: #00BCD4;
+
+  /* Health Indicator Colors */
+  --color-indicator-orange: #FF5722;
+  --color-indicator-blue: #1976D2;
+  --color-indicator-purple: #9C27B0;
+  --color-indicator-cyan: #00BCD4;
+  --color-indicator-green: #4CAF50;
+  --color-indicator-teal: #009688;
+  --color-indicator-red: #F44336;
+  --color-indicator-yellow: #FFC107;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2.25rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
+  --shadow-lg: 0 2px 4px rgba(33, 33, 33, 0.15);
+}

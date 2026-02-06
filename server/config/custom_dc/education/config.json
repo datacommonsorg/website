@@ -1,0 +1,151 @@
+{
+  "inputFiles": {
+    "recruitment_insights.csv": {
+      "entityType": "Place",
+      "provenance": "Recruitment Insights"
+    }
+  },
+  "variables": {
+    "Recruitment_Insights_Applicants": {
+      "name": "Applicants",
+      "description": "Total number of applicants.",
+      "searchDescriptions": [
+        "Total applicants",
+        "Number of applicants",
+        "Student applications count",
+        "Applicant volume",
+        "Admission applicants"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Accepted_Enrollments": {
+      "name": "Accepted Enrollments",
+      "description": "Total number of accepted enrollments for the selected year.",
+      "searchDescriptions": [
+        "Accepted enrollments",
+        "Number of accepted students",
+        "Enrollment acceptances",
+        "Students accepted",
+        "Accepted admission count"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Opportunity_Score": {
+      "name": "Score",
+      "description": "Composite opportunity score (0-100).",
+      "searchDescriptions": [
+        "Opportunity score",
+        "Recruitment potential score",
+        "Opportunity index",
+        "Region opportunity rating",
+        "Recruitment score"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Household_Income": {
+      "name": "Income",
+      "description": "Average household income (USD).",
+      "searchDescriptions": [
+        "Household income",
+        "Average income",
+        "Family income",
+        "Income level",
+        "Household earnings"
+      ],
+      "unit": "USDollar",
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_High_Opportunity_Markets": {
+      "name": "Recruitment_Insights_High_Opportunity_Markets",
+      "description": "Count KPI (typically for country).",
+      "searchDescriptions": [
+        "High opportunity markets",
+        "Promising markets count",
+        "Top recruitment markets",
+        "Strong potential markets",
+        "Best recruitment areas"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Avg_Applicants_Per_Region": {
+      "name": "Recruitment_Insights_Avg_Applications_Per_Region",
+      "description": "Mean number of applicants across regions (typically for country).",
+      "searchDescriptions": [
+        "Average applicants per region",
+        "Mean applicant count",
+        "Regional application average",
+        "Applicants per market",
+        "Average applications"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Applicants_Per_Capita": {
+      "name": "Applicants Per Capita",
+      "description": "Applicants per capita.",
+      "searchDescriptions": [
+        "Applicants per capita",
+        "Application rate",
+        "Per capita applicants",
+        "Population-adjusted applicants",
+        "Application density"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Is_High_Opportunity_Region": {
+      "name": "High-Opportunity Region Flag",
+      "description": "1 if region is classified as high-opportunity for the selected year, else 0.",
+      "searchDescriptions": [
+        "High opportunity region",
+        "Promising region flag",
+        "High potential area",
+        "Top recruitment region",
+        "Strong opportunity zone"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Is_Declining_Interest_Region": {
+      "name": "Declining Interest Region Flag",
+      "description": "1 if region shows declining interest for the selected year, else 0.",
+      "searchDescriptions": [
+        "Declining interest region",
+        "Decreasing applicants area",
+        "Falling interest zone",
+        "Downward trend region",
+        "Dropping applications area"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_High_Opportunity_Regions_Count": {
+      "name": "High-Opportunity Regions",
+      "description": "Count of regions classified as high-opportunity for the selected year.",
+      "searchDescriptions": [
+        "High opportunity regions count",
+        "Promising regions total",
+        "Strong potential areas count",
+        "Top-tier regions number",
+        "High opportunity zones"
+      ],
+      "group": "Recruitment Insights"
+    },
+    "Recruitment_Insights_Declining_Interest_Regions_Count": {
+      "name": "Regions with Declining Interest",
+      "description": "Count of regions classified as declining interest for the selected year.",
+      "searchDescriptions": [
+        "Declining interest regions count",
+        "Decreasing applications areas",
+        "Downward trend regions total",
+        "Falling interest zones count",
+        "Low interest regions number"
+      ],
+      "group": "Recruitment Insights"
+    }
+  },
+  "sources": {
+    "Recruitment Insights": {
+      "url": "https://education.dev.datacommons.epam.com",
+      "provenances": {
+        "Recruitment Insights": "https://education.dev.datacommons.epam.com/browser/c/p/1"
+      }
+    }
+  }
+}
