@@ -75,79 +75,17 @@ import {
 
 /**
  * Constants for the place selector on our visualization tools
+ *
+ * Instead of reading data-availability in the KG, we hardcode which place types
+ * are available for selection in the enclosed place type selector based on the
+ * place type hierarchies defined in this file.
  */
 
-const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
-const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
-const USA_STATE_CHILD_TYPES = ["County", ...USA_COUNTY_CHILD_TYPES];
-const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
-
+// DCID for the IPCC 0.5 arc degree grid place type
 const IPCC_PLACE_50_TYPE_DCID = "IPCCPlace_50";
 
-const AA4_CHILD_PLACE_TYPES = ["AdministrativeArea5"];
-const AA3_CHILD_PLACE_TYPES = ["AdministrativeArea4", ...AA4_CHILD_PLACE_TYPES];
-const AA2_CHILD_PLACE_TYPES = ["AdministrativeArea3", ...AA3_CHILD_PLACE_TYPES];
-const AA1_CHILD_PLACE_TYPES = ["AdministrativeArea2", ...AA2_CHILD_PLACE_TYPES];
-const NUTS2_CHILD_PLACE_TYPES = ["EurostatNUTS3"];
-const NUTS1_CHILD_PLACE_TYPES = ["EurostatNUTS2", ...NUTS2_CHILD_PLACE_TYPES];
-const NON_USA_COUNTRY_PLACE_TYPES = [
-  "AdministrativeArea1",
-  ...AA1_CHILD_PLACE_TYPES,
-  "EurostatNUTS1",
-  ...NUTS1_CHILD_PLACE_TYPES,
-];
-const CONTINENT_PLACE_TYPES = ["Country", ...NON_USA_COUNTRY_PLACE_TYPES];
-export const CHILD_PLACE_TYPES = {
-  AdministrativeArea1: AA1_CHILD_PLACE_TYPES,
-  AdministrativeArea2: AA2_CHILD_PLACE_TYPES,
-  AdministrativeArea3: AA3_CHILD_PLACE_TYPES,
-  AdministrativeArea4: AA4_CHILD_PLACE_TYPES,
-  Continent: CONTINENT_PLACE_TYPES,
-  Country: NON_USA_COUNTRY_PLACE_TYPES,
-  EurostatNUTS1: NUTS1_CHILD_PLACE_TYPES,
-  EurostatNUTS2: NUTS2_CHILD_PLACE_TYPES,
-  Planet: ["Continent", ...CONTINENT_PLACE_TYPES, ...USA_COUNTRY_CHILD_TYPES],
-  State: AA1_CHILD_PLACE_TYPES,
-};
-
-export const ALL_PLACE_CHILD_TYPES = {
-  Planet: ["Country"],
-  Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
-  Country: [IPCC_PLACE_50_TYPE_DCID],
-  OceanicBasin: ["GeoGridPlace_1Deg"],
-};
-
-const USA_CHILD_PLACE_TYPES = {
-  Country: ["State", "County"],
-  State: ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
-  County: ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
-  CensusRegion: ["State", "County"],
-  CensusDivision: ["State", "County"],
-};
-
-export const AA1_AA2_CHILD_PLACE_TYPES = {
-  Country: ["AdministrativeArea1", "AdministrativeArea2"],
-  AdministrativeArea1: ["AdministrativeArea2"],
-  State: ["AdministrativeArea2"],
-  AdministrativeArea2: ["AdministrativeArea2"],
-};
-
-const AA1_AA3_CHILD_PLACE_TYPES = {
-  AdministrativeArea1: ["AdministrativeArea3"],
-  AdministrativeArea2: ["AdministrativeArea3"],
-  Country: ["AdministrativeArea1", "AdministrativeArea3"],
-  State: ["AdministrativeArea3"],
-};
-
-export const EUROPE_CHILD_PLACE_TYPES = {
-  Continent: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
-  Country: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
-  EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
-  EurostatNUTS2: ["EurostatNUTS3"],
-  EurostatNUTS3: ["EurostatNUTS3"],
-};
-
-export const AA1_AA2_PLACES = new Set([
+// Countries that have stat vars and geojsons at the AA1 and AA2 level available.
+export const COUNTRIES_WITH_AA1_AND_AA2_DATA = new Set([
   ARGENTINA_PLACE_DCID,
   BENIN_PLACE_DCID,
   BELIZE_PLACE_DCID,
@@ -204,8 +142,65 @@ export const AA1_AA2_PLACES = new Set([
   UAE_PLACE_DCID,
 ]);
 
-export const CHILD_PLACE_TYPE_MAPPING = {
-  [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPES,
-  [PAKISTAN_PLACE_DCID]: AA1_AA3_CHILD_PLACE_TYPES,
-  [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
+// Default hierarchy for places
+export const DEFAULT_PLACE_TYPE_HIERARCHY = {
+  Planet: ["Country"],
+  Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
+  OceanicBasin: ["GeoGridPlace_1Deg"],
+  // Unfortunately, not all countries and AAX's are guaranteed to have maps
+  // So we default to no child place types in this case
+  Country: [],
+  AdministrativeArea1: [],
+  AdministrativeArea2: [],
+  AdministrativeArea3: [],
+  AdministrativeArea4: [],
+};
+
+// Hierarchy for places in the USA
+const USA_CHILD_PLACE_TYPE_HIERARCHY = {
+  Country: ["State", "County"],
+  State: ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
+  County: ["City", "CensusTract", "CensusZipCodeTabulationArea"],
+  CensusRegion: ["State", "County"],
+  CensusDivision: ["State", "County"],
+};
+
+// Hierarchy for places that have AA1 and AA2 data
+export const AA1_AA2_CHILD_PLACE_TYPE_HIERARCHY = {
+  Country: ["AdministrativeArea1", "AdministrativeArea2"],
+  AdministrativeArea1: ["AdministrativeArea2"],
+  State: ["AdministrativeArea2"],
+  AdministrativeArea2: ["AdministrativeArea2"],
+};
+
+// Hierarchy for places that jump from AA1 to AA3
+// This handles places like Pakistan, which have quirks in our KG
+const AA1_AA3_CHILD_PLACE_TYPE_HIERARCHY = {
+  AdministrativeArea1: ["AdministrativeArea3"],
+  AdministrativeArea2: ["AdministrativeArea3"],
+  Country: ["AdministrativeArea1", "AdministrativeArea3"],
+  State: ["AdministrativeArea3"],
+};
+
+// Hierarchy of child place types for Europe.
+export const EUROPE_CHILD_PLACE_TYPE_HIERARCHY = {
+  Continent: ["Country", "EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+  Country: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+  EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
+  EurostatNUTS2: ["EurostatNUTS3"],
+  EurostatNUTS3: ["EurostatNUTS3"],
+};
+
+// Place DCIDs that have a different child place type hierarchy than the default.
+export const SPECIAL_HANDLING_HIERARCHY_MAPPING = {
+  [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPE_HIERARCHY,
+  [PAKISTAN_PLACE_DCID]: AA1_AA3_CHILD_PLACE_TYPE_HIERARCHY,
+  [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPE_HIERARCHY,
+};
+
+// Child place types that are valid for all places regardless of whether they use one of the special hierarchies.
+// These types get added at the end of the hierarchy for each place type.
+export const ALL_PLACE_CHILD_TYPES = {
+  Continent: [IPCC_PLACE_50_TYPE_DCID], // Needs to be added here because Europe gets special handling
+  Country: [IPCC_PLACE_50_TYPE_DCID], // Needs to be added here because USA & Pakistan get special handling
 };
