@@ -75,7 +75,9 @@ import {
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
+  StatVarFacetDateRangeMap,
   transformCsvHeader,
+  updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
 import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -144,6 +146,8 @@ export interface BarChartData {
   facets: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets: StatVarFacetMap;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges: StatVarFacetDateRangeMap;
   unit: string;
   dateRange: string;
   props: BarTilePropType;
@@ -268,6 +272,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       sources={props.sources || (barChartData && barChartData.sources)}
       facets={barChartData?.facets}
       statVarToFacets={barChartData?.statVarToFacets}
+      statVarFacetDateRanges={barChartData?.statVarFacetDateRanges}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.variables}
@@ -541,6 +546,7 @@ function rawToChart(
   const sources = new Set<string>();
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
+  const statVarFacetDateRanges: StatVarFacetDateRangeMap = {};
   // Track original order of stat vars in props, to maintain 1:1 pairing of
   // colors to stat var labels even after sorting
   const statVarOrder = props.variables.map(
@@ -567,6 +573,14 @@ function rawToChart(
         date: stat.date,
       };
       dates.add(stat.date);
+
+      updateStatVarFacetDateRange(
+        statVarFacetDateRanges,
+        statVar,
+        stat.facet,
+        stat.date
+      );
+
       if (raw.facets[stat.facet]) {
         sources.add(raw.facets[stat.facet].provenanceUrl);
         facets[stat.facet] = raw.facets[stat.facet];
@@ -598,6 +612,13 @@ function rawToChart(
           }
           statVarToFacets[denomStatVar].add(denomInfo.facetId);
         }
+        // Update date range for the denominator stat var / facet id
+        updateStatVarFacetDateRange(
+          statVarFacetDateRanges,
+          denomStatVar,
+          denomInfo.facetId,
+          denomInfo.date
+        );
       }
       if (scaling) {
         dataPoint.value *= scaling;
@@ -671,6 +692,7 @@ function rawToChart(
     sources,
     facets,
     statVarToFacets,
+    statVarFacetDateRanges,
     dateRange: getDateRange(Array.from(dates)),
     unit,
     props,

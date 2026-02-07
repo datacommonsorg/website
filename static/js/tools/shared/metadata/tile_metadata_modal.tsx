@@ -40,6 +40,7 @@ import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages"
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarFacetMap, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
+import { StatVarFacetDateRangeMap } from "../../../utils/tile_utils";
 import { buildCitationParts, citationToPlainText } from "./citations";
 import { StatVarMetadata } from "./metadata";
 import { fetchMetadata } from "./metadata_fetcher";
@@ -52,8 +53,8 @@ interface TileMetadataModalPropType {
   statVarToFacets?: StatVarFacetMap;
   // the stat vars used in the chart
   statVarSpecs: StatVarSpec[];
-  // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   containerRef?: React.RefObject<HTMLElement>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
@@ -152,8 +153,9 @@ export function TileMetadataModal(
   }, [props.facets, props.statVarToFacets]);
 
   const citationParts = useMemo(
-    () => buildCitationParts(statVars, metadataMap),
-    [statVars, metadataMap]
+    () =>
+      buildCitationParts(statVars, metadataMap, props.statVarFacetDateRanges),
+    [statVars, metadataMap, props.statVarFacetDateRanges]
   );
   const citationText = useMemo(
     () => citationToPlainText(citationParts),
@@ -189,7 +191,7 @@ export function TileMetadataModal(
                 statVars={statVars}
                 metadataMap={metadataMap}
                 denomStatVarDcids={denomStatVarDcids}
-                statVarDateRanges={props.statVarDateRanges}
+                statVarFacetDateRanges={props.statVarFacetDateRanges}
                 apiRoot={props.apiRoot}
               />
             )

@@ -78,7 +78,9 @@ import {
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
+  StatVarFacetDateRangeMap,
   transformCsvHeader,
+  updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -135,6 +137,8 @@ interface ScatterChartData {
   facets: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets: StatVarFacetMap;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges: StatVarFacetDateRangeMap;
   xUnit: string;
   yUnit: string;
   xDate: string;
@@ -256,6 +260,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       sources={props.sources || (scatterChartData && scatterChartData.sources)}
       facets={scatterChartData?.facets}
       statVarToFacets={scatterChartData?.statVarToFacets}
+      statVarFacetDateRanges={scatterChartData?.statVarFacetDateRanges}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
@@ -473,6 +478,7 @@ function rawToChart(
   const sources: Set<string> = new Set();
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
+  const statVarFacetDateRanges: StatVarFacetDateRangeMap = {};
 
   const xDates: Set<string> = new Set();
   const yDates: Set<string> = new Set();
@@ -529,6 +535,21 @@ function rawToChart(
       }
     });
     const point = placeChartData.point;
+
+    // Update date range for the x and y start vars
+    updateStatVarFacetDateRange(
+      statVarFacetDateRanges,
+      xStatVar.statVar,
+      xPlacePointStat[place].facet,
+      point.xDate
+    );
+    updateStatVarFacetDateRange(
+      statVarFacetDateRanges,
+      yStatVar.statVar,
+      yPlacePointStat[place].facet,
+      point.yDate
+    );
+
     if (xStatVar.denom) {
       const xPlaceFacet = xPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
@@ -555,6 +576,13 @@ function rawToChart(
         }
         statVarToFacets[xDenomStatVar].add(denomInfo.facetId);
       }
+      // Update date for the x denominator stat var
+      updateStatVarFacetDateRange(
+        statVarFacetDateRanges,
+        xDenomStatVar,
+        denomInfo.facetId,
+        denomInfo.date
+      );
     }
     if (xUnitScaling.scaling) {
       point.xVal *= xUnitScaling.scaling;
@@ -585,6 +613,13 @@ function rawToChart(
         }
         statVarToFacets[yDenomStatVar].add(denomInfo.facetId);
       }
+      // Update date for the y denominator stat var
+      updateStatVarFacetDateRange(
+        statVarFacetDateRanges,
+        yDenomStatVar,
+        denomInfo.facetId,
+        denomInfo.date
+      );
     }
     if (yUnitScaling.scaling) {
       point.yVal *= yUnitScaling.scaling;
@@ -603,6 +638,7 @@ function rawToChart(
     sources,
     facets,
     statVarToFacets,
+    statVarFacetDateRanges,
     xUnit: xUnitScaling.unit,
     yUnit: yUnitScaling.unit,
     xDate: getDateRange(Array.from(xDates)),
