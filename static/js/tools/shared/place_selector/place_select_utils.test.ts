@@ -28,7 +28,7 @@ import {
   loadChildPlaceTypes,
 } from "./place_select_utils";
 
-// Mock getParentPlacesPromise to avoid making actual API calls
+// Mock API calls
 jest.mock("../../../utils/place_utils", () => ({
   getNamedTypedPlace: jest.fn(),
   getParentPlacesPromise: jest.fn(),
