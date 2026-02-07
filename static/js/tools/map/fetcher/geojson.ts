@@ -34,6 +34,10 @@ export function useFetchGeoJson(dispatch: Dispatch<ChartStoreAction>): void {
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.GEO_JSON,
       error: null,
@@ -53,6 +57,7 @@ export function useFetchGeoJson(dispatch: Dispatch<ChartStoreAction>): void {
           placeDcid: placeInfo.value.enclosingPlace.dcid,
           placeType: placeInfo.value.enclosedPlaceType,
         },
+        signal,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data)) {
@@ -63,10 +68,19 @@ export function useFetchGeoJson(dispatch: Dispatch<ChartStoreAction>): void {
         console.log("[Map Fetch] geojson");
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching geo json data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,

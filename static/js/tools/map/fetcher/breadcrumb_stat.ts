@@ -47,6 +47,10 @@ export function useFetchBreadcrumbStat(
     const placeDcids = placeInfo.value.parentPlaces.map((x) => x.dcid);
     placeDcids.push(placeInfo.value.selectedPlace.dcid);
 
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.BREADCRUMB_STAT,
       context: {
@@ -75,6 +79,7 @@ export function useFetchBreadcrumbStat(
         },
         paramsSerializer: stringifyFn,
         headers: WEBSITE_SURFACE_HEADER,
+        signal,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {
@@ -88,10 +93,19 @@ export function useFetchBreadcrumbStat(
         console.log(`[Map Fetch] breadcrumb stat for date: ${date}`);
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching breadcrumb stat data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [
     placeInfo.value.selectedPlace.dcid,
     placeInfo.value.parentPlaces,

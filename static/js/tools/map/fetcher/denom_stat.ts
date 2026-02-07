@@ -18,6 +18,7 @@
  * Fetch the stat data for denominator stat var
  */
 
+import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
@@ -37,6 +38,10 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.DENOM_STAT,
       error: null,
@@ -59,7 +64,8 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
       placeInfo.value.enclosedPlaceType,
       [statVar.value.denom],
       null, // facetIds
-      WEBSITE_SURFACE
+      WEBSITE_SURFACE,
+      signal
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[statVar.value.denom])) {
@@ -73,10 +79,19 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
         console.log("[Map Fetch] denom stat");
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching denom stat data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,

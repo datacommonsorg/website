@@ -100,6 +100,8 @@ export class StatVarGroupNode extends React.Component<
   context: ContextType;
   // the list of entities for which data fetch has begun, but not finished.
   dataFetchingEntities: NamedNode[];
+  // Abort controller to cancel any in-flight requests on re-render
+  private _abortController: AbortController;
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
@@ -127,6 +129,13 @@ export class StatVarGroupNode extends React.Component<
           this.context.statVarHierarchyType
         ),
       });
+    }
+  }
+
+  componentWillUnmount(): void {
+    if (this._abortController) {
+      // Cancel any existing requests on unmount
+      this._abortController.abort();
     }
   }
 
@@ -260,6 +269,13 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
+    if (this._abortController) {
+      // Cancel any existing requests
+      this._abortController.abort();
+    }
+    this._abortController = new AbortController();
+    const signal = this._abortController.signal;
+
     const entityList = this.props.entities;
     this.dataFetchingEntities = this.props.entities;
     let numEntitiesExistence = this.props.numEntitiesExistence;
@@ -272,11 +288,15 @@ export class StatVarGroupNode extends React.Component<
       numEntitiesExistence = entityDcids.length;
     }
     axios
-      .post("/api/variable-group/info", {
-        dcid: this.props.data.id,
-        entities: entityDcids,
-        numEntitiesExistence,
-      })
+      .post(
+        "/api/variable-group/info",
+        {
+          dcid: this.props.data.id,
+          entities: entityDcids,
+          numEntitiesExistence,
+        },
+        { signal }
+      )
       .then((resp) => {
         const data = resp.data;
         const childSV: StatVarInfo[] = data["childStatVars"] || [];
@@ -290,7 +310,11 @@ export class StatVarGroupNode extends React.Component<
           });
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         this.dataFetchingEntities = null;
         if (_.isEqual(entityList, this.props.entities)) {
           this.setState({

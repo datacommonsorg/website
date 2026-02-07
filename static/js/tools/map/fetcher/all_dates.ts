@@ -37,6 +37,10 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.ALL_DATES,
       error: null,
@@ -60,6 +64,7 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
           childType: placeInfo.value.enclosedPlaceType,
           variable: statVar.value.dcid,
         },
+        signal,
       })
       .then((resp) => {
         const data = resp.data as ObservationDatesResponse;
@@ -77,10 +82,19 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
         console.log("[Map Fetch] all dates");
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching all the dates";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel the request if the component unmounts
+      abortController.abort();
+    };
   }, [
     display.value.showTimeSlider,
     placeInfo.value.enclosingPlace.dcid,

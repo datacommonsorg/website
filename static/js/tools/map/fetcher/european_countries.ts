@@ -18,6 +18,7 @@
  * Fetch european countries.
  */
 
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { EUROPE_NAMED_TYPED_PLACE } from "../../../shared/constants";
@@ -27,12 +28,24 @@ import { getEnclosedPlacesPromise } from "../../../utils/place_utils";
 export function useFetchEuropeanCountries(): Array<NamedPlace> {
   const [data, setData] = useState<Array<NamedPlace>>([]);
   useEffect(() => {
-    getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country").then(
-      (resp: Array<NamedPlace>) => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country", signal)
+      .then((resp: Array<NamedPlace>) => {
         setData(resp);
         console.log("[Map Fetch] european countries");
-      }
-    );
+      })
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          return;
+        }
+        console.error("Error fetching European countries:", error);
+      });
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
   return data;
 }

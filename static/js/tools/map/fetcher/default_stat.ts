@@ -18,6 +18,7 @@
  * Fetch the default (best available) stat data
  */
 
+import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
@@ -40,6 +41,9 @@ export function useFetchDefaultStat(
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts.
+    const abortController = new AbortController();
+    const signal = abortController.signal;
 
     const action: ChartStoreAction = {
       type: ChartDataType.DEFAULT_STAT,
@@ -67,7 +71,9 @@ export function useFetchDefaultStat(
       date,
       null, // alignedVariables
       null, // facetIds
-      WEBSITE_SURFACE
+      WEBSITE_SURFACE,
+      undefined, // facetSelector
+      signal
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[statVar.value.dcid])) {
@@ -81,10 +87,19 @@ export function useFetchDefaultStat(
         console.log(`[Map Fetch] default stat for date: ${date}`);
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching default stat data";
         dispatch(action);
       });
+
+    return () => {
+      // Abort the request if the component unmounts.
+      abortController.abort();
+    };
   }, [
     dateCtx.value,
     placeInfo.value.enclosingPlace.dcid,

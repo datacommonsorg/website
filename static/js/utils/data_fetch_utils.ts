@@ -163,12 +163,19 @@ async function selectFacet(
   entities: string[],
   variables: string[],
   facetSelector?: FacetSelectionCriteria,
-  surface?: string
+  surface?: string,
+  signal?: AbortSignal
 ): Promise<string[] | null> {
   if (!facetSelector) {
     return [];
   }
-  const facetsResponse = await getFacets(apiRoot, entities, variables, surface);
+  const facetsResponse = await getFacets(
+    apiRoot,
+    entities,
+    variables,
+    surface,
+    signal
+  );
   for (const svDcid of Object.keys(facetsResponse)) {
     const matchingFacets = findMatchingFacets(
       facetsResponse[svDcid],
@@ -206,11 +213,12 @@ export function getPoint(
   alignedVariables?: string[][],
   facetSelector?: FacetSelectionCriteria,
   facetIds?: string[],
-  surface?: string
+  surface?: string,
+  signal?: AbortSignal
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(apiRoot, entities, variables, facetSelector, surface);
+    : selectFacet(apiRoot, entities, variables, facetSelector, surface, signal);
 
   return facetPromise.then((resolvedFacetIds) => {
     const params: Record<string, unknown> = { date, entities, variables };
@@ -225,6 +233,7 @@ export function getPoint(
         params,
         paramsSerializer: stringifyFn,
         headers: getSurfaceHeader(surface),
+        signal,
       })
       .then((resp) => {
         return getProcessedPointResponse(resp.data, alignedVariables);
@@ -256,11 +265,19 @@ export function getPointWithin(
   alignedVariables?: string[][],
   facetIds?: string[],
   surface?: string,
-  facetSelector?: FacetSelectionCriteria
+  facetSelector?: FacetSelectionCriteria,
+  signal?: AbortSignal
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(apiRoot, [parentEntity], variables, facetSelector, surface);
+    : selectFacet(
+        apiRoot,
+        [parentEntity],
+        variables,
+        facetSelector,
+        surface,
+        signal
+      );
 
   return facetPromise.then((resolvedFacetIds) => {
     const params = { childType, date, parentEntity, variables };
@@ -275,6 +292,7 @@ export function getPointWithin(
         params,
         paramsSerializer: stringifyFn,
         headers: getSurfaceHeader(surface),
+        signal,
       })
       .then((resp) => {
         return getProcessedPointResponse(resp.data, alignedVariables);
@@ -302,11 +320,12 @@ export function getSeries(
   variables: string[],
   facetIds?: string[],
   facetSelector?: FacetSelectionCriteria,
-  surface?: string
+  surface?: string,
+  signal?: AbortSignal
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, facetSelector, surface)
+    selectFacet(apiRoot, entities, variables, facetSelector, surface, signal)
   ).then((resolvedFacetIds) => {
     if (!_.isEmpty(facetIds)) {
       params["facetIds"] = facetIds;
@@ -317,6 +336,7 @@ export function getSeries(
     return axios
       .post(`${apiRoot || ""}/api/observations/series`, params, {
         headers: getSurfaceHeader(surface),
+        signal,
       })
       .then((resp) => resp.data);
   });
@@ -341,7 +361,8 @@ export function getSeriesWithin(
   childType: string,
   variables: string[],
   facetIds?: string[],
-  surface?: string
+  surface?: string,
+  signal?: AbortSignal
 ): Promise<SeriesApiResponse> {
   const params = { parentEntity, childType, variables };
   if (facetIds) {
@@ -352,6 +373,7 @@ export function getSeriesWithin(
       params,
       paramsSerializer: stringifyFn,
       headers: getSurfaceHeader(surface),
+      signal,
     })
     .then((resp) => resp.data);
 }
@@ -419,13 +441,15 @@ export function getFacets(
   apiRoot: string,
   entities: string[],
   variables: string[],
-  surface?: string
+  surface?: string,
+  signal?: AbortSignal
 ): Promise<FacetResponse> {
   return axios
     .get<SeriesAllApiResponse>(`${apiRoot || ""}/api/facets`, {
       params: { entities, variables },
       paramsSerializer: stringifyFn,
       headers: getSurfaceHeader(surface),
+      signal,
     })
     .then((resp) => {
       const respData = resp.data;

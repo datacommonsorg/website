@@ -36,6 +36,10 @@ export function useFetchMapPointCoordinate(
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.MAP_POINT_COORDINATE,
       error: null,
@@ -56,6 +60,7 @@ export function useFetchMapPointCoordinate(
           placeType: placeInfo.value.mapPointPlaceType,
         },
         paramsSerializer: stringifyFn,
+        signal,
       })
       .then((resp) => {
         if (resp.status !== 200) {
@@ -66,10 +71,19 @@ export function useFetchMapPointCoordinate(
         console.log("[Map Fetch] map point coordinate");
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching map point coordinate data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.mapPointPlaceType,

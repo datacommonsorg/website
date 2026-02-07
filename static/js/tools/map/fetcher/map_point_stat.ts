@@ -18,6 +18,7 @@
  * Fetch the map point stat data.
  */
 
+import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
@@ -40,6 +41,10 @@ export function useFetchMapPointStat(
     if (!contextOk) {
       return;
     }
+    // Use AbortController to cancel the request if the component unmounts
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const action: ChartStoreAction = {
       type: ChartDataType.MAP_POINT_STAT,
       error: null,
@@ -68,7 +73,9 @@ export function useFetchMapPointStat(
       date,
       null, // alignedVariables
       null, // facetIds
-      WEBSITE_SURFACE
+      WEBSITE_SURFACE,
+      undefined, // facetSelector
+      signal
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[usedSV])) {
@@ -82,10 +89,19 @@ export function useFetchMapPointStat(
         console.log(`[Map Fetch] map point stat for: ${date}`);
         dispatch(action);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Ignore abort errors
+          return;
+        }
         action.error = "error fetching map point stat data";
         dispatch(action);
       });
+
+    return () => {
+      // Cancel request if component unmounts
+      abortController.abort();
+    };
   }, [
     dateCtx.value,
     placeInfo.value.enclosingPlace.dcid,
