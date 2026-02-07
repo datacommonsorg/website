@@ -1,0 +1,93 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Form Components */
+
+/* Form Fields */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #202124;
+}
+
+.field-error {
+  font-size: 0.75rem;
+  color: #EA4335;
+  margin-top: 0.25rem;
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  color: #5F6368;
+  margin-top: 0.25rem;
+}
+
+/* Logo Upload Container */
+.logo-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 31.25rem;
+}
+
+.selected-file-display {
+  width: 100%;
+  display: none;  /* Hidden by default, shown via .show class */
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #F8F9FA;
+  border-radius: 0.5rem;
+  border: 1px solid #E8EAED;
+}
+
+.file-icon {
+  color: #5F6368;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #202124;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.close-icon {
+  color: #5F6368;
+}
+
+/* Material Web Component Form Overrides */
+md-outlined-text-field {
+  --md-outlined-text-field-container-shape: 0.5rem;
+  width: 100%;
+}

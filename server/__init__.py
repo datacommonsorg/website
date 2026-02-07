@@ -26,7 +26,6 @@ from google.api_core.exceptions import NotFound
 from google.api_core.exceptions import PermissionDenied
 from google.cloud import secretmanager
 import google.cloud.logging
-
 from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
@@ -54,7 +53,7 @@ DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
 
 def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
   """Gets an api key first from the environment, then from GCP secrets.
-  
+
   Args:
       env_keys: A list of keys in the environment to try getting the api key with
       gcp_project: The GCP project to use to get the api key from GCP secrets
@@ -92,7 +91,7 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
 
 
 def _enable_datagemma() -> bool:
-  """Returns whether to enable the DataGemma UI for this instance. 
+  """Returns whether to enable the DataGemma UI for this instance.
   This UI should only be enabled for internal instances.
   """
   return os.environ.get('ENABLE_DATAGEMMA') == 'true'
@@ -295,6 +294,19 @@ def register_routes_common(app):
   app.register_blueprint(oembed.bp)
 
 
+def register_routes_admin_panel_dc(app, cfg):
+  from server.routes.admin_panel import html as admin_panel_html
+  app.register_blueprint(admin_panel_html.bp)
+
+  from server.routes.admin_panel import api as admin_panel_api
+  app.register_blueprint(admin_panel_api.bp)
+
+  # Upload configs on app startup (skip in test mode to avoid GCS access)
+  if not cfg.TEST:
+    from server.routes.admin_panel.utils import upload_db_configs
+    upload_db_configs(cfg)
+
+
 def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
@@ -336,7 +348,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)
   app.config['FEATURE_FLAGS'] = libutil.load_feature_flags()
-  app.config['REDIRECTS'] = libutil.load_redirects() if not cfg.CUSTOM else {}
+  app.config[
+      'REDIRECTS'] = {} if cfg.CUSTOM or cfg.TEST else libutil.load_redirects()
 
   # Configure ingress
   # See deployment yamls.
@@ -362,6 +375,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if is_feature_enabled(DATA_OVERVIEW_FEATURE_FLAG, app):
     from server.routes.data_overview import html as data_overview_html
     app.register_blueprint(data_overview_html.bp)
+
+  # Test was inclued to be able to run admin panel tests
+  if os.environ.get('FLASK_ENV') in ['education', 'energy', 'health', 'test']:
+    register_routes_admin_panel_dc(app, cfg)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()

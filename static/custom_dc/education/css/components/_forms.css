@@ -1,0 +1,129 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Form Elements */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #202124;
+  line-height: 1.6;
+  margin: 0;
+}
+
+md-outlined-text-field {
+  width: 100%;
+  max-width: 31.25rem;
+  --md-outlined-text-field-container-shape: 0.5rem;
+  --md-outlined-text-field-outline-color: #DADCE0;
+  --md-outlined-text-field-hover-outline-color: #1A73E8;
+  --md-outlined-text-field-focus-outline-color: #1A73E8;
+  --md-outlined-text-field-input-text-size: 1rem;
+  --md-outlined-text-field-input-text-placeholder-color: #80868B;
+  --md-outlined-text-field-input-text-color: #202124;
+  --md-outlined-text-field-top-space: 0.5rem;
+  --md-outlined-text-field-bottom-space: 0.5rem;
+  --md-outlined-text-field-container-padding-vertical: 0.75rem;
+  --md-outlined-text-field-container-padding-horizontal: 0.75rem;
+  --md-outlined-field-top-space: 0.5rem;
+  --md-outlined-field-bottom-space: 0.5rem;
+  background: #FFFFFF;
+}
+
+.text-field-wide {
+  max-width: 43.75rem;
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #9AA0A6;
+  margin: 0.5rem 0 0 0;
+}
+
+.field-error {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #EA4335;
+  margin: 0.25rem 0 0 0;
+}
+
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #B3261E;
+}
+
+.form-error__icon {
+  font-size: 2rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.form-error__text {
+  padding-top: 0.2rem;
+  line-height: 1rem;
+}
+
+/* Selected File Display */
+.selected-file-display {
+  background: #F8F9FA;
+  border: 1px solid #E8EAED;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.selected-file-display.show {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.selected-file-icon {
+  --md-icon-size: 1.5rem;
+  color: #1A73E8;
+}
+
+.selected-file-info {
+  flex: 1;
+}
+
+.selected-file-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 0 0.25rem 0;
+}
+
+.selected-file-size {
+  font-size: 0.75rem;
+  color: #5F6368;
+  margin: 0;
+}
+
+.remove-file-btn {
+  --md-icon-button-icon-color: #EA4335;
+}

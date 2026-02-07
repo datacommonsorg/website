@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Configuration Panel - Student Recruitment Intelligence</title>
+
+  <link rel="icon" id="faviconLogo" href="https://docs.datacommons.org/assets/images/favicon.png" type="image/png" data-logo-url="{{ url_for('admin_panel.domain_logo') }}">
+
+  {% include 'custom_dc/education/includes/head_common.html' %}
+
+  <link href="{{url_for('static', filename='custom_dc/education/css/main.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='custom_dc/education/css/pages/_dashboard.css')}}" rel="stylesheet">
+</head>
+
+<body class="education-domain">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <md-icon-button href="{{ url_for('static.homepage') }}">
+        <md-icon>arrow_back</md-icon>
+      </md-icon-button>
+      <div class="header-title-group">
+        <h1 class="header-title">Admin Configuration Panel</h1>
+        <p class="header-subtitle">Customize your recruitment intelligence platform</p>
+      </div>
+    </div>
+    <div class="button-group">
+      <md-outlined-button href="{{ url_for('static.homepage') }}">
+        <md-icon slot="icon">visibility</md-icon>
+        Preview Insights
+      </md-outlined-button>
+      <md-outlined-button onclick="logout()">
+        <md-icon slot="icon">logout</md-icon>
+        Sign Out
+      </md-outlined-button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Snackbar Container - Top Right -->
+    <div class="snackbar-container" aria-live="polite" aria-atomic="false">
+      <div class="md3-snackbar" id="alertMessage" role="status" aria-live="polite" aria-atomic="false">
+        <span id="alertMessageContent" class="md3-snackbar-content"></span>
+        <md-icon-button class="md3-snackbar-action" id="alertDissmiss" aria-label="Dismiss message">
+          <md-icon>close</md-icon>
+        </md-icon-button>
+      </div>
+    </div>
+    <!-- Tab Navigation -->
+    <nav class="tabs">
+      <a href="#" class="tab active" onclick="switchTab(event, 'data')">
+        <md-icon>database</md-icon>
+        Data & Files
+      </a>
+      <a href="#" class="tab" onclick="switchTab(event, 'theme')">
+        <md-icon>palette</md-icon>
+        Theme Settings
+      </a>
+    </nav>
+
+    <!-- Data & Files Tab -->
+    <div id="data-tab" class="tab-content active">
+      <!-- Steps Card -->
+      <md-card>
+        <h2 class="card-title section-title">Steps to get started</h2>
+
+        <div class="steps-container">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <p class="step-title">Export your applicant data as CSV from your Admissions CRM</p>
+              <md-text-button href="{{url_for('static', filename='custom_dc/education/data/example.csv')}}"
+                download="sample_applicant_data.csv">Download sample CSV</md-text-button>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <p class="step-title">Upload your file using the button below</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <p class="step-title">View insights and recommended target regions</p>
+            </div>
+          </div>
+        </div>
+      </md-card>
+
+      <!-- Applicant Data Upload -->
+      <md-card>
+        <div class="card-header">
+          <div class="card-icon-wrapper">
+            <md-icon>upload</md-icon>
+          </div>
+          <div class="card-title-group">
+            <h2 class="card-title">Applicant Data Upload</h2>
+            <p class="card-description">Upload your current applicant data to discover new high-potential
+              regions</p>
+          </div>
+        </div>
+
+        <md-divider></md-divider>
+
+        <div class="upload-card">
+          <h3 class="upload-title">Upload Applicant Data</h3>
+          <p class="upload-meta">Supported format: CSV</p>
+          <p class="upload-note">
+            Uploaded data powers recruitment insights and forecasts.
+          </p>
+
+          <!-- Selected File Display -->
+          <div id="selectedFileDisplay" class="selected-file-display">
+            <md-icon class="selected-file-icon">description</md-icon>
+            <div class="selected-file-info">
+              <p class="selected-file-name" id="selectedFileName">filename.csv</p>
+              <p class="selected-file-size" id="selectedFileSize">0 KB</p>
+            </div>
+            <md-icon-button class="remove-file-btn" onclick="removeFile('applicant')">
+              <md-icon>close</md-icon>
+            </md-icon-button>
+          </div>
+
+          <div class="button-group">
+            <md-filled-button class="inline-button" onclick="document.getElementById('applicantFileInput').click()">
+              <md-icon slot="icon">upload</md-icon>
+              Choose File
+            </md-filled-button>
+            <md-outlined-button class="inline-button" onclick="uploadApplicantFile()">
+              <md-icon slot="icon">cloud_upload</md-icon>
+              Upload File
+            </md-outlined-button>
+          </div>
+          <input type="file" id="applicantFileInput" accept=".csv" class="hidden"
+            onchange="handleFileSelect(event, 'applicant')">
+        </div>
+
+        <md-divider class="divider-short"></md-divider>
+
+        <!-- Upload Status -->
+        <div class="status-box hidden" id="uploadResponseMessage">
+          <div class="status-chips-container">
+            <md-filter-chip label="Upload Successful" id="successUploadStatus" class="status-chip-success hidden">
+            </md-filter-chip>
+
+            <md-filter-chip label="Upload Failed" id="failedUploadStatus" class="status-chip-error hidden">
+            </md-filter-chip>
+          </div>
+
+          <div class="status-row">
+            <span class="status-label">Upload message:</span>
+            <span class="status-value" id="uploadStatusMessage"></span>
+          </div>
+          <div class="status-row hidden" id="rowsUploaded">
+            <span class="status-label">Number of acceptable rows:</span>
+            <span class="status-value" id="rowsUploadedsMessage"></span>
+          </div>
+          <div class="status-row hidden" id="failedRows">
+            <span class="status-label">Number of unacceptable rows:</span>
+            <span class="status-value" id="failedRowsMessage"></span>
+          </div>
+          <div class="error-list hidden" id="uploadErrorBlock"></div>
+        </div>
+      </md-card>
+    </div>
+
+    <!-- Theme Settings Tab -->
+    <div id="theme-tab" class="tab-content">
+      <!-- Branding Section -->
+      <md-card>
+        <div class="card-header">
+          <div class="card-icon-wrapper">
+            <md-icon>palette</md-icon>
+          </div>
+          <div class="card-title-group">
+            <h2 class="card-title">University Branding</h2>
+            <p class="card-description">Customize university information and appearance</p>
+          </div>
+        </div>
+
+        <md-divider></md-divider>
+
+        <!-- University Name -->
+        <div class="form-field">
+          <label class="form-label">University Name</label>
+          <md-outlined-text-field id="domainName" placeholder="e.g., Stanford University" value="University Name">
+          </md-outlined-text-field>
+          <p id="domainNameError" class="field-error hidden">University name is required</p>
+        </div>
+
+        <!-- Logo Upload -->
+        <div class="form-field">
+          <label class="form-label">University Logo</label>
+
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 31.25rem;">
+            <!-- Selected Logo Display -->
+            <div id="selectedLogoDisplay" class="selected-file-display" style="width: 100%;">
+              <md-icon style="color: #5F6368; font-size: 1.25rem;">description</md-icon>
+              <div style="flex: 1; min-width: 0;">
+                <p id="selectedLogoName"
+                  style="margin: 0; font-size: 0.875rem; color: #202124; font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                </p>
+              </div>
+              <md-icon-button onclick="removeFile('logo')">
+                <md-icon style="color: #5F6368;">close</md-icon>
+              </md-icon-button>
+            </div>
+
+            <input type="file" id="logoUpload" accept=".png" onchange="handleFileSelect(event, 'logo')"
+              class="hidden" />
+            <md-filled-button class="inline-button" onclick="document.getElementById('logoUpload').click()"
+              style="width: 100%;">
+              <md-icon slot="icon">upload</md-icon>
+              Choose File
+            </md-filled-button>
+          </div>
+
+          <p class="field-hint">Recommended size: 200 × 80px • Supports PNG</p>
+        </div>
+
+        <!-- Header Text -->
+        <div class="form-field">
+          <label class="form-label">Header Text</label>
+          <md-outlined-text-field id="descriptionTitle" placeholder="Student Recruitment Intelligence Center"
+            value="Student Recruitment Intelligence Center">
+          </md-outlined-text-field>
+          <p id="descriptionTitleError" class="field-error hidden">Header text is required</p>
+        </div>
+
+        <!-- Contact Email -->
+        <div class="form-field">
+          <label class="form-label">Contact Email</label>
+          <md-outlined-text-field id="contactEmail" type="email" placeholder="contact@example.com" value="contact@example.com">
+          </md-outlined-text-field>
+          <p id="contactEmailError" class="field-error hidden">Please enter a valid email address</p>
+        </div>
+
+        <!-- Hero Description -->
+        <div class="form-field">
+          <label class="form-label">Hero Description</label>
+          <md-outlined-text-field id="descriptionBody" type="textarea" rows="3"
+            placeholder="Describe the purpose of your recruitment intelligence platform..." class="text-field-wide"
+            value="Monitor recruitment metrics, analyze trends, and optimize your institution's enrollment strategy with AI-powered insights.">
+          </md-outlined-text-field>
+          <p id="descriptionBodyError" class="field-error hidden">Hero description is required</p>
+        </div>
+        <input type="hidden" id="logoPresent" value="false" />
+        <div class="button-group button-group-right">
+          <md-filled-button class="inline-button save-button" onclick="saveChanges()">
+            <md-icon slot="icon">save</md-icon>
+            Save Changes
+          </md-filled-button>
+        </div>
+      </md-card>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script type="module">
+    import { showMsgAlert } from '{{url_for("static", filename="custom_dc/education/js/components/alert.js")}}';
+    window.showMsgAlert = showMsgAlert;
+  </script>
+  <script src={{url_for('static', filename='custom_dc/education/js/pages/dashboard.js' )}}></script>
+</body>
+
+</html>

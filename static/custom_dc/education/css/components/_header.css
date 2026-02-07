@@ -1,0 +1,358 @@
+/**
+ * Education Domain Header Styles
+ * 
+ * Uses .education-domain scoping for proper specificity without !important.
+ * The custom CSS is loaded after base Data Commons styles in base.html.
+ */
+
+:root {
+  --md-sys-color-primary: #1a73e8;
+  --md-sys-color-secondary: #8B5CF6;
+  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-surface-variant: #F5F5F7;
+  --md-sys-color-surface-container: #f1f3f4;
+  --md-sys-color-on-surface: #1F1F1F;
+  --md-sys-color-on-surface-variant: #6B6B6B;
+  --md-sys-color-outline: #E0E0E0;
+  --md-sys-color-outline-variant: #F0F0F0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.education-domain {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Header - scoped to education domain */
+.education-domain header {
+  background: var(--md-sys-color-surface);
+  border-bottom: 1px solid var(--md-sys-color-outline);
+  padding: 0.75rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  box-sizing: border-box;
+  min-height: 4.375rem;
+}
+
+.education-domain header .header-content {
+  width: 100%;
+  max-width: 1728px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 0.5rem;
+}
+
+.education-domain header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+/* Logo Section - Education Domain Style */
+.education-domain .logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 0.125rem dashed #E8EAED;
+  background-color: #F8F9FA;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
+  min-width: 12rem;
+  cursor: pointer;
+}
+
+.education-domain .logo-section .material-symbols-outlined {
+  color: #1A73E8;
+  font-size: 1.5rem;
+}
+
+.education-domain .logo-text {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #202124;
+}
+
+/* Search Field - Wide Style like datacommons.org */
+.education-domain header .search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background-color: #f1f3f4;
+  border-radius: 1.75rem;
+  flex: 1 1 auto;
+  min-width: 12.5rem;
+  max-width: 70%;
+  margin: 0 0.75rem;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  height: 2.75rem;
+}
+
+.education-domain header .search-container:focus-within {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 1px #1a73e8;
+}
+
+.education-domain header .search-container .material-symbols-outlined {
+  font-size: 1.25rem;
+  color: var(--md-sys-color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.education-domain header .search-input {
+  border: none;
+  background: transparent;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface);
+  outline: none;
+  width: 100%;
+  height: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove the default clear button (x) from search input */
+.education-domain header .search-input::-webkit-search-cancel-button,
+.education-domain header .search-input::-webkit-search-decoration,
+.education-domain header .search-input::-webkit-search-results-button,
+.education-domain header .search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.education-domain header .search-input::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.education-domain header .search-input::placeholder {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.education-domain header .search-arrow {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.education-domain header .search-arrow.active {
+  color: #1a73e8;
+}
+
+.education-domain header .search-arrow:hover {
+  color: #1a73e8;
+}
+
+/* Header title - scoped to header */
+.education-domain header h1 {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #202124;
+  margin: 0;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* Header Navigation */
+.education-domain header .header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
+/* Navigation Dropdown */
+.education-domain header .nav-dropdown {
+  position: relative;
+}
+
+.education-domain header .nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.5rem 0.5rem;
+  background: transparent;
+  border: none;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #5f6368;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.education-domain header .nav-btn:hover {
+  background-color: transparent;
+}
+
+.education-domain header .nav-btn .dropdown-arrow {
+  font-size: 1.125rem;
+  transition: transform 0.2s ease;
+  color: #5f6368;
+}
+
+.education-domain header .nav-dropdown.open .nav-btn .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Navigation Link */
+.education-domain header .nav-link {
+  padding: 0.5rem 0.5rem;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #5f6368;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.education-domain header .nav-link:hover {
+  background-color: transparent;
+}
+
+/* Mega Menu - Full Width */
+.education-domain .mega-menu {
+  position: fixed;
+  top: 4.375rem;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: var(--md-sys-color-surface);
+  border-bottom: 1px solid var(--md-sys-color-outline);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.625rem);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 1000;
+  padding: 2rem 0;
+}
+
+.education-domain .nav-dropdown.open .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.education-domain .mega-menu-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 4rem;
+}
+
+.education-domain .mega-menu-header {
+  flex: 0 0 12.5rem;
+  padding-right: 2rem;
+}
+
+.education-domain .mega-menu-header h3 {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface);
+  margin-bottom: 0.75rem;
+}
+
+.education-domain .mega-menu-header p {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.education-domain .mega-menu-items {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 3rem;
+}
+
+.education-domain .mega-menu-item {
+  display: block;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  padding: 0.5rem 0;
+}
+
+.education-domain .mega-menu-item:hover h4 {
+  text-decoration: underline;
+}
+
+.education-domain .mega-menu-item h4 {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1a73e8;
+  margin: 0 0 0.25rem 0;
+}
+
+.education-domain .mega-menu-item p {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.8125rem;
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* User Avatar - moved to header-nav */
+.education-domain header .user-avatar {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, var(--md-sys-color-secondary) 0%, #A855F7 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+/* Main Content */
+.education-domain .main-content {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  padding-top: 8rem;
+  background-color: #f8f9fa;
+}
+
+.education-domain .domain-logo-image {
+  height: 2rem;
+}
+
+.education-domain #logoPlaceholder,
+.education-domain #domainName {
+  cursor: pointer;
+}

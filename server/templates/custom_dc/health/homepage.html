@@ -1,0 +1,62 @@
+{%- extends BASE_HTML -%}
+{% from 'custom_dc/health/_macros.html' import key_indicator %}
+
+{% set main_id = 'homepage' %}
+{% set page_id = 'page-homepage' %}
+{% set title = 'Health Data Commons' %}
+
+{% block head %}
+{# Page-specific styles already imported via main.css #}
+{% endblock %}
+
+{% block content %}
+  <!-- Data Commons Web Components -->
+  <script src="/datacommons.js"></script>
+  <!-- Main City Configuration -->
+  <script>
+    window.MAIN_CITY = {{ (main_city|default('Boston, MA'))|tojson }};
+  </script>
+
+  <!-- Compare Cities Section -->
+  <section class="card mb-6">
+  <div class="mb-6">
+    <h1 class="section-title">Compare Cities</h1>
+    <p class="section-desc">Select up to 4 cities to compare their health metrics side-by-side</p>
+  </div>
+  <div class="city-select-row" id="city-select-row">
+    <!-- City selects will be rendered dynamically -->
+  </div>
+  </section>
+
+  <!-- Metrics Summary -->
+  <div class="metrics-header">
+  <h2 class="metrics-title" id="key-metrics-indicators-title">Key Metrics Indicators</h2>
+  </div>
+
+  <!-- Key Health Indicators -->
+  <div class="key-indicator-grid">
+  {{ key_indicator('trending_up', 'orange', 'highlightObesity', 'geoId/2507000', 'Percent_Person_Obesity', 'Obesity') }}
+  {{ key_indicator('air', 'orange', 'highlightSmoking', 'geoId/2507000', 'Percent_Person_Smoking', 'Smoking') }}
+  {{ key_indicator('favorite', 'blue', 'highlightPhysicalHealth', 'geoId/2507000', 'Percent_Person_WithPhysicalHealthNotGood', 'Physical Health Not Good') }}
+  {{ key_indicator('vaccines', 'purple', 'highlightDiabetes', 'geoId/2507000', 'Percent_Person_WithDiabetes', 'Diabetes') }}
+  {{ key_indicator('bloodtype', 'cyan', 'highlightHighBloodPressure', 'geoId/2507000', 'Percent_Person_WithHighBloodPressure', 'High Blood Pressure') }}
+  {{ key_indicator('wb_sunny', 'yellow', 'highlightVitaminD', 'geoId/2507000', 'Percent_Person_WithHealthyVitaminD', 'People With Healthy Vitamin D') }}
+  {{ key_indicator('vaccines', 'teal', 'highlightVaccination', 'geoId/2507000', 'Percent_Person_Vaccinated', 'People Vaccinated') }}
+  {{ key_indicator('local_hospital', 'red', 'highlightSickPeople', 'geoId/2507000', 'Percent_Person_Sick', 'People Who Are Sick') }}
+  </div>
+
+  <!-- Visual Comparison -->
+  <section class="mb-6">
+  <h2 class="section-title-sm">Visual Comparison</h2>
+  <div class="visual-grid">
+    <!-- Pie Charts and Line Chart Container - dynamically populated -->
+    <div id="pie-charts-container" class="pie-charts-grid">
+    <!-- Pie charts and line chart will be dynamically created here -->
+    </div>
+  </div>
+  <!-- </section> -->
+{% endblock %}
+
+{% block footer %}
+<script type="module" src="{{url_for('static', filename='custom_dc/health/js/pages/homepage/index.js')}}"></script>
+{% endblock %}

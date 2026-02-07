@@ -1,0 +1,141 @@
+/* KPI Cards */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.kpi-card {
+  background: var(--md-sys-color-surface);
+  border: 0.0625rem solid var(--md-sys-color-outline);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.kpi-card:hover {
+  border-color: #D0D0D0;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.kpi-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.kpi-icon {
+  padding: 0.5rem;
+  background: #F9F9F9;
+  border-radius: 0.5rem;
+}
+
+.kpi-value {
+  font-size: 2.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--md-sys-color-on-surface);
+}
+
+.kpi-label {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.kpi-severity-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03125rem;
+  margin-bottom: 0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.kpi-severity-low {
+  background-color: rgba(56, 142, 60, 0.13);
+  color: #388E3C;
+}
+
+.kpi-severity-high {
+  background-color: rgba(255, 161, 21, 0.13);
+  color: #FFA115;
+}
+
+.kpi-severity-critical {
+  background-color: rgba(255, 77, 79, 0.13);
+  color: #FF4D4F;
+}
+
+.kpi-source-label {
+  font-size: 0.75rem;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.kpi-source-combined {
+  background-color: #E8F5E9;
+  color: #388E3C;
+}
+
+.kpi-source-private {
+  background-color: #E3F2FD;
+  color: #1E88E5;
+}
+
+/* Map Section */
+.map-section {
+  background: var(--md-sys-color-surface);
+  border: 0.0625rem solid var(--md-sys-color-outline);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.04);
+}
+
+.map-header {
+  padding: 1.25rem;
+  border-bottom: 0.0625rem solid var(--md-sys-color-outline);
+}
+
+.map-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.map-title h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.map-title p {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.875rem;
+}
+
+.map-region {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.dataset-switcher-label {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: 500;
+}
+
+.dataset-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}

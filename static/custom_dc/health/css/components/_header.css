@@ -1,0 +1,357 @@
+/**
+ * Custom DC Header Styles
+ * 
+ * Uses .custom-dc scoping for proper specificity without !important.
+ */
+
+:root {
+  --md-sys-color-primary: #1a73e8;
+  --md-sys-color-secondary: #8B5CF6;
+  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-surface-variant: #F5F5F7;
+  --md-sys-color-on-surface: #1F1F1F;
+  --md-sys-color-on-surface-variant: #5f6368;
+  --md-sys-color-outline: #E0E0E0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.custom-dc {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.5;
+  margin: 0;
+  display: block;
+}
+
+/* ========================================
+   HEADER BASE
+   ======================================== */
+
+.custom-dc #main > header {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.75rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  box-sizing: border-box;
+  height: 4.375rem;
+}
+
+/* ========================================
+   HEADER CONTENT - MAIN FLEX CONTAINER
+   ======================================== */
+
+.custom-dc .header-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  max-width: 108rem;
+  margin: 0 auto;
+  /* NO justify-content - items flow from left */
+}
+
+/* ========================================
+   HEADER LOGO WRAPPER
+   ======================================== */
+
+.custom-dc .header-logo-wrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ========================================
+   LOGO SECTION - Preserving original style
+   ======================================== */
+
+.custom-dc .logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 0.125rem dashed #E8EAED;
+  background-color: #F8F9FA;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
+  min-width: 12rem;
+  cursor: pointer;
+}
+
+.custom-dc .logo-section .material-symbols-outlined {
+  color: #1A73E8;
+  font-size: 1.5rem;
+}
+
+.custom-dc .logo-text {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #202124;
+}
+
+/* ========================================
+   SEARCH CONTAINER
+   ======================================== */
+
+.custom-dc .search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #f1f3f4;
+  border-radius: 1.5rem;
+  border: 1px solid transparent;
+  height: 2.75rem;
+  flex: 1 1 auto;
+  min-width: 12.5rem;
+  max-width: 70%;
+  margin: 0 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.custom-dc .search-container:focus-within {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 1px #1a73e8;
+}
+
+.custom-dc .search-container .material-symbols-outlined {
+  font-size: 1.25rem;
+  color: #5f6368;
+  flex-shrink: 0;
+  position: static;
+  transform: none;
+}
+
+.custom-dc .search-container .search-icon {
+  position: static;
+  left: auto;
+  top: auto;
+  transform: none;
+}
+
+.custom-dc .search-input {
+  border: none;
+  background: transparent;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #202124;
+  outline: none;
+  flex: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-dc .search-input::placeholder {
+  color: #5f6368;
+}
+
+.custom-dc .search-input::-webkit-search-cancel-button,
+.custom-dc .search-input::-webkit-search-decoration {
+  display: none;
+}
+
+.custom-dc .search-arrow {
+  color: #5f6368;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.custom-dc .search-arrow:hover,
+.custom-dc .search-arrow.active {
+  color: #1a73e8;
+}
+
+/* ========================================
+   HEADER NAV - Pushed to the right
+   ======================================== */
+
+.custom-dc .header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.custom-dc .nav-dropdown {
+  position: relative;
+}
+
+.custom-dc .nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #5f6368;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+}
+
+.custom-dc .nav-btn:hover {
+  background-color: transparent;
+}
+
+.custom-dc .nav-btn .dropdown-arrow {
+  font-size: 1.125rem;
+  transition: transform 0.2s;
+  color: #5f6368;
+}
+
+.custom-dc .nav-dropdown.open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-dc .nav-link {
+  padding: 0.5rem;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #5f6368;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+}
+
+.custom-dc .nav-link:hover {
+  background-color: transparent;
+}
+
+/* ========================================
+   MEGA MENU
+   ======================================== */
+
+.custom-dc .mega-menu {
+  position: fixed;
+  top: 4.25rem;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.625rem);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  z-index: 1000;
+  padding: 2rem 0;
+}
+
+.custom-dc .nav-dropdown.open .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.custom-dc .mega-menu-inner {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 4rem;
+}
+
+.custom-dc .mega-menu-header {
+  flex: 0 0 12.5rem;
+  padding-right: 2rem;
+}
+
+.custom-dc .mega-menu-header h3 {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #202124;
+  margin-bottom: 0.75rem;
+}
+
+.custom-dc .mega-menu-header p {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #5f6368;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.custom-dc .mega-menu-items {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 3rem;
+}
+
+.custom-dc .mega-menu-item {
+  display: block;
+  text-decoration: none;
+  padding: 0.5rem 0;
+}
+
+.custom-dc .mega-menu-item:hover h4 {
+  text-decoration: underline;
+}
+
+.custom-dc .mega-menu-item h4 {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1a73e8;
+  margin: 0 0 0.25rem 0;
+}
+
+.custom-dc .mega-menu-item p {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 0.8125rem;
+  color: #5f6368;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ========================================
+   USER AVATAR
+   ======================================== */
+
+.custom-dc .user-avatar {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+
+.custom-dc .main-content {
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  padding-top: 3rem;
+}
+
+.custom-dc .domain-logo-image {
+  height: 2rem;
+}
+
+.custom-dc #logoPlaceholder,
+.custom-dc #domainName {
+  cursor: pointer;
+}

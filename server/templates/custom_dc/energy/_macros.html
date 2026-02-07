@@ -1,0 +1,87 @@
+{#-
+Copyright 2023 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+{# Form field macro for admin dashboard #}
+{% macro form_field(label, field_id, field_type='text', placeholder='', error_id='', value='', rows='') %}
+<div class="form-field">
+  <label class="form-label">{{ label }}</label>
+  {% if field_type == 'textarea' %}
+  <md-outlined-text-field id="{{ field_id }}" type="textarea" rows="{{ rows or 3 }}" placeholder="{{ placeholder }}" class="text-field-wide" value="{{ value }}"></md-outlined-text-field>
+  {% else %}
+  <md-outlined-text-field id="{{ field_id }}" type="{{ field_type }}" placeholder="{{ placeholder }}" value="{{ value }}"></md-outlined-text-field>
+  {% endif %}
+  {% if error_id %}
+  <p id="{{ error_id }}" class="field-error hidden">{{ caller() if caller else 'Required' }}</p>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{# Card header macro for dashboard cards #}
+{% macro card_header(icon, title, description='') %}
+<div class="card-header">
+  <div class="card-icon-wrapper">
+    <md-icon>{{ icon }}</md-icon>
+  </div>
+  <div class="card-title-group">
+    <h2 class="card-title">{{ title }}</h2>
+    {% if description %}
+    <p class="card-description">{{ description }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{# Status chip macro for success/error indicators #}
+{% macro status_chip(chip_id, label, chip_type='success') %}
+<md-filter-chip label="{{ label }}" id="{{ chip_id }}" class="status-chip-{{ chip_type }} hidden">
+</md-filter-chip>
+{% endmacro %}
+
+{# Mega menu dropdown macro for navigation #}
+{% macro mega_menu_dropdown(dropdown_id, label, header_title, header_desc, items) %}
+<div class="nav-dropdown" id="{{ dropdown_id }}">
+  <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+    <span>{{ label }}</span>
+    <span class="material-symbols-outlined dropdown-arrow" aria-hidden="true">expand_more</span>
+  </button>
+  <div class="mega-menu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <h3>{{ header_title }}</h3>
+        <p>{{ header_desc }}</p>
+      </div>
+      <div class="mega-menu-items">
+        {% for item in items %}
+        <a href="{{ item.url }}" class="mega-menu-item" {% if item.target %}target="{{ item.target }}"{% endif %}>
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.description }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{# KPI card macro for homepage #}
+{% macro kpi_card(color, label_id, label_text, widget_id, variable, date='2025') %}
+<div class="kpi-card kpi-card-{{ color }}">
+  <p class="kpi-label" id="{{ label_id }}">{{ label_text }}</p>
+  <p class="kpi-value">
+    <datacommons-highlight variable="{{ variable }}" id="{{ widget_id }}" place="country/USA" date="{{ date }}"></datacommons-highlight>
+  </p>
+</div>
+{% endmacro %}

@@ -1,0 +1,254 @@
+{#-
+Copyright 2023 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+{% from 'custom_dc/energy/_macros.html' import form_field, card_header, status_chip %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Configuration Panel</title>
+
+  <link rel="icon" id="faviconLogo" href="https://docs.datacommons.org/assets/images/favicon.png" type="image/png" data-logo-url="{{ url_for('admin_panel.domain_logo') }}">
+
+  {% include 'custom_dc/energy/includes/head_common.html' %}
+
+  <link href="{{url_for('static', filename='custom_dc/energy/css/components/_alert.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='custom_dc/energy/css/pages/_dashboard.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='custom_dc/energy/css/components/_forms.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='custom_dc/energy/css/components/_status.css')}}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <md-icon-button href="{{ url_for('static.homepage') }}">
+        <md-icon>arrow_back</md-icon>
+      </md-icon-button>
+      <div class="header-title-group">
+        <h1 class="header-title">Admin Configuration Panel</h1>
+        <p class="header-subtitle">Customize your recruitment intelligence platform</p>
+      </div>
+    </div>
+    <div class="button-group">
+      <md-outlined-button href="{{ url_for('static.homepage') }}">
+        <md-icon slot="icon">visibility</md-icon>
+        Preview Insights
+      </md-outlined-button>
+      <md-outlined-button onclick="logout()">
+        <md-icon slot="icon">logout</md-icon>
+        Sign Out
+      </md-outlined-button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Snackbar Container - Top Right -->
+    <div class="snackbar-container" aria-live="polite" aria-atomic="false">
+      <div class="md3-snackbar" id="alertMessage" role="status" aria-live="polite" aria-atomic="false">
+        <span id="alertMessageContent" class="md3-snackbar-content">111</span>
+        <md-icon-button class="md3-snackbar-action" id="alertDissmiss" aria-label="Dismiss message">
+          <md-icon>close</md-icon>
+        </md-icon-button>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="tabs">
+      <a href="#" class="tab active" onclick="switchTab(event, 'data')">
+        <md-icon>database</md-icon>
+        Data & Files
+      </a>
+      <a href="#" class="tab" onclick="switchTab(event, 'theme')">
+        <md-icon>palette</md-icon>
+        Theme Settings
+      </a>
+    </nav>
+
+    <!-- Data & Files Tab -->
+    <div id="data-tab" class="tab-content active">
+      <!-- Steps Card -->
+      <md-card>
+        <h2 class="card-title section-title">Steps to get started</h2>
+
+        <div class="steps-container">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <p class="step-title">Select the data type you want to upload from the dropdown</p>
+              <md-text-button class="downloadCsv"
+                href="{{url_for('static', filename='custom_dc/energy/data/asset_location.csv')}}"
+                download="asset_location_example.csv">Download asset location sample CSV</md-text-button>
+              <md-text-button class="downloadCsv"
+                href="{{url_for('static', filename='custom_dc/energy/data/leases.csv')}}" touch-target="none">
+                Download leases sample CSV
+              </md-text-button>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <p class="step-title">Export your data as CSV from your monitoring system</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <p class="step-title">Upload your file and view insights</p>
+            </div>
+          </div>
+        </div>
+      </md-card>
+
+      <!-- Data Upload -->
+      <md-card>
+        {{ card_header('upload', 'Data Upload', 'Upload your environmental compliance data to power insights and analysis') }}
+
+        <md-divider></md-divider>
+
+        <div class="upload-card">
+          <h3 class="upload-title">Upload Data</h3>
+          <p>Select Data Type</p>
+          <md-outlined-select id="targetFileName">
+            <md-select-option value="leases.csv" selected>
+              <div slot="headline">Leases Data</div>
+            </md-select-option>
+            <md-select-option value="asset_locations.csv">
+              <div slot="headline">Asset Location Data</div>
+            </md-select-option>
+          </md-outlined-select>
+          <p class="upload-meta">Choose the type of data you're uploading to ensure proper validation</p>
+
+          <p class="upload-meta">Supported format: CSV</p>
+          <p class="upload-note">
+            Asset data enables proximity analysis, risk assessment, and compliance tracking.
+          </p>
+
+          <!-- Selected File Display (hidden by default, shown when file selected) -->
+          <div id="selectedFileDisplay" class="selected-file-display hidden">
+            <md-icon class="selected-file-icon">description</md-icon>
+            <div class="selected-file-info">
+              <p class="selected-file-name" id="selectedFileName"></p>
+              <p class="selected-file-size" id="selectedFileSize"></p>
+            </div>
+            <md-icon-button class="remove-file-btn" onclick="removeFile('applicant')">
+              <md-icon>close</md-icon>
+            </md-icon-button>
+          </div>
+
+          <div class="button-group">
+            <md-filled-button class="inline-button" onclick="document.getElementById('applicantFileInput').click()">
+              <md-icon slot="icon">upload</md-icon>
+              Choose File
+            </md-filled-button>
+            <md-outlined-button class="inline-button" onclick="uploadApplicantFile()">
+              <md-icon slot="icon">cloud_upload</md-icon>
+              Upload File
+            </md-outlined-button>
+          </div>
+          <input type="file" id="applicantFileInput" accept=".csv" class="hidden"
+            onchange="handleFileSelect(event, 'applicant')">
+        </div>
+
+        <md-divider class="divider-short"></md-divider>
+
+        <!-- Upload Status -->
+        <div class="status-box hidden" id="uploadResponseMessage">
+          <div class="status-chips-container">
+            {{ status_chip('successUploadStatus', 'Upload Successful', 'success') }}
+            {{ status_chip('failedUploadStatus', 'Upload Failed', 'error') }}
+          </div>
+
+          <div class="status-row">
+            <span class="status-label">Upload message:</span>
+            <span class="status-value" id="uploadStatusMessage"></span>
+          </div>
+          <div class="status-row hidden" id="rowsUploaded">
+            <span class="status-label">Number of acceptable rows:</span>
+            <span class="status-value" id="rowsUploadedsMessage"></span>
+          </div>
+          <div class="status-row hidden" id="failedRows">
+            <span class="status-label">Number of unacceptable rows:</span>
+            <span class="status-value" id="failedRowsMessage"></span>
+          </div>
+          <div class="error-list hidden" id="uploadErrorBlock"></div>
+        </div>
+      </md-card>
+    </div>
+
+    <!-- Theme Settings Tab -->
+    <div id="theme-tab" class="tab-content">
+      <!-- Branding Section -->
+      <md-card>
+        {{ card_header('palette', 'Domain Branding', 'Customize domain information and appearance') }}
+
+        <md-divider></md-divider>
+
+        <!-- Domain Name -->
+        {{ form_field('Domain Name', 'domainName', 'text', 'e.g., Stanford University', 'domainNameError', 'University Name') }}
+
+        <!-- Contact Email -->
+        {{ form_field('Contact Email', 'contactEmail', 'email', 'contact@example.com', 'contactEmailError', 'contact@example.com') }}
+
+        <!-- Logo Upload -->
+        <div class="form-field">
+          <label class="form-label">Domain Logo</label>
+
+          <div class="logo-upload-container">
+            <!-- Selected Logo Display (hidden by default, shown when file selected) -->
+            <div id="selectedLogoDisplay" class="selected-file-display hidden">
+              <md-icon class="file-icon">description</md-icon>
+              <div class="file-info">
+                <p id="selectedLogoName" class="file-name"></p>
+              </div>
+              <md-icon-button onclick="removeFile('logo')">
+                <md-icon class="close-icon">close</md-icon>
+              </md-icon-button>
+            </div>
+
+            <input type="file" id="logoUpload" accept=".png" onchange="handleFileSelect(event, 'logo')"
+              class="hidden" />
+            <md-filled-button class="inline-button full-width" onclick="document.getElementById('logoUpload').click()">
+              <md-icon slot="icon">upload</md-icon>
+              Choose File
+            </md-filled-button>
+          </div>
+
+          <p class="field-hint">Recommended size: 200 × 80px • Supports PNG</p>
+        </div>
+
+        <input type="hidden" id="logoPresent" value="false" />
+
+        <div class="button-group">
+          <md-filled-button class="inline-button" onclick="saveChanges()">
+            <md-icon slot="icon">save</md-icon>
+            Save Changes
+          </md-filled-button>
+        </div>
+      </md-card>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script type="module" src="{{url_for('static', filename='custom_dc/energy/js/utils/api.js')}}"></script>
+  <script type="module" src="{{url_for('static', filename='custom_dc/energy/js/pages/dashboard.js')}}"></script>
+</body>
+
+</html>

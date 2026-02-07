@@ -1,0 +1,107 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Base Styles - Variables, Reset, Typography */
+@import url('base/_variables.css');
+@import url('base/_reset.css');
+@import url('base/_typography.css');
+
+/* Component Styles - Reusable UI components */
+@import url('components/_header.css');
+@import url('components/_alert.css');
+@import url('components/_buttons.css');
+@import url('components/_cards.css');
+@import url('components/_forms.css');
+@import url('components/_status.css');
+
+/* Page-Specific Styles */
+@import url('pages/_homepage.css');
+@import url('pages/_dashboard.css');
+@import url('pages/_login.css');
+
+/* ============================================
+   CRITICAL HEADER OVERRIDES
+   Using unique homepage- prefixed class names
+   ============================================ */
+
+.homepage-header-content {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.homepage-header-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  flex-shrink: 0 !important;
+}
+
+.homepage-search-container {
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 1 auto !important;
+  min-width: 12.5rem !important; /* 200px */
+  max-width: 70% !important;
+  margin: 0 0.75rem !important;
+}
+
+.homepage-header-nav {
+  display: flex !important;
+  align-items: center !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+
+/* ============================================
+   Tool pages (#main-pane + #plot-container)
+   Restore flex layout so plot-container fills
+   the viewport and scrollbar renders correctly
+   in fullscreen. Energy reset overlaps with
+   base_tools/visualization layout otherwise.
+   ============================================ */
+
+#main:has(#main-pane) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 89vh;
+  align-items: stretch;
+}
+
+#main:has(#main-pane) .main-content {
+  flex: 1 1 auto;
+  position: relative;
+  min-height: 0;
+  width: 100%;
+}
+
+#main:has(#main-pane) #main-pane {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+#main:has(#main-pane) #plot-container {
+  flex-grow: 1;
+  min-height: 0;
+  min-width: 0;
+}

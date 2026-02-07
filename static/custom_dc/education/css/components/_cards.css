@@ -1,0 +1,78 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Material Design Cards */
+md-card {
+  background: #FFFFFF;
+  border: 1px solid #E8EAED;
+  border-radius: 2.25rem;
+  padding: 1.5rem;
+  box-shadow: 0px 1px 3px rgba(60, 64, 67, 0.3), 0px 4px 8px rgba(60, 64, 67, 0.15);
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  background: #E8F0FE;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon-wrapper md-icon {
+  --md-icon-size: 1.5rem;
+  color: #1A73E8;
+}
+
+.card-title-group {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #202124;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.334;
+}
+
+.card-description {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #5F6368;
+  margin: 0;
+  line-height: 1.5;
+}
+
+md-divider {
+  --md-divider-color: #E8EAED;
+  margin: 1.5rem 0;
+}
+
+.divider-short {
+  max-width: 11.25rem;
+  margin: 2rem 0;
+}

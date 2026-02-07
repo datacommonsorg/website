@@ -1,0 +1,147 @@
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'homepage' %}
+{% set page_id = 'page-homepage' %}
+
+{% block content %}
+<!-- KPI Row -->
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-header">
+      <div class="kpi-icon">
+        <md-icon id="plumeAssetIntersectionsSeverityIcon">merge_type</md-icon>
+      </div>
+      <div id="plumeAssetIntersectionsSeverityLabel" class="kpi-severity-label"></div>
+    </div>
+    <div class="kpi-value">
+      <datacommons-highlight id="plumeAssetIntersections" place="country/USA"
+        variable="Count_Person_IsInternetUser_PerCapita" unit="%"></datacommons-highlight>
+    </div>
+
+    <div class="kpi-label">Total Plume–Asset Intersections</div>
+    <div class="kpi-source-label kpi-source-combined">Private + Public</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-header">
+      <div class="kpi-icon">
+        <md-icon id="asssetsNearCommunitiesSeverityIcon">groups</md-icon>
+      </div>
+      <div id="asssetsNearCommunitiesSeverityLabel" class="kpi-severity-label"></div>
+    </div>
+    <div class="kpi-value">
+      <datacommons-highlight id="asssetsNearCommunities" place="country/USA"
+        variable="Count_Person_BelowPovertyLevelInThePast12Months"></datacommons-highlight>
+    </div>
+    <div class="kpi-label">Assets Near Communities</div>
+    <div class="kpi-source-label kpi-source-combined">Private + Public</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-header">
+      <div class="kpi-icon">
+        <md-icon id="highRiskIssuesSeverityIcon">trending_up</md-icon>
+      </div>
+      <div id="highRiskIssuesSeverityLabel" class="kpi-severity-label"></div>
+    </div>
+    <div class="kpi-value">
+      <datacommons-highlight id="highRiskIssues" place="country/USA"
+        variable="Count_Person_HighRiskIssues"></datacommons-highlight>
+    </div>
+    <div class="kpi-label">High-Risk Issues (30 days)</div>
+    <div class="kpi-source-label kpi-source-private">Private Data</div>
+  </div>
+</div>
+
+<!-- Map and Insights Section -->
+<div class="map-section">
+  <!-- Map Header -->
+  <div class="map-header">
+    <div class="map-title-row">
+      <div class="map-title">
+        <h3>Data Commons Map Chart</h3>
+        <p id="map-subtitle">Methane detection intensity from public satellite data</p>
+      </div>
+      <div class="map-region">
+        <span>Carlsbad Region</span>
+      </div>
+    </div>
+
+    <!-- Dataset Switcher -->
+    <div>
+      <label class="dataset-switcher-label">Select Dataset</label>
+      <md-chip-set>
+        <md-filter-chip label="Methane Plumes (Public)" data-dataset="methane" id="chip-methane"
+          selected></md-filter-chip>
+        <md-filter-chip label="Asset Density (Private)" data-dataset="asset" id="chip-asset"></md-filter-chip>
+        <md-filter-chip label="Community Risk Index (Public)" data-dataset="community"
+          id="chip-community"></md-filter-chip>
+      </md-chip-set>
+    </div>
+  </div>
+
+  <!-- Map Content -->
+  <div class="map-content-wrapper">
+    <!-- Map Container -->
+
+    <datacommons-map id="dcMap" class="map-container" parentPlace="country/USA" childPlaceType="State"
+      variable="Annual_Emissions_Methane_CoalMining" allowZoom></datacommons-map>
+  </div>
+
+  <!-- Data Freshness Bar -->
+  <div class="data-freshness">
+    <div class="freshness-content">
+      <span class="freshness-label">Data Sources:</span>
+      <div class="freshness-item">
+        <span class="freshness-dot freshness-dot-purple"></span>
+        <span class="freshness-text-label">Methane plumes</span>
+        <span class="freshness-text-detail">(Public)</span>
+      </div>
+      <span class="freshness-divider"></span>
+      <div class="freshness-item">
+        <span class="freshness-dot freshness-dot-blue"></span>
+        <span class="freshness-text-label">Asset locations</span>
+        <span class="freshness-text-detail">(Private)</span>
+      </div>
+      <span class="freshness-divider"></span>
+      <div class="freshness-item">
+        <span class="freshness-dot freshness-dot-purple"></span>
+        <span class="freshness-text-label">Community risk</span>
+        <span class="freshness-text-detail">(Public census data)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Data Table -->
+<div class="data-table-section">
+  <div class="table-header">
+    <div class="table-tabs">
+      <div class="table-tab active" data-tab="intersections">Intersections</div>
+      <div class="table-tab" data-tab="plumes">Plumes</div>
+      <div class="table-tab" data-tab="leases">Leases</div>
+      <div class="table-tab" data-tab="communities">Communities</div>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead id="thead">
+        <tr></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="table-footer">
+    <div class="pagination" id="pager"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="https://datacommons.org/datacommons.js"></script>
+<script src={{url_for('static', filename='custom_dc/energy/js/pages/homepage/kpis.js' )}}></script>
+<script src={{url_for('static', filename='custom_dc/energy/js/pages/homepage/mapRendering.js' )}}></script>
+<script src={{url_for('static', filename='custom_dc/energy/js/pages/homepage/intersectionsTable.js' )}}></script>
+{% endblock %}
