@@ -24,11 +24,11 @@ import {
   getParentPlacesPromise,
 } from "../../../utils/place_utils";
 import {
-  AA1_AA2_CHILD_PLACE_TYPE_HIERARCHY,
-  ALL_PLACE_CHILD_TYPES,
-  COUNTRIES_WITH_AA1_AND_AA2_DATA,
-  DEFAULT_PLACE_TYPE_HIERARCHY,
-  SPECIAL_HANDLING_HIERARCHY_MAPPING,
+  COUNTRIES_WITH_AA1_AND_AA2_MAPS,
+  MAPS_AA1_AA2_CHILD_PLACE_TYPE_HIERARCHY,
+  MAPS_ALL_PLACE_CHILD_TYPES,
+  MAPS_DEFAULT_PLACE_TYPE_HIERARCHY,
+  MAPS_SPECIAL_HANDLING_HIERARCHY_MAPPING,
 } from "./place_select_constants";
 
 type NamedTypedCallbackFn = (place: NamedTypedPlace) => void;
@@ -94,16 +94,17 @@ export function getEnclosedPlaceTypesWithMaps(
 ): string[] {
   // First, determine which containment hierarchy to use based on the selected place's type(s).
   // This is a mapping of parent place type -> child place types to show in the child place type selector.
-  let typeHierarchy: { [key: string]: string[] } = DEFAULT_PLACE_TYPE_HIERARCHY;
+  let typeHierarchy: { [key: string]: string[] } =
+    MAPS_DEFAULT_PLACE_TYPE_HIERARCHY;
 
   for (const parentPlace of [selectedPlace, ...parentPlaces]) {
     // Check if the selected place or any of its parent places
     // have a different child place type hierarchy than the default.
-    if (parentPlace.dcid in SPECIAL_HANDLING_HIERARCHY_MAPPING) {
-      typeHierarchy = SPECIAL_HANDLING_HIERARCHY_MAPPING[parentPlace.dcid];
+    if (parentPlace.dcid in MAPS_SPECIAL_HANDLING_HIERARCHY_MAPPING) {
+      typeHierarchy = MAPS_SPECIAL_HANDLING_HIERARCHY_MAPPING[parentPlace.dcid];
       break;
-    } else if (COUNTRIES_WITH_AA1_AND_AA2_DATA.has(parentPlace.dcid)) {
-      typeHierarchy = AA1_AA2_CHILD_PLACE_TYPE_HIERARCHY;
+    } else if (COUNTRIES_WITH_AA1_AND_AA2_MAPS.has(parentPlace.dcid)) {
+      typeHierarchy = MAPS_AA1_AA2_CHILD_PLACE_TYPE_HIERARCHY;
       break;
     }
   }
@@ -120,9 +121,9 @@ export function getEnclosedPlaceTypesWithMaps(
   // Finally, add child places from the ALL_PLACE_CHILD_TYPES mapping,
   // which should be added regardless of whether a special handling hierarchy
   // or default hierarchy is used.
-  for (const type in ALL_PLACE_CHILD_TYPES) {
+  for (const type in MAPS_ALL_PLACE_CHILD_TYPES) {
     if (selectedPlace.types.indexOf(type) > -1) {
-      childPlaceTypes.push(...ALL_PLACE_CHILD_TYPES[type]);
+      childPlaceTypes.push(...MAPS_ALL_PLACE_CHILD_TYPES[type]);
     }
   }
   return Array.from(new Set(childPlaceTypes));
