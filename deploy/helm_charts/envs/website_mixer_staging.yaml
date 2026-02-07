@@ -1,0 +1,36 @@
+# Overrides for datcom-website-staging's mixer deployments
+# Default values are defined by 
+#  priority: /mixer/deploy/helm_charts/envs/mixer_staging.yaml
+#  fallback: /mixer/deploy/helm_charts/values.yaml
+
+project: "datcom-website-staging"
+mixer:
+  hostProject: "datcom-website-staging"
+  serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
+  useRedis: true
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.38.211.19"
+          port: "6379"
+  enableOtlp: true
+
+serviceAccount:
+  name: website-ksa
+ingress:
+  enabled: false
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 2
+    nodePool: pool-1
+  node:
+    replicas: 4
+  observation:
+    replicas: 4
+  default:
+    replicas: 4
+

@@ -78,6 +78,9 @@ kgStoreConfig:
   baseBigtableInfo:
   customBigtableInfo: ""
 
+# NOTE: These serviceGroups configs are used for ROUTING ONLY (generating ingress-config).
+# To configure workload settings (replicas, resources, etc.) for the mixer deployments,
+# please modify the respective `website_mixer_{env}.yaml` overrides file.
 serviceGroups:
   svg:
     urlPaths:
@@ -86,37 +89,15 @@ serviceGroups:
       - "/v1/variable/*"
       - "/v1/bulk/info/variable-group"
       - "/v1/bulk/info/variable"
-    replicas: 1
-    resources:
-      memoryRequest: "8G"
-      memoryLimit: "8G"
-    cacheSVG: true
-    nodePool:
   observation:
     urlPaths:
       - "/v2/observation"
-    replicas: 1
-    resources:
-      memoryRequest: "4G"
-      memoryLimit: "4G"
-    nodePool:
   node:
     urlPaths:
       - "/v2/node"
-    replicas: 1
-    resources:
-      memoryRequest: "8G"
-      memoryLimit: "8G"
-    cacheSVG: true
-    nodePool:
   default:
     urlPaths:
       - "/*"
-    replicas: 1
-    resources:
-      memoryRequest: "2G"
-      memoryLimit: "2G"
-    nodePool:
 
 ###############################################################################
 # Config for NL
