@@ -18,17 +18,27 @@
  * Helper functions for the place selector on our visualization tools
  */
 
+import _ from "lodash";
+
+import {
+  EARTH_NAMED_TYPED_PLACE,
+  EUROPE_NAMED_TYPED_PLACE,
+  USA_PLACE_DCID,
+} from "../../../shared/constants";
 import { NamedTypedPlace } from "../../../shared/types";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../../utils/place_utils";
+import { isChildPlaceOf } from "../../shared_util";
 import {
   COUNTRIES_WITH_AA1_AND_AA2_MAPS,
+  DEFAULT_CHILD_PLACE_TYPE_HIERARCHY,
+  EUROPE_CHILD_PLACE_TYPE_HIERARCHY,
   MAPS_AA1_AA2_CHILD_PLACE_TYPE_HIERARCHY,
-  MAPS_ALL_PLACE_CHILD_TYPES,
   MAPS_DEFAULT_PLACE_TYPE_HIERARCHY,
   MAPS_SPECIAL_HANDLING_HIERARCHY_MAPPING,
+  USA_CHILD_PLACE_TYPE_HIERARCHY,
 } from "./place_select_constants";
 
 type NamedTypedCallbackFn = (place: NamedTypedPlace) => void;
@@ -60,7 +70,7 @@ export async function loadChildPlaceTypes(
  * Note: This function uses a containment hierarchy specified by
  * place_select_constants.ts instead of reading the knowledge graph.
  * Requires the parent places of the selected place to determine if the
- * selected place is within the US, which gets special handling.
+ * selected place is within the US or Europe, which gets special handling.
  *
  * @param selectedPlace place to get child place types for.
  * @param parentPlaces parent places of the selected place.
@@ -70,19 +80,53 @@ export function getEnclosedPlaceTypes(
   selectedPlace: NamedTypedPlace,
   parentPlaces: NamedTypedPlace[]
 ): string[] {
+  if (selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    return DEFAULT_CHILD_PLACE_TYPE_HIERARCHY[EARTH_NAMED_TYPED_PLACE.types[0]];
+  }
+  if (_.isEmpty(selectedPlace.types)) {
+    return [];
+  }
+  const isUSPlace = isChildPlaceOf(
+    selectedPlace.dcid,
+    USA_PLACE_DCID,
+    parentPlaces
+  );
+  const isEuropePlace = isChildPlaceOf(
+    selectedPlace.dcid,
+    EUROPE_NAMED_TYPED_PLACE.dcid,
+    parentPlaces
+  );
+
+  for (const type of selectedPlace.types) {
+    if (isUSPlace) {
+      if (type in USA_CHILD_PLACE_TYPE_HIERARCHY) {
+        return USA_CHILD_PLACE_TYPE_HIERARCHY[type];
+      }
+    } else if (isEuropePlace) {
+      if (type in EUROPE_CHILD_PLACE_TYPE_HIERARCHY) {
+        return EUROPE_CHILD_PLACE_TYPE_HIERARCHY[type];
+      }
+    } else {
+      if (type in DEFAULT_CHILD_PLACE_TYPE_HIERARCHY) {
+        return DEFAULT_CHILD_PLACE_TYPE_HIERARCHY[type];
+      }
+    }
+  }
   return [];
 }
 
 /**
  * Get valid child place types of a selected place given its parent places that
- * have both data and maps available. This is typically a subset of the child
- * place types returned by getEnclosedPlaceTypes, because we don't have geojsons
- * available for all child place types.
+ * have both data and maps available.
+ *
+ * This is typically a subset of the child place types returned by
+ * getEnclosedPlaceTypes, because we don't have geojsons available for all child
+ * place types.
  *
  * Note: This function uses a containment hierarchy specified by
  * place_select_constants.ts instead of reading the knowledge graph.
  * Requires the parent places of the selected place to determine if the
- * selected place is within the US, which gets special handling.
+ * selected place is within the US or Europe, which gets special handling.
  *
  * @param selectedPlace place to get child place types for.
  * @param parentPlaces parent places of the selected place.
@@ -118,14 +162,8 @@ export function getEnclosedPlaceTypesWithMaps(
     }
   }
 
-  // Finally, add child places from the ALL_PLACE_CHILD_TYPES mapping,
-  // which should be added regardless of whether a special handling hierarchy
-  // or default hierarchy is used.
-  for (const type in MAPS_ALL_PLACE_CHILD_TYPES) {
-    if (selectedPlace.types.indexOf(type) > -1) {
-      childPlaceTypes.push(...MAPS_ALL_PLACE_CHILD_TYPES[type]);
-    }
-  }
+  // Merge any duplicates
+  // Typescript Set() preserves order by keeping first occurrence of any duplicates
   return Array.from(new Set(childPlaceTypes));
 }
 

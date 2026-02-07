@@ -17,7 +17,205 @@
 /**
  * Tests for place_select_utils.ts
  */
-import { getEnclosedPlaceTypesWithMaps } from "./place_select_utils";
+import {
+  getNamedTypedPlace,
+  getParentPlacesPromise,
+} from "../../../utils/place_utils";
+import {
+  getEnclosedPlaceTypes,
+  getEnclosedPlaceTypesWithMaps,
+  getPlaceDcidCallback,
+  loadChildPlaceTypes,
+} from "./place_select_utils";
+
+// Mock getParentPlacesPromise to avoid making actual API calls
+jest.mock("../../../utils/place_utils", () => ({
+  getNamedTypedPlace: jest.fn(),
+  getParentPlacesPromise: jest.fn(),
+}));
+
+describe("loadChildPlaceTypes", () => {
+  beforeEach(() => {
+    (getParentPlacesPromise as jest.Mock).mockClear();
+  });
+
+  it("should return child place types for a place", async () => {
+    (getParentPlacesPromise as jest.Mock).mockResolvedValue([
+      { dcid: "southamerica", name: "South America", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ]);
+
+    const selectedPlace = {
+      dcid: "country/ABW",
+      name: "Aruba",
+      types: ["Country"],
+    };
+    const expected = [
+      "AdministrativeArea1",
+      "AdministrativeArea2",
+      "IPCCPlace_50",
+    ];
+
+    const result = await loadChildPlaceTypes(selectedPlace);
+    expect(getParentPlacesPromise).toHaveBeenCalledWith("country/ABW");
+    expect(result).toEqual(expected);
+  });
+
+  it("When fetching child places with maps, should return only places that have maps", async () => {
+    (getParentPlacesPromise as jest.Mock).mockResolvedValue([
+      { dcid: "country/CHN", name: "China", types: ["Country"] },
+      { dcid: "asia", name: "Asia", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ]);
+
+    const selectedPlace = {
+      dcid: "wikidataId/Q43407",
+      name: "Shandong", // Shandong, China
+      types: ["AdministrativeArea1"],
+    };
+    const expected = ["AdministrativeArea2"]; // AA3 is missing because it doesn't have maps
+
+    const result = await loadChildPlaceTypes(selectedPlace, true);
+    expect(getParentPlacesPromise).toHaveBeenCalledWith("wikidataId/Q43407");
+    expect(result).toEqual(expected);
+  });
+});
+
+describe("getEnclosedPlaceTypes", () => {
+  it("Countries should return AA1, AA2, IPCCPlace_50", () => {
+    const selectedPlace = {
+      dcid: "country/CAN",
+      name: "Canada",
+      types: ["Country"],
+    };
+    const parentPlaces = [
+      { dcid: "northamerica", name: "North America", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ];
+    const expected = [
+      "AdministrativeArea1",
+      "AdministrativeArea2",
+      "IPCCPlace_50",
+    ];
+
+    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
+      expected
+    );
+  });
+  it("AA1s should return AA2 and AA3", () => {
+    const selectedPlace = {
+      dcid: "wikidataId/Q43407",
+      name: "Shandong",
+      types: ["AdministrativeArea1"],
+    };
+    const parentPlaces = [
+      { dcid: "country/CHN", name: "China", types: ["Country"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ];
+    const expected = ["AdministrativeArea2", "AdministrativeArea3"];
+
+    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
+      expected
+    );
+  });
+  it("USA should return State, County, IPCCPlace_50", () => {
+    const selectedPlace = {
+      dcid: "country/USA",
+      name: "USA",
+      types: ["Country"],
+    };
+    const parentPlaces = [
+      { dcid: "northamerica", name: "North America", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ];
+    const expected = ["State", "County", "IPCCPlace_50"];
+
+    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
+      expected
+    );
+  });
+  it("US State should return County, City, Town", () => {
+    const selectedPlace = {
+      dcid: "state/AL",
+      name: "Alabama",
+      types: ["State"],
+    };
+    const parentPlaces = [
+      { dcid: "country/USA", name: "USA", types: ["Country"] },
+      { dcid: "northamerica", name: "North America", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ];
+    const expected = ["County", "City", "Town", "Village"];
+
+    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
+      expected
+    );
+  });
+  it("US County should return City, Town, Village, CensusTract, CensusZipCodeTabulationArea", () => {
+    const selectedPlace = {
+      dcid: "geoId/06037",
+      name: "Los Angeles County",
+      types: ["County"],
+    };
+    const parentPlaces = [
+      { dcid: "geoId/06", name: "California", types: ["State"] },
+      { dcid: "country/USA", name: "USA", types: ["Country"] },
+      { dcid: "northamerica", name: "North America", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ];
+    const expected = [
+      "City",
+      "Town",
+      "Village",
+      "CensusTract",
+      "CensusZipCodeTabulationArea",
+    ];
+
+    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
+      expected
+    );
+  });
+  it("Europe should return Country, AA1, EurostatNUTS1, IPCCPlace_50", () => {
+    const selectedPlace = {
+      dcid: "europe",
+      name: "Europe",
+      types: ["Continent"],
+    };
+    const parentPlaces = [{ dcid: "earth", name: "Earth", types: ["Planet"] }];
+    const expected = [
+      "Country",
+      "AdministrativeArea1",
+      "EurostatNUTS1",
+      "IPCCPlace_50",
+    ];
+
+    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
+      expected
+    );
+  });
+  it("European country should return AA1, AA2, EurostatNUTS1, EurostatNUTS2, IPCCPlace_50", () => {
+    const selectedPlace = {
+      dcid: "country/DEU",
+      name: "Germany",
+      types: ["Country"],
+    };
+    const parentPlaces = [
+      { dcid: "europe", name: "Europe", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ];
+    const expected = [
+      "AdministrativeArea1",
+      "AdministrativeArea2",
+      "EurostatNUTS1",
+      "EurostatNUTS2",
+      "IPCCPlace_50",
+    ];
+
+    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
+      expected
+    );
+  });
+});
 
 describe("getEnclosedPlaceTypesWithMaps", () => {
   it("Countries without AA1/AA2 data should only return IPCCPlace_50", () => {
@@ -219,5 +417,34 @@ describe("getEnclosedPlaceTypesWithMaps", () => {
     expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
       expected
     );
+  });
+});
+
+describe("getPlaceDcidCallback", () => {
+  beforeEach(() => {
+    (getNamedTypedPlace as jest.Mock).mockClear();
+  });
+
+  it("should do nothing if no callback is provided", async () => {
+    const fn = getPlaceDcidCallback(null as any);
+    await fn("country/USA");
+    expect(getNamedTypedPlace).not.toHaveBeenCalled();
+  });
+
+  it("should fetch place and call the callback", async () => {
+    const mockPlace = {
+      dcid: "country/USA",
+      name: "United States",
+      types: ["Country"],
+    };
+    (getNamedTypedPlace as jest.Mock).mockResolvedValue(mockPlace);
+
+    const mockCallback = jest.fn();
+    const fn = getPlaceDcidCallback(mockCallback);
+
+    await fn("country/USA");
+
+    expect(getNamedTypedPlace).toHaveBeenCalledWith("country/USA");
+    expect(mockCallback).toHaveBeenCalledWith(mockPlace);
   });
 });
