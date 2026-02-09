@@ -3,7 +3,7 @@
 exports[`Single place and single stat var 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -27,7 +27,7 @@ exports[`Single place and single stat var 1`] = `
   </div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog metadata-modal css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -35,7 +35,7 @@ exports[`Single place and single stat var 1`] = `
 exports[`Single place and single stat var 2`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -59,12 +59,12 @@ exports[`Single place and single stat var 2`] = `
   </div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog metadata-modal css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>
 <div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -88,7 +88,7 @@ exports[`Single place and single stat var 2`] = `
   </div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog metadata-modal css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -96,7 +96,7 @@ exports[`Single place and single stat var 2`] = `
 exports[`Single place and single stat var 3`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -120,7 +120,7 @@ exports[`Single place and single stat var 3`] = `
   </div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog metadata-modal css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -166,7 +166,7 @@ exports[`Single place and single stat var 4`] = `
 exports[`chart options 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -190,7 +190,7 @@ exports[`chart options 1`] = `
   </div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog metadata-modal css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -198,7 +198,7 @@ exports[`chart options 1`] = `
 exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -222,7 +222,7 @@ exports[`statVar not in PV-tree 1`] = `
   </div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog metadata-modal css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
