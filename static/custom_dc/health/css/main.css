@@ -29,3 +29,103 @@
 @import url('pages/_homepage.css');
 @import url('pages/_dashboard.css');
 @import url('pages/_login.css');
+
+/* ============================================
+   FAQ & About – match datacommons.org/faq (static page)
+   Replicates base.scss .main-content + Bootstrap .container + static.scss
+   ============================================ */
+
+#page-faq #main .main-content,
+#page-about #main .main-content {
+  margin: 3rem auto 6rem;
+}
+
+#page-faq .container,
+#page-about .container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+@media (min-width: 576px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 720px;
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
+}
+@media (min-width: 1068px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 1038px;
+  }
+}
+@media (min-width: 1350px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 1310px;
+  }
+}
+
+#page-faq .container h1,
+#page-about .container h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+}
+#page-faq .container h2,
+#page-about .container h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+#page-faq .container dl {
+  margin: 0;
+}
+#page-faq .container dt {
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+#page-faq .container dt:first-child {
+  margin-top: 0;
+}
+#page-faq .container dd {
+  margin-left: 0;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+#page-about .container p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+#page-faq .container a,
+#page-about .container a {
+  color: #0b57d0;
+}
+#page-faq .container a:hover,
+#page-about .container a:hover {
+  text-decoration: underline;
+}
+
+#page-faq .container blockquote,
+#page-about .container blockquote {
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  margin: 1rem 0;
+  border-left: 3px solid #adb5bd;
+  background: #f7f7f7;
+  display: block;
+}

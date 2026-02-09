@@ -27,7 +27,11 @@ function render(domainInfo) {
   if (domainInfo.logoPresent === "true") {
     document.getElementById('domainLogo').style = 'display: none';
     document.getElementById('domainLogoImg').style = '';
-    $('#faviconLogo').attr('href', "{{ url_for('admin_panel.domain_logo') }}");
+    const domainLogoImgEl = document.getElementById('domainLogoImg');
+    const faviconLogoEl = document.getElementById('faviconLogo');
+    if (domainLogoImgEl && domainLogoImgEl.src && faviconLogoEl) {
+      faviconLogoEl.href = domainLogoImgEl.src;
+    }
   }
 }
 

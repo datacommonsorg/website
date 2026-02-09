@@ -20,13 +20,27 @@
 {% set page_id = 'page-faq' %}
 {% set title = 'Frequently Asked Questions' %}
 
-{% block head %}
-{# Page-specific styles already imported via main.css #}
-{% endblock %}
-
 {% block content %}
-<section class="container">
-  <h1>Frequently Asked Questions</h1>
-  <p>FAQ content coming soon...</p>
-</section>
+<div class="container">
+  <h1>Frequently Asked Questions </h1>
+  <dl>
+    <dt>Q: Where does the health data come from?</dt>
+    <dd>Health statistics are drawn from authoritative public sources such as national health agencies, the World Health Organization (WHO), and official census and survey programs. Data Commons aggregates and normalizes these sources for consistent comparison across places and time.</dd>
+
+    <dt>Q: How often is the data updated?</dt>
+    <dd>Update frequency depends on the underlying dataset. Many indicators are updated annually or when new surveys or reports are published. Check individual series or footnotes for the specific reference period and release date.</dd>
+
+    <dt>Q: Why are some places or years missing?</dt>
+    <dd>Not all jurisdictions report every indicator every year. Gaps can be due to different reporting schedules, survey design, or data not yet published. Missing values are shown as such rather than estimated.</dd>
+
+    <dt>Q: How do I compare health outcomes across regions?</dt>
+    <dd>Select the health topic and indicator you care about, then choose one or more places (countries, states, or counties). The tool will display time series and, where available, rankings or comparisons so you can see how regions differ.</dd>
+
+    <dt>Q: Can I download the data?</dt>
+    <dd>Yes. From the visualization or table view, use the download or export option to get the data in CSV or other supported formats for your own analysis or reports.</dd>
+
+    <dt>Q: Is the data suitable for research or policy use?</dt>
+    <dd>Data is intended to support exploration and informed discussion. For formal research or policy decisions, we recommend verifying definitions and methodology in the original source documentation cited in the tool.</dd>
+  </dl>
+</div>
 {% endblock %}

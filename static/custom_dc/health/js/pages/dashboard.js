@@ -200,7 +200,7 @@ async function uploadDataFile() {
   const formData = new FormData();
 
   formData.append('file', selectedFiles.applicant);
-  formData.append('baseFilename', 'health_inisghts.csv');
+  formData.append('baseFilename', 'health_insights.csv');
   formData.append('replaceFileMode', true);
 
   const response = await fetch(`${apiRoot}/admin/api/upload`, {

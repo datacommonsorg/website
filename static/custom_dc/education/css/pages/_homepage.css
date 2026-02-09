@@ -28,8 +28,7 @@
   background-repeat: no-repeat;
   transition: all 0.3s ease;
   min-height: 18.75rem;
-  margin: -94px -1.5rem 0 -1.5rem;
-  width: calc(100% + 3rem);
+  margin: -4rem -6rem 0 -6rem; 
   padding-top: calc(70px + 3rem);
 }
 

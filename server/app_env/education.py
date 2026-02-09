@@ -34,7 +34,7 @@ class Config(_base.Config):
   # Customizable domain config
   DEFAULT_DOMAIN_CONFIG = {
       'domainName':
-          'Unversity Name',
+          'University Name',
       'descriptionTitle':
           'Student Recruitment Intelligence Center',
       'descriptionBody':

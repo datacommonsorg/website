@@ -38,12 +38,12 @@ body.education-domain {
   padding: 0;
 }
 
-/* Main Content - scoped to education domain */
+/* Main Content */
 .education-domain .main-content {
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
   padding: 1.5rem;
-  padding-top: 8rem;
+  padding-top: 5.875rem; /* 94px – header min-height 70px + padding 24px, no gap */
   background-color: #f8f9fa;
 }

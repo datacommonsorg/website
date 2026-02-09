@@ -1,8 +1,8 @@
 {
   "inputFiles": {
-    "health_inisghts.csv": {
+    "health_insights.csv": {
       "entityType": "Place",
-      "provenance": "Health Inisghts",
+      "provenance": "Health Insights",
       "observationProperties": {
         "unit": "Percent",
         "scalingFactor": "100"
@@ -20,7 +20,7 @@
         "Vitamin D health status"
       ],
       "unit": "Percent",
-      "group": "Health Inisghts"
+      "group": "Health Insights"
     },
     "Percent_Person_Vaccinated": {
       "name": "Percent of People Vaccinated",
@@ -32,7 +32,7 @@
         "Vaccination coverage"
       ],
       "unit": "Percent",
-      "group": "Health Inisghts"
+      "group": "Health Insights"
     },
     "Percent_Person_Sick": {
       "name": "Percent of People Who Are Sick",
@@ -44,14 +44,14 @@
         "Currently ill percentage"
       ],
       "unit": "Percent",
-      "group": "Health Inisghts"
+      "group": "Health Insights"
     }
   },
   "sources": {
-    "Health Inisghts": {
+    "Health Insights": {
       "url": "https://health.dev.datacommons.epam.com",
       "provenances": {
-        "Health Inisghts": "https://health.dev.datacommons.epam.com/browser/c/p/1"
+        "Health Insights": "https://health.dev.datacommons.epam.com/browser/c/p/1"
       }
     }
   }

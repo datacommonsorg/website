@@ -439,8 +439,7 @@ class TestUpdateConfigEndpoint(TestAdminPanelAPI):
                                 })
     assert response.status_code == 400
     data = json.loads(response.data)
-    assert data[
-        'category'] == 'success'  # Note: API returns 'success' even on error
+    assert data['category'] == 'error'
     assert 'Config uploading failed' in data['message']
 
   def test_update_config_requires_login(self):

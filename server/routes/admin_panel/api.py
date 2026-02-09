@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from datetime import datetime
+import hmac
 from io import BytesIO
 import json
 import logging
@@ -59,7 +60,7 @@ def login():
   password = request.form.get('password')
 
   # Validate credentials
-  if username == ADMIN_PANEL_USERNAME and password == ADMIN_PANEL_PASSWORD:
+  if username == ADMIN_PANEL_USERNAME and hmac.compare_digest(password, ADMIN_PANEL_PASSWORD):
     # Create permanent session with expiration
     session.permanent = True
     session['username'] = username
@@ -184,7 +185,7 @@ def update_config():
                            new_config_file)
   except Exception as e:
     logging.error(f'Config uploading failed with {e!r}')
-    return {'category': 'success', 'message': 'Config uploading failed'}, 400
+    return {'category': 'error', 'message': 'Config uploading failed'}, 400
 
   try:
     # Logo upload or deletion
