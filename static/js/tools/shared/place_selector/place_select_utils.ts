@@ -37,6 +37,20 @@ import {
 type NamedTypedCallbackFn = (place: NamedTypedPlace) => void;
 type PlaceDcidCallbackFn = (placeDcid: string) => void;
 
+/**
+ * Gets the appropriate child place type hierarchy configuration for a selected place.
+ * Used as a helper function for loadChildPlaceTypes.
+ *
+ * This function checks if the given place or any of its parent places have a
+ * specific override defined in the hierarchy configuration. If an override
+ * is found (e.g., for a specific country), it returns that specific hierarchy.
+ * Otherwise, it falls back to the global default hierarchy.
+ *
+ * @param selectedPlace The place currently selected.
+ * @param parentPlaces An array of the selected place's parent places.
+ * @param requireMaps Whether to return only the hierarchy of places that have map boundaries available.
+ * @returns A mapping of place types to their corresponding valid child place types.
+ */
 export function getHierarchyConfigForPlace(
   selectedPlace: NamedTypedPlace,
   parentPlaces: NamedTypedPlace[],
@@ -54,8 +68,6 @@ export function getHierarchyConfigForPlace(
 
 /**
  * Get child place types of a selected place.
- *
- * Alerts if there are no child place types.
  *
  * @param selectedPlace place to get child place types for.
  * @param requireMaps whether the returned child place types should be filtered by maps availability
@@ -83,7 +95,7 @@ export async function loadChildPlaceTypes(
     if (type in hierarchy || type in universal) {
       const specificChildren = hierarchy[type] || [];
       const universalChildren = universal[type] || [];
-      return Array.from(new Set([...specificChildren, ...universalChildren]));
+      return _.union(specificChildren, universalChildren);
     }
   }
   return [];
