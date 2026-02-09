@@ -223,7 +223,7 @@ describe("getPlaceDcidCallback", () => {
   });
 
   it("should do nothing if no callback is provided", async () => {
-    const fn = getPlaceDcidCallback(null as any);
+    const fn = getPlaceDcidCallback(null);
     await fn("country/USA");
     expect(getNamedTypedPlace).not.toHaveBeenCalled();
   });

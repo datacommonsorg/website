@@ -109,7 +109,7 @@ export async function loadChildPlaceTypes(
  * @returns new function with place dcid as input
  */
 export function getPlaceDcidCallback(
-  namedTypedFn: NamedTypedCallbackFn
+  namedTypedFn?: NamedTypedCallbackFn | null
 ): PlaceDcidCallbackFn {
   async function placeDcidFn(placeDcid: string): Promise<void> {
     if (!namedTypedFn) {
