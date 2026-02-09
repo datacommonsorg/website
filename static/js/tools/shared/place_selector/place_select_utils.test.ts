@@ -22,8 +22,13 @@ import {
   getParentPlacesPromise,
 } from "../../../utils/place_utils";
 import {
-  getEnclosedPlaceTypes,
-  getEnclosedPlaceTypesWithMaps,
+  DEFAULT_HIERARCHY,
+  DEFAULT_OVERRIDES,
+  MAPS_DEFAULT_HIERARCHY,
+  MAPS_OVERRIDES,
+} from "./place_select_constants";
+import {
+  getHierarchyConfigForPlace,
   getPlaceDcidCallback,
   loadChildPlaceTypes,
 } from "./place_select_utils";
@@ -39,7 +44,7 @@ describe("loadChildPlaceTypes", () => {
     (getParentPlacesPromise as jest.Mock).mockClear();
   });
 
-  it("should return child place types for a place", async () => {
+  it("should return two levels of child place types for a place", async () => {
     (getParentPlacesPromise as jest.Mock).mockResolvedValue([
       { dcid: "southamerica", name: "South America", types: ["Continent"] },
       { dcid: "earth", name: "Earth", types: ["Planet"] },
@@ -79,334 +84,61 @@ describe("loadChildPlaceTypes", () => {
     expect(getParentPlacesPromise).toHaveBeenCalledWith("wikidataId/Q43407");
     expect(result).toEqual(expected);
   });
-});
 
-describe("getEnclosedPlaceTypes", () => {
-  it("Countries should return AA1, AA2, IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "country/CAN",
-      name: "Canada",
-      types: ["Country"],
-    };
-    const parentPlaces = [
-      { dcid: "northamerica", name: "North America", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = [
-      "AdministrativeArea1",
-      "AdministrativeArea2",
-      "IPCCPlace_50",
-    ];
-
-    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-  it("AA1s should return AA2 and AA3", () => {
-    const selectedPlace = {
-      dcid: "wikidataId/Q43407",
-      name: "Shandong",
-      types: ["AdministrativeArea1"],
-    };
-    const parentPlaces = [
-      { dcid: "country/CHN", name: "China", types: ["Country"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = ["AdministrativeArea2", "AdministrativeArea3"];
-
-    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-  it("USA should return State, County, IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "country/USA",
-      name: "USA",
-      types: ["Country"],
-    };
-    const parentPlaces = [
-      { dcid: "northamerica", name: "North America", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = ["State", "County", "IPCCPlace_50"];
-
-    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-  it("US State should return County, City, Town", () => {
-    const selectedPlace = {
-      dcid: "state/AL",
-      name: "Alabama",
-      types: ["State"],
-    };
-    const parentPlaces = [
+  it("should return US-specific child place types for a US state", async () => {
+    (getParentPlacesPromise as jest.Mock).mockResolvedValue([
       { dcid: "country/USA", name: "USA", types: ["Country"] },
       { dcid: "northamerica", name: "North America", types: ["Continent"] },
       { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = ["County", "City", "Town", "Village"];
+    ]);
 
-    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-  it("US County should return City, Town, Village, CensusTract, CensusZipCodeTabulationArea", () => {
-    const selectedPlace = {
-      dcid: "geoId/06037",
-      name: "Los Angeles County",
-      types: ["County"],
-    };
-    const parentPlaces = [
-      { dcid: "geoId/06", name: "California", types: ["State"] },
-      { dcid: "country/USA", name: "USA", types: ["Country"] },
-      { dcid: "northamerica", name: "North America", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = [
-      "City",
-      "Town",
-      "Village",
-      "CensusTract",
-      "CensusZipCodeTabulationArea",
-    ];
-
-    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-  it("Europe should return Country, AA1, EurostatNUTS1, IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "europe",
-      name: "Europe",
-      types: ["Continent"],
-    };
-    const parentPlaces = [{ dcid: "earth", name: "Earth", types: ["Planet"] }];
-    const expected = [
-      "Country",
-      "AdministrativeArea1",
-      "EurostatNUTS1",
-      "IPCCPlace_50",
-    ];
-
-    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-  it("European country should return AA1, AA2, EurostatNUTS1, EurostatNUTS2, IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "country/DEU",
-      name: "Germany",
-      types: ["Country"],
-    };
-    const parentPlaces = [
-      { dcid: "europe", name: "Europe", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = [
-      "AdministrativeArea1",
-      "AdministrativeArea2",
-      "EurostatNUTS1",
-      "EurostatNUTS2",
-      "IPCCPlace_50",
-    ];
-
-    expect(getEnclosedPlaceTypes(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-});
-
-describe("getEnclosedPlaceTypesWithMaps", () => {
-  it("Countries without AA1/AA2 data should only return IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "country/ABW",
-      name: "Aruba",
-      types: ["Country"],
-    };
-    const parentPlaces = [
-      { dcid: "southamerica", name: "South America", types: ["Continent"] },
-      { dcid: "Earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = ["IPCCPlace_50"];
-
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-
-  it("Countries with AA1/AA2 data should return AA1, AA2, and IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "country/IND",
-      name: "India",
-      types: ["Country"],
-    };
-    const parentPlaces = [
-      { dcid: "asia", name: "Asia", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = [
-      "AdministrativeArea1",
-      "AdministrativeArea2",
-      "IPCCPlace_50",
-    ];
-
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-
-  it("Non-USA, non-Europe AdministrativeArea1 should return AdministrativeArea2, not USA/Europe only places", () => {
-    const selectedPlace = {
-      dcid: "wikidataId/Q43407",
-      name: "Shandong", // Shandong, China
-      types: ["AdministrativeArea1"],
-    };
-    const parentPlaces = [
-      {
-        dcid: "country/CHN",
-        name: "China",
-        types: ["Country"],
-      },
-      {
-        dcid: "asia",
-        name: "Asia",
-        types: ["Continent"],
-      },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-
-    const expected = ["AdministrativeArea2"];
-
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-
-  it("Pakistan should return AA1 and AA3 and IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "country/PAK",
-      name: "Pakistan",
-      types: ["Country"],
-    };
-    const parentPlaces = [
-      { dcid: "asia", name: "Asia", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = [
-      "AdministrativeArea1",
-      "AdministrativeArea3",
-      "IPCCPlace_50",
-    ];
-
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-
-  it("USA should return State, County, and IPCCPlace_50", () => {
-    const selectedPlace = {
-      dcid: "country/USA",
-      name: "United States",
-      types: ["Country"],
-    };
-    const parentPlaces = [
-      { dcid: "northamerica", name: "North America", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = ["State", "County", "IPCCPlace_50"];
-
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-
-  it("US State should return County, City, CensusTract, CensusZipCodeTabulationArea", () => {
     const selectedPlace = {
       dcid: "geoId/06",
       name: "California",
       types: ["State"],
     };
-    const parentPlaces = [
-      {
-        dcid: "country/USA",
-        name: "United States",
-        types: ["Country"],
-      },
-      { dcid: "northamerica", name: "North America", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = [
-      "County",
-      "City",
-      "CensusTract",
-      "CensusZipCodeTabulationArea",
-    ];
+    const expected = ["County", "City", "Town", "Village"];
 
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
+    const result = await loadChildPlaceTypes(selectedPlace);
+    expect(getParentPlacesPromise).toHaveBeenCalledWith("geoId/06");
+    expect(result).toEqual(expected);
   });
 
-  it("USA County should return City, CensusTract, CensusZipCodeTabulationArea", () => {
-    const selectedPlace = {
-      dcid: "geoId/06037",
-      name: "Los Angeles County",
-      types: ["County"],
-    };
-    const parentPlaces = [
-      {
-        dcid: "geoId/06",
-        name: "California",
-        types: ["State"],
-      },
-      {
-        dcid: "country/USA",
-        name: "United States",
-        types: ["Country"],
-      },
-      { dcid: "northamerica", name: "North America", types: ["Continent"] },
+  it("should return EurostatNUTS child place types for a European country", async () => {
+    (getParentPlacesPromise as jest.Mock).mockResolvedValue([
+      { dcid: "europe", name: "Europe", types: ["Continent"] },
       { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
-    const expected = ["City", "CensusTract", "CensusZipCodeTabulationArea"];
+    ]);
 
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
-  });
-
-  it("Europe should return EurostatNUTS1, EurostatNUTS2, EurostatNUTS3, Country, and IPCCPlace_50", () => {
     const selectedPlace = {
-      dcid: "europe",
-      name: "Europe",
-      types: ["Continent"],
+      dcid: "country/DEU",
+      name: "Germany",
+      types: ["Country"],
     };
-    const parentPlaces = [{ dcid: "earth", name: "Earth", types: ["Planet"] }];
-    // Continent -> EurostatNUTS1, EurostatNUTS2, EurostatNUTS3 from EUROPE_CHILD_PLACE_TYPE_HIERARCHY
-    // Continent -> Country, IPCCPlace_50 from ALL_PLACE_CHILD_TYPES
     const expected = [
-      "Country",
+      "AdministrativeArea1",
+      "AdministrativeArea2",
       "EurostatNUTS1",
       "EurostatNUTS2",
-      "EurostatNUTS3",
       "IPCCPlace_50",
     ];
 
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
+    const result = await loadChildPlaceTypes(selectedPlace);
+    expect(getParentPlacesPromise).toHaveBeenCalledWith("country/DEU");
+    expect(result).toEqual(expected);
   });
 
-  it("European countries should return EurostatNUTS1, EurostatNUTS2, EurostatNUTS3, and IPCCPlace_50", () => {
+  it("should return filtered EurostatNUTS child place types for a European country when requiring maps", async () => {
+    (getParentPlacesPromise as jest.Mock).mockResolvedValue([
+      { dcid: "europe", name: "Europe", types: ["Continent"] },
+      { dcid: "earth", name: "Earth", types: ["Planet"] },
+    ]);
+
     const selectedPlace = {
       dcid: "country/FRA",
       name: "France",
       types: ["Country"],
     };
-    const parentPlaces = [
-      { dcid: "europe", name: "Europe", types: ["Continent"] },
-      { dcid: "earth", name: "Earth", types: ["Planet"] },
-    ];
     const expected = [
       "EurostatNUTS1",
       "EurostatNUTS2",
@@ -414,9 +146,74 @@ describe("getEnclosedPlaceTypesWithMaps", () => {
       "IPCCPlace_50",
     ];
 
-    expect(getEnclosedPlaceTypesWithMaps(selectedPlace, parentPlaces)).toEqual(
-      expected
-    );
+    const result = await loadChildPlaceTypes(selectedPlace, true);
+    expect(getParentPlacesPromise).toHaveBeenCalledWith("country/FRA");
+    expect(result).toEqual(expected);
+  });
+
+  it("should return global defaults for Planet/Earth", async () => {
+    (getParentPlacesPromise as jest.Mock).mockResolvedValue([]);
+
+    const selectedPlace = {
+      dcid: "Earth",
+      name: "Earth",
+      types: ["Planet"],
+    };
+    const expected = ["Continent", "Country"];
+
+    const result = await loadChildPlaceTypes(selectedPlace);
+    expect(getParentPlacesPromise).toHaveBeenCalledWith("Earth");
+    expect(result).toEqual(expected);
+  });
+});
+
+describe("getHierarchyConfigForPlace", () => {
+  const arbitraryPlace = {
+    dcid: "country/FRA",
+    name: "France",
+    types: ["Country"],
+  };
+  const usaPlace = { dcid: "country/USA", name: "USA", types: ["Country"] };
+  const pakPlace = {
+    dcid: "country/PAK",
+    name: "Pakistan",
+    types: ["Country"],
+  };
+
+  it("should return DEFAULT_HIERARCHY by default for places without overrides", () => {
+    const result = getHierarchyConfigForPlace(arbitraryPlace, []);
+    expect(result).toBe(DEFAULT_HIERARCHY);
+  });
+
+  it("should return MAPS_DEFAULT_HIERARCHY when requireMaps is true for places without overrides", () => {
+    const result = getHierarchyConfigForPlace(arbitraryPlace, [], true);
+    expect(result).toBe(MAPS_DEFAULT_HIERARCHY);
+  });
+
+  it("should return the country override default hierarchy if found", () => {
+    const result = getHierarchyConfigForPlace(usaPlace, []);
+    expect(result).toBe(DEFAULT_OVERRIDES["country/USA"]);
+  });
+
+  it("should return the country override maps hierarchy if found and requireMaps is true", () => {
+    const result = getHierarchyConfigForPlace(usaPlace, [], true);
+    expect(result).toBe(MAPS_OVERRIDES["country/USA"]);
+  });
+
+  it("should find the override by traversing parent places", () => {
+    const california = {
+      dcid: "geoId/06",
+      name: "California",
+      types: ["State"],
+    };
+    const result = getHierarchyConfigForPlace(california, [usaPlace]);
+    expect(result).toBe(DEFAULT_OVERRIDES["country/USA"]);
+  });
+
+  it("should fallback to global default if the override object is missing the specific hierarchy type", () => {
+    // Pakistan has a mapsHierarchy override, but no defaultHierarchy override
+    const result = getHierarchyConfigForPlace(pakPlace, []);
+    expect(result).toBe(DEFAULT_HIERARCHY);
   });
 });
 
