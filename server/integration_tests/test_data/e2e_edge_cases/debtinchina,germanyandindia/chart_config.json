@@ -9,152 +9,202 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/CHN",
-                      "country/IND"
-                    ],
-                    "statVarKey": [
-                      "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block"
-                    ],
-                    "title": "External Debt Stocks as a Proportion of GNI (${date})",
-                    "type": "BAR"
+                    "type": "PLACE_OVERVIEW"
                   }
                 ]
               }
-            ],
-            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
-            "title": "External Debt Stocks as a Proportion of GNI"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/CHN",
-                      "country/IND"
-                    ],
-                    "statVarKey": [
-                      "sdg/DT_TDS_DECT_multiple_place_bar_block"
-                    ],
-                    "title": "Debt Service as a Proportion of Exports of Goods and Services (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
-            "title": "Debt Service as a Proportion of Exports of Goods and Services"
+            ]
           }
-        ],
-        "statVarSpec": {
-          "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block": {
-            "name": "External debt stocks as a proportion of GNI",
-            "statVar": "sdg/DT_DOD_DECT_GN_ZS"
-          },
-          "sdg/DT_TDS_DECT_multiple_place_bar_block": {
-            "name": "Debt service as a proportion of exports of goods and services",
-            "statVar": "sdg/DT_TDS_DECT"
-          }
-        }
+        ]
       }
     ],
     "metadata": {
       "placeDcid": [
-        "country/CHN"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "country/CHN",
-    "name": "China",
+    "dcid": "country/USA",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "country/CHN",
-      "name": "China",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/IND",
-      "name": "India",
+      "dcid": "country/USA",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Debt",
-        "name": "Debt",
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
+    "parentTopics": [],
+    "peerPlaces": [
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "Topic"
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
         ]
       }
     ],
-    "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/GDP",
-        "name": "GDP",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EducationExpenditure",
-        "name": "Education Expenditure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HealthcareExpenditure",
-        "name": "Healthcare Expenditure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Remittance",
-        "name": "Remittance",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
+  "showForm": true,
+  "svSource": "UNFULFILLED",
   "userMessages": [
-    "Data for \"Germany\" is currently unavailable. See the following statistics on the other places."
+    "Sorry, there were no relevant statistics about the topic for United States of America. See available topic categories with statistics for United States of America."
   ]
 }

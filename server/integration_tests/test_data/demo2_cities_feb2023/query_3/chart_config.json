@@ -15,7 +15,7 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/0677000"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
@@ -25,7 +25,7 @@
                       "dc/vt2q292eme79f_multiple_place_bar_block",
                       "dc/wc8q05drd74bd_multiple_place_bar_block"
                     ],
-                    "title": "Modes of Commute in Sunnyvale (${date})",
+                    "title": "Modes of Commute in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -39,13 +39,77 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Drive Alone in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at Home in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at Home in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Work at Home in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/0677000"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "dc/nfdf9rt7kbggb_multiple_place_bar_block",
@@ -55,7 +119,7 @@
                       "dc/jszfr5wd4f7pb_multiple_place_bar_block",
                       "dc/y9yb58snpfzw5_multiple_place_bar_block"
                     ],
-                    "title": "Management, Business, Science and Arts Occupations in Sunnyvale (${date})",
+                    "title": "Management, Business, Science and Arts Occupations in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -69,13 +133,77 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/nfdf9rt7kbggb"
+                    ],
+                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/nfdf9rt7kbggb"
+                    ],
+                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/v33p7mwnpe9vb"
+                    ],
+                    "title": "Population: Walked, Management, Business, Science, and Arts Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/v33p7mwnpe9vb"
+                    ],
+                    "title": "Population: Walked, Management, Business, Science, and Arts Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Walked, Management, Business, Science, and Arts Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/0677000"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "dc/7wt44yv38rew_multiple_place_bar_block",
@@ -85,7 +213,7 @@
                       "dc/kt900ezddrf79_multiple_place_bar_block",
                       "dc/slp5hywj7b9c1_multiple_place_bar_block"
                     ],
-                    "title": "Sales and Office Occupations in Sunnyvale (${date})",
+                    "title": "Sales and Office Occupations in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -99,13 +227,77 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/7wt44yv38rew"
+                    ],
+                    "title": "Population: Worked at Home, Sales and Office Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/7wt44yv38rew"
+                    ],
+                    "title": "Population: Worked at Home, Sales and Office Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Worked at Home, Sales and Office Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/zcth2y8fqte1f"
+                    ],
+                    "title": "Population: Walked, Sales and Office Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/zcth2y8fqte1f"
+                    ],
+                    "title": "Population: Walked, Sales and Office Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Walked, Sales and Office Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/0677000"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "dc/dn2h9yfcgbkg2_multiple_place_bar_block",
@@ -115,7 +307,7 @@
                       "dc/k33ngtzpqxql6_multiple_place_bar_block",
                       "dc/6zrlr86zt61yg_multiple_place_bar_block"
                     ],
-                    "title": "Service Occupations in Sunnyvale (${date})",
+                    "title": "Service Occupations in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -129,13 +321,77 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/dn2h9yfcgbkg2"
+                    ],
+                    "title": "Population: Worked at Home, Service Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/dn2h9yfcgbkg2"
+                    ],
+                    "title": "Population: Worked at Home, Service Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Worked at Home, Service Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/bre4whrdn7pt7"
+                    ],
+                    "title": "Population: Walked, Service Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/bre4whrdn7pt7"
+                    ],
+                    "title": "Population: Walked, Service Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Walked, Service Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/0677000"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "dc/cs8fvwkmpmlpg_multiple_place_bar_block",
@@ -145,7 +401,7 @@
                       "dc/r0delcsw86kc6_multiple_place_bar_block",
                       "dc/e27c5t4tbplg_multiple_place_bar_block"
                     ],
-                    "title": "Production Transportation and Material Moving Occupations in Sunnyvale (${date})",
+                    "title": "Production Transportation and Material Moving Occupations in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -160,9 +416,73 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "dc/cs8fvwkmpmlpg"
+                    ],
+                    "title": "Population: Worked at Home, Production, Transportation, and Material Moving Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/cs8fvwkmpmlpg"
+                    ],
+                    "title": "Population: Worked at Home, Production, Transportation, and Material Moving Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Worked at Home, Production, Transportation, and Material Moving Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/fgt7thnws9vx9"
+                    ],
+                    "title": "Population: Walked, Production, Transportation, and Material Moving Occupations in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/fgt7thnws9vx9"
+                    ],
+                    "title": "Population: Walked, Production, Transportation, and Material Moving Occupations in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Walked, Production, Transportation, and Material Moving Occupations in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Sunnyvale",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -170,11 +490,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Sunnyvale",
+                    "description": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in United States of America",
                     "statVarKey": [
                       "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Sunnyvale",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -187,13 +507,44 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+                    ],
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+                    ],
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/0677000"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "dc/fyc3yvjy0xw6g_multiple_place_bar_block",
@@ -209,7 +560,7 @@
                       "dc/kfr6chpkw90e3_multiple_place_bar_block",
                       "dc/h7ft916g93ys2_multiple_place_bar_block"
                     ],
-                    "title": "Commuters by Commute Time in Sunnyvale (${date})",
+                    "title": "Commuters by Commute Time in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -217,12 +568,80 @@
             ],
             "denom": "Count_Person",
             "title": "Commuters by Commute Time"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/fyc3yvjy0xw6g"
+                    ],
+                    "title": "Population: 16 Years or More, 5 Minute or Less, Employed and Working, in Labor Force, Outside of Home in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/fyc3yvjy0xw6g"
+                    ],
+                    "title": "Population: 16 Years or More, 5 Minute or Less, Employed and Working, in Labor Force, Outside of Home in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, 5 Minute or Less, Employed and Working, in Labor Force, Outside of Home in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/dbe0drezxrpv6"
+                    ],
+                    "title": "Population: 16 Years or More, 5-9 Minute, Employed and Working, in Labor Force, Outside of Home in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/dbe0drezxrpv6"
+                    ],
+                    "title": "Population: 16 Years or More, 5-9 Minute, Employed and Working, in Labor Force, Outside of Home in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, 5-9 Minute, Employed and Working, in Labor Force, Outside of Home in States of United States of America"
           }
         ],
         "statVarSpec": {
           "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
             "name": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home",
             "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+          },
+          "dc/0gettc3bc60cb": {
+            "name": "Drive alone",
+            "statVar": "dc/0gettc3bc60cb"
           },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
@@ -240,6 +659,10 @@
             "name": "Population: 16 Years or More, 30 - 34 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/62gn48xpbqew9"
           },
+          "dc/6rltk4kf75612": {
+            "name": "Work at home",
+            "statVar": "dc/6rltk4kf75612"
+          },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
@@ -247,6 +670,10 @@
           "dc/6zrlr86zt61yg_multiple_place_bar_block": {
             "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations",
             "statVar": "dc/6zrlr86zt61yg"
+          },
+          "dc/7wt44yv38rew": {
+            "name": "Population: Worked At Home, Sales And Office Occupations",
+            "statVar": "dc/7wt44yv38rew"
           },
           "dc/7wt44yv38rew_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Sales And Office Occupations",
@@ -260,13 +687,25 @@
             "name": "Population: Car Truck or Van Carpooled, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/80q8jrnkvwtt3"
           },
+          "dc/bre4whrdn7pt7": {
+            "name": "Population: Walked, Service Occupations",
+            "statVar": "dc/bre4whrdn7pt7"
+          },
           "dc/bre4whrdn7pt7_multiple_place_bar_block": {
             "name": "Population: Walked, Service Occupations",
             "statVar": "dc/bre4whrdn7pt7"
           },
+          "dc/cs8fvwkmpmlpg": {
+            "name": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/cs8fvwkmpmlpg"
+          },
           "dc/cs8fvwkmpmlpg_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/cs8fvwkmpmlpg"
+          },
+          "dc/dbe0drezxrpv6": {
+            "name": "Population: 16 Years or More, 5 - 9 Minute, Employed And Working, in Labor Force, Outside of Home",
+            "statVar": "dc/dbe0drezxrpv6"
           },
           "dc/dbe0drezxrpv6_multiple_place_bar_block": {
             "name": "Population: 16 Years or More, 5 - 9 Minute, Employed And Working, in Labor Force, Outside of Home",
@@ -275,6 +714,10 @@
           "dc/dj7khl7q78412_multiple_place_bar_block": {
             "name": "Population: Car Truck or Van Carpooled, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/dj7khl7q78412"
+          },
+          "dc/dn2h9yfcgbkg2": {
+            "name": "Population: Worked At Home, Service Occupations",
+            "statVar": "dc/dn2h9yfcgbkg2"
           },
           "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Service Occupations",
@@ -288,9 +731,17 @@
             "name": "Population: 16 Years or More, 25 - 29 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/exr9t81en1h34"
           },
+          "dc/fgt7thnws9vx9": {
+            "name": "Population: Walked, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/fgt7thnws9vx9"
+          },
           "dc/fgt7thnws9vx9_multiple_place_bar_block": {
             "name": "Population: Walked, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/fgt7thnws9vx9"
+          },
+          "dc/fyc3yvjy0xw6g": {
+            "name": "Population: 16 Years or More, 5 Minute or Less, Employed And Working, in Labor Force, Outside of Home",
+            "statVar": "dc/fyc3yvjy0xw6g"
           },
           "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
             "name": "Population: 16 Years or More, 5 Minute or Less, Employed And Working, in Labor Force, Outside of Home",
@@ -336,6 +787,10 @@
             "name": "Population: Public Transportation Excluding Taxicab, Service Occupations",
             "statVar": "dc/n2vhkpw0slkv5"
           },
+          "dc/nfdf9rt7kbggb": {
+            "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/nfdf9rt7kbggb"
+          },
           "dc/nfdf9rt7kbggb_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/nfdf9rt7kbggb"
@@ -359,6 +814,10 @@
           "dc/t0hh9jhx104k7_multiple_place_bar_block": {
             "name": "Population: 16 Years or More, 45 - 59 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/t0hh9jhx104k7"
+          },
+          "dc/v33p7mwnpe9vb": {
+            "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/v33p7mwnpe9vb"
           },
           "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
             "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
@@ -388,6 +847,10 @@
             "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/y9yb58snpfzw5"
           },
+          "dc/zcth2y8fqte1f": {
+            "name": "Population: Walked, Sales And Office Occupations",
+            "statVar": "dc/zcth2y8fqte1f"
+          },
           "dc/zcth2y8fqte1f_multiple_place_bar_block": {
             "name": "Population: Walked, Sales And Office Occupations",
             "statVar": "dc/zcth2y8fqte1f"
@@ -396,31 +859,387 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "geoId/0677000"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "Sunnyvale",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/0677000",
-    "name": "Sunnyvale",
-    "place_type": "City"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/0677000",
-      "name": "Sunnyvale",
-      "place_type": "City"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
         "dcid": "dc/topic/CommuteModeByOccupation",
@@ -452,353 +1271,101 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/3502000",
-        "name": "Albuquerque",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/0203000",
-        "name": "Anchorage municipality",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2603000",
-        "name": "Ann Arbor",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1304000",
-        "name": "Atlanta",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4805000",
-        "name": "Austin",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2404000",
-        "name": "Baltimore",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1608830",
-        "name": "Boise",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2507000",
-        "name": "Boston",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4513330",
-        "name": "Charleston",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3712000",
-        "name": "Charlotte",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3915000",
-        "name": "Cincinnati",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3916000",
-        "name": "Cleveland",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3918000",
-        "name": "Columbus",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4819000",
-        "name": "Dallas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0820000",
-        "name": "Denver",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2622000",
-        "name": "Detroit",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4824000",
-        "name": "El Paso",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0937000",
-        "name": "Hartford",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4835000",
-        "name": "Houston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1836003",
-        "name": "Indianapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2836000",
-        "name": "Jackson",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1235000",
-        "name": "Jacksonville",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2938000",
-        "name": "Kansas City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3240000",
-        "name": "Las Vegas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0541000",
-        "name": "Little Rock",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0644000",
-        "name": "Los Angeles",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2148006",
-        "name": "Louisville/Jefferson County metro government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5548000",
-        "name": "Madison",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4748000",
-        "name": "Memphis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1245000",
-        "name": "Miami",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5553000",
-        "name": "Milwaukee",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2743000",
-        "name": "Minneapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0649670",
-        "name": "Mountain View",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4752006",
-        "name": "Nashville-Davidson metropolitan government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0952000",
-        "name": "New Haven",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2255000",
-        "name": "New Orleans",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0653000",
-        "name": "Oakland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4055000",
-        "name": "Oklahoma City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3137000",
-        "name": "Omaha",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1253000",
-        "name": "Orlando",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0655282",
-        "name": "Palo Alto",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4260000",
-        "name": "Philadelphia",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0455000",
-        "name": "Phoenix",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4261000",
-        "name": "Pittsburgh",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4159000",
-        "name": "Portland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5167000",
-        "name": "Richmond",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0664000",
-        "name": "Sacramento",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4967000",
-        "name": "Salt Lake City",
-        "types": [
-          "City"
+          "Country"
         ]
       }
     ],
@@ -814,6 +1381,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "See relevant statistics for Sunnyvale based on the previous query."
+    "See relevant statistics for United States of America based on the previous query."
   ]
 }

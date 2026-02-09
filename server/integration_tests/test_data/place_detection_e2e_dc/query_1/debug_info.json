@@ -1,8 +1,6 @@
 {
-  "places_detected": [
-    "palo alto"
-  ],
-  "places_resolved": "(name: Palo Alto, dcid: geoId/0655282); ",
-  "main_place_dcid": "geoId/0655282",
-  "main_place_name": "Palo Alto"
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>"
 }

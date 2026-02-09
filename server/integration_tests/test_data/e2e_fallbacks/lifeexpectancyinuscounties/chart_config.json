@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in United States",
+                    "title": "Life Expectancy in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Life Expectancy in United States",
+                    "description": "Life Expectancy in United States of America",
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in United States",
+                    "title": "Life Expectancy in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -41,7 +41,7 @@
                       "LifeExpectancy_Person_Female",
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Life Expectancy by Gender in United States",
+                    "title": "Life Expectancy by Gender in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -57,7 +57,7 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Number of Deaths in Counties of United States (${date})",
+                    "title": "Number of Deaths in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -72,14 +72,14 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Number of Deaths in Counties of United States (${date})",
+                    "title": "Number of Deaths in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Number of Deaths in Counties of United States"
+            "title": "Number of Deaths in Counties of United States of America"
           },
           {
             "columns": [
@@ -89,7 +89,7 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Number of Deaths in United States",
+                    "title": "Number of Deaths in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -97,11 +97,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Deaths in United States",
+                    "description": "Number of Deaths in United States of America",
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Number of Deaths in United States",
+                    "title": "Number of Deaths in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -118,7 +118,7 @@
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
-                    "title": "Deaths Per Capita in United States",
+                    "title": "Deaths Per Capita in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -126,11 +126,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths Per Capita in United States",
+                    "description": "Deaths Per Capita in United States of America",
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
-                    "title": "Deaths Per Capita in United States",
+                    "title": "Deaths Per Capita in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -146,7 +146,7 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheNervousSystem"
                     ],
-                    "title": "Deaths From Diseases of the Nervous System in Counties of United States (${date})",
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -161,14 +161,14 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheNervousSystem"
                     ],
-                    "title": "Deaths From Diseases of the Nervous System in Counties of United States (${date})",
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Nervous System in Counties of United States"
+            "title": "Deaths From Diseases of the Nervous System in Counties of United States of America"
           },
           {
             "columns": [
@@ -178,7 +178,7 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheRespiratorySystem"
                     ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States (${date})",
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -193,14 +193,14 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheRespiratorySystem"
                     ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States (${date})",
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Respiratory System in Counties of United States"
+            "title": "Deaths From Diseases of the Respiratory System in Counties of United States of America"
           },
           {
             "columns": [
@@ -227,7 +227,7 @@
                       "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block",
                       "Count_MortalityEvent_Suicide_multiple_place_bar_block"
                     ],
-                    "title": "Causes of Death in United States (${date})",
+                    "title": "Causes of Death in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -243,7 +243,7 @@
                     "statVarKey": [
                       "Count_Death_Female"
                     ],
-                    "title": "Count of Mortality Event: Female in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: Female in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -258,14 +258,14 @@
                     "statVarKey": [
                       "Count_Death_Female"
                     ],
-                    "title": "Count of Mortality Event: Female in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: Female in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female in Counties of United States"
+            "title": "Count of Mortality Event: Female in Counties of United States of America"
           },
           {
             "columns": [
@@ -275,7 +275,7 @@
                     "statVarKey": [
                       "Count_Death_Female"
                     ],
-                    "title": "Count of Mortality Event: Female in United States",
+                    "title": "Count of Mortality Event: Female in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -283,11 +283,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: Female in United States",
+                    "description": "Count of Mortality Event: Female in United States of America",
                     "statVarKey": [
                       "Count_Death_Female"
                     ],
-                    "title": "Count of Mortality Event: Female in United States",
+                    "title": "Count of Mortality Event: Female in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -304,7 +304,7 @@
                     "statVarKey": [
                       "Count_Death_AbnormalNotClassfied_Female"
                     ],
-                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States (${date})",
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -319,14 +319,14 @@
                     "statVarKey": [
                       "Count_Death_AbnormalNotClassfied_Female"
                     ],
-                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States (${date})",
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States"
+            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States of America"
           },
           {
             "columns": [
@@ -351,7 +351,7 @@
                       "Count_Death_Neoplasms_Female_multiple_place_bar_block",
                       "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block"
                     ],
-                    "title": "Causes of Female Mortality in United States (${date})",
+                    "title": "Causes of Female Mortality in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -368,7 +368,7 @@
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0"
                     ],
-                    "title": "Neonatal Mortality Rate in United States",
+                    "title": "Neonatal Mortality Rate in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -376,11 +376,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Neonatal Mortality Rate in United States",
+                    "description": "Neonatal Mortality Rate in United States of America",
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0"
                     ],
-                    "title": "Neonatal Mortality Rate in United States",
+                    "title": "Neonatal Mortality Rate in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -397,7 +397,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -412,14 +412,14 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: 1 Years or Less in Counties of United States"
+            "title": "Count of Mortality Event: 1 Years or Less in Counties of United States of America"
           },
           {
             "columns": [
@@ -429,7 +429,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States (${date})",
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -444,14 +444,14 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States (${date})",
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States"
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States of America"
           },
           {
             "columns": [
@@ -474,7 +474,7 @@
                       "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block",
                       "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block"
                     ],
-                    "title": "Causes of Infant Mortality in United States (${date})",
+                    "title": "Causes of Infant Mortality in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -492,7 +492,7 @@
                       "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
                       "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
                     ],
-                    "title": "Infant Mortality Rate by Gender in United States",
+                    "title": "Infant Mortality Rate by Gender in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -508,7 +508,7 @@
                     "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -516,11 +516,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
                     "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -536,7 +536,7 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -551,13 +551,13 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Interval in Months Since Last Live Birth in Counties of United States"
+            "title": "Average Interval in Months Since Last Live Birth in Counties of United States of America"
           },
           {
             "columns": [
@@ -567,7 +567,7 @@
                     "statVarKey": [
                       "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
                     ],
-                    "title": "Male Mortality Rate (Age Adjusted) in United States",
+                    "title": "Male Mortality Rate (Age Adjusted) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -575,11 +575,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Male Mortality Rate (Age Adjusted) in United States",
+                    "description": "Male Mortality Rate (Age Adjusted) in United States of America",
                     "statVarKey": [
                       "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
                     ],
-                    "title": "Male Mortality Rate (Age Adjusted) in United States",
+                    "title": "Male Mortality Rate (Age Adjusted) in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -595,7 +595,7 @@
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
                     ],
-                    "title": "Infant Mortality Rate in United States",
+                    "title": "Infant Mortality Rate in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -603,11 +603,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Infant Mortality Rate in United States",
+                    "description": "Infant Mortality Rate in United States of America",
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
                     ],
-                    "title": "Infant Mortality Rate in United States",
+                    "title": "Infant Mortality Rate in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -624,7 +624,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -632,11 +632,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States of America",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -652,7 +652,7 @@
                     "statVarKey": [
                       "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
                     ],
-                    "title": "Female Mortality Rate (Age Adjusted) in United States",
+                    "title": "Female Mortality Rate (Age Adjusted) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -660,11 +660,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Female Mortality Rate (Age Adjusted) in United States",
+                    "description": "Female Mortality Rate (Age Adjusted) in United States of America",
                     "statVarKey": [
                       "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
                     ],
-                    "title": "Female Mortality Rate (Age Adjusted) in United States",
+                    "title": "Female Mortality Rate (Age Adjusted) in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -865,18 +865,18 @@
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
@@ -1431,5 +1431,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }

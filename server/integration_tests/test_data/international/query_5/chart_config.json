@@ -14,13 +14,13 @@
                         "flood"
                       ]
                     },
-                    "title": "Floods in Brazil",
+                    "title": "Floods in United States of America",
                     "type": "DISASTER_EVENT_MAP"
                   }
                 ]
               }
             ],
-            "title": "Floods in Brazil",
+            "title": "Floods in United States of America",
             "type": "DISASTER_EVENT"
           },
           {
@@ -31,7 +31,7 @@
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area of Flood Event in Brazil",
+                    "title": "Area of Flood Event in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -39,11 +39,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Area of Flood Event in Brazil",
+                    "description": "Area of Flood Event in United States of America",
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area of Flood Event in Brazil",
+                    "title": "Area of Flood Event in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -56,6 +56,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 5,
                       "showHighestLowest": true
@@ -63,13 +74,72 @@
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area of Flood Event in Administrative Area 1 Places of Brazil (${date})",
+                    "title": "Area of Flood Event in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Area of Flood Event in Administrative Area 1 Places of Brazil"
+            "title": "Area of Flood Event in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CoastalFloodEvent"
+                    ],
+                    "title": "Costal Floods in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Costal Floods in United States of America",
+                    "statVarKey": [
+                      "Count_CoastalFloodEvent"
+                    ],
+                    "title": "Costal Floods in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Costal Floods"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CoastalFloodEvent"
+                    ],
+                    "title": "Costal Floods in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CoastalFloodEvent"
+                    ],
+                    "title": "Costal Floods in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Costal Floods in States of United States of America"
           },
           {
             "columns": [
@@ -79,7 +149,7 @@
                     "statVarKey": [
                       "Count_FloodEvent"
                     ],
-                    "title": "Floods in Brazil",
+                    "title": "Floods in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -87,11 +157,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Floods in Brazil",
+                    "description": "Floods in United States of America",
                     "statVarKey": [
                       "Count_FloodEvent"
                     ],
-                    "title": "Floods in Brazil",
+                    "title": "Floods in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -104,6 +174,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 5,
                       "showHighestLowest": true
@@ -111,19 +192,86 @@
                     "statVarKey": [
                       "Count_FloodEvent"
                     ],
-                    "title": "Floods in Administrative Area 1 Places of Brazil (${date})",
+                    "title": "Floods in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Floods in Administrative Area 1 Places of Brazil"
+            "title": "Floods in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Flash Flood Event in United States of America",
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Flash Flood Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Flash Flood Event in States of United States of America"
           }
         ],
         "statVarSpec": {
           "Area_FloodEvent": {
             "name": "Area of Flood Event",
             "statVar": "Area_FloodEvent"
+          },
+          "Count_CoastalFloodEvent": {
+            "name": "Costal Floods",
+            "statVar": "Count_CoastalFloodEvent"
+          },
+          "Count_FlashFloodEvent": {
+            "name": "Count of Flash Flood Event",
+            "statVar": "Count_FlashFloodEvent"
           },
           "Count_FloodEvent": {
             "name": "Floods",
@@ -134,7 +282,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "AdministrativeArea1"
+        "Country": "State"
       },
       "eventTypeSpec": {
         "flood": {
@@ -154,218 +302,379 @@
         }
       },
       "placeDcid": [
-        "country/BRA"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "country/BRA",
-    "name": "Brazil",
+    "dcid": "country/USA",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "country/BRA",
-      "name": "Brazil",
+      "dcid": "country/USA",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "AdministrativeArea1": [
+      "State": [
         {
-          "dcid": "wikidataId/Q119158",
-          "name": "Federal District",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q15499",
-          "name": "Paran\u00e1",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q175",
-          "name": "S\u00e3o Paulo",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q38088",
-          "name": "Para\u00edba",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q39109",
-          "name": "Minas Gerais",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q39517",
-          "name": "Par\u00e1",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40030",
-          "name": "Rio Grande do Sul",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40040",
-          "name": "Amazonas",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40123",
-          "name": "Cear\u00e1",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40130",
-          "name": "Amap\u00e1",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40430",
-          "name": "Bahia",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40780",
-          "name": "Acre",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40885",
-          "name": "Alagoas",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40942",
-          "name": "Pernambuco",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q41115",
-          "name": "Santa Catarina",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q41428",
-          "name": "Rio de Janeiro",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q41587",
-          "name": "Goi\u00e1s",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q42362",
-          "name": "Maranh\u00e3o",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q42508",
-          "name": "Roraima",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q42722",
-          "name": "Piau\u00ed",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q42824",
-          "name": "Mato Grosso",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43233",
-          "name": "Esp\u00edrito Santo",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43235",
-          "name": "Rond\u00f4nia",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43255",
-          "name": "Rio Grande do Norte",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43319",
-          "name": "Mato Grosso do Sul",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43695",
-          "name": "Tocantins",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43783",
-          "name": "Sergipe",
+          "dcid": "geoId/30",
+          "name": "Montana",
           "types": [
-            "AdministrativeArea1"
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
           ]
         }
       ]
@@ -392,6 +701,13 @@
       }
     ],
     "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
       {
         "dcid": "country/CAN",
         "name": "Canada",
@@ -482,13 +798,6 @@
         "types": [
           "Country"
         ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
       }
     ],
     "peerTopics": [
@@ -507,8 +816,43 @@
         ]
       },
       {
+        "dcid": "dc/topic/HeatWave",
+        "name": "Heat Wave",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/Storm",
         "name": "Storms",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Avalanche",
+        "name": "Avalanche",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Tsunami",
+        "name": "Tsunami",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/WindEvent",
+        "name": "Wind Events",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Fog",
+        "name": "Fog",
         "types": [
           "Topic"
         ]
@@ -516,5 +860,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

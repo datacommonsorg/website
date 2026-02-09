@@ -9,7 +9,7 @@
               {
                 "tiles": [
                   {
-                    "title": "Most Severe Fires in California",
+                    "title": "Most Severe Fires in United States of America",
                     "topEventTileSpec": {
                       "eventTypeKey": "fire",
                       "showStartDate": true
@@ -26,7 +26,7 @@
                         "fire"
                       ]
                     },
-                    "title": "Fires in California",
+                    "title": "Fires in United States of America",
                     "type": "DISASTER_EVENT_MAP"
                   }
                 ]
@@ -45,7 +45,7 @@
                     "statVarKey": [
                       "Count_FireEvent_285042123"
                     ],
-                    "title": "Count of Fire Event in California",
+                    "title": "Count of Fire Event in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -53,11 +53,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Fire Event in California",
+                    "description": "Count of Fire Event in United States of America",
                     "statVarKey": [
                       "Count_FireEvent"
                     ],
-                    "title": "Count of Fire Event in California",
+                    "title": "Count of Fire Event in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -77,7 +77,7 @@
                     "statVarKey": [
                       "Count_FireEvent"
                     ],
-                    "title": "Count of Fire Event in Counties of California (${date})",
+                    "title": "Count of Fire Event in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -88,13 +88,13 @@
                     "statVarKey": [
                       "Count_FireEvent"
                     ],
-                    "title": "Count of Fire Event in Counties of California (${date})",
+                    "title": "Count of Fire Event in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count of Fire Event in Counties of California"
+            "title": "Count of Fire Event in States of United States of America"
           },
           {
             "columns": [
@@ -107,7 +107,7 @@
                     "statVarKey": [
                       "Count_WildfireEvent_2519150620"
                     ],
-                    "title": "Wildfires in California",
+                    "title": "Wildfires in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -115,17 +115,48 @@
               {
                 "tiles": [
                   {
-                    "description": "Wildfires in California",
+                    "description": "Wildfires in United States of America",
                     "statVarKey": [
                       "Count_WildfireEvent"
                     ],
-                    "title": "Wildfires in California",
+                    "title": "Wildfires in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "title": "Wildfires"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_WildfireEvent"
+                    ],
+                    "title": "Wildfires in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_WildfireEvent"
+                    ],
+                    "title": "Wildfires in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Wildfires in States of United States of America"
           }
         ],
         "statVarSpec": {
@@ -152,7 +183,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "State": "County"
+        "Country": "State"
       },
       "eventTypeSpec": {
         "fire": {
@@ -186,379 +217,379 @@
         }
       },
       "placeDcid": [
-        "geoId/06"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "California",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "County": [
+      "State": [
         {
-          "dcid": "geoId/06001",
-          "name": "Alameda",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06003",
-          "name": "Alpine",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06005",
-          "name": "Amador",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06007",
-          "name": "Butte",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06009",
-          "name": "Calaveras",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06011",
-          "name": "Colusa",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06013",
-          "name": "Contra Costa",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06015",
-          "name": "Del Norte",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06017",
-          "name": "El Dorado",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06019",
-          "name": "Fresno",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06021",
-          "name": "Glenn",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06023",
-          "name": "Humboldt",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06025",
-          "name": "Imperial",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06027",
-          "name": "Inyo",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06029",
-          "name": "Kern",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06031",
-          "name": "Kings",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06033",
-          "name": "Lake",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06035",
-          "name": "Lassen",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06037",
-          "name": "Los Angeles",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06039",
-          "name": "Madera",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06041",
-          "name": "Marin",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06043",
-          "name": "Mariposa",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06045",
-          "name": "Mendocino",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06047",
-          "name": "Merced",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06049",
-          "name": "Modoc",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06051",
-          "name": "Mono",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06053",
-          "name": "Monterey",
+          "dcid": "geoId/30",
+          "name": "Montana",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06055",
-          "name": "Napa",
+          "dcid": "geoId/31",
+          "name": "Nebraska",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06057",
+          "dcid": "geoId/32",
           "name": "Nevada",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06059",
-          "name": "Orange",
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06061",
-          "name": "Placer",
+          "dcid": "geoId/34",
+          "name": "New Jersey",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06063",
-          "name": "Plumas",
+          "dcid": "geoId/35",
+          "name": "New Mexico",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06065",
-          "name": "Riverside",
+          "dcid": "geoId/36",
+          "name": "New York",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06067",
-          "name": "Sacramento",
+          "dcid": "geoId/37",
+          "name": "North Carolina",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06069",
-          "name": "San Benito",
+          "dcid": "geoId/38",
+          "name": "North Dakota",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06071",
-          "name": "San Bernardino",
+          "dcid": "geoId/39",
+          "name": "Ohio",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06073",
-          "name": "San Diego",
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06075",
-          "name": "San Francisco",
+          "dcid": "geoId/41",
+          "name": "Oregon",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06077",
-          "name": "San Joaquin",
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06079",
-          "name": "San Luis Obispo",
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06081",
-          "name": "San Mateo",
+          "dcid": "geoId/45",
+          "name": "South Carolina",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06083",
-          "name": "Santa Barbara",
+          "dcid": "geoId/46",
+          "name": "South Dakota",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06085",
-          "name": "Santa Clara",
+          "dcid": "geoId/47",
+          "name": "Tennessee",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06087",
-          "name": "Santa Cruz",
+          "dcid": "geoId/48",
+          "name": "Texas",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06089",
-          "name": "Shasta",
+          "dcid": "geoId/49",
+          "name": "Utah",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06091",
-          "name": "Sierra",
+          "dcid": "geoId/50",
+          "name": "Vermont",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06093",
-          "name": "Siskiyou",
+          "dcid": "geoId/51",
+          "name": "Virginia",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06095",
-          "name": "Solano",
+          "dcid": "geoId/53",
+          "name": "Washington",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06097",
-          "name": "Sonoma",
+          "dcid": "geoId/54",
+          "name": "West Virginia",
           "types": [
-            "County"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/06099",
-          "name": "Stanislaus",
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
           "types": [
-            "County"
+            "State"
           ]
         }
       ]
@@ -586,353 +617,101 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/01",
-        "name": "Alabama",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/02",
-        "name": "Alaska",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/04",
-        "name": "Arizona",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/05",
-        "name": "Arkansas",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08",
-        "name": "Colorado",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/09",
-        "name": "Connecticut",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/10",
-        "name": "Delaware",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/11",
-        "name": "District of Columbia",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12",
-        "name": "Florida",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/13",
-        "name": "Georgia",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/15",
-        "name": "Hawaii",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/16",
-        "name": "Idaho",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/17",
-        "name": "Illinois",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/18",
-        "name": "Indiana",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/19",
-        "name": "Iowa",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/20",
-        "name": "Kansas",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/21",
-        "name": "Kentucky",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/22",
-        "name": "Louisiana",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/23",
-        "name": "Maine",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/24",
-        "name": "Maryland",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/25",
-        "name": "Massachusetts",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/26",
-        "name": "Michigan",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/27",
-        "name": "Minnesota",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/28",
-        "name": "Mississippi",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/29",
-        "name": "Missouri",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/30",
-        "name": "Montana",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/31",
-        "name": "Nebraska",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/32",
-        "name": "Nevada",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/33",
-        "name": "New Hampshire",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/34",
-        "name": "New Jersey",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/35",
-        "name": "New Mexico",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/36",
-        "name": "New York",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/37",
-        "name": "North Carolina",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/38",
-        "name": "North Dakota",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/39",
-        "name": "Ohio",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/40",
-        "name": "Oklahoma",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/41",
-        "name": "Oregon",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/42",
-        "name": "Pennsylvania",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/72",
-        "name": "Puerto Rico",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/44",
-        "name": "Rhode Island",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/45",
-        "name": "South Carolina",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/46",
-        "name": "South Dakota",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/47",
-        "name": "Tennessee",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/48",
-        "name": "Texas",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/49",
-        "name": "Utah",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/50",
-        "name": "Vermont",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/51",
-        "name": "Virginia",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/53",
-        "name": "Washington",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/54",
-        "name": "West Virginia",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/55",
-        "name": "Wisconsin",
-        "types": [
-          "AdministrativeArea1"
+          "Country"
         ]
       }
     ],
@@ -997,6 +776,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "See relevant statistics for California based on the previous query."
+    "See relevant statistics for United States of America based on the previous query."
   ]
 }

@@ -9,14 +9,100 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Life Expectancy in United States of America",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Male Life Expectancy in United States of America",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Male Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Female Life Expectancy in United States of America",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Female Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showLowest": true
                     },
                     "statVarKey": [
-                      "Mean_MothersAge_BirthEvent_LiveBirth"
+                      "Count_Death"
                     ],
-                    "title": "Average Mother'S Age in Years in Counties of California (${date})",
+                    "title": "Number of Deaths in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -25,15 +111,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_MothersAge_BirthEvent_LiveBirth"
+                      "Count_Death"
                     ],
-                    "title": "Average Mother'S Age in Years in Counties of California (${date})",
+                    "title": "Number of Deaths in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Average Mother'S Age in Years in Counties of California"
+            "denom": "Count_Person",
+            "title": "Number of Deaths in Counties of United States of America"
           },
           {
             "columns": [
@@ -41,9 +128,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_MothersAge_BirthEvent_LiveBirth"
+                      "Count_Death"
                     ],
-                    "title": "Average Mother'S Age in Years in California",
+                    "title": "Number of Deaths in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -51,403 +138,1106 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Mother'S Age in Years in California",
+                    "description": "Number of Deaths in United States of America",
                     "statVarKey": [
-                      "Mean_MothersAge_BirthEvent_LiveBirth"
+                      "Count_Death"
                     ],
-                    "title": "Average Mother'S Age in Years in California",
+                    "title": "Number of Deaths in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Mother'S Age in Years"
+            "denom": "Count_Person",
+            "title": "Number of Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Per Capita in United States of America",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheNervousSystem"
+                    ],
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheNervousSystem"
+                    ],
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Diseases of the Nervous System in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Diseases of the Respiratory System in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "ASCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block",
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block",
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block",
+                      "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block",
+                      "Count_Death_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_AbnormalNotClassfied_multiple_place_bar_block",
+                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block",
+                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_multiple_place_bar_block",
+                      "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block",
+                      "Count_MortalityEvent_Suicide_multiple_place_bar_block"
+                    ],
+                    "title": "Causes of Death in United States of America (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Causes of Death"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: Female in United States of America",
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female"
+                    ],
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female"
+                    ],
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "ASCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block",
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_multiple_place_bar_block",
+                      "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block",
+                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block",
+                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_multiple_place_bar_block",
+                      "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block",
+                      "Count_Death_Neoplasms_Female_multiple_place_bar_block",
+                      "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block"
+                    ],
+                    "title": "Causes of Female Mortality in United States of America (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Causes of Female Mortality"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0"
+                    ],
+                    "title": "Neonatal Mortality Rate in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Neonatal Mortality Rate in United States of America",
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0"
+                    ],
+                    "title": "Neonatal Mortality Rate in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
+            "title": "Neonatal Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: 1 Years or Less in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "ASCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block"
+                    ],
+                    "title": "Causes of Infant Mortality in United States of America (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Causes of Infant Mortality"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+                    ],
+                    "title": "Infant Mortality Rate by Gender in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Infant Mortality Rate by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Interval in Months Since Last Live Birth in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Male Mortality Rate (Age Adjusted) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Male Mortality Rate (Age Adjusted) in United States of America",
+                    "statVarKey": [
+                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Male Mortality Rate (Age Adjusted) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Male Mortality Rate (Age Adjusted)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in United States of America",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States of America",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
           }
         ],
         "statVarSpec": {
-          "Mean_MothersAge_BirthEvent_LiveBirth": {
-            "name": "Average mother's age in years",
-            "statVar": "Mean_MothersAge_BirthEvent_LiveBirth"
+          "Count_Death": {
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_AbnormalNotClassfied_Female": {
+            "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
+            "statVar": "Count_Death_AbnormalNotClassfied_Female"
+          },
+          "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
+            "statVar": "Count_Death_AbnormalNotClassfied_Female"
+          },
+          "Count_Death_AbnormalNotClassfied_multiple_place_bar_block": {
+            "name": "Deaths Due To Abnormal Symptoms, Signs And Clinical And Laboratory Findings",
+            "statVar": "Count_Death_AbnormalNotClassfied"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person": {
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+          },
+          "Count_Death_AsAFractionOfCount_Person": {
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block": {
+            "name": "Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Certain Infectious And Parasitic Diseases",
+            "statVar": "Count_Death_CertainInfectiousParasiticDiseases_Female"
+          },
+          "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block": {
+            "name": "Deaths Due To Certain Infectious And Parasitic Diseases",
+            "statVar": "Count_Death_CertainInfectiousParasiticDiseases"
+          },
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Congenital Malformations, Deformations And Chromosomal Abnormalities",
+            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female"
+          },
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block": {
+            "name": "Deaths Due To Congenital Malformations, Deformations And Chromosomal Abnormalities",
+            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+          },
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female"
+          },
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_multiple_place_bar_block": {
+            "name": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Diseases of The Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem_Female"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block": {
+            "name": "Deaths From Diseases of the Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_DiseasesOfTheNervousSystem": {
+            "name": "Deaths From Diseases of the Nervous System",
+            "statVar": "Count_Death_DiseasesOfTheNervousSystem"
+          },
+          "Count_Death_DiseasesOfTheRespiratorySystem": {
+            "name": "Deaths From Diseases of the Respiratory System",
+            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
+          },
+          "Count_Death_Female": {
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
+          },
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
+            "name": "Suicide Mortality Rate",
+            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
+          "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
+            "name": "Male Mortality Rate (Age Adjusted)",
+            "statVar": "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+          },
+          "Count_Death_Neoplasms_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Neoplasms",
+            "statVar": "Count_Death_Neoplasms_Female"
+          },
+          "Count_Death_Neoplasms_multiple_place_bar_block": {
+            "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
+            "statVar": "Count_Death_Neoplasms"
+          },
+          "Count_Death_Upto1Years": {
+            "name": "Count of Mortality Event: 1 Years or Less",
+            "statVar": "Count_Death_Upto1Years"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod": {
+            "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
+            "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
+            "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Certain Infectious And Parasitic Diseases)",
+            "statVar": "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases"
+          },
+          "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations And Chromosomal Abnormalities)",
+            "statVar": "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+          },
+          "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Diseases of The Circulatory System",
+            "statVar": "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among Infants",
+            "statVar": "Count_Death_Upto1Years_Neoplasms"
+          },
+          "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block": {
+            "name": "Count of Mortality Event: Assault(Homicide), Female",
+            "statVar": "Count_MortalityEvent_Assault(Homicide)_Female"
+          },
+          "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block": {
+            "name": "Count of Mortality Event: Assault(Homicide)",
+            "statVar": "Count_MortalityEvent_Assault(Homicide)"
+          },
+          "Count_MortalityEvent_Suicide_multiple_place_bar_block": {
+            "name": "Count of Mortality Event: Suicide",
+            "statVar": "Count_MortalityEvent_Suicide"
+          },
+          "LifeExpectancy_Person": {
+            "name": "Life Expectancy",
+            "statVar": "LifeExpectancy_Person"
+          },
+          "LifeExpectancy_Person_Female": {
+            "name": "Female Life Expectancy",
+            "statVar": "LifeExpectancy_Person_Female"
+          },
+          "LifeExpectancy_Person_Male": {
+            "name": "Male Life Expectancy",
+            "statVar": "LifeExpectancy_Person_Male"
+          },
+          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
+            "name": "Average interval in months since last live birth",
+            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
+            "name": "Infant mortality rate",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M": {
+            "name": "Infant mortality rate [under 1 year old, Male]",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+          },
+          "sdg/SH_DYN_NMRT.AGE--M0": {
+            "name": "Neonatal mortality rate",
+            "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "State": "County"
+        "Country": "County"
       },
       "placeDcid": [
-        "geoId/06"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
       "County": [
         {
-          "dcid": "geoId/06001",
-          "name": "Alameda",
+          "dcid": "geoId/01001",
+          "name": "Autauga",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06003",
-          "name": "Alpine",
+          "dcid": "geoId/01003",
+          "name": "Baldwin",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06005",
-          "name": "Amador",
+          "dcid": "geoId/01005",
+          "name": "Barbour",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06007",
-          "name": "Butte",
+          "dcid": "geoId/01007",
+          "name": "Bibb",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06009",
-          "name": "Calaveras",
+          "dcid": "geoId/01009",
+          "name": "Blount",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06011",
-          "name": "Colusa",
+          "dcid": "geoId/01011",
+          "name": "Bullock",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06013",
-          "name": "Contra Costa",
+          "dcid": "geoId/01013",
+          "name": "Butler",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06015",
-          "name": "Del Norte",
+          "dcid": "geoId/01015",
+          "name": "Calhoun",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06017",
-          "name": "El Dorado",
+          "dcid": "geoId/01017",
+          "name": "Chambers",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06019",
-          "name": "Fresno",
+          "dcid": "geoId/01019",
+          "name": "Cherokee",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06021",
-          "name": "Glenn",
+          "dcid": "geoId/01021",
+          "name": "Chilton",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06023",
-          "name": "Humboldt",
+          "dcid": "geoId/01023",
+          "name": "Choctaw",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06025",
-          "name": "Imperial",
+          "dcid": "geoId/01025",
+          "name": "Clarke",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06027",
-          "name": "Inyo",
+          "dcid": "geoId/01027",
+          "name": "Clay",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06029",
-          "name": "Kern",
+          "dcid": "geoId/01029",
+          "name": "Cleburne",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06031",
-          "name": "Kings",
+          "dcid": "geoId/01031",
+          "name": "Coffee",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06033",
-          "name": "Lake",
+          "dcid": "geoId/01033",
+          "name": "Colbert",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06035",
-          "name": "Lassen",
+          "dcid": "geoId/01035",
+          "name": "Conecuh",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06037",
-          "name": "Los Angeles",
+          "dcid": "geoId/01037",
+          "name": "Coosa",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06039",
-          "name": "Madera",
+          "dcid": "geoId/01039",
+          "name": "Covington",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06041",
-          "name": "Marin",
+          "dcid": "geoId/01041",
+          "name": "Crenshaw",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06043",
-          "name": "Mariposa",
+          "dcid": "geoId/01043",
+          "name": "Cullman",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06045",
-          "name": "Mendocino",
+          "dcid": "geoId/01045",
+          "name": "Dale",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06047",
-          "name": "Merced",
+          "dcid": "geoId/01047",
+          "name": "Dallas",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06049",
-          "name": "Modoc",
+          "dcid": "geoId/01049",
+          "name": "DeKalb",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06051",
-          "name": "Mono",
+          "dcid": "geoId/01051",
+          "name": "Elmore",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06053",
-          "name": "Monterey",
+          "dcid": "geoId/01053",
+          "name": "Escambia",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06055",
-          "name": "Napa",
+          "dcid": "geoId/01055",
+          "name": "Etowah",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06057",
-          "name": "Nevada",
+          "dcid": "geoId/01057",
+          "name": "Fayette",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06059",
-          "name": "Orange",
+          "dcid": "geoId/01059",
+          "name": "Franklin",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06061",
-          "name": "Placer",
+          "dcid": "geoId/01061",
+          "name": "Geneva",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06063",
-          "name": "Plumas",
+          "dcid": "geoId/01063",
+          "name": "Greene",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06065",
-          "name": "Riverside",
+          "dcid": "geoId/01065",
+          "name": "Hale",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06067",
-          "name": "Sacramento",
+          "dcid": "geoId/01067",
+          "name": "Henry",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06069",
-          "name": "San Benito",
+          "dcid": "geoId/01069",
+          "name": "Houston",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06071",
-          "name": "San Bernardino",
+          "dcid": "geoId/01071",
+          "name": "Jackson",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06073",
-          "name": "San Diego",
+          "dcid": "geoId/01073",
+          "name": "Jefferson",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06075",
-          "name": "San Francisco",
+          "dcid": "geoId/01075",
+          "name": "Lamar",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06077",
-          "name": "San Joaquin",
+          "dcid": "geoId/01077",
+          "name": "Lauderdale",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06079",
-          "name": "San Luis Obispo",
+          "dcid": "geoId/01079",
+          "name": "Lawrence",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06081",
-          "name": "San Mateo",
+          "dcid": "geoId/01081",
+          "name": "Lee",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06083",
-          "name": "Santa Barbara",
+          "dcid": "geoId/01083",
+          "name": "Limestone",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06085",
-          "name": "Santa Clara",
+          "dcid": "geoId/01085",
+          "name": "Lowndes",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06087",
-          "name": "Santa Cruz",
+          "dcid": "geoId/01087",
+          "name": "Macon",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06089",
-          "name": "Shasta",
+          "dcid": "geoId/01089",
+          "name": "Madison",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06091",
-          "name": "Sierra",
+          "dcid": "geoId/01091",
+          "name": "Marengo",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06093",
-          "name": "Siskiyou",
+          "dcid": "geoId/01093",
+          "name": "Marion",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06095",
-          "name": "Solano",
+          "dcid": "geoId/01095",
+          "name": "Marshall",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06097",
-          "name": "Sonoma",
+          "dcid": "geoId/01097",
+          "name": "Mobile",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06099",
-          "name": "Stanislaus",
+          "dcid": "geoId/01099",
+          "name": "Monroe",
           "types": [
             "County"
           ]
@@ -455,364 +1245,202 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
-    "mainTopics": [],
-    "parentPlaces": [],
-    "parentTopics": [],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/01",
-        "name": "Alabama",
-        "types": [
-          "AdministrativeArea1"
+    "exploreMore": {
+      "Count_Death": {
+        "causeOfDeath": [
+          "Count_Death_AbnormalNotClassfied",
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
+          "Count_Death_CertainInfectiousParasiticDiseases",
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders",
+          "Count_Death_DiseasesOfTheCirculatorySystem",
+          "Count_Death_Neoplasms",
+          "Count_MortalityEvent_Assault(Homicide)",
+          "Count_MortalityEvent_Suicide"
+        ],
+        "gender": [
+          "Count_Death_Female",
+          "Count_Death_Male"
         ]
       },
-      {
-        "dcid": "geoId/02",
-        "name": "Alaska",
-        "types": [
-          "AdministrativeArea1"
+      "Count_Death_AsAFractionOfCount_Person": {
+        "causeOfDeath": [
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
+          "Count_MortalityEvent_Assault(Homicide)_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/A00-B99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/C00-D48_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/D50-D89_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/I00-I99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/P00-P96_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/Q00-Q99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/R00-R99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_Suicide_AsAFractionOf_Count_Person"
         ]
       },
-      {
-        "dcid": "geoId/04",
-        "name": "Arizona",
-        "types": [
-          "AdministrativeArea1"
+      "Count_Death_Female": {
+        "causeOfDeath": [
+          "Count_Death_AbnormalNotClassfied_Female",
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female",
+          "Count_Death_CertainInfectiousParasiticDiseases_Female",
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female",
+          "Count_Death_DiseasesOfTheCirculatorySystem_Female",
+          "Count_Death_Neoplasms_Female",
+          "Count_MortalityEvent_Assault(Homicide)_Female"
         ]
       },
-      {
-        "dcid": "geoId/05",
-        "name": "Arkansas",
-        "types": [
-          "AdministrativeArea1"
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
         ]
-      },
+      }
+    },
+    "mainTopics": [
       {
-        "dcid": "geoId/08",
-        "name": "Colorado",
+        "dcid": "dc/topic/LifeExpectancy",
+        "name": "Life Expectancy",
         "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/09",
-        "name": "Connecticut",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/10",
-        "name": "Delaware",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/11",
-        "name": "District of Columbia",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/12",
-        "name": "Florida",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/13",
-        "name": "Georgia",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/15",
-        "name": "Hawaii",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/16",
-        "name": "Idaho",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/17",
-        "name": "Illinois",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/18",
-        "name": "Indiana",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/19",
-        "name": "Iowa",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/20",
-        "name": "Kansas",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/21",
-        "name": "Kentucky",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/22",
-        "name": "Louisiana",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/23",
-        "name": "Maine",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/24",
-        "name": "Maryland",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/25",
-        "name": "Massachusetts",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/26",
-        "name": "Michigan",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/27",
-        "name": "Minnesota",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/28",
-        "name": "Mississippi",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/29",
-        "name": "Missouri",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/30",
-        "name": "Montana",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/31",
-        "name": "Nebraska",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/32",
-        "name": "Nevada",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/33",
-        "name": "New Hampshire",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/34",
-        "name": "New Jersey",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/35",
-        "name": "New Mexico",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/36",
-        "name": "New York",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/37",
-        "name": "North Carolina",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/38",
-        "name": "North Dakota",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/39",
-        "name": "Ohio",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/40",
-        "name": "Oklahoma",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/41",
-        "name": "Oregon",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/42",
-        "name": "Pennsylvania",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/72",
-        "name": "Puerto Rico",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/44",
-        "name": "Rhode Island",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/45",
-        "name": "South Carolina",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/46",
-        "name": "South Dakota",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/47",
-        "name": "Tennessee",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/48",
-        "name": "Texas",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/49",
-        "name": "Utah",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/50",
-        "name": "Vermont",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/51",
-        "name": "Virginia",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/53",
-        "name": "Washington",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/54",
-        "name": "West Virginia",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/55",
-        "name": "Wisconsin",
-        "types": [
-          "AdministrativeArea1"
+          "Topic"
         ]
       }
     ],
-    "peerTopics": []
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/CausesOfDeath",
+        "name": "Causes of Death",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/FemaleMortality",
+        "name": "Female Mortality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/InfantMortality",
+        "name": "Infant Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "svSource": "PAST_QUERY",
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

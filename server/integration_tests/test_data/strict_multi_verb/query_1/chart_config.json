@@ -3,23 +3,13 @@
   "config": {},
   "context": {},
   "debug": {},
-  "entities": [],
-  "pastSourceContext": "",
+  "failure": "Sorry, could not complete your request. No place found in the query.",
   "place": {
     "dcid": "",
     "name": "",
     "place_type": ""
   },
-  "placeFallback": {},
-  "placeSource": "UNRECOGNIZED",
-  "places": [
-    {
-      "dcid": "",
-      "name": "",
-      "place_type": ""
-    }
-  ],
-  "relatedThings": {},
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Sorry, could not complete your request. No place found in the query."
+  ]
 }

@@ -10,140 +10,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person"
+                      "Count_Household_ForeignBorn_PlaceOfBirthMexico"
                     ],
-                    "title": "Population in Mexico City",
-                    "type": "LINE"
+                    "title": "Count of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Population in Mexico City",
-                    "statVarKey": [
-                      "Count_Person"
-                    ],
-                    "title": "Population in Mexico City",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "The total number of people in a population.",
-            "title": "Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_PerArea"
-                    ],
-                    "title": "Population Density in Mexico City",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Density in Mexico City",
-                    "statVarKey": [
-                      "Count_Person_PerArea"
-                    ],
-                    "title": "Population Density in Mexico City",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Density"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "GrowthRate_Count_Person"
-                    ],
-                    "title": "Rate of Population Growth in Mexico City",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Rate of Population Growth in Mexico City",
-                    "statVarKey": [
-                      "GrowthRate_Count_Person"
-                    ],
-                    "title": "Rate of Population Growth in Mexico City",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "The percentage change in the total number of people in a population over a specific period.",
-            "title": "Rate of Population Growth"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in Mexico City",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population in Mexico City",
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in Mexico City",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "The median age of people in a population.",
-            "title": "Median Age of Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1489"
-                    ],
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_multiple_place_bar_block",
-                      "Count_Person_85OrMoreYears_Male_multiple_place_bar_block"
+                      "Count_Household_ForeignBorn_PlaceOfBirthMexico"
                     ],
-                    "title": "Population 85 or Over by Gender in Mexico City (${date})",
-                    "type": "BAR"
+                    "title": "Count of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population 85 or Over by Gender"
+            "title": "Count of Household: Mexican Born in States of United States of America"
           },
           {
             "columns": [
@@ -151,27 +42,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female",
-                      "Count_Person_Male"
+                      "Count_Household_ForeignBorn_PlaceOfBirthMexico"
                     ],
-                    "title": "Population by Gender in Mexico City",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_ForeignBorn"
-                    ],
-                    "title": "Population: Foreign Born in Mexico City",
+                    "title": "Count of Household: Mexican Born in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -179,18 +52,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born in Mexico City",
+                    "description": "Count of Household: Mexican Born in United States of America",
                     "statVarKey": [
-                      "Count_Person_ForeignBorn"
+                      "Count_Household_ForeignBorn_PlaceOfBirthMexico"
                     ],
-                    "title": "Population: Foreign Born in Mexico City",
+                    "title": "Count of Household: Mexican Born in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population by Nativity"
+            "title": "Count of Household: Mexican Born"
           },
           {
             "columns": [
@@ -198,9 +71,41 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_BirthEvent"
+                      "Count_Person_Male_ForeignBorn_PlaceOfBirthMexico"
                     ],
-                    "title": "Count of Birth Event in Mexico City",
+                    "title": "Mexican Born Men in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mexican Born Men in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mexican Born Men in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mexican Born Men in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -208,283 +113,675 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Birth Event in Mexico City",
+                    "description": "Mexican Born Men in United States of America",
                     "statVarKey": [
-                      "Count_BirthEvent"
+                      "Count_Person_Male_ForeignBorn_PlaceOfBirthMexico"
                     ],
-                    "title": "Count of Birth Event in Mexico City",
+                    "title": "Mexican Born Men in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Birth Event"
+            "denom": "Count_Person",
+            "title": "Mexican Born Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Women Born in Mexico in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Women Born in Mexico in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Born in Mexico in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Women Born in Mexico in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Born in Mexico in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Women Born in Mexico in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Born in Mexico"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_HouseholdSize_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Household Size of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_HouseholdSize_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Household Size of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Household Size of Household: Mexican Born in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_HouseholdSize_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Household Size of Household: Mexican Born in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Household Size of Household: Mexican Born in United States of America",
+                    "statVarKey": [
+                      "Mean_HouseholdSize_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Household Size of Household: Mexican Born in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Household Size of Household: Mexican Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Earnings, Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Earnings, Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Mexican Born in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Earnings, Mexican Born in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Earnings, Mexican Born in United States of America",
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Earnings, Mexican Born in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Mexican Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Age: Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Age: Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Mexican Born in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Age: Mexican Born in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age: Mexican Born in United States of America",
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Age: Mexican Born in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Mexican Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Cash Assistance in the Past 12 Months, Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Cash Assistance in the Past 12 Months, Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Cash Assistance in the Past 12 Months, Mexican Born in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Cash Assistance in the Past 12 Months, Mexican Born in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Cash Assistance in the Past 12 Months, Mexican Born in United States of America",
+                    "statVarKey": [
+                      "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Cash Assistance in the Past 12 Months, Mexican Born in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Cash Assistance in the Past 12 Months, Mexican Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Earnings of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Earnings of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: Mexican Born in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Earnings of Household: Mexican Born in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Earnings of Household: Mexican Born in United States of America",
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Mean Earnings of Household: Mexican Born in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: Mexican Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Households Receiving Social Security Income Over the Last Year Born in Mexico in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Households Receiving Social Security Income Over the Last Year Born in Mexico in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Households Receiving Social Security Income Over the Last Year Born in Mexico in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Households Receiving Social Security Income Over the Last Year Born in Mexico in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Households Receiving Social Security Income Over the Last Year Born in Mexico in United States of America",
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Households Receiving Social Security Income Over the Last Year Born in Mexico in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Households Receiving Social Security Income Over the Last Year Born in Mexico"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Income of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Income of Household: Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Mexican Born in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Income of Household: Mexican Born in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: Mexican Born in United States of America",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Income of Household: Mexican Born in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Mexican Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, Mexican Born in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, Mexican Born in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Retirement Income in the Past 12 Months, Mexican Born in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, Mexican Born in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Retirement Income in the Past 12 Months, Mexican Born in United States of America",
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, Mexican Born in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Retirement Income in the Past 12 Months, Mexican Born"
           }
         ],
         "statVarSpec": {
-          "Count_BirthEvent": {
-            "name": "Count of Birth Event",
-            "statVar": "Count_BirthEvent"
+          "Count_Household_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Count of Household: Mexican Born",
+            "statVar": "Count_Household_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Count_Person": {
-            "name": "Population",
-            "statVar": "Count_Person"
+          "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Count of Household: With Cash Assistance in The Past 12 Months, Mexican Born",
+            "statVar": "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Count_Person_85OrMoreYears_Female_multiple_place_bar_block": {
-            "name": "Women over 85",
-            "statVar": "Count_Person_85OrMoreYears_Female"
+          "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Count of Household: With Earnings, Mexican Born",
+            "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Count_Person_85OrMoreYears_Male_multiple_place_bar_block": {
-            "name": "Men over 85",
-            "statVar": "Count_Person_85OrMoreYears_Male"
+          "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Count of Household: With Retirement Income in The Past 12 Months, Mexican Born",
+            "statVar": "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Count_Person_Female": {
-            "name": "Women",
-            "statVar": "Count_Person_Female"
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Households Receiving Social Security Income Over the Last Year Born in Mexico",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
-            "statVar": "Count_Person_ForeignBorn"
+          "Count_Person_Female_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Women Born in Mexico",
+            "statVar": "Count_Person_Female_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Count_Person_Male": {
-            "name": "Men",
-            "statVar": "Count_Person_Male"
+          "Count_Person_Male_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Mexican Born Men",
+            "statVar": "Count_Person_Male_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Count_Person_PerArea": {
-            "name": "Population Density",
-            "statVar": "Count_Person_PerArea"
+          "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Mean Earnings of Household: Mexican Born",
+            "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthMexico"
           },
-          "GrowthRate_Count_Person": {
-            "name": "Rate of Population Growth",
-            "statVar": "GrowthRate_Count_Person"
+          "Mean_HouseholdSize_Household_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Mean Household Size of Household: Mexican Born",
+            "statVar": "Mean_HouseholdSize_Household_ForeignBorn_PlaceOfBirthMexico"
           },
-          "Median_Age_Person": {
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Median Age: Mexican Born",
+            "statVar": "Median_Age_Person_ForeignBorn_PlaceOfBirthMexico"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Median Income of Household: Mexican Born",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "wikidataId/Q1489"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "wikidataId/Q1489",
-    "name": "Mexico City",
-    "place_type": "City"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
-  "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeFallback": {
+    "newPlace": {
+      "country": "country/USA",
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
+    },
+    "newStr": "states in United States of America",
+    "newType": "State",
+    "origPlace": {
+      "country": "country/USA",
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
+    },
+    "origStr": "cities in United States of America",
+    "origType": "City"
+  },
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1489",
-      "name": "Mexico City",
-      "place_type": "City"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Gender",
-        "name": "Gender",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Nationality",
-        "name": "Nationality",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {
-      "Count_BirthEvent": {
-        "gender": [
-          "Count_BirthEvent_Female",
-          "Count_BirthEvent_Male"
-        ]
-      },
-      "Count_Person": {
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
+      "Count_Household_ForeignBorn_PlaceOfBirthMexico": {
+        "benefitsStatus": [
+          "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthMexico",
+          "Count_Household_WithFoodStampsInThePast12Months_ForeignBorn_PlaceOfBirthMexico",
+          "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico",
+          "Count_Household_WithSSIInThePast12Months_ForeignBorn_PlaceOfBirthMexico",
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico"
         ]
       }
     },
-    "mainTopics": [
-      {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "mainTopics": [],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "peerPlaces": [
-      {
-        "dcid": "wikidataId/Q956",
-        "name": "Beijing",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "nuts/DE3",
-        "name": "Berlin",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q85",
-        "name": "Cairo",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q1353",
-        "name": "Delhi",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q34647",
-        "name": "Johannesburg",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q84",
-        "name": "London",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q2807",
-        "name": "Madrid",
-        "types": [
-          "AdministrativeArea3"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q649",
-        "name": "Moscow",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "nuts/FR101",
-        "name": "Paris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q8678",
-        "name": "Rio de Janeiro",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0667000",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q3130",
-        "name": "Sydney",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q7473516",
-        "name": "Tokyo",
-        "types": [
-          "City"
-        ]
-      }
-    ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EducationHousingAndCommute",
-        "name": "Education, Housing and Commute",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Equity",
-        "name": "Equity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Sorry, there were no relevant statistics for cities in United States of America. See results for states in United States of America."
+  ]
 }

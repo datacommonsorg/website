@@ -16,7 +16,7 @@
                       "Mean_Income_Household_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Average Income for Households (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -32,7 +32,7 @@
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in Counties of United States (${date})",
+                    "title": "Average Income for Households in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -47,13 +47,13 @@
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in Counties of United States (${date})",
+                    "title": "Average Income for Households in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Households in Counties of United States"
+            "title": "Average Income for Households in Counties of United States of America"
           },
           {
             "columns": [
@@ -63,7 +63,7 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -78,13 +78,13 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Diabetes in Counties of United States"
+            "title": "Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -98,7 +98,7 @@
                       "Mean_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Average Income for Family Households (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Average Income for Family Households (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Family Households in Counties of United States (${date})",
+                    "title": "Average Income for Family Households in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -129,13 +129,13 @@
                     "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Family Households in Counties of United States (${date})",
+                    "title": "Average Income for Family Households in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Family Households in Counties of United States"
+            "title": "Average Income for Family Households in Counties of United States of America"
           },
           {
             "columns": [
@@ -149,7 +149,7 @@
                       "Median_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Median Family Household Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Median Family Household Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -165,7 +165,7 @@
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Family Household Income in Counties of United States (${date})",
+                    "title": "Median Family Household Income in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -180,13 +180,13 @@
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Family Household Income in Counties of United States (${date})",
+                    "title": "Median Family Household Income in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Family Household Income in Counties of United States"
+            "title": "Median Family Household Income in Counties of United States of America"
           },
           {
             "columns": [
@@ -200,7 +200,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -216,7 +216,7 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in Counties of United States (${date})",
+                    "title": "Household Median Income in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -231,13 +231,13 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in Counties of United States (${date})",
+                    "title": "Household Median Income in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income in Counties of United States"
+            "title": "Household Median Income in Counties of United States of America"
           },
           {
             "columns": [
@@ -251,7 +251,7 @@
                       "Median_Income_Household_MarriedCoupleFamilyHousehold_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Median Married Couple Family Household Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Median Married Couple Family Household Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -267,7 +267,7 @@
                     "statVarKey": [
                       "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Counties of United States (${date})",
+                    "title": "Median Married Couple Family Household Income in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -282,13 +282,13 @@
                     "statVarKey": [
                       "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Counties of United States (${date})",
+                    "title": "Median Married Couple Family Household Income in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Married Couple Family Household Income in Counties of United States"
+            "title": "Median Married Couple Family Household Income in Counties of United States of America"
           },
           {
             "columns": [
@@ -302,7 +302,7 @@
                       "Median_Income_Household_NonfamilyHousehold_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Nonfamily Household Median Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Nonfamily Household Median Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -318,7 +318,7 @@
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Nonfamily Household Median Income in Counties of United States (${date})",
+                    "title": "Nonfamily Household Median Income in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -333,13 +333,13 @@
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Nonfamily Household Median Income in Counties of United States (${date})",
+                    "title": "Nonfamily Household Median Income in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Nonfamily Household Median Income in Counties of United States"
+            "title": "Nonfamily Household Median Income in Counties of United States of America"
           }
         ],
         "statVarSpec": {
@@ -423,18 +423,18 @@
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
@@ -996,5 +996,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

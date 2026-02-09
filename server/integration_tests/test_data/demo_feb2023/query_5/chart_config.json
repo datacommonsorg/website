@@ -11,26 +11,25 @@
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance",
-                      "dc/p69tpsldf99h7",
                       "Count_Worker_NAICSAccommodationFoodServices",
-                      "Count_Worker_NAICSConstruction",
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices",
                       "Count_Worker_NAICSEducationalServices",
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-                      "Count_Worker_NAICSArtsEntertainmentRecreation",
-                      "Count_Worker_NAICSOtherServices",
-                      "Count_Worker_NAICSFinanceInsurance",
-                      "Count_Worker_NAICSPublicAdministration",
-                      "Count_Worker_NAICSRealEstateRentalLeasing",
-                      "Count_Worker_NAICSWholesaleTrade",
                       "dc/8p97n7l96lgg8",
-                      "Count_Worker_NAICSUtilities",
+                      "Count_Worker_NAICSConstruction",
+                      "dc/p69tpsldf99h7",
                       "Count_Worker_NAICSManagementOfCompaniesEnterprises",
+                      "Count_Worker_NAICSPublicAdministration",
+                      "Count_Worker_NAICSArtsEntertainmentRecreation",
+                      "Count_Worker_NAICSFinanceInsurance",
+                      "Count_Worker_NAICSOtherServices",
+                      "Count_Worker_NAICSWholesaleTrade",
+                      "Count_Worker_NAICSRealEstateRentalLeasing",
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting",
                       "Count_Worker_NAICSInformation",
-                      "Count_Worker_NAICSNonclassifiable",
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+                      "Count_Worker_NAICSNonclassifiable"
                     ],
-                    "title": "Categories of Jobs in Placer County",
+                    "title": "Categories of Jobs in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -47,18 +46,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance_growth_abs"
                     ],
-                    "title": "Health Care and Social Assistance Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/p69tpsldf99h7_growth_abs"
-                    ],
-                    "title": "Retail Trade Workers in Placer County",
+                    "title": "Health Care and Social Assistance Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -69,18 +57,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_abs"
                     ],
-                    "title": "Accommodation/Food Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSConstruction_growth_abs"
-                    ],
-                    "title": "Population Working in the Construction Industry in Placer County",
+                    "title": "Accommodation/Food Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -91,7 +68,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_abs"
                     ],
-                    "title": "Professional, Scientific, and Technical Services Workers in Placer County",
+                    "title": "Professional, Scientific, and Technical Services Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -102,7 +79,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSEducationalServices_growth_abs"
                     ],
-                    "title": "Educational Services Industry Workers in Placer County",
+                    "title": "Educational Services Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -113,73 +90,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_abs"
                     ],
-                    "title": "Admin / Waste Management Service Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_abs"
-                    ],
-                    "title": "Arts, Entertainment, Recreation Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSOtherServices_growth_abs"
-                    ],
-                    "title": "Other Services (Except Public Admin) Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSFinanceInsurance_growth_abs"
-                    ],
-                    "title": "Finance and Insurance Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSPublicAdministration_growth_abs"
-                    ],
-                    "title": "Public Administration Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_abs"
-                    ],
-                    "title": "Real Estate and Rental and Leasing Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSWholesaleTrade_growth_abs"
-                    ],
-                    "title": "Wholesale Trade Workers in Placer County",
+                    "title": "Admin / Waste Management Service Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -190,7 +101,7 @@
                     "statVarKey": [
                       "dc/8p97n7l96lgg8_growth_abs"
                     ],
-                    "title": "Transportation and Warehousing Workers in Placer County",
+                    "title": "Transportation and Warehousing Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -199,9 +110,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSUtilities_growth_abs"
+                      "Count_Worker_NAICSConstruction_growth_abs"
                     ],
-                    "title": "Utilities Workers in Placer County",
+                    "title": "Population Working in the Construction Industry in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/p69tpsldf99h7_growth_abs"
+                    ],
+                    "title": "Retail Trade Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -212,7 +134,84 @@
                     "statVarKey": [
                       "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_abs"
                     ],
-                    "title": "Population Working in the Management of Companies and Enterprises Industry in Placer County",
+                    "title": "Population Working in the Management of Companies and Enterprises Industry in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSPublicAdministration_growth_abs"
+                    ],
+                    "title": "Public Administration Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_abs"
+                    ],
+                    "title": "Arts, Entertainment, Recreation Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSFinanceInsurance_growth_abs"
+                    ],
+                    "title": "Finance and Insurance Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSOtherServices_growth_abs"
+                    ],
+                    "title": "Other Services (Except Public Admin) Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSWholesaleTrade_growth_abs"
+                    ],
+                    "title": "Wholesale Trade Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_abs"
+                    ],
+                    "title": "Real Estate and Rental and Leasing Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting_growth_abs"
+                    ],
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -223,7 +222,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_abs"
                     ],
-                    "title": "Information Industry Workers in Placer County",
+                    "title": "Information Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -234,18 +233,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSNonclassifiable_growth_abs"
                     ],
-                    "title": "Unclassified Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_abs"
-                    ],
-                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry Workers in Placer County",
+                    "title": "Unclassified Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -260,20 +248,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSNonclassifiable_growth_pct"
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct"
                     ],
-                    "title": "Unclassified Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pct"
-                    ],
-                    "title": "Professional, Scientific, and Technical Services Workers in Placer County",
+                    "title": "Population Working in the Management of Companies and Enterprises Industry in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -284,7 +261,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance_growth_pct"
                     ],
-                    "title": "Health Care and Social Assistance Industry Workers in Placer County",
+                    "title": "Health Care and Social Assistance Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pct"
+                    ],
+                    "title": "Professional, Scientific, and Technical Services Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -295,84 +283,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pct"
                     ],
-                    "title": "Admin / Waste Management Service Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSUtilities_growth_pct"
-                    ],
-                    "title": "Utilities Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pct"
-                    ],
-                    "title": "Arts, Entertainment, Recreation Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSWholesaleTrade_growth_pct"
-                    ],
-                    "title": "Wholesale Trade Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/8p97n7l96lgg8_growth_pct"
-                    ],
-                    "title": "Transportation and Warehousing Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pct"
-                    ],
-                    "title": "Real Estate and Rental and Leasing Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSConstruction_growth_pct"
-                    ],
-                    "title": "Population Working in the Construction Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSOtherServices_growth_pct"
-                    ],
-                    "title": "Other Services (Except Public Admin) Workers in Placer County",
+                    "title": "Admin / Waste Management Service Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -383,7 +294,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pct"
                     ],
-                    "title": "Accommodation/Food Industry Workers in Placer County",
+                    "title": "Accommodation/Food Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -392,9 +303,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSFinanceInsurance_growth_pct"
+                      "dc/8p97n7l96lgg8_growth_pct"
                     ],
-                    "title": "Finance and Insurance Industry Workers in Placer County",
+                    "title": "Transportation and Warehousing Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -403,9 +314,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/p69tpsldf99h7_growth_pct"
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pct"
                     ],
-                    "title": "Retail Trade Workers in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSConstruction_growth_pct"
+                    ],
+                    "title": "Population Working in the Construction Industry in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -416,7 +338,40 @@
                     "statVarKey": [
                       "Count_Worker_NAICSEducationalServices_growth_pct"
                     ],
-                    "title": "Educational Services Industry Workers in Placer County",
+                    "title": "Educational Services Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_pct"
+                    ],
+                    "title": "Unclassified Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pct"
+                    ],
+                    "title": "Real Estate and Rental and Leasing Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSOtherServices_growth_pct"
+                    ],
+                    "title": "Other Services (Except Public Admin) Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -427,7 +382,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSPublicAdministration_growth_pct"
                     ],
-                    "title": "Public Administration Workers in Placer County",
+                    "title": "Public Administration Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -436,9 +391,42 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct"
+                      "Count_Worker_NAICSFinanceInsurance_growth_pct"
                     ],
-                    "title": "Population Working in the Management of Companies and Enterprises Industry in Placer County",
+                    "title": "Finance and Insurance Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting_growth_pct"
+                    ],
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSWholesaleTrade_growth_pct"
+                    ],
+                    "title": "Wholesale Trade Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/p69tpsldf99h7_growth_pct"
+                    ],
+                    "title": "Retail Trade Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -449,18 +437,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pct"
                     ],
-                    "title": "Information Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct"
-                    ],
-                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry Workers in Placer County",
+                    "title": "Information Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -477,18 +454,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance_growth_pc"
                     ],
-                    "title": "Health Care and Social Assistance Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/p69tpsldf99h7_growth_pc"
-                    ],
-                    "title": "Retail Trade Workers in Placer County",
+                    "title": "Health Care and Social Assistance Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -499,18 +465,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc"
                     ],
-                    "title": "Accommodation/Food Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSConstruction_growth_pc"
-                    ],
-                    "title": "Population Working in the Construction Industry in Placer County",
+                    "title": "Accommodation/Food Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -521,7 +476,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pc"
                     ],
-                    "title": "Professional, Scientific, and Technical Services Workers in Placer County",
+                    "title": "Professional, Scientific, and Technical Services Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -532,7 +487,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSEducationalServices_growth_pc"
                     ],
-                    "title": "Educational Services Industry Workers in Placer County",
+                    "title": "Educational Services Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -543,73 +498,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pc"
                     ],
-                    "title": "Admin / Waste Management Service Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pc"
-                    ],
-                    "title": "Arts, Entertainment, Recreation Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSOtherServices_growth_pc"
-                    ],
-                    "title": "Other Services (Except Public Admin) Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSFinanceInsurance_growth_pc"
-                    ],
-                    "title": "Finance and Insurance Industry Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSPublicAdministration_growth_pc"
-                    ],
-                    "title": "Public Administration Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pc"
-                    ],
-                    "title": "Real Estate and Rental and Leasing Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSWholesaleTrade_growth_pc"
-                    ],
-                    "title": "Wholesale Trade Workers in Placer County",
+                    "title": "Admin / Waste Management Service Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -620,7 +509,7 @@
                     "statVarKey": [
                       "dc/8p97n7l96lgg8_growth_pc"
                     ],
-                    "title": "Transportation and Warehousing Workers in Placer County",
+                    "title": "Transportation and Warehousing Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -629,9 +518,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSUtilities_growth_pc"
+                      "Count_Worker_NAICSConstruction_growth_pc"
                     ],
-                    "title": "Utilities Workers in Placer County",
+                    "title": "Population Working in the Construction Industry in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/p69tpsldf99h7_growth_pc"
+                    ],
+                    "title": "Retail Trade Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -642,7 +542,84 @@
                     "statVarKey": [
                       "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pc"
                     ],
-                    "title": "Population Working in the Management of Companies and Enterprises Industry in Placer County",
+                    "title": "Population Working in the Management of Companies and Enterprises Industry in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSPublicAdministration_growth_pc"
+                    ],
+                    "title": "Public Administration Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pc"
+                    ],
+                    "title": "Arts, Entertainment, Recreation Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSFinanceInsurance_growth_pc"
+                    ],
+                    "title": "Finance and Insurance Industry Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSOtherServices_growth_pc"
+                    ],
+                    "title": "Other Services (Except Public Admin) Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSWholesaleTrade_growth_pc"
+                    ],
+                    "title": "Wholesale Trade Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pc"
+                    ],
+                    "title": "Real Estate and Rental and Leasing Workers in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting_growth_pc"
+                    ],
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -653,7 +630,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pc"
                     ],
-                    "title": "Information Industry Workers in Placer County",
+                    "title": "Information Industry Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -664,18 +641,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSNonclassifiable_growth_pc"
                     ],
-                    "title": "Unclassified Workers in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pc"
-                    ],
-                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry Workers in Placer County",
+                    "title": "Unclassified Workers in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -693,7 +659,7 @@
                       "Count_Person_InLaborForce_Male",
                       "Count_Person_InLaborForce_Female"
                     ],
-                    "title": "Labor Force by Gender in Placer County",
+                    "title": "Labor Force by Gender in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -710,7 +676,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Male in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -721,7 +687,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Female in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -738,7 +704,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female_growth_pct"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Female in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -749,7 +715,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male_growth_pct"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Male in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -766,7 +732,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Male in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -777,7 +743,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Female in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -792,15 +758,21 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm",
                       "Count_Worker_NAICSTotalAllIndustries",
-                      "dc/p69tpsldf99h7",
+                      "Count_Person_Employed_HealthCare",
+                      "Count_Person_Employed_ProfessionalScientificTechnicalServices",
                       "Count_Worker_NAICSAccommodationFoodServices",
+                      "Count_Person_Employed_RetailTrade",
+                      "Count_Person_Employed_GoodsProducing",
+                      "dc/p69tpsldf99h7",
                       "Count_Worker_NAICSWholesaleTrade",
-                      "dc/w5ve4140t8xsb",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting",
+                      "Count_Person_Employed_PostalService",
+                      "dc/e2mpgewwsl60c",
+                      "Count_Person_Employed_Utilities"
                     ],
-                    "title": "Employment by Industry in Placer County",
+                    "title": "Employment by Industry in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -815,9 +787,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm_growth_abs"
+                    ],
+                    "title": "Number of Workers in Non-Farming Sectors in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSTotalAllIndustries_growth_abs"
                     ],
-                    "title": "Workers in All Industries in Placer County",
+                    "title": "Workers in All Industries in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -826,9 +809,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/w5ve4140t8xsb_growth_abs"
+                      "Count_Person_Employed_HealthCare_growth_abs"
                     ],
-                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "title": "Number of People Employed in Healthcare in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -837,9 +820,64 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_abs"
+                      "Count_Person_Employed_ProfessionalScientificTechnicalServices_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "title": "Number of Employed Persons in Professional, Scientific and Technical Services in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_RetailTrade_growth_abs"
+                    ],
+                    "title": "Number of People Employed in Retail Trade in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_GoodsProducing_growth_abs"
+                    ],
+                    "title": "Number of People Employed in the Goods-Producing Sector in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_PostalService_growth_abs"
+                    ],
+                    "title": "Number of People Employed in Postal Service in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/e2mpgewwsl60c_growth_abs"
+                    ],
+                    "title": "Population of Person: Natural Resources and Mining (NAICS/1011) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_Utilities_growth_abs"
+                    ],
+                    "title": "Number of People Employed in Utilities in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -854,9 +892,42 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/w5ve4140t8xsb_growth_pct"
+                      "Count_Person_Employed_TotalNonfarm_growth_pct"
                     ],
-                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "title": "Number of Workers in Non-Farming Sectors in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_RetailTrade_growth_pct"
+                    ],
+                    "title": "Number of People Employed in Retail Trade in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_ProfessionalScientificTechnicalServices_growth_pct"
+                    ],
+                    "title": "Number of Employed Persons in Professional, Scientific and Technical Services in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_HealthCare_growth_pct"
+                    ],
+                    "title": "Number of People Employed in Healthcare in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -867,7 +938,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSTotalAllIndustries_growth_pct"
                     ],
-                    "title": "Workers in All Industries in Placer County",
+                    "title": "Workers in All Industries in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -876,9 +947,42 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct"
+                      "Count_Person_Employed_PostalService_growth_pct"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "title": "Number of People Employed in Postal Service in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_GoodsProducing_growth_pct"
+                    ],
+                    "title": "Number of People Employed in the Goods-Producing Sector in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_Utilities_growth_pct"
+                    ],
+                    "title": "Number of People Employed in Utilities in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/e2mpgewwsl60c_growth_pct"
+                    ],
+                    "title": "Population of Person: Natural Resources and Mining (NAICS/1011) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -893,9 +997,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm_growth_pc"
+                    ],
+                    "title": "Number of Workers in Non-Farming Sectors in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSTotalAllIndustries_growth_pc"
                     ],
-                    "title": "Workers in All Industries in Placer County",
+                    "title": "Workers in All Industries in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -904,9 +1019,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/w5ve4140t8xsb_growth_pc"
+                      "Count_Person_Employed_HealthCare_growth_pc"
                     ],
-                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "title": "Number of People Employed in Healthcare in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -915,9 +1030,64 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pc"
+                      "Count_Person_Employed_ProfessionalScientificTechnicalServices_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "title": "Number of Employed Persons in Professional, Scientific and Technical Services in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_RetailTrade_growth_pc"
+                    ],
+                    "title": "Number of People Employed in Retail Trade in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_GoodsProducing_growth_pc"
+                    ],
+                    "title": "Number of People Employed in the Goods-Producing Sector in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_PostalService_growth_pc"
+                    ],
+                    "title": "Number of People Employed in Postal Service in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/e2mpgewwsl60c_growth_pc"
+                    ],
+                    "title": "Population of Person: Natural Resources and Mining (NAICS/1011) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_Utilities_growth_pc"
+                    ],
+                    "title": "Number of People Employed in Utilities in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -928,21 +1098,117 @@
           }
         ],
         "statVarSpec": {
-          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          "Count_Person_Employed_GoodsProducing": {
+            "name": "Number of people employed in the goods-producing sector",
+            "statVar": "Count_Person_Employed_GoodsProducing"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_abs": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          "Count_Person_Employed_GoodsProducing_growth_abs": {
+            "name": "Number of people employed in the goods-producing sector",
+            "statVar": "Count_Person_Employed_GoodsProducing"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pc": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          "Count_Person_Employed_GoodsProducing_growth_pc": {
+            "name": "Number of people employed in the goods-producing sector",
+            "statVar": "Count_Person_Employed_GoodsProducing"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          "Count_Person_Employed_GoodsProducing_growth_pct": {
+            "name": "Number of people employed in the goods-producing sector",
+            "statVar": "Count_Person_Employed_GoodsProducing"
+          },
+          "Count_Person_Employed_HealthCare": {
+            "name": "Number of people employed in healthcare",
+            "statVar": "Count_Person_Employed_HealthCare"
+          },
+          "Count_Person_Employed_HealthCare_growth_abs": {
+            "name": "Number of people employed in healthcare",
+            "statVar": "Count_Person_Employed_HealthCare"
+          },
+          "Count_Person_Employed_HealthCare_growth_pc": {
+            "name": "Number of people employed in healthcare",
+            "statVar": "Count_Person_Employed_HealthCare"
+          },
+          "Count_Person_Employed_HealthCare_growth_pct": {
+            "name": "Number of people employed in healthcare",
+            "statVar": "Count_Person_Employed_HealthCare"
+          },
+          "Count_Person_Employed_PostalService": {
+            "name": "Number of people employed in postal service",
+            "statVar": "Count_Person_Employed_PostalService"
+          },
+          "Count_Person_Employed_PostalService_growth_abs": {
+            "name": "Number of people employed in postal service",
+            "statVar": "Count_Person_Employed_PostalService"
+          },
+          "Count_Person_Employed_PostalService_growth_pc": {
+            "name": "Number of people employed in postal service",
+            "statVar": "Count_Person_Employed_PostalService"
+          },
+          "Count_Person_Employed_PostalService_growth_pct": {
+            "name": "Number of people employed in postal service",
+            "statVar": "Count_Person_Employed_PostalService"
+          },
+          "Count_Person_Employed_ProfessionalScientificTechnicalServices": {
+            "name": "Number of employed persons in professional, scientific and technical services",
+            "statVar": "Count_Person_Employed_ProfessionalScientificTechnicalServices"
+          },
+          "Count_Person_Employed_ProfessionalScientificTechnicalServices_growth_abs": {
+            "name": "Number of employed persons in professional, scientific and technical services",
+            "statVar": "Count_Person_Employed_ProfessionalScientificTechnicalServices"
+          },
+          "Count_Person_Employed_ProfessionalScientificTechnicalServices_growth_pc": {
+            "name": "Number of employed persons in professional, scientific and technical services",
+            "statVar": "Count_Person_Employed_ProfessionalScientificTechnicalServices"
+          },
+          "Count_Person_Employed_ProfessionalScientificTechnicalServices_growth_pct": {
+            "name": "Number of employed persons in professional, scientific and technical services",
+            "statVar": "Count_Person_Employed_ProfessionalScientificTechnicalServices"
+          },
+          "Count_Person_Employed_RetailTrade": {
+            "name": "Number of people employed in retail trade",
+            "statVar": "Count_Person_Employed_RetailTrade"
+          },
+          "Count_Person_Employed_RetailTrade_growth_abs": {
+            "name": "Number of people employed in retail trade",
+            "statVar": "Count_Person_Employed_RetailTrade"
+          },
+          "Count_Person_Employed_RetailTrade_growth_pc": {
+            "name": "Number of people employed in retail trade",
+            "statVar": "Count_Person_Employed_RetailTrade"
+          },
+          "Count_Person_Employed_RetailTrade_growth_pct": {
+            "name": "Number of people employed in retail trade",
+            "statVar": "Count_Person_Employed_RetailTrade"
+          },
+          "Count_Person_Employed_TotalNonfarm": {
+            "name": "Number of workers in non-farming sectors",
+            "statVar": "Count_Person_Employed_TotalNonfarm"
+          },
+          "Count_Person_Employed_TotalNonfarm_growth_abs": {
+            "name": "Number of workers in non-farming sectors",
+            "statVar": "Count_Person_Employed_TotalNonfarm"
+          },
+          "Count_Person_Employed_TotalNonfarm_growth_pc": {
+            "name": "Number of workers in non-farming sectors",
+            "statVar": "Count_Person_Employed_TotalNonfarm"
+          },
+          "Count_Person_Employed_TotalNonfarm_growth_pct": {
+            "name": "Number of workers in non-farming sectors",
+            "statVar": "Count_Person_Employed_TotalNonfarm"
+          },
+          "Count_Person_Employed_Utilities": {
+            "name": "Number of people employed in utilities",
+            "statVar": "Count_Person_Employed_Utilities"
+          },
+          "Count_Person_Employed_Utilities_growth_abs": {
+            "name": "Number of people employed in utilities",
+            "statVar": "Count_Person_Employed_Utilities"
+          },
+          "Count_Person_Employed_Utilities_growth_pc": {
+            "name": "Number of people employed in utilities",
+            "statVar": "Count_Person_Employed_Utilities"
+          },
+          "Count_Person_Employed_Utilities_growth_pct": {
+            "name": "Number of people employed in utilities",
+            "statVar": "Count_Person_Employed_Utilities"
           },
           "Count_Person_InLaborForce_Female": {
             "name": "Population: 16 Years or More, in Labor Force, Female",
@@ -1007,6 +1273,22 @@
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pct": {
             "name": "Admin / Waste Management Service Industry Workers",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
+          },
+          "Count_Worker_NAICSAgricultureForestryFishingHunting": {
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
+            "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
+          },
+          "Count_Worker_NAICSAgricultureForestryFishingHunting_growth_abs": {
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
+            "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
+          },
+          "Count_Worker_NAICSAgricultureForestryFishingHunting_growth_pc": {
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
+            "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
+          },
+          "Count_Worker_NAICSAgricultureForestryFishingHunting_growth_pct": {
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
+            "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation": {
             "name": "Arts, Entertainment, Recreation Industry Workers",
@@ -1120,22 +1402,6 @@
             "name": "Population Working in the Management of Companies and Enterprises Industry",
             "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
           },
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
-            "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
-          },
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_abs": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
-            "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
-          },
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pc": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
-            "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
-          },
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
-            "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
-          },
           "Count_Worker_NAICSNonclassifiable": {
             "name": "Unclassified Workers",
             "statVar": "Count_Worker_NAICSNonclassifiable"
@@ -1232,22 +1498,6 @@
             "name": "Workers in All Industries",
             "statVar": "Count_Worker_NAICSTotalAllIndustries"
           },
-          "Count_Worker_NAICSUtilities": {
-            "name": "Utilities Workers",
-            "statVar": "Count_Worker_NAICSUtilities"
-          },
-          "Count_Worker_NAICSUtilities_growth_abs": {
-            "name": "Utilities Workers",
-            "statVar": "Count_Worker_NAICSUtilities"
-          },
-          "Count_Worker_NAICSUtilities_growth_pc": {
-            "name": "Utilities Workers",
-            "statVar": "Count_Worker_NAICSUtilities"
-          },
-          "Count_Worker_NAICSUtilities_growth_pct": {
-            "name": "Utilities Workers",
-            "statVar": "Count_Worker_NAICSUtilities"
-          },
           "Count_Worker_NAICSWholesaleTrade": {
             "name": "Wholesale Trade Workers",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
@@ -1280,6 +1530,22 @@
             "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
           },
+          "dc/e2mpgewwsl60c": {
+            "name": "Population of Person: Natural Resources And Mining (NAICS/1011)",
+            "statVar": "dc/e2mpgewwsl60c"
+          },
+          "dc/e2mpgewwsl60c_growth_abs": {
+            "name": "Population of Person: Natural Resources And Mining (NAICS/1011)",
+            "statVar": "dc/e2mpgewwsl60c"
+          },
+          "dc/e2mpgewwsl60c_growth_pc": {
+            "name": "Population of Person: Natural Resources And Mining (NAICS/1011)",
+            "statVar": "dc/e2mpgewwsl60c"
+          },
+          "dc/e2mpgewwsl60c_growth_pct": {
+            "name": "Population of Person: Natural Resources And Mining (NAICS/1011)",
+            "statVar": "dc/e2mpgewwsl60c"
+          },
           "dc/p69tpsldf99h7": {
             "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
@@ -1295,233 +1561,385 @@
           "dc/p69tpsldf99h7_growth_pct": {
             "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
-          },
-          "dc/w5ve4140t8xsb": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
-            "statVar": "dc/w5ve4140t8xsb"
-          },
-          "dc/w5ve4140t8xsb_growth_abs": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
-            "statVar": "dc/w5ve4140t8xsb"
-          },
-          "dc/w5ve4140t8xsb_growth_pc": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
-            "statVar": "dc/w5ve4140t8xsb"
-          },
-          "dc/w5ve4140t8xsb_growth_pct": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
-            "statVar": "dc/w5ve4140t8xsb"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06061"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "Placer County",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/06061",
-    "name": "Placer County",
-    "place_type": "County"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/06061",
-      "name": "Placer County",
-      "place_type": "County"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "City": [
+      "State": [
         {
-          "dcid": "geoId/0601276",
-          "name": "Alta",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0603204",
-          "name": "Auburn",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0611418",
-          "name": "Carnelian Bay",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0612216",
-          "name": "Cedar Flat",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0614498",
-          "name": "Colfax",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0619455",
-          "name": "Dollar Point",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0620298",
-          "name": "Dutch Flat",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0624834",
-          "name": "Foresthill",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0630693",
-          "name": "Granite Bay",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0638548",
-          "name": "Kings Beach",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0638604",
-          "name": "Kingvale",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0641474",
-          "name": "Lincoln",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0643140",
-          "name": "Loomis",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0646632",
-          "name": "Meadow Vista",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0651000",
-          "name": "Newcastle",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0651637",
-          "name": "North Auburn",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0656546",
-          "name": "Penryn",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0662364",
-          "name": "Rocklin",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0662664",
-          "name": "Rocklin",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0662938",
-          "name": "Roseville",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0671414",
-          "name": "Sheridan",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0676015",
-          "name": "Sunnyside-Tahoe City",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0677700",
-          "name": "Tahoe Vista",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0677728",
-          "name": "Tahoma",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q5245735",
-          "name": "Deadwood",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q822230",
-          "name": "Squaw Valley",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "City"
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
           ]
         }
       ]
@@ -1530,6 +1948,8 @@
     "exploreMore": {
       "Count_Person_InLaborForce_Female": {
         "maritalStatus": [
+          "Count_Person_16OrMoreYears_InLaborForce_Female_DivorcedInThePast12Months",
+          "Count_Person_16OrMoreYears_InLaborForce_Female_MarriedInThePast12Months",
           "Count_Person_InLaborForce_Female_Divorced",
           "Count_Person_InLaborForce_Female_MarriedAndNotSeparated",
           "Count_Person_InLaborForce_Female_NeverMarried",
@@ -1539,6 +1959,8 @@
       },
       "Count_Person_InLaborForce_Male": {
         "maritalStatus": [
+          "Count_Person_16OrMoreYears_InLaborForce_Male_DivorcedInThePast12Months",
+          "Count_Person_16OrMoreYears_InLaborForce_Male_MarriedInThePast12Months",
           "Count_Person_InLaborForce_Male_Divorced",
           "Count_Person_InLaborForce_Male_MarriedAndNotSeparated",
           "Count_Person_InLaborForce_Male_NeverMarried",
@@ -1568,199 +1990,101 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "County"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/17031",
-        "name": "Cook",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12031",
-        "name": "Duval",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48201",
-        "name": "Harris",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       }
     ],
@@ -1783,6 +2107,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "See relevant statistics for Placer County based on the previous query."
+    "See relevant statistics for United States of America based on the previous query."
   ]
 }

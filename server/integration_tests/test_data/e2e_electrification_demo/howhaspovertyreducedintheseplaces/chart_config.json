@@ -10,17 +10,14 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/GIN",
-                      "country/MLI",
-                      "country/BEN",
+                      "country/NPL",
                       "country/ETH",
-                      "country/SEN",
                       "country/RWA",
                       "country/GHA",
-                      "country/MAR"
+                      "country/BGD"
                     ],
                     "statVarKey": [
-                      "sdg/SI_POV_DAY18"
+                      "sdg/SI_POV_DAY15"
                     ],
                     "title": "Population Below International Poverty Line",
                     "type": "LINE"
@@ -36,35 +33,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Benin",
+                    "title": "Nepal",
                     "type": "LINE"
                   }
                 ]
@@ -77,18 +50,6 @@
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
@@ -120,11 +81,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/BGD",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Morocco",
+                    "title": "Bangladesh",
                     "type": "LINE"
                   }
                 ]
@@ -138,35 +99,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BEN",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Benin",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Guinea",
+                    "title": "Nepal",
                     "type": "LINE"
                   }
                 ]
@@ -186,23 +123,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/BGD",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Mali",
+                    "title": "Bangladesh",
                     "type": "LINE"
                   }
                 ]
@@ -237,7 +162,7 @@
           }
         ],
         "statVarSpec": {
-          "sdg/SI_POV_DAY18": {
+          "sdg/SI_POV_DAY15": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
@@ -254,7 +179,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/GIN"
+        "country/NPL"
       ]
     }
   },
@@ -263,13 +188,38 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/KEN",
-    "name": "Kenya",
+    "dcid": "country/AFG",
+    "name": "Afghanistan",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
+    {
+      "dcid": "country/AFG",
+      "name": "Afghanistan",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/KHM",
+      "name": "Cambodia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/NPL",
+      "name": "Nepal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BGD",
+      "name": "Bangladesh",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/PRK",
+      "name": "North Korea",
+      "place_type": "Country"
+    },
     {
       "dcid": "country/KEN",
       "name": "Kenya",
@@ -294,31 +244,6 @@
       "dcid": "country/ETH",
       "name": "Ethiopia",
       "place_type": "Country"
-    },
-    {
-      "dcid": "country/MLI",
-      "name": "Mali",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MAR",
-      "name": "Morocco",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/BEN",
-      "name": "Benin",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GIN",
-      "name": "Guinea",
-      "place_type": "Country"
     }
   ],
   "relatedThings": {
@@ -332,23 +257,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "sdg/SI_POV_DAY1": {
-        "age": [
-          "sdg/SI_POV_DAY1.AGE--Y0T14",
-          "sdg/SI_POV_DAY1.AGE--Y15T64",
-          "sdg/SI_POV_DAY1.AGE--Y_GE65"
-        ],
-        "sdg_sex": [
-          "sdg/SI_POV_DAY1.SEX--F",
-          "sdg/SI_POV_DAY1.SEX--M"
-        ],
-        "sdg_urbanisation": [
-          "sdg/SI_POV_DAY1.URBANISATION--R",
-          "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

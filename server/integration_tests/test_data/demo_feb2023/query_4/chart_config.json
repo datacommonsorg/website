@@ -15,7 +15,7 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06061"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block",
@@ -40,7 +40,7 @@
                       "Count_Worker_NAICSManagementOfCompaniesEnterprises_multiple_place_bar_block",
                       "Count_Worker_NAICSNonclassifiable_multiple_place_bar_block"
                     ],
-                    "title": "Categories of Jobs in Placer County (${date})",
+                    "title": "Categories of Jobs in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -54,10 +54,74 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Worker_NAICSAccommodationFoodServices"
+                    ],
+                    "title": "Accommodation/Food Industry Workers in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAccommodationFoodServices"
+                    ],
+                    "title": "Accommodation/Food Industry Workers in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Accommodation/Food Industry Workers in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
+                    ],
+                    "title": "Admin / Waste Management Service Industry Workers in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
+                    ],
+                    "title": "Admin / Waste Management Service Industry Workers in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Admin / Waste Management Service Industry Workers in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in Placer County",
+                    "title": "Population With Current Employment in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -65,11 +129,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Current Employment in Placer County",
+                    "description": "Population With Current Employment in United States of America",
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in Placer County",
+                    "title": "Population With Current Employment in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -90,7 +154,7 @@
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in Cities of Placer County (${date})",
+                    "title": "Population With Current Employment in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -101,14 +165,14 @@
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in Cities of Placer County (${date})",
+                    "title": "Population With Current Employment in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population With Current Employment in Cities of Placer County"
+            "title": "Population With Current Employment in States of United States of America"
           },
           {
             "columns": [
@@ -118,7 +182,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "Population in the Labor Force in Placer County",
+                    "title": "Population in the Labor Force in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -126,11 +190,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population in the Labor Force in Placer County",
+                    "description": "Population in the Labor Force in United States of America",
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "Population in the Labor Force in Placer County",
+                    "title": "Population in the Labor Force in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -151,7 +215,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "Population in the Labor Force in Cities of Placer County (${date})",
+                    "title": "Population in the Labor Force in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -162,14 +226,77 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "Population in the Labor Force in Cities of Placer County (${date})",
+                    "title": "Population in the Labor Force in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population in the Labor Force in Cities of Placer County"
+            "title": "Population in the Labor Force in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm"
+                    ],
+                    "title": "Number of Workers in Non-Farming Sectors in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Workers in Non-Farming Sectors in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm"
+                    ],
+                    "title": "Number of Workers in Non-Farming Sectors in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "The total number of workers employed in private sector establishments and government agencies, excluding farm employees, private household employees, proprietors, and unincorporated self-employed individuals.",
+            "title": "Number of Workers in Non-Farming Sectors"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm"
+                    ],
+                    "title": "Number of Workers in Non-Farming Sectors in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm"
+                    ],
+                    "title": "Number of Workers in Non-Farming Sectors in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "The total number of workers employed in private sector establishments and government agencies, excluding farm employees, private household employees, proprietors, and unincorporated self-employed individuals.",
+            "title": "Number of Workers in Non-Farming Sectors in States of United States of America"
           },
           {
             "columns": [
@@ -180,7 +307,7 @@
                       "Count_Person_InLaborForce_Female",
                       "Count_Person_InLaborForce_Male"
                     ],
-                    "title": "Labor Force by Gender in Placer County",
+                    "title": "Labor Force by Gender in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -201,7 +328,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
+                    "title": "Population: 16 Years or More, in Labor Force, Female in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -212,14 +339,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
+                    "title": "Population: 16 Years or More, in Labor Force, Female in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County"
+            "title": "Population: 16 Years or More, in Labor Force, Female in States of United States of America"
           },
           {
             "columns": [
@@ -233,7 +360,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
+                    "title": "Population: 16 Years or More, in Labor Force, Male in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -244,14 +371,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
+                    "title": "Population: 16 Years or More, in Labor Force, Male in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County"
+            "title": "Population: 16 Years or More, in Labor Force, Male in States of United States of America"
           },
           {
             "columns": [
@@ -264,10 +391,17 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06061"
+                      "country/USA"
                     ],
                     "statVarKey": [
+                      "Count_Person_Employed_TotalNonfarm_multiple_place_bar_block",
+                      "Count_Person_Employed_GoodsProducing_multiple_place_bar_block",
+                      "Count_Person_Employed_HealthCare_multiple_place_bar_block",
+                      "Count_Person_Employed_RetailTrade_multiple_place_bar_block",
+                      "Count_Person_Employed_PostalService_multiple_place_bar_block",
+                      "Count_Person_Employed_ProfessionalScientificTechnicalServices_multiple_place_bar_block",
                       "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_multiple_place_bar_block",
+                      "Count_Person_Employed_Utilities_multiple_place_bar_block",
                       "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block",
                       "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block",
                       "Count_Worker_NAICSTotalAllIndustries_multiple_place_bar_block",
@@ -280,7 +414,7 @@
                       "dc/j4v6keqwsl60h_multiple_place_bar_block",
                       "dc/w5ve4140t8xsb_multiple_place_bar_block"
                     ],
-                    "title": "Employment by Industry in Placer County (${date})",
+                    "title": "Employment by Industry in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -294,10 +428,42 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Employed_GoodsProducing"
+                    ],
+                    "title": "Number of People Employed in the Goods-Producing Sector in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_GoodsProducing"
+                    ],
+                    "title": "Number of People Employed in the Goods-Producing Sector in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Employed in the Goods-Producing Sector in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
-                    "title": "Unemployment Rate in Placer County",
+                    "title": "Unemployment Rate in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -305,11 +471,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Unemployment Rate in Placer County",
+                    "description": "Unemployment Rate in United States of America",
                     "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
-                    "title": "Unemployment Rate in Placer County",
+                    "title": "Unemployment Rate in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -330,7 +496,7 @@
                     "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
-                    "title": "Unemployment Rate in Cities of Placer County (${date})",
+                    "title": "Unemployment Rate in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -341,14 +507,14 @@
                     "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
-                    "title": "Unemployment Rate in Cities of Placer County (${date})",
+                    "title": "Unemployment Rate in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "description": "Percentage of the labor force actively seeking work but unable to find employment.",
-            "title": "Unemployment Rate in Cities of Placer County"
+            "title": "Unemployment Rate in States of United States of America"
           },
           {
             "columns": [
@@ -358,7 +524,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Placer County",
+                    "title": "Population: Unemployed in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -366,11 +532,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Unemployed in Placer County",
+                    "description": "Population: Unemployed in United States of America",
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Placer County",
+                    "title": "Population: Unemployed in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -391,7 +557,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Cities of Placer County (${date})",
+                    "title": "Population: Unemployed in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -402,14 +568,14 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Cities of Placer County (${date})",
+                    "title": "Population: Unemployed in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Unemployed in Cities of Placer County"
+            "title": "Population: Unemployed in States of United States of America"
           },
           {
             "columns": [
@@ -419,7 +585,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -427,11 +593,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "description": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in United States of America",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -439,6 +605,38 @@
             ],
             "denom": "Count_Person",
             "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in States of United States of America"
           }
         ],
         "statVarSpec": {
@@ -453,6 +651,42 @@
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
+          },
+          "Count_Person_Employed_GoodsProducing": {
+            "name": "Number of people employed in the goods-producing sector",
+            "statVar": "Count_Person_Employed_GoodsProducing"
+          },
+          "Count_Person_Employed_GoodsProducing_multiple_place_bar_block": {
+            "name": "Number of people employed in the goods-producing sector",
+            "statVar": "Count_Person_Employed_GoodsProducing"
+          },
+          "Count_Person_Employed_HealthCare_multiple_place_bar_block": {
+            "name": "Number of people employed in healthcare",
+            "statVar": "Count_Person_Employed_HealthCare"
+          },
+          "Count_Person_Employed_PostalService_multiple_place_bar_block": {
+            "name": "Number of people employed in postal service",
+            "statVar": "Count_Person_Employed_PostalService"
+          },
+          "Count_Person_Employed_ProfessionalScientificTechnicalServices_multiple_place_bar_block": {
+            "name": "Number of employed persons in professional, scientific and technical services",
+            "statVar": "Count_Person_Employed_ProfessionalScientificTechnicalServices"
+          },
+          "Count_Person_Employed_RetailTrade_multiple_place_bar_block": {
+            "name": "Number of people employed in retail trade",
+            "statVar": "Count_Person_Employed_RetailTrade"
+          },
+          "Count_Person_Employed_TotalNonfarm": {
+            "name": "Number of workers in non-farming sectors",
+            "statVar": "Count_Person_Employed_TotalNonfarm"
+          },
+          "Count_Person_Employed_TotalNonfarm_multiple_place_bar_block": {
+            "name": "Number of workers in non-farming sectors",
+            "statVar": "Count_Person_Employed_TotalNonfarm"
+          },
+          "Count_Person_Employed_Utilities_multiple_place_bar_block": {
+            "name": "Number of people employed in utilities",
+            "statVar": "Count_Person_Employed_Utilities"
           },
           "Count_Person_InLaborForce": {
             "name": "Population in the Labor Force",
@@ -470,9 +704,17 @@
             "name": "Population: Unemployed",
             "statVar": "Count_Person_Unemployed"
           },
+          "Count_Worker_NAICSAccommodationFoodServices": {
+            "name": "Accommodation/Food Industry Workers",
+            "statVar": "Count_Worker_NAICSAccommodationFoodServices"
+          },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
             "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
+          },
+          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
+            "name": "Admin / Waste Management Service Industry Workers",
+            "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
             "name": "Admin / Waste Management Service Industry Workers",
@@ -587,214 +829,382 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "County": "City"
+        "Country": "State"
       },
       "placeDcid": [
-        "geoId/06061"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "Placer County",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/06061",
-    "name": "Placer County",
-    "place_type": "County"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/06061",
-      "name": "Placer County",
-      "place_type": "County"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "City": [
+      "State": [
         {
-          "dcid": "geoId/0601276",
-          "name": "Alta",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0603204",
-          "name": "Auburn",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0611418",
-          "name": "Carnelian Bay",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0612216",
-          "name": "Cedar Flat",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0614498",
-          "name": "Colfax",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0619455",
-          "name": "Dollar Point",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0620298",
-          "name": "Dutch Flat",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0624834",
-          "name": "Foresthill",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0630693",
-          "name": "Granite Bay",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0638548",
-          "name": "Kings Beach",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0638604",
-          "name": "Kingvale",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0641474",
-          "name": "Lincoln",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0643140",
-          "name": "Loomis",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0646632",
-          "name": "Meadow Vista",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0651000",
-          "name": "Newcastle",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0651637",
-          "name": "North Auburn",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0656546",
-          "name": "Penryn",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0662364",
-          "name": "Rocklin",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0662664",
-          "name": "Rocklin",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0662938",
-          "name": "Roseville",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0671414",
-          "name": "Sheridan",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0676015",
-          "name": "Sunnyside-Tahoe City",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0677700",
-          "name": "Tahoe Vista",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "geoId/0677728",
-          "name": "Tahoma",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q5245735",
-          "name": "Deadwood",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "City"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q822230",
-          "name": "Squaw Valley",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "City"
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
           ]
         }
       ]
@@ -822,199 +1232,101 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "County"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/17031",
-        "name": "Cook",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12031",
-        "name": "Duval",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48201",
-        "name": "Harris",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       }
     ],
@@ -1037,6 +1349,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "See relevant statistics for Placer County based on the previous query."
+    "See relevant statistics for United States of America based on the previous query."
   ]
 }

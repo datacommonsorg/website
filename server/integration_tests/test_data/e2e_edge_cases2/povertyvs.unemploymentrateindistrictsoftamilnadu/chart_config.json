@@ -9,86 +9,881 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "UnemploymentRate_Person_scatter"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
-                    "type": "LINE"
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Unemployment Rate (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line vs. Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in Counties of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
-                    "type": "HIGHLIGHT"
+                    "title": "Population Below Poverty Line in Counties of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Line (Per Capita)"
+            "title": "Population Below Poverty Line in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
+            "title": "Unemployment Rate in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter",
+                      "UnemploymentRate_Person_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) (${yDate}) Vs. Unemployment Rate (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below poverty line (Per Capita) vs. Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita) in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "UnemploymentRate_Person_scatter"
+                    ],
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Unemployment Rate (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Women Below Poverty Line in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Women Below Poverty Line in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women Below Poverty Line in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "UnemploymentRate_Person_scatter"
+                    ],
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Unemployment Rate (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Males in Poverty (In Last Year) in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Count_Person_Unemployed_scatter"
+                    ],
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Population: Unemployed (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Population: Unemployed"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Unemployed"
+                    ],
+                    "title": "Population: Unemployed in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Unemployed"
+                    ],
+                    "title": "Population: Unemployed in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Unemployed in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Count_Person_Unemployed_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Population: Unemployed (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line vs. Population: Unemployed"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter",
+                      "Count_Person_Unemployed_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) (${yDate}) Vs. Population: Unemployed (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line (Per Capita) vs. Population: Unemployed"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Count_Person_Unemployed_scatter"
+                    ],
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Population: Unemployed (${xDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Population: Unemployed"
           }
         ],
         "statVarSpec": {
+          "Count_Person_BelowPovertyLevelInThePast12Months": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
             "name": "Population Below poverty line (Per Capita)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter": {
+            "name": "Population Below poverty line (Per Capita)",
+            "noPerCapita": true,
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Unemployed": {
+            "name": "Population: Unemployed",
+            "statVar": "Count_Person_Unemployed"
+          },
+          "Count_Person_Unemployed_scatter": {
+            "name": "Population: Unemployed",
+            "statVar": "Count_Person_Unemployed"
+          },
+          "UnemploymentRate_Person": {
+            "name": "Unemployment Rate",
+            "statVar": "UnemploymentRate_Person"
+          },
+          "UnemploymentRate_Person_scatter": {
+            "name": "Unemployment Rate",
+            "noPerCapita": true,
+            "statVar": "UnemploymentRate_Person"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "County"
+      },
       "placeDcid": [
-        "wikidataId/Q1445"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "wikidataId/Q1445",
-    "name": "Tamil Nadu",
-    "place_type": "State"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
-  "placeFallback": {
-    "newPlace": {
-      "country": "country/IND",
-      "dcid": "wikidataId/Q1445",
-      "name": "Tamil Nadu",
-      "place_type": "State"
-    },
-    "newStr": "Tamil Nadu",
-    "origPlace": {
-      "country": "country/IND",
-      "dcid": "wikidataId/Q1445",
-      "name": "Tamil Nadu",
-      "place_type": "State"
-    },
-    "origStr": "administrative area 2 places in Tamil Nadu",
-    "origType": "AdministrativeArea2"
-  },
-  "placeSource": "CURRENT_QUERY",
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1445",
-      "name": "Tamil Nadu",
-      "place_type": "State"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
-    "childTopics": [],
-    "exploreMore": {},
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/01001",
+          "name": "Autauga",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01003",
+          "name": "Baldwin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01005",
+          "name": "Barbour",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01007",
+          "name": "Bibb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01009",
+          "name": "Blount",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01011",
+          "name": "Bullock",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01013",
+          "name": "Butler",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01015",
+          "name": "Calhoun",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01017",
+          "name": "Chambers",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01019",
+          "name": "Cherokee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01021",
+          "name": "Chilton",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01023",
+          "name": "Choctaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01025",
+          "name": "Clarke",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01027",
+          "name": "Clay",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01029",
+          "name": "Cleburne",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01031",
+          "name": "Coffee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01033",
+          "name": "Colbert",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01035",
+          "name": "Conecuh",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01037",
+          "name": "Coosa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01039",
+          "name": "Covington",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01041",
+          "name": "Crenshaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01043",
+          "name": "Cullman",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01045",
+          "name": "Dale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01047",
+          "name": "Dallas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01049",
+          "name": "DeKalb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01051",
+          "name": "Elmore",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01053",
+          "name": "Escambia",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01055",
+          "name": "Etowah",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01057",
+          "name": "Fayette",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01059",
+          "name": "Franklin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01061",
+          "name": "Geneva",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01063",
+          "name": "Greene",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01065",
+          "name": "Hale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01067",
+          "name": "Henry",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01069",
+          "name": "Houston",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01071",
+          "name": "Jackson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01073",
+          "name": "Jefferson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01075",
+          "name": "Lamar",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01077",
+          "name": "Lauderdale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01079",
+          "name": "Lawrence",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01081",
+          "name": "Lee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01083",
+          "name": "Limestone",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01085",
+          "name": "Lowndes",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01087",
+          "name": "Macon",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01089",
+          "name": "Madison",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01091",
+          "name": "Marengo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01093",
+          "name": "Marion",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01095",
+          "name": "Marshall",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01097",
+          "name": "Mobile",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01099",
+          "name": "Monroe",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
+    "childTopics": [
+      {
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByRace",
+        "name": "Poverty by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
+        "name": "Poverty by Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months"
+        ],
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
         "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UnemploymentRate",
+        "name": "Unemployment Rate",
         "types": [
           "Topic"
         ]
@@ -102,13 +897,168 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EmploymentEquity",
+        "name": "Employment Equity",
+        "types": [
+          "Topic"
+        ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/Income",
         "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Jobs",
+        "name": "Jobs",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UnpaidFamilyWorkers",
+        "name": "Unpaid Family Workers",
         "types": [
           "Topic"
         ]
@@ -118,6 +1068,6 @@
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
   "userMessages": [
-    "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu."
+    "See relevant statistics for United States of America based on the previous query."
   ]
 }

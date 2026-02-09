@@ -9,47 +9,29 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/IND"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Literate_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Literate and Population Below Poverty Line in India (${date})",
-                    "type": "BAR"
+                    "title": "Population Below Poverty Line in United States of America",
+                    "type": "LINE"
                   }
                 ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Literate and Population Below Poverty Line"
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
+                    "description": "Population Below Poverty Line in United States of America",
                     "statVarKey": [
-                      "Count_Person_Illiterate_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Illiterate (${yDate}) Vs. Population Below Poverty Line (Per Capita) (${xDate}) in Administrative Area 1 Places of India",
-                    "type": "SCATTER"
+                    "title": "Population Below Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate vs. Population Below poverty line (Per Capita)"
+            "title": "Population Below Poverty Line"
           },
           {
             "columns": [
@@ -57,9 +39,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Illiterate"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Illiterate in Administrative Area 1 Places of India (${date})",
+                    "title": "Population Below Poverty Line in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -72,15 +54,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Illiterate"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Illiterate in Administrative Area 1 Places of India (${date})",
+                    "title": "Population Below Poverty Line in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population: Illiterate in Administrative Area 1 Places of India"
+            "denom": "Count_Person",
+            "title": "Population Below Poverty Line in States of United States of America"
           },
           {
             "columns": [
@@ -88,9 +71,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "title": "Women Below Poverty Line in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Below Poverty Line in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Women Below Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Women Below Poverty Line in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -103,36 +115,45 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "title": "Women Below Poverty Line in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India"
+            "denom": "Count_Person",
+            "title": "Women Below Poverty Line in States of United States of America"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
                     "statVarKey": [
-                      "Count_Person_Literate_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Literate (${yDate}) Vs. Population Below Poverty Line (Per Capita) (${xDate}) in Administrative Area 1 Places of India",
-                    "type": "SCATTER"
+                    "title": "Males in Poverty (In Last Year) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Males in Poverty (In Last Year) in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate vs. Population Below poverty line (Per Capita)"
+            "title": "Males in Poverty (In Last Year)"
           },
           {
             "columns": [
@@ -140,9 +161,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Literate"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Males in Poverty (In Last Year) in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -155,421 +176,434 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Literate"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Males in Poverty (In Last Year) in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population: Literate in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/IND"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Illiterate_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Illiterate and Population Below Poverty Line in India (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate and Population Below Poverty Line"
+            "title": "Males in Poverty (In Last Year) in States of United States of America"
           }
         ],
         "statVarSpec": {
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-            "name": "Population Below poverty line (Per Capita)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter": {
-            "name": "Population Below poverty line (Per Capita)",
-            "noPerCapita": true,
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+          "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Illiterate": {
-            "name": "Population: Illiterate",
-            "statVar": "Count_Person_Illiterate"
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Illiterate_multiple_place_bar_block": {
-            "name": "Population: Illiterate",
-            "statVar": "Count_Person_Illiterate"
-          },
-          "Count_Person_Illiterate_scatter": {
-            "name": "Population: Illiterate",
-            "statVar": "Count_Person_Illiterate"
-          },
-          "Count_Person_Literate": {
-            "name": "Population: Literate",
-            "statVar": "Count_Person_Literate"
-          },
-          "Count_Person_Literate_multiple_place_bar_block": {
-            "name": "Population: Literate",
-            "statVar": "Count_Person_Literate"
-          },
-          "Count_Person_Literate_scatter": {
-            "name": "Population: Literate",
-            "statVar": "Count_Person_Literate"
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "AdministrativeArea1"
+        "Country": "State"
       },
       "placeDcid": [
-        "country/IND"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "country/IND",
-    "name": "India",
+    "dcid": "country/USA",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "country/IND",
-      "name": "India",
+      "dcid": "country/USA",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "AdministrativeArea1": [
+      "State": [
         {
-          "dcid": "wikidataId/Q1061",
-          "name": "Gujarat",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1159",
-          "name": "Andhra Pradesh",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1162",
-          "name": "Arunachal Pradesh",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1164",
-          "name": "Assam",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1165",
-          "name": "Bihar",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1168",
-          "name": "Chhattisgarh",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1171",
-          "name": "Goa",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1174",
-          "name": "Haryana",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1177",
-          "name": "Himachal Pradesh",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1184",
-          "name": "Jharkhand",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1185",
-          "name": "Karnataka",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1186",
-          "name": "Kerala",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1188",
-          "name": "Madhya Pradesh",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1191",
-          "name": "Maharashtra",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1193",
-          "name": "Manipur",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1195",
-          "name": "Meghalaya",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q120971341",
-          "name": "Chandigarh",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1353",
-          "name": "Delhi",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1356",
-          "name": "West Bengal",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1363",
-          "name": "Tripura",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1437",
-          "name": "Rajasthan",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1445",
-          "name": "Tamil Nadu",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1498",
-          "name": "Uttar Pradesh",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1499",
-          "name": "Uttarakhand",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1502",
-          "name": "Mizoram",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1505",
-          "name": "Sikkim",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1599",
-          "name": "Nagaland",
+          "dcid": "geoId/30",
+          "name": "Montana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q200130",
-          "name": "Azad Kashmir",
+          "dcid": "geoId/31",
+          "name": "Nebraska",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q200667",
-          "name": "Ladakh",
+          "dcid": "geoId/32",
+          "name": "Nevada",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q22048",
-          "name": "Odisha",
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q22424",
-          "name": "Punjab",
+          "dcid": "geoId/34",
+          "name": "New Jersey",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q260713",
-          "name": "Gorkhaland",
+          "dcid": "geoId/35",
+          "name": "New Mexico",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q26927",
-          "name": "Lakshadweep",
+          "dcid": "geoId/36",
+          "name": "New York",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q2893890",
-          "name": "Kamtapur",
+          "dcid": "geoId/37",
+          "name": "North Carolina",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40888",
-          "name": "Andaman and Nicobar Islands",
+          "dcid": "geoId/38",
+          "name": "North Dakota",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43433",
-          "name": "Chandigarh",
+          "dcid": "geoId/39",
+          "name": "Ohio",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q6432969",
-          "name": "Kosal state movement",
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q66278313",
-          "name": "Jammu and Kashmir",
+          "dcid": "geoId/41",
+          "name": "Oregon",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q66710",
-          "name": "Daman and Diu",
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q66743",
-          "name": "Puducherry",
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q677037",
-          "name": "Telangana",
+          "dcid": "geoId/45",
+          "name": "South Carolina",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q77997266",
-          "name": "Dadra and Nagar Haveli and Daman and Diu",
+          "dcid": "geoId/46",
+          "name": "South Dakota",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q9357528",
-          "name": "National Capital Territory of Delhi",
+          "dcid": "geoId/47",
+          "name": "Tennessee",
           "types": [
-            "AdministrativeArea1"
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
           ]
         }
       ]
     },
     "childTopics": [
       {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty by Residency",
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByRace",
+        "name": "Poverty by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
+        "name": "Poverty by Language Spoken At Home",
         "types": [
           "Topic"
         ]
@@ -583,31 +617,72 @@
       }
     ],
     "exploreMore": {
-      "Count_Person_Illiterate": {
-        "gender": [
-          "Count_Person_Illiterate_Female",
-          "Count_Person_Illiterate_Male"
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Upto6Years_BelowPovertyLevelInThePast12Months"
         ],
-        "placeOfResidenceClassification": [
-          "Count_Person_Illiterate_Rural",
-          "Count_Person_Illiterate_Urban"
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
         ]
       },
-      "Count_Person_Literate": {
-        "gender": [
-          "Count_Person_Literate_Female",
-          "Count_Person_Literate_Male"
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_65To74Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75OrMoreYears_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Upto5Years_Female_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
+        ],
+        "race": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      },
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_65To74Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Upto5Years_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
         ]
       }
     },
     "mainTopics": [
-      {
-        "dcid": "dc/topic/Literacy",
-        "name": "Literacy",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/Poverty",
         "name": "Poverty",
@@ -670,6 +745,13 @@
         ]
       },
       {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
         "dcid": "country/JPN",
         "name": "Japan",
         "types": [
@@ -717,16 +799,23 @@
         "types": [
           "Country"
         ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
       }
     ],
     "peerTopics": [
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/Employment",
         "name": "Employment",
@@ -747,9 +836,18 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

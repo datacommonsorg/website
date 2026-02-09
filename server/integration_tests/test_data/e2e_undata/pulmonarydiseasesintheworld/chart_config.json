@@ -27,14 +27,14 @@
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "World",
   "place": {
     "dcid": "Earth",
     "name": "World",
     "place_type": "Place"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
       "dcid": "Earth",

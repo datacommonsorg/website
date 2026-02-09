@@ -9,29 +9,52 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Native_scatter",
+                      "Median_Income_Person_scatter"
+                    ],
+                    "title": "Population: Native (${yDate}) Vs. Individual Median Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Native vs. Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_Native"
                     ],
-                    "title": "Population: Native in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Population: Native in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Population: Native in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Count_Person_Native"
                     ],
-                    "title": "Population: Native in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Population: Native in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Native"
+            "title": "Population: Native in States of United States of America"
           },
           {
             "columns": [
@@ -41,25 +64,49 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Individual Median Income in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Individual Median Income in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Individual Median Income in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income"
+            "title": "Individual Median Income in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_scatter",
+                      "Median_Earnings_Person_scatter"
+                    ],
+                    "title": "Population: Foreign Born (${yDate}) Vs. Individual Median Earnings (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born vs. Individual Median Earnings"
           },
           {
             "columns": [
@@ -69,26 +116,28 @@
                     "statVarKey": [
                       "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Population: Foreign Born in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Population: Foreign Born in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Foreign Born"
+            "title": "Population: Foreign Born in States of United States of America"
           },
           {
             "columns": [
@@ -98,25 +147,122 @@
                     "statVarKey": [
                       "Median_Earnings_Person"
                     ],
-                    "title": "Individual Median Earnings in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Individual Median Earnings in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Individual Median Earnings in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Median_Earnings_Person"
                     ],
-                    "title": "Individual Median Earnings in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Individual Median Earnings in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Earnings"
+            "title": "Individual Median Earnings in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Native_scatter",
+                      "Median_Earnings_Person_scatter"
+                    ],
+                    "title": "Population: Native (${yDate}) Vs. Individual Median Earnings (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Native vs. Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthAfrica_scatter",
+                      "Median_Earnings_Person_scatter"
+                    ],
+                    "title": "Foreign-born African Origin (${yDate}) Vs. Individual Median Earnings (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign-born African origin vs. Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthAfrica"
+                    ],
+                    "title": "Foreign-born African Origin in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthAfrica"
+                    ],
+                    "title": "Foreign-born African Origin in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Foreign-born African Origin in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia_scatter",
+                      "Median_Earnings_Person_scatter"
+                    ],
+                    "title": "Population: Foreign Born, Asia (${yDate}) Vs. Individual Median Earnings (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, Asia vs. Individual Median Earnings"
           },
           {
             "columns": [
@@ -126,26 +272,49 @@
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthAsia"
                     ],
-                    "title": "Population: Foreign Born, Asia in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Population: Foreign Born, Asia in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born, Asia in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthAsia"
                     ],
-                    "title": "Population: Foreign Born, Asia in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Population: Foreign Born, Asia in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Foreign Born, Asia in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/6bkn9vt30f5c1_scatter",
+                      "Median_Income_Household_scatter"
+                    ],
+                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone (${yDate}) Vs. Household Median Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born, Asia"
+            "title": "Population: Foreign Born, American Indian or Alaska Native Alone vs. Household Median Income"
           },
           {
             "columns": [
@@ -155,26 +324,153 @@
                     "statVarKey": [
                       "dc/6bkn9vt30f5c1"
                     ],
-                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "dc/6bkn9vt30f5c1"
                     ],
-                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Foreign Born, American Indian or Alaska Native Alone in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthAfrica_scatter",
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_scatter"
+                    ],
+                    "title": "Foreign-born African Origin (${yDate}) Vs. Median Income of Men (15 Years or Older) With Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born, American Indian or Alaska Native Alone"
+            "title": "Foreign-born African origin vs. Median Income of Men (15 Years or Older) With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia_scatter",
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_scatter"
+                    ],
+                    "title": "Population: Foreign Born, Asia (${yDate}) Vs. Median Income of Men (15 Years or Older) With Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, Asia vs. Median Income of Men (15 Years or Older) With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean_scatter",
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_scatter"
+                    ],
+                    "title": "Foreign-born Caribbean Origin (${yDate}) Vs. Median Income of Men (15 Years or Older) With Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign-born Caribbean origin vs. Median Income of Men (15 Years or Older) With Income"
           },
           {
             "columns": [
@@ -184,26 +480,49 @@
                     "statVarKey": [
                       "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
                     ],
-                    "title": "Foreign-born Caribbean Origin in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Foreign-born Caribbean Origin in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Foreign-born Caribbean Origin in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
                     ],
-                    "title": "Foreign-born Caribbean Origin in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Foreign-born Caribbean Origin in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Foreign-born Caribbean Origin in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_scatter",
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_scatter"
+                    ],
+                    "title": "Foreign-born Central American Origin (Except Mexico) (${yDate}) Vs. Median Income of Men (15 Years or Older) With Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Foreign-born Caribbean Origin"
+            "title": "Foreign-born Central American origin (except Mexico) vs. Median Income of Men (15 Years or Older) With Income"
           },
           {
             "columns": [
@@ -213,26 +532,295 @@
                     "statVarKey": [
                       "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
                     ],
-                    "title": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Foreign-born Central American Origin (Except Mexico) in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
                     ],
-                    "title": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Foreign-born Central American Origin (Except Mexico) in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Foreign-born Central American Origin (Except Mexico) in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Native_scatter",
+                      "Median_Income_Household_FamilyHousehold_scatter"
+                    ],
+                    "title": "Median Age: Native (${yDate}) Vs. Median Family Household Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Native vs. Median Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Native in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_Native_scatter",
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome_scatter"
+                    ],
+                    "title": "Median Age of US Born Women (${yDate}) Vs. Median Income: Less Than High School Graduate (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of US Born Women vs. Median Income: Less Than High School Graduate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_Native"
+                    ],
+                    "title": "Median Age of US Born Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_Native"
+                    ],
+                    "title": "Median Age of US Born Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of US Born Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income: Less Than High School Graduate in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native_scatter",
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome_scatter"
+                    ],
+                    "title": "Median Age of Men Born in the United States (${yDate}) Vs. Median Income of Women (15 Years or Older) With Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Men Born in the United States vs. Median Income of Women (15 Years or Older) With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Men Born in the United States in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+                    ],
+                    "title": "Median Income of Women (15 Years or Older) With Income in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+                    ],
+                    "title": "Median Income of Women (15 Years or Older) With Income in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Women (15 Years or Older) With Income in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/nhecfv83n1nt9_scatter",
+                      "Median_Income_Household_NonfamilyHousehold_scatter"
+                    ],
+                    "title": "Population: Native, American Indian or Alaska Native Alone (${yDate}) Vs. Nonfamily Household Median Income (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Foreign-born Central American Origin (Except Mexico)"
+            "title": "Population: Native, American Indian or Alaska Native Alone vs. Nonfamily Household Median Income"
           },
           {
             "columns": [
@@ -240,27 +828,30 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_Native"
+                      "dc/nhecfv83n1nt9"
                     ],
-                    "title": "Median Age: Native in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Population: Native, American Indian or Alaska Native Alone in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Median Age: Native in Sunnyvale",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Median_Age_Person_Native"
+                      "dc/nhecfv83n1nt9"
                     ],
-                    "title": "Median Age: Native in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Population: Native, American Indian or Alaska Native Alone in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Age: Native"
+            "title": "Population: Native, American Indian or Alaska Native Alone in States of United States of America"
           },
           {
             "columns": [
@@ -268,24 +859,141 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_Native",
-                      "Median_Age_Person_ForeignBorn"
+                      "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Age: Native and Median Age: Foreign Born in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Nonfamily Household Median Income in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Related: Median Age: Native and Median Age: Foreign Born"
+            "title": "Nonfamily Household Median Income in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native_scatter",
+                      "Median_Earnings_Person_Male_scatter"
+                    ],
+                    "title": "Population: 15 Years or More, Married and Not Separated, Native (${yDate}) Vs. Median Earnings for Men (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 15 Years or More, Married And Not Separated, Native vs. Median Earnings for Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native"
+                    ],
+                    "title": "Population: 15 Years or More, Married and Not Separated, Native in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native"
+                    ],
+                    "title": "Population: 15 Years or More, Married and Not Separated, Native in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: 15 Years or More, Married and Not Separated, Native in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Men in States of United States of America"
           }
         ],
         "statVarSpec": {
+          "Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native": {
+            "name": "Population: 15 Years or More, Married And Not Separated, Native",
+            "statVar": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native"
+          },
+          "Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native_scatter": {
+            "name": "Population: 15 Years or More, Married And Not Separated, Native",
+            "statVar": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native"
+          },
           "Count_Person_ForeignBorn": {
             "name": "Population: Foreign Born",
             "statVar": "Count_Person_ForeignBorn"
           },
+          "Count_Person_ForeignBorn_PlaceOfBirthAfrica": {
+            "name": "Foreign-born African origin",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthAfrica"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthAfrica_scatter": {
+            "name": "Foreign-born African origin",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthAfrica"
+          },
           "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
+            "name": "Foreign-born Caribbean origin",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthCaribbean_scatter": {
             "name": "Foreign-born Caribbean origin",
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
           },
@@ -293,7 +1001,19 @@
             "name": "Foreign-born Central American origin (except Mexico)",
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
           },
+          "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_scatter": {
+            "name": "Foreign-born Central American origin (except Mexico)",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+          },
+          "Count_Person_ForeignBorn_scatter": {
+            "name": "Population: Foreign Born",
+            "statVar": "Count_Person_ForeignBorn"
+          },
           "Count_Person_Native": {
+            "name": "Population: Native",
+            "statVar": "Count_Person_Native"
+          },
+          "Count_Person_Native_scatter": {
             "name": "Population: Native",
             "statVar": "Count_Person_Native"
           },
@@ -301,55 +1021,519 @@
             "name": "Population: Foreign Born, Asia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           },
-          "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age: Foreign Born",
-            "statVar": "Median_Age_Person_ForeignBorn"
+          "Count_Person_PlaceOfBirthAsia_scatter": {
+            "name": "Population: Foreign Born, Asia",
+            "statVar": "Count_Person_PlaceOfBirthAsia"
+          },
+          "Median_Age_Person_Female_Native": {
+            "name": "Median Age of US Born Women",
+            "statVar": "Median_Age_Person_Female_Native"
+          },
+          "Median_Age_Person_Female_Native_scatter": {
+            "name": "Median Age of US Born Women",
+            "noPerCapita": true,
+            "statVar": "Median_Age_Person_Female_Native"
+          },
+          "Median_Age_Person_Male_Native": {
+            "name": "Median Age of Men Born in the United States",
+            "statVar": "Median_Age_Person_Male_Native"
+          },
+          "Median_Age_Person_Male_Native_scatter": {
+            "name": "Median Age of Men Born in the United States",
+            "noPerCapita": true,
+            "statVar": "Median_Age_Person_Male_Native"
           },
           "Median_Age_Person_Native": {
             "name": "Median Age: Native",
+            "statVar": "Median_Age_Person_Native"
+          },
+          "Median_Age_Person_Native_scatter": {
+            "name": "Median Age: Native",
+            "noPerCapita": true,
             "statVar": "Median_Age_Person_Native"
           },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
           },
+          "Median_Earnings_Person_Male": {
+            "name": "Median Earnings for Men",
+            "statVar": "Median_Earnings_Person_Male"
+          },
+          "Median_Earnings_Person_Male_scatter": {
+            "name": "Median Earnings for Men",
+            "noPerCapita": true,
+            "statVar": "Median_Earnings_Person_Male"
+          },
+          "Median_Earnings_Person_scatter": {
+            "name": "Individual Median Earnings",
+            "noPerCapita": true,
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Family Household Income",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_FamilyHousehold_scatter": {
+            "name": "Median Family Household Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold": {
+            "name": "Nonfamily Household Median Income",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold_scatter": {
+            "name": "Nonfamily Household Median Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Household_scatter": {
+            "name": "Household Median Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Household"
+          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+            "name": "Median Income of Women (15 Years or Older) With Income",
+            "statVar": "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+          },
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome_scatter": {
+            "name": "Median Income of Women (15 Years or Older) With Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+          },
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+            "name": "Median Income of Men (15 Years or Older) With Income",
+            "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+          },
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome_scatter": {
+            "name": "Median Income of Men (15 Years or Older) With Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+          },
+          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
+            "name": "Median Income: Less Than High School Graduate",
+            "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+          },
+          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome_scatter": {
+            "name": "Median Income: Less Than High School Graduate",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+          },
+          "Median_Income_Person_scatter": {
+            "name": "Individual Median Income",
+            "noPerCapita": true,
             "statVar": "Median_Income_Person"
           },
           "dc/6bkn9vt30f5c1": {
             "name": "Population: Foreign Born, American Indian or Alaska Native Alone",
             "statVar": "dc/6bkn9vt30f5c1"
+          },
+          "dc/6bkn9vt30f5c1_scatter": {
+            "name": "Population: Foreign Born, American Indian or Alaska Native Alone",
+            "statVar": "dc/6bkn9vt30f5c1"
+          },
+          "dc/nhecfv83n1nt9": {
+            "name": "Population: Native, American Indian or Alaska Native Alone",
+            "statVar": "dc/nhecfv83n1nt9"
+          },
+          "dc/nhecfv83n1nt9_scatter": {
+            "name": "Population: Native, American Indian or Alaska Native Alone",
+            "statVar": "dc/nhecfv83n1nt9"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "geoId/0677000"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/0677000",
-    "name": "Sunnyvale",
-    "place_type": "City"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "geoId/0677000",
-      "name": "Sunnyvale",
-      "place_type": "City"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
         "dcid": "dc/topic/PlaceOfBirth",
@@ -364,75 +1548,40 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "exploreMore": {
-      "Count_Person_ForeignBorn": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_25To34Years_ForeignBorn",
-          "Count_Person_35To44Years_ForeignBorn",
-          "Count_Person_45To54Years_ForeignBorn",
-          "Count_Person_55To59Years_ForeignBorn",
-          "Count_Person_5To17Years_ForeignBorn",
-          "Count_Person_60To61Years_ForeignBorn",
-          "Count_Person_62To64Years_ForeignBorn",
-          "Count_Person_65To74Years_ForeignBorn",
-          "Count_Person_75OrMoreYears_ForeignBorn",
-          "Count_Person_Upto5Years_ForeignBorn"
+      "Median_Age_Person_Native": {
+        "gender": [
+          "Median_Age_Person_Female_Native",
+          "Median_Age_Person_Male_Native"
         ]
       },
-      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
-        "age": [
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
-        "age": [
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
-        ]
-      },
-      "Count_Person_PlaceOfBirthAsia": {
-        "age": [
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
-        ]
-      },
-      "Median_Age_Person_ForeignBorn": {
-        "placeOfBirth": [
-          "Median_Age_Person_ForeignBorn_PlaceOfBirthAsia",
-          "Median_Age_Person_ForeignBorn_PlaceOfBirthCaribbean",
-          "Median_Age_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
-        ]
-      },
-      "dc/6bkn9vt30f5c1": {
-        "abilityToSpeakEnglish": [
-          "dc/834l34hp5krkd",
-          "dc/slhc0k07wwmq1"
+      "Median_Income_Person": {
+        "gender": [
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
         ]
       }
     },
@@ -440,6 +1589,13 @@
       {
         "dcid": "dc/topic/Immigration",
         "name": "Immigration",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
         "types": [
           "Topic"
         ]
@@ -453,357 +1609,112 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/3502000",
-        "name": "Albuquerque",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/0203000",
-        "name": "Anchorage municipality",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2603000",
-        "name": "Ann Arbor",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1304000",
-        "name": "Atlanta",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4805000",
-        "name": "Austin",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2404000",
-        "name": "Baltimore",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1608830",
-        "name": "Boise",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2507000",
-        "name": "Boston",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4513330",
-        "name": "Charleston",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3712000",
-        "name": "Charlotte",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3915000",
-        "name": "Cincinnati",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3916000",
-        "name": "Cleveland",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3918000",
-        "name": "Columbus",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4819000",
-        "name": "Dallas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0820000",
-        "name": "Denver",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2622000",
-        "name": "Detroit",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4824000",
-        "name": "El Paso",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0937000",
-        "name": "Hartford",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4835000",
-        "name": "Houston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1836003",
-        "name": "Indianapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2836000",
-        "name": "Jackson",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1235000",
-        "name": "Jacksonville",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2938000",
-        "name": "Kansas City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3240000",
-        "name": "Las Vegas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0541000",
-        "name": "Little Rock",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0644000",
-        "name": "Los Angeles",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2148006",
-        "name": "Louisville/Jefferson County metro government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5548000",
-        "name": "Madison",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4748000",
-        "name": "Memphis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1245000",
-        "name": "Miami",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5553000",
-        "name": "Milwaukee",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2743000",
-        "name": "Minneapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0649670",
-        "name": "Mountain View",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4752006",
-        "name": "Nashville-Davidson metropolitan government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0952000",
-        "name": "New Haven",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2255000",
-        "name": "New Orleans",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0653000",
-        "name": "Oakland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4055000",
-        "name": "Oklahoma City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3137000",
-        "name": "Omaha",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1253000",
-        "name": "Orlando",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0655282",
-        "name": "Palo Alto",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4260000",
-        "name": "Philadelphia",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0455000",
-        "name": "Phoenix",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4261000",
-        "name": "Pittsburgh",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4159000",
-        "name": "Portland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5167000",
-        "name": "Richmond",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0664000",
-        "name": "Sacramento",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4967000",
-        "name": "Salt Lake City",
-        "types": [
-          "City"
+          "Country"
         ]
       }
     ],
@@ -814,9 +1725,53 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }

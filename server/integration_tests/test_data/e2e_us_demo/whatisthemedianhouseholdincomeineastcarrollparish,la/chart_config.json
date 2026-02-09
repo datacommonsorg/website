@@ -10,9 +10,40 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Household Median Income in East Carroll Parish",
+                    "title": "Diabetes in Counties of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in Counties of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Diabetes in Counties of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -20,17 +51,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Household Median Income in East Carroll Parish",
+                    "description": "Diabetes in United States of America",
                     "statVarKey": [
-                      "Median_Income_Household"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Household Median Income in East Carroll Parish",
+                    "title": "Diabetes in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income"
+            "title": "Diabetes"
           },
           {
             "columns": [
@@ -38,9 +69,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household"
+                      "Percent_Person_20OrMoreYears_WithDiabetes"
                     ],
-                    "title": "Household Median Income in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -53,15 +84,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household"
+                      "Percent_Person_20OrMoreYears_WithDiabetes"
                     ],
-                    "title": "Household Median Income in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income in Cities of East Carroll Parish"
+            "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -69,37 +100,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
+                      "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Median Family Household Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Family Household Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Family Household Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Men That Have Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -112,15 +115,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
+                      "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Median Family Household Income in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Men That Have Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Family Household Income in Cities of East Carroll Parish"
+            "denom": "Count_Person",
+            "title": "Percent of Men That Have Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -128,37 +132,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person"
+                      "dc/nh3s4skee5483"
                     ],
-                    "title": "Individual Median Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Person"
-                    ],
-                    "title": "Individual Median Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person"
-                    ],
-                    "title": "Individual Median Income in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Women That Have Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -171,969 +147,428 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Income_Person"
+                      "dc/nh3s4skee5483"
                     ],
-                    "title": "Individual Median Income in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Women That Have Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household"
-                    ],
-                    "title": "Average Income for Households in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Average Income for Households in East Carroll Parish",
-                    "statVarKey": [
-                      "Mean_Income_Household"
-                    ],
-                    "title": "Average Income for Households in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Households"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household"
-                    ],
-                    "title": "Average Income for Households in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household"
-                    ],
-                    "title": "Average Income for Households in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Households in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Average Income for Family Households in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Average Income for Family Households in East Carroll Parish",
-                    "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Average Income for Family Households in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Family Households"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Average Income for Family Households in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Average Income for Family Households in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Family Households in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person_Female",
-                      "Median_Earnings_Person_Male"
-                    ],
-                    "title": "Median Household Income by Gender in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Household Income by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person_Female"
-                    ],
-                    "title": "Median Earnings for Women in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_Female"
-                    ],
-                    "title": "Median Earnings for Women in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Earnings for Women in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person_Male"
-                    ],
-                    "title": "Median Earnings for Men in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_Male"
-                    ],
-                    "title": "Median Earnings for Men in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Earnings for Men in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
-                    ],
-                    "title": "Median Household Income by Race in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Household Income by Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceWhiteAlone"
-                    ],
-                    "title": "Median Income of White Households in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceWhiteAlone"
-                    ],
-                    "title": "Median Income of White Households in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of White Households in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Income of Black or African American Households in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Income of Black or African American Households in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Black or African American Households in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Married Couple Family Household Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Married Couple Family Household Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Earnings in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Nonfamily Household Median Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Nonfamily Household Median Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Nonfamily Household Median Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Nonfamily Household Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Nonfamily Household Median Income in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Nonfamily Household Median Income in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Nonfamily Household Median Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Average Income for Nonfamily Households in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Average Income for Nonfamily Households in East Carroll Parish",
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Average Income for Nonfamily Households in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Nonfamily Households"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Average Income for Nonfamily Households in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Average Income for Nonfamily Households in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Nonfamily Households in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income for Households With Food Stamps in the Past Year in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households With Food Stamps in the Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households With Food Stamps in the Past Year in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Men (15 Years or Older) With Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income: Less Than High School Graduate in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income: Less Than High School Graduate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income: Less Than High School Graduate in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income for Households Without Food Stamps in the Past Year in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households Without Food Stamps in the Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households Without Food Stamps in the Past Year in Cities of East Carroll Parish"
+            "denom": "Count_Person",
+            "title": "Percent of Women That Have Diabetes in Counties of United States of America"
           }
         ],
         "statVarSpec": {
-          "Mean_Income_Household": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
+          "Percent_Person_20OrMoreYears_WithDiabetes": {
+            "name": "Percent of Population 20 Years or Older With Diabetes",
+            "statVar": "Percent_Person_20OrMoreYears_WithDiabetes",
+            "unit": "%"
           },
-          "Mean_Income_Household_FamilyHousehold": {
-            "name": "Average Income for Family Households",
-            "statVar": "Mean_Income_Household_FamilyHousehold"
+          "Percent_Person_WithDiabetes": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
           },
-          "Mean_Income_Household_NonfamilyHousehold": {
-            "name": "Average Income for Nonfamily Households",
-            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          "dc/nh3s4skee5483": {
+            "name": "Percent of Women That Have Diabetes",
+            "statVar": "dc/nh3s4skee5483"
           },
-          "Median_Earnings_Person": {
-            "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person"
-          },
-          "Median_Earnings_Person_Female": {
-            "name": "Median Earnings for Women",
-            "statVar": "Median_Earnings_Person_Female"
-          },
-          "Median_Earnings_Person_Male": {
-            "name": "Median Earnings for Men",
-            "statVar": "Median_Earnings_Person_Male"
-          },
-          "Median_Income_Household": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
-          },
-          "Median_Income_Household_FamilyHousehold": {
-            "name": "Median Family Household Income",
-            "statVar": "Median_Income_Household_FamilyHousehold"
-          },
-          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
-            "name": "Median Income of Black or African American Households",
-            "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-          },
-          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Median Income of Black or African American Households",
-            "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-          },
-          "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Median Income of Hispanic or Latino Households",
-            "statVar": "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-          },
-          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Median Income of Household: Two or More Races",
-            "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
-          },
-          "Median_Income_Household_HouseholderRaceWhiteAlone": {
-            "name": "Median Income of White Households",
-            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
-          },
-          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Median Income of Household: White Alone Not Hispanic or Latino",
-            "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
-          },
-          "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
-            "name": "Median Income of White Households",
-            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
-          },
-          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Median Married Couple Family Household Income",
-            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
-          },
-          "Median_Income_Household_NonfamilyHousehold": {
-            "name": "Nonfamily Household Median Income",
-            "statVar": "Median_Income_Household_NonfamilyHousehold"
-          },
-          "Median_Income_Household_WithFoodStampsInThePast12Months": {
-            "name": "Median Income for Households With Food Stamps in the Past Year",
-            "statVar": "Median_Income_Household_WithFoodStampsInThePast12Months"
-          },
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months": {
-            "name": "Median Income for Households Without Food Stamps in the Past Year",
-            "statVar": "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-          },
-          "Median_Income_Person": {
-            "name": "Individual Median Income",
-            "statVar": "Median_Income_Person"
-          },
-          "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
-            "name": "Median Income of Men (15 Years or Older) With Income",
-            "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-          },
-          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
-            "name": "Median Income: Less Than High School Graduate",
-            "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+          "dc/xmpy89x1nh8cg": {
+            "name": "Percent of Men That Have Diabetes",
+            "statVar": "dc/xmpy89x1nh8cg"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "County": "City"
+        "Country": "County"
       },
       "placeDcid": [
-        "geoId/22035"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/22035",
-    "name": "East Carroll Parish",
-    "place_type": "County"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/22035",
-      "name": "East Carroll Parish",
-      "place_type": "County"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "City": [
+      "County": [
         {
-          "dcid": "geoId/2241400",
-          "name": "Lake Providence",
+          "dcid": "geoId/01001",
+          "name": "Autauga",
           "types": [
-            "City"
+            "County"
           ]
         },
         {
-          "dcid": "geoId/5022035",
-          "name": "Lake Providence",
+          "dcid": "geoId/01003",
+          "name": "Baldwin",
           "types": [
-            "City"
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01005",
+          "name": "Barbour",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01007",
+          "name": "Bibb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01009",
+          "name": "Blount",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01011",
+          "name": "Bullock",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01013",
+          "name": "Butler",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01015",
+          "name": "Calhoun",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01017",
+          "name": "Chambers",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01019",
+          "name": "Cherokee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01021",
+          "name": "Chilton",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01023",
+          "name": "Choctaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01025",
+          "name": "Clarke",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01027",
+          "name": "Clay",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01029",
+          "name": "Cleburne",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01031",
+          "name": "Coffee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01033",
+          "name": "Colbert",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01035",
+          "name": "Conecuh",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01037",
+          "name": "Coosa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01039",
+          "name": "Covington",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01041",
+          "name": "Crenshaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01043",
+          "name": "Cullman",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01045",
+          "name": "Dale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01047",
+          "name": "Dallas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01049",
+          "name": "DeKalb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01051",
+          "name": "Elmore",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01053",
+          "name": "Escambia",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01055",
+          "name": "Etowah",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01057",
+          "name": "Fayette",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01059",
+          "name": "Franklin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01061",
+          "name": "Geneva",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01063",
+          "name": "Greene",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01065",
+          "name": "Hale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01067",
+          "name": "Henry",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01069",
+          "name": "Houston",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01071",
+          "name": "Jackson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01073",
+          "name": "Jefferson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01075",
+          "name": "Lamar",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01077",
+          "name": "Lauderdale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01079",
+          "name": "Lawrence",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01081",
+          "name": "Lee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01083",
+          "name": "Limestone",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01085",
+          "name": "Lowndes",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01087",
+          "name": "Macon",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01089",
+          "name": "Madison",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01091",
+          "name": "Marengo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01093",
+          "name": "Marion",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01095",
+          "name": "Marshall",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01097",
+          "name": "Mobile",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01099",
+          "name": "Monroe",
+          "types": [
+            "County"
           ]
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Mean_Income_Household": {
-        "householdType": [
-          "Mean_Income_Household_FamilyHousehold",
-          "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      },
-      "Median_Earnings_Person": {
-        "gender": [
-          "Median_Earnings_Person_Female",
-          "Median_Earnings_Person_Male"
-        ]
-      },
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ],
-        "householderRace": [
-          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
-          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
-          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
-          "Median_Income_Household_HouseholderRaceWhiteAlone",
-          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
         "types": [
           "Topic"
         ]
@@ -1142,8 +577,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -1151,247 +586,179 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "County"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/17031",
-        "name": "Cook",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12031",
-        "name": "Duval",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48201",
-        "name": "Harris",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       }
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
         "types": [
           "Topic"
         ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "svSource": "PAST_QUERY",
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

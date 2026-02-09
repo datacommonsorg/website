@@ -1,31 +1,15 @@
 {
-  "childEntityType": "",
-  "classifications": [
-    {
-      "comparison": true,
-      "type": 7
-    }
-  ],
   "client": "test_detect",
-  "comparisonEntities": [
-    "geoId/06"
-  ],
-  "comparisonVariables": [],
+  "config": {},
   "context": {},
   "debug": {},
-  "entities": [
-    "geoId/32"
-  ],
-  "nonPlaceEntities": [],
-  "properties": [],
-  "sessionId": "007_999999999",
-  "variables": [
-    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
-    "dc/hbkh95kc7pkb6",
-    "dc/topic/CommuteMode",
-    "dc/topic/CommuteModeByOccupation",
-    "dc/topic/CommuteTime",
-    "dc/topic/WorkCommute",
-    "dc/wc8q05drd74bd"
+  "failure": "Sorry, could not complete your request. No place found in the query.",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "userMessages": [
+    "Sorry, could not complete your request. No place found in the query."
   ]
 }
