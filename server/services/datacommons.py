@@ -399,52 +399,71 @@ def _extract_place_info(node_response_item: Dict) -> Dict:
 def get_place_info(place_dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
   
-  # Step 1: Fetch details for the requested nodes
-  place_node_resp = v2node(place_dcids, "->[name, typeOf, containedInPlace]")
+  # Store info for all nodes found (original + ancestors)
+  all_node_info = {}
+  # Store parent linkage: child_dcid -> set(parent_dcids)
+  parent_map = collections.defaultdict(set)
 
-  if "data" not in place_node_resp:
-    logger.warning("V2 Node API response missing 'data' key.")
+  current_dcids = set(place_dcids)
+  visited_dcids = set()
 
-  # Intermediate storage
-  place_hierarchy_map = {}
-  unique_parent_dcids = set()
+  # Max depth for ancestry traversal (e.g. City -> County -> State -> Country -> Continent)
+  MAX_DEPTH = 5
 
-  if "data" in place_node_resp:
-    for dcid, data in place_node_resp["data"].items():
-      info = {"self": _extract_place_info(data), "parents": []}
+  for _ in range(MAX_DEPTH):
+    # Filter out already visited to avoid cycles/redundant work
+    to_query = list(current_dcids - visited_dcids)
+    if not to_query:
+      break
+
+    visited_dcids.update(to_query)
+
+    # Fetch name, type, containedInPlace
+    resp = v2node(to_query, "->[name, typeOf, containedInPlace]")
+    if "data" not in resp:
+      logger.warning("V2 Node API response missing 'data' key.")
+      break
+
+    next_dcids = set()
+    for dcid, data in resp["data"].items():
+      # Extract info
+      info = _extract_place_info(data)
+      info["dcid"] = dcid
+      all_node_info[dcid] = info
 
       # Extract parents
-      parents = []
       if "containedInPlace" in data.get("arcs", {}):
         for node in data["arcs"]["containedInPlace"].get("nodes", []):
           p_dcid = node.get("dcid")
           if p_dcid:
-            parents.append(p_dcid)
-            unique_parent_dcids.add(p_dcid)
+            parent_map[dcid].add(p_dcid)
+            next_dcids.add(p_dcid)
 
-      place_hierarchy_map[dcid] = {"info": info, "parent_dcids": parents}
+    current_dcids = next_dcids
 
-  # Step 2: Fetch details for all parents
-  parent_info_map = {}
-  if unique_parent_dcids:
-    parent_node_resp = v2node(list(unique_parent_dcids), "->[name, typeOf]")
-    if "data" in parent_node_resp:
-      for dcid, data in parent_node_resp["data"].items():
-        p_info = _extract_place_info(data)
-        p_info["dcid"] = dcid
-        parent_info_map[dcid] = p_info
-
-  # Step 3: Construct the final response
+  # Construct result
   result_data = []
   for dcid in place_dcids:
-    if dcid in place_hierarchy_map:
-      entry = {"node": dcid, "info": place_hierarchy_map[dcid]["info"]}
+    if dcid in all_node_info:
+      entry = {"node": dcid, "info": {"self": all_node_info[dcid], "parents": []}}
 
-      # Populate parents list
+      # Reconstruct all ancestors using BFS to gather all reachable parents
+      ancestors = set()
+      queue = [dcid]
+      seen = {dcid}
+
+      while queue:
+        curr = queue.pop(0)
+        for p in parent_map.get(curr, []):
+          if p not in seen:
+            seen.add(p)
+            ancestors.add(p)
+            queue.append(p)
+
       parents_list = []
-      for p_dcid in place_hierarchy_map[dcid]["parent_dcids"]:
-        if p_dcid in parent_info_map:
-          parents_list.append(parent_info_map[p_dcid])
+      for p_dcid in ancestors:
+        if p_dcid in all_node_info:
+          parents_list.append(all_node_info[p_dcid])
 
       # Sort parents
       entry["info"]["parents"] = sorted(

@@ -80,6 +80,7 @@ class TestV1ToV2Migration(unittest.TestCase):
             "node": "geoId/06",
             "info": {
                 "self": {
+                    "dcid": "geoId/06",
                     "name": "California",
                     "type": "State"
                 },
