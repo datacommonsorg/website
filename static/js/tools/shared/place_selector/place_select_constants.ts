@@ -49,32 +49,46 @@ import PLACE_HIERARCHY from "./place_hierarchy.json";
  *    will fall back to GLOBAL_DEFAULTS, but use the override in the Map Tool.
  */
 
-// Mapping of place type of parent place -> place types of children.
-// This defines which place types are available for selection in the enclosed place type selector
-// based on the parent place type.
+/**
+ * Mapping of place type of parent place -> place types of children.
+ * This defines which place types are available for selection in the enclosed place type selector
+ * based on the parent place type.
+ */
 type PlaceHierarchy = Record<string, string[]>;
 
-// Country-specific or region-specific overrides
-// Maps place DCID -> PlaceHierarchy to use by default
+/**
+ * Country-specific or region-specific overrides
+ * Maps place DCID -> PlaceHierarchy to use by default
+ */
 export const DEFAULT_OVERRIDES: Record<string, PlaceHierarchy> =
   PLACE_HIERARCHY.DEFAULT_OVERRIDES;
 
-// Maps place DCID -> PlaceHierarchy to use for the map tool
+/**
+ * Maps place DCID -> PlaceHierarchy to use for the map tool
+ */
 export const MAPS_OVERRIDES: Record<string, PlaceHierarchy> =
   PLACE_HIERARCHY.MAPS_OVERRIDES;
 
-// Global default hierarchy to use across the application
+/**
+ * Global default hierarchy to use across the application
+ */
 export const DEFAULT_HIERARCHY: PlaceHierarchy =
   PLACE_HIERARCHY.GLOBAL_DEFAULTS;
 
-// Default hierarchy to use for the map tool specifically
+/**
+ * Default hierarchy to use for the map tool specifically
+ */
 export const MAPS_DEFAULT_HIERARCHY: PlaceHierarchy =
   PLACE_HIERARCHY.MAPS_GLOBAL_DEFAULTS;
 
-// Universal default appends used across all standard configs
+/**
+ * Universal default appends used across all standard configs
+ */
 export const UNIVERSAL_CHILDREN: PlaceHierarchy =
   PLACE_HIERARCHY.UNIVERSAL_CHILDREN;
 
-// Universal maps appends used across all map configs
+/**
+ * Universal maps appends used across all map configs
+ */
 export const MAPS_UNIVERSAL_CHILDREN: PlaceHierarchy =
   PLACE_HIERARCHY.MAPS_UNIVERSAL_CHILDREN;

@@ -57,12 +57,13 @@ export function getHierarchyConfigForPlace(
   requireMaps?: boolean
 ): Record<string, string[]> {
   for (const place of [selectedPlace, ...parentPlaces]) {
+    // Iterate through the selected place and its parent places to check for override
     const overrides = requireMaps ? MAPS_OVERRIDES : DEFAULT_OVERRIDES;
     if (place.dcid in overrides) {
       return overrides[place.dcid];
     }
   }
-
+  // If no override is found, return the default hierarchy
   return requireMaps ? MAPS_DEFAULT_HIERARCHY : DEFAULT_HIERARCHY;
 }
 
@@ -77,21 +78,23 @@ export async function loadChildPlaceTypes(
   selectedPlace: NamedTypedPlace,
   requireMaps?: boolean
 ): Promise<string[]> {
-  const parentPlaces = await getParentPlacesPromise(selectedPlace.dcid);
-
   if (_.isEmpty(selectedPlace.types)) {
     return [];
   }
-
+  // Get hierarchy configuration for the selected place
+  const parentPlaces = await getParentPlacesPromise(selectedPlace.dcid);
   const hierarchy = getHierarchyConfigForPlace(
     selectedPlace,
     parentPlaces,
     requireMaps
   );
 
+  // Get universal child place types for the selected place
   const universal = requireMaps ? MAPS_UNIVERSAL_CHILDREN : UNIVERSAL_CHILDREN;
 
+  // Get child place types for the selected place, based on the hierarchy configuration
   for (const type of selectedPlace.types) {
+    // Find the first place type that has a hierarchy configuration, use that configuration
     if (type in hierarchy || type in universal) {
       const specificChildren = hierarchy[type] || [];
       const universalChildren = universal[type] || [];
