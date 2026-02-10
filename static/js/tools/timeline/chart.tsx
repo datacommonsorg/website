@@ -585,7 +585,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
 
     // Add units and per capita to the ylabel as a suffix, if provided
     // e.g. "StatVar (unit, per capita)"
-    const suffixItems = this.units || [];
+    const suffixItems = [...(this.units || [])]; // make a copy to avoid mutating this.units
     if (this.props.pc) {
       suffixItems.push(
         intl.formatMessage(chartComponentMessages.perCapitaLowercase)
