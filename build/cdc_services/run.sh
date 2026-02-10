@@ -90,6 +90,12 @@ if [[ $DEBUG == "true" ]] then
         echo "Starting NL Server in debug mode."
         python3 nl_app.py $NL_SERVER_PORT &
     fi
+
+    if [[ $ENABLE_MCP == "true" ]]; then
+        echo "Starting MCP Server in debug mode."
+        datacommons-mcp serve http --skip-api-key-validation --port 8082 &
+    fi
+
     echo "Starting Website Server in debug mode."
     python3 web_app.py 7070 &
 else
@@ -97,6 +103,12 @@ else
         echo "Starting NL Server."
         gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:$NL_SERVER_PORT -w 1 nl_app:app &
     fi
+
+    if [[ $ENABLE_MCP == "true" ]]; then
+        echo "Starting MCP Server."
+        datacommons-mcp serve http --skip-api-key-validation --port 8082 &
+    fi
+
     echo "Starting Website Server."
     gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:7070 -w 4 web_app:app &
 fi
