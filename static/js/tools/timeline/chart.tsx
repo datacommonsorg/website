@@ -22,6 +22,8 @@ import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { intl } from "../../i18n/i18n";
+import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { ChartEmbed } from "../../place/chart_embed";
 import { Chip } from "../../shared/chip";
 import { WEBSITE_SURFACE } from "../../shared/constants";
@@ -583,7 +585,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
 
     const suffixItems = this.units || [];
     if (this.props.pc) {
-      suffixItems.push("per capita");
+      suffixItems.push(
+        intl.formatMessage(chartComponentMessages.perCapitaLowercase)
+      );
     }
 
     if (!_.isEmpty(suffixItems)) {
