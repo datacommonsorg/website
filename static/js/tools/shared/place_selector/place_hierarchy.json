@@ -1,59 +1,24 @@
 {
   "UNIVERSAL_CHILDREN": {
-    "Country": [
-      "IPCCPlace_50"
-    ],
-    "Continent": [
-      "IPCCPlace_50"
-    ]
+    "Country": ["IPCCPlace_50"]
   },
   "MAPS_UNIVERSAL_CHILDREN": {
-    "Country": [
-      "IPCCPlace_50"
-    ],
-    "Continent": [
-      "IPCCPlace_50"
-    ]
+    "Country": ["IPCCPlace_50"],
+    "Continent": ["IPCCPlace_50"]
   },
   "GLOBAL_DEFAULTS": {
-    "AdministrativeArea1": [
-      "AdministrativeArea2",
-      "AdministrativeArea3"
-    ],
-    "AdministrativeArea2": [
-      "AdministrativeArea3",
-      "AdministrativeArea4"
-    ],
-    "AdministrativeArea3": [
-      "AdministrativeArea4",
-      "AdministrativeArea5"
-    ],
-    "AdministrativeArea4": [
-      "AdministrativeArea5"
-    ],
-    "Continent": [
-      "Country",
-      "AdministrativeArea1"
-    ],
-    "Country": [
-      "AdministrativeArea1",
-      "AdministrativeArea2"
-    ],
-    "Planet": [
-      "Continent",
-      "Country"
-    ]
+    "AdministrativeArea1": ["AdministrativeArea2", "AdministrativeArea3"],
+    "AdministrativeArea2": ["AdministrativeArea3", "AdministrativeArea4"],
+    "AdministrativeArea3": ["AdministrativeArea4", "AdministrativeArea5"],
+    "AdministrativeArea4": ["AdministrativeArea5"],
+    "Continent": ["Country", "AdministrativeArea1"],
+    "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+    "Planet": ["Continent", "Country"]
   },
   "MAPS_GLOBAL_DEFAULTS": {
-    "Planet": [
-      "Country"
-    ],
-    "Continent": [
-      "Country"
-    ],
-    "OceanicBasin": [
-      "GeoGridPlace_1Deg"
-    ],
+    "Planet": ["Country"],
+    "Continent": ["Country"],
+    "OceanicBasin": ["GeoGridPlace_1Deg"],
     "Country": [],
     "AdministrativeArea1": [],
     "AdministrativeArea2": [],
@@ -62,16 +27,8 @@
   },
   "DEFAULT_OVERRIDES": {
     "country/USA": {
-      "Country": [
-        "State",
-        "County"
-      ],
-      "State": [
-        "County",
-        "City",
-        "Town",
-        "Village"
-      ],
+      "Country": ["State", "County"],
+      "State": ["County", "City", "Town", "Village"],
       "County": [
         "City",
         "Town",
@@ -79,884 +36,355 @@
         "CensusTract",
         "CensusZipCodeTabulationArea"
       ],
-      "City": [
-        "CensusTract",
-        "CensusZipCodeTabulationArea"
-      ],
-      "CensusDivision": [
-        "State",
-        "County"
-      ],
-      "CensusRegion": [
-        "CensusDivision",
-        "State",
-        "County"
-      ]
+      "City": ["CensusTract", "CensusZipCodeTabulationArea"],
+      "CensusDivision": ["State", "County"],
+      "CensusRegion": ["CensusDivision", "State", "County"]
     },
     "europe": {
-      "Continent": [
-        "Country",
-        "AdministrativeArea1",
-        "EurostatNUTS1"
-      ],
+      "Continent": ["Country", "AdministrativeArea1", "EurostatNUTS1"],
       "Country": [
         "AdministrativeArea1",
         "AdministrativeArea2",
         "EurostatNUTS1",
         "EurostatNUTS2"
       ],
-      "EurostatNUTS1": [
-        "EurostatNUTS2",
-        "EurostatNUTS3"
-      ],
-      "EurostatNUTS2": [
-        "EurostatNUTS3",
-        "EurostatNUTS4"
-      ],
-      "EurostatNUTS3": [
-        "EurostatNUTS4",
-        "EurostatNUTS5"
-      ],
-      "EurostatNUTS4": [
-        "EurostatNUTS5"
-      ]
+      "EurostatNUTS1": ["EurostatNUTS2", "EurostatNUTS3"],
+      "EurostatNUTS2": ["EurostatNUTS3", "EurostatNUTS4"],
+      "EurostatNUTS3": ["EurostatNUTS4", "EurostatNUTS5"],
+      "EurostatNUTS4": ["EurostatNUTS5"]
     }
   },
   "MAPS_OVERRIDES": {
     "country/ARE": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/ARG": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BDI": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BEN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BGD": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BGR": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BLR": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BLZ": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BRA": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/BTN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/CAN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/CHE": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/CHN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/CMR": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/COG": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/COL": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/COM": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/CPV": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/CUB": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/DJI": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/EST": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/ETH": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/GHA": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/GIN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/IDN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/IND": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/JAM": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/JOR": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/JPN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/KEN": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/KGZ": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/KOR": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/KWT": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/LCA": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/LSO": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/LTU": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/LVA": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/MAR": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/MEX": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/MLI": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/MMR": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/MNG": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/MWI": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/MYS": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/NIC": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/NPL": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/PAK": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea3"
-      ],
-      "State": [
-        "AdministrativeArea3"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea3"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea3"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea3"],
+      "State": ["AdministrativeArea3"],
+      "AdministrativeArea1": ["AdministrativeArea3"],
+      "AdministrativeArea2": ["AdministrativeArea3"]
     },
     "country/PHL": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/PRK": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/PSE": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/QAT": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/RWA": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/SVK": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "country/USA": {
-      "Country": [
-        "State",
-        "County"
-      ],
-      "State": [
-        "County",
-        "City",
-        "CensusTract",
-        "CensusZipCodeTabulationArea"
-      ],
-      "County": [
-        "City",
-        "CensusTract",
-        "CensusZipCodeTabulationArea"
-      ],
-      "CensusRegion": [
-        "State",
-        "County"
-      ],
-      "CensusDivision": [
-        "State",
-        "County"
-      ]
+      "Country": ["State", "County"],
+      "State": ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
+      "County": ["City", "CensusTract", "CensusZipCodeTabulationArea"],
+      "CensusRegion": ["State", "County"],
+      "CensusDivision": ["State", "County"]
     },
     "country/ZAF": {
-      "Country": [
-        "AdministrativeArea1",
-        "AdministrativeArea2"
-      ],
-      "State": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea1": [
-        "AdministrativeArea2"
-      ],
-      "AdministrativeArea2": [
-        "AdministrativeArea2"
-      ]
+      "Country": ["AdministrativeArea1", "AdministrativeArea2"],
+      "State": ["AdministrativeArea2"],
+      "AdministrativeArea1": ["AdministrativeArea2"],
+      "AdministrativeArea2": ["AdministrativeArea2"]
     },
     "europe": {
       "Continent": [
@@ -965,21 +393,10 @@
         "EurostatNUTS2",
         "EurostatNUTS3"
       ],
-      "Country": [
-        "EurostatNUTS1",
-        "EurostatNUTS2",
-        "EurostatNUTS3"
-      ],
-      "EurostatNUTS1": [
-        "EurostatNUTS2",
-        "EurostatNUTS3"
-      ],
-      "EurostatNUTS2": [
-        "EurostatNUTS3"
-      ],
-      "EurostatNUTS3": [
-        "EurostatNUTS3"
-      ]
+      "Country": ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+      "EurostatNUTS1": ["EurostatNUTS2", "EurostatNUTS3"],
+      "EurostatNUTS2": ["EurostatNUTS3"],
+      "EurostatNUTS3": ["EurostatNUTS3"]
     }
   }
 }
