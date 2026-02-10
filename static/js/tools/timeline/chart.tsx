@@ -579,10 +579,16 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
     }
     // use mprop as the ylabel
-    let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+    const ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
 
-    if (this.units.length > 0) {
-      ylabelText += ` (${this.units.join(", ")})`;
+    const suffixItems = this.units || [];
+    if (this.props.pc) {
+      suffixItems.push("per capita");
+    }
+
+    if (!_.isEmpty(suffixItems)) {
+      const suffix = `(${suffixItems.join(", ")})`;
+      return ylabelText ? `${ylabelText} ${suffix}` : suffix;
     }
     return ylabelText;
   }
