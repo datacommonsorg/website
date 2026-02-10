@@ -9,11 +9,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Undernourished People in Nigeria",
+                    "description": "Number of Undernourished People in the World",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFCN"
                     ],
-                    "title": "Number of Undernourished People in Nigeria",
+                    "title": "Number of Undernourished People in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -24,7 +24,7 @@
                     "statVarKey": [
                       "sdg/SN_ITK_DEFCN"
                     ],
-                    "title": "Number of Undernourished People in Nigeria",
+                    "title": "Number of Undernourished People in the World",
                     "type": "LINE"
                   }
                 ]
@@ -38,11 +38,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Undernourishment in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFCN"
+                    ],
+                    "title": "Number of Undernourished People in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
+            "title": "Number of Undernourished People in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Undernourishment in the World",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC"
                     ],
-                    "title": "Prevalence of Undernourishment in Nigeria",
+                    "title": "Prevalence of Undernourishment in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -53,7 +70,7 @@
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC"
                     ],
-                    "title": "Prevalence of Undernourishment in Nigeria",
+                    "title": "Prevalence of Undernourishment in the World",
                     "type": "LINE"
                   }
                 ]
@@ -67,11 +84,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Population in Moderate or Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Prevalence of Undernourishment in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
+            "title": "Prevalence of Undernourishment in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population in Moderate or Severe Food Insecurity in the World",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Population in Moderate or Severe Food Insecurity in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -82,7 +116,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Population in Moderate or Severe Food Insecurity in the World",
                     "type": "LINE"
                   }
                 ]
@@ -96,11 +130,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Population in Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN"
+                    ],
+                    "title": "Population in Moderate or Severe Food Insecurity in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population in Moderate or Severe Food Insecurity in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population in Severe Food Insecurity in the World",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Population in Severe Food Insecurity in Nigeria",
+                    "title": "Population in Severe Food Insecurity in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -111,7 +162,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Population in Severe Food Insecurity in Nigeria",
+                    "title": "Population in Severe Food Insecurity in the World",
                     "type": "LINE"
                   }
                 ]
@@ -125,11 +176,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN"
+                    ],
+                    "title": "Population in Severe Food Insecurity in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population in Severe Food Insecurity in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Moderate or Severe Food Insecurity in the Population in the World",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMS"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -140,7 +208,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMS"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in the World",
                     "type": "LINE"
                   }
                 ]
@@ -154,11 +222,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Severe Food Insecurity in the Population in the World",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESS"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity in the Population in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -169,7 +254,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESS"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity in the Population in the World",
                     "type": "LINE"
                   }
                 ]
@@ -184,10 +269,27 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity in the Population in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Prevalence of Severe Food Insecurity in the Population in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in the World",
                     "type": "LINE"
                   }
                 ]
@@ -201,10 +303,42 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F"
+                    ],
+                    "title": "Population in Moderate or Severe Food Insecurity [15 Years Old and Over, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Population in Moderate or Severe Food Insecurity [15 Years Old and Over, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in the World",
                     "type": "LINE"
                   }
                 ]
@@ -218,10 +352,42 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F"
+                    ],
+                    "title": "Population in Severe Food Insecurity [15 Years Old and Over, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Population in Severe Food Insecurity [15 Years Old and Over, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in the World",
                     "type": "LINE"
                   }
                 ]
@@ -235,10 +401,60 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population [15 Years Old and Over, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population [15 Years Old and Over, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--R",
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--TSUB",
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--U"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Urbanisation in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Urbanisation"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in the World",
                     "type": "LINE"
                   }
                 ]
@@ -251,11 +467,61 @@
               {
                 "tiles": [
                   {
-                    "description": "Children Moderately or Severely Stunted [Under 5 Years Old] in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity in the Population [15 Years Old and Over, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity in the Population [15 Years Old and Over, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--R",
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--TSUB",
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--U"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Urbanisation (%) in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Urbanisation (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Moderately or Severely Stunted [Under 5 Years Old] in the World",
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Nigeria",
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -266,7 +532,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Nigeria",
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -280,11 +546,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in the World",
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Nigeria",
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -295,7 +578,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Nigeria",
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -309,11 +592,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Children Moderately or Severely Overweight [Under 5 Years Old] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Moderately or Severely Overweight [Under 5 Years Old] in the World",
                     "statVarKey": [
                       "sdg/SN_STA_OVWGTN.AGE--Y0T4"
                     ],
-                    "title": "Children Moderately or Severely Overweight [Under 5 Years Old] in Nigeria",
+                    "title": "Children Moderately or Severely Overweight [Under 5 Years Old] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -324,7 +624,7 @@
                     "statVarKey": [
                       "sdg/SN_STA_OVWGTN.AGE--Y0T4"
                     ],
-                    "title": "Children Moderately or Severely Overweight [Under 5 Years Old] in Nigeria",
+                    "title": "Children Moderately or Severely Overweight [Under 5 Years Old] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -338,11 +638,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Children Moderately or Severely Wasted [Under 5 Years Old] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_STA_OVWGTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Moderately or Severely Overweight [Under 5 Years Old] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Moderately or Severely Overweight [Under 5 Years Old] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Moderately or Severely Wasted [Under 5 Years Old] in the World",
                     "statVarKey": [
                       "sdg/SH_STA_WASTN.AGE--Y0T4"
                     ],
-                    "title": "Children Moderately or Severely Wasted [Under 5 Years Old] in Nigeria",
+                    "title": "Children Moderately or Severely Wasted [Under 5 Years Old] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -353,7 +670,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_WASTN.AGE--Y0T4"
                     ],
-                    "title": "Children Moderately or Severely Wasted [Under 5 Years Old] in Nigeria",
+                    "title": "Children Moderately or Severely Wasted [Under 5 Years Old] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -367,11 +684,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_WASTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Moderately or Severely Wasted [Under 5 Years Old] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: 10\u00e8me enqu\u00eate nutritionnelle anthropom\u00e9trique et de mortalit\u00e9 r\u00e9trospective bas\u00e9e sur la m\u00e9thodologie SMART au mali (SMART-2020 mali); 2002 annual national nutrition monitoring. Nutrition surveillance department. Hanoi, vietnam: national institute of nutrition, 2009; 2003 annual national nutrition monitoring. Nutrition surveillance department. Hanoi, vietnam: national institute of nutrition, 2009; 2003 egypt interim demographic and health survey. Demogra...88867 more chars",
+            "title": "Children Moderately or Severely Wasted [Under 5 Years Old] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in the World",
                     "statVarKey": [
                       "sdg/SN_STA_OVWGT.AGE--Y0T4"
                     ],
-                    "title": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in Nigeria",
+                    "title": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -382,7 +716,7 @@
                     "statVarKey": [
                       "sdg/SN_STA_OVWGT.AGE--Y0T4"
                     ],
-                    "title": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in Nigeria",
+                    "title": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -396,11 +730,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_STA_OVWGT.AGE--Y0T4"
+                    ],
+                    "title": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Proportion of Children Moderately or Severely Overweight [Under 5 Years Old] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in the World",
                     "statVarKey": [
                       "sdg/SH_STA_WAST.AGE--Y0T4"
                     ],
-                    "title": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in Nigeria",
+                    "title": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -411,7 +762,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_WAST.AGE--Y0T4"
                     ],
-                    "title": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in Nigeria",
+                    "title": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -425,11 +776,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_WAST.AGE--Y0T4"
+                    ],
+                    "title": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: 10\u00e8me enqu\u00eate nutritionnelle anthropom\u00e9trique et de mortalit\u00e9 r\u00e9trospective bas\u00e9e sur la m\u00e9thodologie SMART au mali (SMART-2020 mali); 2002 annual national nutrition monitoring. Nutrition surveillance department. Hanoi, vietnam: national institute of nutrition, 2009; 2003 annual national nutrition monitoring. Nutrition surveillance department. Hanoi, vietnam: national institute of nutrition, 2009; 2003 egypt interim demographic and health survey. Demogra...88867 more chars",
+            "title": "Proportion of Children Moderately or Severely Wasted [Under 5 Years Old] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in the World",
                     "statVarKey": [
                       "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in Nigeria",
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -440,7 +808,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in Nigeria",
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -454,11 +822,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO global health observatory (https://www.Who.Int/Data/Gho/).",
+            "title": "Proportion of Women Aged 15-49 Years With Anaemia [15 to 49 Years Old, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in the World",
                     "statVarKey": [
                       "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in Nigeria",
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -469,7 +854,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in Nigeria",
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -483,11 +868,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO global health observatory (https://www.Who.Int/Data/Gho/).",
+            "title": "Proportion of Women Aged 15-49 Years With Anaemia, Non-Pregnant [15 to 49 Years Old, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in the World",
                     "statVarKey": [
                       "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in Nigeria",
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -498,7 +900,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in Nigeria",
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in the World",
                     "type": "LINE"
                   }
                 ]
@@ -513,17 +915,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/PD_AGR_LSFP",
-                      "sdg/PD_AGR_LSFP.SEX--F",
-                      "sdg/PD_AGR_LSFP.SEX--M"
+                      "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Productivity of Large-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
+                    "title": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Productivity of Large-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $)"
+            "footnote": "Includes data from the following sources: WHO global health observatory (https://www.Who.Int/Data/Gho/).",
+            "title": "Proportion of Women Aged 15-49 Years With Anaemia, Pregnant [15 to 49 Years Old, Female] in the World"
           },
           {
             "columns": [
@@ -531,17 +932,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/PD_AGR_SSFP",
-                      "sdg/PD_AGR_SSFP.SEX--F",
-                      "sdg/PD_AGR_SSFP.SEX--M"
+                      "sdg/SI_AGR_LSFP"
                     ],
-                    "title": "Productivity of Small-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
+                    "title": "Average Income of Large-Scale Food Producers, PPP in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Productivity of Small-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $)"
+            "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $) in the World"
           },
           {
             "columns": [
@@ -549,17 +948,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_AGR_LSFP",
-                      "sdg/SI_AGR_LSFP.SEX--F",
-                      "sdg/SI_AGR_LSFP.SEX--M"
+                      "sdg/SI_AGR_LSFP.SEX--F"
                     ],
-                    "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
+                    "title": "Average Income of Large-Scale Food Producers, PPP [Female] in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $)"
+            "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $) in the World"
           },
           {
             "columns": [
@@ -567,28 +964,59 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_AGR_SSFP",
-                      "sdg/SI_AGR_SSFP.SEX--F",
-                      "sdg/SI_AGR_SSFP.SEX--M"
+                      "sdg/SI_AGR_SSFP"
                     ],
-                    "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
+                    "title": "Average Income of Small-Scale Food Producers, PPP in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $)"
+            "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $) in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Number of Local Breeds Kept in the Country in Nigeria",
+                    "statVarKey": [
+                      "sdg/SI_AGR_SSFP.SEX--F"
+                    ],
+                    "title": "Average Income of Small-Scale Food Producers, PPP [Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMRCNTN"
+                    ],
+                    "title": "Number of Local Breeds for Which Sufficient Genetic Resources Are Stored for Reconstitution in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture and Agri-Food canada. Saskatoon research development centre; animal resources directorate. Ministry of agriculture; biotechnical institute. University of montenegro; bureau of animal industry; centre national d...4922 more chars",
+            "title": "Number of Local Breeds for Which Sufficient Genetic Resources Are Stored for Reconstitution in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Local Breeds Kept in the Country in the World",
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT"
                     ],
-                    "title": "Number of Local Breeds Kept in the Country in Nigeria",
+                    "title": "Number of Local Breeds Kept in the Country in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -599,7 +1027,7 @@
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT"
                     ],
-                    "title": "Number of Local Breeds Kept in the Country in Nigeria",
+                    "title": "Number of Local Breeds Kept in the Country in the World",
                     "type": "LINE"
                   }
                 ]
@@ -613,11 +1041,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Transboundary Breeds in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMKPT"
+                    ],
+                    "title": "Number of Local Breeds Kept in the Country in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...8734 more chars",
+            "title": "Number of Local Breeds Kept in the Country in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Transboundary Breeds in the World",
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT_TRB"
                     ],
-                    "title": "Number of Transboundary Breeds in Nigeria",
+                    "title": "Number of Transboundary Breeds in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -628,7 +1073,7 @@
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT_TRB"
                     ],
-                    "title": "Number of Transboundary Breeds in Nigeria",
+                    "title": "Number of Transboundary Breeds in the World",
                     "type": "LINE"
                   }
                 ]
@@ -642,11 +1087,45 @@
               {
                 "tiles": [
                   {
-                    "description": "Plant Genetic Resources Accessions Stored Ex Situ in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMKPT_TRB"
+                    ],
+                    "title": "Number of Transboundary Breeds in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...9085 more chars",
+            "title": "Number of Transboundary Breeds in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMRCNTN_TRB"
+                    ],
+                    "title": "Number of Transboundary Breeds for Which Sufficient Genetic Resources Are Stored for Reconstitution in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture and Agri-Food canada. Saskatoon research development centre; animal resources directorate. Ministry of agriculture; biotechnical institute. University of montenegro; bureau of animal industry; centre national d'Insemination artificiell...5020 more chars",
+            "title": "Number of Transboundary Breeds for Which Sufficient Genetic Resources Are Stored for Reconstitution in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Plant Genetic Resources Accessions Stored Ex Situ in the World",
                     "statVarKey": [
                       "sdg/ER_GRF_PLNTSTOR"
                     ],
-                    "title": "Plant Genetic Resources Accessions Stored Ex Situ in Nigeria",
+                    "title": "Plant Genetic Resources Accessions Stored Ex Situ in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -657,7 +1136,7 @@
                     "statVarKey": [
                       "sdg/ER_GRF_PLNTSTOR"
                     ],
-                    "title": "Plant Genetic Resources Accessions Stored Ex Situ in Nigeria",
+                    "title": "Plant Genetic Resources Accessions Stored Ex Situ in the World",
                     "type": "LINE"
                   }
                 ]
@@ -671,11 +1150,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Local Breeds in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_GRF_PLNTSTOR"
+                    ],
+                    "title": "Plant Genetic Resources Accessions Stored Ex Situ in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: EMBRAPA-Alelo (http://alelo.Cenargen.Embrapa.Br). Genesys (https://www.genesys-pgr.Org) and FAO-WIEWS (http://www.Fao.Org/Wiews); FAO-WIEWS (http://www.Fao.Org/Wiews); FAO-WIEWS (http://www.Fao.Org/Wiews) and EURISCO (http://eurisco.ipk-gatersleben.De); FAO-WIEWS (http://www.Fao.Org/Wiews) and genesys (https://www.genesys-pgr.Org); FAO-WIEWS (http://www.Fao.Org/Wiews) for CATIE. ICBA and SPGRC. Genesys (https://www.genesys-pgr.Org) for CePaCT. And EURISC...464 more chars",
+            "title": "Plant Genetic Resources Accessions Stored Ex Situ in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Local Breeds in the World",
                     "statVarKey": [
                       "sdg/ER_NOEX_LBREDN"
                     ],
-                    "title": "Number of Local Breeds in Nigeria",
+                    "title": "Number of Local Breeds in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -686,7 +1182,7 @@
                     "statVarKey": [
                       "sdg/ER_NOEX_LBREDN"
                     ],
-                    "title": "Number of Local Breeds in Nigeria",
+                    "title": "Number of Local Breeds in the World",
                     "type": "LINE"
                   }
                 ]
@@ -700,11 +1196,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Local Breeds With Unknown Risk Status in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_NOEX_LBREDN"
+                    ],
+                    "title": "Number of Local Breeds in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...8689 more chars",
+            "title": "Number of Local Breeds in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Local Breeds With Unknown Risk Status in the World",
                     "statVarKey": [
                       "sdg/ER_UNK_LBREDN"
                     ],
-                    "title": "Number of Local Breeds With Unknown Risk Status in Nigeria",
+                    "title": "Number of Local Breeds With Unknown Risk Status in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -715,7 +1228,7 @@
                     "statVarKey": [
                       "sdg/ER_UNK_LBREDN"
                     ],
-                    "title": "Number of Local Breeds With Unknown Risk Status in Nigeria",
+                    "title": "Number of Local Breeds With Unknown Risk Status in the World",
                     "type": "LINE"
                   }
                 ]
@@ -729,11 +1242,74 @@
               {
                 "tiles": [
                   {
-                    "description": "Agriculture Orientation Index for Government Expenditures in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_UNK_LBREDN"
+                    ],
+                    "title": "Number of Local Breeds With Unknown Risk Status in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...8689 more chars",
+            "title": "Number of Local Breeds With Unknown Risk Status in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Local Breeds Classified as Being at Risk of Extinction as a Share of Local Breeds With Known Level of Extinction Risk in the World",
+                    "statVarKey": [
+                      "sdg/ER_RSK_LBREDS"
+                    ],
+                    "title": "Proportion of Local Breeds Classified as Being at Risk of Extinction as a Share of Local Breeds With Known Level of Extinction Risk in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_RSK_LBREDS"
+                    ],
+                    "title": "Proportion of Local Breeds Classified as Being at Risk of Extinction as a Share of Local Breeds With Known Level of Extinction Risk in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal wealth research administration (AWRA); arme...6915 more chars",
+            "title": "Proportion of Local Breeds Classified as Being at Risk of Extinction as a Share of Local Breeds With Known Level of Extinction Risk"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_RSK_LBREDS"
+                    ],
+                    "title": "Proportion of Local Breeds Classified as Being at Risk of Extinction as a Share of Local Breeds With Known Level of Extinction Risk in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal wealth research administration (AWRA); arme...6915 more chars",
+            "title": "Proportion of Local Breeds Classified as Being at Risk of Extinction as a Share of Local Breeds With Known Level of Extinction Risk in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Agriculture Orientation Index for Government Expenditures in the World",
                     "statVarKey": [
                       "sdg/AG_PRD_ORTIND"
                     ],
-                    "title": "Agriculture Orientation Index for Government Expenditures in Nigeria",
+                    "title": "Agriculture Orientation Index for Government Expenditures in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -744,7 +1320,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_ORTIND"
                     ],
-                    "title": "Agriculture Orientation Index for Government Expenditures in Nigeria",
+                    "title": "Agriculture Orientation Index for Government Expenditures in the World",
                     "type": "LINE"
                   }
                 ]
@@ -758,11 +1334,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Agriculture Share of Government Expenditure in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_ORTIND"
+                    ],
+                    "title": "Agriculture Orientation Index for Government Expenditures in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: country data (estimated). UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO imputed data. UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO estimates. UNSD national accounts estimates; data from the international monetary fund (estimated) and official data from online national ministry of agricultur and/or ministry of fisheries. UNSD national accounts estimates; d...6176 more chars",
+            "title": "Agriculture Orientation Index for Government Expenditures in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Agriculture Share of Government Expenditure in the World",
                     "statVarKey": [
                       "sdg/AG_XPD_AGSGB"
                     ],
-                    "title": "Agriculture Share of Government Expenditure in Nigeria",
+                    "title": "Agriculture Share of Government Expenditure in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -773,7 +1366,7 @@
                     "statVarKey": [
                       "sdg/AG_XPD_AGSGB"
                     ],
-                    "title": "Agriculture Share of Government Expenditure in Nigeria",
+                    "title": "Agriculture Share of Government Expenditure in the World",
                     "type": "LINE"
                   }
                 ]
@@ -787,11 +1380,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Agriculture Value Added Share of GDP in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_XPD_AGSGB"
+                    ],
+                    "title": "Agriculture Share of Government Expenditure in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: country data (estimated). UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO imputed data. UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO estimates. UNSD national accounts estimates; data from the international monetary fund (estimated) and official data from online national ministry of agricultur and/or ministry of fisheries. UNSD national accounts estimates; d...6211 more chars",
+            "title": "Agriculture Share of Government Expenditure in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Agriculture Value Added Share of GDP in the World",
                     "statVarKey": [
                       "sdg/AG_PRD_AGVAS"
                     ],
-                    "title": "Agriculture Value Added Share of GDP in Nigeria",
+                    "title": "Agriculture Value Added Share of GDP in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -802,7 +1412,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_AGVAS"
                     ],
-                    "title": "Agriculture Value Added Share of GDP in Nigeria",
+                    "title": "Agriculture Value Added Share of GDP in the World",
                     "type": "LINE"
                   }
                 ]
@@ -816,40 +1426,62 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Official Flows for Agriculture in Nigeria",
                     "statVarKey": [
-                      "sdg/DC_TOF_AGRL"
+                      "sdg/AG_PRD_AGVAS"
                     ],
-                    "title": "Total Official Flows for Agriculture in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/DC_TOF_AGRL"
-                    ],
-                    "title": "Total Official Flows for Agriculture in Nigeria",
-                    "type": "LINE"
+                    "title": "Agriculture Value Added Share of GDP in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
-            "title": "Total Official Flows for Agriculture"
+            "footnote": "Includes data from the following sources: UNSD national account estimates.",
+            "title": "Agriculture Value Added Share of GDP in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Indicator of Food Price Anomalies in Nigeria",
+                    "statVarKey": [
+                      "sdg/DC_TOF_AGRL"
+                    ],
+                    "title": "Total Official Flows for Agriculture in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
+            "title": "Total Official Flows for Agriculture in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/AG_FPA_CFPI"
                     ],
-                    "title": "Indicator of Food Price Anomalies in Nigeria",
+                    "title": "Indicator of Food Price Anomalies in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: FAOSTAT data/ consumer price indices: http://www.Fao.org/faostat/en/#data/CP.",
+            "title": "Indicator of Food Price Anomalies in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies in the World",
+                    "statVarKey": [
+                      "sdg/AG_FPA_HMFP"
+                    ],
+                    "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -858,16 +1490,74 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/AG_FPA_CFPI"
+                      "sdg/AG_FPA_HMFP"
                     ],
-                    "title": "Indicator of Food Price Anomalies in Nigeria",
+                    "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies in the World",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: FAOSTAT data/ consumer price indices: http://www.Fao.org/faostat/en/#data/CP.",
-            "title": "Indicator of Food Price Anomalies"
+            "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Abnormal: High Food Prices] in the World",
+                    "statVarKey": [
+                      "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_A"
+                    ],
+                    "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Abnormal: High Food Prices] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_A"
+                    ],
+                    "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Abnormal: High Food Prices] in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: FAOSTAT data/ consumer price indices: http://www.Fao.org/faostat/en/#data/CP.",
+            "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Abnormal: High Food Prices]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Moderate: Moderately High Food Prices] in the World",
+                    "statVarKey": [
+                      "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_M"
+                    ],
+                    "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Moderate: Moderately High Food Prices] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_M"
+                    ],
+                    "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Moderate: Moderately High Food Prices] in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: FAOSTAT data/ consumer price indices: http://www.Fao.org/faostat/en/#data/CP.",
+            "title": "Proportion of Countries Recording Abnormally High or Moderately High Food Prices, According to the Indicator of Food Price Anomalies [Severity of Price Levels = Moderate: Moderately High Food Prices]"
           },
           {
             "columns": [
@@ -875,18 +1565,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112",
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113",
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114",
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
+                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_111"
                     ],
-                    "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product in Nigeria",
-                    "type": "LINE"
+                    "title": "Indicator of Food Price Anomalies [Wheat] in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product"
+            "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112"
+                    ],
+                    "title": "Indicator of Food Price Anomalies [Maize] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product in the World"
           }
         ],
         "statVarSpec": {
@@ -894,21 +1597,25 @@
             "name": "Indicator of Food Price Anomalies",
             "statVar": "sdg/AG_FPA_CFPI"
           },
+          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_111": {
+            "name": "Indicator of Food Price Anomalies [Wheat]",
+            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_111"
+          },
           "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112": {
             "name": "Indicator of Food Price Anomalies [Maize]",
             "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112"
           },
-          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113": {
-            "name": "Indicator of Food Price Anomalies [Rice]",
-            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113"
+          "sdg/AG_FPA_HMFP": {
+            "name": "Proportion of countries recording abnormally high or moderately high food prices, according to the Indicator of Food Price Anomalies",
+            "statVar": "sdg/AG_FPA_HMFP"
           },
-          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114": {
-            "name": "Indicator of Food Price Anomalies [Sorghum]",
-            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114"
+          "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_A": {
+            "name": "Proportion of countries recording abnormally high or moderately high food prices, according to the Indicator of Food Price Anomalies [Severity of price levels = Abnormal: High food prices]",
+            "statVar": "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_A"
           },
-          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118": {
-            "name": "Indicator of Food Price Anomalies [Millet]",
-            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
+          "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_M": {
+            "name": "Proportion of countries recording abnormally high or moderately high food prices, according to the Indicator of Food Price Anomalies [Severity of price levels = Moderate: Moderately high food prices]",
+            "statVar": "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_M"
           },
           "sdg/AG_PRD_AGVAS": {
             "name": "Agriculture value added share of GDP",
@@ -925,6 +1632,18 @@
           "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": {
             "name": "Prevalence of moderate or severe food insecurity in the population [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--R": {
+            "name": "Prevalence of moderate or severe food insecurity in the population [15 years old and over, Rural]",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--R"
+          },
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--TSUB": {
+            "name": "Prevalence of moderate or severe food insecurity in the population [15 years old and over, Town and semi-dense area]",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--TSUB"
+          },
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--U": {
+            "name": "Prevalence of moderate or severe food insecurity in the population [15 years old and over, Urban]",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--U"
           },
           "sdg/AG_PRD_FIESMSN": {
             "name": "Population in moderate or severe food insecurity",
@@ -949,6 +1668,18 @@
           "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": {
             "name": "Prevalence of severe food insecurity in the population [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--R": {
+            "name": "Prevalence of severe food insecurity in the population [15 years old and over, Rural]",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--R"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--TSUB": {
+            "name": "Prevalence of severe food insecurity in the population [15 years old and over, Town and semi-dense area]",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--TSUB"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--U": {
+            "name": "Prevalence of severe food insecurity in the population [15 years old and over, Urban]",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--U"
           },
           "sdg/AG_PRD_FIESSN": {
             "name": "Population in severe food insecurity",
@@ -982,6 +1713,14 @@
             "name": "Number of transboundary breeds",
             "statVar": "sdg/ER_GRF_ANIMKPT_TRB"
           },
+          "sdg/ER_GRF_ANIMRCNTN": {
+            "name": "Number of local breeds for which sufficient genetic resources are stored for reconstitution",
+            "statVar": "sdg/ER_GRF_ANIMRCNTN"
+          },
+          "sdg/ER_GRF_ANIMRCNTN_TRB": {
+            "name": "Number of transboundary breeds for which sufficient genetic resources are stored for reconstitution",
+            "statVar": "sdg/ER_GRF_ANIMRCNTN_TRB"
+          },
           "sdg/ER_GRF_PLNTSTOR": {
             "name": "Plant genetic resources accessions stored ex situ",
             "statVar": "sdg/ER_GRF_PLNTSTOR"
@@ -990,33 +1729,13 @@
             "name": "Number of local breeds",
             "statVar": "sdg/ER_NOEX_LBREDN"
           },
+          "sdg/ER_RSK_LBREDS": {
+            "name": "Proportion of local breeds classified as being at risk of extinction as a share of local breeds with known level of extinction risk",
+            "statVar": "sdg/ER_RSK_LBREDS"
+          },
           "sdg/ER_UNK_LBREDN": {
             "name": "Number of local breeds with unknown risk status",
             "statVar": "sdg/ER_UNK_LBREDN"
-          },
-          "sdg/PD_AGR_LSFP": {
-            "name": "Productivity of large-scale food producers",
-            "statVar": "sdg/PD_AGR_LSFP"
-          },
-          "sdg/PD_AGR_LSFP.SEX--F": {
-            "name": "Productivity of large-scale food producers [Female]",
-            "statVar": "sdg/PD_AGR_LSFP.SEX--F"
-          },
-          "sdg/PD_AGR_LSFP.SEX--M": {
-            "name": "Productivity of large-scale food producers [Male]",
-            "statVar": "sdg/PD_AGR_LSFP.SEX--M"
-          },
-          "sdg/PD_AGR_SSFP": {
-            "name": "Productivity of small-scale food producers",
-            "statVar": "sdg/PD_AGR_SSFP"
-          },
-          "sdg/PD_AGR_SSFP.SEX--F": {
-            "name": "Productivity of small-scale food producers [Female]",
-            "statVar": "sdg/PD_AGR_SSFP.SEX--F"
-          },
-          "sdg/PD_AGR_SSFP.SEX--M": {
-            "name": "Productivity of small-scale food producers [Male]",
-            "statVar": "sdg/PD_AGR_SSFP.SEX--M"
           },
           "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F": {
             "name": "Proportion of women aged 15-49 years with anaemia [15 to 49 years old, Female]",
@@ -1054,10 +1773,6 @@
             "name": "Average income of large-scale food producers, PPP [Female]",
             "statVar": "sdg/SI_AGR_LSFP.SEX--F"
           },
-          "sdg/SI_AGR_LSFP.SEX--M": {
-            "name": "Average income of large-scale food producers, PPP [Male]",
-            "statVar": "sdg/SI_AGR_LSFP.SEX--M"
-          },
           "sdg/SI_AGR_SSFP": {
             "name": "Average income of small-scale food producers, PPP",
             "statVar": "sdg/SI_AGR_SSFP"
@@ -1065,10 +1780,6 @@
           "sdg/SI_AGR_SSFP.SEX--F": {
             "name": "Average income of small-scale food producers, PPP [Female]",
             "statVar": "sdg/SI_AGR_SSFP.SEX--F"
-          },
-          "sdg/SI_AGR_SSFP.SEX--M": {
-            "name": "Average income of small-scale food producers, PPP [Male]",
-            "statVar": "sdg/SI_AGR_SSFP.SEX--M"
           },
           "sdg/SN_ITK_DEFC": {
             "name": "Prevalence of undernourishment",
@@ -1090,31 +1801,387 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Place": "Country"
+      },
       "placeDcid": [
-        "country/NGA"
+        "Earth"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "World",
   "place": {
-    "dcid": "country/NGA",
-    "name": "Nigeria",
-    "place_type": "Country"
+    "dcid": "Earth",
+    "name": "World",
+    "place_type": "Place"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "country/NGA",
-      "name": "Nigeria",
-      "place_type": "Country"
+      "dcid": "Earth",
+      "name": "World",
+      "place_type": "Place"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/ABW",
+          "name": "Aruba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AFG",
+          "name": "Afghanistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AIA",
+          "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARE",
+          "name": "United Arab Emirates",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARG",
+          "name": "Argentina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ASM",
+          "name": "American Samoa",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATA",
+          "name": "Antarctica",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATB",
+          "name": "British Antarctic Territory",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATG",
+          "name": "Antigua and Barbuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATN",
+          "name": "Dronning Maud Land",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUS",
+          "name": "Australia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BES",
+          "name": "Bonaire, Sint Eustatius and Saba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGD",
+          "name": "Bangladesh",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHR",
+          "name": "Bahrain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHS",
+          "name": "Bahamas",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLZ",
+          "name": "Belize",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BMU",
+          "name": "Bermuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BOL",
+          "name": "Bolivia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRA",
+          "name": "Brazil",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRB",
+          "name": "Barbados",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRN",
+          "name": "Brunei",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BTN",
+          "name": "Bhutan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BVT",
+          "name": "Bouvet Island",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAN",
+          "name": "Canada",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CCK",
+          "name": "Cocos (Keeling) Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHL",
+          "name": "Chile",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHN",
+          "name": "China",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
         "dcid": "dc/topic/sdg_2.1",
@@ -1186,106 +2253,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CHN",
-        "name": "China",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/IND",
-        "name": "India",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/GBR",
-        "name": "United Kingdom",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/sdg_1",
@@ -1410,6 +2378,15 @@
           ]
         }
       ],
+      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_111": [
+        {
+          "dcid": "dc/topic/sdg_2.c.1",
+          "name": "2.c.1: Indicator of food price anomalies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
       "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112": [
         {
           "dcid": "dc/topic/sdg_2.c.1",
@@ -1419,7 +2396,7 @@
           ]
         }
       ],
-      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113": [
+      "sdg/AG_FPA_HMFP": [
         {
           "dcid": "dc/topic/sdg_2.c.1",
           "name": "2.c.1: Indicator of food price anomalies",
@@ -1428,7 +2405,7 @@
           ]
         }
       ],
-      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114": [
+      "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_A": [
         {
           "dcid": "dc/topic/sdg_2.c.1",
           "name": "2.c.1: Indicator of food price anomalies",
@@ -1437,7 +2414,7 @@
           ]
         }
       ],
-      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118": [
+      "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_M": [
         {
           "dcid": "dc/topic/sdg_2.c.1",
           "name": "2.c.1: Indicator of food price anomalies",
@@ -1474,6 +2451,33 @@
         }
       ],
       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--TSUB": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__URBANISATION--U": [
         {
           "dcid": "dc/topic/sdg_2.1.2",
           "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
@@ -1528,6 +2532,33 @@
         }
       ],
       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--TSUB": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESS.AGE--Y_GE15__URBANISATION--U": [
         {
           "dcid": "dc/topic/sdg_2.1.2",
           "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
@@ -1608,6 +2639,24 @@
           ]
         }
       ],
+      "sdg/ER_GRF_ANIMRCNTN": [
+        {
+          "dcid": "dc/topic/sdg_2.5.1",
+          "name": "2.5.1: Number of (a) plant and (b) animal genetic resources for food and agriculture secured in either medium- or long-term conservation facilities",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/ER_GRF_ANIMRCNTN_TRB": [
+        {
+          "dcid": "dc/topic/sdg_2.5.1",
+          "name": "2.5.1: Number of (a) plant and (b) animal genetic resources for food and agriculture secured in either medium- or long-term conservation facilities",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
       "sdg/ER_GRF_PLNTSTOR": [
         {
           "dcid": "dc/topic/sdg_2.5.1",
@@ -1626,7 +2675,7 @@
           ]
         }
       ],
-      "sdg/ER_UNK_LBREDN": [
+      "sdg/ER_RSK_LBREDS": [
         {
           "dcid": "dc/topic/sdg_2.5.2",
           "name": "2.5.2: Proportion of local breeds classified as being at risk of extinction",
@@ -1635,55 +2684,10 @@
           ]
         }
       ],
-      "sdg/PD_AGR_LSFP": [
+      "sdg/ER_UNK_LBREDN": [
         {
-          "dcid": "dc/topic/sdg_2.3.1",
-          "name": "2.3.1: Volume of production per labour unit by classes of farming/pastoral/forestry enterprise size",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/PD_AGR_LSFP.SEX--F": [
-        {
-          "dcid": "dc/topic/sdg_2.3.1",
-          "name": "2.3.1: Volume of production per labour unit by classes of farming/pastoral/forestry enterprise size",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/PD_AGR_LSFP.SEX--M": [
-        {
-          "dcid": "dc/topic/sdg_2.3.1",
-          "name": "2.3.1: Volume of production per labour unit by classes of farming/pastoral/forestry enterprise size",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/PD_AGR_SSFP": [
-        {
-          "dcid": "dc/topic/sdg_2.3.1",
-          "name": "2.3.1: Volume of production per labour unit by classes of farming/pastoral/forestry enterprise size",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/PD_AGR_SSFP.SEX--F": [
-        {
-          "dcid": "dc/topic/sdg_2.3.1",
-          "name": "2.3.1: Volume of production per labour unit by classes of farming/pastoral/forestry enterprise size",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/PD_AGR_SSFP.SEX--M": [
-        {
-          "dcid": "dc/topic/sdg_2.3.1",
-          "name": "2.3.1: Volume of production per labour unit by classes of farming/pastoral/forestry enterprise size",
+          "dcid": "dc/topic/sdg_2.5.2",
+          "name": "2.5.2: Proportion of local breeds classified as being at risk of extinction",
           "types": [
             "Topic"
           ]
@@ -1770,15 +2774,6 @@
           ]
         }
       ],
-      "sdg/SI_AGR_LSFP.SEX--M": [
-        {
-          "dcid": "dc/topic/sdg_2.3.2",
-          "name": "2.3.2: Average income of small-scale food producers, by sex and indigenous status",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
       "sdg/SI_AGR_SSFP": [
         {
           "dcid": "dc/topic/sdg_2.3.2",
@@ -1789,15 +2784,6 @@
         }
       ],
       "sdg/SI_AGR_SSFP.SEX--F": [
-        {
-          "dcid": "dc/topic/sdg_2.3.2",
-          "name": "2.3.2: Average income of small-scale food producers, by sex and indigenous status",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_AGR_SSFP.SEX--M": [
         {
           "dcid": "dc/topic/sdg_2.3.2",
           "name": "2.3.2: Average income of small-scale food producers, by sex and indigenous status",

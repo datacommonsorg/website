@@ -16,625 +16,429 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in Cities of San Francisco Bay Area (${date})",
+                    "title": "Larceny Theft Cases in Cities of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Larceny Theft Cases in Cities of San Francisco Bay Area"
+            "title": "Larceny Theft Cases in Cities of United States of America"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime"
+                      "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Criminal Activities in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
+                    "title": "Larceny Theft Cases in United States of America",
+                    "type": "LINE"
                   }
                 ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Criminal Activities in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
+                    "description": "Larceny Theft Cases in United States of America",
                     "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault"
+                      "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Aggravated Assault Cases in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
+                    "title": "Larceny Theft Cases in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_Arson"
-                    ],
-                    "title": "Arson Crimes in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_Burglary"
-                    ],
-                    "title": "Burglaries in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_ForcibleRape"
-                    ],
-                    "title": "Forcible Rapes in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_MotorVehicleTheft"
-                    ],
-                    "title": "Motor Vehicle Thefts in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime"
-                    ],
-                    "title": "Property Related Crimes in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_Robbery"
-                    ],
-                    "title": "Robberies in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_ViolentCrime"
-                    ],
-                    "title": "Violent Crimes in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Crimes by Type in Cities of San Francisco Bay Area"
+            "title": "Larceny Theft Cases"
           }
         ],
         "statVarSpec": {
-          "Count_CriminalActivities_AggravatedAssault": {
-            "name": "Aggravated Assault Cases",
-            "statVar": "Count_CriminalActivities_AggravatedAssault"
-          },
-          "Count_CriminalActivities_Arson": {
-            "name": "Arson Crimes",
-            "statVar": "Count_CriminalActivities_Arson"
-          },
-          "Count_CriminalActivities_Burglary": {
-            "name": "Burglaries",
-            "statVar": "Count_CriminalActivities_Burglary"
-          },
-          "Count_CriminalActivities_CombinedCrime": {
-            "name": "Criminal Activities",
-            "statVar": "Count_CriminalActivities_CombinedCrime"
-          },
-          "Count_CriminalActivities_ForcibleRape": {
-            "name": "Forcible Rapes",
-            "statVar": "Count_CriminalActivities_ForcibleRape"
-          },
           "Count_CriminalActivities_LarcenyTheft": {
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
-          },
-          "Count_CriminalActivities_MotorVehicleTheft": {
-            "name": "Motor Vehicle Thefts",
-            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
-          },
-          "Count_CriminalActivities_PropertyCrime": {
-            "name": "Property Related Crimes",
-            "statVar": "Count_CriminalActivities_PropertyCrime"
-          },
-          "Count_CriminalActivities_Robbery": {
-            "name": "Robberies",
-            "statVar": "Count_CriminalActivities_Robbery"
-          },
-          "Count_CriminalActivities_ViolentCrime": {
-            "name": "Violent Crimes",
-            "statVar": "Count_CriminalActivities_ViolentCrime"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "AdministrativeArea": "City"
+        "Country": "City"
       },
       "placeDcid": [
-        "wikidataId/Q213205"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "wikidataId/Q213205",
-    "name": "San Francisco Bay Area",
-    "place_type": "AdministrativeArea"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q213205",
-      "name": "San Francisco Bay Area",
-      "place_type": "AdministrativeArea"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
       "City": [
         {
-          "dcid": "geoId/0600135",
-          "name": "Acalanes Ridge",
+          "dcid": "geoId/0100100",
+          "name": "Abanda",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0600562",
-          "name": "Alameda",
+          "dcid": "geoId/0100124",
+          "name": "Abbeville",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0600618",
-          "name": "Alamo",
+          "dcid": "geoId/0100148",
+          "name": "Abel",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0600674",
-          "name": "Albany",
+          "dcid": "geoId/0100220",
+          "name": "Abernant",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0600898",
-          "name": "Alhambra Valley",
+          "dcid": "geoId/0100388",
+          "name": "Ada, Alabama",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0600996",
-          "name": "Allendale",
+          "dcid": "geoId/0100460",
+          "name": "Adamsville",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0601416",
-          "name": "Alto",
+          "dcid": "geoId/0100484",
+          "name": "Addison",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0601458",
-          "name": "Alum Rock",
+          "dcid": "geoId/0100508",
+          "name": "Adger",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0601486",
-          "name": "Alviso",
+          "dcid": "geoId/0100676",
+          "name": "Akron",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0601640",
-          "name": "American Canyon",
+          "dcid": "geoId/0100772",
+          "name": "Alabama Port",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0602168",
-          "name": "Angwin",
+          "dcid": "geoId/0100820",
+          "name": "Alabaster",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0602252",
-          "name": "Antioch",
+          "dcid": "geoId/0100916",
+          "name": "Alberta, Alabama",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0602980",
+          "dcid": "geoId/0100988",
+          "name": "Albertville",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101001",
+          "name": "Marbury",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101132",
+          "name": "Alexander City",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101180",
+          "name": "Alexandria",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101228",
+          "name": "Aliceville",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101396",
+          "name": "Allgood",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101444",
+          "name": "Alma",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101516",
+          "name": "Alpine",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101636",
+          "name": "Alton",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101660",
+          "name": "Altoona",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101708",
+          "name": "Andalusia",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101732",
+          "name": "Anderson",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101756",
+          "name": "Anderson",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101828",
+          "name": "Anne Manie",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0101852",
+          "name": "Anniston",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102116",
+          "name": "Arab",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102260",
+          "name": "Ardmore",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102320",
+          "name": "Argo",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102428",
+          "name": "Ariton",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102500",
+          "name": "Arley",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102524",
+          "name": "Arlington",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102836",
+          "name": "Ashford",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0102860",
           "name": "Ashland",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0603036",
-          "name": "Asti",
+          "dcid": "geoId/0102908",
+          "name": "Ashville",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0603092",
-          "name": "Atherton",
+          "dcid": "geoId/0102956",
+          "name": "Athens",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0604415",
-          "name": "Bay Point",
+          "dcid": "geoId/0103004",
+          "name": "Atmore",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0604470",
-          "name": "Bayview",
+          "dcid": "geoId/0103028",
+          "name": "Attalla",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0604549",
-          "name": "Baywood Park",
+          "dcid": "geoId/0103076",
+          "name": "Auburn",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0605108",
-          "name": "Belmont",
+          "dcid": "geoId/0103220",
+          "name": "Autaugaville",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0605164",
-          "name": "Belvedere",
+          "dcid": "geoId/0103364",
+          "name": "Avon",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0605290",
-          "name": "Benicia",
+          "dcid": "geoId/0103508",
+          "name": "Axis",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0606000",
-          "name": "Berkeley",
+          "dcid": "geoId/0103556",
+          "name": "Babbie",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0606210",
-          "name": "Bethel Island",
+          "dcid": "geoId/0103676",
+          "name": "Baileyton",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0606928",
-          "name": "Blackhawk",
+          "dcid": "geoId/0103724",
+          "name": "Bakerhill",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0606982",
-          "name": "Black Point-Green Point",
+          "dcid": "geoId/0103820",
+          "name": "Ballplay",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0607036",
-          "name": "Bloomfield",
+          "dcid": "geoId/0103868",
+          "name": "Bangor",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0607246",
-          "name": "Bodega",
+          "dcid": "geoId/0103940",
+          "name": "Banks",
           "types": [
             "City"
           ]
         },
         {
-          "dcid": "geoId/0607260",
-          "name": "Bodega Bay",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0607316",
-          "name": "Bolinas",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0607848",
-          "name": "Boyes Hot Springs",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0608142",
-          "name": "Brentwood",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0608310",
-          "name": "Brisbane",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0608338",
-          "name": "Broadmoor",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0608848",
-          "name": "Buena Vista",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0608968",
-          "name": "Burbank",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0609066",
-          "name": "Burlingame",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0609346",
-          "name": "Byron",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0609892",
-          "name": "Calistoga",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0610088",
-          "name": "Cambrian Park",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0610301",
-          "name": "Camino Tassajara",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0610345",
-          "name": "Campbell",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0611376",
-          "name": "Carmet",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0611915",
-          "name": "Castle Hill",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0611964",
-          "name": "Castro Valley",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0612146",
-          "name": "Cazadero",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0612902",
-          "name": "Cherryland",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0613882",
-          "name": "Clayton",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0614190",
-          "name": "Cloverdale",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0614232",
-          "name": "Clyde",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0614736",
-          "name": "Colma",
+          "dcid": "geoId/0103964",
+          "name": "Bankston",
           "types": [
             "City"
           ]
@@ -654,9 +458,110 @@
     ],
     "parentPlaces": [],
     "parentTopics": [],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

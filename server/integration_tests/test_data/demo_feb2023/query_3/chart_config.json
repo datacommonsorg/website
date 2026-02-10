@@ -20,26 +20,26 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06061"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/06061",
-    "name": "Placer County",
-    "place_type": "County"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/06061",
-      "name": "Placer County",
-      "place_type": "County"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
@@ -102,199 +102,101 @@
     "parentTopics": [],
     "peerPlaces": [
       {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "County"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/17031",
-        "name": "Cook",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12031",
-        "name": "Duval",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48201",
-        "name": "Harris",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       }
     ],

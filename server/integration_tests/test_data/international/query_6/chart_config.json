@@ -14,13 +14,13 @@
                         "drought"
                       ]
                     },
-                    "title": "Droughts in Africa",
+                    "title": "Droughts in United States of America",
                     "type": "DISASTER_EVENT_MAP"
                   }
                 ]
               }
             ],
-            "title": "Droughts in Africa",
+            "title": "Droughts in United States of America",
             "type": "DISASTER_EVENT"
           },
           {
@@ -31,7 +31,7 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area of Drought Event in Africa",
+                    "title": "Area of Drought Event in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -39,11 +39,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Area of Drought Event in Africa",
+                    "description": "Area of Drought Event in United States of America",
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area of Drought Event in Africa",
+                    "title": "Area of Drought Event in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -59,7 +59,7 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area of Drought Event in Countries of Africa (${date})",
+                    "title": "Area of Drought Event in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -74,13 +74,13 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area of Drought Event in Countries of Africa (${date})",
+                    "title": "Area of Drought Event in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Area of Drought Event in Countries of Africa"
+            "title": "Area of Drought Event in States of United States of America"
           },
           {
             "columns": [
@@ -90,7 +90,7 @@
                     "statVarKey": [
                       "Count_DroughtEvent"
                     ],
-                    "title": "Droughts in Africa",
+                    "title": "Droughts in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -98,11 +98,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Droughts in Africa",
+                    "description": "Droughts in United States of America",
                     "statVarKey": [
                       "Count_DroughtEvent"
                     ],
-                    "title": "Droughts in Africa",
+                    "title": "Droughts in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -118,7 +118,7 @@
                     "statVarKey": [
                       "Count_DroughtEvent"
                     ],
-                    "title": "Droughts in Countries of Africa (${date})",
+                    "title": "Droughts in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -133,172 +133,13 @@
                     "statVarKey": [
                       "Count_DroughtEvent"
                     ],
-                    "title": "Droughts in Countries of Africa (${date})",
+                    "title": "Droughts in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Droughts in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "PrecipitationRate"
-                    ],
-                    "title": "Precipitation Rate in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "PrecipitationRate"
-                    ],
-                    "title": "Precipitation Rate in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Precipitation Rate in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Max_Rainfall"
-                    ],
-                    "title": "Max Rainfall in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Max_Rainfall"
-                    ],
-                    "title": "Max Rainfall in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Max near-surface rainfall.",
-            "title": "Max Rainfall in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Rainfall"
-                    ],
-                    "title": "Mean Rainfall in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Rainfall"
-                    ],
-                    "title": "Mean Rainfall in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Mean near-surface rainfall.",
-            "title": "Mean Rainfall in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/ER_H2O_STRESS"
-                    ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/ER_H2O_STRESS"
-                    ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organisation of united nations (FAO).",
-            "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
-                    ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
-                    ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organisation of united nations (FAO).",
-            "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa"
+            "title": "Droughts in States of United States of America"
           }
         ],
         "statVarSpec": {
@@ -309,33 +150,13 @@
           "Count_DroughtEvent": {
             "name": "Droughts",
             "statVar": "Count_DroughtEvent"
-          },
-          "Max_Rainfall": {
-            "name": "Max Rainfall",
-            "statVar": "Max_Rainfall"
-          },
-          "Mean_Rainfall": {
-            "name": "Mean Rainfall",
-            "statVar": "Mean_Rainfall"
-          },
-          "PrecipitationRate": {
-            "name": "Precipitation Rate",
-            "statVar": "PrecipitationRate"
-          },
-          "sdg/ER_H2O_STRESS": {
-            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources",
-            "statVar": "sdg/ER_H2O_STRESS"
-          },
-          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322": {
-            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources [Agriculture]",
-            "statVar": "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Continent": "Country"
+        "Country": "State"
       },
       "eventTypeSpec": {
         "drought": {
@@ -366,379 +187,379 @@
         }
       },
       "placeDcid": [
-        "africa"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "africa",
-    "name": "Africa",
-    "place_type": "Continent"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "africa",
-      "name": "Africa",
-      "place_type": "Continent"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "Country": [
+      "State": [
         {
-          "dcid": "country/AGO",
-          "name": "Angola",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ATF",
-          "name": "French Southern Territories",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BDI",
-          "name": "Burundi",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BEN",
-          "name": "Benin",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BFA",
-          "name": "Burkina Faso",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BWA",
-          "name": "Botswana",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CAF",
-          "name": "Central African Republic",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CIV",
-          "name": "C\u00f4te d'Ivoire",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CMR",
-          "name": "Cameroon",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/COD",
-          "name": "Congo [DRC]",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/COG",
-          "name": "Congo [Republic]",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/COM",
-          "name": "Comoros",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CPV",
-          "name": "Cape Verde",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/DJI",
-          "name": "Djibouti",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/DZA",
-          "name": "Algeria",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/EGY",
-          "name": "Egypt",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ERI",
-          "name": "Eritrea",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ESH",
-          "name": "Western Sahara",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ETH",
-          "name": "Ethiopia",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GAB",
-          "name": "Gabon",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GHA",
-          "name": "Ghana",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GIN",
-          "name": "Guinea",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GMB",
-          "name": "Gambia",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GNB",
-          "name": "Guinea-Bissau",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GNQ",
-          "name": "Equatorial Guinea",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/KEN",
-          "name": "Kenya",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/LBR",
-          "name": "Liberia",
+          "dcid": "geoId/30",
+          "name": "Montana",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/LBY",
-          "name": "Libya",
+          "dcid": "geoId/31",
+          "name": "Nebraska",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/LSO",
-          "name": "Lesotho",
+          "dcid": "geoId/32",
+          "name": "Nevada",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MAR",
-          "name": "Morocco",
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MDG",
-          "name": "Madagascar",
+          "dcid": "geoId/34",
+          "name": "New Jersey",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MLI",
-          "name": "Mali",
+          "dcid": "geoId/35",
+          "name": "New Mexico",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MOZ",
-          "name": "Mozambique",
+          "dcid": "geoId/36",
+          "name": "New York",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MRT",
-          "name": "Mauritania",
+          "dcid": "geoId/37",
+          "name": "North Carolina",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MUS",
-          "name": "Mauritius",
+          "dcid": "geoId/38",
+          "name": "North Dakota",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MWI",
-          "name": "Malawi",
+          "dcid": "geoId/39",
+          "name": "Ohio",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MYT",
-          "name": "Mayotte",
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/NAM",
-          "name": "Namibia",
+          "dcid": "geoId/41",
+          "name": "Oregon",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/NER",
-          "name": "Niger",
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/NGA",
-          "name": "Nigeria",
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/REU",
-          "name": "R\u00e9union",
+          "dcid": "geoId/45",
+          "name": "South Carolina",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/RWA",
-          "name": "Rwanda",
+          "dcid": "geoId/46",
+          "name": "South Dakota",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SDN",
-          "name": "Sudan",
+          "dcid": "geoId/47",
+          "name": "Tennessee",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SEN",
-          "name": "Senegal",
+          "dcid": "geoId/48",
+          "name": "Texas",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SHN",
-          "name": "Saint Helena",
+          "dcid": "geoId/49",
+          "name": "Utah",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SLE",
-          "name": "Sierra Leone",
+          "dcid": "geoId/50",
+          "name": "Vermont",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SOM",
-          "name": "Somalia",
+          "dcid": "geoId/51",
+          "name": "Virginia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SSD",
-          "name": "South Sudan",
+          "dcid": "geoId/53",
+          "name": "Washington",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/STP",
-          "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+          "dcid": "geoId/54",
+          "name": "West Virginia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SWZ",
-          "name": "Eswatini",
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
           "types": [
-            "Country"
+            "State"
           ]
         }
       ]
@@ -764,7 +585,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/Flood",
@@ -781,8 +701,43 @@
         ]
       },
       {
-        "dcid": "dc/topic/WetBulbEvent",
-        "name": "Wet Bulb Event",
+        "dcid": "dc/topic/HeatWave",
+        "name": "Heat Wave",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Storm",
+        "name": "Storms",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Avalanche",
+        "name": "Avalanche",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Tsunami",
+        "name": "Tsunami",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/WindEvent",
+        "name": "Wind Events",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Fog",
+        "name": "Fog",
         "types": [
           "Topic"
         ]
@@ -790,5 +745,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

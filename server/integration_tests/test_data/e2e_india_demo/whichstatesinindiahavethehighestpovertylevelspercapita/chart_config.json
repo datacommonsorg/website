@@ -10,9 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Population Below Poverty Line in India",
+                    "title": "Nominal GDP Per Capita in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -20,150 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line in India",
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Below Poverty Line in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Population Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Below Poverty Line (Per Capita) in India",
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line (Per Capita)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Impoverished Population by Residency in India",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Impoverished Population by Residency"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/IND"
-                    ],
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line (%) in India (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Below International Poverty Line (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
+                    "description": "Nominal GDP Per Capita in United States of America",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal GDP Per Capita in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Nominal GDP Per Capita in India",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-                    ],
-                    "title": "Nominal GDP Per Capita in India",
+                    "title": "Nominal GDP Per Capita in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -178,9 +39,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                      "sdg/NY_GDP_PCAP"
                     ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "title": "Annual Growth Rate of Real GDP Per Capita in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -188,17 +49,214 @@
               {
                 "tiles": [
                   {
-                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "description": "Annual Growth Rate of Real GDP Per Capita in United States of America",
+                    "statVarKey": [
+                      "sdg/NY_GDP_PCAP"
+                    ],
+                    "title": "Annual Growth Rate of Real GDP Per Capita in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
+            "title": "Annual Growth Rate of Real GDP Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_Emissions_CarbonDioxide_PerCapita"
+                    ],
+                    "title": "CO2 Emissions Per Capita in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "CO2 Emissions Per Capita in United States of America",
+                    "statVarKey": [
+                      "Amount_Emissions_CarbonDioxide_PerCapita"
+                    ],
+                    "title": "CO2 Emissions Per Capita in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "CO2 Emissions Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
                     ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in United States of America",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                    ],
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainmentKindergarten"
+                    ],
+                    "title": "Population: Kindergarten in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainmentKindergarten"
+                    ],
+                    "title": "Population: Kindergarten in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Kindergarten in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainmentNurserySchool"
+                    ],
+                    "title": "Population: Nursery School in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainmentNurserySchool"
+                    ],
+                    "title": "Population: Nursery School in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Nursery School in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainmentKindergarten_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentNurserySchool_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentPrimarySchool_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment1StGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment2NdGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment3RdGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment4ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment5ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment6ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment7ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment8ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment9ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment11ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment12ThGradeNoDiploma_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment_9ThTo12ThGradeNoDiploma_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentRegularHighSchoolDiploma_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentAssociatesDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentBachelorsDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentMastersDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentDoctorateDegree_multiple_place_bar_block"
+                    ],
+                    "title": "Population by Level of Educational Attainment in United States of America (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Level of Educational Attainment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Murder and Non Negligent Manslaughter Cases Per Capita in United States of America",
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Intentional homicides are estimates of unlawful homicides purposely inflicted as a result of domestic disputes, interpersonal violence, violent conflicts over land resources, intergang violence over turf or control, and predatory violence and killing by armed groups. Intentional homicide does not include all intentional killing; the difference is usually in the organization of the killing. Individuals or small groups usually commit homicide, whereas killing in armed conflict is usually committed by fairly cohesive groups of up to several hundred members and is thus usually excluded. UN office on drugs and Crime's international homicide statistics database.",
+            "title": "Murder and Non Negligent Manslaughter Cases Per Capita"
           }
         ],
         "statVarSpec": {
@@ -210,439 +268,517 @@
             "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
             "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below poverty line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          "Amount_Emissions_CarbonDioxide_PerCapita": {
+            "name": "CO2 Emissions Per Capita",
+            "statVar": "Amount_Emissions_CarbonDioxide_PerCapita"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-            "name": "Population Below poverty line (Per Capita)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+          "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person": {
+            "name": "Murder and Non Negligent Manslaughter Cases Per Capita",
+            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
           },
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-            "name": "Rural residents, Below Poverty Line",
-            "statVar": "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+          "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block": {
+            "name": "Population: 10th Grade",
+            "statVar": "Count_Person_EducationalAttainment10ThGrade"
           },
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-            "name": "Urban residents, Below Poverty Line",
-            "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+          "Count_Person_EducationalAttainment11ThGrade_multiple_place_bar_block": {
+            "name": "Population: 11th Grade",
+            "statVar": "Count_Person_EducationalAttainment11ThGrade"
           },
-          "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
-            "name": "Population Age Under 15 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
+          "Count_Person_EducationalAttainment12ThGradeNoDiploma_multiple_place_bar_block": {
+            "name": "Population: 12th Grade No Diploma",
+            "statVar": "Count_Person_EducationalAttainment12ThGradeNoDiploma"
           },
-          "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block": {
-            "name": "Population Age 15 to 64 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
+          "Count_Person_EducationalAttainment1StGrade_multiple_place_bar_block": {
+            "name": "Population: 1st Grade",
+            "statVar": "Count_Person_EducationalAttainment1StGrade"
           },
-          "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block": {
-            "name": "Population Age 65 or Older Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
+          "Count_Person_EducationalAttainment2NdGrade_multiple_place_bar_block": {
+            "name": "Population: 2nd Grade",
+            "statVar": "Count_Person_EducationalAttainment2NdGrade"
           },
-          "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block": {
-            "name": "Women Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.SEX--F"
+          "Count_Person_EducationalAttainment3RdGrade_multiple_place_bar_block": {
+            "name": "Population: 3rd Grade",
+            "statVar": "Count_Person_EducationalAttainment3RdGrade"
           },
-          "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block": {
-            "name": "Men Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.SEX--M"
+          "Count_Person_EducationalAttainment4ThGrade_multiple_place_bar_block": {
+            "name": "Population: 4th Grade",
+            "statVar": "Count_Person_EducationalAttainment4ThGrade"
           },
-          "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block": {
-            "name": "Rural Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
+          "Count_Person_EducationalAttainment5ThGrade_multiple_place_bar_block": {
+            "name": "Population: 5th Grade",
+            "statVar": "Count_Person_EducationalAttainment5ThGrade"
           },
-          "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block": {
-            "name": "Urban Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
+          "Count_Person_EducationalAttainment6ThGrade_multiple_place_bar_block": {
+            "name": "Population: 6th Grade",
+            "statVar": "Count_Person_EducationalAttainment6ThGrade"
           },
-          "sdg/SI_POV_DAY1_multiple_place_bar_block": {
-            "name": "Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1"
+          "Count_Person_EducationalAttainment7ThGrade_multiple_place_bar_block": {
+            "name": "Population: 7th Grade",
+            "statVar": "Count_Person_EducationalAttainment7ThGrade"
+          },
+          "Count_Person_EducationalAttainment8ThGrade_multiple_place_bar_block": {
+            "name": "Population: 8th Grade",
+            "statVar": "Count_Person_EducationalAttainment8ThGrade"
+          },
+          "Count_Person_EducationalAttainment9ThGrade_multiple_place_bar_block": {
+            "name": "Population: 9th Grade",
+            "statVar": "Count_Person_EducationalAttainment9ThGrade"
+          },
+          "Count_Person_EducationalAttainmentAssociatesDegree_multiple_place_bar_block": {
+            "name": "Population: Associates Degree",
+            "statVar": "Count_Person_EducationalAttainmentAssociatesDegree"
+          },
+          "Count_Person_EducationalAttainmentBachelorsDegree_multiple_place_bar_block": {
+            "name": "Population With a Bachelor's Degree",
+            "statVar": "Count_Person_EducationalAttainmentBachelorsDegree"
+          },
+          "Count_Person_EducationalAttainmentDoctorateDegree_multiple_place_bar_block": {
+            "name": "Population With a Doctorate Degree",
+            "statVar": "Count_Person_EducationalAttainmentDoctorateDegree"
+          },
+          "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree_multiple_place_bar_block": {
+            "name": "Population: Graduate or Professional Degree",
+            "statVar": "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree"
+          },
+          "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_multiple_place_bar_block": {
+            "name": "Population: High School Graduate Includes Equivalency",
+            "statVar": "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency"
+          },
+          "Count_Person_EducationalAttainmentKindergarten": {
+            "name": "Population: Kindergarten",
+            "statVar": "Count_Person_EducationalAttainmentKindergarten"
+          },
+          "Count_Person_EducationalAttainmentKindergarten_multiple_place_bar_block": {
+            "name": "Population: Kindergarten",
+            "statVar": "Count_Person_EducationalAttainmentKindergarten"
+          },
+          "Count_Person_EducationalAttainmentMastersDegree_multiple_place_bar_block": {
+            "name": "Population With a Master's Degree",
+            "statVar": "Count_Person_EducationalAttainmentMastersDegree"
+          },
+          "Count_Person_EducationalAttainmentNurserySchool": {
+            "name": "Population: Nursery School",
+            "statVar": "Count_Person_EducationalAttainmentNurserySchool"
+          },
+          "Count_Person_EducationalAttainmentNurserySchool_multiple_place_bar_block": {
+            "name": "Population: Nursery School",
+            "statVar": "Count_Person_EducationalAttainmentNurserySchool"
+          },
+          "Count_Person_EducationalAttainmentPrimarySchool_multiple_place_bar_block": {
+            "name": "Population: Primary School",
+            "statVar": "Count_Person_EducationalAttainmentPrimarySchool"
+          },
+          "Count_Person_EducationalAttainmentRegularHighSchoolDiploma_multiple_place_bar_block": {
+            "name": "Population With a Regular High School Diploma",
+            "statVar": "Count_Person_EducationalAttainmentRegularHighSchoolDiploma"
+          },
+          "Count_Person_EducationalAttainment_9ThTo12ThGradeNoDiploma_multiple_place_bar_block": {
+            "name": "Population Completed Between 9th to 12th Grade With No Diploma",
+            "statVar": "Count_Person_EducationalAttainment_9ThTo12ThGradeNoDiploma"
+          },
+          "sdg/NY_GDP_PCAP": {
+            "name": "Annual growth rate of real GDP per capita",
+            "statVar": "sdg/NY_GDP_PCAP"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "AdministrativeArea1"
+        "Country": "State"
       },
       "placeDcid": [
-        "country/IND"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "country/IND",
-    "name": "India",
+    "dcid": "country/USA",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "country/IND",
-      "name": "India",
+      "dcid": "country/USA",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "AdministrativeArea1": [
+      "State": [
         {
-          "dcid": "wikidataId/Q1061",
-          "name": "Gujarat",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1159",
-          "name": "Andhra Pradesh",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1162",
-          "name": "Arunachal Pradesh",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1164",
-          "name": "Assam",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1165",
-          "name": "Bihar",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1168",
-          "name": "Chhattisgarh",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1171",
-          "name": "Goa",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1174",
-          "name": "Haryana",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1177",
-          "name": "Himachal Pradesh",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1184",
-          "name": "Jharkhand",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1185",
-          "name": "Karnataka",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1186",
-          "name": "Kerala",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1188",
-          "name": "Madhya Pradesh",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1191",
-          "name": "Maharashtra",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1193",
-          "name": "Manipur",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1195",
-          "name": "Meghalaya",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q120971341",
-          "name": "Chandigarh",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1353",
-          "name": "Delhi",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1356",
-          "name": "West Bengal",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1363",
-          "name": "Tripura",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1437",
-          "name": "Rajasthan",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1445",
-          "name": "Tamil Nadu",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1498",
-          "name": "Uttar Pradesh",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1499",
-          "name": "Uttarakhand",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1502",
-          "name": "Mizoram",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1505",
-          "name": "Sikkim",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q1599",
-          "name": "Nagaland",
+          "dcid": "geoId/30",
+          "name": "Montana",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q200130",
-          "name": "Azad Kashmir",
+          "dcid": "geoId/31",
+          "name": "Nebraska",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q200667",
-          "name": "Ladakh",
+          "dcid": "geoId/32",
+          "name": "Nevada",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q22048",
-          "name": "Odisha",
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q22424",
-          "name": "Punjab",
+          "dcid": "geoId/34",
+          "name": "New Jersey",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q260713",
-          "name": "Gorkhaland",
+          "dcid": "geoId/35",
+          "name": "New Mexico",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q26927",
-          "name": "Lakshadweep",
+          "dcid": "geoId/36",
+          "name": "New York",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q2893890",
-          "name": "Kamtapur",
+          "dcid": "geoId/37",
+          "name": "North Carolina",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q40888",
-          "name": "Andaman and Nicobar Islands",
+          "dcid": "geoId/38",
+          "name": "North Dakota",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q43433",
-          "name": "Chandigarh",
+          "dcid": "geoId/39",
+          "name": "Ohio",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q6432969",
-          "name": "Kosal state movement",
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q66278313",
-          "name": "Jammu and Kashmir",
+          "dcid": "geoId/41",
+          "name": "Oregon",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q66710",
-          "name": "Daman and Diu",
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q66743",
-          "name": "Puducherry",
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q677037",
-          "name": "Telangana",
+          "dcid": "geoId/45",
+          "name": "South Carolina",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q77997266",
-          "name": "Dadra and Nagar Haveli and Daman and Diu",
+          "dcid": "geoId/46",
+          "name": "South Dakota",
           "types": [
-            "AdministrativeArea1"
+            "State"
           ]
         },
         {
-          "dcid": "wikidataId/Q9357528",
-          "name": "National Capital Territory of Delhi",
+          "dcid": "geoId/47",
+          "name": "Tennessee",
           "types": [
-            "AdministrativeArea1"
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
           ]
         }
       ]
     },
     "childTopics": [
       {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty by Residency",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1",
-        "name": "No Poverty",
+        "dcid": "dc/topic/GDPByIndustry",
+        "name": "GDP by Industry",
         "types": [
           "Topic"
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
-        ]
-      },
-      "sdg/SI_POV_DAY1": {
-        "age": [
-          "sdg/SI_POV_DAY1.AGE--Y0T14",
-          "sdg/SI_POV_DAY1.AGE--Y15T64",
-          "sdg/SI_POV_DAY1.AGE--Y_GE65"
-        ],
-        "sdg_sex": [
-          "sdg/SI_POV_DAY1.SEX--F",
-          "sdg/SI_POV_DAY1.SEX--M"
-        ],
-        "sdg_urbanisation": [
-          "sdg/SI_POV_DAY1.URBANISATION--R",
-          "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
+        "dcid": "dc/topic/GDP",
+        "name": "GDP",
         "types": [
           "Topic"
         ]
@@ -651,8 +787,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
         "types": [
           "Topic"
         ]
@@ -697,6 +833,13 @@
       {
         "dcid": "country/DEU",
         "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
           "Country"
         ]
@@ -749,39 +892,34 @@
         "types": [
           "Country"
         ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
       }
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
+        "dcid": "dc/topic/EducationExpenditure",
+        "name": "Education Expenditure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
+        "dcid": "dc/topic/HealthcareExpenditure",
+        "name": "Healthcare Expenditure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
+        "dcid": "dc/topic/Remittance",
+        "name": "Remittance",
         "types": [
           "Topic"
         ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "svSource": "UNKNOWN",
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }

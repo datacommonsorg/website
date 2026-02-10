@@ -10,9 +10,134 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_FoodInsecure"
+                    ],
+                    "title": "Population: Food Insecure People in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_FoodInsecure"
+                    ],
+                    "title": "Population: Food Insecure People in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Food Insecure People in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_FoodInsecure_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Population: Food in Secure (Per Capita) in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_FoodInsecure_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Population: Food in Secure (Per Capita) in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Food in Secure (Per Capita) in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_MealCost_Person_FoodSecure"
+                    ],
+                    "title": "Average Meal Cost for Food Secure People in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_MealCost_Person_FoodSecure"
+                    ],
+                    "title": "Average Meal Cost for Food Secure People in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Meal Cost for Food Secure People in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Weekly_WeightedFoodSpendAmount_Person_FoodInSecure"
+                    ],
+                    "title": "Amount of Money Needed by a Food Insecure Person to Meet Weekly Food Needs in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Weekly_WeightedFoodSpendAmount_Person_FoodInSecure"
+                    ],
+                    "title": "Amount of Money Needed by a Food Insecure Person to Meet Weekly Food Needs in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Amount of Money Needed by a Food Insecure Person to Meet Weekly Food Needs in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Population With Moderate or Severe Food Insecurity in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +145,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "description": "Population With Moderate or Severe Food Insecurity in United States of America",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Population With Moderate or Severe Food Insecurity in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -42,7 +167,7 @@
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -58,7 +183,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Population With Severe Food Insecurity in Nigeria",
+                    "title": "Population With Severe Food Insecurity in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -66,11 +191,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Severe Food Insecurity in Nigeria",
+                    "description": "Population With Severe Food Insecurity in United States of America",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Population With Severe Food Insecurity in Nigeria",
+                    "title": "Population With Severe Food Insecurity in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -88,7 +213,7 @@
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -104,7 +229,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMS"
                     ],
-                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Moderate or Severe Food Insecurity in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -112,11 +237,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Moderate or Severe Food Insecurity in Nigeria",
+                    "description": "Moderate or Severe Food Insecurity in United States of America",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMS"
                     ],
-                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Moderate or Severe Food Insecurity in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -134,7 +259,7 @@
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -150,7 +275,7 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESS"
                     ],
-                    "title": "Severe Food Insecurity in Nigeria",
+                    "title": "Severe Food Insecurity in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -158,11 +283,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Severe Food Insecurity in Nigeria",
+                    "description": "Severe Food Insecurity in United States of America",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESS"
                     ],
-                    "title": "Severe Food Insecurity in Nigeria",
+                    "title": "Severe Food Insecurity in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -180,121 +305,32 @@
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC"
-                    ],
-                    "title": "Undernourishment in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Undernourishment in Nigeria",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC"
-                    ],
-                    "title": "Undernourishment in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
-            "title": "Undernourishment"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
-                    "statVarKey": [
-                      "sdg/SH_STA_WASHARI"
-                    ],
-                    "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: global health observatory (GHO), world health organisation (WHO).",
-            "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_STNTN.AGE--Y0T4"
-                    ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
-                    "statVarKey": [
-                      "sdg/SH_STA_STNTN.AGE--Y0T4"
-                    ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
-            "title": "Children Under 5 With Moderate or Severe Stunting"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_STNT.AGE--Y0T4"
-                    ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
-                    "statVarKey": [
-                      "sdg/SH_STA_STNT.AGE--Y0T4"
-                    ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
-            "title": "Moderate or Severe Stunting in Population Under 5"
           }
         ],
         "statVarSpec": {
+          "Count_Person_FoodInsecure": {
+            "name": "Population: Food Insecure People",
+            "statVar": "Count_Person_FoodInsecure"
+          },
+          "Count_Person_FoodInsecure_AsAFractionOf_Count_Person": {
+            "name": "Population: Food in Secure (Per Capita)",
+            "statVar": "Count_Person_FoodInsecure_AsAFractionOf_Count_Person"
+          },
+          "Mean_MealCost_Person_FoodSecure": {
+            "name": "Average Meal Cost for Food Secure People",
+            "statVar": "Mean_MealCost_Person_FoodSecure"
+          },
+          "Weekly_WeightedFoodSpendAmount_Person_FoodInSecure": {
+            "name": "Amount of money needed by a food insecure person to meet weekly food needs",
+            "statVar": "Weekly_WeightedFoodSpendAmount_Person_FoodInSecure"
+          },
           "sdg/AG_PRD_FIESMS": {
             "name": "Moderate or Severe Food Insecurity",
             "statVar": "sdg/AG_PRD_FIESMS"
@@ -342,102 +378,405 @@
           "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M": {
             "name": "Men Age 15 and Over With Severe Food Insecurity",
             "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SH_STA_STNT.AGE--Y0T4": {
-            "name": "Moderate or Severe Stunting in Population Under 5",
-            "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
-          },
-          "sdg/SH_STA_STNTN.AGE--Y0T4": {
-            "name": "Children Under 5 With Moderate or Severe Stunting",
-            "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
-          },
-          "sdg/SH_STA_WASHARI": {
-            "name": "Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene from diarrhoea, intestinal nematode infections, malnutrition and acute respiratory infections",
-            "statVar": "sdg/SH_STA_WASHARI"
-          },
-          "sdg/SN_ITK_DEFC": {
-            "name": "Undernourishment",
-            "statVar": "sdg/SN_ITK_DEFC"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "country/NGA"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "country/NGA",
-    "name": "Nigeria",
+    "dcid": "country/USA",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "country/NGA",
-      "name": "Nigeria",
+      "dcid": "country/USA",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/sdgAGPRDFIESMSN",
-        "name": "Population With Moderate or Severe Food Insecurity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdgAGPRDFIESSN",
-        "name": "Population With Severe Food Insecurity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdgAGPRDFIESMS",
-        "name": "Moderate or Severe Food Insecurity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdgAGPRDFIESS",
-        "name": "Severe Food Insecurity",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/sdg_2.1.2",
-        "name": "Food Insecurity",
+        "dcid": "dc/topic/FoodInsecurity",
+        "name": "Food Security",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/sdg_2.1",
-        "name": "End Hunger by 2030",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -510,6 +849,13 @@
         ]
       },
       {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
         "dcid": "country/PER",
         "name": "Peru",
         "types": [
@@ -529,25 +875,12 @@
         "types": [
           "Country"
         ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/sdg_2.1.1",
-        "name": "Undernourishment",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }

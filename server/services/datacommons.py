@@ -14,9 +14,12 @@
 """Copy of Data Commons Python Client API Core without pandas dependency."""
 
 import asyncio
+import collections
+from itertools import groupby
 import json
 import logging
-from typing import Dict, List
+from operator import itemgetter
+from typing import Dict, List, Set
 import urllib.parse
 
 from flask import current_app
@@ -34,6 +37,7 @@ from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
+from shared.lib.constants import PLACE_TYPE_RANK
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
 
@@ -370,10 +374,111 @@ def v2event(node, prop):
   return post(url, {"node": node, "property": prop})
 
 
-def get_place_info(dcids: List[str]) -> Dict:
+def _extract_place_info(node_response_item: Dict) -> Dict:
+  """Extracts place info (name, type) from a V2 Node response item."""
+  info = {}
+  # Extract name
+  if "name" in node_response_item.get("properties", {}):
+    info["name"] = node_response_item["properties"]["name"][0]
+
+  # Extract type
+  if "typeOf" in node_response_item.get("arcs", {}):
+    types = node_response_item["arcs"]["typeOf"].get("nodes", [])
+    if types:
+      # Prefer a type that is in our rank map, else take the first one
+      chosen_type = types[0].get("dcid", "")
+      for t in types:
+        t_dcid = t.get("dcid", "")
+        if t_dcid in PLACE_TYPE_RANK:
+          chosen_type = t_dcid
+          break
+      info["type"] = chosen_type
+  return info
+
+
+def get_place_info(place_dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
-  url = get_service_url("/v1/bulk/info/place")
-  return post(f"{url}", {"nodes": sorted(set(dcids))})
+
+  # Store info for all nodes found (original + ancestors)
+  all_node_info = {}
+  # Store parent linkage: child_dcid -> set(parent_dcids)
+  parent_map = collections.defaultdict(set)
+
+  current_dcids = set(place_dcids)
+  visited_dcids = set()
+
+  # Max depth for ancestry traversal (e.g. City -> County -> State -> Country -> Continent)
+  MAX_DEPTH = 5
+
+  for _ in range(MAX_DEPTH):
+    # Filter out already visited to avoid cycles/redundant work
+    to_query = list(current_dcids - visited_dcids)
+    if not to_query:
+      break
+
+    visited_dcids.update(to_query)
+
+    # Fetch name, type, containedInPlace
+    resp = v2node(to_query, "->[name, typeOf, containedInPlace]")
+    if "data" not in resp:
+      logger.warning("V2 Node API response missing 'data' key.")
+      break
+
+    next_dcids = set()
+    for dcid, data in resp["data"].items():
+      # Extract info
+      info = _extract_place_info(data)
+      info["dcid"] = dcid
+      all_node_info[dcid] = info
+
+      # Extract parents
+      if "containedInPlace" in data.get("arcs", {}):
+        for node in data["arcs"]["containedInPlace"].get("nodes", []):
+          p_dcid = node.get("dcid")
+          if p_dcid:
+            parent_map[dcid].add(p_dcid)
+            next_dcids.add(p_dcid)
+
+    current_dcids = next_dcids
+
+  # Construct result
+  result_data = []
+  for dcid in place_dcids:
+    if dcid in all_node_info:
+      entry = {
+          "node": dcid,
+          "info": {
+              "self": all_node_info[dcid],
+              "parents": []
+          }
+      }
+
+      # Reconstruct all ancestors using BFS to gather all reachable parents
+      ancestors = set()
+      queue = [dcid]
+      seen = {dcid}
+
+      while queue:
+        curr = queue.pop(0)
+        for p in parent_map.get(curr, []):
+          if p not in seen:
+            seen.add(p)
+            ancestors.add(p)
+            queue.append(p)
+
+      parents_list = []
+      for p_dcid in ancestors:
+        if p_dcid in all_node_info:
+          parents_list.append(all_node_info[p_dcid])
+
+      # Sort parents
+      entry["info"]["parents"] = sorted(
+          parents_list,
+          key=lambda x: PLACE_TYPE_RANK.get(x.get("type", ""), 100))
+
+      result_data.append(entry)
+
+  return {"data": result_data}
 
 
 def get_variable_group_info(nodes: List[str],
@@ -403,16 +508,67 @@ def get_variable_ancestors(dcid: str):
   return get(url).get("ancestors", [])
 
 
-def get_series_dates(parent_entity, child_type, variables):
+def _process_variable_dates(variable_dcid: str,
+                            variable_observation_data: Dict) -> Dict:
+  """Aggregates observation counts for a single variable from V2 response."""
+  # Pivot: Entity -> Date -> Facet  TO  Date -> Facet -> Count
+  counts_by_date_and_facet = collections.defaultdict(
+      lambda: collections.defaultdict(int))
+
+  by_entity = variable_observation_data.get("byEntity", {})
+  for _, entity_data in by_entity.items():
+    for facet_item in entity_data.get("orderedFacets", []):
+      facet_id = facet_item.get("facetId")
+      for obs in facet_item.get("observations", []):
+        date = obs.get("date")
+        if date:
+          counts_by_date_and_facet[date][facet_id] += 1
+
+  # Convert to list format
+  obs_dates = []
+  for date in sorted(counts_by_date_and_facet.keys()):
+    entity_counts = []
+    # Sort by facet_id for deterministic order
+    for facet_id in sorted(counts_by_date_and_facet[date].keys()):
+      count = counts_by_date_and_facet[date][facet_id]
+      entity_counts.append({"facet": facet_id, "count": count})
+    obs_dates.append({"date": date, "entityCount": entity_counts})
+
+  return {"variable": variable_dcid, "observationDates": obs_dates}
+
+
+def get_series_dates(parent_place_dcid, child_place_type, variable_dcids):
   """Get series dates."""
-  url = get_service_url("/v1/bulk/observation-dates/linked")
-  return post(
-      url, {
-          "linked_property": "containedInPlace",
-          "linked_entity": parent_entity,
-          "entity_type": child_type,
-          "variables": variables,
-      })
+  # Fetch series data from V2
+  url = get_service_url("/v2/observation")
+  req = {
+      "select": ["date", "variable", "entity"],
+      "entity": {
+          "expression":
+              f"{parent_place_dcid}<-containedInPlace+{{typeOf:{child_place_type}}}"
+      },
+      "variable": {
+          "dcids": sorted(variable_dcids)
+      }
+  }
+  resp = post(url, req)
+
+  # Aggregate counts locally
+  if "byVariable" not in resp:
+    logger.warning("V2 Observation API response missing 'byVariable' key.")
+  if "facets" not in resp:
+    logger.warning("V2 Observation API response missing 'facets' key.")
+
+  observations_by_variable = resp.get("byVariable", {})
+  facets = resp.get("facets", {})
+
+  result_list = []
+  # Sort by variable for deterministic order
+  for var in sorted(observations_by_variable.keys()):
+    data = observations_by_variable[var]
+    result_list.append(_process_variable_dates(var, data))
+
+  return {"datesByVariable": result_list, "facets": facets}
 
 
 def resolve(nodes, prop):

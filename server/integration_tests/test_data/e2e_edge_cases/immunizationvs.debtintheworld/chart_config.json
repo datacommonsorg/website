@@ -9,477 +9,202 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "sdg/DT_DOD_DECT_GN_ZS"
-                    ],
-                    "title": "External Debt Stocks as a Proportion of GNI in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/DT_DOD_DECT_GN_ZS"
-                    ],
-                    "title": "External Debt Stocks as a Proportion of GNI in the World (${date})",
-                    "type": "RANKING"
+                    "type": "PLACE_OVERVIEW"
                   }
                 ]
               }
-            ],
-            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
-            "title": "External Debt Stocks as a Proportion of GNI in the World"
+            ]
           }
-        ],
-        "statVarSpec": {
-          "sdg/DT_DOD_DECT_GN_ZS": {
-            "name": "External debt stocks as a proportion of GNI",
-            "statVar": "sdg/DT_DOD_DECT_GN_ZS"
-          }
-        }
+        ]
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "Place": "Country"
-      },
       "placeDcid": [
-        "Earth"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "Earth",
-    "name": "World",
-    "place_type": "Place"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "Earth",
-      "name": "World",
-      "place_type": "Place"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {
-      "Country": [
-        {
-          "dcid": "country/ABW",
-          "name": "Aruba",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/AFG",
-          "name": "Afghanistan",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/AGO",
-          "name": "Angola",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/AIA",
-          "name": "Anguilla",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ALA",
-          "name": "\u00c5land Islands",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ALB",
-          "name": "Albania",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/AND",
-          "name": "Andorra",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ANT",
-          "name": "Netherlands Antilles",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ARE",
-          "name": "United Arab Emirates",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ARG",
-          "name": "Argentina",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ARM",
-          "name": "Armenia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ASM",
-          "name": "American Samoa",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ATA",
-          "name": "Antarctica",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ATB",
-          "name": "British Antarctic Territory",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ATF",
-          "name": "French Southern Territories",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ATG",
-          "name": "Antigua and Barbuda",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ATN",
-          "name": "Dronning Maud Land",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/AUS",
-          "name": "Australia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/AUT",
-          "name": "Austria",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/AZE",
-          "name": "Azerbaijan",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BDI",
-          "name": "Burundi",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BEL",
-          "name": "Belgium",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BEN",
-          "name": "Benin",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BES",
-          "name": "Bonaire, Sint Eustatius and Saba",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BFA",
-          "name": "Burkina Faso",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BGD",
-          "name": "Bangladesh",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BGR",
-          "name": "Bulgaria",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BHR",
-          "name": "Bahrain",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BHS",
-          "name": "Bahamas",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BIH",
-          "name": "Bosnia and Herzegovina",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BLM",
-          "name": "Saint Barth\u00e9lemy",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BLR",
-          "name": "Belarus",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BLZ",
-          "name": "Belize",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BMU",
-          "name": "Bermuda",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BOL",
-          "name": "Bolivia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BRA",
-          "name": "Brazil",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BRB",
-          "name": "Barbados",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BRN",
-          "name": "Brunei",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BTN",
-          "name": "Bhutan",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BVT",
-          "name": "Bouvet Island",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/BWA",
-          "name": "Botswana",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CAF",
-          "name": "Central African Republic",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CAN",
-          "name": "Canada",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CCK",
-          "name": "Cocos (Keeling) Islands",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CHE",
-          "name": "Switzerland",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CHL",
-          "name": "Chile",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CHN",
-          "name": "China",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CIV",
-          "name": "C\u00f4te d'Ivoire",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CMR",
-          "name": "Cameroon",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/COD",
-          "name": "Congo [DRC]",
-          "types": [
-            "Country"
-          ]
-        }
-      ]
-    },
-    "childTopics": [],
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Debt",
-        "name": "Debt",
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
+    "parentTopics": [],
+    "peerPlaces": [
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "Topic"
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
         ]
       }
     ],
-    "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/GDP",
-        "name": "GDP",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EducationExpenditure",
-        "name": "Education Expenditure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HealthcareExpenditure",
-        "name": "Healthcare Expenditure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Remittance",
-        "name": "Remittance",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "showForm": true,
+  "svSource": "UNFULFILLED",
+  "userMessages": [
+    "Sorry, there were no relevant statistics about the topic for United States of America. See available topic categories with statistics for United States of America."
+  ]
 }

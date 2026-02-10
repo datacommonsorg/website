@@ -16,13 +16,13 @@
                     "statVarKey": [
                       "Count_Student"
                     ],
-                    "title": "Number of Students in Public Schools of Sunnyvale (${date})",
+                    "title": "Number of Students in Public Schools of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Number of Students in Public Schools of Sunnyvale"
+            "title": "Number of Students in Public Schools of United States of America"
           },
           {
             "columns": [
@@ -36,14 +36,14 @@
                     "statVarKey": [
                       "Count_Teacher"
                     ],
-                    "title": "Number of Teachers in Public Schools of Sunnyvale (${date})",
+                    "title": "Number of Teachers in Public Schools of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "Number of teachers.",
-            "title": "Number of Teachers in Public Schools of Sunnyvale"
+            "title": "Number of Teachers in Public Schools of United States of America"
           },
           {
             "columns": [
@@ -57,13 +57,13 @@
                     "statVarKey": [
                       "Percent_Student_AsAFractionOf_Count_Teacher"
                     ],
-                    "title": "Student-Teacher Ratio in Public Schools of Sunnyvale (${date})",
+                    "title": "Student-Teacher Ratio in Public Schools of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Student-Teacher Ratio in Public Schools of Sunnyvale"
+            "title": "Student-Teacher Ratio in Public Schools of United States of America"
           }
         ],
         "statVarSpec": {
@@ -85,191 +85,380 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "City": "PublicSchool"
+        "Country": "PublicSchool"
       },
       "placeDcid": [
-        "geoId/0677000"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/0677000",
-    "name": "Sunnyvale",
-    "place_type": "City"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/0677000",
-      "name": "Sunnyvale",
-      "place_type": "City"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
       "PublicSchool": [
         {
-          "dcid": "nces/060134312546",
-          "name": "North County Regional Occupational Program",
+          "dcid": "nces/010000200277",
+          "name": "Sequoyah Sch - Chalkville Campus",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/060216913485",
-          "name": "Summit Public School: Denali",
+          "dcid": "nces/010000201402",
+          "name": "Eufaula Sch - Eufaula Campus",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/061029001127",
-          "name": "Cupertino Middle",
+          "dcid": "nces/010000201667",
+          "name": "Camps",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/061029001146",
-          "name": "Chester W. Nimitz Elementary",
+          "dcid": "nces/010000201670",
+          "name": "Det Ctr",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/061029001153",
-          "name": "Louis E. Stocklmeir Elementary",
+          "dcid": "nces/010000201705",
+          "name": "Wallace Sch - Mt Meigs Campus",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/061029001154",
-          "name": "West Valley Elementary",
+          "dcid": "nces/010000201706",
+          "name": "Mcneel Sch - Vacca Campus",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/061443001696",
-          "name": "Fremont High",
+          "dcid": "nces/010000201876",
+          "name": "Alabama Youth Services",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/061443008353",
-          "name": "Community Day",
+          "dcid": "nces/010000500870",
+          "name": "Albertville Middle School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063543001588",
-          "name": "Braly Elementary",
+          "dcid": "nces/010000500871",
+          "name": "Albertville High School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063543006049",
-          "name": "Ponderosa Elementary",
+          "dcid": "nces/010000500879",
+          "name": "Albertville Intermediate School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063543007867",
-          "name": "Marian A. Peterson Middle",
+          "dcid": "nces/010000500889",
+          "name": "Albertville Elementary School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846002796",
-          "name": "Vargas Elementary",
+          "dcid": "nces/010000501616",
+          "name": "Albertville Kindergarten And Prek",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846004088",
-          "name": "San Miguel Elementary",
+          "dcid": "nces/010000502150",
+          "name": "Albertville Primary School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846006456",
-          "name": "Bishop Elementary",
+          "dcid": "nces/010000600193",
+          "name": "Kate Duncan Smith Dar Middle",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846006458",
-          "name": "Cherry Chase Elementary",
+          "dcid": "nces/010000600872",
+          "name": "Asbury High School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846006459",
-          "name": "Cumberland Elementary",
+          "dcid": "nces/010000600876",
+          "name": "Claysville School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846006460",
-          "name": "Ellis Elementary",
+          "dcid": "nces/010000600877",
+          "name": "Douglas Elementary School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846006463",
-          "name": "Lakewood Elementary",
+          "dcid": "nces/010000600878",
+          "name": "Douglas High School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846006464",
-          "name": "Columbia Middle",
+          "dcid": "nces/010000600880",
+          "name": "Brindlee Mountain Elementary School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846006465",
-          "name": "Sunnyvale Middle",
+          "dcid": "nces/010000600883",
+          "name": "Kate D Smith Dar High School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/063846007433",
-          "name": "Fairwood Elementary",
+          "dcid": "nces/010000600887",
+          "name": "Brindlee Mountain Primary School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/069103513485",
-          "name": "Summit Public School: Denali",
+          "dcid": "nces/010000600986",
+          "name": "Marshall Alternative School",
           "types": [
             "PublicSchool"
           ]
         },
         {
-          "dcid": "nces/069103513854",
-          "name": "Spark Charter",
+          "dcid": "nces/010000600987",
+          "name": "Marshall Technical School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000601413",
+          "name": "Robert D Sloman Primary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000601434",
+          "name": "Brindlee Mt Middle Sch",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000601585",
+          "name": "Brindlee Mountain High School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000601685",
+          "name": "Kate D Smith Dar Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000601812",
+          "name": "Douglas Middle School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000602209",
+          "name": "Asbury Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000700091",
+          "name": "Trace Crossings Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000700248",
+          "name": "Greystone Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000700251",
+          "name": "Hoover High School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000700337",
+          "name": "Berry Middle School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000700342",
+          "name": "South Shades Crest Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701422",
+          "name": "Robert F Bumpus Middle School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701456",
+          "name": "Spain Park High School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701483",
+          "name": "Deer Valley Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701738",
+          "name": "Bluff Park Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701739",
+          "name": "Green Valley Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701740",
+          "name": "Gwin Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701741",
+          "name": "Ira F Simmons Middle School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701742",
+          "name": "Rocky Ridge Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701743",
+          "name": "Shades Mountain Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000701825",
+          "name": "Hoover High Freshman Ctr",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000702091",
+          "name": "Riverchase Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000702186",
+          "name": "Brocks Gap Intermediate School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000702359",
+          "name": "Crossroads School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000702487",
+          "name": "Riverchase Career Connection Center",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000800303",
+          "name": "Horizon Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/010000800495",
+          "name": "Discovery Middle School",
           "types": [
             "PublicSchool"
           ]
@@ -299,353 +488,101 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/3502000",
-        "name": "Albuquerque",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/0203000",
-        "name": "Anchorage municipality",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2603000",
-        "name": "Ann Arbor",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1304000",
-        "name": "Atlanta",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4805000",
-        "name": "Austin",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2404000",
-        "name": "Baltimore",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1608830",
-        "name": "Boise",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2507000",
-        "name": "Boston",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4513330",
-        "name": "Charleston",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3712000",
-        "name": "Charlotte",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3915000",
-        "name": "Cincinnati",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3916000",
-        "name": "Cleveland",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3918000",
-        "name": "Columbus",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4819000",
-        "name": "Dallas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0820000",
-        "name": "Denver",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2622000",
-        "name": "Detroit",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4824000",
-        "name": "El Paso",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0937000",
-        "name": "Hartford",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4835000",
-        "name": "Houston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1836003",
-        "name": "Indianapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2836000",
-        "name": "Jackson",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1235000",
-        "name": "Jacksonville",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2938000",
-        "name": "Kansas City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3240000",
-        "name": "Las Vegas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0541000",
-        "name": "Little Rock",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0644000",
-        "name": "Los Angeles",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2148006",
-        "name": "Louisville/Jefferson County metro government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5548000",
-        "name": "Madison",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4748000",
-        "name": "Memphis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1245000",
-        "name": "Miami",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5553000",
-        "name": "Milwaukee",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2743000",
-        "name": "Minneapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0649670",
-        "name": "Mountain View",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4752006",
-        "name": "Nashville-Davidson metropolitan government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0952000",
-        "name": "New Haven",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2255000",
-        "name": "New Orleans",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0653000",
-        "name": "Oakland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4055000",
-        "name": "Oklahoma City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3137000",
-        "name": "Omaha",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1253000",
-        "name": "Orlando",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0655282",
-        "name": "Palo Alto",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4260000",
-        "name": "Philadelphia",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0455000",
-        "name": "Phoenix",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4261000",
-        "name": "Pittsburgh",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4159000",
-        "name": "Portland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5167000",
-        "name": "Richmond",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0664000",
-        "name": "Sacramento",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4967000",
-        "name": "Salt Lake City",
-        "types": [
-          "City"
+          "Country"
         ]
       }
     ],

@@ -9,797 +9,379 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Literate_multiple_place_bar_block"
+                      "worldBank/FR_INR_LEND"
                     ],
-                    "title": "Population: Literate (${date})",
-                    "type": "BAR"
+                    "title": "Lending Interest Rate (%) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Lending Interest Rate (%) in United States of America",
+                    "statVarKey": [
+                      "worldBank/FR_INR_LEND"
+                    ],
+                    "title": "Lending Interest Rate (%) in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate"
+            "description": "Lending rate is the bank rate that usually meets the short- and medium-term financing needs of the private sector. This rate is normally differentiated according to creditworthiness of borrowers and objectives of financing. The terms and conditions attached to these rates differ by country, however, limiting their comparability. (WorldBank series code: FR.INR.LEND, source: international monetary fund, international financial statistics and data files.).",
+            "title": "Lending Interest Rate (%)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Illiterate_multiple_place_bar_block"
+                      "sdg/SL_TLF_UEM.AGE--Y15T24"
                     ],
-                    "title": "Population: Illiterate (${date})",
-                    "type": "BAR"
+                    "title": "Unemployment Rate - 13th ICLS [15 to 24 Years Old] in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate - 13th ICLS [15 to 24 Years Old] in United States of America",
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEM.AGE--Y15T24"
+                    ],
+                    "title": "Unemployment Rate - 13th ICLS [15 to 24 Years Old] in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Illiterate"
+            "footnote": "Includes data from the following sources: HIES - continuous multisectoral survey; HIES - core welfare indicators questionnaire; HIES - harmonized survey on household living conditions; HIES - household budget survey; HIES - household income and expenditure survey; HIES - household Socio-Economic survey; HIES - household survey; HIES - households living conditions survey; HIES - indicator cluster survey; HIES - integrated household survey; HIES - living conditions monitoring survey; HIES - living...3735 more chars",
+            "title": "Unemployment Rate - 13th ICLS [15 to 24 Years Old]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Literate_Urban_multiple_place_bar_block"
+                      "sdg/SL_TLF_UEM.AGE--Y_GE15"
                     ],
-                    "title": "Population: Literate, Urban (${date})",
-                    "type": "BAR"
+                    "title": "Unemployment Rate - 13th ICLS [15 Years Old and Over] in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate - 13th ICLS [15 Years Old and Over] in United States of America",
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEM.AGE--Y_GE15"
+                    ],
+                    "title": "Unemployment Rate - 13th ICLS [15 Years Old and Over] in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Literate, Urban"
+            "footnote": "Includes data from the following sources: HIES - continuous multisectoral survey; HIES - core welfare indicators questionnaire; HIES - enquete sur les conditions de vie; HIES - harmonized survey on household living conditions; HIES - household budget survey; HIES - household income and expenditure survey; HIES - household Socio-Economic survey; HIES - household survey; HIES - households living conditions survey; HIES - indicator cluster survey; HIES - integrated household survey; HIES - living c...4003 more chars",
+            "title": "Unemployment Rate - 13th ICLS [15 Years Old and Over]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Literate_Male_multiple_place_bar_block"
+                      "sdg/SL_TLF_UEM.AGE--Y_GE25"
                     ],
-                    "title": "Population: Male, Literate (${date})",
-                    "type": "BAR"
+                    "title": "Unemployment Rate - 13th ICLS [25 Years Old and Over] in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate - 13th ICLS [25 Years Old and Over] in United States of America",
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEM.AGE--Y_GE25"
+                    ],
+                    "title": "Unemployment Rate - 13th ICLS [25 Years Old and Over] in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Male, Literate"
+            "footnote": "Includes data from the following sources: HIES - continuous multisectoral survey; HIES - core welfare indicators questionnaire; HIES - harmonized survey on household living conditions; HIES - household budget survey; HIES - household income and expenditure survey; HIES - household Socio-Economic survey; HIES - household survey; HIES - households living conditions survey; HIES - indicator cluster survey; HIES - integrated household survey; HIES - living conditions monitoring survey; HIES - living...3705 more chars",
+            "title": "Unemployment Rate - 13th ICLS [25 Years Old and Over]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Literate_Rural_multiple_place_bar_block"
+                      "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F"
                     ],
-                    "title": "Population: Literate, Rural (${date})",
-                    "type": "BAR"
+                    "title": "Unemployment Rate - 13th ICLS [15 to 24 Years Old, Female] in United States of America",
+                    "type": "LINE"
                   }
                 ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Literate, Rural"
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
+                    "description": "Unemployment Rate - 13th ICLS [15 to 24 Years Old, Female] in United States of America",
                     "statVarKey": [
-                      "Count_Person_Illiterate_Urban_multiple_place_bar_block"
+                      "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F"
                     ],
-                    "title": "Population: Illiterate, Urban (${date})",
-                    "type": "BAR"
+                    "title": "Unemployment Rate - 13th ICLS [15 to 24 Years Old, Female] in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Illiterate, Urban"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Literate_Female_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Female, Literate (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Literate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Illiterate_Male_multiple_place_bar_block"
-                    ],
-                    "title": "Number of Illiterate Males (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Number of illiterate males.",
-            "title": "Number of Illiterate Males"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Illiterate_Rural_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Illiterate, Rural (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Illiterate, Rural"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Illiterate_Female_multiple_place_bar_block"
-                    ],
-                    "title": "Number of Illiterate Females (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Number of illiterate females.",
-            "title": "Number of Illiterate Females"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Houseless_Literate_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Houseless, Literate (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Houseless, Literate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Houseless_Illiterate_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Houseless, Illiterate (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Houseless, Illiterate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Houseless_Literate_Urban_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Houseless, Literate, Urban (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Houseless, Literate, Urban"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Houseless_Illiterate_Urban_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Houseless, Illiterate, Urban (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Houseless, Illiterate, Urban"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Houseless_Literate_Rural_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Houseless, Literate, Rural (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Houseless, Literate, Rural"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Houseless_Illiterate_Rural_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Houseless, Illiterate, Rural (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Houseless, Illiterate, Rural"
+            "footnote": "Includes data from the following sources: HIES - continuous multisectoral survey; HIES - core welfare indicators questionnaire; HIES - harmonized survey on household living conditions; HIES - household budget survey; HIES - household income and expenditure survey; HIES - household Socio-Economic survey; HIES - household survey; HIES - households living conditions survey; HIES - indicator cluster survey; HIES - integrated household survey; HIES - living conditions monitoring survey; HIES - living...3705 more chars",
+            "title": "Unemployment Rate - 13th ICLS [15 to 24 Years Old, Female]"
           }
         ],
         "statVarSpec": {
-          "Count_Person_Houseless_Illiterate_Rural_multiple_place_bar_block": {
-            "name": "Population: Houseless, Illiterate, Rural",
-            "statVar": "Count_Person_Houseless_Illiterate_Rural"
+          "sdg/SL_TLF_UEM.AGE--Y15T24": {
+            "name": "Unemployment rate - 13th ICLS [15 to 24 years old]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y15T24"
           },
-          "Count_Person_Houseless_Illiterate_Urban_multiple_place_bar_block": {
-            "name": "Population: Houseless, Illiterate, Urban",
-            "statVar": "Count_Person_Houseless_Illiterate_Urban"
+          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F": {
+            "name": "Unemployment rate - 13th ICLS [15 to 24 years old, Female]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F"
           },
-          "Count_Person_Houseless_Illiterate_multiple_place_bar_block": {
-            "name": "Population: Houseless, Illiterate",
-            "statVar": "Count_Person_Houseless_Illiterate"
+          "sdg/SL_TLF_UEM.AGE--Y_GE15": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE15"
           },
-          "Count_Person_Houseless_Literate_Rural_multiple_place_bar_block": {
-            "name": "Population: Houseless, Literate, Rural",
-            "statVar": "Count_Person_Houseless_Literate_Rural"
+          "sdg/SL_TLF_UEM.AGE--Y_GE25": {
+            "name": "Unemployment rate - 13th ICLS [25 years old and over]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE25"
           },
-          "Count_Person_Houseless_Literate_Urban_multiple_place_bar_block": {
-            "name": "Population: Houseless, Literate, Urban",
-            "statVar": "Count_Person_Houseless_Literate_Urban"
-          },
-          "Count_Person_Houseless_Literate_multiple_place_bar_block": {
-            "name": "Population: Houseless, Literate",
-            "statVar": "Count_Person_Houseless_Literate"
-          },
-          "Count_Person_Illiterate_Female_multiple_place_bar_block": {
-            "name": "Number of illiterate females",
-            "statVar": "Count_Person_Illiterate_Female"
-          },
-          "Count_Person_Illiterate_Male_multiple_place_bar_block": {
-            "name": "Number of illiterate males",
-            "statVar": "Count_Person_Illiterate_Male"
-          },
-          "Count_Person_Illiterate_Rural_multiple_place_bar_block": {
-            "name": "Population: Illiterate, Rural",
-            "statVar": "Count_Person_Illiterate_Rural"
-          },
-          "Count_Person_Illiterate_Urban_multiple_place_bar_block": {
-            "name": "Population: Illiterate, Urban",
-            "statVar": "Count_Person_Illiterate_Urban"
-          },
-          "Count_Person_Illiterate_multiple_place_bar_block": {
-            "name": "Population: Illiterate",
-            "statVar": "Count_Person_Illiterate"
-          },
-          "Count_Person_Literate_Female_multiple_place_bar_block": {
-            "name": "Population: Female, Literate",
-            "statVar": "Count_Person_Literate_Female"
-          },
-          "Count_Person_Literate_Male_multiple_place_bar_block": {
-            "name": "Population: Male, Literate",
-            "statVar": "Count_Person_Literate_Male"
-          },
-          "Count_Person_Literate_Rural_multiple_place_bar_block": {
-            "name": "Population: Literate, Rural",
-            "statVar": "Count_Person_Literate_Rural"
-          },
-          "Count_Person_Literate_Urban_multiple_place_bar_block": {
-            "name": "Population: Literate, Urban",
-            "statVar": "Count_Person_Literate_Urban"
-          },
-          "Count_Person_Literate_multiple_place_bar_block": {
-            "name": "Population: Literate",
-            "statVar": "Count_Person_Literate"
+          "worldBank/FR_INR_LEND": {
+            "name": "Lending interest rate (%)",
+            "statVar": "worldBank/FR_INR_LEND"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "wikidataId/Q1165"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "wikidataId/Q1165",
-    "name": "Bihar",
-    "place_type": "AdministrativeArea1"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1184",
-      "name": "Jharkhand",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1498",
-      "name": "Uttar Pradesh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1195",
-      "name": "Meghalaya",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1164",
-      "name": "Assam",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1437",
-      "name": "Rajasthan",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "AdministrativeArea1"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/sdgSLTLFUEM",
+        "name": "Unemployment Rate, by Sex And Age - 13th ICLS",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgSLTLFUEM19ICLS",
+        "name": "Unemployment Rate, by Sex And Age - 19th ICLS",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgSLTLFUEMDIS",
+        "name": "Unemployment Rate, by Sex And Disability - 13th ICLS",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgSLTLFUEMDIS19ICLS",
+        "name": "Unemployment Rate, by Sex And Disability - 19th ICLS",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {
-      "Count_Person_Houseless_Illiterate": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Houseless_Illiterate_Rural",
-          "Count_Person_Houseless_Illiterate_Urban"
+      "sdg/SL_TLF_UEM.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F",
+          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M"
         ]
       },
-      "Count_Person_Houseless_Illiterate_Rural": {
-        "gender": [
-          "Count_Person_Houseless_Illiterate_Rural_Female",
-          "Count_Person_Houseless_Illiterate_Rural_Male"
+      "sdg/SL_TLF_UEM.AGE--Y_GE15": {
+        "sdg_sex": [
+          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F",
+          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M"
         ]
       },
-      "Count_Person_Houseless_Illiterate_Urban": {
-        "gender": [
-          "Count_Person_Houseless_Illiterate_Urban_Female",
-          "Count_Person_Houseless_Illiterate_Urban_Male"
-        ]
-      },
-      "Count_Person_Houseless_Literate": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Houseless_Literate_Rural",
-          "Count_Person_Houseless_Literate_Urban"
-        ]
-      },
-      "Count_Person_Houseless_Literate_Rural": {
-        "gender": [
-          "Count_Person_Houseless_Literate_Rural_Female",
-          "Count_Person_Houseless_Literate_Rural_Male"
-        ]
-      },
-      "Count_Person_Houseless_Literate_Urban": {
-        "gender": [
-          "Count_Person_Houseless_Literate_Urban_Female",
-          "Count_Person_Houseless_Literate_Urban_Male"
-        ]
-      },
-      "Count_Person_Illiterate": {
-        "gender": [
-          "Count_Person_Illiterate_Female",
-          "Count_Person_Illiterate_Male"
-        ],
-        "placeOfResidenceClassification": [
-          "Count_Person_Illiterate_Rural",
-          "Count_Person_Illiterate_Urban"
-        ]
-      },
-      "Count_Person_Illiterate_Female": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Illiterate_Rural_Female",
-          "Count_Person_Illiterate_Urban_Female"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Illiterate_Female",
-          "indianCensus/Count_Person_Religion_Christian_Illiterate_Female",
-          "indianCensus/Count_Person_Religion_Hindu_Illiterate_Female",
-          "indianCensus/Count_Person_Religion_Jain_Illiterate_Female",
-          "indianCensus/Count_Person_Religion_Muslim_Illiterate_Female",
-          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Illiterate_Female",
-          "indianCensus/Count_Person_Religion_ReligionNotStated_Illiterate_Female",
-          "indianCensus/Count_Person_Religion_Sikh_Illiterate_Female"
-        ],
-        "socialCategory": [
-          "Count_Person_ScheduledCaste_Illiterate_Female",
-          "Count_Person_ScheduledTribe_Illiterate_Female"
-        ]
-      },
-      "Count_Person_Literate": {
-        "gender": [
-          "Count_Person_Literate_Female",
-          "Count_Person_Literate_Male"
-        ],
-        "placeOfResidenceClassification": [
-          "Count_Person_Literate_Rural",
-          "Count_Person_Literate_Urban"
-        ]
-      },
-      "Count_Person_Literate_Female": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Literate_Rural_Female",
-          "Count_Person_Literate_Urban_Female"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Literate_Female",
-          "indianCensus/Count_Person_Religion_Christian_Literate_Female",
-          "indianCensus/Count_Person_Religion_Hindu_Literate_Female",
-          "indianCensus/Count_Person_Religion_Jain_Literate_Female",
-          "indianCensus/Count_Person_Religion_Muslim_Literate_Female",
-          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Literate_Female",
-          "indianCensus/Count_Person_Religion_ReligionNotStated_Literate_Female"
+      "sdg/SL_TLF_UEM.AGE--Y_GE25": {
+        "sdg_sex": [
+          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F",
+          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M"
         ]
       }
     },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Literacy",
-        "name": "Literacy",
+        "dcid": "dc/topic/sdg_8.5.2",
+        "name": "Unemployment Rate by Demographics",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [],
-    "peerPlaces": [],
-    "peerTopics": []
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg_8.5",
+        "name": "Full Employment and Equal Pay by 2030",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_8.5.1",
+        "name": "Average Hourly Earnings by Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "See relevant statistics based on the previous query."
+    "See relevant statistics for United States of America based on the previous query."
   ]
 }

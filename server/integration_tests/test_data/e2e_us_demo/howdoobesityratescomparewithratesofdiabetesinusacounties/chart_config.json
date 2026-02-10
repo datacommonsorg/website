@@ -16,7 +16,7 @@
                       "Percent_Person_Obesity_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Prevalence of Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Prevalence of Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -32,7 +32,7 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Prevalence of Obesity in Counties of United States (${date})",
+                    "title": "Prevalence of Obesity in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -47,13 +47,13 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Prevalence of Obesity in Counties of United States (${date})",
+                    "title": "Prevalence of Obesity in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Obesity in Counties of United States"
+            "title": "Prevalence of Obesity in Counties of United States of America"
           },
           {
             "columns": [
@@ -63,7 +63,7 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -78,13 +78,13 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Diabetes in Counties of United States"
+            "title": "Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -98,7 +98,7 @@
                       "dc/4lvmzr1h1ylk1_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Prevalence: Female, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Prevalence: Female, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1"
                     ],
-                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "title": "Prevalence: Female, Obesity in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -129,13 +129,13 @@
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1"
                     ],
-                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "title": "Prevalence: Female, Obesity in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Prevalence: Female, Obesity in Counties of United States"
+            "title": "Prevalence: Female, Obesity in Counties of United States of America"
           },
           {
             "columns": [
@@ -149,7 +149,7 @@
                       "dc/x13tvt8jsgrm4_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Prevalence: Male, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Prevalence: Male, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -167,7 +167,7 @@
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4"
                     ],
-                    "title": "Prevalence: Male, Obesity in Counties of United States (${date})",
+                    "title": "Prevalence: Male, Obesity in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -182,13 +182,13 @@
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4"
                     ],
-                    "title": "Prevalence: Male, Obesity in Counties of United States (${date})",
+                    "title": "Prevalence: Male, Obesity in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Prevalence: Male, Obesity in Counties of United States"
+            "title": "Prevalence: Male, Obesity in Counties of United States of America"
           }
         ],
         "statVarSpec": {
@@ -246,18 +246,18 @@
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
@@ -832,5 +832,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

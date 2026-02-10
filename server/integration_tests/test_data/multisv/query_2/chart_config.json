@@ -9,332 +9,925 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Line (${date})",
-                    "type": "BAR"
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Prevalence of Obesity (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below Poverty Line"
+            "title": "Population Below poverty line vs. Prevalence of Obesity"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population by Gender (${date})",
-                    "type": "BAR"
+                    "title": "Population Below Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Impoverished Population by Gender"
+            "title": "Population Below Poverty Line in States of United States of America"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                      "Percent_Person_Obesity"
                     ],
-                    "title": "Impoverished Population by Race (${date})",
-                    "type": "BAR"
+                    "title": "Prevalence of Obesity in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Obesity"
+                    ],
+                    "title": "Prevalence of Obesity in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Impoverished Population by Race"
+            "title": "Prevalence of Obesity in States of United States of America"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Impoverished Population by By Language Spoken at Home (${date})",
-                    "type": "BAR"
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Prevalence of Obesity (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population by By Language Spoken at Home"
+            "title": "Women below Poverty Line vs. Prevalence of Obesity"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_Obesity_multiple_place_bar_block"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Prevalence of Obesity (${date})",
-                    "type": "BAR"
+                    "title": "Women Below Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Women Below Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Obesity"
+            "title": "Women Below Poverty Line in States of United States of America"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months (${date})",
-                    "type": "BAR"
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Prevalence of Obesity (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months"
+            "title": "Males in Poverty (in last year) vs. Prevalence of Obesity"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line (${date})",
-                    "type": "BAR"
+                    "title": "Males in Poverty (In Last Year) in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Households With Food Stamps in the Past Year and Below Poverty Line"
+            "title": "Males in Poverty (In Last Year) in States of United States of America"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_BingeDrinking_scatter"
                     ],
-                    "title": "Family Households Below the Poverty Line (${date})",
-                    "type": "BAR"
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Prevalence of Binge Drinking (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below the Poverty Line"
+            "title": "Population Below poverty line vs. Prevalence of Binge Drinking"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_BingeDrinking"
+                    ],
+                    "title": "Prevalence of Binge Drinking in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_BingeDrinking"
+                    ],
+                    "title": "Prevalence of Binge Drinking in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Binge Drinking in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_PhysicalInactivity_scatter"
+                    ],
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Prevalence of Physical Inactivity (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Prevalence of Physical Inactivity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_PhysicalInactivity"
+                    ],
+                    "title": "Prevalence of Physical Inactivity in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_PhysicalInactivity"
+                    ],
+                    "title": "Prevalence of Physical Inactivity in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Physical Inactivity in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_SleepLessThan7Hours_scatter"
+                    ],
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_SleepLessThan7Hours"
+                    ],
+                    "title": "Percentage That Sleeps Less Than 7 Hours Per Night in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_SleepLessThan7Hours"
+                    ],
+                    "title": "Percentage That Sleeps Less Than 7 Hours Per Night in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage That Sleeps Less Than 7 Hours Per Night in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_PhysicalInactivity_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Prevalence of Physical Inactivity (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line vs. Prevalence of Physical Inactivity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_SleepLessThan7Hours_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line vs. Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_BingeDrinking_scatter"
+                    ],
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Prevalence of Binge Drinking (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Prevalence of Binge Drinking"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_SleepLessThan7Hours_scatter"
+                    ],
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_BingeDrinking_scatter"
+                    ],
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Prevalence of Binge Drinking (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Prevalence of Binge Drinking"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_PhysicalInactivity_scatter"
+                    ],
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Prevalence of Physical Inactivity (${xDate}) in States of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Prevalence of Physical Inactivity"
           }
         ],
         "statVarSpec": {
-          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Family Households Below the poverty line",
-            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Households With Food Stamps in the Past Year and below poverty line",
-            "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: Some language other than English spoken at home & below poverty line",
-            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: Only English Spoken At Home, Below Poverty Line",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: Spanish or Spanish Creole Spoken At Home, Below Poverty Line",
-            "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: Spanish Spoken At Home, Below Poverty Line",
-            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
-            "name": "Asians Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black or African Americans Below Poverty",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic or Latino Americans Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Below Poverty Line (Other Race)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Below Poverty Line (Two or More Races)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "White Americans (Not Hispanic or Latino) Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Americans Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+          "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
             "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
-          "Percent_Person_Obesity_multiple_place_bar_block": {
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          },
+          "Percent_Person_BingeDrinking": {
+            "name": "Prevalence of Binge Drinking",
+            "statVar": "Percent_Person_BingeDrinking",
+            "unit": "%"
+          },
+          "Percent_Person_BingeDrinking_scatter": {
+            "name": "Prevalence of Binge Drinking",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_BingeDrinking",
+            "unit": "%"
+          },
+          "Percent_Person_Obesity": {
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "Percent_Person_Obesity_scatter": {
+            "name": "Prevalence of Obesity",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "Percent_Person_PhysicalInactivity": {
+            "name": "Prevalence of Physical Inactivity",
+            "statVar": "Percent_Person_PhysicalInactivity",
+            "unit": "%"
+          },
+          "Percent_Person_PhysicalInactivity_scatter": {
+            "name": "Prevalence of Physical Inactivity",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_PhysicalInactivity",
+            "unit": "%"
+          },
+          "Percent_Person_SleepLessThan7Hours": {
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
+            "statVar": "Percent_Person_SleepLessThan7Hours",
+            "unit": "%"
+          },
+          "Percent_Person_SleepLessThan7Hours_scatter": {
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_SleepLessThan7Hours",
             "unit": "%"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "geoId/06"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
-    },
-    {
-      "dcid": "geoId/12",
-      "name": "Florida",
-      "place_type": "State"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
         "dcid": "dc/topic/PovertyByGender",
@@ -356,158 +949,28 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "exploreMore": {
-      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-        "benefitsStatus": [
-          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdSize": [
-          "Count_Household_With2Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With3To4Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With5To6Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With7OrMorePerson_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdWorkerSize": [
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderEducationalAttainment": [
-          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderOwnChildrenUnder18Years": [
-          "Count_Household_Householder0OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder1To2OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder3To4OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder5OrMoreOwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderRace": [
-          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceAsianAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceWhiteAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderRelatedChildrenUnder18Years": [
-          "Count_Household_Householder0RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder1To2RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder3To4RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder5OrMoreRelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "occupancyTenure": [
-          "Count_Household_FamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
-        ]
-      },
       "Count_Person_BelowPovertyLevelInThePast12Months": {
         "age": [
           "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months"
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months"
         ],
         "gender": [
           "Count_Person_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_AsianAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
         ]
       },
       "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
@@ -516,7 +979,14 @@
           "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months"
+          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_65To74Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75OrMoreYears_Female_BelowPovertyLevelInThePast12Months"
         ],
         "maritalStatus": [
           "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
@@ -528,7 +998,15 @@
           "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months"
+          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_65To74Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months"
         ],
         "maritalStatus": [
           "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
@@ -543,6 +1021,13 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/HealthBehavior",
+        "name": "Health Behavior",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "parentPlaces": [],
@@ -553,9 +1038,115 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
+        "types": [
+          "Topic"
+        ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/Businesses",
@@ -598,10 +1189,19 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/PreventativeHealth",
+        "name": "Preventive Health",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

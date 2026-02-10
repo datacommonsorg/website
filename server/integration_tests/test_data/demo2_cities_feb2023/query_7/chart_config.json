@@ -15,16 +15,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "country/OMN",
+                      "country/CHN",
+                      "country/MDV",
+                      "country/BTN",
+                      "country/YEM",
                       "country/DZA",
+                      "country/TLS",
+                      "country/IRN",
                       "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/SAU"
                     ],
                     "statVarKey": [
                       "FertilityRate_Person_Female_multiple_place_bar_block"
@@ -48,16 +48,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "country/OMN",
+                      "country/CHN",
+                      "country/MDV",
+                      "country/BTN",
+                      "country/YEM",
                       "country/DZA",
+                      "country/TLS",
+                      "country/IRN",
                       "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/SAU"
                     ],
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
@@ -82,16 +82,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "country/OMN",
+                      "country/CHN",
+                      "country/MDV",
+                      "country/BTN",
+                      "country/YEM",
                       "country/DZA",
+                      "country/TLS",
+                      "country/IRN",
                       "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/SAU"
                     ],
                     "statVarKey": [
                       "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
@@ -116,16 +116,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "country/OMN",
+                      "country/CHN",
+                      "country/MDV",
+                      "country/BTN",
+                      "country/YEM",
                       "country/DZA",
+                      "country/TLS",
+                      "country/IRN",
                       "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/SAU"
                     ],
                     "statVarKey": [
                       "GrowthRate_Count_Person_multiple_place_bar_block"
@@ -150,16 +150,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "country/OMN",
+                      "country/CHN",
+                      "country/MDV",
+                      "country/BTN",
+                      "country/YEM",
                       "country/DZA",
+                      "country/TLS",
+                      "country/IRN",
                       "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/SAU"
                     ],
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block"
@@ -184,16 +184,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "country/OMN",
+                      "country/CHN",
+                      "country/MDV",
+                      "country/BTN",
+                      "country/YEM",
                       "country/DZA",
+                      "country/TLS",
+                      "country/IRN",
                       "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/SAU"
                     ],
                     "statVarKey": [
                       "Count_Person_multiple_place_bar_block"
@@ -242,7 +242,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/DZA"
+        "country/OMN"
       ]
     }
   },
@@ -251,16 +251,51 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/DZA",
-    "name": "Algeria",
+    "dcid": "country/OMN",
+    "name": "Oman",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
+      "dcid": "country/OMN",
+      "name": "Oman",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/CHN",
+      "name": "China",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MDV",
+      "name": "Maldives",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BTN",
+      "name": "Bhutan",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/YEM",
+      "name": "Yemen",
+      "place_type": "Country"
+    },
+    {
       "dcid": "country/DZA",
       "name": "Algeria",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/TLS",
+      "name": "East Timor",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/IRN",
+      "name": "Iran",
       "place_type": "Country"
     },
     {
@@ -269,43 +304,8 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/TUN",
-      "name": "Tunisia",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MWI",
-      "name": "Malawi",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GMB",
-      "name": "Gambia",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/ERI",
-      "name": "Eritrea",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MLI",
-      "name": "Mali",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SSD",
-      "name": "South Sudan",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/CMR",
-      "name": "Cameroon",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
+      "dcid": "country/SAU",
+      "name": "Saudi Arabia",
       "place_type": "Country"
     }
   ],

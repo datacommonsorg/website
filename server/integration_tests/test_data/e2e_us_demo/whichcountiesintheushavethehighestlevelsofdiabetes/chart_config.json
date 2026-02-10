@@ -16,7 +16,7 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -27,13 +27,13 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Diabetes in Counties of United States"
+            "title": "Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -43,7 +43,7 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in United States",
+                    "title": "Diabetes in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -51,11 +51,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Diabetes in United States",
+                    "description": "Diabetes in United States of America",
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in United States",
+                    "title": "Diabetes in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -75,7 +75,7 @@
                     "statVarKey": [
                       "Percent_Person_20OrMoreYears_WithDiabetes"
                     ],
-                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States (${date})",
+                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -86,13 +86,13 @@
                     "statVarKey": [
                       "Percent_Person_20OrMoreYears_WithDiabetes"
                     ],
-                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States (${date})",
+                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States"
+            "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -106,7 +106,7 @@
                     "statVarKey": [
                       "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
+                    "title": "Percent of Men That Have Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -117,14 +117,14 @@
                     "statVarKey": [
                       "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
+                    "title": "Percent of Men That Have Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Percent of Men That Have Diabetes in Counties of United States"
+            "title": "Percent of Men That Have Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -138,7 +138,7 @@
                     "statVarKey": [
                       "dc/nh3s4skee5483"
                     ],
-                    "title": "Percent of Women That Have Diabetes in Counties of United States (${date})",
+                    "title": "Percent of Women That Have Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -149,14 +149,14 @@
                     "statVarKey": [
                       "dc/nh3s4skee5483"
                     ],
-                    "title": "Percent of Women That Have Diabetes in Counties of United States (${date})",
+                    "title": "Percent of Women That Have Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Percent of Women That Have Diabetes in Counties of United States"
+            "title": "Percent of Women That Have Diabetes in Counties of United States of America"
           }
         ],
         "statVarSpec": {
@@ -193,18 +193,18 @@
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
@@ -758,5 +758,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }

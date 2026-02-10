@@ -9,42 +9,10 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
                     "statVarKey": [
-                      "Count_Person_1To4Years_multiple_place_bar_block",
-                      "Count_Person_5To17Years_multiple_place_bar_block",
-                      "Count_Person_18To24Years_multiple_place_bar_block",
-                      "Count_Person_25To34Years_multiple_place_bar_block",
-                      "Count_Person_35To44Years_multiple_place_bar_block",
-                      "Count_Person_45To54Years_multiple_place_bar_block",
-                      "Count_Person_55To64Years_multiple_place_bar_block",
-                      "Count_Person_65To74Years_multiple_place_bar_block",
-                      "Count_Person_75OrMoreYears_multiple_place_bar_block"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Age Distribution in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Age Distribution"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_1To4Years"
-                    ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -57,16 +25,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_1To4Years"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "title": "Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 1-4 Years in Cities of East Carroll Parish"
+            "title": "Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -74,135 +41,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_5To17Years"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5To17Years"
-                    ],
-                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Aged 5 to 17 in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
-                    ],
-                    "title": "Population by Income Level in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population by Income Level"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_IncomeOfUpto9999USDollar"
-                    ],
-                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_IncomeOfUpto9999USDollar"
-                    ],
-                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_IncomeOf10000To14999USDollar"
-                    ],
-                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_IncomeOf10000To14999USDollar"
-                    ],
-                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_18OrMoreYears"
-                    ],
-                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "title": "Diabetes in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -210,18 +51,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 18 Years or More in East Carroll Parish",
+                    "description": "Diabetes in United States of America",
                     "statVarKey": [
-                      "Count_Person_18OrMoreYears"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "title": "Diabetes in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 18 Years or More"
+            "title": "Diabetes"
           },
           {
             "columns": [
@@ -229,9 +69,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_18OrMoreYears"
+                      "Percent_Person_20OrMoreYears_WithDiabetes"
                     ],
-                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -244,16 +84,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_18OrMoreYears"
+                      "Percent_Person_20OrMoreYears_WithDiabetes"
                     ],
-                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 18 Years or More in Cities of East Carroll Parish"
+            "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -261,38 +100,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person"
+                      "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Population in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population in East Carroll Parish",
-                    "statVarKey": [
-                      "Count_Person"
-                    ],
-                    "title": "Population in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "The total number of people in a population.",
-            "title": "Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person"
-                    ],
-                    "title": "Population in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Men That Have Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -305,16 +115,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person"
+                      "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Population in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Men That Have Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "description": "The total number of people in a population.",
-            "title": "Population in Cities of East Carroll Parish"
+            "denom": "Count_Person",
+            "title": "Percent of Men That Have Diabetes in Counties of United States of America"
           },
           {
             "columns": [
@@ -322,38 +132,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person"
+                      "dc/nh3s4skee5483"
                     ],
-                    "title": "Median Age of Population in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "The median age of people in a population.",
-            "title": "Median Age of Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Women That Have Diabetes in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -366,256 +147,428 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Age_Person"
+                      "dc/nh3s4skee5483"
                     ],
-                    "title": "Median Age of Population in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "The median age of people in a population.",
-            "title": "Median Age of Population in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Upto18Years"
-                    ],
-                    "title": "Population: 18 Years or Less in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 18 Years or Less in East Carroll Parish",
-                    "statVarKey": [
-                      "Count_Person_Upto18Years"
-                    ],
-                    "title": "Population: 18 Years or Less in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 18 Years or Less"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Upto18Years"
-                    ],
-                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Upto18Years"
-                    ],
-                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "title": "Percent of Women That Have Diabetes in Counties of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or Less in Cities of East Carroll Parish"
+            "title": "Percent of Women That Have Diabetes in Counties of United States of America"
           }
         ],
         "statVarSpec": {
-          "Count_Person": {
-            "name": "Population",
-            "statVar": "Count_Person"
+          "Percent_Person_20OrMoreYears_WithDiabetes": {
+            "name": "Percent of Population 20 Years or Older With Diabetes",
+            "statVar": "Percent_Person_20OrMoreYears_WithDiabetes",
+            "unit": "%"
           },
-          "Count_Person_18OrMoreYears": {
-            "name": "Population: 18 Years or More",
-            "statVar": "Count_Person_18OrMoreYears"
+          "Percent_Person_WithDiabetes": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
           },
-          "Count_Person_18To24Years_multiple_place_bar_block": {
-            "name": "Population Aged 18 to 24 Years",
-            "statVar": "Count_Person_18To24Years"
+          "dc/nh3s4skee5483": {
+            "name": "Percent of Women That Have Diabetes",
+            "statVar": "dc/nh3s4skee5483"
           },
-          "Count_Person_1To4Years": {
-            "name": "Population: 1 - 4 Years",
-            "statVar": "Count_Person_1To4Years"
-          },
-          "Count_Person_1To4Years_multiple_place_bar_block": {
-            "name": "Population: 1 - 4 Years",
-            "statVar": "Count_Person_1To4Years"
-          },
-          "Count_Person_25To34Years_multiple_place_bar_block": {
-            "name": "Population Aged 25 to 34 Years",
-            "statVar": "Count_Person_25To34Years"
-          },
-          "Count_Person_35To44Years_multiple_place_bar_block": {
-            "name": "Population Aged 35 to 44",
-            "statVar": "Count_Person_35To44Years"
-          },
-          "Count_Person_45To54Years_multiple_place_bar_block": {
-            "name": "Population Aged 45 to 54",
-            "statVar": "Count_Person_45To54Years"
-          },
-          "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: 55 - 64 Years",
-            "statVar": "Count_Person_55To64Years"
-          },
-          "Count_Person_5To17Years": {
-            "name": "Population Aged 5 to 17",
-            "statVar": "Count_Person_5To17Years"
-          },
-          "Count_Person_5To17Years_multiple_place_bar_block": {
-            "name": "Population Aged 5 to 17",
-            "statVar": "Count_Person_5To17Years"
-          },
-          "Count_Person_65To74Years_multiple_place_bar_block": {
-            "name": "Population Aged 65 to 74",
-            "statVar": "Count_Person_65To74Years"
-          },
-          "Count_Person_75OrMoreYears_multiple_place_bar_block": {
-            "name": "Population Aged 75 and Up",
-            "statVar": "Count_Person_75OrMoreYears"
-          },
-          "Count_Person_IncomeOf10000To14999USDollar": {
-            "name": "Number of People Earning $10,000 and $14,999",
-            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
-          },
-          "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning $10,000 and $14,999",
-            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
-          },
-          "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning $25,000 and $34,999",
-            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
-          },
-          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning $35,000 and $49,999",
-            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
-          },
-          "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning Between $50,000 and $64,999",
-            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
-          },
-          "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning Between $65,000 and $74,999",
-            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
-          },
-          "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning $75,000 or More",
-            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
-          },
-          "Count_Person_IncomeOfUpto9999USDollar": {
-            "name": "Number of People Earning Up to $9,999",
-            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
-          },
-          "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning Up to $9,999",
-            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
-          },
-          "Count_Person_Upto18Years": {
-            "name": "Population: 18 Years or Less",
-            "statVar": "Count_Person_Upto18Years"
-          },
-          "Median_Age_Person": {
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
+          "dc/xmpy89x1nh8cg": {
+            "name": "Percent of Men That Have Diabetes",
+            "statVar": "dc/xmpy89x1nh8cg"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "County": "City"
+        "Country": "County"
       },
       "placeDcid": [
-        "geoId/22035"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/22035",
-    "name": "East Carroll Parish",
-    "place_type": "County"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/22035",
-      "name": "East Carroll Parish",
-      "place_type": "County"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "City": [
+      "County": [
         {
-          "dcid": "geoId/2241400",
-          "name": "Lake Providence",
+          "dcid": "geoId/01001",
+          "name": "Autauga",
           "types": [
-            "City"
+            "County"
           ]
         },
         {
-          "dcid": "geoId/5022035",
-          "name": "Lake Providence",
+          "dcid": "geoId/01003",
+          "name": "Baldwin",
           "types": [
-            "City"
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01005",
+          "name": "Barbour",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01007",
+          "name": "Bibb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01009",
+          "name": "Blount",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01011",
+          "name": "Bullock",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01013",
+          "name": "Butler",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01015",
+          "name": "Calhoun",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01017",
+          "name": "Chambers",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01019",
+          "name": "Cherokee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01021",
+          "name": "Chilton",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01023",
+          "name": "Choctaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01025",
+          "name": "Clarke",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01027",
+          "name": "Clay",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01029",
+          "name": "Cleburne",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01031",
+          "name": "Coffee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01033",
+          "name": "Colbert",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01035",
+          "name": "Conecuh",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01037",
+          "name": "Coosa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01039",
+          "name": "Covington",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01041",
+          "name": "Crenshaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01043",
+          "name": "Cullman",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01045",
+          "name": "Dale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01047",
+          "name": "Dallas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01049",
+          "name": "DeKalb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01051",
+          "name": "Elmore",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01053",
+          "name": "Escambia",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01055",
+          "name": "Etowah",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01057",
+          "name": "Fayette",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01059",
+          "name": "Franklin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01061",
+          "name": "Geneva",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01063",
+          "name": "Greene",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01065",
+          "name": "Hale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01067",
+          "name": "Henry",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01069",
+          "name": "Houston",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01071",
+          "name": "Jackson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01073",
+          "name": "Jefferson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01075",
+          "name": "Lamar",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01077",
+          "name": "Lauderdale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01079",
+          "name": "Lawrence",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01081",
+          "name": "Lee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01083",
+          "name": "Limestone",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01085",
+          "name": "Lowndes",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01087",
+          "name": "Macon",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01089",
+          "name": "Madison",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01091",
+          "name": "Marengo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01093",
+          "name": "Marion",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01095",
+          "name": "Marshall",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01097",
+          "name": "Mobile",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01099",
+          "name": "Monroe",
+          "types": [
+            "County"
           ]
         }
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person": {
-        "age": [
-          "Count_Person_18OrMoreYears",
-          "Count_Person_18To24Years",
-          "Count_Person_1To4Years",
-          "Count_Person_25To34Years",
-          "Count_Person_35To44Years",
-          "Count_Person_45To54Years",
-          "Count_Person_55To64Years",
-          "Count_Person_5To17Years",
-          "Count_Person_65To74Years",
-          "Count_Person_75OrMoreYears",
-          "Count_Person_Upto18Years"
-        ],
-        "income": [
-          "Count_Person_IncomeOf10000To14999USDollar",
-          "Count_Person_IncomeOf25000To34999USDollar",
-          "Count_Person_IncomeOf35000To49999USDollar",
-          "Count_Person_IncomeOf50000To64999USDollar",
-          "Count_Person_IncomeOf65000To74999USDollar",
-          "Count_Person_IncomeOf75000OrMoreUSDollar",
-          "Count_Person_IncomeOfUpto9999USDollar"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/AgeDistribution",
-        "name": "Age Distribution",
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
         "types": [
           "Topic"
         ]
@@ -624,8 +577,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -633,219 +586,179 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "County"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/17031",
-        "name": "Cook",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12031",
-        "name": "Duval",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/48201",
-        "name": "Harris",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
+          "Country"
         ]
       }
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/AgeMedians",
-        "name": "Age Medians",
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
-        "name": "Very Old and Very Young Population",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
         "types": [
           "Topic"
         ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "svSource": "PAST_QUERY",
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

@@ -10,17 +10,78 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24",
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%) in Africa",
+                    "title": "Population Below Poverty Line in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below Poverty Line in United States of America",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below Poverty Line in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Impoverished Population by Gender in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%)"
+            "denom": "Count_Person",
+            "title": "Impoverished Population by Gender"
           },
           {
             "columns": [
@@ -28,9 +89,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Population Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Women Below Poverty Line in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -43,16 +104,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Population Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Women Below Poverty Line in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Population Age 15 to 24 Below International Poverty Line in Countries of Africa"
+            "denom": "Count_Person",
+            "title": "Women Below Poverty Line in States of United States of America"
           },
           {
             "columns": [
@@ -60,9 +121,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Women Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Males in Poverty (In Last Year) in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -75,16 +136,48 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Women Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Males in Poverty (In Last Year) in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Women Age 15 to 24 Below International Poverty Line in Countries of Africa"
+            "denom": "Count_Person",
+            "title": "Males in Poverty (In Last Year) in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Impoverished Population by Race in United States of America (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Impoverished Population by Race"
           },
           {
             "columns": [
@@ -92,17 +185,83 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
-                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%) in Africa",
+                    "title": "Asians Below Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asians Below Poverty Line in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black or African Americans Below Poverty in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black or African Americans Below Poverty in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black or African Americans Below Poverty in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Impoverished Population by By Language Spoken at Home in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%)"
+            "denom": "Count_Person",
+            "title": "Impoverished Population by By Language Spoken at Home"
           },
           {
             "columns": [
@@ -110,9 +269,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population: Some Language Other Than English Spoken at Home & Below Poverty Line in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -125,16 +284,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population: Some Language Other Than English Spoken at Home & Below Poverty Line in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa"
+            "denom": "Count_Person",
+            "title": "Population: Some Language Other Than English Spoken at Home & Below Poverty Line in States of United States of America"
           },
           {
             "columns": [
@@ -142,9 +301,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population: Only English Spoken at Home, Below Poverty Line in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -157,98 +316,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population: Only English Spoken at Home, Below Poverty Line in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-                    ],
-                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%) in Africa",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25"
-                    ],
-                    "title": "Employed Population Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25"
-                    ],
-                    "title": "Employed Population Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Population Aged 25 or Over Below International Poverty Line in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-                    ],
-                    "title": "Employed Women Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-                    ],
-                    "title": "Employed Women Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Women Aged 25 or Over Below International Poverty Line in Countries of Africa"
+            "denom": "Count_Person",
+            "title": "Population: Only English Spoken at Home, Below Poverty Line in States of United States of America"
           },
           {
             "columns": [
@@ -258,7 +335,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line in Africa",
+                    "title": "Population Below International Poverty Line in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -266,11 +343,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below International Poverty Line in Africa",
+                    "description": "Population Below International Poverty Line in United States of America",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line in Africa",
+                    "title": "Population Below International Poverty Line in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -284,137 +361,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1"
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Population Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Population Below International Poverty Line in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y0T14"
-                    ],
-                    "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y0T14"
-                    ],
-                    "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Drinking Water Services in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Sanitation Services in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "title": "Family Households Below the Poverty Line in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -422,459 +371,991 @@
               {
                 "tiles": [
                   {
-                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "description": "Family Households Below the Poverty Line in United States of America",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "title": "Family Households Below the Poverty Line in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
+            "denom": "Count_Person",
+            "title": "Family Households Below the Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Family Households Below the Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Family Households Below the Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Family Households Below the Poverty Line in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Married Couple Family Households Below Poverty Line in United States of America",
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Married Couple Family Households Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Married Couple Family Households Below Poverty Line in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Above Poverty Line in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Above Poverty Line in United States of America",
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Above Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Above Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Above Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Above Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Above Poverty Line in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in United States of America",
+                    "statVarKey": [
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Men Above Poverty Line in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Above Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Above Poverty Line in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States of America",
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States of America",
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in United States of America",
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in States of United States of America"
           }
         ],
         "statVarSpec": {
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
+            "name": "Family Households Below the poverty line",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
+            "name": "Married Couple Family Households below poverty line",
+            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
+            "name": "Population: Some language other than English spoken at home & below poverty line",
+            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
+            "name": "Population: Only English Spoken At Home, Below Poverty Line",
+            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months": {
+            "name": "Population: Spanish or Spanish Creole Spoken At Home, Below Poverty Line",
+            "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
+            "name": "Population: Spanish Spoken At Home, Below Poverty Line",
+            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_AbovePovertyLevelInThePast12Months": {
+            "name": "Population Above poverty line",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+            "name": "Asians Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
+            "name": "Asians Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+            "name": "Black or African Americans Below Poverty",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African Americans Below Poverty",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic or Latino Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Below Poverty Line (Other Race)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Below Poverty Line (Two or More Races)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "White Americans (Not Hispanic or Latino) Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_AbovePovertyLevelInThePast12Months": {
+            "name": "Men Above poverty line",
+            "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y0T14": {
-            "name": "Population Age Under 15 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24": {
-            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": {
-            "name": "Employed Women Age 15 to 24 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": {
-            "name": "Employed Men Age 14 to 24 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-            "name": "Employed Population Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed Women Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed Men Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25": {
-            "name": "Employed Population Aged 25 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": {
-            "name": "Employed Women Aged 25 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": {
-            "name": "Employed Men Aged 25 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-          },
-          "sdg/SP_ACS_BSRVH2O": {
-            "name": "Population Using Basic Drinking Water Services",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
-          },
-          "sdg/SP_ACS_BSRVSAN": {
-            "name": "Population Using Basic Sanitation Services",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Continent": "Country"
+        "Country": "State"
       },
       "placeDcid": [
-        "africa"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "africa",
-    "name": "Africa",
-    "place_type": "Continent"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "africa",
-      "name": "Africa",
-      "place_type": "Continent"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {
-      "Country": [
+      "State": [
         {
-          "dcid": "country/AGO",
-          "name": "Angola",
+          "dcid": "geoId/01",
+          "name": "Alabama",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ATF",
-          "name": "French Southern Territories",
+          "dcid": "geoId/02",
+          "name": "Alaska",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BDI",
-          "name": "Burundi",
+          "dcid": "geoId/04",
+          "name": "Arizona",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BEN",
-          "name": "Benin",
+          "dcid": "geoId/05",
+          "name": "Arkansas",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BFA",
-          "name": "Burkina Faso",
+          "dcid": "geoId/06",
+          "name": "California",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/BWA",
-          "name": "Botswana",
+          "dcid": "geoId/08",
+          "name": "Colorado",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CAF",
-          "name": "Central African Republic",
+          "dcid": "geoId/09",
+          "name": "Connecticut",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CIV",
-          "name": "C\u00f4te d'Ivoire",
+          "dcid": "geoId/10",
+          "name": "Delaware",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CMR",
-          "name": "Cameroon",
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/COD",
-          "name": "Congo [DRC]",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/COG",
-          "name": "Congo [Republic]",
+          "dcid": "geoId/13",
+          "name": "Georgia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/COM",
-          "name": "Comoros",
+          "dcid": "geoId/15",
+          "name": "Hawaii",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/CPV",
-          "name": "Cape Verde",
+          "dcid": "geoId/16",
+          "name": "Idaho",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/DJI",
-          "name": "Djibouti",
+          "dcid": "geoId/17",
+          "name": "Illinois",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/DZA",
-          "name": "Algeria",
+          "dcid": "geoId/18",
+          "name": "Indiana",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/EGY",
-          "name": "Egypt",
+          "dcid": "geoId/19",
+          "name": "Iowa",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ERI",
-          "name": "Eritrea",
+          "dcid": "geoId/20",
+          "name": "Kansas",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ESH",
-          "name": "Western Sahara",
+          "dcid": "geoId/21",
+          "name": "Kentucky",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/ETH",
-          "name": "Ethiopia",
+          "dcid": "geoId/22",
+          "name": "Louisiana",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GAB",
-          "name": "Gabon",
+          "dcid": "geoId/23",
+          "name": "Maine",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GHA",
-          "name": "Ghana",
+          "dcid": "geoId/24",
+          "name": "Maryland",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GIN",
-          "name": "Guinea",
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GMB",
-          "name": "Gambia",
+          "dcid": "geoId/26",
+          "name": "Michigan",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GNB",
-          "name": "Guinea-Bissau",
+          "dcid": "geoId/27",
+          "name": "Minnesota",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/GNQ",
-          "name": "Equatorial Guinea",
+          "dcid": "geoId/28",
+          "name": "Mississippi",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/KEN",
-          "name": "Kenya",
+          "dcid": "geoId/29",
+          "name": "Missouri",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/LBR",
-          "name": "Liberia",
+          "dcid": "geoId/30",
+          "name": "Montana",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/LBY",
-          "name": "Libya",
+          "dcid": "geoId/31",
+          "name": "Nebraska",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/LSO",
-          "name": "Lesotho",
+          "dcid": "geoId/32",
+          "name": "Nevada",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MAR",
-          "name": "Morocco",
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MDG",
-          "name": "Madagascar",
+          "dcid": "geoId/34",
+          "name": "New Jersey",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MLI",
-          "name": "Mali",
+          "dcid": "geoId/35",
+          "name": "New Mexico",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MOZ",
-          "name": "Mozambique",
+          "dcid": "geoId/36",
+          "name": "New York",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MRT",
-          "name": "Mauritania",
+          "dcid": "geoId/37",
+          "name": "North Carolina",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MUS",
-          "name": "Mauritius",
+          "dcid": "geoId/38",
+          "name": "North Dakota",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MWI",
-          "name": "Malawi",
+          "dcid": "geoId/39",
+          "name": "Ohio",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/MYT",
-          "name": "Mayotte",
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/NAM",
-          "name": "Namibia",
+          "dcid": "geoId/41",
+          "name": "Oregon",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/NER",
-          "name": "Niger",
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/NGA",
-          "name": "Nigeria",
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/REU",
-          "name": "R\u00e9union",
+          "dcid": "geoId/45",
+          "name": "South Carolina",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/RWA",
-          "name": "Rwanda",
+          "dcid": "geoId/46",
+          "name": "South Dakota",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SDN",
-          "name": "Sudan",
+          "dcid": "geoId/47",
+          "name": "Tennessee",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SEN",
-          "name": "Senegal",
+          "dcid": "geoId/48",
+          "name": "Texas",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SHN",
-          "name": "Saint Helena",
+          "dcid": "geoId/49",
+          "name": "Utah",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SLE",
-          "name": "Sierra Leone",
+          "dcid": "geoId/50",
+          "name": "Vermont",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SOM",
-          "name": "Somalia",
+          "dcid": "geoId/51",
+          "name": "Virginia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SSD",
-          "name": "South Sudan",
+          "dcid": "geoId/53",
+          "name": "Washington",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/STP",
-          "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+          "dcid": "geoId/54",
+          "name": "West Virginia",
           "types": [
-            "Country"
+            "State"
           ]
         },
         {
-          "dcid": "country/SWZ",
-          "name": "Eswatini",
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
           "types": [
-            "Country"
+            "State"
           ]
         }
       ]
     },
     "childTopics": [
+      {
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByRace",
+        "name": "Poverty by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
+        "name": "Poverty by Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/sdg_1",
         "name": "No Poverty",
@@ -884,22 +1365,234 @@
       }
     ],
     "exploreMore": {
-      "sdg/SI_POV_EMP1.AGE--Y15T24": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
+        "benefitsStatus": [
+          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdSize": [
+          "Count_Household_With2Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With3To4Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With5To6Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With7OrMorePerson_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdWorkerSize": [
+          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderEducationalAttainment": [
+          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderOwnChildrenUnder18Years": [
+          "Count_Household_Householder0OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreOwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRace": [
+          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceAsianAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRelatedChildrenUnder18Years": [
+          "Count_Household_Householder0RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreRelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "occupancyTenure": [
+          "Count_Household_FamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
         ]
       },
-      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
+        "benefitsStatus": [
+          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdSize": [
+          "Count_Household_With2Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With3To4Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With5To6Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With7OrMorePerson_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdWorkerSize": [
+          "Count_Household_MarriedCoupleFamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderEducationalAttainment": [
+          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderOwnChildrenUnder18Years": [
+          "Count_Household_Householder0OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreOwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRace": [
+          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceAsianAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceHispanicOrLatino_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceSomeOtherRaceAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceTwoOrMoreRaces_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRelatedChildrenUnder18Years": [
+          "Count_Household_Householder0RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreRelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "occupancyTenure": [
+          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
         ]
       },
-      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "race": [
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_AsianAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_AbovePovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_AbovePovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_AbovePovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_AbovePovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
         ]
       }
     },
@@ -922,9 +1615,153 @@
         ]
       }
     ],
-    "peerPlaces": [],
-    "peerTopics": []
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }

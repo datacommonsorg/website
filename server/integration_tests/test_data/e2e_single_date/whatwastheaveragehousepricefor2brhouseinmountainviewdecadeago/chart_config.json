@@ -13,9 +13,9 @@
                       "highlightDate": "2016"
                     },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_1145703171"
+                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_2645850372"
                     ],
-                    "title": "Homes Valued at $2,000,000 or More in Mountain View",
+                    "title": "Homes Valued at $2,000,000 or More in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -23,11 +23,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Homes Valued at $2,000,000 or More in Mountain View",
+                    "description": "Homes Valued at $2,000,000 or More in United States of America",
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016"
                     ],
-                    "title": "Homes Valued at $2,000,000 or More in Mountain View",
+                    "title": "Homes Valued at $2,000,000 or More in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -41,603 +41,540 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "geoId/0649670"
-                    ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_2016"
+                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016"
                     ],
-                    "title": "Home Value of Houses in Mountain View (${date})",
-                    "type": "BAR"
+                    "title": "Homes Valued at $2,000,000 or More in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Home Value of Houses"
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/0649670"
-                    ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue100000To124999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue10000To14999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue125000To149999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue150000To174999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue20000To24999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue250000To299999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue25000To29999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue300000To399999USDollar_multiple_place_bar_block_2016"
+                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016"
                     ],
-                    "title": "Homes Valued at $2,000,000 or More and More in Mountain View (${date})",
-                    "type": "BAR"
+                    "title": "Homes Valued at $2,000,000 or More in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Homes Valued at $2,000,000 or More and More"
+            "title": "Homes Valued at $2,000,000 or More in States of United States of America"
           }
         ],
         "statVarSpec": {
-          "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $1,000,000 and $1,499,999",
-            "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
-          },
-          "Count_HousingUnit_HomeValue100000To124999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $100,000 and $124,999",
-            "statVar": "Count_HousingUnit_HomeValue100000To124999USDollar"
-          },
-          "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue10000To14999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $10,000 and $14,999",
-            "statVar": "Count_HousingUnit_HomeValue10000To14999USDollar"
-          },
-          "Count_HousingUnit_HomeValue125000To149999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $125,000 and $149,999",
-            "statVar": "Count_HousingUnit_HomeValue125000To149999USDollar"
-          },
-          "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $1,500,000 and $1,999,999",
-            "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
-          },
-          "Count_HousingUnit_HomeValue150000To174999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $150,000 and $174,999",
-            "statVar": "Count_HousingUnit_HomeValue150000To174999USDollar"
-          },
-          "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $15,000 to $19,999",
-            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
-          },
-          "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
           "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016": {
             "date": "2016",
             "name": "Homes Valued at $2,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
           },
-          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_1145703171": {
+          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_2645850372": {
             "date": "2016",
-            "facetId": "1145703171",
+            "facetId": "2645850372",
             "name": "Homes Valued at $2,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
-          },
-          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued at $2,000,000 or More",
-            "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
-          },
-          "Count_HousingUnit_HomeValue200000To249999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $200,000 to $249,999",
-            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
-          },
-          "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
-          },
-          "Count_HousingUnit_HomeValue20000To24999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $20,000 to $24,999",
-            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
-          },
-          "Count_HousingUnit_HomeValue250000To299999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $250,000 to $299,999",
-            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
-          },
-          "Count_HousingUnit_HomeValue25000To29999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Homes Valued Between $25,000 to $29,999",
-            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
-          },
-          "Count_HousingUnit_HomeValue300000To399999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Housing Units Valued at $300,000-$399,999",
-            "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
-          },
-          "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
-          },
-          "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
-          },
-          "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
-          },
-          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Count of Housing Unit: 49,999 USD or Less",
-            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "geoId/0649670"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/0649670",
-    "name": "Mountain View",
-    "place_type": "City"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/0649670",
-      "name": "Mountain View",
-      "place_type": "City"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopics": [
-      {
-        "dcid": "dc/topic/HousesByHomeValue",
-        "name": "Houses by Home Value",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "mainTopics": [],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/HomeOwnership",
-        "name": "Home Ownership",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
-        "dcid": "geoId/3502000",
-        "name": "Albuquerque",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/0203000",
-        "name": "Anchorage municipality",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2603000",
-        "name": "Ann Arbor",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1304000",
-        "name": "Atlanta",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4805000",
-        "name": "Austin",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2404000",
-        "name": "Baltimore",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1608830",
-        "name": "Boise",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2507000",
-        "name": "Boston",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4513330",
-        "name": "Charleston",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3712000",
-        "name": "Charlotte",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3915000",
-        "name": "Cincinnati",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3916000",
-        "name": "Cleveland",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3918000",
-        "name": "Columbus",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4819000",
-        "name": "Dallas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0820000",
-        "name": "Denver",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2622000",
-        "name": "Detroit",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4824000",
-        "name": "El Paso",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0937000",
-        "name": "Hartford",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4835000",
-        "name": "Houston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1836003",
-        "name": "Indianapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2836000",
-        "name": "Jackson",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1235000",
-        "name": "Jacksonville",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2938000",
-        "name": "Kansas City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3240000",
-        "name": "Las Vegas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0541000",
-        "name": "Little Rock",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0644000",
-        "name": "Los Angeles",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2148006",
-        "name": "Louisville/Jefferson County metro government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5548000",
-        "name": "Madison",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4748000",
-        "name": "Memphis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1245000",
-        "name": "Miami",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5553000",
-        "name": "Milwaukee",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2743000",
-        "name": "Minneapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4752006",
-        "name": "Nashville-Davidson metropolitan government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0952000",
-        "name": "New Haven",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2255000",
-        "name": "New Orleans",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0653000",
-        "name": "Oakland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4055000",
-        "name": "Oklahoma City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3137000",
-        "name": "Omaha",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1253000",
-        "name": "Orlando",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0655282",
-        "name": "Palo Alto",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4260000",
-        "name": "Philadelphia",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0455000",
-        "name": "Phoenix",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4261000",
-        "name": "Pittsburgh",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4159000",
-        "name": "Portland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5167000",
-        "name": "Richmond",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0664000",
-        "name": "Sacramento",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4967000",
-        "name": "Salt Lake City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4865000",
-        "name": "San Antonio",
-        "types": [
-          "City"
+          "Country"
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/HousesByOwnershipCost",
-        "name": "Houses by Ownership Cost",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HousesByTaxAmount",
-        "name": "Houses by Tax Amount",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics for United States of America based on the previous query."
+  ]
 }

@@ -11,15 +11,15 @@
                   {
                     "comparisonPlaces": [
                       "country/RWA",
+                      "country/KHM",
                       "country/UGA",
+                      "country/BGD",
                       "country/KEN",
+                      "country/MMR",
                       "country/BEN",
                       "country/ZWE",
                       "country/GIN",
-                      "country/MDG",
-                      "country/ZMB",
-                      "country/MLI",
-                      "country/TZA"
+                      "country/MDG"
                     ],
                     "lineTileSpec": {
                       "startDate": "2016"
@@ -59,6 +59,21 @@
                     "lineTileSpec": {
                       "startDate": "2016"
                     },
+                    "placeDcidOverride": "country/KHM",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
+                    ],
+                    "title": "Cambodia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2016"
+                    },
                     "placeDcidOverride": "country/UGA",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
@@ -74,11 +89,41 @@
                     "lineTileSpec": {
                       "startDate": "2016"
                     },
+                    "placeDcidOverride": "country/BGD",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
+                    ],
+                    "title": "Bangladesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2016"
+                    },
                     "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
                     ],
                     "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2016"
+                    },
+                    "placeDcidOverride": "country/MMR",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
+                    ],
+                    "title": "Myanmar [Burma]",
                     "type": "LINE"
                   }
                 ]
@@ -139,51 +184,6 @@
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
                     ],
                     "title": "Madagascar",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2016"
-                    },
-                    "placeDcidOverride": "country/ZMB",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
-                    ],
-                    "title": "Zambia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2016"
-                    },
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2016"
-                    },
-                    "placeDcidOverride": "country/TZA",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_4031432057"
-                    ],
-                    "title": "Tanzania",
                     "type": "LINE"
                   }
                 ]
@@ -275,6 +275,21 @@
                     "lineTileSpec": {
                       "startDate": "2016"
                     },
+                    "placeDcidOverride": "country/PNG",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_4031432057"
+                    ],
+                    "title": "Papua New Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2016"
+                    },
                     "placeDcidOverride": "country/TZA",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct_4031432057"
@@ -328,21 +343,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2016"
-                    },
-                    "placeDcidOverride": "country/MWI",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_4031432057"
-                    ],
-                    "title": "Malawi",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "description": "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
@@ -377,27 +377,118 @@
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "World",
   "place": {
-    "dcid": "africa",
-    "name": "Africa",
-    "place_type": "Continent"
+    "dcid": "Earth",
+    "name": "World",
+    "place_type": "Place"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "africa",
-      "name": "Africa",
-      "place_type": "Continent"
+      "dcid": "Earth",
+      "name": "World",
+      "place_type": "Place"
     }
   ],
   "relatedThings": {
     "childPlaces": {
       "Country": [
         {
+          "dcid": "country/ABW",
+          "name": "Aruba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AFG",
+          "name": "Afghanistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
           "dcid": "country/AGO",
           "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AIA",
+          "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARE",
+          "name": "United Arab Emirates",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARG",
+          "name": "Argentina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ASM",
+          "name": "American Samoa",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATA",
+          "name": "Antarctica",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATB",
+          "name": "British Antarctic Territory",
           "types": [
             "Country"
           ]
@@ -410,8 +501,50 @@
           ]
         },
         {
+          "dcid": "country/ATG",
+          "name": "Antigua and Barbuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATN",
+          "name": "Dronning Maud Land",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUS",
+          "name": "Australia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
           "dcid": "country/BDI",
           "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
           "types": [
             "Country"
           ]
@@ -424,8 +557,120 @@
           ]
         },
         {
+          "dcid": "country/BES",
+          "name": "Bonaire, Sint Eustatius and Saba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
           "dcid": "country/BFA",
           "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGD",
+          "name": "Bangladesh",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHR",
+          "name": "Bahrain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHS",
+          "name": "Bahamas",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLZ",
+          "name": "Belize",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BMU",
+          "name": "Bermuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BOL",
+          "name": "Bolivia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRA",
+          "name": "Brazil",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRB",
+          "name": "Barbados",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRN",
+          "name": "Brunei",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BTN",
+          "name": "Bhutan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BVT",
+          "name": "Bouvet Island",
           "types": [
             "Country"
           ]
@@ -440,6 +685,41 @@
         {
           "dcid": "country/CAF",
           "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAN",
+          "name": "Canada",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CCK",
+          "name": "Cocos (Keeling) Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHL",
+          "name": "Chile",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHN",
+          "name": "China",
           "types": [
             "Country"
           ]
@@ -461,286 +741,6 @@
         {
           "dcid": "country/COD",
           "name": "Congo [DRC]",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/COG",
-          "name": "Congo [Republic]",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/COM",
-          "name": "Comoros",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/CPV",
-          "name": "Cape Verde",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/DJI",
-          "name": "Djibouti",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/DZA",
-          "name": "Algeria",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/EGY",
-          "name": "Egypt",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ERI",
-          "name": "Eritrea",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ESH",
-          "name": "Western Sahara",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/ETH",
-          "name": "Ethiopia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/GAB",
-          "name": "Gabon",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/GHA",
-          "name": "Ghana",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/GIN",
-          "name": "Guinea",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/GMB",
-          "name": "Gambia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/GNB",
-          "name": "Guinea-Bissau",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/GNQ",
-          "name": "Equatorial Guinea",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/KEN",
-          "name": "Kenya",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/LBR",
-          "name": "Liberia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/LBY",
-          "name": "Libya",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/LSO",
-          "name": "Lesotho",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MAR",
-          "name": "Morocco",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MDG",
-          "name": "Madagascar",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MLI",
-          "name": "Mali",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MOZ",
-          "name": "Mozambique",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MRT",
-          "name": "Mauritania",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MUS",
-          "name": "Mauritius",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MWI",
-          "name": "Malawi",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/MYT",
-          "name": "Mayotte",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/NAM",
-          "name": "Namibia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/NER",
-          "name": "Niger",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/NGA",
-          "name": "Nigeria",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/REU",
-          "name": "R\u00e9union",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/RWA",
-          "name": "Rwanda",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/SDN",
-          "name": "Sudan",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/SEN",
-          "name": "Senegal",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/SHN",
-          "name": "Saint Helena",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/SLE",
-          "name": "Sierra Leone",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/SOM",
-          "name": "Somalia",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/SSD",
-          "name": "South Sudan",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/STP",
-          "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
-          "types": [
-            "Country"
-          ]
-        },
-        {
-          "dcid": "country/SWZ",
-          "name": "Eswatini",
           "types": [
             "Country"
           ]
@@ -780,6 +780,20 @@
       {
         "dcid": "dc/topic/Energy_Renewables",
         "name": "Renewables",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Electricity_Consumption",
+        "name": "Electricity Consumption",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Energy_Fraction",
+        "name": "Energy Percentages",
         "types": [
           "Topic"
         ]

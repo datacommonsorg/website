@@ -15,12 +15,30 @@
   "comparisonEntities": [],
   "comparisonVariables": [
     "dc/topic/HousesByHomeValue",
-    "dc/topic/HousesByOwnershipCost"
+    "dc/topic/HousesByOwnershipCost",
+    "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied",
+    "Count_HousingUnit_HomeValueUpto10000USDollar",
+    "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+    "dc/topic/HomeOwnership",
+    "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+    "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+    "Count_HousingUnit_HomeValue150000To174999USDollar",
+    "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+    "Count_HousingUnit_HomeValueUpto49999USDollar",
+    "Count_HousingUnit_HomeValue175000To199999USDollar",
+    "Count_HousingUnit_HomeValue20000To24999USDollar",
+    "Count_HousingUnit_HomeValue15000To19999USDollar",
+    "Count_HousingUnit_HomeValue70000To79999USDollar",
+    "Count_HousingUnit_HomeValue10000To14999USDollar",
+    "Count_HousingUnit_HomeValue90000To99999USDollar",
+    "Count_HousingUnit_HomeValue50000To99999USDollar",
+    "Count_HousingUnit_HomeValue80000To89999USDollar",
+    "Count_HousingUnit_HomeValue100000To199999USDollar"
   ],
   "context": {},
   "debug": {},
   "entities": [
-    "geoId/06"
+    "country/USA"
   ],
   "nonPlaceEntities": [],
   "properties": [],
@@ -29,6 +47,22 @@
     "dc/topic/Housing",
     "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
     "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_RenterOccupied",
-    "Count_HousingUnit"
+    "Count_HousingUnit",
+    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_OwnerOccupied",
+    "dc/topic/HousesByOwnershipCost",
+    "Count_HousingUnit_OccupiedHousingUnit",
+    "dc/topic/RentalHouses",
+    "dc/topic/HousesByRoomCount",
+    "Count_HousingUnit_WithTotal1Rooms",
+    "Count_HousingUnit_OwnerOccupied",
+    "Count_HousingUnit_WithTotal2Rooms",
+    "Count_Household",
+    "Count_Person_1OrMoreYears_ResidesInHousingUnit",
+    "Count_Household_NonfamilyHousehold_TwoOrMoreUnits",
+    "dc/topic/HomeOwnership",
+    "Count_HousingUnit_WithTotal3Rooms",
+    "Count_HousingUnit_WithTotal9OrMoreRooms",
+    "Count_Household_NonfamilyHousehold_SingleUnit",
+    "Count_Person_ResidesInHousehold"
   ]
 }

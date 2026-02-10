@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma in Sunnyvale",
+                    "title": "Asthma in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Asthma in Sunnyvale",
+                    "description": "Asthma in United States of America",
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma in Sunnyvale",
+                    "title": "Asthma in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -37,152 +37,449 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_WithAsthma_multiple_place_bar_block",
-                      "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block",
-                      "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block",
-                      "Percent_Person_WithAllTeethLoss_multiple_place_bar_block",
-                      "Percent_Person_WithArthritis_multiple_place_bar_block",
-                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
-                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
-                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
-                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
-                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                      "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma and More in Sunnyvale (${date})",
-                    "type": "BAR"
+                    "title": "Asthma in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Related: Asthma and More"
+            "title": "Asthma in States of United States of America"
           }
         ],
         "statVarSpec": {
-          "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block": {
-            "name": "Depression",
-            "statVar": "Percent_Person_18OrMoreYears_WithDepression",
-            "unit": "%"
-          },
-          "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block": {
-            "name": "Percentage of Population With Poor General Health",
-            "statVar": "Percent_Person_18OrMoreYears_WithPoorGeneralHealth",
-            "unit": "%"
-          },
-          "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
-            "name": "Prevalance of Complete Tooth Loss in the Population",
-            "statVar": "Percent_Person_WithAllTeethLoss",
-            "unit": "%"
-          },
-          "Percent_Person_WithArthritis_multiple_place_bar_block": {
-            "name": "Arthritis",
-            "statVar": "Percent_Person_WithArthritis",
-            "unit": "%"
-          },
           "Percent_Person_WithAsthma": {
             "name": "Asthma",
             "statVar": "Percent_Person_WithAsthma",
-            "unit": "%"
-          },
-          "Percent_Person_WithAsthma_multiple_place_bar_block": {
-            "name": "Asthma",
-            "statVar": "Percent_Person_WithAsthma",
-            "unit": "%"
-          },
-          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
-            "name": "Cancer (excluding skin cancer)",
-            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
-            "unit": "%"
-          },
-          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
-            "name": "Chronic Kidney Disease",
-            "statVar": "Percent_Person_WithChronicKidneyDisease",
-            "unit": "%"
-          },
-          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
-            "name": "Chronic Obstructive Pulmonary Disease",
-            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
-            "unit": "%"
-          },
-          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
-            "name": "Coronary Heart Disease",
-            "statVar": "Percent_Person_WithCoronaryHeartDisease",
-            "unit": "%"
-          },
-          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
-            "name": "Diabetes",
-            "statVar": "Percent_Person_WithDiabetes",
-            "unit": "%"
-          },
-          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
-            "name": "High Blood Pressure",
-            "statVar": "Percent_Person_WithHighBloodPressure",
-            "unit": "%"
-          },
-          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
-            "name": "High Cholesterol",
-            "statVar": "Percent_Person_WithHighCholesterol",
-            "unit": "%"
-          },
-          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
-            "name": "Mental Health Issues",
-            "statVar": "Percent_Person_WithMentalHealthNotGood",
-            "unit": "%"
-          },
-          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
-            "name": "Physical Health Issues",
-            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
-            "unit": "%"
-          },
-          "Percent_Person_WithStroke_multiple_place_bar_block": {
-            "name": "Stroke",
-            "statVar": "Percent_Person_WithStroke",
             "unit": "%"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "geoId/0677000"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "Sunnyvale",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "geoId/0677000",
-    "name": "Sunnyvale",
-    "place_type": "City"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "PAST_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "geoId/0677000",
-      "name": "Sunnyvale",
-      "place_type": "City"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Percent_Person_WithAsthma": {
+        "age": [
+          "Percent_Person_0To4Years_WithAsthma",
+          "Percent_Person_10To14Years_WithAsthma",
+          "Percent_Person_15To17Years_WithAsthma",
+          "Percent_Person_18To24Years_WithAsthma",
+          "Percent_Person_25To34Years_WithAsthma",
+          "Percent_Person_35To44Years_WithAsthma",
+          "Percent_Person_45To54Years_WithAsthma",
+          "Percent_Person_55To64Years_WithAsthma",
+          "Percent_Person_5To9Years_WithAsthma",
+          "Percent_Person_65OrMoreYears_WithAsthma",
+          "Percent_Person_YearsUpto18_WithAsthma"
+        ],
+        "income": [
+          "Percent_Person_WithAsthma_IncomeOfUSDollar15000To24999",
+          "Percent_Person_WithAsthma_IncomeOfUSDollar25000To49999",
+          "Percent_Person_WithAsthma_IncomeOfUSDollar50000To74999",
+          "Percent_Person_WithAsthma_IncomeOfUSDollar75000Onwards",
+          "Percent_Person_WithAsthma_IncomeOfUSDollarUpto14999"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Asthma",
@@ -204,353 +501,101 @@
     ],
     "peerPlaces": [
       {
-        "dcid": "geoId/3502000",
-        "name": "Albuquerque",
+        "dcid": "country/BRA",
+        "name": "Brazil",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/0203000",
-        "name": "Anchorage municipality",
+        "dcid": "country/CAN",
+        "name": "Canada",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2603000",
-        "name": "Ann Arbor",
+        "dcid": "country/CHN",
+        "name": "China",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1304000",
-        "name": "Atlanta",
+        "dcid": "country/EGY",
+        "name": "Egypt",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4805000",
-        "name": "Austin",
+        "dcid": "country/FRA",
+        "name": "France",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2404000",
-        "name": "Baltimore",
+        "dcid": "country/DEU",
+        "name": "Germany",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1608830",
-        "name": "Boise",
+        "dcid": "country/IND",
+        "name": "India",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/2507000",
-        "name": "Boston",
+        "dcid": "country/JPN",
+        "name": "Japan",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/4513330",
-        "name": "Charleston",
+        "dcid": "country/MYS",
+        "name": "Malaysia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3712000",
-        "name": "Charlotte",
+        "dcid": "country/NZL",
+        "name": "New Zealand",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
+        "dcid": "country/NGA",
+        "name": "Nigeria",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3915000",
-        "name": "Cincinnati",
+        "dcid": "country/PER",
+        "name": "Peru",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3916000",
-        "name": "Cleveland",
+        "dcid": "country/RUS",
+        "name": "Russia",
         "types": [
-          "City"
+          "Country"
         ]
       },
       {
-        "dcid": "geoId/3918000",
-        "name": "Columbus",
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
         "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4819000",
-        "name": "Dallas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0820000",
-        "name": "Denver",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2622000",
-        "name": "Detroit",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4824000",
-        "name": "El Paso",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0937000",
-        "name": "Hartford",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4835000",
-        "name": "Houston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1836003",
-        "name": "Indianapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2836000",
-        "name": "Jackson",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1235000",
-        "name": "Jacksonville",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2938000",
-        "name": "Kansas City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3240000",
-        "name": "Las Vegas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0541000",
-        "name": "Little Rock",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0644000",
-        "name": "Los Angeles",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2148006",
-        "name": "Louisville/Jefferson County metro government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5548000",
-        "name": "Madison",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4748000",
-        "name": "Memphis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1245000",
-        "name": "Miami",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5553000",
-        "name": "Milwaukee",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2743000",
-        "name": "Minneapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0649670",
-        "name": "Mountain View",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4752006",
-        "name": "Nashville-Davidson metropolitan government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0952000",
-        "name": "New Haven",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2255000",
-        "name": "New Orleans",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0653000",
-        "name": "Oakland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4055000",
-        "name": "Oklahoma City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3137000",
-        "name": "Omaha",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1253000",
-        "name": "Orlando",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0655282",
-        "name": "Palo Alto",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4260000",
-        "name": "Philadelphia",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0455000",
-        "name": "Phoenix",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4261000",
-        "name": "Pittsburgh",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4159000",
-        "name": "Portland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5167000",
-        "name": "Richmond",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0664000",
-        "name": "Sacramento",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4967000",
-        "name": "Salt Lake City",
-        "types": [
-          "City"
+          "Country"
         ]
       }
     ],
@@ -617,11 +662,18 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "See relevant statistics for Sunnyvale based on the previous query."
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
   ]
 }

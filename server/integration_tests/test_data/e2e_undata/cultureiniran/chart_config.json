@@ -9,73 +9,617 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/IRN"
-                    ],
                     "statVarKey": [
-                      "sdg/GB_XPD_CULNAT_PB_multiple_place_bar_block",
-                      "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT_multiple_place_bar_block"
+                      "sdg/GB_XPD_CULNAT_PV"
                     ],
-                    "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public (PPP, Constant 2017 United States Dollars) in Iran (Islamic Republic Of) (${date})",
-                    "type": "BAR"
+                    "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Private in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public (PPP, Constant 2017 United States Dollars)"
+            "footnote": "Includes data from the following sources: UNESCO institute for statistics. Data extracted on 21 february 2024.",
+            "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Private in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/GB_XPD_CULNAT_PBPV"
+                    ],
+                    "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public and Private in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: UNESCO institute for statistics. Data extracted on 21 february 2024.",
+            "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public and Private in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/GB_XPD_CUL_PBPV"
+                    ],
+                    "title": "Total Expenditure Per Capita Spent on Cultural Heritage, Public and Private in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: UNESCO institute for statistics. Data extracted on 21 february 2024.",
+            "title": "Total Expenditure Per Capita Spent on Cultural Heritage, Public and Private in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/GB_XPD_NAT_PBPV"
+                    ],
+                    "title": "Total Expenditure Per Capita Spent on Natural Heritage, Public and Private in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: UNESCO institute for statistics. Data extracted on 21 february 2024.",
+            "title": "Total Expenditure Per Capita Spent on Natural Heritage, Public and Private in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/GB_XPD_CULNAT_PB"
+                    ],
+                    "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public (PPP, Constant 2017 United States Dollars) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_LOCAL"
+                    ],
+                    "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public [Local Government] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public (PPP, Constant 2017 United States Dollars) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT"
+                    ],
+                    "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public [National Government] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Expenditure Per Capita Spent on Cultural and Natural Heritage, Public (PPP, Constant 2017 United States Dollars) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SE_GCEDESD_CUR"
+                    ],
+                    "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in Curricula in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: country reports on the implementation of the UNESCO 1974 recommendation concerning education for international understanding, Co-operation and peace and education relating to human rights and fundamental freedoms.",
+            "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in Curricula in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SE_GCEDESD_NEP"
+                    ],
+                    "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in National Education Policies in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: country reports on the implementation of the UNESCO 1974 recommendation concerning education for international understanding, Co-operation and peace and education relating to human rights and fundamental freedoms.",
+            "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in National Education Policies in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SE_GCEDESD_SAS"
+                    ],
+                    "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in Student Assessment in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: country reports on the implementation of the UNESCO 1974 recommendation concerning education for international understanding, Co-operation and peace and education relating to human rights and fundamental freedoms.",
+            "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in Student Assessment in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SE_GCEDESD_TED"
+                    ],
+                    "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in Teacher Education in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: country reports on the implementation of the UNESCO 1974 recommendation concerning education for international understanding, Co-operation and peace and education relating to human rights and fundamental freedoms.",
+            "title": "Extent to Which Global Citizenship Education and Education for Sustainable Development Are Mainstreamed in Teacher Education in the World"
           }
         ],
         "statVarSpec": {
-          "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT_multiple_place_bar_block": {
+          "sdg/GB_XPD_CULNAT_PB": {
+            "name": "Total expenditure per capita spent on cultural and natural heritage, public",
+            "statVar": "sdg/GB_XPD_CULNAT_PB"
+          },
+          "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_LOCAL": {
+            "name": "Total expenditure per capita spent on cultural and natural heritage, public [Local Government]",
+            "statVar": "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_LOCAL"
+          },
+          "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT": {
             "name": "Total expenditure per capita spent on cultural and natural heritage, public [National Government]",
             "statVar": "sdg/GB_XPD_CULNAT_PB.LEVEL_OF_GOVERNMENT--LG_NAT"
           },
-          "sdg/GB_XPD_CULNAT_PB_multiple_place_bar_block": {
-            "name": "Total expenditure per capita spent on cultural and natural heritage, public",
-            "statVar": "sdg/GB_XPD_CULNAT_PB"
+          "sdg/GB_XPD_CULNAT_PBPV": {
+            "name": "Total expenditure per capita spent on cultural and natural heritage, public and private",
+            "statVar": "sdg/GB_XPD_CULNAT_PBPV"
+          },
+          "sdg/GB_XPD_CULNAT_PV": {
+            "name": "Total expenditure per capita spent on cultural and natural heritage, private",
+            "statVar": "sdg/GB_XPD_CULNAT_PV"
+          },
+          "sdg/GB_XPD_CUL_PBPV": {
+            "name": "Total expenditure per capita spent on cultural heritage, public and private",
+            "statVar": "sdg/GB_XPD_CUL_PBPV"
+          },
+          "sdg/GB_XPD_NAT_PBPV": {
+            "name": "Total expenditure per capita spent on natural heritage, public and private",
+            "statVar": "sdg/GB_XPD_NAT_PBPV"
+          },
+          "sdg/SE_GCEDESD_CUR": {
+            "name": "Extent to which global citizenship education and education for sustainable development are mainstreamed in curricula",
+            "statVar": "sdg/SE_GCEDESD_CUR"
+          },
+          "sdg/SE_GCEDESD_NEP": {
+            "name": "Extent to which global citizenship education and education for sustainable development are mainstreamed in national education policies",
+            "statVar": "sdg/SE_GCEDESD_NEP"
+          },
+          "sdg/SE_GCEDESD_SAS": {
+            "name": "Extent to which global citizenship education and education for sustainable development are mainstreamed in student assessment",
+            "statVar": "sdg/SE_GCEDESD_SAS"
+          },
+          "sdg/SE_GCEDESD_TED": {
+            "name": "Extent to which global citizenship education and education for sustainable development are mainstreamed in teacher education",
+            "statVar": "sdg/SE_GCEDESD_TED"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Place": "Country"
+      },
       "placeDcid": [
-        "country/IRN"
+        "Earth"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "World",
   "place": {
-    "dcid": "country/IRN",
-    "name": "Iran (Islamic Republic of)",
-    "place_type": "Country"
+    "dcid": "Earth",
+    "name": "World",
+    "place_type": "Place"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
-      "dcid": "country/IRN",
-      "name": "Iran (Islamic Republic of)",
-      "place_type": "Country"
+      "dcid": "Earth",
+      "name": "World",
+      "place_type": "Place"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/sdg_11.4.1",
-        "name": "Expenditure on Heritage Preservation by Source",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/ABW",
+          "name": "Aruba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AFG",
+          "name": "Afghanistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AIA",
+          "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARE",
+          "name": "United Arab Emirates",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARG",
+          "name": "Argentina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ASM",
+          "name": "American Samoa",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATA",
+          "name": "Antarctica",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATB",
+          "name": "British Antarctic Territory",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATG",
+          "name": "Antigua and Barbuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATN",
+          "name": "Dronning Maud Land",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUS",
+          "name": "Australia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BES",
+          "name": "Bonaire, Sint Eustatius and Saba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGD",
+          "name": "Bangladesh",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHR",
+          "name": "Bahrain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHS",
+          "name": "Bahamas",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLZ",
+          "name": "Belize",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BMU",
+          "name": "Bermuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BOL",
+          "name": "Bolivia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRA",
+          "name": "Brazil",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRB",
+          "name": "Barbados",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRN",
+          "name": "Brunei",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BTN",
+          "name": "Bhutan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BVT",
+          "name": "Bouvet Island",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAN",
+          "name": "Canada",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CCK",
+          "name": "Cocos (Keeling) Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHL",
+          "name": "Chile",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHN",
+          "name": "China",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
@@ -96,124 +640,11 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CHN",
-        "name": "China",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/IND",
-        "name": "India",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NGA",
-        "name": "Nigeria",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/GBR",
-        "name": "United Kingdom",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/sdg_11.1",
         "name": "Safe and Affordable Housing by 2030",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_11.5",
-        "name": "Reduce Deaths and Losses From Disasters by 2030",
         "types": [
           "Topic"
         ]
@@ -228,6 +659,13 @@
       {
         "dcid": "dc/topic/sdg_11.a",
         "name": "Positive Links Between Urban and Rural Areas",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_11.b",
+        "name": "Integrated Policies for Inclusive, Resilient Cities",
         "types": [
           "Topic"
         ]

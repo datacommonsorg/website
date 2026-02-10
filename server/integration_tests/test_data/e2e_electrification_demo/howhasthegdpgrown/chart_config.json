@@ -10,19 +10,18 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/MAR",
+                      "country/BGD",
                       "country/ETH",
                       "country/KEN",
                       "country/GHA",
-                      "country/SEN",
-                      "country/MLI",
-                      "country/GIN",
-                      "country/BEN",
+                      "country/KHM",
+                      "country/NPL",
+                      "country/AFG",
                       "country/RWA",
                       "country/SOM"
                     ],
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal10"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal9"
                     ],
                     "title": "GDP (Nominal Value)",
                     "type": "LINE"
@@ -39,11 +38,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/BGD",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Morocco",
+                    "title": "Bangladesh",
                     "type": "LINE"
                   }
                 ]
@@ -87,11 +86,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/KHM",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Senegal",
+                    "title": "Cambodia",
                     "type": "LINE"
                   }
                 ]
@@ -99,11 +98,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Mali",
+                    "title": "Nepal",
                     "type": "LINE"
                   }
                 ]
@@ -111,23 +110,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/AFG",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Benin",
+                    "title": "Afghanistan",
                     "type": "LINE"
                   }
                 ]
@@ -190,11 +177,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/BGD",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Mali",
+                    "title": "Bangladesh",
                     "type": "LINE"
                   }
                 ]
@@ -202,11 +189,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BEN",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Benin",
+                    "title": "Nepal",
                     "type": "LINE"
                   }
                 ]
@@ -226,11 +213,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/KHM",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Morocco",
+                    "title": "Cambodia",
                     "type": "LINE"
                   }
                 ]
@@ -262,23 +249,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/AFG",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Guinea",
+                    "title": "Afghanistan",
                     "type": "LINE"
                   }
                 ]
@@ -293,11 +268,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/KHM",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Morocco",
+                    "title": "Cambodia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BGD",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Bangladesh",
                     "type": "LINE"
                   }
                 ]
@@ -329,47 +316,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Benin",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Mali",
+                    "title": "Nepal",
                     "type": "LINE"
                   }
                 ]
@@ -401,6 +352,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/AFG",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Afghanistan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/SOM",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
@@ -417,7 +380,7 @@
           }
         ],
         "statVarSpec": {
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal10": {
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal9": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
@@ -438,7 +401,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/MAR"
+        "country/BGD"
       ]
     }
   },
@@ -447,16 +410,16 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/MAR",
-    "name": "Morocco",
+    "dcid": "country/BGD",
+    "name": "Bangladesh",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "country/MAR",
-      "name": "Morocco",
+      "dcid": "country/BGD",
+      "name": "Bangladesh",
       "place_type": "Country"
     },
     {
@@ -475,23 +438,18 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/SEN",
-      "name": "Senegal",
+      "dcid": "country/KHM",
+      "name": "Cambodia",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MLI",
-      "name": "Mali",
+      "dcid": "country/NPL",
+      "name": "Nepal",
       "place_type": "Country"
     },
     {
-      "dcid": "country/GIN",
-      "name": "Guinea",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/BEN",
-      "name": "Benin",
+      "dcid": "country/AFG",
+      "name": "Afghanistan",
       "place_type": "Country"
     },
     {
@@ -508,49 +466,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
-        "economicSector": [
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AccommodationAndFoodSector",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AdministrativeAndSupportServices",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AgriculturalSupportActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_Agriculture",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AgricultureForestryFishingSector",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AirTransportAndSupportServices",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AllEconomicActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AnimalProduction",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ArtsEntertainmentRecreation",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ConstructionSector",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_Education",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ElectricitySupply",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_EmployerHouseholdActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FinancialActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FinancialAndInsuranceActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FinancialIntermediationServicesIndirectlyMeasured",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FishingAquaculture",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FoodBeveragesTobaccoManufacture",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ForestryLogging",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_HumanHealthAndSocialWork",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_InformationAndCommunication",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_InsuranceActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_LandTransport",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_MiningQuarrying",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_OtherManufacturingAndRepair",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_OtherServiceSector",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_OtherTransportPostalCourierActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ProductTaxes",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ProfessionalScientificTechnicalActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_PublicAdministrationAndDefence",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_PublishingBroadcastingInformationActivities",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_RealEstate",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_Telecommunications",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_TransportStorageSector",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_WaterSupplySewerageWasteManagement",
-          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_WholesaleRetailTradeAndRepair"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/GDP",

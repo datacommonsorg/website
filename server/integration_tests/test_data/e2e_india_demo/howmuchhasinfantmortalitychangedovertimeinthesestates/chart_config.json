@@ -10,16 +10,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q22048"
+                      "geoId/49",
+                      "geoId/33",
+                      "geoId/21",
+                      "geoId/23",
+                      "geoId/54",
+                      "geoId/46",
+                      "geoId/48",
+                      "geoId/56",
+                      "geoId/18",
+                      "geoId/20"
                     ],
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent10"
@@ -37,11 +37,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1193",
+                    "placeDcidOverride": "geoId/49",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Manipur",
+                    "title": "Utah",
                     "type": "LINE"
                   }
                 ]
@@ -49,11 +49,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1168",
+                    "placeDcidOverride": "geoId/33",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Chhattisgarh",
+                    "title": "New Hampshire",
                     "type": "LINE"
                   }
                 ]
@@ -61,11 +61,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1184",
+                    "placeDcidOverride": "geoId/21",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Jharkhand",
+                    "title": "Kentucky",
                     "type": "LINE"
                   }
                 ]
@@ -73,11 +73,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1195",
+                    "placeDcidOverride": "geoId/23",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Meghalaya",
+                    "title": "Maine",
                     "type": "LINE"
                   }
                 ]
@@ -85,11 +85,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1164",
+                    "placeDcidOverride": "geoId/54",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Assam",
+                    "title": "West Virginia",
                     "type": "LINE"
                   }
                 ]
@@ -97,11 +97,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1498",
+                    "placeDcidOverride": "geoId/46",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Uttar Pradesh",
+                    "title": "South Dakota",
                     "type": "LINE"
                   }
                 ]
@@ -109,11 +109,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1165",
+                    "placeDcidOverride": "geoId/48",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Bihar",
+                    "title": "Texas",
                     "type": "LINE"
                   }
                 ]
@@ -121,11 +121,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1437",
+                    "placeDcidOverride": "geoId/56",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Rajasthan",
+                    "title": "Wyoming",
                     "type": "LINE"
                   }
                 ]
@@ -133,11 +133,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1188",
+                    "placeDcidOverride": "geoId/18",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Madhya Pradesh",
+                    "title": "Indiana",
                     "type": "LINE"
                   }
                 ]
@@ -145,11 +145,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q22048",
+                    "placeDcidOverride": "geoId/20",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
                     ],
-                    "title": "Odisha",
+                    "title": "Kansas",
                     "type": "LINE"
                   }
                 ]
@@ -162,11 +162,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1193",
+                    "placeDcidOverride": "geoId/33",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Manipur",
+                    "title": "New Hampshire",
                     "type": "LINE"
                   }
                 ]
@@ -174,11 +174,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1168",
+                    "placeDcidOverride": "geoId/49",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Chhattisgarh",
+                    "title": "Utah",
                     "type": "LINE"
                   }
                 ]
@@ -186,11 +186,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1164",
+                    "placeDcidOverride": "geoId/21",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Assam",
+                    "title": "Kentucky",
                     "type": "LINE"
                   }
                 ]
@@ -198,11 +198,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1184",
+                    "placeDcidOverride": "geoId/23",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Jharkhand",
+                    "title": "Maine",
                     "type": "LINE"
                   }
                 ]
@@ -210,11 +210,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1195",
+                    "placeDcidOverride": "geoId/54",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Meghalaya",
+                    "title": "West Virginia",
                     "type": "LINE"
                   }
                 ]
@@ -222,11 +222,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1188",
+                    "placeDcidOverride": "geoId/46",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Madhya Pradesh",
+                    "title": "South Dakota",
                     "type": "LINE"
                   }
                 ]
@@ -234,11 +234,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1498",
+                    "placeDcidOverride": "geoId/18",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Uttar Pradesh",
+                    "title": "Indiana",
                     "type": "LINE"
                   }
                 ]
@@ -246,11 +246,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1437",
+                    "placeDcidOverride": "geoId/20",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Rajasthan",
+                    "title": "Kansas",
                     "type": "LINE"
                   }
                 ]
@@ -258,11 +258,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1165",
+                    "placeDcidOverride": "geoId/48",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Bihar",
+                    "title": "Texas",
                     "type": "LINE"
                   }
                 ]
@@ -270,17 +270,1536 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q22048",
+                    "placeDcidOverride": "geoId/56",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
                     ],
-                    "title": "Odisha",
+                    "title": "Wyoming",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "title": "Change in Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/15",
+                      "geoId/18",
+                      "geoId/01",
+                      "geoId/25",
+                      "geoId/51",
+                      "geoId/49",
+                      "geoId/33",
+                      "geoId/10",
+                      "geoId/34",
+                      "geoId/04"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied10"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified)",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/15",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Hawaii",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/18",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Indiana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/01",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Alabama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/25",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/51",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Virginia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/49",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Utah",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/33",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "New Hampshire",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/10",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Delaware",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/34",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "New Jersey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/04",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs"
+                    ],
+                    "title": "Arizona",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/15",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Hawaii",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/25",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/49",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Utah",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/18",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Indiana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/01",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Alabama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/51",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Virginia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/33",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "New Hampshire",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/34",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "New Jersey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/13",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Georgia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/04",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct"
+                    ],
+                    "title": "Arizona",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/15",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Hawaii",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/01",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Alabama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/49",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Utah",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/18",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Indiana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/25",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/51",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Virginia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/33",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "New Hampshire",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/34",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "New Jersey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/04",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Arizona",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/13",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc"
+                    ],
+                    "title": "Georgia",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) Over Time (Per Capita Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/46",
+                      "geoId/32",
+                      "geoId/49",
+                      "geoId/50",
+                      "geoId/23",
+                      "geoId/48",
+                      "geoId/27",
+                      "geoId/35",
+                      "geoId/08",
+                      "geoId/15"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female10"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/46",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "South Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/32",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Nevada",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/49",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Utah",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/50",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Vermont",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/23",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Maine",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/48",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Texas",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/27",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Minnesota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/35",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "New Mexico",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/08",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Colorado",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/15",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs"
+                    ],
+                    "title": "Hawaii",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/46",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "South Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/32",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Nevada",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/49",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Utah",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/50",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Vermont",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/23",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Maine",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/48",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Texas",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/27",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Minnesota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/35",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "New Mexico",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/08",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Colorado",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/40",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct"
+                    ],
+                    "title": "Oklahoma",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/56",
+                      "geoId/44",
+                      "geoId/49",
+                      "geoId/19",
+                      "geoId/50",
+                      "geoId/40",
+                      "geoId/32",
+                      "geoId/41",
+                      "geoId/33",
+                      "geoId/48"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male10"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/56",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Wyoming",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/44",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Rhode Island",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/49",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Utah",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/19",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Iowa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/50",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Vermont",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/40",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Oklahoma",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/32",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Nevada",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/41",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Oregon",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/33",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "New Hampshire",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/48",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs"
+                    ],
+                    "title": "Texas",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/56",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Wyoming",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/44",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Rhode Island",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/49",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Utah",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/19",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Iowa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/50",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Vermont",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/40",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Oklahoma",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/32",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Nevada",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/41",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Oregon",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/39",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "Ohio",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/38",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct"
+                    ],
+                    "title": "North Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/23",
+                      "geoId/55",
+                      "geoId/09",
+                      "geoId/30",
+                      "geoId/15",
+                      "geoId/16",
+                      "geoId/02",
+                      "geoId/27",
+                      "geoId/25",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years10"
+                    ],
+                    "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/23",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Maine",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/55",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Wisconsin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/09",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Connecticut",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/30",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Montana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/15",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Hawaii",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/16",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Idaho",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/02",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Alaska",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/27",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Minnesota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/25",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/53",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs"
+                    ],
+                    "title": "Washington",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/23",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Maine",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/55",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Wisconsin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/30",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Montana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/15",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Hawaii",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/02",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Alaska",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/09",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Connecticut",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/16",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Idaho",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/35",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "New Mexico",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/46",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "South Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/21",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct"
+                    ],
+                    "title": "Kentucky",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/11",
+                      "geoId/47",
+                      "geoId/45",
+                      "geoId/24",
+                      "geoId/44",
+                      "geoId/56",
+                      "geoId/10",
+                      "geoId/16",
+                      "geoId/01",
+                      "geoId/22"
+                    ],
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth10"
+                    ],
+                    "title": "Average Live Birth Weight in Grams",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Live Birth Weight in Grams"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/11",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "District of Columbia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/47",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Tennessee",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/45",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "South Carolina",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/24",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Maryland",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/44",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Rhode Island",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/56",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Wyoming",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/10",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Delaware",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/16",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Idaho",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/01",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Alabama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/22",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs"
+                    ],
+                    "title": "Louisiana",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Average Live Birth Weight in Grams Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/11",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "District of Columbia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/47",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Tennessee",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/24",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Maryland",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/45",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "South Carolina",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/44",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Rhode Island",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/56",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Wyoming",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/16",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Idaho",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/10",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Delaware",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/01",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Alabama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/51",
+                    "statVarKey": [
+                      "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct"
+                    ],
+                    "title": "Virginia",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Change in Average Live Birth Weight in Grams Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
@@ -295,91 +1814,600 @@
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct": {
             "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
+          "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female10": {
+            "name": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)",
+            "statVar": "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
+          },
+          "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_abs": {
+            "name": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)",
+            "statVar": "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
+          },
+          "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female_growth_pct": {
+            "name": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)",
+            "statVar": "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
+          },
+          "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male10": {
+            "name": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)",
+            "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
+          },
+          "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_abs": {
+            "name": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)",
+            "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
+          },
+          "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male_growth_pct": {
+            "name": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)",
+            "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
+          },
+          "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years10": {
+            "name": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)",
+            "statVar": "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
+          },
+          "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_abs": {
+            "name": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)",
+            "statVar": "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
+          },
+          "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years_growth_pct": {
+            "name": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)",
+            "statVar": "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied10": {
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied_growth_abs": {
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pc": {
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied_growth_pct": {
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Mean_BirthWeight_BirthEvent_LiveBirth10": {
+            "name": "Average live birth weight in grams",
+            "statVar": "Mean_BirthWeight_BirthEvent_LiveBirth"
+          },
+          "Mean_BirthWeight_BirthEvent_LiveBirth_growth_abs": {
+            "name": "Average live birth weight in grams",
+            "statVar": "Mean_BirthWeight_BirthEvent_LiveBirth"
+          },
+          "Mean_BirthWeight_BirthEvent_LiveBirth_growth_pct": {
+            "name": "Average live birth weight in grams",
+            "statVar": "Mean_BirthWeight_BirthEvent_LiveBirth"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "wikidataId/Q1193"
+        "geoId/49"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
-    "dcid": "wikidataId/Q1193",
-    "name": "Manipur",
-    "place_type": "AdministrativeArea1"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "PAST_ANSWER",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1184",
-      "name": "Jharkhand",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1195",
-      "name": "Meghalaya",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1164",
-      "name": "Assam",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1498",
-      "name": "Uttar Pradesh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1437",
-      "name": "Rajasthan",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "AdministrativeArea1"
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopics": [],
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/InfantMortality",
+        "name": "Infant Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
-    "parentTopics": [],
-    "peerPlaces": [],
-    "peerTopics": []
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/LifeExpectancy",
+        "name": "Life Expectancy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/CausesOfDeath",
+        "name": "Causes of Death",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/FemaleMortality",
+        "name": "Female Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "See comparison based on places in the previous answer."
+    "See relevant statistics for United States of America based on the previous query."
   ]
 }

@@ -9,64 +9,54 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "geoId/11",
-                      "geoId/06",
-                      "geoId/36",
-                      "geoId/15",
-                      "geoId/53",
-                      "geoId/51",
-                      "geoId/41",
-                      "geoId/33",
-                      "geoId/25",
-                      "geoId/50",
-                      "geoId/32",
-                      "geoId/34",
-                      "geoId/24",
-                      "geoId/13",
-                      "geoId/10",
-                      "geoId/17",
-                      "geoId/02",
-                      "geoId/44",
-                      "geoId/12",
-                      "geoId/37",
-                      "geoId/16",
-                      "geoId/09",
-                      "geoId/23",
-                      "geoId/42",
-                      "geoId/48",
-                      "geoId/08",
-                      "geoId/27",
-                      "geoId/45",
-                      "geoId/26",
-                      "geoId/49",
-                      "geoId/55",
-                      "geoId/31",
-                      "geoId/30",
-                      "geoId/19",
-                      "geoId/04",
-                      "geoId/56",
-                      "geoId/22",
-                      "geoId/39",
-                      "geoId/29",
-                      "geoId/46",
-                      "geoId/20",
-                      "geoId/18",
-                      "geoId/01",
-                      "geoId/47",
-                      "geoId/05",
-                      "geoId/38",
-                      "geoId/21",
-                      "geoId/40",
-                      "geoId/28",
-                      "geoId/35",
-                      "geoId/54"
-                    ],
                     "statVarKey": [
-                      "LifeExpectancy_Person51"
+                      "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy",
+                    "title": "Life Expectancy in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in United States of America",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Life Expectancy in United States of America",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in United States of America",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -78,628 +68,42 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/11",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
+                      "LifeExpectancy_Person_Male"
                     ],
-                    "title": "District of Columbia",
-                    "type": "LINE"
+                    "title": "Male Life Expectancy in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
+                      "LifeExpectancy_Person_Male"
                     ],
-                    "title": "California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/36",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "New York",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/15",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Hawaii",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/53",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/51",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Virginia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/41",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Oregon",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/33",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "New Hampshire",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/25",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Massachusetts",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/50",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Vermont",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/32",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Nevada",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/34",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "New Jersey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/24",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Maryland",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/13",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Georgia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/10",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Delaware",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/17",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Illinois",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/02",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Alaska",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/44",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Rhode Island",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/12",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Florida",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/37",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "North Carolina",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/16",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Idaho",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/09",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Connecticut",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/23",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Maine",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/42",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Pennsylvania",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/48",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Texas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/08",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Colorado",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/27",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Minnesota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/45",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "South Carolina",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/26",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Michigan",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/49",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Utah",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/55",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Wisconsin",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/31",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Nebraska",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/30",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Montana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/19",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Iowa",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/04",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Arizona",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/56",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Wyoming",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/22",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Louisiana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/39",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Ohio",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/29",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Missouri",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/46",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "South Dakota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/20",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Kansas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/18",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Indiana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/01",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Alabama",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/47",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Tennessee",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/05",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Arkansas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/38",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "North Dakota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/21",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Kentucky",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/40",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Oklahoma",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/28",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Mississippi",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/35",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "New Mexico",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/54",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "West Virginia",
-                    "type": "LINE"
+                    "title": "Male Life Expectancy in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Change in Life Expectancy Over Time (Absolute Change)"
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Male Life Expectancy in States of United States of America"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/11",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "LifeExpectancy_Person_Male"
                     ],
-                    "title": "District of Columbia",
+                    "title": "Male Life Expectancy in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -707,11 +111,60 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06",
+                    "description": "Male Life Expectancy in United States of America",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "LifeExpectancy_Person_Male"
                     ],
-                    "title": "California",
+                    "title": "Male Life Expectancy in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Male Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Female Life Expectancy in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -719,11 +172,60 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/36",
+                    "description": "Female Life Expectancy in United States of America",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "LifeExpectancy_Person_Female"
                     ],
-                    "title": "New York",
+                    "title": "Female Life Expectancy in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Female Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -731,11 +233,28 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/15",
+                    "description": "Number of Deaths in United States of America",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "Count_Death"
                     ],
-                    "title": "Hawaii",
+                    "title": "Number of Deaths in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -743,11 +262,124 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/51",
+                    "description": "Deaths Per Capita in United States of America",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "Count_Death_AsAFractionOfCount_Person"
                     ],
-                    "title": "Virginia",
+                    "title": "Deaths Per Capita in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheCirculatorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Circulatory System in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheCirculatorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Circulatory System in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Diseases of the Circulatory System in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block",
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block",
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block",
+                      "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block",
+                      "Count_Death_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_AbnormalNotClassfied_multiple_place_bar_block",
+                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block",
+                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_multiple_place_bar_block",
+                      "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block",
+                      "Count_MortalityEvent_Suicide_multiple_place_bar_block"
+                    ],
+                    "title": "Causes of Death in United States of America (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Causes of Death"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -755,11 +387,124 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/53",
+                    "description": "Count of Mortality Event: Female in United States of America",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "Count_Death_Female"
                     ],
-                    "title": "Washington",
+                    "title": "Count of Mortality Event: Female in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female"
+                    ],
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female"
+                    ],
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
+                    ],
+                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
+                    ],
+                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block",
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_multiple_place_bar_block",
+                      "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block",
+                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block",
+                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_multiple_place_bar_block",
+                      "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block",
+                      "Count_Death_Neoplasms_Female_multiple_place_bar_block",
+                      "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block"
+                    ],
+                    "title": "Causes of Female Mortality in United States of America (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Causes of Female Mortality"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0"
+                    ],
+                    "title": "Neonatal Mortality Rate in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -767,584 +512,580 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/41",
+                    "description": "Neonatal Mortality Rate in United States of America",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "sdg/SH_DYN_NMRT.AGE--M0"
                     ],
-                    "title": "Oregon",
-                    "type": "LINE"
+                    "title": "Neonatal Mortality Rate in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
+            "title": "Neonatal Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/33",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "Count_Death_Upto1Years_AbnormalNotClassfied"
                     ],
-                    "title": "New Hampshire",
-                    "type": "LINE"
+                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States of America (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/25",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
                     ],
-                    "title": "Massachusetts",
-                    "type": "LINE"
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States of America (${date})",
+                    "type": "RANKING"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States of America"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/50",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Vermont",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block",
+                      "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block"
+                    ],
+                    "title": "Causes of Infant Mortality in United States of America (${date})",
+                    "type": "BAR"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Causes of Infant Mortality"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/32",
                     "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
                     ],
-                    "title": "Nevada",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/34",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "New Jersey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/13",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Georgia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/24",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Maryland",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/10",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Delaware",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/17",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Illinois",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/02",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Alaska",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/12",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Florida",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/37",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "North Carolina",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/44",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Rhode Island",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/16",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Idaho",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/09",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Connecticut",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/23",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Maine",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/42",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Pennsylvania",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/48",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Texas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/45",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "South Carolina",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/08",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Colorado",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/27",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Minnesota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/26",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Michigan",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/49",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Utah",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/55",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Wisconsin",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/31",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Nebraska",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/30",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Montana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/19",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Iowa",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/04",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Arizona",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/56",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Wyoming",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/22",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Louisiana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/39",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Ohio",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/29",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Missouri",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/46",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "South Dakota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/20",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Kansas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/18",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Indiana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/01",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Alabama",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/47",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Tennessee",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/05",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Arkansas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/38",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "North Dakota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/21",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Kentucky",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/40",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Oklahoma",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/28",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Mississippi",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/35",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "New Mexico",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/54",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "West Virginia",
+                    "title": "Infant Mortality Rate by Gender in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Change in Life Expectancy Over Time (Percent Change)"
+            "title": "Infant Mortality Rate by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/67ttwfn9dswch"
+                    ],
+                    "title": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/67ttwfn9dswch"
+                    ],
+                    "title": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/3kk4xws30zxlb"
+                    ],
+                    "title": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/3kk4xws30zxlb"
+                    ],
+                    "title": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/3s7lndm5j3wp4"
+                    ],
+                    "title": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/3s7lndm5j3wp4"
+                    ],
+                    "title": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Interval in Months Since Last Live Birth in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Male Mortality Rate (Age Adjusted) in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Male Mortality Rate (Age Adjusted) in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Male Mortality Rate (Age Adjusted) in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Male Mortality Rate (Age Adjusted) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Male Mortality Rate (Age Adjusted) in United States of America",
+                    "statVarKey": [
+                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Male Mortality Rate (Age Adjusted) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Male Mortality Rate (Age Adjusted)"
           }
         ],
         "statVarSpec": {
-          "LifeExpectancy_Person51": {
+          "Count_Death": {
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_AbnormalNotClassfied_Female": {
+            "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
+            "statVar": "Count_Death_AbnormalNotClassfied_Female"
+          },
+          "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
+            "statVar": "Count_Death_AbnormalNotClassfied_Female"
+          },
+          "Count_Death_AbnormalNotClassfied_multiple_place_bar_block": {
+            "name": "Deaths Due To Abnormal Symptoms, Signs And Clinical And Laboratory Findings",
+            "statVar": "Count_Death_AbnormalNotClassfied"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person": {
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+          },
+          "Count_Death_AsAFractionOfCount_Person": {
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female": {
+            "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block": {
+            "name": "Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Certain Infectious And Parasitic Diseases",
+            "statVar": "Count_Death_CertainInfectiousParasiticDiseases_Female"
+          },
+          "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block": {
+            "name": "Deaths Due To Certain Infectious And Parasitic Diseases",
+            "statVar": "Count_Death_CertainInfectiousParasiticDiseases"
+          },
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Congenital Malformations, Deformations And Chromosomal Abnormalities",
+            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female"
+          },
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block": {
+            "name": "Deaths Due To Congenital Malformations, Deformations And Chromosomal Abnormalities",
+            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+          },
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female"
+          },
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_multiple_place_bar_block": {
+            "name": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem": {
+            "name": "Deaths From Diseases of the Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Diseases of The Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem_Female"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block": {
+            "name": "Deaths From Diseases of the Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_Female": {
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
+          },
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
+            "name": "Suicide Mortality Rate",
+            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
+            "name": "Male Mortality Rate (Age Adjusted)",
+            "statVar": "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
+          },
+          "Count_Death_Neoplasms_Female_multiple_place_bar_block": {
+            "name": "Female Deaths Due To Neoplasms",
+            "statVar": "Count_Death_Neoplasms_Female"
+          },
+          "Count_Death_Neoplasms_multiple_place_bar_block": {
+            "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
+            "statVar": "Count_Death_Neoplasms"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied": {
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod": {
+            "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
+            "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
+            "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Certain Infectious And Parasitic Diseases)",
+            "statVar": "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases"
+          },
+          "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations And Chromosomal Abnormalities)",
+            "statVar": "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+          },
+          "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block": {
+            "name": "Mortality Events (1 Years or Less): Diseases of The Circulatory System",
+            "statVar": "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among Infants",
+            "statVar": "Count_Death_Upto1Years_Neoplasms"
+          },
+          "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block": {
+            "name": "Count of Mortality Event: Assault(Homicide), Female",
+            "statVar": "Count_MortalityEvent_Assault(Homicide)_Female"
+          },
+          "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block": {
+            "name": "Count of Mortality Event: Assault(Homicide)",
+            "statVar": "Count_MortalityEvent_Assault(Homicide)"
+          },
+          "Count_MortalityEvent_Suicide_multiple_place_bar_block": {
+            "name": "Count of Mortality Event: Suicide",
+            "statVar": "Count_MortalityEvent_Suicide"
+          },
+          "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_growth_abs": {
-            "name": "Life Expectancy",
-            "statVar": "LifeExpectancy_Person"
+          "LifeExpectancy_Person_Female": {
+            "name": "Female Life Expectancy",
+            "statVar": "LifeExpectancy_Person_Female"
           },
-          "LifeExpectancy_Person_growth_pct": {
-            "name": "Life Expectancy",
-            "statVar": "LifeExpectancy_Person"
+          "LifeExpectancy_Person_Male": {
+            "name": "Male Life Expectancy",
+            "statVar": "LifeExpectancy_Person_Male"
+          },
+          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
+            "name": "Average interval in months since last live birth",
+            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+          },
+          "dc/3kk4xws30zxlb": {
+            "name": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated",
+            "statVar": "dc/3kk4xws30zxlb"
+          },
+          "dc/3s7lndm5j3wp4": {
+            "name": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated",
+            "statVar": "dc/3s7lndm5j3wp4"
+          },
+          "dc/67ttwfn9dswch": {
+            "name": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated",
+            "statVar": "dc/67ttwfn9dswch"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
+            "name": "Infant mortality rate",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M": {
+            "name": "Infant mortality rate [under 1 year old, Male]",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+          },
+          "sdg/SH_DYN_NMRT.AGE--M0": {
+            "name": "Neonatal mortality rate",
+            "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
       "placeDcid": [
-        "geoId/11"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "DEFAULT",
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
@@ -1704,7 +1445,57 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Death": {
+        "causeOfDeath": [
+          "Count_Death_AbnormalNotClassfied",
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
+          "Count_Death_CertainInfectiousParasiticDiseases",
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders",
+          "Count_Death_DiseasesOfTheCirculatorySystem",
+          "Count_Death_Neoplasms",
+          "Count_MortalityEvent_Assault(Homicide)",
+          "Count_MortalityEvent_Suicide"
+        ],
+        "gender": [
+          "Count_Death_Female",
+          "Count_Death_Male"
+        ]
+      },
+      "Count_Death_AsAFractionOfCount_Person": {
+        "causeOfDeath": [
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
+          "Count_MortalityEvent_Assault(Homicide)_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/A00-B99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/C00-D48_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/D50-D89_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/I00-I99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/P00-P96_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/Q00-Q99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/R00-R99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_Suicide_AsAFractionOf_Count_Person"
+        ]
+      },
+      "Count_Death_Female": {
+        "causeOfDeath": [
+          "Count_Death_AbnormalNotClassfied_Female",
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female",
+          "Count_Death_CertainInfectiousParasiticDiseases_Female",
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female",
+          "Count_Death_DiseasesOfTheCirculatorySystem_Female",
+          "Count_Death_Neoplasms_Female",
+          "Count_MortalityEvent_Assault(Homicide)_Female"
+        ]
+      },
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",
@@ -1849,5 +1640,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }

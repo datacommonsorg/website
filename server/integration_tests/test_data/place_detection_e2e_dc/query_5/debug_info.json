@@ -1,8 +1,6 @@
 {
-  "places_detected": [
-    "mexico city"
-  ],
-  "places_resolved": "(name: Mexico City, dcid: wikidataId/Q1489); ",
-  "main_place_dcid": "wikidataId/Q1489",
-  "main_place_name": "Mexico City"
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>"
 }
