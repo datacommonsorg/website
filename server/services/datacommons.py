@@ -398,7 +398,7 @@ def _extract_place_info(node_response_item: Dict) -> Dict:
 
 def get_place_info(place_dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
-  
+
   # Store info for all nodes found (original + ancestors)
   all_node_info = {}
   # Store parent linkage: child_dcid -> set(parent_dcids)
@@ -445,7 +445,13 @@ def get_place_info(place_dcids: List[str]) -> Dict:
   result_data = []
   for dcid in place_dcids:
     if dcid in all_node_info:
-      entry = {"node": dcid, "info": {"self": all_node_info[dcid], "parents": []}}
+      entry = {
+          "node": dcid,
+          "info": {
+              "self": all_node_info[dcid],
+              "parents": []
+          }
+      }
 
       # Reconstruct all ancestors using BFS to gather all reachable parents
       ancestors = set()
