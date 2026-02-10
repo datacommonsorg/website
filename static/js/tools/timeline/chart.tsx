@@ -583,13 +583,14 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // use mprop as the ylabel
     const ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
 
+    // Add units and per capita to the ylabel as a suffix, if provided
+    // e.g. "StatVar (unit, per capita)"
     const suffixItems = this.units || [];
     if (this.props.pc) {
       suffixItems.push(
         intl.formatMessage(chartComponentMessages.perCapitaLowercase)
       );
     }
-
     if (!_.isEmpty(suffixItems)) {
       const suffix = `(${suffixItems.join(", ")})`;
       return ylabelText ? `${ylabelText} ${suffix}` : suffix;
