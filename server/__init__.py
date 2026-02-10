@@ -496,40 +496,17 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       return
     values['hl'] = g.locale
 
-  def get_custom_config_path(custom_dc_template_folder=None):
-    """
-      Return the custom configuration folder path
-      if custom configuration is enabled and a custom template folder is provided.
-      """
-    if cfg.CUSTOM and custom_dc_template_folder:
-      return os.path.join(app.root_path, "config", "custom_dc",
-                          custom_dc_template_folder)
-    return None
-
   # Provides locale and other common parameters in all templates
   @app.context_processor
   def inject_common_parameters():
-    header_json_path = "config/base/header.json"
-    footer_json_path = "config/base/footer.json"
-
-    custom_config_path = get_custom_config_path(custom_dc_template_folder)
-    if custom_config_path:
-      custom_header_override = os.path.join(custom_config_path, "base",
-                                            "header.json")
-      if os.path.exists(custom_header_override):
-        header_json_path = custom_header_override
-
-      custom_footer_override = os.path.join(custom_config_path, "base",
-                                            "footer.json")
-      if os.path.exists(custom_footer_override):
-        footer_json_path = custom_footer_override
-
-    header_menu = libutil.get_json(header_json_path)
-    footer_menu = libutil.get_json(footer_json_path)
-
     common_variables = {
-        'HEADER_MENU': json.dumps(header_menu),
-        'FOOTER_MENU': json.dumps(footer_menu),
+        #TODO: replace HEADER_MENU with V2
+        'HEADER_MENU':
+            json.dumps(libutil.get_json("config/base/header.json")),
+        'FOOTER_MENU':
+            json.dumps(libutil.get_json("config/base/footer.json")),
+        'HEADER_MENU_V2':
+            json.dumps(libutil.get_json("config/base/header_v2.json")),
     }
     locale_variable = dict(locale=get_locale())
     return {**common_variables, **locale_variable}
