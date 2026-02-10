@@ -94,7 +94,7 @@ export const chartComponentMessages = defineMessages({
   },
   PerCapitaLabel: {
     id: "perCapitaLabel",
-    defaultMessage: "Per Capita",
+    defaultMessage: "Per capita",
     description: "Label for the per capita option in the chart.",
   },
   perCapitaLowercase: {
