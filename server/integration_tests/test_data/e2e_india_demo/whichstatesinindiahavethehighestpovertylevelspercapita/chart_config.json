@@ -760,6 +760,13 @@
     ],
     "peerTopics": [
       {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/Employment",
         "name": "Employment",
         "types": [
