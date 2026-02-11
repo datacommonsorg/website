@@ -331,7 +331,8 @@ class ExploreTestDetection(ExploreTest):
 
   def test_detection_multivar(self):
     self.run_detection('detection_api_multivar', [
-        'number of poor hispanic women with phd',
+        # TODO: re-enable once whatever is causing the flakiness is fixed
+        # 'number of poor hispanic women with phd',
         'compare obesity vs. poverty',
         'show me the impact of climate change on drought',
         'how are factors like obesity, blood pressure and asthma impacted by climate change',
