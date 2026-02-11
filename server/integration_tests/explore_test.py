@@ -330,15 +330,17 @@ class ExploreTestDetection(ExploreTest):
                        check_detection=True)
 
   def test_detection_multivar(self):
-    self.run_detection('detection_api_multivar', [
-        # TODO: re-enable once whatever is causing the flakiness is fixed
-        # 'number of poor hispanic women with phd',
-        'compare obesity vs. poverty',
-        'show me the impact of climate change on drought',
-        'how are factors like obesity, blood pressure and asthma impacted by climate change',
-        'Compare "Male population" with "Female Population"',
-    ],
-                       check_detection=True)
+    self.run_detection(
+        'detection_api_multivar',
+        [
+            # TODO: re-enable once whatever is causing the flakiness is fixed
+            # 'number of poor hispanic women with phd',
+            'compare obesity vs. poverty',
+            'show me the impact of climate change on drought',
+            'how are factors like obesity, blood pressure and asthma impacted by climate change',
+            'Compare "Male population" with "Female Population"',
+        ],
+        check_detection=True)
 
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
