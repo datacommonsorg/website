@@ -11,15 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Cloud Build configuration for manual building of the script runner image.
+#
+# Usage:
+#   This build requires a _TAG_NAME substitution to be provided.
+#   Do NOT use 'latest' unless fixing a critical issue for the pipeline.
+#
+# Example Command:
+#   gcloud builds submit --config tools/script_runner/cloudbuild.push_image.yaml \
+#     --project=datcom-ci \
+#     --substitutions=_TAG_NAME=dev-myuser
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - build
-      - --tag=gcr.io/datcom-ci/datacommons-script-runner:latest
+      - --tag=gcr.io/datcom-ci/datacommons-script-runner:${_TAG_NAME}
       - "."
       - -f
       - "tools/script_runner/Dockerfile"
 
 images:
-  - "gcr.io/datcom-ci/datacommons-script-runner:latest"
+  - "gcr.io/datcom-ci/datacommons-script-runner:${_TAG_NAME}"

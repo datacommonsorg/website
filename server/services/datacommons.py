@@ -415,12 +415,6 @@ def get_series_dates(parent_entity, child_type, variables):
       })
 
 
-def bio(entity):
-  """Fetch biology subgraph linking to the given entity"""
-  url = get_service_url("/v1/internal/page/bio")
-  return get(url + "/" + entity)
-
-
 def resolve(nodes, prop):
   """Resolves nodes based on the given property.
 

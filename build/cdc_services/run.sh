@@ -21,6 +21,8 @@ export TOKENIZERS_PARALLELISM=false
 # https://github.com/UKPLab/sentence-transformers/issues/1318#issuecomment-1084731111
 export OMP_NUM_THREADS=1
 
+export NL_SERVER_PORT=${NL_SERVER_PORT:-6060}
+
 # If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
 if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
     echo "GCS Data Path: $GCS_DATA_PATH"
@@ -58,6 +60,17 @@ fi
 
 nginx -c /workspace/nginx.conf
 
+MIXER_ARGS=()
+if [[ $ENABLE_MODEL == "true" ]]; then
+    # Custom embeddings index built at 
+    # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
+    export CUSTOM_EMBEDDINGS_INDEX=${CUSTOM_EMBEDDINGS_INDEX:-"user_all_minilm_mem"}
+    MIXER_ARGS+=(
+        "--embeddings_server_url=http://localhost:$NL_SERVER_PORT"
+        "--resolve_embeddings_indexes=$CUSTOM_EMBEDDINGS_INDEX"
+    )
+fi
+
 /workspace/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
@@ -67,22 +80,35 @@ nginx -c /workspace/nginx.conf
     --use_sqlite=$USE_SQLITE \
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
-    --remote_mixer_domain=$DC_API_ROOT &
+    --remote_mixer_domain=$DC_API_ROOT \
+    "${MIXER_ARGS[@]}" &
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
 if [[ $DEBUG == "true" ]] then
     if [[ $ENABLE_MODEL == "true" ]] then
         echo "Starting NL Server in debug mode."
-        python3 nl_app.py 6060 &
+        python3 nl_app.py $NL_SERVER_PORT &
     fi
+
+    if [[ $ENABLE_MCP == "true" ]]; then
+        echo "Starting MCP Server in debug mode."
+        datacommons-mcp serve http --skip-api-key-validation --port 8082 &
+    fi
+
     echo "Starting Website Server in debug mode."
     python3 web_app.py 7070 &
 else
     if [[ $ENABLE_MODEL == "true" ]] then
         echo "Starting NL Server."
-        gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:6060 -w 1 nl_app:app &
+        gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:$NL_SERVER_PORT -w 1 nl_app:app &
     fi
+
+    if [[ $ENABLE_MCP == "true" ]]; then
+        echo "Starting MCP Server."
+        datacommons-mcp serve http --skip-api-key-validation --port 8082 &
+    fi
+
     echo "Starting Website Server."
     gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:7070 -w 4 web_app:app &
 fi

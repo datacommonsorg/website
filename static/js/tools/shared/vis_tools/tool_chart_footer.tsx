@@ -18,6 +18,7 @@
  * Footer for charts created by the different tools
  */
 /** @jsxImportSource @emotion/react */
+import { StatVarSpec } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { css, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import _ from "lodash";
@@ -26,6 +27,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { ApiButton } from "../../../components/tiles/components/api_button";
 import { intl } from "../../../i18n/i18n";
+import { chartComponentMessages } from "../../../i18n/i18n_chart_messages";
 import { messages } from "../../../i18n/i18n_messages";
 import { WEBSITE_SURFACE } from "../../../shared/constants";
 import {
@@ -35,8 +37,10 @@ import {
   triggerGAEvent,
 } from "../../../shared/ga_events";
 import { ObservationSpec } from "../../../shared/observation_specs";
-import { urlToDisplayText } from "../../../shared/util";
+import { StatMetadata } from "../../../shared/stat_types";
+import { StatVarFacetMap } from "../../../shared/types";
 import { FontFamily, TextVariant } from "../../../theme/types";
+import { TileSources } from "../metadata/tile_sources";
 
 interface ToolChartFooterProps {
   // Id of the chart this footer is being added to.
@@ -62,6 +66,14 @@ interface ToolChartFooterProps {
   getObservationSpecs?: () => ObservationSpec[];
   // A ref to the chart container element.
   containerRef?: RefObject<HTMLElement>;
+  // facets that make up the sources of the chart
+  facets?: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facets
+  statVarToFacets?: StatVarFacetMap;
+  // A mapping of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // the stat vars to link to in the metadata modal
+  statVarSpecs?: StatVarSpec[];
 }
 
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
@@ -173,12 +185,15 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
             </ChartFooterActionWrapper>
           )}
           {!_.isEmpty(props.sources) && (
-            <ChartFooterMetaDataWrapper>
-              Data from:&nbsp;{getSourcesJsx(props.sources)}
-              {globalThis.viaGoogle
-                ? " " + intl.formatMessage(messages.viaGoogle)
-                : ""}
-            </ChartFooterMetaDataWrapper>
+            <TileSources
+              containerRef={props.containerRef}
+              facets={props.facets}
+              sources={props.sources}
+              statVarDateRanges={props.statVarDateRanges}
+              statVarSpecs={props.statVarSpecs}
+              statVarToFacets={props.statVarToFacets}
+              surface={WEBSITE_SURFACE}
+            />
           )}
           {!_.isEmpty(mMethods) && (
             <ChartFooterMetaDataWrapper>
@@ -222,7 +237,7 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
                       }
                     }}
                   />
-                  Per Capita
+                  {intl.formatMessage(chartComponentMessages.PerCapitaLabel)}
                 </Label>
               </FormGroup>
             </span>
@@ -232,24 +247,4 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
       )}
     </>
   );
-}
-
-function getSourcesJsx(sources: Set<string>): ReactElement[] {
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceText = new Set();
-  return sourceList.map((source, index) => {
-    const sourceText = urlToDisplayText(source);
-    if (seenSourceText.has(sourceText)) {
-      return null;
-    }
-    seenSourceText.add(sourceText);
-    // handle relative url that doesn't contain https or http or www
-    const processedUrl = sourceText === source ? "https://" + source : source;
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={processedUrl}>{sourceText}</a>
-      </span>
-    );
-  });
 }

@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Official CI/CD pipeline for building and pushing release images to GCR.
+# Triggered automatically on every push to the master branch.
+# DO NOT trigger this manually. Manual runs will tag images with official release tags (autopush) and trigger downstream deployment builds.
+
 steps:
   # Trigger downstream builds that listen for changes to multiple repos.
   - id: update-repo-version

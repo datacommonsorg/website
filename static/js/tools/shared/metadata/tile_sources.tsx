@@ -29,10 +29,6 @@ import { NL_SOURCE_REPLACEMENTS } from "../../../constants/app/explore_constants
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import {
-  isFeatureEnabled,
-  METADATA_FEATURE_FLAG,
-} from "../../../shared/feature_flags/util";
-import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
   triggerGAEvent,
@@ -40,7 +36,7 @@ import {
 import { ObservationSpec } from "../../../shared/observation_specs";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../../shared/types";
-import { urlToDisplayText } from "../../../shared/util";
+import { sanitizeSourceUrl, urlToDisplayText } from "../../../shared/util";
 import { isNlInterface } from "../../../utils/explore_utils";
 import { TileMetadataModal } from "./tile_metadata_modal";
 import { TileMetadataModalSimple } from "./tile_metadata_modal_simple";
@@ -82,8 +78,6 @@ export function TileSources(props: {
     return null;
   }
 
-  const allowNewMetadataModal = isFeatureEnabled(METADATA_FEATURE_FLAG);
-
   const sourceList: string[] = facets
     ? Array.from(
         new Set(Object.values(facets).map((facet) => facet.provenanceUrl))
@@ -101,7 +95,7 @@ export function TileSources(props: {
       <span key={sourceUrl}>
         {index > 0 ? ", " : ""}
         <a
-          href={sourceUrl}
+          href={sanitizeSourceUrl(sourceUrl)}
           rel="noreferrer"
           target="_blank"
           title={sourceUrl}
@@ -132,7 +126,7 @@ export function TileSources(props: {
             <>
               <span {...{ part: "source-separator" }}> • </span>
               <span {...{ part: "source-show-metadata-link" }}>
-                {allowNewMetadataModal && facets && statVarToFacets ? (
+                {facets && statVarToFacets ? (
                   <TileMetadataModal
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}

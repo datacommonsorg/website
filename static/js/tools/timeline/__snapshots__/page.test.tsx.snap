@@ -3,7 +3,7 @@
 exports[`Single place and single stat var 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -15,15 +15,19 @@ exports[`Single place and single stat var 1`] = `
     <div class=\\"chart-footer-metadata-section css-f32tc2\\">
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
-      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/\\">census.gov</a></span></p>
+      <div class=\\"sources\\" part=\\"source\\">Source: <span part=\\"source-links\\"><span><a href=\\"https://www.census.gov/\\" rel=\\"noreferrer\\" target=\\"_blank\\" title=\\"https://www.census.gov/\\">census.gov</a></span></span><span part=\\"source-separator\\"> • </span><span part=\\"source-show-metadata-link\\"><a href=\\"#\\">About this data</a></span></div>
       <p class=\\"css-8z25eu\\">Measurement method: CensusACS5yrSurvey</p>
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -31,7 +35,7 @@ exports[`Single place and single stat var 1`] = `
 exports[`Single place and single stat var 2`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -43,20 +47,24 @@ exports[`Single place and single stat var 2`] = `
     <div class=\\"chart-footer-metadata-section css-f32tc2\\">
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
-      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></p>
+      <div class=\\"sources\\" part=\\"source\\">Source: <span part=\\"source-links\\"><span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\" rel=\\"noreferrer\\" target=\\"_blank\\" title=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span><span part=\\"source-separator\\"> • </span><span part=\\"source-show-metadata-link\\"><a href=\\"#\\">About this data</a></span></div>
       <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
 </div>
 <div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -68,15 +76,19 @@ exports[`Single place and single stat var 2`] = `
     <div class=\\"chart-footer-metadata-section css-f32tc2\\">
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
-      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/\\">census.gov</a></span></p>
+      <div class=\\"sources\\" part=\\"source\\">Source: <span part=\\"source-links\\"><span><a href=\\"https://www.census.gov/\\" rel=\\"noreferrer\\" target=\\"_blank\\" title=\\"https://www.census.gov/\\">census.gov</a></span></span><span part=\\"source-separator\\"> • </span><span part=\\"source-show-metadata-link\\"><a href=\\"#\\">About this data</a></span></div>
       <p class=\\"css-8z25eu\\">Measurement method: CensusACS5yrSurvey</p>
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -84,7 +96,7 @@ exports[`Single place and single stat var 2`] = `
 exports[`Single place and single stat var 3`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -96,15 +108,19 @@ exports[`Single place and single stat var 3`] = `
     <div class=\\"chart-footer-metadata-section css-f32tc2\\">
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
-      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></p>
+      <div class=\\"sources\\" part=\\"source\\">Source: <span part=\\"source-links\\"><span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\" rel=\\"noreferrer\\" target=\\"_blank\\" title=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span><span part=\\"source-separator\\"> • </span><span part=\\"source-show-metadata-link\\"><a href=\\"#\\">About this data</a></span></div>
       <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -150,7 +166,7 @@ exports[`Single place and single stat var 4`] = `
 exports[`chart options 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -162,15 +178,19 @@ exports[`chart options 1`] = `
     <div class=\\"chart-footer-metadata-section css-f32tc2\\">
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
-      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></p>
+      <div class=\\"sources\\" part=\\"source\\">Source: <span part=\\"source-links\\"><span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\" rel=\\"noreferrer\\" target=\\"_blank\\" title=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span><span part=\\"source-separator\\"> • </span><span part=\\"source-show-metadata-link\\"><a href=\\"#\\">About this data</a></span></div>
       <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;
@@ -178,7 +198,7 @@ exports[`chart options 1`] = `
 exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"css-1w3kops\\">
-    <p class=\\"css-15y2wdo\\">One facet available for this chart</p>
+    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
@@ -190,15 +210,19 @@ exports[`statVar not in PV-tree 1`] = `
     <div class=\\"chart-footer-metadata-section css-f32tc2\\">
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
       <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
-      <p class=\\"css-8z25eu\\">Data from:&nbsp;<span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></p>
+      <div class=\\"sources\\" part=\\"source\\">Source: <span part=\\"source-links\\"><span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\" rel=\\"noreferrer\\" target=\\"_blank\\" title=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span><span part=\\"source-separator\\"> • </span><span part=\\"source-show-metadata-link\\"><a href=\\"#\\">About this data</a></span></div>
       <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
+  </div>
+  <div class=\\"dialog-container css-12qdtxr\\">
+    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
+    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
   </div>
 </div>"
 `;

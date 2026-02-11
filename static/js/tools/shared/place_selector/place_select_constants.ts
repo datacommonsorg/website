@@ -14,71 +14,81 @@
  * limitations under the License.
  */
 
+import PLACE_HIERARCHY from "./place_hierarchy.json";
+
 /**
  * Constants for the place selector on our visualization tools
+ *
+ * Instead of reading data-availability in the KG, we hardcode which place types
+ * are available for selection in the enclosed place type selector based on the
+ * place type hierarchies defined in `place_hierarchy.json`. This helps us avoid showing place types
+ * which would overload our servers or the user's browser (e.g. showing all cities in the world)
+ *
+ * By default, we limit the hierarchy to two levels deep (i.e.only taking place nodes that
+ * are up to two containedInPlace levels away from the selected place type). We also have a
+ * separate hierarchy for the map tool where we are limited by geojson availability.
+ *
+ * --- Documentation for `place_hierarchy.json` ---
+ *
+ * `place_hierarchy.json` dictates which child place types are available for selection for a given parent place type.
+ * It is split into "standard" tools and "map" tools (which are restricted by geojson availability).
+ *
+ * 1. UNIVERSAL_CHILDREN / MAPS_UNIVERSAL_CHILDREN:
+ *    Place types appended to ALL configurations for a given parent type
+ *    (e.g., IPCCPlace_50 is a child of all countries).
+ *    These are applied regardless of whether a country uses defaults or overrides.
+ *
+ * 2. GLOBAL_DEFAULTS / MAPS_GLOBAL_DEFAULTS:
+ *    The standard fallback hierarchies used for any place that does not have a
+ *    specific override defined.
+ *
+ * 3. DEFAULT_OVERRIDES / MAPS_OVERRIDES:
+ *    Country-specific or region-specific overrides.
+ *    Defined by mapping a place DCID (e.g., "country/USA", "europe") to its custom hierarchy.
+ *    If a country has a map override but no default override, the standard tools
+ *    will fall back to GLOBAL_DEFAULTS, but use the override in the Map Tool.
  */
 
-export const EMPTY_NAMED_TYPED_PLACE = { dcid: "", name: "", types: null };
-export const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
-export const USA_COUNTY_CHILD_TYPES = [
-  "Town",
-  "Village",
-  ...USA_CITY_CHILD_TYPES,
-];
-export const USA_STATE_CHILD_TYPES = ["County", ...USA_COUNTY_CHILD_TYPES];
-export const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
-export const USA_CENSUS_DIV_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
-export const USA_CENSUS_REGION_CHILD_TYPES = [
-  "CensusDivision",
-  ...USA_CENSUS_DIV_CHILD_TYPES,
-];
+/**
+ * Mapping of place type of parent place -> place types of children.
+ * This defines which place types are available for selection in the enclosed place type selector
+ * based on the parent place type.
+ */
+type PlaceHierarchy = Record<string, string[]>;
 
-export const USA_CHILD_PLACE_TYPES = {
-  City: USA_CITY_CHILD_TYPES,
-  Country: USA_COUNTRY_CHILD_TYPES,
-  County: USA_COUNTY_CHILD_TYPES,
-  State: USA_STATE_CHILD_TYPES,
-  CensusDivision: USA_CENSUS_DIV_CHILD_TYPES,
-  CensusRegion: USA_CENSUS_REGION_CHILD_TYPES,
-};
+/**
+ * Country-specific or region-specific overrides
+ * Maps place DCID -> PlaceHierarchy to use by default
+ */
+export const DEFAULT_OVERRIDES: Record<string, PlaceHierarchy> =
+  PLACE_HIERARCHY.DEFAULT_OVERRIDES;
 
-export const AA4_CHILD_PLACE_TYPES = ["AdministrativeArea5"];
-export const AA3_CHILD_PLACE_TYPES = [
-  "AdministrativeArea4",
-  ...AA4_CHILD_PLACE_TYPES,
-];
-export const AA2_CHILD_PLACE_TYPES = [
-  "AdministrativeArea3",
-  ...AA3_CHILD_PLACE_TYPES,
-];
-export const AA1_CHILD_PLACE_TYPES = [
-  "AdministrativeArea2",
-  ...AA2_CHILD_PLACE_TYPES,
-];
-export const NUTS2_CHILD_PLACE_TYPES = ["EurostatNUTS3"];
-export const NUTS1_CHILD_PLACE_TYPES = [
-  "EurostatNUTS2",
-  ...NUTS2_CHILD_PLACE_TYPES,
-];
-export const NON_USA_COUNTRY_PLACE_TYPES = [
-  "AdministrativeArea1",
-  ...AA1_CHILD_PLACE_TYPES,
-  "EurostatNUTS1",
-  ...NUTS1_CHILD_PLACE_TYPES,
-];
-export const CONTINENT_PLACE_TYPES = [
-  "Country",
-  ...NON_USA_COUNTRY_PLACE_TYPES,
-];
-export const CHILD_PLACE_TYPES = {
-  AdministrativeArea1: AA1_CHILD_PLACE_TYPES,
-  AdministrativeArea2: AA2_CHILD_PLACE_TYPES,
-  AdministrativeArea3: AA3_CHILD_PLACE_TYPES,
-  AdministrativeArea4: AA4_CHILD_PLACE_TYPES,
-  Continent: CONTINENT_PLACE_TYPES,
-  Country: NON_USA_COUNTRY_PLACE_TYPES,
-  EurostatNUTS1: NUTS1_CHILD_PLACE_TYPES,
-  EurostatNUTS2: NUTS2_CHILD_PLACE_TYPES,
-  Planet: ["Continent", ...CONTINENT_PLACE_TYPES, ...USA_COUNTRY_CHILD_TYPES],
-  State: AA1_CHILD_PLACE_TYPES,
-};
+/**
+ * Maps place DCID -> PlaceHierarchy to use for the map tool
+ */
+export const MAPS_OVERRIDES: Record<string, PlaceHierarchy> =
+  PLACE_HIERARCHY.MAPS_OVERRIDES;
+
+/**
+ * Global default hierarchy to use across the application
+ */
+export const DEFAULT_HIERARCHY: PlaceHierarchy =
+  PLACE_HIERARCHY.GLOBAL_DEFAULTS;
+
+/**
+ * Default hierarchy to use for the map tool specifically
+ */
+export const MAPS_DEFAULT_HIERARCHY: PlaceHierarchy =
+  PLACE_HIERARCHY.MAPS_GLOBAL_DEFAULTS;
+
+/**
+ * Universal default appends used across all standard configs
+ */
+export const UNIVERSAL_CHILDREN: PlaceHierarchy =
+  PLACE_HIERARCHY.UNIVERSAL_CHILDREN;
+
+/**
+ * Universal maps appends used across all map configs
+ */
+export const MAPS_UNIVERSAL_CHILDREN: PlaceHierarchy =
+  PLACE_HIERARCHY.MAPS_UNIVERSAL_CHILDREN;
