@@ -22,6 +22,7 @@ import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import Partners from "../../components/content/partners";
+import { Tools } from "../../components/content/tools";
 import { Section } from "../../components/elements/layout/section";
 import { Separator } from "../../components/elements/layout/separator";
 import { Link } from "../../components/elements/link_chip";
@@ -36,7 +37,6 @@ import theme from "../../theme/theme";
 import { BuildYourOwn } from "./components/build_your_own";
 import { HomeHero } from "./components/home_hero";
 import { SampleQuestions } from "./components/sample_questions";
-import { Tools } from "./components/tools";
 import { UnitedNations } from "./components/united_nations";
 
 interface AppProps {
@@ -77,7 +77,16 @@ export function App({
       </Section>
 
       <Section variant="small">
-        <Tools routes={routes} />
+        <Tools
+          routes={routes}
+          tools={["map", "scatter", "timeline", "download", "api"]}
+        >
+          <h3>Data Commons tools</h3>
+          <p>
+            Data Commons offers data exploration tools and cloud-based APIs to
+            access and integrate cleaned datasets.
+          </p>
+        </Tools>
       </Section>
 
       <Separator border={false} variant="small" />
