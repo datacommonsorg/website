@@ -22,6 +22,8 @@ import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { intl } from "../../i18n/i18n";
+import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { ChartEmbed } from "../../place/chart_embed";
 import { Chip } from "../../shared/chip";
 import { WEBSITE_SURFACE } from "../../shared/constants";
@@ -579,10 +581,19 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
     }
     // use mprop as the ylabel
-    let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+    const ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
 
-    if (this.units.length > 0) {
-      ylabelText += ` (${this.units.join(", ")})`;
+    // Add units and per capita to the ylabel as a suffix, if provided
+    // e.g. "StatVar (unit, per capita)"
+    const suffixItems = [...(this.units || [])]; // make a copy to avoid mutating this.units
+    if (this.props.pc) {
+      suffixItems.push(
+        intl.formatMessage(chartComponentMessages.perCapitaLowercase)
+      );
+    }
+    if (!_.isEmpty(suffixItems)) {
+      const suffix = `(${suffixItems.join(", ")})`;
+      return ylabelText ? `${ylabelText} ${suffix}` : suffix;
     }
     return ylabelText;
   }

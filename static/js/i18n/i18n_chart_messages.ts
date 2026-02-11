@@ -92,6 +92,17 @@ export const chartComponentMessages = defineMessages({
     defaultMessage: "Error fetching data.",
     description: "Error message for no when the CSV data fetch fails.",
   },
+  PerCapitaLabel: {
+    id: "perCapitaLabel",
+    defaultMessage: "Per capita",
+    description: "Label for the per capita option in the chart.",
+  },
+  perCapitaLowercase: {
+    id: "perCapita.lowercase",
+    defaultMessage: "per capita",
+    description:
+      "Suffix added to chart Y-axis labels and tooltips to indicate the value is a per capita calculation.",
+  },
   SnapToDateHighestCoverageLabel: {
     id: "snap-to-latest-data-checkbox-label",
     defaultMessage: "Snap to date with highest coverage",
