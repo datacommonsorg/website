@@ -121,6 +121,9 @@ $headings-font-family: $font-family-sans-serif;
       text-decoration: none;
     }
   }
+  a.nav-link-main {
+    font-size: 1.1rem;
+  }
   .sep {
     color: var(--gm-3-ref-neutral-neutral-40);
     display: inline-block;
