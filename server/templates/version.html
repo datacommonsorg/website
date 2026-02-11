@@ -86,6 +86,23 @@
         </tr>
         <tr>
           <td width="200px">
+            Data Sources:
+          </td>
+          <td>
+            {{data_source_ids[0]}}
+          </td>
+          <br>
+        </tr>
+        {% for id in data_source_ids[1:] %}
+        <tr>
+          <td></td>
+          <td>
+            {{id}}
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td width="200px">
             Feature Flags:
           </td>
           <td>
