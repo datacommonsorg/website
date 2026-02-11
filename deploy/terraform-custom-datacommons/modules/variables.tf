@@ -214,12 +214,12 @@ variable "dc_data_job_timeout" {
 
 variable "dc_search_scope" {
   description = "Scope for MCP search indicators"
-  type        = string
+  type        =  string
   default     = "base_and_custom"
 }
 
 variable "enable_mcp" {
-  description = "Run the MCP server"
+  description = "Whether to run the MCP server"
   type        = bool
   default     = true
 }
