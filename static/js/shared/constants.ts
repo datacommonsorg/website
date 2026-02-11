@@ -27,6 +27,7 @@ export const BRAZIL_PLACE_DCID = "country/BRA";
 export const BULGARIA_PLACE_DCID = "country/BGR";
 export const BURUNDI_PLACE_DCID = "country/BDI";
 export const CAMEROON_PLACE_DCID = "country/CMR";
+export const CANADA_PLACE_DCID = "country/CAN";
 export const CAPE_VERDE_PLACE_DCID = "country/CPV";
 export const CHINA_PLACE_DCID = "country/CHN";
 export const COLOMBIA_PLACE_DCID = "country/COL";
