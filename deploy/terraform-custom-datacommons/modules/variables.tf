@@ -218,6 +218,12 @@ variable "dc_search_scope" {
   default     = "base_and_custom"
 }
 
+variable "enable_mcp" {
+  description = "Run the MCP server"
+  type        = bool
+  default     = true
+}
+
 # Data Commons Cloud VPC Network variables
 
 variable "vpc_network_name" {
