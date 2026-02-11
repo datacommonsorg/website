@@ -29,6 +29,7 @@ const BREAKPOINTS = {
 };
 
 const SPACING = {
+  x2s: 2,
   xs: 4,
   sm: 8,
   md: 16,
@@ -488,6 +489,43 @@ const theme: Theme = {
   },
   tooltip: {
     width: "300px",
+  },
+  search: {
+    height: "50px",
+    radius: "32px",
+    base: {
+      border: "#5E5E5E",
+      background: "#FFFFFF",
+      icon: "#5E5E5E",
+      button: "#F1F1F1",
+      text: "#5E5E5E",
+    },
+    active: {
+      border: "#0B57D0",
+      background: "#F6F9FF",
+      icon: "#0B57D0",
+      button: "#0B57D0",
+      text: "#666666",
+    },
+  },
+  searchSuggestions: {
+    height: "300px",
+    border: "#dddddd",
+    base: {
+      background: "#F6F9FF",
+      icon: "#777777",
+      text: "#111111",
+    },
+    hover: {
+      background: "#e9eef6",
+      icon: "#0B57D0",
+      text: "#5e5e5e",
+    },
+    more: {
+      background: "#F6F9FF",
+      icon: "#0B57D0",
+      text: "#0B57D0",
+    },
   },
 };
 

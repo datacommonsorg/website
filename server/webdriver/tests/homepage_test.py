@@ -115,8 +115,10 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     search_box_input.send_keys("California")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.presence_of_element_located(
-            (By.CLASS_NAME, 'search-input-result-section')))
-    results = find_elems(self.driver, value='search-input-result-section')
+            (By.CSS_SELECTOR, "[data-testid='search-input-result-section']")))
+    results = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value="[data-testid='search-input-result-section']")
     self.assertGreater(len(results), 0)
     search_box_input.clear()
 
@@ -124,10 +126,11 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     search_box_input.send_keys("Population of Calif")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.presence_of_element_located(
-            (By.CLASS_NAME, 'search-input-result-section')))
-    first_result = find_elem(self.driver,
-                             by=By.CLASS_NAME,
-                             value='search-input-result-section')
+            (By.CSS_SELECTOR, "[data-testid='search-input-result-section']")))
+    first_result = find_elem(
+        self.driver,
+        by=By.CSS_SELECTOR,
+        value="[data-testid='search-input-result-section']")
     self.assertIn("California", first_result.text)
     search_box_input.clear()
 
@@ -147,9 +150,16 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     # Test autocomplete for stat vars
     search_box_input.send_keys("gdp")
-    initial_results = find_elems(self.driver,
-                                 value='search-input-result-section')
-    self.assertEqual(len(initial_results), 6)
+    # Wait for the results to appear before counting
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-testid='search-input-result-section']")))
+    initial_results = find_elems(
+        self.driver,
+        by=By.CSS_SELECTOR,
+        value="[data-testid='search-input-result-section']")
+    # We are now only counting actual search results (and not the load more)
+    self.assertEqual(len(initial_results), 4)
     search_box_input.clear()
     # Sleeping this way is not ideal.
     # However, without it, it does not always clear the search box,
@@ -159,9 +169,16 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     # Test load more stat var results
     search_box_input.send_keys("Household Income")
-    initial_results = find_elems(self.driver,
-                                 value='search-input-result-section')
-    self.assertEqual(len(initial_results), 6)
+    # Wait for the results to appear before counting
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-testid='search-input-result-section']")))
+    initial_results = find_elems(
+        self.driver,
+        by=By.CSS_SELECTOR,
+        value="[data-testid='search-input-result-section']")
+    # We are now only counting actual search results (and not the load more)
+    self.assertEqual(len(initial_results), 4)
 
     # Click on the "Load More" button to fetch more results
     load_more_button = find_elem(self.driver,
@@ -173,6 +190,12 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     # Wait for new results to load, which means more result sections appear
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(lambda d: len(
-        find_elems(d, value='search-input-result-section')) > initial_count)
-    final_results = find_elems(self.driver, value='search-input-result-section')
+        find_elems(d,
+                   by=By.CSS_SELECTOR,
+                   value="[data-testid='search-input-result-section']")) >
+                                                       initial_count)
+    final_results = find_elems(
+        self.driver,
+        by=By.CSS_SELECTOR,
+        value="[data-testid='search-input-result-section']")
     self.assertGreater(len(final_results), initial_count)
