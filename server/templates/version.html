@@ -84,18 +84,15 @@
             {{bigquery}}
           </td>
         </tr>
+        {% for id in data_source_ids %}
         <tr>
+          {% if loop.first %}
           <td width="200px">
             Data Sources:
           </td>
-          <td>
-            {{data_source_ids[0]}}
-          </td>
-          <br>
-        </tr>
-        {% for id in data_source_ids[1:] %}
-        <tr>
+          {% else %}
           <td></td>
+          {% endif %}
           <td>
             {{id}}
           </td>
