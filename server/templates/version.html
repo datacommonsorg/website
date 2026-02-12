@@ -64,18 +64,19 @@
             BigTable tables:
           </td>
           <td>
-            {{tables[0]}}
-          </td>
-          <br>
-        </tr>
-        {% for table in tables[1:] %}
-        <tr>
-          <td></td>
-          <td>
-            {{table}}
+            {{ tables[0] if tables else '' }}
           </td>
         </tr>
-        {% endfor %}
+        {% if tables|length > 1 %}
+          {% for table in tables[1:] %}
+          <tr>
+            <td></td>
+            <td>
+              {{table}}
+            </td>
+          </tr>
+          {% endfor %}
+        {% endif %}
         <tr>
           <td width="200px">
             Bigquery Dataset:
@@ -84,20 +85,24 @@
             {{bigquery}}
           </td>
         </tr>
-        {% for id in data_source_ids %}
         <tr>
-          {% if loop.first %}
           <td width="200px">
             Data Sources:
           </td>
-          {% else %}
-          <td></td>
-          {% endif %}
           <td>
-            {{id}}
+            {{ data_source_ids[0] if data_source_ids else '' }}
           </td>
         </tr>
-        {% endfor %}
+        {% if data_source_ids|length > 1 %}
+          {% for id in data_source_ids[1:] %}
+          <tr>
+            <td></td>
+            <td>
+              {{id}}
+            </td>
+          </tr>
+          {% endfor %}
+        {% endif %}
         <tr>
           <td width="200px">
             Feature Flags:
