@@ -59,21 +59,16 @@
             <a href="{{remote_mixer_domain}}/version">{{remote_mixer_domain}}</a>
           </td>
         </tr>
+        {% if not tables %}
         <tr>
-          <td width="200px">
-            BigTable tables:
-          </td>
-          <td>
-            {{ tables[0] if tables else '' }}
-          </td>
+          <td width="200px">BigTable tables:</td>
+          <td></td>
         </tr>
-        {% if tables|length > 1 %}
-          {% for table in tables[1:] %}
+        {% else %}
+          {% for table in tables %}
           <tr>
-            <td></td>
-            <td>
-              {{table}}
-            </td>
+            <td width="200px">{{ 'BigTable tables:' if loop.first else '' }}</td>
+            <td>{{ table }}</td>
           </tr>
           {% endfor %}
         {% endif %}
@@ -85,21 +80,16 @@
             {{bigquery}}
           </td>
         </tr>
+        {% if not data_source_ids %}
         <tr>
-          <td width="200px">
-            Data Sources:
-          </td>
-          <td>
-            {{ data_source_ids[0] if data_source_ids else '' }}
-          </td>
+          <td width="200px">Data Sources:</td>
+          <td></td>
         </tr>
-        {% if data_source_ids|length > 1 %}
-          {% for id in data_source_ids[1:] %}
+        {% else %}
+          {% for id in data_source_ids %}
           <tr>
-            <td></td>
-            <td>
-              {{id}}
-            </td>
+            <td width="200px">{{ 'Data Sources:' if loop.first else '' }}</td>
+            <td>{{ id }}</td>
           </tr>
           {% endfor %}
         {% endif %}
