@@ -181,7 +181,7 @@ def api_name():
   dcids = list(filter(lambda d: d != '', dcids))
   prop = _escaped_arg('prop')
   if request.is_json:
-    if request.json.get('prop'):
+    if request.json.get('prop') is not None:
       prop = str(escape(request.json.get('prop')))
   try:
     return names(dcids, prop)

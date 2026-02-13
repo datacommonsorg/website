@@ -142,8 +142,8 @@ def search_statvar():
   if request.method == 'GET':
     query = _escaped_arg("query")
     entities = _escaped_arg_list("entities")
-    sv_only = _escaped_arg("svOnly", False)
-    limit = int(_escaped_arg("limit", 100))
+    sv_only = request.args.get("svOnly", "false").lower() == 'true'
+    limit = int(request.args.get("limit", 100))
   else:  # Method is POST
     query = str(escape(request.json.get("query"))) if request.json.get(
         "query") else None
