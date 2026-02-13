@@ -20,7 +20,7 @@ exports[`Single place and single stat var 1`] = `
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
@@ -52,7 +52,7 @@ exports[`Single place and single stat var 2`] = `
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
@@ -81,7 +81,7 @@ exports[`Single place and single stat var 2`] = `
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
@@ -113,7 +113,7 @@ exports[`Single place and single stat var 3`] = `
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
@@ -215,7 +215,7 @@ exports[`statVar not in PV-tree 1`] = `
     </div>
     <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
+  <div class=\\"chart-footer-options-section\\"></div>
   <div class=\\"dialog-container css-12qdtxr\\">
     <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
     <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
