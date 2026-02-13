@@ -266,6 +266,16 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       }
 
       env {
+        name  = "ENABLE_MCP"
+        value = var.enable_mcp
+      }
+
+      env {
+        name  = "DC_SEARCH_SCOPE"
+        value = var.dc_search_scope
+      }
+
+      env {
         name = "DISABLE_GOOGLE_MAPS"
         value = tostring(var.disable_google_maps)
       }

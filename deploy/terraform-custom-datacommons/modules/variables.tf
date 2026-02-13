@@ -212,6 +212,18 @@ variable "dc_data_job_timeout" {
   default     = "600s"
 }
 
+variable "dc_search_scope" {
+  description = "Scope for MCP search indicators"
+  type        =  string
+  default     = "base_and_custom"
+}
+
+variable "enable_mcp" {
+  description = "Whether to run the MCP server"
+  type        = bool
+  default     = true
+}
+
 # Data Commons Cloud VPC Network variables
 
 variable "vpc_network_name" {
