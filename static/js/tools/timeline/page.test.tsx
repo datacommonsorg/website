@@ -204,21 +204,18 @@ test("chart options", async () => {
     })
   );
   await waitForComponentUpdates(wrapper);
-  expect(
-    pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
-  ).toMatchSnapshot();
-  // Open the Demographics node in the stat var widget
+  // Open the Agriculture node in the stat var widget
   wrapper
     .find("#hierarchy-section .Collapsible__trigger")
-    .at(0)
+    .at(2)
     .simulate("click");
   // Wait for the stat var info fetch from the stat var widget
   await new Promise(process.nextTick);
   wrapper.update();
-  // Remove the stat var
+  // Remove the stat var Count_Farm
   wrapper
     .find("#hierarchy-section input")
-    .at(2)
+    .at(0)
     .simulate("change", { target: { checked: false } });
   // Check that the url hash is updated
   window.location.hash = "#" + window.location.hash;

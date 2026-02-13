@@ -554,6 +554,12 @@ export function axiosMock(): void {
             specializedEntity: "Economics",
             descendentStatVarCount: 100,
           },
+          {
+            displayName: "Agriculture",
+            id: "dc/g/Agriculture",
+            specializedEntity: "Agriculture",
+            descendentStatVarCount: 100,
+          },
         ],
       },
     });
@@ -578,6 +584,12 @@ export function axiosMock(): void {
             specializedEntity: "Economics",
             descendentStatVarCount: 100,
           },
+          {
+            displayName: "Agriculture",
+            id: "dc/g/Agriculture",
+            specializedEntity: "Agriculture",
+            descendentStatVarCount: 100,
+          },
         ],
       },
     });
@@ -614,12 +626,6 @@ export function axiosMock(): void {
             displayName: "Median age of person",
             id: "Median_Age_Person",
             searchName: "Median age of person",
-            hasData: true,
-          },
-          {
-            displayName: "Count Of Farm",
-            id: "Count_Farm",
-            searchName: "Count Of Farm",
             hasData: true,
           },
         ],
@@ -660,6 +666,38 @@ export function axiosMock(): void {
             searchName: "Median age of person",
             hasData: true,
           },
+        ],
+      },
+    });
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Agriculture",
+      entities: ["geoId/05"],
+      numEntitiesExistence: undefined,
+    })
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [],
+        childStatVars: [
+          {
+            displayName: "Count Of Farm",
+            id: "Count_Farm",
+            searchName: "Count Of Farm",
+            hasData: true,
+          },
+        ],
+      },
+    });
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Agriculture",
+      entities: ["geoId/05"],
+      numEntitiesExistence: 1,
+    })
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [],
+        childStatVars: [
           {
             displayName: "Count Of Farm",
             id: "Count_Farm",
@@ -690,6 +728,12 @@ export function axiosMock(): void {
             specializedEntity: "Economics",
             descendentStatVarCount: 100,
           },
+          {
+            displayName: "Agriculture",
+            id: "dc/g/Agriculture",
+            specializedEntity: "Agriculture",
+            descendentStatVarCount: 100,
+          },
         ],
       },
     });
@@ -712,6 +756,12 @@ export function axiosMock(): void {
             displayName: "Economics",
             id: "dc/g/Economics",
             specializedEntity: "Economics",
+            descendentStatVarCount: 100,
+          },
+          {
+            displayName: "Agriculture",
+            id: "dc/g/Agriculture",
+            specializedEntity: "Agriculture",
             descendentStatVarCount: 100,
           },
         ],
@@ -727,7 +777,7 @@ export function axiosMock(): void {
   when(axios.get)
     .calledWith("/api/variable/path?dcid=Count_Farm")
     .mockResolvedValue({
-      data: ["Count_Farm", "dc/g/Demographics"],
+      data: ["Count_Farm", "dc/g/Agriculture"],
     });
 
   when(axios.get)
@@ -767,6 +817,54 @@ export function axiosMock(): void {
             },
           },
         },
+        Count_Farm: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
+            },
+          },
+        },
+      },
+    });
+
+  when(axios.get)
+    .calledWith("/api/variable/info", {
+      params: {
+        dcids: ["Count_Person", "Median_Age_Person"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
+        Count_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
+            },
+          },
+        },
+        Median_Age_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
+            },
+          },
+        },
+      },
+    });
+
+  when(axios.get)
+    .calledWith("/api/variable/info", {
+      params: {
+        dcids: ["Count_Farm"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
         Count_Farm: {
           placeTypeSummary: {
             type1: {

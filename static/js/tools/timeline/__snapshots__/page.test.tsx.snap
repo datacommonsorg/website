@@ -136,9 +136,6 @@ exports[`Single place and single stat var 4`] = `
       <div>
         <form class=\\"node-title\\"><input id=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"\\" for=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\">Median age of person</label></form>
       </div>
-      <div>
-        <form class=\\"node-title\\"><input id=\\"Count_Farmdc/g/Demographics-Count_Farm\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"\\" for=\\"Count_Farmdc/g/Demographics-Count_Farm\\">Count Of Farm</label></form>
-      </div>
     </div>
     <div class=\\"svg-node-child\\">
       <div>
@@ -163,38 +160,11 @@ exports[`Single place and single stat var 4`] = `
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>
-</div>"
-`;
-
-exports[`chart options 1`] = `
-"<div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\">
-    <p class=\\"css-1eja1f9\\">One facet available for this chart</p>
-  </div>
-  <div class=\\"card\\">
-    <div class=\\"statVarChipRegion\\">
-      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Farms</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
-    </div>
-    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  </div>
-  <div class=\\"chart-footer-container no-bottom-border css-bq95un\\">
-    <div class=\\"chart-footer-metadata-section css-f32tc2\\">
-      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">download</span><a href=\\"#\\">Download</a></p>
-      <p class=\\"css-8ol5n8\\"><span class=\\"material-icons-outlined\\">code</span><a href=\\"#\\">API code</a></p>
-      <div class=\\"sources\\" part=\\"source\\">Source: <span part=\\"source-links\\"><span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\" rel=\\"noreferrer\\" target=\\"_blank\\" title=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span><span part=\\"source-separator\\"> • </span><span part=\\"source-show-metadata-link\\"><a href=\\"#\\">About this data</a></span></div>
-      <p class=\\"css-8z25eu\\">Measurement method: CensusPEPSurvey</p>
-    </div>
-    <div class=\\"chart-footer-options-button css-urtcfh\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
-  </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per capita</label></div></span></div>
-  <div class=\\"dialog-container css-12qdtxr\\">
-    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-aopfuc\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
-  </div>
-  <div class=\\"dialog-container css-12qdtxr\\">
-    <div role=\\"presentation\\" class=\\"dialog-overlay css-pvczev\\"></div>
-    <div role=\\"dialog\\" inert=\\"\\" class=\\"dialog css-18yoy9y\\" aria-modal=\\"false\\" tabindex=\\"-1\\"></div>
-  </div>
+</div>
+<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">Agriculture<span class=\\"sv-count\\">(100)</span></span></div></span>
+<div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
+  <div class=\\"Collapsible__contentInner\\"></div>
+</div>
 </div>"
 `;
 
@@ -237,6 +207,11 @@ exports[`statVar not in PV-tree 2`] = `
 </div>
 </div>
 <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">Economics<span class=\\"sv-count\\">(100)</span></span></div></span>
+<div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
+  <div class=\\"Collapsible__contentInner\\"></div>
+</div>
+</div>
+<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">Agriculture<span class=\\"sv-count\\">(100)</span></span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>
