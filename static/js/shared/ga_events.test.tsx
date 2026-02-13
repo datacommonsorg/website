@@ -160,6 +160,7 @@ const PLACE_NAME = "Arkansas";
 const STAT_VAR_1 = "Median_Income_Household";
 const STAT_VAR_2 = "Median_Age_Person";
 const STAT_VAR_3 = "Count_Person";
+const STAT_VAR_4 = "Count_Farm";
 
 const NUMBER = 123;
 const PLACE_ADDED = "africa";
@@ -873,6 +874,9 @@ describe("test ga event tool chart plot option", () => {
       .mockImplementation(() => Promise.resolve(null));
 
     // Render the component.
+    TIMELINE_PROPS.statVarInfos = {
+      [STAT_VAR_4]: { title: "", pcAllowed: true }, // Use a stat var with per capita option enabled.
+    };
     const timelineToolChart = render(
       <ThemeProvider theme={theme}>
         <TimelineToolChart {...TIMELINE_PROPS} />
@@ -1023,6 +1027,18 @@ describe("test ga event tool chart plot option", () => {
     window.gtag = mockgtag;
 
     // Render the component.
+    MAP_CONTEXT.statVar.value.dcid = STAT_VAR_4;
+    MAP_CONTEXT.statVar.value.info = {
+      [STAT_VAR_4]: { title: "", pcAllowed: true }, // Use a stat var with per capita option enabled.
+    };
+    MAP_PROPS.facetList = [
+      {
+        dcid: STAT_VAR_4, // Use a stat var with per capita option enabled.
+        name: STAT_VAR_4,
+        displayNames: {},
+        metadataMap: {},
+      },
+    ];
     const mapToolChart = render(
       <ThemeProvider theme={theme}>
         <MapContext.Provider value={MAP_CONTEXT}>
