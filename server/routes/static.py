@@ -121,6 +121,7 @@ def version():
       mixer_hash=mixer_version.get('gitHash', ''),
       tables=mixer_version.get('tables', ''),
       bigquery=mixer_version.get('bigquery', ''),
+      data_source_ids=mixer_version.get('dataSourceIds', []),
       featureFlags=current_app.config.get('FEATURE_FLAGS', []),
       mixerFeatureFlags=mixer_feature_flags,
       remote_mixer_domain=mixer_version.get('remoteMixerDomain', ''))
