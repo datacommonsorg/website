@@ -17,6 +17,7 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
+from markupsafe import escape
 
 import server.services.datacommons as dc
 
@@ -28,7 +29,7 @@ _MAX_SEARCH_RESULTS = 1000
 @bp.route('/search')
 def search():
   """Custom search page"""
-  query = request.args.get('q', '')
+  query = str(escape(request.args.get('q', '')))
   return flask.render_template('search.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                query=query)
@@ -37,7 +38,7 @@ def search():
 @bp.route('/search_dc')
 def search_dc():
   """Add DC API powered search for non-place searches temporarily"""
-  query_text = request.args.get('q', '')
+  query_text = str(escape(request.args.get('q', '')))
   max_results = int(request.args.get('l', _MAX_SEARCH_RESULTS))
   if query_text:
     search_response = dc.search(query_text, max_results)

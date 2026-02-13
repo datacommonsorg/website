@@ -23,6 +23,7 @@ from urllib.parse import urlencode
 import flask
 from flask import current_app
 from flask import g
+from markupsafe import escape
 from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
@@ -154,6 +155,7 @@ def place_explorer():
   request includes a dcid.
   """
   dcid = flask.request.args.get('dcid', None)
+  dcid = str(escape(dcid)) if dcid else None
 
   # If the request contains a dcid, redirect to the place page.
   # This handles redirects from Google Search "Explore More" link.
@@ -189,7 +191,9 @@ def place(place_dcid):
   Args:
     place_dcid: DCID of the place to redirect to
   """
+  place_dcid = str(escape(place_dcid))
   redirect_args = dict(flask.request.args)
+  redirect_args = {k: str(escape(v)) for k, v in redirect_args.items()}
   # Strip trailing slashes from place dcids
   should_redirect = False
   if place_dcid and place_dcid.endswith('/'):
@@ -198,7 +202,7 @@ def place(place_dcid):
 
   # Rename legacy "topic" request argument to "category"
   if 'topic' in flask.request.args:
-    redirect_args['category'] = flask.request.args.get('topic', '')
+    redirect_args['category'] = str(escape(flask.request.args.get('topic', '')))
     del redirect_args['topic']
     should_redirect = True
 

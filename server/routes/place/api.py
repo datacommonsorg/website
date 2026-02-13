@@ -21,6 +21,7 @@ from flask import Blueprint
 from flask import g
 from flask import jsonify
 from flask import request
+from markupsafe import escape
 
 from server.lib.cache import cache
 from server.lib.cache import cache_and_log_mixer_usage
@@ -78,8 +79,10 @@ async def place_charts(place_dcid: str):
                                 child_place_type_to_highlight_task,
                                 place_type_task)
 
+  place_dcid = str(escape(place_dcid))
   # Validate the category parameter.
-  place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
+  place_category = str(
+      escape(request.args.get("category", place_utils.OVERVIEW_CATEGORY)))
   if place_category not in place_utils.ALLOWED_CATEGORIES:
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
@@ -145,6 +148,7 @@ async def related_places(place_dcid: str):
   - Place details (name, type, etc.)
   - Lists of nearby, similar, and child places
   """
+  place_dcid = str(escape(place_dcid))
   # Fetch the current place.
   place = place_utils.fetch_place(place_dcid, g.locale)
 
@@ -223,6 +227,7 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
+  place_dcid = str(escape(place_dcid))
   data_rows, mixer_response_ids = place_utils.fetch_overview_table_data(
       place_dcid)
   response_data = PlaceOverviewTableApiResponse(
@@ -237,5 +242,6 @@ async def place_summary(place_dcid: str):
   """
   Fetches and returns place summary data for the specified place.
   """
+  place_dcid = str(escape(place_dcid))
   summary = await place_utils.generate_place_summary(place_dcid, g.locale)
   return jsonify(PlaceSummaryApiResponse(summary=summary))
