@@ -207,7 +207,7 @@ export function Chart(props: ChartProps): ReactElement {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        hidePerCapitaOption={false}
+        hidePerCapitaOption={!mainSvInfo.pcAllowed}
         isPerCapita={statVar.value.perCapita}
         onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
           statVar.setPerCapita(isPerCapita)
