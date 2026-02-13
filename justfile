@@ -326,14 +326,25 @@ sync-auto:
     git fetch upstream
     echo ""
     echo "Merging upstream/{{UPSTREAM_BRANCH}} into $CURRENT_BRANCH..."
-    if git merge upstream/{{UPSTREAM_BRANCH}}; then
+    if git merge -X no-renames upstream/{{UPSTREAM_BRANCH}}; then
         echo ""
-        echo "Updating submodules..."
-        ./scripts/update_git_submodules.sh
-        echo ""
-        just check-overrides
-        echo ""
-        echo "Sync complete. No conflicts."
+        # Check for conflict markers that slipped into committed files (rename detection artifacts)
+        STRAY=$(git diff HEAD~1 HEAD -S'<<<<<<<' --name-only 2>/dev/null || true)
+        if [ -n "$STRAY" ]; then
+            echo "═══════════════════════════════════════════════════════"
+            echo " ⚠  Conflict markers found in merged files:"
+            echo "═══════════════════════════════════════════════════════"
+            echo "$STRAY"
+            echo ""
+            echo "Fix these files, then: git add <files> && git commit --amend --no-edit"
+        else
+            echo "Updating submodules..."
+            ./scripts/update_git_submodules.sh
+            echo ""
+            just check-overrides
+            echo ""
+            echo "Sync complete. No conflicts."
+        fi
     else
         echo ""
         CONFLICTS=$(git diff --name-only --diff-filter=U)
@@ -363,7 +374,7 @@ sync-theirs:
         git fetch upstream
         echo ""
         echo "Merging upstream/{{UPSTREAM_BRANCH}} into $CURRENT_BRANCH..."
-        git merge upstream/{{UPSTREAM_BRANCH}} || true
+        git merge -X no-renames upstream/{{UPSTREAM_BRANCH}} || true
     fi
     echo ""
     # Resolve each conflict type
@@ -415,12 +426,23 @@ sync-theirs:
         git commit --no-edit
     fi
     echo ""
-    echo "Updating submodules..."
-    ./scripts/update_git_submodules.sh
-    echo ""
-    just check-overrides
-    echo ""
-    echo "Sync complete. All conflicts resolved using upstream versions."
+    # Check for conflict markers that slipped into committed files (rename detection artifacts)
+    STRAY=$(git diff HEAD~1 HEAD -S'<<<<<<<' --name-only 2>/dev/null || true)
+    if [ -n "$STRAY" ]; then
+        echo "═══════════════════════════════════════════════════════"
+        echo " ⚠  Conflict markers found in merged files:"
+        echo "═══════════════════════════════════════════════════════"
+        echo "$STRAY"
+        echo ""
+        echo "Fix these files, then: git add <files> && git commit --amend --no-edit"
+    else
+        echo "Updating submodules..."
+        ./scripts/update_git_submodules.sh
+        echo ""
+        just check-overrides
+        echo ""
+        echo "Sync complete. All conflicts resolved using upstream versions."
+    fi
 
 # Merge upstream, accept theirs for most files but protect ONE-customized paths
 sync-resolve:
@@ -513,17 +535,45 @@ sync-resolve:
         echo "Resolve these manually, then run:"
         echo "  git add <files>"
         echo "  git commit --no-edit"
+        echo "  just check-markers"
         echo "  just submodules"
         echo "  just check-overrides"
     else
         git commit --no-edit
         echo ""
-        echo "Updating submodules..."
-        ./scripts/update_git_submodules.sh
+        # Check for conflict markers that slipped into committed files (rename detection artifacts)
+        STRAY=$(git diff HEAD~1 HEAD -S'<<<<<<<' --name-only 2>/dev/null || true)
+        if [ -n "$STRAY" ]; then
+            echo "═══════════════════════════════════════════════════════"
+            echo " ⚠  Conflict markers found in merged files:"
+            echo "═══════════════════════════════════════════════════════"
+            echo "$STRAY"
+            echo ""
+            echo "Fix these files, then: git add <files> && git commit --amend --no-edit"
+        else
+            echo "Updating submodules..."
+            ./scripts/update_git_submodules.sh
+            echo ""
+            just check-overrides
+            echo ""
+            echo "Sync complete."
+        fi
+    fi
+
+# Check for stray conflict markers in tracked files (catches rename detection artifacts)
+check-markers:
+    #!/usr/bin/env bash
+    MARKERS=$(git grep -l '<<<<<<<' -- ':!*.md' 2>/dev/null || true)
+    if [ -n "$MARKERS" ]; then
+        echo "═══════════════════════════════════════════════════════"
+        echo " ⚠  Conflict markers found in tracked files:"
+        echo "═══════════════════════════════════════════════════════"
+        echo "$MARKERS"
         echo ""
-        just check-overrides
-        echo ""
-        echo "Sync complete."
+        echo "Fix these files before building."
+        exit 1
+    else
+        echo "No stray conflict markers found."
     fi
 
 # Abort a failed merge and return to previous state

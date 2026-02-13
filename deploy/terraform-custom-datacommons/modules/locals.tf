@@ -71,6 +71,10 @@ locals {
     {
       name  = "REDIS_PORT"
       value = var.redis_port != null ? var.redis_port : try(tostring(local.redis_instance.port), "")
+    },
+    {
+      name  = "ENABLE_BLUE_GREEN_IMPORT"
+      value = "true"
     }
   ]
 
