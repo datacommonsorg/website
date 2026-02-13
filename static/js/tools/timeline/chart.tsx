@@ -167,10 +167,15 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
 
+    // Whether to hide the "per capita" toggle in the footer
+    // If any stat var allows per capita, then hidePerCapitaToggle is false (we will show the toggle)
+    const hidePerCapitaToggle = !Object.values(this.props.statVarInfos).some(
+      (svInfo) => svInfo.pcAllowed
+    );
+
     // Prepare props for ChartEmbed.
     const embedStatVarSpecs: StatVarSpec[] = [];
     const embedStatVarToFacets: StatVarFacetMap = {};
-    let hidePerCapitaToggle = true; // Whether to hide the "per capita" toggle in the footer
     if (this.state.isDataLoaded) {
       const places = Object.keys(this.props.placeNameMap);
       for (const svDcid in this.props.statVarInfos) {
@@ -179,10 +184,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           places,
           (place) => this.state.statData.data[svDcid]?.[place]?.facet
         );
-        if (svInfo.pcAllowed) {
-          // If any stat var allows per capita, then hidePerCapitaToggle is false (we will show the toggle)
-          hidePerCapitaToggle = false;
-        }
         embedStatVarSpecs.push({
           statVar: svDcid,
           name: svInfo.title,
