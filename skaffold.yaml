@@ -108,33 +108,20 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/dev.yaml
-            setValues:
-              serviceAccount.name: website-ksa
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
               - mixer/deploy/helm_charts/envs/mixer_dev.yaml
+              - deploy/helm_charts/envs/website_mixer_dev.yaml
             namespace: website
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
-            setValues:
-              mixer.redis.enabled: true
-              mixer.redis.configFile: |
-                instances:
-                  - region: "us-central1"
-                    host: "10.60.165.235"
-                    port: "6379"
-              mixer.enableOtlp: true
-              serviceAccount.name: website-ksa
-              ingress.enabled: "true"
-              mixer.hostProject: "datcom-website-dev"
-              project: "datcom-website-dev"
-              mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
-              serviceGroups.recon.enableEmbeddingsSidecar: "false"
-              serviceGroups.default.enableEmbeddingsSidecar: "true"
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-dev
     customActions:
       - name: deploy-cloud-esp-mixer-dev
@@ -158,12 +145,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
-            setValues:
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.hostProject: "datcom-mixer-dev-316822"
-              mixer.serviceName: "dev.api.datacommons.org"
-              mixer.githash: ${MIXER_GITHASH}
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
 
   - name: website-autopush
     customActions:
@@ -192,33 +175,20 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/autopush.yaml
-            setValues:
-              serviceAccount.name: website-ksa
-              website.githash: ${WEBSITE_GITHASH}
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
               - mixer/deploy/helm_charts/envs/mixer_autopush.yaml
+              - deploy/helm_charts/envs/website_mixer_autopush.yaml
             namespace: website
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.redis.enabled: "true"
-              mixer.redis.configFile: |
-                instances:
-                  - region: "us-central1"
-                    host: "10.13.112.19"
-                    port: "6379"
-              mixer.enableOtlp: true
-              serviceAccount.name: website-ksa
-              ingress.enabled: "true"
-              mixer.useRedis: "true"
-              mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-website-autopush"
-              mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
-              serviceGroups.recon.enableEmbeddingsSidecar: "false"
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-autopush
     customActions:
       - name: deploy-cloud-esp-mixer-autopush
@@ -251,15 +221,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-mixer-autopush"
-              project: datcom-mixer-autopush
-              cluster_prefix: mixer
-              mixer.serviceName: "autopush.api.datacommons.org"
-
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: website-staging
     customActions:
       - name: deploy-cloud-esp-staging
@@ -296,35 +259,20 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/staging.yaml
-            setValues:
-              serviceAccount.name: website-ksa
-              website.githash: ${WEBSITE_GITHASH}
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
               - mixer/deploy/helm_charts/envs/mixer_staging.yaml
+              - deploy/helm_charts/envs/website_mixer_staging.yaml
             namespace: website
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              serviceGroups.svg.nodePool: pool-1
-              mixer.redis.enabled: "true"
-              mixer.redis.configFile: |
-                instances:
-                  - region: "us-central1"
-                    host: "10.38.211.19"
-                    port: "6379"
-              mixer.enableOtlp: true
-              serviceAccount.name: website-ksa
-              ingress.enabled: "true"
-              mixer.useRedis: "true"
-              mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-website-staging"
-              project: "datcom-website-staging"
-              mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
-              serviceGroups.recon.enableEmbeddingsSidecar: "false"
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-staging
     customActions:
       - name: deploy-cloud-esp-mixer-staging
@@ -357,13 +305,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              serviceGroups.svg.nodePool: pool-2
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-mixer-staging"
-              mixer.serviceName: "staging.api.datacommons.org"
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: mixer-prod
     customActions:
       - name: deploy-cloud-esp-mixer-prod
@@ -387,13 +330,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-mixer"
-              mixer.serviceName: "api.datacommons.org"
-
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"
   - name: website-prod
     customActions:
       - name: deploy-cloud-esp-prod
@@ -430,31 +368,17 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/prod.yaml
-            setValues:
-              serviceAccount.name: website-ksa
-              website.githash: ${WEBSITE_GITHASH}
+            setValueTemplates:
+              website.githash: "{{ .WEBSITE_GITHASH }}"
           - name: dc-mixer
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
               - mixer/deploy/helm_charts/envs/mixer_prod.yaml
+              - deploy/helm_charts/envs/website_mixer_prod.yaml
             namespace: website
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              mixer.redis.enabled: true
-              mixer.redis.configFile: |
-                instances:
-                  - region: "us-central1"
-                    host: "10.212.232.163"
-                    port: "6379"
-              mixer.enableOtlp: true
-              serviceAccount.name: website-ksa
-              ingress.enabled: "true"
-              mixer.useRedis: "false"
-              mixer.githash: ${MIXER_GITHASH}
-              mixer.hostProject: "datcom-website-prod"
-              project: "datcom-website-prod"
-              mixer.serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
-              serviceGroups.recon.enableEmbeddingsSidecar: "false"
+            setValueTemplates:
+              mixer.githash: "{{ .MIXER_GITHASH }}"

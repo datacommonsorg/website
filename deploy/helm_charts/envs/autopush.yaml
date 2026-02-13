@@ -39,22 +39,6 @@ website:
         }
       }
 
-mixer:
-  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
-  hostProject: "datcom-website-autopush"
-  cacheSVFormula: true
-  redis:
-    enabled: true
-    configFile: |
-      instances:
-        - region: "us-central1"
-          host: "10.13.112.19"
-          port: "6379"
-  enableOtlp: true
-
-serviceAccount:
-  name: website-ksa
-
 ingress:
   enabled: true
 
@@ -91,17 +75,6 @@ nl:
         location: us-central1
         prediction_endpoint_id: "284894457873039360"
     enable_reranking: true
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 5
-  node:
-    replicas: 12
-  observation:
-    replicas: 12
-  default:
-    replicas: 12
 
 nodejs:
   enabled: true
