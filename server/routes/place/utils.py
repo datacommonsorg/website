@@ -53,12 +53,6 @@ _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}
 # Template for sharing the value of a stat var
 _TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {year}."
 
-# Template for the first sentence in the summary
-_TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}."
-
-# Template for sharing the value of a stat var
-_TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {year}."
-
 # Parent place types to include in listing of containing places at top of page
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'City',
@@ -1032,76 +1026,6 @@ def fetch_overview_table_data(
         ))
 
   return data_rows, mixer_response_ids
-
-
-def extract_most_recent_facet_observations(
-    place_observations_response: Dict[str, Any], place_dcid: str,
-    variable_dcid: str) -> Dict[str, Any] | None:
-  """
-  Extracts the most recent facet observations from a place observations response for a given place and variable DCIDs.
-
-  Example:
-
-  place_observations_response = {
-    "byVariable": {
-      "Count_Person": {
-        "byEntity": {
-          "country/EXAMPLE": {
-            "orderedFacets": [
-              {
-                "facetId": "facet_id_1",
-                "latestDate": "2024-01-01",
-                "observations": [
-                  {
-                    "date": "2024-01-01",
-                    "value": "500000"
-                  }
-                ]
-              },
-              {
-                "facetId": "facet_id_2",
-                "latestDate": "2023-01-01",
-                "observations": [
-                  {
-                    "date": "2023-01-01",
-                    "value": "400000"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      }
-    }
-  }
-
-  extract_most_recent_facet_observations(place_observations_response, "country/EXAMPLE", "Count_Person")
-
-  Returns:
-    {
-      "facetId": "facet_id_1",
-      "latestDate": "2024-01-01",
-      "observations": [
-        {
-          "date": "2024-01-01",
-          "value": "500000"
-        }
-      ]
-    }
-  """
-
-  ordered_facet_observations = place_observations_response.get(
-      "byVariable", {}).get(variable_dcid,
-                            {}).get("byEntity",
-                                    {}).get(place_dcid,
-                                            {}).get("orderedFacets", [])
-
-  # Get the most recent observation for each facet
-  most_recent_facet = max(ordered_facet_observations,
-                          key=lambda x: x.get("latestDate", ""),
-                          default=None)
-
-  return most_recent_facet
 
 
 def extract_most_recent_facet_observations(

@@ -25,9 +25,10 @@
   },
   {
     "name": "follow_up_questions_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
-    "description": "Enables the follow up questions generated from related topics to general audience."
+    "description": "Enables the follow up questions generated from related topics to general audience.",
+    "rollout_percentage": 20
   },
   {
     "name": "page_overview_ga",
@@ -46,6 +47,13 @@
     "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
+  },
+  {
+    "name": "standardized_vis_tool",
+    "enabled": true,
+    "owner": "juliawu",
+    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages",
+    "rollout_percentage": 20
   },
   {
     "name": "vai_for_statvar_search",

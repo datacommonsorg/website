@@ -39,7 +39,7 @@ import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection
 import { StatMetadata } from "../stat_types";
 import { FacetOptionContent } from "./facet_option_content";
 import { FacetSelectorFacetInfo } from "./facet_selector";
-import { SELECTOR_PREFIX } from "./facet_selector_rich";
+import { SELECTOR_PREFIX } from "./facet_selector";
 
 interface FacetSelectorGroupedContentProps {
   facetList: FacetSelectorFacetInfo[];

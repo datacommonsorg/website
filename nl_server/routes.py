@@ -63,7 +63,7 @@ def encode():
   return json.dumps({q: e for q, e in zip(queries, query_embeddings)})
 
 
-@bp.route('/api/search_vars/', methods=['POST'])
+@bp.route('/api/search_vars/', methods=['POST'], strict_slashes=False)
 def search_vars():
   """Returns a dictionary with each input query as key and value as:
 

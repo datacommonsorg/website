@@ -80,7 +80,7 @@ export function FacetSelectorStandardContent({
     if (firstSelectedId) {
       const targetElement = itemRefs.current.get(firstSelectedId);
       if (targetElement) {
-        targetElement.scrollIntoView({
+        targetElement.scrollIntoView?.({
           block: "center",
         });
       }

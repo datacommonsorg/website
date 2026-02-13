@@ -23,14 +23,18 @@ import { getPlaceDcids } from "../utils/place_utils";
 import { Chip } from "./chip";
 
 // Hardcoded results to respond to in the place autocomplete.
+const NORTH_AMERICA_DCID = "northamerica";
+const SOUTH_AMERICA_DCID = "southamerica";
 const HARDCODED_RESULTS = {
   africa: "africa",
   asia: "asia",
   earth: "Earth",
   europe: "europe",
-  "north america": "northamerica",
+  "north america": NORTH_AMERICA_DCID,
+  northamerica: NORTH_AMERICA_DCID,
   oceania: "oceania",
-  "south america": "southamerica",
+  "south america": SOUTH_AMERICA_DCID,
+  southamerica: SOUTH_AMERICA_DCID,
 };
 const CHIP_COLOR = "rgba(66, 133, 244, 0.08)";
 

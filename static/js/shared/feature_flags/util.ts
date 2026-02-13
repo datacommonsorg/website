@@ -16,7 +16,6 @@
 
 // Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-export const METADATA_FEATURE_FLAG = "metadata_modal";
 export const FOLLOW_UP_QUESTIONS_GA = "follow_up_questions_ga";
 export const PAGE_OVERVIEW_GA = "page_overview_ga";
 export const EXPLORE_RESULT_HEADER = "explore_result_header";
@@ -96,7 +95,7 @@ export function getFeatureFlags(): Record<
  *
  * Example:
  * https://datacommons.org/explore?enable_feature=autocomplete will enable the autocomplete feature.
- * https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal will enable both the autocomplete and metadata_modal features.
+ * https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=page_overview_ga will enable both the autocomplete and page_overview_ga features.
  * https://datacommons.org/explore?disable_feature=autocomplete will disable the autocomplete feature.
  *
  * @param featureName name of feature for which we want status.

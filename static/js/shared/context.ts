@@ -43,7 +43,7 @@ export interface ExploreType {
 export const ExploreContext = createContext({} as ExploreType);
 
 export const RankingUnitUrlFuncContext = createContext(
-  (dcid: string, placeType?: string, apiRoot?: string, statVar?: string) => {
+  (dcid: string, placeType?: string, apiRoot?: string) => {
     const path =
       !placeType || PLACE_TYPES.has(placeType)
         ? `/place/${dcid}`

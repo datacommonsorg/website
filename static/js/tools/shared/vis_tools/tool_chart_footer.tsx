@@ -27,6 +27,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { ApiButton } from "../../../components/tiles/components/api_button";
 import { intl } from "../../../i18n/i18n";
+import { chartComponentMessages } from "../../../i18n/i18n_chart_messages";
 import { messages } from "../../../i18n/i18n_messages";
 import { WEBSITE_SURFACE } from "../../../shared/constants";
 import {
@@ -236,7 +237,7 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
                       }
                     }}
                   />
-                  Per Capita
+                  {intl.formatMessage(chartComponentMessages.PerCapitaLabel)}
                 </Label>
               </FormGroup>
             </span>

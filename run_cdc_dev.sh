@@ -61,6 +61,10 @@ if lsof -i :12345 > /dev/null 2>&1; then
   log_error "Port 12345 (for mixer) is already in use. Please stop the process using that port."
   exit 1
 fi
+if lsof -i :8082 > /dev/null 2>&1; then
+  log_error "Port 8082 (for mcp) is already in use. Please stop the process using that port."
+  exit 1
+fi
 
 ENV_FILE=${RUN_CDC_DEV_ENV_FILE:-.run_cdc_dev.env}
 echo "Using environment file: $ENV_FILE"
@@ -139,7 +143,8 @@ mixer_command="./bin/mixer_server \
   --use_sqlite=$USE_SQLITE \
   --use_cloudsql=$USE_CLOUDSQL \
   --cloudsql_instance=$CLOUDSQL_INSTANCE \
-  --remote_mixer_domain=$DC_API_ROOT"
+  --remote_mixer_domain=$DC_API_ROOT \
+  --embeddings_server_url=$EMBEDDINGS_SERVER_URL"
 if [[ "$VERBOSE" == "true" ]]; then
   eval "$mixer_command &"
 else
@@ -173,6 +178,22 @@ else
   log_notice "$ENABLE_MODEL is not true, NL server will not be started."
 fi
 
+# Start MCP server.
+MCP_PID=""
+if [[ $ENABLE_MCP == "true" ]]; then
+  echo "Starting MCP Server..."
+  if ! python3 -c "import datacommons_mcp" &> /dev/null; then
+    echo "datacommons-mcp not found, installing..."
+    uv pip install datacommons-mcp
+  fi
+  
+  mcp_command="datacommons-mcp serve http --skip-api-key-validation --port 8082"
+  eval "$mcp_command &"
+  MCP_PID=$!
+else
+  log_notice "$ENABLE_MCP is not true, MCP server will not be started."
+fi
+
 # Start Website server.
 echo "Starting Website Server..."
 website_command="uv run --project server python3 web_app.py 8080"
@@ -202,6 +223,11 @@ while true; do
 
   if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
     log_error "NL server exited early. Run with --verbose to debug."
+    exit 1
+  fi
+
+  if [[ -n "$MCP_PID" ]] && ! ps -p $MCP_PID > /dev/null; then
+    log_error "MCP server exited early. Run with --verbose to debug."
     exit 1
   fi
 

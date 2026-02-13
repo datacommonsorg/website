@@ -55,17 +55,31 @@ test("getCappedStatVarDate", () => {
 describe("sanitizeSourceUrl", () => {
   test.each([
     // http and https urls should be returned as is
-    ["https://example.com", "https://example.com"],
-    ["http://example.com", "http://example.com"],
+    ["https://example.com", "https://example.com/"],
+    ["http://example.com", "http://example.com/"],
     // urls without protocol should be prefixed with https
-    ["example.com", "https://example.com"],
-    ["www.example.com", "https://www.example.com"],
+    ["example.com", "https://example.com/"],
+    ["www.example.com", "https://www.example.com/"],
     // whitespace should be handled elegantly
-    ["  example.com  ", "https://example.com"],
+    ["  example.com  ", "https://example.com/"],
     // urls with javascript, vbscript, or data should be sanitized
     ["javascript:alert(1)", ""],
     ["vbscript:alert(1)", ""],
     ["data:text/html,<html></html>", ""],
+    ["https://javascript:alert(1)", ""],
+    ["http://vbscript:alert(1)", ""],
+    ["<html>data:text/html,<html></html>", ""],
+    // Valid paths with javascript, vbscript, or data should be preserved
+    [
+      "https://en.wikipedia.org/wiki/JavaScript",
+      "https://en.wikipedia.org/wiki/JavaScript",
+    ],
+    ["http://example.com/vbscript/about", "http://example.com/vbscript/about"],
+    [
+      "https://my-app.com/api?data=dataPayload",
+      "https://my-app.com/api?data=dataPayload",
+    ],
+    ["http://javascript.com", "http://javascript.com/"],
     // empty string should not result in error
     ["", ""],
   ])("should convert %p to %p", (input, expected) => {

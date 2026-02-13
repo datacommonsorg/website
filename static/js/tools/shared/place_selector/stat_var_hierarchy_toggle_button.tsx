@@ -15,13 +15,32 @@
  */
 
 /**
+<<<<<<<< HEAD:static/js/apps/custom_dc/one/homepage/main.ts
+ * One.org: Entry point for the home page.
+========
  * Component for wrapping a set of form components in a card
+>>>>>>>> upstream/customdc_stable:static/js/tools/shared/place_selector/stat_var_hierarchy_toggle_button.tsx
  */
 
 import React from "react";
 
 import { Button } from "../../../components/elements/button/button";
 
+<<<<<<<< HEAD:static/js/apps/custom_dc/one/homepage/main.ts
+window.addEventListener("load", (): void => {
+  const metadataContainer = document.getElementById("metadata-base");
+  renderPage(metadataContainer);
+});
+
+function renderPage(metadataContainer: HTMLElement): void {
+  const primarySiteWebRoot = metadataContainer.dataset.primarySiteWebRoot;
+
+  ReactDOM.render(
+    React.createElement(App, {
+      primarySiteWebRoot,
+    }),
+    document.getElementById("app-container")
+========
 interface StatVarHierarchyToggleButtonProps {
   onClickCallback: () => void;
   text: string;
@@ -36,5 +55,6 @@ export function StatVarHierarchyToggleButton(
         {props.text}
       </Button>
     </div>
+>>>>>>>> upstream/customdc_stable:static/js/tools/shared/place_selector/stat_var_hierarchy_toggle_button.tsx
   );
 }

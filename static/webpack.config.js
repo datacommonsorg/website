@@ -97,19 +97,6 @@ const config = {
       __dirname + "/js/apps/browser_landing/main.ts",
       __dirname + "/css/browser_landing.scss",
     ],
-    biomedical: __dirname + "/css/biomedical/biomedical_shared.scss",
-    biomedical_landing: [
-      __dirname + "/js/biomedical/landing/main.ts",
-      __dirname + "/css/biomedical/biomedical_landing.scss",
-    ],
-    disease: [
-      __dirname + "/js/biomedical/disease/disease.ts",
-      __dirname + "/css/biomedical/disease.scss",
-    ],
-    protein: [
-      __dirname + "/js/biomedical/protein/protein.ts",
-      __dirname + "/css/biomedical/protein.scss",
-    ],
     static: __dirname + "/css/static.scss",
     search: [
       __dirname + "/js/search/search.ts",
@@ -210,7 +197,9 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.IS_CLOUD_BUILD': JSON.stringify(process.env.IS_CLOUD_BUILD || 'false'),
+      "process.env.IS_CLOUD_BUILD": JSON.stringify(
+        process.env.IS_CLOUD_BUILD || "false"
+      ),
     }),
     new NodePolyfillPlugin(),
     new CopyPlugin({
@@ -261,7 +250,7 @@ module.exports = (env, argv) => {
     config.devtool = "source-map";
     config.stats.preset = "log";
 
-    if (process.env.IS_CLOUD_BUILD !== 'true') {
+    if (process.env.IS_CLOUD_BUILD !== "true") {
       // Only log progress outside of cloud where it's useful to see the build starting.
       config.plugins.push(
         new webpack.ProgressPlugin(interactiveProgressHandler)

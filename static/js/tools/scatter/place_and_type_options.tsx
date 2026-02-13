@@ -173,8 +173,13 @@ function loadEnclosedPlaces(
           }
         );
         place.setEnclosedPlaces(enclosedPlaces);
-        isLoading.setArePlacesLoading(false);
+      } else {
+        // Fetch returned no enclosed places
+        // Record the place and enclosed place type that resulted in no enclosed places
+        place.setEnclosedPlaces([]);
+        setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
       }
+      isLoading.setArePlacesLoading(false);
     })
     .catch((error) => {
       if (axios.isCancel(error)) {
