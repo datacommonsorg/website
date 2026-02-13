@@ -22,6 +22,8 @@ import React, { useContext } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Container } from "reactstrap";
 
+import { intl } from "../../i18n/i18n";
+import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,
@@ -171,7 +173,7 @@ function PlotOptions(): JSX.Element {
                         }
                       }}
                     />
-                    Per Capita
+                    {intl.formatMessage(chartComponentMessages.PerCapitaLabel)}
                   </Label>
                 </FormGroup>
               </div>
