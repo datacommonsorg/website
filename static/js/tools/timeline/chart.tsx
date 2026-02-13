@@ -16,7 +16,6 @@
 import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
-import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
@@ -257,7 +256,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          hideIsRatio={hidePerCapitaToggle}
+          hidePerCapitaOption={hidePerCapitaToggle}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
             setChartOption(this.props.chartId, "pc", isPerCapita)
