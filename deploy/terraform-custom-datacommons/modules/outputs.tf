@@ -14,12 +14,12 @@
 
 output "redis_instance_host" {
   description = "The hostname or IP address of the Redis instance"
-  value       = try(local.redis_instance.host, "")
+  value       = var.redis_host != null ? var.redis_host : try(local.redis_instance.host, "")
 }
 
 output "redis_instance_port" {
   description = "The port number the Redis instance is listening on"
-  value       = try(local.redis_instance.port, "")
+  value       = var.redis_port != null ? var.redis_port : try(local.redis_instance.port, "")
 }
 
 output "mysql_instance_connection_name" {

@@ -53,7 +53,7 @@ setup: env-all
     echo ""
     echo "Setup complete. Run 'just run' to start the application."
 
-# Create local env file with interactive prompts
+# Create local env file, fetching secrets from GCP Secret Manager
 env:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -64,6 +64,8 @@ env:
     fi
     echo "Creating $TARGET..."
     echo ""
+    PROJECT="one-data-commons"
+    NAMESPACE="staging"  # local dev uses staging secrets
     ask() {
         local prompt="$1" default="${2:-}" value
         if [ -n "$default" ]; then
@@ -78,17 +80,51 @@ env:
             echo "$value"
         fi
     }
-    echo "API keys (ask a team member if you don't have these):"
-    DC_API_KEY=$(ask "DC API key")
-    MAPS_API_KEY=$(ask "Maps API key")
+    fetch_secret() {
+        local prefix="$1" name
+        name=$(gcloud secrets list --project="$PROJECT" \
+            --filter="name~${NAMESPACE}-datacommons-${prefix}" \
+            --format="value(name)" 2>/dev/null | head -1)
+        if [ -n "$name" ]; then
+            gcloud secrets versions access latest \
+                --secret="$name" --project="$PROJECT" 2>/dev/null || true
+        fi
+    }
+    echo "Fetching secrets from GCP Secret Manager (${NAMESPACE})..."
+    DC_API_KEY=$(fetch_secret dc-api-key)
+    MAPS_API_KEY=$(fetch_secret maps-api-key)
+    if [ -n "$DC_API_KEY" ]; then
+        echo "  DC_API_KEY:   fetched"
+    else
+        echo "  DC_API_KEY:   not found (will prompt)"
+    fi
+    if [ -n "$MAPS_API_KEY" ]; then
+        echo "  MAPS_API_KEY: fetched"
+    else
+        echo "  MAPS_API_KEY: not found (will prompt)"
+    fi
     echo ""
+    if [ -z "$DC_API_KEY" ] || [ -z "$MAPS_API_KEY" ]; then
+        echo "Some secrets could not be fetched. Ensure you have access:"
+        echo "  gcloud auth login"
+        echo "  Requires roles/secretmanager.secretAccessor on ${NAMESPACE} secrets"
+        echo ""
+        [ -z "$DC_API_KEY" ] && DC_API_KEY=$(ask "DC API key")
+        [ -z "$MAPS_API_KEY" ] && MAPS_API_KEY=$(ask "Maps API key")
+        echo ""
+    fi
     echo "Database:"
     echo "  Local dev uses file-based data by default."
     read -rp "  Connect to Cloud SQL instead? (y/N): " USE_SQL
     echo ""
     if [ "$USE_SQL" = "y" ] || [ "$USE_SQL" = "Y" ]; then
         CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:northamerica-northeast1:kg-staging")
-        DB_PASS=$(ask "DB password")
+        DB_PASS=$(fetch_secret mysql-password)
+        if [ -n "$DB_PASS" ]; then
+            echo "  DB_PASS:      fetched from Secret Manager"
+        else
+            DB_PASS=$(ask "DB password")
+        fi
         echo ""
     fi
     echo "Data directories:"
@@ -147,7 +183,7 @@ env:
     } > "$TARGET"
     echo "Created $TARGET"
 
-# Create staging env file with interactive prompts
+# Create staging env file, fetching secrets from GCP Secret Manager
 env-staging:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -158,6 +194,8 @@ env-staging:
     fi
     echo "Creating $TARGET..."
     echo ""
+    PROJECT="one-data-commons"
+    NAMESPACE="staging"
     ask() {
         local prompt="$1" default="${2:-}" value
         if [ -n "$default" ]; then
@@ -172,21 +210,51 @@ env-staging:
             echo "$value"
         fi
     }
-    echo "API keys:"
-    DC_API_KEY=$(ask "DC API key")
-    MAPS_API_KEY=$(ask "Maps API key")
+    fetch_secret() {
+        local prefix="$1" name
+        name=$(gcloud secrets list --project="$PROJECT" \
+            --filter="name~${NAMESPACE}-datacommons-${prefix}" \
+            --format="value(name)" 2>/dev/null | head -1)
+        if [ -n "$name" ]; then
+            gcloud secrets versions access latest \
+                --secret="$name" --project="$PROJECT" 2>/dev/null || true
+        fi
+    }
+    echo "Fetching secrets from GCP Secret Manager (${NAMESPACE})..."
+    DC_API_KEY=$(fetch_secret dc-api-key)
+    MAPS_API_KEY=$(fetch_secret maps-api-key)
+    DB_PASS=$(fetch_secret mysql-password)
+    ADMIN_SECRET=$(fetch_secret admin-secret)
+    for var in DC_API_KEY MAPS_API_KEY DB_PASS ADMIN_SECRET; do
+        if [ -n "${!var}" ]; then
+            printf "  %-14s fetched\n" "$var:"
+        else
+            printf "  %-14s not found (will prompt)\n" "$var:"
+        fi
+    done
     echo ""
+    NEED_PROMPT=false
+    for var in DC_API_KEY MAPS_API_KEY DB_PASS ADMIN_SECRET; do
+        [ -z "${!var}" ] && NEED_PROMPT=true
+    done
+    if [ "$NEED_PROMPT" = true ]; then
+        echo "Some secrets could not be fetched. Ensure you have access:"
+        echo "  gcloud auth login"
+        echo "  Requires roles/secretmanager.secretAccessor on ${NAMESPACE} secrets"
+        echo ""
+        [ -z "$DC_API_KEY" ] && DC_API_KEY=$(ask "DC API key")
+        [ -z "$MAPS_API_KEY" ] && MAPS_API_KEY=$(ask "Maps API key")
+        [ -z "$DB_PASS" ] && DB_PASS=$(ask "DB password")
+        [ -z "$ADMIN_SECRET" ] && ADMIN_SECRET=$(ask "Admin secret")
+        echo ""
+    fi
     echo "Directories:"
     INPUT_DIR=$(ask "Input directory" "gs://one-datacommons-staging/one-data")
     OUTPUT_DIR=$(ask "Output directory" "gs://one-datacommons-staging/one-data-output")
     echo ""
-    echo "Database:"
-    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:us-east4:dc-graph")
-    DB_PASS=$(ask "DB password")
-    echo ""
     echo "Application:"
+    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:us-east4:dc-graph")
     REDIS_HOST=$(ask "Redis host" "10.143.80.83")
-    ADMIN_SECRET=$(ask "Admin secret")
     echo ""
     {
         echo "### ONE Data Commons — STAGING environment ###"
@@ -219,7 +287,7 @@ env-staging:
     } > "$TARGET"
     echo "Created $TARGET"
 
-# Create production env file with interactive prompts
+# Create production env file, fetching secrets from GCP Secret Manager
 env-prod:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -230,6 +298,8 @@ env-prod:
     fi
     echo "Creating $TARGET..."
     echo ""
+    PROJECT="one-data-commons"
+    NAMESPACE="prod"
     ask() {
         local prompt="$1" default="${2:-}" value
         if [ -n "$default" ]; then
@@ -244,21 +314,51 @@ env-prod:
             echo "$value"
         fi
     }
-    echo "API keys:"
-    DC_API_KEY=$(ask "DC API key")
-    MAPS_API_KEY=$(ask "Maps API key")
+    fetch_secret() {
+        local prefix="$1" name
+        name=$(gcloud secrets list --project="$PROJECT" \
+            --filter="name~${NAMESPACE}-datacommons-${prefix}" \
+            --format="value(name)" 2>/dev/null | head -1)
+        if [ -n "$name" ]; then
+            gcloud secrets versions access latest \
+                --secret="$name" --project="$PROJECT" 2>/dev/null || true
+        fi
+    }
+    echo "Fetching secrets from GCP Secret Manager (${NAMESPACE})..."
+    DC_API_KEY=$(fetch_secret dc-api-key)
+    MAPS_API_KEY=$(fetch_secret maps-api-key)
+    DB_PASS=$(fetch_secret mysql-password)
+    ADMIN_SECRET=$(fetch_secret admin-secret)
+    for var in DC_API_KEY MAPS_API_KEY DB_PASS ADMIN_SECRET; do
+        if [ -n "${!var}" ]; then
+            printf "  %-14s fetched\n" "$var:"
+        else
+            printf "  %-14s not found (will prompt)\n" "$var:"
+        fi
+    done
     echo ""
+    NEED_PROMPT=false
+    for var in DC_API_KEY MAPS_API_KEY DB_PASS ADMIN_SECRET; do
+        [ -z "${!var}" ] && NEED_PROMPT=true
+    done
+    if [ "$NEED_PROMPT" = true ]; then
+        echo "Some secrets could not be fetched. Ensure you have access:"
+        echo "  gcloud auth login"
+        echo "  Requires roles/secretmanager.secretAccessor on ${NAMESPACE} secrets"
+        echo ""
+        [ -z "$DC_API_KEY" ] && DC_API_KEY=$(ask "DC API key")
+        [ -z "$MAPS_API_KEY" ] && MAPS_API_KEY=$(ask "Maps API key")
+        [ -z "$DB_PASS" ] && DB_PASS=$(ask "DB password")
+        [ -z "$ADMIN_SECRET" ] && ADMIN_SECRET=$(ask "Admin secret")
+        echo ""
+    fi
     echo "Directories:"
     INPUT_DIR=$(ask "Input directory" "gs://one-datacommons-imports-prod/")
     OUTPUT_DIR=$(ask "Output directory" "gs://one-datacommons-imports-prod/")
     echo ""
-    echo "Database:"
-    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:us-east4:dc-graph-prod")
-    DB_PASS=$(ask "DB password")
-    echo ""
     echo "Application:"
+    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:us-east4:dc-graph-prod")
     REDIS_HOST=$(ask "Redis host" "10.143.80.83")
-    ADMIN_SECRET=$(ask "Admin secret")
     echo ""
     {
         echo "### ONE Data Commons — PRODUCTION environment ###"
