@@ -155,7 +155,7 @@ function PlotOptions(): JSX.Element {
             {yAxisLabel}:
           </div>
           <div className="plot-options-input-section">
-            {y.value.statVarInfo.pcAllowed && (
+            {y.value.statVarInfo?.pcAllowed && (
               <div className="plot-options-input">
                 <FormGroup check>
                   <Label check>
@@ -206,7 +206,7 @@ function PlotOptions(): JSX.Element {
             {xAxisLabel}:
           </div>
           <div className="plot-options-input-section">
-            {x.value.statVarInfo.pcAllowed && (
+            {x.value.statVarInfo?.pcAllowed && (
               <div className="plot-options-input">
                 <FormGroup check>
                   <Label check>
@@ -224,7 +224,7 @@ function PlotOptions(): JSX.Element {
                         }
                       }}
                     />
-                    Per Capita
+                    {intl.formatMessage(chartComponentMessages.PerCapitaLabel)}
                   </Label>
                 </FormGroup>
               </div>
