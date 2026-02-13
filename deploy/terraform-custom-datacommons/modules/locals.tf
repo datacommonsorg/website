@@ -75,6 +75,14 @@ locals {
     {
       name  = "ENABLE_BLUE_GREEN_IMPORT"
       value = "true"
+    },
+    {
+      name  = "DC_SEARCH_SCOPE"
+      value = "base_and_custom"
+    },
+    {
+      name  = "PLACE_LIKE_CONSTRAINTS"
+      value = "[\"DevelopmentFinanceRecipient\"]"
     }
   ]
 
