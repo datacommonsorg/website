@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Student Recruitment Intelligence Center</title>
+
+    <link rel="icon" id="faviconLogo" href="https://docs.datacommons.org/assets/images/favicon.png" type="image/png">
+
+    {% include 'custom_dc/education/includes/head_common.html' %}
+
+    <link href="{{url_for('static', filename='custom_dc/education/css/pages/_login.css')}}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="university-badge" >
+            <md-icon id="domainLogo">trending_up</md-icon>
+            <img id="domainLogoImg" style="display: none" class="login-image" src="{{ url_for('admin_panel.domain_logo') }}" />
+            <span id="domainName"></span>
+        </div>
+        <h1 id="descriptionTitle"></h1>
+        <p>Sign in to access enrollment analytics and insights</p>
+    </div>
+
+    <md-card>
+        <form id="loginForm">
+            <div class="form-field">
+                <label>Username</label>
+                <md-outlined-text-field placeholder="Enter your username" type="text" id="username" required>
+                </md-outlined-text-field>
+            </div>
+
+            <div class="form-field">
+                <label>Password</label>
+                <md-outlined-text-field placeholder="Enter your password" type="password" id="password" required>
+                </md-outlined-text-field>
+            </div>
+
+            <md-filled-button type="submit">
+                <md-icon slot="icon">login</md-icon>
+                Sign In
+            </md-filled-button>
+
+            <!-- Error Alert (Initially Hidden) -->
+            <div id="loginAlerts" class="form-error" role="alert" aria-live="polite" style="display: none;">
+                <span class="material-symbols-outlined form-error__icon">error</span>
+                <span id="errorMessage" class="form-error__text"></span>
+            </div>
+
+            <p class="support-text">
+                Need help? Contact <span id="contactEmail"></span>
+            </p>
+        </form>
+
+    </md-card>
+
+    <div class="footer-link">
+        <md-text-button href="{{ url_for('static.homepage') }}">
+            View as guest
+        </md-text-button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="{{url_for('static', filename='custom_dc/education/js/pages/login.js')}}"></script>
+</body>
+</html>

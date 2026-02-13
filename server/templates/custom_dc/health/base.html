@@ -1,0 +1,244 @@
+{#-
+Copyright 2023 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+
+{#-
+Required variables:
+title: page title
+main_id: DOM Element ID for the main content block
+page_id: DOM Element ID for the html element
+
+Optional variables:
+locale: string, value for html lang attr
+is_hide_header_search_bar: boolean, if true, the header will not contain a search bar. Default false.
+subpage_title: string, if specified, will be displayed in the header next to Data Commons
+
+Blocks to override:
+head - additional head elements
+content - main page content
+-#}
+<!DOCTYPE html>
+{#- Hide the header search bar for custom DC pages. -#}
+{% set is_hide_header_search_bar = 'true' %}
+
+<html lang={{ locale }} id={{ page_id }}>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Monitoring Organization</title>
+  <link rel="icon" id="faviconLogo" href="https://docs.datacommons.org/assets/images/favicon.png" type="image/png">
+
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
+      client_storage: 'none',
+      anonymize_ip: true,
+        {{ ("place_category: '{}'," | safe).format(place_category) if place_category is defined else "" }}
+    { { ("send_page_view: false," | safe) if manual_ga_pageview else "" } }
+        });
+  </script>
+  {% endif %}
+  <script>
+    globalThis.FEATURE_FLAGS = {{ config['FEATURE_FLAGS'] | tojson }};
+    globalThis.disableGoogleMaps = {{ config['DISABLE_GOOGLE_MAPS'] | tojson }};
+  </script>
+
+  {% include 'custom_dc/health/includes/head_common.html' %}
+
+  <link href="{{url_for('static', filename='custom_dc/health/css/main.css')}}" rel="stylesheet">
+
+
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+  {% block head %}
+  {% endblock %}
+  {% if OVERRIDE_CSS_PATH %}
+  <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
+  {% endif %}
+  <script src={{url_for('static', filename='queryStore.js' , t=config['VERSION'])}} async></script>
+
+</head>
+
+<body class="custom-dc">
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
+    data-locale="{{ locale }}">
+  </div>
+  <div id="main">
+    <!-- Top Navigation Bar -->
+    <header>
+      <div class="header-content">
+        <div class="header-logo-wrapper">
+          <div class="logo-section" id="logoPlaceholder" data-href="/">
+            <span id="domainLogo" class="material-symbols-outlined">trending_up</span>
+            <span id="domainName" class="logo-text"></span>
+          </div>
+        </div>
+        <div class="search-container" role="search">
+          <span class="material-symbols-outlined search-icon" aria-hidden="true">search</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Enter a question to explore..." aria-label="Search">
+          <span id="searchArrow" class="material-symbols-outlined search-arrow" aria-hidden="true">arrow_forward</span>
+        </div>
+        <nav class="header-nav">
+          <!-- Tools Dropdown -->
+          <div class="nav-dropdown" id="toolsDropdown">
+            <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+              <span>Tools</span>
+              <span class="material-symbols-outlined dropdown-arrow" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="mega-menu">
+              <div class="mega-menu-inner">
+                <div class="mega-menu-header">
+                  <h3>Tools</h3>
+                  <p>Explore a variety of tools to visualize, analyze, and interact with the Data Commons knowledge graph and its extensive datasets</p>
+                </div>
+                <div class="mega-menu-items">
+                  <a href="{{ url_for('browser.browser_main') }}" class="mega-menu-item">
+                    <h4>Knowledge Graph</h4>
+                    <p>Explore what data is available and understand the graph structure</p>
+                  </a>
+                  <a href="{{ url_for('tools.stat_var') }}" class="mega-menu-item">
+                    <h4>Statistical Variable Explorer</h4>
+                    <p>Explore statistical variable details including metadata and observations</p>
+                  </a>
+                  <a href="{{ url_for('tools.download') }}" class="mega-menu-item">
+                    <h4>Data Download Tool</h4>
+                    <p>Download data for selected statistical variables</p>
+                  </a>
+                  <a href="{{ url_for('tools.visualization') }}#visType=map" class="mega-menu-item">
+                    <h4>Map Explorer</h4>
+                    <p>Study how a selected statistical variable can vary across geographic regions</p>
+                  </a>
+                  <a href="{{ url_for('tools.visualization') }}#visType=scatter" class="mega-menu-item">
+                    <h4>Scatter Plot Explorer</h4>
+                    <p>Visualize the correlation between two statistical variables</p>
+                  </a>
+                  <a href="{{ url_for('tools.visualization') }}#visType=timeline" class="mega-menu-item">
+                    <h4>Timelines Explorer</h4>
+                    <p>See trends over time for selected statistical variables</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documentation Dropdown -->
+          <div class="nav-dropdown" id="documentationDropdown">
+            <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+              <span>Documentation</span>
+              <span class="material-symbols-outlined dropdown-arrow" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="mega-menu">
+              <div class="mega-menu-inner">
+                <div class="mega-menu-header">
+                  <h3>Documentation</h3>
+                  <p>Access in-depth tutorials, guides, and API references to unlock the full potential of Data Commons and integrate it into your projects</p>
+                </div>
+                <div class="mega-menu-items">
+                  <a href="https://docs.datacommons.org" target="_blank" class="mega-menu-item">
+                    <h4>Docs</h4>
+                    <p>Learn how to access and visualize Data Commons data: docs for the website, APIs, and more</p>
+                  </a>
+                  <a href="https://docs.datacommons.org/api" target="_blank" class="mega-menu-item">
+                    <h4>API</h4>
+                    <p>Access Data Commons data programmatically, using REST and Python APIs</p>
+                  </a>
+                  <a href="https://docs.datacommons.org/tutorials" target="_blank" class="mega-menu-item">
+                    <h4>Tutorials</h4>
+                    <p>Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples</p>
+                  </a>
+                  <a href="https://docs.datacommons.org/contributing/" target="_blank" class="mega-menu-item">
+                    <h4>Contributions</h4>
+                    <p>Become part of Data Commons by contributing data, tools, or educational materials</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- About Dropdown -->
+          <div class="nav-dropdown" id="aboutDropdown">
+            <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+              <span>About</span>
+              <span class="material-symbols-outlined dropdown-arrow" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="mega-menu">
+              <div class="mega-menu-inner">
+                <div class="mega-menu-header">
+                  <h3>About</h3>
+                  <p>Data Commons is an initiative from Google. Explore diverse data, learn to use its tools, and stay updated on the latest news and research</p>
+                </div>
+                <div class="mega-menu-items">
+                  <a href="https://docs.datacommons.org/what_is.html" target="_blank" class="mega-menu-item">
+                    <h4>Why Data Commons</h4>
+                    <p>Discover why Data Commons is revolutionizing data access and analysis</p>
+                  </a>
+                  <a href="https://datacommons.org/data" target="_blank" class="mega-menu-item">
+                    <h4>Data Sources</h4>
+                    <p>Get familiar with the data available in Data Commons</p>
+                  </a>
+                  <a href="https://docs.datacommons.org/custom_dc/faq.html" target="_blank" class="mega-menu-item">
+                    <h4>FAQ</h4>
+                    <p>Find quick answers to common questions about Data Commons</p>
+                  </a>
+                  <a href="https://blog.datacommons.org/" target="_blank" class="mega-menu-item">
+                    <h4>Blog</h4>
+                    <p>Stay up-to-date with the latest news, updates, and insights from the Data Commons team</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feedback Link -->
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdo_IpV4rlQzDcSZOBOnXLlJDSFv_lFU7j8m2_i1ctRCP3HGw/viewform?usp=pp_url&entry.871991796=/" class="nav-link">Feedback</a>
+
+          {% if session.get('username') %}
+          <div class="user-avatar">{{ session.get('username').upper()[0] + session.get('username').upper()[1] }}</div>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main id="{{ main_id }}" class="main-content">
+      {% block content %}
+      {% endblock %}
+    </main>
+  </div>
+  {# jQuery for legacy compatibility #}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script type="module">
+    import { initializeHeader } from '{{ url_for('static', filename='custom_dc/health/js/components/header.js') }}';
+
+    // Initialize header with logo URL
+    initializeHeader({
+      logoUrl: "{{ url_for('admin_panel.domain_logo') }}"
+    });
+  </script>
+  {% block footer %}
+  {% endblock %}
+</body>
+
+</html>

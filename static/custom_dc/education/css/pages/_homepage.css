@@ -1,0 +1,295 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  padding: 5rem 3rem;
+  background: linear-gradient(135deg, #1A73E8 0%, #4285F4 100%);
+  color: #FFFFFF;
+  text-align: center;
+  overflow: hidden;
+  background-image: url(https://images.unsplash.com/photo-1761582253762-9b595a4fc92f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYWVyaWFsfGVufDF8fHx8MTc2NTQ0NDEyMHww&ixlib=rb-4.1.0&q=80&w=1080);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0.3s ease;
+  min-height: 18.75rem;
+  margin: -4rem -6rem 0 -6rem; 
+  padding-top: calc(70px + 3rem);
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 115, 232, 0.7);
+  backdrop-filter: blur(0.0625rem);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 56.25rem;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  opacity: 0.95;
+  text-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+/* Container */
+.container {
+  max-width: 100%;
+  padding: 3rem 3rem 1rem 3rem;
+  margin: 0 auto;
+}
+
+/* Filters Section */
+.filters-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  padding: 1rem 0;
+  background-color: #FFFFFF;
+  border: 0.0625rem solid #E8EAED;
+  border-radius: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #202124;
+  padding: 0 1.5rem;
+  border-right: 0.0625rem solid #E8EAED;
+}
+
+.filter-label-icon {
+  padding: 0.25rem;
+  background-color: #F8F9FA;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  border-right: 0.0625rem solid #E8EAED;
+}
+
+.filter-group:last-child {
+  border-right: none;
+}
+
+.filter-text {
+  font-size: 0.8125rem;
+  color: #5F6368;
+  font-weight: 500;
+}
+
+.filter-icon-small {
+  font-size: 1rem;
+  color: #5F6368;
+}
+
+/* Metrics Header */
+.metrics-header {
+  margin-bottom: 1.5rem;
+}
+
+.metrics-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #202124;
+  margin-bottom: 0.25rem;
+}
+
+.metrics-subtitle {
+  font-size: 0.8125rem;
+  color: #5F6368;
+}
+
+/* Main Content Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1280px) {
+  .main-grid {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+
+/* Map Visualization */
+.map-card {
+  background-color: #FFFFFF;
+  border: 0.0625rem solid #E8EAED;
+  border-radius: 2.25rem;
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Opportunity Cards */
+.opportunity-card {
+  background-color: #FFFFFF;
+  border: 0.0625rem solid #E8EAED;
+  border-radius: 2.25rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* KPI Section */
+.kpi-section {
+  background-color: #FFFFFF;
+  border: 0.0625rem solid #E8EAED;
+  border-radius: 2.25rem;
+  padding: 2rem;
+  margin-bottom: 0;
+}
+
+.kpi-grid-spacing {
+  margin-top: 2rem;
+}
+
+/* Gemini Footer */
+.gemini-footer {
+  margin-top: 3rem;
+  padding: 1rem 1.5rem;
+  background-color: #E8F0FE;
+  border: 0.0625rem solid #AECBFA;
+  border-radius: 2.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.gemini-logo {
+  width: 2.5rem;
+  height: auto;
+}
+
+.gemini-text {
+  color: #5F6368;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+/* Data Commons Widgets */
+#map-container {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  margin-bottom: -4rem;
+}
+
+#ranking-container {
+  width: 100%;
+  flex: 1;
+  min-height: 22rem;
+}
+
+#targetYear {
+  --md-outlined-select-text-field-container-shape: 0.5rem;
+  --md-outlined-select-text-field-outline-color: #E8EAED;
+  --md-outlined-select-text-field-focus-outline-color: #1A73E8;
+  --md-outlined-select-text-field-hover-outline-color: #1A73E8;
+  --md-outlined-select-text-field-input-text-size: 0.8rem;
+  --md-outlined-select-text-field-input-text-weight: 500;
+  --md-outlined-select-text-field-input-text-color: #202124;
+  --md-outlined-select-text-field-top-space: 0.125rem;
+  --md-outlined-select-text-field-bottom-space: 0.125rem;
+  --md-outlined-select-text-field-leading-space: 0.625rem;
+  --md-outlined-select-text-field-trailing-space: 0.5rem;
+  --md-sys-color-primary: #1A73E8;
+  --md-sys-color-on-surface: #1A73E8;
+  --md-outlined-select-text-field-focus-label-text-color: #1A73E8;
+  --md-outlined-select-text-field-hover-label-text-color: #1A73E8;
+  --md-outlined-select-menu-container-color: #FFFFFF;
+  --md-menu-container-color: #FFFFFF;
+  --md-menu-item-container-color: #FFFFFF;
+  --md-menu-item-selected-container-color: #E8F0FE;
+  --md-menu-item-hover-state-layer-color: #E8F0FE;
+  --md-menu-item-focus-state-layer-color: #E8F0FE;
+  --md-menu-item-pressed-state-layer-color: #E8F0FE;
+  --md-outlined-field-top-space: 0.5rem;
+  --md-outlined-field-bottom-space: 0.5rem;
+  --md-select-option-background-color: #FFFFFF;
+}
+
+#totalApplicants::part(container),
+#avgOpportunityScore::part(container),
+#highOpportunityMarkets::part(container),
+#avgHouseHoldIncome::part(container) {
+  transform-origin: top left;
+}
+
+datacommons-ranking {
+  margin-top: -6.5rem;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+datacommons-map::part(container) {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: none;
+  width: 100%;
+  height: 100%;
+  margin-top: -1rem;
+}
+
+datacommons-ranking::part(container) {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+datacommons-highlight::part(container) {
+  padding: 0;
+  box-shadow: none;
+  background: none;
+}

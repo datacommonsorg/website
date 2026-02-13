@@ -1,0 +1,46 @@
+{#
+ Copyright 2023 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'faq' %}
+{% set page_id = 'page-faq' %}
+{% set title = 'Frequently Asked Questions' %}
+
+{% block content %}
+<div class="container">
+  <h1>Frequently Asked Questions </h1>
+  <dl>
+    <dt>Q: Where does the energy data come from?</dt>
+    <dd>Energy statistics are drawn from authoritative sources such as national energy agencies, the International Energy Agency (IEA), U.S. EIA, and official inventories. Data Commons aggregates and normalizes these so you can compare consumption, production, emissions, and mix across places and years.</dd>
+
+    <dt>Q: What energy types and sectors are covered?</dt>
+    <dd>Coverage typically includes electricity, fossil fuels, renewables, and key sectors (e.g., residential, industrial, transport). Indicator descriptions and filters in the tool specify the fuel, sector, and units (e.g., GWh, tonnes of CO₂) used.</dd>
+
+    <dt>Q: How often is the data updated?</dt>
+    <dd>Update frequency depends on the source. Many series are updated annually; some (e.g., grid or emissions data) may have longer lags. Check the series metadata or source links for reference periods and release dates.</dd>
+
+    <dt>Q: How do I compare energy use or emissions across regions?</dt>
+    <dd>Select the energy topic and indicator (e.g., renewable share, per capita consumption, emissions), then choose one or more places. The tool displays time series and comparisons so you can see how regions differ and how they change over time.</dd>
+
+    <dt>Q: Can I download the data?</dt>
+    <dd>Yes. Use the download or export option from the visualization or table view to get the data in CSV or other supported formats for your own analysis, reporting, or modeling.</dd>
+
+    <dt>Q: Is the data suitable for policy or research?</dt>
+    <dd>Data is intended to support exploration and informed decision-making. For formal policy or research use, we recommend verifying definitions, boundaries, and methodology in the original source documentation cited in the tool.</dd>
+  </dl>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{
+  "inputFiles": {
+    "health_insights.csv": {
+      "entityType": "Place",
+      "provenance": "Health Insights",
+      "observationProperties": {
+        "unit": "Percent",
+        "scalingFactor": "100"
+      }
+    }
+  },
+  "variables": {
+    "Percent_Person_WithHealthyVitaminD": {
+      "name": "Percent of People With Healthy Vitamin D Level",
+      "description": "Percentage of population with healthy vitamin D levels (≥30 ng/mL).",
+      "searchDescriptions": [
+        "Healthy vitamin D percentage",
+        "Vitamin D sufficiency rate",
+        "Adequate vitamin D levels",
+        "Vitamin D health status"
+      ],
+      "unit": "Percent",
+      "group": "Health Insights"
+    },
+    "Percent_Person_Vaccinated": {
+      "name": "Percent of People Vaccinated",
+      "description": "Percentage of population that is vaccinated.",
+      "searchDescriptions": [
+        "Vaccination rate",
+        "Vaccinated population percentage",
+        "Immunization rate",
+        "Vaccination coverage"
+      ],
+      "unit": "Percent",
+      "group": "Health Insights"
+    },
+    "Percent_Person_Sick": {
+      "name": "Percent of People Who Are Sick",
+      "description": "Percentage of population that is currently sick. This metric is inversely related to vitamin D levels and vaccination rates.",
+      "searchDescriptions": [
+        "Sick population percentage",
+        "Illness rate",
+        "Sickness prevalence",
+        "Currently ill percentage"
+      ],
+      "unit": "Percent",
+      "group": "Health Insights"
+    }
+  },
+  "sources": {
+    "Health Insights": {
+      "url": "https://health.dev.datacommons.epam.com",
+      "provenances": {
+        "Health Insights": "https://health.dev.datacommons.epam.com/browser/c/p/1"
+      }
+    }
+  }
+}

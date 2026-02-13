@@ -1,0 +1,57 @@
+{#-
+Copyright 2023 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+{# Metric card macro for homepage dashboard #}
+{% macro metric_card(color, label_id, label_text, widget_id, variable, icon, date='2025') %}
+<div class="metric-card metric-card-{{ color }}">
+  <div class="metric-content">
+    <div>
+      <p class="metric-label" id="{{ label_id }}">{{ label_text }}</p>
+      <p class="metric-value">
+        <datacommons-highlight id="{{ widget_id }}" variable="{{ variable }}" place="country/USA" date="{{ date }}"></datacommons-highlight>
+      </p>
+    </div>
+    <div class="metric-icon-wrapper metric-icon-{{ color }}">
+      <md-icon class="color-{{ color }} icon-size-large">{{ icon }}</md-icon>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{# KPI card macro for key performance indicators #}
+{% macro kpi_card(color, label_id, label_text, widget_id, variable, date='2025') %}
+<div class="kpi-card kpi-card-{{ color }}">
+  <p class="kpi-label" id="{{ label_id }}">{{ label_text }}</p>
+  <p class="kpi-value">
+    <datacommons-highlight variable="{{ variable }}" id="{{ widget_id }}" place="country/USA" date="{{ date }}"></datacommons-highlight>
+  </p>
+</div>
+{% endmacro %}
+
+{# Form field macro for admin dashboard #}
+{% macro form_field(label, field_id, field_type='text', placeholder='', error_id='', value='', rows='') %}
+<div class="form-field">
+  <label class="form-label">{{ label }}</label>
+  {% if field_type == 'textarea' %}
+  <md-outlined-text-field id="{{ field_id }}" type="textarea" rows="{{ rows or 3 }}" placeholder="{{ placeholder }}" class="text-field-wide" value="{{ value }}"></md-outlined-text-field>
+  {% else %}
+  <md-outlined-text-field id="{{ field_id }}" type="{{ field_type }}" placeholder="{{ placeholder }}" value="{{ value }}"></md-outlined-text-field>
+  {% endif %}
+  {% if error_id %}
+  <p id="{{ error_id }}" class="field-error hidden">{{ caller() if caller else 'Required' }}</p>
+  {% endif %}
+</div>
+{% endmacro %}

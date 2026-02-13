@@ -1,0 +1,302 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Header - override education-domain fixed positioning */
+.education-domain .header {
+  position: static;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E8EAED;
+  padding: 1rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: auto;
+  z-index: auto;
+}
+
+/* Header action buttons with increased padding */
+.header .button-group md-outlined-button {
+  --md-outlined-button-leading-space: 24px;
+  --md-outlined-button-trailing-space: 24px;
+  --md-outlined-button-with-leading-icon-leading-space: 20px;
+  --md-outlined-button-with-leading-icon-trailing-space: 24px;
+  min-width: 10rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.header-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.header-title {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #202124;
+  margin: 0;
+  line-height: 1.334;
+}
+
+.header-subtitle {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 0.8125rem;
+  color: #5F6368;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Container */
+.container {
+  max-width: none;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 3rem 6rem;
+  }
+}
+
+/* Tabs */
+.tabs {
+  border-bottom: 1px solid #E8EAED;
+  margin-bottom: 2.5rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  border-bottom: 3px solid transparent;
+  color: #5F6368;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.tab:hover {
+  color: #1A73E8;
+}
+
+.tab.active {
+  color: #1A73E8;
+  border-bottom-color: #1A73E8;
+}
+
+.tab md-icon {
+  --md-icon-size: 1.125rem;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Steps Section */
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.step-number {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #E8F0FE;
+  border: 2px solid #AECBFA;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1A73E8;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: #202124;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.section-title {
+  margin-bottom: 1.5rem;
+}
+
+/* Upload Section */
+.upload-card {
+  max-width: 42rem;
+  background: #FFFFFF;
+  border: 1px solid #E8EAED;
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.upload-card:hover {
+  border-color: #4285F4;
+  box-shadow: 0px 2px 6px rgba(66, 133, 244, 0.3), 0px 8px 16px rgba(66, 133, 244, 0.15);
+}
+
+.upload-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 0 0.5rem 0;
+}
+
+.upload-meta {
+  font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 400;
+  color: #5F6368;
+  margin: 0 0 1rem 0;
+}
+
+.upload-note {
+  font-size: 0.8125rem;
+  color: #5F6368;
+  font-weight: 400;
+  font-style: italic;
+  background: #E8F0FE;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #AECBFA;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Gemini Card */
+.gemini-card {
+  background: #FFFFFF;
+  border: 2px solid #4285F4;
+  border-radius: 1rem;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  max-width: 42rem;
+  margin-top: 1.5rem;
+}
+
+.gemini-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #E8F0FE;
+  border-radius: 0.5rem;
+  border: 1px solid #AECBFA;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+
+.themeSettingsGeminiLogo {
+  height: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.gemini-branding-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #202124;
+}
+
+/* Snackbar positioning */
+.snackbar-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    gap: 1rem;
+  }
+
+  .steps-container {
+    grid-template-columns: 1fr;
+  }
+
+  .button-group {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .button-group md-filled-button,
+  .button-group md-outlined-button {
+    width: 100%;
+  }
+}
+
+/* Right-aligned button group */
+.button-group-right {
+  justify-content: flex-end;
+}
+
+/* Save button with extra padding */
+md-filled-button.save-button {
+  --md-filled-button-leading-space: 32px;
+  --md-filled-button-trailing-space: 32px;
+  --md-filled-button-with-leading-icon-leading-space: 24px;
+  --md-filled-button-with-leading-icon-trailing-space: 32px;
+  min-width: 10rem;
+}

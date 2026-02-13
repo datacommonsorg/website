@@ -1,0 +1,214 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Base Styles - Variables, Reset, Typography */
+@import url('base/_variables.css');
+@import url('base/_reset.css');
+@import url('base/_typography.css');
+
+/* Component Styles - Reusable UI components */
+@import url('components/_header.css');
+@import url('components/_alert.css');
+@import url('components/_buttons.css');
+@import url('components/_cards.css');
+@import url('components/_forms.css');
+@import url('components/_status.css');
+
+/* Page-Specific Styles */
+@import url('pages/_homepage.css');
+@import url('pages/_dashboard.css');
+@import url('pages/_login.css');
+
+/* ============================================
+   CRITICAL HEADER OVERRIDES
+   Using unique homepage- prefixed class names
+   ============================================ */
+
+.homepage-header-content {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.homepage-header-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  flex-shrink: 0 !important;
+}
+
+.homepage-search-container {
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 1 auto !important;
+  min-width: 12.5rem !important; /* 200px */
+  max-width: 70% !important;
+  margin: 0 0.75rem !important;
+}
+
+.homepage-header-nav {
+  display: flex !important;
+  align-items: center !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+
+/* ============================================
+   Tool pages (#main-pane + #plot-container)
+   Restore flex layout so plot-container fills
+   the viewport and scrollbar renders correctly
+   in fullscreen. Energy reset overlaps with
+   base_tools/visualization layout otherwise.
+   ============================================ */
+
+#main:has(#main-pane) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 89vh;
+  align-items: stretch;
+}
+
+#main:has(#main-pane) .main-content {
+  flex: 1 1 auto;
+  position: relative;
+  min-height: 0;
+  width: 100%;
+}
+
+#main:has(#main-pane) #main-pane {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+#main:has(#main-pane) #plot-container {
+  flex-grow: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* ============================================
+   FAQ & About – match datacommons.org/faq (static page)
+   Replicates base.scss .main-content + Bootstrap .container + static.scss
+   ============================================ */
+
+/* Main content wrapper (same as base.scss) */
+#page-faq #main .main-content,
+#page-about #main .main-content {
+  margin: 3rem auto 6rem;
+}
+
+/* Container (Bootstrap .container: centered, responsive max-width & padding) */
+#page-faq .container,
+#page-about .container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+@media (min-width: 576px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 720px;
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
+}
+@media (min-width: 1068px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 1038px;
+  }
+}
+@media (min-width: 1350px) {
+  #page-faq .container,
+  #page-about .container {
+    max-width: 1310px;
+  }
+}
+
+/* Headings (Bootstrap sizes + static.scss margins) */
+#page-faq .container h1,
+#page-about .container h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+}
+#page-faq .container h2,
+#page-about .container h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+/* FAQ definition list */
+#page-faq .container dl {
+  margin: 0;
+}
+#page-faq .container dt {
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+#page-faq .container dt:first-child {
+  margin-top: 0;
+}
+#page-faq .container dd {
+  margin-left: 0;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+/* About page paragraphs */
+#page-about .container p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Links (--link-color on main site) */
+#page-faq .container a,
+#page-about .container a {
+  color: #0b57d0;
+}
+#page-faq .container a:hover,
+#page-about .container a:hover {
+  text-decoration: underline;
+}
+
+/* Blockquote (static.scss) */
+#page-faq .container blockquote,
+#page-about .container blockquote {
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  margin: 1rem 0;
+  border-left: 3px solid #adb5bd;
+  background: #f7f7f7;
+  display: block;
+}

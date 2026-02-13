@@ -1,0 +1,37 @@
+{#
+ Copyright 2023 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'about' %}
+{% set page_id = 'page-about' %}
+{% set title = 'About Us' %}
+
+{% block content %}
+<div class="container">
+  <h1>About the Health Data Commons</h1>
+  <p>This Health Data Commons brings together key health and well-being statistics from trusted public sources into one place. The goal is to make it easier to explore trends, compare regions, and understand how health outcomes and determinants vary across places and over time.</p>
+
+  <h2>What You Can Do Here</h2>
+  <p>You can browse and compare indicators such as life expectancy, disease prevalence, health care access, environmental health factors, and other metrics. Visualizations and tables help you see patterns by geography and year, and you can download data for further analysis or reporting.</p>
+
+  <h2>Data &amp; Transparency</h2>
+  <p>We rely on official and peer-reviewed datasets from national and international agencies. Each statistic is linked to its source where possible, so you can trace definitions and methods. We do not alter the underlying values—only normalize and present them for consistent comparison.</p>
+
+  <h2>Our Mission</h2>
+  <p>We aim to make public health data more accessible and usable for researchers, policymakers, educators, and the general public, so that data-driven decisions can help improve health outcomes everywhere.</p>
+</div>
+{% endblock %}

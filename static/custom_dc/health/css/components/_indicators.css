@@ -1,0 +1,157 @@
+/**
+ * Key Health Indicators Component
+ * Grid layout for health metric indicators with color coding
+ */
+
+/* Key Indicator Grid */
+.key-indicator-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.key-indicator-item {
+  background-color: var(--color-surface, #FFFFFF);
+  border-radius: var(--radius-md, 0.5rem);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24));
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.key-indicator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.key-indicator-icon {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Icon Colors */
+.key-indicator-icon-orange {
+  color: var(--color-indicator-orange, #FF5722);
+}
+
+.key-indicator-icon-blue {
+  color: var(--color-indicator-blue, #1976D2);
+}
+
+.key-indicator-icon-purple {
+  color: var(--color-indicator-purple, #9C27B0);
+}
+
+.key-indicator-icon-cyan {
+  color: var(--color-indicator-cyan, #00BCD4);
+}
+
+.key-indicator-icon-green {
+  color: var(--color-indicator-green, #4CAF50);
+}
+
+.key-indicator-icon-teal {
+  color: var(--color-indicator-teal, #009688);
+}
+
+.key-indicator-icon-red {
+  color: var(--color-indicator-red, #F44336);
+}
+
+.key-indicator-icon-yellow {
+  color: var(--color-indicator-yellow, #FFC107);
+}
+
+.key-indicator-date {
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary, #9E9E9E);
+  font-weight: 400;
+}
+
+.key-indicator-value {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.key-indicator-value datacommons-highlight {
+  display: block;
+}
+
+.key-indicator-value datacommons-highlight::part(value) {
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Apply color to widget values based on parent class */
+.key-indicator-value-orange datacommons-highlight::part(value) {
+  color: var(--color-indicator-orange, #FF5722);
+}
+
+.key-indicator-value-blue datacommons-highlight::part(value) {
+  color: var(--color-indicator-blue, #1976D2);
+}
+
+.key-indicator-value-purple datacommons-highlight::part(value) {
+  color: var(--color-indicator-purple, #9C27B0);
+}
+
+.key-indicator-value-cyan datacommons-highlight::part(value) {
+  color: var(--color-indicator-cyan, #00BCD4);
+}
+
+.key-indicator-value-green datacommons-highlight::part(value) {
+  color: var(--color-indicator-green, #4CAF50);
+}
+
+.key-indicator-value-teal datacommons-highlight::part(value) {
+  color: var(--color-indicator-teal, #009688);
+}
+
+.key-indicator-value-red datacommons-highlight::part(value) {
+  color: var(--color-indicator-red, #F44336);
+}
+
+.key-indicator-value-yellow datacommons-highlight::part(value) {
+  color: var(--color-indicator-yellow, #FFC107);
+}
+
+.key-indicator-label {
+  font-size: 0.875rem;
+  color: #616161;
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* Responsive adjustments for key indicators */
+@media (max-width: 1400px) {
+  .key-indicator-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .key-indicator-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .key-indicator-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .key-indicator-grid {
+    grid-template-columns: 1fr;
+  }
+}

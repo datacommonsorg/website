@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  background: #F8F9FA;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.25rem;
+  margin: 0;
+}
+
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  max-width: 28rem;
+}
+
+.university-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #E8F0FE;
+  border: 2px solid #AECBFA;
+  border-radius: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.university-badge md-icon {
+  --md-icon-size: 2.5rem;
+  color: #1A73E8;
+}
+
+.university-badge span {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #202124;
+}
+
+.header h1 {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.334;
+  letter-spacing: 0em;
+}
+
+.header p {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5F6368;
+  margin: 0;
+  line-height: 1.5;
+}
+
+md-card {
+  max-width: 34rem;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #E8EAED;
+  border-radius: 2.25rem;
+  padding: 2rem;
+  box-shadow: 0px 1px 3px rgba(60, 64, 67, 0.3), 0px 4px 8px rgba(60, 64, 67, 0.15);
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #202124;
+  line-height: 1.6;
+}
+
+md-outlined-text-field {
+  width: 100%;
+  --md-outlined-text-field-container-shape: 0.25rem;
+  --md-outlined-text-field-outline-color: #DADCE0;
+  --md-outlined-text-field-hover-outline-color: #1A73E8;
+  --md-outlined-text-field-focus-outline-color: #1A73E8;
+  --md-outlined-text-field-input-text-size: 1rem;
+  --md-outlined-text-field-input-text-placeholder-color: #80868B;
+  --md-outlined-text-field-input-text-color: #202124;
+  --md-outlined-text-field-container-padding-vertical: 0.75rem;
+  --md-outlined-text-field-container-padding-horizontal: 0.75rem;
+  background: #FFFFFF;
+}
+
+md-filled-button {
+  width: 100%;
+  --md-filled-button-container-height: 3rem;
+  --md-filled-button-container-color: #1A73E8;
+  --md-filled-button-hover-container-color: #1557B0;
+  --md-filled-button-container-shape: 0.25rem;
+  --md-filled-button-label-text-size: 1rem;
+  --md-filled-button-label-text-weight: 600;
+}
+
+.support-text {
+  text-align: center;
+  color: #5F6368;
+  font-size: 0.8125rem;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.footer-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+md-text-button {
+  --md-text-button-label-text-color: #5F6368;
+  --md-text-button-hover-label-text-color: #202124;
+  --md-text-button-label-text-size: 0.8125rem;
+  --md-text-button-label-text-transform: none;
+
+  --md-text-button-hover-label-text-color: #1557B0;
+  --md-text-button-pressed-label-text-color: #1557B0;
+}
+
+.login-image {
+  height: 3rem;
+}
+
+.form-error{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #B3261E;
+}
+.form-error__icon{
+font-size: 2rem;
+line-height: 1;
+display: inline-flex;
+align-items: center;
+}
+.form-error__text{
+padding-top: 0.2rem;
+line-height: 1rem;
+}
+
+.hidden {
+  display: none !important;
+}
