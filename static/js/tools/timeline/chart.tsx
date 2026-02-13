@@ -171,6 +171,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // Prepare props for ChartEmbed.
     const embedStatVarSpecs: StatVarSpec[] = [];
     const embedStatVarToFacets: StatVarFacetMap = {};
+    let hidePerCapitaToggle = true; // Whether to hide the "per capita" toggle in the footer
     if (this.state.isDataLoaded) {
       const places = Object.keys(this.props.placeNameMap);
       for (const svDcid in this.props.statVarInfos) {
@@ -179,6 +180,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           places,
           (place) => this.state.statData.data[svDcid]?.[place]?.facet
         );
+        if (svInfo.pcAllowed) {
+          // If any stat var allows per capita, then hidePerCapitaToggle is false (we will show the toggle)
+          hidePerCapitaToggle = false;
+        }
         embedStatVarSpecs.push({
           statVar: svDcid,
           name: svInfo.title,
@@ -187,6 +192,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           log: false,
           scaling: undefined,
           unit: undefined,
+          noPerCapita: !svInfo.pcAllowed,
         });
         if (facetId) {
           embedStatVarToFacets[svDcid] = new Set([facetId]);
@@ -251,7 +257,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          hideIsRatio={false}
+          hideIsRatio={hidePerCapitaToggle}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
             setChartOption(this.props.chartId, "pc", isPerCapita)
