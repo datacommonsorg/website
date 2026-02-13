@@ -136,6 +136,9 @@ exports[`Single place and single stat var 4`] = `
       <div>
         <form class=\\"node-title\\"><input id=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"\\" for=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\">Median age of person</label></form>
       </div>
+      <div>
+        <form class=\\"node-title\\"><input id=\\"Count_Farmdc/g/Demographics-Count_Farm\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"\\" for=\\"Count_Farmdc/g/Demographics-Count_Farm\\">Count Of Farm</label></form>
+      </div>
     </div>
     <div class=\\"svg-node-child\\">
       <div>
@@ -170,7 +173,7 @@ exports[`chart options 1`] = `
   </div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
-      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Farms</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
     <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>

@@ -170,7 +170,7 @@ test("chart options", async () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statsVar=Count_Person",
+      hash: "#&place=geoId/05&statsVar=Count_Farm",
     },
   });
 
@@ -193,14 +193,14 @@ test("chart options", async () => {
   // Check that url hash is updated
   window.location.hash = "#" + window.location.hash;
   expect(window.location.hash).toBe(
-    "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
+    "#place=geoId%2F05&statsVar=Count_Farm&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
   );
   // Hack to trigger hashchange event to fire
   window.dispatchEvent(
     new HashChangeEvent("hashchange", {
       newURL:
-        "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D",
-      oldURL: "#&place=geoId/05&statsVar=Count_Person",
+        "#place=geoId%2F05&statsVar=Count_Farm&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D",
+      oldURL: "#&place=geoId/05&statsVar=Count_Farm",
     })
   );
   await waitForComponentUpdates(wrapper);
@@ -217,8 +217,8 @@ test("chart options", async () => {
   wrapper.update();
   // Remove the stat var
   wrapper
-    .find("#hierarchy-section input[checked=true]")
-    .at(0)
+    .find("#hierarchy-section input")
+    .at(2)
     .simulate("change", { target: { checked: false } });
   // Check that the url hash is updated
   window.location.hash = "#" + window.location.hash;
