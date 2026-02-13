@@ -106,7 +106,30 @@ else
 
     if [[ $ENABLE_MCP == "true" ]]; then
         echo "Starting MCP Server."
-        datacommons-mcp serve http --skip-api-key-validation --port 8082 &
+        # Wait for Mixer to be ready in background
+        (
+          # Ensure this subshell exits if the main script kills it
+          trap "exit" INT TERM
+          # Loop until Mixer /version endpoint returns 200
+          wait_time=1
+          # total wait time: 1+2+4+8+16+32*8 ~ 5 mins = ~13 retries
+          retries_left=13
+          while [[ "$(python3 -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8081/version').getcode())" 2>/dev/null || echo 0)" != "200" ]]; do   
+            if [ $retries_left -le 0 ]; then
+              echo "Mixer failed to start after 5 minutes. MCP server will not start."
+              exit 1
+            fi
+
+            echo "Mixer not ready yet. Retrying in ${wait_time}s... ($retries_left retries left)"
+            sleep $wait_time
+            wait_time=$((wait_time * 2))
+            if [ $wait_time -gt 32 ]; then wait_time=32; fi
+            retries_left=$((retries_left - 1))
+          done
+          echo "Mixer is ready."
+          
+          datacommons-mcp serve http --skip-api-key-validation --port 8082
+        ) &
     fi
 
     echo "Starting Website Server."
