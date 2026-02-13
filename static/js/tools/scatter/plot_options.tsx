@@ -153,27 +153,29 @@ function PlotOptions(): JSX.Element {
             {yAxisLabel}:
           </div>
           <div className="plot-options-input-section">
-            <div className="plot-options-input">
-              <FormGroup check>
-                <Label check>
-                  <Input
-                    id="per-capita-y"
-                    type="checkbox"
-                    checked={y.value.perCapita}
-                    onChange={(e): void => {
-                      y.setPerCapita(e.target.checked);
-                      if (!y.value.perCapita) {
-                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]:
-                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
-                        });
-                      }
-                    }}
-                  />
-                  Per Capita
-                </Label>
-              </FormGroup>
-            </div>
+            {y.value.statVarInfo.pcAllowed && (
+              <div className="plot-options-input">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="per-capita-y"
+                      type="checkbox"
+                      checked={y.value.perCapita}
+                      onChange={(e): void => {
+                        y.setPerCapita(e.target.checked);
+                        if (!y.value.perCapita) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                          });
+                        }
+                      }}
+                    />
+                    Per Capita
+                  </Label>
+                </FormGroup>
+              </div>
+            )}
             <div className="plot-options-input">
               <FormGroup check>
                 <Label check>
@@ -202,27 +204,29 @@ function PlotOptions(): JSX.Element {
             {xAxisLabel}:
           </div>
           <div className="plot-options-input-section">
-            <div className="plot-options-input">
-              <FormGroup check>
-                <Label check>
-                  <Input
-                    id="per-capita-x"
-                    type="checkbox"
-                    checked={x.value.perCapita}
-                    onChange={(e): void => {
-                      x.setPerCapita(e.target.checked);
-                      if (!x.value.perCapita) {
-                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]:
-                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
-                        });
-                      }
-                    }}
-                  />
-                  Per Capita
-                </Label>
-              </FormGroup>
-            </div>
+            {x.value.statVarInfo.pcAllowed && (
+              <div className="plot-options-input">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="per-capita-x"
+                      type="checkbox"
+                      checked={x.value.perCapita}
+                      onChange={(e): void => {
+                        x.setPerCapita(e.target.checked);
+                        if (!x.value.perCapita) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                          });
+                        }
+                      }}
+                    />
+                    Per Capita
+                  </Label>
+                </FormGroup>
+              </div>
+            )}
             <div className="plot-options-input">
               <FormGroup check>
                 <Label check>
