@@ -92,6 +92,13 @@ if [[ $DEBUG == "true" ]] then
     fi
 
     if [[ $ENABLE_MCP == "true" ]]; then
+        echo "Waiting for mixer to be ready before starting MCP Server..."
+        for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:8081/v2/node?nodes=country%2FGTM > /dev/null 2>&1; then
+                break
+            fi
+            sleep 2
+        done
         echo "Starting MCP Server in debug mode."
         datacommons-mcp serve http --skip-api-key-validation --port 8082 &
     fi
@@ -105,6 +112,13 @@ else
     fi
 
     if [[ $ENABLE_MCP == "true" ]]; then
+        echo "Waiting for mixer to be ready before starting MCP Server..."
+        for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:8081/v2/node?nodes=country%2FGTM > /dev/null 2>&1; then
+                break
+            fi
+            sleep 2
+        done
         echo "Starting MCP Server."
         datacommons-mcp serve http --skip-api-key-validation --port 8082 &
     fi
