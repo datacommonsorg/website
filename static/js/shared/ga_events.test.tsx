@@ -161,6 +161,7 @@ const STAT_VAR_1 = "Median_Income_Household";
 const STAT_VAR_2 = "Median_Age_Person";
 const STAT_VAR_3 = "Count_Person";
 const STAT_VAR_4 = "Count_Farm";
+const STAT_VAR_5 = "Annual_Generation_Electricity";
 
 const NUMBER = 123;
 const PLACE_ADDED = "africa";
@@ -912,6 +913,24 @@ describe("test ga event tool chart plot option", () => {
     window.gtag = mockgtag;
 
     // Render the component.
+    SCATTER_CONTEXT.y.value.statVarDcid = STAT_VAR_4;
+    SCATTER_CONTEXT.y.value.statVarInfo.pcAllowed = true;
+    SCATTER_CONTEXT.x.value.statVarDcid = STAT_VAR_5;
+    SCATTER_CONTEXT.x.value.statVarInfo.pcAllowed = true;
+    SCATTER_PROPS.yLabel = STAT_VAR_4;
+    SCATTER_PROPS.xLabel = STAT_VAR_5;
+    SCATTER_PROPS.facetList = [
+      {
+        dcid: STAT_VAR_5,
+        name: STAT_VAR_5,
+        metadataMap: {},
+      },
+      {
+        dcid: STAT_VAR_4,
+        name: STAT_VAR_4,
+        metadataMap: {},
+      },
+    ];
     const scatterToolChart = render(
       <ThemeProvider theme={theme}>
         <ScatterContext.Provider value={SCATTER_CONTEXT}>
