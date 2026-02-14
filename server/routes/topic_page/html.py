@@ -21,6 +21,7 @@ from flask import current_app
 from flask import g
 from flask import request
 from google.protobuf.json_format import MessageToJson
+from markupsafe import escape
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as libutil
@@ -99,7 +100,7 @@ def topic_page(topic_id=None, place_dcid=None):
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
-  more_places = request.args.getlist('places')
+  more_places = [str(escape(place)) for place in request.args.getlist('places')]
 
   place_name = ''
   place_type = ''

@@ -121,6 +121,23 @@ POPULATION_DCID = "Count_Person"
 bp = Blueprint("api_place", __name__, url_prefix='/api/place')
 
 
+def _escaped_arg(name: str, default=None):
+  value = request.args.get(name, default)
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _escaped_arg_list(name: str) -> list[str]:
+  return [str(escape(v)) for v in request.args.getlist(name)]
+
+
+def _escaped_list(values) -> list[str]:
+  if not values:
+    return []
+  return [str(escape(v)) for v in values]
+
+
 def get_place_type(place_dcids):
   place_types = fetch.property_values(place_dcids, 'typeOf')
   ret = {}
@@ -151,19 +168,21 @@ def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:
 @bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=TIMEOUT)
 def api_place_type(place_dcid):
+  place_dcid = str(escape(place_dcid))
   return get_place_type([place_dcid]).get(place_dcid, '')
 
 
 @bp.route('/name', methods=['GET', 'POST'])
 def api_name():
   """Get place names."""
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   if not dcids:
-    dcids = request.json['dcids']
+    dcids = _escaped_list(request.json['dcids'])
   dcids = list(filter(lambda d: d != '', dcids))
-  prop = request.args.get('prop')
+  prop = _escaped_arg('prop')
   if request.is_json:
-    prop = request.json.get('prop')
+    if request.json.get('prop') is not None:
+      prop = str(escape(request.json.get('prop')))
   try:
     return names(dcids, prop)
   except Exception as e:
@@ -228,7 +247,7 @@ def extract_locale_name(entry, locale):
 @bp.route('/name/i18n')
 def api_i18n_name():
   """Get place i18n names."""
-  dcids = request.args.getlist('dcid')
+  dcids = _escaped_arg_list('dcid')
   result = get_i18n_name(dcids)
   return Response(json.dumps(result), 200, mimetype='application/json')
 
@@ -236,7 +255,7 @@ def api_i18n_name():
 @bp.route('/named_typed')
 def get_named_typed_place():
   """Returns data for NamedTypedPlace, a dictionary of key -> NamedTypedPlace."""
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   place2type = get_place_type(dcids)
   place_names = names(dcids)
   ret = {}
@@ -257,9 +276,9 @@ def get_place_variable():
   Returns:
       List of unique statistical variable dcids each as a string.
   """
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   if not dcids:
-    dcids = request.json['dcids']
+    dcids = _escaped_list(request.json['dcids'])
   resp = fetch.entity_variables(dcids)
   # All the keys (stat var dcid) in resp are variables for at lease one of the
   # places.
@@ -275,7 +294,7 @@ def get_place_variable_count():
   Returns:
       A map from place dcid to the stat var count.
   """
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   if not dcids:
     return 'error: must provide `dcids` field', 400
   result = {}
@@ -292,6 +311,7 @@ def get_place_variable_count():
 @cache.memoize(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
+  dcid = str(escape(dcid))
   child_places = child_fetch(dcid)
   for place_type in child_places:
     child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
@@ -363,7 +383,7 @@ def child_fetch(parent_dcid):
 @bp.route('/parent')
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def api_parent_places():
-  dcid = request.args.get("dcid")
+  dcid = _escaped_arg("dcid")
   result = parent_places([dcid])[dcid]
   return Response(json.dumps(result), 200, mimetype='application/json')
 
@@ -406,6 +426,7 @@ def api_mapinfo(dcid):
   function for places with those complicated situations, need to adjust this
   function accordingly.
   """
+  dcid = str(escape(dcid))
   left = 180
   right = -180
   up = -90
@@ -468,10 +489,11 @@ def get_ranking_url(containing_dcid,
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
+  dcid = str(escape(dcid))
   current_place_type = api_place_type(dcid)
   parents = parent_places([dcid])[dcid]
   parent_i18n_names = get_i18n_name([x['dcid'] for x in parents], False)
-  should_return_all = request.args.get('all', '') == "1"
+  should_return_all = _escaped_arg('all', '') == "1"
 
   selected_parents = []
   parent_names = {}
@@ -617,9 +639,9 @@ def get_display_name(dcids):
 @bp.route('/displayname', methods=['GET', 'POST'])
 def api_display_name():
   """Get display names for a list of places."""
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   if not dcids:
-    dcids = request.json.get('dcids', [])
+    dcids = _escaped_list(request.json.get('dcids', []))
   result = get_display_name(dcids)
   return Response(json.dumps(result), 200, mimetype='application/json')
 
@@ -631,8 +653,8 @@ def descendent():
   Returns:
       Dict keyed by ancestor DCIDs with lists of descendent place DCIDs as values.
   """
-  dcids = request.args.getlist("dcids")
-  descendent_type = request.args.get("descendentType")
+  dcids = _escaped_arg_list("dcids")
+  descendent_type = _escaped_arg("descendentType")
   return fetch.descendent_places(dcids, descendent_type)
 
 
@@ -644,9 +666,9 @@ def descendent_names():
   Returns:
       Dicts keyed by desccendent place DCIDs with their names as values.
   """
-  dcid = request.args.get("dcid")
-  descendent_type = request.args.get("descendentType")
-  prop = request.args.get("prop", None)
+  dcid = _escaped_arg("dcid")
+  descendent_type = _escaped_arg("descendentType")
+  prop = _escaped_arg("prop", None)
   child_places = fetch.descendent_places([dcid], descendent_type).get(dcid, [])
   result = {}
   if prop:
@@ -676,7 +698,7 @@ def placeid2dcid():
   This is to use together with the Google Maps Autocomplete API:
   https://developers.google.com/places/web-service/autocomplete.
   """
-  place_ids = request.args.getlist("placeIds")
+  place_ids = _escaped_arg_list("placeIds")
   return findplacedcid(place_ids)
 
 
@@ -689,9 +711,9 @@ def coords2places():
 
     Returns a list of { latitude: number, longitude: number, placeDcid: str, placeName: str } objects.
   """
-  latitudes = request.args.getlist("latitudes")
-  longitudes = request.args.getlist("longitudes")
-  place_type = request.args.get("placeType", "")
+  latitudes = _escaped_arg_list("latitudes")
+  longitudes = _escaped_arg_list("longitudes")
+  place_type = _escaped_arg("placeType", "")
   # Get resolved place coordinate information for each coordinate of interest
   coordinates = []
   for idx in range(0, min(len(latitudes), len(longitudes))):

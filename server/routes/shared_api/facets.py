@@ -16,10 +16,22 @@ import re
 
 from flask import Blueprint
 from flask import request
+from markupsafe import escape
 
 from server.lib import fetch
 
 bp = Blueprint("facets", __name__, url_prefix='/api/facets')
+
+
+def _get_escaped_arg(name: str, default=None):
+  value = request.args.get(name, default)
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _get_escaped_arg_list(name: str) -> list[str]:
+  return [str(escape(v)) for v in request.args.getlist(name)]
 
 
 def is_valid_date(date):
@@ -46,16 +58,17 @@ def get_facets_within():
       date: If empty, fetch for all date; Otherwise could be "LATEST" or
         specific date.
   """
-  parent_entity = request.args.get('parentEntity')
+  parent_entity = _get_escaped_arg('parentEntity')
   if not parent_entity:
     return 'error: must provide a parentEntity field', 400
-  child_type = request.args.get('childType')
+  child_type = _get_escaped_arg('childType')
   if not child_type:
     return 'error: must provide a childType field', 400
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  variables = list(
+      filter(lambda x: x != "", _get_escaped_arg_list('variables')))
   if not variables:
     return 'error: must provide a variables field', 400
-  date = request.args.get('date')
+  date = _get_escaped_arg('date', '')
   if not is_valid_date(date):
     return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
   return fetch.point_within_facet(parent_entity, child_type, variables, date,
@@ -66,8 +79,9 @@ def get_facets_within():
 def get_facets():
   """Gets the available facets for a list of stat vars for a list of places.
   """
-  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  entities = list(filter(lambda x: x != "", _get_escaped_arg_list('entities')))
+  variables = list(
+      filter(lambda x: x != "", _get_escaped_arg_list('variables')))
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:

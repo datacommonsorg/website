@@ -14,6 +14,7 @@
 
 from flask import Blueprint
 from flask import request
+from markupsafe import escape
 
 from server.lib import fetch
 from server.lib.cache import cache
@@ -26,6 +27,17 @@ from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
+
+
+def _get_escaped_arg(name: str, default=None):
+  value = request.args.get(name, default)
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _get_escaped_arg_list(name: str) -> list[str]:
+  return [str(escape(v)) for v in request.args.getlist(name)]
 
 
 def _filter_point_for_facets(point_data, facet_ids: list[str]):
@@ -88,15 +100,16 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def point():
   """Handler to get the observation point given multiple stat vars and places."""
-  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  entities = list(filter(lambda x: x != "", _get_escaped_arg_list('entities')))
+  variables = list(
+      filter(lambda x: x != "", _get_escaped_arg_list('variables')))
   facet_id = list(filter(lambda x: x != "",
-                         request.args.getlist('facetId'))) or None
+                         _get_escaped_arg_list('facetId'))) or None
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date') or DATE_LATEST
+  date = _get_escaped_arg('date') or DATE_LATEST
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(entities=entities,
@@ -123,13 +136,14 @@ def point():
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def point_all():
   """Handler to get all the observation points given multiple stat vars and entities."""
-  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  entities = list(filter(lambda x: x != "", _get_escaped_arg_list('entities')))
+  variables = list(
+      filter(lambda x: x != "", _get_escaped_arg_list('variables')))
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date') or DATE_LATEST
+  date = _get_escaped_arg('date') or DATE_LATEST
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(entities=entities,
@@ -151,17 +165,18 @@ def point_within():
 
   This returns the observation for the preferred facet.
   """
-  parent_entity = request.args.get('parentEntity')
+  parent_entity = _get_escaped_arg('parentEntity')
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
-  child_type = request.args.get('childType')
+  child_type = _get_escaped_arg('childType')
   if not child_type:
     return 'error: must provide a `childType` field', 400
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  variables = list(
+      filter(lambda x: x != "", _get_escaped_arg_list('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date') or DATE_LATEST
-  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  date = _get_escaped_arg('date') or DATE_LATEST
+  facet_ids = list(filter(lambda x: x != "", _get_escaped_arg_list('facetIds')))
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(parent_entity=parent_entity,
@@ -186,16 +201,17 @@ def point_within_all():
 
   This returns the observation for all facets.
   """
-  parent_entity = request.args.get('parentEntity')
+  parent_entity = _get_escaped_arg('parentEntity')
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
-  child_type = request.args.get('childType')
+  child_type = _get_escaped_arg('childType')
   if not child_type:
     return 'error: must provide a `childType` field', 400
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  variables = list(
+      filter(lambda x: x != "", _get_escaped_arg_list('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date') or DATE_LATEST
+  date = _get_escaped_arg('date') or DATE_LATEST
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(parent_entity=parent_entity,
