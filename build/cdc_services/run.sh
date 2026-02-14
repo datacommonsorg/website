@@ -71,6 +71,7 @@ if [[ $ENABLE_MODEL == "true" ]]; then
     )
 fi
 
+# Start mixer.
 /workspace/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
@@ -83,32 +84,57 @@ fi
     --remote_mixer_domain=$DC_API_ROOT \
     "${MIXER_ARGS[@]}" &
 
+# Start envoy.
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
-if [[ $DEBUG == "true" ]] then
-    if [[ $ENABLE_MODEL == "true" ]] then
+# Start NL server.
+if [[ $ENABLE_MODEL == "true" ]]; then
+    if [[ $DEBUG == "true" ]]; then
         echo "Starting NL Server in debug mode."
         python3 nl_app.py $NL_SERVER_PORT &
-    fi
-
-    if [[ $ENABLE_MCP == "true" ]]; then
-        echo "Starting MCP Server in debug mode."
-        datacommons-mcp serve http --skip-api-key-validation --port 8082 &
-    fi
-
-    echo "Starting Website Server in debug mode."
-    python3 web_app.py 7070 &
-else
-    if [[ $ENABLE_MODEL == "true" ]] then
+    else
         echo "Starting NL Server."
         gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:$NL_SERVER_PORT -w 1 nl_app:app &
     fi
+fi
 
-    if [[ $ENABLE_MCP == "true" ]]; then
-        echo "Starting MCP Server."
-        datacommons-mcp serve http --skip-api-key-validation --port 8082 &
-    fi
+# Start MCP server.
+if [[ $ENABLE_MCP == "true" ]]; then
+    echo "Starting MCP Server."
+    # Wait for Mixer to be ready in background
+    (
+      # Ensure this subshell exits if the main script kills it
+      trap "exit" INT TERM
+      # Loop until Mixer /version endpoint returns 200
+      wait_time=1
+      # total wait time: 1+2+4+8+16+32*8 ~ 5 mins = ~13 retries
+      retries_left=13
+      while [[ "$(python3 -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8081/version', timeout=5).getcode())" 2>/dev/null || echo 0)" != "200" ]]; do
+        if [[ $retries_left -le 0 ]]; then
+          echo "Mixer failed to start after 5 minutes. MCP server will not start."
+          exit 1
+        fi
 
+        echo "Mixer not ready yet. Retrying in ${wait_time}s... ($retries_left retries left)"
+        sleep $wait_time
+        wait_time=$((wait_time * 2))
+        if [[ $wait_time -gt 32 ]]; then wait_time=32; fi
+        retries_left=$((retries_left - 1))
+      done
+      echo "Mixer is ready."
+
+      if [[ $DEBUG == "true" ]]; then
+          echo "Starting MCP Server in debug mode."
+      fi
+      exec datacommons-mcp serve http --skip-api-key-validation --port 8082
+    ) &
+fi
+
+# Start website server.
+if [[ $DEBUG == "true" ]]; then
+    echo "Starting Website Server in debug mode."
+    python3 web_app.py 7070 &
+else
     echo "Starting Website Server."
     gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:7070 -w 4 web_app:app &
 fi
