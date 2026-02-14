@@ -253,7 +253,7 @@ export function Chart(props: ChartPropsType): ReactElement {
         chartId="scatter"
         sources={props.sources}
         mMethods={null}
-        hideIsRatio={true}
+        hidePerCapitaOption={true}
         handleEmbed={props.handleEmbed}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={props.containerRef}

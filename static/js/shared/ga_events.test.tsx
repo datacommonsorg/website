@@ -160,6 +160,7 @@ const PLACE_NAME = "Arkansas";
 const STAT_VAR_1 = "Median_Income_Household";
 const STAT_VAR_2 = "Median_Age_Person";
 const STAT_VAR_3 = "Count_Person";
+const STAT_VAR_4 = "Count_Farm";
 
 const NUMBER = 123;
 const PLACE_ADDED = "africa";
@@ -742,9 +743,12 @@ describe("test ga event tool stat var click", () => {
     });
 
     // Click the checkbox of the stat var.
-    fireEvent.click(statVarHierarchy.container.querySelector(inputId), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      statVarHierarchy.container.querySelector(inputId) as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check gtag is called.
       expect(mockgtag.mock.calls.length).toEqual(2);
@@ -805,7 +809,7 @@ describe("test ga event tool place add", () => {
     );
 
     // Use the hardcoded result as place autocomplete.
-    fireEvent.change(placeSelector.container.querySelector("#ac"), {
+    fireEvent.change(placeSelector.container.querySelector("#ac") as Element, {
       target: { value: PLACE_ADDED },
     });
     await waitFor(() => {
@@ -873,6 +877,9 @@ describe("test ga event tool chart plot option", () => {
       .mockImplementation(() => Promise.resolve(null));
 
     // Render the component.
+    TIMELINE_PROPS.statVarInfos = {
+      [STAT_VAR_4]: { title: "", pcAllowed: true }, // Use a stat var with per capita option enabled.
+    };
     const timelineToolChart = render(
       <ThemeProvider theme={theme}>
         <TimelineToolChart {...TIMELINE_PROPS} />
@@ -916,9 +923,12 @@ describe("test ga event tool chart plot option", () => {
     await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
 
     // Click checkbox of per capita.
-    fireEvent.click(scatterToolChart.container.querySelector("#per-capita-y"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#per-capita-y") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -933,9 +943,12 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click checkbox of log scale.
-    fireEvent.click(scatterToolChart.container.querySelector("#log-y"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#log-y") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -950,7 +963,9 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click swap x and y axis.
-    fireEvent.click(scatterToolChart.container.querySelector("#swap-axes"));
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#swap-axes") as Element
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -965,9 +980,12 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click checkbox of show quandrants.
-    fireEvent.click(scatterToolChart.container.querySelector("#quadrants"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#quadrants") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -1001,9 +1019,12 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click the checkbox of show density.
-    fireEvent.click(scatterToolChart.container.querySelector("#density"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#density") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -1023,6 +1044,18 @@ describe("test ga event tool chart plot option", () => {
     window.gtag = mockgtag;
 
     // Render the component.
+    MAP_CONTEXT.statVar.value.dcid = STAT_VAR_4;
+    MAP_CONTEXT.statVar.value.info = {
+      [STAT_VAR_4]: { title: "", pcAllowed: true }, // Use a stat var with per capita option enabled.
+    };
+    MAP_PROPS.facetList = [
+      {
+        dcid: STAT_VAR_4, // Use a stat var with per capita option enabled.
+        name: STAT_VAR_4,
+        displayNames: {},
+        metadataMap: {},
+      },
+    ];
     const mapToolChart = render(
       <ThemeProvider theme={theme}>
         <MapContext.Provider value={MAP_CONTEXT}>

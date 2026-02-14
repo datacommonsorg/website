@@ -49,11 +49,11 @@ interface ToolChartFooterProps {
   sources: Set<string>;
   // Measurement methods of the data of the chart.
   mMethods: Set<string>;
-  // Whether to hide isRatio option.
-  hideIsRatio: boolean;
+  // Whether to hide per capita option.
+  hidePerCapitaOption: boolean;
   // Whether or not the chart is showing per capita calculation.
   isPerCapita?: boolean;
-  // Callback when isRatio is updated. Used when hideIsRatio is false.
+  // Callback when isPerCapita is updated. Used when hidePerCapitaOption is false.
   onIsPerCapitaUpdated?: (isPerCapita: boolean) => void;
   // children components
   children?: React.ReactNode;
@@ -219,7 +219,7 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
       </div>
       {chartOptionsOpened && (
         <div className={`${SELECTOR_PREFIX}-options-section`}>
-          {!props.hideIsRatio && (
+          {!props.hidePerCapitaOption && (
             <span className="chart-option">
               <FormGroup check>
                 <Label check>
