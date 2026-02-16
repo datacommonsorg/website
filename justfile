@@ -17,7 +17,7 @@ UPSTREAM_BRANCH := "customdc_stable"
 
 # Load registry config from env file if it exists
 DOCKER_REGISTRY := env_var_or_default("DOCKER_REGISTRY", "us-east4-docker.pkg.dev/one-data-commons/datacommons/website-compose")
-GOOGLE_CLOUD_REGION := env_var_or_default("GOOGLE_CLOUD_REGION", "us-east4")
+GOOGLE_CLOUD_REGION := env_var_or_default("GOOGLE_CLOUD_REGION", "northamerica-northeast1")
 
 # Env file paths for convenience targets
 _ENV_STAGING := "custom_dc/one/env.staging.list"
