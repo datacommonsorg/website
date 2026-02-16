@@ -1,4 +1,28 @@
 User-agent: *
+Crawl-delay: 10
+Disallow: /api/
+Disallow: /browser/
+Disallow: /place/
+Disallow: /ranking/
+
+User-agent: Googlebot
+Crawl-delay: 2
+Allow: /place/
+Allow: /ranking/
+Disallow: /api/
+Disallow: /browser/
+
+User-agent: bingbot
+Crawl-delay: 5
+Allow: /place/
+Allow: /ranking/
+Disallow: /api/
+Disallow: /browser/
+
+User-agent: OAI-SearchBot
+Crawl-delay: 5
+Allow: /place/
+Allow: /ranking/
 Disallow: /api/
 Disallow: /browser/
 
