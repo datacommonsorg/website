@@ -55,6 +55,13 @@ if [ "$SERVICE_JSON" = "{}" ]; then
   DC_MEMORY="16G"
   DC_IMAGE="us-east4-docker.pkg.dev/one-data-commons/datacommons/website-compose:latest"
   CPU_IDLE="true"
+  INGRESS="all"
+  MIN_INSTANCES="1"
+  MAX_INSTANCES="1"
+  FLASK_ENV="one"
+  GA_TAG_ID=""
+  DISABLE_MAPS="false"
+  IS_PUBLIC="true"
 else
   DC_CPU=$(echo "$SERVICE_JSON" | jq -r '.spec.template.spec.containers[0].resources.limits.cpu // "4"')
   DC_MEMORY=$(echo "$SERVICE_JSON" | jq -r '.spec.template.spec.containers[0].resources.limits.memory // "16G"')
@@ -65,7 +72,20 @@ else
   else
     CPU_IDLE="true"
   fi
+  INGRESS=$(echo "$SERVICE_JSON" | jq -r '.metadata.annotations["run.googleapis.com/ingress"] // "all"')
+  MIN_INSTANCES=$(echo "$SERVICE_JSON" | jq -r '.spec.template.metadata.annotations["run.googleapis.com/minScale"] // "1"')
+  MAX_INSTANCES=$(echo "$SERVICE_JSON" | jq -r '.spec.template.metadata.annotations["run.googleapis.com/maxScale"] // "1"')
+  # Extract env vars from the container spec
+  FLASK_ENV=$(echo "$SERVICE_JSON" | jq -r '.spec.template.spec.containers[0].env[] | select(.name == "FLASK_ENV") | .value // "one"')
+  GA_TAG_ID=$(echo "$SERVICE_JSON" | jq -r '.spec.template.spec.containers[0].env[] | select(.name == "GOOGLE_ANALYTICS_TAG_ID") | .value // ""')
+  DISABLE_MAPS=$(echo "$SERVICE_JSON" | jq -r '.spec.template.spec.containers[0].env[] | select(.name == "DISABLE_GOOGLE_MAPS") | .value // "false"')
+  # Check if service is public (allUsers has run.invoker)
+  IS_PUBLIC=$(gcloud run services get-iam-policy "$SERVICE_NAME" \
+    --region="$REGION" --project="$PROJECT" --format=json 2>/dev/null \
+    | jq -r 'if .bindings[]? | select(.role == "roles/run.invoker") | .members[] | select(. == "allUsers") then "true" else "false" end' 2>/dev/null || echo "true")
   echo "  CPU: $DC_CPU, Memory: $DC_MEMORY, CPU Idle: $CPU_IDLE"
+  echo "  Ingress: $INGRESS, Min: $MIN_INSTANCES, Max: $MAX_INSTANCES"
+  echo "  Flask env: $FLASK_ENV, GA: ${GA_TAG_ID:-none}, Maps disabled: $DISABLE_MAPS, Public: $IS_PUBLIC"
 fi
 
 # ── Query Cloud Run Job ──────────────────────────────────────────────────────
@@ -169,6 +189,9 @@ MYSQL_JSON=$(gcloud sql instances describe "$MYSQL_NAME" \
 if [ "$MYSQL_JSON" = "{}" ]; then
   echo "  Warning: MySQL not found, using defaults"
   MYSQL_DELETION_PROTECTION="true"
+  MYSQL_CPU="2"
+  MYSQL_MEMORY_MB="7680"
+  MYSQL_STORAGE_GB="20"
 else
   DELETION_PROTECTION=$(echo "$MYSQL_JSON" | jq -r '.settings.deletionProtectionEnabled // true')
   if [ "$DELETION_PROTECTION" = "true" ]; then
@@ -176,6 +199,14 @@ else
   else
     MYSQL_DELETION_PROTECTION="false"
   fi
+  # Parse tier (e.g. "db-custom-2-7680") to extract CPU and memory
+  MYSQL_TIER=$(echo "$MYSQL_JSON" | jq -r '.settings.tier // "db-custom-2-7680"')
+  MYSQL_CPU=$(echo "$MYSQL_TIER" | awk -F'-' '{print $3}')
+  MYSQL_MEMORY_MB=$(echo "$MYSQL_TIER" | awk -F'-' '{print $4}')
+  MYSQL_STORAGE_GB=$(echo "$MYSQL_JSON" | jq -r '.settings.dataDiskSizeGb // "20"')
+  [ -z "$MYSQL_CPU" ] && MYSQL_CPU="2"
+  [ -z "$MYSQL_MEMORY_MB" ] && MYSQL_MEMORY_MB="7680"
+  echo "  Tier: $MYSQL_TIER (CPU: $MYSQL_CPU, Memory: ${MYSQL_MEMORY_MB}MB, Storage: ${MYSQL_STORAGE_GB}GB)"
   echo "  Deletion protection: $MYSQL_DELETION_PROTECTION"
 fi
 
@@ -205,6 +236,21 @@ dc_web_service_image = "$DC_IMAGE"
 dc_web_service_cpu = "$DC_CPU"
 dc_web_service_memory = "$DC_MEMORY"
 dc_web_service_cpu_idle = $CPU_IDLE
+dc_web_service_min_instance_count = $MIN_INSTANCES
+dc_web_service_max_instance_count = $MAX_INSTANCES
+make_dc_web_service_public = $IS_PUBLIC
+flask_env = "$FLASK_ENV"
+disable_google_maps = $DISABLE_MAPS
+EOF
+
+# Add Google Analytics tag if it's set
+if [ -n "$GA_TAG_ID" ]; then
+  cat >> "$OUTPUT_FILE" << EOF
+google_analytics_tag_id = "$GA_TAG_ID"
+EOF
+fi
+
+cat >> "$OUTPUT_FILE" << EOF
 
 # ── Cloud Run Job ────────────────────────────────────────────────────────────
 
@@ -235,6 +281,9 @@ cat >> "$OUTPUT_FILE" << EOF
 
 # ── Database ─────────────────────────────────────────────────────────────────
 
+mysql_cpu_count = $MYSQL_CPU
+mysql_memory_size_mb = $MYSQL_MEMORY_MB
+mysql_storage_size_gb = $MYSQL_STORAGE_GB
 mysql_deletion_protection = $MYSQL_DELETION_PROTECTION
 EOF
 
