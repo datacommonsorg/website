@@ -23,18 +23,37 @@ Though this should be run with the overall extract script:
 """
 
 import json
+import re
 import sys
+from pathlib import Path
 from typing import Dict, Tuple
 
 DEFAULT_LOCALE = 'en'
-LOCALE_RELATIVE_PATH = 'static/js/i18n/strings/{locale}/{filename}'
+LOCALE_BASE_PATH = (Path(__file__).resolve().parents[2] / 'static' / 'js' /
+                    'i18n' / 'strings')
+LOCALE_RE = re.compile(r'^[A-Za-z0-9_-]+$')
+FILENAME_RE = re.compile(r'^[A-Za-z0-9._-]+$')
 
 MessageDict = Dict[str, str]
 BundleDict = Dict[str, MessageDict]
 
 
+def get_validated_locale_path(locale: str, filename: str) -> Path:
+  if not LOCALE_RE.fullmatch(locale):
+    raise ValueError(f'Invalid locale: {locale}')
+  if not FILENAME_RE.fullmatch(filename) or '/' in filename or '\\' in filename:
+    raise ValueError(f'Invalid filename: {filename}')
+
+  path = (LOCALE_BASE_PATH / locale / filename).resolve()
+  try:
+    path.relative_to(LOCALE_BASE_PATH.resolve())
+  except ValueError as err:
+    raise ValueError(f'Invalid path traversal attempt: {locale}/{filename}') from err
+  return path
+
+
 def extract_messages_from_file(locale: str, filename: str) -> BundleDict:
-  path = LOCALE_RELATIVE_PATH.format(locale=locale, filename=filename)
+  path = get_validated_locale_path(locale, filename)
   with open(path, encoding='utf-8') as f:
     msg_dict = json.loads(f.read())
   return msg_dict
@@ -53,7 +72,7 @@ def merge_messages(default_messages: BundleDict,
 
 
 def write_messages(locale: str, filename: str, locale_messages: BundleDict):
-  path = LOCALE_RELATIVE_PATH.format(locale=locale, filename=filename)
+  path = get_validated_locale_path(locale, filename)
   with open(path, 'w', encoding='utf-8') as f:
     json.dump(locale_messages, f, ensure_ascii=False, indent=2, sort_keys=True)
 
