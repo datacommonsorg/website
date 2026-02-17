@@ -22,6 +22,7 @@ from typing import List
 from flask import Blueprint
 from flask import jsonify
 from flask import request
+from markupsafe import escape
 
 from server.lib.feature_flags import ENABLE_STAT_VAR_AUTOCOMPLETE
 from server.lib.feature_flags import is_feature_enabled
@@ -41,9 +42,9 @@ bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 async def autocomplete():
   """Predicts the user query for location and stat vars."""
   start_time = time.time()
-  lang = request.args.get('hl', 'en')
-  original_query = request.args.get('query', '')
-  has_location = request.args.get('has_location', 'false') == 'true'
+  lang = str(escape(request.args.get('hl', 'en')))
+  original_query = str(escape(request.args.get('query', '')))
+  has_location = str(escape(request.args.get('has_location', 'false'))) == 'true'
 
   # Don't trigger autocomplete on short queries or if the last word is a stop word.
   words = original_query.split()

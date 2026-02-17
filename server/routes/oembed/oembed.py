@@ -21,6 +21,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 from flask import Response
+from markupsafe import escape
 
 from server.lib.cache import cache
 from server.routes import TIMEOUT
@@ -50,6 +51,7 @@ def render_chart():
   if not url or not re.match(url_regex, url):
     # reject request if url not matching allowed pattern or not provided
     return "error: must provide a valid url", 400
+  url = str(escape(url))
 
   max_width = request.args.get("maxwidth", type=int, default=500)
   max_height = request.args.get("maxheight", type=int, default=400)

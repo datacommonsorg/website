@@ -23,6 +23,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 from flask import Response
+from markupsafe import escape
 
 from server.lib.cache import cache
 from server.lib.nl.common import serialize
@@ -49,13 +50,20 @@ import server.services.bigtable as bt
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 
 
+def _escape_value(value):
+  if value is None:
+    return None
+  return str(escape(value))
+
+
 #
 # The detection endpoint.
 #
 @bp.route('/detect', methods=['POST'])
 def detect():
   debug_logs = {}
-  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+  client = _escape_value(request.args.get(Params.CLIENT.value,
+                                          Clients.DEFAULT.value))
 
   utterance, error_json = helpers.parse_query_and_detect(
       request, 'explore', client, debug_logs)
@@ -105,8 +113,9 @@ def fulfill():
 def detect_and_fulfill():
   debug_logs = {}
 
-  test = request.args.get(Params.TEST.value, '')
-  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+  test = _escape_value(request.args.get(Params.TEST.value, ''))
+  client = _escape_value(
+      request.args.get(Params.CLIENT.value, Clients.DEFAULT.value))
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -127,8 +136,8 @@ def detect_and_fulfill():
   utterance.insight_ctx[
       Params.EXP_MORE_DISABLED.value] = request.get_json().get(
           Params.EXP_MORE_DISABLED, "")
-  utterance.insight_ctx[Params.SKIP_RELATED_THINGS] = request.args.get(
-      Params.SKIP_RELATED_THINGS.value, '') == 'true'
+  utterance.insight_ctx[Params.SKIP_RELATED_THINGS] = _escape_value(
+      request.args.get(Params.SKIP_RELATED_THINGS.value, '')) == 'true'
   helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
 
   # Important to setup utterance for explore flow (this is really the only difference
@@ -252,9 +261,10 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
 def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                               counters: ctr.Counters) -> Dict:
   insight_ctx = request.get_json()
-  test = request.args.get(Params.TEST.value, '')
-  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
-  mode = request.args.get(Params.MODE.value, '')
+  test = _escape_value(request.args.get(Params.TEST.value, ''))
+  client = _escape_value(
+      request.args.get(Params.CLIENT.value, Clients.DEFAULT.value))
+  mode = _escape_value(request.args.get(Params.MODE.value, ''))
   if not insight_ctx:
     return helpers.abort('Sorry, could not answer your query.',
                          '', [],

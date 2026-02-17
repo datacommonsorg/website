@@ -21,6 +21,7 @@ from flask import current_app
 from flask import request
 from flask import Response
 from google import genai
+from markupsafe import escape
 from pydantic import BaseModel
 from pydantic import Field
 
@@ -201,6 +202,7 @@ def llm_search():
   query = request.args.get('q')
   if not query:
     return 'error: q param is required', 400
+  query = str(escape(query))
   result = _fulfill_traversal_query(query).model_dump(by_alias=True,
                                                       mode="json")
   return Response(json.dumps(result), 200, mimetype='application/json')

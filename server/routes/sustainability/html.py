@@ -22,6 +22,7 @@ from flask import current_app
 from flask import redirect
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
+from markupsafe import escape
 
 from server.lib.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
@@ -49,6 +50,7 @@ def sustainability_explorer(place_dcid=None):
         place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
+  place_dcid = str(escape(place_dcid))
   raw_subject_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.

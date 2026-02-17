@@ -22,6 +22,7 @@ from flask import current_app
 from flask import redirect
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
+from markupsafe import escape
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
@@ -42,6 +43,7 @@ def disaster_dashboard(place_dcid=None):
         place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
+  place_dcid = str(escape(place_dcid))
   raw_dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.

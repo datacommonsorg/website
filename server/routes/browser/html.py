@@ -21,6 +21,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import g
 from flask import render_template
+from markupsafe import escape
 
 import server.lib.render as lib_render
 import server.lib.shared as shared_api
@@ -40,6 +41,7 @@ def bio_browser_main():
 
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
+  dcid = str(escape(dcid))
   node_name = dcid
   try:
     api_name = shared_api.names([dcid]).get(dcid)

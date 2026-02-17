@@ -18,6 +18,7 @@ import os
 from flask import Blueprint
 from flask import current_app
 from flask import render_template
+from markupsafe import escape
 
 bp = Blueprint('explore', __name__, url_prefix='/explore')
 
@@ -32,6 +33,7 @@ def page():
 
 @bp.route('/<string:topic>')
 def landing(topic):
+  topic = str(escape(topic))
   return render_template('/explore_landing.html',
                          topic=topic,
                          website_hash=os.environ.get("WEBSITE_HASH"))

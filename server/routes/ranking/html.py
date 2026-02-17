@@ -17,6 +17,7 @@ import json
 
 import flask
 from flask import current_app
+from markupsafe import escape
 
 import server.routes.shared_api.place as place_api
 
@@ -26,6 +27,9 @@ bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 @bp.route('/<stat_var>/<place_type>', strict_slashes=False)
 @bp.route('/<stat_var>/<place_type>/<path:place_dcid>')
 def ranking(stat_var, place_type, place_dcid=''):
+  stat_var = str(escape(stat_var))
+  place_type = str(escape(place_type))
+  place_dcid = str(escape(place_dcid))
   place_name = ''
   if place_dcid:
     place_names = place_api.get_i18n_name([place_dcid])

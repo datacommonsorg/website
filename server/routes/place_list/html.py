@@ -16,6 +16,7 @@ import collections
 
 from flask import Blueprint
 from flask import render_template
+from markupsafe import escape
 
 from server.lib.cache import cache
 from server.lib.fetch import raw_property_values
@@ -41,6 +42,7 @@ def index():
 @bp.route('/place-list/<path:dcid>')
 @cache.memoize(timeout=TIMEOUT)
 def node(dcid):
+  dcid = str(escape(dcid))
   child_places = child_fetch(dcid)
   place_by_type = collections.defaultdict(list)
   for place_type, childs in child_places.items():

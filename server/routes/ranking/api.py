@@ -17,6 +17,7 @@ import json
 import logging
 
 import flask
+from markupsafe import escape
 
 from server.lib.util import error_response
 import server.routes.shared_api.place as place_api
@@ -44,6 +45,9 @@ def ranking_api(stat_var, place_type, place=None):
       pc (per capita - the presence of the key enables it)
       bottom (show bottom ranking instead - the presence of the key enables it)
   """
+  stat_var = str(escape(stat_var))
+  place_type = str(escape(place_type))
+  place = str(escape(place)) if place else place
   is_per_capita = flask.request.args.get('pc', False) != False
   is_show_bottom = flask.request.args.get('bottom', False) != False
   rank_keys = BOTTOM_KEYS_KEEP if is_show_bottom else TOP_KEYS_KEEP

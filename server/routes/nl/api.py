@@ -19,6 +19,7 @@ import flask
 from flask import Blueprint
 from flask import request
 from flask import Response
+from markupsafe import escape
 from pydantic import BaseModel
 from pydantic import ConfigDict
 from pydantic import Field
@@ -37,6 +38,16 @@ TYPE_TOPIC = "Topic"
 
 # Type alias for a DCID string
 Dcid = str
+
+
+def _escape_value(value):
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _escape_list(values: list[str]) -> list[str]:
+  return [str(escape(v)) for v in values]
 
 
 class IndicatorScore(BaseModel):
@@ -106,7 +117,7 @@ class SearchVariablesResponse(ApiBaseModel):
 @bp.route('/encode-vector', methods=['POST'])
 def encode_vector():
   """Retrieves the embedding vector for a given query and model."""
-  model = request.args.get('model')
+  model = _escape_value(request.args.get('model'))
   queries = request.json.get('queries', [])
   return json.dumps(dc.nl_encode(model, queries))
 
@@ -114,7 +125,7 @@ def encode_vector():
 @bp.route('/search-vector', methods=['POST'])
 def search_vector():
   """Performs vector search for a given query and embedding index."""
-  idx = request.args.get('idx')
+  idx = _escape_value(request.args.get('idx'))
   if not idx:
     flask.abort(400, 'Must provide an `idx`')
   queries = request.json.get('queries')
@@ -123,7 +134,8 @@ def search_vector():
 
   return dc.nl_search_vars(queries,
                            idx.split(','),
-                           skip_topics=request.args.get('skip_topics', ''))
+                           skip_topics=_escape_value(
+                               request.args.get('skip_topics', '')))
 
 
 def _get_property_value(sv_data: dict,
@@ -270,14 +282,14 @@ def _build_final_response(queries: list[str], indices: list[str],
 
 def _parse_request_args() -> SearchIndicatorsRequest:
   """Parses and validates all query string arguments for the search."""
-  queries = request.args.getlist(PARAM_QUERIES)
+  queries = _escape_list(request.args.getlist(PARAM_QUERIES))
   if not queries:
     flask.abort(400, f"`{PARAM_QUERIES}` is a required parameter")
 
   threshold_override = None
   if PARAM_THRESHOLD in request.args:
     try:
-      threshold_override = float(request.args[PARAM_THRESHOLD])
+      threshold_override = float(_escape_value(request.args[PARAM_THRESHOLD]))
     except ValueError:
       flask.abort(400,
                   f"The `{PARAM_THRESHOLD}` parameter must be a valid float.")
@@ -285,18 +297,18 @@ def _parse_request_args() -> SearchIndicatorsRequest:
   limit_per_index = None
   if PARAM_LIMIT_PER_INDEX in request.args:
     try:
-      limit_per_index = int(request.args[PARAM_LIMIT_PER_INDEX])
+      limit_per_index = int(_escape_value(request.args[PARAM_LIMIT_PER_INDEX]))
     except ValueError:
       flask.abort(
           400,
           f"The `{PARAM_LIMIT_PER_INDEX}` parameter must be a valid integer.")
 
-  indices = request.args.getlist(PARAM_INDEX)
+  indices = _escape_list(request.args.getlist(PARAM_INDEX))
   if not indices:
     server_config = dc.nl_server_config()
     indices = server_config.get("default_indexes", [])
 
-  include_types = request.args.getlist(PARAM_INCLUDE_TYPES)
+  include_types = _escape_list(request.args.getlist(PARAM_INCLUDE_TYPES))
   skip_topics = False
   if include_types and TYPE_TOPIC not in include_types:
     skip_topics = True

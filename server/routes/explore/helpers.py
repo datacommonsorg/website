@@ -58,12 +58,17 @@ import shared.lib.utils as shared_utils
 _SANITY_TEST = 'sanity'
 
 
+def _escape_value(value):
+  if value is None:
+    return None
+  return str(escape(value))
+
+
 # Get the default place to be used for fulfillment. If there is a place in the
 # request, use that. Otherwise, use pre-chosen places.
 def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
-  default_place_dcid = request.args.get(params.Params.DEFAULT_PLACE,
-                                        default='',
-                                        type=str)
+  default_place_dcid = _escape_value(
+      request.args.get(params.Params.DEFAULT_PLACE, default='', type=str))
   # If default place from request is earth, use the Earth place object
   if default_place_dcid == constants.EARTH.dcid:
     return constants.EARTH
@@ -92,15 +97,15 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     flask.abort(404)
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
-  test = request.args.get(params.Params.TEST.value, '')
+  test = _escape_value(request.args.get(params.Params.TEST.value, ''))
   # i18n param
-  i18n_str = request.args.get(params.Params.I18N.value, '')
+  i18n_str = _escape_value(request.args.get(params.Params.I18N.value, ''))
   i18n = i18n_str and i18n_str.lower() == 'true'
 
   # Index-type default is in nl_server.
-  idx_param_str = request.args.get(params.Params.INDEX.value, '')
+  idx_param_str = _escape_value(request.args.get(params.Params.INDEX.value, ''))
   embeddings_index_types = [x.strip() for x in idx_param_str.split(',')]
-  original_query = request.args.get('q')
+  original_query = _escape_value(request.args.get('q'))
   if not original_query:
     err_json = helpers.abort(
         'Received an empty query, please type a few words :)',
@@ -115,13 +120,14 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   embeddings_index_types = params.dc_to_embedding_types(dc,
                                                         embeddings_index_types)
 
-  detector_type = request.args.get(params.Params.DETECTOR.value,
-                                   default=RequestedDetectorType.Hybrid.value,
-                                   type=str)
+  detector_type = _escape_value(
+      request.args.get(params.Params.DETECTOR.value,
+                       default=RequestedDetectorType.Hybrid.value,
+                       type=str))
 
   # mode param
   use_default_place = True
-  mode = request.args.get(params.Params.MODE.value, '')
+  mode = _escape_value(request.args.get(params.Params.MODE.value, ''))
   if mode == QueryMode.STRICT:
     # Strict mode is compatible only with Heuristic Detector!
     detector_type = RequestedDetectorType.Heuristic.value
@@ -180,10 +186,10 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     use_default_place = False
 
   # See if we have a variable reranker model specified.
-  reranker = request.args.get(params.Params.RERANKER.value)
+  reranker = _escape_value(request.args.get(params.Params.RERANKER.value))
 
   # Get sv threshold as a float if it was passed in the request
-  var_threshold = request.args.get(params.Params.VAR_THRESHOLD.value)
+  var_threshold = _escape_value(request.args.get(params.Params.VAR_THRESHOLD.value))
   if var_threshold:
     # if sv_threshold is not a float, don't set sv_threshold
     try:
@@ -192,8 +198,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       var_threshold = None
 
   # StopWords handling
-  include_stop_words_str = request.args.get(
-      params.Params.INCLUDE_STOP_WORDS.value, '')
+  include_stop_words_str = _escape_value(
+      request.args.get(params.Params.INCLUDE_STOP_WORDS.value, ''))
 
   detection_args = DetectionArgs(
       embeddings_index_types=embeddings_index_types,
@@ -280,7 +286,7 @@ def update_insight_ctx_for_chart_fulfill(request: Dict,
       params.Params.MAX_CHARTS,
       params.Params.CHART_TYPE,
   ]:
-    param_val = request.args.get(p, None)
+    param_val = _escape_value(request.args.get(p, None))
     if param_val != None:
       if param_val.isnumeric():
         param_val = int(param_val)
