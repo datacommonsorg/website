@@ -212,6 +212,7 @@ variable "dc_data_job_timeout" {
   default     = "600s"
 }
 
+# Valid values are "base_and_custom" and "custom_only"
 variable "dc_search_scope" {
   description = "Scope for MCP search indicators"
   type        =  string
