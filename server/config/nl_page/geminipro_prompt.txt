@@ -139,7 +139,7 @@ Output JSON:
 ```
 {
   "PLACES": ["texas"],
-  "METRICS": ["energy usage of poor hispanic people"],
+  "METRICS": ["energy usage of poor hispanic people"]
 }
 ```
 
