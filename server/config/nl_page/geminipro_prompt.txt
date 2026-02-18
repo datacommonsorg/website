@@ -128,9 +128,18 @@ Output JSON:
 ```
 {
   "PLACES": ["california"],
-  "METRICS": ["poor people"],
+  "METRICS": ["number of poor people"],
   "RANK": "LOW",
   "SUB_PLACE_TYPE": "COUNTY"
+}
+```
+
+Input Sentence: "Energy usage of poor hispanic people in texas"
+Output JSON:
+```
+{
+  "PLACES": ["texas"],
+  "METRICS": ["energy usage of poor hispanic people"],
 }
 ```
 
