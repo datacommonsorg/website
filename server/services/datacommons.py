@@ -370,10 +370,6 @@ def v2event(node, prop):
   return post(url, {"node": node, "property": prop})
 
 
-def get_place_info(dcids: List[str]) -> Dict:
-  """Retrieves Place Info given a list of DCIDs."""
-  url = get_service_url("/v1/bulk/info/place")
-  return post(f"{url}", {"nodes": sorted(set(dcids))})
 
 
 def get_variable_group_info(nodes: List[str],
@@ -403,16 +399,237 @@ def get_variable_ancestors(dcid: str):
   return get(url).get("ancestors", [])
 
 
+PLACE_TYPE_RANK = {
+    "CensusZipCodeTabulationArea": 1,
+    "AdministrativeArea5": 2, "AdministrativeArea4": 2,
+    "Village": 5, "City": 5, "Town": 5, "Borough": 5, "AdministrativeArea3": 5,
+    "County": 10, "AdministrativeArea2": 10, "EurostatNUTS3": 10,
+    "CensusDivision": 15,
+    "State": 20, "AdministrativeArea1": 20, "EurostatNUTS2": 20, "EurostatNUTS1": 20,
+    "Country": 30,
+    "CensusRegion": 35, "GeoRegion": 38,
+    "Continent": 40,
+    "Place": 50,
+}
+
+
+def get_place_info(dcids: List[str]) -> Dict:
+  """Retrieves Place Info given a list of DCIDs."""
+  # Step 1: Get ancestors manually since v2/node doesn't support ->containedInPlace+
+  ancestors_map = {dcid: set() for dcid in dcids}
+  
+  parent_graph = {} # child_dcid -> list of parent_dcids
+  frontier = set(dcids)
+  visited = set()
+  
+  # BFS to build parent graph (max depth 10)
+  for _ in range(10):
+      if not frontier:
+          break
+      
+      # Filter out already visited nodes to avoid cycles/redundant fetches
+      fetch_dcids = [d for d in frontier if d not in visited]
+      if not fetch_dcids:
+          break
+          
+      # Fetch parents for current frontier
+      resp = v2node(fetch_dcids, '->containedInPlace')
+      data = resp.get('data', {})
+      
+      current_frontier = set()
+      for dcid in fetch_dcids:
+          visited.add(dcid)
+          node_data = data.get(dcid, {})
+          # Parse arcs: {'nodes': [...]}
+          arcs_obj = node_data.get('arcs', {}).get('containedInPlace', {})
+          nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
+          
+          parents = [x['dcid'] for x in nodes_list if 'dcid' in x]
+          if parents:
+              parent_graph[dcid] = parents
+              current_frontier.update(parents)
+      
+      frontier = current_frontier
+      
+  # Step 2: Build ancestors list for each requested DCID using the graph
+  for dcid in dcids:
+      queue = [dcid]
+      seen = {dcid}
+      while queue:
+          curr = queue.pop(0)
+          parents = parent_graph.get(curr, [])
+          for p in parents:
+              if p not in seen:
+                  seen.add(p)
+                  # Add to ancestors if it's not the node itself (though p != dcid is implied by hierarchy usually)
+                  if p != dcid:
+                      ancestors_map[dcid].add(p)
+                  queue.append(p)
+
+  all_dcids = set()
+  for anc_set in ancestors_map.values():
+      all_dcids.update(anc_set)
+  all_dcids.update(dcids)
+
+  all_dcids_list = sorted(list(all_dcids))
+  if not all_dcids_list:
+      return {'data': []}
+
+  types_resp = v2node(all_dcids_list, '->typeOf')
+  names_resp = v2node(all_dcids_list, '->name')
+  
+  def get_first_value(resp, dcid, prop, key='dcid'):
+       node_data = resp.get('data', {}).get(dcid, {})
+       # Prop might be returned with or without arrow depending on API, 
+       # but usually matches requested property key
+       # arcs is a dict: { prop: { 'nodes': [...] } }
+       arcs_obj = node_data.get('arcs', {}).get(prop, {})
+       if not arcs_obj:
+           # Try checking without arrow if key mismatch
+           arcs_obj = node_data.get('arcs', {}).get(prop.replace('->', ''), {})
+       
+       nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
+       
+       if nodes_list:
+           return nodes_list[0].get(key, '')
+       return ''
+
+  result_data = []
+  for dcid in dcids:
+      self_type = get_first_value(types_resp, dcid, 'typeOf')
+      self_name = get_first_value(names_resp, dcid, 'name', 'value')
+      
+      parents = []
+      for anc_dcid in ancestors_map.get(dcid, []):
+          if anc_dcid == dcid: continue
+          
+          anc_type = get_first_value(types_resp, anc_dcid, 'typeOf')
+          anc_name = get_first_value(names_resp, anc_dcid, 'name', 'value')
+          
+          if anc_type in PLACE_TYPE_RANK:
+              parents.append({
+                  'dcid': anc_dcid,
+                  'type': anc_type,
+                  'name': anc_name,
+                  'rank': PLACE_TYPE_RANK[anc_type]
+              })
+      
+      parents.sort(key=lambda x: x['rank'])
+      for p in parents:
+          del p['rank']
+          
+      result_data.append({
+          'node': dcid,
+          'info': {
+              'self': {'dcid': dcid, 'type': self_type, 'name': self_name},
+              'parents': parents
+          }
+      })
+      
+  return {'data': result_data}
+
+
 def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
-  url = get_service_url("/v1/bulk/observation-dates/linked")
-  return post(
-      url, {
-          "linked_property": "containedInPlace",
-          "linked_entity": parent_entity,
-          "entity_type": child_type,
-          "variables": variables,
+  # Step 1: Get children
+  # Note: This checks for DIRECT children (containedInPlace).
+  children_resp = v2node([parent_entity], '<-containedInPlace')
+  child_dcids = []
+  
+  node_data = children_resp.get('data', {}).get(parent_entity, {})
+  arcs = node_data.get('arcs', {}).get('containedInPlace', [])
+  possible_children = [x['dcid'] for x in arcs if 'dcid' in x]
+  
+  # Filter by type if there are children
+  if possible_children:
+      # We need to verify which of these are of child_type
+      # Optimization: If child_type is generic or we trust, we might skip.
+      # But V1 likely filtered.
+      type_resp = v2node(possible_children, 'typeOf')
+      for child in possible_children:
+          # Check if child has the requested type
+          # A node can have multiple types.
+          c_data = type_resp.get('data', {}).get(child, {})
+          c_types = c_data.get('arcs', {}).get('typeOf', [])
+          c_type_ids = [t.get('dcid') for t in c_types]
+          if child_type in c_type_ids:
+              child_dcids.append(child)
+  
+  if not child_dcids:
+      return {"datesByVariable": [], "facets": {}}
+
+  # Step 2: Get observation dates
+  # We use v2observation to get data for these children
+  # Query for just date and value? V1 returns counts mostly?
+  # V1 returns: datesByVariable -> [{variable, observationDates: [{date, entityCount: [{count, facet}]}]}]
+  # To replicate this, we need all observations for these variable/entity pairs.
+  
+  obs_resp = v2observation(
+      select=['date', 'variable', 'entity', 'value', 'facet'],
+      entity={'dcids': child_dcids},
+      variable={'dcids': variables}
+  )
+  
+  # Aggregate results
+  # Structure: { variable: { date: { facet: count } } }
+  import collections
+  agg_data = collections.defaultdict(lambda: collections.defaultdict(lambda: collections.defaultdict(int)))
+  
+  # Iterate through the response
+  # V2 response: { byVariable: { var: { byEntity: { ent: { series: [{date, value, facet or facetId}] } } } } }
+  # Note: if we passed 'select', the structure might be different?
+  # v2observation helper uses 'select' but returns the byVariable structure usually?
+  # Let's check v2observation implementation. It calls post("/v2/observation").
+  # The response IS usually byVariable.
+  
+  by_var = obs_resp.get('byVariable', {})
+  unique_facets = {} # facetId -> facetObj
+  
+  all_facets = obs_resp.get('facets', {})
+
+  for var, var_data in by_var.items():
+      by_ent = var_data.get('byEntity', {})
+      for ent, ent_data in by_ent.items():
+           # ent_data contains 'series' usually
+           series = ent_data.get('series', [])
+           for obs in series:
+               date = obs.get('date')
+               if not date: continue
+               
+               # Facet handling
+               facet_id = obs.get('facet', "")
+               agg_data[var][date][facet_id] += 1
+               # Assuming facets details are in 'facets' key of response?
+               # v2observation response should have 'facets' top level key if requested?
+               # 'facet' in select might return the ID in the series or the object?
+               # Usually it returns facetID and a top-level facets map.
+  
+  # Construct response
+  resp_dates = []
+  for var, dates_map in agg_data.items():
+      obs_dates = []
+      for date, facet_counts in dates_map.items():
+          entity_counts = []
+          for facet_id, count in facet_counts.items():
+              entity_counts.append({
+                  "count": count,
+                  "facet": facet_id # V1 expects facet ID or object?
+                  # V1 proto: EntityCount { count, facet } where facet is string (ID?).
+                  # But typically it might expect the full facet object in a separate map.
+              })
+          obs_dates.append({
+              "date": date,
+              "entityCount": entity_counts
+          })
+      resp_dates.append({
+          "variable": var,
+          "observationDates": obs_dates
       })
+      
+  return {
+      "datesByVariable": resp_dates,
+      "facets": all_facets
+  }
 
 
 def resolve(nodes, prop):
