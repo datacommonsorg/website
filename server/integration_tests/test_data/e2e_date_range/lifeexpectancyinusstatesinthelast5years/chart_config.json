@@ -96,7 +96,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_1437305810"
+                      "Count_Death_1662700527"
                     ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
@@ -212,6 +212,38 @@
             ],
             "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
             "title": "Neonatal Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2021"
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_1662700527"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less in United States",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: 1 Years or Less"
           },
           {
             "columns": [
@@ -375,8 +407,8 @@
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
-          "Count_Death_1437305810": {
-            "facetId": "1437305810",
+          "Count_Death_1662700527": {
+            "facetId": "1662700527",
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
@@ -397,6 +429,15 @@
             "facetId": "448542840",
             "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "Count_Death_Upto1Years": {
+            "name": "Count of Mortality Event: 1 Years or Less",
+            "statVar": "Count_Death_Upto1Years"
+          },
+          "Count_Death_Upto1Years_1662700527": {
+            "facetId": "1662700527",
+            "name": "Count of Mortality Event: 1 Years or Less",
+            "statVar": "Count_Death_Upto1Years"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
@@ -836,6 +877,12 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "Count_Death": {
+        "age": [
+          "Count_Death_0Years",
+          "Count_Death_Upto1Years"
+        ]
+      },
       "LifeExpectancy_Person": {
         "gender": [
           "LifeExpectancy_Person_Female",

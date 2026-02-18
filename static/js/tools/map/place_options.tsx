@@ -86,6 +86,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
           enclosedPlaceType={placeInfo.value.enclosedPlaceType}
           onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
           onPlaceSelected={placeInfo.setSelectedPlace}
+          requireMaps={true}
           selectedParentPlace={placeInfo.value.selectedPlace}
           searchBarPlaceholderText={intl.formatMessage(
             toolMessages.mapToolSearchBoxPlaceholder

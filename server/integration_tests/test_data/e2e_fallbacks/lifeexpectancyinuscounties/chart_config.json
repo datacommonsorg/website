@@ -427,6 +427,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_Upto1Years"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less in United States",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: 1 Years or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
                     ],
                     "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States (${date})",
@@ -1238,6 +1267,10 @@
     "childTopics": [],
     "exploreMore": {
       "Count_Death": {
+        "age": [
+          "Count_Death_0Years",
+          "Count_Death_Upto1Years"
+        ],
         "causeOfDeath": [
           "Count_Death_AbnormalNotClassfied",
           "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
@@ -1278,6 +1311,28 @@
           "Count_Death_DiseasesOfTheCirculatorySystem_Female",
           "Count_Death_Neoplasms_Female",
           "Count_MortalityEvent_Assault(Homicide)_Female"
+        ]
+      },
+      "Count_Death_Upto1Years": {
+        "causeOfDeath": [
+          "Count_Death_Upto1Years_AbnormalNotClassfied",
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod",
+          "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases",
+          "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities",
+          "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem",
+          "Count_Death_Upto1Years_Neoplasms",
+          "Count_MortalityEvent_YearsUpto1_AIDS",
+          "Count_MortalityEvent_YearsUpto1_AllOtherFormsOfChronicIschemicHeartDisease",
+          "Count_MortalityEvent_YearsUpto1_Assault(Homicide)ByDischargeOfFirearms",
+          "Count_MortalityEvent_YearsUpto1_Asthma",
+          "Count_MortalityEvent_YearsUpto1_Atherosclerosis",
+          "Count_MortalityEvent_YearsUpto1_ChronicLiverDiseaseAndCirrhosis",
+          "Count_MortalityEvent_YearsUpto1_Malnutrition",
+          "Count_MortalityEvent_YearsUpto1_NutritionalDeficiencies",
+          "Count_MortalityEvent_YearsUpto1_OtherChronicLiverDiseaseAndCirrhosis",
+          "Count_MortalityEvent_YearsUpto1_OtherChronicLowerRespiratoryDiseases",
+          "Count_MortalityEvent_YearsUpto1_OtherFormsOfChronicIschemicHeartDisease",
+          "Count_MortalityEvent_YearsUpto1_PneumonitisDueToSolidsAndLiquids"
         ]
       },
       "LifeExpectancy_Person": {
