@@ -5,7 +5,7 @@
 
 This container includes:
 - Python 3.11.4
-- Golang 1.23.11
+- Golang 1.24.0
 - Go plugins:
   - protoc-gen-go 1.30.0
   - protoc-gen-go-grpc 1.3.0
