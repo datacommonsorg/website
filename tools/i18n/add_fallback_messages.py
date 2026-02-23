@@ -41,7 +41,7 @@ BundleDict = Dict[str, MessageDict]
 def get_validated_locale_path(locale: str, filename: str) -> Path:
   if not LOCALE_RE.fullmatch(locale):
     raise ValueError(f'Invalid locale: {locale}')
-  if not FILENAME_RE.fullmatch(filename) or '/' in filename or '\\' in filename:
+  if not FILENAME_RE.fullmatch(filename):
     raise ValueError(f'Invalid filename: {filename}')
 
   path = (LOCALE_BASE_PATH / locale / filename).resolve()
