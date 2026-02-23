@@ -29,6 +29,7 @@ import {
   NamedTypedPlace,
 } from "../shared/types";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
+import { escapeRegexSpecialChars, isSafeRegexPattern } from "./regex_utils";
 
 let ps: google.maps.places.PlacesService;
 
@@ -323,14 +324,17 @@ export function getPlaceDcids(
  * Given a place name returns a promise with its autocomplete placeId.
  */
 function getPlaceId(query): Promise<[string, string]> {
+  const safeQuery = isSafeRegexPattern(escapeRegexSpecialChars(query))
+    ? query
+    : "";
   const request = {
-    query,
+    query: safeQuery,
     fields: ["place_id", "name", "types"],
   };
   return new Promise((resolve, reject) => {
     ps.findPlaceFromQuery(request, (results, status) => {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        resolve([query, results[0].place_id]);
+        resolve([safeQuery, results[0].place_id]);
       } else {
         reject(status);
       }
