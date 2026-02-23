@@ -28,7 +28,7 @@
     "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience.",
-    "rollout_percentage": 20
+    "rollout_percentage": 60
   },
   {
     "name": "page_overview_ga",
