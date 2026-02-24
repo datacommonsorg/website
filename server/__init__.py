@@ -497,16 +497,19 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     values['hl'] = g.locale
 
   def get_custom_config_path(custom_dc_template_folder=None):
+    """Gets the path for a custom configuration folder.
+
+    Returns:
+        The path to the custom configuration folder if custom configuration is
+        enabled and a folder is provided, otherwise None.
     """
-      Return the custom configuration folder path
-      if custom configuration is enabled and a custom template folder is provided.
-      """
     if cfg.CUSTOM and custom_dc_template_folder:
       return os.path.join(app.root_path, "config", "custom_dc",
                           custom_dc_template_folder)
     return None
 
   # Provides locale and other common parameters in all templates
+  # TODO(beets): Move this to create_app so it isn't run per request.
   @app.context_processor
   def inject_common_parameters():
     header_json_path = "config/base/header.json"
