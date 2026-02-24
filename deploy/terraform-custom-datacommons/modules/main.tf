@@ -267,7 +267,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
       env {
         name  = "ENABLE_MCP"
-        value = var.enable_mcp
+        value = tostring(var.enable_mcp)
       }
 
       env {
