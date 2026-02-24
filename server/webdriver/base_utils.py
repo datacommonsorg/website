@@ -220,9 +220,10 @@ def hover_until_tooltip_appears(
       tooltip = d.find_element(tooltip_by, tooltip_value)
       if tooltip.is_displayed() and tooltip_text in tooltip.text:
         return tooltip
-    except Exception:
-      # Ignore errors (usually stale reference errors) that occur during attempts before timeout
-      pass
+    except (NoSuchElementException, StaleElementReferenceException):
+      # On expected errors (like stale reference errors) return false to continue the wait loop
+      return False
+
     return False
 
   try:

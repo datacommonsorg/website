@@ -254,4 +254,3 @@ class VisMapTestMixin():
     # Verify that the tooltip appeared with the given text.
     self.assertIsNotNone(tooltip,
                          "Tooltip with 'Female population' never appeared.")
-    self.assertIn("Female population", tooltip.text)
