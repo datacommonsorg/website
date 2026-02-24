@@ -174,6 +174,7 @@ export function ChartLoader(): ReactElement {
             statVarToFacets[statVarDcid].add(id)
           );
         } else {
+          // if no facet is selected, we add all facets associated with the variable
           for (const facetId in cache.baseFacets[statVarDcid]) {
             statVarToFacets[statVarDcid].add(facetId);
           }
