@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+import server.webdriver.base_utils as base_utils
 import server.webdriver.shared as shared
 
 MAP_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=map'
@@ -241,17 +241,17 @@ class VisMapTestMixin():
     shared.wait_for_charts_to_render(self.driver,
                                      timeout_seconds=self.TIMEOUT_SEC)
 
-    # Find the map region for Kern County (geoId/06029)
-    kern_county = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]',
-    )
+    # Find the map region for Kern County (geoId/06029) (will be passed into utility)
+    kern_county_xpath = '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]'
 
-    # Hover over the region using ActionChains
-    actions = ActionChains(self.driver)
-    actions.move_to_element(kern_county).perform()
+    tooltip = base_utils.hover_until_tooltip_appears(
+        self.driver,
+        hover_by=By.XPATH,
+        hover_value=kern_county_xpath,
+        tooltip_text="Female population",
+        timeout_seconds=self.TIMEOUT_SEC)
 
-    # Wait for tooltip to appear and verify contents
-    tooltip = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.ID, "tooltip")))
+    # Verify that the tooltip appeared with the given text.
+    self.assertIsNotNone(tooltip,
+                         "Tooltip with 'Female population' never appeared.")
     self.assertIn("Female population", tooltip.text)

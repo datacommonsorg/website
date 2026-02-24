@@ -18,6 +18,7 @@ from typing import List
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -189,3 +190,42 @@ def wait_for_text(driver,
   """
   condition = EC.text_to_be_present_in_element((by, value), text)
   return WebDriverWait(driver, timeout_seconds).until(condition)
+
+
+def hover_until_tooltip_appears(
+    driver,
+    hover_by: str,
+    hover_value: str,
+    tooltip_text: str,
+    tooltip_by: str = By.ID,
+    tooltip_value: str = "tooltip",
+    timeout_seconds: float = TIMEOUT
+) -> webdriver.remote.webelement.WebElement | None:
+  """
+  Repeatedly hovers over an element and waits for a tooltip with specific text to appear.
+  This can be useful for avoiding race conditions.
+
+  Returns:
+    The tooltip element if found, or None if no elements are found.
+  """
+
+  def _hover_and_check(d):
+    try:
+      hover_target = d.find_element(hover_by, hover_value)
+
+      # We move to the element and firethe hover event
+      ActionChains(d).move_to_element(hover_target).perform()
+
+      # Check if the tooltip was created and populated with the expected content.
+      tooltip = d.find_element(tooltip_by, tooltip_value)
+      if tooltip.is_displayed() and tooltip_text in tooltip.text:
+        return tooltip
+    except Exception:
+      # Ignore errors (usually stale reference errors) that occur during attempts before timeout
+      pass
+    return False
+
+  try:
+    return WebDriverWait(driver, timeout_seconds).until(_hover_and_check)
+  except TimeoutException:
+    return None
