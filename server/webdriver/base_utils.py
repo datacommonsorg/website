@@ -207,6 +207,15 @@ def hover_until_tooltip_appears(
   Repeatedly hovers over an element and waits for a tooltip with specific text to appear.
   This can be useful for avoiding race conditions.
 
+  Args:
+    driver: The Selenium WebDriver instance.
+    hover_by: The locator strategy to find the element to hover over (e.g., By.XPATH, By.ID).
+    hover_value: The locator string for the element to hover over.
+    tooltip_text: The specific text expected to be populated inside the tooltip.
+    tooltip_by: The locator strategy to find the tooltip element. Defaults to By.ID.
+    tooltip_value: The locator string for the tooltip element. Defaults to "tooltip".
+    timeout_seconds: Maximum time in seconds to wait for the tooltip and content. Defaults to TIMEOUT.
+
   Returns:
     The tooltip element if found, or None if no elements are found.
   """
