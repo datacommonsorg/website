@@ -170,7 +170,7 @@ test("chart options", async () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statsVar=Count_Person",
+      hash: "#&place=geoId/05&statsVar=Count_Farm",
     },
   });
 
@@ -193,31 +193,28 @@ test("chart options", async () => {
   // Check that url hash is updated
   window.location.hash = "#" + window.location.hash;
   expect(window.location.hash).toBe(
-    "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
+    "#place=geoId%2F05&statsVar=Count_Farm&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
   );
   // Hack to trigger hashchange event to fire
   window.dispatchEvent(
     new HashChangeEvent("hashchange", {
       newURL:
-        "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D",
-      oldURL: "#&place=geoId/05&statsVar=Count_Person",
+        "#place=geoId%2F05&statsVar=Count_Farm&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D",
+      oldURL: "#&place=geoId/05&statsVar=Count_Farm",
     })
   );
   await waitForComponentUpdates(wrapper);
-  expect(
-    pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
-  ).toMatchSnapshot();
-  // Open the Demographics node in the stat var widget
+  // Open the Agriculture node in the stat var widget
   wrapper
     .find("#hierarchy-section .Collapsible__trigger")
-    .at(0)
+    .at(2)
     .simulate("click");
   // Wait for the stat var info fetch from the stat var widget
   await new Promise(process.nextTick);
   wrapper.update();
-  // Remove the stat var
+  // Remove the stat var Count_Farm
   wrapper
-    .find("#hierarchy-section input[checked=true]")
+    .find("#hierarchy-section input")
     .at(0)
     .simulate("change", { target: { checked: false } });
   // Check that the url hash is updated

@@ -16,12 +16,13 @@
 import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
-import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { intl } from "../../i18n/i18n";
+import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { ChartEmbed } from "../../place/chart_embed";
 import { Chip } from "../../shared/chip";
 import { WEBSITE_SURFACE } from "../../shared/constants";
@@ -166,6 +167,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
 
+    // Whether to hide the "per capita" toggle in the footer
+    // If any stat var allows per capita, then hidePerCapitaToggle is false (we will show the toggle)
+    const hidePerCapitaToggle = !Object.values(this.props.statVarInfos).some(
+      (svInfo) => svInfo.pcAllowed
+    );
+
     // Prepare props for ChartEmbed.
     const embedStatVarSpecs: StatVarSpec[] = [];
     const embedStatVarToFacets: StatVarFacetMap = {};
@@ -185,6 +192,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           log: false,
           scaling: undefined,
           unit: undefined,
+          noPerCapita: !svInfo.pcAllowed,
         });
         if (facetId) {
           embedStatVarToFacets[svDcid] = new Set([facetId]);
@@ -249,7 +257,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          hideIsRatio={false}
+          hidePerCapitaOption={hidePerCapitaToggle}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
             setChartOption(this.props.chartId, "pc", isPerCapita)
@@ -579,10 +587,19 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
     }
     // use mprop as the ylabel
-    let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+    const ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
 
-    if (this.units.length > 0) {
-      ylabelText += ` (${this.units.join(", ")})`;
+    // Add units and per capita to the ylabel as a suffix, if provided
+    // e.g. "StatVar (unit, per capita)"
+    const suffixItems = [...(this.units || [])]; // make a copy to avoid mutating this.units
+    if (this.props.pc) {
+      suffixItems.push(
+        intl.formatMessage(chartComponentMessages.perCapitaLowercase)
+      );
+    }
+    if (!_.isEmpty(suffixItems)) {
+      const suffix = `(${suffixItems.join(", ")})`;
+      return ylabelText ? `${ylabelText} ${suffix}` : suffix;
     }
     return ylabelText;
   }

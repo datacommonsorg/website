@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # #### Stage 1: Build mixer. ####
-FROM golang:1.23.11 AS mixer
+FROM golang:1.24.0 AS mixer
 
 WORKDIR /workspace
 
@@ -73,7 +73,7 @@ RUN pip3 install --upgrade pip setuptools \
     && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
     && pip3 install --no-cache-dir -r /workspace/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
     && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt \
-    && pip3 install --no-cache-dir datacommons-mcp==1.1.6
+    && pip3 install --no-cache-dir datacommons-mcp
 
 # Copy website app script.
 COPY web_app.py ./web_app.py
