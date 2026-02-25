@@ -34,3 +34,8 @@ class TestSearchPages(unittest.TestCase):
     response = app.test_client().get('/search?q=foobar')
     assert response.status_code == 200
     assert b'data-query="foobar"' in response.data
+
+  def test_search_dc_query(self):
+    response = app.test_client().get('/search_dc?q=foobar')
+    assert response.status_code == 200
+    assert b'data-query="foobar"' in response.data
