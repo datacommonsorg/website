@@ -295,6 +295,9 @@ const SCATTER_PROPS = {
   facetListLoading: false,
   facetListError: false,
   onSvFacetIdUpdated: (): null => null,
+  facets: {},
+  statVarToFacets: {},
+  statVarSpecs: [],
 };
 
 const PAGE_METADATA_PROPS = {

@@ -49,13 +49,10 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { ObservationSpec } from "../../shared/observation_specs";
+import { StatMetadata } from "../../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { NamedPlace } from "../../shared/types";
-import {
-  getFacetMetadataFromFacetList,
-  getStatVarMetadataFromFacets,
-  loadSpinner,
-  removeSpinner,
-} from "../../shared/util";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
@@ -92,6 +89,9 @@ interface ChartPropsType {
   getObservationSpecs?: () => ObservationSpec[];
   // A ref to the chart container element.
   containerRef?: RefObject<HTMLElement>;
+  facets: Record<string, StatMetadata>;
+  statVarToFacets: StatVarFacetMap;
+  statVarSpecs: StatVarSpec[];
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -190,18 +190,6 @@ export function Chart(props: ChartPropsType): ReactElement {
     });
   }, [statVars[0], statVars[1], props.placeInfo.enclosingPlace.dcid]);
 
-  // Get stat var metadata to use in metadata modal
-  const { statVarToFacets, statVarSpecs } = getStatVarMetadataFromFacets(
-    props.facetList,
-    props.svFacetId,
-    props.xPerCapita,
-    props.xUnit,
-    props.xLog,
-    props.yPerCapita,
-    props.yUnit,
-    props.yLog
-  );
-
   // Calculate date ranges for each stat var to use in metadata modal
   const statVarDateRanges = {};
   if (props.facetList.length >= 2) {
@@ -257,9 +245,9 @@ export function Chart(props: ChartPropsType): ReactElement {
         handleEmbed={props.handleEmbed}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={props.containerRef}
-        facets={getFacetMetadataFromFacetList(props.facetList)}
-        statVarSpecs={statVarSpecs}
-        statVarToFacets={statVarToFacets}
+        facets={props.facets}
+        statVarSpecs={props.statVarSpecs}
+        statVarToFacets={props.statVarToFacets}
         statVarDateRanges={statVarDateRanges}
       >
         <PlotOptions />
