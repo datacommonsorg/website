@@ -27,8 +27,8 @@ class TestSearchPages(unittest.TestCase):
 
   def test_search_dc(self):
     response = app.test_client().get('/search_dc')
-    assert response.status_code == 200
-    assert b"Search - Data Commons" in response.data
+    assert response.status_code == 301
+    assert response.location == '/search'
 
   def test_search_query(self):
     response = app.test_client().get('/search?q=foobar')
@@ -37,5 +37,5 @@ class TestSearchPages(unittest.TestCase):
 
   def test_search_dc_query(self):
     response = app.test_client().get('/search_dc?q=foobar')
-    assert response.status_code == 200
-    assert b'data-query="foobar"' in response.data
+    assert response.status_code == 301
+    assert response.location == '/search?q=foobar'

@@ -26,7 +26,6 @@ _MAX_SEARCH_RESULTS = 1000
 
 
 @bp.route('/search')
-@bp.route('/search_dc')
 def search():
   """Custom search page.
 
@@ -36,3 +35,9 @@ def search():
   return flask.render_template('search.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                query=query)
+
+
+@bp.route('/search_dc')
+def search_dc():
+  return flask.redirect(flask.url_for('search.search', **request.args),
+                        code=301)
