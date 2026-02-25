@@ -459,6 +459,26 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     blocklist_svg = ["dc/g/Uncategorized", "oecd/g/OECD"]
   app.config['BLOCKLIST_SVG'] = blocklist_svg
 
+  # Determine custom header and footer paths
+  header_json_path = "config/base/header.json"
+  footer_json_path = "config/base/footer.json"
+  if cfg.CUSTOM and custom_dc_template_folder:
+    custom_config_path = os.path.join(app.root_path, "config", "custom_dc",
+                                      custom_dc_template_folder)
+
+    custom_header_override = os.path.join(custom_config_path, "base",
+                                          "header.json")
+    if os.path.exists(custom_header_override):
+      header_json_path = custom_header_override
+
+    custom_footer_override = os.path.join(custom_config_path, "base",
+                                          "footer.json")
+    if os.path.exists(custom_footer_override):
+      footer_json_path = custom_footer_override
+
+  app.config['HEADER_JSON_PATH'] = header_json_path
+  app.config['FOOTER_JSON_PATH'] = footer_json_path
+
   # Set whether to filter stat vars with low geographic coverage in the
   # map and scatter tools.
   app.config['MIN_STAT_VAR_GEO_COVERAGE'] = cfg.MIN_STAT_VAR_GEO_COVERAGE
@@ -496,39 +516,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       return
     values['hl'] = g.locale
 
-  def get_custom_config_path(custom_dc_template_folder=None):
-    """Gets the path for a custom configuration folder.
 
-    Returns:
-        The path to the custom configuration folder if custom configuration is
-        enabled and a folder is provided, otherwise None.
-    """
-    if cfg.CUSTOM and custom_dc_template_folder:
-      return os.path.join(app.root_path, "config", "custom_dc",
-                          custom_dc_template_folder)
-    return None
 
   # Provides locale and other common parameters in all templates
-  # TODO(beets): Move this to create_app so it isn't run per request.
   @app.context_processor
   def inject_common_parameters():
-    header_json_path = "config/base/header.json"
-    footer_json_path = "config/base/footer.json"
-
-    custom_config_path = get_custom_config_path(custom_dc_template_folder)
-    if custom_config_path:
-      custom_header_override = os.path.join(custom_config_path, "base",
-                                            "header.json")
-      if os.path.exists(custom_header_override):
-        header_json_path = custom_header_override
-
-      custom_footer_override = os.path.join(custom_config_path, "base",
-                                            "footer.json")
-      if os.path.exists(custom_footer_override):
-        footer_json_path = custom_footer_override
-
-    header_menu = libutil.get_json(header_json_path)
-    footer_menu = libutil.get_json(footer_json_path)
+    header_menu = libutil.get_json(app.config['HEADER_JSON_PATH'])
+    footer_menu = libutil.get_json(app.config['FOOTER_JSON_PATH'])
 
     common_variables = {
         'HEADER_MENU': json.dumps(header_menu),
