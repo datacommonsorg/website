@@ -38,7 +38,7 @@ import {
   buildObservationSpecs,
   ObservationSpec,
 } from "../../shared/observation_specs";
-import { FacetStore, StatMetadata } from "../../shared/stat_types";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import {
   getCappedStatVarDate,
@@ -180,37 +180,41 @@ export function ChartLoader(): ReactElement {
   }, [statVar.value, chartStore.mapValuesDates.data?.unit]);
 
   /**
-   * Convert facet metadata and mappings (derived from the chart store) into a format
-   * to be used for citation display in the embed modal.
+   * Convert facet metadata and mappings (derived from the facet list) into a format
+   * to be used for citation display in the embed modal and footer.
    */
   const { facets, statVarToFacets } = useMemo(() => {
     const facets: Record<string, StatMetadata> = {};
     const statVarToFacets: StatVarFacetMap = {};
 
-    const mergeFacets = (
-      facetStore: FacetStore,
-      statVarDcid?: string
-    ): void => {
-      if (!facetStore) return;
-      for (const facetId in facetStore) {
-        facets[facetId] = facetStore[facetId];
-        if (statVarDcid) {
-          if (!statVarToFacets[statVarDcid]) {
-            statVarToFacets[statVarDcid] = new Set();
+    if (facetList) {
+      for (const facetInfo of facetList) {
+        const svDcid = facetInfo.dcid;
+
+        if (!statVarToFacets[svDcid]) {
+          statVarToFacets[svDcid] = new Set();
+        }
+
+        // We check if there is a specific facet selected for this variable
+        const selectedFacetId =
+          svDcid === statVar.value.dcid ? statVar.value.metahash : null;
+
+        if (selectedFacetId && facetInfo.metadataMap[selectedFacetId]) {
+          // Only add the selected facet to our mappings and metadata dictionary
+          statVarToFacets[svDcid].add(selectedFacetId);
+          facets[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
+        } else {
+          // If no specific facet is selected, fallback to all available facets
+          for (const facetId in facetInfo.metadataMap) {
+            statVarToFacets[svDcid].add(facetId);
+            facets[facetId] = facetInfo.metadataMap[facetId];
           }
-          statVarToFacets[statVarDcid].add(facetId);
         }
       }
-    };
+    }
 
-    if (chartStore.defaultStat.data?.facets) {
-      mergeFacets(chartStore.defaultStat.data.facets, statVar.value.dcid);
-    }
-    if (chartStore.denomStat.data?.facets && statVar.value.denom) {
-      mergeFacets(chartStore.denomStat.data.facets, statVar.value.denom);
-    }
     return { facets, statVarToFacets };
-  }, [chartStore.defaultStat.data, chartStore.denomStat.data, statVar.value]);
+  }, [facetList, statVar.value.dcid, statVar.value.metahash]);
 
   /**
    * Callback function for building observation specifications.
@@ -370,6 +374,9 @@ export function ChartLoader(): ReactElement {
           handleEmbed={handleEmbed}
           getObservationSpecs={getObservationSpecs}
           containerRef={containerRef}
+          facets={facets}
+          statVarToFacets={statVarToFacets}
+          statVarSpecs={currentStatVarSpec ? [currentStatVarSpec] : []}
         >
           {display.value.showTimeSlider &&
             sampleDates &&
