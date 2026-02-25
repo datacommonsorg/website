@@ -22,6 +22,7 @@ from flask import current_app
 from flask import redirect
 from flask import request
 from flask import url_for
+from markupsafe import escape
 
 from server.lib.config import GLOBAL_CONFIG_BUCKET
 from shared.lib import gcs
@@ -34,7 +35,7 @@ bp = Blueprint(
 
 @bp.route('/kg')
 def kg():
-  dcid = request.args.get('dcid', '')
+  dcid = str(escape(request.args.get('dcid', '')))
   if dcid:
     url = url_for('browser.browser_node', dcid=dcid)
   else:

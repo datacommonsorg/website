@@ -25,6 +25,7 @@ import flask
 from flask import current_app
 from flask import request
 from flask import Response
+from markupsafe import escape
 
 from server.lib.nl.detection.llm_api import detect_model_name
 
@@ -80,6 +81,8 @@ def datagemma_query():
     return 'error: must provide a query field', 400
   if not mode or mode not in [_RIG_MODE, _RAG_MODE]:
     return f'error: must provide a mode field with values {_RIG_MODE} or {_RAG_MODE}', 400
+  query = str(escape(query))
+  mode = str(escape(mode))
   dg_result = _get_datagemma_result(query, mode)
   result = {'answer': '', 'debug': ''}
   if dg_result:

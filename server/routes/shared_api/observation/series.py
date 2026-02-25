@@ -14,9 +14,11 @@
 
 import logging
 from typing import List
+from typing import Optional
 
 from flask import Blueprint
 from flask import request
+from markupsafe import escape
 
 from server.lib import fetch
 from server.lib import shared
@@ -45,6 +47,18 @@ _BATCHED_CALL_PLACES = {
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 
+def _escape_value(value):
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _escape_list(values: Optional[List[str]]) -> List[str]:
+  if not values:
+    return []
+  return [str(escape(v)) for v in values]
+
+
 # Filters a list for non empty values
 # TODO: use request directly in this function and pass in arg name
 def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
@@ -61,13 +75,16 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
   if request.method == 'POST':
-    entities = request.json.get('entities')
-    variables = request.json.get('variables')
-    facet_ids = request.json.get('facetIds')
+    entities = _escape_list(request.json.get('entities'))
+    variables = _escape_list(request.json.get('variables'))
+    facet_ids = _escape_list(request.json.get('facetIds'))
   else:
-    entities = _get_filtered_arg_list(request.args.getlist('entities'))
-    variables = _get_filtered_arg_list(request.args.getlist('variables'))
-    facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
+    entities = _get_filtered_arg_list(_escape_list(request.args.getlist(
+        'entities')))
+    variables = _get_filtered_arg_list(_escape_list(request.args.getlist(
+        'variables')))
+    facet_ids = _get_filtered_arg_list(_escape_list(request.args.getlist(
+        'facetIds')))
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
@@ -82,8 +99,10 @@ def series():
 @cache_and_log_mixer_usage(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
-  entities = _get_filtered_arg_list(request.args.getlist('entities'))
-  variables = _get_filtered_arg_list(request.args.getlist('variables'))
+  entities = _get_filtered_arg_list(_escape_list(request.args.getlist(
+      'entities')))
+  variables = _get_filtered_arg_list(_escape_list(request.args.getlist(
+      'variables')))
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
@@ -102,19 +121,21 @@ def series_within():
 
   Note: the preferred facet is returned.
   """
-  parent_entity = request.args.get('parentEntity')
+  parent_entity = _escape_value(request.args.get('parentEntity'))
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
 
-  child_type = request.args.get('childType')
+  child_type = _escape_value(request.args.get('childType'))
   if not child_type:
     return 'error: must provide a `childType` field', 400
 
-  variables = _get_filtered_arg_list(request.args.getlist('variables'))
+  variables = _get_filtered_arg_list(_escape_list(request.args.getlist(
+      'variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
 
-  facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
+  facet_ids = _get_filtered_arg_list(_escape_list(request.args.getlist(
+      'facetIds')))
 
   # Make batched calls there are too many child places for server to handle
   # Mixer checks num_places * num_variables and stop processing if the number is
@@ -148,15 +169,16 @@ def series_within_all():
 
   Note: all the facets are returned.
   """
-  parent_entity = request.args.get('parentEntity')
+  parent_entity = _escape_value(request.args.get('parentEntity'))
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
 
-  child_type = request.args.get('childType')
+  child_type = _escape_value(request.args.get('childType'))
   if not child_type:
     return 'error: must provide a `childType` field', 400
 
-  variables = _get_filtered_arg_list(request.args.getlist('variables'))
+  variables = _get_filtered_arg_list(_escape_list(request.args.getlist(
+      'variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
 

@@ -21,6 +21,7 @@ from flask import current_app
 from flask import g
 from flask import request
 from google.protobuf.json_format import MessageToJson
+from markupsafe import escape
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as libutil
@@ -65,6 +66,8 @@ def get_sdg_config(place_dcid, more_places, topic_config):
 @bp.route('/<string:topic_id>', strict_slashes=False)
 @bp.route('/<string:topic_id>/<path:place_dcid>', strict_slashes=False)
 def topic_page(topic_id=None, place_dcid=None):
+  topic_id = str(escape(topic_id)) if topic_id else topic_id
+  place_dcid = str(escape(place_dcid)) if place_dcid else place_dcid
   topics_summary = json.dumps(current_app.config['TOPIC_PAGE_SUMMARY'])
   # Redirect to the landing page.
   if not place_dcid and not topic_id:
@@ -99,7 +102,7 @@ def topic_page(topic_id=None, place_dcid=None):
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
-  more_places = request.args.getlist('places')
+  more_places = [str(escape(place)) for place in request.args.getlist('places')]
 
   place_name = ''
   place_type = ''

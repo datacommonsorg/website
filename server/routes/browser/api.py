@@ -18,6 +18,7 @@ import json
 import flask
 from flask import request
 from flask import Response
+from markupsafe import escape
 
 from server.lib import fetch
 from server.lib.cache import cache
@@ -75,18 +76,23 @@ def get_observation_id():
     return Response(json.dumps("error: must provide a place field"),
                     400,
                     mimetype='application/json')
+  place_id = str(escape(place_id))
   stat_var_id = request.args.get("statVar")
   if not stat_var_id:
     return Response(json.dumps("error: must provide a statVar field"),
                     400,
                     mimetype='application/json')
+  stat_var_id = str(escape(stat_var_id))
   date = request.args.get("date", "")
   if not date:
     return Response(json.dumps("error: must provide a date field"),
                     400,
                     mimetype='application/json')
-  request_mmethod = request.args.get("measurementMethod", NO_MMETHOD_KEY)
-  request_obsPeriod = request.args.get("obsPeriod", NO_OBSPERIOD_KEY)
+  date = str(escape(date))
+  request_mmethod = str(
+      escape(request.args.get("measurementMethod", NO_MMETHOD_KEY)))
+  request_obsPeriod = str(
+      escape(request.args.get("obsPeriod", NO_OBSPERIOD_KEY)))
   sparql_query = get_sparql_query(place_id, stat_var_id, date)
   result = ""
   (_, rows) = dc.query(sparql_query)

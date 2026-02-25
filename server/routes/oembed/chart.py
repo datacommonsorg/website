@@ -17,6 +17,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import render_template
 from flask import request
+from markupsafe import escape
 
 from server.lib.cache import cache
 from server.routes import TIMEOUT
@@ -42,12 +43,14 @@ def render_chart():
   chart_type = request.args.get("chartType", None)
   if not chart_type or not chart_type in ALLOWED_CHART_TYPES:
     return "error: must provide a valid chart type", 400
+  chart_type = str(escape(chart_type))
 
   attributes = ""
   for key in request.args.keys():
     if key != "chartType":
-      values = request.args.getlist(key)
-      attributes += f'{key}="{" ".join(values)}" '
+      sanitized_key = str(escape(key))
+      values = [str(escape(v)) for v in request.args.getlist(key)]
+      attributes += f'{sanitized_key}="{" ".join(values)}" '
 
   component = (
       f"<datacommons-{chart_type} {attributes}></datacommons-{chart_type}>")

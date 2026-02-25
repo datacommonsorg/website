@@ -20,6 +20,7 @@ from typing import List
 import flask
 from flask import request
 from flask import Response
+from markupsafe import escape
 
 from server.lib import fetch
 
@@ -29,6 +30,23 @@ bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 # https://docs.datacommons.org/api/rest/v2#relation-expressions
 _PROPERTY_EXPRESSION_RE = r'(->|<-)(\w+)({\w+:\w+})*'
 _OUT_ARROW = '->'
+
+
+def _escaped_arg(name: str, default=None):
+  value = request.args.get(name, default)
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _escaped_arg_list(name: str) -> list[str]:
+  return [str(escape(v)) for v in request.args.getlist(name)]
+
+
+def _escaped_list(values) -> list[str]:
+  if not values:
+    return []
+  return [str(escape(v)) for v in values]
 
 
 @dataclass
@@ -44,6 +62,8 @@ class PropertySpec:
 @bp.route('/triples/<path:direction>/<path:dcid>')
 def triples(direction, dcid):
   """Returns all the triples given a node dcid."""
+  direction = str(escape(direction))
+  dcid = str(escape(dcid))
   if direction != 'in' and direction != 'out':
     return "Invalid direction provided, please use 'in' or 'out'", 400
   return fetch.triples([dcid], direction == 'out').get(dcid, {})
@@ -52,14 +72,15 @@ def triples(direction, dcid):
 @bp.route('/propvals/<path:direction>', methods=['GET', 'POST'])
 def get_property_value(direction):
   """Returns the property values for given node dcids and property label."""
+  direction = str(escape(direction))
   if direction != "in" and direction != "out":
     return "Invalid direction provided, please use 'in' or 'out'", 400
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   if not dcids:
-    dcids = request.json['dcids']
-  prop = request.args.get('prop')
+    dcids = _escaped_list(request.json['dcids'])
+  prop = _escaped_arg('prop')
   if not prop:
-    prop = request.json['prop']
+    prop = str(escape(request.json['prop']))
   response = fetch.raw_property_values(dcids, prop, direction == 'out')
   return Response(json.dumps(response), 200, mimetype='application/json')
 
@@ -140,12 +161,12 @@ def expression_property_value():
   Returns the property values for given node dcids and a relation expression for
   a property (https://docs.datacommons.org/api/rest/v2#relation-expressions)
   """
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   if not dcids and request.json:
-    dcids = request.json['dcids']
-  prop_expression = request.args.get('propExpr')
+    dcids = _escaped_list(request.json['dcids'])
+  prop_expression = _escaped_arg('propExpr')
   if not prop_expression and request.json:
-    prop_expression = request.json['propExpr']
+    prop_expression = str(escape(request.json['propExpr']))
   if not dcids:
     return 'error: must provide a `dcids` field', 400
   if not prop_expression:

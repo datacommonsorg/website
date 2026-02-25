@@ -23,6 +23,7 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
+from markupsafe import escape
 
 import server.services.datacommons as dc
 
@@ -49,7 +50,7 @@ def eval_rig():
 def eval_retrieval_generation():
   if not current_app.config.get('ENABLE_DATAGEMMA_EVAL_TOOLS', False):
     flask.abort(404)
-  sheet_id = request.args.get('sheet_id')
+  sheet_id = str(escape(request.args.get('sheet_id', '')))
   if not sheet_id:
     return redirect(url_for('nl.eval_retrieval_generation',
                             sheet_id=_TEST_SHEET_ID),
@@ -61,9 +62,9 @@ def eval_retrieval_generation():
 def eval_retrieval_generation_sxs():
   if not current_app.config.get('ENABLE_DATAGEMMA_EVAL_TOOLS', False):
     flask.abort(404)
-  sheet_id_a = request.args.get('sheetIdA', '')
-  sheet_id_b = request.args.get('sheetIdB', '')
-  session_id = request.args.get('sessionId', '')
+  sheet_id_a = str(escape(request.args.get('sheetIdA', '')))
+  sheet_id_b = str(escape(request.args.get('sheetIdB', '')))
+  session_id = str(escape(request.args.get('sessionId', '')))
   return render_template('/eval_retrieval_generation_sxs.html',
                          sheet_id_a=sheet_id_a,
                          sheet_id_b=sheet_id_b,

@@ -26,14 +26,17 @@ bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 @bp.route('/path')
 def get_variable_path():
   """Gets the path of a stat var to the root of the stat var hierarchy."""
-  dcid = escape(request.args.get("dcid"))
+  dcid = request.args.get("dcid")
+  if not dcid:
+    return "error: must provide a dcid field", 400
+  dcid = str(escape(dcid))
   return json.dumps([dcid] + dc.get_variable_ancestors(dcid)), 200
 
 
 @bp.route('/info')
 def variable_info():
   """Gets the info of a list of stat var."""
-  dcids = request.args.getlist("dcids")
+  dcids = [str(escape(dcid)) for dcid in request.args.getlist("dcids")]
   data = dc.variable_info(dcids).get("data", [])
   result = {}
   for item in data:

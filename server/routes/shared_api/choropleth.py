@@ -26,6 +26,7 @@ from flask import Response
 from flask import send_file
 from flask import url_for
 from geojson_rewind import rewind
+from markupsafe import escape
 
 from server.lib.cache import cache
 import server.lib.fetch as fetch
@@ -245,14 +246,18 @@ def geojson():
     return Response(json.dumps("error: must provide a placeDcid field"),
                     400,
                     mimetype='application/json')
+  place_dcid = str(escape(place_dcid))
   place_type = request.args.get("placeType")
   if not place_type:
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
+  else:
+    place_type = str(escape(place_type))
   place_name_prop = request.args.get("placeNameProp")
+  place_name_prop = str(escape(place_name_prop)) if place_name_prop else None
   # If the request has a geoJsonProp, use that. Otherwise, use the default
   # property specified in the app config.
-  geojson_prop = request.args.get("geoJsonProp",
-                                  current_app.config["GEO_JSON_PROP"])
+  geojson_prop = str(
+      escape(request.args.get("geoJsonProp", current_app.config["GEO_JSON_PROP"])))
   cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
       place_dcid, {}).get(place_type, {}).get(geojson_prop, {})
   if cached_geojson:
@@ -407,6 +412,7 @@ def choropleth_data(dcid):
         sources: [],
       }
   """
+  dcid = str(escape(dcid))
   cc = request.json.get('spec', None)
   if not cc:
     return Response(json.dumps({}), 200, mimetype='application/json')
@@ -493,11 +499,13 @@ def get_map_points():
     return Response(json.dumps("error: must provide a placeDcid field"),
                     400,
                     mimetype='application/json')
+  place_dcid = str(escape(place_dcid))
   place_type = request.args.get("placeType")
   if not place_type:
     return Response(json.dumps("error: must provide a placeType field"),
                     400,
                     mimetype='application/json')
+  place_type = str(escape(place_type))
   geos = []
   geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
   if not geos:

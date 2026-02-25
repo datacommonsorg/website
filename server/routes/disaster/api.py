@@ -20,6 +20,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 from flask import Response
+from markupsafe import escape
 
 from server.lib.cache import cache
 import server.lib.fetch as fetch
@@ -36,6 +37,12 @@ EVENT_POINT_KEYS = set(
 DATA_RETRIEVAL_DATE_LENGTH = 7
 
 
+def _escape_value(value):
+  if value is None:
+    return None
+  return str(escape(value))
+
+
 @bp.route('/event-date-range')
 def event_date_range():
   """Gets the date range of event data for a specific event type
@@ -46,13 +53,13 @@ def event_date_range():
           maxDate: string
       }
   """
-  event_type = request.args.get('eventType', '')
+  event_type = _escape_value(request.args.get('eventType', ''))
   if not event_type:
     return "error: must provide a eventType field", 400
-  place = request.args.get('place', '')
+  place = _escape_value(request.args.get('place', ''))
   if not place:
     return "error: must provide a place field", 400
-  use_cache = request.args.get('useCache', '')
+  use_cache = _escape_value(request.args.get('useCache', ''))
   result = {'minDate': "", 'maxDate': ""}
   date_list = []
   if use_cache == '1':
@@ -151,23 +158,24 @@ def json_event_data():
         }
       }
   """
-  event_type = request.args.get('eventType', '')
+  event_type = _escape_value(request.args.get('eventType', ''))
   if not event_type:
     return "error: must provide a eventType field", 400
-  min_date = request.args.get('minDate', '')
+  min_date = _escape_value(request.args.get('minDate', ''))
   if not min_date:
     return "error: must provide a minDate field", 400
-  max_date = request.args.get('maxDate', '')
+  max_date = _escape_value(request.args.get('maxDate', ''))
   if not max_date:
     return "error: must provide a maxDate field", 400
-  place = request.args.get('place', '')
+  place = _escape_value(request.args.get('place', ''))
   if not place:
     return "error: must provide a place field", 400
-  filter_prop = request.args.get('filterProp', '')
-  filter_unit = request.args.get('filterUnit', '')
-  filter_upper_limit = float(request.args.get('filterUpperLimit', float("inf")))
-  filter_lower_limit = float(request.args.get('filterLowerLimit',
-                                              -float("inf")))
+  filter_prop = _escape_value(request.args.get('filterProp', ''))
+  filter_unit = _escape_value(request.args.get('filterUnit', ''))
+  filter_upper_limit = float(
+      _escape_value(request.args.get('filterUpperLimit', float("inf"))))
+  filter_lower_limit = float(
+      _escape_value(request.args.get('filterLowerLimit', -float("inf"))))
   event_points = []
   disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
   date_list = get_date_list(min_date, max_date)
@@ -233,23 +241,23 @@ def event_data():
         }
       }
   """
-  event_type = request.args.get('eventType', '')
+  event_type = _escape_value(request.args.get('eventType', ''))
   if not event_type:
     return "error: must provide a eventType field", 400
-  min_date = request.args.get('minDate', '')
+  min_date = _escape_value(request.args.get('minDate', ''))
   if not min_date:
     return "error: must provide a minDate field", 400
-  max_date = request.args.get('maxDate', '')
+  max_date = _escape_value(request.args.get('maxDate', ''))
   if not max_date:
     return "error: must provide a maxDate field", 400
-  place = request.args.get('place', '')
+  place = _escape_value(request.args.get('place', ''))
   if not place:
     return "error: must provide a place field", 400
-  filter_prop = request.args.get('filterProp', '')
-  filter_unit = request.args.get('filterUnit', '')
-  req_upper = request.args.get('filterUpperLimit', None)
+  filter_prop = _escape_value(request.args.get('filterProp', ''))
+  filter_unit = _escape_value(request.args.get('filterUnit', ''))
+  req_upper = _escape_value(request.args.get('filterUpperLimit', None))
   filter_upper_limit = float(req_upper) if req_upper else None
-  req_lower = request.args.get('filterLowerLimit', None)
+  req_lower = _escape_value(request.args.get('filterLowerLimit', None))
   filter_lower_limit = float(req_lower) if req_lower else None
   date_list = get_date_list(min_date, max_date)
   event_points = []

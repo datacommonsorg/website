@@ -20,6 +20,7 @@ from flask import current_app
 from flask import request
 from flask import Response
 from google.cloud import discoveryengine_v1 as discoveryengine
+from markupsafe import escape
 
 from server.lib import fetch
 from server.lib import shared
@@ -38,6 +39,23 @@ bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
 logger = logging.getLogger(__name__)
 
+def _escaped_arg(name: str, default=None):
+  value = request.args.get(name, default)
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _escaped_arg_list(name: str) -> list[str]:
+  return [str(escape(v)) for v in request.args.getlist(name)]
+
+
+def _escaped_list(values) -> list[str]:
+  if not values:
+    return []
+  return [str(escape(v)) for v in values]
+
+
 # Constants for Vertex AI Search Application
 # TODO: Move the VAI app to a different GCP project and figure out a better way to authenticate (ex. use API keys)
 VAI_PROJECT_ID = "datcom-nl"
@@ -54,7 +72,7 @@ def stat_var_property():
       A dictionary keyed by stats var dcid with value being a dictionary of
       all the properties of each stats var.
   """
-  dcids = request.args.getlist('dcids')
+  dcids = _escaped_arg_list('dcids')
   ranked_statvars = current_app.config['RANKED_STAT_VARS']
   result = {}
   resp = fetch.triples(dcids)
@@ -122,13 +140,14 @@ def search_statvar():
   is_vai_enabled = is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
                                       request=request)
   if request.method == 'GET':
-    query = request.args.get("query")
-    entities = request.args.getlist("entities")
-    sv_only = request.args.get("svOnly", False)
+    query = _escaped_arg("query")
+    entities = _escaped_arg_list("entities")
+    sv_only = request.args.get("svOnly", "false").lower() == 'true'
     limit = int(request.args.get("limit", 100))
   else:  # Method is POST
-    query = request.json.get("query")
-    entities = request.json.get("entities", [])
+    query = str(escape(request.json.get("query"))) if request.json.get(
+        "query") else None
+    entities = _escaped_list(request.json.get("entities", []))
     sv_only = request.json.get("svOnly")
     limit = int(request.json.get("limit", 100))
 

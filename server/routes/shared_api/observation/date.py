@@ -14,6 +14,7 @@
 
 from flask import Blueprint
 from flask import request
+from markupsafe import escape
 
 from server.lib import util
 import server.services.datacommons as dc
@@ -22,18 +23,29 @@ import server.services.datacommons as dc
 bp = Blueprint("observation_dates", __name__)
 
 
+def _get_escaped_arg(name: str, default=None):
+  value = request.args.get(name, default)
+  if value is None:
+    return None
+  return str(escape(value))
+
+
+def _get_escaped_arg_list(name: str) -> list[str]:
+  return [str(escape(v)) for v in request.args.getlist(name)]
+
+
 @bp.route('/api/observation-dates')
 def observation_dates():
   """Given ancestor place, child place type and stat vars, return the dates that
 	have data for each stat var across all child places.
   """
-  parent_entity = request.args.get('parentEntity')
+  parent_entity = _get_escaped_arg('parentEntity')
   if not parent_entity:
     return 'error: must provide a parentEntity field', 400
-  child_type = request.args.get('childType')
+  child_type = _get_escaped_arg('childType')
   if not child_type:
     return 'error: must provide a childType field', 400
-  variable = request.args.get('variable')
+  variable = _get_escaped_arg('variable')
   if not variable:
     return 'error: must provide a variable field', 400
   return dc.get_series_dates(parent_entity, child_type, [variable])
@@ -116,10 +128,10 @@ def observation_dates_entities():
   }
   ```
   """
-  entities = request.args.getlist('entities')
+  entities = _get_escaped_arg_list('entities')
   if len(entities) == 0:
     return 'error: must provide entities field', 400
-  variables = request.args.getlist('variables')
+  variables = _get_escaped_arg_list('variables')
   if len(variables) == 0:
     return 'error: must provide a variables field', 400
   return util.get_series_dates_from_entities(entities, variables)
