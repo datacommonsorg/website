@@ -227,6 +227,9 @@ const MAP_PROPS = {
   onPlay: (): null => null,
   updateDate: (): null => null,
   geoRaster: null,
+  facets: {},
+  statVarToFacets: {},
+  statVarSpecs: [],
   children: null,
 };
 

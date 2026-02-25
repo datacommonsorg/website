@@ -143,41 +143,37 @@ export function ChartLoader(): ReactElement {
     const facets: Record<string, StatMetadata> = {};
     const statVarToFacets: StatVarFacetMap = {};
 
-    if (!cache) return { facets, statVarToFacets };
-
-    // We create the facet map from the cache's metadataMap.
-    if (cache.metadataMap) {
-      for (const facetId in cache.metadataMap) {
-        facets[facetId] = cache.metadataMap[facetId];
-      }
+    if (!cache || !cache.baseFacets || !cache.metadataMap) {
+      return { facets, statVarToFacets };
     }
 
-    // We then build the statVar to facet mapping from baseFacets.
-    if (cache.baseFacets) {
-      for (const statVarDcid in cache.baseFacets) {
-        if (!statVarToFacets[statVarDcid]) {
-          statVarToFacets[statVarDcid] = new Set();
-        }
+    // We build the statVar to facet mapping and the metadata map
+    for (const statVarDcid in cache.baseFacets) {
+      if (!statVarToFacets[statVarDcid]) {
+        statVarToFacets[statVarDcid] = new Set();
+      }
 
-        // Check if there is a specific facet selected for this variable
-        const selectedFacetIds = new Set<string>();
+      // Check if there is a specific facet selected for this variable
+      const selectedFacetIds = new Set<string>();
 
-        if (xVal.statVarDcid === statVarDcid && xVal.metahash) {
-          selectedFacetIds.add(xVal.metahash);
-        }
-        if (yVal.statVarDcid === statVarDcid && yVal.metahash) {
-          selectedFacetIds.add(yVal.metahash);
-        }
+      if (xVal.statVarDcid === statVarDcid && xVal.metahash) {
+        selectedFacetIds.add(xVal.metahash);
+      }
+      if (yVal.statVarDcid === statVarDcid && yVal.metahash) {
+        selectedFacetIds.add(yVal.metahash);
+      }
 
-        if (selectedFacetIds.size > 0) {
-          selectedFacetIds.forEach((id) =>
-            statVarToFacets[statVarDcid].add(id)
-          );
-        } else {
-          // if no facet is selected, we add all facets associated with the variable
-          for (const facetId in cache.baseFacets[statVarDcid]) {
-            statVarToFacets[statVarDcid].add(facetId);
-          }
+      // If facets have been selected, we add only those to `facets`.
+      // If none are selected, we add all facets associated with the variable.
+      const facetIdsToConsider =
+        selectedFacetIds.size > 0
+          ? Array.from(selectedFacetIds)
+          : Object.keys(cache.baseFacets[statVarDcid]);
+
+      for (const facetId of facetIdsToConsider) {
+        statVarToFacets[statVarDcid].add(facetId);
+        if (cache.metadataMap[facetId]) {
+          facets[facetId] = cache.metadataMap[facetId];
         }
       }
     }
