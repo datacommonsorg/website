@@ -163,6 +163,8 @@ export function ChartLoader(): ReactElement {
         selectedFacetIds.add(yVal.metahash);
       }
 
+      // If facets have been selected, we add only those to `facets`.
+      // If none are selected, we add all facets associated with the variable.
       const facetIdsToConsider =
         selectedFacetIds.size > 0
           ? Array.from(selectedFacetIds)
