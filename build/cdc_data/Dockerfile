@@ -22,7 +22,7 @@ RUN mkdir -p /tmp/datcom-nl-models \
 
 
 # #### Stage 2: Python runtime. ####
-FROM python:3.11.4-slim AS runner
+FROM python:3.11.14-slim AS runner
 
 ARG ENV
 ENV ENV=${ENV}
