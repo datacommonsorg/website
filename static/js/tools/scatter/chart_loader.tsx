@@ -67,11 +67,7 @@ import {
   IsLoadingWrapper,
   PlaceInfo,
 } from "./context";
-import {
-  getStatAllWithinPlace,
-  getStatWithinPlace,
-  ScatterChartType,
-} from "./util";
+import { getStatAllWithinPlace, getStatWithinPlace } from "./util";
 
 type Cache = {
   // key here is stat var.
@@ -141,7 +137,7 @@ export function ChartLoader(): ReactElement {
 
   /**
    * Convert facet metadata and mappings (derived from the chart store) into a format
-   * to be used for citation display in the embed modal.
+   * to be used for citation display in the embed modal, as well as the metadata modal.
    */
   const { facets, statVarToFacets } = useMemo(() => {
     const facets: Record<string, StatMetadata> = {};
@@ -162,14 +158,32 @@ export function ChartLoader(): ReactElement {
         if (!statVarToFacets[statVarDcid]) {
           statVarToFacets[statVarDcid] = new Set();
         }
-        for (const facetId in cache.baseFacets[statVarDcid]) {
-          statVarToFacets[statVarDcid].add(facetId);
+
+        // Check if there is a specific facet selected for this variable
+        const selectedFacetIds = new Set<string>();
+
+        if (xVal.statVarDcid === statVarDcid && xVal.metahash) {
+          selectedFacetIds.add(xVal.metahash);
+        }
+        if (yVal.statVarDcid === statVarDcid && yVal.metahash) {
+          selectedFacetIds.add(yVal.metahash);
+        }
+
+        if (selectedFacetIds.size > 0) {
+          selectedFacetIds.forEach((id) =>
+            statVarToFacets[statVarDcid].add(id)
+          );
+        } else {
+          // if no facet is selected, we add all facets associated with the variable
+          for (const facetId in cache.baseFacets[statVarDcid]) {
+            statVarToFacets[statVarDcid].add(facetId);
+          }
         }
       }
     }
 
     return { facets, statVarToFacets };
-  }, [cache]);
+  }, [cache, xVal.statVarDcid, xVal.metahash, yVal.statVarDcid, yVal.metahash]);
 
   /**
    * Callback function for building observation specifications.
@@ -310,6 +324,9 @@ export function ChartLoader(): ReactElement {
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
+                facets={facets}
+                statVarToFacets={statVarToFacets}
+                statVarSpecs={currentStatVarSpecs}
                 svFacetId={{
                   [x.value.statVarDcid]: x.value.metahash,
                   [y.value.statVarDcid]: y.value.metahash,
