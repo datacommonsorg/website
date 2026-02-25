@@ -199,16 +199,14 @@ export function ChartLoader(): ReactElement {
         const selectedFacetId =
           svDcid === statVar.value.dcid ? statVar.value.metahash : null;
 
-        if (selectedFacetId && facetInfo.metadataMap[selectedFacetId]) {
-          // Only add the selected facet to our mappings and metadata dictionary
-          statVarToFacets[svDcid].add(selectedFacetId);
-          facets[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
-        } else {
-          // If no specific facet is selected, fallback to all available facets
-          for (const facetId in facetInfo.metadataMap) {
-            statVarToFacets[svDcid].add(facetId);
-            facets[facetId] = facetInfo.metadataMap[facetId];
-          }
+        const facetIdsToAdd =
+          selectedFacetId && facetInfo.metadataMap[selectedFacetId]
+            ? [selectedFacetId]
+            : Object.keys(facetInfo.metadataMap);
+
+        for (const facetId of facetIdsToAdd) {
+          statVarToFacets[svDcid].add(facetId);
+          facets[facetId] = facetInfo.metadataMap[facetId];
         }
       }
     }

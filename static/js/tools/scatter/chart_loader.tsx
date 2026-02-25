@@ -163,21 +163,15 @@ export function ChartLoader(): ReactElement {
         selectedFacetIds.add(yVal.metahash);
       }
 
-      if (selectedFacetIds.size > 0) {
-        // If specific facets are selected, we only add those
-        selectedFacetIds.forEach((id) => {
-          statVarToFacets[statVarDcid].add(id);
-          if (cache.metadataMap[id]) {
-            facets[id] = cache.metadataMap[id];
-          }
-        });
-      } else {
-        // if no facet is selected, we add all facets associated with the variable
-        for (const facetId in cache.baseFacets[statVarDcid]) {
-          statVarToFacets[statVarDcid].add(facetId);
-          if (cache.metadataMap[facetId]) {
-            facets[facetId] = cache.metadataMap[facetId];
-          }
+      const facetIdsToConsider =
+        selectedFacetIds.size > 0
+          ? Array.from(selectedFacetIds)
+          : Object.keys(cache.baseFacets[statVarDcid]);
+
+      for (const facetId of facetIdsToConsider) {
+        statVarToFacets[statVarDcid].add(facetId);
+        if (cache.metadataMap[facetId]) {
+          facets[facetId] = cache.metadataMap[facetId];
         }
       }
     }
