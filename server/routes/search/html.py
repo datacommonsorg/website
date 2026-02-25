@@ -26,8 +26,12 @@ _MAX_SEARCH_RESULTS = 1000
 
 
 @bp.route('/search')
+@bp.route('/search_dc')
 def search():
-  """Custom search page"""
+  """Custom search page.
+
+  Note: /search_dc is deprecated. Use /search instead.
+  """
   query = request.args.get('q', '')
   return flask.render_template('search.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],

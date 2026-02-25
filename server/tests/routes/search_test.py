@@ -25,6 +25,11 @@ class TestSearchPages(unittest.TestCase):
     assert response.status_code == 200
     assert b"Search - Data Commons" in response.data
 
+  def test_search_dc(self):
+    response = app.test_client().get('/search_dc')
+    assert response.status_code == 200
+    assert b"Search - Data Commons" in response.data
+
   def test_search_query(self):
     response = app.test_client().get('/search?q=foobar')
     assert response.status_code == 200
