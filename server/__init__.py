@@ -516,8 +516,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       return
     values['hl'] = g.locale
 
-
-
   # Provides locale and other common parameters in all templates
   @app.context_processor
   def inject_common_parameters():
