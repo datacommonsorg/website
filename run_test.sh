@@ -232,14 +232,16 @@ function run_py_test {
   # Run nl server tests
   uv run --project nl_server --group test python3 -m pytest nl_server/tests/ -s ${@}
 
-  # Tests within tools/nl/embeddings
-  # TODO: Migrate tools/nl/embeddings to use uv and pyproject.toml
-  echo "Running tests within tools/nl/embeddings:"
-  uv venv tools/nl/embeddings/.venv --allow-existing
-  source tools/nl/embeddings/.venv/bin/activate
-  uv pip install -r tools/nl/embeddings/requirements.txt -q
-  uv run python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
-  deactivate
+  (
+    # Tests within tools/nl/embeddings
+    # Run in subshell to keep venv isolated
+    # TODO: Migrate tools/nl/embeddings to use uv and pyproject.toml
+    echo "Running tests within tools/nl/embeddings:"
+    uv venv tools/nl/embeddings/.venv --allow-existing
+    source tools/nl/embeddings/.venv/bin/activate
+    uv pip install -r tools/nl/embeddings/requirements.txt -q
+    uv run python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
+  )
 
   # Check Python style
   echo -e "#### Checking Python style"
