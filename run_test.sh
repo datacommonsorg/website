@@ -16,6 +16,7 @@
 
 source scripts/utils.sh
 set -e
+# TESTTEST
 
 function setup_python {
   python3 -m venv .venv
