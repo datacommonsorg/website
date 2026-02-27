@@ -18,24 +18,19 @@
  * Component for displaying a line chart for a single source series.
  */
 
-import axios from "axios";
 import React from "react";
 
-import { DataGroup, DataPoint } from "../chart/base";
+import { DataGroup } from "../chart/base";
 import { drawLineChart } from "../chart/draw_line";
 import { Series, StatMetadata } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
-import { stringifyFn } from "../utils/axios";
 import { getUnit } from "../utils/stat_metadata_utils";
-import { URI_PREFIX } from "./constants";
 
 // Chart size
 const HEIGHT = 220;
 
 // Only show dots when there's only a single data point
 const MAX_DOTS = 1;
-const NO_OBSDCID_ERROR_MESSAGE =
-  "Sorry, could not open the browser page for the selected Observation Node.";
 
 interface ObservationChartPropType {
   series: Series;
@@ -43,7 +38,6 @@ interface ObservationChartPropType {
   idx: number;
   statVarId: string;
   placeDcid: string;
-  canClickObs: boolean;
   statVarName?: string;
 }
 
@@ -86,13 +80,11 @@ export class ObservationChart extends React.Component<
   }
 
   render(): JSX.Element {
-    let svgContainerClass = this.props.canClickObs ? "clickable" : "no-click";
-    if (this.props.series.series.length > MAX_DOTS) {
-      svgContainerClass = svgContainerClass + " hide-dots";
-    }
-    const obsTableRowClass = this.props.canClickObs
-      ? "observation-table-row-clickable"
-      : "observation-table-row";
+    const svgContainerClass =
+      this.props.series.series.length > MAX_DOTS
+        ? "no-click hide-dots"
+        : "no-click";
+    const obsTableRowClass = "observation-table-row";
     const chartVisibility = this.state.showTableView ? "none" : "block";
     const tableVisibility = this.state.showTableView ? "block" : "none";
     const unit = getUnit(this.props.metadata);
@@ -129,21 +121,9 @@ export class ObservationChart extends React.Component<
                     </tr>
                     {this.props.series.series.map((obs) => {
                       return (
-                        <tr
-                          className={obsTableRowClass}
-                          key={obs.date}
-                          onClick={(): void => this.redirectToObsPage(obs.date)}
-                        >
+                        <tr className={obsTableRowClass} key={obs.date}>
                           <td>{obs.date}</td>
-                          <td
-                            className={
-                              this.props.canClickObs
-                                ? "clickable-text"
-                                : undefined
-                            }
-                          >
-                            {obs.value + unit}
-                          </td>
+                          <td>{obs.value + unit}</td>
                         </tr>
                       );
                     })}
@@ -199,74 +179,10 @@ export class ObservationChart extends React.Component<
       dataGroups,
       true,
       {
-        handleDotClick: this.props.canClickObs ? this.handleDotClick : null,
+        handleDotClick: null,
         showAllDots: true,
         unit: getUnit(this.props.metadata),
       }
     );
-  }
-
-  private handleDotClick = (dotData: DataPoint): void => {
-    const date = dotData.label;
-    this.redirectToObsPage(date);
-  };
-
-  private redirectToObsPage(date: string): void {
-    if (!this.props.canClickObs) {
-      return;
-    }
-    // TODO(chejennifer): triggers pop up warning because opening the new tab
-    // is not result of user action. Find better way to do this.
-    this.loadSpinner();
-    const params = {
-      date,
-      place: this.props.placeDcid,
-      statVar: this.props.statVarId,
-    };
-    if (this.props.metadata.measurementMethod) {
-      params["measurementMethod"] = this.props.metadata.measurementMethod;
-    }
-    if (this.props.metadata.observationPeriod) {
-      params["obsPeriod"] = this.props.metadata.observationPeriod;
-    }
-    axios
-      .get("/api/browser/observation-id", {
-        params,
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => {
-        this.removeSpinner();
-        const obsDcid = resp.data;
-        if (obsDcid) {
-          const uri = URI_PREFIX + obsDcid;
-          window.open(uri);
-        } else {
-          this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
-        }
-      })
-      .catch(() => {
-        this.removeSpinner();
-        this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
-      });
-  }
-
-  private updateErrorMessage(message: string): void {
-    this.setState({
-      errorMessage: message,
-    });
-  }
-
-  private loadSpinner(): void {
-    document
-      .getElementById(this.chartContainerId)
-      .getElementsByClassName("screen")[0]
-      .classList.add("d-block");
-  }
-
-  private removeSpinner(): void {
-    document
-      .getElementById(this.chartContainerId)
-      .getElementsByClassName("screen")[0]
-      .classList.remove("d-block");
   }
 }
