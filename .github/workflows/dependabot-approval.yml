@@ -1,7 +1,15 @@
 name: Dependabot auto-approve
-on: pull_request
+
+on: 
+  pull_request_target:
+    branches:
+      - master
+  workflow_dispatch:
+    # Allows manual triggering of the workflow
+
 permissions:
   pull-requests: write
+
 jobs:
   dependabot:
     runs-on: ubuntu-latest
@@ -11,14 +19,21 @@ jobs:
       - name: Dependabot metadata
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v2
-      - uses: actions/checkout@v4
-      - name: Approve a PR if not already approved
-        run: |
-          gh pr checkout "$PR_URL" # sets the upstream metadata for `gh pr status`
-          if [ "$(gh pr status --json reviewDecision -q .currentBranch.reviewDecision)" != "APPROVED" ];
-          then gh pr review --approve "$PR_URL"
-          else echo "PR already approved, skipping additional approvals to minimize emails/notification noise.";
-          fi
+
+      - name: Post /gcbrun comment
+        run: gh pr comment "$PR_URL" --body "/gcbrun"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+
+      - name: Approve the PR
+        run: gh pr review --approve "$PR_URL" || true
+        env:
           GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
+          PR_URL: ${{github.event.pull_request.html_url}}
+
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
+          PR_URL: ${{github.event.pull_request.html_url}}
