@@ -36,11 +36,12 @@ steps:
       - -c
       - |
         export WERKZEUG_LOG_LEVEL=ERROR
+        pip install uv
         ./run_test.sh -w
 
 substitutions:
   _NODE_VERSION: "2025-10-01"
-  _FULL_ENV_VERSION: "2025-10-02"
+  _FULL_ENV_VERSION: "2026-02-20"
 
 timeout: 1800s # 30 minutes
 

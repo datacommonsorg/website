@@ -135,6 +135,36 @@ export function urlToDisplayText(url: string): string {
 }
 
 /**
+ * Processes a source url for display in the UI.
+ * Sanitizes the url to prevent XSS attacks while also
+ * prepending https:// if the url is missing a protocol.
+ */
+export function sanitizeSourceUrl(url: string): string {
+  if (!url) {
+    return "";
+  }
+
+  const trimmedUrl = url.trim();
+
+  // Ensure we have a protocol for the parser to work
+  // If the input is missing a valid protocol, we prepend https://
+  // Prepending https:// blocks unsafe protocols like javascript:// or vbscript://
+  const urlToParse =
+    trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")
+      ? trimmedUrl
+      : "https://" + trimmedUrl;
+
+  try {
+    const parsed = new URL(urlToParse);
+    return parsed.href;
+  } catch (e) {
+    // If the URL does not have a valid URL structure, return empty
+    // This will block urls with scripts like http://javascript:alert(1)
+    return "";
+  }
+}
+
+/**
  * This function removes the protocol from a url.
  *
  * Example:

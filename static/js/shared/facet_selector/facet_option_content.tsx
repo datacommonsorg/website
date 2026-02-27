@@ -31,7 +31,7 @@ import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection
 import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
 import { humanizeIsoDuration } from "../periodicity";
 import { StatMetadata } from "../stat_types";
-import { SELECTOR_PREFIX } from "./facet_selector_rich";
+import { SELECTOR_PREFIX } from "./facet_selector";
 
 interface FacetOptionContentProps {
   // The metadata for the facet.

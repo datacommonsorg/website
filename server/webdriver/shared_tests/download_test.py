@@ -105,24 +105,28 @@ class DownloadTestMixin():
 
     # Wait for table to load
     shared.wait_for_loading(self.driver)
-    preview_section = wait_elem(self.driver, by=By.ID, value='preview-section')
-    table = wait_elem(preview_section, by=By.TAG_NAME, value='table')
+    shared.wait_for_loading(self.driver)
+    wait_elem(self.driver, By.CSS_SELECTOR, '#preview-section table')
 
     # Assert table headers are correct
-    wait_elem(table, by=By.TAG_NAME, value='th')
-    header_elements = find_elems(table, by=By.TAG_NAME, value='th')
+    wait_elem(self.driver, By.CSS_SELECTOR, '#preview-section table th')
+    header_elements = find_elems(self.driver,
+                                 By.CSS_SELECTOR,
+                                 value='#preview-section table th')
     actual_headers = [h.text for h in header_elements]
     self.assertSetEqual(set(actual_headers), set(TABLE_HEADERS))
 
     # Assert table body is correct
-    table_body = find_elem(table, by=By.TAG_NAME, value='tbody')
-    table_rows = find_elems(table_body, by=By.TAG_NAME, value='tr')
+    table_rows = find_elems(self.driver,
+                            By.CSS_SELECTOR,
+                            value='#preview-section table tbody tr')
     self.assertGreater(len(table_rows), 1)
 
     # Create a map of header text to cell text for the first row
-    first_row_cell_elements = find_elems(table_rows[0],
-                                         by=By.TAG_NAME,
-                                         value='td')
+    first_row_cell_elements = find_elems(
+        self.driver,
+        By.CSS_SELECTOR,
+        value='#preview-section table tbody tr:nth-child(1) td')
     actual_row_data = {
         actual_headers[i]: cell.text
         for i, cell in enumerate(first_row_cell_elements)

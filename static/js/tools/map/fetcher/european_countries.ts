@@ -25,7 +25,7 @@ import { NamedPlace } from "../../../shared/types";
 import { getEnclosedPlacesPromise } from "../../../utils/place_utils";
 
 export function useFetchEuropeanCountries(): Array<NamedPlace> {
-  const [data, setData] = useState<Array<NamedPlace>>();
+  const [data, setData] = useState<Array<NamedPlace>>([]);
   useEffect(() => {
     getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country").then(
       (resp: Array<NamedPlace>) => {

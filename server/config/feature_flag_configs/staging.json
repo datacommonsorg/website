@@ -31,7 +31,7 @@
   },
   {
     "name": "enable_ranking_tile_scroll",
-    "enabled": true,
+    "enabled": false,
     "owner": "gmechali",
     "description": "Enables scrolling through Ranking tile rows."
   },
@@ -73,7 +73,7 @@
   },
   {
     "name": "standardized_vis_tool",
-    "enabled": false,
+    "enabled": true,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },

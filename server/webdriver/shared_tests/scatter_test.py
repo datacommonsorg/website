@@ -77,7 +77,9 @@ class ScatterTestMixin():
                   find_elem(chart, by=By.XPATH, value='./h3[1]').text)
     self.assertIn("Median Income of a Population ",
                   find_elem(chart, by=By.XPATH, value='./h3[2]').text)
-    circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
+    circles = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#scatterplot circle')
     self.assertGreater(len(circles), 20)
 
   @pytest.mark.one_at_a_time
@@ -280,10 +282,9 @@ class StandardizedScatterTestMixin():
     # Assert chart is a map with at least 50 regions
     # (CA has 58 counties)
     wait_elem(self.driver, By.TAG_NAME, 'path')
-    geo_region_container = find_elem(self.driver,
-                                     by=By.ID,
-                                     value='map-geo-regions')
-    geo_regions = find_elems(geo_region_container, by=By.TAG_NAME, value='path')
+    geo_regions = find_elems(self.driver,
+                             by=By.CSS_SELECTOR,
+                             value='#map-geo-regions path')
     self.assertGreater(len(geo_regions), 50)
 
   @pytest.mark.one_at_a_time

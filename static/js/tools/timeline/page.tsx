@@ -206,21 +206,17 @@ class Page extends Component<unknown, PageStateType> {
               </div>
               {!showChart &&
                 (useStandardizedUi ? (
-                  <>
-                    <VisToolInstructionsBox
-                      toolType="timeline"
-                      showStatVarInstructionsOnly={showStatVarInstructions}
-                    />
-                    {!showStatVarInstructions && (
-                      <div
-                        css={css`
-                          margin-top: ${theme.spacing.xl}px;
-                        `}
-                      >
-                        <ChartLinkChips toolType="timeline" />
-                      </div>
-                    )}
-                  </>
+                  showStatVarInstructions ? (
+                    <VisToolInstructionsBox toolType="timeline" />
+                  ) : (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="timeline" />
+                    </div>
+                  )
                 ) : (
                   <MemoizedInfo />
                 ))}

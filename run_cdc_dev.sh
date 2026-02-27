@@ -19,7 +19,6 @@
 
 # Make sure the following are run before running this script:
 # ./run_test.sh -b
-# ./run_test.sh --setup_all
 # ./scripts/update_git_submodules.sh
 
 source scripts/utils.sh
@@ -36,9 +35,6 @@ exit_with=0
 # Called on exit via trap, configured below.
 function cleanup() {
   pkill -P $$ || true
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    deactivate
-  fi
   exit $exit_with
 }
 
@@ -63,6 +59,10 @@ if lsof -i :8081 > /dev/null 2>&1; then
 fi
 if lsof -i :12345 > /dev/null 2>&1; then
   log_error "Port 12345 (for mixer) is already in use. Please stop the process using that port."
+  exit 1
+fi
+if lsof -i :8082 > /dev/null 2>&1; then
+  log_error "Port 8082 (for mcp) is already in use. Please stop the process using that port."
   exit 1
 fi
 
@@ -143,7 +143,8 @@ mixer_command="./bin/mixer_server \
   --use_sqlite=$USE_SQLITE \
   --use_cloudsql=$USE_CLOUDSQL \
   --cloudsql_instance=$CLOUDSQL_INSTANCE \
-  --remote_mixer_domain=$DC_API_ROOT"
+  --remote_mixer_domain=$DC_API_ROOT \
+  --embeddings_server_url=$EMBEDDINGS_SERVER_URL"
 if [[ "$VERBOSE" == "true" ]]; then
   eval "$mixer_command &"
 else
@@ -165,40 +166,68 @@ cd ..
 # Start NL server.
 NL_PID=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-  if [ ! -d "nl_server/.venv" ]; then
-    log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
-    ./run_test.sh --setup_nl
-  fi
-  source nl_server/.venv/bin/activate
   echo "Starting NL Server..."
-  nl_command="python3 nl_app.py 6060"
+  nl_command="uv run --project nl_server python3 nl_app.py 6060"
   if [[ "$VERBOSE" == "true" ]]; then
     eval "$nl_command &"
   else
     eval "$nl_command > /dev/null 2>&1 &"
   fi
   NL_PID=$!
-  deactivate
 else
   log_notice "$ENABLE_MODEL is not true, NL server will not be started."
 fi
 
-# Start Website server.
-if [ ! -d "server/.venv" ]; then
-  log_notice "server/.venv directory not found. Running './run_test.sh --setup_website'."
-  ./run_test.sh --setup_website
+# Start MCP server.
+MCP_PID=""
+if [[ $ENABLE_MCP == "true" ]]; then
+  echo "Starting MCP Server..."
+  if ! python3 -c "import datacommons_mcp" &> /dev/null; then
+    echo "datacommons-mcp not found, installing..."
+    uv pip install datacommons-mcp
+  fi
+  
+  mcp_command="datacommons-mcp serve http --skip-api-key-validation --port 8082"
+  
+  # Wait for Mixer to be ready in background
+  (
+    # Ensure this subshell exits if the main script kills it
+    trap "exit" INT TERM
+    echo "Waiting for Mixer to be ready..."
+    # Loop until Mixer /version endpoint returns 200
+    wait_time=1
+    # total wait time: 1+2+4+8+16+32*8 ~ 5 mins = ~13 retries
+    retries_left=13
+    while [[ "$(python3 -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8081/version', timeout=5).getcode())" 2>/dev/null || echo 0)" != "200" ]]; do
+      if [[ $retries_left -le 0 ]]; then
+        echo "Mixer failed to start after 5 minutes. MCP server will not start."
+        exit 1
+      fi
+      
+      echo "Mixer not ready yet. Retrying in ${wait_time}s... ($retries_left retries left)"
+      sleep $wait_time
+      wait_time=$((wait_time * 2))
+      if [[ $wait_time -gt 32 ]]; then wait_time=32; fi
+      retries_left=$((retries_left - 1))
+    done
+    echo "Mixer is ready. Starting MCP server."
+
+    eval "exec $mcp_command"
+  ) &
+  MCP_PID=$!
+else
+  log_notice "$ENABLE_MCP is not true, MCP server will not be started."
 fi
-source server/.venv/bin/activate
+
+# Start Website server.
 echo "Starting Website Server..."
-website_command="python3 web_app.py 8080"
+website_command="uv run --project server python3 web_app.py 8080"
 if [[ "$VERBOSE" == "true" ]]; then
   eval "$website_command &"
 else
   eval "$website_command > /dev/null 2>&1 &"
 fi
 WEBSITE_PID=$!
-
-deactivate
 
 # Monitor server processes
 while true; do
@@ -219,6 +248,11 @@ while true; do
 
   if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
     log_error "NL server exited early. Run with --verbose to debug."
+    exit 1
+  fi
+
+  if [[ -n "$MCP_PID" ]] && ! ps -p $MCP_PID > /dev/null; then
+    log_error "MCP server exited early. Run with --verbose to debug."
     exit 1
   fi
 

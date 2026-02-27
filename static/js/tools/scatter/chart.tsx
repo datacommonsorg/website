@@ -49,6 +49,8 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { ObservationSpec } from "../../shared/observation_specs";
+import { StatMetadata } from "../../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -87,6 +89,9 @@ interface ChartPropsType {
   getObservationSpecs?: () => ObservationSpec[];
   // A ref to the chart container element.
   containerRef?: RefObject<HTMLElement>;
+  facets: Record<string, StatMetadata>;
+  statVarToFacets: StatVarFacetMap;
+  statVarSpecs: StatVarSpec[];
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -185,6 +190,30 @@ export function Chart(props: ChartPropsType): ReactElement {
     });
   }, [statVars[0], statVars[1], props.placeInfo.enclosingPlace.dcid]);
 
+  // Calculate date ranges for each stat var to use in metadata modal
+  const statVarDateRanges = {};
+  if (props.facetList.length >= 2) {
+    const xDcid = props.facetList[0].dcid;
+    const yDcid = props.facetList[1].dcid;
+    let minXDate = "";
+    let maxXDate = "";
+    let minYDate = "";
+    let maxYDate = "";
+
+    Object.values(props.points).forEach((point) => {
+      if (point.xDate) {
+        if (!minXDate || point.xDate < minXDate) minXDate = point.xDate;
+        if (!maxXDate || point.xDate > maxXDate) maxXDate = point.xDate;
+      }
+      if (point.yDate) {
+        if (!minYDate || point.yDate < minYDate) minYDate = point.yDate;
+        if (!maxYDate || point.yDate > maxYDate) maxYDate = point.yDate;
+      }
+    });
+    statVarDateRanges[xDcid] = { minDate: minXDate, maxDate: maxXDate };
+    statVarDateRanges[yDcid] = { minDate: minYDate, maxDate: maxYDate };
+  }
+
   return (
     <div id="chart" className="chart-section-container" ref={chartContainerRef}>
       <ToolChartHeader
@@ -212,10 +241,14 @@ export function Chart(props: ChartPropsType): ReactElement {
         chartId="scatter"
         sources={props.sources}
         mMethods={null}
-        hideIsRatio={true}
+        hidePerCapitaOption={true}
         handleEmbed={props.handleEmbed}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={props.containerRef}
+        facets={props.facets}
+        statVarSpecs={props.statVarSpecs}
+        statVarToFacets={props.statVarToFacets}
+        statVarDateRanges={statVarDateRanges}
       >
         <PlotOptions />
       </ToolChartFooter>

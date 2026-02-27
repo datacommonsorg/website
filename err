@@ -1,7 +1,0 @@
-server/integration_tests/test_data/international/query_2/chart_config.json:264:                    "title": "% of Suicide Events in China",
-server/integration_tests/test_data/international/query_2/chart_config.json:272:                    "description": "% of Suicide Events in China",
-server/integration_tests/test_data/international/query_2/chart_config.json:276:                    "title": "% of Suicide Events in China",
-server/integration_tests/test_data/international/query_2/chart_config.json:431:            "name": "% of Suicide Events",
-server/integration_tests/test_data/e2e_fallbacks/lifeexpectancyinuscounties/chart_config.json:762:            "name": "% of Suicide Events",
-server/integration_tests/test_data/e2e_date_range/lifeexpectancyinusstatesinthelast5years/chart_config.json:810:            "name": "% of Suicide Events",
-server/integration_tests/test_data/e2e_single_date/lifeexpectancyinusstatesin2018/chart_config.json:973:            "name": "% of Suicide Events",

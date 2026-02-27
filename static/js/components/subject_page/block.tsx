@@ -57,10 +57,6 @@ import {
   FacetSelector,
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector/facet_selector";
-import {
-  isFeatureEnabled,
-  METADATA_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
 import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {
@@ -246,7 +242,7 @@ function blockEligibleForFacetSelector(
   columns: ColumnConfig[],
   isWebComponentBlock: boolean
 ): boolean {
-  if (isWebComponentBlock || !isFeatureEnabled(METADATA_FEATURE_FLAG)) {
+  if (isWebComponentBlock) {
     return false;
   }
 

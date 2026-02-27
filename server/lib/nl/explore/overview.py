@@ -21,7 +21,7 @@ from pydantic import ConfigDict
 from pydantic.alias_generators import to_camel
 
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
-from server.lib.utils.gemini_utils import call_gemini_with_retries
+from server.lib.utils.gemini_utils import call_gemini
 
 
 class StatVarChartLink(BaseModel):
@@ -78,13 +78,10 @@ def generate_page_overview(
   formatted_page_overview_prompt = PAGE_OVERVIEW_PROMPT.format(
       initial_query=query, stat_var_titles=stat_var_titles)
 
-  page_overview = call_gemini_with_retries(
-      api_key=gemini_api_key,
-      formatted_prompt=formatted_page_overview_prompt,
-      schema=PageOverview,
-      gemini_model=_OVERVIEW_GEMINI_MODEL,
-      retries=_OVERVIEW_GEMINI_CALL_RETRIES,
-  )
+  page_overview = call_gemini(api_key=gemini_api_key,
+                              formatted_prompt=formatted_page_overview_prompt,
+                              schema=PageOverview,
+                              gemini_model=_OVERVIEW_GEMINI_MODEL)
   if not page_overview:
     return None, None
 

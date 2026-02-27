@@ -25,29 +25,17 @@ class TestSearchPages(unittest.TestCase):
     assert response.status_code == 200
     assert b"Search - Data Commons" in response.data
 
+  def test_search_dc(self):
+    response = app.test_client().get('/search_dc')
+    assert response.status_code == 301
+    assert response.location == '/search'
+
   def test_search_query(self):
     response = app.test_client().get('/search?q=foobar')
     assert response.status_code == 200
     assert b'data-query="foobar"' in response.data
 
-  def test_search_dc(self):
-    response = app.test_client().get('/search_dc')
-    assert response.status_code == 200
-    assert b"Search the Data Commons Knowledge Graph" in response.data
-
-  @patch('server.services.datacommons.search')
-  def test_search_dc_query(self, mock_dc_search):
-    mock_dc_search.return_value = {
-        'section': [{
-            'typeName': 'Person',
-            'entity': [{
-                'dcid': 'dc/31jmcrqy5dlm',
-                'name': 'Chuan-Sheng Foo'
-            }]
-        }]
-    }
-    response = app.test_client().get('/search_dc?q=foo')
-    assert response.status_code == 200
-    assert b"Showing results for foo" in response.data
-    assert b"Type: Person" in response.data
-    assert b"Chuan-Sheng Foo" in response.data
+  def test_search_dc_query(self):
+    response = app.test_client().get('/search_dc?q=foobar')
+    assert response.status_code == 301
+    assert response.location == '/search?q=foobar'

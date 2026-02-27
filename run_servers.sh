@@ -15,9 +15,8 @@
 
 # Runs both NL and website servers.
 #
-# - Assumes that ./run_test.sh -b
-#   have already been run, and that environment variables
-#   (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
+# - Assumes that ./run_test.sh -b has already been run, and that environment
+#   variables (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
 # - Both servers use different ports than the development server defaults:
 #   - Website server uses port 8090 instead of 8080.
 #   - NL server uses port 6070 instead of 6060.
@@ -34,16 +33,6 @@ fi
 export FLASK_ENV="${FLASK_ENV:-integration_test}"
 export GOOGLE_CLOUD_PROJECT="${GOOGLE_CLOUD_PROJECT:-datcom-website-staging}"
 export ENABLE_MODEL="${ENABLE_MODEL:-true}"
-
-# Check for virtual environments
-if [ ! -d "nl_server/.venv" ]; then
-  log_notice "nl_server/.venv directory not found. Running './run_test.sh --setup_nl'."
-  ./run_test.sh --setup_nl
-fi
-if [ ! -d "server/.venv" ]; then
-  log_notice "server/.venv directory not found. Running './run_test.sh --setup_website'."
-  ./run_test.sh --setup_website
-fi
 
 echo "FLASK_ENV=$FLASK_ENV"
 echo "GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT"
@@ -74,11 +63,14 @@ if lsof -i :8090 > /dev/null 2>&1; then
   exit 1
 fi
 
+# Check that uv is installed
+assert_uv
+
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
-  ./nl_server/.venv/bin/python3 nl_app.py 6070 &
+  uv run --project nl_server python3 nl_app.py 6070 &
 else
-  ./nl_server/.venv/bin/python3 nl_app.py 6070 > /dev/null 2>&1 &
+  uv run --project nl_server python3 nl_app.py 6070 > /dev/null 2>&1 &
 fi
 NL_PID=$!
 
@@ -87,9 +79,9 @@ export NL_SERVICE_ROOT_URL="http://localhost:6070"
 
 echo "Starting Website server..."
 if [[ $VERBOSE == "true" ]]; then
-  ./server/.venv/bin/python3 web_app.py 8090 &
+  uv run --project server python3 web_app.py 8090 &
 else
-  ./server/.venv/bin/python3 web_app.py 8090 > /dev/null 2>&1 &
+  uv run --project server python3 web_app.py 8090 > /dev/null 2>&1 &
 fi
 WEB_PID=$!
 

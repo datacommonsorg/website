@@ -19,7 +19,7 @@ FROM python:3.11.4-slim-bookworm AS python-builder
 
 # Stage 2: Go Builder
 # Uses a specific Go patch version on a Debian Bookworm base
-FROM golang:1.23.11-bookworm AS go-builder
+FROM golang:1.24.0-bookworm AS go-builder
 
 # Stage 3: Protoc Builder
 # Downloads and extracts protoc, as there isn't a dedicated "protoc" base image for easy copying.

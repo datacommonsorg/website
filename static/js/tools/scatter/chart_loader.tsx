@@ -67,11 +67,7 @@ import {
   IsLoadingWrapper,
   PlaceInfo,
 } from "./context";
-import {
-  getStatAllWithinPlace,
-  getStatWithinPlace,
-  ScatterChartType,
-} from "./util";
+import { getStatAllWithinPlace, getStatWithinPlace } from "./util";
 
 type Cache = {
   // key here is stat var.
@@ -141,35 +137,49 @@ export function ChartLoader(): ReactElement {
 
   /**
    * Convert facet metadata and mappings (derived from the chart store) into a format
-   * to be used for citation display in the embed modal.
+   * to be used for citation display in the embed modal, as well as the metadata modal.
    */
   const { facets, statVarToFacets } = useMemo(() => {
     const facets: Record<string, StatMetadata> = {};
     const statVarToFacets: StatVarFacetMap = {};
 
-    if (!cache) return { facets, statVarToFacets };
-
-    // We create the facet map from the cache's metadataMap.
-    if (cache.metadataMap) {
-      for (const facetId in cache.metadataMap) {
-        facets[facetId] = cache.metadataMap[facetId];
-      }
+    if (!cache || !cache.baseFacets || !cache.metadataMap) {
+      return { facets, statVarToFacets };
     }
 
-    // We then build the statVar to facet mapping from baseFacets.
-    if (cache.baseFacets) {
-      for (const statVarDcid in cache.baseFacets) {
-        if (!statVarToFacets[statVarDcid]) {
-          statVarToFacets[statVarDcid] = new Set();
-        }
-        for (const facetId in cache.baseFacets[statVarDcid]) {
-          statVarToFacets[statVarDcid].add(facetId);
+    // We build the statVar to facet mapping and the metadata map
+    for (const statVarDcid in cache.baseFacets) {
+      if (!statVarToFacets[statVarDcid]) {
+        statVarToFacets[statVarDcid] = new Set();
+      }
+
+      // Check if there is a specific facet selected for this variable
+      const selectedFacetIds = new Set<string>();
+
+      if (xVal.statVarDcid === statVarDcid && xVal.metahash) {
+        selectedFacetIds.add(xVal.metahash);
+      }
+      if (yVal.statVarDcid === statVarDcid && yVal.metahash) {
+        selectedFacetIds.add(yVal.metahash);
+      }
+
+      // If facets have been selected, we add only those to `facets`.
+      // If none are selected, we add all facets associated with the variable.
+      const facetIdsToConsider =
+        selectedFacetIds.size > 0
+          ? Array.from(selectedFacetIds)
+          : Object.keys(cache.baseFacets[statVarDcid]);
+
+      for (const facetId of facetIdsToConsider) {
+        statVarToFacets[statVarDcid].add(facetId);
+        if (cache.metadataMap[facetId]) {
+          facets[facetId] = cache.metadataMap[facetId];
         }
       }
     }
 
     return { facets, statVarToFacets };
-  }, [cache]);
+  }, [cache, xVal.statVarDcid, xVal.metahash, yVal.statVarDcid, yVal.metahash]);
 
   /**
    * Callback function for building observation specifications.
@@ -310,6 +320,9 @@ export function ChartLoader(): ReactElement {
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
+                facets={facets}
+                statVarToFacets={statVarToFacets}
+                statVarSpecs={currentStatVarSpecs}
                 svFacetId={{
                   [x.value.statVarDcid]: x.value.metahash,
                   [y.value.statVarDcid]: y.value.metahash,
@@ -436,11 +449,14 @@ async function loadData(
     }
 
     const allStatVarsData = statAllResponse.data;
+    const noDataError =
+      _.isEmpty(statResponse.data) ||
+      Object.values(statResponse.data).every(_.isEmpty);
     const cache: Cache = {
       allStatVarsData,
       metadataMap,
       baseFacets,
-      noDataError: _.isEmpty(statResponse.data),
+      noDataError,
       error: false,
       populationData,
       statVarsData: statResponse.data,
@@ -492,13 +508,7 @@ function useChartData(cache: Cache): ChartData {
     ) {
       return;
     }
-    const chartData = getChartData(
-      xVal,
-      yVal,
-      placeVal,
-      display.chartType,
-      cache
-    );
+    const chartData = getChartData(xVal, yVal, placeVal, cache);
     setChartData(chartData);
 
     const downloadButton = document.getElementById("download-link");
@@ -549,7 +559,6 @@ function getChartData(
   x: Axis,
   y: Axis,
   place: PlaceInfo,
-  chartType: ScatterChartType,
   cache: Cache
 ): ChartData {
   let xStatData = extractFacetData(
@@ -566,10 +575,6 @@ function getChartData(
   if (_.isEmpty(yStatData)) {
     yStatData = cache.statVarsData[y.statVarDcid];
   }
-  const popBounds: [number, number] =
-    chartType === ScatterChartType.MAP
-      ? null
-      : [place.lowerBound, place.upperBound];
   const points = {};
   const sources: Set<string> = new Set();
   let xUnit = "";
@@ -585,8 +590,7 @@ function getChartData(
       cache.populationData,
       cache.metadataMap,
       xDenom,
-      yDenom,
-      popBounds
+      yDenom
     );
     if (_.isEmpty(placeChartData)) {
       continue;
@@ -655,9 +659,7 @@ function areDataLoaded(
   const yStatVar = y.statVarDcid;
   return (
     xStatVar in cache.statVarsData &&
-    !_.isEmpty(cache.statVarsData[xStatVar]) &&
     yStatVar in cache.statVarsData &&
-    !_.isEmpty(cache.statVarsData[yStatVar]) &&
     cache.xAxis.date === x.date &&
     cache.yAxis.date === y.date &&
     cache.xAxis.denom === x.denom &&

@@ -90,32 +90,6 @@ export const toolMessages = defineMessages({
     description:
       "label on a button that takes the user to a newer version of the Timelines Explorer",
   },
-  infoBoxInstructionHeader: {
-    id: "info_box_instruction_header",
-    defaultMessage: "Follow these steps:",
-    description: "heading for a set of instructions on how to use our tools",
-  },
-  infoBoxInstructionsPlacesMap: {
-    id: "info_box_instruction_places_map",
-    defaultMessage:
-      "Enter your desired location (country or state) into the search box above, and then select a breakdown (or viewing granularity) to plot.",
-    description:
-      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot States in USA).",
-  },
-  infoBoxInstructionsPlacesScatter: {
-    id: "info_box_instruction_places_scatter",
-    defaultMessage:
-      "Enter your desired location (country, state, county, or city) into the search box above, and then select a breakdown (or viewing granularity) to plot.",
-    description:
-      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)",
-  },
-  infoBoxInstructionsPlacesTimeline: {
-    id: "info_box_instruction_places_timeline",
-    defaultMessage:
-      "Enter your desired location(s) (country, state, county, or city) into the search box above.",
-    description:
-      "Instructions for how to enter a list of places to plot using our chart visualization tools",
-  },
   infoBoxInstructionsVariableDesktopTimeline: {
     id: "info_box_instruction_variable_desktop_timeline",
     defaultMessage: "Pick one or more statistical variables in the left pane.",
@@ -275,10 +249,36 @@ export const VisToolExampleChartMessages = defineMessages({
     description:
       "Title of a line chart plotting the statistical variable 'income' in a set of towns known for having a university",
   },
-  berkeleyAndPiedmontPoverty: {
-    id: "berkeley_and_piedmont_poverty",
-    defaultMessage: "Berkeley & Piedmont poverty",
+  closeButDifferentBerkeleyAndPiedmont: {
+    id: "close_but_different_berkeley_and_piedmont",
+    defaultMessage:
+      "Close but different: Quality of life indicators in Berkeley & Piedmont",
     description:
-      "Title of a line chart plotting the statistical variable 'poverty' for both Berkeley, USA and Piedmont, USA",
+      "Title of a timeline showing the differences between Berkeley, USA and Piedmont, USA",
+  },
+  projectedTemperatureRiseInUsa: {
+    id: "projected_temperature_rise_in_the_usa",
+    defaultMessage: "Projected temperature rise in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'projected temperature rise' in counties of the USA",
+  },
+  medianAgeInUsa: {
+    id: "median_age_in_the_usa",
+    defaultMessage: "Median age in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'median age' in counties of the USA",
+  },
+  noSchoolingCompletedInUsa: {
+    id: "no_schooling_completed_in_the_usa",
+    defaultMessage: "Population with no schooling completed in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'no schooling completed' in counties of the USA",
+  },
+  closeButDifferentPaloAltoAndEastPaloAlto: {
+    id: "close_but_different_palo_alto_and_east_palo_alto",
+    defaultMessage:
+      "Close but different: Quality of life indicators in Palo Alto & East Palo Alto",
+    description:
+      "Title of a timeline showing the differences between Palo Alto and East Palo Alto",
   },
 });
