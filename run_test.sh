@@ -239,6 +239,7 @@ function run_py_test {
   source tools/nl/embeddings/.venv/bin/activate
   uv pip install -r tools/nl/embeddings/requirements.txt -q
   uv run python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
+  deactivate
 
   # Check Python style
   echo -e "#### Checking Python style"
