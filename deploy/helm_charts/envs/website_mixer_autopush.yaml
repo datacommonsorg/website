@@ -1,0 +1,36 @@
+# Overrides for datcom-website-autopush's mixer deployments
+# Default values are defined by 
+#  priority: /mixer/deploy/helm_charts/envs/mixer_autopush.yaml
+#  fallback: /mixer/deploy/helm_charts/values.yaml
+
+mixer:
+  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  hostProject: "datcom-website-autopush"
+  cacheSVFormula: true
+  useRedis: true
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.13.112.19"
+          port: "6379"
+  enableOtlp: true
+
+serviceAccount:
+  name: website-ksa
+
+# Disable ingress for mixer in datcom-website-autopush
+ingress:
+  enabled: false
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 5
+  node:
+    replicas: 12
+  observation:
+    replicas: 12
+  default:
+    replicas: 12
