@@ -3,6 +3,7 @@ substitutions:
   _GITHUB_REPO: 'website'
   _GITHUB_BRANCH: 'master'
   _GITHUB_AUTHOR: 'datacommons-robot-author'
+  _PR_REVIEWER: 'datacommonsorg/website-reviewers'
 
 availableSecrets:
   secretManager:
@@ -102,6 +103,7 @@ steps:
         --title "${pr_title}" \
         --body "${pr_body}" \
         --base "${_GITHUB_BRANCH}" \
+        --reviewer "${_PR_REVIEWER}" \
         --head "nl-golden-update-${build_id_safe}" \
         --label "automated-pr")
 
