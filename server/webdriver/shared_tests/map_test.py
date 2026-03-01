@@ -34,6 +34,7 @@ class MapTestMixin():
 
   def test_server_and_page(self):
     """Test the server can run successfully."""
+    print("Running test_server_and_page")
     title_text = "Map Explorer - " + self.dc_title_string
     self.driver.get(self.url_ + MAP_URL)
 
