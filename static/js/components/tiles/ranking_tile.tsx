@@ -67,7 +67,9 @@ import {
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
+  StatVarFacetDateRangeMap,
   transformCsvHeader,
+  updateStatVarFacetDateRange,
 } from "../../utils/tile_utils";
 import { LoadingHeader } from "./loading_header";
 import { SvRankingUnits } from "./sv_ranking_units";
@@ -175,6 +177,38 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       (acc, svData) => ({ ...acc, ...svData.statVarToFacets }),
       {}
     );
+  }, [rankingData]);
+
+  /**
+    This hook merges the stat var / facet id date ranges across ranking units, to provide a single
+    map that is sent into the "About this data" (metadata modal) component.
+   */
+  const allStatVarFacetDateRanges = useMemo(() => {
+    if (!rankingData) return {};
+    const merged: StatVarFacetDateRangeMap = {};
+    Object.values(rankingData).forEach((svData) => {
+      const ranges = svData.statVarFacetDateRanges;
+      if (ranges) {
+        for (const [sv, facetMap] of Object.entries(ranges)) {
+          if (!merged[sv]) {
+            merged[sv] = {};
+          }
+          for (const [facetId, range] of Object.entries(facetMap)) {
+            if (!merged[sv][facetId]) {
+              merged[sv][facetId] = { ...range };
+            } else {
+              if (range.minDate < merged[sv][facetId].minDate) {
+                merged[sv][facetId].minDate = range.minDate;
+              }
+              if (range.maxDate > merged[sv][facetId].maxDate) {
+                merged[sv][facetId].maxDate = range.maxDate;
+              }
+            }
+          }
+        }
+      }
+    });
+    return merged;
   }, [rankingData]);
 
   /*
@@ -341,6 +375,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         statVarSpecs={props.variables}
         facets={allFacets}
         statVarToFacets={allStatVarToFacets}
+        statVarFacetDateRanges={allStatVarFacetDateRanges}
         apiRoot={props.apiRoot}
       />
     </div>
@@ -485,11 +520,18 @@ function transformRankingDataForMultiColumn(
     .map((sv) => rankingData[sv].statVarToFacets)
     .find((s) => s !== undefined);
 
+  const statVarFacetDateRanges = svs
+    .map((sv) => rankingData[sv].statVarFacetDateRanges)
+    .find((s) => s !== undefined);
+
   if (facets) {
     rankingData[sortSv].facets = facets;
   }
   if (statVarToFacets) {
     rankingData[sortSv].statVarToFacets = statVarToFacets;
+  }
+  if (statVarFacetDateRanges) {
+    rankingData[sortSv].statVarFacetDateRanges = statVarFacetDateRanges;
   }
 
   return { [sortSv]: rankingData[sortSv] };
@@ -514,6 +556,7 @@ function pointApiToPerSvRankingData(
     const dates = new Set<string>();
     const facets: Record<string, StatMetadata> = {};
     const statVarToFacets: StatVarFacetMap = {};
+    const statVarFacetDateRanges: StatVarFacetDateRangeMap = {};
 
     const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
@@ -527,6 +570,14 @@ function pointApiToPerSvRankingData(
         console.log(`Skipping ${place}, missing ${spec.statVar}`);
         continue;
       }
+
+      updateStatVarFacetDateRange(
+        statVarFacetDateRanges,
+        spec.statVar,
+        statPoint.facet,
+        statPoint.date
+      );
+
       if (spec.denom) {
         // find the denom data with the matching facet, and otherwise use the default data
         const denomInfo = getDenomInfo(
@@ -555,6 +606,13 @@ function pointApiToPerSvRankingData(
           }
           statVarToFacets[spec.denom].add(denomInfo.facetId);
         }
+        // Update date range for the denominator stat var
+        updateStatVarFacetDateRange(
+          statVarFacetDateRanges,
+          spec.denom,
+          denomInfo.facetId,
+          denomInfo.date
+        );
       }
       rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
@@ -583,6 +641,7 @@ function pointApiToPerSvRankingData(
       sources,
       facets,
       statVarToFacets,
+      statVarFacetDateRanges,
       dateRange: getDateRange(Array.from(dates)),
       svName: [getStatVarName(spec.statVar, [spec])],
     };

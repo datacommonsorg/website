@@ -57,6 +57,7 @@ import {
 } from "../tools/shared/metadata/citations";
 import { fetchMetadata } from "../tools/shared/metadata/metadata_fetcher";
 import { getDataCommonsClient } from "../utils/data_commons_client";
+import { StatVarFacetDateRangeMap } from "../utils/tile_utils";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -71,8 +72,8 @@ interface ChartEmbedPropsType {
   statVarSpecs?: StatVarSpec[];
   facets?: Record<string, StatMetadata>;
   statVarToFacets?: StatVarFacetMap;
-  // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   apiRoot?: string;
 }
 interface ChartEmbedStateType {
@@ -399,7 +400,7 @@ class ChartEmbed extends React.Component<
           facets,
           statVarToFacets,
           apiRoot,
-          statVarDateRanges,
+          statVarFacetDateRanges,
         } = this.props;
         if (!statVarSpecs || !facets || !statVarToFacets) {
           return [];
@@ -425,7 +426,7 @@ class ChartEmbed extends React.Component<
         return buildCitationParts(
           metadataResp.statVarList,
           metadataResp.metadata,
-          statVarDateRanges
+          statVarFacetDateRanges
         );
       };
       citation = await getCitationPromise();

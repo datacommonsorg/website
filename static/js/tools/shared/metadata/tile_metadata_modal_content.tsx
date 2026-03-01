@@ -33,6 +33,7 @@ import React, { ReactElement, useMemo } from "react";
 import { intl } from "../../../i18n/i18n";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
+import { StatVarFacetDateRangeMap } from "../../../utils/tile_utils";
 import { buildCitationNodes, buildCitationParts } from "./citations";
 import { StatVarMetadata } from "./metadata";
 import { TileMetadataStatVarSection } from "./tile_metadata_stat_var_section";
@@ -43,8 +44,8 @@ interface TileMetadataModalContentProps {
   // a map of the metadata for this section (a mix of stat var
   // and source metadata), with the key being the stat var dcid.
   metadataMap: Record<string, StatVarMetadata[]>;
-  // A map of stat var dcids to their specific min and max date range from the chart
-  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   // a set of stat var dcids that are used as denominators
   denomStatVarDcids?: Set<string>;
   // root URL used to generate stat var explorer and license links
@@ -54,15 +55,15 @@ interface TileMetadataModalContentProps {
 export const TileMetadataModalContent = ({
   statVars,
   metadataMap,
-  statVarDateRanges,
+  statVarFacetDateRanges,
   denomStatVarDcids,
   apiRoot,
 }: TileMetadataModalContentProps): ReactElement => {
   const theme = useTheme();
 
   const citationParts = useMemo(
-    () => buildCitationParts(statVars, metadataMap, statVarDateRanges),
-    [statVars, metadataMap, statVarDateRanges]
+    () => buildCitationParts(statVars, metadataMap, statVarFacetDateRanges),
+    [statVars, metadataMap, statVarFacetDateRanges]
   );
 
   if (statVars.length === 0) {
@@ -103,8 +104,10 @@ export const TileMetadataModalContent = ({
           metadataList={metadataMap[statVar.dcid] || []}
           isDenom={denomStatVarDcids && denomStatVarDcids.has(statVar.dcid)}
           apiRoot={apiRoot}
-          chartDataDateRange={
-            statVarDateRanges ? statVarDateRanges[statVar.dcid] : undefined
+          statVarFacetDateRanges={
+            statVarFacetDateRanges
+              ? statVarFacetDateRanges[statVar.dcid]
+              : undefined
           }
         />
       ))}
