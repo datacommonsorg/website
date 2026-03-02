@@ -83,14 +83,17 @@ def sparql_query(dc_client: DataCommonsClient,
 
   result_rows = []
   for row in response.get('rows', []):
+    cells = row.get('cells', [])
+    if len(cells) != len(header):
+      raise ValueError(
+          f'Query error: expected {len(header)} cells, but got {len(cells)}')
+
     row_map = {}
-    for idx, cell in enumerate(row.get('cells', [])):
-      if idx >= len(header):
-        raise ValueError('Query error: unexpected cell {}'.format(cell))
+    for idx, cell in enumerate(cells):
       if 'value' not in cell:
-        raise ValueError('Query error: cell missing value {}'.format(cell))
-      cell_var = header[idx]
-      row_map[cell_var] = cell['value']
+        raise ValueError(f'Query error: cell missing value: {cell}')
+      row_map[header[idx]] = cell['value']
+
     if select is None or select(row_map):
       result_rows.append(row_map)
   return result_rows
