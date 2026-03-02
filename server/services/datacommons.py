@@ -14,6 +14,7 @@
 """Copy of Data Commons Python Client API Core without pandas dependency."""
 
 import asyncio
+import collections
 import json
 import logging
 from typing import Dict, List
@@ -453,10 +454,10 @@ def get_place_info(dcids: List[str]) -> Dict:
       
   # Build ancestors list from the graph
   for dcid in dcids:
-      queue = [dcid]
+      queue = collections.deque([dcid])
       seen = {dcid}
       while queue:
-          curr = queue.pop(0)
+          curr = queue.popleft()
           parents = parent_graph.get(curr, [])
           for p in parents:
               if p not in seen:
@@ -533,8 +534,9 @@ def get_series_dates(parent_entity, child_type, variables):
   child_dcids = []
   
   node_data = children_resp.get('data', {}).get(parent_entity, {})
-  arcs = node_data.get('arcs', {}).get('containedInPlace', [])
-  possible_children = [x['dcid'] for x in arcs if 'dcid' in x]
+  arcs_obj = node_data.get('arcs', {}).get('containedInPlace', {})
+  nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
+  possible_children = [x['dcid'] for x in nodes_list if 'dcid' in x]
   
   # Filter by type if there are children
   if possible_children:
@@ -543,7 +545,8 @@ def get_series_dates(parent_entity, child_type, variables):
       for child in possible_children:
           # Check node types
           c_data = type_resp.get('data', {}).get(child, {})
-          c_types = c_data.get('arcs', {}).get('typeOf', [])
+          c_arcs = c_data.get('arcs', {}).get('typeOf', {})
+          c_types = c_arcs.get('nodes', []) if isinstance(c_arcs, dict) else []
           c_type_ids = [t.get('dcid') for t in c_types]
           if child_type in c_type_ids:
               child_dcids.append(child)
@@ -561,12 +564,10 @@ def get_series_dates(parent_entity, child_type, variables):
   
   # Aggregate results
   # Aggregate results: { variable: { date: { facet: count } } }
-  import collections
   agg_data = collections.defaultdict(lambda: collections.defaultdict(lambda: collections.defaultdict(int)))
   
   # Iterate through V2 response
   by_var = obs_resp.get('byVariable', {})
-  unique_facets = {} # facetId -> facetObj
   
   all_facets = obs_resp.get('facets', {})
 

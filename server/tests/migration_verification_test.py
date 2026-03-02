@@ -88,10 +88,12 @@ class TestMigrationVerification(unittest.TestCase):
                     "data": {
                         "geoId/06": {
                             "arcs": {
-                                "containedInPlace": [
-                                    {"dcid": "geoId/06001", "name": "Alameda County", "types": ["County"]},
-                                    {"dcid": "geoId/06085", "name": "Santa Clara County", "types": ["County"]}
-                                ]
+                                "containedInPlace": {
+                                    "nodes": [
+                                        {"dcid": "geoId/06001", "name": "Alameda County", "types": ["County"]},
+                                        {"dcid": "geoId/06085", "name": "Santa Clara County", "types": ["County"]}
+                                    ]
+                                }
                             }
                         }
                     }
@@ -100,8 +102,8 @@ class TestMigrationVerification(unittest.TestCase):
             if "typeOf" in data.get("property", ""):
                  return {
                     "data": {
-                        "geoId/06001": {"arcs": {"typeOf": [{"dcid": "County"}]}},
-                        "geoId/06085": {"arcs": {"typeOf": [{"dcid": "County"}]}}
+                        "geoId/06001": {"arcs": {"typeOf": {"nodes": [{"dcid": "County"}]}}},
+                        "geoId/06085": {"arcs": {"typeOf": {"nodes": [{"dcid": "County"}]}}}
                     }
                  }
             # Observations
