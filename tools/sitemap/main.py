@@ -18,7 +18,7 @@ import os
 import time
 from typing import List
 
-import datacommons as dc
+from datacommons_client import DataCommonsClient
 import requests
 
 logging.getLogger().setLevel(logging.INFO)
@@ -70,7 +70,33 @@ def chunks(lst, n):
     yield lst[i:i + n]
 
 
-def write_place_url(place_type):
+def sparql_query(dc_client: DataCommonsClient,
+                 query: str,
+                 select=None) -> List[dict]:
+  """Execute a SPARQL query through the Data Commons v2 API."""
+  response = dc_client.api.post(endpoint='sparql',
+                                payload={'query': query},
+                                all_pages=False)
+  header = response.get('header')
+  if header is None:
+    raise ValueError('Ill-formatted response: does not contain a header.')
+
+  result_rows = []
+  for row in response.get('rows', []):
+    row_map = {}
+    for idx, cell in enumerate(row.get('cells', [])):
+      if idx >= len(header):
+        raise ValueError('Query error: unexpected cell {}'.format(cell))
+      if 'value' not in cell:
+        raise ValueError('Query error: cell missing value {}'.format(cell))
+      cell_var = header[idx]
+      row_map[cell_var] = cell['value']
+    if select is None or select(row_map):
+      result_rows.append(row_map)
+  return result_rows
+
+
+def write_place_url(dc_client: DataCommonsClient, place_type: str):
   logging.info(place_type)
   sparql = '''
       SELECT ?dcid
@@ -81,7 +107,7 @@ def write_place_url(place_type):
       Order By ASC(?dcid)
     '''.format(place_type)
   try:
-    data = dc.query(sparql)
+    data = sparql_query(dc_client, sparql)
   except Exception:
     logging.exception('Got an error while query %s', place_type)
     return
@@ -96,7 +122,7 @@ def write_place_url(place_type):
     time.sleep(10)
 
 
-def get_us_states() -> List[str]:
+def get_us_states(dc_client: DataCommonsClient) -> List[str]:
   """Get list of DCIDs corresponding to US states and Washington DC"""
   # Get US states and Washington DC
   sparql = '''
@@ -110,7 +136,7 @@ def get_us_states() -> List[str]:
   '''
   dcids = []
   try:
-    state_data = dc.query(sparql)
+    state_data = sparql_query(dc_client, sparql)
     for state in state_data:
       if '?dcid' in state:
         dcids.append(state['?dcid'])
@@ -150,14 +176,14 @@ def get_top_100_us_cities() -> List[str]:
   return dcids
 
 
-def write_priority_places_sitemap() -> None:
+def write_priority_places_sitemap(dc_client: DataCommonsClient) -> None:
   """Write a custom sitemap for SEO testing.
   
   Writes a sitemap with 50 US states, Washington D.C., the top 100
   US cities by population, and cities around the world with a population of
   500k or greater.
   """
-  dcids = get_us_states()
+  dcids = get_us_states(dc_client)
   dcids += get_top_100_us_cities()
   dcids += get_global_cities_with_population_over_500k()
 
@@ -175,10 +201,13 @@ def updateRobotTxt():
 
 
 def main():
-  dc.set_api_key('noop')
+  api_key = os.environ.get('DC_API_KEY', '').strip()
+  if not api_key:
+    raise ValueError('DC_API_KEY environment variable is required.')
+  dc_client = DataCommonsClient(api_key=api_key)
   for place_type in PLACES:
-    write_place_url(place_type)
-  write_priority_places_sitemap()
+    write_place_url(dc_client, place_type)
+  write_priority_places_sitemap(dc_client)
   updateRobotTxt()
 
 
