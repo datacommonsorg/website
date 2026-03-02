@@ -29,6 +29,8 @@ describe("test shouldIgnoreProperty", () => {
     // Test ignored prefixes
     ["geoJsonCoordinates", true],
     ["geoJsonCoordinatesDP1", true],
+    ["geoJsonCoordinatesDP3", true],
+    ["geoJsonCoordinatesUN", true],
     ["geoJsonCoordinatesIndia", true],
     // Test non-ignored properties
     ["name", false],
