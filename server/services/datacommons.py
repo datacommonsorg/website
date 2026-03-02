@@ -415,7 +415,7 @@ PLACE_TYPE_RANK = {
 
 def get_place_info(dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
-  # Step 1: Get ancestors manually since v2/node doesn't support ->containedInPlace+
+  # Get ancestors using BFS since v2/node doesn't support recursive ->containedInPlace+
   ancestors_map = {dcid: set() for dcid in dcids}
   
   parent_graph = {} # child_dcid -> list of parent_dcids
@@ -427,12 +427,12 @@ def get_place_info(dcids: List[str]) -> Dict:
       if not frontier:
           break
       
-      # Filter out already visited nodes to avoid cycles/redundant fetches
+      # Filter visited nodes to avoid cycles
       fetch_dcids = [d for d in frontier if d not in visited]
       if not fetch_dcids:
           break
           
-      # Fetch parents for current frontier
+
       resp = v2node(fetch_dcids, '->containedInPlace')
       data = resp.get('data', {})
       
@@ -440,7 +440,7 @@ def get_place_info(dcids: List[str]) -> Dict:
       for dcid in fetch_dcids:
           visited.add(dcid)
           node_data = data.get(dcid, {})
-          # Parse arcs: {'nodes': [...]}
+
           arcs_obj = node_data.get('arcs', {}).get('containedInPlace', {})
           nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
           
@@ -451,7 +451,7 @@ def get_place_info(dcids: List[str]) -> Dict:
       
       frontier = current_frontier
       
-  # Step 2: Build ancestors list for each requested DCID using the graph
+  # Build ancestors list from the graph
   for dcid in dcids:
       queue = [dcid]
       seen = {dcid}
@@ -461,7 +461,7 @@ def get_place_info(dcids: List[str]) -> Dict:
           for p in parents:
               if p not in seen:
                   seen.add(p)
-                  # Add to ancestors if it's not the node itself (though p != dcid is implied by hierarchy usually)
+                  # Add to ancestors if it's not the node itself
                   if p != dcid:
                       ancestors_map[dcid].add(p)
                   queue.append(p)
@@ -480,9 +480,6 @@ def get_place_info(dcids: List[str]) -> Dict:
   
   def get_first_value(resp, dcid, prop, key='dcid'):
        node_data = resp.get('data', {}).get(dcid, {})
-       # Prop might be returned with or without arrow depending on API, 
-       # but usually matches requested property key
-       # arcs is a dict: { prop: { 'nodes': [...] } }
        arcs_obj = node_data.get('arcs', {}).get(prop, {})
        if not arcs_obj:
            # Try checking without arrow if key mismatch
@@ -531,8 +528,7 @@ def get_place_info(dcids: List[str]) -> Dict:
 
 def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
-  # Step 1: Get children
-  # Note: This checks for DIRECT children (containedInPlace).
+  # Get direct children
   children_resp = v2node([parent_entity], '<-containedInPlace')
   child_dcids = []
   
@@ -542,13 +538,10 @@ def get_series_dates(parent_entity, child_type, variables):
   
   # Filter by type if there are children
   if possible_children:
-      # We need to verify which of these are of child_type
-      # Optimization: If child_type is generic or we trust, we might skip.
-      # But V1 likely filtered.
+      # Filter children by requested type
       type_resp = v2node(possible_children, 'typeOf')
       for child in possible_children:
-          # Check if child has the requested type
-          # A node can have multiple types.
+          # Check node types
           c_data = type_resp.get('data', {}).get(child, {})
           c_types = c_data.get('arcs', {}).get('typeOf', [])
           c_type_ids = [t.get('dcid') for t in c_types]
@@ -558,11 +551,7 @@ def get_series_dates(parent_entity, child_type, variables):
   if not child_dcids:
       return {"datesByVariable": [], "facets": {}}
 
-  # Step 2: Get observation dates
-  # We use v2observation to get data for these children
-  # Query for just date and value? V1 returns counts mostly?
-  # V1 returns: datesByVariable -> [{variable, observationDates: [{date, entityCount: [{count, facet}]}]}]
-  # To replicate this, we need all observations for these variable/entity pairs.
+  # Get observation dates for the filtered children
   
   obs_resp = v2observation(
       select=['date', 'variable', 'entity', 'value', 'facet'],
@@ -571,17 +560,11 @@ def get_series_dates(parent_entity, child_type, variables):
   )
   
   # Aggregate results
-  # Structure: { variable: { date: { facet: count } } }
+  # Aggregate results: { variable: { date: { facet: count } } }
   import collections
   agg_data = collections.defaultdict(lambda: collections.defaultdict(lambda: collections.defaultdict(int)))
   
-  # Iterate through the response
-  # V2 response: { byVariable: { var: { byEntity: { ent: { series: [{date, value, facet or facetId}] } } } } }
-  # Note: if we passed 'select', the structure might be different?
-  # v2observation helper uses 'select' but returns the byVariable structure usually?
-  # Let's check v2observation implementation. It calls post("/v2/observation").
-  # The response IS usually byVariable.
-  
+  # Iterate through V2 response
   by_var = obs_resp.get('byVariable', {})
   unique_facets = {} # facetId -> facetObj
   
@@ -590,7 +573,7 @@ def get_series_dates(parent_entity, child_type, variables):
   for var, var_data in by_var.items():
       by_ent = var_data.get('byEntity', {})
       for ent, ent_data in by_ent.items():
-           # ent_data contains 'series' usually
+
            series = ent_data.get('series', [])
            for obs in series:
                date = obs.get('date')
