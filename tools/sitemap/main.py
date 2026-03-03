@@ -70,47 +70,22 @@ def chunks(lst, n):
     yield lst[i:i + n]
 
 
-def sparql_query(dc_client: DataCommonsClient,
-                 query: str,
-                 select=None) -> List[dict]:
-  """Execute a SPARQL query through the Data Commons v2 API."""
-  response = dc_client.api.post(endpoint='sparql',
-                                payload={'query': query},
-                                all_pages=False)
-  header = response.get('header')
-  if header is None:
-    raise ValueError('Ill-formatted response: does not contain a header.')
-
-  result_rows = []
-  for row in response.get('rows', []):
-    cells = row.get('cells', [])
-    if len(cells) != len(header):
-      raise ValueError(
-          f'Query error: expected {len(header)} cells, but got {len(cells)}')
-
-    row_map = {}
-    for idx, cell in enumerate(cells):
-      if 'value' not in cell:
-        raise ValueError(f'Query error: cell missing value: {cell}')
-      row_map[header[idx]] = cell['value']
-
-    if select is None or select(row_map):
-      result_rows.append(row_map)
-  return result_rows
+def fetch_place_dcids_by_type(dc_client: DataCommonsClient, place_type: str):
+  """Return all dcids for entities of the given type."""
+  response = dc_client.node.fetch_property_values(
+      node_dcids=place_type,
+      properties='typeOf',
+      out=False,
+  )
+  return sorted(
+      set(dcid for dcid in response.extract_connected_dcids(
+          place_type, property_dcid='typeOf') if dcid))
 
 
 def write_place_url(dc_client: DataCommonsClient, place_type: str):
   logging.info(place_type)
-  sparql = '''
-      SELECT ?dcid
-      WHERE {{
-        ?a typeOf {} .
-        ?a dcid ?dcid
-      }}
-      Order By ASC(?dcid)
-    '''.format(place_type)
   try:
-    data = sparql_query(dc_client, sparql)
+    data = fetch_place_dcids_by_type(dc_client, place_type)
   except Exception:
     logging.exception('Got an error while query %s', place_type)
     return
@@ -120,31 +95,30 @@ def write_place_url(dc_client: DataCommonsClient, place_type: str):
     with open(file_name, 'w') as f:
       logging.info('writing to file: %s', file_name)
       for p in places:
-        f.write(SITE_PREFIX + p['?dcid'] + '\n')
+        f.write(SITE_PREFIX + p + '\n')
     index += 1
     time.sleep(10)
 
 
 def get_us_states(dc_client: DataCommonsClient) -> List[str]:
   """Get list of DCIDs corresponding to US states and Washington DC"""
-  # Get US states and Washington DC
-  sparql = '''
-    SELECT ?dcid
-    WHERE {
-      ?a typeOf State .
-      ?a dcid ?dcid
-    }
-    Order By ASC(?dcid)
-    LIMIT 51
-  '''
-  dcids = []
   try:
-    state_data = sparql_query(dc_client, sparql)
-    for state in state_data:
-      if '?dcid' in state:
-        dcids.append(state['?dcid'])
+    state_data = dc_client.node.fetch_place_children(
+        place_dcids='country/USA',
+        children_type='State',
+        as_dict=True,
+    )
   except Exception:
     logging.exception('Got an error while querying for US states')
+    return []
+
+  # Includes 50 states + Washington, DC. Excludes Puerto Rico (geoId/72).
+  dcids = sorted({
+      state.get('dcid')
+      for state in state_data.get('country/USA', [])
+      if isinstance(state, dict) and state.get('dcid') and
+      state.get('dcid') != 'geoId/72'
+  })
   return dcids
 
 
