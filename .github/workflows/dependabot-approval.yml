@@ -1,0 +1,39 @@
+name: Dependabot auto-approve
+
+on: 
+  pull_request_target:
+    branches:
+      - master
+  workflow_dispatch:
+    # Allows manual triggering of the workflow
+
+permissions:
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    # Checking the author will prevent your Action run failing on non-Dependabot PRs
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'datacommonsorg/website'
+    steps:
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v2
+
+      - name: Post /gcbrun comment
+        run: gh pr comment "$PR_URL" --body "/gcbrun"
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+
+      - name: Approve the PR
+        run: gh pr review --approve "$PR_URL" || true
+        env:
+          GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
+          PR_URL: ${{github.event.pull_request.html_url}}
+
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
+          PR_URL: ${{github.event.pull_request.html_url}}
