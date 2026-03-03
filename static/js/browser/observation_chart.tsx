@@ -80,10 +80,9 @@ export class ObservationChart extends React.Component<
   }
 
   render(): JSX.Element {
-    const svgContainerClass =
-      this.props.series.series.length > MAX_DOTS
-        ? "no-click hide-dots"
-        : "no-click";
+    const svgContainerClass = `no-click${
+      this.props.series.series.length > MAX_DOTS ? " hide-dots" : ""
+    }`;
     const obsTableRowClass = "observation-table-row";
     const chartVisibility = this.state.showTableView ? "none" : "block";
     const tableVisibility = this.state.showTableView ? "block" : "none";
@@ -137,13 +136,7 @@ export class ObservationChart extends React.Component<
               style={{ display: chartVisibility }}
               ref={this.svgContainerRef}
             />
-            <div id="screen" className="screen">
-              <div id="spinner"></div>
-            </div>
           </div>
-          {this.state.errorMessage ? (
-            <div className="error-message">{this.state.errorMessage}</div>
-          ) : null}
         </div>
       </>
     );
