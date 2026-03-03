@@ -39,6 +39,11 @@ import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { getSeries, getSeriesWithin } from "./data_fetch_utils";
+import {
+  escapeRegexSpecialChars,
+  getSafeRegExp,
+  isSafeRegexPattern,
+} from "./regex_utils";
 import { getUnit } from "./stat_metadata_utils";
 import { addPerCapitaToTitle } from "./subject_page_utils";
 
@@ -126,8 +131,12 @@ export interface ReplacementStrings {
 export function formatString(s: string, rs: ReplacementStrings): string {
   let formattedString = s;
   for (const key in rs) {
-    const re = new RegExp(`\\$\\{${key}\\}`, "g");
-    formattedString = formattedString.replace(re, rs[key]);
+    const pattern = `\\$\\{${escapeRegexSpecialChars(key)}\\}`;
+    const re = getSafeRegExp(pattern, "g");
+    if (!re) {
+      continue;
+    }
+    formattedString = formattedString.replace(re, rs[key] || "");
   }
   return formattedString;
 }
@@ -334,7 +343,11 @@ export function getTileEventTypeSpecs(
 function getProcessedUnit(unit: string): string {
   const unitSplit = unit.split("^");
   if (unitSplit.length == 2) {
-    const superScriptNumber = unitSplit[1].replace(/\d/g, (c) =>
+    const digitRegex = /\d/g;
+    if (!isSafeRegexPattern(digitRegex)) {
+      return unit;
+    }
+    const superScriptNumber = unitSplit[1].replace(digitRegex, (c) =>
       !_.isNaN(Number(c)) ? SUPER_SCRIPT_DIGITS[Number(c)] || "" : ""
     );
     return unitSplit[0] + superScriptNumber || unitSplit[1];
@@ -383,7 +396,10 @@ export function getStatFormat(
 
   let overrideConfig = null;
   if (statMetadata) {
-    const isComplexUnit = !!statMetadata.unit?.match(/\[.+ [0-9]+]/);
+    const complexUnitRegex = /\[[^\]]+ [0-9]+]/;
+    const isComplexUnit = isSafeRegexPattern(complexUnitRegex)
+      ? !!statMetadata.unit?.match(complexUnitRegex)
+      : false;
     // If complex unit, use the unit part to get the override config, otherwise
     // use the whole unit to get the override config.
     const unitStr = isComplexUnit

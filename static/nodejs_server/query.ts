@@ -39,6 +39,10 @@ import {
   getSeverityFilters,
 } from "../js/utils/disaster_event_map_utils";
 import {
+  escapeRegexSpecialChars,
+  isSafeRegexPattern,
+} from "../js/utils/regex_utils";
+import {
   getHighlightTileDescription,
   getTileEventTypeSpecs,
 } from "../js/utils/tile_utils";
@@ -310,6 +314,9 @@ export async function getQueryResult(
   idx?: string,
   surface?: string
 ): Promise<QueryResult> {
+  const safeQuery = isSafeRegexPattern(escapeRegexSpecialChars(query))
+    ? query
+    : "";
   const startTime = process.hrtime.bigint();
 
   let allowedTileTypes = null;
@@ -323,7 +330,7 @@ export async function getQueryResult(
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
-  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${
+  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${safeQuery}&detector=${
     detector || DEFAULT_QUERY_DETECTOR
   }`;
   const params = {
@@ -448,7 +455,7 @@ export async function getQueryResult(
     .flat(1)
     .filter((result) => result !== null);
   processedResults.forEach((result) => {
-    result.dcUrl = DC_URL_ROOT + encodeURIComponent(query as string);
+    result.dcUrl = DC_URL_ROOT + encodeURIComponent(safeQuery as string);
   });
   const endTime = process.hrtime.bigint();
   const debug = {
