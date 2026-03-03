@@ -489,18 +489,6 @@ def nl_server_config():
 
 
 # =======================   V0 V0 V0 ================================
-def search(query_text, max_results):
-  url = get_service_url("/search")
-  query_text = urllib.parse.quote(query_text.replace(",", " "))
-  url = f"{url}?query={query_text}&max_results={max_results}"
-  response = requests.get(url)
-  if response.status_code != 200:
-    raise ValueError(
-        "Response error: An HTTP {} code was returned by the mixer. "
-        "Printing response\n{}".format(response.status_code, response.reason))
-  return response.json()
-
-
 def translate(sparql, mapping):
   url = get_service_url("/translate")
   return post(url, {"schema_mapping": mapping, "sparql": sparql})

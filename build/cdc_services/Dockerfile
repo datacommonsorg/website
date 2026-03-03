@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # #### Stage 1: Build mixer. ####
-FROM golang:1.23.11 AS mixer
+FROM golang:1.24.0 AS mixer
 
 WORKDIR /workspace
 
@@ -49,7 +49,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 
 
 # #### Stage 2: Build python servers (website and NL). ####
-FROM --platform=linux/amd64 python:3.11.4-slim as py-servers
+FROM --platform=linux/amd64 python:3.11.14-slim as py-servers
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1

@@ -37,12 +37,13 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { ObservationSpec } from "../../shared/observation_specs";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
-import { DataPointMetadata } from "../../shared/types";
 import {
-  getFacetMetadataFromFacetList,
-  getStatVarMetadataFromFacets,
-} from "../../shared/util";
+  DataPointMetadata,
+  StatVarFacetMap,
+  StatVarSpec,
+} from "../../shared/types";
 import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
 import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
 import { Context } from "./context";
@@ -74,6 +75,9 @@ interface ChartProps {
   getObservationSpecs?: () => ObservationSpec[];
   // A ref to the chart container element.
   containerRef?: RefObject<HTMLElement>;
+  facets: Record<string, StatMetadata>;
+  statVarToFacets: StatVarFacetMap;
+  statVarSpecs: StatVarSpec[];
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -104,15 +108,6 @@ export function Chart(props: ChartProps): ReactElement {
       [GA_PARAM_STAT_VAR]: statVar.value.dcid,
     });
   }, [statVar.value.dcid, placeInfo.value.enclosingPlace.dcid]);
-
-  // Get stat var metadata to use in metadata modal
-  const { statVarToFacets, statVarSpecs } = getStatVarMetadataFromFacets(
-    props.facetList,
-    { [statVar.value.dcid]: statVar.value.metahash },
-    statVar.value.perCapita,
-    props.unit,
-    false // There is no log option for maps
-  );
 
   // Calculate date ranges for each stat var to use in metadata modal
   const statVarDateRanges: Record<
@@ -207,7 +202,7 @@ export function Chart(props: ChartProps): ReactElement {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        hideIsRatio={false}
+        hidePerCapitaOption={!mainSvInfo.pcAllowed}
         isPerCapita={statVar.value.perCapita}
         onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
           statVar.setPerCapita(isPerCapita)
@@ -215,9 +210,9 @@ export function Chart(props: ChartProps): ReactElement {
         handleEmbed={props.handleEmbed}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={props.containerRef}
-        facets={getFacetMetadataFromFacetList(props.facetList)}
-        statVarSpecs={statVarSpecs}
-        statVarToFacets={statVarToFacets}
+        facets={props.facets}
+        statVarSpecs={props.statVarSpecs}
+        statVarToFacets={props.statVarToFacets}
         statVarDateRanges={statVarDateRanges}
       >
         {placeInfo.value.mapPointPlaceType && (
