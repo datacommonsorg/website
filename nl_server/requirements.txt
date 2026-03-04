@@ -7,7 +7,7 @@ gunicorn==23.0.0
 markupsafe==2.1.2
 parameterized==0.9.0
 pytest==9.0.2
-Werkzeug==3.0.6
+Werkzeug==3.1.5
 # Downloading the named-entity recognition (NER) library spacy and the large EN model
 # using the guidelines here: https://spacy.io/usage/models#production
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
