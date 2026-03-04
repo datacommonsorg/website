@@ -26,7 +26,7 @@ CURRENT_TS=$(TZ="America/Los_Angeles" date +"%s")
 
 for parent_folder in "${PARENT_FOLDERS[@]}"; do
   echo "deleting outdated folders in $parent_folder"
-  folders=$(gsutil ls $parent_folder)
+  folders=$(gcloud storage ls $parent_folder)
   for folder in $folders; do
     folder_name=$(basename $folder)
     # get the folder timestamp from the folder name (which should be a datetime)
@@ -36,7 +36,7 @@ for parent_folder in "${PARENT_FOLDERS[@]}"; do
     days_difference=$((timestamp_difference / (60 * 60 * 24)))
     # delete the folder if its older than MAX_DAYS_OLD
     if [[ "$days_difference" -gt "$MAX_DAYS_OLD" ]]; then
-      gsutil -m rm -r $folder
+      gcloud storage rm --recursive $folder
       echo "deleted $folder"
     fi
   done
