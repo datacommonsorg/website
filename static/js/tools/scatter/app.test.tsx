@@ -262,12 +262,15 @@ function mockAxios(): void {
     data: {
       Count_Person_Employed: {
         title: "Employed",
+        pcAllowed: true,
       },
       Count_Establishment: {
         title: "Number Of Establishments",
+        pcAllowed: true,
       },
       Count_HousingUnit: {
         title: "Housing Units",
+        pcAllowed: true,
       },
     },
   };

@@ -22,7 +22,7 @@ from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import DateClassificationAttributes
 
 YEAR_RE = [
-    r'(in|after|on|before|year)(?: year)? (\d{4})',
+    r'(in|after|on|before|year|since)(?: year)? (\d{4})',
 ]
 
 YEARS_AGO_RE = [r'(decade) ago', r'(\d+) years ago']

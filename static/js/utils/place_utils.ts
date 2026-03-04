@@ -40,7 +40,7 @@ const SAMPLE_PLACES_ALL = {
 };
 
 export const ENCLOSED_PLACE_TYPE_NAMES = {
-  [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
+  [IPCC_PLACE_50_TYPE_DCID]: "30-minute grid",
 };
 
 /**

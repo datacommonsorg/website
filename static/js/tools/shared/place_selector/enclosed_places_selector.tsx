@@ -46,6 +46,8 @@ interface EnclosedPlacesSelectorProps {
   onEnclosedPlaceTypeSelected: (placeType: string) => void;
   // Callback to run when a place is selected.
   onPlaceSelected: (place: NamedTypedPlace) => void;
+  // Whether to require maps availability for child place types.
+  requireMaps?: boolean;
   // Text to show before the search bar.
   searchBarInstructionText?: string;
   // Placeholder text to show in the place search bar.
@@ -80,7 +82,8 @@ export function EnclosedPlacesSelector(
     // Fetch the valid child types of the parent type.
     const fetchAndSetChildPlaceTypes = async (): Promise<void> => {
       const newChildPlaceTypes = await loadChildPlaceTypes(
-        props.selectedParentPlace
+        props.selectedParentPlace,
+        props.requireMaps
       );
       if (_.isEmpty(newChildPlaceTypes)) {
         // Alert user that no child place types were available.

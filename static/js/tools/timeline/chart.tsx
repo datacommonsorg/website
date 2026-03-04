@@ -16,7 +16,6 @@
 import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
-import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
@@ -168,6 +167,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
 
+    // Whether to hide the "per capita" toggle in the footer
+    // If any stat var allows per capita, then hidePerCapitaToggle is false (we will show the toggle)
+    const hidePerCapitaToggle = !Object.values(this.props.statVarInfos).some(
+      (svInfo) => svInfo.pcAllowed
+    );
+
     // Prepare props for ChartEmbed.
     const embedStatVarSpecs: StatVarSpec[] = [];
     const embedStatVarToFacets: StatVarFacetMap = {};
@@ -187,6 +192,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           log: false,
           scaling: undefined,
           unit: undefined,
+          noPerCapita: !svInfo.pcAllowed,
         });
         if (facetId) {
           embedStatVarToFacets[svDcid] = new Set([facetId]);
@@ -251,7 +257,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          hideIsRatio={false}
+          hidePerCapitaOption={hidePerCapitaToggle}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
             setChartOption(this.props.chartId, "pc", isPerCapita)

@@ -20,75 +20,85 @@
 
 import _ from "lodash";
 
-import {
-  EARTH_NAMED_TYPED_PLACE,
-  USA_PLACE_DCID,
-} from "../../../shared/constants";
 import { NamedTypedPlace } from "../../../shared/types";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../../utils/place_utils";
-import { isChildPlaceOf } from "../../shared_util";
 import {
-  CHILD_PLACE_TYPES,
-  USA_CHILD_PLACE_TYPES,
+  DEFAULT_HIERARCHY,
+  DEFAULT_OVERRIDES,
+  MAPS_DEFAULT_HIERARCHY,
+  MAPS_OVERRIDES,
+  MAPS_UNIVERSAL_CHILDREN,
+  UNIVERSAL_CHILDREN,
 } from "./place_select_constants";
 
 type NamedTypedCallbackFn = (place: NamedTypedPlace) => void;
 type PlaceDcidCallbackFn = (placeDcid: string) => void;
 
 /**
- * Get child place types of a selected place.
+ * Gets the appropriate child place type hierarchy configuration for a selected place.
+ * Used as a helper function for loadChildPlaceTypes.
  *
- * Alerts if there are no child place types.
+ * This function checks if the given place or any of its parent places have a
+ * specific override defined in the hierarchy configuration. If an override
+ * is found (e.g., for a specific country), it returns that specific hierarchy.
+ * Otherwise, it falls back to the global default hierarchy.
  *
- * @param selectedPlace place to get child place types for.
- * @returns array of place types the selected place encloses.
+ * @param selectedPlace The place currently selected.
+ * @param parentPlaces An array of the selected place's parent places.
+ * @param requireMaps Whether to return only the hierarchy of places that have map boundaries available.
+ * @returns A mapping of place types to their corresponding valid child place types.
  */
-export async function loadChildPlaceTypes(
-  selectedPlace: NamedTypedPlace
-): Promise<string[]> {
-  const parentPlaces = await getParentPlacesPromise(selectedPlace.dcid);
-  return getEnclosedPlaceTypes(selectedPlace, parentPlaces);
+export function getHierarchyConfigForPlace(
+  selectedPlace: NamedTypedPlace,
+  parentPlaces: NamedTypedPlace[],
+  requireMaps?: boolean
+): Record<string, string[]> {
+  for (const place of [selectedPlace, ...parentPlaces]) {
+    // Iterate through the selected place and its parent places to check for override
+    const overrides = requireMaps ? MAPS_OVERRIDES : DEFAULT_OVERRIDES;
+    if (place.dcid in overrides) {
+      return overrides[place.dcid];
+    }
+  }
+  // If no override is found, return the default hierarchy
+  return requireMaps ? MAPS_DEFAULT_HIERARCHY : DEFAULT_HIERARCHY;
 }
 
 /**
- * Get child place types of a selected place given its parent places.
- *
- * Note: This function uses a containment hierarchy specified by
- * place_select_constants.ts instead of reading the knowledge graph.
- * Requires the parent places of the selected place to determine if the
- * selected place is within the US, which gets special handling.
+ * Get child place types of a selected place.
  *
  * @param selectedPlace place to get child place types for.
- * @param parentPlaces parent places of the selected place.
+ * @param requireMaps whether the returned child place types should be filtered by maps availability
  * @returns array of place types the selected place encloses.
  */
-function getEnclosedPlaceTypes(
+export async function loadChildPlaceTypes(
   selectedPlace: NamedTypedPlace,
-  parentPlaces: NamedTypedPlace[]
-): string[] {
-  if (selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    return CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]];
-  }
+  requireMaps?: boolean
+): Promise<string[]> {
   if (_.isEmpty(selectedPlace.types)) {
     return [];
   }
-  const isUSPlace = isChildPlaceOf(
-    selectedPlace.dcid,
-    USA_PLACE_DCID,
-    parentPlaces
+  // Get hierarchy configuration for the selected place
+  const parentPlaces = await getParentPlacesPromise(selectedPlace.dcid);
+  const hierarchy = getHierarchyConfigForPlace(
+    selectedPlace,
+    parentPlaces,
+    requireMaps
   );
+
+  // Get universal child place types for the selected place
+  const universal = requireMaps ? MAPS_UNIVERSAL_CHILDREN : UNIVERSAL_CHILDREN;
+
+  // Get child place types for the selected place, based on the hierarchy configuration
   for (const type of selectedPlace.types) {
-    if (isUSPlace) {
-      if (type in USA_CHILD_PLACE_TYPES) {
-        return USA_CHILD_PLACE_TYPES[type];
-      }
-    } else {
-      if (type in CHILD_PLACE_TYPES) {
-        return CHILD_PLACE_TYPES[type];
-      }
+    // Find the first place type that has a hierarchy configuration, use that configuration
+    if (type in hierarchy || type in universal) {
+      const specificChildren = hierarchy[type] || [];
+      const universalChildren = universal[type] || [];
+      return _.union(specificChildren, universalChildren);
     }
   }
   return [];
@@ -102,7 +112,7 @@ function getEnclosedPlaceTypes(
  * @returns new function with place dcid as input
  */
 export function getPlaceDcidCallback(
-  namedTypedFn: NamedTypedCallbackFn
+  namedTypedFn?: NamedTypedCallbackFn | null
 ): PlaceDcidCallbackFn {
   async function placeDcidFn(placeDcid: string): Promise<void> {
     if (!namedTypedFn) {

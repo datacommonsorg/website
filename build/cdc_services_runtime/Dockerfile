@@ -22,7 +22,7 @@
 FROM --platform=linux/amd64 envoyproxy/envoy:v1.31.0 as envoy
 
 # Final stage: final runtime.
-FROM --platform=linux/amd64 python:3.11.4-slim as runtime
+FROM --platform=linux/amd64 python:3.11.14-slim as runtime
 
 # Copy envoy.
 COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy

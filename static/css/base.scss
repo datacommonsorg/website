@@ -95,6 +95,7 @@ $headings-font-family: $font-family-sans-serif;
     display: flex;
     align-items: center;
     gap: 24px;
+
     a {
       color: #000;
       font-size: 22px;
@@ -104,30 +105,37 @@ $headings-font-family: $font-family-sans-serif;
         text-decoration: none;
       }
     }
+
     span,
     span a {
       font-weight: 200;
     }
+
     .main-header-logo {
       img {
         max-height: 35px;
       }
     }
   }
+
   .nav-item a {
     color: var(--gm-3-ref-neutral-neutral-40);
-  
+
     &:hover {
       text-decoration: none;
     }
   }
+
+  a.nav-link-main {
+    font-size: 1.1rem;
+  }
+
   .sep {
     color: var(--gm-3-ref-neutral-neutral-40);
     display: inline-block;
     margin: 0 0.5rem;
   }
 }
-
 
 /** CSE **/
 #main-header #___gcse_0 {
@@ -205,6 +213,7 @@ $headings-font-family: $font-family-sans-serif;
   flex-direction: row;
   align-items: center;
   color: var(--gm-3-ref-neutral-neutral-40);
+  
   .brand-text {
     font-size: 0.75em;
     font-weight: 400;
