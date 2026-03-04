@@ -64,7 +64,7 @@ export class InArcSection extends React.Component<
     }
     return (
       <div className="table-page-section">
-        <h3>In Arcs</h3>
+        <h3>Incoming Properties</h3>
         {!_.isEmpty(this.state.errorMessage) ? (
           <div className="error-message">{this.state.errorMessage}</div>
         ) : (
