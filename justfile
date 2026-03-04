@@ -249,12 +249,12 @@ env-staging:
         echo ""
     fi
     echo "Directories:"
-    INPUT_DIR=$(ask "Input directory" "gs://one-datacommons-staging/one-data")
-    OUTPUT_DIR=$(ask "Output directory" "gs://one-datacommons-staging/one-data-output")
+    INPUT_DIR=$(ask "Input directory" "gs://staging-datacommons-data-one-data-commons/input")
+    OUTPUT_DIR=$(ask "Output directory" "gs://staging-datacommons-data-one-data-commons/output")
     echo ""
     echo "Application:"
-    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:us-east4:dc-graph")
-    REDIS_HOST=$(ask "Redis host" "10.143.80.83")
+    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:northamerica-northeast1:staging-datacommons-mysql-instance")
+    REDIS_HOST=$(ask "Redis host" "10.67.34.172")
     echo ""
     {
         echo "### ONE Data Commons — STAGING environment ###"
@@ -353,12 +353,12 @@ env-prod:
         echo ""
     fi
     echo "Directories:"
-    INPUT_DIR=$(ask "Input directory" "gs://one-datacommons-imports-prod/")
-    OUTPUT_DIR=$(ask "Output directory" "gs://one-datacommons-imports-prod/")
+    INPUT_DIR=$(ask "Input directory" "gs://prod-datacommons-data-one-data-commons/input")
+    OUTPUT_DIR=$(ask "Output directory" "gs://prod-datacommons-data-one-data-commons/output")
     echo ""
     echo "Application:"
-    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:us-east4:dc-graph-prod")
-    REDIS_HOST=$(ask "Redis host" "10.143.80.83")
+    CLOUDSQL_INSTANCE=$(ask "Cloud SQL instance" "one-data-commons:northamerica-northeast1:prod-datacommons-mysql-instance")
+    REDIS_HOST=$(ask "Redis host" "10.67.34.172")
     echo ""
     {
         echo "### ONE Data Commons — PRODUCTION environment ###"
@@ -772,7 +772,7 @@ watch:
     npm run watch
 
 # Run container with live frontend assets (pair with 'just watch' in another terminal)
-dev: _check-env _check-gcloud
+dev: _check-env _check-gcloud _check-data
     #!/usr/bin/env bash
     set -euo pipefail
     if [ ! -d "server/dist" ]; then
@@ -804,7 +804,7 @@ dev: _check-env _check-gcloud
 build-run: build run
 
 # Run container locally (port 8080, debug mode)
-run: _check-env _check-gcloud
+run: _check-env _check-gcloud _check-data
     docker run -it \
         --init \
         --env-file {{ENV_FILE}} \
@@ -1097,6 +1097,29 @@ typecheck:
     echo "No ONE-specific TypeScript errors found. Safe to build."
 
 # ── Internal ──────────────────────────────────
+
+_check-data:
+    #!/usr/bin/env bash
+    USE_SQLITE=$(grep -s '^USE_SQLITE=' "{{ENV_FILE}}" | cut -d= -f2)
+    if [[ "$USE_SQLITE" == "true" ]]; then
+        DB_PATH="{{OUTPUT_DIR}}/datacommons/datacommons.db"
+        if [ ! -f "$DB_PATH" ]; then
+            echo "SQLite database not found at $DB_PATH"
+            echo "Running data import to generate it..."
+            echo ""
+            mkdir -p "{{INPUT_DIR}}" "{{OUTPUT_DIR}}"
+            docker run -it \
+                --env-file {{ENV_FILE}} \
+                -e INPUT_DIR={{INPUT_DIR}} \
+                -e OUTPUT_DIR={{OUTPUT_DIR}} \
+                -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+                -v {{GCP_ADC}}:/gcp/creds.json:ro \
+                -v {{INPUT_DIR}}:{{INPUT_DIR}} \
+                -v {{OUTPUT_DIR}}:{{OUTPUT_DIR}} \
+                {{DC_DATA_IMAGE}}
+            echo ""
+        fi
+    fi
 
 _check-env:
     #!/usr/bin/env bash
