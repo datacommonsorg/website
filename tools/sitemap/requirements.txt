@@ -1,2 +1,2 @@
 requests
-datacommons-client
+datacommons-client  # pylint: disable=pointless-statement
