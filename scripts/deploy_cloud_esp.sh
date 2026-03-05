@@ -100,7 +100,7 @@ fi
 
 # Deploy ESP configuration
 echo "Downloading mixer-grpc.$MIXER_HASH.pb..."
-gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
+gcloud storage cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
 
 echo "Deploying service configuration..."
 GCLOUD_OUTPUT=$(gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID 2>&1)
