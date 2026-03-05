@@ -227,6 +227,9 @@ const MAP_PROPS = {
   onPlay: (): null => null,
   updateDate: (): null => null,
   geoRaster: null,
+  facets: {},
+  statVarToFacets: {},
+  statVarSpecs: [],
   children: null,
 };
 
@@ -295,6 +298,9 @@ const SCATTER_PROPS = {
   facetListLoading: false,
   facetListError: false,
   onSvFacetIdUpdated: (): null => null,
+  facets: {},
+  statVarToFacets: {},
+  statVarSpecs: [],
 };
 
 const PAGE_METADATA_PROPS = {

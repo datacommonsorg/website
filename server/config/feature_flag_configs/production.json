@@ -26,9 +26,8 @@
   {
     "name": "follow_up_questions_ga",
     "enabled": true,
-    "owner": "javiervazquez",
-    "description": "Enables the follow up questions generated from related topics to general audience.",
-    "rollout_percentage": 60
+    "owner": "shixiao",
+    "description": "Enables the follow up questions generated from related topics to general audience."
   },
   {
     "name": "page_overview_ga",
@@ -52,8 +51,7 @@
     "name": "standardized_vis_tool",
     "enabled": true,
     "owner": "juliawu",
-    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages",
-    "rollout_percentage": 20
+    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
   {
     "name": "vai_for_statvar_search",
