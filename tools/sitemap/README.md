@@ -5,7 +5,10 @@ The generated sitemap files are served as [static files](https://datacommons.org
 
 ## Update sitemap files
 
+To generate sitemap files, you will need a Data Commons API key. You can get an API key from [apikeys.datacommons.org](https://apikeys.datacommons.org/). Export it before running the script:
+
 ```bash
+export DC_API_KEY=<your api key here>
 ./run.sh
 ```
 
