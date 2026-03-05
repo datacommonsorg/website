@@ -128,7 +128,7 @@ export class OutArcSection extends React.Component<
             <tr key="header">
               <th className="property-column">Property</th>
               <th>Value</th>
-              <th>Provenance</th>
+              <th>Source URL</th>
             </tr>
             <ArcTableRow
               key={DCID_PREDICATE}
