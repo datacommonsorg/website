@@ -32,7 +32,10 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
-import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import {
+  ChartLinkChips,
+  VisToolExample,
+} from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
@@ -53,6 +56,12 @@ import {
   updateHashStatVar,
 } from "./util";
 
+declare global {
+  interface Window {
+    visToolExamples?: VisToolExample[];
+  }
+}
+
 function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
@@ -66,6 +75,7 @@ function App(): ReactElement {
     statVar.value,
     placeInfo.value
   );
+  const visToolExamples = globalThis.visToolExamples || [];
 
   return (
     <React.StrictMode>
@@ -99,7 +109,10 @@ function App(): ReactElement {
                       margin-top: ${theme.spacing.xl}px;
                     `}
                   >
-                    <ChartLinkChips toolType="map" />
+                    <ChartLinkChips
+                      toolType="map"
+                      visToolExamples={visToolExamples}
+                    />
                   </div>
                 )
               ) : (

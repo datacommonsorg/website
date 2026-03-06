@@ -35,7 +35,10 @@ import { PlaceSelect } from "../shared/place_selector/place_select";
 import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
-import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import {
+  ChartLinkChips,
+  VisToolExample,
+} from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
 import { MemoizedInfo } from "./info";
@@ -48,6 +51,12 @@ import {
   statVarSep,
   TIMELINE_URL_PARAM_KEYS,
 } from "./util";
+
+declare global {
+  interface Window {
+    visToolExamples?: VisToolExample[];
+  }
+}
 
 interface PageStateType {
   placeName: Record<string, string>;
@@ -136,6 +145,8 @@ class Page extends Component<unknown, PageStateType> {
 
     const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
     const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
+    const visToolExamples = globalThis.visToolExamples || [];
+
     return (
       <ThemeProvider theme={theme}>
         <RawIntlProvider value={intl}>
@@ -214,7 +225,10 @@ class Page extends Component<unknown, PageStateType> {
                         margin-top: ${theme.spacing.xl}px;
                       `}
                     >
-                      <ChartLinkChips toolType="timeline" />
+                      <ChartLinkChips
+                        toolType="timeline"
+                        visToolExamples={visToolExamples}
+                      />
                     </div>
                   )
                 ) : (

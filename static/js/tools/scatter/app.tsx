@@ -32,7 +32,10 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
-import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import {
+  ChartLinkChips,
+  VisToolExample,
+} from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import {
@@ -52,6 +55,12 @@ import {
   updateHash,
 } from "./util";
 
+declare global {
+  interface Window {
+    visToolExamples?: VisToolExample[];
+  }
+}
+
 function App(): ReactElement {
   const { x, y, place, isLoading } = useContext(Context);
   const showChart = shouldShowChart(x.value, y.value, place.value);
@@ -66,6 +75,8 @@ function App(): ReactElement {
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
   const theme = useTheme();
+  const visToolExamples = globalThis.visToolExamples || [];
+
   return (
     <>
       <StatVarChooser
@@ -119,7 +130,10 @@ function App(): ReactElement {
                       margin-top: ${theme.spacing.xl}px;
                     `}
                   >
-                    <ChartLinkChips toolType="scatter" />
+                    <ChartLinkChips
+                      toolType="scatter"
+                      visToolExamples={visToolExamples}
+                    />
                   </Row>
                 )
               ) : (
