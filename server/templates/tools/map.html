@@ -1,17 +1,17 @@
 {#
-Copyright 2020 Google LLC
+  Copyright 2020 Google LLC
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+        http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 #}
 
 {%- extends BASE_HTML -%}
@@ -23,22 +23,22 @@ limitations under the License.
 {% set page_id = 'page-map' %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/map.min.css')}} >
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+  <link rel="stylesheet" href={{url_for('static', filename='css/map.min.css')}} >
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 {% endblock %}
 
 {% block content %}
-<div id="metadata" class="d-none" data-footer="{{ config['MAP_TOOL_FOOTER'] }}"></div>
-<div id="main-pane"></div>
-<script>
-  globalThis.infoConfig = {{ info_json | tojson | safe }};
-  globalThis.visToolExamples = {{ vis_tool_examples_json | default ([]) | tojson | safe }};
-  globalThis.minStatVarGeoCoverage = {{ config['MIN_STAT_VAR_GEO_COVERAGE'] | int(1) }};
-</script>
+  <div id="metadata" class="d-none" data-footer="{{ config['MAP_TOOL_FOOTER'] }}"></div>
+  <div id="main-pane"></div>
+  <script>
+    globalThis.infoConfig = {{ info_json | tojson | safe }};
+    globalThis.visToolExamples = {{ vis_tool_examples_json | default ([]) | tojson | safe }};
+    globalThis.minStatVarGeoCoverage = {{ config['MIN_STAT_VAR_GEO_COVERAGE'] | int(1) }};
+  </script>
 {% endblock %}
 
 {% block footer %}
-<script src={{url_for('static', filename='map.js', t=config['VERSION'])}}></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&loading=async" async defer></script>
+  <script src={{url_for('static', filename='map.js', t=config['VERSION'])}}></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&loading=async" async defer></script>
 {% endblock %}
