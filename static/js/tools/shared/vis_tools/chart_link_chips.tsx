@@ -35,7 +35,7 @@ declare global {
 }
 
 export interface VisToolExample {
-  id?: string;
+  id: string;
   title?: string;
   titleMessageId?: string;
   url: string;
@@ -52,7 +52,6 @@ function getLinkChips(config: VisToolExample[]): Link[] {
   }
 
   const links: Link[] = [];
-  let generatedId = 0;
 
   for (const item of config) {
     let finalTitle = item.title;
@@ -63,12 +62,13 @@ function getLinkChips(config: VisToolExample[]): Link[] {
       finalTitle = intl.formatMessage(VisToolExampleChartMessages[messageKey]);
     }
 
-    if (!finalTitle) {
+    // if a given example does not contain an id or final title, we omit
+    if (!finalTitle || !item.id) {
       continue;
     }
 
     links.push({
-      id: item.id || `example-link-${generatedId++}`,
+      id: item.id,
       title: finalTitle,
       url: item.url,
     });
