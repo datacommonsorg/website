@@ -42,12 +42,13 @@ def load_example_file(tool_or_filename, default=None):
   """Loads a JSON example file, returning a default if missing."""
   if default is None:
     default = {}
-
   filepath = get_example_file(tool_or_filename)
   if os.path.exists(filepath):
-    with open(filepath) as f:
-      return json.load(f)
-
+    try:
+      with open(filepath) as f:
+        return json.load(f)
+    except json.JSONDecodeError:
+      current_app.logger.error('Malformed JSON in %s', filepath)
   return default
 
 
