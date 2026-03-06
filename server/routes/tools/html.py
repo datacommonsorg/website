@@ -38,18 +38,40 @@ def get_example_file(tool):
                       'templates/tools/{}_examples.json'.format(tool))
 
 
+def load_example_file(tool_or_filename, default=None):
+  """Loads a JSON example file, returning a default if missing."""
+  if default is None:
+    default = {}
+
+  filepath = get_example_file(tool_or_filename)
+  if os.path.exists(filepath):
+    with open(filepath) as f:
+      return json.load(f)
+
+  return default
+
+
 @bp.route('/timeline')
 def timeline():
-  with open(get_example_file('timeline')) as f:
-    info_json = json.load(f)
-    return flask.render_template(
-        'tools/timeline.html',
-        info_json=info_json,
-        use_standardized_ui=is_feature_enabled(
-            STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
-        maps_api_key=current_app.config['MAPS_API_KEY'],
-        sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+                                           request=request)
+
+  info_json = {}
+  vis_tool_examples_json = []
+
+  if use_standardized_ui:
+    vis_tool_examples_json = load_example_file('timeline_vis_tool', default=[])
+  else:
+    info_json = load_example_file('timeline', default={})
+
+  return flask.render_template('tools/timeline.html',
+                               info_json=info_json,
+                               vis_tool_examples_json=vis_tool_examples_json,
+                               use_standardized_ui=use_standardized_ui,
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 # This tool was used by several data science course (but no traffic in 2025).
@@ -60,30 +82,48 @@ def timeline_bulk_download():
 
 @bp.route('/map')
 def map():
-  with open(get_example_file('map')) as f:
-    info_json = json.load(f)
-    return flask.render_template(
-        'tools/map.html',
-        maps_api_key=current_app.config['MAPS_API_KEY'],
-        info_json=info_json,
-        use_standardized_ui=is_feature_enabled(
-            STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
-        sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+                                           request=request)
+
+  info_json = {}
+  vis_tool_examples_json = []
+
+  if use_standardized_ui:
+    vis_tool_examples_json = load_example_file('map_vis_tool', default=[])
+  else:
+    info_json = load_example_file('map', default={})
+
+  return flask.render_template('tools/map.html',
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               info_json=info_json,
+                               vis_tool_examples_json=vis_tool_examples_json,
+                               use_standardized_ui=use_standardized_ui,
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/scatter')
 def scatter():
-  with open(get_example_file('scatter')) as f:
-    info_json = json.load(f)
-    return flask.render_template(
-        'tools/scatter.html',
-        info_json=info_json,
-        use_standardized_ui=is_feature_enabled(
-            STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
-        maps_api_key=current_app.config['MAPS_API_KEY'],
-        sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+                                           request=request)
+
+  info_json = {}
+  vis_tool_examples_json = []
+
+  if use_standardized_ui:
+    vis_tool_examples_json = load_example_file('scatter_vis_tool', default=[])
+  else:
+    info_json = load_example_file('scatter', default={})
+
+  return flask.render_template('tools/scatter.html',
+                               info_json=info_json,
+                               vis_tool_examples_json=vis_tool_examples_json,
+                               use_standardized_ui=use_standardized_ui,
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/statvar')
@@ -98,24 +138,24 @@ def stat_var():
 def download():
   # List of DCIDs displayed in the info page for download tool
   # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
-  with open(get_example_file('download')) as f:
-    info_places = json.load(f)
-    return flask.render_template(
-        'tools/download.html',
-        info_places=json.dumps(info_places),
-        maps_api_key=current_app.config['MAPS_API_KEY'],
-        sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  info_places = load_example_file('download', default=[])
+
+  return flask.render_template('tools/download.html',
+                               info_places=json.dumps(info_places),
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/visualization')
 def visualization():
-  with open(get_example_file('visualization')) as f:
-    info_json = json.load(f)
-    return flask.render_template(
-        'tools/visualization.html',
-        manual_ga_pageview=True,
-        info_json=info_json,
-        maps_api_key=current_app.config['MAPS_API_KEY'],
-        sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  info_json = load_example_file('visualization', default={})
+
+  return flask.render_template('tools/visualization.html',
+                               manual_ga_pageview=True,
+                               info_json=info_json,
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
