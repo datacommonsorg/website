@@ -32,10 +32,7 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
-import {
-  ChartLinkChips,
-  VisToolExample,
-} from "../shared/vis_tools/chart_link_chips";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import {
@@ -54,12 +51,6 @@ import {
   isPlacePicked,
   updateHash,
 } from "./util";
-
-declare global {
-  interface Window {
-    visToolExamples?: VisToolExample[];
-  }
-}
 
 function App(): ReactElement {
   const { x, y, place, isLoading } = useContext(Context);

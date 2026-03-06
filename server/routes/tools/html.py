@@ -51,18 +51,19 @@ def load_example_file(tool_or_filename, default=None):
   return default
 
 
-@bp.route('/timeline')
-def timeline():
+def _get_vis_tool_examples(tool_name):
+  """Returns (info_json, vis_tool_examples_json, use_standardized_ui)"""
   use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
                                            request=request)
-
-  info_json = {}
-  vis_tool_examples_json = []
-
   if use_standardized_ui:
-    vis_tool_examples_json = load_example_file('timeline_vis_tool', default=[])
-  else:
-    info_json = load_example_file('timeline', default={})
+    return {}, load_example_file(f'{tool_name}_vis_tool', default=[]), True
+  return load_example_file(tool_name, default={}), [], False
+
+
+@bp.route('/timeline')
+def timeline():
+  info_json, vis_tool_examples_json, use_standardized_ui = _get_vis_tool_examples(
+      'timeline')
 
   return flask.render_template('tools/timeline.html',
                                info_json=info_json,
@@ -82,16 +83,8 @@ def timeline_bulk_download():
 
 @bp.route('/map')
 def map():
-  use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-                                           request=request)
-
-  info_json = {}
-  vis_tool_examples_json = []
-
-  if use_standardized_ui:
-    vis_tool_examples_json = load_example_file('map_vis_tool', default=[])
-  else:
-    info_json = load_example_file('map', default={})
+  info_json, vis_tool_examples_json, use_standardized_ui = _get_vis_tool_examples(
+      'map')
 
   return flask.render_template('tools/map.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],
@@ -105,16 +98,8 @@ def map():
 
 @bp.route('/scatter')
 def scatter():
-  use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-                                           request=request)
-
-  info_json = {}
-  vis_tool_examples_json = []
-
-  if use_standardized_ui:
-    vis_tool_examples_json = load_example_file('scatter_vis_tool', default=[])
-  else:
-    info_json = load_example_file('scatter', default={})
+  info_json, vis_tool_examples_json, use_standardized_ui = _get_vis_tool_examples(
+      'scatter')
 
   return flask.render_template('tools/scatter.html',
                                info_json=info_json,

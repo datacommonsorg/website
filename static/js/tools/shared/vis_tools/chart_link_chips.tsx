@@ -28,6 +28,12 @@ import {
   VisToolExampleChartMessages,
 } from "../../../i18n/i18n_tool_messages";
 
+declare global {
+  interface Window {
+    visToolExamples?: VisToolExample[];
+  }
+}
+
 export interface VisToolExample {
   id?: string;
   title?: string;
@@ -51,14 +57,10 @@ function getLinkChips(config: VisToolExample[]): Link[] {
   for (const item of config) {
     let finalTitle = item.title;
 
-    if (
-      !finalTitle &&
-      item.titleMessageId &&
-      VisToolExampleChartMessages[item.titleMessageId]
-    ) {
-      finalTitle = intl.formatMessage(
-        VisToolExampleChartMessages[item.titleMessageId]
-      );
+    const messageKey =
+      item.titleMessageId as keyof typeof VisToolExampleChartMessages;
+    if (!finalTitle && messageKey && VisToolExampleChartMessages[messageKey]) {
+      finalTitle = intl.formatMessage(VisToolExampleChartMessages[messageKey]);
     }
 
     if (!finalTitle) {
