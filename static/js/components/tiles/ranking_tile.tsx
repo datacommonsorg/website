@@ -239,6 +239,16 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const placeHolderArray = Array(numRankingLists).fill("");
   const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
+  const entities = useMemo(
+    () =>
+      rankingData
+        ? Object.values(rankingData).flatMap((svData) =>
+          svData.points.map((p) => p.placeDcid)
+        )
+        : [],
+    [rankingData]
+  );
+
   /**
    * Opens export modal window
    */
@@ -342,6 +352,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         facets={allFacets}
         statVarToFacets={allStatVarToFacets}
         apiRoot={props.apiRoot}
+        entities={entities}
       />
     </div>
   );

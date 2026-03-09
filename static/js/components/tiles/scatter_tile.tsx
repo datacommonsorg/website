@@ -250,6 +250,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       getObservationSpecs={getObservationSpecs}
       errorMsg={scatterChartData && scatterChartData.errorMsg}
       id={props.id}
+      entities={[props.place.dcid]}
       isInitialLoading={_.isNull(scatterChartData)}
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
