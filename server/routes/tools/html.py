@@ -33,20 +33,16 @@ def get_all_examples(app, custom_dc_template_folder):
   """Finds and loads all example files into a dictionary."""
   example_paths = {}
 
-  # First find all base tool example files
-  base_dir = os.path.join(app.root_path, 'templates/tools')
-  for filepath in glob.glob(os.path.join(base_dir, '*_examples.json')):
-    filename = os.path.basename(filepath)
-    tool_name = filename.replace('_examples.json', '')
-    example_paths[tool_name] = filepath
-
-  # Then find any custom overrides (these will take precedence)
+  # Find all example files (with custom DC versions taking precedence)
+  search_dirs = [os.path.join(app.root_path, 'templates/tools')]
   if custom_dc_template_folder:
-    custom_dir = os.path.join(app.root_path, 'templates/custom_dc',
-                              custom_dc_template_folder)
-    for filepath in glob.glob(os.path.join(custom_dir, '*_examples.json')):
+    search_dirs.append(
+        os.path.join(app.root_path, 'templates/custom_dc',
+                     custom_dc_template_folder))
+  for directory in search_dirs:
+    for filepath in glob.glob(os.path.join(directory, '*_examples.json')):
       filename = os.path.basename(filepath)
-      tool_name = filename.replace('_examples.json', '')
+      tool_name = filename.removesuffix('_examples.json')
       example_paths[tool_name] = filepath
 
   # Load the examples and return them
