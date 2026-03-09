@@ -136,6 +136,8 @@ class Page extends Component<unknown, PageStateType> {
 
     const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
     const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
+    const visToolExamples = globalThis.visToolExamples || [];
+
     return (
       <ThemeProvider theme={theme}>
         <RawIntlProvider value={intl}>
@@ -214,7 +216,10 @@ class Page extends Component<unknown, PageStateType> {
                         margin-top: ${theme.spacing.xl}px;
                       `}
                     >
-                      <ChartLinkChips toolType="timeline" />
+                      <ChartLinkChips
+                        toolType="timeline"
+                        visToolExamples={visToolExamples}
+                      />
                     </div>
                   )
                 ) : (
