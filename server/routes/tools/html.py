@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
+import glob
 import json
 import os
 
@@ -27,28 +29,50 @@ from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
 
-def get_example_file(tool):
-  example_file = os.path.join(current_app.root_path, 'templates/custom_dc',
-                              g.custom_dc_template_folder,
-                              '{}_examples.json'.format(tool))
-  if os.path.exists(example_file):
-    return example_file
+def get_all_examples(app, custom_dc_template_folder):
+  """Finds and loads all example files into a dictionary."""
+  example_paths = {}
 
-  return os.path.join(current_app.root_path,
-                      'templates/tools/{}_examples.json'.format(tool))
+  # First find all base tool example files
+  base_dir = os.path.join(app.root_path, 'templates/tools')
+  for filepath in glob.glob(os.path.join(base_dir, '*_examples.json')):
+    filename = os.path.basename(filepath)
+    tool_name = filename.replace('_examples.json', '')
+    example_paths[tool_name] = filepath
+
+  # Then find any custom overrides (these will take precedence)
+  if custom_dc_template_folder:
+    custom_dir = os.path.join(app.root_path, 'templates/custom_dc',
+                              custom_dc_template_folder)
+    for filepath in glob.glob(os.path.join(custom_dir, '*_examples.json')):
+      filename = os.path.basename(filepath)
+      tool_name = filename.replace('_examples.json', '')
+      example_paths[tool_name] = filepath
+
+  # Load the examples and return them
+  loaded_examples = {}
+  for tool, filepath in example_paths.items():
+    try:
+      with open(filepath) as f:
+        loaded_examples[tool] = json.load(f)
+    except json.JSONDecodeError:
+      app.logger.error('Malformed JSON in %s', filepath)
+    except OSError as e:
+      app.logger.error('Failed to read %s: %s', filepath, e)
+
+  return loaded_examples
 
 
-def load_example_file(tool_or_filename, default=None):
+def _load_example_file(tool_or_filename, default=None):
   """Loads a JSON example file, returning a default if missing."""
   if default is None:
     default = {}
-  filepath = get_example_file(tool_or_filename)
-  if os.path.exists(filepath):
-    try:
-      with open(filepath) as f:
-        return json.load(f)
-    except json.JSONDecodeError:
-      current_app.logger.error('Malformed JSON in %s', filepath)
+
+  examples = current_app.config.get('VIS_TOOL_EXAMPLES', {})
+  data = examples.get(tool_or_filename)
+
+  if data is not None:
+    return copy.deepcopy(data)
   return default
 
 
@@ -57,8 +81,8 @@ def _get_vis_tool_examples(tool_name):
   use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
                                            request=request)
   if use_standardized_ui:
-    return {}, load_example_file(f'{tool_name}_vis_tool', default=[]), True
-  return load_example_file(tool_name, default={}), [], False
+    return {}, _load_example_file(f'{tool_name}_vis_tool', default=[]), True
+  return _load_example_file(tool_name, default={}), [], False
 
 
 @bp.route('/timeline')
@@ -124,7 +148,7 @@ def stat_var():
 def download():
   # List of DCIDs displayed in the info page for download tool
   # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
-  info_places = load_example_file('download', default=[])
+  info_places = _load_example_file('download', default=[])
 
   return flask.render_template('tools/download.html',
                                info_places=json.dumps(info_places),
@@ -136,7 +160,7 @@ def download():
 
 @bp.route('/visualization')
 def visualization():
-  info_json = load_example_file('visualization', default={})
+  info_json = _load_example_file('visualization', default={})
 
   return flask.render_template('tools/visualization.html',
                                manual_ga_pageview=True,
