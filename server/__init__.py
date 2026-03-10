@@ -451,7 +451,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   custom_dc_template_folder = app.config.get(
       'CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
 
-  app.config['VIS_TOOL_EXAMPLES'] = tools_html.get_all_examples(
+  app.config['VIS_TOOL_EXAMPLES'] = tools_html.get_all_tool_examples(
       app, custom_dc_template_folder)
 
   # Get and save the blocklisted svgs.

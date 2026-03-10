@@ -29,7 +29,7 @@ from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
 
-def get_all_examples(app, custom_dc_template_folder):
+def get_all_tool_examples(app, custom_dc_template_folder):
   """Finds and loads all example files into a dictionary."""
   example_paths = {}
 
@@ -52,9 +52,9 @@ def get_all_examples(app, custom_dc_template_folder):
       with open(filepath) as f:
         loaded_examples[tool] = json.load(f)
     except json.JSONDecodeError:
-      app.logger.error('Malformed JSON in %s', filepath)
+      app.logger.error('Malformed JSON for tool %s in %s', tool, filepath)
     except OSError as e:
-      app.logger.error('Failed to read %s: %s', filepath, e)
+      app.logger.error('Failed to read tool %s at %s: %s', tool, filepath, e)
 
   return loaded_examples
 
