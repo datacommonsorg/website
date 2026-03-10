@@ -224,12 +224,7 @@ export class BrowserPage extends React.Component<
         const provenance = resp.data;
         const provenanceNames = {};
         for (const provId in provenance) {
-          const provInfo = provenance[provId];
-          if (provInfo?.name) {
-            provenanceNames[provId] = provInfo.name;
-          } else {
-            provenanceNames[provId] = provId;
-          }
+          provenanceNames[provId] = provenance[provId].name;
         }
         this.setState({
           dataFetched: true,
