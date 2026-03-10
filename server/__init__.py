@@ -41,6 +41,7 @@ from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
 from server.lib.nl.detection.agent.agent import create_detection_agent
 import server.lib.util as libutil
+from server.routes.tools import html as tools_html
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
@@ -449,6 +450,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Set custom dc template folder if set, otherwise use the environment name
   custom_dc_template_folder = app.config.get(
       'CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
+
+  app.config['VIS_TOOL_EXAMPLES'] = tools_html.get_all_tool_examples(
+      app, custom_dc_template_folder)
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []
