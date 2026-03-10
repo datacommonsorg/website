@@ -29,7 +29,7 @@ interface InArcSubsectionPropType {
   parentType: string;
   property: string;
   arcValues: Array<InArcValue>;
-  provDomain: { [key: string]: URL };
+  provenanceNames: { [key: string]: string };
 }
 
 export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
@@ -73,10 +73,8 @@ export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
                     propertyLabel={this.props.property}
                     values={[{ dcid: arcValue.dcid, text: valueText }]}
                     provenanceId={arcValue.provenanceId}
-                    src={
-                      this.props.provDomain[arcValue.provenanceId]
-                        ? this.props.provDomain[arcValue.provenanceId]
-                        : null
+                    provenanceName={
+                      this.props.provenanceNames[arcValue.provenanceId] || null
                     }
                   />
                 );

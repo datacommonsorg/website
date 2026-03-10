@@ -49,7 +49,7 @@ interface BrowserPagePropType {
 }
 
 interface BrowserPageStateType {
-  provDomain: { [key: string]: URL };
+  provenanceNames: { [key: string]: string };
   dataFetched: boolean;
 }
 
@@ -101,7 +101,7 @@ export class BrowserPage extends React.Component<
     super(props);
     this.state = {
       dataFetched: false,
-      provDomain: {},
+      provenanceNames: {},
     };
   }
 
@@ -163,7 +163,7 @@ export class BrowserPage extends React.Component<
             <h3>{outArcHeader}</h3>
             <OutArcSection
               dcid={arcDcid}
-              provDomain={this.state.provDomain}
+              provenanceNames={this.state.provenanceNames}
               nodeTypes={this.props.nodeTypes}
               showAllProperties={showAllProperties}
             />
@@ -186,7 +186,7 @@ export class BrowserPage extends React.Component<
             <InArcSection
               nodeName={this.props.nodeName}
               dcid={this.props.dcid}
-              provDomain={this.state.provDomain}
+              provenanceNames={this.state.provenanceNames}
             />
           )}
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
@@ -222,18 +222,18 @@ export class BrowserPage extends React.Component<
       .get("/api/browser/provenance")
       .then((resp) => {
         const provenance = resp.data;
-        const provDomain = {};
+        const provenanceNames = {};
         for (const provId in provenance) {
-          const url = provenance[provId];
-          try {
-            provDomain[provId] = new URL(url).host;
-          } catch (err) {
-            console.log("Invalid url in prov: " + url);
+          const provInfo = provenance[provId];
+          if (provInfo?.name) {
+            provenanceNames[provId] = provInfo.name;
+          } else {
+            provenanceNames[provId] = provId;
           }
         }
         this.setState({
           dataFetched: true,
-          provDomain,
+          provenanceNames,
         });
       })
       .catch((e) => {

@@ -32,9 +32,9 @@ const NUM_VALUES_UNEXPANDED = 5;
 interface ArcTableRowPropType {
   propertyLabel: string;
   values: Array<ArcValue>;
-  // If provenanceId and src are skipped, ensure that table only has 2-columns.
+  // If provenanceId and provenanceName are skipped, ensure that table only has 2-columns.
   provenanceId?: string;
-  src?: URL;
+  provenanceName?: string;
   // If set to true, will not add a link to the property node.
   noPropLink?: boolean;
   // Index of the property label; the same property can be listed multiple times
@@ -137,11 +137,11 @@ export class ArcTableRow extends React.Component<
               })}
           </div>
         </td>
-        {this.props.provenanceId && this.props.src ? (
+        {this.props.provenanceId && this.props.provenanceName ? (
           <td className="provenance-column">
             {this.props.provenanceId && (
               <a href={HREF_PREFIX + this.props.provenanceId}>
-                {this.props.src}
+                {this.props.provenanceName}
               </a>
             )}
           </td>

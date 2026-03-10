@@ -67,7 +67,7 @@ export function shouldIgnoreProperty(property: string): boolean {
 
 interface OutArcSectionPropType {
   dcid: string;
-  provDomain: { [key: string]: URL };
+  provenanceNames: { [key: string]: string };
   nodeTypes: string[];
   showAllProperties: boolean;
 }
@@ -135,7 +135,7 @@ export class OutArcSection extends React.Component<
               propertyLabel={DCID_PREDICATE}
               values={[{ text: this.props.dcid }]}
               provenanceId={""}
-              src={null}
+              provenanceName={null}
             />
             {predicates.map((predicate) => {
               const valuesByProvenance = this.state.data[predicate];
@@ -147,10 +147,8 @@ export class OutArcSection extends React.Component<
                       propertyLabel={predicate}
                       values={valuesByProvenance[provenanceId]}
                       provenanceId={provenanceId}
-                      src={
-                        this.props.provDomain[provenanceId]
-                          ? this.props.provDomain[provenanceId]
-                          : null
+                      provenanceName={
+                        this.props.provenanceNames[provenanceId] || null
                       }
                       propIndex={index}
                     />
