@@ -68,10 +68,15 @@ def get(url: str):
   response = requests.get(url, headers=headers)
   call_logger.finish(response)
   if response.status_code != 200:
+    try:
+      error_msg = response.json().get("message", "No message")
+    except Exception:
+      error_msg = response.text[:1000]
+    logger.error("Mixer Error %s (%s) for GET %s. Response: %s",
+                 response.status_code, response.reason, url, error_msg)
     raise ValueError(
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
-            response.status_code, response.reason,
-            response.json()["message"]))
+            response.status_code, response.reason, error_msg))
   res_json = response.json()
   response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
   # This is used to log cached and uncached mixer usage and is a list to be compatible with other cachable
@@ -103,10 +108,15 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
   call_logger.finish(response)
 
   if response.status_code != 200:
+    try:
+      error_msg = response.json().get("message", "No message")
+    except Exception:
+      error_msg = response.text[:1000]
+    logger.error("Mixer Error %s (%s) for POST %s. Payload: %s. Response: %s",
+                 response.status_code, response.reason, url, req_str, error_msg)
     raise ValueError(
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
-            response.status_code, response.reason,
-            response.json()["message"]))
+            response.status_code, response.reason, error_msg))
   res_json = response.json()
   response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
   # This is used to log cached mixer usage and is a list to be compatible with other cached
