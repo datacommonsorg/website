@@ -463,6 +463,26 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     blocklist_svg = ["dc/g/Uncategorized", "oecd/g/OECD"]
   app.config['BLOCKLIST_SVG'] = blocklist_svg
 
+  # Determine custom header and footer paths
+  header_json_path = "config/base/header.json"
+  footer_json_path = "config/base/footer.json"
+  if cfg.CUSTOM and custom_dc_template_folder:
+    custom_config_path = os.path.join(app.root_path, "config", "custom_dc",
+                                      custom_dc_template_folder)
+
+    custom_header_override = os.path.join(custom_config_path, "base",
+                                          "header.json")
+    if os.path.exists(custom_header_override):
+      header_json_path = custom_header_override
+
+    custom_footer_override = os.path.join(custom_config_path, "base",
+                                          "footer.json")
+    if os.path.exists(custom_footer_override):
+      footer_json_path = custom_footer_override
+
+  app.config['HEADER_JSON_PATH'] = header_json_path
+  app.config['FOOTER_JSON_PATH'] = footer_json_path
+
   # Set whether to filter stat vars with low geographic coverage in the
   # map and scatter tools.
   app.config['MIN_STAT_VAR_GEO_COVERAGE'] = cfg.MIN_STAT_VAR_GEO_COVERAGE
@@ -503,14 +523,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Provides locale and other common parameters in all templates
   @app.context_processor
   def inject_common_parameters():
+    header_menu = libutil.get_json(app.config['HEADER_JSON_PATH'])
+    footer_menu = libutil.get_json(app.config['FOOTER_JSON_PATH'])
+
     common_variables = {
-        #TODO: replace HEADER_MENU with V2
-        'HEADER_MENU':
-            json.dumps(libutil.get_json("config/base/header.json")),
-        'FOOTER_MENU':
-            json.dumps(libutil.get_json("config/base/footer.json")),
-        'HEADER_MENU_V2':
-            json.dumps(libutil.get_json("config/base/header_v2.json")),
+        'HEADER_MENU': json.dumps(header_menu),
+        'FOOTER_MENU': json.dumps(footer_menu),
     }
     locale_variable = dict(locale=get_locale())
     return {**common_variables, **locale_variable}
