@@ -66,6 +66,7 @@ function App(): ReactElement {
     statVar.value,
     placeInfo.value
   );
+  const visToolExamples = globalThis.visToolExamples || [];
 
   return (
     <React.StrictMode>
@@ -99,7 +100,10 @@ function App(): ReactElement {
                       margin-top: ${theme.spacing.xl}px;
                     `}
                   >
-                    <ChartLinkChips toolType="map" />
+                    <ChartLinkChips
+                      toolType="map"
+                      visToolExamples={visToolExamples}
+                    />
                   </div>
                 )
               ) : (

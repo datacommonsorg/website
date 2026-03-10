@@ -84,7 +84,7 @@ enum LoadingStatus {
   DEMO_INIT = "demoInit",
 }
 
-const DEFAULT_PLACE = "geoId/06";
+const DEFAULT_PLACE = "Earth";
 
 const toApiList = (input: string): string[] => {
   // Split of an empty string returns [''].  Trim empties.
