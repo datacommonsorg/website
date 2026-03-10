@@ -59,7 +59,7 @@ LINE_LIMIT = 45000
 # Name for sitemap with priority places to test
 PRIORITY_PLACE_SITEMAP = "PriorityPlaces.0.txt"
 
-# CSV storing BQ query results for queries that are too heavy for sparql
+# CSV storing BQ query results for queries that are too heavy for mixer
 BQ_CSV = "cities_with_population_over_500k.csv"
 
 

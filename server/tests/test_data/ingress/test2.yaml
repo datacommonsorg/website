@@ -1,7 +1,5 @@
 observations-api:5000:
   - /v2/observation
-bq-service:
-  - /v2/sparql
 v0-node-service:8888:
   - /v2/node
 stat-var-svc:
