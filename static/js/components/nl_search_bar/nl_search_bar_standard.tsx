@@ -33,19 +33,16 @@ export function NlSearchBarStandard({
   shouldAutoFocus,
 }: NlSearchBarImplementationProps): ReactElement {
   return (
-    <div className="search-section">
-      <div className="search-bar-tags"></div>
-      <AutoCompleteInput
-        enableAutoComplete={false}
-        value={value}
-        invalid={invalid}
-        inputId={inputId}
-        onChange={onChange}
-        onSearch={onSearch}
-        feedbackLink={feedbackLink}
-        shouldAutoFocus={shouldAutoFocus}
-        barType="standard"
-      />
-    </div>
+    <AutoCompleteInput
+      enableAutoComplete={false}
+      value={value}
+      invalid={invalid}
+      inputId={inputId}
+      onChange={onChange}
+      onSearch={onSearch}
+      feedbackLink={feedbackLink}
+      shouldAutoFocus={shouldAutoFocus}
+      barType="standard"
+    />
   );
 }
