@@ -62,7 +62,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/core.min.css', t=config['VERSION'])}}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
   {% block head %}
   {% endblock %}
@@ -70,69 +70,36 @@
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
   <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
+  <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
 </head>
 
 <body>
-  {# Set page locale. #}
-  <div id="metadata-base" class="d-none" 
+{# Set page locale and pass header/footer configuration to base.js #}
+<div id="metadata-base" class="d-none"
+    data-header="{{ HEADER_MENU }}"
+    data-footer="{{ FOOTER_MENU }}"
+    data-logo-path="{{ LOGO_PATH }}"
+    data-logo-width="{{ LOGO_WIDTH }}"
+    data-name="{{ NAME }}"
+    data-show-disaster="{{ SHOW_DISASTER }}"
+    data-show-sustainability="{{ SHOW_SUSTAINABILITY }}"
     data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
+    data-ga-value-search-source="{{ ga_value_search_source }}"
+    data-search-bar-hash-mode="{{ is_search_bar_hash_mode }}"
+    data-hide-full-footer="{{ is_hide_full_footer }}"
+    data-hide-sub-footer="{{ is_hide_sub_footer }}"
+    data-subfooter-extra="{{ subfooter_extra_content|safe }}"
+    data-brand-logo-light="{{ brand_logo_light }}"
     data-locale="{{ locale }}"
-  >
-  </div>
+    data-sample-questions="{{ sample_questions }}"
+>
+</div>
 
-  <div id="main">
+{% include 'metadata/labels.html' %}
+{% include 'metadata/routes.html' %}
+
+<div id="main">
     <header id="main-header">
-      <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
-        <div class="container-fluid">
-          <div class="navbar-brand">
-            {% if LOGO_PATH %}
-            <div class="main-header-logo">
-                <a href="{{ url_for('static.homepage') }}">
-                  <img src="{{ LOGO_PATH }}" />
-                </a>
-            </div>
-            {% endif %}
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            {% if subpage_title %}
-            <span class="sep">•</span>
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
-            </a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-            <ul class="navbar-nav float-md-right">
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.visualization') }}#visType=timeline" id="nav-timeline" class="nav-link-main "><span>Timeline</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.visualization') }}#visType=scatter" id="nav-scatter" class="nav-link-main"><span>Scatter</span> </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.visualization') }}#visType=map" id="nav-map" class="nav-link-main "><span>Map</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.download') }}" id="nav-download" class="nav-link-main "><span>Download</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.stat_var') }}" id="nav-var" class="nav-link-main "><span>Variables</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('browser.browser_main') }}" id="nav-browser" class="nav-link-main "><span>Knowledge Graph</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('explore.page') }}" id="nav-explorer" class="nav-link-main "><span>Search</span></a>
-                </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
     </header>
 
     <main id="{{ main_id }}" class="main-content">
@@ -140,10 +107,6 @@
       {% endblock %}
     </main>
 
-    <footer id="main-footer">
-      <div class="container">
-      </div>
-    </footer>
   </div>
   {# Compile this down (or manually implement). Used only for nav bar so far #}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

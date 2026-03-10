@@ -117,7 +117,7 @@ interface CommonButtonProps {
   // 'flat': a filled, borderless button (fill but no outline).
   // 'light': a lighter, subtle button (light color and no border)
   // Default: 'standard'
-  variant?: "standard" | "inverted" | "text" | "flat" | "light";
+  variant?: "standard" | "inverted" | "text" | "flat" | "light" | "naked";
   // The size of the button.
   // Default: 'md'
   size?: "sm" | "md" | "lg";
@@ -235,6 +235,11 @@ export const Button = forwardRef<
     `,
     light: css`
       ${theme.button.variant.light}
+    `,
+    naked: css`
+      border: 0;
+      background: transparent;
+      padding: 0;
     `,
   };
 
