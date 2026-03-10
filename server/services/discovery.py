@@ -190,8 +190,9 @@ def get_service_url(endpoint_path: str) -> str:
   if endpoint_path not in endpoints.endpoint_paths:
     raise InvalidEndpointException('endpoint %s was not configured' %
                                    endpoint_path)
-  print(f"DEBUG: get_service_url({endpoint_path}) -> {endpoints.get_service_url(endpoint_path)}")
-  return endpoints.get_service_url(endpoint_path)
+  service_url = endpoints.get_service_url(endpoint_path)
+  print(f"DEBUG: get_service_url({endpoint_path}) -> {service_url}")
+  return service_url
 
 
 def get_health_check_urls():
