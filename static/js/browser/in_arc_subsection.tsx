@@ -76,6 +76,9 @@ export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
                     provenanceName={
                       this.props.provenanceNames[arcValue.provenanceId] || null
                     }
+                    hideProvenanceColumn={
+                      this.props.parentType === "Provenance"
+                    }
                   />
                 );
               })}

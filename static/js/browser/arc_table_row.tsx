@@ -40,6 +40,8 @@ interface ArcTableRowPropType {
   // Index of the property label; the same property can be listed multiple times
   // in an arc table. This index differentiates them.
   propIndex?: number;
+  // If set to true, will hide the provenance column entirely.
+  hideProvenanceColumn?: boolean;
 }
 
 interface ArcTableRowStateType {
@@ -137,17 +139,18 @@ export class ArcTableRow extends React.Component<
               })}
           </div>
         </td>
-        {this.props.provenanceId && this.props.provenanceName ? (
-          <td className="provenance-column">
-            {this.props.provenanceId && (
-              <a href={HREF_PREFIX + this.props.provenanceId}>
-                {this.props.provenanceName}
-              </a>
-            )}
-          </td>
-        ) : (
-          <td></td>
-        )}
+        {!this.props.hideProvenanceColumn &&
+          (this.props.provenanceId && this.props.provenanceName ? (
+            <td className="provenance-column">
+              {this.props.provenanceId && (
+                <a href={HREF_PREFIX + this.props.provenanceId}>
+                  {this.props.provenanceName}
+                </a>
+              )}
+            </td>
+          ) : (
+            <td className="provenance-column"></td>
+          ))}
       </tr>
     );
   }

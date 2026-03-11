@@ -121,6 +121,7 @@ export class OutArcSection extends React.Component<
     }
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
+    const isProvenanceNode = this.props.nodeTypes.includes("Provenance");
     return (
       <div className={`card p-0 ${ASYNC_ELEMENT_CLASS}`}>
         <table className="node-table">
@@ -128,7 +129,9 @@ export class OutArcSection extends React.Component<
             <tr key="header">
               <th className="property-column">Property</th>
               <th>Value</th>
-              <th>Provenance</th>
+              {!isProvenanceNode && (
+                <th className="provenance-column">Provenance</th>
+              )}
             </tr>
             <ArcTableRow
               key={DCID_PREDICATE}
@@ -136,6 +139,7 @@ export class OutArcSection extends React.Component<
               values={[{ text: this.props.dcid }]}
               provenanceId={""}
               provenanceName={null}
+              hideProvenanceColumn={isProvenanceNode}
             />
             {predicates.map((predicate) => {
               const valuesByProvenance = this.state.data[predicate];
@@ -151,6 +155,7 @@ export class OutArcSection extends React.Component<
                         this.props.provenanceNames[provenanceId] || null
                       }
                       propIndex={index}
+                      hideProvenanceColumn={isProvenanceNode}
                     />
                   );
                 }
