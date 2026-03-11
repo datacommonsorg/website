@@ -39,15 +39,6 @@ const SCROLL_MARGIN = 10;
 const SCROLL_TIMEOUT = 10000;
 const SCROLL_DELAY = 500;
 
-/**
- * Mapping of raw provenance names (returned by the API) to custom display names.
- * This can be used to make certain data sources more human-readable in the UI.
- * If a provenance name is not in this map, the original string will be used.
- */
-const PROVENANCE_DISPLAY_NAME_MAP: Record<string, string> = {
-  HumanReadableStatVars: "Data Commons",
-};
-
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
@@ -234,8 +225,7 @@ export class BrowserPage extends React.Component<
         const provenanceNames = {};
         for (const provId in provenance) {
           const provenanceName = provenance[provId].name;
-          provenanceNames[provId] =
-            PROVENANCE_DISPLAY_NAME_MAP[provenanceName] || provenanceName;
+          provenanceNames[provId] = provenanceName;
         }
         this.setState({
           dataFetched: true,
