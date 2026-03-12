@@ -40,19 +40,30 @@ interface OutArcData {
   };
 }
 
+/**
+ * Properties that should always be ignored (not shown in the out arcs table).
+ */
 const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "provenance",
   "kmlCoordinates",
-  "geoJsonCoordinates",
-  "geoJsonCoordinatesDP1",
-  "geoJsonCoordinatesDP2",
-  "geoJsonCoordinatesDP3",
-  "geoJsonCoordinatesUN",
-  "geoJsonCoordinatesUNDP1",
-  "geoJsonCoordinatesUNDP2",
-  "geoJsonCoordinatesUNDP3",
   "firePerimeter",
 ]);
+
+/**
+ * Properties that start with any of these prefixes will be ignored.
+ * This is used for properties that have many different versions (e.g. geoJsonCoordinatesDP1, geoJsonCoordinatesDP2, etc.)
+ */
+const IGNORED_OUT_ARC_PREFIXES = ["geoJsonCoordinates"];
+
+/**
+ * Returns true if the given property should be ignored (not shown in the out arcs table).
+ */
+export function shouldIgnoreProperty(property: string): boolean {
+  return (
+    IGNORED_OUT_ARC_PROPERTIES.has(property) ||
+    IGNORED_OUT_ARC_PREFIXES.some((prefix) => property.startsWith(prefix))
+  );
+}
 
 interface OutArcSectionPropType {
   dcid: string;
@@ -163,7 +174,7 @@ export class OutArcSection extends React.Component<
         const triplesData: PropertyValues = resp.data;
         const outArcsByPredProv: OutArcData = {};
         for (const pred in triplesData) {
-          if (IGNORED_OUT_ARC_PROPERTIES.has(pred)) {
+          if (shouldIgnoreProperty(pred)) {
             continue;
           }
           const predData = {};
