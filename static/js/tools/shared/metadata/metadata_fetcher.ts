@@ -574,7 +574,7 @@ export async function fetchMetadataV2(
       entities,
       statVars,
       statVarToFacets: convertedStatVarToFacets,
-      facets,
+      facets: facets ? Object.keys(facets) : undefined,
     }),
   });
 

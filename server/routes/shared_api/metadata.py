@@ -232,7 +232,7 @@ async def get_metadata():
   entities = req_data.get('entities', [])
   stat_vars = req_data.get('statVars', [])
   stat_var_to_facets = req_data.get('statVarToFacets', {})
-  frontend_facets = req_data.get('facets', {})
+  frontend_facets = req_data.get('facets', [])
 
   if not isinstance(entities, list) or not isinstance(stat_vars, list):
     return jsonify({'error': 'entities and statVars must be lists'}), 400
@@ -247,7 +247,7 @@ async def get_metadata():
       'variable': {'dcids': stat_vars}
   }
   if frontend_facets:
-      v2obs_kwargs['filter'] = {'facetIds': list(frontend_facets.keys())}
+      v2obs_kwargs['filter'] = {'facetIds': frontend_facets}
 
   try:
     name_resp, obs_resp, category_map = await asyncio.gather(
