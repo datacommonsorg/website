@@ -53,10 +53,9 @@ def _get_node_name(node_list, linked_names_map):
 
 def _extract_active_facets(sv, obs_resp, stat_var_to_facets):
   """Extracts active facets for a given stat var."""
-  active_facets = stat_var_to_facets.get(sv, [])
+  active_facets = list(stat_var_to_facets.get(sv, []))
   if not active_facets:
-    by_entity = obs_resp.get('byVariable', {}).get(sv,
-                                                      {}).get('byEntity', {})
+    by_entity = obs_resp.get('byVariable', {}).get(sv, {}).get('byEntity', {})
     for ent_data in by_entity.values():
       for f in ent_data.get('orderedFacets', []):
         active_facets.append(f.get('facetId'))
@@ -95,7 +94,7 @@ async def fetch_categories_async(stat_vars):
 
       parent_list = list(parents)
       parent_map[node].extend(parent_list)
-  
+
       for p in parent_list:
         # Use visited set to prevent graph cycles
         if p != 'dc/g/Root' and p not in visited:
@@ -243,19 +242,23 @@ async def get_metadata():
   # Initial Data Fetching
   v2obs_kwargs = {
       'select': ['entity', 'variable', 'facet'],
-      'entity': {'dcids': entities},
-      'variable': {'dcids': stat_vars}
+      'entity': {
+          'dcids': entities
+      },
+      'variable': {
+          'dcids': stat_vars
+      }
   }
   if frontend_facets:
-      v2obs_kwargs['filter'] = {'facetIds': frontend_facets}
+    v2obs_kwargs['filter'] = {'facetIds': frontend_facets}
 
   try:
     name_resp, obs_resp, category_map = await asyncio.gather(
         asyncio.to_thread(dc.v2node, stat_vars, '->name'),
         asyncio.to_thread(dc.v2observation, **v2obs_kwargs),
         fetch_categories_async(stat_vars))
-  except Exception as e:
-    logging.error(f"Failed to fetch primary metadata from DC: {e}")
+  except Exception:
+    logging.exception("Failed to fetch primary metadata from DC")
     return jsonify({'error': 'Failed to communicate with Data Commons service'
                    }), 502
 
@@ -292,8 +295,7 @@ async def get_metadata():
         provenance_endpoints.add(f"dc/base/{finfo['importName']}")
 
       # Aggregate Date Ranges
-      by_entity = obs_resp.get('byVariable', {}).get(sv,
-                                                        {}).get('byEntity', {})
+      by_entity = obs_resp.get('byVariable', {}).get(sv, {}).get('byEntity', {})
       for ent_data in by_entity.values():
         for f in ent_data.get('orderedFacets', []):
           if f.get('facetId') != fid:
@@ -316,8 +318,8 @@ async def get_metadata():
         if measurement_methods else asyncio.sleep(0, result={}),
         asyncio.to_thread(dc.v2node, list(units), '->name')
         if units else asyncio.sleep(0, result={}))
-  except Exception as e:
-    logging.error(f"Failed to fetch secondary metadata from DC: {e}")
+  except Exception:
+    logging.exception("Failed to fetch secondary metadata from DC")
     return jsonify({'error': 'Failed to resolve secondary node data'}), 502
 
   # Process secondary lookups
@@ -349,8 +351,8 @@ async def get_metadata():
         n_arcs = _get_arc_nodes(linked_names_resp, n_dcid, 'name')
         if n_arcs:
           linked_names_map[n_dcid] = n_arcs[0].get('value')
-    except Exception as e:
-      logging.error(f"Failed to resolve linked provenance names: {e}")
+    except Exception:
+      logging.exception("Failed to resolve linked provenance names")
 
   mm_map = {
       mm: _get_arc_nodes(mm_res, mm, 'description')[0].get('value')
@@ -365,8 +367,8 @@ async def get_metadata():
 
   # Assemble and return the final response
   metadata_map = _build_metadata_payload(stat_vars, stat_var_names,
-                                         category_map, sv_active_facets,
-                                         facets, facet_date_ranges, prov_map,
+                                         category_map, sv_active_facets, facets,
+                                         facet_date_ranges, prov_map,
                                          linked_names_map, mm_map, unit_map)
 
   return jsonify({'metadata': metadata_map, 'statVarList': stat_var_list})
