@@ -221,6 +221,13 @@ def _build_metadata_payload(stat_vars, stat_var_names, category_map,
   return metadata_map
 
 
+async def _fetch_node_data(dcids, prop):
+  """Helper to fetch node data only if the list of DCIDs is not empty."""
+  if not dcids:
+    return {}
+  return await asyncio.to_thread(dc.v2node, list(dcids), prop)
+
+
 @bp.route('', methods=['POST'])
 async def get_metadata():
   # Input Validation
@@ -312,12 +319,9 @@ async def get_metadata():
   # Look up names and descriptions of provenances, measurement methods and units
   try:
     prov_res, mm_res, unit_res = await asyncio.gather(
-        asyncio.to_thread(dc.v2node, list(provenance_endpoints), '->*')
-        if provenance_endpoints else asyncio.sleep(0, result={}),
-        asyncio.to_thread(dc.v2node, list(measurement_methods), '->description')
-        if measurement_methods else asyncio.sleep(0, result={}),
-        asyncio.to_thread(dc.v2node, list(units), '->name')
-        if units else asyncio.sleep(0, result={}))
+        _fetch_node_data(provenance_endpoints, '->*'),
+        _fetch_node_data(measurement_methods, '->description'),
+        _fetch_node_data(units, '->name'))
   except Exception:
     logging.exception("Failed to fetch secondary metadata from DC")
     return jsonify({'error': 'Failed to resolve secondary node data'}), 502
