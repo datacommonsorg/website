@@ -95,7 +95,7 @@ async def fetch_categories_async(stat_vars):
 
       parent_list = list(parents)
       parent_map[node].extend(parent_list)
-
+  
       for p in parent_list:
         # Use visited set to prevent graph cycles
         if p != 'dc/g/Root' and p not in visited:
@@ -151,7 +151,7 @@ async def fetch_categories_async(stat_vars):
 
 
 def _build_metadata_payload(stat_vars, stat_var_names, category_map,
-                            sv_active_facets, v2_facets, facet_date_ranges,
+                            sv_active_facets, facets, facet_date_ranges,
                             prov_map, linked_names_map, mm_map, unit_map):
   """Constructs the final aggregated metadata dictionary."""
   metadata_map = collections.defaultdict(list)
@@ -160,7 +160,7 @@ def _build_metadata_payload(stat_vars, stat_var_names, category_map,
     active_facets = sv_active_facets.get(sv, [])
 
     for fid in active_facets:
-      finfo = v2_facets.get(fid, {})
+      finfo = facets.get(fid, {})
       import_name = finfo.get('importName')
       if not import_name:
         continue
@@ -241,13 +241,18 @@ async def get_metadata():
     return jsonify({'metadata': {}, 'statVarList': []})
 
   # Initial Data Fetching
+  v2obs_kwargs = {
+      'select': ['entity', 'variable', 'facet'],
+      'entity': {'dcids': entities},
+      'variable': {'dcids': stat_vars}
+  }
+  if frontend_facets:
+      v2obs_kwargs['filter'] = {'facetIds': list(frontend_facets.keys())}
+
   try:
     name_resp, obs_resp, category_map = await asyncio.gather(
         asyncio.to_thread(dc.v2node, stat_vars, '->name'),
-        asyncio.to_thread(dc.v2observation,
-                          select=['entity', 'variable', 'facet'],
-                          entity={'dcids': entities},
-                          variable={'dcids': stat_vars}),
+        asyncio.to_thread(dc.v2observation, **v2obs_kwargs),
         fetch_categories_async(stat_vars))
   except Exception as e:
     logging.error(f"Failed to fetch primary metadata from DC: {e}")
@@ -270,15 +275,7 @@ async def get_metadata():
       for sv in stat_vars
   }
 
-  # Process Observations to determine dates and measurement methods/units/import names
-  v2_facets = obs_resp.get('facets', {})
-
-  # Merge the frontend's date-accurate facets so importNames are never dropped
-  for key, val in frontend_facets.items():
-    if isinstance(val, dict) and 'importName' not in val:
-      v2_facets.update(val)
-    else:
-      v2_facets[key] = val
+  facets = obs_resp.get('facets', {})
 
   facet_date_ranges = collections.defaultdict(dict)
   provenance_endpoints, measurement_methods, units = set(), set(), set()
@@ -286,7 +283,7 @@ async def get_metadata():
   for sv in stat_vars:
     for fid in sv_active_facets[sv]:
       # Aggregate measurement methods, units and import names
-      finfo = v2_facets.get(fid, {})
+      finfo = facets.get(fid, {})
       if finfo.get('unit'):
         units.add(finfo['unit'])
       if finfo.get('measurementMethod'):
@@ -369,7 +366,7 @@ async def get_metadata():
   # Assemble and return the final response
   metadata_map = _build_metadata_payload(stat_vars, stat_var_names,
                                          category_map, sv_active_facets,
-                                         v2_facets, facet_date_ranges, prov_map,
+                                         facets, facet_date_ranges, prov_map,
                                          linked_names_map, mm_map, unit_map)
 
   return jsonify({'metadata': metadata_map, 'statVarList': stat_var_list})
