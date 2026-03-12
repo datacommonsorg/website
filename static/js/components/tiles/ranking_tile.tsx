@@ -242,9 +242,13 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const entities = useMemo(
     () =>
       rankingData
-        ? Object.values(rankingData).flatMap((svData) =>
-          svData.points.map((p) => p.placeDcid)
-        )
+        ? Array.from(
+            new Set(
+              Object.values(rankingData).flatMap((svData) =>
+                svData.points.map((p) => p.placeDcid)
+              )
+            )
+          )
         : [],
     [rankingData]
   );

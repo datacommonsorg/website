@@ -370,10 +370,12 @@ export function getRankingUnit(
     rankingGroup,
     enableScroll
   );
-  const entities = [
-    ...(topPoints || []).map((p) => p.placeDcid),
-    ...(bottomPoints || []).map((p) => p.placeDcid),
-  ];
+  const entities = Array.from(
+    new Set([
+      ...(topPoints || []).map((p) => p.placeDcid),
+      ...(bottomPoints || []).map((p) => p.placeDcid),
+    ])
+  );
   const title = getRankingUnitTitle(
     tileConfigTitle,
     rankingMetadata,

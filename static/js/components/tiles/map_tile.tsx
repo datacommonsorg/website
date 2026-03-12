@@ -246,8 +246,12 @@ export function MapTile(props: MapTilePropType): ReactElement {
   const entities = useMemo(
     () =>
       mapChartData
-        ? mapChartData.layerData.flatMap((layer) =>
-            Object.keys(layer.dataValues || {})
+        ? Array.from(
+            new Set(
+              mapChartData.layerData.flatMap((layer) =>
+                Object.keys(layer.dataValues || {})
+              )
+            )
           )
         : [],
     [mapChartData]
