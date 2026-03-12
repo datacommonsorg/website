@@ -15,23 +15,26 @@
 import asyncio
 import collections
 import logging
+from typing import Any
 
 from flask import Blueprint
 from flask import jsonify
 from flask import request
+from flask import Response
 
 from server.services import datacommons as dc
 
 bp = Blueprint("metadata", __name__, url_prefix='/api/shared/metadata')
 
-MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES = {"WikipediaStatsData"}
+MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES: set[str] = {"WikipediaStatsData"}
 
 
-def title_case(string):
+def title_case(string: str) -> str:
   return " ".join([word.capitalize() for word in string.split("_")])
 
 
-def _get_arc_nodes(data_dict, node_id, arc_name):
+def _get_arc_nodes(data_dict: dict[str, Any], node_id: str,
+                   arc_name: str) -> list[dict[str, Any]]:
   """Extracts nodes for a given arc from a v2node response dictionary."""
   return data_dict.get('data', {}).get(node_id,
                                        {}).get('arcs',
@@ -39,7 +42,8 @@ def _get_arc_nodes(data_dict, node_id, arc_name):
                                                        {}).get('nodes', [])
 
 
-def _get_node_name(node_list, linked_names_map):
+def _get_node_name(node_list: list[dict[str, Any]],
+                   linked_names_map: dict[str, str]) -> str | None:
   """Helper to resolve a node's display name from either a literal value or linked reference."""
   if not node_list:
     return None
@@ -51,7 +55,9 @@ def _get_node_name(node_list, linked_names_map):
   return None
 
 
-def _extract_active_facets(sv, obs_resp, stat_var_to_facets):
+def _extract_active_facets(
+    sv: str, obs_resp: dict[str, Any],
+    stat_var_to_facets: dict[str, list[str]]) -> list[str]:
   """Extracts active facets for a given stat var."""
   active_facets = list(stat_var_to_facets.get(sv, []))
   if not active_facets:
@@ -62,7 +68,7 @@ def _extract_active_facets(sv, obs_resp, stat_var_to_facets):
   return list(set(active_facets))
 
 
-async def fetch_categories_async(stat_vars):
+async def fetch_categories_async(stat_vars: list[str]) -> dict[str, list[str]]:
   """Traverses the category hierarchy tree up to top-level topics."""
   parent_map = collections.defaultdict(list)
   current_nodes = set(stat_vars)
@@ -109,7 +115,7 @@ async def fetch_categories_async(stat_vars):
   for sv in stat_vars:
     tops = set()
 
-    def traverse(n, curr_visited):
+    def traverse(n: str, curr_visited: set[str]) -> None:
       if n in curr_visited:
         return
       curr_visited.add(n)
@@ -127,7 +133,7 @@ async def fetch_categories_async(stat_vars):
     sv_top_levels[sv] = list(tops)
     all_top_level_dcids.update(tops)
 
-  category_map = {}
+  category_map: dict[str, list[str]] = {}
   if all_top_level_dcids:
     parent_name_resp = await asyncio.to_thread(dc.v2node,
                                                list(all_top_level_dcids),
@@ -149,9 +155,14 @@ async def fetch_categories_async(stat_vars):
   return category_map
 
 
-def _build_metadata_payload(stat_vars, stat_var_names, category_map,
-                            sv_active_facets, facets, facet_date_ranges,
-                            prov_map, linked_names_map, mm_map, unit_map):
+def _build_metadata_payload(
+    stat_vars: list[str], stat_var_names: dict[str, str],
+    category_map: dict[str, list[str]], sv_active_facets: dict[str, list[str]],
+    facets: dict[str, Any], facet_date_ranges: dict[str, dict[str, str]],
+    prov_map: dict[str, dict[str, Any]], linked_names_map: dict[str, str],
+    mm_map: dict[str,
+                 str], unit_map: dict[str,
+                                      str]) -> dict[str, list[dict[str, Any]]]:
   """Constructs the final aggregated metadata dictionary."""
   metadata_map = collections.defaultdict(list)
 
@@ -221,7 +232,7 @@ def _build_metadata_payload(stat_vars, stat_var_names, category_map,
   return metadata_map
 
 
-async def _fetch_node_data(dcids, prop):
+async def _fetch_node_data(dcids: set[str], prop: str) -> dict[str, Any]:
   """Helper to fetch node data only if the list of DCIDs is not empty."""
   if not dcids:
     return {}
@@ -229,16 +240,16 @@ async def _fetch_node_data(dcids, prop):
 
 
 @bp.route('', methods=['POST'])
-async def get_metadata():
+async def get_metadata() -> tuple[Response, int] | Response:
   # Input Validation
   req_data = request.get_json(silent=True)
   if not req_data:
     return jsonify({'error': 'Must provide a valid JSON body'}), 400
 
-  entities = req_data.get('entities', [])
-  stat_vars = req_data.get('statVars', [])
-  stat_var_to_facets = req_data.get('statVarToFacets', {})
-  frontend_facets = req_data.get('facets', [])
+  entities: list[str] = req_data.get('entities', [])
+  stat_vars: list[str] = req_data.get('statVars', [])
+  stat_var_to_facets: dict[str, list[str]] = req_data.get('statVarToFacets', {})
+  frontend_facets: list[str] = req_data.get('facets', [])
 
   if not isinstance(entities, list) or not isinstance(stat_vars, list):
     return jsonify({'error': 'entities and statVars must be lists'}), 400
@@ -270,8 +281,8 @@ async def get_metadata():
                    }), 502
 
   # Process Stat Var Names into a lookup dictionary
-  stat_var_names = {}
-  stat_var_list = []
+  stat_var_names: dict[str, str] = {}
+  stat_var_list: list[dict[str, str]] = []
   if 'data' in name_resp:
     for sv in stat_vars:
       nodes = _get_arc_nodes(name_resp, sv, 'name')
@@ -280,15 +291,17 @@ async def get_metadata():
       stat_var_list.append({"dcid": sv, "name": name})
 
   # Collate active facets per stat var
-  sv_active_facets = {
+  sv_active_facets: dict[str, list[str]] = {
       sv: _extract_active_facets(sv, obs_resp, stat_var_to_facets)
       for sv in stat_vars
   }
 
   facets = obs_resp.get('facets', {})
 
-  facet_date_ranges = collections.defaultdict(dict)
-  provenance_endpoints, measurement_methods, units = set(), set(), set()
+  facet_date_ranges: dict[str, dict[str, str]] = collections.defaultdict(dict)
+  provenance_endpoints: set[str] = set()
+  measurement_methods: set[str] = set()
+  units: set[str] = set()
 
   for sv in stat_vars:
     for fid in sv_active_facets[sv]:
@@ -327,8 +340,8 @@ async def get_metadata():
     return jsonify({'error': 'Failed to resolve secondary node data'}), 502
 
   # Process secondary lookups
-  prov_map = {}
-  linked_prov_dcids = set()
+  prov_map: dict[str, dict[str, Any]] = {}
+  linked_prov_dcids: set[str] = set()
 
   if 'data' in prov_res:
     for dcid, node_data in prov_res['data'].items():
@@ -345,7 +358,7 @@ async def get_metadata():
         if 'dcid' in n:
           linked_prov_dcids.add(n['dcid'])
 
-  linked_names_map = {}
+  linked_names_map: dict[str, str] = {}
   if linked_prov_dcids:
     try:
       linked_names_resp = await asyncio.to_thread(dc.v2node,
@@ -358,12 +371,12 @@ async def get_metadata():
     except Exception:
       logging.exception("Failed to resolve linked provenance names")
 
-  mm_map = {
+  mm_map: dict[str, str] = {
       mm: _get_arc_nodes(mm_res, mm, 'description')[0].get('value')
       for mm in measurement_methods
       if _get_arc_nodes(mm_res, mm, 'description')
   }
-  unit_map = {
+  unit_map: dict[str, str] = {
       u: _get_arc_nodes(unit_res, u, 'name')[0].get('value')
       for u in units
       if _get_arc_nodes(unit_res, u, 'name')
