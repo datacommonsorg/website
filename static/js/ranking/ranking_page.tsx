@@ -15,9 +15,12 @@
  */
 
 import axios from "axios";
+import { ThemeProvider } from "@emotion/react";
 import _ from "lodash";
 import React from "react";
 import { defineMessages } from "react-intl";
+
+import theme from "../theme/theme";
 
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
@@ -31,9 +34,13 @@ import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { getMatchingObservation } from "../tools/shared_util";
 import { getRoot, stringifyFn } from "../utils/axios";
 import { getPointWithin, getSeriesWithin } from "../utils/data_fetch_utils";
-import { RankingHistogram } from "./ranking_histogram";
-import { RankingTable } from "./ranking_table";
 import { LocationRankData, RankInfo } from "./ranking_types";
+
+import { BarTile } from "../components/tiles/bar_tile";
+import { RankingTile } from "../components/tiles/ranking_tile";
+import { StatVarSpec } from "../shared/types";
+
+
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
@@ -74,8 +81,7 @@ export class Page extends React.Component<
     );
     const params = new URLSearchParams(window.location.search);
     this.isBottom = params.get(GET_BOTTOM_PARAM) !== null;
-    this.loadData = this.loadData.bind(this);
-    this.fetchDataFromRankingCache = this.fetchDataFromRankingCache.bind(this);
+
   }
 
   subtitleMessages = defineMessages({
@@ -132,10 +138,7 @@ export class Page extends React.Component<
   });
 
   private renderToggle(): JSX.Element {
-    const svData = this.state.data;
-    if (!_.isEmpty(svData.rankAll)) {
-      return;
-    }
+
     if (this.isBottom) {
       // show link to top 100
       const params = new URLSearchParams(window.location.search);
@@ -223,209 +226,85 @@ export class Page extends React.Component<
       placeName: this.props.placeName,
     };
 
-    let mainBlock: JSX.Element;
-    if (svData === undefined) {
-      mainBlock = (
-        <div className="mt-4">
-          {intl.formatMessage({
-            id: "ranking-loading",
-            defaultMessage: "Loading...",
-            description: "Message shown while ranking data is still loading.",
-          })}
-        </div>
-      );
-    } else if (svData === null || (ranking && !ranking.info)) {
-      mainBlock = (
-        <div className="mt-4">
-          {intl.formatMessage({
-            id: "ranking-no_data",
-            defaultMessage: "There is no ranking data available.",
-            description:
-              "Message to notify users that there is no ranking information available to show.",
-          })}
-        </div>
-      );
-    } else {
-      mainBlock = (
-        <>
-          <RankingHistogram
-            ranking={ranking}
-            scaling={this.props.scaling}
-            unit={this.props.unit}
-          />
-          <RankingTable
-            ranking={ranking}
-            isPerCapita={this.props.isPerCapita}
-            placeType={this.props.placeType}
-            scaling={this.props.scaling}
-            sortAscending={!this.isBottom}
-            statVar={this.props.statVar}
-            unit={this.props.unit}
-          />
-        </>
-      );
-    }
+    const varSpec: StatVarSpec = {
+      statVar: this.props.statVar,
+      denom: this.props.isPerCapita ? "Count_Person" : "",
+      scaling: this.props.scaling,
+      unit: this.props.unit,
+      date: this.props.date || "LATEST",
+      log: false, // required on StatVarSpec
+    };
+
+    const mainBlock = (
+      <>
+        <BarTile
+          apiRoot={getRoot()}
+          id="ranking-histogram"
+          parentPlace={this.props.withinPlace}
+          enclosedPlaceType={this.props.placeType}
+          variables={[varSpec]}
+          svgChartHeight={300}
+          title={this.svTitle}
+        />
+        <RankingTile
+          apiRoot={getRoot()}
+          id="ranking-table"
+          parentPlace={this.props.withinPlace}
+          enclosedPlaceType={this.props.placeType}
+          variables={[varSpec]}
+          title={this.svTitle}
+          rankingMetadata={{
+            showHighest: !this.isBottom,
+            showLowest: this.isBottom,
+            rankingCount: RANK_SIZE,
+          }}
+        />
+      </>
+    );
     return (
-      <div key={statVar}>
-        <div className="btn-group btn-group-sm float-right" role="group"></div>
-        <h1>
-          {intl.formatMessage(
-            {
-              id: "ranking-page_title",
-              defaultMessage: "Ranking by {statVar}",
-              description:
-                "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation.",
-            },
-            {
-              statVar: this.svTitle,
-            }
-          )}
-        </h1>
-        <h3>
-          {intl.formatMessage(subtitleMessage, subtitleArgs)}
-          {svData && this.renderToggle()}
-        </h3>
-        {mainBlock}
-      </div>
+      <ThemeProvider theme={theme}>
+        <div key={statVar}>
+          <div className="btn-group btn-group-sm float-right" role="group"></div>
+          <h1>
+            {intl.formatMessage(
+              {
+                id: "ranking-page_title",
+                defaultMessage: "Ranking by {statVar}",
+                description:
+                  "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation.",
+              },
+              {
+                statVar: this.svTitle,
+              }
+            )}
+          </h1>
+          <h3>
+            {intl.formatMessage(subtitleMessage, subtitleArgs)}
+            {this.renderToggle()}
+          </h3>
+          {mainBlock}
+        </div>
+      </ThemeProvider>
     );
   }
 
   componentDidMount(): void {
-    if (this.props.date) {
-      this.loadData();
-    } else {
-      this.fetchDataFromRankingCache();
-    }
-  }
-
-  private fetchDataFromRankingCache(): void {
-    const url =
-      `${getRoot()}/api/ranking/${this.props.statVar}/${this.props.placeType}/${
-        this.props.withinPlace
-      }` + window.location.search;
-    axios
-      .get(url)
-      .then((resp) => {
-        let respData = null;
-        if (resp.data && this.props.statVar in resp.data) {
-          respData = resp.data[this.props.statVar];
-          const title = intl.formatMessage(
-            {
-              id: "ranking-document_title",
-              defaultMessage:
-                "Ranking by {statVar} - {pluralPlaceType} in {placeName}",
-              description:
-                "HTML document title for a page with rankings of places measured by a statistical variable, where {statVar} will be replaced with the statistical variable, {pluralPlaceType} with the pluralized type for the places in the ranking, e.g. Cities or States, and {placeName} is the containing place for the places in the ranking. Please keep the variables with curly brackets as is in the final translation.",
-            },
-            {
-              statVar: this.svTitle,
-              pluralPlaceType: this.pluralPlaceType,
-              placeName: this.props.placeName,
-            }
-          );
-          document.title = `${title} - ${document.title}`;
-        }
-        this.setState({
-          data: respData,
-        });
-      })
-      .catch(() => {
-        // TODO(beets): Add better error handling messages
-        this.setState({
-          data: null,
-        });
-      });
-  }
-
-  private loadData(): void {
-    const popPromise: Promise<SeriesApiResponse> = getSeriesWithin(
-      getRoot(),
-      this.props.withinPlace,
-      this.props.placeType,
-      [DEFAULT_POPULATION_DCID],
-      null,
-      WEBSITE_SURFACE
-    );
-    const statPromise: Promise<PointApiResponse> = getPointWithin(
-      getRoot(),
-      this.props.placeType,
-      this.props.withinPlace,
-      [this.props.statVar],
-      this.props.date,
-      null,
-      null,
-      WEBSITE_SURFACE
-    );
-    const placeNamesPromise: Promise<Record<string, string>> = axios
-      .get(`${getRoot()}/api/place/descendent/name`, {
-        params: {
-          dcid: this.props.withinPlace,
-          descendentType: this.props.placeType,
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
-    Promise.all([popPromise, statPromise, placeNamesPromise]).then(
-      ([population, stat, placeNames]) => {
-        let rankInfo: Array<RankInfo> = [];
-        const statData = stat.data[this.props.statVar];
-        // Get RankInfo without the actual rank for each place that there is
-        // data for
-        for (const place in statData) {
-          if (_.isEmpty(statData[place])) {
-            continue;
-          }
-          const placeStat = statData[place];
-          let value = _.isUndefined(placeStat.value) ? 0 : placeStat.value;
-          let popSeries: Series = null;
-          if (DEFAULT_POPULATION_DCID in population.data) {
-            if (place in population.data[DEFAULT_POPULATION_DCID]) {
-              popSeries = population.data[DEFAULT_POPULATION_DCID][place];
-            }
-          }
-          if (!_.isEmpty(popSeries)) {
-            const popObs = getMatchingObservation(
-              popSeries.series,
-              placeStat.date
-            );
-            if (!popObs) {
-              continue;
-            }
-            const popValue = popObs.value;
-            if (popValue < MIN_POPULATION) {
-              continue;
-            }
-            if (this.props.isPerCapita) {
-              value /= popValue;
-            }
-          } else if (this.props.isPerCapita) {
-            // empty pop series but is per capita
-            console.log(
-              `${place} excluded from ranking because of missing population data.`
-            );
-            continue;
-          }
-          rankInfo.push({
-            placeDcid: place,
-            placeName: placeNames[place] || place,
-            rank: null,
-            value,
-          });
-        }
-        // Sort the RankInfo by their values and update each RankInfo with their
-        // rank in the sorted list
-        rankInfo.sort((a, b) => b.value - a.value);
-        rankInfo = rankInfo.map((r, i) => {
-          return { ...r, rank: i + 1 };
-        });
-        this.setState({
-          data: {
-            rankAll: rankInfo.length < RANK_SIZE ? { info: rankInfo } : null,
-            rankBottom1000: { info: rankInfo.slice(-RANK_SIZE) },
-            rankTop1000: { info: rankInfo.slice(0, RANK_SIZE) },
-          },
-        });
+    const title = intl.formatMessage(
+      {
+        id: "ranking-document_title",
+        defaultMessage:
+          "Ranking by {statVar} - {pluralPlaceType} in {placeName}",
+        description:
+          "HTML document title for a page with rankings of places measured by a statistical variable, where {statVar} will be replaced with the statistical variable, {pluralPlaceType} with the pluralized type for the places in the ranking, e.g. Cities or States, and {placeName} is the containing place for the places in the ranking. Please keep the variables with curly brackets as is in the final translation.",
+      },
+      {
+        statVar: this.svTitle,
+        pluralPlaceType: this.pluralPlaceType,
+        placeName: this.props.placeName,
       }
     );
+    document.title = `${title} - ${document.title}`;
   }
+
+
 }
