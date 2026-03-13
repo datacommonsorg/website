@@ -269,23 +269,27 @@ export class Page extends React.Component<
       <ThemeProvider theme={theme}>
         <div key={statVar}>
           <div className="btn-group btn-group-sm float-right" role="group"></div>
-          <h1>
-            {intl.formatMessage(
-              {
-                id: "ranking-page_title",
-                defaultMessage: "Ranking by {statVar}",
-                description:
-                  "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation.",
-              },
-              {
-                statVar: this.svTitle,
-              }
-            )}
-          </h1>
-          <h3>
-            {intl.formatMessage(subtitleMessage, subtitleArgs)}
-            {this.renderToggle()}
-          </h3>
+          <div className="title-section">
+            <div className="place-info">
+              <h1>
+                {intl.formatMessage(
+                  {
+                    id: "ranking-page_title",
+                    defaultMessage: "Ranking by {statVar}",
+                    description:
+                      "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation.",
+                  },
+                  {
+                    statVar: this.svTitle,
+                  }
+                )}
+              </h1>
+              <h3>
+                {intl.formatMessage(subtitleMessage, subtitleArgs)}
+                {this.renderToggle()}
+              </h3>
+            </div>
+          </div>
           {mainBlock}
         </div>
       </ThemeProvider>

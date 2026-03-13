@@ -18,13 +18,7 @@
 @import "draw";
 @import "shared/subject_page";
 
-h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
 h3 {
-  font-size: 1.2rem;
   color: var(--secondary);
   line-height: 1.4rem;
   margin-bottom: 1rem;
@@ -50,4 +44,32 @@ td .num-value {
   display: inline-block;
   width: 140px;
   text-align: right;
+}
+
+.title-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .place-info {
+    flex-grow: 1;
+
+    h1 {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 36px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    h3 {
+      color: var(--gm-3-ref-neutral-neutral-20) !important;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      margin-bottom: 0;
+    }
+  }
 }
