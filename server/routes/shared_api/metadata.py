@@ -197,8 +197,8 @@ def _build_metadata_payload(
       resolved_unit = (unit_map.get(unit) or
                        unit.replace('_', ' ')) if unit else unit
       license_name = _get_node_name(pdata['licenseType'], linked_names_map)
-      license_dcid = pdata['licenseType'][0].get('dcid') if pdata.get(
-          'licenseType') else None
+      license_dcid = pdata['licenseType'][0].get(
+          'dcid') if pdata.get('licenseType') and pdata['licenseType'] else None
 
       metadata_map[sv].append({
           'statVarId':
