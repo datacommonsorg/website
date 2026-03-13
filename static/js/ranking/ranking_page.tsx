@@ -14,37 +14,23 @@
  * limitations under the License.
  */
 
-import axios from "axios";
 import { ThemeProvider } from "@emotion/react";
 import _ from "lodash";
 import React from "react";
 import { defineMessages } from "react-intl";
 
-import theme from "../theme/theme";
-
-import { intl, LocalizedLink } from "../i18n/i18n";
-import { displayNameForPlaceType } from "../place/util";
-import { DEFAULT_POPULATION_DCID, WEBSITE_SURFACE } from "../shared/constants";
-import {
-  PointApiResponse,
-  Series,
-  SeriesApiResponse,
-} from "../shared/stat_types";
-import { getStatsVarTitle } from "../shared/stats_var_titles";
-import { getMatchingObservation } from "../tools/shared_util";
-import { getRoot, stringifyFn } from "../utils/axios";
-import { getPointWithin, getSeriesWithin } from "../utils/data_fetch_utils";
-import { LocationRankData, RankInfo } from "./ranking_types";
-
 import { BarTile } from "../components/tiles/bar_tile";
 import { RankingTile } from "../components/tiles/ranking_tile";
+import { intl, LocalizedLink } from "../i18n/i18n";
+import { displayNameForPlaceType } from "../place/util";
+import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { StatVarSpec } from "../shared/types";
-
-
+import theme from "../theme/theme";
+import { getRoot } from "../utils/axios";
+import { LocationRankData } from "./ranking_types";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
-const MIN_POPULATION = 1000;
 
 export interface RankingPagePropType {
   placeName: string;
@@ -81,7 +67,6 @@ export class Page extends React.Component<
     );
     const params = new URLSearchParams(window.location.search);
     this.isBottom = params.get(GET_BOTTOM_PARAM) !== null;
-
   }
 
   subtitleMessages = defineMessages({
@@ -138,7 +123,6 @@ export class Page extends React.Component<
   });
 
   private renderToggle(): JSX.Element {
-
     if (this.isBottom) {
       // show link to top 100
       const params = new URLSearchParams(window.location.search);
@@ -268,7 +252,6 @@ export class Page extends React.Component<
     return (
       <ThemeProvider theme={theme}>
         <div key={statVar}>
-          <div className="btn-group btn-group-sm float-right" role="group"></div>
           <div className="title-section">
             <div className="place-info">
               <h1>
@@ -313,6 +296,4 @@ export class Page extends React.Component<
     );
     document.title = `${title} - ${document.title}`;
   }
-
-
 }
