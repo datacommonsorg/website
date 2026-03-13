@@ -16,6 +16,7 @@
 
 @import "base";
 @import "draw";
+@import "shared/subject_page";
 
 h1 {
   font-size: 1.8rem;
@@ -37,10 +38,7 @@ h3 a {
   vertical-align: baseline;
 }
 
-.chart-container {
-  width: 100%;
-  height: 280px;
-}
+
 
 #main-pane th,
 #main-pane td {

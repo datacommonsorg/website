@@ -236,30 +236,34 @@ export class Page extends React.Component<
     };
 
     const mainBlock = (
-      <>
-        <BarTile
-          apiRoot={getRoot()}
-          id="ranking-histogram"
-          parentPlace={this.props.withinPlace}
-          enclosedPlaceType={this.props.placeType}
-          variables={[varSpec]}
-          svgChartHeight={300}
-          title={this.svTitle}
-        />
-        <RankingTile
-          apiRoot={getRoot()}
-          id="ranking-table"
-          parentPlace={this.props.withinPlace}
-          enclosedPlaceType={this.props.placeType}
-          variables={[varSpec]}
-          title={this.svTitle}
-          rankingMetadata={{
-            showHighest: !this.isBottom,
-            showLowest: this.isBottom,
-            rankingCount: RANK_SIZE,
-          }}
-        />
-      </>
+      <div className="block-body">
+        <div className="block-column">
+          <BarTile
+            apiRoot={getRoot()}
+            className="chart-container"
+            id="ranking-histogram"
+            parentPlace={this.props.withinPlace}
+            enclosedPlaceType={this.props.placeType}
+            variables={[varSpec]}
+            svgChartHeight={300}
+            title={this.svTitle}
+          />
+          <RankingTile
+            apiRoot={getRoot()}
+            className="chart-container"
+            id="ranking-table"
+            parentPlace={this.props.withinPlace}
+            enclosedPlaceType={this.props.placeType}
+            variables={[varSpec]}
+            title={this.svTitle}
+            rankingMetadata={{
+              showHighest: !this.isBottom,
+              showLowest: this.isBottom,
+              rankingCount: RANK_SIZE,
+            }}
+          />
+        </div>
+      </div>
     );
     return (
       <ThemeProvider theme={theme}>
