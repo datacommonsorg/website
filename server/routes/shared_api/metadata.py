@@ -26,6 +26,8 @@ from server.services import datacommons as dc
 
 bp = Blueprint("metadata", __name__, url_prefix='/api/shared/metadata')
 
+MAX_CATEGORY_DEPTH = 50
+
 MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES: set[str] = {"WikipediaStatsData"}
 
 
@@ -75,7 +77,7 @@ async def fetch_categories_async(stat_vars: list[str]) -> dict[str, list[str]]:
   visited = set()
   depth = 0
 
-  while current_nodes and depth < 10:
+  while current_nodes and depth < MAX_CATEGORY_DEPTH:
     visited.update(current_nodes)
 
     member_task = asyncio.to_thread(dc.v2node, list(current_nodes),
