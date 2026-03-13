@@ -65,11 +65,15 @@ td .num-value {
     }
 
     h3 {
-      color: var(--gm-3-ref-neutral-neutral-20) !important;
+      color: var(--gm-3-ref-neutral-neutral-20);
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
       margin-bottom: 0;
     }
   }
+}
+
+.block-column {
+  padding: 0;
 }
