@@ -346,7 +346,7 @@ async def get_metadata() -> tuple[Response, int] | Response:
   linked_prov_dcids: set[str] = set()
 
   if 'data' in prov_res:
-    for dcid in prov_res['data'].items():
+    for dcid in prov_res['data']:
       prov_map[dcid] = {
           'source': _get_arc_nodes(prov_res, dcid, 'source'),
           'isPartOf': _get_arc_nodes(prov_res, dcid, 'isPartOf'),
