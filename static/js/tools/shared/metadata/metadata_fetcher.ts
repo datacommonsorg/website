@@ -533,8 +533,6 @@ export async function fetchMetadata(
 
 /**
  * Function to fetch comprehensive metadata for a list of entities and stat vars.
- * This version utilizes a consolidated backend API endpoint that contains no
- * V1 calls.
  *
  * @param entities - Array of entity DCIDs to fetch metadata for
  * @param statVarSet - Set of stat var DCIDs to fetch metadata for
@@ -567,7 +565,7 @@ export async function fetchMetadataV2(
     }
   }
 
-  const response = await fetch(`${apiRoot || ""}/api/shared/metadata`, {
+  const response = await fetch(`${apiRoot || ""}/api/metadata`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

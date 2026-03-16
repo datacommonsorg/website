@@ -24,10 +24,14 @@ from flask import Response
 
 from server.services import datacommons as dc
 
-bp = Blueprint("metadata", __name__, url_prefix='/api/shared/metadata')
+bp = Blueprint("metadata", __name__, url_prefix='/api/metadata')
 
+# Limits the recursion when traversing parent hierarchies (memberOf/specializationOf)
+# to prevent infinite loops or excessive API calls in deep graphs.
 MAX_CATEGORY_DEPTH = 50
 
+# A list of specific provenance DCIDs where the 'measurementMethod' attribute
+# should be hidden, because it is flawed or not meaningful.
 MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES: set[str] = {"WikipediaStatsData"}
 
 
@@ -70,13 +74,57 @@ def _extract_active_facets(
   return list(set(active_facets))
 
 
+def _traverse_to_top_category(node: str, parent_map: dict[str, list[str]],
+                              visited: set[str], top_nodes: set[str],
+                              original_sv: str) -> None:
+  """Recursively traces paths from a node to its top-level ancestors."""
+  if node in visited:
+    return
+  visited.add(node)
+
+  parents = parent_map.get(node, [])
+  valid_parents = [p for p in parents if p != 'dc/g/Root']
+
+  if not valid_parents:
+    # If the node is not the starting SV, it's a top-level category
+    # This is for the case where a stat var does not have a category, where
+    # it should not itself be considered a category.
+    if node != original_sv:
+      top_nodes.add(node)
+  else:
+    for p in valid_parents:
+      _traverse_to_top_category(p, parent_map, visited, top_nodes, original_sv)
+
+
 async def fetch_categories_async(stat_vars: list[str]) -> dict[str, list[str]]:
-  """Traverses the category hierarchy tree up to top-level topics."""
+  """Traverses the category hierarchy tree up to top-level topics.
+
+  This function identifies the categories (top-level topics) associated with a list 
+    of Statistical Variables. It returns a mapping where each key is a stat_var 
+    DCID and the value is a list of human-readable names of its top-level parents.
+
+    The implementation uses a two-stage traversal:
+    1. Breadth-First Search (BFS): Iteratively climbs the 'memberOf' and 
+       'specializationOf' arcs across all input variables simultaneously to 
+       map the parent hierarchy.
+    2. Depth-First Search (DFS): Performed locally on the resulting parent_map 
+       to trace individual paths from each stat_var to its root-level ancestors 
+       (excluding the generic 'dc/g/Root').
+
+    Args:
+        stat_vars: A list of Statistical Variable DCIDs.
+
+    Returns:
+        A dictionary mapping stat_var DCIDs to a list of display names for their 
+        top-level categories.
+    """
   parent_map = collections.defaultdict(list)
   current_nodes = set(stat_vars)
   visited = set()
   depth = 0
 
+  # Progressively fetch parent nodes level-by-level (BFS).
+  # This batches v2node calls by depth to minimize network round-trips.
   while current_nodes and depth < MAX_CATEGORY_DEPTH:
     visited.update(current_nodes)
 
@@ -114,27 +162,19 @@ async def fetch_categories_async(stat_vars: list[str]) -> dict[str, list[str]]:
   sv_top_levels = collections.defaultdict(list)
   all_top_level_dcids = set()
 
+  # Traverse individual paths from each stat_var to its top-level categories.
+  # Using the parent_map built above, we resolve which topic-level topics
+  # each variable eventually rolls up to.
   for sv in stat_vars:
     tops = set()
 
-    def traverse(n: str, curr_visited: set[str]) -> None:
-      if n in curr_visited:
-        return
-      curr_visited.add(n)
-      parents = parent_map.get(n, [])
-      valid_parents = [p for p in parents if p != 'dc/g/Root']
-
-      if not valid_parents:
-        if n != sv:
-          tops.add(n)
-      else:
-        for p in valid_parents:
-          traverse(p, curr_visited)
-
-    traverse(sv, set())
+    _traverse_to_top_category(sv, parent_map, set(), tops, sv)
     sv_top_levels[sv] = list(tops)
     all_top_level_dcids.update(tops)
 
+  # Resolve human-readable names for the top-level categories.
+  # If a name isn't found in the Knowledge Graph, we fall back to a
+  # simplified version of the DCID.
   category_map: dict[str, list[str]] = {}
   if all_top_level_dcids:
     parent_name_resp = await asyncio.to_thread(dc.v2node,
@@ -148,6 +188,8 @@ async def fetch_categories_async(stat_vars: list[str]) -> dict[str, list[str]]:
 
     for sv in stat_vars:
       category_map[sv] = [
+          # Use the official name if available; otherwise, extract the last
+          # chunk of the DCIC (if it contains multiple parts delimited by slashes)
           parent_name_map.get(p) or p.split('/')[-1]
           for p in sv_top_levels.get(sv, [])
       ]
