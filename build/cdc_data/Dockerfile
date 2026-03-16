@@ -78,7 +78,7 @@ RUN chmod +x run.sh
 RUN apt-get update && apt-get -y upgrade && apt update && apt-get dist-upgrade \
     && pip3 install --upgrade --no-cache-dir "urllib3==2.6.3" \
     && pip3 install --upgrade "pillow==12.1.1" \
-    && pip3 install --upgrade "google-cloud-aiplatform==1.133.0 \"
+    && pip3 install --upgrade "google-cloud-aiplatform==1.133.0" \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade "wheel==0.46.2" \
     && pip3 install --upgrade setuptools \
