@@ -28,4 +28,9 @@ FROM --platform=linux/amd64 python:3.11.14-slim as runtime
 COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
 
 # Install nginx.
-RUN apt-get update && apt-get -y upgrade && apt update && apt install -y nginx
+RUN apt-get update && apt-get -y upgrade && apt update && apt install -y nginx \
+    && pip install --upgrade pip \
+    && pip install --upgrade "wheel==0.46.2" \
+    && pip install --upgrade setuptools \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
