@@ -514,8 +514,13 @@ def get_place_info(dcids: List[str]) -> Dict:
   result_data = []
   for dcid in dcids:
     self_types = get_all_values(types_resp, dcid, 'typeOf')
-    self_type = get_best_type(self_types)
     self_names = get_all_values(names_resp, dcid, 'name', 'value')
+
+    # Skip DCIDs that don't exist in the graph (bogus places)
+    if not self_types and not self_names:
+      continue
+
+    self_type = get_best_type(self_types)
     if dcid == 'country/USA':
       self_name = 'United States'
     else:
