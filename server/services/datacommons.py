@@ -501,7 +501,7 @@ def get_place_info(dcids: List[str]) -> Dict:
   def get_best_type(types_list):
     if not types_list:
       return ''
-    
+
     # Sort types by rank (highest rank first)
     # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
     def sort_key(t):
