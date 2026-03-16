@@ -523,6 +523,8 @@ def get_place_info(dcids: List[str]) -> Dict:
     self_type = get_best_type(self_types)
     if dcid == 'country/USA':
       self_name = 'United States'
+    elif dcid == 'geoId/3651000':
+      self_name = 'New York City'
     else:
       self_name = self_names[0] if self_names else ''
 
@@ -536,6 +538,8 @@ def get_place_info(dcids: List[str]) -> Dict:
       anc_names = get_all_values(names_resp, anc_dcid, 'name', 'value')
       if anc_dcid == 'country/USA':
         anc_name = 'United States'
+      elif anc_dcid == 'geoId/3651000':
+        anc_name = 'New York City'
       else:
         anc_name = anc_names[0] if anc_names else ''
 
