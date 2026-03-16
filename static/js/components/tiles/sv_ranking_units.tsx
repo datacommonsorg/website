@@ -402,6 +402,7 @@ export function getRankingUnit(
             sources={sources || rankingGroup.sources}
             facets={rankingGroup.facets}
             statVarToFacets={rankingGroup.statVarToFacets}
+            statVarFacetDateRanges={rankingGroup.statVarFacetDateRanges}
             statVarSpecs={statVarSpecs}
             surface={surface}
           />

@@ -16,6 +16,7 @@
 
 import { StatMetadata } from "../shared/stat_types";
 import { StatVarFacetMap } from "../shared/types";
+import { StatVarFacetDateRangeMap } from "../utils/tile_utils";
 
 /**
  * Types used by RankingUnit component
@@ -48,6 +49,8 @@ export interface RankingGroup {
   facets?: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
+  // A map of stat var dcids to facet IDs to their specific min and max date range from the chart
+  statVarFacetDateRanges?: StatVarFacetDateRangeMap;
   numDataPoints?: number;
   dateRange: string;
   // Optional for storing the processed rankingData
