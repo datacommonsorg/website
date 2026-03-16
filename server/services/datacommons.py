@@ -268,13 +268,13 @@ def point_within_facet(parent_entity, child_type, variables, date):
       })
 
 
-def v2observation(select, entity, variable):
+def v2observation(select, entity, variable, filter=None):
   """
     Args:
       select: A list of select props.
       entity: A dict in the form of {'dcids':, 'expression':}
       variable: A dict in the form of {'dcids':, 'expression':}
-
+      filter: Optional dict in the form of {'facetIds': [...]} etc.
     """
   # Remove None from dcids and sort them. Note do not sort in place to avoid
   # changing the original input.
@@ -283,11 +283,14 @@ def v2observation(select, entity, variable):
   if "dcids" in variable:
     variable["dcids"] = sorted([x for x in variable["dcids"] if x])
   url = get_service_url("/v2/observation")
-  return post(url, {
+  req = {
       "select": select,
       "entity": entity,
       "variable": variable,
-  })
+  }
+  if filter:
+    req["filter"] = filter
+  return post(url, req)
 
 
 def v2node(nodes, prop):
