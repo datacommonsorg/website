@@ -75,15 +75,14 @@ COPY build/cdc_data/run.sh .
 RUN chmod +x run.sh
 
 # Python packages upgrade to fix vulnerabilities
-RUN apt-get update && apt-get -y upgrade && apt update && apt-get dist-upgrade \
-    && pip3 install --upgrade --no-cache-dir "urllib3==2.6.3" \
-    && pip3 install --upgrade "pillow==12.1.1" \
-    && pip3 install --upgrade "google-cloud-aiplatform==1.133.0" \
-    && pip3 install --upgrade pip \
-    && pip3 install --upgrade "wheel==0.46.2" \
-    && pip3 install --upgrade setuptools \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y upgrade && apt-get dist-upgrade \
+    && pip3 install --upgrade \
+        setuptools \
+        "wheel==0.46.2" \
+        "urllib3==2.6.3" \
+        "pillow==12.1.1" \
+        "google-cloud-aiplatform==1.133.0" \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Activate the virtual env.
 ENV PATH="/workspace/venv/bin:$PATH"
