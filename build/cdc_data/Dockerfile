@@ -45,7 +45,7 @@ ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
 # Create a virtual env, add it to path, and install all requirements.
-RUN python -m venv /workspace/venv
+RUN python -m venv /workspace/venv --without-pip
 ENV PATH="/workspace/venv/bin:$PATH"
 
 # TODO: Install requirements for embeddings importer and data importer in separate virtual envs.
@@ -73,6 +73,17 @@ COPY build/cdc_data/run.sh .
 
 # Make script executable.
 RUN chmod +x run.sh
+
+# Python packages upgrade to fix vulnerabilities
+RUN apt-get update && apt-get -y upgrade && apt update && apt-get dist-upgrade \
+    && pip3 install --upgrade --no-cache-dir "urllib3==2.6.3" \
+    && pip3 install --upgrade "pillow==12.1.1" \
+    && pip3 install --upgrade "google-cloud-aiplatform==1.133.0 \"
+    && pip3 install --upgrade pip \
+    && pip3 install --upgrade "wheel==0.46.2" \
+    && pip3 install --upgrade setuptools \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Activate the virtual env.
 ENV PATH="/workspace/venv/bin:$PATH"
