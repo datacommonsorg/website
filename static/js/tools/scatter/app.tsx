@@ -66,6 +66,8 @@ function App(): ReactElement {
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
   const theme = useTheme();
+  const visToolExamples = globalThis.visToolExamples || [];
+
   return (
     <>
       <StatVarChooser
@@ -119,7 +121,10 @@ function App(): ReactElement {
                       margin-top: ${theme.spacing.xl}px;
                     `}
                   >
-                    <ChartLinkChips toolType="scatter" />
+                    <ChartLinkChips
+                      toolType="scatter"
+                      visToolExamples={visToolExamples}
+                    />
                   </Row>
                 )
               ) : (
