@@ -488,7 +488,7 @@ def get_place_info(dcids: List[str]) -> Dict:
   types_resp = v2node(all_dcids_list, '->typeOf')
   names_resp = v2node(all_dcids_list, '->name')
 
-  def get_first_value(resp, dcid, prop, key='dcid'):
+  def get_all_values(resp, dcid, prop, key='dcid'):
     node_data = resp.get('data', {}).get(dcid, {})
     arcs_obj = node_data.get('arcs', {}).get(prop, {})
     if not arcs_obj:
@@ -496,23 +496,37 @@ def get_place_info(dcids: List[str]) -> Dict:
       arcs_obj = node_data.get('arcs', {}).get(prop.replace('->', ''), {})
 
     nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
+    return [n.get(key, '') for n in nodes_list if key in n]
 
-    if nodes_list:
-      return nodes_list[0].get(key, '')
-    return ''
+  def get_best_type(types_list):
+    if not types_list:
+      return ''
+    
+    # Sort types by rank (highest rank first)
+    # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
+    def sort_key(t):
+      rank = PLACE_TYPE_RANK.get(t, 0)
+      is_admin = 1 if t.startswith('AdministrativeArea') else 0
+      return (rank, -is_admin)
+
+    return sorted(types_list, key=sort_key, reverse=True)[0]
 
   result_data = []
   for dcid in dcids:
-    self_type = get_first_value(types_resp, dcid, 'typeOf')
-    self_name = get_first_value(names_resp, dcid, 'name', 'value')
+    self_types = get_all_values(types_resp, dcid, 'typeOf')
+    self_type = get_best_type(self_types)
+    self_names = get_all_values(names_resp, dcid, 'name', 'value')
+    self_name = self_names[0] if self_names else ''
 
     parents = []
     for anc_dcid in ancestors_map.get(dcid, []):
       if anc_dcid == dcid:
         continue
 
-      anc_type = get_first_value(types_resp, anc_dcid, 'typeOf')
-      anc_name = get_first_value(names_resp, anc_dcid, 'name', 'value')
+      anc_types = get_all_values(types_resp, anc_dcid, 'typeOf')
+      anc_type = get_best_type(anc_types)
+      anc_names = get_all_values(names_resp, anc_dcid, 'name', 'value')
+      anc_name = anc_names[0] if anc_names else ''
 
       if anc_type in PLACE_TYPE_RANK:
         parents.append({
