@@ -516,7 +516,10 @@ def get_place_info(dcids: List[str]) -> Dict:
     self_types = get_all_values(types_resp, dcid, 'typeOf')
     self_type = get_best_type(self_types)
     self_names = get_all_values(names_resp, dcid, 'name', 'value')
-    self_name = self_names[0] if self_names else ''
+    if dcid == 'country/USA':
+      self_name = 'United States'
+    else:
+      self_name = self_names[0] if self_names else ''
 
     parents = []
     for anc_dcid in ancestors_map.get(dcid, []):
@@ -526,7 +529,10 @@ def get_place_info(dcids: List[str]) -> Dict:
       anc_types = get_all_values(types_resp, anc_dcid, 'typeOf')
       anc_type = get_best_type(anc_types)
       anc_names = get_all_values(names_resp, anc_dcid, 'name', 'value')
-      anc_name = anc_names[0] if anc_names else ''
+      if anc_dcid == 'country/USA':
+        anc_name = 'United States'
+      else:
+        anc_name = anc_names[0] if anc_names else ''
 
       if anc_type in PLACE_TYPE_RANK:
         parents.append({
