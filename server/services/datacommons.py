@@ -572,33 +572,21 @@ def get_place_info(dcids: List[str]) -> Dict:
 
 def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
-  # Get direct children
-  children_resp = v2node([parent_entity], '<-containedInPlace')
+  # Get children recursively with type filter
+  children_resp = v2node([parent_entity],
+                         f'<-containedInPlace+{{typeOf:{child_type}}}')
   child_dcids = []
 
   node_data = children_resp.get('data', {}).get(parent_entity, {})
-  arcs_obj = node_data.get('arcs', {}).get('containedInPlace', {})
+  # V2 response key for recursion includes the + but not the filter
+  arcs_obj = node_data.get('arcs', {}).get('containedInPlace+', {})
   nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
-  possible_children = [x['dcid'] for x in nodes_list if 'dcid' in x]
-
-  # Filter by type if there are children
-  if possible_children:
-    # Filter children by requested type
-    type_resp = v2node(possible_children, 'typeOf')
-    for child in possible_children:
-      # Check node types
-      c_data = type_resp.get('data', {}).get(child, {})
-      c_arcs = c_data.get('arcs', {}).get('typeOf', {})
-      c_types = c_arcs.get('nodes', []) if isinstance(c_arcs, dict) else []
-      c_type_ids = [t.get('dcid') for t in c_types]
-      if child_type in c_type_ids:
-        child_dcids.append(child)
+  child_dcids = [x['dcid'] for x in nodes_list if 'dcid' in x]
 
   if not child_dcids:
     return {"datesByVariable": [], "facets": {}}
 
   # Get observation dates for the filtered children
-
   obs_resp = v2observation(
       select=['date', 'variable', 'entity', 'value', 'facet'],
       entity={'dcids': child_dcids},

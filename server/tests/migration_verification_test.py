@@ -119,13 +119,13 @@ class TestMigrationVerification(unittest.TestCase):
     variables = ["Count_Person"]
 
     def side_effect(url, data, api_key=None, log_extreme_calls=False):
-      # Child nodes
-      if "<-containedInPlace" in data.get("property", ""):
+      # Recursive child nodes with type filter
+      if "<-containedInPlace+{" in data.get("property", ""):
         return {
             "data": {
                 "geoId/06": {
                     "arcs": {
-                        "containedInPlace": {
+                        "containedInPlace+": {
                             "nodes": [{
                                 "dcid": "geoId/06001",
                                 "name": "Alameda County",
@@ -134,30 +134,6 @@ class TestMigrationVerification(unittest.TestCase):
                                 "dcid": "geoId/06085",
                                 "name": "Santa Clara County",
                                 "types": ["County"]
-                            }]
-                        }
-                    }
-                }
-            }
-        }
-      # Child types
-      if "typeOf" in data.get("property", ""):
-        return {
-            "data": {
-                "geoId/06001": {
-                    "arcs": {
-                        "typeOf": {
-                            "nodes": [{
-                                "dcid": "County"
-                            }]
-                        }
-                    }
-                },
-                "geoId/06085": {
-                    "arcs": {
-                        "typeOf": {
-                            "nodes": [{
-                                "dcid": "County"
                             }]
                         }
                     }
