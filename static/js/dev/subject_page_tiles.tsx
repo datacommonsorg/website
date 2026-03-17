@@ -62,6 +62,24 @@ const MOCK_CONFIG: CategoryConfig = {
   },
   blocks: [
     {
+      title: "Place Overview",
+      description: "A single Place Overview Tile.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "PLACE_OVERVIEW",
+              title: "Sample Place Overview Tile",
+              description: "Place Overview",
+              statVarKey: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Line and Highlight",
+      description: "Line and Highlight tiles.",
       columns: [
         {
           tiles: [
@@ -72,21 +90,25 @@ const MOCK_CONFIG: CategoryConfig = {
               statVarKey: ["Count_Person"],
             },
             {
-              type: "MAP",
-              title: "Sample Map Tile",
-              description: "Map View",
-              statVarKey: ["Count_Person"],
-            },
-            {
               type: "LINE",
               title: "Sample Line Chart Tile",
               description: "Line Chart",
               statVarKey: ["Count_Person"],
             },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Map and Ranking",
+      description: "Map and Ranking tiles.",
+      columns: [
+        {
+          tiles: [
             {
-              type: "BAR",
-              title: "Sample Bar Chart Tile",
-              description: "Bar Chart",
+              type: "MAP",
+              title: "Sample Map Tile",
+              description: "Map View",
               statVarKey: ["Count_Person"],
             },
             {
@@ -99,6 +121,32 @@ const MOCK_CONFIG: CategoryConfig = {
                 showLowest: true,
               },
             },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Bar",
+      description: "Bar chart tile.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "BAR",
+              title: "Sample Bar Chart Tile",
+              description: "Bar Chart",
+              statVarKey: ["Count_Person"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Bivariate and Scatter",
+      description: "Bivariate and Scatter plots.",
+      columns: [
+        {
+          tiles: [
             {
               type: "SCATTER",
               title: "Sample Scatter Plot Tile",
@@ -111,6 +159,16 @@ const MOCK_CONFIG: CategoryConfig = {
               description: "Bivariate Map",
               statVarKey: ["Count_Person", "Median_Age_Person"],
             },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Donut and Gauge",
+      description: "Donut and Gauge tiles.",
+      columns: [
+        {
+          tiles: [
             {
               type: "GAUGE",
               title: "Sample Gauge Tile",
@@ -124,16 +182,20 @@ const MOCK_CONFIG: CategoryConfig = {
               description: "Donut",
               statVarKey: ["Count_Person_Female", "Count_Person_Male"],
             },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Description",
+      description: "Description tile.",
+      columns: [
+        {
+          tiles: [
             {
               type: "DESCRIPTION",
               title: "Sample Description Tile",
               description: "This is a descriptive tile.",
-              statVarKey: [],
-            },
-            {
-              type: "PLACE_OVERVIEW",
-              title: "Sample Place Overview Tile",
-              description: "Place Overview",
               statVarKey: [],
             },
           ],
