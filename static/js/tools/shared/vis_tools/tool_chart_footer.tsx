@@ -70,6 +70,8 @@ interface ToolChartFooterProps {
   facets?: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
+  // Array of entity dcids
+  entities?: string[];
   // A mapping of stat var dcids to their specific min and max date range from the chart
   statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   // the stat vars to link to in the metadata modal
@@ -187,6 +189,7 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
           {!_.isEmpty(props.sources) && (
             <TileSources
               containerRef={props.containerRef}
+              entities={props.entities}
               facets={props.facets}
               sources={props.sources}
               statVarDateRanges={props.statVarDateRanges}

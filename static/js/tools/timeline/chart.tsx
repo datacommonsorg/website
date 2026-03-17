@@ -200,14 +200,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
       // Get the denom for ChartEmbed
       if (this.props.pc && this.props.denom) {
-        const denomFacetId = findFirstAvailableFacet(
-          places,
-          (place) =>
-            this.state.rawData.statAllData[this.props.denom]?.[place]?.[0]
-              ?.facet
-        );
-        if (denomFacetId) {
-          embedStatVarToFacets[this.props.denom] = new Set([denomFacetId]);
+        if (
+          this.state.statData.denomFacets &&
+          this.state.statData.denomFacets.size > 0
+        ) {
+          embedStatVarToFacets[this.props.denom] =
+            this.state.statData.denomFacets;
         }
       }
     }
@@ -249,6 +247,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         </div>
         <ToolChartFooter
           chartId={this.props.chartId}
+          entities={Object.keys(this.props.placeNameMap)}
           sources={
             this.state.statData ? this.state.statData.sources : new Set()
           }
@@ -272,6 +271,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         {this.state.isDataLoaded && (
           <ChartEmbed
             ref={this.embedModalElement}
+            entities={Object.keys(this.props.placeNameMap)}
             facets={this.state.statData.facets}
             statVarSpecs={embedStatVarSpecs}
             statVarToFacets={embedStatVarToFacets}
