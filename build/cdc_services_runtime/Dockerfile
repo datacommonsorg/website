@@ -29,8 +29,7 @@ COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
 
 # Install nginx.
 RUN apt-get update && apt-get -y upgrade && apt install -y nginx \
-    && pip install --upgrade \
+    && pip install --upgrade --no-cache-dir \
         pip \
         "wheel==0.46.2" \
-        setuptools \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+        setuptools
