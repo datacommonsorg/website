@@ -25,7 +25,6 @@ import React, {
   RefObject,
   useContext,
   useEffect,
-  useMemo,
 } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
@@ -126,8 +125,6 @@ export function Chart(props: ChartProps): ReactElement {
     });
     statVarDateRanges[statVar.value.dcid] = { minDate, maxDate };
   }
-
-
 
   return (
     <div className="chart-section-container">
