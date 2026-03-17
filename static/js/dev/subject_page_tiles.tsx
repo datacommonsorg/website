@@ -210,22 +210,19 @@ const MOCK_PLACE: NamedTypedPlace = {
   name: "California",
   types: ["State"],
 };
-
-class SubjectPageTilesDevPage extends React.Component {
-  render(): JSX.Element {
-    return (
-      <ThemeProvider theme={theme}>
-        <Category
-          id="subject-page-tiles-cat"
-          config={MOCK_CONFIG}
-          place={MOCK_PLACE}
-          enclosedPlaceType="County"
-          eventTypeSpec={{}}
-          svgChartHeight={200}
-        />
-      </ThemeProvider>
-    );
-  }
+function SubjectPageTilesDevPage(): JSX.Element {
+  return (
+    <ThemeProvider theme={theme}>
+      <Category
+        id="subject-page-tiles-cat"
+        config={MOCK_CONFIG}
+        place={MOCK_PLACE}
+        enclosedPlaceType="County"
+        eventTypeSpec={{}}
+        svgChartHeight={200}
+      />
+    </ThemeProvider>
+  );
 }
 
 window.addEventListener("load", (): void => {

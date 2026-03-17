@@ -47,7 +47,7 @@ export function PlaceOverviewTile(
   const [loading, setLoading] = useState(true);
 
   const skipLink =
-    props.place.types?.filter((type) => NO_PLACE_EXPLORER_TYPES.has(type))
+    props.place.types.filter((type) => NO_PLACE_EXPLORER_TYPES.has(type))
       .length > 0;
 
   useEffect(() => {
