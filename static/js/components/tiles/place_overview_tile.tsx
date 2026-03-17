@@ -43,6 +43,7 @@ export function PlaceOverviewTile(
 ): JSX.Element {
   const [tableData, setTableData] = useState<PlaceOverviewTableApiResponse>();
   const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
+  const [placeSummary, setPlaceSummary] = useState<string>();
   const [loading, setLoading] = useState(true);
 
   const skipLink =
@@ -53,18 +54,25 @@ export function PlaceOverviewTile(
     const fetchData = async (): Promise<void> => {
       const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
       try {
-        const [relatedPlacesApiResponse, placeOverviewTableApiResponse] =
-          await Promise.all([
-            dataCommonsClient.webClient.getRelatedPLaces({
-              placeDcid: props.place.dcid,
-            }),
-            dataCommonsClient.webClient.getPlaceOverviewTable({
-              placeDcid: props.place.dcid,
-            }),
-          ]);
+        const [
+          relatedPlacesApiResponse,
+          placeOverviewTableApiResponse,
+          placeSummaryApiResponse,
+        ] = await Promise.all([
+          dataCommonsClient.webClient.getRelatedPLaces({
+            placeDcid: props.place.dcid,
+          }),
+          dataCommonsClient.webClient.getPlaceOverviewTable({
+            placeDcid: props.place.dcid,
+          }),
+          dataCommonsClient.webClient.getPlaceSummary({
+            placeDcid: props.place.dcid,
+          }),
+        ]);
 
         setTableData(placeOverviewTableApiResponse);
         setParentPlaces(relatedPlacesApiResponse.parentPlaces || []);
+        setPlaceSummary(placeSummaryApiResponse.summary);
       } catch (error) {
         console.error("Error fetching place overview tile data:", error);
       } finally {
@@ -84,6 +92,7 @@ export function PlaceOverviewTile(
         {tableData && (
           <PlaceOverview
             place={props.place}
+            placeSummary={placeSummary}
             parentPlaces={parentPlaces}
             placeOverviewTableApiResponse={tableData}
           />
