@@ -195,14 +195,21 @@ export function ChartLoader(): ReactElement {
           statVarToFacets[svDcid] = new Set();
         }
 
-        // We check if there is a specific facet selected for this variable
-        const selectedFacetId =
-          svDcid === statVar.value.dcid ? statVar.value.metahash : null;
+        // Compile facets that are used in the actual map
+        const selectedFacetIds = new Set<string>();
 
-        const facetIdsToAdd =
-          selectedFacetId && facetInfo.metadataMap[selectedFacetId]
-            ? [selectedFacetId]
-            : Object.keys(facetInfo.metadataMap);
+        if (
+          svDcid === statVar.value.dcid &&
+          chartStore.mapValuesDates.data?.numerFacets
+        ) {
+          chartStore.mapValuesDates.data.numerFacets.forEach((f) => {
+            if (facetInfo.metadataMap[f]) {
+              selectedFacetIds.add(f);
+            }
+          });
+        }
+
+        const facetIdsToAdd = Array.from(selectedFacetIds);
 
         for (const facetId of facetIdsToAdd) {
           statVarToFacets[svDcid].add(facetId);
@@ -211,8 +218,36 @@ export function ChartLoader(): ReactElement {
       }
     }
 
+    // If per capita, explicitly include the denominator facets
+    // that were tracked during data processing.
+    const denom = statVar.value.denom;
+    const denomFacets = chartStore.mapValuesDates.data?.denomFacets;
+
+    if (statVar.value.perCapita && denom && denomFacets?.size > 0) {
+      if (!statVarToFacets[denom]) {
+        statVarToFacets[denom] = new Set();
+      }
+
+      const denomMetadataMap = chartStore.denomStat.data?.facets || {};
+
+      for (const facetId of Array.from(denomFacets)) {
+        statVarToFacets[denom].add(facetId);
+        if (denomMetadataMap[facetId]) {
+          facets[facetId] = denomMetadataMap[facetId];
+        }
+      }
+    }
+
     return { facets, statVarToFacets };
-  }, [facetList, statVar.value.dcid, statVar.value.metahash]);
+  }, [
+    chartStore.denomStat.data?.facets,
+    chartStore.mapValuesDates.data?.denomFacets,
+    chartStore.mapValuesDates.data?.numerFacets,
+    facetList,
+    statVar.value.dcid,
+    statVar.value.denom,
+    statVar.value.perCapita,
+  ]);
 
   /**
    * Callback function for building observation specifications.
