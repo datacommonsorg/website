@@ -75,8 +75,7 @@ COPY build/cdc_data/run.sh .
 RUN chmod +x run.sh
 
 # Python packages upgrade to fix vulnerabilities
-RUN apt-get update && apt-get -y upgrade && apt-get dist-upgrade \
-    && pip3 install --upgrade \
+RUN pip3 install --upgrade \
         setuptools \
         "wheel==0.46.2" \
         "urllib3==2.6.3" \
