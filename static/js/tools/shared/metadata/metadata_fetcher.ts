@@ -528,3 +528,58 @@ export async function fetchMetadata(
 
   return { metadata, statVarList };
 }
+
+//TODO (nick-nlb): Once metadata migration is complete remove old endpoint and remove "V2" from this one.
+
+/**
+ * Function to fetch comprehensive metadata for a list of entities and stat vars.
+ *
+ * @param entities - Array of entity DCIDs to fetch metadata for
+ * @param statVarSet - Set of stat var DCIDs to fetch metadata for
+ * @param statVarToFacets - Optional mapping of stat vars to their facets
+ * @param apiRoot - Optional API root URL for requests
+ * @param facets - Optional map of the facet id to StatMetadata
+ * @returns Promise resolving to an object containing two attributes, metadata and statVarList.
+ *          The metadata attribute is a mapping of stat var ids to metadata.
+ *          The statVarList is list of stat var nodes containing full names.
+ */
+export async function fetchMetadataV2(
+  entities: string[],
+  statVarSet: Set<string>,
+  statVarToFacets?: StatVarFacetMap,
+  apiRoot?: string,
+  facets?: Record<string, StatMetadata>
+): Promise<{
+  metadata: Record<string, StatVarMetadata[]>;
+  statVarList: NamedNode[];
+}> {
+  const statVars = [...statVarSet];
+  if (!statVars.length) return { metadata: {}, statVarList: [] };
+
+  const convertedStatVarToFacets: Record<string, string[]> = {};
+  if (statVarToFacets) {
+    for (const [sv, facetSet] of Object.entries(statVarToFacets)) {
+      convertedStatVarToFacets[sv] = Array.isArray(facetSet)
+        ? facetSet
+        : Array.from(facetSet);
+    }
+  }
+
+  const response = await fetch(`${apiRoot || ""}/api/metadata`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      entities,
+      statVars,
+      statVarToFacets: convertedStatVarToFacets,
+      facets: facets ? Object.keys(facets) : undefined,
+    }),
+  });
+
+  if (!response.ok) {
+    console.error("Failed to fetch metadata", await response.text());
+    return { metadata: {}, statVarList: [] };
+  }
+
+  return response.json();
+}
