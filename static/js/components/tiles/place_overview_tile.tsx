@@ -18,12 +18,14 @@
  * Component for rendering a place overview tile.
  */
 
-import React from "react";
-import { RawIntlProvider } from "react-intl";
+import { PlaceOverviewTableApiResponse } from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import React, { useEffect, useState } from "react";
 
-import { intl } from "../../i18n/i18n";
-import { Overview } from "../../place/overview";
+import { PlaceOverview } from "../../place/place_overview";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { NamedTypedPlace } from "../../shared/types";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { Loading } from "../elements/loading";
 
 interface PlaceOverviewTilePropType {
   place: NamedTypedPlace;
@@ -39,22 +41,53 @@ const NO_PLACE_EXPLORER_TYPES = new Set([
 export function PlaceOverviewTile(
   props: PlaceOverviewTilePropType
 ): JSX.Element {
-  // Overview should only show ranking if the place is inside the USA
-  // Also use 'Learn _more_ about' if place is inside the USA
-  const isUsaPlace = props.place.dcid.startsWith("geoId/");
+  const [tableData, setTableData] = useState<PlaceOverviewTableApiResponse>();
+  const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const skipLink =
-    props.place.types.filter((type) => NO_PLACE_EXPLORER_TYPES.has(type))
+    props.place.types?.filter((type) => NO_PLACE_EXPLORER_TYPES.has(type))
       .length > 0;
+
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
+      try {
+        const [relatedPlacesApiResponse, placeOverviewTableApiResponse] =
+          await Promise.all([
+            dataCommonsClient.webClient.getRelatedPLaces({
+              placeDcid: props.place.dcid,
+            }),
+            dataCommonsClient.webClient.getPlaceOverviewTable({
+              placeDcid: props.place.dcid,
+            }),
+          ]);
+
+        setTableData(placeOverviewTableApiResponse);
+        setParentPlaces(relatedPlacesApiResponse.parentPlaces || []);
+      } catch (error) {
+        console.error("Error fetching place overview tile data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [props.place.dcid]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <div className="chart-container place-overview-tile">
-        <RawIntlProvider value={intl}>
-          <Overview
-            dcid={props.place.dcid}
-            showRanking={isUsaPlace}
-            locale="en"
+        {tableData && (
+          <PlaceOverview
+            place={props.place}
+            parentPlaces={parentPlaces}
+            placeOverviewTableApiResponse={tableData}
           />
-        </RawIntlProvider>
+        )}
         {!skipLink && (
           <div className="row">
             <a href={`/place/${props.place.dcid}`}>
