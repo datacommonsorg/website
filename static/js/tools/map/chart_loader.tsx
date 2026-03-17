@@ -419,6 +419,7 @@ export function ChartLoader(): ReactElement {
           facets={facets}
           statVarToFacets={statVarToFacets}
           statVarSpecs={currentStatVarSpec ? [currentStatVarSpec] : []}
+          entities={entities}
         >
           {display.value.showTimeSlider &&
             sampleDates &&

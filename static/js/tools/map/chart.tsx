@@ -79,6 +79,7 @@ interface ChartProps {
   facets: Record<string, StatMetadata>;
   statVarToFacets: StatVarFacetMap;
   statVarSpecs: StatVarSpec[];
+  entities: string[];
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -126,19 +127,7 @@ export function Chart(props: ChartProps): ReactElement {
     statVarDateRanges[statVar.value.dcid] = { minDate, maxDate };
   }
 
-  // Compile a deduplicated list of all entity DCIDs currently displayed
-  // across the map regions, map points, and breadcrumbs.
-  const entities = useMemo(
-    () =>
-      Array.from(
-        new Set([
-          ...Object.keys(props.mapDataValues || {}),
-          ...Object.keys(props.mapPointValues || {}),
-          ...Object.keys(props.breadcrumbDataValues || {}),
-        ])
-      ),
-    [props.mapDataValues, props.mapPointValues, props.breadcrumbDataValues]
-  );
+
 
   return (
     <div className="chart-section-container">
@@ -215,7 +204,7 @@ export function Chart(props: ChartProps): ReactElement {
       </Card>
       <ToolChartFooter
         chartId="map"
-        entities={entities}
+        entities={props.entities}
         sources={props.sources}
         mMethods={null}
         hidePerCapitaOption={!mainSvInfo.pcAllowed}

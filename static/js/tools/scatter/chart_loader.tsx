@@ -629,19 +629,13 @@ function getChartData(
       yDenomFacets.add(placeChartData.yDenomFacet);
     }
 
-    if (
-      xStatData &&
-      xStatData[namedPlace.dcid] &&
-      xStatData[namedPlace.dcid].facet
-    ) {
-      xNumerFacets.add(xStatData[namedPlace.dcid].facet);
+    const xNumerFacet = xStatData?.[namedPlace.dcid]?.facet;
+    if (xNumerFacet) {
+      xNumerFacets.add(xNumerFacet);
     }
-    if (
-      yStatData &&
-      yStatData[namedPlace.dcid] &&
-      yStatData[namedPlace.dcid].facet
-    ) {
-      yNumerFacets.add(yStatData[namedPlace.dcid].facet);
+    const yNumerFacet = yStatData?.[namedPlace.dcid]?.facet;
+    if (yNumerFacet) {
+      yNumerFacets.add(yNumerFacet);
     }
 
     points[namedPlace.dcid] = placeChartData.point;

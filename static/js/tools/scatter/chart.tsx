@@ -115,7 +115,7 @@ export function Chart(props: ChartPropsType): ReactElement {
     yDates.add(point.yDate);
   });
   const entities = useMemo(
-    () => Array.from(new Set(Object.keys(props.points || {}))),
+    () => Object.keys(props.points || {}),
     [props.points]
   );
   const xTitle = getTitle(Array.from(xDates), props.xLabel);
