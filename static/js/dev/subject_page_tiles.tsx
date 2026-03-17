@@ -210,7 +210,7 @@ const MOCK_PLACE: NamedTypedPlace = {
   name: "California",
   types: ["State"],
 };
-function SubjectPageTilesDevPage(): JSX.Element {
+function SubjectPageTilesDevPage(): React.JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <Category
