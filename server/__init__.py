@@ -275,6 +275,9 @@ def register_routes_common(app):
   from server.routes.shared_api import variable_group as shared_variable_group
   app.register_blueprint(shared_variable_group.bp)
 
+  from server.routes.shared_api import metadata as shared_metadata
+  app.register_blueprint(shared_metadata.bp)
+
   from server.routes.shared_api.observation import date as observation_date
   app.register_blueprint(observation_date.bp)
 

@@ -155,6 +155,19 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+
+  const entities = useMemo(
+    () =>
+      scatterChartData
+        ? Array.from(
+            new Set(
+              Object.values(scatterChartData.points).map((p) => p.place.dcid)
+            )
+          )
+        : [],
+    [scatterChartData]
+  );
+
   /*
     TODO: (nick-next) destructure the props similarly to highlight to
           allow a complete dependency array.
@@ -250,6 +263,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       getObservationSpecs={getObservationSpecs}
       errorMsg={scatterChartData && scatterChartData.errorMsg}
       id={props.id}
+      entities={entities}
       isInitialLoading={_.isNull(scatterChartData)}
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(props, scatterChartData)}

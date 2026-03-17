@@ -55,7 +55,10 @@ import {
   buildCitationParts,
   CitationPart,
 } from "../tools/shared/metadata/citations";
-import { fetchMetadata } from "../tools/shared/metadata/metadata_fetcher";
+import {
+  fetchMetadata,
+  fetchMetadataV2,
+} from "../tools/shared/metadata/metadata_fetcher";
 import { getDataCommonsClient } from "../utils/data_commons_client";
 
 // SVG adjustment related constants
@@ -70,6 +73,7 @@ interface ChartEmbedPropsType {
   container?: HTMLElement;
   statVarSpecs?: StatVarSpec[];
   facets?: Record<string, StatMetadata>;
+  entities?: string[];
   statVarToFacets?: StatVarFacetMap;
   // A map of stat var dcids to their specific min and max date range from the chart
   statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
@@ -415,13 +419,26 @@ class ChartEmbed extends React.Component<
           return [];
         }
         const dataCommonsClient = getDataCommonsClient(apiRoot, surface);
-        const metadataResp = await fetchMetadata(
-          statVarSet,
-          facets,
-          dataCommonsClient,
-          statVarToFacets,
-          apiRoot
-        );
+
+        let metadataResp;
+        if (this.props.entities && this.props.entities.length > 0) {
+          metadataResp = await fetchMetadataV2(
+            this.props.entities,
+            statVarSet,
+            statVarToFacets,
+            apiRoot,
+            facets
+          );
+        } else {
+          metadataResp = await fetchMetadata(
+            statVarSet,
+            facets,
+            dataCommonsClient,
+            statVarToFacets,
+            apiRoot
+          );
+        }
+
         return buildCitationParts(
           metadataResp.statVarList,
           metadataResp.metadata,

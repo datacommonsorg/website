@@ -370,6 +370,12 @@ export function getRankingUnit(
     rankingGroup,
     enableScroll
   );
+  const entities = Array.from(
+    new Set([
+      ...(topPoints || []).map((p) => p.placeDcid),
+      ...(bottomPoints || []).map((p) => p.placeDcid),
+    ])
+  );
   const title = getRankingUnitTitle(
     tileConfigTitle,
     rankingMetadata,
@@ -401,6 +407,7 @@ export function getRankingUnit(
             containerRef={containerRef}
             sources={sources || rankingGroup.sources}
             facets={rankingGroup.facets}
+            entities={entities}
             statVarToFacets={rankingGroup.statVarToFacets}
             statVarSpecs={statVarSpecs}
             surface={surface}
