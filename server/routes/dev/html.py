@@ -25,3 +25,11 @@ def dev():
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   return flask.render_template('dev/dev.html')
+
+@bp.route('/subject-page-tiles')
+def subject_page_tiles():
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  return flask.render_template(
+      'dev/subject_page_tiles.html',
+      maps_api_key=flask.current_app.config.get('MAPS_API_KEY', ''))
