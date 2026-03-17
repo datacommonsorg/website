@@ -4,17 +4,21 @@ on:
   pull_request_target:
     branches:
       - master
+  schedule:
+    - cron: '0 11 * * *' # Run daily at 11:00 UTC
   workflow_dispatch:
     # Allows manual triggering of the workflow
 
 permissions:
   pull-requests: write
+  contents: write
 
 jobs:
-  dependabot:
+  trigger-tests:
     runs-on: ubuntu-latest
     # Checking the author will prevent your Action run failing on non-Dependabot PRs
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'datacommonsorg/website'
+    # Only run this job when triggered by a pull_request_target event
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'datacommonsorg/website'
     steps:
       - name: Dependabot metadata
         id: dependabot-metadata
@@ -26,14 +30,59 @@ jobs:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
           PR_URL: ${{ github.event.pull_request.html_url }}
 
-      - name: Approve the PR
-        run: gh pr review --approve "$PR_URL" || true
+  approve-and-merge-7-days:
+    runs-on: ubuntu-latest
+    # Only run this on a schedule or manual dispatch
+    if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.repository == 'datacommonsorg/website'
+    steps:
+      - name: Find and process Dependabot PRs older than 7 days
         env:
-          GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
-          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
+          # Fetch open dependabot PRs
+          # Filter for PRs created at least 7 days ago
+          PRS=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --author "app/dependabot" \
+            --json url,createdAt \
+            -q '.[] | select(((now - (.createdAt | fromdateiso8601)) / 86400) >= 7) | .url')
 
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --merge "$PR_URL"
-        env:
-          GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
-          PR_URL: ${{github.event.pull_request.html_url}}
+          if [ -z "$PRS" ]; then
+            echo "No dependabot PRs older than 7 days found."
+            exit 0
+          fi
+
+          for PR_URL in $PRS; do
+            echo "Processing $PR_URL..."
+            
+            # Record current commit SHA
+            OLD_SHA=$(gh pr view "$PR_URL" --json commits -q '.commits[-1].oid')
+            
+            # Trigger a rebase to ensure the PR is up to date
+            gh pr comment "$PR_URL" --body "@dependabot rebase"
+
+            echo "Waiting up to 5 minutes for rebase to complete..."
+            REBASED=false
+            for i in {1..20}; do
+              sleep 15
+              NEW_SHA=$(gh pr view "$PR_URL" --json commits -q '.commits[-1].oid')
+              if [ "$NEW_SHA" != "$OLD_SHA" ]; then
+                echo "Rebase completed. New SHA: $NEW_SHA"
+                REBASED=true
+                break
+              fi
+            done
+            
+            # If the SHA changed, the rebase force-push will automatically trigger 
+            # the pull_request_target event, which handles posting /gcbrun. 
+            # We only post /gcbrun here if no rebase occurred (e.g., already up to date).
+            if [ "$REBASED" = "false" ]; then
+              gh pr comment "$PR_URL" --body "/gcbrun"
+            fi
+            
+            # Approve the PR (ignore if already approved)
+            gh pr review --approve "$PR_URL" || true
+            
+            # Enable auto-merge for the PR
+            gh pr merge --auto --squash "$PR_URL" || true
+          done
