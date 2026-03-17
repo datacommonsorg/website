@@ -350,6 +350,7 @@ export function ChartLoader(): ReactElement {
               />
               <ChartEmbed
                 ref={embedModalElement}
+                entities={Object.keys(chartData.points)}
                 facets={facets}
                 statVarSpecs={currentStatVarSpecs}
                 statVarToFacets={statVarToFacets}

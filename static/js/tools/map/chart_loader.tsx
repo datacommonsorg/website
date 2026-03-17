@@ -383,6 +383,15 @@ export function ChartLoader(): ReactElement {
     );
 
     const footer = document.getElementById("metadata").dataset.footer || "";
+
+    const entities = Array.from(
+      new Set([
+        ...Object.keys(chartStore.mapValuesDates.data.mapValues || {}),
+        ...Object.keys(chartStore.mapPointValues.data || {}),
+        ...Object.keys(chartStore.breadcrumbValues.data || {}),
+      ])
+    );
+
     return (
       <div className="chart-region" ref={containerRef}>
         <Chart
@@ -444,6 +453,7 @@ export function ChartLoader(): ReactElement {
         {footer && <div className="footer">* {footer}</div>}
         <ChartEmbed
           ref={embedModalElement}
+          entities={entities}
           facets={facets}
           statVarSpecs={currentStatVarSpec ? [currentStatVarSpec] : []}
           statVarToFacets={statVarToFacets}
