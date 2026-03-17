@@ -45,7 +45,7 @@ ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
 # Create a virtual env, add it to path, and install all requirements.
-RUN python -m venv /workspace/venv --without-pip
+RUN python -m venv /workspace/venv
 ENV PATH="/workspace/venv/bin:$PATH"
 
 # TODO: Install requirements for embeddings importer and data importer in separate virtual envs.
