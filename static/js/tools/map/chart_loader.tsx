@@ -386,7 +386,7 @@ export function ChartLoader(): ReactElement {
 
     const entities = Array.from(
       new Set([
-        ...Object.keys(chartStore.mapValuesDates.data.mapValues || {}),
+        ...Object.keys(chartStore.mapValuesDates.data?.mapValues || {}),
         ...Object.keys(chartStore.mapPointValues.data || {}),
         ...Object.keys(chartStore.breadcrumbValues.data || {}),
       ])
