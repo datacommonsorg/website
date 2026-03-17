@@ -44,6 +44,7 @@ export function PlaceOverviewTile(
   const [tableData, setTableData] = useState<PlaceOverviewTableApiResponse>();
   const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
   const [placeSummary, setPlaceSummary] = useState<string>();
+  const [errorMsg, setErrorMsg] = useState<string>();
   const [loading, setLoading] = useState(true);
 
   const skipLink =
@@ -74,6 +75,7 @@ export function PlaceOverviewTile(
         setParentPlaces(relatedPlacesApiResponse.parentPlaces || []);
         setPlaceSummary(placeSummaryApiResponse.summary);
       } catch (error) {
+        setErrorMsg("Error fetching place overview tile data");
         console.error("Error fetching place overview tile data:", error);
       } finally {
         setLoading(false);
@@ -86,25 +88,29 @@ export function PlaceOverviewTile(
     return <Loading />;
   }
 
+  if (errorMsg) {
+    return (
+      <div className="chart-container place-overview-tile">{errorMsg}</div>
+    );
+  }
+
   return (
-    <>
-      <div className="chart-container place-overview-tile">
-        {tableData && (
-          <PlaceOverview
-            place={props.place}
-            placeSummary={placeSummary}
-            parentPlaces={parentPlaces}
-            placeOverviewTableApiResponse={tableData}
-          />
-        )}
-        {!skipLink && (
-          <div className="row">
-            <a href={`/place/${props.place.dcid}`}>
-              See {props.place.name} in Place Explorer
-            </a>
-          </div>
-        )}
-      </div>
-    </>
+    <div className="chart-container place-overview-tile">
+      {tableData && (
+        <PlaceOverview
+          place={props.place}
+          placeSummary={placeSummary}
+          parentPlaces={parentPlaces}
+          placeOverviewTableApiResponse={tableData}
+        />
+      )}
+      {!skipLink && (
+        <div className="row">
+          <a href={`/place/${props.place.dcid}`}>
+            See {props.place.name} in Place Explorer
+          </a>
+        </div>
+      )}
+    </div>
   );
 }
