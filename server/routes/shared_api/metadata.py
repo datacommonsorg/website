@@ -575,15 +575,11 @@ async def enrich_facets() -> tuple[Response, int] | Response:
           if not res or 'byVariable' not in res:
             continue
           for sv, sv_data in res.get('byVariable', {}).items():
-            if sv not in obs_resp['byVariable']:
-              obs_resp['byVariable'][sv] = {'byEntity': {}}
+            entity_dict = obs_resp['byVariable'].setdefault(sv, {}).setdefault('byEntity', {})
             for ent, ent_data in sv_data.get('byEntity', {}).items():
-              if ent not in obs_resp['byVariable'][sv]['byEntity']:
-                obs_resp['byVariable'][sv]['byEntity'][ent] = {
-                    'orderedFacets': []
-                }
-              obs_resp['byVariable'][sv]['byEntity'][ent][
-                  'orderedFacets'].extend(ent_data.get('orderedFacets', []))
+              entity_dict.setdefault(ent, {'orderedFacets': []})['orderedFacets'].extend(
+                  ent_data.get('orderedFacets', [])
+              )
     except Exception:
       logging.exception(
           "v2observation failed in enrich_facets. Date ranges may be missing.")
