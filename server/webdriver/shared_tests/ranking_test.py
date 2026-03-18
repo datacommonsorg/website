@@ -26,7 +26,7 @@ class RankingTestMixin():
   def test_northamerica_population(self):
     """Test basic ranking page."""
 
-    self.driver.get(self.url_ + '/ranking/Count_Person/Country/northamerica')
+    self.driver.get(self.url_ + '/ranking/Count_Person/Country/northamerica?disable_feature=new_ranking_page')
 
     subtitle_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '#main-pane h3'), 'All Countries in North America')
