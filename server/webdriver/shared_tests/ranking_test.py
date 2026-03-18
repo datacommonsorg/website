@@ -64,7 +64,7 @@ class RankingTestMixin():
     """Test translations are displayed correctly in hindi, as well as bottom rankings rendered correctly."""
     self.driver.get(
         self.url_ +
-        '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi&bottom=')
+        '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi&bottom=&disable_feature=new_ranking_page')
 
     title_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
@@ -80,7 +80,7 @@ class RankingTestMixin():
         find_elem(self.driver,
                   by=By.XPATH,
                   value='//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
-        self.url_ + '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi')
+        self.url_ + '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi&disable_feature=new_ranking_page')
 
     headers = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
@@ -96,7 +96,7 @@ class RankingTestMixin():
   def test_population_top_ranking_ko(self):
     """Test translations are displayed correctly in korean, as well as top rankings rendered correctly."""
     self.driver.get(self.url_ +
-                    '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko')
+                    '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&disable_feature=new_ranking_page')
 
     title_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
@@ -112,7 +112,7 @@ class RankingTestMixin():
                   by=By.XPATH,
                   value='//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
         self.url_ +
-        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&bottom=')
+        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&bottom=&disable_feature=new_ranking_page')
 
     headers = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
