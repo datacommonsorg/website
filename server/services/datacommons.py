@@ -556,10 +556,9 @@ def get_series_dates(parent_entity, child_type, variables):
     return {"datesByVariable": [], "facets": {}}
 
   # Get observation dates for the filtered children
-  obs_resp = v2observation(
-      select=['date', 'variable', 'entity', 'facet'],
-      entity={'dcids': child_dcids},
-      variable={'dcids': variables})
+  obs_resp = v2observation(select=['date', 'variable', 'entity', 'facet'],
+                           entity={'dcids': child_dcids},
+                           variable={'dcids': variables})
 
   # Aggregate results: { variable: { date: { facet: count } } }
   agg_data = collections.defaultdict(
