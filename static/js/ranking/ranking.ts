@@ -18,8 +18,16 @@
  * @fileoverview Entry point for Ranking pages
  */
 
+import React from "react";
+import ReactDOM from "react-dom";
+
 import { loadLocaleData } from "../i18n/i18n";
+import {
+  isFeatureEnabled,
+  NEW_RANKING_PAGE,
+} from "../shared/feature_flags/util";
 import { renderRankingComponent } from "./component";
+import { RankingPage } from "./ranking_page";
 
 window.addEventListener("load", (): void => {
   // Get page metadata
@@ -42,21 +50,40 @@ window.addEventListener("load", (): void => {
   scaling = isNaN(scaling) || scaling == 0 ? 1 : scaling;
   const date = urlParams.get("date");
 
+  // Check for revamp feature flag
+  const useNewRankingPage = isFeatureEnabled(NEW_RANKING_PAGE);
+
   // Load locale data
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
     import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
     import(`../i18n/compiled-lang/${locale}/units.json`),
   ]).then(() => {
-    renderRankingComponent(document.getElementById("main-pane"), {
-      placeName,
-      placeType,
-      withinPlace,
-      statVar,
-      isPerCapita,
-      unit,
-      scaling,
-      date,
-    });
+    if (useNewRankingPage) {
+      ReactDOM.render(
+        React.createElement(RankingPage, {
+          placeName,
+          placeType,
+          withinPlace,
+          statVar,
+          isPerCapita,
+          unit,
+          scaling,
+          date,
+        }),
+        document.getElementById("main-pane")
+      );
+    } else {
+      renderRankingComponent(document.getElementById("main-pane"), {
+        placeName,
+        placeType,
+        withinPlace,
+        statVar,
+        isPerCapita,
+        unit,
+        scaling,
+        date,
+      });
+    }
   });
 });

@@ -23,6 +23,7 @@ export const STANDARDIZED_VIS_TOOL_FEATURE_FLAG = "standardized_vis_tool";
 export const ENABLE_STAT_VAR_AUTOCOMPLETE = "enable_stat_var_autocomplete";
 export const ENABLE_RANKING_TILE_SCROLL = "enable_ranking_tile_scroll";
 export const ENABLE_CHART_HYPERLINK = "enable_chart_hyperlink";
+export const NEW_RANKING_PAGE = "new_ranking_page";
 
 // Feature flag URL parameters
 export const ENABLE_FEATURE_URL_PARAM = "enable_feature";
