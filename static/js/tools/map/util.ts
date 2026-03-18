@@ -548,6 +548,7 @@ interface PlaceChartData {
   date: string;
   value: number;
   unit?: string;
+  denomFacet?: string;
 }
 
 /**
@@ -574,6 +575,7 @@ export function getPlaceChartData(
   const facetId = stat.facet;
   const statVarSource = metadataMap[facetId].provenanceUrl;
   let value = stat.value === undefined ? 0 : stat.value;
+  let denomFacet = null;
   const metadata: DataPointMetadata = {
     popDate: "",
     popSource: "",
@@ -588,6 +590,7 @@ export function getPlaceChartData(
       return { metadata, sources, date: placeStatDate, value };
     }
     const popFacetId = placePopData.facet;
+    denomFacet = popFacetId;
     const popSeries = placePopData.series;
     const popSource = metadataMap[popFacetId].provenanceUrl;
     metadata.popSource = popSource;
@@ -606,7 +609,7 @@ export function getPlaceChartData(
   }
   sources.push(statVarSource);
   const unit = getUnit(metadataMap[facetId]);
-  return { metadata, sources, date: placeStatDate, value, unit };
+  return { metadata, sources, date: placeStatDate, value, unit, denomFacet };
 }
 
 /**
