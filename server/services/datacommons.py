@@ -436,7 +436,8 @@ def get_place_info(dcids: List[str]) -> Dict:
   visited = set()
 
   # BFS to build parent graph (max depth 10)
-  for _ in range(10):
+  MAX_ANCESTOR_DEPTH = 10
+  for _ in range(MAX_ANCESTOR_DEPTH):
     if not frontier:
       break
 
@@ -524,10 +525,7 @@ def get_place_info(dcids: List[str]) -> Dict:
       continue
 
     self_type = get_best_type(self_types)
-    if dcid == 'country/USA':
-      self_name = 'United States'
-    else:
-      self_name = self_names[0] if self_names else ''
+    self_name = self_names[0] if self_names else ''
 
     parents = []
     for anc_dcid in ancestors_map.get(dcid, []):
@@ -537,10 +535,7 @@ def get_place_info(dcids: List[str]) -> Dict:
       anc_types = get_all_values(types_resp, anc_dcid, 'typeOf')
       anc_type = get_best_type(anc_types)
       anc_names = get_all_values(names_resp, anc_dcid, 'name', 'value')
-      if anc_dcid == 'country/USA':
-        anc_name = 'United States'
-      else:
-        anc_name = anc_names[0] if anc_names else ''
+      anc_name = anc_names[0] if anc_names else ''
 
       if anc_type in PLACE_TYPE_RANK:
         parents.append({
