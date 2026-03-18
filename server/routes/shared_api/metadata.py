@@ -412,6 +412,12 @@ async def get_metadata() -> tuple[Response, int] | Response:
   if not isinstance(entities, list) or not isinstance(stat_vars, list):
     return jsonify({'error': 'entities and statVars must be lists'}), 400
 
+  if len(stat_vars) > _MAX_BATCH_SIZE:
+    return jsonify({
+        'error':
+            f'Too many Statistical Variables requested. Maximum allowed is {_MAX_BATCH_SIZE}'
+    }), 400
+
   if not entities or not stat_vars:
     return jsonify({'metadata': {}, 'statVarList': []})
 
@@ -500,6 +506,12 @@ async def enrich_facets() -> tuple[Response, int] | Response:
   entities = req_data.get('entities', [])
   parent_place = req_data.get('parentPlace', '')
   enclosed_place_type = req_data.get('enclosedPlaceType', '')
+
+  if len(stat_vars) > _MAX_BATCH_SIZE:
+    return jsonify({
+        'error':
+            f'Too many Statistical Variables requested. Maximum allowed is {_MAX_BATCH_SIZE}'
+    }), 400
 
   if not facets:
     return jsonify({})
