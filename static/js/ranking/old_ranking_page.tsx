@@ -31,9 +31,9 @@ import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { getMatchingObservation } from "../tools/shared_util";
 import { getRoot, stringifyFn } from "../utils/axios";
 import { getPointWithin, getSeriesWithin } from "../utils/data_fetch_utils";
-import { RankingHistogram } from "./ranking_histogram";
-import { RankingTable } from "./ranking_table";
-import { LocationRankData, RankInfo } from "./ranking_types";
+import { RankingHistogram } from "./old_ranking_histogram";
+import { RankingTable } from "./old_ranking_table";
+import { LocationRankData, RankInfo } from "./old_ranking_types";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;

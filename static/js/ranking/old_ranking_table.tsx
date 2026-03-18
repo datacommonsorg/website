@@ -20,7 +20,7 @@ import { intl, LocalizedLink, translateUnit } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 import { randDomId } from "../shared/util";
 import { getRoot } from "../utils/axios";
-import { RankInfo, Ranking } from "./ranking_types";
+import { RankInfo, Ranking } from "./old_ranking_types";
 
 interface RankingTablePropType {
   ranking: Ranking;
