@@ -15,7 +15,6 @@
 import asyncio
 import collections
 import logging
-import re
 from typing import Any
 
 from flask import Blueprint
