@@ -42,7 +42,7 @@ import { NamedNode, StatVarFacetMap, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { buildCitationParts, citationToPlainText } from "./citations";
 import { StatVarMetadata } from "./metadata";
-import { fetchMetadata } from "./metadata_fetcher";
+import { fetchMetadata, fetchMetadataV2 } from "./metadata_fetcher";
 import { TileMetadataModalContent } from "./tile_metadata_modal_content";
 
 interface TileMetadataModalPropType {
@@ -57,6 +57,8 @@ interface TileMetadataModalPropType {
   containerRef?: React.RefObject<HTMLElement>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
+  // array of entity dcids to use for fetching
+  entities?: string[];
   // used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
   surface: string;
 }
@@ -104,13 +106,27 @@ export function TileMetadataModal(
 
     setLoading(true);
     setError(false);
-    fetchMetadata(
-      statVarSet,
-      props.facets,
-      dataCommonsClient,
-      props.statVarToFacets,
-      props.apiRoot
-    )
+
+    let fetchPromise;
+    if (props.entities && props.entities.length > 0) {
+      fetchPromise = fetchMetadataV2(
+        props.entities,
+        statVarSet,
+        props.statVarToFacets,
+        props.apiRoot,
+        props.facets
+      );
+    } else {
+      fetchPromise = fetchMetadata(
+        statVarSet,
+        props.facets,
+        dataCommonsClient,
+        props.statVarToFacets,
+        props.apiRoot
+      );
+    }
+
+    fetchPromise
       .then((resp) => {
         // Sort stat vars: non-denominators first, then denominators.
         // Secondary sort is alphabetical.
@@ -143,6 +159,7 @@ export function TileMetadataModal(
     props.apiRoot,
     props.statVarToFacets,
     props.facets,
+    props.entities,
     denomStatVarDcids,
   ]);
 

@@ -12,17 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Knowledge Graph related handlers."""
-
-import json
-
 import flask
-from flask import request
-from flask import Response
+from flask import jsonify
 
 from server.lib import fetch
 from server.lib.cache import cache
 from server.routes import TIMEOUT
-import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_browser', __name__, url_prefix='/api/browser')
 
@@ -30,11 +25,21 @@ bp = flask.Blueprint('api_browser', __name__, url_prefix='/api/browser')
 @bp.route('/provenance')
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def provenance():
-  """Returns all the provenance information."""
+  """Return provenance name for all available data sources."""
   prov_resp = fetch.property_values(['Provenance'], 'typeOf', False)
-  url_resp = fetch.property_values(prov_resp['Provenance'], "url", True)
+  prov_dcids = prov_resp.get('Provenance', [])
+
+  if not prov_dcids:
+    return jsonify({})
+
+  properties_to_fetch = ['name']
+  prop_resp = fetch.multiple_property_values(prov_dcids, properties_to_fetch,
+                                             True)
+
   result = {}
-  for dcid, urls in url_resp.items():
-    if len(urls) > 0:
-      result[dcid] = urls[0]
-  return result
+  for dcid, props in prop_resp.items():
+    names = props.get('name', [])
+
+    result[dcid] = {'name': names[0] if names else dcid}
+
+  return jsonify(result)
