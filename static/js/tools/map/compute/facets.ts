@@ -72,7 +72,9 @@ export function useComputeFacetList(chartStore: ChartStore): {
       }
     }
 
-    fetchFacetsWithMetadata(baseFacets, dataCommonsClient)
+    fetchFacetsWithMetadata(baseFacets, {
+      entities: data ? Object.keys(data) : [],
+    })
       .then((enrichedMap) => {
         if (!enrichedMap[svDcid]) {
           setFacetList([]);

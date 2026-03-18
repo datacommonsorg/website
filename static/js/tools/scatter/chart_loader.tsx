@@ -99,8 +99,13 @@ export function ChartLoader(): ReactElement {
   const cache = useCache();
   const chartData = useChartData(cache);
 
+  const entityExpression =
+    place.value.enclosingPlace.dcid && place.value.enclosedPlaceType
+      ? `${place.value.enclosingPlace.dcid}<-containedInPlace+{typeOf:${place.value.enclosedPlaceType}}`
+      : undefined;
+
   const { facetSelectorMetadata, facetListLoading, facetListError } =
-    useFacetMetadata(cache?.baseFacets || null);
+    useFacetMetadata(cache?.baseFacets || null, { entityExpression });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);

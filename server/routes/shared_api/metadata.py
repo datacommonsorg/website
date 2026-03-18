@@ -15,6 +15,7 @@
 import asyncio
 import collections
 import logging
+import re
 from typing import Any
 
 from flask import Blueprint
@@ -22,6 +23,7 @@ from flask import jsonify
 from flask import request
 from flask import Response
 
+from server.lib import fetch
 from server.services import datacommons as dc
 
 bp = Blueprint("metadata", __name__, url_prefix='/api/metadata')
@@ -34,9 +36,30 @@ MAX_CATEGORY_DEPTH = 50
 # should be hidden, because it is flawed or not meaningful.
 MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES: set[str] = {"WikipediaStatsData"}
 
+# TODO (nick-nlb): merge the below constants with series.py.
+
+# Maximum number of concurrent series the server will fetch in a single chunk
+_MAX_BATCH_SIZE = 2000
+
+# Maps enclosed place type -> places with too many of the enclosed type.
+# Determines when to pre-resolve expressions into entities for batching.
+_BATCHED_CALL_PLACES = {
+    "CensusTract": [
+        "geoId/06",  # California
+        "geoId/12",  # Florida
+        "geoId/36",  # New York (State)
+        "geoId/48",  # Texas
+    ],
+    "City": ["country/USA"],
+    "County": ["country/USA"]
+}
+
 
 def title_case(string: str) -> str:
-  return " ".join([word.capitalize() for word in string.split("_")])
+  """Replaces underscores with spaces, capitalizes the first letter, and preserves acronyms."""
+  return " ".join([
+      word[0].upper() + word[1:] if word else "" for word in string.split("_")
+  ])
 
 
 def _get_arc_nodes(data_dict: dict[str, Any], node_id: str,
@@ -72,6 +95,101 @@ def _extract_active_facets(
       for f in ent_data.get('orderedFacets', []):
         active_facets.append(f.get('facetId'))
   return list(set(active_facets))
+
+
+async def _fetch_node_data(dcids: set[str], prop: str) -> dict[str, Any]:
+  """Helper to fetch node data only if the list of DCIDs is not empty."""
+  if not dcids:
+    return {}
+  return await asyncio.to_thread(dc.v2node, list(dcids), prop)
+
+
+def _extract_facet_date_ranges(
+    obs_resp: dict, stat_vars: list[str]) -> dict[str, dict[str, str]]:
+  """Extracts min/max dates for facets."""
+  facet_date_ranges = collections.defaultdict(dict)
+  by_variable = obs_resp.get('byVariable', {})
+
+  for sv in stat_vars:
+    by_entity = by_variable.get(sv, {}).get('byEntity', {})
+    for ent_data in by_entity.values():
+      # Aggregate Date Ranges
+      for f in ent_data.get('orderedFacets', []):
+        fid = f.get('facetId')
+        if not fid:
+          continue
+
+        earliest, latest = f.get('earliestDate'), f.get('latestDate')
+
+        if earliest and (not facet_date_ranges[fid].get('earliestDate') or
+                         earliest < facet_date_ranges[fid]['earliestDate']):
+          facet_date_ranges[fid]['earliestDate'] = earliest
+
+        if latest and (not facet_date_ranges[fid].get('latestDate') or
+                       latest > facet_date_ranges[fid]['latestDate']):
+          facet_date_ranges[fid]['latestDate'] = latest
+
+  return facet_date_ranges
+
+
+async def _fetch_secondary_metadata(
+    provenance_endpoints: set[str], measurement_methods: set[str],
+    units: set[str]) -> tuple[dict, dict, dict, dict]:
+  """Shared helper to resolve human-readable strings from the Knowledge Graph."""
+  # Look up names and descriptions of provenances, measurement methods and units
+  try:
+    prov_res, mm_res, unit_res = await asyncio.gather(
+        _fetch_node_data(provenance_endpoints, '->*'),
+        _fetch_node_data(measurement_methods, '->description'),
+        _fetch_node_data(units, '->name'))
+  except Exception:
+    logging.exception("Failed to fetch secondary metadata from DC")
+    prov_res, mm_res, unit_res = {}, {}, {}
+
+  # Process secondary lookups
+  prov_map: dict[str, dict[str, Any]] = {}
+  linked_prov_dcids: set[str] = set()
+
+  if 'data' in prov_res:
+    for dcid in prov_res['data']:
+      prov_map[dcid] = {
+          'source': _get_arc_nodes(prov_res, dcid, 'source'),
+          'isPartOf': _get_arc_nodes(prov_res, dcid, 'isPartOf'),
+          'name': _get_arc_nodes(prov_res, dcid, 'name'),
+          'url': _get_arc_nodes(prov_res, dcid, 'url'),
+          'licenseType': _get_arc_nodes(prov_res, dcid, 'licenseType'),
+      }
+      # Collect DCIDs of linked entities for human-readable resolution
+      for n in prov_map[dcid]['source'] + prov_map[dcid]['isPartOf'] + prov_map[
+          dcid]['licenseType']:
+        if 'dcid' in n:
+          linked_prov_dcids.add(n['dcid'])
+
+  linked_names_map: dict[str, str] = {}
+  if linked_prov_dcids:
+    try:
+      linked_names_resp = await asyncio.to_thread(dc.v2node,
+                                                  list(linked_prov_dcids),
+                                                  '->name')
+      for n_dcid in linked_prov_dcids:
+        n_arcs = _get_arc_nodes(linked_names_resp, n_dcid, 'name')
+        if n_arcs:
+          linked_names_map[n_dcid] = n_arcs[0].get('value')
+    except Exception:
+      logging.exception("Failed to resolve linked provenance names")
+
+  mm_map: dict[str, str] = {
+      mm: _get_arc_nodes(mm_res, mm, 'description')[0].get('value')
+      for mm in measurement_methods
+      if _get_arc_nodes(mm_res, mm, 'description')
+  }
+  unit_map: dict[str, str] = {
+      u: _get_arc_nodes(unit_res, u, 'name')[0].get('value')
+      for u in units
+      if _get_arc_nodes(unit_res, u, 'name')
+  }
+
+  return prov_map, linked_names_map, mm_map, unit_map
 
 
 def _traverse_to_top_category(node: str, parent_map: dict[str, list[str]],
@@ -276,13 +394,9 @@ def _build_metadata_payload(
   return metadata_map
 
 
-async def _fetch_node_data(dcids: set[str], prop: str) -> dict[str, Any]:
-  """Helper to fetch node data only if the list of DCIDs is not empty."""
-  if not dcids:
-    return {}
-  return await asyncio.to_thread(dc.v2node, list(dcids), prop)
-
-
+# ==============================================================================
+# Metadata Endpoint
+# ==============================================================================
 @bp.route('', methods=['POST'])
 async def get_metadata() -> tuple[Response, int] | Response:
   # Input Validation
@@ -342,7 +456,6 @@ async def get_metadata() -> tuple[Response, int] | Response:
 
   facets = obs_resp.get('facets', {})
 
-  facet_date_ranges: dict[str, dict[str, str]] = collections.defaultdict(dict)
   provenance_endpoints: set[str] = set()
   measurement_methods: set[str] = set()
   units: set[str] = set()
@@ -358,73 +471,10 @@ async def get_metadata() -> tuple[Response, int] | Response:
       if finfo.get('importName'):
         provenance_endpoints.add(f"dc/base/{finfo['importName']}")
 
-      # Aggregate Date Ranges
-      by_entity = obs_resp.get('byVariable', {}).get(sv, {}).get('byEntity', {})
-      for ent_data in by_entity.values():
-        for f in ent_data.get('orderedFacets', []):
-          if f.get('facetId') != fid:
-            continue
+  facet_date_ranges = _extract_facet_date_ranges(obs_resp, stat_vars)
 
-          earliest, latest = f.get('earliestDate'), f.get('latestDate')
-          if earliest and (not facet_date_ranges[fid].get('earliestDate') or
-                           earliest < facet_date_ranges[fid]['earliestDate']):
-            facet_date_ranges[fid]['earliestDate'] = earliest
-          if latest and (not facet_date_ranges[fid].get('latestDate') or
-                         latest > facet_date_ranges[fid]['latestDate']):
-            facet_date_ranges[fid]['latestDate'] = latest
-
-  # Look up names and descriptions of provenances, measurement methods and units
-  try:
-    prov_res, mm_res, unit_res = await asyncio.gather(
-        _fetch_node_data(provenance_endpoints, '->*'),
-        _fetch_node_data(measurement_methods, '->description'),
-        _fetch_node_data(units, '->name'))
-  except Exception:
-    logging.exception("Failed to fetch secondary metadata from DC")
-    return jsonify({'error': 'Failed to resolve secondary node data'}), 502
-
-  # Process secondary lookups
-  prov_map: dict[str, dict[str, Any]] = {}
-  linked_prov_dcids: set[str] = set()
-
-  if 'data' in prov_res:
-    for dcid in prov_res['data']:
-      prov_map[dcid] = {
-          'source': _get_arc_nodes(prov_res, dcid, 'source'),
-          'isPartOf': _get_arc_nodes(prov_res, dcid, 'isPartOf'),
-          'name': _get_arc_nodes(prov_res, dcid, 'name'),
-          'url': _get_arc_nodes(prov_res, dcid, 'url'),
-          'licenseType': _get_arc_nodes(prov_res, dcid, 'licenseType'),
-      }
-      # Collect DCIDs of linked entities for human-readable resolution
-      for n in prov_map[dcid]['source'] + prov_map[dcid]['isPartOf'] + prov_map[
-          dcid]['licenseType']:
-        if 'dcid' in n:
-          linked_prov_dcids.add(n['dcid'])
-
-  linked_names_map: dict[str, str] = {}
-  if linked_prov_dcids:
-    try:
-      linked_names_resp = await asyncio.to_thread(dc.v2node,
-                                                  list(linked_prov_dcids),
-                                                  '->name')
-      for n_dcid in linked_prov_dcids:
-        n_arcs = _get_arc_nodes(linked_names_resp, n_dcid, 'name')
-        if n_arcs:
-          linked_names_map[n_dcid] = n_arcs[0].get('value')
-    except Exception:
-      logging.exception("Failed to resolve linked provenance names")
-
-  mm_map: dict[str, str] = {
-      mm: _get_arc_nodes(mm_res, mm, 'description')[0].get('value')
-      for mm in measurement_methods
-      if _get_arc_nodes(mm_res, mm, 'description')
-  }
-  unit_map: dict[str, str] = {
-      u: _get_arc_nodes(unit_res, u, 'name')[0].get('value')
-      for u in units
-      if _get_arc_nodes(unit_res, u, 'name')
-  }
+  prov_map, linked_names_map, mm_map, unit_map = await _fetch_secondary_metadata(
+      provenance_endpoints, measurement_methods, units)
 
   # Assemble and return the final response
   metadata_map = _build_metadata_payload(stat_vars, stat_var_names,
@@ -433,3 +483,146 @@ async def get_metadata() -> tuple[Response, int] | Response:
                                          linked_names_map, mm_map, unit_map)
 
   return jsonify({'metadata': metadata_map, 'statVarList': stat_var_list})
+
+
+# ==============================================================================
+# Facet Metadata Enrichment
+# ==============================================================================
+@bp.route('/facets', methods=['POST'])
+async def enrich_facets() -> tuple[Response, int] | Response:
+  """Endpoint to enrich a dictionary of facets with dates and metadata."""
+  req_data = request.get_json(silent=True)
+  if not req_data:
+    return jsonify({'error': 'Must provide a valid JSON body'}), 400
+
+  facets = req_data.get('facets', {})
+  stat_vars = req_data.get('statVars', [])
+  entities = req_data.get('entities', [])
+  entity_expression = req_data.get('entityExpression', '')
+
+  if not facets:
+    return jsonify({})
+
+  obs_resp = {'byVariable': {}}
+  if stat_vars and (entities or entity_expression):
+
+    # 1. Resolve large expressions explicitly so we can safely chunk entities
+    if entity_expression:
+      match = re.search(r'(.*)<-containedInPlace\+\{typeOf:(.*)\}',
+                        entity_expression)
+      if match:
+        parent_entity = match.group(1)
+        child_type = match.group(2)
+        if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
+          try:
+            logging.info(
+                f"Resolving massive entity expression for batching: {entity_expression}"
+            )
+            child_places_resp = await asyncio.to_thread(fetch.descendent_places,
+                                                        [parent_entity],
+                                                        child_type)
+            entities = child_places_resp.get(parent_entity, [])
+            entity_expression = ""
+          except Exception:
+            logging.exception(
+                "Failed to resolve descendent places for batching")
+
+    # 2. Establish base query kwargs
+    base_kwargs = {'select': ['entity', 'variable', 'facet']}
+
+    all_fids = []
+    for sv_facets in facets.values():
+      all_fids.extend(list(sv_facets.keys()))
+    all_fids = list(set(all_fids))
+    if all_fids:
+      base_kwargs['filter'] = {'facetIds': all_fids}
+
+    tasks = []
+
+    # 3. Create observation tasks based on whether we are batching
+    if entity_expression:
+      # At this stage, we know this is an entity expression not found in the batch constants
+      kwargs = base_kwargs.copy()
+      kwargs['entity'] = {'expression': entity_expression}
+      kwargs['variable'] = {'dcids': stat_vars}
+      tasks.append(asyncio.to_thread(dc.v2observation, **kwargs))
+
+    elif entities:
+      # We have explicit entities
+      # Chunk them so len(entities) * len(stat_vars) <= _MAX_BATCH_SIZE
+      ent_batch_size = max(1, _MAX_BATCH_SIZE // max(1, len(stat_vars)))
+      for i in range(0, len(entities), ent_batch_size):
+        kwargs = base_kwargs.copy()
+        kwargs['entity'] = {'dcids': entities[i:i + ent_batch_size]}
+        kwargs['variable'] = {'dcids': stat_vars}
+        tasks.append(asyncio.to_thread(dc.v2observation, **kwargs))
+
+    # 4. Run tasks and then merge
+    try:
+      if tasks:
+        chunk_results = await asyncio.gather(*tasks)
+
+        for res in chunk_results:
+          if not res or 'byVariable' not in res:
+            continue
+          for sv, sv_data in res.get('byVariable', {}).items():
+            if sv not in obs_resp['byVariable']:
+              obs_resp['byVariable'][sv] = {'byEntity': {}}
+            for ent, ent_data in sv_data.get('byEntity', {}).items():
+              if ent not in obs_resp['byVariable'][sv]['byEntity']:
+                obs_resp['byVariable'][sv]['byEntity'][ent] = {
+                    'orderedFacets': []
+                }
+              obs_resp['byVariable'][sv]['byEntity'][ent][
+                  'orderedFacets'].extend(ent_data.get('orderedFacets', []))
+    except Exception:
+      logging.exception(
+          "v2observation failed in enrich_facets. Date ranges may be missing.")
+      obs_resp = {}
+
+  facet_date_ranges = _extract_facet_date_ranges(obs_resp, stat_vars)
+
+  provenance_endpoints = set()
+  measurement_methods = set()
+  units = set()
+
+  for sv, sv_facets in facets.items():
+    for fid, finfo in sv_facets.items():
+      if finfo.get('importName'):
+        provenance_endpoints.add(f"dc/base/{finfo['importName']}")
+      if finfo.get('measurementMethod'):
+        measurement_methods.add(finfo['measurementMethod'])
+      if finfo.get('unit'):
+        units.add(finfo['unit'])
+
+  prov_map, linked_names_map, mm_map, unit_map = await _fetch_secondary_metadata(
+      provenance_endpoints, measurement_methods, units)
+
+  for sv, sv_facets in facets.items():
+    for fid, finfo in sv_facets.items():
+      dr = facet_date_ranges.get(fid, {})
+      if dr.get('earliestDate'):
+        finfo['dateRangeStart'] = dr.get('earliestDate')
+      if dr.get('latestDate'):
+        finfo['dateRangeEnd'] = dr.get('latestDate')
+
+      import_name = finfo.get('importName')
+      if import_name:
+        prov_id = f"dc/base/{import_name}"
+        pdata = prov_map.get(prov_id)
+        if pdata:
+          finfo['sourceName'] = _get_node_name(pdata.get('source', []),
+                                               linked_names_map)
+          finfo['provenanceName'] = _get_node_name(pdata.get('isPartOf', []), linked_names_map) or \
+                                    _get_node_name(pdata.get('name', []), linked_names_map) or import_name
+
+      mm = finfo.get('measurementMethod')
+      if mm and finfo.get(
+          'provenanceName') not in MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES:
+        finfo['measurementMethodDescription'] = mm_map.get(mm) or title_case(mm)
+
+      unit = finfo.get('unit')
+      if unit:
+        finfo['unitDisplayName'] = unit_map.get(unit) or unit.replace('_', ' ')
+
+  return jsonify(facets)
