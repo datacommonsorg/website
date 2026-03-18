@@ -574,7 +574,7 @@ def get_series_dates(parent_entity, child_type, variables):
 
   for var, var_data in by_var.items():
     by_ent = var_data.get('byEntity', {})
-    for ent, ent_data in by_ent.items():
+    for _, ent_data in by_ent.items():
 
       series = ent_data.get('series', [])
       for obs in series:
