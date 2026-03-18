@@ -522,18 +522,21 @@ async def enrich_facets() -> tuple[Response, int] | Response:
 
     # 1. Resolve large expressions explicitly so we can safely chunk entities
     if parent_place and enclosed_place_type:
+      # Default to using an entity expression.
+      entity_expression = f"{parent_place}<-containedInPlace+{{typeOf:{enclosed_place_type}}}"
+      # If the place is known to have many children, pre-fetch entities for batching.
       if parent_place in _BATCHED_CALL_PLACES.get(enclosed_place_type, []):
         try:
           child_places_resp = await asyncio.to_thread(fetch.descendent_places,
                                                       [parent_place],
                                                       enclosed_place_type)
           entities = child_places_resp.get(parent_place, [])
+          # If successful, clear the expression to use the explicit entity list.
           entity_expression = ""
         except Exception:
-          logging.exception("Failed to resolve descendent places for batching")
-          entity_expression = f"{parent_place}<-containedInPlace+{{typeOf:{enclosed_place_type}}}"
-      else:
-        entity_expression = f"{parent_place}<-containedInPlace+{{typeOf:{enclosed_place_type}}}"
+          logging.exception(
+              "Failed to resolve descendent places for batching. Falling back to entity expression."
+          )
 
     # 2. Establish base query kwargs
     base_kwargs = {'select': ['entity', 'variable', 'facet']}
