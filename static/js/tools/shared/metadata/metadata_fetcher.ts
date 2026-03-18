@@ -296,7 +296,11 @@ async function fetchNodeProperty(
  */
 export async function fetchFacetsWithMetadata(
   facets: FacetResponse,
-  entityContext: { entities?: string[]; entityExpression?: string },
+  entityContext: {
+    entities?: string[];
+    parentPlace?: string;
+    enclosedPlaceType?: string;
+  },
   apiRoot = ""
 ): Promise<FacetResponse> {
   const statVars = Object.keys(facets);
@@ -310,7 +314,8 @@ export async function fetchFacetsWithMetadata(
         facets,
         statVars,
         entities: entityContext.entities,
-        entityExpression: entityContext.entityExpression,
+        parentPlace: entityContext.parentPlace,
+        enclosedPlaceType: entityContext.enclosedPlaceType,
       }),
     });
     if (!response.ok) {

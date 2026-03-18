@@ -82,11 +82,9 @@ export async function fetchFacetChoicesWithin(
   );
   const baseFacets = Object.assign({}, ...(await Promise.all(facetPromises)));
 
-  // Construct the expression to allow accurate date resolution on the backend
-  const entityExpression = `${parentPlace}<-containedInPlace+{typeOf:${enclosedPlaceType}}`;
-
   const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
-    entityExpression,
+    parentPlace,
+    enclosedPlaceType,
   });
   return statVars.map((sv) => ({
     dcid: sv.dcid,

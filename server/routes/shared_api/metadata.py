@@ -498,34 +498,31 @@ async def enrich_facets() -> tuple[Response, int] | Response:
   facets = req_data.get('facets', {})
   stat_vars = req_data.get('statVars', [])
   entities = req_data.get('entities', [])
-  entity_expression = req_data.get('entityExpression', '')
+  parent_place = req_data.get('parentPlace', '')
+  enclosed_place_type = req_data.get('enclosedPlaceType', '')
 
   if not facets:
     return jsonify({})
 
   obs_resp = {'byVariable': {}}
-  if stat_vars and (entities or entity_expression):
+  entity_expression = ""
+
+  if stat_vars and (entities or (parent_place and enclosed_place_type)):
 
     # 1. Resolve large expressions explicitly so we can safely chunk entities
-    if entity_expression:
-      match = re.search(r'(.*)<-containedInPlace\+\{typeOf:(.*)\}',
-                        entity_expression)
-      if match:
-        parent_entity = match.group(1)
-        child_type = match.group(2)
-        if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
-          try:
-            logging.info(
-                f"Resolving massive entity expression for batching: {entity_expression}"
-            )
-            child_places_resp = await asyncio.to_thread(fetch.descendent_places,
-                                                        [parent_entity],
-                                                        child_type)
-            entities = child_places_resp.get(parent_entity, [])
-            entity_expression = ""
-          except Exception:
-            logging.exception(
-                "Failed to resolve descendent places for batching")
+    if parent_place and enclosed_place_type:
+      if parent_place in _BATCHED_CALL_PLACES.get(enclosed_place_type, []):
+        try:
+          child_places_resp = await asyncio.to_thread(fetch.descendent_places,
+                                                      [parent_place],
+                                                      enclosed_place_type)
+          entities = child_places_resp.get(parent_place, [])
+          entity_expression = ""
+        except Exception:
+          logging.exception("Failed to resolve descendent places for batching")
+          entity_expression = f"{parent_place}<-containedInPlace+{{typeOf:{enclosed_place_type}}}"
+      else:
+        entity_expression = f"{parent_place}<-containedInPlace+{{typeOf:{enclosed_place_type}}}"
 
     # 2. Establish base query kwargs
     base_kwargs = {'select': ['entity', 'variable', 'facet']}

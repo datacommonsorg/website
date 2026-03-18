@@ -43,7 +43,11 @@ type FacetMetadataReturn = {
  */
 export function useFacetMetadata(
   baseFacets: FacetResponse | null,
-  entityContext: { entities?: string[]; entityExpression?: string } = {}
+  entityContext: {
+    entities?: string[];
+    parentPlace?: string;
+    enclosedPlaceType?: string;
+  } = {}
 ): FacetMetadataReturn {
   const [facetMetadata, setFacetMetadata] = useState<FacetMetadataReturn>({
     facetSelectorMetadata: {},
@@ -52,7 +56,7 @@ export function useFacetMetadata(
   });
 
   // Extract the primitive values for safe dependency tracking
-  const { entities, entityExpression } = entityContext;
+  const { entities, parentPlace, enclosedPlaceType } = entityContext;
   const entitiesString = entities?.join(",");
 
   useEffect(() => {
@@ -70,7 +74,8 @@ export function useFacetMetadata(
         // Pass the extracted values back into the fetcher
         const resp = await fetchFacetsWithMetadata(baseFacets, {
           entities: entitiesString ? entitiesString.split(",") : undefined,
-          entityExpression,
+          parentPlace,
+          enclosedPlaceType,
         });
 
         if (cancelled) return;
@@ -96,7 +101,7 @@ export function useFacetMetadata(
     return () => {
       cancelled = true;
     };
-  }, [baseFacets, entitiesString, entityExpression]);
+  }, [baseFacets, entitiesString, parentPlace, enclosedPlaceType]);
 
   return facetMetadata;
 }

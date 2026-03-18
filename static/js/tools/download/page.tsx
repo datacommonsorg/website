@@ -186,9 +186,9 @@ export function Page(props: PagePropType): ReactElement {
           }
         }
 
-        const entityExpression = `${selectedOptions.selectedPlace.dcid}<-containedInPlace+{typeOf:${selectedOptions.enclosedPlaceType}}`;
         const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
-          entityExpression,
+          parentPlace: selectedOptions.selectedPlace.dcid,
+          enclosedPlaceType: selectedOptions.enclosedPlaceType,
         });
 
         const sourceSelectorFacetList = [];
