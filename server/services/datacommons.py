@@ -412,8 +412,8 @@ def get_place_info(dcids: List[str]) -> Dict:
   visited = set()
 
   # BFS to build parent graph (max depth 10)
-  MAX_ANCESTOR_DEPTH = 10
-  for _ in range(MAX_ANCESTOR_DEPTH):
+  max_ancestor_depth = 10
+  for _ in range(max_ancestor_depth):
     if not frontier:
       break
 
@@ -461,7 +461,7 @@ def get_place_info(dcids: List[str]) -> Dict:
     all_dcids.update(anc_set)
   all_dcids.update(dcids)
 
-  all_dcids_list = sorted(list(all_dcids))
+  all_dcids_list = sorted(all_dcids)
   if not all_dcids_list:
     return {'data': []}
 
@@ -545,7 +545,6 @@ def get_series_dates(parent_entity, child_type, variables):
   # Get children recursively with type filter
   children_resp = v2node([parent_entity],
                          f'<-containedInPlace+{{typeOf:{child_type}}}')
-  child_dcids = []
 
   node_data = children_resp.get('data', {}).get(parent_entity, {})
   # V2 response key for recursion includes the + but not the filter
@@ -562,7 +561,6 @@ def get_series_dates(parent_entity, child_type, variables):
       entity={'dcids': child_dcids},
       variable={'dcids': variables})
 
-  # Aggregate results
   # Aggregate results: { variable: { date: { facet: count } } }
   agg_data = collections.defaultdict(
       lambda: collections.defaultdict(lambda: collections.defaultdict(int)))
@@ -585,10 +583,6 @@ def get_series_dates(parent_entity, child_type, variables):
         # Facet handling
         facet_id = obs.get('facet', "")
         agg_data[var][date][facet_id] += 1
-        # Assuming facets details are in 'facets' key of response?
-        # v2observation response should have 'facets' top level key if requested?
-        # 'facet' in select might return the ID in the series or the object?
-        # Usually it returns facetID and a top-level facets map.
 
   # Construct response
   resp_dates = []
@@ -599,9 +593,7 @@ def get_series_dates(parent_entity, child_type, variables):
       for facet_id, count in facet_counts.items():
         entity_counts.append({
             "count": count,
-            "facet": facet_id  # V1 expects facet ID or object?
-            # V1 proto: EntityCount { count, facet } where facet is string (ID?).
-            # But typically it might expect the full facet object in a separate map.
+            "facet": facet_id
         })
       obs_dates.append({"date": date, "entityCount": entity_counts})
     resp_dates.append({"variable": var, "observationDates": obs_dates})
