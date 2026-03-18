@@ -35,6 +35,7 @@ from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
+from shared.lib.constants import PLACE_TYPE_RANK
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
 
@@ -399,31 +400,6 @@ def get_variable_ancestors(dcid: str):
   url = get_service_url("/v1/variable/ancestors")
   url = f"{url}/{dcid}"
   return get(url).get("ancestors", [])
-
-
-PLACE_TYPE_RANK = {
-    "CensusZipCodeTabulationArea": 1,
-    "AdministrativeArea5": 2,
-    "AdministrativeArea4": 2,
-    "Village": 5,
-    "City": 5,
-    "Town": 5,
-    "Borough": 5,
-    "AdministrativeArea3": 5,
-    "County": 10,
-    "AdministrativeArea2": 10,
-    "EurostatNUTS3": 10,
-    "CensusDivision": 15,
-    "State": 20,
-    "AdministrativeArea1": 20,
-    "EurostatNUTS2": 20,
-    "EurostatNUTS1": 20,
-    "Country": 30,
-    "CensusRegion": 35,
-    "GeoRegion": 38,
-    "Continent": 40,
-    "Place": 50,
-}
 
 
 def get_place_info(dcids: List[str]) -> Dict:
