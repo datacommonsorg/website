@@ -17,7 +17,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Page, RankingPagePropType } from "./ranking_page";
+import { Page, RankingPagePropType } from "./old_ranking_page";
 
 /**
  * Export the component so this can be used as a library in a static page.
