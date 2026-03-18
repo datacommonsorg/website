@@ -557,7 +557,7 @@ def get_series_dates(parent_entity, child_type, variables):
 
   # Get observation dates for the filtered children
   obs_resp = v2observation(
-      select=['date', 'variable', 'entity', 'value', 'facet'],
+      select=['date', 'variable', 'entity', 'facet'],
       entity={'dcids': child_dcids},
       variable={'dcids': variables})
 
