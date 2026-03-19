@@ -18,8 +18,8 @@ import json
 import flask
 from flask import current_app
 
-import server.routes.shared_api.place as place_api
 import server.lib.feature_flags as feature_flags
+import server.routes.shared_api.place as place_api
 
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 
