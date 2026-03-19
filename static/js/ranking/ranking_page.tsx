@@ -22,6 +22,7 @@ import { ThemeProvider } from "@emotion/react";
 import React from "react";
 
 import { Category } from "../components/subject_page/category";
+import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
 import { CategoryConfig } from "../types/subject_page_proto_types";
@@ -51,12 +52,15 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
     dcid: props.withinPlace,
     types: [],
   };
+  const statVarTitle = getStatsVarTitle(props.statVar);
   return (
     <div>
-      <h1>Ranking Page</h1>
+      <h1>
+        Ranking by {statVarTitle} in {props.placeName}
+      </h1>
       <ThemeProvider theme={theme}>
         <Category
-          config={getCategoryConfig(props)}
+          config={getCategoryConfig(props, statVarTitle)}
           enclosedPlaceType={props.placeType}
           eventTypeSpec={{}}
           id="ranking-page-category"
@@ -71,7 +75,10 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
 /**
  * Build category config for the ranking page.
  */
-function getCategoryConfig(props: RankingPagePropType): CategoryConfig {
+function getCategoryConfig(
+  props: RankingPagePropType,
+  statVarName: string
+): CategoryConfig {
   // Build statVarSpec
   const statVarSpec = {};
   statVarSpec[props.statVar] = {
@@ -80,7 +87,7 @@ function getCategoryConfig(props: RankingPagePropType): CategoryConfig {
     unit: props.unit,
     scaling: props.scaling,
     log: false,
-    name: props.statVar,
+    name: statVarName,
     date: props.date,
   };
   return {
