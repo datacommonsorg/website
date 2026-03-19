@@ -20,9 +20,9 @@
 
 import { DataCommonsClient } from "@datacommonsorg/client";
 
-import { SURFACE_HEADER_NAME } from "../../../shared/constants";
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarFacetMap } from "../../../shared/types";
+import { getSurfaceHeader } from "../../../utils/axios";
 import { FacetResponse } from "../../../utils/data_fetch_utils";
 import { StatVarMetadata } from "./metadata";
 
@@ -80,10 +80,10 @@ export async function fetchFacetsWithMetadata(
   if (!statVars.length) return facets;
 
   try {
-    const headers = { "Content-Type": "application/json" };
-    if (surface) {
-      headers[SURFACE_HEADER_NAME] = surface;
-    }
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      ...(surface ? getSurfaceHeader(surface) : {}),
+    };
 
     const response = await fetch(`${apiRoot}/api/metadata/facets`, {
       method: "POST",
@@ -142,10 +142,10 @@ export async function fetchMetadata(
     }
   }
 
-  const headers = { "Content-Type": "application/json" };
-  if (surface) {
-    headers[SURFACE_HEADER_NAME] = surface;
-  }
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...(surface ? getSurfaceHeader(surface) : {}),
+  };
 
   const response = await fetch(`${apiRoot || ""}/api/metadata`, {
     method: "POST",
