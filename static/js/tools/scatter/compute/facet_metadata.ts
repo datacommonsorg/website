@@ -47,7 +47,8 @@ export function useFacetMetadata(
     entities?: string[];
     parentPlace?: string;
     enclosedPlaceType?: string;
-  } = {}
+  } = {},
+  surface?: string
 ): FacetMetadataReturn {
   const [facetMetadata, setFacetMetadata] = useState<FacetMetadataReturn>({
     facetSelectorMetadata: {},
@@ -72,11 +73,16 @@ export function useFacetMetadata(
 
       try {
         // Pass the extracted values back into the fetcher
-        const resp = await fetchFacetsWithMetadata(baseFacets, {
-          entities: entitiesString ? entitiesString.split(",") : undefined,
-          parentPlace,
-          enclosedPlaceType,
-        });
+        const resp = await fetchFacetsWithMetadata(
+          baseFacets,
+          {
+            entities: entitiesString ? entitiesString.split(",") : undefined,
+            parentPlace,
+            enclosedPlaceType,
+          },
+          "",
+          surface
+        );
 
         if (cancelled) return;
 
@@ -101,7 +107,7 @@ export function useFacetMetadata(
     return () => {
       cancelled = true;
     };
-  }, [baseFacets, entitiesString, parentPlace, enclosedPlaceType]);
+  }, [baseFacets, entitiesString, parentPlace, enclosedPlaceType, surface]);
 
   return facetMetadata;
 }
