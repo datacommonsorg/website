@@ -112,7 +112,7 @@ class RankingTestMixin():
                   by=By.XPATH,
                   value='//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
         self.url_ +
-        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&bottom=&disable_feature=new_ranking_page')
+        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&disable_feature=new_ranking_page&bottom=')
 
     headers = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
