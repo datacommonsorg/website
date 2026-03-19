@@ -36,6 +36,7 @@ MAX_CATEGORY_DEPTH = 50
 MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES: set[str] = {"WikipediaStatsData"}
 
 # TODO (nick-nlb): merge the below constants with series.py.
+# TODO (nick-nlb): factor out the commonly used functions into a separate file
 
 # Maximum number of concurrent series the server will fetch in a single chunk
 _MAX_BATCH_SIZE = 2000
@@ -120,6 +121,8 @@ def _extract_facet_date_ranges(
 
         earliest, latest = f.get('earliestDate'), f.get('latestDate')
 
+        # If this date would expand the earliest or latest date boundaries of the facet
+        # then we expand the facet date boundaries to match.
         if earliest and (not facet_date_ranges[fid].get('earliestDate') or
                          earliest < facet_date_ranges[fid]['earliestDate']):
           facet_date_ranges[fid]['earliestDate'] = earliest
@@ -593,6 +596,7 @@ async def enrich_facets() -> tuple[Response, int] | Response:
   measurement_methods = set()
   units = set()
 
+  # Collect unique references across all facets to batch-fetch their secondary metadata.
   for sv, sv_facets in facets.items():
     for fid, finfo in sv_facets.items():
       if finfo.get('importName'):
@@ -605,14 +609,17 @@ async def enrich_facets() -> tuple[Response, int] | Response:
   prov_map, linked_names_map, mm_map, unit_map = await _fetch_secondary_metadata(
       provenance_endpoints, measurement_methods, units)
 
+  # Enrich the original facets with the resolved metadata and calculated date boundaries.
   for sv, sv_facets in facets.items():
     for fid, finfo in sv_facets.items():
       dr = facet_date_ranges.get(fid, {})
+      # Apply the expanded min/max date boundaries.
       if dr.get('earliestDate'):
         finfo['dateRangeStart'] = dr.get('earliestDate')
       if dr.get('latestDate'):
         finfo['dateRangeEnd'] = dr.get('latestDate')
 
+      # Resolve human-readable source and publisher names from the provenance.
       import_name = finfo.get('importName')
       if import_name:
         prov_id = f"dc/base/{import_name}"
@@ -623,6 +630,7 @@ async def enrich_facets() -> tuple[Response, int] | Response:
           finfo['provenanceName'] = _get_node_name(pdata.get('isPartOf', []), linked_names_map) or \
                                     _get_node_name(pdata.get('name', []), linked_names_map) or import_name
 
+      # Attach descriptive display names for the measurement method and unit.
       mm = finfo.get('measurementMethod')
       if mm and finfo.get(
           'provenanceName') not in MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES:
