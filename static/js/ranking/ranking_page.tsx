@@ -101,6 +101,7 @@ function getCategoryConfig(props: RankingPagePropType): CategoryConfig {
                 rankingTileSpec: {
                   showHighest: true,
                   showLowest: false,
+                  rankingCount: 100,
                 },
               },
             ],
