@@ -290,94 +290,43 @@ async function fetchNodeProperty(
  * Fetches and enriches facet metadata with human-readable and supplementary
  * information like source names, date ranges, and descriptions.
  * @param facets The basic facet response from an API call like getFacets.
- * @param dataCommonsClient Client for Data Commons API calls.
+ * @param entityContext The specific entities or expression used to determine dates.
  * @param apiRoot Optional API root URL for requests.
  * @returns The facets with enriched StatMetadata.
  */
 export async function fetchFacetsWithMetadata(
   facets: FacetResponse,
-  dataCommonsClient: DataCommonsClient,
+  entityContext: {
+    entities?: string[];
+    parentPlace?: string;
+    enclosedPlaceType?: string;
+  },
   apiRoot = ""
 ): Promise<FacetResponse> {
   const statVars = Object.keys(facets);
-  if (!statVars.length) return {};
+  if (!statVars.length) return facets;
 
-  const measurementMethods = new Set<string>();
-  const units = new Set<string>();
-  const statVarSet = new Set<string>();
-  for (const sv in facets) {
-    statVarSet.add(sv);
-    for (const facetId in facets[sv]) {
-      const facet = facets[sv][facetId];
-      if (facet.measurementMethod) {
-        measurementMethods.add(facet.measurementMethod);
-      }
-      if (facet.unit) {
-        units.add(facet.unit);
-      }
+  try {
+    const response = await fetch(`${apiRoot}/api/metadata/facets`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        facets,
+        statVars,
+        entities: entityContext.entities,
+        parentPlace: entityContext.parentPlace,
+        enclosedPlaceType: entityContext.enclosedPlaceType,
+      }),
+    });
+    if (!response.ok) {
+      console.error("Failed to enrich facets via API");
+      return facets;
     }
+    return await response.json();
+  } catch (e) {
+    console.error("Error enriching facets:", e);
+    return facets;
   }
-
-  const [provenanceMap, variableData, measurementMethodMap, unitMap] =
-    await Promise.all([
-      fetchProvenanceInfo(statVars, facets, undefined, apiRoot),
-      fetchStatVarProvenanceSummaries(statVars, apiRoot),
-      fetchNodeProperty(measurementMethods, "description", dataCommonsClient),
-      fetchNodeProperty(units, "name", dataCommonsClient),
-    ]);
-
-  const enrichedFacets: FacetResponse = {};
-  for (const statVarId of statVars) {
-    enrichedFacets[statVarId] = {};
-    for (const facetId in facets[statVarId]) {
-      const facetInfo = facets[statVarId][facetId];
-      const newFacetInfo = { ...facetInfo };
-
-      if (facetInfo.importName) {
-        const provenanceId = `dc/base/${facetInfo.importName}`;
-        const provenanceData = provenanceMap[provenanceId];
-        if (provenanceData) {
-          newFacetInfo.sourceName = provenanceData.source?.[0]?.name;
-          newFacetInfo.provenanceName =
-            provenanceData.isPartOf?.[0]?.name ||
-            provenanceData.name?.[0]?.value ||
-            facetInfo.importName;
-        }
-        const seriesList =
-          variableData[statVarId]?.provenanceSummary?.[provenanceId]
-            ?.seriesSummary;
-        const matchedSeries = Array.isArray(seriesList)
-          ? matchSeriesByFacet(seriesList, facetInfo)
-          : undefined;
-        if (
-          matchedSeries &&
-          !DATE_RANGE_SUPPRESSION_PROVENANCES.includes(
-            newFacetInfo.provenanceName
-          )
-        ) {
-          newFacetInfo.dateRangeStart = matchedSeries.earliestDate;
-          newFacetInfo.dateRangeEnd = matchedSeries.latestDate;
-        }
-      }
-
-      if (
-        facetInfo.measurementMethod &&
-        !MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES.includes(
-          newFacetInfo.provenanceName
-        )
-      ) {
-        newFacetInfo.measurementMethodDescription =
-          measurementMethodMap[facetInfo.measurementMethod] ||
-          startCase(facetInfo.measurementMethod.replace(/_/g, " "));
-      }
-      if (facetInfo.unit) {
-        newFacetInfo.unitDisplayName =
-          unitMap[facetInfo.unit] || facetInfo.unit.replace(/_/g, " ");
-      }
-      enrichedFacets[statVarId][facetId] = newFacetInfo;
-    }
-  }
-  return enrichedFacets;
 }
 
 /**
