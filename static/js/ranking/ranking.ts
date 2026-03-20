@@ -62,6 +62,7 @@ window.addEventListener("load", (): void => {
         unit,
         scaling,
         date,
+        locale,
       }),
       document.getElementById("main-pane")
     );
