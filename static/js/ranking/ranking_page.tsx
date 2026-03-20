@@ -53,7 +53,13 @@ interface RankingPagePropType {
   locale: string;
 }
 
-export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
+function useAncestorPlaces(
+  parentPlaceDcid: string,
+  locale: string
+): {
+  ancestorPlaces: NamedTypedNode[];
+  ancestorPlaceLocalizedNames: Record<string, string>;
+} {
   // Ancestor places of the parent place, from smallest to largest
   const [ancestorPlaces, setAncestorPlaces] = useState<NamedTypedNode[]>([]);
   // Mapping of ancestor place dcid to its localized name
@@ -62,20 +68,29 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
 
   // Get the ancestor places for the subtitle
   useEffect(() => {
-    const parentPlacesPromise = getParentPlacesPromise(props.parentPlaceDcid);
+    const parentPlacesPromise = getParentPlacesPromise(parentPlaceDcid);
     parentPlacesPromise.then(async (parentPlaces) => {
       // get the localized name for each parent to display
       setAncestorPlaceLocalizedNames(
         await getPlaceNames(
           parentPlaces.map((parent) => parent.dcid),
           {
-            locale: props.locale,
+            locale,
           }
         )
       );
       setAncestorPlaces(parentPlaces);
     });
-  }, [props.locale, props.parentPlaceDcid]);
+  }, [locale, parentPlaceDcid]);
+
+  return { ancestorPlaces, ancestorPlaceLocalizedNames };
+}
+
+export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
+  const { ancestorPlaces, ancestorPlaceLocalizedNames } = useAncestorPlaces(
+    props.parentPlaceDcid,
+    props.locale
+  );
 
   // Get the display name of the stat var, localized
   const statVarName = getStatsVarTitle(props.statVarDcid);
