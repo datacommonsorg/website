@@ -20,21 +20,18 @@
 
 import { ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Category } from "../components/subject_page/category";
-import { intl, LocalizedLink } from "../i18n/i18n";
-import { rankingMessages } from "../i18n/i18n_ranking_messages";
-import { displayNameForPlaceType } from "../place/util";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
 import { CategoryConfig } from "../types/subject_page_proto_types";
-import { getParentPlacesPromise, getPlaceNames } from "../utils/place_utils";
+import { RankingPageHeader } from "./ranking_header";
 
 interface RankingPagePropType {
-  // Name of the parent place the ranking page is for
-  parentPlaceName: string;
+  // Name of the parent place the ranking page is for, already localized
+  parentPlaceNameLocalized: string;
   // Type of the places to be ranked. Must be a child place type of withinPlace.
   childPlaceType: string;
   // DCID of the parent place
@@ -53,96 +50,34 @@ interface RankingPagePropType {
   locale: string;
 }
 
-function useAncestorPlaces(
-  parentPlaceDcid: string,
-  locale: string
-): {
-  ancestorPlaces: NamedTypedNode[];
-  ancestorPlaceLocalizedNames: Record<string, string>;
-} {
-  // Ancestor places of the parent place, from smallest to largest
-  const [ancestorPlaces, setAncestorPlaces] = useState<NamedTypedNode[]>([]);
-  // Mapping of ancestor place dcid to its localized name
-  const [ancestorPlaceLocalizedNames, setAncestorPlaceLocalizedNames] =
-    useState<Record<string, string>>({});
-
-  // Get the ancestor places for the subtitle
-  useEffect(() => {
-    const parentPlacesPromise = getParentPlacesPromise(parentPlaceDcid);
-    parentPlacesPromise.then(async (parentPlaces) => {
-      // get the localized name for each parent to display
-      setAncestorPlaceLocalizedNames(
-        await getPlaceNames(
-          parentPlaces.map((parent) => parent.dcid),
-          {
-            locale,
-          }
-        )
-      );
-      setAncestorPlaces(parentPlaces);
-    });
-  }, [locale, parentPlaceDcid]);
-
-  return { ancestorPlaces, ancestorPlaceLocalizedNames };
-}
-
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
-  const { ancestorPlaces, ancestorPlaceLocalizedNames } = useAncestorPlaces(
-    props.parentPlaceDcid,
-    props.locale
-  );
-
   // Get the display name of the stat var, localized
-  const statVarName = getStatsVarTitle(props.statVarDcid);
+  const statVarNameLocalized = getStatsVarTitle(props.statVarDcid);
 
   // The parent place as a NamedTypedNode, used for the Category component
-  const parentPlace: NamedTypedNode = {
-    name: props.parentPlaceName,
+  const parentPlaceLocalized: NamedTypedNode = {
+    name: props.parentPlaceNameLocalized,
     dcid: props.parentPlaceDcid,
-    types: [],
+    types: [], // Unused for ranking tile
   };
-
-  // Get the pluralized place type for the page title
-  const pluralPlaceType = displayNameForPlaceType(
-    props.childPlaceType,
-    true /* isPlural */
-  );
-
-  // Get the page title
-  const pageTitle = intl.formatMessage(rankingMessages.pageTitle, {
-    statVarName,
-    pluralPlaceType,
-    placeName: props.parentPlaceName,
-  });
-
-  // Get localized links for the subtitle
-  const ancestorPlacesLinks = ancestorPlaces.map((parent, index) => {
-    return (
-      <span key={parent.dcid}>
-        <LocalizedLink
-          className="place-info-link"
-          href={`/place/${parent.dcid}`}
-          text={ancestorPlaceLocalizedNames[parent.dcid]}
-        />
-        {index < ancestorPlaces.length - 1 ? ", " : ""}
-      </span>
-    );
-  });
 
   return (
     <div>
       <ThemeProvider theme={theme}>
         <RankingPageContainer>
-          <div className="ranking-header-container">
-            <h1>{pageTitle}</h1>
-            <div className="ancestor-places-links">{ancestorPlacesLinks}</div>
-          </div>
+          <RankingPageHeader
+            parentPlaceNameLocalized={props.parentPlaceNameLocalized}
+            parentPlaceDcid={props.parentPlaceDcid}
+            childPlaceType={props.childPlaceType}
+            statVarNameLocalized={statVarNameLocalized}
+            locale={props.locale}
+          />
           <Category
-            config={getCategoryConfig(props, statVarName)}
+            config={getCategoryConfig(props, statVarNameLocalized)}
             enclosedPlaceType={props.childPlaceType}
             eventTypeSpec={{}}
             id="ranking-page-category"
-            place={parentPlace}
+            place={parentPlaceLocalized}
             svgChartHeight={500}
           />
         </RankingPageContainer>

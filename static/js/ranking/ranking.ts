@@ -29,7 +29,8 @@ window.addEventListener("load", (): void => {
   const parentPlaceDcid =
     document.getElementById("within-place-dcid").dataset.pwp;
   const childPlaceType = document.getElementById("place-type").dataset.pt;
-  const parentPlaceName = document.getElementById("place-name").dataset.pn;
+  const parentPlaceNameLocalized =
+    document.getElementById("place-name").dataset.pn; // Already localized by flask
   const statVarDcid = document.getElementById("stat-var").dataset.sv;
   const isPerCapita = JSON.parse(
     document.getElementById("per-capita").dataset.pc.toLowerCase()
@@ -54,7 +55,7 @@ window.addEventListener("load", (): void => {
   ]).then(() => {
     ReactDOM.render(
       React.createElement(RankingPage, {
-        parentPlaceName,
+        parentPlaceNameLocalized,
         childPlaceType,
         parentPlaceDcid,
         statVarDcid,
