@@ -552,7 +552,9 @@ def find_entities(places: list[str]) -> dict[str, list[str]]:
 
     # A check to make sure that the node returned was in our initial request
     if node in retval:
-      dcids = [c.get("dcid") for c in ent.get("candidates", []) if "dcid" in c]
+      dcids = [
+          dcid for c in ent.get("candidates", []) if (dcid := c.get("dcid"))
+      ]
       if dcids:
         retval[node] = dcids
 
