@@ -19,7 +19,6 @@
  */
 
 import { ThemeProvider } from "@emotion/react";
-import styled from "@emotion/styled";
 import React from "react";
 
 import { Category } from "../components/subject_page/category";
@@ -28,6 +27,7 @@ import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
 import { RankingPageHeader } from "./ranking_header";
 import { getCategoryConfig } from "./ranking_config_builder";
+import { RankingPageContainer } from "./ranking_page_styles";
 
 export interface RankingPagePropType {
   // Name of the parent place the ranking page is for, already localized
@@ -86,54 +86,3 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
   );
 };
 
-
-
-const RankingPageContainer = styled.div`
-  .ranking-header-container {
-    padding: 0 24px;
-
-    h1 {
-      ${theme.typography.family.heading}
-      ${theme.typography.heading.lg}
-    }
-
-    .ancestor-places-links {
-      ${theme.typography.family.heading}
-      ${theme.typography.heading.xs}
-      font-weight: 500;
-      margin-bottom: 32px;
-    }
-  }
-
-  #ranking-page-category {
-    padding: 0;
-
-    .block {
-      padding: 0;
-
-      .block-controls {
-        padding: 0 24px;
-      }
-    }
-  }
-
-  .chart-container.ranking-tile {
-    margin-top: 0;
-
-    .ranking-list {
-      padding: 0 24px;
-    }
-
-    .chart-footnote {
-      padding: 0 24px;
-    }
-
-    .chart-container-footer {
-      padding: 16px 24px;
-    }
-  }
-
-  .ranking-header-section h4 {
-    display: none; // Hide tile title, use page title instead
-  }
-`;
