@@ -34,10 +34,7 @@ export interface RankingPageHeaderPropType {
 export function RankingPageHeader(
   props: RankingPageHeaderPropType
 ): React.JSX.Element {
-  const { ancestorPlaces, ancestorPlaceLocalizedNames } = useAncestorPlaces(
-    props.parentPlaceDcid,
-    props.locale
-  );
+  const ancestorPlaces = useAncestorPlaces(props.parentPlaceDcid, props.locale);
   return (
     <IntlProvider locale={props.locale}>
       <div className="ranking-header-container">
@@ -50,13 +47,13 @@ export function RankingPageHeader(
           )}
         </h1>
         <div className="ancestor-places-links">
-          {ancestorPlaces.map((parent, index) => {
+          {ancestorPlaces.map((ancestor, index) => {
             return (
-              <span key={parent.dcid}>
+              <span key={ancestor.dcid}>
                 <LocalizedLink
                   className="place-info-link"
-                  href={`/place/${parent.dcid}`}
-                  text={ancestorPlaceLocalizedNames[parent.dcid]}
+                  href={`/place/${ancestor.dcid}`}
+                  text={ancestor.name}
                 />
                 {index < ancestorPlaces.length - 1 ? ", " : ""}
               </span>
@@ -68,37 +65,43 @@ export function RankingPageHeader(
   );
 }
 
+/** Get the list of ancestor places for a given place, with localized names
+ *
+ * @param placeDcid - The DCID of the place to get ancestor places for
+ * @param locale - The locale of the page
+ * @returns A list of ancestor places, from smallest to largest, with localized names
+ */
 function useAncestorPlaces(
-  parentPlaceDcid: string,
+  placeDcid: string,
   locale: string
-): {
-  ancestorPlaces: NamedTypedNode[];
-  ancestorPlaceLocalizedNames: Record<string, string>;
-} {
-  // Ancestor places of the parent place, from smallest to largest
-  const [ancestorPlaces, setAncestorPlaces] = useState<NamedTypedNode[]>([]);
-  // Mapping of ancestor place dcid to its localized name
-  const [ancestorPlaceLocalizedNames, setAncestorPlaceLocalizedNames] =
-    useState<Record<string, string>>({});
+): NamedTypedNode[] {
+  const [ancestorPlacesLocalized, setAncestorPlacesLocalized] = useState<
+    NamedTypedNode[]
+  >([]);
 
   // Get the ancestor places for the subtitle
   useEffect(() => {
-    const parentPlacesPromise = getParentPlacesPromise(parentPlaceDcid);
-    parentPlacesPromise.then(async (parentPlaces) => {
+    const parentPlacesPromise = getParentPlacesPromise(placeDcid);
+    parentPlacesPromise.then(async (ancestorPlaces) => {
       // get the localized name for each parent to display
-      setAncestorPlaceLocalizedNames(
-        await getPlaceNames(
-          parentPlaces.map((parent) => parent.dcid),
-          {
-            locale,
-          }
-        )
+      const localizedPlaceNames = await getPlaceNames(
+        ancestorPlaces.map((ancestor) => ancestor.dcid),
+        {
+          locale,
+        }
       );
-      setAncestorPlaces(parentPlaces);
+      // Replace default ancestor places names with their localized name
+      const localizedAncestorPlaces = ancestorPlaces.map((ancestor) => {
+        return {
+          ...ancestor,
+          name: localizedPlaceNames[ancestor.dcid],
+        };
+      });
+      setAncestorPlacesLocalized(localizedAncestorPlaces);
     });
-  }, [locale, parentPlaceDcid]);
+  }, [locale, placeDcid]);
 
-  return { ancestorPlaces, ancestorPlaceLocalizedNames };
+  return ancestorPlacesLocalized;
 }
 
 /** Get the page title, which includes a localizedlink to the place page of the parent place */
