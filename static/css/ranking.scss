@@ -21,17 +21,33 @@
 
 /* Styles specific to the new ranking page revamp */
 
+// Global padding used to left-align all content on the ranking page
+$page-horizontal-padding: 24px;
+
 #ranking-page-category {
   padding: 0;
+
   .block {
-    padding-top: 0;
+    padding: 0;
+
+    .block-controls {
+      padding: 0 $page-horizontal-padding;
+    }
   }
 }
 .chart-container.ranking-tile {
-  margin-top: 0; // Remove extra spacing used on explore pages
+  margin-top: 0;
 
   .ranking-list {
-    padding: 0; // Remove extra spacing used on explore pages
+    padding: 0 $page-horizontal-padding;
+  }
+
+  .chart-footnote {
+    padding: 0 $page-horizontal-padding;
+  }
+
+  .chart-container-footer{
+    padding: 16px $page-horizontal-padding; 
   }
 }
 

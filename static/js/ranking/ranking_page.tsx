@@ -116,23 +116,29 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <h1
-          css={css`
-            ${theme.typography.family.heading}
-            ${theme.typography.heading.lg}
-          `}
-        >
-          {pageTitle}
-        </h1>
         <div
           css={css`
-            ${theme.typography.family.heading}
-            ${theme.typography.heading.xs}
-            font-weight: 500;
-            margin-bottom: 32px;
+            padding: 0 24px;
           `}
         >
-          {ancestorPlacesLinks}
+          <h1
+            css={css`
+              ${theme.typography.family.heading}
+              ${theme.typography.heading.lg}
+            `}
+          >
+            {pageTitle}
+          </h1>
+          <div
+            css={css`
+              ${theme.typography.family.heading}
+              ${theme.typography.heading.xs}
+            font-weight: 500;
+              margin-bottom: 32px;
+            `}
+          >
+            {ancestorPlacesLinks}
+          </div>
         </div>
         <Category
           config={getCategoryConfig(props, statVarName)}
