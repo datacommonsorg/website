@@ -14,7 +14,27 @@
  * limitations under the License.
  */
 
+@use "./shared/subject_page";
+
 @import "base";
 @import "tiles";
 
 /* Styles specific to the new ranking page revamp */
+
+#ranking-page-category {
+  padding: 0;
+  .block {
+    padding-top: 0;
+  }
+}
+.chart-container.ranking-tile {
+  margin-top: 0; // Remove extra spacing used on explore pages
+
+  .ranking-list {
+    padding: 0; // Remove extra spacing used on explore pages
+  }
+}
+
+.ranking-header-section h4 {
+  display: none; // Hide tile title, use page title instead
+}

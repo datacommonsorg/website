@@ -18,14 +18,16 @@
  * Main component for rendering a ranking page.
  */
 
-import { ThemeProvider } from "@emotion/react";
-import React from "react";
+import { css, ThemeProvider } from "@emotion/react";
+import React, { useEffect, useState } from "react";
 
 import { Category } from "../components/subject_page/category";
+import { displayNameForPlaceType } from "../place/util";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
 import { CategoryConfig } from "../types/subject_page_proto_types";
+import { getDataCommonsClient } from "../utils/data_commons_client";
 
 interface RankingPagePropType {
   // Name of the parent place the ranking page is for
@@ -47,20 +49,34 @@ interface RankingPagePropType {
 }
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
+  // Get the display name of the stat var, localized
+  const statVarName = getStatsVarTitle(props.statVar);
   const parentPlace: NamedTypedNode = {
     name: props.placeName,
     dcid: props.withinPlace,
     types: [],
   };
-  const statVarTitle = getStatsVarTitle(props.statVar);
+
+  // Get the pluralized place type for the page title
+  const pluralPlaceType = displayNameForPlaceType(
+    props.placeType,
+    true /* isPlural */
+  );
+  const pageTitle = `Ranking by ${statVarName} for ${pluralPlaceType} in ${props.placeName}`;
+
   return (
     <div>
-      <h1>
-        Ranking by {statVarTitle} in {props.placeName}
-      </h1>
       <ThemeProvider theme={theme}>
+        <h1
+          css={css`
+            ${theme.typography.family.heading}
+            ${theme.typography.heading.lg}
+          `}
+        >
+          {pageTitle}
+        </h1>
         <Category
-          config={getCategoryConfig(props, statVarTitle)}
+          config={getCategoryConfig(props, statVarName, pluralPlaceType)}
           enclosedPlaceType={props.placeType}
           eventTypeSpec={{}}
           id="ranking-page-category"
@@ -77,8 +93,12 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
  */
 function getCategoryConfig(
   props: RankingPagePropType,
-  statVarName: string
+  statVarName: string,
+  pluralPlaceType: string
 ): CategoryConfig {
+  // Build tile's title
+  const rankingTileTitle = `${statVarName} in ${pluralPlaceType} of ${props.placeName}`;
+
   // Build statVarSpec
   const statVarSpec = {};
   statVarSpec[props.statVar] = {
@@ -90,6 +110,7 @@ function getCategoryConfig(
     name: statVarName,
     date: props.date,
   };
+
   return {
     title: "",
     statVarSpec,
@@ -102,13 +123,13 @@ function getCategoryConfig(
             tiles: [
               {
                 type: "RANKING",
-                title: "",
+                title: rankingTileTitle,
                 description: "",
                 statVarKey: [props.statVar],
                 rankingTileSpec: {
                   showHighest: true,
                   showLowest: false,
-                  rankingCount: 100,
+                  rankingCount: 100, // Start with first 100 entries
                 },
               },
             ],
