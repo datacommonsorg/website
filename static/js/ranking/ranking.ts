@@ -26,10 +26,11 @@ import { RankingPage } from "./ranking_page";
 
 window.addEventListener("load", (): void => {
   // Get page metadata
-  const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
-  const placeType = document.getElementById("place-type").dataset.pt;
-  const placeName = document.getElementById("place-name").dataset.pn;
-  const statVar = document.getElementById("stat-var").dataset.sv;
+  const parentPlaceDcid =
+    document.getElementById("within-place-dcid").dataset.pwp;
+  const childPlaceType = document.getElementById("place-type").dataset.pt;
+  const parentPlaceName = document.getElementById("place-name").dataset.pn;
+  const statVarDcid = document.getElementById("stat-var").dataset.sv;
   const isPerCapita = JSON.parse(
     document.getElementById("per-capita").dataset.pc.toLowerCase()
   );
@@ -38,7 +39,7 @@ window.addEventListener("load", (): void => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
 
-  // Get scaling
+  // Get unit, scaling, and date from URL params
   const urlParams = new URLSearchParams(window.location.search);
   const unit = urlParams.get("unit");
   let scaling = Number(urlParams.get("scaling"));
@@ -53,10 +54,10 @@ window.addEventListener("load", (): void => {
   ]).then(() => {
     ReactDOM.render(
       React.createElement(RankingPage, {
-        placeName,
-        placeType,
-        withinPlace,
-        statVar,
+        parentPlaceName,
+        childPlaceType,
+        parentPlaceDcid,
+        statVarDcid,
         isPerCapita,
         unit,
         scaling,

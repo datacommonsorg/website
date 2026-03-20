@@ -22,22 +22,23 @@ import { css, ThemeProvider } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 
 import { Category } from "../components/subject_page/category";
+import { LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
 import { CategoryConfig } from "../types/subject_page_proto_types";
-import { getDataCommonsClient } from "../utils/data_commons_client";
+import { getParentPlacesPromise } from "../utils/place_utils";
 
 interface RankingPagePropType {
   // Name of the parent place the ranking page is for
-  placeName: string;
+  parentPlaceName: string;
   // Type of the places to be ranked. Must be a child place type of withinPlace.
-  placeType: string;
+  childPlaceType: string;
   // DCID of the parent place
-  withinPlace: string;
+  parentPlaceDcid: string;
   // DCID of the stat var to be ranked
-  statVar: string;
+  statVarDcid: string;
   // Whether to divide the stat var values by population
   isPerCapita: boolean;
   // Scaling factor to multiply the stat var values by
@@ -49,20 +50,46 @@ interface RankingPagePropType {
 }
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
+  const [parentPlaces, setParentPlaces] = useState<NamedTypedNode[]>([]);
+
+  // Get the parent places for the subtitle
+  useEffect(() => {
+    const parentPlacesPromise = getParentPlacesPromise(props.parentPlaceDcid);
+    parentPlacesPromise.then((parentPlaces) => {
+      setParentPlaces(parentPlaces);
+    });
+  }, [props.parentPlaceDcid]);
+
   // Get the display name of the stat var, localized
-  const statVarName = getStatsVarTitle(props.statVar);
+  const statVarName = getStatsVarTitle(props.statVarDcid);
   const parentPlace: NamedTypedNode = {
-    name: props.placeName,
-    dcid: props.withinPlace,
+    name: props.parentPlaceName,
+    dcid: props.parentPlaceDcid,
     types: [],
   };
 
   // Get the pluralized place type for the page title
   const pluralPlaceType = displayNameForPlaceType(
-    props.placeType,
+    props.childPlaceType,
     true /* isPlural */
   );
-  const pageTitle = `Ranking by ${statVarName} for ${pluralPlaceType} in ${props.placeName}`;
+
+  // Get the page title
+  const pageTitle = `Ranking by ${statVarName} for ${pluralPlaceType} in ${props.parentPlaceName}`;
+
+  // Get localized links for the subtitle
+  const parentPlacesLinks = parentPlaces.map((parent, index) => {
+    return (
+      <span key={parent.dcid}>
+        <LocalizedLink
+          className="place-info-link"
+          href={`/place/${parent.dcid}`}
+          text={parent.name}
+        />
+        {index < parentPlaces.length - 1 ? ", " : ""}
+      </span>
+    );
+  });
 
   return (
     <div>
@@ -75,9 +102,19 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
         >
           {pageTitle}
         </h1>
+        <div
+          css={css`
+            ${theme.typography.family.heading}
+            ${theme.typography.heading.xs}
+            font-weight: 500;
+            margin-bottom: 32px;
+          `}
+        >
+          {parentPlacesLinks}
+        </div>
         <Category
           config={getCategoryConfig(props, statVarName)}
-          enclosedPlaceType={props.placeType}
+          enclosedPlaceType={props.childPlaceType}
           eventTypeSpec={{}}
           id="ranking-page-category"
           place={parentPlace}
@@ -97,8 +134,8 @@ function getCategoryConfig(
 ): CategoryConfig {
   // Build statVarSpec
   const statVarSpec = {};
-  statVarSpec[props.statVar] = {
-    statVar: props.statVar,
+  statVarSpec[props.statVarDcid] = {
+    statVar: props.statVarDcid,
     denom: props.isPerCapita ? "Count_Person" : "",
     unit: props.unit,
     scaling: props.scaling,
@@ -121,7 +158,7 @@ function getCategoryConfig(
                 type: "RANKING",
                 title: "",
                 description: "",
-                statVarKey: [props.statVar],
+                statVarKey: [props.statVarDcid],
                 rankingTileSpec: {
                   showHighest: true,
                   showLowest: false,
