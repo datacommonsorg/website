@@ -104,12 +104,19 @@ function useAncestorPlaces(
   return ancestorPlacesLocalized;
 }
 
-/** Get the page title, which includes a localizedlink to the place page of the parent place */
+/** Get the page title, which includes a localizedlink to the place page of the parent place
+ *
+ * @param statVarNameLocalized - The localized name of the stat var
+ * @param childPlaceType - The type of the places to be ranked
+ * @param parentPlaceDcid - The DCID of the parent place
+ * @param parentPlaceNameLocalized - The localized name of the parent place
+ * @returns The page title
+ */
 function getPageTitle(
-  statVarName: string,
+  statVarNameLocalized: string,
   childPlaceType: string,
   parentPlaceDcid: string,
-  parentPlaceName: string
+  parentPlaceNameLocalized: string
 ): React.JSX.Element {
   // Get the pluralized place type (e.g. county -> counties)
   const pluralPlaceType = displayNameForPlaceType(
@@ -122,7 +129,7 @@ function getPageTitle(
       <LocalizedLink
         className="place-info-link"
         href={`/place/${parentPlaceDcid}`}
-        text={parentPlaceName}
+        text={parentPlaceNameLocalized}
       />
     </span>
   );
@@ -131,7 +138,7 @@ function getPageTitle(
       id={rankingMessages.pageTitle.id}
       defaultMessage={rankingMessages.pageTitle.defaultMessage}
       values={{
-        statVarName,
+        statVarName: statVarNameLocalized,
         pluralPlaceType,
         placeName: parentPlaceLink,
       }}
