@@ -76,7 +76,7 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
           {pageTitle}
         </h1>
         <Category
-          config={getCategoryConfig(props, statVarName, pluralPlaceType)}
+          config={getCategoryConfig(props, statVarName)}
           enclosedPlaceType={props.placeType}
           eventTypeSpec={{}}
           id="ranking-page-category"
@@ -93,12 +93,8 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
  */
 function getCategoryConfig(
   props: RankingPagePropType,
-  statVarName: string,
-  pluralPlaceType: string
+  statVarName: string
 ): CategoryConfig {
-  // Build tile's title
-  const rankingTileTitle = `${statVarName} in ${pluralPlaceType} of ${props.placeName}`;
-
   // Build statVarSpec
   const statVarSpec = {};
   statVarSpec[props.statVar] = {
@@ -123,7 +119,7 @@ function getCategoryConfig(
             tiles: [
               {
                 type: "RANKING",
-                title: rankingTileTitle,
+                title: "",
                 description: "",
                 statVarKey: [props.statVar],
                 rankingTileSpec: {
