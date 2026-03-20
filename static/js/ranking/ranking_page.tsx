@@ -18,7 +18,8 @@
  * Main component for rendering a ranking page.
  */
 
-import { css, ThemeProvider } from "@emotion/react";
+import { ThemeProvider } from "@emotion/react";
+import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 
 import { Category } from "../components/subject_page/category";
@@ -116,38 +117,20 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <div
-          css={css`
-            padding: 0 24px;
-          `}
-        >
-          <h1
-            css={css`
-              ${theme.typography.family.heading}
-              ${theme.typography.heading.lg}
-            `}
-          >
-            {pageTitle}
-          </h1>
-          <div
-            css={css`
-              ${theme.typography.family.heading}
-              ${theme.typography.heading.xs}
-            font-weight: 500;
-              margin-bottom: 32px;
-            `}
-          >
-            {ancestorPlacesLinks}
+        <RankingPageContainer>
+          <div className="ranking-header-container">
+            <h1>{pageTitle}</h1>
+            <div className="ancestor-places-links">{ancestorPlacesLinks}</div>
           </div>
-        </div>
-        <Category
-          config={getCategoryConfig(props, statVarName)}
-          enclosedPlaceType={props.childPlaceType}
-          eventTypeSpec={{}}
-          id="ranking-page-category"
-          place={parentPlace}
-          svgChartHeight={500}
-        />
+          <Category
+            config={getCategoryConfig(props, statVarName)}
+            enclosedPlaceType={props.childPlaceType}
+            eventTypeSpec={{}}
+            id="ranking-page-category"
+            place={parentPlace}
+            svgChartHeight={500}
+          />
+        </RankingPageContainer>
       </ThemeProvider>
     </div>
   );
@@ -200,3 +183,53 @@ function getCategoryConfig(
     ],
   };
 }
+
+const RankingPageContainer = styled.div`
+  .ranking-header-container {
+    padding: 0 24px;
+
+    h1 {
+      ${theme.typography.family.heading}
+      ${theme.typography.heading.lg}
+    }
+
+    .ancestor-places-links {
+      ${theme.typography.family.heading}
+      ${theme.typography.heading.xs}
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+  }
+
+  #ranking-page-category {
+    padding: 0;
+
+    .block {
+      padding: 0;
+
+      .block-controls {
+        padding: 0 24px;
+      }
+    }
+  }
+
+  .chart-container.ranking-tile {
+    margin-top: 0;
+
+    .ranking-list {
+      padding: 0 24px;
+    }
+
+    .chart-footnote {
+      padding: 0 24px;
+    }
+
+    .chart-container-footer {
+      padding: 16px 24px;
+    }
+  }
+
+  .ranking-header-section h4 {
+    display: none; // Hide tile title, use page title instead
+  }
+`;
