@@ -26,10 +26,10 @@ import { Category } from "../components/subject_page/category";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
-import { CategoryConfig } from "../types/subject_page_proto_types";
 import { RankingPageHeader } from "./ranking_header";
+import { getCategoryConfig } from "./ranking_config_builder";
 
-interface RankingPagePropType {
+export interface RankingPagePropType {
   // Name of the parent place the ranking page is for, already localized
   parentPlaceNameLocalized: string;
   // Type of the places to be ranked. Must be a child place type of withinPlace.
@@ -86,53 +86,7 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
   );
 };
 
-/**
- * Build category config for the ranking page.
- */
-function getCategoryConfig(
-  props: RankingPagePropType,
-  statVarName: string
-): CategoryConfig {
-  // Build statVarSpec
-  const statVarSpec = {};
-  statVarSpec[props.statVarDcid] = {
-    statVar: props.statVarDcid,
-    denom: props.isPerCapita ? "Count_Person" : "",
-    unit: props.unit,
-    scaling: props.scaling,
-    log: false,
-    name: statVarName,
-    date: props.date,
-  };
 
-  return {
-    title: "",
-    statVarSpec,
-    blocks: [
-      {
-        title: "",
-        description: "",
-        columns: [
-          {
-            tiles: [
-              {
-                type: "RANKING",
-                title: "",
-                description: "",
-                statVarKey: [props.statVarDcid],
-                rankingTileSpec: {
-                  showHighest: true,
-                  showLowest: false,
-                  rankingCount: 100, // Start with first 100 entries
-                },
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
-}
 
 const RankingPageContainer = styled.div`
   .ranking-header-container {
