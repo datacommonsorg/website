@@ -24,6 +24,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { NamedNode, NamedPlace } from "../shared/types";
 import { getPlaceDcids } from "../utils/place_utils";
 import {
+  escapeRegexSpecialChars,
+  isSafeRegexPattern,
+} from "../utils/regex_utils";
+import {
   getHighlightedJSX,
   getStatVarSearchResults,
 } from "../utils/search_utils";
@@ -56,7 +60,11 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
     }
   }, []);
 
-  const matches = inputText.split(" ");
+  const matches = inputText
+    .split(" ")
+    .filter((match) =>
+      isSafeRegexPattern(`(${escapeRegexSpecialChars(match.toLowerCase())})`)
+    );
   return (
     <>
       <div

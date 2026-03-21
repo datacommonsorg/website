@@ -27,6 +27,10 @@ import {
   TileConfig,
 } from "../js/types/subject_page_proto_types";
 import {
+  escapeRegexSpecialChars,
+  isSafeRegexPattern,
+} from "../js/utils/regex_utils";
+import {
   BARD_CLIENT_URL_PARAM,
   CHART_ID,
   CHART_INFO_PARAMS,
@@ -295,7 +299,10 @@ function getTileChart(
 app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
-  const query = req.query.q as string;
+  const rawQuery = (req.query.q as string) || "";
+  const query = isSafeRegexPattern(escapeRegexSpecialChars(rawQuery))
+    ? rawQuery
+    : "";
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   // If the value for allCharts param is truthy, we should return all charts.
   // Otherwise, return QUERY_MAX_RESULTS number of charts.
