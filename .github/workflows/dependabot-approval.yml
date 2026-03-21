@@ -50,71 +50,74 @@ jobs:
     # Only run this on a schedule or manual dispatch
     if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.repository == 'datacommonsorg/website'
     steps:
-      - name: Find and process Dependabot PRs older than 7 days
+      - name: Fetch Global Dependabot State
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
-          # 0. Fetch all Dependabot PRs centrally
-          ALL_PRS_JSON=$(gh pr list \
+          gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --author "app/dependabot" \
-            --limit 100 \
-            --json url,createdAt,labels,autoMergeRequest,statusCheckRollup,mergeStateStatus)
+            --limit 1000 \
+            --json url,createdAt,labels,autoMergeRequest,statusCheckRollup,mergeStateStatus > /tmp/dependabot_prs.json
 
-          # --- STATE 4: CONFLICTED ---
-          # If a PR has severe merge conflicts natively (DIRTY), we explicitly
-          # tag it as 'merge-conflict' and isolate it so it stops jamming the queue.
+      - name: Isolate Conflicted PRs (State 4)
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
           JQ_CONFLICTED_FILTER='.[] | select(
             (.mergeStateStatus == "DIRTY") and 
             (all(.labels[].name; . != "merge-conflict" and . != "ignore"))
           ) | .url'
 
-          CONFLICTED_PRS=$(echo "$ALL_PRS_JSON" | jq -r "$JQ_CONFLICTED_FILTER")
+          CONFLICTED_PRS=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_CONFLICTED_FILTER")
 
           for CONFLICTED_PR in $CONFLICTED_PRS; do
             echo "State Transition: PR hit merge conflicts. Tagging PR: $CONFLICTED_PR"
             gh pr edit "$CONFLICTED_PR" --add-label "merge-conflict" || true
           done
 
-          # --- STATE 3: FAILING ---
-          # If a PR has started to actively fail its tests, we tag it as 'failing' 
-          # and permanently ignore it to prevent it from clogging the queue.
+      - name: Isolate Failing PRs (State 3)
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
           JQ_FAILING_FILTER='.[] | select(
             (.statusCheckRollup | tojson | test("FAILURE|ERROR")) and 
             (all(.labels[].name; . != "failing" and . != "ignore"))
           ) | .url'
 
-          FAILING_PRS=$(echo "$ALL_PRS_JSON" | jq -r "$JQ_FAILING_FILTER")
+          FAILING_PRS=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_FAILING_FILTER")
 
           for FAILING_PR in $FAILING_PRS; do
             echo "State Transition: PR tests failed. Tagging PR: $FAILING_PR"
             gh pr edit "$FAILING_PR" --add-label "failing" || true
           done
 
-          # --- STATE LOCK: ACTIVE PIPELINE QUEUE ---
-          # Check if any PR is CURRENTLY actively testing (autoMerge enabled, not failing/merge-conflict)
+      - name: Evaluate Pipeline Queue Lock (State Lock)
+        run: |
           JQ_QUEUE_LOCK_FILTER='.[] | select(
             (.autoMergeRequest != null) and
             (all(.labels[].name; . != "failing" and . != "merge-conflict" and . != "ignore"))
           ) | .url'
 
-          ACTIVE_QUEUE=$(echo "$ALL_PRS_JSON" | jq -r "$JQ_QUEUE_LOCK_FILTER")
+          ACTIVE_QUEUE=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_QUEUE_LOCK_FILTER")
 
           if [ -n "$ACTIVE_QUEUE" ]; then
             echo "A Dependabot PR is currently in the active testing queue. Pipeline locked by:"
             echo "$ACTIVE_QUEUE"
-            exit 0
+            echo "QUEUE_LOCKED=true" >> "$GITHUB_ENV"
           fi
 
-          # --- STATE 2: ACTIVE (Ready to Process) ---
-          # Find a PR that is older than 7 days (finished Baking), 
-          # is NOT currently automerging in the queue, and is NOT isolated.
+      - name: Dispatch Target PR (State 2)
+        if: env.QUEUE_LOCKED != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
           JQ_TARGET_FILTER='[.[] | select(
             (((now - (.createdAt | fromdateiso8601)) / 86400) >= 7) and 
             (all(.labels[].name; . != "failing" and . != "merge-conflict" and . != "ignore"))
           )] | .[0].url // empty'
 
-          PRS=$(echo "$ALL_PRS_JSON" | jq -r "$JQ_TARGET_FILTER")
+          PRS=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_TARGET_FILTER")
 
           if [ -z "$PRS" ] || [ "$PRS" == "null" ]; then
             echo "No PRs currently eligible for Active processing."
