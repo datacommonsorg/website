@@ -40,12 +40,14 @@ website:
         }
       }
 
-mixer:
-  serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
-  hostProject: "datcom-website-prod"
 
-serviceAccount:
-  name: website-ksa
+
+# Ingress is disabled because we use Multi Cluster Ingress (MCI) and Multi Cluster Service (MCS)
+# defined in gke/ which manage networking independently of this Helm chart.
+# Enabling ingress here would mean using templates/single_cluster.yaml to set up a standard
+# Ingress and Service, which is not what we want for this multi-cluster environment.
+ingress:
+  enabled: false
 
 nl:
   enabled: true
@@ -63,17 +65,6 @@ nl:
         location: us-central1
         prediction_endpoint_id: "430892009855647744"
     enable_reranking: false
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 10
-  observation:
-    replicas: 100
-  node:
-    replicas: 100
-  default:
-    replicas: 50
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
