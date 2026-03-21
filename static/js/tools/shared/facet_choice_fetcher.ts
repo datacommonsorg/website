@@ -20,7 +20,6 @@
 
 import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
-import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getFacets, getFacetsWithin } from "../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "./metadata/metadata_fetcher";
 
@@ -41,17 +40,15 @@ export async function fetchFacetChoices(
   placeDcids: string[],
   statVars: { dcid: string; name?: string }[]
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
   const baseFacets = await getFacets(
     "",
     placeDcids,
     statVars.map((sv) => sv.dcid),
     WEBSITE_SURFACE
   );
-  const enrichedFacets = await fetchFacetsWithMetadata(
-    baseFacets,
-    dataCommonsClient
-  );
+  const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
+    entities: placeDcids,
+  });
   return statVars.map((sv) => ({
     dcid: sv.dcid,
     name: sv.name || sv.dcid,
@@ -73,7 +70,6 @@ export async function fetchFacetChoicesWithin(
   enclosedPlaceType: string,
   statVars: { dcid: string; name?: string; date?: string }[]
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
   const facetPromises = statVars.map((sv) =>
     getFacetsWithin(
       "",
@@ -85,10 +81,11 @@ export async function fetchFacetChoicesWithin(
     )
   );
   const baseFacets = Object.assign({}, ...(await Promise.all(facetPromises)));
-  const enrichedFacets = await fetchFacetsWithMetadata(
-    baseFacets,
-    dataCommonsClient
-  );
+
+  const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
+    parentPlace,
+    enclosedPlaceType,
+  });
   return statVars.map((sv) => ({
     dcid: sv.dcid,
     name: sv.name || sv.dcid,
