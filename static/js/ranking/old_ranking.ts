@@ -1,5 +1,5 @@
 /**
- * Copyright 2026 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,8 @@
  * @fileoverview Entry point for Ranking pages
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-
 import { loadLocaleData } from "../i18n/i18n";
-import { RankingPage } from "./ranking_page";
+import { renderRankingComponent } from "./old_component";
 
 window.addEventListener("load", (): void => {
   // Get page metadata
@@ -51,18 +48,15 @@ window.addEventListener("load", (): void => {
     import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
     import(`../i18n/compiled-lang/${locale}/units.json`),
   ]).then(() => {
-    ReactDOM.render(
-      React.createElement(RankingPage, {
-        placeName,
-        placeType,
-        withinPlace,
-        statVar,
-        isPerCapita,
-        unit,
-        scaling,
-        date,
-      }),
-      document.getElementById("main-pane")
-    );
+    renderRankingComponent(document.getElementById("main-pane"), {
+      placeName,
+      placeType,
+      withinPlace,
+      statVar,
+      isPerCapita,
+      unit,
+      scaling,
+      date,
+    });
   });
 });

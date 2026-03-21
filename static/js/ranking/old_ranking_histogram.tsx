@@ -20,7 +20,7 @@ import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw_histogram";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { randDomId } from "../shared/util";
-import { RankInfo, Ranking } from "./ranking_types";
+import { RankInfo, Ranking } from "./old_ranking_types";
 
 interface RankingHistogramPropType {
   ranking: Ranking;
