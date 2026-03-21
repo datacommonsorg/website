@@ -5,7 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: '0 11 * * *' # Run daily at 11:00 UTC
+    - cron: '*/30 * * * *' # Run every 30 minutes
   workflow_dispatch:
     # Allows manual triggering of the workflow
 
@@ -39,50 +39,44 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
-          # Fetch open dependabot PRs
-          # Filter for PRs created at least 7 days ago
+          # 1. Prevent Out-of-Date Cascade
+          # Check if any Dependabot PR is already queued for auto-merge.
+          # If so, we exit and wait for it to finish to prevent thrashing CI.
+          ACTIVE_PRS=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --author "app/dependabot" \
+            --json autoMergeRequest \
+            -q '[.[] | select(.autoMergeRequest != null)] | length')
+
+          if [ "$ACTIVE_PRS" -gt 0 ]; then
+            echo "A Dependabot PR is currently being processed or tested. Waiting to prevent Out-of-Date Cascade."
+            exit 0
+          fi
+
+          # 2. Fetch open dependabot PRs older than 7 days
+          # We only extract the FIRST one to process synchronously.
           PRS=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --author "app/dependabot" \
             --json url,createdAt \
-            -q '.[] | select(((now - (.createdAt | fromdateiso8601)) / 86400) >= 7) | .url')
+            -q '[.[] | select(((now - (.createdAt | fromdateiso8601)) / 86400) >= 7)] | .[0].url')
 
-          if [ -z "$PRS" ]; then
-            echo "No dependabot PRs older than 7 days found."
+          if [ -z "$PRS" ] || [ "$PRS" == "null" ]; then
+            echo "No eligible dependabot PRs older than 7 days found."
             exit 0
           fi
 
-          for PR_URL in $PRS; do
-            echo "Processing $PR_URL..."
-            
-            # Record current commit SHA
-            OLD_SHA=$(gh pr view "$PR_URL" --json commits -q '.commits[-1].oid')
-            
-            # Trigger a rebase to ensure the PR is up to date
-            gh pr comment "$PR_URL" --body "@dependabot rebase"
-
-            echo "Waiting up to 5 minutes for rebase to complete..."
-            REBASED=false
-            for i in {1..20}; do
-              sleep 15
-              NEW_SHA=$(gh pr view "$PR_URL" --json commits -q '.commits[-1].oid')
-              if [ "$NEW_SHA" != "$OLD_SHA" ]; then
-                echo "Rebase completed. New SHA: $NEW_SHA"
-                REBASED=true
-                break
-              fi
-            done
-            
-            # If the SHA changed, the rebase force-push will automatically trigger 
-            # the pull_request_target event, which handles posting /gcbrun. 
-            # We only post /gcbrun here if no rebase occurred (e.g., already up to date).
-            if [ "$REBASED" = "false" ]; then
-              gh pr comment "$PR_URL" --body "/gcbrun"
-            fi
-            
-            # Approve the PR (ignore if already approved)
-            gh pr review --approve "$PR_URL" || true
-            
-            # Enable auto-merge for the PR
-            gh pr merge --auto --squash "$PR_URL" || true
-          done
+          PR_URL="$PRS"
+          echo "Processing $PR_URL..."
+          
+          # Approve the PR (ignore if already approved)
+          gh pr review --approve "$PR_URL" || true
+          
+          # Enable auto-merge for the PR
+          gh pr merge --auto --squash "$PR_URL" || true
+          
+          # 3. Prevent Double-Triggering
+          # Trigger a rebase asynchronously. When Dependabot finishes the rebase, 
+          # its force-push will natively trigger the pull_request_target event.
+          # The trigger-tests job handles the /gcbrun test initiation automatically.
+          gh pr comment "$PR_URL" --body "@dependabot rebase"
