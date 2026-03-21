@@ -15,26 +15,24 @@
 -#}
 
 
-{#-
+{#- For any page that extends this template, set the following:
   Required variables:
-  title: page title
-  main_id: DOM Element ID for the main content block
-  page_id: DOM Element ID for the html element
+  title: page title (used in the browser title bar)
+  main_id: DOM Element ID for the main content block (used for CSS)
+  page_id: DOM Element ID for the html element (used for CSS)
 
   Optional variables:
-  locale: string, value for html lang attr
-  is_hide_header_search_bar: boolean, if true, the header will not contain a search bar. Default false.
-  subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  is_hide_header_search_bar: boolean, if true, the header will not contain a search bar.
 
   Blocks to override:
-  head - additional head elements
+  head - head elements
   content - main page content
 -#}
 <!DOCTYPE html>
 {#- Hide the header search bar for custom DC pages. -#}
 {% set is_hide_header_search_bar = 'true' %}
 
-<html lang={{ locale }} id={{ page_id }}>
+<html id={{ page_id }}>
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
@@ -57,7 +55,7 @@
     globalThis.disableGoogleMaps = {{ config['DISABLE_GOOGLE_MAPS'] | tojson }};
   </script>
 
-  <title>{{ title }} - Custom Data Commons</title>
+  <title>{{ title }} - {{NAME}}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
@@ -74,7 +72,7 @@
 </head>
 
 <body>
-{# Set page locale and pass header/footer configuration to base.js #}
+{# Pass header/footer configuration to base.js #}
 <div id="metadata-base" class="d-none"
     data-header="{{ HEADER_MENU }}"
     data-footer="{{ FOOTER_MENU }}"
@@ -90,7 +88,6 @@
     data-hide-sub-footer="{{ is_hide_sub_footer }}"
     data-subfooter-extra="{{ subfooter_extra_content|safe }}"
     data-brand-logo-light="{{ brand_logo_light }}"
-    data-locale="{{ locale }}"
     data-sample-questions="{{ sample_questions }}"
 >
 </div>
