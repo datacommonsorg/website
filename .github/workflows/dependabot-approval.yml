@@ -45,6 +45,7 @@ jobs:
           ACTIVE_PRS=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --author "app/dependabot" \
+            --limit 100 \
             --json autoMergeRequest \
             -q '[.[] | select(.autoMergeRequest != null)] | length')
 
@@ -58,6 +59,7 @@ jobs:
           PRS=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --author "app/dependabot" \
+            --limit 100 \
             --json url,createdAt \
             -q '[.[] | select(((now - (.createdAt | fromdateiso8601)) / 86400) >= 7)] | .[0].url')
 
