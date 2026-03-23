@@ -55,7 +55,7 @@ class TestEventPage(BaseDcWebdriverTest):
     self.assertEqual(find_elem(div1, by=By.TAG_NAME, value='h1').text, 'Nicole')
     self.assertEqual(
         find_elem(div1, by=By.TAG_NAME, value='h3').text,
-        'Cyclone Event in Indian River County, Florida, United States of America, North America, Earth'
+        'Cyclone Event in Indian River County, Florida, United States, North America, Earth'
     )
 
     # Check the Google Map section
@@ -114,7 +114,7 @@ class TestEventPage(BaseDcWebdriverTest):
         '0003 Fire 2015 (2836427)')
     self.assertEqual(
         find_elem(div1, by=By.TAG_NAME, value='h3').text,
-        'Wildland Fire Event in Deschutes County, Oregon, United States of America, North America, Earth'
+        'Wildland Fire Event in Deschutes County, Oregon, United States, North America, Earth'
     )
 
     # Check google map section
@@ -169,7 +169,7 @@ class TestEventPage(BaseDcWebdriverTest):
         'stormEvent/nws5512667')
     self.assertEqual(
         find_elem(div1, by=By.TAG_NAME, value='h3').text,
-        'Drought Event in Hood County, Texas, United States of America, North America, Earth'
+        'Drought Event in Hood County, Texas, United States, North America, Earth'
     )
 
     # Check google map section
