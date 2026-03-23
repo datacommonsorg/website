@@ -44,7 +44,7 @@ original_branch=$(git branch --show-current)
 # Because the prod tag might be out of sync, we use --force to fetch.
 # Check if the fetch will overwrite existing tags, and ask user for confirmation
 fetch_dry_run_output=$(git fetch "$upstream_remote" --tags --force --dry-run 2>&1 || true)
-if echo "$fetch_dry_run_output" | grep -q '\[tag update\]'; then
+if [[ "$fetch_dry_run_output" == *"[tag update]"* ]]; then
   echo "Warning: The following tags will be overwritten by this fetch:"
   echo "$fetch_dry_run_output" | grep '\[tag update\]'
   read -r -p "Do you want to continue and overwrite these tags? [y/N] " fetch_response
