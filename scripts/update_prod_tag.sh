@@ -29,6 +29,9 @@ if [ -z "$upstream_remote" ]; then
 fi
 echo "Remote for main repo is '${upstream_remote}'".
 
+# Store original branch to return to it later
+original_branch=$(git branch --show-current)
+
 # Check out the latest release tag
 # The latest tag will start with the letter "v", example "v2.0.12".
 # sort -V uses "version" sorting to get the latest tag
@@ -55,9 +58,17 @@ git checkout "$latest_release_tag"
 read -r -p "Update the website prod tag to point to '$latest_release_tag'? [y/N] " response
 if [[ ! "$response" =~ ^[Yy]([Ee][Ss])?$ ]]; then
   echo "Aborting..."
+  if [[ -n "$original_branch" ]]; then
+    git checkout "$original_branch"
+  fi
   exit 0
 fi
 
 # Force-update the 'prod' tag to the current commit and push to remote
 git tag --force prod
 git push --force "$upstream_remote" refs/tags/prod
+
+# Return to original branch
+if [[ -n "$original_branch" ]]; then
+  git checkout "$original_branch"
+fi
