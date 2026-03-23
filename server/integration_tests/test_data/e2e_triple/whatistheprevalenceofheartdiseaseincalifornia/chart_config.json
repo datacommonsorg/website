@@ -468,13 +468,7 @@
   },
   "context": {},
   "debug": {},
-  "entities": [
-    {
-      "dcid": "bio/DOID_114",
-      "name": "Heart disease",
-      "type": ""
-    }
-  ],
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
