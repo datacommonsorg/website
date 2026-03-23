@@ -39,10 +39,9 @@ import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarFacetMap, StatVarSpec } from "../../../shared/types";
-import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { buildCitationParts, citationToPlainText } from "./citations";
 import { StatVarMetadata } from "./metadata";
-import { fetchMetadata, fetchMetadataV2 } from "./metadata_fetcher";
+import { fetchMetadata } from "./metadata_fetcher";
 import { TileMetadataModalContent } from "./tile_metadata_modal_content";
 
 interface TileMetadataModalPropType {
@@ -73,7 +72,6 @@ export function TileMetadataModal(
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   const denomStatVarDcids = useMemo(() => {
     const result = new Set<string>();
@@ -107,24 +105,14 @@ export function TileMetadataModal(
     setLoading(true);
     setError(false);
 
-    let fetchPromise;
-    if (props.entities && props.entities.length > 0) {
-      fetchPromise = fetchMetadataV2(
-        props.entities,
-        statVarSet,
-        props.statVarToFacets,
-        props.apiRoot,
-        props.facets
-      );
-    } else {
-      fetchPromise = fetchMetadata(
-        statVarSet,
-        props.facets,
-        dataCommonsClient,
-        props.statVarToFacets,
-        props.apiRoot
-      );
-    }
+    const fetchPromise = fetchMetadata(
+      props.entities || [],
+      statVarSet,
+      props.statVarToFacets,
+      props.apiRoot,
+      props.facets,
+      props.surface
+    );
 
     fetchPromise
       .then((resp) => {
@@ -155,12 +143,12 @@ export function TileMetadataModal(
     modalOpen,
     statVarSet,
     statVars.length,
-    dataCommonsClient,
     props.apiRoot,
     props.statVarToFacets,
     props.facets,
     props.entities,
     denomStatVarDcids,
+    props.surface,
   ]);
 
   useEffect(() => {

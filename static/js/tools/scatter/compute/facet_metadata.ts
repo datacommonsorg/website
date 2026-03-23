@@ -21,8 +21,6 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
 
-import { WEBSITE_SURFACE } from "../../../shared/constants";
-import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { FacetResponse } from "../../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";
 
@@ -44,13 +42,23 @@ type FacetMetadataReturn = {
  * error state.
  */
 export function useFacetMetadata(
-  baseFacets: FacetResponse | null
+  baseFacets: FacetResponse | null,
+  entityContext: {
+    entities?: string[];
+    parentPlace?: string;
+    enclosedPlaceType?: string;
+  } = {},
+  surface?: string
 ): FacetMetadataReturn {
   const [facetMetadata, setFacetMetadata] = useState<FacetMetadataReturn>({
     facetSelectorMetadata: {},
     facetListLoading: !_.isEmpty(baseFacets),
     facetListError: false,
   });
+
+  // Extract the primitive values for safe dependency tracking
+  const { entities, parentPlace, enclosedPlaceType } = entityContext;
+  const entitiesString = entities?.join(",");
 
   useEffect(() => {
     if (_.isEmpty(baseFacets)) return;
@@ -64,9 +72,16 @@ export function useFacetMetadata(
       }));
 
       try {
+        // Pass the extracted values back into the fetcher
         const resp = await fetchFacetsWithMetadata(
           baseFacets,
-          getDataCommonsClient(null, WEBSITE_SURFACE)
+          {
+            entities: entitiesString ? entitiesString.split(",") : undefined,
+            parentPlace,
+            enclosedPlaceType,
+          },
+          "",
+          surface
         );
 
         if (cancelled) return;
@@ -92,7 +107,7 @@ export function useFacetMetadata(
     return () => {
       cancelled = true;
     };
-  }, [baseFacets]);
+  }, [baseFacets, entitiesString, parentPlace, enclosedPlaceType, surface]);
 
   return facetMetadata;
 }
