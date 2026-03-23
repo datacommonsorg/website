@@ -19,6 +19,12 @@
 set -e
 set -o pipefail
 
+# Check if working directory is clean before proceeding
+if ! git diff-index --quiet HEAD --; then
+  echo "Error: Working directory is not clean. Commit or stash your changes before running this script."
+  exit 1
+fi
+
 # Find the remote associated with the main repo
 # The tag operations later in the script require a remote using SSH authentication.
 # If there are multiple remotes with 'git@github.com:datacommonsorg' in their URL, pick the first one
