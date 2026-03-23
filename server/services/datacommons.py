@@ -541,15 +541,23 @@ def recognize_entities(query):
   return resp.get("queryItems", {}).get(query.lower(), {}).get("items", [])
 
 
-def find_entities(places):
-  url = get_service_url("/v1/bulk/find/entities")
-  entities = [{"description": p} for p in places]
-  resp = post(url, {"entities": entities})
+def find_entities(places: list[str]) -> dict[str, list[str]]:
+  """Resolves a list of place names to their corresponding Data Commons DCIDs."""
+  resp = resolve(places, "<-description->dcid")
+
   retval = {p: [] for p in places}
+
   for ent in resp.get("entities", []):
-    if not ent.get("description") or not ent.get("dcids"):
-      continue
-    retval[ent["description"]] = ent["dcids"]
+    node = ent.get("node")
+
+    # A check to make sure that the node returned was in our initial request
+    if node in retval:
+      dcids = [
+          dcid for c in ent.get("candidates", []) if (dcid := c.get("dcid"))
+      ]
+      if dcids:
+        retval[node] = dcids
+
   return retval
 
 
