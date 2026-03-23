@@ -402,6 +402,33 @@ def get_variable_ancestors(dcid: str):
   return get(url).get("ancestors", [])
 
 
+def _get_all_values(resp, dcid, prop, key='dcid'):
+  """Retrieves all values for a given property from the v2node response."""
+  node_data = resp.get('data', {}).get(dcid, {})
+  arcs_obj = node_data.get('arcs', {}).get(prop, {})
+  if not arcs_obj:
+    # Try checking without arrow if key mismatch
+    arcs_obj = node_data.get('arcs', {}).get(prop.replace('->', ''), {})
+
+  nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
+  return [n.get(key, '') for n in nodes_list if key in n]
+
+
+def _get_best_type(types_list):
+  """Selects the best type from a list of types based on PLACE_TYPE_RANK."""
+  if not types_list:
+    return ''
+
+  # Sort types by rank (highest rank first)
+  # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
+  def sort_key(t):
+    rank = PLACE_TYPE_RANK.get(t, 0)
+    is_admin = 1 if t.startswith('AdministrativeArea') else 0
+    return (rank, -is_admin)
+
+  return sorted(types_list, key=sort_key, reverse=True)[0]
+
+
 def get_place_info(dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
   # Get ancestors using BFS since v2/node doesn't support recursive ->containedInPlace+
@@ -422,6 +449,7 @@ def get_place_info(dcids: List[str]) -> Dict:
     if not fetch_dcids:
       break
 
+    # Fetch immediate parents for current batch of nodes
     resp = v2node(fetch_dcids, '->containedInPlace')
     data = resp.get('data', {})
 
@@ -430,6 +458,7 @@ def get_place_info(dcids: List[str]) -> Dict:
       visited.add(dcid)
       node_data = data.get(dcid, {})
 
+      # Extract parents for each node in the current frontier
       arcs_obj = node_data.get('arcs', {}).get('containedInPlace', {})
       nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj,
                                                            dict) else []
@@ -437,11 +466,12 @@ def get_place_info(dcids: List[str]) -> Dict:
       parents = [x['dcid'] for x in nodes_list if 'dcid' in x]
       if parents:
         parent_graph[dcid] = parents
+        # Add new parents to the next frontier for recursive BFS
         current_frontier.update(parents)
 
     frontier = current_frontier
 
-  # Build ancestors list from the graph
+  # Build ancestors list from the graph using the discovered parent relationships
   for dcid in dcids:
     queue = collections.deque([dcid])
     seen = {dcid}
@@ -465,42 +495,21 @@ def get_place_info(dcids: List[str]) -> Dict:
   if not all_dcids_list:
     return {'data': []}
 
+  # Batch fetch types and names for all discovered nodes to minimize API calls
   types_resp = v2node(all_dcids_list, '->typeOf')
   names_resp = v2node(all_dcids_list, '->name')
 
-  def get_all_values(resp, dcid, prop, key='dcid'):
-    node_data = resp.get('data', {}).get(dcid, {})
-    arcs_obj = node_data.get('arcs', {}).get(prop, {})
-    if not arcs_obj:
-      # Try checking without arrow if key mismatch
-      arcs_obj = node_data.get('arcs', {}).get(prop.replace('->', ''), {})
-
-    nodes_list = arcs_obj.get('nodes', []) if isinstance(arcs_obj, dict) else []
-    return [n.get(key, '') for n in nodes_list if key in n]
-
-  def get_best_type(types_list):
-    if not types_list:
-      return ''
-
-    # Sort types by rank (highest rank first)
-    # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
-    def sort_key(t):
-      rank = PLACE_TYPE_RANK.get(t, 0)
-      is_admin = 1 if t.startswith('AdministrativeArea') else 0
-      return (rank, -is_admin)
-
-    return sorted(types_list, key=sort_key, reverse=True)[0]
-
   result_data = []
   for dcid in dcids:
-    self_types = get_all_values(types_resp, dcid, 'typeOf')
-    self_names = get_all_values(names_resp, dcid, 'name', 'value')
+    # Use helper functions to extract specific properties from batch response
+    self_types = _get_all_values(types_resp, dcid, 'typeOf')
+    self_names = _get_all_values(names_resp, dcid, 'name', 'value')
 
     # Skip DCIDs that don't exist in the graph (bogus places)
     if not self_types and not self_names:
       continue
 
-    self_type = get_best_type(self_types)
+    self_type = _get_best_type(self_types)
     self_name = self_names[0] if self_names else ''
 
     parents = []
@@ -508,11 +517,12 @@ def get_place_info(dcids: List[str]) -> Dict:
       if anc_dcid == dcid:
         continue
 
-      anc_types = get_all_values(types_resp, anc_dcid, 'typeOf')
-      anc_type = get_best_type(anc_types)
-      anc_names = get_all_values(names_resp, anc_dcid, 'name', 'value')
+      anc_types = _get_all_values(types_resp, anc_dcid, 'typeOf')
+      anc_type = _get_best_type(anc_types)
+      anc_names = _get_all_values(names_resp, anc_dcid, 'name', 'value')
       anc_name = anc_names[0] if anc_names else ''
 
+      # Filter and collect parent information based on recognized place types
       if anc_type in PLACE_TYPE_RANK:
         parents.append({
             'dcid': anc_dcid,
@@ -521,6 +531,7 @@ def get_place_info(dcids: List[str]) -> Dict:
             'rank': PLACE_TYPE_RANK[anc_type]
         })
 
+    # Sort parents by rank to establish a consistent geographical hierarchy (smaller places first)
     parents.sort(key=lambda x: x['rank'])
     for p in parents:
       del p['rank']
@@ -542,7 +553,7 @@ def get_place_info(dcids: List[str]) -> Dict:
 
 def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
-  # Get children recursively with type filter
+  # Get children recursively with type filter from the V2 API
   children_resp = v2node([parent_entity],
                          f'<-containedInPlace+{{typeOf:{child_type}}}')
 
@@ -555,24 +566,24 @@ def get_series_dates(parent_entity, child_type, variables):
   if not child_dcids:
     return {"datesByVariable": [], "facets": {}}
 
-  # Get observation dates for the filtered children
+  # Get observation dates for the filtered children using batch V2 API
+  # We select essential fields: date, variable, entity (place), and facet
   obs_resp = v2observation(select=['date', 'variable', 'entity', 'facet'],
                            entity={'dcids': child_dcids},
                            variable={'dcids': variables})
 
-  # Aggregate results: { variable: { date: { facet: count } } }
+  # Aggregate results to count how many entities have data for each date/variable combination
+  # Structure: { variable: { date: { facet: count } } }
   agg_data = collections.defaultdict(
       lambda: collections.defaultdict(lambda: collections.defaultdict(int)))
 
-  # Iterate through V2 response
+  # Process observation response and populate the aggregate map
   by_var = obs_resp.get('byVariable', {})
-
   all_facets = obs_resp.get('facets', {})
 
   for var, var_data in by_var.items():
     by_ent = var_data.get('byEntity', {})
     for _, ent_data in by_ent.items():
-
       series = ent_data.get('series', [])
       for obs in series:
         date = obs.get('date')
@@ -583,7 +594,7 @@ def get_series_dates(parent_entity, child_type, variables):
         facet_id = obs.get('facet', "")
         agg_data[var][date][facet_id] += 1
 
-  # Construct response
+  # Final pass to construct the response format expected by the frontend
   resp_dates = []
   for var, dates_map in agg_data.items():
     obs_dates = []
