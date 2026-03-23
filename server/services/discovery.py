@@ -134,9 +134,7 @@ endpoints = Endpoints([
     '/translate',
     '/search',
     # v1
-    '/v1/bulk/info/place',
     '/v1/bulk/info/variable-group',
-    '/v1/bulk/observation-dates/linked',
     '/v1/variable/ancestors',
     '/v1/place/ranking',
     '/v1/place/related',
