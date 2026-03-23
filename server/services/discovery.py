@@ -151,7 +151,6 @@ endpoints = Endpoints([
     '/v2/resolve',
     '/v2/event',
     '/v2/variable/filter',
-    '/v2/sparql',
 ])
 
 

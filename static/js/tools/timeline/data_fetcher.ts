@@ -47,6 +47,7 @@ export interface StatData {
   // Keyed by facet id.
   facets: Record<string, StatMetadata>;
   displayNames?: DisplayNameApiResponse;
+  denomFacets?: Set<string>;
 }
 
 /**
@@ -201,6 +202,12 @@ export function getStatData(
   denom = "",
   scaling = 1
 ): StatData {
+  const facets = Object.assign(
+    {},
+    rawData.statAllData.facets,
+    rawData.denomData.facets
+  );
+
   const result: StatData = {
     places,
     statVars,
@@ -209,12 +216,10 @@ export function getStatData(
     sources: new Set(),
     measurementMethods: new Set(),
     displayNames: {},
-    facets: rawData.statAllData.facets,
+    facets,
+    denomFacets: new Set<string>(),
   };
-  const facets = Object.assign(
-    rawData.statAllData.facets,
-    rawData.denomData.facets
-  );
+
   const allDates = new Set<string>();
 
   for (const sv of statVars) {
@@ -256,9 +261,9 @@ export function getStatData(
           rawData.denomData.data[denom][place].series,
           scaling
         );
-        result.sources.add(
-          facets[rawData.denomData.data[denom][place].facet].provenanceUrl
-        );
+        const denomFacet = rawData.denomData.data[denom][place].facet;
+        result.denomFacets.add(denomFacet);
+        result.sources.add(facets[denomFacet].provenanceUrl);
       }
       svData[place] = selectedSeries;
     }
@@ -309,6 +314,7 @@ export function statDataFromModels(
     sources: new Set<string>(),
     measurementMethods: new Set<string>(),
     facets: {},
+    denomFacets: new Set<string>(),
   };
   if (!mainStatData.dates.length) {
     return [mainStatData, modelData];
