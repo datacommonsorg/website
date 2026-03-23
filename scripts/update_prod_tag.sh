@@ -57,7 +57,11 @@ fi
 # If we get here, the user approved the fetch.
 # Fetch and checkout latest release
 git fetch "$upstream_remote" --tags --force
-latest_release_tag=$(git tag -l "v*" | sort -V | tail -n1)
+latest_release_tag=$(git ls-remote --tags --refs "$upstream_remote" "v*" | sed 's/.*\///' | sort -V | tail -n1)
+if [[ -z "$latest_release_tag" ]]; then
+  echo "Error: Could not find any release tags (v*) on the remote."
+  exit 1
+fi
 git checkout "$latest_release_tag"
 
 # Confirm before updating the tag
