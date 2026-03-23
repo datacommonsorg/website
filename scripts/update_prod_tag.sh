@@ -19,6 +19,17 @@
 set -e
 set -o pipefail
 
+# Store original branch to return to it later
+original_branch=$(git branch --show-current)
+
+cleanup() {
+  if [[ -n "$original_branch" ]]; then
+    # Quietly return to the original branch
+    git checkout "$original_branch" >/dev/null 2>&1 || true
+  fi
+}
+trap cleanup EXIT
+
 # Check if working directory is clean before proceeding
 if ! git diff-index --quiet HEAD --; then
   echo "Error: Working directory is not clean. Commit or stash your changes before running this script."
@@ -34,9 +45,6 @@ if [ -z "$upstream_remote" ]; then
   exit 1
 fi
 echo "Remote for main repo is '${upstream_remote}'".
-
-# Store original branch to return to it later
-original_branch=$(git branch --show-current)
 
 # Check out the latest release tag
 # The latest tag will start with the letter "v", example "v2.0.12".
@@ -68,9 +76,6 @@ git checkout "$latest_release_tag"
 read -r -p "Update the website prod tag to point to '$latest_release_tag'? [y/N] " response
 if [[ ! "$response" =~ ^[Yy]([Ee][Ss])?$ ]]; then
   echo "Aborting..."
-  if [[ -n "$original_branch" ]]; then
-    git checkout "$original_branch"
-  fi
   exit 0
 fi
 
@@ -78,7 +83,3 @@ fi
 git tag --force prod
 git push --force "$upstream_remote" refs/tags/prod
 
-# Return to original branch
-if [[ -n "$original_branch" ]]; then
-  git checkout "$original_branch"
-fi
