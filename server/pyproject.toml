@@ -40,7 +40,7 @@ dependencies = [
     "opentelemetry-exporter-otlp-proto-http==1.37.0",
     "opentelemetry-sdk==1.37.0",
     "parameterized==0.8.1",
-    "pillow==10.4.0",
+    "pillow==12.1.1",
     "protobuf>=4.25.3",
     "pydantic==2.11.1",
     "PyGithub==1.58.2",
