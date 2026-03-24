@@ -47,8 +47,6 @@ fi
 echo "Remote for main repo is '${upstream_remote}'".
 
 # Check out the latest release tag
-# The latest tag will start with the letter "v", example "v2.0.12".
-# sort -V uses "version" sorting to get the latest tag
 # Because the prod tag might be out of sync, we use --force to fetch.
 # Check if the fetch will overwrite existing tags, and ask user for confirmation
 fetch_dry_run_output=$(git fetch "$upstream_remote" --tags --force --dry-run 2>&1 || true)
@@ -64,6 +62,8 @@ fi
 
 # If we get here, the user approved the fetch.
 # Fetch and checkout latest release
+# The latest tag will start with the letter "v", example "v2.0.12".
+# sort -V uses "version" sorting to get the latest tag
 git fetch "$upstream_remote" --tags --force
 latest_release_tag=$(git ls-remote --tags --refs "$upstream_remote" "v*" | sed 's/.*\///' | sort -V | tail -n1)
 if [[ -z "$latest_release_tag" ]]; then
