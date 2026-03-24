@@ -65,7 +65,7 @@ fi
 # The latest tag will start with the letter "v", example "v2.0.12".
 # sort -V uses "version" sorting to get the latest tag
 git fetch "$upstream_remote" --tags --force
-latest_release_tag=$(git ls-remote --tags --refs "$upstream_remote" "v*" | sed 's/.*\///' | sort -V | tail -n1)
+latest_release_tag=$(git ls-remote --tags --refs "$upstream_remote" "v*" | awk '{print $2}' | sed 's#^refs/tags/##' | sort -V | tail -n1)
 if [[ -z "$latest_release_tag" ]]; then
   echo "Error: Could not find any release tags (v*) on the remote."
   exit 1
