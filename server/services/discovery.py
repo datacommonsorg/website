@@ -148,6 +148,7 @@ endpoints = Endpoints([
     '/v2/event',
     '/v2/variable/filter',
     '/v2/bulk/info/variable',
+    '/v2/recognize/places',
 ])
 
 
