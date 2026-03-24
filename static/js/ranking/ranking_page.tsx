@@ -25,8 +25,8 @@ import { Category } from "../components/subject_page/category";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
-import { RankingPageHeader } from "./ranking_header";
 import { getCategoryConfig } from "./ranking_config_builder";
+import { RankingPageHeader } from "./ranking_header";
 import { RankingPageContainer } from "./ranking_page_styles";
 
 export interface RankingPagePropType {
@@ -85,4 +85,3 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
     </div>
   );
 };
-

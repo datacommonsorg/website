@@ -50,8 +50,34 @@ export const RankingPageContainer = styled.div`
   .chart-container.ranking-tile {
     margin-top: 0;
 
+    @media (min-width: ${theme.breakpoints.md}px) {
+      width: fit-content;
+    }
+
     .ranking-list {
       padding: 0 24px;
+
+      table {
+        td.stat {
+          width: fit-content;
+        }
+        td.ranking-date-cell {
+          width: fit-content;
+        }
+      }
+      @media (min-width: ${theme.breakpoints.md}px) {
+        table {
+          width: fit-content;
+
+          td.rank {
+            padding-right: 32px;
+          }
+
+          td.place-name {
+            padding-right: 180px;
+          }
+        }
+      }
     }
 
     .chart-footnote {
