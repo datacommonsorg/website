@@ -475,3 +475,35 @@ MIXER_RESPONSE_ID_HEADER = "x-response-id"
 # Flask App env config constants
 LOG_EXTREME_MIXER_CALLS = "LOG_EXTREME_MIXER_CALLS"
 LOG_CACHED_MIXER_RESPONSE_USAGE = "LOG_CACHED_MIXER_RESPONSE_USAGE"
+
+# Rank for sorting parents (City -> State -> Country)
+# The values are arbitrary and relative, used only to establish
+# a topological order (smaller number = "smaller" child place).
+PLACE_TYPE_RANK = {
+    "CensusBlock": 1,
+    "CensusBlockGroup": 5,
+    "CensusTract": 10,
+    "CensusZipCodeTabulationArea": 10,
+    "AdministrativeArea5": 20,
+    "AdministrativeArea4": 20,
+    "Village": 30,
+    "City": 30,
+    "Town": 30,
+    "Borough": 30,
+    "AdministrativeArea3": 30,
+    "CensusCountyDivision": 40,
+    "County": 50,
+    "AdministrativeArea2": 50,
+    "EurostatNUTS3": 50,
+    "CensusCoreBasedStatisticalArea": 60,
+    "CensusDivision": 70,
+    "State": 80,
+    "AdministrativeArea1": 80,
+    "EurostatNUTS2": 80,
+    "EurostatNUTS1": 80,
+    "Country": 100,
+    "CensusRegion": 110,
+    "GeoRegion": 120,
+    "Continent": 130,
+    "Place": 150,
+}
