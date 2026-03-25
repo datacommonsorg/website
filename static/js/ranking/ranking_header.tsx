@@ -19,7 +19,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { FormattedMessage, IntlProvider } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 import { LocalizedLink } from "../i18n/i18n";
 import { rankingMessages } from "../i18n/i18n_ranking_messages";
@@ -40,32 +40,30 @@ export function RankingPageHeader(
 ): React.JSX.Element {
   const ancestorPlaces = useAncestorPlaces(props.parentPlaceDcid, props.locale);
   return (
-    <IntlProvider locale={props.locale}>
-      <div className="ranking-header-container">
-        <h1>
-          {getPageTitle(
-            props.statVarNameLocalized,
-            props.childPlaceType,
-            props.parentPlaceDcid,
-            props.parentPlaceNameLocalized
-          )}
-        </h1>
-        <div className="ancestor-places-links">
-          {ancestorPlaces.map((ancestor, index) => {
-            return (
-              <span key={ancestor.dcid}>
-                <LocalizedLink
-                  className="place-info-link"
-                  href={`/place/${ancestor.dcid}`}
-                  text={ancestor.name}
-                />
-                {index < ancestorPlaces.length - 1 ? ", " : ""}
-              </span>
-            );
-          })}
-        </div>
+    <div className="ranking-header-container">
+      <h1>
+        {getPageTitle(
+          props.statVarNameLocalized,
+          props.childPlaceType,
+          props.parentPlaceDcid,
+          props.parentPlaceNameLocalized
+        )}
+      </h1>
+      <div className="ancestor-places-links">
+        {ancestorPlaces.map((ancestor, index) => {
+          return (
+            <span key={ancestor.dcid}>
+              <LocalizedLink
+                className="place-info-link"
+                href={`/place/${ancestor.dcid}`}
+                text={ancestor.name}
+              />
+              {index < ancestorPlaces.length - 1 ? ", " : ""}
+            </span>
+          );
+        })}
       </div>
-    </IntlProvider>
+    </div>
   );
 }
 
