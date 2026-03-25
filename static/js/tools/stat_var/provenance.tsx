@@ -72,8 +72,9 @@ class Provenance extends Component<ProvenancePropType, unknown> {
               <th className="number-column">Total Observations</th>
               <th className="number-column">Observed Places</th>
               <th className="date-column">Date Range</th>
+              <th className="type-column">Place Types</th>
             </tr>
-            {this.props.summary.seriesSummary.map((element) => {
+            {this.props.summary.seriesSummary.map((element, index) => {
               return (
                 <tr key={JSON.stringify(element.seriesKey)}>
                   <td className="series-key-column">
@@ -117,6 +118,13 @@ class Provenance extends Component<ProvenancePropType, unknown> {
                     <span id="date-range-separator"> – </span>
                     <span>{element.latestDate}</span>
                   </td>
+                  <td className="type-column">
+                    <ul>
+                      {this.getPlaceTypes(index).map((placeType) => {
+                        return <li key={placeType}>{placeType}</li>;
+                      })}
+                    </ul>
+                  </td>
                 </tr>
               );
             })}
@@ -124,6 +132,15 @@ class Provenance extends Component<ProvenancePropType, unknown> {
         </table>
       </div>
     );
+  }
+  private getPlaceTypes(i: number): Array<string> {
+    const placeTypes = [];
+    for (const placeType in this.props.summary.seriesSummary[i]
+      .placeTypeSummary) {
+      placeTypes.push(placeType);
+    }
+    placeTypes.sort();
+    return placeTypes;
   }
 }
 
