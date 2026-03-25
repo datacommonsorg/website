@@ -72,13 +72,26 @@ For more details, please see https://docs.datacommons.org/custom_dc/custom_ui.ht
 </head>
 
 <body>
-  {# Pass configuration variables to base.js #}
-  <div id="metadata-base" class="d-none" data-header="{{ HEADER_MENU }}" data-logo-path="{{ LOGO_PATH }}"
-    data-logo-width="{{ LOGO_WIDTH }}" data-name="{{ NAME }}"
+  {# Set page locale and pass header/footer configuration to base.js #}
+<div id="metadata-base" class="d-none"
+    data-header="{{ HEADER_MENU }}"
+    data-footer="{{ FOOTER_MENU }}"
+    data-logo-path="{{ LOGO_PATH }}"
+    data-logo-width="{{ LOGO_WIDTH }}"
+    data-name="{{ NAME }}"
+    data-show-disaster="{{ SHOW_DISASTER }}"
+    data-show-sustainability="{{ SHOW_SUSTAINABILITY }}"
     data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
-    data-ga-value-search-source="{{ ga_value_search_source }}" data-search-bar-hash-mode="{{ is_search_bar_hash_mode }}"
-    data-brand-logo-light="{{ brand_logo_light }}" data-sample-questions="{{ sample_questions }}">
-  </div>
+    data-ga-value-search-source="{{ ga_value_search_source }}"
+    data-search-bar-hash-mode="{{ is_search_bar_hash_mode }}"
+    data-hide-full-footer="{{ is_hide_full_footer }}"
+    data-hide-sub-footer="{{ is_hide_sub_footer }}"
+    data-subfooter-extra="{{ subfooter_extra_content|safe }}"
+    data-brand-logo-light="{{ brand_logo_light }}"
+    data-locale="{{ locale }}"
+    data-sample-questions="{{ sample_questions }}"
+>
+</div>
 
   {% include 'metadata/labels.html' %}
   {% include 'metadata/routes.html' %}
