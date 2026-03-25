@@ -25,15 +25,16 @@ export function getCategoryConfig(
   statVarName: string
 ): CategoryConfig {
   // Build statVarSpec
-  const statVarSpec = {};
-  statVarSpec[props.statVarDcid] = {
-    statVar: props.statVarDcid,
-    denom: props.isPerCapita ? "Count_Person" : "",
-    unit: props.unit,
-    scaling: props.scaling,
-    log: false,
-    name: statVarName,
-    date: props.date,
+  const statVarSpec = {
+    [props.statVarDcid]: {
+      statVar: props.statVarDcid,
+      denom: props.isPerCapita ? "Count_Person" : "",
+      unit: props.unit,
+      scaling: props.scaling,
+      log: false,
+      name: statVarName,
+      date: props.date,
+    },
   };
 
   return {
