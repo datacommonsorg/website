@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Component for rendering the header of a ranking page.
+ */
+
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, IntlProvider } from "react-intl";
 
@@ -81,24 +85,30 @@ function useAncestorPlaces(
 
   // Get the ancestor places for the subtitle
   useEffect(() => {
-    const parentPlacesPromise = getParentPlacesPromise(placeDcid);
-    parentPlacesPromise.then(async (ancestorPlaces) => {
-      // get the localized name for each parent to display
-      const localizedPlaceNames = await getPlaceNames(
-        ancestorPlaces.map((ancestor) => ancestor.dcid),
-        {
-          locale,
-        }
-      );
-      // Replace default ancestor places names with their localized name
-      const localizedAncestorPlaces = ancestorPlaces.map((ancestor) => {
-        return {
-          ...ancestor,
-          name: localizedPlaceNames[ancestor.dcid],
-        };
-      });
-      setAncestorPlacesLocalized(localizedAncestorPlaces);
-    });
+    const fetchAncestors = async (): Promise<void> => {
+      try {
+        const ancestorPlaces = await getParentPlacesPromise(placeDcid);
+        // get the localized name for each parent to display
+        const localizedPlaceNames = await getPlaceNames(
+          ancestorPlaces.map((ancestor) => ancestor.dcid),
+          {
+            locale,
+          }
+        );
+        // Replace default ancestor places names with their localized name
+        const localizedAncestorPlaces = ancestorPlaces.map((ancestor) => {
+          return {
+            ...ancestor,
+            name: localizedPlaceNames[ancestor.dcid],
+          };
+        });
+        setAncestorPlacesLocalized(localizedAncestorPlaces);
+      } catch (error) {
+        console.error("Failed to fetch ancestor places:", error);
+      }
+    };
+
+    fetchAncestors();
   }, [locale, placeDcid]);
 
   return ancestorPlacesLocalized;
