@@ -143,8 +143,8 @@ function getPageTitle(
   );
   return (
     <FormattedMessage
-      id={rankingMessages.pageTitle.id}
-      defaultMessage={rankingMessages.pageTitle.defaultMessage}
+      id={rankingMessages.pageTitlePrefix.id}
+      defaultMessage={rankingMessages.pageTitlePrefix.defaultMessage}
       values={{
         statVarName: statVarNameLocalized,
         pluralPlaceType,

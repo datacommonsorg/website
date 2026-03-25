@@ -19,12 +19,11 @@ import { defineMessages } from "react-intl";
 /** Strings to use in the ranking page */
 
 export const rankingMessages = defineMessages({
-  pageTitle: {
-    id: "ranking-page-title",
-    defaultMessage:
-      "Ranking by {statVarName} for {pluralPlaceType} in {placeName}",
+  pageTitlePrefix: {
+    id: "ranking-page_title",
+    defaultMessage: "Ranking by {statVar}",
     description:
-      "Title of the page, which shows ranking of all contained places of a type within a place, where {statVarName} will be replaced by the stat var name, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
+      "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation.",
   },
   // The ids contain "subtitle" because they were copied from the old ranking page
   // We need to reuse the same ids to be able to reuse existing translations
