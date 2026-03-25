@@ -91,7 +91,7 @@ export const Tools = ({
           title: "Statistical Variable Explorer",
           url: resolveHref("{tools.stat_var}", routes),
           description:
-            "Explorer statistical variable details including metadata and observations",
+            "Explore statistical variable details including metadata and observations",
         },
       },
       map: {
