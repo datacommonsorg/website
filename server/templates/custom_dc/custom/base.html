@@ -29,7 +29,7 @@ For more details, please see https://docs.datacommons.org/custom_dc/custom_ui.ht
 -#}
 
 <!DOCTYPE html>
-{#- Hide the header search bar for custom DC pages. -#}
+{#- Hide the header search bar. -#}
 {% set is_hide_header_search_bar = 'true' %}
 
 <html id={{ page_id }}>
@@ -62,15 +62,13 @@ For more details, please see https://docs.datacommons.org/custom_dc/custom_ui.ht
     rel="stylesheet">
   <link rel="stylesheet" href={{url_for('static', filename='css/core.min.css' , t=config['VERSION'])}}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+  <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
+
+  <script src={{url_for('static', filename='queryStore.js' , t=config['VERSION'])}} async></script>
+  <script src={{url_for('static', filename='base.js' , t=config['VERSION'])}} async></script>
 
   {% block head %}
   {% endblock %}
-
-  {% if OVERRIDE_CSS_PATH %}
-  <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
-  {% endif %}
-  <script src={{url_for('static', filename='queryStore.js' , t=config['VERSION'])}} async></script>
-  <script src={{url_for('static', filename='base.js' , t=config['VERSION'])}} async></script>
 </head>
 
 <body>
