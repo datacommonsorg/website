@@ -16,22 +16,32 @@
 
 import styled from "@emotion/styled";
 
-import theme from "../theme/theme";
+import { FontFamily, TextVariant, Theme } from "../theme/types";
 
+/** Styles for the ranking pages
+ *
+ * We use a separate styled div instead of SCSS file, both to avoid polluting global
+ * styles and to enable theme-aware styling.
+ */
 export const RankingPageContainer = styled.div`
   .ranking-header-container {
-    padding: 0 ${theme.spacing.lg}px;
+    padding: 0 ${(props: { theme: Theme }): number => props.theme.spacing.lg}px;
 
     h1 {
-      ${theme.typography.family.heading}
-      ${theme.typography.heading.lg}
+      ${(props: { theme: Theme }): FontFamily =>
+        props.theme.typography.family.heading}
+      ${(props: { theme: Theme }): TextVariant =>
+        props.theme.typography.heading.lg}
     }
 
     .ancestor-places-links {
-      ${theme.typography.family.heading}
-      ${theme.typography.heading.xs}
+      ${(props: { theme: Theme }): FontFamily =>
+        props.theme.typography.family.heading}
+      ${(props: { theme: Theme }): TextVariant =>
+        props.theme.typography.heading.xs}
       font-weight: 500;
-      margin-bottom: ${theme.spacing.xl}px;
+      margin-bottom: ${(props: { theme: Theme }): number =>
+        props.theme.spacing.xl}px;
     }
   }
 
@@ -42,7 +52,8 @@ export const RankingPageContainer = styled.div`
       padding: 0;
 
       .block-controls {
-        padding: 0 ${theme.spacing.lg}px;
+        padding: 0
+          ${(props: { theme: Theme }): number => props.theme.spacing.lg}px;
       }
     }
   }
@@ -50,12 +61,14 @@ export const RankingPageContainer = styled.div`
   .chart-container.ranking-tile {
     margin-top: 0;
 
-    @media (min-width: ${theme.breakpoints.md}px) {
+    @media (min-width: ${(props: { theme: Theme }): number =>
+        props.theme.breakpoints.md}px) {
       width: fit-content;
     }
 
     .ranking-list {
-      padding: 0 ${theme.spacing.lg}px;
+      padding: 0
+        ${(props: { theme: Theme }): number => props.theme.spacing.lg}px;
 
       table {
         td.stat {
@@ -65,12 +78,14 @@ export const RankingPageContainer = styled.div`
           width: fit-content;
         }
       }
-      @media (min-width: ${theme.breakpoints.md}px) {
+      @media (min-width: ${(props: { theme: Theme }): number =>
+          props.theme.breakpoints.md}px) {
         table {
           width: fit-content;
 
           td.rank {
-            padding-right: ${theme.spacing.xl}px;
+            padding-right: ${(props: { theme: Theme }): number =>
+              props.theme.spacing.xl}px;
           }
 
           td.place-name {
@@ -81,11 +96,13 @@ export const RankingPageContainer = styled.div`
     }
 
     .chart-footnote {
-      padding: 0 ${theme.spacing.lg}px;
+      padding: 0
+        ${(props: { theme: Theme }): number => props.theme.spacing.lg}px;
     }
 
     .chart-container-footer {
-      padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
+      padding: ${(props: { theme: Theme }): number => props.theme.spacing.md}px
+        ${(props: { theme: Theme }): number => props.theme.spacing.lg}px;
     }
   }
 
