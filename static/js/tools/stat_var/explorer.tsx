@@ -22,7 +22,6 @@ import React, { Component } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
 import { StatVarSummary } from "../../shared/types";
-import { Places } from "./places";
 import { Provenance, ProvenancePropType } from "./provenance";
 
 interface ExplorerPropType {
@@ -53,12 +52,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           <h4 className="description-text">{this.props.description}</h4>
         )}
         {!this.props.summary && <div>No data available.</div>}
-        {this.props.summary?.placeTypeSummary && (
-          <h4 className="highlight-text">
-            Total number of places:{" "}
-            {formatNumber(this.getNumberOfPlaces(), "", true)}
-          </h4>
-        )}
+
         {this.props.summary?.provenanceSummary && (
           <h4 className="highlight-text">
             Total number of sources:{" "}
@@ -67,15 +61,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         )}
         {/* The only children passed in should be the stat var explorer button */}
         {this.props.children}
-        {this.props.summary?.placeTypeSummary && (
-          <div id="place-type-summary-section" className="table-page-section">
-            <h3>Places</h3>
-            <Places
-              statVar={this.props.statVar}
-              placeTypeSummary={this.props.summary.placeTypeSummary}
-            />
-          </div>
-        )}
+
         {this.props.summary?.provenanceSummary && (
           <div id="provenance-summary-section" className="table-page-section">
             <h3>Sources</h3>
@@ -117,19 +103,6 @@ class Explorer extends Component<ExplorerPropType, unknown> {
       return a.summary.importName.localeCompare(b.summary.importName);
     });
     return provenanceSummaryList;
-  }
-
-  private getNumberOfPlaces(): number {
-    if (!this.props.summary?.placeTypeSummary) {
-      return 0;
-    }
-    let count = 0;
-    for (const placeType in this.props.summary.placeTypeSummary) {
-      count += Number(
-        this.props.summary.placeTypeSummary[placeType].placeCount
-      );
-    }
-    return count;
   }
 }
 

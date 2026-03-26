@@ -39,6 +39,10 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    subject_page_tiles: [
+      __dirname + "/js/dev/subject_page_tiles.tsx",
+      __dirname + "/css/dev.scss",
+    ],
     datagemma: [
       __dirname + "/js/apps/datagemma/main.ts",
       __dirname + "/css/datagemma.scss",
@@ -84,6 +88,10 @@ const config = {
     ],
     eval_retrieval_generation_sxs: [
       __dirname + "/js/apps/eval_retrieval_generation/sxs/main.ts",
+    ],
+    old_ranking: [
+      __dirname + "/js/ranking/old_ranking.ts",
+      __dirname + "/css/old_ranking.scss",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",

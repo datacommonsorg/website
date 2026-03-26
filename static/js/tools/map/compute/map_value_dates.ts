@@ -64,6 +64,8 @@ export function useComputeMapValueAndDate(
     const mapValues = {};
     const sources = new Set<string>();
     const mapDates = new Set<string>();
+    const denomFacets = new Set<string>();
+    const numerFacets = new Set<string>();
     const metadata = {};
     const facets = Object.assign(
       {},
@@ -98,6 +100,15 @@ export function useComputeMapValueAndDate(
       }
       mapValues[placeDcid] = placeChartData.value;
       mapDates.add(placeChartData.date);
+
+      if (placeChartData.denomFacet) {
+        denomFacets.add(placeChartData.denomFacet);
+      }
+
+      if (wantedFacetData[placeDcid] && wantedFacetData[placeDcid].facet) {
+        numerFacets.add(wantedFacetData[placeDcid].facet);
+      }
+
       if (!_.isEmpty(placeChartData.metadata)) {
         metadata[placeDcid] = placeChartData.metadata;
       }
@@ -117,7 +128,7 @@ export function useComputeMapValueAndDate(
         statVar: _.cloneDeep(statVar.value),
         placeInfo: _.cloneDeep(placeInfo.value),
       },
-      payload: { mapValues, mapDates, unit },
+      payload: { mapValues, mapDates, unit, denomFacets, numerFacets },
     });
   }, [
     dateCtx.value,

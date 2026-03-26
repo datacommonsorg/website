@@ -25,6 +25,7 @@ import React, {
   ReactElement,
   RefObject,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -113,6 +114,10 @@ export function Chart(props: ChartPropsType): ReactElement {
     xDates.add(point.xDate);
     yDates.add(point.yDate);
   });
+  const entities = useMemo(
+    () => Object.keys(props.points || {}),
+    [props.points]
+  );
   const xTitle = getTitle(Array.from(xDates), props.xLabel);
   const yTitle = getTitle(Array.from(yDates), props.yLabel);
   // Tooltip needs to start off hidden
@@ -239,6 +244,7 @@ export function Chart(props: ChartPropsType): ReactElement {
       </Card>
       <ToolChartFooter
         chartId="scatter"
+        entities={entities}
         sources={props.sources}
         mMethods={null}
         hidePerCapitaOption={true}
