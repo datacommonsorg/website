@@ -20,7 +20,7 @@ import theme from "../theme/theme";
 
 export const RankingPageContainer = styled.div`
   .ranking-header-container {
-    padding: 0 24px;
+    padding: 0 ${theme.spacing.lg}px;
 
     h1 {
       ${theme.typography.family.heading}
@@ -31,7 +31,7 @@ export const RankingPageContainer = styled.div`
       ${theme.typography.family.heading}
       ${theme.typography.heading.xs}
       font-weight: 500;
-      margin-bottom: 32px;
+      margin-bottom: ${theme.spacing.xl}px;
     }
   }
 
@@ -42,7 +42,7 @@ export const RankingPageContainer = styled.div`
       padding: 0;
 
       .block-controls {
-        padding: 0 24px;
+        padding: 0 ${theme.spacing.lg}px;
       }
     }
   }
@@ -55,7 +55,7 @@ export const RankingPageContainer = styled.div`
     }
 
     .ranking-list {
-      padding: 0 24px;
+      padding: 0 ${theme.spacing.lg}px;
 
       table {
         td.stat {
@@ -70,7 +70,7 @@ export const RankingPageContainer = styled.div`
           width: fit-content;
 
           td.rank {
-            padding-right: 32px;
+            padding-right: ${theme.spacing.xl}px;
           }
 
           td.place-name {
@@ -81,11 +81,11 @@ export const RankingPageContainer = styled.div`
     }
 
     .chart-footnote {
-      padding: 0 24px;
+      padding: 0 ${theme.spacing.lg}px;
     }
 
     .chart-container-footer {
-      padding: 16px 24px;
+      padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
     }
   }
 
