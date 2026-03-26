@@ -20,9 +20,10 @@
 
 import { ThemeProvider } from "@emotion/react";
 import React, { useEffect } from "react";
-import { IntlProvider } from "react-intl";
+import { RawIntlProvider } from "react-intl";
 
 import { Category } from "../components/subject_page/category";
+import { intl } from "../i18n/i18n";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
@@ -79,7 +80,7 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
   };
 
   return (
-    <IntlProvider locale={props.locale}>
+    <RawIntlProvider value={intl}>
       <ThemeProvider theme={theme}>
         <RankingPageContainer>
           <RankingPageHeader
@@ -105,6 +106,6 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
           />
         </RankingPageContainer>
       </ThemeProvider>
-    </IntlProvider>
+    </RawIntlProvider>
   );
 };
