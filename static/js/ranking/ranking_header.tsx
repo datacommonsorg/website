@@ -28,11 +28,20 @@ import { NamedTypedNode } from "../shared/types";
 import { getParentPlacesPromise, getPlaceNames } from "../utils/place_utils";
 
 export interface RankingPageHeaderPropType {
+  // Name of the parent place the ranking page is for, already localized
   parentPlaceNameLocalized: string;
+  // DCID of the parent place
   parentPlaceDcid: string;
+  // Type of the places to be ranked. Must be a child place type of withinPlace.
   childPlaceType: string;
+  // Name of the stat var, already localized
   statVarNameLocalized: string;
+  // Locale of the page
   locale: string;
+  // Whether all child places are shown in the ranking tile
+  areAllPlacesShown: boolean;
+  // Number of places to display in the ranking tile
+  numPlacesShown: number;
 }
 
 export function RankingPageHeader(
@@ -46,7 +55,9 @@ export function RankingPageHeader(
           props.statVarNameLocalized,
           props.childPlaceType,
           props.parentPlaceDcid,
-          props.parentPlaceNameLocalized
+          props.parentPlaceNameLocalized,
+          props.areAllPlacesShown,
+          props.numPlacesShown
         )}
       </h1>
       <div className="ancestor-places-links">
@@ -118,13 +129,16 @@ function useAncestorPlaces(
  * @param childPlaceType - The type of the places to be ranked
  * @param parentPlaceDcid - The DCID of the parent place
  * @param parentPlaceNameLocalized - The localized name of the parent place
+ * @param areAllPlacesShown - Whether all child places are shown in the ranking tile
  * @returns The page title
  */
 function getPageTitle(
   statVarNameLocalized: string,
   childPlaceType: string,
   parentPlaceDcid: string,
-  parentPlaceNameLocalized: string
+  parentPlaceNameLocalized: string,
+  areAllPlacesShown: boolean,
+  numPlacesShown: number
 ): React.JSX.Element {
   // Get the pluralized place type (e.g. county -> counties)
   const pluralPlaceType = displayNameForPlaceType(
@@ -141,15 +155,38 @@ function getPageTitle(
       />
     </span>
   );
-  return (
+  // First half of the title
+  const pageTitlePrefix = (
     <FormattedMessage
       id={rankingMessages.pageTitlePrefix.id}
       defaultMessage={rankingMessages.pageTitlePrefix.defaultMessage}
-      values={{
-        statVarName: statVarNameLocalized,
-        pluralPlaceType,
-        placeName: parentPlaceLink,
-      }}
+      values={{ statVar: statVarNameLocalized }}
     />
+  );
+  return (
+    <>
+      {pageTitlePrefix}
+      {", "}
+      {areAllPlacesShown ? (
+        <FormattedMessage
+          id={rankingMessages.allPlacesTitle.id}
+          defaultMessage={rankingMessages.allPlacesTitle.defaultMessage}
+          values={{
+            pluralPlaceType,
+            placeName: parentPlaceLink,
+          }}
+        />
+      ) : (
+        <FormattedMessage
+          id={rankingMessages.topPlacesTitle.id}
+          defaultMessage={rankingMessages.topPlacesTitle.defaultMessage}
+          values={{
+            rankSize: numPlacesShown,
+            pluralPlaceType,
+            placeName: parentPlaceLink,
+          }}
+        />
+      )}
+    </>
   );
 }

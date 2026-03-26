@@ -19,13 +19,14 @@
  */
 
 import { ThemeProvider } from "@emotion/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { IntlProvider } from "react-intl";
 
 import { Category } from "../components/subject_page/category";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
+import { getChildPlacesPromise } from "../utils/place_utils";
 import { getCategoryConfig } from "./ranking_config_builder";
 import { RankingPageHeader } from "./ranking_header";
 import { RankingPageContainer } from "./ranking_page_styles";
@@ -52,6 +53,21 @@ export interface RankingPagePropType {
 }
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
+  // Number of places to display in the ranking tile
+  const [numEntriesToDisplay, setNumEntriesToDisplay] = React.useState(100);
+  // Whether all child places are shown in the ranking tile
+  const [areAllPlacesShown, setAreAllPlacesShown] = React.useState(false);
+
+  // Determine whether all child places are shown in the ranking tile
+  useEffect(() => {
+    // Fetch the number of places of the child place type within the parent place
+    getChildPlacesPromise(props.parentPlaceDcid).then((childPlaces) => {
+      const numChildPlaces = childPlaces[props.childPlaceType].length;
+      // All places are shown if the number of entries to display is greater than or equal to the number of child places
+      setAreAllPlacesShown(numEntriesToDisplay >= numChildPlaces);
+    });
+  }, [numEntriesToDisplay, props.childPlaceType, props.parentPlaceDcid]);
+
   // Get the display name of the stat var, localized
   const statVarNameLocalized = getStatsVarTitle(props.statVarDcid);
 
@@ -72,9 +88,15 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
             childPlaceType={props.childPlaceType}
             statVarNameLocalized={statVarNameLocalized}
             locale={props.locale}
+            areAllPlacesShown={areAllPlacesShown}
+            numPlacesShown={numEntriesToDisplay}
           />
           <Category
-            config={getCategoryConfig(props, statVarNameLocalized)}
+            config={getCategoryConfig(
+              props,
+              statVarNameLocalized,
+              numEntriesToDisplay
+            )}
             enclosedPlaceType={props.childPlaceType}
             eventTypeSpec={{}}
             id="ranking-page-category"
