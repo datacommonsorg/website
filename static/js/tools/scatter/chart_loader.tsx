@@ -99,10 +99,14 @@ export function ChartLoader(): ReactElement {
   const cache = useCache();
   const chartData = useChartData(cache);
   const { facetSelectorMetadata, facetListLoading, facetListError } =
-    useFacetMetadata(cache?.baseFacets || null, {
-      parentPlace: place.value.enclosingPlace.dcid,
-      enclosedPlaceType: place.value.enclosedPlaceType,
-    });
+    useFacetMetadata(
+      cache?.baseFacets || null,
+      {
+        parentPlace: place.value.enclosingPlace.dcid,
+        enclosedPlaceType: place.value.enclosedPlaceType,
+      },
+      WEBSITE_SURFACE
+    );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);

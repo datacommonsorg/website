@@ -31,7 +31,7 @@
   "place": {
     "dcid": "geoId/0667000",
     "name": "San Francisco",
-    "place_type": "City"
+    "place_type": "AdministrativeArea2"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
@@ -39,7 +39,7 @@
     {
       "dcid": "geoId/0667000",
       "name": "San Francisco",
-      "place_type": "City"
+      "place_type": "AdministrativeArea2"
     },
     {
       "dcid": "geoId/1714000",

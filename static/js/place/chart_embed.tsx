@@ -55,11 +55,7 @@ import {
   buildCitationParts,
   CitationPart,
 } from "../tools/shared/metadata/citations";
-import {
-  fetchMetadata,
-  fetchMetadataV2,
-} from "../tools/shared/metadata/metadata_fetcher";
-import { getDataCommonsClient } from "../utils/data_commons_client";
+import { fetchMetadata } from "../tools/shared/metadata/metadata_fetcher";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -418,26 +414,14 @@ class ChartEmbed extends React.Component<
         if (statVarSet.size === 0) {
           return [];
         }
-        const dataCommonsClient = getDataCommonsClient(apiRoot, surface);
-
-        let metadataResp;
-        if (this.props.entities && this.props.entities.length > 0) {
-          metadataResp = await fetchMetadataV2(
-            this.props.entities,
-            statVarSet,
-            statVarToFacets,
-            apiRoot,
-            facets
-          );
-        } else {
-          metadataResp = await fetchMetadata(
-            statVarSet,
-            facets,
-            dataCommonsClient,
-            statVarToFacets,
-            apiRoot
-          );
-        }
+        const metadataResp = await fetchMetadata(
+          this.props.entities || [],
+          statVarSet,
+          statVarToFacets,
+          apiRoot,
+          facets,
+          surface
+        );
 
         return buildCitationParts(
           metadataResp.statVarList,
