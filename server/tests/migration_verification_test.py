@@ -146,18 +146,25 @@ class TestMigrationVerification(unittest.TestCase):
                 "Count_Person": {
                     "byEntity": {
                         "geoId/06001": {
-                            "series": [{
-                                "date": "2020",
-                                "value": 100
+                            "orderedFacets": [{
+                                "facetId": "1",
+                                "observations": [{
+                                    "date": "2020",
+                                    "value": 100
+                                }]
                             }]
                         },
                         "geoId/06085": {
-                            "series": [{
-                                "date": "2020",
-                                "value": 200
-                            }, {
-                                "date": "2021",
-                                "value": 210
+                            "orderedFacets": [{
+                                "facetId":
+                                    "1",
+                                "observations": [{
+                                    "date": "2020",
+                                    "value": 200
+                                }, {
+                                    "date": "2021",
+                                    "value": 210
+                                }]
                             }]
                         }
                     }
