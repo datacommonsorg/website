@@ -154,63 +154,10 @@ class TestApiStatsProperty(unittest.TestCase):
 class TestSearchStatVar(unittest.TestCase):
 
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
-  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
-  @mock.patch('server.routes.shared_api.stats.dc.filter_statvars')
-  @mock.patch('server.lib.vertex_ai.search')
-  def test_search_statvar_dc_single_token_vai_disabled(self,
-                                                       mock_vertex_ai_search,
-                                                       mock_filter_statvars,
-                                                       mock_search_dc,
-                                                       mock_is_feature_enabled):
-    """Tests behaviour when Vertex AI search is disabled."""
-    expected_query = 'person'
-    expected_entities = ["geoId/06"]
-    expected_result = mock_data.DC_STAT_VAR_SEARCH_RESPONSE_SVG
-    expected_sv_only_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
-    expected_no_entities_result = mock_data.DC_STAT_VAR_SEARCH_RESPONSE_NO_ENTITIES
-
-    def search_dc_side_effect(query, entities, sv_only):
-      if query == expected_query and entities == expected_entities and not sv_only:
-        return expected_result
-      elif query == expected_query and entities == expected_entities and sv_only:
-        return expected_sv_only_result
-      elif query == expected_query and entities == [] and not sv_only:
-        return expected_no_entities_result
-      else:
-        return []
-
-    with app.app_context():
-      mock_is_feature_enabled.return_value = False
-      mock_vertex_ai_search.side_effect = ValueError(
-          "Vertex AI search not expected in this test.")
-      mock_filter_statvars.side_effect = ValueError(
-          "dc.filter_statvars not expected in this test.")
-      mock_search_dc.side_effect = search_dc_side_effect
-
-      response = app.test_client().get(
-          'api/stats/stat-var-search?query=person&entities=geoId/06')
-      mock_vertex_ai_search.assert_not_called()
-      assert response.status_code == 200
-      result = json.loads(response.data)
-      assert result == expected_result
-      response = app.test_client().get(
-          'api/stats/stat-var-search?query=person&entities=geoId/06&svOnly=1')
-      mock_vertex_ai_search.assert_not_called()
-      assert response.status_code == 200
-      result = json.loads(response.data)
-      assert result == expected_sv_only_result
-      response = app.test_client().get('api/stats/stat-var-search?query=person')
-      mock_vertex_ai_search.assert_not_called()
-      assert response.status_code == 200
-      result = json.loads(response.data)
-      assert result == expected_no_entities_result
-
-  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
-  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.dc.filter_statvars')
   @mock.patch('server.lib.vertex_ai.search')
   def test_search_statvar_vai_enabled(self, mock_vertex_ai_search,
-                                      mock_filter_statvars, mock_search_dc,
+                                      mock_filter_statvars,
                                       mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled and should be called."""
     expected_query = 'person'
@@ -242,43 +189,36 @@ class TestSearchStatVar(unittest.TestCase):
       mock_is_feature_enabled.return_value = True
       mock_vertex_ai_search.side_effect = search_vai_side_effect
       mock_filter_statvars.side_effect = filter_statvars_side_effect
-      mock_search_dc.side_effect = ValueError(
-          "DC search not expected in this test.")
 
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&limit=1')
-      mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_limit_one
 
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&limit=3')
-      mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_page_one
 
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&limit=10')
-      mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_all
 
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&entities=geoId/06')
-      mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_filtered
 
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
-  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.dc.filter_statvars')
   @mock.patch('server.lib.vertex_ai.search')
   def test_search_statvar_vai_missing_data(self, mock_vertex_ai_search,
-                                           mock_filter_statvars, mock_search_dc,
+                                           mock_filter_statvars,
                                            mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled and returns incomplete StatVar data."""
     expected_query = 'person'
@@ -298,8 +238,6 @@ class TestSearchStatVar(unittest.TestCase):
       mock_is_feature_enabled.return_value = True
       mock_vertex_ai_search.side_effect = search_vai_side_effect
       mock_filter_statvars.side_effect = filter_statvars_side_effect
-      mock_search_dc.side_effect = ValueError(
-          "DC search not expected in this test.")
 
       response = app.test_client().get('api/stats/stat-var-search?query=person')
       self.assertEqual(len(cm.output), 2)
@@ -313,7 +251,110 @@ class TestSearchStatVar(unittest.TestCase):
           cm.records[1].message,
           'There\'s an issue with DCID or name for the stat var search result: {\'dcid\': \'sv3\'}'
       )
-      mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result
+
+  @mock.patch('server.routes.shared_api.stats.dc.post')
+  @mock.patch('server.routes.shared_api.stats.dc.v2node')
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
+  def test_search_statvar_custom_dc_v2_fallback(self, mock_is_feature_enabled,
+                                                mock_v2node, mock_post):
+    """Tests the /v2 fallback for custom Data Commons when VAI is disabled."""
+    mock_is_feature_enabled.return_value = False
+    expected_query = 'person'
+    expected_entities = ["geoId/06"]
+
+    def post_side_effect(url, req_json):
+      if "/v2/resolve" in url:
+        return {
+            "entities": [{
+                "candidates": [{
+                    "dcid": "Count_Person"
+                }, {
+                    "dcid": "dc/g/Demographics"
+                }]
+            }]
+        }
+      elif "/v2/observation" in url:
+        # Count_Person has data, dc/g/Demographics does not
+        return {"byVariable": {"Count_Person": {"byEntity": {"geoId/06": {}}}}}
+      elif "/v2/node" in url:
+        # Count_Person is StatisticalVariable, dc/g/Demographics is StatVarGroup
+        return {
+            "data": {
+                "Count_Person": {
+                    "arcs": {
+                        "typeOf": {
+                            "nodes": [{
+                                "dcid": "StatisticalVariable"
+                            },]
+                        }
+                    }
+                },
+                "dc/g/Demographics": {
+                    "arcs": {
+                        "typeOf": {
+                            "nodes": [{
+                                "dcid": "StatVarGroup"
+                            }]
+                        }
+                    }
+                }
+            }
+        }
+      return {}
+
+    mock_post.side_effect = post_side_effect
+    mock_v2node.return_value = {
+        "data": {
+            "Count_Person": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "Population"
+                        }]
+                    }
+                }
+            }
+        }
+    }
+
+    original_enable_model = app.config.get('ENABLE_MODEL')
+    original_custom = app.config.get('CUSTOM')
+    app.config['ENABLE_MODEL'] = True
+    app.config['CUSTOM'] = True
+
+    try:
+      with app.app_context():
+        # Test with entities (filters by observation)
+        response = app.test_client().get(
+            'api/stats/stat-var-search?query=person&entities=geoId/06')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == {
+            "statVars": [{
+                "dcid": "Count_Person",
+                "name": "Population"
+            }],
+            "matches": [],
+            "statVarGroups": []
+        }
+
+        # Test without entities (skips observation check)
+        response = app.test_client().get(
+            'api/stats/stat-var-search?query=person')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == {
+            "statVars": [{
+                "dcid": "Count_Person",
+                "name": "Population"
+            }],
+            "matches": [],
+            "statVarGroups": []
+        }
+
+    finally:
+      app.config['ENABLE_MODEL'] = original_enable_model
+      app.config['CUSTOM'] = original_custom
