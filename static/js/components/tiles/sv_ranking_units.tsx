@@ -123,6 +123,24 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       props.sources || Array.from(rankingGroup.sources)
     );
   }
+
+  const renderShowMoreButton = (
+    count: number,
+    setCount: (c: number) => void
+  ): JSX.Element => (
+    <Button
+      variant="inverted"
+      className="ranking-show-more"
+      onClick={(): void => {
+        const newCount = count + showNextCount;
+        setCount(newCount);
+        props.onShowMore?.(newCount);
+      }}
+    >
+      <KeyboardArrowDown />
+    </Button>
+  );
+
   const chartTitle = getChartTitle(title, rankingGroup);
   return (
     <React.Fragment>
@@ -169,19 +187,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   : undefined
               }
             >
-              {highestHasMore && showNextCount > 0 && (
-                <Button
-                  variant="inverted"
-                  className="ranking-show-more"
-                  onClick={(): void => {
-                    const newCount = highestCount + showNextCount;
-                    setHighestCount(newCount);
-                    props.onShowMore?.(newCount);
-                  }}
-                >
-                  <KeyboardArrowDown />
-                </Button>
-              )}
+              {highestHasMore &&
+                showNextCount > 0 &&
+                renderShowMoreButton(highestCount, setHighestCount)}
             </ChartFooter>
           )}
         </div>
@@ -226,19 +234,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       : undefined
                   }
                 >
-                  {highestHasMore && showNextCount > 0 && (
-                    <Button
-                      variant="inverted"
-                      className="ranking-show-more"
-                      onClick={(): void => {
-                        const newCount = highestCount + showNextCount;
-                        setHighestCount(newCount);
-                        props.onShowMore?.(newCount);
-                      }}
-                    >
-                      <KeyboardArrowDown />
-                    </Button>
-                  )}
+                  {highestHasMore &&
+                    showNextCount > 0 &&
+                    renderShowMoreButton(highestCount, setHighestCount)}
                 </ChartFooter>
               )}
             </div>
@@ -282,19 +280,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       : undefined
                   }
                 >
-                  {lowestHasMore && showNextCount > 0 && (
-                    <Button
-                      variant="inverted"
-                      className="ranking-show-more"
-                      onClick={(): void => {
-                        const newCount = lowestCount + showNextCount;
-                        setLowestCount(newCount);
-                        props.onShowMore?.(newCount);
-                      }}
-                    >
-                      <KeyboardArrowDown />
-                    </Button>
-                  )}
+                  {lowestHasMore &&
+                    showNextCount > 0 &&
+                    renderShowMoreButton(lowestCount, setLowestCount)}
                 </ChartFooter>
               )}
             </div>
