@@ -17,7 +17,7 @@
 /**
  * Component for rendering a ranking tile.
  */
-import React, { RefObject, useRef } from "react";
+import React, { RefObject, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
@@ -39,6 +39,8 @@ import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
 import { formatString } from "../../utils/tile_utils";
 import { buildExploreUrl } from "../../utils/url_utils";
+import { Button } from "../elements/button/button";
+import { KeyboardArrowDown } from "../elements/icons/keyboard_arrow_down";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
@@ -74,6 +76,7 @@ interface SvRankingUnitsProps {
   enableScroll?: boolean;
   hyperlink?: string;
   parentPlace: string;
+  onShowMore?: (count: number) => void;
 }
 
 /**
@@ -86,6 +89,17 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   const rankingGroup = rankingData[statVar];
   const highestRankingUnitRef = useRef<HTMLDivElement>();
   const lowestRankingUnitRef = useRef<HTMLDivElement>();
+
+  const [highestCount, setHighestCount] = useState(
+    rankingMetadata.rankingCount || RANKING_COUNT
+  );
+  const [lowestCount, setLowestCount] = useState(
+    rankingMetadata.rankingCount || RANKING_COUNT
+  );
+  const highestHasMore = rankingGroup.numDataPoints > highestCount;
+  const lowestHasMore = rankingGroup.numDataPoints > lowestCount;
+  const showNextCount = rankingMetadata.showNextCount || 0;
+
   /**
    * Build content and triggers export modal window
    */
@@ -130,7 +144,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.errorMsg,
             props.sources,
             props.isLoading,
-            props.enableScroll
+            props.enableScroll,
+            highestCount
           )}
           {!props.hideFooter && (
             <ChartFooter
@@ -141,7 +156,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               }
               exploreLink={
                 props.showExploreMore && !props.errorMsg
-                  ? getExploreLink(props, true)
+                  ? getExploreLink(props, true, highestCount)
                   : null
               }
               footnote={props.footnote}
@@ -153,7 +168,20 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   ? getHyperlinkUrl(props)
                   : undefined
               }
-            ></ChartFooter>
+            >
+              {highestHasMore && showNextCount > 0 && (
+                <Button
+                  variant="light"
+                  onClick={(): void => {
+                    const newCount = highestCount + showNextCount;
+                    setHighestCount(newCount);
+                    props.onShowMore?.(newCount);
+                  }}
+                >
+                  <KeyboardArrowDown />
+                </Button>
+              )}
+            </ChartFooter>
           )}
         </div>
       ) : (
@@ -176,13 +204,16 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                highestCount
               )}
               {!props.hideFooter && (
                 <ChartFooter
                   handleEmbed={(): void => handleEmbed(true, chartTitle)}
                   exploreLink={
-                    props.showExploreMore ? getExploreLink(props, true) : null
+                    props.showExploreMore
+                      ? getExploreLink(props, true, highestCount)
+                      : null
                   }
                   footnote={props.footnote}
                   containerRef={props.containerRef}
@@ -193,7 +224,20 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       ? getHyperlinkUrl(props)
                       : undefined
                   }
-                ></ChartFooter>
+                >
+                  {highestHasMore && showNextCount > 0 && (
+                    <Button
+                      variant="light"
+                      onClick={(): void => {
+                        const newCount = highestCount + showNextCount;
+                        setHighestCount(newCount);
+                        props.onShowMore?.(newCount);
+                      }}
+                    >
+                      <KeyboardArrowDown />
+                    </Button>
+                  )}
+                </ChartFooter>
               )}
             </div>
           )}
@@ -215,13 +259,16 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                lowestCount
               )}
               {!props.hideFooter && (
                 <ChartFooter
                   handleEmbed={(): void => handleEmbed(false, chartTitle)}
                   exploreLink={
-                    props.showExploreMore ? getExploreLink(props, false) : null
+                    props.showExploreMore
+                      ? getExploreLink(props, false, lowestCount)
+                      : null
                   }
                   footnote={props.footnote}
                   containerRef={props.containerRef}
@@ -232,7 +279,20 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       ? getHyperlinkUrl(props)
                       : undefined
                   }
-                ></ChartFooter>
+                >
+                  {lowestHasMore && showNextCount > 0 && (
+                    <Button
+                      variant="light"
+                      onClick={(): void => {
+                        const newCount = lowestCount + showNextCount;
+                        setLowestCount(newCount);
+                        props.onShowMore?.(newCount);
+                      }}
+                    >
+                      <KeyboardArrowDown />
+                    </Button>
+                  )}
+                </ChartFooter>
               )}
             </div>
           )}
@@ -308,14 +368,15 @@ export function getRankingUnitPoints(
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
   rankingGroup: RankingGroup,
-  enableScroll: boolean
+  enableScroll: boolean,
+  rankingCount?: number
 ): { topPoints: RankingPoint[]; bottomPoints: RankingPoint[] } {
-  const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
+  const count = rankingCount || rankingMetadata.rankingCount || RANKING_COUNT;
   let topPoints = rankingGroup.points;
   if (!enableScroll) {
     topPoints = isHighest
-      ? rankingGroup.points.slice(-rankingCount).reverse()
-      : rankingGroup.points.slice(0, rankingCount);
+      ? rankingGroup.points.slice(-count).reverse()
+      : rankingGroup.points.slice(0, count);
   } else {
     topPoints = isHighest
       ? [...rankingGroup.points].reverse()
@@ -325,8 +386,8 @@ export function getRankingUnitPoints(
   if (!enableScroll && rankingMetadata.showHighestLowest) {
     // we want a gap of at least 1 point between the top and bottom points
     const numBottomPoints = Math.min(
-      rankingGroup.points.length - rankingCount - 1,
-      rankingCount
+      rankingGroup.points.length - count - 1,
+      count
     );
     bottomPoints = rankingGroup.points.slice(0, numBottomPoints).reverse();
   }
@@ -362,13 +423,15 @@ export function getRankingUnit(
   errorMsg?: string,
   sources?: string[],
   isLoading?: boolean,
-  enableScroll?: boolean
+  enableScroll?: boolean,
+  rankingCount?: number
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
     isHighest,
     rankingGroup,
-    enableScroll
+    enableScroll,
+    rankingCount
   );
   const entities = Array.from(
     new Set([
@@ -443,10 +506,10 @@ function getHyperlinkUrl(props: SvRankingUnitsProps): string {
 
 function getExploreLink(
   props: SvRankingUnitsProps,
-  isHighest: boolean
+  isHighest: boolean,
+  rankingCount: number
 ): { url: string; displayText: string } {
   const rankingGroup = props.rankingData[props.statVar];
-  const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   const places = isHighest
     ? rankingGroup.points.slice(-rankingCount).map((point) => point.placeDcid)
     : rankingGroup.points

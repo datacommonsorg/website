@@ -27,8 +27,9 @@ import { intl } from "../i18n/i18n";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
-import { getChildPlacesPromise } from "../utils/place_utils";
+import { getEnclosedPlacesPromise } from "../utils/place_utils";
 import { getCategoryConfig } from "./ranking_config_builder";
+import { RankingTileContext } from "./ranking_context";
 import { RankingPageHeader } from "./ranking_header";
 import { RankingPageContainer } from "./ranking_page_styles";
 
@@ -54,20 +55,28 @@ export interface RankingPagePropType {
 }
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
-  // Number of places to display in the ranking tile
-  const numEntriesToDisplay = 100;
+  // Number of places to display in the ranking tile, on inital load
+  const numEntriesToDisplayAtStart = 50;
+  // Number of places to add to the ranking tile when clicking the button to show more places
+  const showNextCount = 5;
   // Whether all child places are shown in the ranking tile
   const [areAllPlacesShown, setAreAllPlacesShown] = useState(false);
+  // Number of entries currently shown in the ranking tile
+  const [numEntriesCurrentlyShown, setNumEntriesCurrentlyShown] = useState(
+    numEntriesToDisplayAtStart
+  );
 
   // Determine whether all child places are shown in the ranking tile
   useEffect(() => {
     // Fetch the number of places of the child place type within the parent place
-    getChildPlacesPromise(props.parentPlaceDcid).then((childPlaces) => {
-      const numChildPlaces = childPlaces[props.childPlaceType].length;
-      // All places are shown if the number of entries to display is greater than or equal to the number of child places
-      setAreAllPlacesShown(numEntriesToDisplay >= numChildPlaces);
-    });
-  }, [props.childPlaceType, props.parentPlaceDcid]);
+    getEnclosedPlacesPromise(props.parentPlaceDcid, props.childPlaceType).then(
+      (enclosedPlaces) => {
+        const numChildPlaces = enclosedPlaces.length;
+        // All places are shown if the number of entries to display is greater than or equal to the number of child places
+        setAreAllPlacesShown(numEntriesCurrentlyShown >= numChildPlaces);
+      }
+    );
+  }, [numEntriesCurrentlyShown, props.childPlaceType, props.parentPlaceDcid]);
 
   // Get the display name of the stat var, localized
   const statVarNameLocalized = getStatsVarTitle(props.statVarDcid);
@@ -79,32 +88,42 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
     types: [], // Unused for ranking tile
   };
 
+  // Callback function to update the number of entries shown in the ranking tile
+  // Because the ranking tile itself controls how many entries are shown, we use
+  // this callback to update state, so we can update the title.
+  const onShowMore = (currentNumEntries: number): void => {
+    setNumEntriesCurrentlyShown(currentNumEntries);
+  };
+
   return (
     <RawIntlProvider value={intl}>
       <ThemeProvider theme={theme}>
         <RankingPageContainer>
-          <RankingPageHeader
-            parentPlaceNameLocalized={props.parentPlaceNameLocalized}
-            parentPlaceDcid={props.parentPlaceDcid}
-            childPlaceType={props.childPlaceType}
-            statVarNameLocalized={statVarNameLocalized}
-            locale={props.locale}
-            areAllPlacesShown={areAllPlacesShown}
-            numPlacesShown={numEntriesToDisplay}
-            isPerCapita={props.isPerCapita}
-          />
-          <Category
-            config={getCategoryConfig(
-              props,
-              statVarNameLocalized,
-              numEntriesToDisplay
-            )}
-            enclosedPlaceType={props.childPlaceType}
-            eventTypeSpec={{}}
-            id="ranking-page-category"
-            place={parentPlaceLocalized}
-            svgChartHeight={500}
-          />
+          <RankingTileContext.Provider value={{ onShowMore }}>
+            <RankingPageHeader
+              parentPlaceNameLocalized={props.parentPlaceNameLocalized}
+              parentPlaceDcid={props.parentPlaceDcid}
+              childPlaceType={props.childPlaceType}
+              statVarNameLocalized={statVarNameLocalized}
+              locale={props.locale}
+              areAllPlacesShown={areAllPlacesShown}
+              numPlacesShown={numEntriesCurrentlyShown}
+              isPerCapita={props.isPerCapita}
+            />
+            <Category
+              config={getCategoryConfig(
+                props,
+                statVarNameLocalized,
+                numEntriesToDisplayAtStart,
+                showNextCount
+              )}
+              enclosedPlaceType={props.childPlaceType}
+              eventTypeSpec={{}}
+              id="ranking-page-category"
+              place={parentPlaceLocalized}
+              svgChartHeight={500}
+            />
+          </RankingTileContext.Provider>
         </RankingPageContainer>
       </ThemeProvider>
     </RawIntlProvider>
