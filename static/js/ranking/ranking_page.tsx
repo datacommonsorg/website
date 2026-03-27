@@ -54,7 +54,8 @@ export interface RankingPagePropType {
 }
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
-  const [numEntriesToDisplay, setNumEntriesToDisplay] = useState(100);
+  // Number of places to display in the ranking tile
+  const numEntriesToDisplay = 100;
   // Whether all child places are shown in the ranking tile
   const [areAllPlacesShown, setAreAllPlacesShown] = useState(false);
 
@@ -66,7 +67,7 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
       // All places are shown if the number of entries to display is greater than or equal to the number of child places
       setAreAllPlacesShown(numEntriesToDisplay >= numChildPlaces);
     });
-  }, [numEntriesToDisplay, props.childPlaceType, props.parentPlaceDcid]);
+  }, [props.childPlaceType, props.parentPlaceDcid]);
 
   // Get the display name of the stat var, localized
   const statVarNameLocalized = getStatsVarTitle(props.statVarDcid);
