@@ -54,10 +54,11 @@ export function getStatVarSearchResults(
  */
 export function getHighlightedJSX(
   id: string,
-  s: string,
+  s: string | null | undefined,
   matches: string[]
 ): JSX.Element {
-  let prevResult = [s];
+  const textToHighlight = s || id;
+  let prevResult = [textToHighlight];
   let currResult = [];
   matches.sort((a, b) => b.length - a.length);
   // Escape any invalid symbols in the returned matches

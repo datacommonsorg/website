@@ -33,6 +33,7 @@
 <script>
   globalThis.infoConfig = {{ info_json | tojson | safe }};
   globalThis.visToolExamples = {{ vis_tool_examples_json | tojson | safe }};
+  globalThis.isSearchSupported = {{ is_search_supported | tojson }};
 </script>
 {% endblock %}
 
