@@ -42,6 +42,8 @@ export interface RankingPageHeaderPropType {
   areAllPlacesShown: boolean;
   // Number of places to display in the ranking tile
   numPlacesShown: number;
+  // Whether the stat var is per capita
+  isPerCapita: boolean;
 }
 
 export function RankingPageHeader(
@@ -57,7 +59,8 @@ export function RankingPageHeader(
           props.parentPlaceDcid,
           props.parentPlaceNameLocalized,
           props.areAllPlacesShown,
-          props.numPlacesShown
+          props.numPlacesShown,
+          props.isPerCapita
         )}
       </h1>
       <div className="ancestor-places-links">
@@ -130,6 +133,8 @@ function useAncestorPlaces(
  * @param parentPlaceDcid - The DCID of the parent place
  * @param parentPlaceNameLocalized - The localized name of the parent place
  * @param areAllPlacesShown - Whether all child places are shown in the ranking tile
+ * @param numPlacesShown - Number of places to display in the ranking tile
+ * @param isPerCapita - Whether the stat var is per capita
  * @returns The page title
  */
 function getPageTitle(
@@ -138,7 +143,8 @@ function getPageTitle(
   parentPlaceDcid: string,
   parentPlaceNameLocalized: string,
   areAllPlacesShown: boolean,
-  numPlacesShown: number
+  numPlacesShown: number,
+  isPerCapita: boolean
 ): React.JSX.Element {
   // Get the pluralized place type (e.g. county -> counties)
   const pluralPlaceType = displayNameForPlaceType(
@@ -163,30 +169,28 @@ function getPageTitle(
       values={{ statVar: statVarNameLocalized }}
     />
   );
+  // Determine which second half message to use
+  // based on whether all places are shown and whether the stat var is per capita
+  const pageTitleSuffixMessage = areAllPlacesShown
+    ? isPerCapita
+      ? rankingMessages.allPlacesPerCapitaTitle
+      : rankingMessages.allPlacesTitle
+    : isPerCapita
+    ? rankingMessages.topPlacesPerCapita
+    : rankingMessages.topPlacesTitle;
   return (
     <>
       {pageTitlePrefix}
       {", "}
-      {areAllPlacesShown ? (
-        <FormattedMessage
-          id={rankingMessages.allPlacesTitle.id}
-          defaultMessage={rankingMessages.allPlacesTitle.defaultMessage}
-          values={{
-            pluralPlaceType,
-            placeName: parentPlaceLink,
-          }}
-        />
-      ) : (
-        <FormattedMessage
-          id={rankingMessages.topPlacesTitle.id}
-          defaultMessage={rankingMessages.topPlacesTitle.defaultMessage}
-          values={{
-            rankSize: numPlacesShown,
-            pluralPlaceType,
-            placeName: parentPlaceLink,
-          }}
-        />
-      )}
+      <FormattedMessage
+        id={pageTitleSuffixMessage.id}
+        defaultMessage={pageTitleSuffixMessage.defaultMessage}
+        values={{
+          rankSize: numPlacesShown,
+          pluralPlaceType,
+          placeName: parentPlaceLink,
+        }}
+      />
     </>
   );
 }

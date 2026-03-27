@@ -19,7 +19,7 @@
  */
 
 import { ThemeProvider } from "@emotion/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
 import { Category } from "../components/subject_page/category";
@@ -54,10 +54,9 @@ export interface RankingPagePropType {
 }
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
-  // Number of places to display in the ranking tile
-  const [numEntriesToDisplay, setNumEntriesToDisplay] = React.useState(100);
+  const [numEntriesToDisplay, setNumEntriesToDisplay] = useState(100);
   // Whether all child places are shown in the ranking tile
-  const [areAllPlacesShown, setAreAllPlacesShown] = React.useState(false);
+  const [areAllPlacesShown, setAreAllPlacesShown] = useState(false);
 
   // Determine whether all child places are shown in the ranking tile
   useEffect(() => {
@@ -91,6 +90,7 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
             locale={props.locale}
             areAllPlacesShown={areAllPlacesShown}
             numPlacesShown={numEntriesToDisplay}
+            isPerCapita={props.isPerCapita}
           />
           <Category
             config={getCategoryConfig(
