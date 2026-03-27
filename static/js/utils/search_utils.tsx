@@ -18,6 +18,7 @@ import axios from "axios";
 import React from "react";
 
 import { StatVarSearchResult } from "../shared/types";
+import { getSafeRegExp } from "./regex_utils";
 
 /**
  * Given a query for a list of entities, returns a promise with stat vars and
@@ -65,18 +66,15 @@ export function getHighlightedJSX(
     match.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
   );
   for (const match of processedMatches) {
-    try {
-      const re = new RegExp(`(${match})`, "gi");
-      prevResult.forEach((stringPart) =>
-        currResult.push(...stringPart.split(re))
-      );
-      prevResult = currResult;
-      currResult = [];
-    } catch (e) {
-      // If trying to split the string on one of the returned matches fails,
-      // should just continue through the rest of the matches
+    const re = getSafeRegExp(`(${match})`, "gi");
+    if (!re) {
       continue;
     }
+    prevResult.forEach((stringPart) =>
+      currResult.push(...stringPart.split(re))
+    );
+    prevResult = currResult;
+    currResult = [];
   }
   return (
     <>
