@@ -192,7 +192,7 @@ def search_statvar():
       obs_resp = dc.post(
           url, {
               "variable": {
-                  "dcids": [c["dcid"] for c in candidates]
+                  "dcids": [c["dcid"] for c in candidates if c.get("dcid")]
               },
               "entity": {
                   "dcids": entities
@@ -210,10 +210,11 @@ def search_statvar():
     # Filter out StatVarGroups and Topics
     typed_statvars = []
     if valid_statvars:
-      node_resp = dc.post(dc.get_service_url("/v2/node"), {
-          "nodes": [c["dcid"] for c in valid_statvars],
-          "property": "->typeOf"
-      })
+      node_resp = dc.post(
+          dc.get_service_url("/v2/node"), {
+              "nodes": [c["dcid"] for c in valid_statvars if c.get("dcid")],
+              "property": "->typeOf"
+          })
       for c in valid_statvars:
         node_arcs = node_resp.get("data", {}).get(c["dcid"], {}).get("arcs", {})
         types = [
@@ -225,7 +226,7 @@ def search_statvar():
     filtered_statvars = typed_statvars
 
     # Pull out the DCIDs of the stat vars that pass the filter
-    filtered_dcids = [sv["dcid"] for sv in filtered_statvars]
+    filtered_dcids = [sv["dcid"] for sv in filtered_statvars if sv.get("dcid")]
 
     # fetch names for the DCIDs.
     names_map = {}
