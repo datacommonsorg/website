@@ -38,6 +38,21 @@
     width: 100%;
   }
 
+  @keyframes rankingRowEnter {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  tbody tr {
+    animation: rankingRowEnter 0.3s ease-out backwards;
+  }
+
   td.rank {
     width: 10%;
   }
@@ -68,6 +83,7 @@
   justify-content: center;
   width: 18px !important;
   height: 18px !important;
+  background-color: var(--gm-3-ref-primary-primary-40, #0b57d0) !important;
   border-radius: 50% !important;
   border: none !important;
   padding: 0 !important;
