@@ -61,3 +61,26 @@
     width: 85px;
   }
 }
+
+.ranking-show-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8 !important;
+  }
+
+  svg {
+    fill: white;
+    width: 22px;
+    height: 22px;
+  }
+}

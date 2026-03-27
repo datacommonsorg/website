@@ -171,7 +171,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             >
               {highestHasMore && showNextCount > 0 && (
                 <Button
-                  variant="light"
+                  variant="inverted"
+                  className="ranking-show-more"
                   onClick={(): void => {
                     const newCount = highestCount + showNextCount;
                     setHighestCount(newCount);
@@ -227,7 +228,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 >
                   {highestHasMore && showNextCount > 0 && (
                     <Button
-                      variant="light"
+                      variant="inverted"
+                      className="ranking-show-more"
                       onClick={(): void => {
                         const newCount = highestCount + showNextCount;
                         setHighestCount(newCount);
@@ -282,7 +284,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 >
                   {lowestHasMore && showNextCount > 0 && (
                     <Button
-                      variant="light"
+                      variant="inverted"
+                      className="ranking-show-more"
                       onClick={(): void => {
                         const newCount = lowestCount + showNextCount;
                         setLowestCount(newCount);
