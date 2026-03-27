@@ -567,10 +567,11 @@ def get_series_dates(parent_entity, child_type, variables):
     return {"datesByVariable": [], "facets": {}}
 
   # Get observation dates for the filtered children using batch V2 API
-  # We select essential fields: date, variable, entity (place), and facet
-  obs_resp = v2observation(select=['date', 'variable', 'entity', 'facet'],
-                           entity={'dcids': child_dcids},
-                           variable={'dcids': variables})
+  # We select essential fields: date, value, variable, entity (place), and facet
+  obs_resp = v2observation(
+      select=['date', 'variable', 'entity', 'facet', 'value'],
+      entity={'dcids': child_dcids},
+      variable={'dcids': variables})
 
   # Aggregate results to count how many entities have data for each date/variable combination
   # Structure: { variable: { date: { facet: count } } }
@@ -584,15 +585,19 @@ def get_series_dates(parent_entity, child_type, variables):
   for var, var_data in by_var.items():
     by_ent = var_data.get('byEntity', {})
     for _, ent_data in by_ent.items():
-      series = ent_data.get('series', [])
-      for obs in series:
-        date = obs.get('date')
-        if not date:
-          continue
+      # the observations are found inside ordered facets
+      ordered_facets = ent_data.get('orderedFacets', [])
+      for facet_obj in ordered_facets:
+        facet_id = str(facet_obj.get('facetId', ''))
+        observations = facet_obj.get('observations', [])
 
-        # Facet handling
-        facet_id = obs.get('facet', "")
-        agg_data[var][date][facet_id] += 1
+        for obs in observations:
+          date = obs.get('date')
+          if not date:
+            continue
+
+          # Facet handling
+          agg_data[var][date][facet_id] += 1
 
   # Final pass to construct the response format expected by the frontend
   resp_dates = []
@@ -603,6 +608,7 @@ def get_series_dates(parent_entity, child_type, variables):
       for facet_id, count in facet_counts.items():
         entity_counts.append({"count": count, "facet": facet_id})
       obs_dates.append({"date": date, "entityCount": entity_counts})
+    obs_dates.sort(key=lambda x: x['date'])
     resp_dates.append({"variable": var, "observationDates": obs_dates})
 
   return {"datesByVariable": resp_dates, "facets": all_facets}
