@@ -139,7 +139,6 @@ endpoints = Endpoints([
     '/v1/place/ranking',
     '/v1/place/related',
     '/v1/variable/search',
-    '/v1/recognize/places',
     '/v1/recognize/entities',
     # v2
     '/v2/observation',
