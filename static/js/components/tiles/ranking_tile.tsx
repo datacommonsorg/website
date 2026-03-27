@@ -119,14 +119,40 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     surface,
   } = props;
 
+  const prevFetchProps = useRef<{
+    variables: StatVarSpec[];
+    showMultiColumn?: boolean;
+    parentPlace: string;
+    enclosedPlaceType: string;
+    facetSelector: FacetSelectionCriteria;
+  }>(null);
+
   useEffect(() => {
     if (lazyLoad && !shouldLoad) {
       return;
     }
+
+    const currentFetchProps = {
+      variables,
+      showMultiColumn: rankingMetadata.showMultiColumn,
+      parentPlace,
+      enclosedPlaceType,
+      facetSelector: props.facetSelector,
+    };
+
+    if (
+      _.isEqual(prevFetchProps.current, currentFetchProps) &&
+      !_.isEmpty(rankingData)
+    ) {
+      // Data dependencies haven't changed, skip fetch
+      return;
+    }
+    prevFetchProps.current = currentFetchProps;
+
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const rankingData = await fetchData(
+        const fetchedData = await fetchData(
           variables,
           rankingMetadata,
           enclosedPlaceType,
@@ -135,7 +161,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           surface,
           props.facetSelector
         );
-        setRankingData(rankingData);
+        setRankingData(fetchedData);
       } finally {
         setIsLoading(false);
       }
@@ -149,6 +175,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     shouldLoad,
     variables,
     surface,
+    props.facetSelector,
+    rankingData,
   ]);
 
   /**
