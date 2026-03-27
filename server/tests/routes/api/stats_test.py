@@ -262,8 +262,6 @@ class TestSearchStatVar(unittest.TestCase):
                                                 mock_v2node, mock_post):
     """Tests the /v2 fallback for custom Data Commons when VAI is disabled."""
     mock_is_feature_enabled.return_value = False
-    expected_query = 'person'
-    expected_entities = ["geoId/06"]
 
     def post_side_effect(url, req_json):
       if "/v2/resolve" in url:
