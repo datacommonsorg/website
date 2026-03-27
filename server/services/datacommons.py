@@ -608,6 +608,7 @@ def get_series_dates(parent_entity, child_type, variables):
       for facet_id, count in facet_counts.items():
         entity_counts.append({"count": count, "facet": facet_id})
       obs_dates.append({"date": date, "entityCount": entity_counts})
+    obs_dates.sort(key=lambda x: x['date'])
     resp_dates.append({"variable": var, "observationDates": obs_dates})
 
   return {"datesByVariable": resp_dates, "facets": all_facets}
