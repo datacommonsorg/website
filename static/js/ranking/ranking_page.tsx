@@ -56,9 +56,9 @@ export interface RankingPagePropType {
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
   // Number of places to display in the ranking tile, on inital load
-  const numEntriesToDisplayAtStart = 50;
+  const numEntriesToDisplayAtStart = 100;
   // Number of places to add to the ranking tile when clicking the button to show more places
-  const showNextCount = 5;
+  const showNextCount = 100;
   // Whether all child places are shown in the ranking tile
   const [areAllPlacesShown, setAreAllPlacesShown] = useState(false);
   // Number of entries currently shown in the ranking tile
