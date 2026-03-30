@@ -17,6 +17,7 @@
 /**
  * Component for rendering a ranking tile.
  */
+import styled from "@emotion/styled";
 import React, { RefObject, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
@@ -124,24 +125,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
     );
   }
 
-  const renderShowMoreButton = (
-    count: number,
-    setCount: (c: number) => void
-  ): JSX.Element => (
-    <Button
-      variant="inverted"
-      className="ranking-show-more"
-      onClick={(): void => {
-        const newCount = count + showNextCount;
-        setCount(newCount);
-        props.onShowMore?.(newCount);
-      }}
-    >
-      <KeyboardArrowDown />
-    </Button>
-  );
-
   const chartTitle = getChartTitle(title, rankingGroup);
+
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
@@ -189,7 +174,12 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             >
               {highestHasMore &&
                 showNextCount > 0 &&
-                renderShowMoreButton(highestCount, setHighestCount)}
+                renderShowNextButton(
+                  highestCount,
+                  setHighestCount,
+                  showNextCount,
+                  props.onShowMore
+                )}
             </ChartFooter>
           )}
         </div>
@@ -236,7 +226,12 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 >
                   {highestHasMore &&
                     showNextCount > 0 &&
-                    renderShowMoreButton(highestCount, setHighestCount)}
+                    renderShowNextButton(
+                      highestCount,
+                      setHighestCount,
+                      showNextCount,
+                      props.onShowMore
+                    )}
                 </ChartFooter>
               )}
             </div>
@@ -282,7 +277,12 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 >
                   {lowestHasMore &&
                     showNextCount > 0 &&
-                    renderShowMoreButton(lowestCount, setLowestCount)}
+                    renderShowNextButton(
+                      lowestCount,
+                      setLowestCount,
+                      showNextCount,
+                      props.onShowMore
+                    )}
                 </ChartFooter>
               )}
             </div>
@@ -290,6 +290,58 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
         </>
       )}
     </React.Fragment>
+  );
+}
+
+const ShowNextButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: var(--gm-3-ref-primary-primary-40, #0b57d0);
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  svg {
+    fill: white;
+    width: 22px;
+    height: 22px;
+  }
+`;
+
+/**
+ * Renders the "Show next" button for pagination.
+ *
+ * @param count current number of entries shown
+ * @param setCount callback to update the number of entries shown
+ * @param showNextCount number of entries to add on click
+ * @param onShowMore callback to notify parent components of the increment
+ */
+function renderShowNextButton(
+  count: number,
+  setCount: (c: number) => void,
+  showNextCount: number,
+  onShowMore: (c: number) => void
+): JSX.Element {
+  return (
+    <ShowNextButton
+      variant="inverted"
+      onClick={(): void => {
+        const newCount = count + showNextCount;
+        setCount(newCount);
+        onShowMore?.(newCount);
+      }}
+    >
+      <KeyboardArrowDown />
+    </ShowNextButton>
   );
 }
 
