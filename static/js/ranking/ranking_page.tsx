@@ -72,7 +72,8 @@ export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
     getEnclosedPlacesPromise(props.parentPlaceDcid, props.childPlaceType).then(
       (enclosedPlaces) => {
         const numChildPlaces = enclosedPlaces.length;
-        // All places are shown if the number of entries to display is greater than or equal to the number of child places
+        // All places are shown if the number of entries to display
+        // is greater than or equal to the number of child places
         setAreAllPlacesShown(numEntriesCurrentlyShown >= numChildPlaces);
       }
     );
