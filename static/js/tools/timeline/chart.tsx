@@ -466,10 +466,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     metadataMap: Record<string, Record<string, StatMetadata>>
   ): Promise<void> {
     try {
-      const enriched = await fetchFacetsWithMetadata(
-        metadataMap,
-        this.dataCommonsClient
-      );
+      const enriched = await fetchFacetsWithMetadata(metadataMap, {
+        entities: Object.keys(this.props.placeNameMap),
+      });
       const facetList = this.getFacetList(statVars, enriched);
       this.setState({ facetList, facetListLoading: false });
     } catch {

@@ -18,6 +18,7 @@ import json
 import flask
 from flask import current_app
 
+import server.lib.feature_flags as feature_flags
 import server.routes.shared_api.place as place_api
 
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
@@ -35,12 +36,18 @@ def ranking(stat_var, place_type, place_dcid=''):
   else:
     place_name = 'the World'
   per_capita = flask.request.args.get('pc', False) != False
+
+  # Check if the new ranking page feature flag is enabled
+  use_new_ranking = feature_flags.is_feature_enabled(
+      feature_flags.NEW_RANKING_PAGE, app=current_app, request=flask.request)
+
   return flask.render_template('ranking.html',
                                place_name=place_name,
                                place_dcid=place_dcid,
                                place_type=place_type,
                                per_capita=per_capita,
                                stat_var=stat_var,
+                               use_new_ranking=use_new_ranking,
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))

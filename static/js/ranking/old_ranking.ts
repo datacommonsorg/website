@@ -1,5 +1,5 @@
 /**
- * Copyright 2026 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,20 +18,15 @@
  * @fileoverview Entry point for Ranking pages
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-
 import { loadLocaleData } from "../i18n/i18n";
-import { RankingPage } from "./ranking_page";
+import { renderRankingComponent } from "./old_component";
 
 window.addEventListener("load", (): void => {
   // Get page metadata
-  const parentPlaceDcid =
-    document.getElementById("within-place-dcid").dataset.pwp;
-  const childPlaceType = document.getElementById("place-type").dataset.pt;
-  const parentPlaceNameLocalized =
-    document.getElementById("place-name").dataset.pn; // Already localized by flask
-  const statVarDcid = document.getElementById("stat-var").dataset.sv;
+  const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
+  const placeType = document.getElementById("place-type").dataset.pt;
+  const placeName = document.getElementById("place-name").dataset.pn;
+  const statVar = document.getElementById("stat-var").dataset.sv;
   const isPerCapita = JSON.parse(
     document.getElementById("per-capita").dataset.pc.toLowerCase()
   );
@@ -40,7 +35,7 @@ window.addEventListener("load", (): void => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
 
-  // Get unit, scaling, and date from URL params
+  // Get scaling
   const urlParams = new URLSearchParams(window.location.search);
   const unit = urlParams.get("unit");
   let scaling = Number(urlParams.get("scaling"));
@@ -53,19 +48,15 @@ window.addEventListener("load", (): void => {
     import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
     import(`../i18n/compiled-lang/${locale}/units.json`),
   ]).then(() => {
-    ReactDOM.render(
-      React.createElement(RankingPage, {
-        parentPlaceNameLocalized,
-        childPlaceType,
-        parentPlaceDcid,
-        statVarDcid,
-        isPerCapita,
-        unit,
-        scaling,
-        date,
-        locale,
-      }),
-      document.getElementById("main-pane")
-    );
+    renderRankingComponent(document.getElementById("main-pane"), {
+      placeName,
+      placeType,
+      withinPlace,
+      statVar,
+      isPerCapita,
+      unit,
+      scaling,
+      date,
+    });
   });
 });
