@@ -58,7 +58,11 @@ if [[ $PROJECT_ID == "null" ]]; then
 fi
 
 CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $HELM_VALUES_FILE)
-LOCATIONS=("us-west1" "us-central1")
+if [[ "$ENV" == "prod" ]]; then
+  LOCATIONS=("us-west1" "us-central1")
+else
+  LOCATIONS=("us-central1")
+fi
 
 ESP_SERVICE_NAME=$(yq eval '.mixer.serviceName' $HELM_VALUES_FILE)
 if [[ $ESP_SERVICE_NAME == "null" ]]; then
