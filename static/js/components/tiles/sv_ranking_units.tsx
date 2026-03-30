@@ -354,15 +354,16 @@ function getChartTitle(
  * @param isHighest whether or not this ranking unit is showing the points as
  *                  highest to lowest or the other way around
  * @param rankingGroup the RankingGroup information to get the points for
+ * @param displayCount optional override for number of entries to display
  */
 export function getRankingUnitPoints(
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
   rankingGroup: RankingGroup,
   enableScroll: boolean,
-  rankingCount?: number
+  displayCount?: number
 ): { topPoints: RankingPoint[]; bottomPoints: RankingPoint[] } {
-  const count = rankingCount || rankingMetadata.rankingCount || RANKING_COUNT;
+  const count = displayCount || rankingMetadata.rankingCount || RANKING_COUNT;
   let topPoints = rankingGroup.points;
   if (!enableScroll) {
     topPoints = isHighest
@@ -415,14 +416,14 @@ export function getRankingUnit(
   sources?: string[],
   isLoading?: boolean,
   enableScroll?: boolean,
-  rankingCount?: number
+  displayCount?: number
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
     isHighest,
     rankingGroup,
     enableScroll,
-    rankingCount
+    displayCount
   );
   const entities = Array.from(
     new Set([
