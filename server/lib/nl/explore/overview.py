@@ -51,7 +51,7 @@ class PageOverview(BaseModel):
 
 _OVERVIEW_GEMINI_CALL_RETRIES = 3
 
-_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash-lite"
+_OVERVIEW_GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
 
 
 def generate_page_overview(

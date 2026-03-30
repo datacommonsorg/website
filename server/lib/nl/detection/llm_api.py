@@ -27,8 +27,8 @@ import json5
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
-_GEMINI_2_5_FLASH = 'gemini-2.5-flash'
-_API_VERSION = 'v1'
+_GEMINI_3_0_FLASH = 'gemini-3-flash-preview'
+_API_VERSION = 'v1beta'
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 0.1
@@ -186,4 +186,4 @@ def _extract_answer(resp: str) -> str:
 
 
 def detect_model_name() -> str:
-  return _GEMINI_2_5_FLASH
+  return _GEMINI_3_0_FLASH

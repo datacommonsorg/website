@@ -433,7 +433,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
         os.environ['GEMINI_API_KEY'] = app.config['LLM_API_KEY']
         app.config['NL_DETECTION_AGENT'] = create_detection_agent(
-            os.environ.get("AGENT_MODEL", "gemini-2.5-flash"),
+            os.environ.get("AGENT_MODEL", "gemini-3-flash-preview"),
             os.environ.get("DC_MCP_URL"))
 
     app.config[

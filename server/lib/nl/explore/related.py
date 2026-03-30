@@ -55,7 +55,7 @@ class FollowUpQuestions(BaseModel):
 
 
 _QUESTIONS_GEMINI_CALL_RETRIES = 3
-_QUESTIONS_GEMINI_MODEL = "gemini-2.5-flash"
+_QUESTIONS_GEMINI_MODEL = "gemini-3-flash-preview"
 
 
 def compute_related_things(
