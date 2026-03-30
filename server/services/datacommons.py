@@ -27,6 +27,7 @@ from flask import request
 import requests
 
 from server.lib import log
+from server.lib.cache import cache
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
@@ -395,11 +396,45 @@ def variable_info(nodes: List[str]) -> Dict:
   return post(url, req_dict)
 
 
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get_variable_ancestors(dcid: str):
   """Gets the path of a stat var to the root of the stat var hierarchy."""
-  url = get_service_url("/v1/variable/ancestors")
-  url = f"{url}/{dcid}"
-  return get(url).get("ancestors", [])
+  ancestors = []
+  curr = dcid
+  visited = {dcid}
+  max_depth = 20
+  while len(ancestors) < max_depth:
+    resp = v2node([curr], "->specializationOf")
+    parents_data = resp.get("data", {}).get(curr, {}).get("arcs", {}).get(
+        "specializationOf", {}).get("nodes", [])
+    if not parents_data:
+      break
+
+    parent_dcids = sorted([p["dcid"] for p in parents_data if "dcid" in p])
+    if not parent_dcids:
+      break
+
+    # Tie-breaking logic:
+    # 1. Prefer the first dc/g/Custom_ prefix
+    # 2. Otherwise take the first alphabetically
+    selected_parent = parent_dcids[0]
+    for p_dcid in parent_dcids:
+      if p_dcid.startswith("dc/g/Custom_"):
+        selected_parent = p_dcid
+        break
+
+    if selected_parent == "dc/g/Root":
+      break
+
+    if selected_parent in visited:
+      logger.error(f"Cycle detected in StatVar hierarchy at {selected_parent}")
+      break
+
+    ancestors.append(selected_parent)
+    visited.add(selected_parent)
+    curr = selected_parent
+
+  return ancestors
 
 
 def _get_all_values(resp, dcid, prop, key='dcid'):
