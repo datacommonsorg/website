@@ -1,20 +1,39 @@
 name: Dependabot auto-approve
 
+# DEPENDABOT WORKFLOW (STATE MACHINE):
+#
+# States:
+# 1. BAKING (< 7 days): PRs wait to mature before being tested.
+# 2. ACTIVE (>= 7 days): Placed in a locked queue (one PR at a time).
+#    - A rebase is requested from Dependabot to natively trigger tests.
+#    - Native GitHub auto-merge is enabled (merges automatically if tests pass).
+# 3. FAILING: If tests fail natively, PR is tagged 'failing' and bypassed.
+# 4. CONFLICTED: If PR has merge conflicts, PR is tagged 'merge-conflict' and bypassed.
+#
+# Developer Interventions:
+# - Manual Override / Skip PR: Add the 'ignore' label to any Dependabot PR to completely bypass it.
+# - Retry Failing/Conflicted PR: Remove the 'failing' or 'merge-conflict' label, and comment "@dependabot rebase".
+# - Bypass 7-Day Wait: Manually approve and merge the PR yourself via the GitHub UI.
+
 on: 
   pull_request_target:
     branches:
       - master
+  schedule:
+    - cron: '*/30 * * * *' # Run every 30 minutes
   workflow_dispatch:
     # Allows manual triggering of the workflow
 
 permissions:
   pull-requests: write
+  contents: write
 
 jobs:
-  dependabot:
+  trigger-tests:
     runs-on: ubuntu-latest
     # Checking the author will prevent your Action run failing on non-Dependabot PRs
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'datacommonsorg/website'
+    # Only run this job when triggered by a pull_request_target event
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'datacommonsorg/website'
     steps:
       - name: Dependabot metadata
         id: dependabot-metadata
@@ -26,14 +45,91 @@ jobs:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
           PR_URL: ${{ github.event.pull_request.html_url }}
 
-      - name: Approve the PR
-        run: gh pr review --approve "$PR_URL" || true
+  approve-and-merge-7-days:
+    runs-on: ubuntu-latest
+    # Only run this on a schedule or manual dispatch
+    if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.repository == 'datacommonsorg/website'
+    steps:
+      - name: Fetch Global Dependabot State
         env:
-          GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
-          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
+          gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --author "app/dependabot" \
+            --limit 1000 \
+            --json url,createdAt,labels,autoMergeRequest,statusCheckRollup,mergeStateStatus > /tmp/dependabot_prs.json
 
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --merge "$PR_URL"
+      - name: Isolate Conflicted PRs (State 4)
         env:
-          GH_TOKEN: ${{secrets.DEPENDABOT_AUTO_MERGE}}
-          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
+          JQ_CONFLICTED_FILTER='.[] | select(
+            (.mergeStateStatus == "DIRTY") and 
+            (all(.labels[].name; . != "merge-conflict" and . != "ignore"))
+          ) | .url'
+
+          CONFLICTED_PRS=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_CONFLICTED_FILTER")
+
+          for CONFLICTED_PR in $CONFLICTED_PRS; do
+            echo "State Transition: PR hit merge conflicts. Tagging PR: $CONFLICTED_PR"
+            gh pr edit "$CONFLICTED_PR" --add-label "merge-conflict" || true
+          done
+
+      - name: Isolate Failing PRs (State 3)
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
+          JQ_FAILING_FILTER='.[] | select(
+            (.statusCheckRollup | tojson | test("FAILURE|ERROR")) and 
+            (all(.labels[].name; . != "failing" and . != "ignore"))
+          ) | .url'
+
+          FAILING_PRS=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_FAILING_FILTER")
+
+          for FAILING_PR in $FAILING_PRS; do
+            echo "State Transition: PR tests failed. Tagging PR: $FAILING_PR"
+            gh pr edit "$FAILING_PR" --add-label "failing" || true
+          done
+
+      - name: Evaluate Pipeline Queue Lock (State Lock)
+        run: |
+          JQ_QUEUE_LOCK_FILTER='.[] | select(
+            (.autoMergeRequest != null) and
+            (all(.labels[].name; . != "failing" and . != "merge-conflict" and . != "ignore"))
+          ) | .url'
+
+          ACTIVE_QUEUE=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_QUEUE_LOCK_FILTER")
+
+          if [ -n "$ACTIVE_QUEUE" ]; then
+            echo "A Dependabot PR is currently in the active testing queue. Pipeline locked by:"
+            echo "$ACTIVE_QUEUE"
+            echo "QUEUE_LOCKED=true" >> "$GITHUB_ENV"
+          fi
+
+      - name: Dispatch Target PR (State 2)
+        if: env.QUEUE_LOCKED != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+        run: |
+          JQ_TARGET_FILTER='[.[] | select(
+            (((now - (.createdAt | fromdateiso8601)) / 86400) >= 7) and 
+            (all(.labels[].name; . != "failing" and . != "merge-conflict" and . != "ignore"))
+          )] | .[0].url // empty'
+
+          PRS=$(cat /tmp/dependabot_prs.json | jq -r "$JQ_TARGET_FILTER")
+
+          if [ -z "$PRS" ] || [ "$PRS" == "null" ]; then
+            echo "No PRs currently eligible for Active processing."
+            exit 0
+          fi
+
+          PR_URL="$PRS"
+          echo "Transitioning PR to Active State: $PR_URL"
+          
+          # Approve and Enable Automerge Native GitHub functionality
+          gh pr review --approve "$PR_URL" || true
+          gh pr merge --auto --squash "$PR_URL" || true
+          
+          # Request a rebase, triggering natively the GCB tests pipeline.
+          gh pr comment "$PR_URL" --body "@dependabot rebase"

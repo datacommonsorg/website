@@ -1,7 +1,7 @@
 absl-py==1.4.0
 beautifulsoup4==4.12.2
 CacheControl==0.12.11
-deepdiff==8.6.1
+deepdiff==8.6.2
 Flask[async]==2.3.2
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1
@@ -34,7 +34,7 @@ langdetect==1.0.9
 markupsafe==2.1.2
 numpy==2.2.4
 parameterized==0.8.1
-pillow==10.4.0
+pillow==12.1.1
 protobuf>=4.25.3
 pydantic==2.11.1
 PyGithub==1.58.2

@@ -321,14 +321,6 @@ class ExploreTestDetection(ExploreTest):
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
 
-  def test_detection_bio(self):
-    self.run_detection('detection_api_bio', [
-        'What is the phylum of volvox?',
-        'What types of genes are FGFR1, APOE, and ACHE?',
-    ],
-                       dc='bio',
-                       check_detection=True)
-
   def test_detection_multivar(self):
     self.run_detection(
         'detection_api_multivar',

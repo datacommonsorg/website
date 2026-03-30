@@ -16,7 +16,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
+                    "title": "Household Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -32,7 +32,7 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in States of United States (${date})",
+                    "title": "Household Median Income in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -47,13 +47,13 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in States of United States (${date})",
+                    "title": "Household Median Income in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income in States of United States"
+            "title": "Household Median Income in States of United States of America"
           },
           {
             "columns": [
@@ -63,7 +63,7 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure in States of United States (${date})",
+                    "title": "High Blood Pressure in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -78,13 +78,13 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure in States of United States (${date})",
+                    "title": "High Blood Pressure in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "High Blood Pressure in States of United States"
+            "title": "High Blood Pressure in States of United States of America"
           },
           {
             "columns": [
@@ -98,7 +98,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "title": "Individual Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in States of United States (${date})",
+                    "title": "Individual Median Income in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -129,13 +129,13 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in States of United States (${date})",
+                    "title": "Individual Median Income in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income in States of United States"
+            "title": "Individual Median Income in States of United States of America"
           },
           {
             "columns": [
@@ -145,7 +145,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -160,13 +160,13 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States"
+            "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States of America"
           },
           {
             "columns": [
@@ -180,7 +180,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "title": "Household Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -200,7 +200,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
+                    "title": "Individual Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -265,10 +265,10 @@
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "United States",
+  "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -276,7 +276,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
