@@ -28,4 +28,4 @@
 set -e
 set -x
 
-gcloud builds submit --config build/ci/cloudbuild.deploy_cdc_autopush.yaml --project datcom-ci .
+gcloud builds submit --config build/ci/cloudbuild.deploy_cdc_autopush.yaml --project datcom-ci
