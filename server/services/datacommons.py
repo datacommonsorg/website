@@ -405,8 +405,11 @@ def get_variable_ancestors(dcid: str):
   max_depth = 20
   while len(ancestors) < max_depth:
     resp = v2node([curr], "->specializationOf")
-    parents_data = resp.get("data", {}).get(curr, {}).get("arcs", {}).get(
-        "specializationOf", {}).get("nodes", [])
+    parents_data = resp.get("data",
+                            {}).get(curr,
+                                    {}).get("arcs",
+                                            {}).get("specializationOf",
+                                                    {}).get("nodes", [])
     if not parents_data:
       break
 
@@ -417,11 +420,9 @@ def get_variable_ancestors(dcid: str):
     # Tie-breaking logic:
     # 1. Prefer the first dc/g/Custom_ prefix
     # 2. Otherwise take the first alphabetically
-    selected_parent = parent_dcids[0]
-    for p_dcid in parent_dcids:
-      if p_dcid.startswith("dc/g/Custom_"):
-        selected_parent = p_dcid
-        break
+    selected_parent = next(
+        (p for p in parent_dcids if p.startswith("dc/g/Custom_")),
+        parent_dcids[0])
 
     if selected_parent == "dc/g/Root":
       break
