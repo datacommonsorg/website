@@ -36,8 +36,7 @@ $border-radius: 3px;
 }
 
 .node-table .property-column,
-.node-table tr > td:last-of-type,
-.node-table tr > th:last-of-type {
+.node-table .provenance-column {
   width: 25%;
 }
 

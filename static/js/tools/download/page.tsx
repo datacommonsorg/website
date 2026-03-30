@@ -186,10 +186,10 @@ export function Page(props: PagePropType): ReactElement {
           }
         }
 
-        const enrichedFacets = await fetchFacetsWithMetadata(
-          baseFacets,
-          dataCommonsClient
-        );
+        const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
+          parentPlace: selectedOptions.selectedPlace.dcid,
+          enclosedPlaceType: selectedOptions.enclosedPlaceType,
+        });
 
         const sourceSelectorFacetList = [];
         for (const sv in enrichedFacets) {

@@ -78,6 +78,7 @@ interface ChartProps {
   facets: Record<string, StatMetadata>;
   statVarToFacets: StatVarFacetMap;
   statVarSpecs: StatVarSpec[];
+  entities: string[];
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -200,6 +201,7 @@ export function Chart(props: ChartProps): ReactElement {
       </Card>
       <ToolChartFooter
         chartId="map"
+        entities={props.entities}
         sources={props.sources}
         mMethods={null}
         hidePerCapitaOption={!mainSvInfo.pcAllowed}

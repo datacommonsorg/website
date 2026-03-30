@@ -231,6 +231,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       getObservationSpecs={getObservationSpecs}
       errorMsg={chartData && chartData.errorMsg}
       id={props.id}
+      entities={getPlaceDcids(props)}
       isInitialLoading={_.isNull(chartData)}
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(props, chartData)}
