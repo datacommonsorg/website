@@ -404,16 +404,24 @@ def get_variable_ancestors(dcid: str):
   visited = {dcid}
   max_depth = 20
   while len(ancestors) < max_depth:
-    resp = v2node([curr], "->specializationOf")
-    parents_data = resp.get("data",
-                            {}).get(curr,
-                                    {}).get("arcs",
-                                            {}).get("specializationOf",
-                                                    {}).get("nodes", [])
+    # Fetch memberOf and specializationOf concurrently
+    async def _fetch():
+      member_task = asyncio.to_thread(v2node, [curr], "->memberOf")
+      spec_task = asyncio.to_thread(v2node, [curr], "->specializationOf")
+      return await asyncio.gather(member_task, spec_task)
+      
+    resp_member, resp_spec = asyncio.run(_fetch())
+    
+    parents_data = []
+    # Extract from memberOf
+    parents_data.extend(resp_member.get("data", {}).get(curr, {}).get("arcs", {}).get("memberOf", {}).get("nodes", []))
+    # Extract from specializationOf
+    parents_data.extend(resp_spec.get("data", {}).get(curr, {}).get("arcs", {}).get("specializationOf", {}).get("nodes", []))
+    
     if not parents_data:
       break
 
-    parent_dcids = sorted([p["dcid"] for p in parents_data if "dcid" in p])
+    parent_dcids = sorted(list(set(p["dcid"] for p in parents_data if "dcid" in p)))
     if not parent_dcids:
       break
 
