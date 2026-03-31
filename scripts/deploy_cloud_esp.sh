@@ -58,7 +58,7 @@ if [[ $PROJECT_ID == "null" ]]; then
 fi
 
 CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $HELM_VALUES_FILE)
-if [[ "$ENV" == "prod" ]]; then
+if [[ "$ENV" == "prod" && "$DEPLOYMENT" == "website" ]]; then
   LOCATIONS=("us-west1" "us-central1")
 else
   LOCATIONS=("us-central1")
