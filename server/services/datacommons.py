@@ -728,7 +728,7 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def recognize_places(query):
-  if is_feature_enabled(USE_V2_API, request=request):
+  if is_feature_enabled(USE_V2_API, request=request if has_request_context() else None):
     url = get_service_url("/v2/recognize/places")
   else:
     url = get_service_url("/v1/recognize/places")
