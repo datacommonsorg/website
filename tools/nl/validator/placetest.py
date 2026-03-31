@@ -39,7 +39,7 @@ DC_API_KEY = os.environ.get('DC_API_KEY')
 assert DC_API_KEY
 
 # Use autopush endpoint for recon to get the latest fixes.
-URL = f'https://autopush.api.datacommons.org/v1/recognize/places?key={AUTOPUSH_KEY}'
+URL = f'https://autopush.api.datacommons.org/v2/recognize/places?key={AUTOPUSH_KEY}'
 
 # Use prod endpoint to get population data.
 POP_URL = f'https://api.datacommons.org/v2/observation?key={DC_API_KEY}&date=LATEST&select=entity&select=variable&select=date&select=value&variable.dcids=Count_Person&'
