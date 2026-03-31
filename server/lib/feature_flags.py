@@ -30,6 +30,7 @@ VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
 NEW_RANKING_PAGE = 'new_ranking_page'
+USE_V2_API = 'use_v2_api'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
