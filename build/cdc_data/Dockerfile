@@ -45,7 +45,8 @@ ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
 # Create a virtual env, add it to path, and install all requirements.
-RUN python -m venv /workspace/venv
+RUN python -m venv /workspace/venv && \
+    pip3 install --no-cache-dir --upgrade pip setuptools wheel==0.46.2
 ENV PATH="/workspace/venv/bin:$PATH"
 
 # TODO: Install requirements for embeddings importer and data importer in separate virtual envs.
