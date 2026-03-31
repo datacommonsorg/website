@@ -16,8 +16,8 @@
 import random
 
 from flask import current_app
-from flask import request as flask_request
 from flask import has_request_context
+from flask import request as flask_request
 
 # URL Query Parameters
 FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'

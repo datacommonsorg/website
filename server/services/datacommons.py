@@ -30,6 +30,8 @@ from server.lib import log
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -38,8 +40,6 @@ from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
 from shared.lib.constants import PLACE_TYPE_RANK
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
-from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import USE_V2_API
 
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
