@@ -404,21 +404,19 @@ def get_variable_ancestors(dcid: str):
   visited = {dcid}
   max_depth = 20
   while len(ancestors) < max_depth:
-    # StatVars can be part of a group (memberOf) and StatVarGroups can be 
-    # specializations of other groups (specializationOf). We check both to 
-    # trace the full hierarchy to the root.
+    # Trace the hierarchy using both StatisticalVariable groupings (memberOf)
+    # and StatVarGroup specializations (specializationOf).
     resp = v2node([curr], "->[memberOf,specializationOf]")
     arcs = resp.get("data", {}).get(curr, {}).get("arcs", {})
 
-    parents_data = (
-        arcs.get("memberOf", {}).get("nodes", []) +
-        arcs.get("specializationOf", {}).get("nodes", [])
-    )
-    
+    parents_data = (arcs.get("memberOf", {}).get("nodes", []) +
+                    arcs.get("specializationOf", {}).get("nodes", []))
+
     if not parents_data:
       break
 
-    parent_dcids = sorted(list(set(p["dcid"] for p in parents_data if "dcid" in p)))
+    parent_dcids = sorted(
+        list(set(p["dcid"] for p in parents_data if "dcid" in p)))
     if not parent_dcids:
       break
 
