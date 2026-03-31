@@ -409,7 +409,6 @@ def get_variable_ancestors(dcid: str):
       member_task = asyncio.to_thread(v2node, [curr], "->memberOf")
       spec_task = asyncio.to_thread(v2node, [curr], "->specializationOf")
       return await asyncio.gather(member_task, spec_task)
-      
     resp_member, resp_spec = asyncio.run(_fetch())
     
     parents_data = []
