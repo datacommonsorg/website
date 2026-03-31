@@ -38,6 +38,8 @@ from shared.lib.constants import MIXER_RESPONSE_ID_HEADER
 from shared.lib.constants import PLACE_TYPE_RANK
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import UNKNOWN_SURFACE
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
 
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
@@ -726,7 +728,10 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def recognize_places(query):
-  url = get_service_url("/v2/recognize/places")
+  if is_feature_enabled(USE_V2_API):
+    url = get_service_url("/v2/recognize/places")
+  else:
+    url = get_service_url("/v1/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
 

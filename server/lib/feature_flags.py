@@ -16,6 +16,8 @@
 import random
 
 from flask import current_app
+from flask import request as flask_request
+from flask import has_request_context
 
 # URL Query Parameters
 FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'
@@ -30,6 +32,7 @@ VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
 NEW_RANKING_PAGE = 'new_ranking_page'
+USE_V2_API = 'use_v2_api'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
@@ -72,6 +75,9 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   """
   if not app:
     app = current_app
+
+  if request is None and has_request_context():
+    request = flask_request
 
   if is_feature_override_enabled(feature_name, request):
     return True
