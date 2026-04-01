@@ -104,7 +104,7 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   # Check for feature flags in the app config
   feature_flags = app.config['FEATURE_FLAGS']
   is_feature_enabled = feature_flags.get(feature_name, {}).get('enabled', False)
-  
+
   # Apply rollout percentage if specified
   if is_feature_enabled and 'rollout_percentage' in feature_flags.get(
       feature_name, {}):
