@@ -77,8 +77,8 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if app is None and has_app_context():
     app = current_app
 
-  # If we're not running in an app context, default to False.
-  if not app:
+  # If no app object is available, we cannot check feature flags, so default to False.
+  if app is None:
     return False
 
   # If request is not provided, try to get it from the request context.
