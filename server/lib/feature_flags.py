@@ -20,6 +20,8 @@ from flask import has_app_context
 from flask import has_request_context
 from flask import request as flask_request
 
+from server.lib.util import resolve_flask_app
+
 # URL Query Parameters
 FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'
 FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
@@ -72,10 +74,18 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   
   If both the enable and disable feature flags are present, will default to
   enabling the feature.
+
+  Args:
+    feature_name: feature flag string to look for in the URL
+    app: Optional Flask application instance. If None, it will be inferred from
+         the current Flask context.
+    request: HTTP request as a flask.Request object. If None, it will be inferred from
+             the current request context.
+  
+  Returns:
+    True if the feature is enabled, False otherwise
   """
-  # If app is not provided, try to get it from the app context.
-  if app is None and has_app_context():
-    app = current_app
+  app = resolve_flask_app(app)
 
   # If no app object is available, we cannot check feature flags, so default to False.
   if app is None:
