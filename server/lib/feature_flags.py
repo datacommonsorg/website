@@ -16,7 +16,6 @@
 import random
 
 from flask import current_app
-from flask import has_app_context
 from flask import has_request_context
 from flask import request as flask_request
 
@@ -95,14 +94,18 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if request is None and has_request_context():
     request = flask_request
 
+  # Check for URL parameter overrides
   if is_feature_override_enabled(feature_name, request):
     return True
 
   if is_feature_override_disabled(feature_name, request):
     return False
 
+  # Check for feature flags in the app config
   feature_flags = app.config['FEATURE_FLAGS']
   is_feature_enabled = feature_flags.get(feature_name, {}).get('enabled', False)
+  
+  # Apply rollout percentage if specified
   if is_feature_enabled and 'rollout_percentage' in feature_flags.get(
       feature_name, {}):
     rollout_percentage = feature_flags[feature_name]['rollout_percentage']
