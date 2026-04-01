@@ -27,6 +27,8 @@ import time
 from typing import Dict, List, Set
 import urllib
 
+from flask import current_app
+from flask import has_app_context
 from flask import jsonify
 from flask import make_response
 from flask import request
@@ -1161,3 +1163,27 @@ def capitalize_first_letter(s):
   if len(s) == 0:
     return s
   return s[0].upper() + s[1:]
+
+
+def resolve_flask_app(app=None):
+  """Resolves the Flask application instance, falling back to the current context.
+
+  This helper allows functions to locate the Flask application object without
+  requiring callers to explicitly pass it, provided they are running within an
+  active Flask app or request context. 
+
+  This is useful for:
+  - Avoiding threading the `app` object through deep call stacks
+    when we are already in a standard route lifecycle.
+  - Supporting both request-time checks and external scripts or
+    unit tests that need to pass an explicit app instance.
+  
+  Args:
+    app: Optional Flask application instance. If None, it will be inferred from
+         the current Flask context.
+  Returns:
+    The resolved Flask application instance, or None if it cannot be determined.
+  """
+  if app is None and has_app_context():
+    app = current_app
+  return app
