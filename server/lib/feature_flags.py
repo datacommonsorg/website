@@ -74,11 +74,15 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   enabling the feature.
   """
   # If app is not provided, try to get it from the app context.
-  if has_app_context() and app is None:
+  if app is None and has_app_context():
     app = current_app
 
+  # If we're not running in an app context, default to False.
+  if not app:
+    return False
+
   # If request is not provided, try to get it from the request context.
-  if has_request_context() and request is None:
+  if request is None and has_request_context():
     request = flask_request
 
   if is_feature_override_enabled(feature_name, request):
