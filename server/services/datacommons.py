@@ -391,7 +391,7 @@ def get_variable_group_info(nodes: List[str],
 
 def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
-  if is_feature_enabled('use_v2_api', request=request):
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
     url = get_service_url("/v2/bulk/info/variable")
   else:
     url = get_service_url("/v1/bulk/info/variable")
