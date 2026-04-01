@@ -398,9 +398,15 @@ def variable_info(nodes: List[str]) -> Dict:
   return post(url, req_dict)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def get_variable_ancestors(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy."""
+def _get_variable_ancestors_v1(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy using v1/variable/ancestors."""
+  url = get_service_url("/v1/variable/ancestors")
+  url = f"{url}/{dcid}"
+  return get(url).get("ancestors", [])
+
+
+def _get_variable_ancestors_v2(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy using v2 node."""
   ancestors = []
   curr = dcid
   visited = {dcid}
@@ -441,6 +447,15 @@ def get_variable_ancestors(dcid: str):
     curr = selected_parent
 
   return ancestors
+
+
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def get_variable_ancestors(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy."""
+  if is_feature_enabled(USE_V2_API):
+    return _get_variable_ancestors_v2(dcid)
+  else:
+    return _get_variable_ancestors_v1(dcid)
 
 
 def _get_all_values(resp, dcid, prop, key='dcid'):
