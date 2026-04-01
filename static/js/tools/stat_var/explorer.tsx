@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * Copyright 2021 Google LLC
  *
@@ -36,6 +37,7 @@ interface ExplorerPropType {
 
 class Explorer extends Component<ExplorerPropType, unknown> {
   render(): JSX.Element {
+    const isV2ApiEnabled = isFeatureEnabled("use_v2_api");
     const provenanceSummaryList = this.flattenProvenanceSummary();
     return (
       <div id="stat-var-explorer">
@@ -54,7 +56,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           <h4 className="description-text">{this.props.description}</h4>
         )}
         {!this.props.summary && <div>No data available.</div>}
-        {!isFeatureEnabled("use_v2_api") &&
+        {!isV2ApiEnabled &&
           this.props.summary?.placeTypeSummary && (
             <h4 className="highlight-text">
               Total number of places:{" "}
@@ -69,7 +71,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         )}
         {/* The only children passed in should be the stat var explorer button */}
         {this.props.children}
-        {!isFeatureEnabled("use_v2_api") &&
+        {!isV2ApiEnabled &&
           this.props.summary?.placeTypeSummary && (
             <div id="place-type-summary-section" className="table-page-section">
               <h3>Places</h3>
