@@ -21,6 +21,8 @@ from typing import cast, Dict, List, Set
 from flask import current_app
 from pydantic import BaseModel
 
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
+from server.lib.feature_flags import is_feature_enabled
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
@@ -29,8 +31,6 @@ from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import is_sdg
 from server.lib.nl.explore.params import Params
 import server.lib.nl.fulfillment.types as ftypes
-from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
-from server.lib.feature_flags import is_feature_enabled
 from server.lib.utils.gemini_utils import call_gemini
 
 

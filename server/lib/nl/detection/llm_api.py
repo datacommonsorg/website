@@ -24,15 +24,14 @@ from google import genai
 from google.genai import types
 import json5
 
-from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
 _GEMINI_3_0_FLASH = 'gemini-3-flash-preview'
 _GEMINI_2_5_FLASH = 'gemini-2.5-flash'
 _API_VERSION_3 = 'v1beta'
 _API_VERSION_2 = 'v1'
-
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 0.1
