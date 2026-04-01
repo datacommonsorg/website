@@ -16,6 +16,8 @@
 import random
 
 from flask import current_app
+from flask import has_request_context
+from flask import request as flask_request
 
 # URL Query Parameters
 FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'
@@ -73,6 +75,10 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   """
   if not app:
     app = current_app
+
+  # If request is not provided, try to get it from the request context.
+  if request is None and has_request_context():
+    request = flask_request
 
   if is_feature_override_enabled(feature_name, request):
     return True
