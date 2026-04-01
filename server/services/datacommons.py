@@ -765,7 +765,7 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def recognize_places(query):
-  url = get_service_url("/v1/recognize/places")
+  url = get_service_url("/v2/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
 
