@@ -31,6 +31,7 @@ import {
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
+import { getStatVarInfo } from "../../shared/util";
 import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
 import { getUrlToken, updateHash } from "../../utils/url_utils";
@@ -344,14 +345,7 @@ class Page extends Component<unknown, PageStateType> {
         paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
-    const summaryPromise = axios
-      .get("/api/variable/info", {
-        params: {
-          dcids: [sv],
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
+    const summaryPromise = getStatVarInfo([sv]).then((resp) => resp.data);
     Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
       .then(([descriptionResult, displayNameResult, summaryResult]) => {
         const description =
