@@ -30,8 +30,8 @@ from server.lib.nl.common import counters
 
 _GEMINI_3_0_FLASH = 'gemini-3-flash-preview'
 _GEMINI_2_5_FLASH = 'gemini-2.5-flash'
-_API_VERSION_3 = 'v1'
-_API_VERSION_2 = 'v1beta'
+_API_VERSION_3 = 'v1beta'
+_API_VERSION_2 = 'v1'
 
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
