@@ -18,7 +18,6 @@ import collections
 import json
 import logging
 from typing import Dict, List
-import urllib.parse
 
 from flask import current_app
 from flask import has_app_context
@@ -27,6 +26,7 @@ from flask import request
 import requests
 
 from server.lib import log
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
@@ -390,7 +390,10 @@ def get_variable_group_info(nodes: List[str],
 
 def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
-  url = get_service_url("/v2/bulk/info/variable")
+  if is_feature_enabled('use_v2_api', request=request):
+    url = get_service_url("/v2/bulk/info/variable")
+  else:
+    url = get_service_url("/v1/bulk/info/variable")
   req_dict = {"nodes": nodes}
   return post(url, req_dict)
 
