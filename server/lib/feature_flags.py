@@ -16,6 +16,7 @@
 import random
 
 from flask import current_app
+from flask import has_app_context
 from flask import has_request_context
 from flask import request as flask_request
 
@@ -72,11 +73,12 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   If both the enable and disable feature flags are present, will default to
   enabling the feature.
   """
-  if not app:
+  # If app is not provided, try to get it from the app context.
+  if has_app_context() and app is None:
     app = current_app
 
   # If request is not provided, try to get it from the request context.
-  if request is None and has_request_context():
+  if has_request_context() and request is None:
     request = flask_request
 
   if is_feature_override_enabled(feature_name, request):
