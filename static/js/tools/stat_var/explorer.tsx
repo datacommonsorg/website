@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /**
  * Copyright 2021 Google LLC
  *
@@ -56,13 +55,12 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           <h4 className="description-text">{this.props.description}</h4>
         )}
         {!this.props.summary && <div>No data available.</div>}
-        {!isV2ApiEnabled &&
-          this.props.summary?.placeTypeSummary && (
-            <h4 className="highlight-text">
-              Total number of places:{" "}
-              {formatNumber(this.getNumberOfPlaces(), "", true)}
-            </h4>
-          )}
+        {!isV2ApiEnabled && this.props.summary?.placeTypeSummary && (
+          <h4 className="highlight-text">
+            Total number of places:{" "}
+            {formatNumber(this.getNumberOfPlaces(), "", true)}
+          </h4>
+        )}
         {this.props.summary?.provenanceSummary && (
           <h4 className="highlight-text">
             Total number of sources:{" "}
@@ -71,16 +69,15 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         )}
         {/* The only children passed in should be the stat var explorer button */}
         {this.props.children}
-        {!isV2ApiEnabled &&
-          this.props.summary?.placeTypeSummary && (
-            <div id="place-type-summary-section" className="table-page-section">
-              <h3>Places</h3>
-              <Places
-                statVar={this.props.statVar}
-                placeTypeSummary={this.props.summary.placeTypeSummary}
-              />
-            </div>
-          )}
+        {!isV2ApiEnabled && this.props.summary?.placeTypeSummary && (
+          <div id="place-type-summary-section" className="table-page-section">
+            <h3>Places</h3>
+            <Places
+              statVar={this.props.statVar}
+              placeTypeSummary={this.props.summary.placeTypeSummary}
+            />
+          </div>
+        )}
         {this.props.summary?.provenanceSummary && (
           <div id="provenance-summary-section" className="table-page-section">
             <h3>Sources</h3>
