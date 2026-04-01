@@ -35,6 +35,7 @@ ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
 NEW_RANKING_PAGE = 'new_ranking_page'
 ENABLE_GEMINI_3_FLASH = 'enable_gemini_3_flash'
+USE_V2_API = 'use_v2_api'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
