@@ -139,6 +139,7 @@ endpoints = Endpoints([
     '/v1/place/related',
     '/v1/variable/search',
     '/v1/recognize/entities',
+    '/v1/recognize/places',
     # v2
     '/v2/observation',
     '/v2/node',

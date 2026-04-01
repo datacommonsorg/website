@@ -31,6 +31,8 @@ from server.lib.cache import cache
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -765,7 +767,10 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def recognize_places(query):
-  url = get_service_url("/v2/recognize/places")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/recognize/places")
+  else:
+    url = get_service_url("/v1/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
 
