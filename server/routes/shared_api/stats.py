@@ -253,14 +253,21 @@ def search_statvar():
         break
 
     result = dc.filter_statvars(statVars, entities)
-  elif current_app.config.get("ENABLE_MODEL", False) and current_app.config.get(
-      "CUSTOM", False):
-    candidates = _resolve_candidates(query)
-    valid_statvars = _filter_by_observation(candidates, entities)
-    statvars = _filter_by_type(valid_statvars)
-    filtered_statvars = _fetch_names(statvars)
+  elif is_feature_enabled("use_v2_api"):
+    if current_app.config.get("ENABLE_MODEL", False) and current_app.config.get(
+        "CUSTOM", False):
+      candidates = _resolve_candidates(query)
+      valid_statvars = _filter_by_observation(candidates, entities)
+      statvars = _filter_by_type(valid_statvars)
+      filtered_statvars = _fetch_names(statvars)
 
-    result = {"statVars": filtered_statvars, "matches": [], "statVarGroups": []}
+      result = {
+          "statVars": filtered_statvars,
+          "matches": [],
+          "statVarGroups": []
+      }
+    else:
+      result = {"matches": [], "statVars": [], "statVarGroups": []}
   else:
-    result = {"matches": [], "statVars": [], "statVarGroups": []}
+    result = dc.search_statvar(query, entities, sv_only)
   return Response(json.dumps(result), 200, mimetype='application/json')

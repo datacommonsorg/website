@@ -757,6 +757,18 @@ def find_entities(places: list[str]) -> dict[str, list[str]]:
   return retval
 
 
+def search_statvar(query, places, sv_only):
+  url = get_service_url("/v1/variable/search")
+  return post(
+      url,
+      {
+          "query": query,
+          "places": places,
+          "sv_only": sv_only,
+      },
+  )
+
+
 def filter_statvars(stat_vars, entities):
   url = get_service_url("/v2/variable/filter")
   return post(
