@@ -30,6 +30,12 @@
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
   {
+    "name": "enable_gemini_3_flash",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 3 Flash for NL detection."
+  },
+  {
     "name": "page_overview_ga",
     "enabled": false,
     "owner": "javiervazquez",

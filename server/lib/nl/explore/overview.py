@@ -20,6 +20,8 @@ from pydantic import BaseModel
 from pydantic import ConfigDict
 from pydantic.alias_generators import to_camel
 
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
 from server.lib.utils.gemini_utils import call_gemini
 
@@ -51,7 +53,8 @@ class PageOverview(BaseModel):
 
 _OVERVIEW_GEMINI_CALL_RETRIES = 3
 
-_OVERVIEW_GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
+_OVERVIEW_GEMINI_3_1_LITE = "gemini-3.1-flash-lite-preview"
+_OVERVIEW_GEMINI_2_5_LITE = "gemini-2.5-flash-lite"
 
 
 def generate_page_overview(
@@ -78,10 +81,15 @@ def generate_page_overview(
   formatted_page_overview_prompt = PAGE_OVERVIEW_PROMPT.format(
       initial_query=query, stat_var_titles=stat_var_titles)
 
+  if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
+    overview_gemini_model = _OVERVIEW_GEMINI_3_1_LITE
+  else:
+    overview_gemini_model = _OVERVIEW_GEMINI_2_5_LITE
+
   page_overview = call_gemini(api_key=gemini_api_key,
                               formatted_prompt=formatted_page_overview_prompt,
                               schema=PageOverview,
-                              gemini_model=_OVERVIEW_GEMINI_MODEL)
+                              gemini_model=overview_gemini_model)
   if not page_overview:
     return None, None
 

@@ -25,10 +25,14 @@ from google.genai import types
 import json5
 
 from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
 from server.lib.nl.common import counters
 
 _GEMINI_3_0_FLASH = 'gemini-3-flash-preview'
-_API_VERSION = 'v1beta'
+_GEMINI_2_5_FLASH = 'gemini-2.5-flash'
+_API_VERSION_3 = 'v1'
+_API_VERSION_2 = 'v1beta'
+
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 0.1
@@ -80,14 +84,18 @@ def detect_with_gemini(query: str, history: List[List[str]],
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
 
+  if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
+    api_version = _API_VERSION_3
+  else:
+    api_version = _API_VERSION_2
   gemini_client = genai.Client(
       api_key=api_key,
-      http_options=genai.types.HttpOptions(api_version=_API_VERSION))
+      http_options=genai.types.HttpOptions(api_version=api_version))
   model_name = detect_model_name()
   logging.info(f'Gemini model used for LLM API: {model_name}')
   ctr.info(
       'gemini_model',
-      f'{_API_VERSION}/{model_name}',
+      f'{api_version}/{model_name}',
   )
   gemini_response = gemini_client.models.generate_content(model=model_name,
                                                           contents=text,
@@ -186,4 +194,6 @@ def _extract_answer(resp: str) -> str:
 
 
 def detect_model_name() -> str:
-  return _GEMINI_3_0_FLASH
+  if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
+    return _GEMINI_3_0_FLASH
+  return _GEMINI_2_5_FLASH

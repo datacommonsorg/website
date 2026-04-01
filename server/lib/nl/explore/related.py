@@ -29,6 +29,8 @@ from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import is_sdg
 from server.lib.nl.explore.params import Params
 import server.lib.nl.fulfillment.types as ftypes
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.utils.gemini_utils import call_gemini
 
 
@@ -55,7 +57,9 @@ class FollowUpQuestions(BaseModel):
 
 
 _QUESTIONS_GEMINI_CALL_RETRIES = 3
-_QUESTIONS_GEMINI_MODEL = "gemini-3-flash-preview"
+
+_QUESTIONS_GEMINI_3 = "gemini-3-flash-preview"
+_QUESTIONS_GEMINI_2 = "gemini-2.5-flash"
 
 
 def compute_related_things(
@@ -312,11 +316,16 @@ def generate_follow_up_questions(query: str,
   formatted_follow_up_questions_prompt = FOLLOW_UP_QUESTIONS_PROMPT.format(
       initial_query=query, related_topics=related_topics)
 
+  if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
+    gemini_model = _QUESTIONS_GEMINI_3
+  else:
+    gemini_model = _QUESTIONS_GEMINI_2
+
   follow_up_questions = call_gemini(
       api_key=gemini_api_key,
       formatted_prompt=formatted_follow_up_questions_prompt,
       schema=FollowUpQuestions,
-      gemini_model=_QUESTIONS_GEMINI_MODEL)
+      gemini_model=gemini_model)
   if not follow_up_questions:
     return []
 

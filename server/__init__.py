@@ -33,6 +33,7 @@ import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
 from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
 import server.lib.i18n as i18n
@@ -432,8 +433,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                                'palm-api-key')
       if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
         os.environ['GEMINI_API_KEY'] = app.config['LLM_API_KEY']
+        if is_feature_enabled(ENABLE_GEMINI_3_FLASH, app):
+          default_model = "gemini-3-flash-preview"
+        else:
+          default_model = "gemini-2.5-flash"
         app.config['NL_DETECTION_AGENT'] = create_detection_agent(
-            os.environ.get("AGENT_MODEL", "gemini-3-flash-preview"),
+            os.environ.get("AGENT_MODEL", default_model),
             os.environ.get("DC_MCP_URL"))
 
     app.config[
