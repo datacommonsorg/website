@@ -20,14 +20,11 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 import server.webdriver.shared as shared
-from server.webdriver.shared_tests.timeline_test import \
-    StandardizedTimelineTestMixin
 from server.webdriver.shared_tests.timeline_test import TimelineTestMixin
 
 
-class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
-                   BaseDcWebdriverTest):
-  """Class to test scatter page. Tests come from TimelineTestMixin."""
+class TestTimeline(TimelineTestMixin, BaseDcWebdriverTest):
+  """Class to test timeline page. Tests come from TimelineTestMixin."""
 
   # TODO(juliawu): Implement a test for testing that per capita toggle affects metadata dialog content.
   # There was previously a test here designed for /tools/visualization, but it was removed
