@@ -20,14 +20,11 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 import server.webdriver.shared as shared
-from server.webdriver.shared_tests.timeline_test import \
-    StandardizedTimelineTestMixin
 from server.webdriver.shared_tests.timeline_test import TimelineTestMixin
 
 
-class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
-                   BaseDcWebdriverTest):
-  """Class to test scatter page. Tests come from TimelineTestMixin."""
+class TestTimeline(TimelineTestMixin, BaseDcWebdriverTest):
+  """Class to test timeline page. Tests come from TimelineTestMixin."""
 
   # TODO(nick-next): Move to shared_tests once metadata_modal feature flag is dropped
   def test_per_capita_metadata(self):
