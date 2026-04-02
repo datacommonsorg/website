@@ -41,7 +41,7 @@ class TestTimeline(TimelineTestMixin, BaseDcWebdriverTest):
 
     # Check the sources before toggling per capita
     original_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
-    self.assertIn('datacatalog.worldbank.org', original_source_text)
+    self.assertIn('datatopics.worldbank.org', original_source_text)
     self.assertIn('About this data', original_source_text)
     self.assertNotIn('census.gov', original_source_text)
 
@@ -91,7 +91,7 @@ class TestTimeline(TimelineTestMixin, BaseDcWebdriverTest):
 
     # Verify the source text has changed
     updated_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
-    self.assertIn('datacatalog.worldbank.org', updated_source_text)
+    self.assertIn('datatopics.worldbank.org', updated_source_text)
     self.assertIn('census.gov', updated_source_text)
     self.assertIn('About this data', updated_source_text)
 
