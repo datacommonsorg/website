@@ -496,8 +496,8 @@ class PlaceExplorerTestMixin():
                              value='.place-summary')
     self.assertTrue(
         "The United States is a country in North America." in summary_elem.text
-        or "The United States of America is a country in North America." in
-        summary_elem.text)
+        or "The United States of America is a country in North America."
+        in summary_elem.text)
 
   def test_place_overview_zip_90003(self):
     """Ensure experimental dev place page content loads"""
