@@ -39,7 +39,7 @@ class ScatterTestMixin():
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    self.assertEqual(shared.safe_url_open(self.url_ + '/map.js'), 200)
+    self.assertEqual(shared.safe_url_open(self.url_ + '/scatter.js'), 200)
 
     # Assert page title is correct.
     WebDriverWait(self.driver,
