@@ -31,7 +31,7 @@ URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
 
 
 class ScatterTestMixin():
-  """Mixins to test the new standardized map tool UI"""
+  """Mixins to test the scatter tool UI"""
 
   def test_server_and_page(self):
     """Test the server can run successfully."""
