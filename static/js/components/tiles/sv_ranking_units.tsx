@@ -101,6 +101,26 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   const lowestHasMore = rankingGroup.numDataPoints > lowestCount;
   const showNextCount = rankingMetadata.showNextCount || 0;
 
+  const highestShowNextButton =
+    highestHasMore && showNextCount > 0
+      ? renderShowNextButton(
+          highestCount,
+          setHighestCount,
+          showNextCount,
+          props.onShowMore
+        )
+      : null;
+
+  const lowestShowNextButton =
+    lowestHasMore && showNextCount > 0
+      ? renderShowNextButton(
+          lowestCount,
+          setLowestCount,
+          showNextCount,
+          props.onShowMore
+        )
+      : null;
+
   /**
    * Build content and triggers export modal window
    */
@@ -148,7 +168,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.sources,
             props.isLoading,
             props.enableScroll,
-            highestCount
+            highestCount,
+            highestShowNextButton
           )}
           {!props.hideFooter && (
             <ChartFooter
@@ -171,16 +192,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   ? getHyperlinkUrl(props)
                   : undefined
               }
-            >
-              {highestHasMore &&
-                showNextCount > 0 &&
-                renderShowNextButton(
-                  highestCount,
-                  setHighestCount,
-                  showNextCount,
-                  props.onShowMore
-                )}
-            </ChartFooter>
+            />
           )}
         </div>
       ) : (
@@ -204,7 +216,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.sources,
                 props.isLoading,
                 props.enableScroll,
-                highestCount
+                highestCount,
+                highestShowNextButton
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -223,16 +236,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       ? getHyperlinkUrl(props)
                       : undefined
                   }
-                >
-                  {highestHasMore &&
-                    showNextCount > 0 &&
-                    renderShowNextButton(
-                      highestCount,
-                      setHighestCount,
-                      showNextCount,
-                      props.onShowMore
-                    )}
-                </ChartFooter>
+                />
               )}
             </div>
           )}
@@ -255,7 +259,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.sources,
                 props.isLoading,
                 props.enableScroll,
-                lowestCount
+                lowestCount,
+                lowestShowNextButton
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -274,16 +279,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       ? getHyperlinkUrl(props)
                       : undefined
                   }
-                >
-                  {lowestHasMore &&
-                    showNextCount > 0 &&
-                    renderShowNextButton(
-                      lowestCount,
-                      setLowestCount,
-                      showNextCount,
-                      props.onShowMore
-                    )}
-                </ChartFooter>
+                />
               )}
             </div>
           )}
@@ -450,6 +446,10 @@ export function getRankingUnitPoints(
  * @param onHoverToggled callback when user hovers over a row
  * @param errorMsg Erorr message
  * @param sources Optional: Override sources list with this list of  URLs
+ * @param isLoading Optional: Whether the ranking unit is loading
+ * @param enableScroll Optional: Whether to enable scroll
+ * @param displayCount Optional: Number of entries to display
+ * @param tableFooter Optional: Footer to display at the bottom of the table
  */
 export function getRankingUnit(
   tileConfigTitle: string,
@@ -468,7 +468,8 @@ export function getRankingUnit(
   sources?: string[],
   isLoading?: boolean,
   enableScroll?: boolean,
-  displayCount?: number
+  displayCount?: number,
+  tableFooter?: React.ReactNode
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
@@ -525,6 +526,7 @@ export function getRankingUnit(
       apiRoot={apiRoot}
       entityType={entityType}
       enableScroll={enableScroll}
+      tableFooter={tableFooter}
     />
   );
 }

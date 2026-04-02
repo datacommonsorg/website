@@ -82,6 +82,7 @@ interface RankingUnitPropType {
   isLoading?: boolean;
   statVar?: string;
   enableScroll?: boolean;
+  tableFooter?: React.ReactNode;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -302,6 +303,21 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                   </React.Fragment>
                 );
               })}
+              {props.tableFooter && (
+                <tr className="table-footer-row">
+                  <td>{props.tableFooter}</td>
+                  <td
+                    colSpan={
+                      2 +
+                      (props.svNames
+                        ? props.svNames.length
+                        : props.hideValue
+                        ? 0
+                        : 1)
+                    }
+                  ></td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -342,6 +358,21 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                 </React.Fragment>
               );
             })}
+            {props.tableFooter && (
+              <tr className="table-footer-row">
+                <td>{props.tableFooter}</td>
+                <td
+                  colSpan={
+                    2 +
+                    (props.svNames
+                      ? props.svNames.length
+                      : props.hideValue
+                      ? 0
+                      : 1)
+                  }
+                ></td>
+              </tr>
+            )}
           </tbody>
         </table>
       )}
