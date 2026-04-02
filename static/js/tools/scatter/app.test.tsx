@@ -748,9 +748,7 @@ test("all functionalities", async () => {
   });
   await app.update();
   await waitFor(() => {
-    expect(app.text()).toContain(
-      "Pick two statistical variables"
-    );
+    expect(app.text()).toContain("Pick two statistical variables");
     expectCircles(0, app);
   });
 
