@@ -110,4 +110,10 @@ describe("getUrlWithSearchParamsToPropagate", () => {
     expect(result).toBe("/api/data?hl=en");
     expect(result).not.toContain("unrelated");
   });
+
+  test("works with absolute URLs", () => {
+    window.history.pushState({}, "", "/?hl=en");
+    const result = getUrlWithSearchParamsToPropagate("https://example.com/api");
+    expect(result).toBe("https://example.com/api?hl=en");
+  });
 });

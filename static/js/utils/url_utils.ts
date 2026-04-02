@@ -328,12 +328,14 @@ export function getUrlWithSearchParamsToPropagate(url: string): string {
   const base =
     window.location.origin && window.location.origin !== "null"
       ? window.location.origin
-      : "http://localhost";
+      : "http://localhost"; // Use localhost as fallback domain, mainly for local dev/testing
   const urlObj = new URL(url, base);
   const windowParams = extractFlagsToPropagate(window.location.href);
   windowParams.forEach((value, key) => {
     urlObj.searchParams.set(key, value);
   });
 
-  return urlObj.pathname + urlObj.search + urlObj.hash;
+  return urlObj.origin !== base
+    ? urlObj.toString() // If url is absolute, return the full URL with flags
+    : urlObj.pathname + urlObj.search + urlObj.hash; // If url is relative, return the relative path with flags
 }
