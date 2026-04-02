@@ -30,14 +30,12 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
                    BaseDcWebdriverTest):
   """Class to test scatter page. Tests come from TimelineTestMixin."""
 
+  # TODO(juliawu): Implement a test for testing that per capita toggle affects metadata dialog content.
+  # There was previously a test here designed for /tools/visualization, but it was removed
+  # during the turn-down of /tools/visualization. We should add a new test for /tools/timeline
+  # that tests the same functionality.
+
   # TODO(nick-next): Move to shared_tests once metadata_modal feature flag is dropped
-  @pytest.mark.skip(
-      reason=
-      "Legacy test for /tools/visualization. Needs re-implementation for /tools/timeline."
-  )
-  def test_per_capita_metadata(self):
-    """Test that per capita toggle affects metadata dialog content."""
-    # TODO(juliawu): Implement this test for /tools/timeline
-    raise NotImplementedError(
-        "This test was disabled during /tools/visualization cleanup. Needs to be implemented for /tools/timeline."
-    )
+
+
+
