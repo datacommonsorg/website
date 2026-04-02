@@ -59,8 +59,7 @@ class PlaceExplorerTestMixin():
 
     # Wait for place name to load
     place_name_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '[data-testid="place-name"]'),
-        'United States of America')
+        (By.CSS_SELECTOR, '[data-testid="place-name"]'), 'United States')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
     # Wait for subheader to load and contain "Country in"
@@ -70,7 +69,7 @@ class PlaceExplorerTestMixin():
 
   def test_page_serve_mtv(self):
     """Test the place explorer page for MTV can be loaded successfullly."""
-    place_type_title = "City in Santa Clara County, California, United States of America, North America, World"
+    place_type_title = "City in Santa Clara County, California, United States, North America, World"
     title_text = "Mountain View - " + self.dc_title_string
 
     # Load Mountain View Page.
@@ -326,7 +325,7 @@ class PlaceExplorerTestMixin():
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
     self.assertEqual(
         find_elem(self.driver, value='subheader').text,
-        'State in United States of America, North America, World')
+        'State in United States, North America, World')
 
     # Asert the related places box exists
     self.assertEqual(
@@ -379,7 +378,7 @@ class PlaceExplorerTestMixin():
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
     self.assertEqual(
         find_elem(self.driver, value='subheader').text,
-        'County in California, United States of America, North America, World')
+        'County in California, United States, North America, World')
 
     # Asert the related places box exists
     self.assertEqual(
@@ -434,7 +433,7 @@ class PlaceExplorerTestMixin():
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
     self.assertEqual(
         find_elem(self.driver, value='subheader').text,
-        'City in Los Angeles County, California, United States of America, North America, World'
+        'City in Los Angeles County, California, United States, North America, World'
     )
 
     # Asert the related places box exists
@@ -490,7 +489,7 @@ class PlaceExplorerTestMixin():
     summary_elem = find_elem(self.driver,
                              by=By.CSS_SELECTOR,
                              value='.place-summary')
-    self.assertIn("The United States of America is a country in North America.",
+    self.assertIn("The United States is a country in North America.",
                   summary_elem.text)
 
   def test_place_overview_zip_90003(self):
@@ -501,7 +500,7 @@ class PlaceExplorerTestMixin():
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
     self.assertEqual(
         find_elem(self.driver, value='subheader').text,
-        'ZIP Code in Los Angeles, Los Angeles County, California, United States of America, North America, World'
+        'ZIP Code in Los Angeles, Los Angeles County, California, United States, North America, World'
     )
 
     # Asert the related places box does not exist

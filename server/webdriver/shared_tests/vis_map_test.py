@@ -211,7 +211,7 @@ class VisMapTestMixin():
     self.assertEqual(ranking_titles[1].text, 'Bottom Places')
     ranking_items = self.get_ranking_items()
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Sierra County, CA')
+    self.assertEqual(ranking_items[0].text, 'Trinity County, CA')
     self.assertEqual(ranking_items[9].text, 'Kern County, CA')
 
   def test_landing_page_link(self):
