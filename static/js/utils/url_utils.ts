@@ -325,7 +325,11 @@ export function buildExploreUrl(
  * @returns A new URL string with current feature flags appended.
  */
 export function getUrlWithSearchParamsToPropagate(url: string): string {
-  const urlObj = new URL(url, window.location.origin);
+  const base =
+    window.location.origin && window.location.origin !== "null"
+      ? window.location.origin
+      : "http://localhost";
+  const urlObj = new URL(url, base);
   const windowParams = extractFlagsToPropagate(window.location.href);
   windowParams.forEach((value, key) => {
     urlObj.searchParams.set(key, value);
