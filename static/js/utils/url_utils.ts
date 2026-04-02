@@ -335,5 +335,5 @@ export function getUrlWithSearchParamsToPropagate(url: string): string {
     urlObj.searchParams.set(key, value);
   });
 
-  return urlObj.pathname + urlObj.search;
+  return urlObj.pathname + urlObj.search + urlObj.hash;
 }
