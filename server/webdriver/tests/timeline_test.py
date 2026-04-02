@@ -36,6 +36,3 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
   # that tests the same functionality.
 
   # TODO(nick-next): Move to shared_tests once metadata_modal feature flag is dropped
-
-
-
