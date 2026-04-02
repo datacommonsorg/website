@@ -125,13 +125,10 @@ def map():
 
 @bp.route('/scatter')
 def scatter():
-  info_json, vis_tool_examples_json, use_standardized_ui = _get_vis_tool_examples(
-      'scatter')
+  vis_tool_examples_json = _load_example_file('scatter_vis_tool', default=[])
 
   return flask.render_template('tools/scatter.html',
-                               info_json=info_json,
                                vis_tool_examples_json=vis_tool_examples_json,
-                               use_standardized_ui=use_standardized_ui,
                                is_search_supported=_is_search_supported(),
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                sample_questions=json.dumps(
