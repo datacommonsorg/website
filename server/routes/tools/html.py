@@ -101,14 +101,11 @@ def timeline_bulk_download():
 
 @bp.route('/map')
 def map():
-  info_json, vis_tool_examples_json, use_standardized_ui = _get_vis_tool_examples(
-      'map')
+  vis_tool_examples_json = _load_example_file('map_vis_tool', default=[])
 
   return flask.render_template('tools/map.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],
-                               info_json=info_json,
                                vis_tool_examples_json=vis_tool_examples_json,
-                               use_standardized_ui=use_standardized_ui,
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))
