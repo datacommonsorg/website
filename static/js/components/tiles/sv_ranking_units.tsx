@@ -102,24 +102,24 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   const showNextCount = rankingMetadata.showNextCount || 0;
 
   const highestShowNextButton =
-    highestHasMore && showNextCount > 0
-      ? renderShowNextButton(
-          highestCount,
-          setHighestCount,
-          showNextCount,
-          props.onShowMore
-        )
-      : null;
+    highestHasMore && showNextCount > 0 ? (
+      <ShowNextButtonControl
+        count={highestCount}
+        setCount={setHighestCount}
+        showNextCount={showNextCount}
+        onShowMore={props.onShowMore}
+      />
+    ) : null;
 
   const lowestShowNextButton =
-    lowestHasMore && showNextCount > 0
-      ? renderShowNextButton(
-          lowestCount,
-          setLowestCount,
-          showNextCount,
-          props.onShowMore
-        )
-      : null;
+    lowestHasMore && showNextCount > 0 ? (
+      <ShowNextButtonControl
+        count={lowestCount}
+        setCount={setLowestCount}
+        showNextCount={showNextCount}
+        onShowMore={props.onShowMore}
+      />
+    ) : null;
 
   /**
    * Build content and triggers export modal window
@@ -314,20 +314,26 @@ const ShowNextButton = styled(Button)`
   }
 `;
 
+interface ShowNextButtonControlProps {
+  // current number of entries shown
+  count: number;
+  // callback to update the number of entries shown
+  setCount: (c: number) => void;
+  //number of entries to add on click
+  showNextCount: number;
+  // callback to notify parent components of the increment
+  onShowMore?: (c: number) => void;
+}
+
 /**
- * Renders the "Show next" button for pagination.
- *
- * @param count current number of entries shown
- * @param setCount callback to update the number of entries shown
- * @param showNextCount number of entries to add on click
- * @param onShowMore callback to notify parent components of the increment
+ * Component for the "Show next" button for pagination.
  */
-function renderShowNextButton(
-  count: number,
-  setCount: (c: number) => void,
-  showNextCount: number,
-  onShowMore: (c: number) => void
-): JSX.Element {
+function ShowNextButtonControl({
+  count,
+  setCount,
+  showNextCount,
+  onShowMore,
+}: ShowNextButtonControlProps): JSX.Element {
   return (
     <ShowNextButton
       variant="inverted"
