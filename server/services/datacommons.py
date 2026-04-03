@@ -18,7 +18,6 @@ import collections
 import json
 import logging
 from typing import Dict, List
-import urllib.parse
 
 from flask import current_app
 from flask import has_app_context
@@ -27,9 +26,12 @@ from flask import request
 import requests
 
 from server.lib import log
+from server.lib.cache import cache
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -390,16 +392,72 @@ def get_variable_group_info(nodes: List[str],
 
 def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
-  url = get_service_url("/v2/bulk/info/variable")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/bulk/info/variable")
+  else:
+    url = get_service_url("/v1/bulk/info/variable")
   req_dict = {"nodes": nodes}
   return post(url, req_dict)
 
 
-def get_variable_ancestors(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy."""
+def _get_variable_ancestors_v1(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy using v1/variable/ancestors."""
   url = get_service_url("/v1/variable/ancestors")
   url = f"{url}/{dcid}"
   return get(url).get("ancestors", [])
+
+
+def _get_variable_ancestors_v2(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy using v2 node."""
+  ancestors = []
+  curr = dcid
+  visited = {dcid}
+  max_depth = 20
+  while len(ancestors) < max_depth:
+    # Trace the hierarchy using both StatisticalVariable groupings (memberOf)
+    # and StatVarGroup specializations (specializationOf).
+    resp = v2node([curr], "->[memberOf,specializationOf]")
+    arcs = resp.get("data", {}).get(curr, {}).get("arcs", {})
+
+    parents_data = (arcs.get("memberOf", {}).get("nodes", []) +
+                    arcs.get("specializationOf", {}).get("nodes", []))
+
+    if not parents_data:
+      break
+
+    parent_dcids = sorted(
+        list(set(p["dcid"] for p in parents_data if "dcid" in p)))
+    if not parent_dcids:
+      break
+
+    # Tie-breaking logic:
+    # 1. Prefer the first dc/g/Custom_ prefix
+    # 2. Otherwise take the first alphabetically
+    selected_parent = next(
+        (p for p in parent_dcids if p.startswith("dc/g/Custom_")),
+        parent_dcids[0])
+
+    if selected_parent == "dc/g/Root":
+      break
+
+    if selected_parent in visited:
+      logger.error(f"Cycle detected in StatVar hierarchy at {selected_parent}")
+      break
+
+    ancestors.append(selected_parent)
+    visited.add(selected_parent)
+    curr = selected_parent
+
+  return ancestors
+
+
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def get_variable_ancestors(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy."""
+  if is_feature_enabled(USE_V2_API):
+    return _get_variable_ancestors_v2(dcid)
+  else:
+    return _get_variable_ancestors_v1(dcid)
 
 
 def _get_all_values(resp, dcid, prop, key='dcid'):
@@ -726,7 +784,10 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def recognize_places(query):
-  url = get_service_url("/v1/recognize/places")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/recognize/places")
+  else:
+    url = get_service_url("/v1/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
 

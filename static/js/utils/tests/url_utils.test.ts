@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-import { getUpdatedHash } from "../url_utils";
+import {
+  getUpdatedHash,
+  getUrlWithSearchParamsToPropagate,
+} from "../url_utils";
 
 describe("getUpdatedHash", () => {
   const originalHash = "#foo=bar&baz=qux&hl=en&enable_feature=1";
@@ -79,5 +82,38 @@ describe("getUpdatedHash", () => {
     const params = { foo: "bar" };
     const result = getUpdatedHash(params);
     expect(result).toContain("foo=bar");
+  });
+});
+
+describe("getUrlWithSearchParamsToPropagate", () => {
+  const originalLocation = window.location.href;
+
+  afterAll(() => {
+    window.history.pushState({}, "", originalLocation); // Reset to original location
+  });
+
+  test("appends search params from window to target URL", () => {
+    window.history.pushState({}, "", "/?hl=en");
+    const result = getUrlWithSearchParamsToPropagate("/api/data");
+    expect(result).toBe("/api/data?hl=en");
+  });
+
+  test("merges search params with existing query params", () => {
+    window.history.pushState({}, "", "/?hl=en");
+    const result = getUrlWithSearchParamsToPropagate("/api/data?foo=bar");
+    expect(result).toBe("/api/data?foo=bar&hl=en");
+  });
+
+  test("only propagates allowed parameters", () => {
+    window.history.pushState({}, "", "/?hl=en&unrelated=123");
+    const result = getUrlWithSearchParamsToPropagate("/api/data");
+    expect(result).toBe("/api/data?hl=en");
+    expect(result).not.toContain("unrelated");
+  });
+
+  test("works with absolute URLs", () => {
+    window.history.pushState({}, "", "/?hl=en");
+    const result = getUrlWithSearchParamsToPropagate("https://example.com/api");
+    expect(result).toBe("https://example.com/api?hl=en");
   });
 });
