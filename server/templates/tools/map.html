@@ -34,6 +34,7 @@
   <script>
     globalThis.visToolExamples = {{ vis_tool_examples_json | tojson | safe }};
     globalThis.minStatVarGeoCoverage = {{ config['MIN_STAT_VAR_GEO_COVERAGE'] | int(1) }};
+    globalThis.isSearchSupported = {{ is_search_supported | tojson }};
   </script>
 {% endblock %}
 

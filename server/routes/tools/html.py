@@ -81,6 +81,16 @@ def _get_vis_tool_examples(tool_name):
   return _load_example_file(tool_name, default={}), [], False
 
 
+def _is_search_supported():
+  """Returns true if search is supported (either vai or enable model)."""
+  if not is_feature_enabled("use_v2_api"):
+    return True
+  return (is_feature_enabled("vai_for_statvar_search_feature_flag",
+                             request=request) or
+          (current_app.config.get("ENABLE_MODEL", False) and
+           current_app.config.get("CUSTOM", False)))
+
+
 @bp.route('/timeline')
 def timeline():
   vis_tool_examples_json = _load_example_file('timeline_vis_tool', default=[])
@@ -88,6 +98,7 @@ def timeline():
   return flask.render_template('tools/timeline.html',
                                vis_tool_examples_json=vis_tool_examples_json,
                                maps_api_key=current_app.config['MAPS_API_KEY'],
+                               is_search_supported=_is_search_supported(),
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))
@@ -105,6 +116,7 @@ def map():
 
   return flask.render_template('tools/map.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],
+                               is_search_supported=_is_search_supported(),
                                vis_tool_examples_json=vis_tool_examples_json,
                                sample_questions=json.dumps(
                                    current_app.config.get(
@@ -113,13 +125,11 @@ def map():
 
 @bp.route('/scatter')
 def scatter():
-  info_json, vis_tool_examples_json, use_standardized_ui = _get_vis_tool_examples(
-      'scatter')
+  vis_tool_examples_json = _load_example_file('scatter_vis_tool', default=[])
 
   return flask.render_template('tools/scatter.html',
-                               info_json=info_json,
                                vis_tool_examples_json=vis_tool_examples_json,
-                               use_standardized_ui=use_standardized_ui,
+                               is_search_supported=_is_search_supported(),
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                sample_questions=json.dumps(
                                    current_app.config.get(
@@ -129,6 +139,7 @@ def scatter():
 @bp.route('/statvar')
 def stat_var():
   return flask.render_template('tools/stat_var.html',
+                               is_search_supported=_is_search_supported(),
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))

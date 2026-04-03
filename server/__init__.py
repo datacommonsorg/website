@@ -415,8 +415,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
+  app.config['ENABLE_MODEL'] = os.environ.get('ENABLE_MODEL') == 'true'
+
   # Enable the NL model.
-  if os.environ.get('ENABLE_MODEL') == 'true':
+  if app.config['ENABLE_MODEL']:
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
 
     # This also requires disaster and event routes.
