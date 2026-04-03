@@ -66,6 +66,7 @@ test = [
     "pytest-flakefinder==1.1.0",
     "pytest-rerunfailures==10.2",
     "pytest-xdist==3.2.1",
+    # Restrictive constraint required for legacy pkg_resources behavior in test suite (pytest-rerunfailures)
     "setuptools<67.0.0",
 ]
 
