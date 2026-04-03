@@ -91,7 +91,7 @@
   },
   {
     "name": "use_v2_api",
-    "enabled": false,
+    "enabled": true,
     "owner": "juliawu",
     "description": "Enables features that rely on the V2 REST APIs"
   },
