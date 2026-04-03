@@ -184,10 +184,10 @@ function RankingRow(props: {
               <Spinner color="secondary" size="sm" />
             )
           }
-          onMouseEnter={() =>
+          onMouseEnter={(): void =>
             onHoverToggled && onHoverToggled(point.placeDcid, true)
           }
-          onMouseLeave={() =>
+          onMouseLeave={(): void =>
             onHoverToggled && onHoverToggled(point.placeDcid, false)
           }
         />
@@ -239,6 +239,10 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
     props.isHighest,
     props.numDataPoints
   );
+
+  const footerColSpan =
+    2 + (props.svNames ? props.svNames.length : props.hideValue ? 0 : 1);
+
   return (
     <div
       className={"ranking-list " + ASYNC_ELEMENT_CLASS}
@@ -306,16 +310,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
               {props.tableFooter && (
                 <tr className="table-footer-row">
                   <td>{props.tableFooter}</td>
-                  <td
-                    colSpan={
-                      2 +
-                      (props.svNames
-                        ? props.svNames.length
-                        : props.hideValue
-                        ? 0
-                        : 1)
-                    }
-                  ></td>
+                  <td colSpan={footerColSpan}></td>
                 </tr>
               )}
             </tbody>
@@ -361,16 +356,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
             {props.tableFooter && (
               <tr className="table-footer-row">
                 <td>{props.tableFooter}</td>
-                <td
-                  colSpan={
-                    2 +
-                    (props.svNames
-                      ? props.svNames.length
-                      : props.hideValue
-                      ? 0
-                      : 1)
-                  }
-                ></td>
+                <td colSpan={footerColSpan}></td>
               </tr>
             )}
           </tbody>
