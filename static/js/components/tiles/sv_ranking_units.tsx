@@ -301,6 +301,7 @@ const ShowNextButton = styled(Button)`
   padding: 0;
   cursor: pointer;
   transition: opacity 0.2s;
+  margin-top: 4px;
 
   &:hover {
     opacity: 0.8;
