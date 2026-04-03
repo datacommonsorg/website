@@ -102,6 +102,11 @@ export class StatVarHierarchySearch extends React.Component<
   }
 
   render(): JSX.Element {
+    const isSearchSupported = window.isSearchSupported ?? true;
+    if (!isSearchSupported) {
+      return null;
+    }
+
     const renderResults =
       this.state.showResults && !_.isEmpty(this.state.query);
     const showLoading =
