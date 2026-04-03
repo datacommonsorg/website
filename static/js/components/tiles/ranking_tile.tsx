@@ -143,13 +143,11 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       facetSelector: props.facetSelector,
     };
 
-    if (
-      _.isEqual(prevFetchProps.current, currentFetchProps) &&
-      !_.isEmpty(rankingData)
-    ) {
+    if (_.isEqual(prevFetchProps.current, currentFetchProps)) {
       // Data dependencies haven't changed, skip fetch
       return;
     }
+
     prevFetchProps.current = currentFetchProps;
 
     (async (): Promise<void> => {
@@ -179,7 +177,6 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     variables,
     surface,
     props.facetSelector,
-    rankingData,
   ]);
 
   /**
