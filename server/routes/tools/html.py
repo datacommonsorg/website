@@ -161,12 +161,4 @@ def download():
 
 @bp.route('/visualization')
 def visualization():
-  info_json = _load_example_file('visualization', default={})
-
-  return flask.render_template('tools/visualization.html',
-                               manual_ga_pageview=True,
-                               info_json=info_json,
-                               maps_api_key=current_app.config['MAPS_API_KEY'],
-                               sample_questions=json.dumps(
-                                   current_app.config.get(
-                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  return flask.render_template('tools/visualization.html')
