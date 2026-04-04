@@ -23,12 +23,14 @@ import { RankingPagePropType } from "./ranking_page";
  * @param props - Ranking page properties
  * @param statVarName - Name of the stat var
  * @param numEntriesToDisplay - Number of places to display in the ranking tile
+ * @param showNextCount - Number of places to add to the ranking tile when clicking the button to show more places
  * @returns Category config for the ranking page
  */
 export function getCategoryConfig(
   props: RankingPagePropType,
   statVarName: string,
-  numEntriesToDisplay: number
+  numEntriesToDisplay: number,
+  showNextCount: number
 ): CategoryConfig {
   // Build statVarSpec
   const statVarSpec = {
@@ -62,6 +64,7 @@ export function getCategoryConfig(
                   showHighest: true,
                   showLowest: false,
                   rankingCount: numEntriesToDisplay,
+                  showNextCount,
                 },
               },
             ],

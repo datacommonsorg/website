@@ -63,6 +63,7 @@ export interface RankingTileSpec {
   highestTitle?: string;
   lowestTitle?: string;
   rankingCount?: number;
+  showNextCount?: number;
 
   showMultiColumn?: boolean;
   showHighestLowest?: boolean;
