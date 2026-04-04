@@ -15,6 +15,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
+import logging
 from typing import Dict, List, Set
 
 from flask import current_app
@@ -95,6 +96,7 @@ def parse_svg(svg_dcid: str) -> SVG:
 def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
   if 'definition' not in new_sv:
     return False
+  logging.info(f"[DEBUG] _is_compatible parsing definition for {new_sv['id']}")
   new_sv_obj = parse_sv(new_sv['id'], new_sv['definition'])
   if new_sv_obj.mp != sv_obj.mp:
     return False
@@ -140,6 +142,7 @@ def extend_svs(svs: List[str]):
     PVs and an EXTRA P, so this represents a set of SVs, its child SVs can be
     directly used as siblings.
   """
+  logging.info(f"[DEBUG] extend_svs called with {svs}")
   if not svs:
     return {}
   sv2svgs = fetch.property_values(svs, "memberOf", True)
@@ -166,6 +169,8 @@ def extend_svs(svs: List[str]):
     for child_sv in svg2childsvs[svg]:
       if child_sv['id'] == sv:
         if 'definition' in child_sv:
+          logging.info(
+              f"[DEBUG] extend_svs parsing definition for {child_sv['id']}")
           sv_obj = parse_sv(child_sv['id'], child_sv['definition'])
         break
     if not sv_obj:

@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+
 from server.lib.nl.common import variable
 import server.services.datacommons as dc
 
@@ -63,6 +65,9 @@ def _get_descendant_sv_nodes(
     for child_sv in info.get("childStatVars", []):
       if not (child_sv_dcid := child_sv.get("id")):
         continue
+      logging.info(
+          f"[DEBUG] _get_descendant_sv_nodes parsing definition for {child_sv_dcid}"
+      )
       sv_nodes[child_sv_dcid] = variable.parse_sv(
           child_sv_dcid, child_sv.get("definition", ""))
 
