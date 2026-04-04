@@ -43,7 +43,7 @@ python-dateutil>=2.9.0.post0, <3.0.0
 pytest-flakefinder==1.1.0
 pytest-rerunfailures==10.2
 pytest-xdist==3.2.1
-setuptools<67.0.0
+setuptools<79.0.0
 PyYAML==6.0.2
 redis==4.5.4
 requests==2.32.4
