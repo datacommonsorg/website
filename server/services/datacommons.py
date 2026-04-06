@@ -672,18 +672,24 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop):
+def resolve(nodes, prop, resolver="place"):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
+        resolver: The resolver to use (default: "place").
     """
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop})
+  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
 
 
-def nl_search_vars(
+def _use_resolve() -> bool:
+  """Returns True if we should use resolve API instead of NL search vars."""
+  return False
+ 
+ 
+def _nl_search_vars_v1(
     queries,
     index_types: List[str],
     reranker="",
@@ -698,6 +704,18 @@ def nl_search_vars(
   if skip_topics:
     url = f"{url}&skip_topics={skip_topics}"
   return post(url, {"queries": queries})
+ 
+ 
+def nl_search_vars(
+    queries,
+    index_types: List[str],
+    reranker="",
+    skip_topics="",
+):
+  """Search sv using either resolve or NL search vars based on control function."""
+  if _use_resolve():
+    return resolve(nodes=queries, prop="<-description->dcid", resolver="indicator")
+  return _nl_search_vars_v1(queries, index_types, reranker, skip_topics)
 
 
 async def nl_search_vars_in_parallel(
