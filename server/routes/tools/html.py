@@ -25,6 +25,7 @@ from flask import url_for
 
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
@@ -85,7 +86,8 @@ def _is_search_supported():
   """Returns true if search is supported (either vai or enable model)."""
   if not is_feature_enabled("use_v2_api"):
     return True
-  return (is_feature_enabled("vai_for_statvar_search", request=request) or
+  return (is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
+                             request=request) or
           (current_app.config.get("ENABLE_MODEL", False) and
            current_app.config.get("CUSTOM", False)))
 
