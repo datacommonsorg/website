@@ -202,6 +202,91 @@ const MOCK_CONFIG: CategoryConfig = {
         },
       ],
     },
+    {
+      title: "Ranking tiles",
+      description:
+        "Test variations for Ranking tiles (Highest vs Lowest vs Both, with vs without pagination toggles).",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "RANKING",
+              title: "Highest Only (No Pagination)",
+              description:
+                "Highest ranking with default count and no button toggle.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: false,
+                rankingCount: 5,
+                showNextCount: 0,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Highest Only (With Pagination)",
+              description: "Highest ranking with pagination.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: false,
+                rankingCount: 5,
+                showNextCount: 10,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Lowest Only (No Pagination)",
+              description:
+                "Lowest ranking with default count and no button toggle.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: false,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 0,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Lowest Only (With Pagination)",
+              description: "Lowest ranking with pagination.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: false,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 10,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Both Highest & Lowest (No Pagination)",
+              description: "Combined highest and lowest views without button.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 0,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Both Highest & Lowest (With Pagination)",
+              description: "Combined views with pagination.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 10,
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 

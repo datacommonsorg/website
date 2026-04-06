@@ -17,7 +17,8 @@
 /**
  * Component for rendering a ranking tile.
  */
-import React, { RefObject, useRef } from "react";
+import styled from "@emotion/styled";
+import React, { RefObject, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
@@ -39,6 +40,8 @@ import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
 import { formatString } from "../../utils/tile_utils";
 import { buildExploreUrl } from "../../utils/url_utils";
+import { Button } from "../elements/button/button";
+import { KeyboardArrowDown } from "../elements/icons/keyboard_arrow_down";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
@@ -74,6 +77,7 @@ interface SvRankingUnitsProps {
   enableScroll?: boolean;
   hyperlink?: string;
   parentPlace: string;
+  onShowMore?: (count: number) => void;
 }
 
 /**
@@ -86,6 +90,37 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   const rankingGroup = rankingData[statVar];
   const highestRankingUnitRef = useRef<HTMLDivElement>();
   const lowestRankingUnitRef = useRef<HTMLDivElement>();
+
+  const [highestCount, setHighestCount] = useState(
+    rankingMetadata.rankingCount || RANKING_COUNT
+  );
+  const [lowestCount, setLowestCount] = useState(
+    rankingMetadata.rankingCount || RANKING_COUNT
+  );
+  const highestHasMore = rankingGroup.numDataPoints > highestCount;
+  const lowestHasMore = rankingGroup.numDataPoints > lowestCount;
+  const showNextCount = rankingMetadata.showNextCount || 0;
+
+  const highestShowNextButton =
+    highestHasMore && showNextCount > 0 ? (
+      <ShowNextButtonControl
+        count={highestCount}
+        setCount={setHighestCount}
+        showNextCount={showNextCount}
+        onShowMore={props.onShowMore}
+      />
+    ) : null;
+
+  const lowestShowNextButton =
+    lowestHasMore && showNextCount > 0 ? (
+      <ShowNextButtonControl
+        count={lowestCount}
+        setCount={setLowestCount}
+        showNextCount={showNextCount}
+        onShowMore={props.onShowMore}
+      />
+    ) : null;
+
   /**
    * Build content and triggers export modal window
    */
@@ -109,7 +144,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       props.sources || Array.from(rankingGroup.sources)
     );
   }
+
   const chartTitle = getChartTitle(title, rankingGroup);
+
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
@@ -130,7 +167,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.errorMsg,
             props.sources,
             props.isLoading,
-            props.enableScroll
+            props.enableScroll,
+            highestCount,
+            highestShowNextButton
           )}
           {!props.hideFooter && (
             <ChartFooter
@@ -141,7 +180,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               }
               exploreLink={
                 props.showExploreMore && !props.errorMsg
-                  ? getExploreLink(props, true)
+                  ? getExploreLink(props, true, highestCount)
                   : null
               }
               footnote={props.footnote}
@@ -153,7 +192,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   ? getHyperlinkUrl(props)
                   : undefined
               }
-            ></ChartFooter>
+            />
           )}
         </div>
       ) : (
@@ -176,13 +215,17 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                highestCount,
+                highestShowNextButton
               )}
               {!props.hideFooter && (
                 <ChartFooter
                   handleEmbed={(): void => handleEmbed(true, chartTitle)}
                   exploreLink={
-                    props.showExploreMore ? getExploreLink(props, true) : null
+                    props.showExploreMore
+                      ? getExploreLink(props, true, highestCount)
+                      : null
                   }
                   footnote={props.footnote}
                   containerRef={props.containerRef}
@@ -193,7 +236,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       ? getHyperlinkUrl(props)
                       : undefined
                   }
-                ></ChartFooter>
+                />
               )}
             </div>
           )}
@@ -215,13 +258,17 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 undefined,
                 props.sources,
                 props.isLoading,
-                props.enableScroll
+                props.enableScroll,
+                lowestCount,
+                lowestShowNextButton
               )}
               {!props.hideFooter && (
                 <ChartFooter
                   handleEmbed={(): void => handleEmbed(false, chartTitle)}
                   exploreLink={
-                    props.showExploreMore ? getExploreLink(props, false) : null
+                    props.showExploreMore
+                      ? getExploreLink(props, false, lowestCount)
+                      : null
                   }
                   footnote={props.footnote}
                   containerRef={props.containerRef}
@@ -232,13 +279,72 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                       ? getHyperlinkUrl(props)
                       : undefined
                   }
-                ></ChartFooter>
+                />
               )}
             </div>
           )}
         </>
       )}
     </React.Fragment>
+  );
+}
+
+const ShowNextButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: var(--gm-3-ref-primary-primary-40, #0b57d0);
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 4px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  svg {
+    fill: white;
+    width: 22px;
+    height: 22px;
+  }
+`;
+
+interface ShowNextButtonControlProps {
+  // current number of entries shown
+  count: number;
+  // callback to update the number of entries shown
+  setCount: (c: number) => void;
+  //number of entries to add on click
+  showNextCount: number;
+  // callback to notify parent components of the increment
+  onShowMore?: (c: number) => void;
+}
+
+/**
+ * Component for the "Show next" button for pagination.
+ */
+function ShowNextButtonControl({
+  count,
+  setCount,
+  showNextCount,
+  onShowMore,
+}: ShowNextButtonControlProps): JSX.Element {
+  return (
+    <ShowNextButton
+      variant="inverted"
+      onClick={(): void => {
+        const newCount = count + showNextCount;
+        setCount(newCount);
+        onShowMore?.(newCount);
+      }}
+    >
+      <KeyboardArrowDown />
+    </ShowNextButton>
   );
 }
 
@@ -303,19 +409,21 @@ function getChartTitle(
  * @param isHighest whether or not this ranking unit is showing the points as
  *                  highest to lowest or the other way around
  * @param rankingGroup the RankingGroup information to get the points for
+ * @param displayCount optional override for number of entries to display
  */
 export function getRankingUnitPoints(
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
   rankingGroup: RankingGroup,
-  enableScroll: boolean
+  enableScroll: boolean,
+  displayCount?: number
 ): { topPoints: RankingPoint[]; bottomPoints: RankingPoint[] } {
-  const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
+  const count = displayCount || rankingMetadata.rankingCount || RANKING_COUNT;
   let topPoints = rankingGroup.points;
   if (!enableScroll) {
     topPoints = isHighest
-      ? rankingGroup.points.slice(-rankingCount).reverse()
-      : rankingGroup.points.slice(0, rankingCount);
+      ? rankingGroup.points.slice(-count).reverse()
+      : rankingGroup.points.slice(0, count);
   } else {
     topPoints = isHighest
       ? [...rankingGroup.points].reverse()
@@ -325,8 +433,8 @@ export function getRankingUnitPoints(
   if (!enableScroll && rankingMetadata.showHighestLowest) {
     // we want a gap of at least 1 point between the top and bottom points
     const numBottomPoints = Math.min(
-      rankingGroup.points.length - rankingCount - 1,
-      rankingCount
+      rankingGroup.points.length - count - 1,
+      count
     );
     bottomPoints = rankingGroup.points.slice(0, numBottomPoints).reverse();
   }
@@ -345,6 +453,10 @@ export function getRankingUnitPoints(
  * @param onHoverToggled callback when user hovers over a row
  * @param errorMsg Erorr message
  * @param sources Optional: Override sources list with this list of  URLs
+ * @param isLoading Optional: Whether the ranking unit is loading
+ * @param enableScroll Optional: Whether to enable scroll
+ * @param displayCount Optional: Number of entries to display
+ * @param tableFooter Optional: Footer to display at the bottom of the table
  */
 export function getRankingUnit(
   tileConfigTitle: string,
@@ -362,13 +474,16 @@ export function getRankingUnit(
   errorMsg?: string,
   sources?: string[],
   isLoading?: boolean,
-  enableScroll?: boolean
+  enableScroll?: boolean,
+  displayCount?: number,
+  tableFooter?: React.ReactNode
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
     isHighest,
     rankingGroup,
-    enableScroll
+    enableScroll,
+    displayCount
   );
   const entities = Array.from(
     new Set([
@@ -418,6 +533,7 @@ export function getRankingUnit(
       apiRoot={apiRoot}
       entityType={entityType}
       enableScroll={enableScroll}
+      tableFooter={tableFooter}
     />
   );
 }
@@ -443,10 +559,10 @@ function getHyperlinkUrl(props: SvRankingUnitsProps): string {
 
 function getExploreLink(
   props: SvRankingUnitsProps,
-  isHighest: boolean
+  isHighest: boolean,
+  rankingCount: number
 ): { url: string; displayText: string } {
   const rankingGroup = props.rankingData[props.statVar];
-  const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   const places = isHighest
     ? rankingGroup.points.slice(-rankingCount).map((point) => point.placeDcid)
     : rankingGroup.points

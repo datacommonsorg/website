@@ -117,6 +117,11 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showHighestLowest?: boolean;
 
+  // Optional: Number of additional items to load when the show more button is clicked.
+  // If not provided, pagination is disabled.
+  @property({ type: Number })
+  showNextCount?: number;
+
   // Optional: Set to true to show a lowest-to-highest ranking
   // Default: highest-to-lowest, if showHighestLowest is false
   @property({ type: Boolean, converter: convertBooleanAttribute })
@@ -175,6 +180,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showHighestLowest: this.showHighestLowest,
         showLowest: this.showLowest,
         showMultiColumn: this.showMultiColumn,
+        showNextCount: this.showNextCount,
       },
       showExploreMore: this.showExploreMore,
       sources: this.sources,

@@ -359,10 +359,13 @@ export async function getStatVarInfo(dcids: string[]): Promise<any> {
   if (!dcids || dcids.length === 0) {
     return Promise.resolve({});
   }
+  const flags = extractFlagsToPropagate(window.location.href);
+  const params = {
+    dcids,
+    ...Object.fromEntries(flags.entries()),
+  };
   return axios.get("/api/variable/info", {
-    params: {
-      dcids,
-    },
+    params,
     paramsSerializer: stringifyFn,
   });
 }

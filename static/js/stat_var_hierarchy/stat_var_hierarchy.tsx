@@ -42,6 +42,7 @@ import {
 } from "../shared/types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { STAT_VAR_HIERARCHY_CONFIG } from "../tools/stat_var/stat_var_hierarchy_config";
+import { getUrlWithSearchParamsToPropagate } from "../utils/url_utils";
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
@@ -391,8 +392,13 @@ export class StatVarHierarchy extends React.Component<
     if (sv == "") {
       return Promise.resolve([]);
     }
+
     return axios
-      .get(`/api/variable/path?dcid=${encodeURIComponent(sv)}`)
+      .get(
+        getUrlWithSearchParamsToPropagate(
+          `/api/variable/path?dcid=${encodeURIComponent(sv)}`
+        )
+      )
       .then((resp) => {
         // This is to make jest test working, should find a better way to let
         // mock return new object each time.
