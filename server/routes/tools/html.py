@@ -85,8 +85,7 @@ def _is_search_supported():
   """Returns true if search is supported (either vai or enable model)."""
   if not is_feature_enabled("use_v2_api"):
     return True
-  return (is_feature_enabled("vai_for_statvar_search_feature_flag",
-                             request=request) or
+  return (is_feature_enabled("vai_for_statvar_search", request=request) or
           (current_app.config.get("ENABLE_MODEL", False) and
            current_app.config.get("CUSTOM", False)))
 
