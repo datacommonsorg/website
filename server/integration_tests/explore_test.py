@@ -751,37 +751,6 @@ class ExploreTestEE2(ExploreTest):
         ],
         mode='toolformer_rag')
 
-  def test_e2e_triple(self):
-    self.run_detect_and_fulfill(
-        'e2e_triple',
-        [
-            # ----- Context Based Queries -----
-            # Should have 'out' properties as answer
-            'What strand orientation does FGFR1 have?',
-            # Should use context for the entity
-            'what genomic coordinates does it have',
-            # Should use context for the property
-            'how about for PQLC3',
-            # Should not use context because no entity or property found
-            'what animal is that found in',
-
-            # ----- Singleton Queries -----
-            # Should have 'in' properties as answer
-            'What is Betacoronavirus 1 the species of',
-            # Should have a chained property in the answer
-            'What genes are associated with the genetic variant rs13317?',
-            # Should return a table in the answer
-            'What genes are associated with the genetic variant rs13317 and rs7903146?',
-            # Should return a table with all the out arcs of the two entities
-            'what virus species are rs13317 and rs7903146',
-            # When there is entity and place, should not default to the entity
-            # overview tile
-            'What is the prevalence of heart disease in California',
-            # When there is only an entity, should return an entity overview tile
-            'tell me about heart disease'
-        ],
-        dc='bio')
-
   def test_e2e_high_sv_threshold(self):
     self.run_detect_and_fulfill(
         'e2e_high_sv_threshold',

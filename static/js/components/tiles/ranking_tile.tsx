@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, {
   ReactElement,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -33,6 +34,7 @@ import {
   INITIAL_LOADING_CLASS,
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { RankingTileContext } from "../../ranking/ranking_context";
 import { DATE_HIGHEST_COVERAGE } from "../../shared/constants";
 import {
   ENABLE_RANKING_TILE_SCROLL,
@@ -105,6 +107,7 @@ export interface RankingTilePropType
 // TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): ReactElement {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
+  const { onShowMore } = useContext(RankingTileContext);
   const embedModalElement = useRef<ChartEmbed>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
@@ -119,14 +122,38 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     surface,
   } = props;
 
+  const prevFetchProps = useRef<{
+    variables: StatVarSpec[];
+    showMultiColumn?: boolean;
+    parentPlace: string;
+    enclosedPlaceType: string;
+    facetSelector: FacetSelectionCriteria;
+  }>(null);
+
   useEffect(() => {
     if (lazyLoad && !shouldLoad) {
       return;
     }
+
+    const currentFetchProps = {
+      variables,
+      showMultiColumn: rankingMetadata.showMultiColumn,
+      parentPlace,
+      enclosedPlaceType,
+      facetSelector: props.facetSelector,
+    };
+
+    if (_.isEqual(prevFetchProps.current, currentFetchProps)) {
+      // Data dependencies haven't changed, skip fetch
+      return;
+    }
+
+    prevFetchProps.current = currentFetchProps;
+
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const rankingData = await fetchData(
+        const fetchedData = await fetchData(
           variables,
           rankingMetadata,
           enclosedPlaceType,
@@ -135,7 +162,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           surface,
           props.facetSelector
         );
-        setRankingData(rankingData);
+        setRankingData(fetchedData);
       } finally {
         setIsLoading(false);
       }
@@ -149,6 +176,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     shouldLoad,
     variables,
     surface,
+    props.facetSelector,
   ]);
 
   /**
@@ -232,10 +260,13 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     rankingData,
     props.variables
   );
-  const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
+
   // TODO: have a better way of calculating the loading placeholder height
   const placeHolderHeight =
-    PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
+    PER_RANKING_HEIGHT *
+      (props.rankingMetadata?.rankingCount || RANKING_COUNT) +
+    FOOTER_HEIGHT +
+    HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
   const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
@@ -346,6 +377,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               }
               hyperlink={props.hyperlink}
               parentPlace={props.parentPlace}
+              onShowMore={onShowMore}
             />
           );
         })}
