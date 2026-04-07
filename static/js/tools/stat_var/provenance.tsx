@@ -21,6 +21,7 @@
 import React, { Component } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
+import { isFeatureEnabled } from "../../shared/feature_flags/util";
 import { ProvenanceSummary } from "../../shared/types";
 import { urlToDisplayText } from "../../shared/util";
 
@@ -63,6 +64,12 @@ class Provenance extends Component<ProvenancePropType, unknown> {
               Total time series:{" "}
               {formatNumber(this.props.summary.timeSeriesCount, "", true)}
             </li>
+            {!isFeatureEnabled("use_v2_api") &&
+              this.props.summary.releaseFrequency && (
+                <li>
+                  Release frequency: {this.props.summary.releaseFrequency}
+                </li>
+              )}
           </ul>
         </div>
         <table className="node-table">

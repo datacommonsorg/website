@@ -134,13 +134,14 @@ endpoints = Endpoints([
     '/translate',
     '/search',
     # v1
+    '/v1/bulk/info/variable',
     '/v1/bulk/info/variable-group',
     '/v1/variable/ancestors',
     '/v1/place/ranking',
     '/v1/place/related',
     '/v1/variable/search',
-    '/v1/recognize/places',
     '/v1/recognize/entities',
+    '/v1/recognize/places',
     # v2
     '/v2/observation',
     '/v2/node',
@@ -148,6 +149,7 @@ endpoints = Endpoints([
     '/v2/event',
     '/v2/variable/filter',
     '/v2/bulk/info/variable',
+    '/v2/recognize/places',
 ])
 
 

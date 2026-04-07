@@ -19,22 +19,28 @@
  */
 
 import { ThemeProvider } from "@emotion/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { RawIntlProvider } from "react-intl";
 
 import { Category } from "../components/subject_page/category";
+import { intl } from "../i18n/i18n";
+import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { NamedTypedNode } from "../shared/types";
 import theme from "../theme/theme";
-import { CategoryConfig } from "../types/subject_page_proto_types";
+import { getChildPlacesPromise } from "../utils/place_utils";
+import { getCategoryConfig } from "./ranking_config_builder";
+import { RankingPageHeader } from "./ranking_header";
+import { RankingPageContainer } from "./ranking_page_styles";
 
-interface RankingPagePropType {
-  // Name of the parent place the ranking page is for
-  placeName: string;
+export interface RankingPagePropType {
+  // Name of the parent place the ranking page is for, already localized
+  parentPlaceNameLocalized: string;
   // Type of the places to be ranked. Must be a child place type of withinPlace.
-  placeType: string;
+  childPlaceType: string;
   // DCID of the parent place
-  withinPlace: string;
+  parentPlaceDcid: string;
   // DCID of the stat var to be ranked
-  statVar: string;
+  statVarDcid: string;
   // Whether to divide the stat var values by population
   isPerCapita: boolean;
   // Scaling factor to multiply the stat var values by
@@ -43,70 +49,64 @@ interface RankingPagePropType {
   unit: string;
   // Date of the stat var
   date: string;
+  // Locale of the page
+  locale: string;
 }
 
 export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
-  const parentPlace: NamedTypedNode = {
-    name: props.placeName,
-    dcid: props.withinPlace,
-    types: [],
+  // Number of places to display in the ranking tile
+  const numEntriesToDisplay = 100;
+  // Whether all child places are shown in the ranking tile
+  const [areAllPlacesShown, setAreAllPlacesShown] = useState(false);
+
+  // Determine whether all child places are shown in the ranking tile
+  useEffect(() => {
+    // Fetch the number of places of the child place type within the parent place
+    getChildPlacesPromise(props.parentPlaceDcid).then((childPlaces) => {
+      const numChildPlaces = childPlaces[props.childPlaceType].length;
+      // All places are shown if the number of entries to display is greater than or equal to the number of child places
+      setAreAllPlacesShown(numEntriesToDisplay >= numChildPlaces);
+    });
+  }, [props.childPlaceType, props.parentPlaceDcid]);
+
+  // Get the display name of the stat var, localized
+  const statVarNameLocalized = getStatsVarTitle(props.statVarDcid);
+
+  // The parent place as a NamedTypedNode, used for the Category component
+  const parentPlaceLocalized: NamedTypedNode = {
+    name: props.parentPlaceNameLocalized,
+    dcid: props.parentPlaceDcid,
+    types: [], // Unused for ranking tile
   };
+
   return (
-    <div>
-      <h1>Ranking Page</h1>
+    <RawIntlProvider value={intl}>
       <ThemeProvider theme={theme}>
-        <Category
-          config={getCategoryConfig(props)}
-          enclosedPlaceType={props.placeType}
-          eventTypeSpec={{}}
-          id="ranking-page-category"
-          place={parentPlace}
-          svgChartHeight={500}
-        />
+        <RankingPageContainer>
+          <RankingPageHeader
+            parentPlaceNameLocalized={props.parentPlaceNameLocalized}
+            parentPlaceDcid={props.parentPlaceDcid}
+            childPlaceType={props.childPlaceType}
+            statVarNameLocalized={statVarNameLocalized}
+            locale={props.locale}
+            areAllPlacesShown={areAllPlacesShown}
+            numPlacesShown={numEntriesToDisplay}
+            isPerCapita={props.isPerCapita}
+          />
+          <Category
+            config={getCategoryConfig(
+              props,
+              statVarNameLocalized,
+              numEntriesToDisplay
+            )}
+            enclosedPlaceType={props.childPlaceType}
+            eventTypeSpec={{}}
+            id="ranking-page-category"
+            place={parentPlaceLocalized}
+            svgChartHeight={500}
+          />
+        </RankingPageContainer>
       </ThemeProvider>
-    </div>
+    </RawIntlProvider>
   );
 };
-
-/**
- * Build category config for the ranking page.
- */
-function getCategoryConfig(props: RankingPagePropType): CategoryConfig {
-  // Build statVarSpec
-  const statVarSpec = {};
-  statVarSpec[props.statVar] = {
-    statVar: props.statVar,
-    denom: props.isPerCapita ? "Count_Person" : "",
-    unit: props.unit,
-    scaling: props.scaling,
-    log: false,
-    name: props.statVar,
-    date: props.date,
-  };
-  return {
-    title: "",
-    statVarSpec,
-    blocks: [
-      {
-        title: "",
-        description: "",
-        columns: [
-          {
-            tiles: [
-              {
-                type: "RANKING",
-                title: "",
-                description: "",
-                statVarKey: [props.statVar],
-                rankingTileSpec: {
-                  showHighest: true,
-                  showLowest: false,
-                },
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
-}

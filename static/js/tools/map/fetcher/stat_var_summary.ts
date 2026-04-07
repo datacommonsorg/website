@@ -18,12 +18,11 @@
  * Fetch stat var summary data for time slider.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
 import { StatVarSummary } from "../../../shared/types";
-import { stringifyFn } from "../../../utils/axios";
+import { getStatVarInfo } from "../../../shared/util";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -45,13 +44,7 @@ export function useFetchStatVarSummary(
         },
       },
     };
-    axios
-      .get("/api/variable/info", {
-        params: {
-          dcids: [statVar.value.dcid],
-        },
-        paramsSerializer: stringifyFn,
-      })
+    getStatVarInfo([statVar.value.dcid])
       .then((resp) => {
         if (_.isEmpty(resp.data)) {
           action.error = "error fetching stat var summary data";
