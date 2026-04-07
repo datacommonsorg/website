@@ -206,8 +206,9 @@ run_service() {
       -e DEBUG=true \
       -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
       -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-      -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
-      -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
+      -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
+      -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
+      -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
       $IMAGE
     # Data Commons-released images
     else 
@@ -221,7 +222,8 @@ run_service() {
       -e DEBUG=true \
       -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
       -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-      -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+      -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
+      -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
       gcr.io/datcom-ci/datacommons-services:${RELEASE}
     fi
   # Regular mode
@@ -235,9 +237,11 @@ run_service() {
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
-    -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
+    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
+    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
+    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
       "$IMAGE"
+  
   # Data Commons-released images
   else 
     if [ "$RELEASE" == "latest" ]; then
@@ -250,7 +254,8 @@ run_service() {
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
+    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
     gcr.io/datcom-ci/datacommons-services:${RELEASE}
   fi
 fi
@@ -307,6 +312,7 @@ RELEASE="stable"
 SCHEMA_UPDATE=false
 IMAGE=""
 PACKAGE=""
+DC_INSTRUCTIONS_DIR=""
 
 # Helper to parse arguments (handles both --opt=val and --opt val)
 # Echoes "value|shift_count" to stdout
