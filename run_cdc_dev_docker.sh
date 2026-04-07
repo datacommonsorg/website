@@ -88,7 +88,7 @@ Options:
   Other options:
   * latest: Run the 'latest' release provided by Data Commons team. 
     If you specify this with an additional '--image' option, the option applies 
-    only to the data container. Otherise, it applies to both containers. 
+    only to the data container. Otherwise, it applies to both containers. 
     Only valid with 'run' and 'build_run'. Ignored otherwise.
 
 --image|-i <custom image name:tag>
@@ -195,11 +195,22 @@ run_data() {
 
 # Run service container
 run_service() {
+  if [[ "$DC_INSTRUCTIONS_DIR" == *"gs://"* ]]; then
+    instructions_mount="$DC_INSTRUCTIONS_DIR"
+  else
+    instructions_mount="$DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR"
+  fi
   if [ "$service_hybrid" == true ]; then
     check_app_credentials
-    # Custom-built image
     if [ -n "$IMAGE" ]; then
-      log_notice "Starting Docker services container with custom image '${IMAGE}' reading data in Google Cloud..."
+      log_notice "Starting Docker services container with custom image '${IMAGE}', reading data from Google Cloud..."
+    elif [ "$RELEASE" == "latest" ]; then
+      log_notice "Starting Docker services container with '${RELEASE}' release, reading data from Google Cloud..."
+      IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
+    else
+      log_notice "Starting Docker services container with '${RELEASE}' release, reading data from Google Cloud..."
+      IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
+    fi
       docker run -it \
       --env-file "$ENV_FILE" \
       -p 8080:8080 \
@@ -207,30 +218,21 @@ run_service() {
       -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
       -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
       -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-      -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
+      -v $instructions_mount \
       -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
       $IMAGE
-    # Data Commons-released images
-    else 
-      if [ "$RELEASE" == "latest" ]; then
-        docker pull gcr.io/datcom-ci/datacommons-services:latest
-      fi
-      log_notice "Starting Docker services container with '${RELEASE}' release reading data in Google Cloud..."
-      docker run -it \
-      --env-file "$ENV_FILE" \
-      -p 8080:8080 \
-      -e DEBUG=true \
-      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
-      -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-      -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-      -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
-      gcr.io/datcom-ci/datacommons-services:${RELEASE}
-    fi
   # Regular mode
   else
   # Custom-built image
-  if [ -n "$IMAGE" ]; then
-    log_notice "Starting Docker services container with custom image '${IMAGE}'..."
+    if [ -n "$IMAGE" ]; then
+      log_notice "Starting Docker services container with custom image '${IMAGE}'..."
+    elif [ "$RELEASE" == "latest" ]; then
+      log_notice "Starting Docker services container with '${RELEASE}' release..."
+      IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
+    else
+      log_notice "Starting Docker services container with '${RELEASE}' release..."
+      IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
+    fi
     docker run -it \
     --env-file "$ENV_FILE" \
     -p 8080:8080 \
@@ -238,26 +240,9 @@ run_service() {
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
+    -v $instructions_mount \
     -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
       "$IMAGE"
-  
-  # Data Commons-released images
-  else 
-    if [ "$RELEASE" == "latest" ]; then
-     docker pull gcr.io/datcom-ci/datacommons-services:latest
-    fi
-    log_notice "Starting Docker services container with '${RELEASE}' release..."
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    -p 8080:8080 \
-    -e DEBUG=true \
-    -v $INPUT_DIR:$INPUT_DIR \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
-    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
-    gcr.io/datcom-ci/datacommons-services:${RELEASE}
-  fi
 fi
 }
 
