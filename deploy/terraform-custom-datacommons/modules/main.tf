@@ -276,11 +276,6 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       }
 
       env {
-        name  = "DC_INSTRUCTIONS_DIR"
-        value = var.dc_instructions_dir
-      }
-
-      env {
         name = "DISABLE_GOOGLE_MAPS"
         value = tostring(var.disable_google_maps)
       }
