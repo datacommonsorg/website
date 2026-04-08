@@ -26,20 +26,14 @@ import { Container, Row } from "reactstrap";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
-import {
-  isFeatureEnabled,
-  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
-import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
-import { Title } from "./title";
 import {
   applyHashDate,
   applyHashDisplay,
@@ -56,9 +50,6 @@ import {
 function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
-  const useStandardizedUi = isFeatureEnabled(
-    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
-  );
   const theme = useTheme();
   const { placeInfo, statVar } = useContext(Context);
   const showChart = ifShowChart(statVar.value, placeInfo.value);
@@ -66,6 +57,7 @@ function App(): ReactElement {
     statVar.value,
     placeInfo.value
   );
+  const visToolExamples = globalThis.visToolExamples || [];
 
   return (
     <React.StrictMode>
@@ -76,34 +68,29 @@ function App(): ReactElement {
       <div id="plot-container" className={ASYNC_ELEMENT_HOLDER_CLASS}>
         <Container fluid={true}>
           <Row>
-            {useStandardizedUi ? (
-              <ToolHeader
-                title={intl.formatMessage(toolMessages.mapToolTitle)}
-                subtitle={intl.formatMessage(toolMessages.mapToolSubtitle)}
-              />
-            ) : (
-              <Title />
-            )}
+            <ToolHeader
+              title={intl.formatMessage(toolMessages.mapToolTitle)}
+              subtitle={intl.formatMessage(toolMessages.mapToolSubtitle)}
+            />
           </Row>
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
           {!showChart && (
             <Row>
-              {useStandardizedUi ? (
-                showStatVarInstructions ? (
-                  <VisToolInstructionsBox toolType="map" />
-                ) : (
-                  <div
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="map" />
-                  </div>
-                )
+              {showStatVarInstructions ? (
+                <VisToolInstructionsBox toolType="map" />
               ) : (
-                <Info />
+                <div
+                  css={css`
+                    margin-top: ${theme.spacing.xl}px;
+                  `}
+                >
+                  <ChartLinkChips
+                    toolType="map"
+                    visToolExamples={visToolExamples}
+                  />
+                </div>
               )}
             </Row>
           )}

@@ -16,6 +16,10 @@
 import random
 
 from flask import current_app
+from flask import has_request_context
+from flask import request as flask_request
+
+from server.lib.util import resolve_flask_app
 
 # URL Query Parameters
 FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'
@@ -29,6 +33,9 @@ STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
+NEW_RANKING_PAGE = 'new_ranking_page'
+ENABLE_GEMINI_3_FLASH = 'enable_gemini_3_flash'
+USE_V2_API = 'use_v2_api'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
@@ -68,18 +75,39 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   
   If both the enable and disable feature flags are present, will default to
   enabling the feature.
-  """
-  if not app:
-    app = current_app
 
+  Args:
+    feature_name: feature flag string to look for in the URL
+    app: Optional Flask application instance. If None, it will be inferred from
+         the current Flask context.
+    request: HTTP request as a flask.Request object. If None, it will be inferred from
+             the current request context.
+  
+  Returns:
+    True if the feature is enabled, False otherwise
+  """
+  app = resolve_flask_app(app)
+
+  # If no app object is available, we cannot check feature flags, so default to False.
+  if app is None:
+    return False
+
+  # If request is not provided, try to get it from the request context.
+  if request is None and has_request_context():
+    request = flask_request
+
+  # Check for URL parameter overrides
   if is_feature_override_enabled(feature_name, request):
     return True
 
   if is_feature_override_disabled(feature_name, request):
     return False
 
+  # Check for feature flags in the app config
   feature_flags = app.config['FEATURE_FLAGS']
   is_feature_enabled = feature_flags.get(feature_name, {}).get('enabled', False)
+
+  # Apply rollout percentage if specified
   if is_feature_enabled and 'rollout_percentage' in feature_flags.get(
       feature_name, {}):
     rollout_percentage = feature_flags[feature_name]['rollout_percentage']

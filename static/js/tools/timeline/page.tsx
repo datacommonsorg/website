@@ -23,10 +23,6 @@ import { Container } from "reactstrap";
 import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
-import {
-  isFeatureEnabled,
-  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import theme from "../../theme/theme";
@@ -38,7 +34,6 @@ import { ToolHeader } from "../shared/tool_header";
 import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
-import { MemoizedInfo } from "./info";
 import {
   addToken,
   getTokensFromUrl,
@@ -130,12 +125,10 @@ class Page extends Component<unknown, PageStateType> {
         sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
     }
 
-    const useStandardizedUi = isFeatureEnabled(
-      STANDARDIZED_VIS_TOOL_FEATURE_FLAG
-    );
-
     const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
     const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
+    const visToolExamples = globalThis.visToolExamples || [];
+
     return (
       <ThemeProvider theme={theme}>
         <RawIntlProvider value={intl}>
@@ -155,23 +148,10 @@ class Page extends Component<unknown, PageStateType> {
           />
           <div id="plot-container">
             <Container fluid={true}>
-              {useStandardizedUi ? (
-                <ToolHeader
-                  title={intl.formatMessage(toolMessages.timelineToolTitle)}
-                  subtitle={intl.formatMessage(
-                    toolMessages.timelineToolSubtitle
-                  )}
-                />
-              ) : (
-                <div className="app-header">
-                  <h1 className="mb-4">
-                    {intl.formatMessage(toolMessages.timelineToolTitle)}
-                  </h1>
-                  <a href="/tools/visualization#visType%3Dtimeline">
-                    {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
-                  </a>
-                </div>
-              )}
+              <ToolHeader
+                title={intl.formatMessage(toolMessages.timelineToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.timelineToolSubtitle)}
+              />
               <div
                 css={css`
                   margin-bottom: ${theme.spacing.lg}px;
@@ -205,20 +185,19 @@ class Page extends Component<unknown, PageStateType> {
                 </FormBox>
               </div>
               {!showChart &&
-                (useStandardizedUi ? (
-                  showStatVarInstructions ? (
-                    <VisToolInstructionsBox toolType="timeline" />
-                  ) : (
-                    <div
-                      css={css`
-                        margin-top: ${theme.spacing.xl}px;
-                      `}
-                    >
-                      <ChartLinkChips toolType="timeline" />
-                    </div>
-                  )
+                (showStatVarInstructions ? (
+                  <VisToolInstructionsBox toolType="timeline" />
                 ) : (
-                  <MemoizedInfo />
+                  <div
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips
+                      toolType="timeline"
+                      visToolExamples={visToolExamples}
+                    />
+                  </div>
                 ))}
               {showChart && (
                 <div id="chart-region">

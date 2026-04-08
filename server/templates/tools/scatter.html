@@ -16,7 +16,7 @@
 {%- extends BASE_HTML -%}
 
 {% set is_hide_full_footer = true %}
-{% set is_hide_header_search_bar = use_standardized_ui %}
+{% set is_hide_header_search_bar = true %}
 {% set title = "Scatter Plot Explorer" %}
 {% set main_id = 'main-scatter' %}
 {% set page_id = 'page-scatter' %}
@@ -31,8 +31,9 @@
 <div id="metadata" class="d-none"></div>
 <div id="main-pane"></div>
 <script>
-  infoConfig = {{info_json|tojson|safe}};
+  globalThis.visToolExamples = {{ vis_tool_examples_json | tojson | safe }};
   globalThis.minStatVarGeoCoverage = {{ config['MIN_STAT_VAR_GEO_COVERAGE'] | int(1) }};
+  globalThis.isSearchSupported = {{ is_search_supported | tojson }};
 </script>
 {% endblock %}
 

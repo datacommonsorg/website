@@ -26,10 +26,6 @@ import { Container, Row } from "reactstrap";
 import { Spinner } from "../../components/spinner";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
-import {
-  isFeatureEnabled,
-  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
@@ -42,7 +38,6 @@ import {
   PlaceInfo,
   useContextStore,
 } from "./context";
-import { MemoizedInfo } from "./info";
 import { PlaceOptions } from "./place_and_type_options";
 import { StatVarChooser } from "./statvar";
 import {
@@ -62,10 +57,9 @@ function App(): ReactElement {
   );
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
-  const useStandardizedUi = isFeatureEnabled(
-    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
-  );
   const theme = useTheme();
+  const visToolExamples = globalThis.visToolExamples || [];
+
   return (
     <>
       <StatVarChooser
@@ -75,21 +69,10 @@ function App(): ReactElement {
       <div id="plot-container">
         <Container fluid={true}>
           <Row>
-            {useStandardizedUi ? (
-              <ToolHeader
-                title={intl.formatMessage(toolMessages.scatterToolTitle)}
-                subtitle={intl.formatMessage(toolMessages.scatterToolSubtitle)}
-              />
-            ) : (
-              <div className="app-header">
-                <h1 className="mb-4">
-                  {intl.formatMessage(toolMessages.scatterToolTitle)}
-                </h1>
-                <a href="/tools/visualization#visType%3Dscatter">
-                  {intl.formatMessage(toolMessages.scatterToolGoBackMessage)}
-                </a>
-              </div>
-            )}
+            <ToolHeader
+              title={intl.formatMessage(toolMessages.scatterToolTitle)}
+              subtitle={intl.formatMessage(toolMessages.scatterToolSubtitle)}
+            />
           </Row>
           <Row>
             <div
@@ -101,30 +84,22 @@ function App(): ReactElement {
               <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
             </div>
           </Row>
-          {showChooseStatVarMessage && !useStandardizedUi && (
-            <Row className="info-message">
-              Choose 2 statistical variables from the left pane.
-            </Row>
-          )}
           {!showChart && (
             <>
-              {useStandardizedUi ? (
-                showChooseStatVarMessage ? (
-                  <Row>
-                    <VisToolInstructionsBox toolType="scatter" />
-                  </Row>
-                ) : (
-                  <Row
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="scatter" />
-                  </Row>
-                )
-              ) : (
+              {showChooseStatVarMessage ? (
                 <Row>
-                  <MemoizedInfo />
+                  <VisToolInstructionsBox toolType="scatter" />
+                </Row>
+              ) : (
+                <Row
+                  css={css`
+                    margin-top: ${theme.spacing.xl}px;
+                  `}
+                >
+                  <ChartLinkChips
+                    toolType="scatter"
+                    visToolExamples={visToolExamples}
+                  />
                 </Row>
               )}
             </>

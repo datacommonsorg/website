@@ -39,7 +39,6 @@ import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarFacetMap, StatVarSpec } from "../../../shared/types";
-import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { buildCitationParts, citationToPlainText } from "./citations";
 import { StatVarMetadata } from "./metadata";
 import { fetchMetadata } from "./metadata_fetcher";
@@ -57,6 +56,8 @@ interface TileMetadataModalPropType {
   containerRef?: React.RefObject<HTMLElement>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
+  // array of entity dcids to use for fetching
+  entities?: string[];
   // used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
   surface: string;
 }
@@ -71,7 +72,6 @@ export function TileMetadataModal(
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   const denomStatVarDcids = useMemo(() => {
     const result = new Set<string>();
@@ -104,13 +104,17 @@ export function TileMetadataModal(
 
     setLoading(true);
     setError(false);
-    fetchMetadata(
+
+    const fetchPromise = fetchMetadata(
+      props.entities || [],
       statVarSet,
-      props.facets,
-      dataCommonsClient,
       props.statVarToFacets,
-      props.apiRoot
-    )
+      props.apiRoot,
+      props.facets,
+      props.surface
+    );
+
+    fetchPromise
       .then((resp) => {
         // Sort stat vars: non-denominators first, then denominators.
         // Secondary sort is alphabetical.
@@ -139,11 +143,12 @@ export function TileMetadataModal(
     modalOpen,
     statVarSet,
     statVars.length,
-    dataCommonsClient,
     props.apiRoot,
     props.statVarToFacets,
     props.facets,
+    props.entities,
     denomStatVarDcids,
+    props.surface,
   ]);
 
   useEffect(() => {

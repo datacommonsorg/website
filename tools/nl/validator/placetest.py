@@ -18,7 +18,7 @@ from typing import Dict, List, Set
 
 from absl import app
 from absl import flags
-import datacommons as dc
+from datacommons_client.client import DataCommonsClient
 import requests
 import utils
 
@@ -39,7 +39,7 @@ DC_API_KEY = os.environ.get('DC_API_KEY')
 assert DC_API_KEY
 
 # Use autopush endpoint for recon to get the latest fixes.
-URL = f'https://autopush.api.datacommons.org/v1/recognize/places?key={AUTOPUSH_KEY}'
+URL = f'https://autopush.api.datacommons.org/v2/recognize/places?key={AUTOPUSH_KEY}'
 
 # Use prod endpoint to get population data.
 POP_URL = f'https://api.datacommons.org/v2/observation?key={DC_API_KEY}&date=LATEST&select=entity&select=variable&select=date&select=value&variable.dcids=Count_Person&'
@@ -65,6 +65,7 @@ class Context:
   bad_dcids: Set[str]
   dcid_names: Dict
   dcid_pop: Dict
+  client: DataCommonsClient
 
 
 def init_result(q, sv, pl):
@@ -182,13 +183,13 @@ def update_rows(ctx):
 
   if dcids:
     try:
-      res = dc.get_property_values(dcids, 'name')
+      res = ctx.client.node.fetch_entity_names(dcids)
     except Exception as e:
       print(f'DC ERROR: {dcids} {e}')
       return
     for k, v in res.items():
       if v:
-        ctx.dcid_names[k] = v[0]
+        ctx.dcid_names[k] = v.value
 
     try:
       url = POP_URL + '&'.join('entity.dcids=' + e for e in dcids)
@@ -275,7 +276,8 @@ def main(_):
               out_header=OUT_HEADER,
               bad_dcids=set(),
               dcid_names={},
-              dcid_pop={}))
+              dcid_pop={},
+              client=DataCommonsClient(api_key=DC_API_KEY)))
 
 
 if __name__ == "__main__":

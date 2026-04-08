@@ -26,9 +26,14 @@
   {
     "name": "follow_up_questions_ga",
     "enabled": true,
-    "owner": "javiervazquez",
-    "description": "Enables the follow up questions generated from related topics to general audience.",
-    "rollout_percentage": 60
+    "owner": "shixiao",
+    "description": "Enables the follow up questions generated from related topics to general audience."
+  },
+  {
+    "name": "enable_gemini_3_flash",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enables Gemini 3 Flash for NL detection."
   },
   {
     "name": "page_overview_ga",

@@ -49,12 +49,15 @@ interface LinkIconBoxProps {
   link: Link;
   //the section gives location of the chip component in order to give context for the GA event
   section?: string;
+  //an optional description for the link box
+  description?: string;
 }
 
 export const LinkIconBox = ({
   icon,
   link,
   section = "",
+  description,
 }: LinkIconBoxProps): ReactElement => {
   const theme = useTheme();
 
@@ -103,7 +106,8 @@ export const LinkIconBox = ({
         }}
       >
         {icon}
-        {link.title}
+        {link.title && <span className="link-title">{link.title}</span>}
+        {description && <span className="link-description">{description}</span>}
       </a>
     </div>
   );

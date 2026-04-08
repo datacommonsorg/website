@@ -61,6 +61,7 @@ export interface Theme {
     xl: number;
   };
   spacing: {
+    x2s: number;
     xs: number;
     sm: number;
     md: number;
@@ -400,5 +401,42 @@ export interface Theme {
   };
   tooltip: {
     width?: string;
+  };
+  search: {
+    height: string;
+    radius: string;
+    base: {
+      border: string;
+      background: string;
+      icon: string;
+      button: string;
+      text: string;
+    };
+    active: {
+      border: string;
+      background: string;
+      icon: string;
+      button: string;
+      text: string;
+    };
+  };
+  searchSuggestions: {
+    height: string;
+    border: string;
+    base: {
+      background: string;
+      icon: string;
+      text: string;
+    };
+    hover: {
+      background: string;
+      icon: string;
+      text: string;
+    };
+    more: {
+      background: string;
+      icon: string;
+      text: string;
+    };
   };
 }
