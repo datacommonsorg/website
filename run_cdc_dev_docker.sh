@@ -27,29 +27,6 @@ Usage:
 If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable'
 All containers are run, using the Data Commons-provided 'stable' image.
 
-Some of these options are mutually exclusive and some are required depending on 
-the setting of the '--actions' option. Here is a high-level summary of valid 
-combinations:
-
--a build_run [-c all|service] [-r latest|stable] -i <custom image name:tag>
-
--a build -i <custom image name:tag>
-
--a build_upload|upload -i <custom image name:tag> [-p <package name:tag>]
-
--a run|build_run [-c all] [-r latest|stable] [-i <custom image name:tag>] -s
-
-Note: If you are running in "hybrid" mode, the only valid options are:
-
-./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run|build_run] 
- [--image|-i <custom image name:tag>]
-
-./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run] 
-  [--schema_update|-s]
-
-All others will be ignored. The script will infer the correct container based on the 
-env.list directory settings and/or the 'build_run' setting. 
-
 Options:
 
 --env_file|-e <path to env.list file> 
@@ -195,44 +172,58 @@ run_data() {
 
 # Run service container
 run_service() {
-  if [[ "$DC_INSTRUCTIONS_DIR" == *"gs://"* ]]; then
-    instructions_mount="$DC_INSTRUCTIONS_DIR"
+
+  # Set IMAGE variable and output message
+  if [ -n "$IMAGE" ]; then
+    message="Starting Docker services container with custom image '${IMAGE}'..."
+  elif [ "$RELEASE" == "latest" ]; then
+    message="Starting Docker services container with '${RELEASE}' release..."
+    IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
   else
-    instructions_mount="$DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR"
+    message="Starting Docker services container with '${RELEASE}' release..."
+    IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
   fi
+
+  # Hybrid service mode: local service with data in the cloud
   if [ "$service_hybrid" == true ]; then
     check_app_credentials
-    if [ -n "$IMAGE" ]; then
-      log_notice "Starting Docker services container with custom image '${IMAGE}', reading data from Google Cloud..."
-    elif [ "$RELEASE" == "latest" ]; then
-      log_notice "Starting Docker services container with '${RELEASE}' release, reading data from Google Cloud..."
-      IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
+    # In case of hybrid service running with local instructions
+    if [[ "$instructions_hybrid" == true ]]; then
+      instructions_mount=""
     else
-      log_notice "Starting Docker services container with '${RELEASE}' release, reading data from Google Cloud..."
-      IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
+      instructions_mount="$DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR"
     fi
-      docker run -it \
-      --env-file "$ENV_FILE" \
-      -p 8080:8080 \
-      -e DEBUG=true \
-      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
-      -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-      -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-      -v $instructions_mount \
-      -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
-      $IMAGE
-  # Regular mode
+    log_notice "$message"
+    docker run -it \
+    --env-file "$ENV_FILE" \
+    -p 8080:8080 \
+    -e DEBUG=true \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
+    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
+    -v $instructions_mount \
+    $IMAGE
+
+  # Local service and data but remote instructions
+  elif [[ "$instructions_hybrid" == true ]]; then
+    check_app_credentials
+    log_notice "$message"
+    docker run -it \
+    --env-file "$ENV_FILE" \
+    -p 8080:8080 \
+    -e DEBUG=true \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
+    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
+    -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    $IMAGE
+
+  # Regular mode with local instructions and local service
   else
-  # Custom-built image
-    if [ -n "$IMAGE" ]; then
-      log_notice "Starting Docker services container with custom image '${IMAGE}'..."
-    elif [ "$RELEASE" == "latest" ]; then
-      log_notice "Starting Docker services container with '${RELEASE}' release..."
-      IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
-    else
-      log_notice "Starting Docker services container with '${RELEASE}' release..."
-      IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
-    fi
+    log_notice "$message"
     docker run -it \
     --env-file "$ENV_FILE" \
     -p 8080:8080 \
@@ -240,7 +231,7 @@ run_service() {
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $instructions_mount \
+    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR
     -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
       "$IMAGE"
 fi
@@ -439,7 +430,7 @@ done
 # Get options from the selected env.list file
 source "$ENV_FILE"
 
-# Set variables for hybrid mode
+# Set variables for hybrid modes
 #----------------------------------------------------
 # Determine hybrid mode and set a variable to true for use throughout the script
 if [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
@@ -449,6 +440,8 @@ elif [[ "$INPUT_DIR" != *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
 elif [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" != *"gs://"* ]]; then
   log_error "Invalid data directory settings in env.list file. Please set your OUTPUT_DIR to a Cloud Path or your INPUT_DIR to a local path.\n"
   exit 1
+elif [[ "$DC_INSTRUCTIONS_DIR" == *"gs://"* ]]; then
+  instructions_hybrid=true
 fi
 
 # Handle various error conditions
