@@ -24,16 +24,14 @@ Usage:
   [--release|-r latest|stable] [--image|-i <custom image name:tag>] 
   [--package|-p <package name:tag>] [--schema_update|-s]
 
-If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable'
-All containers are run, using the Data Commons-provided 'stable' image.
+If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable': all containers are run, using the Data Commons-provided 'stable' image.
 
 Options:
 
 --env_file|-e <path to env.list file> 
   Optional: The path and file name of the environment file env.list. 
   Default: custom_dc/env.list
-  Use this option to maintain multiple alternate environment files with different
-  settings and directories (helpful for testing).
+  Use this option to maintain multiple alternate environment files with different settings and directories (helpful for testing).
       
 --actions|-a
   Optional: The different Docker commands to run. 
@@ -50,14 +48,10 @@ Options:
 -container|-c all|service|data
   Optional: The containers to run.
   Default with 'run' and 'build_run': all: Run all containers. Other options are:
-  * service: Only run the service container. You can use this if you have not made 
-    any changes to your data, or   you are only running the service container 
-    locally (with the data container in the cloud) Exclusive with '--schema-update'.
-  * data: Only run the data container. This is only valid if you are running the 
-    data container locally (with the service container in the cloud).
-    Only valid with 'run'. Ignored otherwise.
-  For "hybrid" setups, the script will infer the correct container to run from the 
-  env.list file; this setting will be ignored.
+  * service: Only run the service container. You can use this if you have not made any changes to your data, or   you are only running the service container locally (with the data container in the cloud) Exclusive with '--schema-update'.
+  * data: Only run the data container. This is only valid if you are running the data container locally (with the service container in the cloud).
+  Only valid with 'run'. Ignored otherwise.
+  For "hybrid" setups, the script will infer the correct container to run from the env.list file; this setting will be ignored.
 
 --release|-r stable|latest
   Optional with 'run' and 'build_run'.
@@ -66,24 +60,22 @@ Options:
   * latest: Run the 'latest' release provided by Data Commons team. 
     If you specify this with an additional '--image' option, the option applies 
     only to the data container. Otherwise, it applies to both containers. 
-    Only valid with 'run' and 'build_run'. Ignored otherwise.
+    Only valid with 'run' and 'build_run'; ignored otherwise.
 
 --image|-i <custom image name:tag>
-  Optional with 'run': the name and tag of the custom image to run in the service 
-  container.
+  Optional with 'run': the name and tag of the custom image to run in the service container.
   Required for all other actions: the name and tag of the custom image to build/run/upload.
   
 --package|-p <target package name:tag>
   Optional: The target image to be created and uploaded to Google Cloud.
   Default: same as the name and tag provided in the '--image' option.
-  Only valid with 'build_upload' and 'upload'. Ignored otherwise.
+  Only valid with 'build_upload' and 'upload'; ignored otherwise.
      
 --schema_update|-s
   Optional. In the rare case that you get a 'SQL checked failed' error in
   your running service, you can set this to run the data container in 
   schema update mode, which skips embeddings generation and completes much faster.
-  Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
-  Ignored otherwise.
+  Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers; ignored otherwise.
   
 Examples:
 
@@ -99,12 +91,10 @@ Examples:
   Start all containers, using a custom-built image for the service container.
 
 ./run_cdc_dev_docker.sh --actions build --image my-datacommons:dev
-  Build a custom image only, and don't start any containers. Use this if you are 
-  building a custom image that you will upload and test later in Google Cloud.
+  Build a custom image only, and don't start any containers. Use this if you are building a custom image that you will upload and test later in Google Cloud.
 
 ./run_cdc_dev_docker.sh --actions build_run --image my-datacommons:dev --container service
-  Build a custom image and only start the service. Use this if you haven't made any 
-  changes to your data but are developing your custom site.
+  Build a custom image and only start the service. Use this if you haven't made any changes to your data but are developing your custom site.
 
 ./run_cdc_dev_docker.sh --actions build_upload --image my-datacommons:dev
   Build a custom image, create a package with the same name and tag, and upload
