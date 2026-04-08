@@ -187,13 +187,6 @@ variable "make_dc_web_service_public" {
   default     = true
 }
 
-#  Data Commons Cloud Run job variables
-variable "dc_data_job_image" {
-  description = "The container image for the data job"
-  type        = string
-  default     = "gcr.io/datcom-ci/datacommons-data:stable"
-}
-
 variable "dc_data_job_cpu" {
   description = "CPU limit for the Data Commons data loading job"
   type        = string
@@ -223,6 +216,20 @@ variable "enable_mcp" {
   description = "Whether to run the MCP server"
   type        = bool
   default     = true
+}
+
+variable "dc_instructions_dir" {
+  description = "GCS bucket and directory containing custom MCP instructions Markdown files"
+  type        = string
+  default     = ""
+}
+
+#  Data Commons Cloud Run job variables
+
+variable "dc_data_job_image" {
+  description = "The container image for the data job"
+  type        = string
+  default     = "gcr.io/datcom-ci/datacommons-data:stable"
 }
 
 # Data Commons Cloud VPC Network variables
