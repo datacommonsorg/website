@@ -288,7 +288,6 @@ RELEASE="stable"
 SCHEMA_UPDATE=false
 IMAGE=""
 PACKAGE=""
-DC_INSTRUCTIONS_DIR=""
 
 # Helper to parse arguments (handles both --opt=val and --opt val)
 # Echoes "value|shift_count" to stdout
@@ -433,6 +432,11 @@ source "$ENV_FILE"
 # Set variables for hybrid modes
 #----------------------------------------------------
 # Determine hybrid mode and set a variable to true for use throughout the script
+
+if [[ "$DC_INSTRUCTIONS_DIR" == *"gs://"* ]]; then
+  instructions_hybrid=true
+fi
+
 if [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
   service_hybrid=true
 elif [[ "$INPUT_DIR" != *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
@@ -440,8 +444,6 @@ elif [[ "$INPUT_DIR" != *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
 elif [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" != *"gs://"* ]]; then
   log_error "Invalid data directory settings in env.list file. Please set your OUTPUT_DIR to a Cloud Path or your INPUT_DIR to a local path.\n"
   exit 1
-elif [[ "$DC_INSTRUCTIONS_DIR" == *"gs://"* ]]; then
-  instructions_hybrid=true
 fi
 
 # Handle various error conditions
