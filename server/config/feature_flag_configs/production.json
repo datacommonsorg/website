@@ -30,6 +30,12 @@
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
   {
+    "name": "enable_gemini_3_flash",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enables Gemini 3 Flash for NL detection."
+  },
+  {
     "name": "page_overview_ga",
     "enabled": false,
     "owner": "javiervazquez",
@@ -58,6 +64,12 @@
     "enabled": false,
     "owner": "juliawu",
     "description": "Enables features that rely on the V2 REST APIs"
+  },
+  {
+    "name": "use_v2_resolve_for_nl_search_vars",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enables using the V2 resolve API for NL search vars."
   },
   {
     "name": "vai_for_statvar_search",
