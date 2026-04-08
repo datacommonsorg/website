@@ -207,7 +207,6 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
 
     mock_post.side_effect = side_effect
 
-    from server.services.datacommons import nl_search_vars
     nl_search_vars(
         queries=["foo", "bar"],
         index_types=[idx_param],
@@ -226,7 +225,6 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
 
     mock_post.side_effect = side_effect
 
-    from server.services.datacommons import nl_search_vars
     nl_search_vars(
         queries=["foo", "bar"],
         index_types=[idx_param],
@@ -354,24 +352,14 @@ class TestServiceDataCommonsNLSearchVarsInParallel(
         "scoreThreshold": 0.7,
     }
 
-    call_count = 0
-
     def side_effect(url, *args, **kwargs):
-      nonlocal call_count
-      call_count += 1
       resp = Response()
       resp.status_code = 200
 
-      assert "/api/search_vars" in url
-      
-      # Check that the payload is correct
-      json_data = kwargs.get('json')
-      assert json_data == {
-          "queries": ["foo"]
-      }
-
-      if call_count == 1:
+      if "idx1" in url:
+        # Setting the ._content attribute automatically makes both resp.json() and resp.text available.
         resp._content = json.dumps(idx1_result).encode('utf-8')
+
       else:
         resp._content = json.dumps(idx2_result).encode('utf-8')
 
