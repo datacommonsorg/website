@@ -390,6 +390,95 @@ def get_variable_group_info(nodes: List[str],
   return post(url, req_dict)
 
 
+def get_variable_definitions(nodes: List[str],
+                             batch_size: int = 1000) -> Dict[str, str]:
+  """Gets the definition strings for a list of statistical variables using constraintProperties as a whitelist."""
+  if not nodes:
+    return {}
+
+  PROP_TO_SHORT_KEY = {
+      "populationType": "pt",
+      "measuredProperty": "mp",
+      "statType": "st",
+      "measurementDenominator": "md",
+      "measurementQualifier": "mq"
+  }
+
+  core_props = [
+      "populationType", "measuredProperty", "statType",
+      "measurementDenominator", "measurementQualifier"
+  ]
+
+  result = {}
+
+  import time
+  for i in range(0, len(nodes), batch_size):
+    chunk = nodes[i:i + batch_size]
+
+    # Step 1: Fetch core properties and constraintProperties
+    step1_props = core_props + ["constraintProperties"]
+    prop_expr = f"->[{','.join(step1_props)}]"
+
+    resp1 = v2node_paginated(chunk, prop_expr, max_pages=None)
+
+    # Extract specific constraint properties needed for this chunk
+    chunk_constraint_props = set()
+    data1 = resp1.get("data", {})
+    for node, node_arcs in data1.items():
+      arcs = node_arcs.get("arcs", {})
+      if "constraintProperties" in arcs:
+        for vn in arcs["constraintProperties"].get("nodes", []):
+          prop_val = vn.get("dcid") or vn.get("value")
+          if prop_val:
+            chunk_constraint_props.add(prop_val)
+
+    # Initialize merged arcs with Step 1 results
+    merged_arcs = {
+        node: node_arcs.get("arcs", {}) for node, node_arcs in data1.items()
+    }
+
+    # Step 2: Fetch the specific constraint properties for this chunk
+    if chunk_constraint_props:
+      prop_expr2 = f"->[{','.join(sorted(list(chunk_constraint_props)))}]"
+      resp2 = v2node_paginated(chunk, prop_expr2, max_pages=None)
+      data2 = resp2.get("data", {})
+      for node, node_arcs in data2.items():
+        if node in merged_arcs:
+          # Merge the constraint property values into our arcs
+          merged_arcs[node].update(node_arcs.get("arcs", {}))
+
+    # Process responses for this chunk
+    for node, arcs in merged_arcs.items():
+      parts = []
+
+      # Get constraint props for this specific node
+      constraint_props = []
+      if "constraintProperties" in arcs:
+        for vn in arcs["constraintProperties"].get("nodes", []):
+          prop_val = vn.get("dcid") or vn.get("value")
+          if prop_val:
+            constraint_props.append(prop_val)
+
+      props_to_include = set(constraint_props + core_props)
+
+      for prop in sorted(arcs.keys()):
+        if prop not in props_to_include:
+          continue
+        val_nodes = arcs[prop].get("nodes", [])
+        if not val_nodes:
+          continue
+        val_obj = val_nodes[0]
+        val = val_obj.get("dcid") or val_obj.get("value")
+        if not val:
+          continue
+        key = PROP_TO_SHORT_KEY.get(prop, prop)
+        parts.append(f"{key}={val}")
+
+      result[node] = ",".join(parts)
+
+  return result
+
+
 def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
   if is_feature_enabled(USE_V2_API, app=current_app, request=request):

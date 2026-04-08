@@ -19,7 +19,10 @@ import logging
 from typing import Dict, List, Set
 
 from flask import current_app
+from flask import request
 
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
@@ -58,7 +61,9 @@ def parse_sv(id: str, sv_definition: str) -> SV:
     return res
   parts = sv_definition.split(",")
   for part in parts:
-    k, v = part.split("=")
+    if "=" not in part:
+      continue
+    k, v = part.split("=", 1)
     if k == "pt":
       res.pt = v
     elif k == "mp":
@@ -96,11 +101,12 @@ def parse_svg(svg_dcid: str) -> SVG:
 def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
   if 'definition' not in new_sv:
     return False
-  logging.info(f"[DEBUG] _is_compatible parsing definition for {new_sv['id']}")
   new_sv_obj = parse_sv(new_sv['id'], new_sv['definition'])
   if new_sv_obj.mp != sv_obj.mp:
     return False
-  if new_sv_obj.st != sv_obj.st:
+  st_obj = sv_obj.st if sv_obj.st else "measuredValue"
+  st_new = new_sv_obj.st if new_sv_obj.st else "measuredValue"
+  if st_new != st_obj:
     return False
   if new_sv_obj.pt != sv_obj.pt:
     return False
@@ -142,7 +148,6 @@ def extend_svs(svs: List[str]):
     PVs and an EXTRA P, so this represents a set of SVs, its child SVs can be
     directly used as siblings.
   """
-  logging.info(f"[DEBUG] extend_svs called with {svs}")
   if not svs:
     return {}
   sv2svgs = fetch.property_values(svs, "memberOf", True)
@@ -154,7 +159,24 @@ def extend_svs(svs: List[str]):
   if 'data' not in svginfo:
     return {}
   for item in svginfo['data']:
-    svg2childsvs[item['node']] = item['info'].get('childStatVars', [])
+    children = item['info'].get('childStatVars', [])
+    svg2childsvs[item['node']] = children
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  if use_v2:
+    all_child_svs = []
+    for children in svg2childsvs.values():
+      all_child_svs.extend([
+          c['id']
+          for c in children
+          if 'id' in c  # and not c['id'].startswith("WHO/")
+      ])
+
+    sv_definitions = dc.get_variable_definitions(all_child_svs)
+
+    for children in svg2childsvs.values():
+      for c in children:
+        if 'id' in c and c['id'] in sv_definitions:
+          c['definition'] = sv_definitions[c['id']]
 
   res = {}
   # Extended SV member -> Extended SV list
@@ -169,8 +191,6 @@ def extend_svs(svs: List[str]):
     for child_sv in svg2childsvs[svg]:
       if child_sv['id'] == sv:
         if 'definition' in child_sv:
-          logging.info(
-              f"[DEBUG] extend_svs parsing definition for {child_sv['id']}")
           sv_obj = parse_sv(child_sv['id'], child_sv['definition'])
         break
     if not sv_obj:

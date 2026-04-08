@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
+from flask import current_app
+from flask import request
 
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
 from server.lib.nl.common import variable
 import server.services.datacommons as dc
 
@@ -52,6 +55,18 @@ def _get_descendant_sv_nodes(
   # of the inital groups is visited.
   resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [])
 
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  sv_definitions = {}
+  if use_v2:
+    all_child_svs = []
+    for data in resp.get("data", []):
+      if not (info := data.get("info")):
+        continue
+      for child_sv in info.get("childStatVars", []):
+        if 'id' in child_sv:  # and not child_sv['id'].startswith("WHO/"):
+          all_child_svs.append(child_sv['id'])
+    sv_definitions = dc.get_variable_definitions(all_child_svs)
+
   sv_nodes = {}
   recurse_groups = set()
   for data in resp.get("data", []):
@@ -65,11 +80,8 @@ def _get_descendant_sv_nodes(
     for child_sv in info.get("childStatVars", []):
       if not (child_sv_dcid := child_sv.get("id")):
         continue
-      logging.info(
-          f"[DEBUG] _get_descendant_sv_nodes parsing definition for {child_sv_dcid}"
-      )
-      sv_nodes[child_sv_dcid] = variable.parse_sv(
-          child_sv_dcid, child_sv.get("definition", ""))
+      defn = sv_definitions.get(child_sv_dcid, child_sv.get("definition", ""))
+      sv_nodes[child_sv_dcid] = variable.parse_sv(child_sv_dcid, defn)
 
     for child_group in info.get("childStatVarGroups", []):
       if (not (child_group_dcid := child_group.get("id")) or

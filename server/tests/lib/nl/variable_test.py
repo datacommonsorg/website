@@ -30,9 +30,12 @@ class TestVariableExtension(unittest.TestCase):
   def tearDown(self):
     self.app_context.pop()
 
+  @patch('server.lib.nl.common.variable.is_feature_enabled')
   @patch('server.lib.fetch.property_values')
   @patch('server.services.datacommons.get_variable_group_info')
-  def test_extend_svs(self, mock_get_variable_group_info, mock_property_values):
+  def test_extend_svs(self, mock_get_variable_group_info, mock_property_values,
+                      mock_is_feature_enabled):
+    mock_is_feature_enabled.return_value = False
     sv = "Count_Person_BelowPovertyLevelInThePast12Months_Female"
 
     # Mock property_values to return the group for the SV
@@ -62,6 +65,48 @@ class TestVariableExtension(unittest.TestCase):
 
     # Expected result: should include both the original and the sibling
     # Main SV comes first, then others sorted.
+    expected = [sv, "Count_Person_BelowPovertyLevelInThePast12Months_Male"]
+    self.assertEqual(res[sv], expected)
+
+  @patch('server.lib.nl.common.variable.is_feature_enabled')
+  @patch('server.lib.fetch.property_values')
+  @patch('server.services.datacommons.get_variable_group_info')
+  @patch('server.services.datacommons.get_variable_definitions')
+  def test_extend_svs_v2(self, mock_get_variable_definitions,
+                         mock_get_variable_group_info, mock_property_values,
+                         mock_is_feature_enabled):
+    mock_is_feature_enabled.return_value = True
+
+    sv = "Count_Person_BelowPovertyLevelInThePast12Months_Female"
+
+    # Mock property_values to return the group for the SV
+    mock_property_values.return_value = {sv: ["dc/g/Person_PovertyStatus"]}
+
+    # Mock get_variable_group_info (without definition)
+    mock_get_variable_group_info.return_value = {
+        "data": [{
+            "node": "dc/g/Person_PovertyStatus",
+            "info": {
+                "childStatVars": [{
+                    "id": sv
+                }, {
+                    "id": "Count_Person_BelowPovertyLevelInThePast12Months_Male"
+                }]
+            }
+        }]
+    }
+
+    # Mock get_variable_definitions
+    mock_get_variable_definitions.return_value = {
+        sv:
+            "pt=Person,mp=povertyStatus,st=count,gender=Female",
+        "Count_Person_BelowPovertyLevelInThePast12Months_Male":
+            "pt=Person,mp=povertyStatus,st=count,gender=Male"
+    }
+
+    res = variable.extend_svs([sv])
+
+    # Expected result: should include both the original and the sibling
     expected = [sv, "Count_Person_BelowPovertyLevelInThePast12Months_Male"]
     self.assertEqual(res[sv], expected)
 
