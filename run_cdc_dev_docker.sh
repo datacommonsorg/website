@@ -24,14 +24,39 @@ Usage:
   [--release|-r latest|stable] [--image|-i <custom image name:tag>] 
   [--package|-p <package name:tag>] [--schema_update|-s]
 
-If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable': all containers are run, using the Data Commons-provided 'stable' image.
+If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable'
+All containers are run, using the Data Commons-provided 'stable' image.
+
+Some of these options are mutually exclusive and some are required depending on 
+the setting of the '--actions' option. Here is a high-level summary of valid 
+combinations:
+
+-a build_run [-c all|service] [-r latest|stable] -i <custom image name:tag>
+
+-a build -i <custom image name:tag>
+
+-a build_upload|upload -i <custom image name:tag> [-p <package name:tag>]
+
+-a run|build_run [-c all] [-r latest|stable] [-i <custom image name:tag>] -s
+
+Note: If you are running in "hybrid" mode, the only valid options are:
+
+./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run|build_run] 
+ [--image|-i <custom image name:tag>]
+
+./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run] 
+  [--schema_update|-s]
+
+All others will be ignored. The script will infer the correct container based on the 
+env.list directory settings and/or the 'build_run' setting. 
 
 Options:
 
 --env_file|-e <path to env.list file> 
   Optional: The path and file name of the environment file env.list. 
   Default: custom_dc/env.list
-  Use this option to maintain multiple alternate environment files with different settings and directories (helpful for testing).
+  Use this option to maintain multiple alternate environment files with different
+  settings and directories (helpful for testing).
       
 --actions|-a
   Optional: The different Docker commands to run. 
@@ -48,10 +73,14 @@ Options:
 -container|-c all|service|data
   Optional: The containers to run.
   Default with 'run' and 'build_run': all: Run all containers. Other options are:
-  * service: Only run the service container. You can use this if you have not made any changes to your data, or   you are only running the service container locally (with the data container in the cloud) Exclusive with '--schema-update'.
-  * data: Only run the data container. This is only valid if you are running the data container locally (with the service container in the cloud).
-  Only valid with 'run'. Ignored otherwise.
-  For "hybrid" setups, the script will infer the correct container to run from the env.list file; this setting will be ignored.
+  * service: Only run the service container. You can use this if you have not made 
+    any changes to your data, or   you are only running the service container 
+    locally (with the data container in the cloud) Exclusive with '--schema-update'.
+  * data: Only run the data container. This is only valid if you are running the 
+    data container locally (with the service container in the cloud).
+    Only valid with 'run'. Ignored otherwise.
+  For "hybrid" setups, the script will infer the correct container to run from the 
+  env.list file; this setting will be ignored.
 
 --release|-r stable|latest
   Optional with 'run' and 'build_run'.
@@ -59,24 +88,26 @@ Options:
   Other options:
   * latest: Run the 'latest' release provided by Data Commons team. 
     If you specify this with an additional '--image' option, the option applies 
-    only to the data container. Otherwise, it applies to both containers. 
-    Only valid with 'run' and 'build_run'; ignored otherwise.
+    only to the data container. Otherise, it applies to both containers. 
+    Only valid with 'run' and 'build_run'. Ignored otherwise.
 
 --image|-i <custom image name:tag>
-  Optional with 'run': the name and tag of the custom image to run in the service container.
+  Optional with 'run': the name and tag of the custom image to run in the service 
+  container.
   Required for all other actions: the name and tag of the custom image to build/run/upload.
   
 --package|-p <target package name:tag>
   Optional: The target image to be created and uploaded to Google Cloud.
   Default: same as the name and tag provided in the '--image' option.
-  Only valid with 'build_upload' and 'upload'; ignored otherwise.
+  Only valid with 'build_upload' and 'upload'. Ignored otherwise.
      
 --schema_update|-s
   Optional. In the rare case that you get a 'SQL checked failed' error in
   your running service, you can set this to run the data container in 
   schema update mode, which skips embeddings generation and completes much faster.
-  Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers; ignored otherwise.
-  
+  Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
+  Ignored otherwise.
+
 Examples:
 
 ./run_cdc_dev_docker.sh
@@ -91,10 +122,12 @@ Examples:
   Start all containers, using a custom-built image for the service container.
 
 ./run_cdc_dev_docker.sh --actions build --image my-datacommons:dev
-  Build a custom image only, and don't start any containers. Use this if you are building a custom image that you will upload and test later in Google Cloud.
+  Build a custom image only, and don't start any containers. Use this if you are 
+  building a custom image that you will upload and test later in Google Cloud.
 
 ./run_cdc_dev_docker.sh --actions build_run --image my-datacommons:dev --container service
-  Build a custom image and only start the service. Use this if you haven't made any changes to your data but are developing your custom site.
+  Build a custom image and only start the service. Use this if you haven't made any 
+  changes to your data but are developing your custom site.
 
 ./run_cdc_dev_docker.sh --actions build_upload --image my-datacommons:dev
   Build a custom image, create a package with the same name and tag, and upload
@@ -162,68 +195,64 @@ run_data() {
 
 # Run service container
 run_service() {
-
-  # Set IMAGE variable and output message
-  if [ -n "$IMAGE" ]; then
-    message="Starting Docker services container with custom image '${IMAGE}'..."
-  elif [ "$RELEASE" == "latest" ]; then
-    message="Starting Docker services container with '${RELEASE}' release..."
-    IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
-  else
-    message="Starting Docker services container with '${RELEASE}' release..."
-    IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
-  fi
-
-  # Hybrid service mode: local service with data in the cloud
   if [ "$service_hybrid" == true ]; then
     check_app_credentials
-    # In case of hybrid service running with local instructions
-    if [[ "$instructions_hybrid" == true ]]; then
-      instructions_mount=""
-    else
-      instructions_mount="$DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR"
+    # Custom-built image
+    if [ -n "$IMAGE" ]; then
+      log_notice "Starting Docker services container with custom image '${IMAGE}' reading data in Google Cloud..."
+      docker run -it \
+      --env-file "$ENV_FILE" \
+      -p 8080:8080 \
+      -e DEBUG=true \
+      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+      -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+      -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+      -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
+      $IMAGE
+    # Data Commons-released images
+    else 
+      if [ "$RELEASE" == "latest" ]; then
+        docker pull gcr.io/datcom-ci/datacommons-services:latest
+      fi
+      log_notice "Starting Docker services container with '${RELEASE}' release reading data in Google Cloud..."
+      docker run -it \
+      --env-file "$ENV_FILE" \
+      -p 8080:8080 \
+      -e DEBUG=true \
+      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+      -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+      -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+      gcr.io/datcom-ci/datacommons-services:${RELEASE}
     fi
-    log_notice "$message"
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    -p 8080:8080 \
-    -e DEBUG=true \
-    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
-    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
-    -v $instructions_mount \
-    $IMAGE
-
-  # Local service and data but remote instructions
-  elif [[ "$instructions_hybrid" == true ]]; then
-    check_app_credentials
-    log_notice "$message"
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    -p 8080:8080 \
-    -e DEBUG=true \
-    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
-    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
-    -v $INPUT_DIR:$INPUT_DIR \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
-    $IMAGE
-
-  # Regular mode with local instructions and local service
+  # Regular mode
   else
-    log_notice "$message"
+  # Custom-built image
+  if [ -n "$IMAGE" ]; then
+    log_notice "Starting Docker services container with custom image '${IMAGE}'..."
     docker run -it \
     --env-file "$ENV_FILE" \
     -p 8080:8080 \
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR
-    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
+    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+    -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
       "$IMAGE"
+  # Data Commons-released images
+  else 
+    if [ "$RELEASE" == "latest" ]; then
+     docker pull gcr.io/datcom-ci/datacommons-services:latest
+    fi
+    log_notice "Starting Docker services container with '${RELEASE}' release..."
+    docker run -it \
+    --env-file "$ENV_FILE" \
+    -p 8080:8080 \
+    -e DEBUG=true \
+    -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+    gcr.io/datcom-ci/datacommons-services:${RELEASE}
+  fi
 fi
 }
 
@@ -419,14 +448,9 @@ done
 # Get options from the selected env.list file
 source "$ENV_FILE"
 
-# Set variables for hybrid modes
+# Set variables for hybrid mode
 #----------------------------------------------------
 # Determine hybrid mode and set a variable to true for use throughout the script
-
-if [[ "$DC_INSTRUCTIONS_DIR" == *"gs://"* ]]; then
-  instructions_hybrid=true
-fi
-
 if [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
   service_hybrid=true
 elif [[ "$INPUT_DIR" != *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
@@ -491,7 +515,7 @@ if [ "$service_hybrid" == true ]; then
     RELEASE=''
   fi
   CONTAINER="service"
-fi  
+fi
 
 # Call Docker commands
 ######################################
