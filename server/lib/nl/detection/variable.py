@@ -25,6 +25,8 @@ from server.services import datacommons as dc
 from shared.lib import constants
 import shared.lib.detected_variables as vars
 import shared.lib.utils as shared_utils
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_RESOLVE_FOR_NL_SEARCH_VARS
 
 # A value higher than the highest score.
 _HIGHEST_SCORE = 1.0
@@ -79,13 +81,30 @@ def detect_vars(orig_query: str, debug_logs: Dict,
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
-                           dargs.reranker)
-  query2results = {
-      q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
-  }
+  if is_feature_enabled(USE_V2_RESOLVE_FOR_NL_SEARCH_VARS):
+    resp = dc.resolve(nodes=all_queries, prop="<-description->dcid", resolver="indicator")
+    query2results = {}
+    # Assuming the order/nodes match the input queries or we can find by node string.
+    # v2/resolve returns a list of entities matching the input nodes.
+    for entity in resp.get('entities', []):
+      node = entity.get('node')
+      if node in all_queries:
+        query2results[node] = vars.resolve_entity_to_var_candidates(entity)
+    # Ensure every query has a result entry.
+    for q in all_queries:
+      if q not in query2results:
+        query2results[q] = vars.VarCandidates(svs=[], scores=[], sv2sentences={})
+    # Set a default threshold for resolve API candidates
+    model_threshold = 0.7
+  else:
+    resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
+                             dargs.reranker)
+    query2results = {
+        q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
+    }
+    model_threshold = resp['scoreThreshold']
+
   debug_logs.update(resp.get('debugLogs', {}))
-  model_threshold = resp['scoreThreshold']
 
   #
   # 3. Prepare result candidates.

@@ -684,12 +684,7 @@ def resolve(nodes, prop, resolver="place"):
   return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
 
 
-def _use_resolve() -> bool:
-  """Returns True if we should use resolve API instead of NL search vars."""
-  return False
- 
- 
-def _nl_search_vars_v1(
+def nl_search_vars(
     queries,
     index_types: List[str],
     reranker="",
@@ -704,18 +699,6 @@ def _nl_search_vars_v1(
   if skip_topics:
     url = f"{url}&skip_topics={skip_topics}"
   return post(url, {"queries": queries})
- 
- 
-def nl_search_vars(
-    queries,
-    index_types: List[str],
-    reranker="",
-    skip_topics="",
-):
-  """Search sv using either resolve or NL search vars based on control function."""
-  if _use_resolve():
-    return resolve(nodes=queries, prop="<-description->dcid", resolver="indicator")
-  return _nl_search_vars_v1(queries, index_types, reranker, skip_topics)
 
 
 async def nl_search_vars_in_parallel(
