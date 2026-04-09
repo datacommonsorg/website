@@ -512,7 +512,7 @@ def get_map_points():
   # eg. epaGhgrpFacilityId/1003010 has latitude and longitude but no location
   # epa/120814013 which is an AirQualitySite has a location, but no latitude
   # or longitude
-  location_by_geo = fetch.property_values(geos, "location")
+  location_by_geo = fetch.property_values(geos, "location", max_pages=None)
   # dict of <dcid used to get latlon>: <dcid of the place>
   geo_by_latlon_subject = {}
   for geo_dcid in geos:
@@ -522,9 +522,11 @@ def get_map_points():
     else:
       geo_by_latlon_subject[geo_dcid] = geo_dcid
   lat_by_subject = fetch.property_values(list(geo_by_latlon_subject.keys()),
-                                         "latitude")
+                                         "latitude",
+                                         max_pages=None)
   lon_by_subject = fetch.property_values(list(geo_by_latlon_subject.keys()),
-                                         "longitude")
+                                         "longitude",
+                                         max_pages=None)
 
   map_points_list = []
   for subject_dcid, latitude in lat_by_subject.items():
