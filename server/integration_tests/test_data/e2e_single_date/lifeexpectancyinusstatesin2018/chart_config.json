@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_2018"
                     ],
-                    "title": "Life Expectancy in States of United States of America (${date})",
+                    "title": "Life Expectancy in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -27,13 +27,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_2018"
                     ],
-                    "title": "Life Expectancy in States of United States of America (${date})",
+                    "title": "Life Expectancy in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Life Expectancy in States of United States of America"
+            "title": "Life Expectancy in States of United States"
           },
           {
             "columns": [
@@ -46,7 +46,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_2018_3563600999"
                     ],
-                    "title": "Life Expectancy in United States of America",
+                    "title": "Life Expectancy in United States",
                     "type": "LINE"
                   }
                 ]
@@ -54,11 +54,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Life Expectancy in United States of America",
+                    "description": "Life Expectancy in United States",
                     "statVarKey": [
                       "LifeExpectancy_Person_2018"
                     ],
-                    "title": "Life Expectancy in United States of America",
+                    "title": "Life Expectancy in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -74,7 +74,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_2018"
                     ],
-                    "title": "Female Life Expectancy in States of United States of America (${date})",
+                    "title": "Female Life Expectancy in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -89,14 +89,14 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_2018"
                     ],
-                    "title": "Female Life Expectancy in States of United States of America (${date})",
+                    "title": "Female Life Expectancy in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Female Life Expectancy in States of United States of America"
+            "title": "Female Life Expectancy in States of United States"
           },
           {
             "columns": [
@@ -106,7 +106,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male_2018"
                     ],
-                    "title": "Male Life Expectancy in States of United States of America (${date})",
+                    "title": "Male Life Expectancy in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -121,14 +121,14 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male_2018"
                     ],
-                    "title": "Male Life Expectancy in States of United States of America (${date})",
+                    "title": "Male Life Expectancy in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Male Life Expectancy in States of United States of America"
+            "title": "Male Life Expectancy in States of United States"
           },
           {
             "columns": [
@@ -142,7 +142,7 @@
                       "LifeExpectancy_Person_Female_2018_2776657033",
                       "LifeExpectancy_Person_Male_2018_2776657033"
                     ],
-                    "title": "Life Expectancy by Gender in United States of America",
+                    "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
                   }
                 ]
@@ -158,7 +158,7 @@
                     "statVarKey": [
                       "Count_Death_2018"
                     ],
-                    "title": "Number of Deaths in States of United States of America (${date})",
+                    "title": "Number of Deaths in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -173,14 +173,14 @@
                     "statVarKey": [
                       "Count_Death_2018"
                     ],
-                    "title": "Number of Deaths in States of United States of America (${date})",
+                    "title": "Number of Deaths in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Number of Deaths in States of United States of America"
+            "title": "Number of Deaths in States of United States"
           },
           {
             "columns": [
@@ -193,7 +193,7 @@
                     "statVarKey": [
                       "Count_Death_2018_1437305810"
                     ],
-                    "title": "Number of Deaths in United States of America",
+                    "title": "Number of Deaths in United States",
                     "type": "LINE"
                   }
                 ]
@@ -201,11 +201,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Deaths in United States of America",
+                    "description": "Number of Deaths in United States",
                     "statVarKey": [
                       "Count_Death_2018"
                     ],
-                    "title": "Number of Deaths in United States of America",
+                    "title": "Number of Deaths in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -225,7 +225,7 @@
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person_2018_1113810078"
                     ],
-                    "title": "Deaths Per Capita in United States of America",
+                    "title": "Deaths Per Capita in United States",
                     "type": "LINE"
                   }
                 ]
@@ -233,11 +233,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths Per Capita in United States of America",
+                    "description": "Deaths Per Capita in United States",
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person_2018"
                     ],
-                    "title": "Deaths Per Capita in United States of America",
+                    "title": "Deaths Per Capita in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -253,7 +253,7 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheCirculatorySystem_2018"
                     ],
-                    "title": "Deaths From Diseases of the Circulatory System in States of United States of America (${date})",
+                    "title": "Deaths From Diseases of the Circulatory System in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -268,14 +268,14 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheCirculatorySystem_2018"
                     ],
-                    "title": "Deaths From Diseases of the Circulatory System in States of United States of America (${date})",
+                    "title": "Deaths From Diseases of the Circulatory System in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Circulatory System in States of United States of America"
+            "title": "Deaths From Diseases of the Circulatory System in States of United States"
           },
           {
             "columns": [
@@ -302,7 +302,7 @@
                       "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block_2018",
                       "Count_MortalityEvent_Suicide_multiple_place_bar_block_2018"
                     ],
-                    "title": "Causes of Death in United States of America (${date})",
+                    "title": "Causes of Death in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -318,7 +318,7 @@
                     "statVarKey": [
                       "Count_Death_Female_2018"
                     ],
-                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "title": "Count of Mortality Event: Female in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -333,14 +333,14 @@
                     "statVarKey": [
                       "Count_Death_Female_2018"
                     ],
-                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "title": "Count of Mortality Event: Female in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female in States of United States of America"
+            "title": "Count of Mortality Event: Female in States of United States"
           },
           {
             "columns": [
@@ -353,7 +353,7 @@
                     "statVarKey": [
                       "Count_Death_Female_2018_1437305810"
                     ],
-                    "title": "Count of Mortality Event: Female in United States of America",
+                    "title": "Count of Mortality Event: Female in United States",
                     "type": "LINE"
                   }
                 ]
@@ -361,11 +361,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: Female in United States of America",
+                    "description": "Count of Mortality Event: Female in United States",
                     "statVarKey": [
                       "Count_Death_Female_2018"
                     ],
-                    "title": "Count of Mortality Event: Female in United States of America",
+                    "title": "Count of Mortality Event: Female in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -382,7 +382,7 @@
                     "statVarKey": [
                       "Count_Death_AbnormalNotClassfied_Female_2018"
                     ],
-                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States of America (${date})",
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -397,14 +397,14 @@
                     "statVarKey": [
                       "Count_Death_AbnormalNotClassfied_Female_2018"
                     ],
-                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States of America (${date})",
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States of America"
+            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States"
           },
           {
             "columns": [
@@ -414,7 +414,7 @@
                     "statVarKey": [
                       "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_2018"
                     ],
-                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States of America (${date})",
+                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -429,14 +429,14 @@
                     "statVarKey": [
                       "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_2018"
                     ],
-                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States of America (${date})",
+                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States of America"
+            "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States"
           },
           {
             "columns": [
@@ -461,7 +461,7 @@
                       "Count_Death_Neoplasms_Female_multiple_place_bar_block_2018",
                       "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block_2018"
                     ],
-                    "title": "Causes of Female Mortality in United States of America (${date})",
+                    "title": "Causes of Female Mortality in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -481,7 +481,7 @@
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0_2018_2966989201"
                     ],
-                    "title": "Neonatal Mortality Rate in United States of America",
+                    "title": "Neonatal Mortality Rate in United States",
                     "type": "LINE"
                   }
                 ]
@@ -489,11 +489,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Neonatal Mortality Rate in United States of America",
+                    "description": "Neonatal Mortality Rate in United States",
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0_2018"
                     ],
-                    "title": "Neonatal Mortality Rate in United States of America",
+                    "title": "Neonatal Mortality Rate in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -510,7 +510,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_AbnormalNotClassfied_2018"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States of America (${date})",
+                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -525,14 +525,14 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_AbnormalNotClassfied_2018"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States of America (${date})",
+                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States of America"
+            "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States"
           },
           {
             "columns": [
@@ -542,7 +542,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_2018"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States of America (${date})",
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -557,14 +557,14 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_2018"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States of America (${date})",
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States of America"
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States"
           },
           {
             "columns": [
@@ -587,7 +587,7 @@
                       "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block_2018",
                       "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block_2018"
                     ],
-                    "title": "Causes of Infant Mortality in United States of America (${date})",
+                    "title": "Causes of Infant Mortality in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -608,7 +608,7 @@
                       "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_2966989201",
                       "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2018_2966989201"
                     ],
-                    "title": "Infant Mortality Rate by Gender in United States of America",
+                    "title": "Infant Mortality Rate by Gender in United States",
                     "type": "LINE"
                   }
                 ]
@@ -624,7 +624,7 @@
                     "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
                     ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States of America (${date})",
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -639,13 +639,13 @@
                     "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
                     ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States of America (${date})",
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States of America"
+            "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States"
           },
           {
             "columns": [
@@ -658,7 +658,7 @@
                     "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1123266408"
                     ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -666,11 +666,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
                     ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States of America",
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -686,7 +686,7 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States of America (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -701,13 +701,13 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States of America (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Interval in Months Since Last Live Birth in States of United States of America"
+            "title": "Average Interval in Months Since Last Live Birth in States of United States"
           },
           {
             "columns": [
@@ -720,7 +720,7 @@
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018_606064963"
                     ],
-                    "title": "Infant Mortality Rate in United States of America",
+                    "title": "Infant Mortality Rate in United States",
                     "type": "LINE"
                   }
                 ]
@@ -728,11 +728,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Infant Mortality Rate in United States of America",
+                    "description": "Infant Mortality Rate in United States",
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018"
                     ],
-                    "title": "Infant Mortality Rate in United States of America",
+                    "title": "Infant Mortality Rate in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -749,7 +749,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States of America (${date})",
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -764,13 +764,13 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States of America (${date})",
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States of America"
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States"
           },
           {
             "columns": [
@@ -780,7 +780,7 @@
                     "statVarKey": [
                       "Median_Age_Person_2018"
                     ],
-                    "title": "Median Age of Population in States of United States of America (${date})",
+                    "title": "Median Age of Population in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -795,14 +795,14 @@
                     "statVarKey": [
                       "Median_Age_Person_2018"
                     ],
-                    "title": "Median Age of Population in States of United States of America (${date})",
+                    "title": "Median Age of Population in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "The median age of people in a population.",
-            "title": "Median Age of Population in States of United States of America"
+            "title": "Median Age of Population in States of United States"
           },
           {
             "columns": [
@@ -815,7 +815,7 @@
                     "statVarKey": [
                       "Median_Age_Person_2018_3795540742"
                     ],
-                    "title": "Median Age of Population in United States of America",
+                    "title": "Median Age of Population in United States",
                     "type": "LINE"
                   }
                 ]
@@ -823,11 +823,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age of Population in United States of America",
+                    "description": "Median Age of Population in United States",
                     "statVarKey": [
                       "Median_Age_Person_2018"
                     ],
-                    "title": "Median Age of Population in United States of America",
+                    "title": "Median Age of Population in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -1133,7 +1133,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -1141,7 +1141,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     }
   ],

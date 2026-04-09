@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States of America (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -27,13 +27,13 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States of America (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States of America"
+            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States"
           },
           {
             "columns": [
@@ -43,7 +43,7 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States of America (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -58,13 +58,13 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States of America (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States of America"
+            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States"
           },
           {
             "columns": [
@@ -75,7 +75,7 @@
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts",
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Ownership Cost by Mortgage Status in United States of America",
+                    "title": "Ownership Cost by Mortgage Status in United States",
                     "type": "LINE"
                   }
                 ]
@@ -91,7 +91,7 @@
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States of America (${date})",
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -106,13 +106,13 @@
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States of America (${date})",
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States of America"
+            "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States"
           },
           {
             "columns": [
@@ -122,7 +122,7 @@
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States of America",
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
                     "type": "LINE"
                   }
                 ]
@@ -130,11 +130,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Gross Rent of Housing Unit: With Cash Rent in United States of America",
+                    "description": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States of America",
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -150,7 +150,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_Upto100USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100 USD or Less in States of United States of America (${date})",
+                    "title": "Count of Housing Unit: 100 USD or Less in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -165,14 +165,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_Upto100USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100 USD or Less in States of United States of America (${date})",
+                    "title": "Count of Housing Unit: 100 USD or Less in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 100 USD or Less in States of United States of America"
+            "title": "Count of Housing Unit: 100 USD or Less in States of United States"
           },
           {
             "columns": [
@@ -182,7 +182,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_100To149USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100-149 USD in States of United States of America (${date})",
+                    "title": "Count of Housing Unit: 100-149 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -197,14 +197,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_100To149USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100-149 USD in States of United States of America (${date})",
+                    "title": "Count of Housing Unit: 100-149 USD in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 100-149 USD in States of United States of America"
+            "title": "Count of Housing Unit: 100-149 USD in States of United States"
           },
           {
             "columns": [
@@ -245,7 +245,7 @@
                       "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block",
                       "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block"
                     ],
-                    "title": "Houses by Rental Amount in United States of America (${date})",
+                    "title": "Houses by Rental Amount in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -262,7 +262,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto10000USDollar"
                     ],
-                    "title": "Homes Valued at $10,000 or Less in States of United States of America (${date})",
+                    "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -277,14 +277,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto10000USDollar"
                     ],
-                    "title": "Homes Valued at $10,000 or Less in States of United States of America (${date})",
+                    "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Homes Valued at $10,000 or Less in States of United States of America"
+            "title": "Homes Valued at $10,000 or Less in States of United States"
           },
           {
             "columns": [
@@ -294,7 +294,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto10000USDollar"
                     ],
-                    "title": "Homes Valued at $10,000 or Less in United States of America",
+                    "title": "Homes Valued at $10,000 or Less in United States",
                     "type": "LINE"
                   }
                 ]
@@ -302,11 +302,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Homes Valued at $10,000 or Less in United States of America",
+                    "description": "Homes Valued at $10,000 or Less in United States",
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto10000USDollar"
                     ],
-                    "title": "Homes Valued at $10,000 or Less in United States of America",
+                    "title": "Homes Valued at $10,000 or Less in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -323,7 +323,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States of America (${date})",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -338,14 +338,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States of America (${date})",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 49,999 USD or Less in States of United States of America"
+            "title": "Count of Housing Unit: 49,999 USD or Less in States of United States"
           },
           {
             "columns": [
@@ -355,7 +355,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in United States of America",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in United States",
                     "type": "LINE"
                   }
                 ]
@@ -363,11 +363,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Housing Unit: 49,999 USD or Less in United States of America",
+                    "description": "Count of Housing Unit: 49,999 USD or Less in United States",
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in United States of America",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -524,7 +524,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -532,7 +532,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     }
   ],

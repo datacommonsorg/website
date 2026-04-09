@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Count_Person_2176550201"
                     ],
-                    "title": "Population in United States of America",
+                    "title": "Population in United States",
                     "type": "LINE"
                   }
                 ]
@@ -23,11 +23,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population in United States of America",
+                    "description": "Population in United States",
                     "statVarKey": [
                       "Count_Person"
                     ],
-                    "title": "Population in United States of America",
+                    "title": "Population in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -44,7 +44,7 @@
                     "statVarKey": [
                       "Count_Person"
                     ],
-                    "title": "Population in States of United States of America (${date})",
+                    "title": "Population in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -59,14 +59,14 @@
                     "statVarKey": [
                       "Count_Person"
                     ],
-                    "title": "Population in States of United States of America (${date})",
+                    "title": "Population in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "The total number of people in a population.",
-            "title": "Population in States of United States of America"
+            "title": "Population in States of United States"
           },
           {
             "columns": [
@@ -79,7 +79,7 @@
                     "statVarKey": [
                       "Count_Person_Employed_3707913853"
                     ],
-                    "title": "Population With Current Employment in United States of America",
+                    "title": "Population With Current Employment in United States",
                     "type": "LINE"
                   }
                 ]
@@ -87,11 +87,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Current Employment in United States of America",
+                    "description": "Population With Current Employment in United States",
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in United States of America",
+                    "title": "Population With Current Employment in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -108,7 +108,7 @@
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in States of United States of America (${date})",
+                    "title": "Population With Current Employment in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -123,14 +123,14 @@
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in States of United States of America (${date})",
+                    "title": "Population With Current Employment in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population With Current Employment in States of United States of America"
+            "title": "Population With Current Employment in States of United States"
           },
           {
             "columns": [
@@ -143,7 +143,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_3707913853"
                     ],
-                    "title": "Population in the Labor Force in United States of America",
+                    "title": "Population in the Labor Force in United States",
                     "type": "LINE"
                   }
                 ]
@@ -151,11 +151,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population in the Labor Force in United States of America",
+                    "description": "Population in the Labor Force in United States",
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "Population in the Labor Force in United States of America",
+                    "title": "Population in the Labor Force in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -172,7 +172,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "Population in the Labor Force in States of United States of America (${date})",
+                    "title": "Population in the Labor Force in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -187,14 +187,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "Population in the Labor Force in States of United States of America (${date})",
+                    "title": "Population in the Labor Force in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population in the Labor Force in States of United States of America"
+            "title": "Population in the Labor Force in States of United States"
           },
           {
             "columns": [
@@ -207,7 +207,7 @@
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold_1926704588"
                     ],
-                    "title": "Total Number of People Residing in Households in United States of America",
+                    "title": "Total Number of People Residing in Households in United States",
                     "type": "LINE"
                   }
                 ]
@@ -215,11 +215,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Number of People Residing in Households in United States of America",
+                    "description": "Total Number of People Residing in Households in United States",
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold"
                     ],
-                    "title": "Total Number of People Residing in Households in United States of America",
+                    "title": "Total Number of People Residing in Households in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -284,7 +284,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -292,7 +292,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     }
   ],

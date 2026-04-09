@@ -849,56 +849,56 @@
       "AdministrativeArea2": [
         {
           "dcid": "wikidataId/Q100067",
-          "name": "Nawada district",
+          "name": "Nawada",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100077",
-          "name": "Patna district",
+          "name": "Patna",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100082",
-          "name": "Purnia district",
+          "name": "Purnia",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100085",
-          "name": "Rohtas district",
+          "name": "Rohtas",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100093",
-          "name": "Sheikhpura district",
+          "name": "Sheikhpura",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100095",
-          "name": "Sheohar district",
+          "name": "Sheohar",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100117",
-          "name": "Samastipur district",
+          "name": "Samastipur",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100120",
-          "name": "Saharsa district",
+          "name": "Saharsa",
           "types": [
             "AdministrativeArea2"
           ]
@@ -912,91 +912,91 @@
         },
         {
           "dcid": "wikidataId/Q100130",
-          "name": "Vaishali district",
+          "name": "Vaishali",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100131",
-          "name": "Siwan district",
+          "name": "Siwan",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100139",
-          "name": "Supaul district",
+          "name": "Supaul",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100144",
-          "name": "Sitamarhi district",
+          "name": "Sitamarhi",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100146",
-          "name": "Saran District",
+          "name": "Saran",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100152",
-          "name": "Bastar district",
+          "name": "Bastar",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100157",
-          "name": "Bilaspur district",
+          "name": "Bilaspur",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100164",
-          "name": "Bijapur District",
+          "name": "Bijapur",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100182",
-          "name": "Durg district",
+          "name": "Durg",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100190",
-          "name": "Dhamtari district",
+          "name": "Dhamtari",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q100211",
-          "name": "Dantewada district",
+          "name": "Dantewada",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q101088203",
-          "name": "Bajali district",
+          "name": "Bajali",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q1030918",
-          "name": "Malappuram district",
+          "name": "Malappuram",
           "types": [
             "AdministrativeArea2"
           ]
@@ -1010,7 +1010,7 @@
         },
         {
           "dcid": "wikidataId/Q1060614",
-          "name": "Chamba district",
+          "name": "Chamba",
           "types": [
             "AdministrativeArea2"
           ]
@@ -1024,21 +1024,21 @@
         },
         {
           "dcid": "wikidataId/Q1071494",
-          "name": "Amethi district",
+          "name": "Amethi",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q1072629",
-          "name": "Chikkaballapura district",
+          "name": "Chikkaballapura",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q1075011",
-          "name": "Chittorgarh district",
+          "name": "Chittorgarh",
           "types": [
             "AdministrativeArea2"
           ]
@@ -1059,42 +1059,42 @@
         },
         {
           "dcid": "wikidataId/Q107941",
-          "name": "Central Delhi district",
+          "name": "Central",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q107960",
-          "name": "East Delhi district",
+          "name": "East",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q108234",
-          "name": "North Goa district",
+          "name": "North Goa",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q108244",
-          "name": "South Goa District",
+          "name": "South Goa",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q108803704",
-          "name": "Pakyong district",
+          "name": "Pakyong",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q1090006",
-          "name": "Churu district",
+          "name": "Churu",
           "types": [
             "AdministrativeArea2"
           ]
@@ -1108,56 +1108,56 @@
         },
         {
           "dcid": "wikidataId/Q110442602",
-          "name": "Eastern West Khasi Hills district",
+          "name": "Eastern West Khasi Hills",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110661970",
-          "name": "Tamulpur district",
+          "name": "Tamulpur",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714850",
-          "name": "Alluri Sitharama Raju district",
+          "name": "Alluri Sitharama Raju",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714851",
-          "name": "Eluru district",
+          "name": "Eluru",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714853",
-          "name": "Tirupati district",
+          "name": "Tirupati",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714854",
-          "name": "Annamayya district",
+          "name": "Annamayya",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714856",
-          "name": "Parvathipuram Manyam district",
+          "name": "Parvathipuram Manyam",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714857",
-          "name": "Anakapalli district",
+          "name": "Anakapalli",
           "types": [
             "AdministrativeArea2"
           ]
@@ -1171,28 +1171,28 @@
         },
         {
           "dcid": "wikidataId/Q110714860",
-          "name": "Kakinada district",
+          "name": "Kakinada",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714861",
-          "name": "Nandyal district",
+          "name": "Nandyal",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714862",
-          "name": "Palnadu district",
+          "name": "Palnadu",
           "types": [
             "AdministrativeArea2"
           ]
         },
         {
           "dcid": "wikidataId/Q110714863",
-          "name": "Sri Sathya Sai district",
+          "name": "Sri Sathya Sai",
           "types": [
             "AdministrativeArea2"
           ]
