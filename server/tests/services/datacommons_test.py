@@ -250,11 +250,12 @@ class TestServiceDataCommonsResolveIndicator(unittest.TestCase):
 
     def side_effect(url, data, headers=None):
       assert url.endswith("/v2/resolve")
-      self.assertEqual(data, {
-          "nodes": ["foo", "bar"],
-          "property": "<-description->dcid",
-          "resolver": "indicator"
-      })
+      self.assertEqual(
+          data, {
+              "nodes": ["foo", "bar"],
+              "property": "<-description->dcid",
+              "resolver": "indicator"
+          })
       return {}
 
     mock_post.side_effect = side_effect

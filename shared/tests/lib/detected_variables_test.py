@@ -95,27 +95,24 @@ _MULTI_SV = {
     }]
 }
 
-
 _RESOLVE_ENTITY = {
-    "node": "Alcohol Establishments",
-    "candidates": [
-        {
-            "dcid": "dc/topic/AlcoholIndustry",
-            "metadata": {
-                "score": "0.7859",
-                "sentence": "Alcohol Industry"
-            },
-            "typeOf": ["Topic"]
+    "node":
+        "Alcohol Establishments",
+    "candidates": [{
+        "dcid": "dc/topic/AlcoholIndustry",
+        "metadata": {
+            "score": "0.7859",
+            "sentence": "Alcohol Industry"
         },
-        {
-            "dcid": "Count_Establishment",
-            "metadata": {
-                "score": "xyz",
-                "sentence": "Count of Establishment"
-            },
-            "typeOf": ["StatisticalVariable"]
-        }
-    ]
+        "typeOf": ["Topic"]
+    }, {
+        "dcid": "Count_Establishment",
+        "metadata": {
+            "score": "xyz",
+            "sentence": "Count of Establishment"
+        },
+        "typeOf": ["StatisticalVariable"]
+    }]
 }
 
 
@@ -129,7 +126,9 @@ class TestDetectedVariables(unittest.TestCase):
 
   def test_resolve_entity_to_var_candidates(self):
     res = vars.resolve_entity_to_var_candidates(_RESOLVE_ENTITY)
-    self.assertEqual(res.svs, ["dc/topic/AlcoholIndustry", "Count_Establishment"])
+    self.assertEqual(res.svs,
+                     ["dc/topic/AlcoholIndustry", "Count_Establishment"])
     self.assertEqual(res.scores, [0.7859, 0.0])
-    self.assertEqual(res.sv2sentences["dc/topic/AlcoholIndustry"][0].sentence, "Alcohol Industry")
+    self.assertEqual(res.sv2sentences["dc/topic/AlcoholIndustry"][0].sentence,
+                     "Alcohol Industry")
     self.assertEqual(res.sv2sentences["Count_Establishment"][0].score, 0.0)
