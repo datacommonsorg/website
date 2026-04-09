@@ -43,7 +43,7 @@ def render_chart():
   # Set allowed url values
   # We want to allow only datacommons urls with /chart endpoints to be passed in
   # Hostname changes based on current config (local vs autopush/prod)
-  url_regex = r"^https?://([^/]+\.)?datacommons\.org/chart.*"
+  url_regex = r"^https?://([a-zA-Z0-9-]+\.)*datacommons\.org/chart.*"
   if current_app.config['LOCAL']:
     url_regex = r"^http://(127\.0\.0\.1|localhost):8080/chart.*"
 
