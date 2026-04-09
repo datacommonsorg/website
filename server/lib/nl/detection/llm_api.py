@@ -100,8 +100,7 @@ def detect_with_gemini(query: str, history: List[List[str]],
     config = types.GenerateContentConfig(
         temperature=_TEMPERATURE,
         safety_settings=_GEMINI_CONFIG.safety_settings,
-        thinking_config=types.ThinkingConfig(thinking_level="low")
-    )
+        thinking_config=types.ThinkingConfig(thinking_level="low"))
   else:
     config = _GEMINI_CONFIG
 
