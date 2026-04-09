@@ -96,9 +96,18 @@ def detect_with_gemini(query: str, history: List[List[str]],
       'gemini_model',
       f'{api_version}/{model_name}',
   )
+  if "gemini-3" in model_name:
+    config = types.GenerateContentConfig(
+        temperature=_TEMPERATURE,
+        safety_settings=_GEMINI_CONFIG.safety_settings,
+        thinking_config=types.ThinkingConfig(thinking_level="low")
+    )
+  else:
+    config = _GEMINI_CONFIG
+
   gemini_response = gemini_client.models.generate_content(model=model_name,
                                                           contents=text,
-                                                          config=_GEMINI_CONFIG)
+                                                          config=config)
 
   ctr.timeit('gemini_pro_call', start_time)
 

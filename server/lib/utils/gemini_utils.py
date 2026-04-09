@@ -42,6 +42,8 @@ def call_gemini(
       "response_mime_type": "application/json",
       "response_schema": schema
   } if schema else {}
+  if "gemini-3" in gemini_model:
+    generate_content_config["thinking_config"] = genai.types.ThinkingConfig(thinking_level="low")
   gemini = genai.Client(api_key=api_key)
 
   try:
