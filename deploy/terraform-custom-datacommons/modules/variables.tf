@@ -149,6 +149,32 @@ variable "mysql_deletion_protection" {
   default     = false
 }
 
+#  Data Commons Cloud Run job variables
+
+variable "dc_data_job_image" {
+  description = "The container image for the data job"
+  type        = string
+  default     = "gcr.io/datcom-ci/datacommons-data:stable"
+}
+
+variable "dc_data_job_cpu" {
+  description = "CPU limit for the Data Commons data loading job"
+  type        = string
+  default     = "2"
+}
+
+variable "dc_data_job_memory" {
+  description = "Memory limit for the Data Commons data loading job"
+  type        = string
+  default     = "8G"
+}
+
+variable "dc_data_job_timeout" {
+  description = "Timeout for the Data Commons data loading job"
+  type        = string
+  default     = "600s"
+}
+
 # Data Commons Cloud Run service variables
 
 variable "dc_web_service_image" {
@@ -187,24 +213,6 @@ variable "make_dc_web_service_public" {
   default     = true
 }
 
-variable "dc_data_job_cpu" {
-  description = "CPU limit for the Data Commons data loading job"
-  type        = string
-  default     = "2"
-}
-
-variable "dc_data_job_memory" {
-  description = "Memory limit for the Data Commons data loading job"
-  type        = string
-  default     = "8G"
-}
-
-variable "dc_data_job_timeout" {
-  description = "Timeout for the Data Commons data loading job"
-  type        = string
-  default     = "600s"
-}
-
 # Valid values are "base_and_custom" and "custom_only"
 variable "dc_search_scope" {
   description = "Scope for MCP search indicators"
@@ -222,14 +230,6 @@ variable "dc_instructions_dir" {
   description = "GCS bucket and directory containing custom MCP instructions Markdown files"
   type        = string
   default     = ""
-}
-
-#  Data Commons Cloud Run job variables
-
-variable "dc_data_job_image" {
-  description = "The container image for the data job"
-  type        = string
-  default     = "gcr.io/datcom-ci/datacommons-data:stable"
 }
 
 # Data Commons Cloud VPC Network variables
