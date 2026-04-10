@@ -168,7 +168,7 @@ def extend_svs(svs: List[str]):
       all_child_svs.extend([
           c['id']
           for c in children
-          if 'id' in c  # and not c['id'].startswith("WHO/")
+          if 'id' in c
       ])
 
     sv_definitions = dc.get_variable_definitions(all_child_svs)

@@ -63,7 +63,7 @@ def _get_descendant_sv_nodes(
       if not (info := data.get("info")):
         continue
       for child_sv in info.get("childStatVars", []):
-        if 'id' in child_sv:  # and not child_sv['id'].startswith("WHO/"):
+        if 'id' in child_sv:
           all_child_svs.append(child_sv['id'])
     sv_definitions = dc.get_variable_definitions(all_child_svs)
 
