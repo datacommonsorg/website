@@ -110,6 +110,75 @@ class TestVariableExtension(unittest.TestCase):
     expected = [sv, "Count_Person_BelowPovertyLevelInThePast12Months_Male"]
     self.assertEqual(res[sv], expected)
 
+  @patch('server.lib.nl.common.variable.parse_svg')
+  @patch('server.lib.nl.common.variable.is_feature_enabled')
+  @patch('server.lib.fetch.property_values')
+  @patch('server.services.datacommons.get_variable_group_info')
+  @patch('server.services.datacommons.get_variable_definitions')
+  def test_extend_svs_indirect_siblings_v2(self, mock_get_variable_definitions,
+                                           mock_get_variable_group_info,
+                                           mock_property_values,
+                                           mock_is_feature_enabled,
+                                           mock_parse_svg):
+    mock_is_feature_enabled.return_value = True
+
+    # To trigger the indirect sibling traversal, the SVG properties must match the SV properties.
+    # The SV definition has 1 extra property ('gender'). We mock parse_svg to also return 1 property.
+    mock_parse_svg.return_value.pvs = {'dummy_prop': 'dummy_value'}
+
+    sv = "Count_Person_BelowPovertyLevelInThePast12Months_Female"
+    sibling_sv = "Count_Person_BelowPovertyLevelInThePast12Months_Male"
+
+    # We use more specific SVGs to trigger len(svg_obj.pvs) == len(sv_obj.pvs)
+    svg = "dc/g/Person_PovertyStatus_Female"
+    parent_svg = "dc/g/Person_PovertyStatus"
+    sibling_svg = "dc/g/Person_PovertyStatus_Male"
+
+    # Property values side effect to handle the multi-stage traversal
+    def property_values_side_effect(nodes, prop, out=True):
+      if prop == "memberOf" and out:
+        # Initial direct group lookup
+        return {sv: [svg]}
+      elif prop == "specializationOf" and out:
+        # Batch 1: Fetch parents
+        return {svg: [parent_svg]}
+      elif prop == "specializationOf" and not out:
+        # Batch 2: Fetch siblings for all parents
+        return {parent_svg: [svg, sibling_svg]}
+      return {}
+
+    mock_property_values.side_effect = property_values_side_effect
+
+    # Group info side effect to handle direct and sibling group requests
+    def group_info_side_effect(nodes, _):
+      data = []
+      if svg in nodes:
+        data.append({"node": svg, "info": {"childStatVars": [{"id": sv}]}})
+      if sibling_svg in nodes:
+        data.append({
+            "node": sibling_svg,
+            "info": {
+                "childStatVars": [{
+                    "id": sibling_sv
+                }]
+            }
+        })
+      return {"data": data}
+
+    mock_get_variable_group_info.side_effect = group_info_side_effect
+
+    # Mock get_variable_definitions for all encountered child SVs
+    mock_get_variable_definitions.return_value = {
+        sv: "pt=Person,mp=povertyStatus,st=count,gender=Female",
+        sibling_sv: "pt=Person,mp=povertyStatus,st=count,gender=Male"
+    }
+
+    res = variable.extend_svs([sv])
+
+    # Expected result: should successfully traverse parent -> sibling SVG -> sibling SV
+    expected = [sv, sibling_sv]
+    self.assertEqual(res[sv], expected)
+
 
 if __name__ == '__main__':
   unittest.main()
