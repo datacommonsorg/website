@@ -45,15 +45,17 @@ _MAX_MULTIVAR_PARTS = 2
 def _detect_vars_with_resolve(
     all_queries: List[str],
     debug_logs: Dict) -> tuple[Dict[str, vars.VarCandidates], float]:
-  """
-  Detects variables using the v2/resolve API.
+  """Detects variables using the v2/resolve API.
 
-  Args:
+  Args
+  ----
     all_queries: A list of query strings.
     debug_logs: A dictionary for logging debug information.
 
-  Returns:
+  Returns
+  -------
     A tuple containing the mapping of queries to candidates and the threshold.
+
   """
   resp = dc.resolve(nodes=all_queries, prop="", resolver="indicator")
   query2results = {}
@@ -71,16 +73,18 @@ def _detect_vars_with_resolve(
 def _detect_vars_with_nl_search(
     all_queries: List[str], dargs: DetectionArgs,
     debug_logs: Dict) -> tuple[Dict[str, vars.VarCandidates], float]:
-  """
-  Detects variables using the traditional nl_search_vars API.
+  """Detects variables using the traditional nl_search_vars API.
 
-  Args:
+  Args
+  ----
     all_queries: A list of query strings.
     dargs: Detection arguments including embedding indices and reranker.
     debug_logs: A dictionary for logging debug information.
 
-  Returns:
+  Returns
+  -------
     A tuple containing the mapping of queries to candidates and the threshold.
+
   """
   resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
                            dargs.reranker)
