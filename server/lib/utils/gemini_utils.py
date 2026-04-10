@@ -18,6 +18,19 @@ from typing import Optional, Union
 from google import genai
 from pydantic import BaseModel
 
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
+from server.lib.feature_flags import is_feature_enabled
+
+
+def get_gemini_config(schema: Optional[BaseModel] = None) -> dict:
+  config = {
+      "response_mime_type": "application/json",
+      "response_schema": schema
+  } if schema else {}
+  if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
+    config["thinking_config"] = genai.types.ThinkingConfig(thinking_level="low")
+  return config
+
 
 def call_gemini(
     api_key: str,
@@ -38,10 +51,7 @@ def call_gemini(
   if not api_key or not formatted_prompt:
     return None
 
-  generate_content_config = {
-      "response_mime_type": "application/json",
-      "response_schema": schema
-  } if schema else {}
+  generate_content_config = get_gemini_config(schema)
   gemini = genai.Client(api_key=api_key)
 
   try:
