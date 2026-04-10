@@ -1162,6 +1162,9 @@ function renderWebComponents(
             {...(tile.rankingTileSpec?.showMultiColumn
               ? { showMultiColumn: true }
               : {})}
+            {...(tile.rankingTileSpec?.showNextCount
+              ? { showNextCount: tile.rankingTileSpec.showNextCount }
+              : {})}
             className={className}
             {...(props.showExploreMore ? { showExploreMore: true } : {})}
             {...(tile.hideFooter ? { hideFooter: true } : {})}

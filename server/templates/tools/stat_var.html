@@ -27,6 +27,9 @@
 
 {% block content %}
   <div id="main-pane"></div>
+  <script>
+    globalThis.isSearchSupported = {{ is_search_supported | tojson }};
+  </script>
 {% endblock %}
 
 {% block footer %}

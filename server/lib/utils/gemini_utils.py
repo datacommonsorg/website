@@ -22,8 +22,8 @@ from pydantic import BaseModel
 def call_gemini(
     api_key: str,
     formatted_prompt: str,
-    schema: Optional[BaseModel] = None,
-    gemini_model: str = "gemini-2.5-flash") -> Optional[Union[BaseModel, str]]:
+    gemini_model: str,
+    schema: Optional[BaseModel] = None) -> Optional[Union[BaseModel, str]]:
   """A helper for all Gemini generations through the Python Gen AI client.
     Args:
         api_key: A string representing the API key required for authentication with the Gemini service.
