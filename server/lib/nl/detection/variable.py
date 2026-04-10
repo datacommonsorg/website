@@ -42,6 +42,34 @@ _MAX_MULTIVAR_PARTS = 2
 # calls the NL Server and returns a dict with both single-SV and multi-SV
 # (if relevant) detections.  For more details see create_sv_detection().
 #
+def _detect_vars_with_resolve(
+    all_queries: List[str],
+    debug_logs: Dict) -> tuple[Dict[str, vars.VarCandidates], float]:
+  resp = dc.resolve(nodes=all_queries, prop="", resolver="indicator")
+  query2results = {}
+  for entity in resp.get('entities', []):
+    node = entity.get('node')
+    if node in all_queries:
+      query2results[node] = vars.resolve_entity_to_var_candidates(entity)
+  for q in all_queries:
+    if q not in query2results:
+      query2results[q] = vars.VarCandidates(svs=[], scores=[], sv2sentences={})
+  debug_logs.update(resp.get('debugLogs', {}))
+  return query2results, 0.7
+
+
+def _detect_vars_with_nl_search(
+    all_queries: List[str], dargs: DetectionArgs,
+    debug_logs: Dict) -> tuple[Dict[str, vars.VarCandidates], float]:
+  resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
+                           dargs.reranker)
+  query2results = {
+      q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
+  }
+  debug_logs.update(resp.get('debugLogs', {}))
+  return query2results, resp['scoreThreshold']
+
+
 def detect_vars(orig_query: str, debug_logs: Dict,
                 dargs: DetectionArgs) -> vars.VarDetectionResult:
 
@@ -82,34 +110,11 @@ def detect_vars(orig_query: str, debug_logs: Dict,
   #
   # Make API call to the NL models/embeddings server.
   if is_feature_enabled(USE_V2_RESOLVE_FOR_NL_SEARCH_VARS):
-    resp = dc.resolve(nodes=all_queries,
-                      prop="<-description->dcid",
-                      resolver="indicator")
-    query2results = {}
-    # Assuming the order/nodes match the input queries or we can find by node string.
-    # v2/resolve returns a list of entities matching the input nodes.
-    for entity in resp.get('entities', []):
-      node = entity.get('node')
-      if node in all_queries:
-        query2results[node] = vars.resolve_entity_to_var_candidates(entity)
-    # Ensure every query has a result entry.
-    for q in all_queries:
-      if q not in query2results:
-        query2results[q] = vars.VarCandidates(svs=[],
-                                              scores=[],
-                                              sv2sentences={})
-    # Set a default threshold for resolve API candidates
-    model_threshold = 0.7
+    query2results, model_threshold = _detect_vars_with_resolve(
+        all_queries, debug_logs)
   else:
-    resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
-                             dargs.reranker)
-    query2results = {
-        q: vars.dict_to_var_candidates(r)
-        for q, r in resp['queryResults'].items()
-    }
-    model_threshold = resp['scoreThreshold']
-
-  debug_logs.update(resp.get('debugLogs', {}))
+    query2results, model_threshold = _detect_vars_with_nl_search(
+        all_queries, dargs, debug_logs)
 
   #
   # 3. Prepare result candidates.
