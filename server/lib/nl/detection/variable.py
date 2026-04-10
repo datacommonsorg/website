@@ -45,7 +45,8 @@ _MAX_MULTIVAR_PARTS = 2
 def _detect_vars_with_resolve(
     all_queries: List[str],
     debug_logs: Dict) -> tuple[Dict[str, vars.VarCandidates], float]:
-  """Detects variables using the v2/resolve API.
+  """
+  Detects variables using the v2/resolve API.
 
   Args
   ----
@@ -73,7 +74,8 @@ def _detect_vars_with_resolve(
 def _detect_vars_with_nl_search(
     all_queries: List[str], dargs: DetectionArgs,
     debug_logs: Dict) -> tuple[Dict[str, vars.VarCandidates], float]:
-  """Detects variables using the traditional nl_search_vars API.
+  """
+  Detects variables using the traditional nl_search_vars API.
 
   Args
   ----
