@@ -15,7 +15,6 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-import logging
 from typing import Dict, List, Set
 
 from flask import current_app
@@ -104,8 +103,8 @@ def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
   new_sv_obj = parse_sv(new_sv['id'], new_sv['definition'])
   if new_sv_obj.mp != sv_obj.mp:
     return False
-  st_obj = sv_obj.st if sv_obj.st else "measuredValue"
-  st_new = new_sv_obj.st if new_sv_obj.st else "measuredValue"
+  st_obj = sv_obj.st if sv_obj.st else constants.DEFAULT_STAT_TYPE
+  st_new = new_sv_obj.st if new_sv_obj.st else constants.DEFAULT_STAT_TYPE
   if st_new != st_obj:
     return False
   if new_sv_obj.pt != sv_obj.pt:
@@ -165,11 +164,7 @@ def extend_svs(svs: List[str]):
   if use_v2:
     all_child_svs = []
     for children in svg2childsvs.values():
-      all_child_svs.extend([
-          c['id']
-          for c in children
-          if 'id' in c
-      ])
+      all_child_svs.extend(c['id'] for c in children if 'id' in c)
 
     sv_definitions = dc.get_variable_definitions(all_child_svs)
 
@@ -208,7 +203,7 @@ def extend_svs(svs: List[str]):
       svs_needing_indirect.append(sv)
 
   # Batch 1: Fetch parents for all identified SVGs
-  svgs_to_expand = [sv2svg[sv] for sv in svs_needing_indirect]
+  svgs_to_expand = list({sv2svg[sv] for sv in svs_needing_indirect})
   parents_resp = {}
   if svgs_to_expand:
     parents_resp = fetch.property_values(svgs_to_expand, "specializationOf",

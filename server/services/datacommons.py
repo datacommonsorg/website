@@ -411,7 +411,6 @@ def get_variable_definitions(nodes: List[str],
 
   result = {}
 
-  import time
   for i in range(0, len(nodes), batch_size):
     chunk = nodes[i:i + batch_size]
 
