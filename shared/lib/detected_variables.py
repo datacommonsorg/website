@@ -100,13 +100,14 @@ def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
 
 
 def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
-  """Converts an entity dictionary from v2/resolve response into VarCandidates.
+  """
+  Converts an entity dictionary from v2/resolve response into VarCandidates.
 
   Args:
-    entity: A dictionary containing a list of candidate variables.
+    entity: A dictionary containing a list of candidate variables
 
   Returns:
-    A VarCandidates object containing the parsed candidates and scores.
+    A VarCandidates object containing the parsed candidates and scores
   """
   svs = []
   scores = []
