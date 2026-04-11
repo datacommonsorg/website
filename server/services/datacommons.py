@@ -381,7 +381,10 @@ def get_variable_group_info(nodes: List[str],
                             entities: List[str],
                             numEntitiesExistence=1) -> Dict:
   """Gets the stat var group node information."""
-  url = get_service_url("/v1/bulk/info/variable-group")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/bulk/info/variable-group")
+  else:
+    url = get_service_url("/v1/bulk/info/variable-group")
   req_dict = {
       "nodes": nodes,
       "constrained_entities": entities,
