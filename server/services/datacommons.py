@@ -763,15 +763,16 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop):
+def resolve(nodes, prop, resolver="place"):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
+        resolver: The resolver to use (default: "place").
     """
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop})
+  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
 
 
 def nl_search_vars(
