@@ -441,7 +441,7 @@ def get_variable_definitions(nodes: List[str],
 
     # Step 2: Fetch the specific constraint properties for this chunk
     if chunk_constraint_props:
-      prop_expr2 = f"->[{','.join(sorted(list(chunk_constraint_props)))}]"
+      prop_expr2 = f"->[{','.join(sorted(chunk_constraint_props))}]"
       resp2 = v2node_paginated(chunk, prop_expr2, max_pages=None)
       data2 = resp2.get("data", {})
       for node, node_arcs in data2.items():
