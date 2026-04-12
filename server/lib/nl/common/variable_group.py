@@ -23,17 +23,30 @@ import server.services.datacommons as dc
 # A few limits to make sure we don't blow up.
 MAX_SVGS_IN_CALL = 50
 MAX_SVG_LEVELS = 5
+# Cap the number of variables collected in V2 to avoid excessive API calls
+# for broad topics that expand into thousands of variables.
+MAX_V2_SVS = 500
 
 
 # Given a list of StatVarGroups, open them up into variables.
 def open_svgs(svgroups: list[str]) -> dict[str, variable.SV]:
   """Returns a dictionary of the descendant SV nodes keyed by dcid."""
-  return _get_descendant_sv_nodes(sorted(svgroups),
-                                  processed_groups=set(),
-                                  level=0)
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  disable_limit = request.args.get("disable_v2_limit") == "true"
+
+  if not use_v2:
+    return _open_svgs_v1(svgroups)
+  else:
+    return _open_svgs_v2(svgroups, disable_limit=disable_limit)
 
 
-def _get_descendant_sv_nodes(
+def _open_svgs_v1(svgroups: list[str]) -> dict[str, variable.SV]:
+  return _get_descendant_sv_nodes_v1(sorted(svgroups),
+                                           processed_groups=set(),
+                                           level=0)
+
+
+def _get_descendant_sv_nodes_v1(
     groups_to_open: list[str],
     processed_groups: set,
     level: int = 0,
@@ -91,6 +104,73 @@ def _get_descendant_sv_nodes(
 
   if recurse_groups and level <= MAX_SVG_LEVELS:
     sv_nodes.update(
-        _get_descendant_sv_nodes(sorted(list(recurse_groups)), processed_groups,
-                                 level + 1))
+        _get_descendant_sv_nodes_v1(sorted(list(recurse_groups)),
+                                          processed_groups, level + 1))
   return sv_nodes
+
+
+def _open_svgs_v2(svgroups: list[str],
+                  disable_limit: bool = False) -> dict[str, variable.SV]:
+  # 1. Traverse the hierarchy to collect all descendant variable DCIDs.
+  sv_defns = {}
+  _get_descendant_sv_dcids_v2(sorted(svgroups),
+                              processed_groups=set(),
+                              sv_defns=sv_defns,
+                              level=0,
+                              disable_limit=disable_limit)
+
+  # 2. Batch fetch definitions for all discovered variables.
+  if sv_defns:
+    v2_defns = dc.get_variable_definitions(list(sv_defns.keys()))
+    sv_defns.update(v2_defns)
+
+  # 3. Parse all SVs
+  sv_nodes = {}
+  for sv_dcid, defn in sv_defns.items():
+    sv_nodes[sv_dcid] = variable.parse_sv(sv_dcid, defn)
+
+  return sv_nodes
+
+
+def _get_descendant_sv_dcids_v2(
+    groups_to_open: list[str],
+    processed_groups: set,
+    sv_defns: dict[str, str],
+    level: int = 0,
+    disable_limit: bool = False,
+) -> None:
+  if not disable_limit and len(sv_defns) >= MAX_V2_SVS:
+    return
+  if not groups_to_open:
+    return
+
+  resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [])
+
+  recurse_groups = set()
+  for data in resp.get("data", []):
+    if not (group_dcid := data.get("node")) or group_dcid in processed_groups:
+      continue
+    processed_groups.add(group_dcid)
+    if not (info := data.get("info")):
+      continue
+
+    for child_sv in info.get("childStatVars", []):
+      if not (child_sv_dcid := child_sv.get("id")):
+        continue
+      sv_defns[child_sv_dcid] = child_sv.get("definition", "")
+      if not disable_limit and len(sv_defns) >= MAX_V2_SVS:
+        return
+
+    for child_group in info.get("childStatVarGroups", []):
+      if (not (child_group_dcid := child_group.get("id")) or
+          child_group_dcid in processed_groups):
+        continue
+      recurse_groups.add(child_group_dcid)
+
+  if recurse_groups and level <= MAX_SVG_LEVELS and (
+      disable_limit or len(sv_defns) < MAX_V2_SVS):
+    _get_descendant_sv_dcids_v2(sorted(list(recurse_groups)),
+                                processed_groups,
+                                sv_defns,
+                                level + 1,
+                                disable_limit=disable_limit)
