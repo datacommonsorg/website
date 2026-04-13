@@ -18,6 +18,7 @@ import axios from "axios";
 import React from "react";
 
 import { StatVarSearchResult } from "../shared/types";
+import { extractFlagsToPropagate } from "../shared/util";
 
 /**
  * Given a query for a list of entities, returns a promise with stat vars and
@@ -36,7 +37,11 @@ export function getStatVarSearchResults(
     svOnly,
     limit,
   };
-  return axios.post(url, payload).then((resp) => {
+  const flags = extractFlagsToPropagate(window.location.href);
+  const config = {
+    params: Object.fromEntries(flags.entries()),
+  };
+  return axios.post(url, payload, config).then((resp) => {
     const data = resp.data;
     return {
       matches: data.matches || [],
@@ -54,10 +59,11 @@ export function getStatVarSearchResults(
  */
 export function getHighlightedJSX(
   id: string,
-  s: string,
+  s: string | null | undefined,
   matches: string[]
 ): JSX.Element {
-  let prevResult = [s];
+  const textToHighlight = s || id;
+  let prevResult = [textToHighlight];
   let currResult = [];
   matches.sort((a, b) => b.length - a.length);
   // Escape any invalid symbols in the returned matches
