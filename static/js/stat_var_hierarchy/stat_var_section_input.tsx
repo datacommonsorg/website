@@ -25,6 +25,7 @@ import React from "react";
 
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
+import { isFeatureEnabled } from "../shared/feature_flags/util";
 import {
   RADIO_BUTTON_TYPES,
   StatVarHierarchyType,
@@ -228,7 +229,7 @@ export class StatVarSectionInput extends React.Component<
     html += hasData
       ? ""
       : "This statistical variable has no data for any of the chosen places.";
-    if (_.isEmpty(this.props.summary)) {
+    if (_.isEmpty(this.props.summary) || isFeatureEnabled("use_v2_api")) {
       return html;
     }
     const placeTypeToPlaceNames = this.getAvailablePlaceTypesAndExamples();
