@@ -58,8 +58,10 @@ import {
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector/facet_selector";
 import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
+import { useFacetEnrichment } from "../../shared/hooks/use_facet_enrichment";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {
+  enrichFacetChoices,
   fetchFacetChoices,
   fetchFacetChoicesWithin,
 } from "../../tools/shared/facet_choice_fetcher";
@@ -439,6 +441,55 @@ export function Block(props: BlockPropType): ReactElement {
     error: facetsError,
   } = usePromiseResolver(fetchFacets);
 
+  const facetListCacheKey = `${props.place.dcid}-${
+    props.enclosedPlaceType
+  }-${JSON.stringify(blockSVs.map((sv) => sv.statVar))}`;
+  const {
+    enrichedFacetList,
+    loading: enrichmentLoading,
+    onModalOpen: onFacetSelectorOpen,
+  } = useFacetEnrichment(
+    facetListCacheKey,
+    useCallback(async () => {
+      const isWithinPlaceFetch = determineWithinPlaceFetch(props.columns);
+      let enriched = null;
+      if (isWithinPlaceFetch) {
+        const base = await fetchFacetChoicesWithin(
+          props.place.dcid,
+          props.enclosedPlaceType,
+          blockSVs.map((sv) => ({
+            dcid: sv.statVar,
+            name: sv.name,
+            date: sv.date,
+          }))
+        );
+        enriched = await enrichFacetChoices(base, {
+          parentPlace: props.place.dcid,
+          enclosedPlaceType: props.enclosedPlaceType,
+        });
+      } else {
+        const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+        const placeDcids = new Set<string>([props.place.dcid]);
+        allTiles.forEach((tile) => {
+          if (tile.placeDcidOverride) {
+            placeDcids.add(tile.placeDcidOverride);
+          }
+          getComparisonPlaces(tile, props.place)?.forEach((p) =>
+            placeDcids.add(p)
+          );
+        });
+        const base = await fetchFacetChoices(
+          Array.from(placeDcids),
+          blockSVs.map((sv) => ({ dcid: sv.statVar, name: sv.name }))
+        );
+        enriched = await enrichFacetChoices(base, {
+          entities: Array.from(placeDcids),
+        });
+      }
+      return enriched;
+    }, [blockSVs, props.columns, props.enclosedPlaceType, props.place])
+  );
+
   const onSvFacetIdUpdated = useCallback(
     (svFacetId: Record<string, string>): void => {
       setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
@@ -528,12 +579,13 @@ export function Block(props: BlockPropType): ReactElement {
             <FacetSelector
               facetSelector={props.facetSelector}
               svFacetId={facetOverrides}
-              facetList={facetList}
-              loading={facetsLoading}
+              facetList={enrichedFacetList || facetList}
+              loading={facetsLoading || enrichmentLoading}
               error={!!facetsError}
               onSvFacetIdUpdated={onSvFacetIdUpdated}
               variant="inline"
               allowSelectionGrouping={shouldGroupFacetSelections}
+              onModalOpen={onFacetSelectorOpen}
             />
           </div>
         )}

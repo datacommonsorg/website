@@ -17,7 +17,13 @@
 import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { FormBox } from "../../components/form_components/form_box";
@@ -32,16 +38,17 @@ import {
   FacetSelector,
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector/facet_selector";
+import { useFacetEnrichment } from "../../shared/hooks/use_facet_enrichment";
 import { PointAllApiResponse } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import theme from "../../theme/theme";
+import { enrichFacetChoices } from "../../tools/shared/facet_choice_fetcher";
 import { stringifyFn } from "../../utils/axios";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse } from "../../utils/data_fetch_utils";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
-import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
 import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
 import { Info, InfoPlace } from "./info";
 import { Preview } from "./preview";
@@ -106,6 +113,7 @@ export function Page(props: PagePropType): ReactElement {
   const [facetList, setFacetList] = useState<FacetSelectorFacetInfo[] | null>(
     null
   );
+
   const [facetLoading, setFacetLoading] = useState(false);
   const [facetError, setFacetError] = useState(false);
   // request object used to get facetList
@@ -186,17 +194,12 @@ export function Page(props: PagePropType): ReactElement {
           }
         }
 
-        const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
-          parentPlace: selectedOptions.selectedPlace.dcid,
-          enclosedPlaceType: selectedOptions.enclosedPlaceType,
-        });
-
         const sourceSelectorFacetList = [];
-        for (const sv in enrichedFacets) {
+        for (const sv in baseFacets) {
           if (selectedOptions.selectedStatVars[sv]) {
             sourceSelectorFacetList.push({
               dcid: sv,
-              metadataMap: enrichedFacets[sv],
+              metadataMap: baseFacets[sv],
               name: selectedOptions.selectedStatVars[sv].title || sv,
             });
           }
@@ -210,6 +213,22 @@ export function Page(props: PagePropType): ReactElement {
         setFacetLoading(false);
       });
   }, [selectedOptions, dataCommonsClient]);
+
+  const facetListCacheKey = `${selectedOptions.selectedPlace.dcid}-${selectedOptions.enclosedPlaceType}`;
+  const {
+    enrichedFacetList,
+    loading: enrichmentLoading,
+    onModalOpen,
+  } = useFacetEnrichment(
+    facetListCacheKey,
+    useCallback(async () => {
+      if (!facetList) return [];
+      return enrichFacetChoices(facetList, {
+        parentPlace: selectedOptions.selectedPlace.dcid,
+        enclosedPlaceType: selectedOptions.enclosedPlaceType,
+      });
+    }, [facetList, selectedOptions])
+  );
 
   if (!selectedOptions || !validationErrors) {
     return <></>;
@@ -412,14 +431,15 @@ export function Page(props: PagePropType): ReactElement {
                 <FacetSelector
                   mode="download"
                   svFacetId={selectedOptions.selectedFacets}
-                  facetList={facetList}
-                  loading={facetLoading}
+                  facetList={enrichedFacetList || facetList}
+                  loading={facetLoading || enrichmentLoading}
                   error={facetError}
                   onSvFacetIdUpdated={(svFacetId): void => {
                     setSelectedOptions((prev) => {
                       return { ...prev, selectedFacets: svFacetId };
                     });
                   }}
+                  onModalOpen={onModalOpen}
                 />
               </div>
             )}

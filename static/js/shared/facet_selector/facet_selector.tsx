@@ -102,6 +102,8 @@ interface FacetSelectorProps {
   // useInjectedFacet
   useInjectedFacet?: boolean;
   setUseInjectedFacet?: (useInjectedFacet: boolean) => void;
+  // Callback function that is run when the modal is opened to allow on-demand enrichment
+  onModalOpen?: () => void;
 }
 
 /**
@@ -202,13 +204,13 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
   }, [finalFacetList]);
 
   const hasAlternativeSources = useMemo(() => {
-    if (loading || !finalFacetList) {
+    if (!finalFacetList) {
       return false;
     }
     return finalFacetList.some(
       (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
     );
-  }, [finalFacetList, loading]);
+  }, [finalFacetList]);
 
   function areFacetsConsistent(
     facetList: FacetSelectorFacetInfo[] | null
@@ -253,12 +255,17 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
         className={`${SELECTOR_PREFIX}-open-modal-button`}
         variant={`${variant === "inline" ? "text" : "flat"}`}
         size="sm"
-        onClick={(): void => setModalOpen(true)}
+        onClick={(): void => {
+          setModalOpen(true);
+          if (props.onModalOpen) {
+            props.onModalOpen();
+          }
+        }}
         disabled={loading}
         css={css`
           ${variant === "small" ? "font-size: 13px;" : ""}
           flex-shrink: 0;
-          visibility: ${loading ? "hidden" : "visible"};
+          visibility: ${loading && !finalFacetList ? "hidden" : "visible"};
           ${variant === "inline" ? "padding: 0;" : ""}
           &:hover:not(:disabled):not([aria-disabled]) {
             ${variant === "inline"
@@ -351,18 +358,20 @@ function FacetSelectorModal(
   const [modalSelections, setModalSelections] = useState(svFacetId);
 
   useEffect(() => {
-    const injectedFacetId = useInjectedFacet
-      ? findMatchingFacets(facetList[0]["metadataMap"], props?.facetSelector)
-      : undefined;
-    if (!_.isEmpty(injectedFacetId)) {
-      setModalSelections({ [facetList[0]["dcid"]]: injectedFacetId[0] });
+    const firstFacet = facetList && facetList.length > 0 ? facetList[0] : null;
+    const injectedFacetId =
+      useInjectedFacet && firstFacet
+        ? findMatchingFacets(firstFacet["metadataMap"], props?.facetSelector)
+        : undefined;
+    if (!_.isEmpty(injectedFacetId) && firstFacet) {
+      setModalSelections({ [firstFacet["dcid"]]: injectedFacetId[0] });
     }
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
     if (!open && !useInjectedFacet) {
       setModalSelections(svFacetId);
     }
-  }, [svFacetId, open]);
+  }, [svFacetId, open, facetList, props?.facetSelector, useInjectedFacet]);
 
   const handleSelectionChange = (
     clickedDcid: string,
