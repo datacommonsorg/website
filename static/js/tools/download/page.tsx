@@ -214,7 +214,9 @@ export function Page(props: PagePropType): ReactElement {
       });
   }, [selectedOptions, dataCommonsClient]);
 
-  const facetListCacheKey = `${selectedOptions.selectedPlace.dcid}-${selectedOptions.enclosedPlaceType}`;
+  const facetListCacheKey = selectedOptions
+    ? `${selectedOptions.selectedPlace.dcid}-${selectedOptions.enclosedPlaceType}`
+    : "";
   const {
     facetList: enrichedFacetList,
     loading: enrichmentLoading,
