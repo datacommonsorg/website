@@ -77,6 +77,10 @@ serviceGroups:
     replicas: 4
   observation:
     replicas: 4
+    resources:
+      memoryRequest: "4Gi"
+      memoryLimit: "8Gi"
+      cpuRequest: "100m"
   default:
     replicas: 4
 

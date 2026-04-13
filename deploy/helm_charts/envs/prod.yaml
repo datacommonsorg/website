@@ -69,7 +69,11 @@ serviceGroups:
   svg:
     replicas: 10
   observation:
-    replicas: 100
+    replicas: 30
+    resources:
+      memoryRequest: "4Gi"
+      memoryLimit: "8Gi"
+      cpuRequest: "100m"
   node:
     replicas: 100
   default:
