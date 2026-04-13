@@ -42,8 +42,8 @@ def open_svgs(svgroups: list[str]) -> dict[str, variable.SV]:
 
 def _open_svgs_v1(svgroups: list[str]) -> dict[str, variable.SV]:
   return _get_descendant_sv_nodes_v1(sorted(svgroups),
-                                           processed_groups=set(),
-                                           level=0)
+                                     processed_groups=set(),
+                                     level=0)
 
 
 def _get_descendant_sv_nodes_v1(
@@ -68,18 +68,6 @@ def _get_descendant_sv_nodes_v1(
   # of the inital groups is visited.
   resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [])
 
-  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
-  sv_definitions = {}
-  if use_v2:
-    all_child_svs = []
-    for data in resp.get("data", []):
-      if not (info := data.get("info")):
-        continue
-      for child_sv in info.get("childStatVars", []):
-        if 'id' in child_sv:
-          all_child_svs.append(child_sv['id'])
-    sv_definitions = dc.get_variable_definitions(all_child_svs)
-
   sv_nodes = {}
   recurse_groups = set()
   for data in resp.get("data", []):
@@ -93,7 +81,7 @@ def _get_descendant_sv_nodes_v1(
     for child_sv in info.get("childStatVars", []):
       if not (child_sv_dcid := child_sv.get("id")):
         continue
-      defn = sv_definitions.get(child_sv_dcid, child_sv.get("definition", ""))
+      defn = child_sv.get("definition", "")
       sv_nodes[child_sv_dcid] = variable.parse_sv(child_sv_dcid, defn)
 
     for child_group in info.get("childStatVarGroups", []):
@@ -105,7 +93,7 @@ def _get_descendant_sv_nodes_v1(
   if recurse_groups and level <= MAX_SVG_LEVELS:
     sv_nodes.update(
         _get_descendant_sv_nodes_v1(sorted(list(recurse_groups)),
-                                          processed_groups, level + 1))
+                                    processed_groups, level + 1))
   return sv_nodes
 
 
