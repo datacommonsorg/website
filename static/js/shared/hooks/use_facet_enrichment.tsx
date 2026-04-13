@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { FacetSelectorFacetInfo } from "../facet_selector/facet_selector";
 
 export interface FacetEnrichmentResult {
   /**
-   * The list of facets with enriched metadata, or null if not yet fetched.
+   * The list of facets, falling back to base facets if not yet enriched.
    */
-  enrichedFacetList: FacetSelectorFacetInfo[] | null;
+  facetList: FacetSelectorFacetInfo[] | null;
   /**
    * Whether the enrichment fetch is currently in progress.
    */
@@ -31,6 +31,10 @@ export interface FacetEnrichmentResult {
    * Callback to trigger the enrichment fetch, typically called when the facet selector modal opens.
    */
   onModalOpen: () => void;
+  /**
+   * The total number of available facets
+   */
+  totalFacetCount: number;
 }
 
 /**
@@ -43,6 +47,7 @@ export interface FacetEnrichmentResult {
  */
 export function useFacetEnrichment(
   facetListCacheKey: string,
+  baseFacets: FacetSelectorFacetInfo[] | null,
   fetchFn: () => Promise<FacetSelectorFacetInfo[]>
 ): FacetEnrichmentResult {
   const [enrichedFacetList, setEnrichedFacetList] = useState<
@@ -71,5 +76,20 @@ export function useFacetEnrichment(
     }
   }, [fetchFn, enrichedFacetList, loading]);
 
-  return { enrichedFacetList, loading, onModalOpen };
+  const totalFacetCount = useMemo(() => {
+    if (!baseFacets) return 0;
+    const uniqueFacetIds = new Set<string>();
+    baseFacets.forEach((facetInfo) => {
+      Object.keys(facetInfo.metadataMap).forEach((facetId) => {
+        if (facetId !== "") {
+          uniqueFacetIds.add(facetId);
+        }
+      });
+    });
+    return uniqueFacetIds.size;
+  }, [baseFacets]);
+
+  const facetList = enrichedFacetList || baseFacets;
+
+  return { facetList, loading, onModalOpen, totalFacetCount };
 }

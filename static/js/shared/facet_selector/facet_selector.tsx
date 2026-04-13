@@ -88,6 +88,8 @@ interface FacetSelectorProps {
   loading: boolean;
   // An error message to display if the fetch fails
   error: boolean;
+  // The total number of facets available
+  totalFacetCount?: number;
   // Callback function that is run when new facets are selected
   onSvFacetIdUpdated: (
     svFacetId: Record<string, string>,
@@ -102,7 +104,7 @@ interface FacetSelectorProps {
   // useInjectedFacet
   useInjectedFacet?: boolean;
   setUseInjectedFacet?: (useInjectedFacet: boolean) => void;
-  // Callback function that is run when the modal is opened to allow on-demand enrichment
+  // Callback function that is run when the modal is opened to enrich facets with metadata
   onModalOpen?: () => void;
 }
 
@@ -204,13 +206,16 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
   }, [finalFacetList]);
 
   const hasAlternativeSources = useMemo(() => {
+    if (props.totalFacetCount !== undefined) {
+      return props.totalFacetCount > 1;
+    }
     if (!finalFacetList) {
       return false;
     }
     return finalFacetList.some(
       (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
     );
-  }, [finalFacetList]);
+  }, [finalFacetList, props.totalFacetCount]);
 
   function areFacetsConsistent(
     facetList: FacetSelectorFacetInfo[] | null

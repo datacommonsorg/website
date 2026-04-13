@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { FacetResponse } from "../../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";
@@ -31,6 +31,8 @@ type FacetMetadataReturn = {
   facetListLoading: boolean;
   // true if the metadata fetch failed
   facetListError: boolean;
+  // Callback function that is run when the modal is opened to enrich facets with metadata
+  onFacetSelectorModalOpen: () => void;
 };
 
 /**
@@ -50,9 +52,9 @@ export function useFacetMetadata(
   } = {},
   surface?: string
 ): FacetMetadataReturn {
-  const [facetMetadata, setFacetMetadata] = useState<FacetMetadataReturn>({
+  const [facetMetadata, setFacetMetadata] = useState({
     facetSelectorMetadata: {},
-    facetListLoading: !_.isEmpty(baseFacets),
+    facetListLoading: false,
     facetListError: false,
   });
 
@@ -60,54 +62,60 @@ export function useFacetMetadata(
   const { entities, parentPlace, enclosedPlaceType } = entityContext;
   const entitiesString = entities?.join(",");
 
+  // Reset state when baseFacets change
   useEffect(() => {
-    if (_.isEmpty(baseFacets)) return;
+    setFacetMetadata({
+      facetSelectorMetadata: {},
+      facetListLoading: false,
+      facetListError: false,
+    });
+  }, [baseFacets]);
 
-    let cancelled = false;
+  const onModalOpen = useCallback(async () => {
+    if (
+      _.isEmpty(baseFacets) ||
+      !_.isEmpty(facetMetadata.facetSelectorMetadata) ||
+      facetMetadata.facetListLoading
+    ) {
+      return;
+    }
 
-    const fetchMetadata = async (): Promise<void> => {
-      setFacetMetadata((currentFacetMetadata) => ({
-        ...currentFacetMetadata,
-        facetListLoading: true,
-      }));
+    setFacetMetadata((current) => ({ ...current, facetListLoading: true }));
 
-      try {
-        // Pass the extracted values back into the fetcher
-        const resp = await fetchFacetsWithMetadata(
-          baseFacets,
-          {
-            entities: entitiesString ? entitiesString.split(",") : undefined,
-            parentPlace,
-            enclosedPlaceType,
-          },
-          "",
-          surface
-        );
+    try {
+      const resp = await fetchFacetsWithMetadata(
+        baseFacets,
+        {
+          entities: entitiesString ? entitiesString.split(",") : undefined,
+          parentPlace,
+          enclosedPlaceType,
+        },
+        "",
+        surface
+      );
 
-        if (cancelled) return;
+      setFacetMetadata({
+        facetSelectorMetadata: resp,
+        facetListLoading: false,
+        facetListError: false,
+      });
+    } catch (error) {
+      console.error("Error loading datasets for selection.");
+      setFacetMetadata({
+        facetSelectorMetadata: {},
+        facetListLoading: false,
+        facetListError: true,
+      });
+    }
+  }, [
+    baseFacets,
+    entitiesString,
+    parentPlace,
+    enclosedPlaceType,
+    surface,
+    facetMetadata.facetSelectorMetadata,
+    facetMetadata.facetListLoading,
+  ]);
 
-        setFacetMetadata({
-          facetSelectorMetadata: resp,
-          facetListLoading: false,
-          facetListError: false,
-        });
-      } catch (error) {
-        if (cancelled) return;
-        console.error("Error loading datasets for selection.");
-        setFacetMetadata({
-          facetSelectorMetadata: {},
-          facetListLoading: false,
-          facetListError: true,
-        });
-      }
-    };
-
-    void fetchMetadata();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [baseFacets, entitiesString, parentPlace, enclosedPlaceType, surface]);
-
-  return facetMetadata;
+  return { ...facetMetadata, onFacetSelectorModalOpen: onModalOpen };
 }

@@ -216,11 +216,13 @@ export function Page(props: PagePropType): ReactElement {
 
   const facetListCacheKey = `${selectedOptions.selectedPlace.dcid}-${selectedOptions.enclosedPlaceType}`;
   const {
-    enrichedFacetList,
+    facetList: enrichedFacetList,
     loading: enrichmentLoading,
     onModalOpen,
+    totalFacetCount,
   } = useFacetEnrichment(
     facetListCacheKey,
+    facetList,
     useCallback(async () => {
       if (!facetList) return [];
       return enrichFacetChoices(facetList, {
@@ -431,7 +433,8 @@ export function Page(props: PagePropType): ReactElement {
                 <FacetSelector
                   mode="download"
                   svFacetId={selectedOptions.selectedFacets}
-                  facetList={enrichedFacetList || facetList}
+                  facetList={enrichedFacetList}
+                  totalFacetCount={totalFacetCount}
                   loading={facetLoading || enrichmentLoading}
                   error={facetError}
                   onSvFacetIdUpdated={(svFacetId): void => {

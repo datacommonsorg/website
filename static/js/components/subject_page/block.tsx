@@ -445,11 +445,13 @@ export function Block(props: BlockPropType): ReactElement {
     props.enclosedPlaceType
   }-${JSON.stringify(blockSVs.map((sv) => sv.statVar))}`;
   const {
-    enrichedFacetList,
+    facetList: enrichedFacetList,
     loading: enrichmentLoading,
     onModalOpen: onFacetSelectorOpen,
+    totalFacetCount,
   } = useFacetEnrichment(
     facetListCacheKey,
+    facetList,
     useCallback(async () => {
       const isWithinPlaceFetch = determineWithinPlaceFetch(props.columns);
       let enriched = null;
@@ -579,13 +581,14 @@ export function Block(props: BlockPropType): ReactElement {
             <FacetSelector
               facetSelector={props.facetSelector}
               svFacetId={facetOverrides}
-              facetList={enrichedFacetList || facetList}
+              facetList={enrichedFacetList}
               loading={facetsLoading || enrichmentLoading}
               error={!!facetsError}
               onSvFacetIdUpdated={onSvFacetIdUpdated}
               variant="inline"
               allowSelectionGrouping={shouldGroupFacetSelections}
               onModalOpen={onFacetSelectorOpen}
+              totalFacetCount={totalFacetCount}
             />
           </div>
         )}
