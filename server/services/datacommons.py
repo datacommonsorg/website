@@ -32,6 +32,8 @@ from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import USE_V2_API
+from server.lib.nl.common.constants import CORE_PROPS
+from server.lib.nl.common.constants import PROP_TO_SHORT_KEY
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -399,26 +401,13 @@ def get_variable_definitions(nodes: List[str],
   if not nodes:
     return {}
 
-  PROP_TO_SHORT_KEY = {
-      "populationType": "pt",
-      "measuredProperty": "mp",
-      "statType": "st",
-      "measurementDenominator": "md",
-      "measurementQualifier": "mq"
-  }
-
-  core_props = [
-      "populationType", "measuredProperty", "statType",
-      "measurementDenominator", "measurementQualifier"
-  ]
-
   result = {}
 
   for i in range(0, len(nodes), batch_size):
     chunk = nodes[i:i + batch_size]
 
     # Step 1: Fetch core properties and constraintProperties
-    step1_props = core_props + ["constraintProperties"]
+    step1_props = CORE_PROPS + ["constraintProperties"]
     prop_expr = f"->[{','.join(step1_props)}]"
 
     resp1 = v2node_paginated(chunk, prop_expr, max_pages=None)
@@ -461,7 +450,7 @@ def get_variable_definitions(nodes: List[str],
           if prop_val:
             constraint_props.append(prop_val)
 
-      props_to_include = set(constraint_props + core_props)
+      props_to_include = set(constraint_props + CORE_PROPS)
 
       for prop in sorted(arcs.keys()):
         if prop not in props_to_include:

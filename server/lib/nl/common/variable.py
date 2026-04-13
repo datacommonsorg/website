@@ -169,16 +169,17 @@ def _fetch_indirect_siblings(
     svg_siblings_info = dc.get_variable_group_info(list(all_sibling_svgs), [])
 
   # Collect all child SVs from sibling groups
-  all_sibling_child_svs = []
+  all_sibling_child_svs = set()
   for item in svg_siblings_info.get('data', []):
     for c in item.get('info', {}).get('childStatVars', []):
       if 'id' in c:
-        all_sibling_child_svs.append(c['id'])
+        all_sibling_child_svs.add(c['id'])
 
   # Batch 4: Fetch variable definitions for all child SVs
   sibling_sv_definitions = {}
   if use_v2 and all_sibling_child_svs:
-    sibling_sv_definitions = dc.get_variable_definitions(all_sibling_child_svs)
+    sibling_sv_definitions = dc.get_variable_definitions(
+        list(all_sibling_child_svs))
 
     # Populate definitions
     for item in svg_siblings_info.get('data', []):
@@ -229,11 +230,11 @@ def extend_svs(svs: List[str]):
     svg2childsvs[item['node']] = children
   use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
   if use_v2:
-    all_child_svs = []
+    all_child_svs = set()
     for children in svg2childsvs.values():
-      all_child_svs.extend(c['id'] for c in children if 'id' in c)
+      all_child_svs.update(c['id'] for c in children if 'id' in c)
 
-    sv_definitions = dc.get_variable_definitions(all_child_svs)
+    sv_definitions = dc.get_variable_definitions(list(all_child_svs))
 
     for children in svg2childsvs.values():
       for c in children:
