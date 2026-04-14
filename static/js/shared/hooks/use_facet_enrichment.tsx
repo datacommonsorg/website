@@ -112,7 +112,7 @@ export function useFacetEnrichment(
     const uniqueFacetIds = new Set<string>();
     baseFacets.forEach((facetInfo) => {
       Object.keys(facetInfo.metadataMap).forEach((facetId) => {
-        if (facetId !== "") {
+        if (facetId) {
           uniqueFacetIds.add(facetId);
         }
       });
