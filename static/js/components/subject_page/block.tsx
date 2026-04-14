@@ -443,7 +443,7 @@ export function Block(props: BlockPropType): ReactElement {
 
   const facetListCacheKey = `${props.place.dcid}-${
     props.enclosedPlaceType
-  }-${JSON.stringify(blockSVs.map((sv) => sv.statVar))}`;
+  }-${blockSVs.map((sv) => sv.statVar).join(",")}`;
   const {
     facetList: enrichedFacetList,
     loading: enrichmentLoading,
