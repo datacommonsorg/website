@@ -481,7 +481,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       });
     } catch {
       console.error("Error loading facets for selection.");
-      this.setState({ facetListLoading: false, facetListError: true });
+      this.setState({ facetListLoading: false });
     }
   }
 
