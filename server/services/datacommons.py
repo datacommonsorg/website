@@ -406,37 +406,14 @@ def get_variable_definitions(nodes: List[str],
   for i in range(0, len(nodes), batch_size):
     chunk = nodes[i:i + batch_size]
 
-    # Step 1: Fetch core properties and constraintProperties
-    step1_props = CORE_PROPS + ["constraintProperties"]
-    prop_expr = f"->[{','.join(step1_props)}]"
+    # Fetch outgoing properties
+    prop_expr = "->*"
+    resp = v2node_paginated(chunk, prop_expr, max_pages=None)
 
-    resp1 = v2node_paginated(chunk, prop_expr, max_pages=None)
-
-    # Extract specific constraint properties needed for this chunk
-    chunk_constraint_props = set()
-    data1 = resp1.get("data", {})
-    for node, node_arcs in data1.items():
-      arcs = node_arcs.get("arcs", {})
-      if "constraintProperties" in arcs:
-        for vn in arcs["constraintProperties"].get("nodes", []):
-          prop_val = vn.get("dcid") or vn.get("value")
-          if prop_val:
-            chunk_constraint_props.add(prop_val)
-
-    # Initialize merged arcs with Step 1 results
     merged_arcs = {
-        node: node_arcs.get("arcs", {}) for node, node_arcs in data1.items()
+        node: node_arcs.get("arcs", {})
+        for node, node_arcs in resp.get("data", {}).items()
     }
-
-    # Step 2: Fetch the specific constraint properties for this chunk
-    if chunk_constraint_props:
-      prop_expr2 = f"->[{','.join(sorted(chunk_constraint_props))}]"
-      resp2 = v2node_paginated(chunk, prop_expr2, max_pages=None)
-      data2 = resp2.get("data", {})
-      for node, node_arcs in data2.items():
-        if node in merged_arcs:
-          # Merge the constraint property values into our arcs
-          merged_arcs[node].update(node_arcs.get("arcs", {}))
 
     # Process responses for this chunk
     for node, arcs in merged_arcs.items():
