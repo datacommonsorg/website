@@ -32,6 +32,8 @@ from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import USE_V2_API
+from server.lib.nl.common.constants import CORE_PROPS
+from server.lib.nl.common.constants import PROP_TO_SHORT_KEY
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -381,13 +383,68 @@ def get_variable_group_info(nodes: List[str],
                             entities: List[str],
                             numEntitiesExistence=1) -> Dict:
   """Gets the stat var group node information."""
-  url = get_service_url("/v1/bulk/info/variable-group")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/bulk/info/variable-group")
+  else:
+    url = get_service_url("/v1/bulk/info/variable-group")
   req_dict = {
       "nodes": nodes,
       "constrained_entities": entities,
       "num_entities_existence": numEntitiesExistence,
   }
   return post(url, req_dict)
+
+
+def get_variable_definitions(nodes: List[str],
+                             batch_size: int = 1000) -> Dict[str, str]:
+  """Gets the definition strings for a list of statistical variables using constraintProperties as a whitelist."""
+  if not nodes:
+    return {}
+
+  result = {}
+
+  for i in range(0, len(nodes), batch_size):
+    chunk = nodes[i:i + batch_size]
+
+    # Fetch outgoing properties
+    prop_expr = "->*"
+    resp = v2node_paginated(chunk, prop_expr, max_pages=None)
+
+    merged_arcs = {
+        node: node_arcs.get("arcs", {})
+        for node, node_arcs in resp.get("data", {}).items()
+    }
+
+    # Process responses for this chunk
+    for node, arcs in merged_arcs.items():
+      parts = []
+
+      # Get constraint props for this specific node
+      constraint_props = []
+      if "constraintProperties" in arcs:
+        for vn in arcs["constraintProperties"].get("nodes", []):
+          prop_val = vn.get("dcid") or vn.get("value")
+          if prop_val:
+            constraint_props.append(prop_val)
+
+      props_to_include = set(constraint_props + CORE_PROPS)
+
+      for prop in sorted(arcs.keys()):
+        if prop not in props_to_include:
+          continue
+        val_nodes = arcs[prop].get("nodes", [])
+        if not val_nodes:
+          continue
+        val_obj = val_nodes[0]
+        val = val_obj.get("dcid") or val_obj.get("value")
+        if not val:
+          continue
+        key = PROP_TO_SHORT_KEY.get(prop, prop)
+        parts.append(f"{key}={val}")
+
+      result[node] = ",".join(parts)
+
+  return result
 
 
 def variable_info(nodes: List[str]) -> Dict:
@@ -672,15 +729,16 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop):
+def resolve(nodes, prop, resolver="place"):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
+        resolver: The resolver to use (default: "place").
     """
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop})
+  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
 
 
 def nl_search_vars(

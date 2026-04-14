@@ -127,7 +127,7 @@ class TestGetGeoJson(unittest.TestCase):
     parentDcid = "parentDcid"
     mock_display_level.return_value = (parentDcid, "State")
 
-    def descendent_places_(*args):
+    def descendent_places_(*args, **kwargs):
       if args[0] == [parentDcid] and args[1] == "State":
         return {parentDcid: [dcid1, dcid2]}
       else:
@@ -192,7 +192,7 @@ class TestGetGeoJson(unittest.TestCase):
     dcid2 = "dcid2"
     parentDcid = "parentDcid"
 
-    def descendent_places_(*args):
+    def descendent_places_(*args, **kwargs):
       if args[0] == [parentDcid] and args[1] == "State":
         return {parentDcid: [dcid1, dcid2]}
       else:
