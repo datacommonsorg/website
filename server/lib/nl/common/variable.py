@@ -15,10 +15,13 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Tuple
 
 from flask import current_app
+from flask import request
 
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
@@ -57,7 +60,9 @@ def parse_sv(id: str, sv_definition: str) -> SV:
     return res
   parts = sv_definition.split(",")
   for part in parts:
-    k, v = part.split("=")
+    if "=" not in part:
+      continue
+    k, v = part.split("=", 1)
     if k == "pt":
       res.pt = v
     elif k == "mp":
@@ -98,7 +103,9 @@ def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
   new_sv_obj = parse_sv(new_sv['id'], new_sv['definition'])
   if new_sv_obj.mp != sv_obj.mp:
     return False
-  if new_sv_obj.st != sv_obj.st:
+  st_obj = sv_obj.st if sv_obj.st else constants.DEFAULT_STAT_TYPE
+  st_new = new_sv_obj.st if new_sv_obj.st else constants.DEFAULT_STAT_TYPE
+  if st_new != st_obj:
     return False
   if new_sv_obj.pt != sv_obj.pt:
     return False
@@ -119,6 +126,74 @@ def limit_extended_svs(sv: str, ext_svs: Set[str], limit: int) -> Dict:
     ext_svs.remove(sv)
   res.extend(sorted(ext_svs)[:limit])
   return res
+
+
+def _fetch_indirect_siblings(
+    svs_needing_indirect: List[str], sv2svg: Dict[str, str], use_v2: bool
+) -> Tuple[Dict[str, str], Dict[str, List[str]], Dict[str, List[Dict]]]:
+  """Fetches indirect siblings (parent SVG -> sibling SVGs -> sibling SVs)."""
+  # Batch 1: Fetch parents for all identified SVGs
+  svgs_to_expand = list({sv2svg[sv] for sv in svs_needing_indirect})
+  parents_resp = {}
+  if svgs_to_expand:
+    parents_resp = fetch.property_values(svgs_to_expand, "specializationOf",
+                                         True)
+
+  # Collect parents
+  svg_to_parent = {}
+  all_parents = []
+  for sv in svs_needing_indirect:
+    svg = sv2svg[sv]
+    parents = parents_resp.get(svg, [])
+    if parents:
+      svg_to_parent[svg] = parents[0]
+      all_parents.append(parents[0])
+
+  # Batch 2: Fetch siblings for all parents
+  siblings_resp = {}
+  if all_parents:
+    siblings_resp = fetch.property_values(all_parents, "specializationOf",
+                                          False)
+
+  # Collect all sibling SVGs
+  parent_to_siblings = {}
+  all_sibling_svgs = set()
+  for parent in all_parents:
+    siblings = siblings_resp.get(parent, [])
+    parent_to_siblings[parent] = siblings
+    all_sibling_svgs.update(siblings)
+
+  # Batch 3: Fetch variable group info for all sibling SVGs
+  svg_siblings_info = {'data': []}
+  if all_sibling_svgs:
+    svg_siblings_info = dc.get_variable_group_info(list(all_sibling_svgs), [])
+
+  # Collect all child SVs from sibling groups
+  all_sibling_child_svs = set()
+  for item in svg_siblings_info.get('data', []):
+    for c in item.get('info', {}).get('childStatVars', []):
+      if 'id' in c:
+        all_sibling_child_svs.add(c['id'])
+
+  # Batch 4: Fetch variable definitions for all child SVs
+  sibling_sv_definitions = {}
+  if use_v2 and all_sibling_child_svs:
+    sibling_sv_definitions = dc.get_variable_definitions(
+        list(all_sibling_child_svs))
+
+    # Populate definitions
+    for item in svg_siblings_info.get('data', []):
+      for c in item.get('info', {}).get('childStatVars', []):
+        if 'id' in c and c['id'] in sibling_sv_definitions:
+          c['definition'] = sibling_sv_definitions[c['id']]
+
+  # Map from sibling SVG to its children for quick lookup
+  svg_to_children = {}
+  for item in svg_siblings_info.get('data', []):
+    svg_to_children[item['node']] = item.get('info',
+                                             {}).get('childStatVars', [])
+
+  return svg_to_parent, parent_to_siblings, svg_to_children
 
 
 def extend_svs(svs: List[str]):
@@ -151,45 +226,80 @@ def extend_svs(svs: List[str]):
   if 'data' not in svginfo:
     return {}
   for item in svginfo['data']:
-    svg2childsvs[item['node']] = item['info'].get('childStatVars', [])
+    children = item['info'].get('childStatVars', [])
+    svg2childsvs[item['node']] = children
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  if use_v2:
+    all_child_svs = set()
+    for children in svg2childsvs.values():
+      all_child_svs.update(c['id'] for c in children if 'id' in c)
+
+    sv_definitions = dc.get_variable_definitions(list(all_child_svs))
+
+    for children in svg2childsvs.values():
+      for c in children:
+        if 'id' in c and c['id'] in sv_definitions:
+          c['definition'] = sv_definitions[c['id']]
 
   res = {}
   # Extended SV member -> Extended SV list
   reverse_map = {}
+
+  # Maps to store parsed objects (to avoid re-parsing)
+  sv_to_svg_obj = {}
+  sv_to_sv_obj = {}
+
+  # SVs that need indirect sibling expansion
+  svs_needing_indirect = []
+
+  # First Pass: Parse and identify candidates
   for sv, svg in sv2svg.items():
-    if sv in reverse_map:
-      res[sv] = reverse_map[sv]
-      continue
-    res[sv] = []
     svg_obj = parse_svg(svg)
+    sv_to_svg_obj[sv] = svg_obj
+
     sv_obj = None
-    for child_sv in svg2childsvs[svg]:
+    for child_sv in svg2childsvs.get(svg, []):
       if child_sv['id'] == sv:
         if 'definition' in child_sv:
           sv_obj = parse_sv(child_sv['id'], child_sv['definition'])
         break
     if not sv_obj:
       continue
+    sv_to_sv_obj[sv] = sv_obj
+
     if len(svg_obj.pvs) == len(sv_obj.pvs):
-      # There are no direct siblings of this sv in the current svg.
-      # need to look for in-direct siblings
-      svg_parents = fetch.property_values([svg], "specializationOf", True)[svg]
-      if not svg_parents:
+      svs_needing_indirect.append(sv)
+
+  # Extract batch fetching logic into a helper
+  svg_to_parent, parent_to_siblings, svg_to_children = _fetch_indirect_siblings(
+      svs_needing_indirect, sv2svg, use_v2)
+
+  # Final Pass: Process results
+  for sv, svg in sv2svg.items():
+    if sv in reverse_map:
+      res[sv] = reverse_map[sv]
+      continue
+
+    res[sv] = []
+    if sv not in sv_to_sv_obj:
+      continue
+    sv_obj = sv_to_sv_obj[sv]
+    svg_obj = sv_to_svg_obj[sv]
+
+    if sv in svs_needing_indirect:
+      # Use batched data for indirect siblings
+      parent = svg_to_parent.get(svg)
+      if not parent:
         continue
-      svg_parent = svg_parents[0]
-      svg_siblings = fetch.property_values([svg_parent], "specializationOf",
-                                           False)[svg_parent]
-      if not svg_siblings:
-        continue
-      svg_siblings_info = dc.get_variable_group_info(svg_siblings, [])
-      for item in svg_siblings_info['data']:
-        for sv_info in item['info'].get('childStatVars', []):
+      siblings = parent_to_siblings.get(parent, [])
+      for sib_svg in siblings:
+        for sv_info in svg_to_children.get(sib_svg, []):
           if _is_compatible(sv_obj, sv_info):
             res[sv].append(sv_info['id'])
     else:
       # Can use the direct siblings of this sv, nevertheless perform
       # SV compatibility check!
-      for new_sv_info in svg2childsvs[svg]:
+      for new_sv_info in svg2childsvs.get(svg, []):
         if _is_compatible(sv_obj, new_sv_info):
           res[sv].append(new_sv_info['id'])
     for sv2 in res[sv]:
