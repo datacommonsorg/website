@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { FacetSelectorFacetInfo } from "../facet_selector/facet_selector";
 
@@ -55,9 +55,23 @@ export function useFacetEnrichment(
   >(null);
   const [loading, setLoading] = useState(false);
 
+  // Track the current cache key to ignore stale fetch results
+  const currentKeyRef = useRef(facetListCacheKey);
+  // Track mounted state to avoid state updates after unmount
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   // Automatically clear cache if key changes
   useEffect(() => {
+    currentKeyRef.current = facetListCacheKey;
     setEnrichedFacetList(null);
+    setLoading(false);
   }, [facetListCacheKey]);
 
   const onModalOpen = useCallback(async () => {
@@ -66,15 +80,23 @@ export function useFacetEnrichment(
       return;
     }
     setLoading(true);
+    const keyWhenRequestInitiated = facetListCacheKey;
     try {
       const data = await fetchFn();
-      setEnrichedFacetList(data);
+      // Only update state if component is still mounted and cache key hasn't changed
+      if (isMountedRef.current && keyWhenRequestInitiated === currentKeyRef.current) {
+        setEnrichedFacetList(data);
+      }
     } catch (e) {
-      console.error("Failed to enrich facets", e);
+      if (isMountedRef.current && keyWhenRequestInitiated === currentKeyRef.current) {
+        console.error("Failed to enrich facets", e);
+      }
     } finally {
-      setLoading(false);
+      if (isMountedRef.current && keyWhenRequestInitiated === currentKeyRef.current) {
+        setLoading(false);
+      }
     }
-  }, [fetchFn, enrichedFacetList, loading]);
+  }, [fetchFn, enrichedFacetList, loading, facetListCacheKey]);
 
   const totalFacetCount = useMemo(() => {
     if (!baseFacets) return 0;
