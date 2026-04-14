@@ -453,43 +453,30 @@ export function Block(props: BlockPropType): ReactElement {
     facetListCacheKey,
     facetList,
     useCallback(async () => {
+      if (!facetList) {
+        return [];
+      }
       const isWithinPlaceFetch = determineWithinPlaceFetch(props.columns);
-      let enriched = null;
       if (isWithinPlaceFetch) {
-        const base = await fetchFacetChoicesWithin(
-          props.place.dcid,
-          props.enclosedPlaceType,
-          blockSVs.map((sv) => ({
-            dcid: sv.statVar,
-            name: sv.name,
-            date: sv.date,
-          }))
-        );
-        enriched = await enrichFacetChoices(base, {
+        return enrichFacetChoices(facetList, {
           parentPlace: props.place.dcid,
           enclosedPlaceType: props.enclosedPlaceType,
         });
-      } else {
-        const allTiles = _.flatten(props.columns.map((c) => c.tiles));
-        const placeDcids = new Set<string>([props.place.dcid]);
-        allTiles.forEach((tile) => {
-          if (tile.placeDcidOverride) {
-            placeDcids.add(tile.placeDcidOverride);
-          }
-          getComparisonPlaces(tile, props.place)?.forEach((p) =>
-            placeDcids.add(p)
-          );
-        });
-        const base = await fetchFacetChoices(
-          Array.from(placeDcids),
-          blockSVs.map((sv) => ({ dcid: sv.statVar, name: sv.name }))
-        );
-        enriched = await enrichFacetChoices(base, {
-          entities: Array.from(placeDcids),
-        });
       }
-      return enriched;
-    }, [blockSVs, props.columns, props.enclosedPlaceType, props.place])
+      const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+      const placeDcids = new Set<string>([props.place.dcid]);
+      allTiles.forEach((tile) => {
+        if (tile.placeDcidOverride) {
+          placeDcids.add(tile.placeDcidOverride);
+        }
+        getComparisonPlaces(tile, props.place)?.forEach((p) =>
+          placeDcids.add(p)
+        );
+      });
+      return enrichFacetChoices(facetList, {
+        entities: Array.from(placeDcids),
+      });
+    }, [facetList, props.columns, props.enclosedPlaceType, props.place])
   );
 
   const onSvFacetIdUpdated = useCallback(
