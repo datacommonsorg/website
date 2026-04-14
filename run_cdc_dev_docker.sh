@@ -167,10 +167,10 @@ run_service() {
   if [ -n "$IMAGE" ]; then
     message="Starting Docker services container with custom image '${IMAGE}'..."
   elif [ "$RELEASE" == "latest" ]; then
-    message="Starting Docker services container with '${RELEASE}' release..."
+    message="Starting Docker services container with latest release..."
     IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
   else
-    message="Starting Docker services container with '${RELEASE}' release..."
+    message="Starting Docker services container with stable release..."
     IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
   fi
 
@@ -221,9 +221,9 @@ run_service() {
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR
+    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
     -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
-      "$IMAGE"
+    $IMAGE
 fi
 }
 
