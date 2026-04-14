@@ -84,15 +84,24 @@ export function useFacetEnrichment(
     try {
       const data = await fetchFn();
       // Only update state if component is still mounted and cache key hasn't changed
-      if (isMountedRef.current && keyWhenRequestInitiated === currentKeyRef.current) {
+      if (
+        isMountedRef.current &&
+        keyWhenRequestInitiated === currentKeyRef.current
+      ) {
         setEnrichedFacetList(data);
       }
     } catch (e) {
-      if (isMountedRef.current && keyWhenRequestInitiated === currentKeyRef.current) {
+      if (
+        isMountedRef.current &&
+        keyWhenRequestInitiated === currentKeyRef.current
+      ) {
         console.error("Failed to enrich facets", e);
       }
     } finally {
-      if (isMountedRef.current && keyWhenRequestInitiated === currentKeyRef.current) {
+      if (
+        isMountedRef.current &&
+        keyWhenRequestInitiated === currentKeyRef.current
+      ) {
         setLoading(false);
       }
     }

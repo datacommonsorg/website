@@ -362,26 +362,42 @@ function FacetSelectorModal(
   } = props;
   const [modalSelections, setModalSelections] = useState(svFacetId);
 
+  /*
+   * Effect to handle dynamic facet injection on load/update
+   */
   useEffect(() => {
-    const firstFacet = facetList && facetList.length > 0 ? facetList[0] : null;
-    const injectedFacetId =
-      useInjectedFacet && firstFacet
-        ? findMatchingFacets(firstFacet["metadataMap"], props?.facetSelector)
-        : undefined;
-    if (!_.isEmpty(injectedFacetId) && firstFacet) {
-      setModalSelections({ [firstFacet["dcid"]]: injectedFacetId[0] });
+    if (!useInjectedFacet || !facetList || facetList.length === 0) return;
+
+    const firstFacet = facetList[0];
+    const injectedFacetId = findMatchingFacets(
+      firstFacet.metadataMap,
+      props?.facetSelector
+    );
+
+    if (!_.isEmpty(injectedFacetId)) {
+      setModalSelections((prev) => ({
+        ...prev,
+        [firstFacet.dcid]: injectedFacetId[0],
+      }));
     }
-    // If modal is closed without updating facets, we want to reset the
-    // selections in the modal.
+  }, [facetList, props?.facetSelector, useInjectedFacet]);
+
+  /*
+   * Handle state reset when the user closes the modal
+   */
+  useEffect(() => {
     if (!open && !useInjectedFacet) {
       setModalSelections(svFacetId);
     }
-  }, [svFacetId, open, facetList, props?.facetSelector, useInjectedFacet]);
+  }, [open, svFacetId, useInjectedFacet]);
 
   const handleSelectionChange = (
     clickedDcid: string,
     clickedFacetId: string
   ): void => {
+    if (props.setUseInjectedFacet) {
+      props.setUseInjectedFacet(false);
+    }
     setModalSelections({
       ...modalSelections,
       [clickedDcid]: clickedFacetId,
@@ -389,6 +405,9 @@ function FacetSelectorModal(
   };
 
   const handleGroupedSelectionChange = (clickedFacetId: string): void => {
+    if (props.setUseInjectedFacet) {
+      props.setUseInjectedFacet(false);
+    }
     const newSelections: Record<string, string> = {};
     if (facetList) {
       for (const facetInfo of facetList) {
@@ -407,7 +426,9 @@ function FacetSelectorModal(
       }
     });
     onSvFacetIdUpdated(modalSelections, metadataMap);
-    props.setUseInjectedFacet(false);
+    if (props.setUseInjectedFacet) {
+      props.setUseInjectedFacet(false);
+    }
     onClose();
   }
 
