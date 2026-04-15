@@ -156,7 +156,6 @@ run_data() {
   local docker_args=(
     -it
     --env-file "$ENV_FILE"
-    -p 8080:8080
     -e DEBUG=true
     -v "$INPUT_DIR:$INPUT_DIR"
   )
