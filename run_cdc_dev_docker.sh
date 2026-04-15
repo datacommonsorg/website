@@ -132,34 +132,53 @@ upload() {
 
 # Run data container
 run_data() {
-  if [ "$RELEASE" == "latest" ]; then
-    docker pull gcr.io/datcom-ci/datacommons-data:latest
-  fi
-  schema_update='""'
-  schema_update_text=""
-  if [ "$SCHEMA_UPDATE" == true ]; then
-    schema_update="-e DATA_UPDATE_MODE=schemaupdate"
-    schema_update_text=" in schema update mode"
-  fi
-  if [ "$data_hybrid" == true ]; then
-    check_app_credentials
-    log_notice "Starting Docker data container with '$RELEASE' release${schema_update_text} and writing output to Google Cloud..."
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    ${schema_update//\"/} \
-    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
-    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-    -v $INPUT_DIR:$INPUT_DIR \
-    gcr.io/datcom-ci/datacommons-data:${RELEASE}
+
+# 1. Set local image variable, construct and print output message
+
+  local message
+
+  if [[ "$RELEASE" == "latest" ]]; then
+    message="Starting Docker data container with latest release"
   else
-    log_notice "Starting Docker data container with '$RELEASE' release${schema_update_text}..."
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    ${schema_update//\"/} \
-    -v $INPUT_DIR:$INPUT_DIR \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
-    gcr.io/datcom-ci/datacommons-data:${RELEASE}
+    message="Starting Docker data container with stable release"
   fi
+  if [[ "$SCHEMA_UPDATE" == true ]]; then
+    message+=" in schema update mode"
+  fi
+  if [[ "$data_hybrid" == true ]]; then
+    message+=" and writing output to Google Cloud"
+  fi
+  message+="..."
+
+  log_notice "$message"
+
+# 2. Define base Docker arguments shared by all modes
+  local docker_args=(
+    -it
+    --env-file "$ENV_FILE"
+    -p 8080:8080
+    -e DEBUG=true
+    -v "$INPUT_DIR:$INPUT_DIR"
+  )
+
+# 3. Conditionally add GCP Credentials for remote output
+  if [[ "$data_hybrid" == true ]]; then
+    check_app_credentials
+    docker_args+=(
+      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json
+      -v "$HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro"
+    )
+  else
+    docker_args+=(-v "$OUTPUT_DIR:$OUTPUT_DIR")
+  fi
+
+# 4. Conditionally add update mode flag 
+  if [[ "$SCHEMA_UPDATE" == true ]]; then
+    docker_args+=(-e DATA_UPDATE_MODE=schemaupdate)
+  fi
+  
+# 7. Execute the Docker command
+  docker run "${docker_args[@]}" "gcr.io/datcom-ci/datacommons-data:$RELEASE"
 }
 
 # Run service container
@@ -174,7 +193,7 @@ run_service() {
 
   if [ -n "$IMAGE" ]; then
     message="Starting Docker services container with custom image '${IMAGE}'"
-  elif [ "$RELEASE" == "latest" ]; then
+  elif [[ "$RELEASE" == "latest" ]]; then
     message="Starting Docker services container with latest release"
     IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
   else
@@ -184,13 +203,10 @@ run_service() {
 
   if [[ "$service_hybrid" == true ]]; then
     message+=" with data in Google Cloud"
-    if [[ "$instructions_hybrid" == true ]]; then
-    message+=" and "
-    fi
-  elif [[ "$instructions_hybrid" == true ]]; then
-    message+=" with custom instruction files in Google Cloud"
   fi
-
+  if [[ "$instructions_hybrid" == true ]]; then
+    message+=" and custom instruction files in Google Cloud"
+  fi
   message+="..."
 
   log_notice "$message"
