@@ -24,7 +24,9 @@ Usage:
   [--release|-r latest|stable] [--image|-i <custom image name:tag>] 
   [--package|-p <package name:tag>] [--schema_update|-s]
 
-If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable': all containers are run, using the Data Commons-provided 'stable' image.
+If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable'
+
+All containers are run using the Data Commons-provided 'stable' image.
 
 Options:
 
