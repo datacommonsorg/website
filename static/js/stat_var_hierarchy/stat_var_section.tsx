@@ -19,7 +19,6 @@
  * region with chart, or a checkbox.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
@@ -31,7 +30,7 @@ import {
   StatVarInfo,
   StatVarSummary,
 } from "../shared/types";
-import { stringifyFn } from "../utils/axios";
+import { getStatVarInfo } from "../shared/util";
 import { getCommonPrefix } from "../utils/string_utils";
 import { StatVarSectionInput } from "./stat_var_section_input";
 
@@ -146,13 +145,7 @@ export class StatVarSection extends React.Component<
     }
     const statVarList = this.props.data.map((sv) => sv.id);
     this.svSummaryFetching = statVarList;
-    axios
-      .get("/api/variable/info", {
-        params: {
-          dcids: statVarList,
-        },
-        paramsSerializer: stringifyFn,
-      })
+    getStatVarInfo(statVarList)
       .then((resp) => {
         const data = resp.data;
         this.svSummaryFetching = null;

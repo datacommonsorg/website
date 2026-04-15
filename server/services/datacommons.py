@@ -18,7 +18,6 @@ import collections
 import json
 import logging
 from typing import Dict, List
-import urllib.parse
 
 from flask import current_app
 from flask import has_app_context
@@ -27,9 +26,14 @@ from flask import request
 import requests
 
 from server.lib import log
+from server.lib.cache import cache
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_V2_API
+from server.lib.nl.common.constants import CORE_PROPS
+from server.lib.nl.common.constants import PROP_TO_SHORT_KEY
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -379,7 +383,10 @@ def get_variable_group_info(nodes: List[str],
                             entities: List[str],
                             numEntitiesExistence=1) -> Dict:
   """Gets the stat var group node information."""
-  url = get_service_url("/v1/bulk/info/variable-group")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/bulk/info/variable-group")
+  else:
+    url = get_service_url("/v1/bulk/info/variable-group")
   req_dict = {
       "nodes": nodes,
       "constrained_entities": entities,
@@ -388,18 +395,126 @@ def get_variable_group_info(nodes: List[str],
   return post(url, req_dict)
 
 
+def get_variable_definitions(nodes: List[str],
+                             batch_size: int = 1000) -> Dict[str, str]:
+  """Gets the definition strings for a list of statistical variables using constraintProperties as a whitelist."""
+  if not nodes:
+    return {}
+
+  result = {}
+
+  for i in range(0, len(nodes), batch_size):
+    chunk = nodes[i:i + batch_size]
+
+    # Fetch outgoing properties
+    prop_expr = "->*"
+    resp = v2node_paginated(chunk, prop_expr, max_pages=None)
+
+    merged_arcs = {
+        node: node_arcs.get("arcs", {})
+        for node, node_arcs in resp.get("data", {}).items()
+    }
+
+    # Process responses for this chunk
+    for node, arcs in merged_arcs.items():
+      parts = []
+
+      # Get constraint props for this specific node
+      constraint_props = []
+      if "constraintProperties" in arcs:
+        for vn in arcs["constraintProperties"].get("nodes", []):
+          prop_val = vn.get("dcid") or vn.get("value")
+          if prop_val:
+            constraint_props.append(prop_val)
+
+      props_to_include = set(constraint_props + CORE_PROPS)
+
+      for prop in sorted(arcs.keys()):
+        if prop not in props_to_include:
+          continue
+        val_nodes = arcs[prop].get("nodes", [])
+        if not val_nodes:
+          continue
+        val_obj = val_nodes[0]
+        val = val_obj.get("dcid") or val_obj.get("value")
+        if not val:
+          continue
+        key = PROP_TO_SHORT_KEY.get(prop, prop)
+        parts.append(f"{key}={val}")
+
+      result[node] = ",".join(parts)
+
+  return result
+
+
 def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
-  url = get_service_url("/v1/bulk/info/variable")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/bulk/info/variable")
+  else:
+    url = get_service_url("/v1/bulk/info/variable")
   req_dict = {"nodes": nodes}
   return post(url, req_dict)
 
 
-def get_variable_ancestors(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy."""
+def _get_variable_ancestors_v1(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy using v1/variable/ancestors."""
   url = get_service_url("/v1/variable/ancestors")
   url = f"{url}/{dcid}"
   return get(url).get("ancestors", [])
+
+
+def _get_variable_ancestors_v2(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy using v2 node."""
+  ancestors = []
+  curr = dcid
+  visited = {dcid}
+  max_depth = 20
+  while len(ancestors) < max_depth:
+    # Trace the hierarchy using both StatisticalVariable groupings (memberOf)
+    # and StatVarGroup specializations (specializationOf).
+    resp = v2node([curr], "->[memberOf,specializationOf]")
+    arcs = resp.get("data", {}).get(curr, {}).get("arcs", {})
+
+    parents_data = (arcs.get("memberOf", {}).get("nodes", []) +
+                    arcs.get("specializationOf", {}).get("nodes", []))
+
+    if not parents_data:
+      break
+
+    parent_dcids = sorted(
+        list(set(p["dcid"] for p in parents_data if "dcid" in p)))
+    if not parent_dcids:
+      break
+
+    # Tie-breaking logic:
+    # 1. Prefer the first dc/g/Custom_ prefix
+    # 2. Otherwise take the first alphabetically
+    selected_parent = next(
+        (p for p in parent_dcids if p.startswith("dc/g/Custom_")),
+        parent_dcids[0])
+
+    if selected_parent == "dc/g/Root":
+      break
+
+    if selected_parent in visited:
+      logger.error(f"Cycle detected in StatVar hierarchy at {selected_parent}")
+      break
+
+    ancestors.append(selected_parent)
+    visited.add(selected_parent)
+    curr = selected_parent
+
+  return ancestors
+
+
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def get_variable_ancestors(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy."""
+  if is_feature_enabled(USE_V2_API):
+    return _get_variable_ancestors_v2(dcid)
+  else:
+    return _get_variable_ancestors_v1(dcid)
 
 
 def _get_all_values(resp, dcid, prop, key='dcid'):
@@ -567,10 +682,11 @@ def get_series_dates(parent_entity, child_type, variables):
     return {"datesByVariable": [], "facets": {}}
 
   # Get observation dates for the filtered children using batch V2 API
-  # We select essential fields: date, variable, entity (place), and facet
-  obs_resp = v2observation(select=['date', 'variable', 'entity', 'facet'],
-                           entity={'dcids': child_dcids},
-                           variable={'dcids': variables})
+  # We select essential fields: date, value, variable, entity (place), and facet
+  obs_resp = v2observation(
+      select=['date', 'variable', 'entity', 'facet', 'value'],
+      entity={'dcids': child_dcids},
+      variable={'dcids': variables})
 
   # Aggregate results to count how many entities have data for each date/variable combination
   # Structure: { variable: { date: { facet: count } } }
@@ -584,15 +700,19 @@ def get_series_dates(parent_entity, child_type, variables):
   for var, var_data in by_var.items():
     by_ent = var_data.get('byEntity', {})
     for _, ent_data in by_ent.items():
-      series = ent_data.get('series', [])
-      for obs in series:
-        date = obs.get('date')
-        if not date:
-          continue
+      # the observations are found inside ordered facets
+      ordered_facets = ent_data.get('orderedFacets', [])
+      for facet_obj in ordered_facets:
+        facet_id = str(facet_obj.get('facetId', ''))
+        observations = facet_obj.get('observations', [])
 
-        # Facet handling
-        facet_id = obs.get('facet', "")
-        agg_data[var][date][facet_id] += 1
+        for obs in observations:
+          date = obs.get('date')
+          if not date:
+            continue
+
+          # Facet handling
+          agg_data[var][date][facet_id] += 1
 
   # Final pass to construct the response format expected by the frontend
   resp_dates = []
@@ -603,20 +723,22 @@ def get_series_dates(parent_entity, child_type, variables):
       for facet_id, count in facet_counts.items():
         entity_counts.append({"count": count, "facet": facet_id})
       obs_dates.append({"date": date, "entityCount": entity_counts})
+    obs_dates.sort(key=lambda x: x['date'])
     resp_dates.append({"variable": var, "observationDates": obs_dates})
 
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop):
+def resolve(nodes, prop, resolver="place"):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
+        resolver: The resolver to use (default: "place").
     """
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop})
+  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
 
 
 def nl_search_vars(
@@ -720,7 +842,10 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def recognize_places(query):
-  url = get_service_url("/v1/recognize/places")
+  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+    url = get_service_url("/v2/recognize/places")
+  else:
+    url = get_service_url("/v1/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
 

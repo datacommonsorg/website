@@ -19,29 +19,38 @@ from google import genai
 from pydantic import BaseModel
 
 
+def get_gemini_config(schema: Optional[BaseModel] = None,
+                      use_thinking_config: bool = False) -> dict:
+  config = {
+      "response_mime_type": "application/json",
+      "response_schema": schema
+  } if schema else {}
+  if use_thinking_config:
+    config["thinking_config"] = genai.types.ThinkingConfig(thinking_level="low")
+  return config
+
+
 def call_gemini(
     api_key: str,
     formatted_prompt: str,
+    gemini_model: str,
     schema: Optional[BaseModel] = None,
-    gemini_model: str = "gemini-2.5-flash") -> Optional[Union[BaseModel, str]]:
+    use_thinking_config: bool = False) -> Optional[Union[BaseModel, str]]:
   """A helper for all Gemini generations through the Python Gen AI client.
     Args:
         api_key: A string representing the API key required for authentication with the Gemini service.
         formatted_prompt: A string containing the structured prompt or input to be sent to the Gemini model for generation.
         schema: A Pydantic BaseModel class that defines the expected model's JSON response.
         gemini_model: A string specifying the name of the Gemini model to utilize.
-        retries: An integer indicating the maximum number of retries for the API call in the event of a failure
+        use_thinking_config: Boolean advising whether to use thinking configuration for Gemini 3.
 
     Returns:
-    The output of the call after all necessary retries.
+    The output of the call.
     """
   if not api_key or not formatted_prompt:
     return None
 
-  generate_content_config = {
-      "response_mime_type": "application/json",
-      "response_schema": schema
-  } if schema else {}
+  generate_content_config = get_gemini_config(schema, use_thinking_config)
   gemini = genai.Client(api_key=api_key)
 
   try:
