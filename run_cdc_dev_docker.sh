@@ -162,8 +162,10 @@ run_data() {
 
 # Run service container
 run_service() {
+  
+  # 1. Set IMAGE variable and output message
+  local message
 
-  # Set IMAGE variable and output message
   if [ -n "$IMAGE" ]; then
     message="Starting Docker services container with custom image '${IMAGE}'..."
   elif [ "$RELEASE" == "latest" ]; then
@@ -174,57 +176,54 @@ run_service() {
     IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
   fi
 
-  # Hybrid service mode: local service with data in the cloud
-  if [ "$service_hybrid" == true ]; then
+  log_notice "$message"
+
+  # 2. Check if there is an already running container with the same image and kill it
+  check_docker
+
+ # 3. Define base Docker arguments shared by all modes
+  local docker_args=(
+    -it
+    --env-file "$ENV_FILE"
+    -p 8080:8080
+    -e DEBUG=true
+    -v "$PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV"
+    -v "$PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV"
+  )
+
+  # 4. Conditionally add GCP Credentials (needed if data OR instructions are remote)
+  if [[ "$service_hybrid" == true || "$instructions_hybrid" == true ]]; then
     check_app_credentials
-    # In case of hybrid service running with local instructions
-    if [[ "$instructions_hybrid" == true ]]; then
-      instructions_mount=""
-    else
-      instructions_mount="$DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR"
+    docker_args+=(
+      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json
+      -v "$HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro"
+    )
+  fi
+
+  # 5. Conditionally mount input/output directories (local data)
+  if [[ "$service_hybrid" != true ]]; then
+    docker_args+=(
+      -v "$INPUT_DIR:$INPUT_DIR"
+      -v "$OUTPUT_DIR:$OUTPUT_DIR"
+    )
+  fi
+
+  # 6. Conditionally mount custom MCP instructions directory (local instructions)
+  if [[ "$instructions_hybrid" != true ]]; then
+    docker_args+=( -v "$DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR" )
+  fi
+
+  # 7. Execute the Docker command
+  docker run "${docker_args[@]}" "$IMAGE"
+}
+
+# Convenience function for killing already running Docker container
+check_docker(){
+  container_id=$(docker ps -qf "ancestor=$IMAGE")
+    if [ -n "$container_id" ]; then
+      log_notice "A container with image '$IMAGE' is already running. Stopping and removing the container..."
+      docker kill $container_id
     fi
-    log_notice "$message"
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    -p 8080:8080 \
-    -e DEBUG=true \
-    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
-    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
-    -v $instructions_mount \
-    $IMAGE
-
-  # Local service and data but remote instructions
-  elif [[ "$instructions_hybrid" == true ]]; then
-    check_app_credentials
-    log_notice "$message"
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    -p 8080:8080 \
-    -e DEBUG=true \
-    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
-    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
-    -v $INPUT_DIR:$INPUT_DIR \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
-    $IMAGE
-
-  # Regular mode with local instructions and local service
-  else
-    log_notice "$message"
-    docker run -it \
-    --env-file "$ENV_FILE" \
-    -p 8080:8080 \
-    -e DEBUG=true \
-    -v $INPUT_DIR:$INPUT_DIR \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
-    -v $PWD/server/templates/custom_dc/$FLASK_ENV:/workspace/server/templates/custom_dc/$FLASK_ENV \
-    -v $DC_INSTRUCTIONS_DIR:$DC_INSTRUCTIONS_DIR \
-    -v $PWD/static/custom_dc/$FLASK_ENV:/workspace/static/custom_dc/$FLASK_ENV \
-    $IMAGE
-fi
 }
 
 # Functions for checking GCP credentials
