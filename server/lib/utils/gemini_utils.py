@@ -42,11 +42,10 @@ def call_gemini(
         formatted_prompt: A string containing the structured prompt or input to be sent to the Gemini model for generation.
         schema: A Pydantic BaseModel class that defines the expected model's JSON response.
         gemini_model: A string specifying the name of the Gemini model to utilize.
-        retries: An integer indicating the maximum number of retries for the API call in the event of a failure
         use_thinking_config: Boolean advising whether to use thinking configuration for Gemini 3.
 
     Returns:
-    The output of the call after all necessary retries.
+    The output of the call.
     """
   if not api_key or not formatted_prompt:
     return None
