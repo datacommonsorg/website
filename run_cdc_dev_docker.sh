@@ -221,9 +221,9 @@ run_service() {
 
 # Convenience function for killing already running Docker container
 check_docker(){
-  container_id=$(docker ps -qf "ancestor=$IMAGE")
+  container_id=$(docker ps -qf "publish=8080")
     if [ -n "$container_id" ]; then
-      log_notice "A container with image '$IMAGE' is already running. Stopping and removing the container..."
+      log_notice "A container is already running on port 8080. Stopping and removing the container..."
       docker kill $container_id
     fi
 }
