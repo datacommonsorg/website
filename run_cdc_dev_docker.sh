@@ -164,24 +164,36 @@ run_data() {
 
 # Run service container
 run_service() {
-  
-  # 1. Set IMAGE variable and output message
+
+  # 0. Check if there is an already running container on port 8080 and kill it
+  check_docker
+
+  # 1. Set IMAGE variable, construct and print output message
+
   local message
 
   if [ -n "$IMAGE" ]; then
-    message="Starting Docker services container with custom image '${IMAGE}'..."
+    message="Starting Docker services container with custom image '${IMAGE}'"
   elif [ "$RELEASE" == "latest" ]; then
-    message="Starting Docker services container with latest release..."
+    message="Starting Docker services container with latest release"
     IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
   else
-    message="Starting Docker services container with stable release..."
+    message="Starting Docker services container with stable release"
     IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
   fi
 
-  log_notice "$message"
+  if [[ "$service_hybrid" == true ]]; then
+    message+=" with data in Google Cloud"
+    if [[ "$instructions_hybrid" == true ]]; then
+    message+=" and "
+    fi
+  elif [[ "$instructions_hybrid" == true ]]; then
+    message+=" with custom instruction files in Google Cloud"
+  fi
 
-  # 2. Check if there is an already running container with the same image and kill it
-  check_docker
+  message+="..."
+
+  log_notice "$message"
 
  # 3. Define base Docker arguments shared by all modes
   local docker_args=(
