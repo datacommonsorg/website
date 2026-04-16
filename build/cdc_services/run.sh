@@ -93,12 +93,9 @@ if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; the
     
     echo "Generating Spanner graph info for Project: $GCP_PROJECT_ID, Instance: $GCP_SPANNER_INSTANCE_ID, DB: $GCP_SPANNER_DATABASE_NAME"
     
-    cat << EOF > /tmp/spanner_graph_info.yaml
-project: $GCP_PROJECT_ID
-instance: $GCP_SPANNER_INSTANCE_ID
-database: $GCP_SPANNER_DATABASE_NAME
-EOF
-    MIXER_ARGS+=("--spanner_graph_info=/tmp/spanner_graph_info.yaml")
+    SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
+    
+    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML")
 fi
 
 if [[ $USE_STALE_READS == "true" ]]; then
@@ -117,6 +114,7 @@ flags:
   EnableV3: $ENABLE_V3
   UseSpannerGraph: $USE_SPANNER_GRAPH
   UseStaleReads: $USE_STALE_READS_FLAG
+  SpannerGraphDatabase: $GCP_SPANNER_DATABASE_NAME
 EOF
     MIXER_ARGS+=("--feature_flags_path=/tmp/cdc_feature_flags.yaml")
 fi
