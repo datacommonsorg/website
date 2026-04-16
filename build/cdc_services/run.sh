@@ -72,6 +72,7 @@ if [[ $ENABLE_MODEL == "true" ]]; then
 fi
 
 # Initialize feature flags variables
+ENABLE_V3="false"
 USE_SPANNER_GRAPH="false"
 USE_STALE_READS_FLAG="false"
 
@@ -79,6 +80,7 @@ USE_STALE_READS_FLAG="false"
 if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; then
     echo "Spanner variables detected."
     USE_SPANNER_GRAPH="true"
+    ENABLE_V3="true"
     
     echo "Resolving Project ID..."
     # Fetch project ID from Metadata Server using Python (always available in this image).
@@ -103,14 +105,16 @@ if [[ $USE_STALE_READS == "true" ]]; then
     echo "Stale reads enabled via environment variable."
     USE_STALE_READS_FLAG="true"
     # Stale reads requires these to be true too
+    ENABLE_V3="true"
     USE_SPANNER_GRAPH="true"
 fi
 
 # If any feature flag needs to be enabled, generate the file
-if [[ $USE_SPANNER_GRAPH == "true" || $USE_STALE_READS_FLAG == "true" ]]; then
+if [[ $ENABLE_V3 == "true" || $USE_SPANNER_GRAPH == "true" || $USE_STALE_READS_FLAG == "true" ]]; then
     echo "Generating feature flags..."
     cat << EOF > /tmp/cdc_feature_flags.yaml
 flags:
+  EnableV3: $ENABLE_V3
   UseSpannerGraph: $USE_SPANNER_GRAPH
   UseStaleReads: $USE_STALE_READS_FLAG
 EOF
