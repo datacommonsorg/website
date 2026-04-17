@@ -28,6 +28,7 @@ import {
   convertArrayAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
 } from "./utils";
 
 /**
@@ -108,19 +109,13 @@ export class DatacommonsHighlightComponent extends LitElement {
   facetId?: string;
 
   render(): HTMLDivElement {
-    let facetId = "";
-    if (this.facetMapping) {
-      try {
-        const mapping = JSON.parse(this.facetMapping);
-        facetId = mapping[this.variable] || "";
-      } catch (e) {
-        // Ignore JSON parse error
-      }
-    } else if (this.facetIds && this.facetIds.length > 0) {
-      facetId = this.facetIds[0];
-    } else if (this.facetId) {
-      facetId = this.facetId;
-    }
+    const facetId = getFacetId(
+      this.variable,
+      0,
+      this.facetMapping,
+      this.facetIds,
+      this.facetId
+    );
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       description: this.header || this.description,

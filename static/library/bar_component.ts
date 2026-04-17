@@ -28,6 +28,7 @@ import {
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
   getVariableNameProcessingFn,
 } from "./utils";
 
@@ -255,23 +256,13 @@ export class DatacommonsBarComponent extends LitElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid, index) => {
-      let facetId = "";
-      if (this.facetMapping) {
-        try {
-          const mapping = JSON.parse(this.facetMapping);
-          facetId = mapping[statVarDcid] || "";
-        } catch (e) {
-          // Ignore JSON parse error
-        }
-      } else if (this.facetIds) {
-        if (this.facetIds.length === 1) {
-          facetId = this.facetIds[0];
-        } else if (this.facetIds.length > index) {
-          facetId = this.facetIds[index];
-        }
-      } else if (this.facetId) {
-        facetId = this.facetId;
-      }
+      const facetId = getFacetId(
+        statVarDcid,
+        index,
+        this.facetMapping,
+        this.facetIds,
+        this.facetId
+      );
       statVarSpec.push({
         date: this.date,
         denom:

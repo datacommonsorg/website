@@ -157,3 +157,35 @@ export function getObservationDateRange(response: PointApiResponse): {
   });
   return { minDate, maxDate };
 }
+
+/**
+ * Resolves the facet ID for a given variable based on mapping, positional list, or broadcast fallback.
+ *
+ * @param variable The variable DCID.
+ * @param index The index of the variable in the list.
+ * @param facetMapping Optional JSON mapping of variable to facet ID.
+ * @param facetIds Optional positional list of facet IDs.
+ * @param facetId Optional fallback facet ID.
+ * @returns The resolved facet ID or empty string.
+ */
+export function getFacetId(
+  variable: string,
+  index: number,
+  facetMapping?: string,
+  facetIds?: string[],
+  facetId?: string
+): string {
+  if (facetMapping) {
+    try {
+      const mapping = JSON.parse(facetMapping);
+      return mapping[variable] || "";
+    } catch (e) {
+      console.warn(`Failed to parse facetMapping JSON: ${facetMapping}`, e);
+    }
+  }
+  if (facetIds) {
+    if (facetIds.length === 1) return facetIds[0];
+    if (facetIds.length > index) return facetIds[index];
+  }
+  return facetId || "";
+}

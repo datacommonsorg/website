@@ -28,6 +28,7 @@ import {
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
 } from "./utils";
 
 /**
@@ -207,23 +208,13 @@ export class DatacommonsMapComponent extends LitElement {
         const variable = !_.isEmpty(this.variables)
           ? this.variables[Math.min(index, this.variables.length - 1)]
           : this.variable || this.statVarDcid;
-        let facetId = "";
-        if (this.facetMapping) {
-          try {
-            const mapping = JSON.parse(this.facetMapping);
-            facetId = mapping[variable] || "";
-          } catch (e) {
-            // Ignore JSON parse error
-          }
-        } else if (this.facetIds) {
-          if (this.facetIds.length === 1) {
-            facetId = this.facetIds[0];
-          } else if (this.facetIds.length > index) {
-            facetId = this.facetIds[index];
-          }
-        } else if (this.facetId) {
-          facetId = this.facetId;
-        }
+        const facetId = getFacetId(
+          variable,
+          index,
+          this.facetMapping,
+          this.facetIds,
+          this.facetId
+        );
         dataSpecs.push({
           enclosedPlaceType,
           parentPlace: placeDcid,
@@ -246,19 +237,13 @@ export class DatacommonsMapComponent extends LitElement {
       const place = this.parentPlace || this.place || this.placeDcid;
       const variable = this.variable || this.statVarDcid;
       const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
-      let facetId = "";
-      if (this.facetMapping) {
-        try {
-          const mapping = JSON.parse(this.facetMapping);
-          facetId = mapping[variable] || "";
-        } catch (e) {
-          // Ignore JSON parse error
-        }
-      } else if (this.facetIds && this.facetIds.length > 0) {
-        facetId = this.facetIds[0];
-      } else if (this.facetId) {
-        facetId = this.facetId;
-      }
+      const facetId = getFacetId(
+        variable,
+        0,
+        this.facetMapping,
+        this.facetIds,
+        this.facetId
+      );
       dataSpecs = [
         {
           enclosedPlaceType: childPlaceType,

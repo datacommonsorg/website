@@ -30,6 +30,7 @@ import {
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
 } from "./utils";
 
 /**
@@ -157,23 +158,13 @@ export class DatacommonsScatterComponent extends LitElement {
       showExploreMore: this.showExploreMore,
       sources: this.sources,
       statVarSpec: this.variables.map((variable, index) => {
-        let facetId = "";
-        if (this.facetMapping) {
-          try {
-            const mapping = JSON.parse(this.facetMapping);
-            facetId = mapping[variable] || "";
-          } catch (e) {
-            // Ignore JSON parse error
-          }
-        } else if (this.facetIds) {
-          if (this.facetIds.length === 1) {
-            facetId = this.facetIds[0];
-          } else if (this.facetIds.length > index) {
-            facetId = this.facetIds[index];
-          }
-        } else if (this.facetId) {
-          facetId = this.facetId;
-        }
+        const facetId = getFacetId(
+          variable,
+          index,
+          this.facetMapping,
+          this.facetIds,
+          this.facetId
+        );
         return {
           denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
           log: false,
