@@ -31,6 +31,7 @@ import {
   createWebComponentElement,
   getApiRoot,
   getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -170,12 +171,13 @@ export class DatacommonsRankingComponent extends LitElement {
   facetId?: string;
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const variables = this.variables || [this.variable];
     const statVarSpecs = variables.map((statVar, index) => {
       const facetId = getFacetId(
         statVar,
         index,
-        this.facetMapping,
+        parsedMapping,
         this.facetIds,
         this.facetId
       );

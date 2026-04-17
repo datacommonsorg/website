@@ -30,6 +30,7 @@ import {
   getApiRoot,
   getFacetId,
   getVariableNameProcessingFn,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -158,6 +159,7 @@ export class DatacommonsLineComponent extends LitElement {
   sources?: string[];
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const lineTileProps: LineTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
@@ -178,7 +180,7 @@ export class DatacommonsLineComponent extends LitElement {
         const facetId = getFacetId(
           variable,
           index,
-          this.facetMapping,
+          parsedMapping,
           this.facetIds,
           this.facetId
         );

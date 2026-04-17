@@ -163,7 +163,7 @@ export function getObservationDateRange(response: PointApiResponse): {
  *
  * @param variable The variable DCID.
  * @param index The index of the variable in the list.
- * @param facetMapping Optional JSON mapping of variable to facet ID.
+ * @param facetMapping Optional parsed mapping of variable to facet ID.
  * @param facetIds Optional positional list of facet IDs.
  * @param facetId Optional fallback facet ID.
  * @returns The resolved facet ID or empty string.
@@ -171,21 +171,37 @@ export function getObservationDateRange(response: PointApiResponse): {
 export function getFacetId(
   variable: string,
   index: number,
-  facetMapping?: string,
+  facetMapping?: Record<string, string>,
   facetIds?: string[],
   facetId?: string
 ): string {
-  if (facetMapping) {
-    try {
-      const mapping = JSON.parse(facetMapping);
-      return mapping[variable] || "";
-    } catch (e) {
-      console.warn(`Failed to parse facetMapping JSON: ${facetMapping}`, e);
-    }
+  if (facetMapping && variable in facetMapping) {
+    return facetMapping[variable];
   }
   if (facetIds) {
     if (facetIds.length === 1) return facetIds[0];
     if (facetIds.length > index) return facetIds[index];
   }
   return facetId || "";
+}
+
+/**
+ * Parses a facetMapping JSON string into a Record<string, string>.
+ * Logs a warning if parsing fails.
+ *
+ * @param facetMapping The JSON string to parse.
+ * @returns The parsed record or undefined.
+ */
+export function parseFacetMapping(
+  facetMapping?: string
+): Record<string, string> | undefined {
+  if (!facetMapping) {
+    return undefined;
+  }
+  try {
+    return JSON.parse(facetMapping);
+  } catch (e) {
+    console.warn(`Failed to parse facetMapping JSON: ${facetMapping}`, e);
+    return undefined;
+  }
 }

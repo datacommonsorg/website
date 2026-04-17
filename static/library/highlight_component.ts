@@ -29,6 +29,7 @@ import {
   createWebComponentElement,
   getApiRoot,
   getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -103,10 +104,11 @@ export class DatacommonsHighlightComponent extends LitElement {
   facetId?: string;
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const facetId = getFacetId(
       this.variable,
       0,
-      this.facetMapping,
+      parsedMapping,
       undefined,
       this.facetId
     );

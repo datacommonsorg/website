@@ -31,6 +31,7 @@ import {
   createWebComponentElement,
   getApiRoot,
   getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -138,6 +139,7 @@ export class DatacommonsScatterComponent extends LitElement {
   facetId?: string;
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       enclosedPlaceType: this.childPlaceType,
@@ -161,7 +163,7 @@ export class DatacommonsScatterComponent extends LitElement {
         const facetId = getFacetId(
           variable,
           index,
-          this.facetMapping,
+          parsedMapping,
           this.facetIds,
           this.facetId
         );

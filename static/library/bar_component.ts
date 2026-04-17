@@ -30,6 +30,7 @@ import {
   getApiRoot,
   getFacetId,
   getVariableNameProcessingFn,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -253,13 +254,14 @@ export class DatacommonsBarComponent extends LitElement {
   disableEntityLink?: boolean;
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid, index) => {
       const facetId = getFacetId(
         statVarDcid,
         index,
-        this.facetMapping,
+        parsedMapping,
         this.facetIds,
         this.facetId
       );

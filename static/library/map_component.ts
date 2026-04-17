@@ -29,6 +29,7 @@ import {
   createWebComponentElement,
   getApiRoot,
   getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -190,6 +191,7 @@ export class DatacommonsMapComponent extends LitElement {
   facetId?: string;
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
       this.parentPlaces.forEach((placeDcid, index) => {
@@ -211,7 +213,7 @@ export class DatacommonsMapComponent extends LitElement {
         const facetId = getFacetId(
           variable,
           index,
-          this.facetMapping,
+          parsedMapping,
           this.facetIds,
           this.facetId
         );
@@ -240,7 +242,7 @@ export class DatacommonsMapComponent extends LitElement {
       const facetId = getFacetId(
         variable,
         0,
-        this.facetMapping,
+        parsedMapping,
         this.facetIds,
         this.facetId
       );
