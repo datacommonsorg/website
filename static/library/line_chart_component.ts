@@ -94,6 +94,24 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   variables!: Array<string>;
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   // Optional: Regex used to process variable names
   // If provided, will only use the first case of the variable name that matches
   // this regex.
@@ -155,17 +173,37 @@ export class DatacommonsLineComponent extends LitElement {
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sources: this.sources,
-      statVarSpec: this.variables.map((variable) => ({
-        denom:
-          this.perCapita && this.perCapita.includes(variable)
-            ? DEFAULT_PER_CAPITA_DENOM
-            : "",
-        log: false,
-        name: "",
-        scaling: 1,
-        statVar: variable,
-        unit: "",
-      })),
+      statVarSpec: this.variables.map((variable, index) => {
+        let facetId = "";
+        if (this.facetMapping) {
+          try {
+            const mapping = JSON.parse(this.facetMapping);
+            facetId = mapping[variable] || "";
+          } catch (e) {
+            // Ignore JSON parse error
+          }
+        } else if (this.facetIds) {
+          if (this.facetIds.length === 1) {
+            facetId = this.facetIds[0];
+          } else if (this.facetIds.length > index) {
+            facetId = this.facetIds[index];
+          }
+        } else if (this.facetId) {
+          facetId = this.facetId;
+        }
+        return {
+          denom:
+            this.perCapita && this.perCapita.includes(variable)
+              ? DEFAULT_PER_CAPITA_DENOM
+              : "",
+          log: false,
+          name: "",
+          scaling: 1,
+          statVar: variable,
+          unit: "",
+          facetId,
+        };
+      }),
       svgChartHeight: 200,
       title: this.header || this.title,
       timeScale: this.timeScale,

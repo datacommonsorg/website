@@ -89,7 +89,38 @@ export class DatacommonsHighlightComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
+    let facetId = "";
+    if (this.facetMapping) {
+      try {
+        const mapping = JSON.parse(this.facetMapping);
+        facetId = mapping[this.variable] || "";
+      } catch (e) {
+        // Ignore JSON parse error
+      }
+    } else if (this.facetIds && this.facetIds.length > 0) {
+      facetId = this.facetIds[0];
+    } else if (this.facetId) {
+      facetId = this.facetId;
+    }
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       description: this.header || this.description,
@@ -110,6 +141,7 @@ export class DatacommonsHighlightComponent extends LitElement {
         scaling: 1,
         statVar: this.variable,
         unit: this.unit || "",
+        facetId,
       },
       surface: WEB_COMPONENT_SURFACE,
     };

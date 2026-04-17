@@ -118,6 +118,24 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -138,14 +156,34 @@ export class DatacommonsScatterComponent extends LitElement {
       },
       showExploreMore: this.showExploreMore,
       sources: this.sources,
-      statVarSpec: this.variables.map((variable) => ({
-        denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
-        log: false,
-        name: "",
-        scaling: 1,
-        statVar: variable,
-        unit: "",
-      })),
+      statVarSpec: this.variables.map((variable, index) => {
+        let facetId = "";
+        if (this.facetMapping) {
+          try {
+            const mapping = JSON.parse(this.facetMapping);
+            facetId = mapping[variable] || "";
+          } catch (e) {
+            // Ignore JSON parse error
+          }
+        } else if (this.facetIds) {
+          if (this.facetIds.length === 1) {
+            facetId = this.facetIds[0];
+          } else if (this.facetIds.length > index) {
+            facetId = this.facetIds[index];
+          }
+        } else if (this.facetId) {
+          facetId = this.facetId;
+        }
+        return {
+          denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
+          log: false,
+          name: "",
+          scaling: 1,
+          statVar: variable,
+          unit: "",
+          facetId,
+        };
+      }),
       svgChartHeight: 200,
       title: this.header,
       placeNameProp: this.placeNameProp,

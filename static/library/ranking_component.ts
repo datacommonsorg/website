@@ -150,9 +150,44 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
     const variables = this.variables || [this.variable];
-    const statVarSpecs = variables.map((statVar) => {
+    const statVarSpecs = variables.map((statVar, index) => {
+      let facetId = "";
+      if (this.facetMapping) {
+        try {
+          const mapping = JSON.parse(this.facetMapping);
+          facetId = mapping[statVar] || "";
+        } catch (e) {
+          // Ignore JSON parse error
+        }
+      } else if (this.facetIds) {
+        if (this.facetIds.length === 1) {
+          facetId = this.facetIds[0];
+        } else if (this.facetIds.length > index) {
+          facetId = this.facetIds[index];
+        }
+      } else if (this.facetId) {
+        facetId = this.facetId;
+      }
       return {
         denom:
           this.perCapita && this.perCapita.includes(statVar)
@@ -163,6 +198,7 @@ export class DatacommonsRankingComponent extends LitElement {
         scaling: 1,
         statVar,
         unit: "",
+        facetId,
       };
     });
 

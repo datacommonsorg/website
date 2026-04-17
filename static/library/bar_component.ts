@@ -191,6 +191,24 @@ export class DatacommonsBarComponent extends LitElement {
   variables!: string[];
 
   /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
+  /**
    * Optional: Y axis margin to fit the axis label text.
    * Default: 60px
    */
@@ -236,7 +254,24 @@ export class DatacommonsBarComponent extends LitElement {
   render(): HTMLDivElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
-    statVarDcids.forEach((statVarDcid) => {
+    statVarDcids.forEach((statVarDcid, index) => {
+      let facetId = "";
+      if (this.facetMapping) {
+        try {
+          const mapping = JSON.parse(this.facetMapping);
+          facetId = mapping[statVarDcid] || "";
+        } catch (e) {
+          // Ignore JSON parse error
+        }
+      } else if (this.facetIds) {
+        if (this.facetIds.length === 1) {
+          facetId = this.facetIds[0];
+        } else if (this.facetIds.length > index) {
+          facetId = this.facetIds[index];
+        }
+      } else if (this.facetId) {
+        facetId = this.facetId;
+      }
       statVarSpec.push({
         date: this.date,
         denom:
@@ -248,6 +283,7 @@ export class DatacommonsBarComponent extends LitElement {
         scaling: 1,
         statVar: statVarDcid,
         unit: "",
+        facetId,
       });
     });
     const barTileProps: BarTilePropType = {
