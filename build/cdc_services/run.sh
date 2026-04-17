@@ -82,15 +82,13 @@ if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; the
     USE_SPANNER_GRAPH="true"
     ENABLE_V3="true"
     
-    echo "Resolving Project ID..."
-    # Fetch project ID from Metadata Server using Python (always available in this image).
-    GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null || echo "")
+    # Use existing GCP_PROJECT_ID, or fetch it from Metadata Server if empty
+    GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
     
-    if [[ $GCP_PROJECT_ID == "" ]]; then
-        echo "ERROR: Failed to resolve Project ID from Metadata Server."
+    if [[ -z "$GCP_PROJECT_ID" ]]; then
+        echo "ERROR: Failed to resolve Project ID."
         exit 1
     fi
-    
     
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
     
