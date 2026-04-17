@@ -91,7 +91,6 @@ if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; the
         exit 1
     fi
     
-    echo "Generating Spanner graph info for Project: $GCP_PROJECT_ID, Instance: $GCP_SPANNER_INSTANCE_ID, DB: $GCP_SPANNER_DATABASE_NAME"
     
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
     
@@ -99,7 +98,6 @@ if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; the
 fi
 
 if [[ $USE_STALE_READS == "true" ]]; then
-    echo "Stale reads enabled via environment variable."
     USE_STALE_READS_FLAG="true"
     # Stale reads requires these to be true too
     ENABLE_V3="true"
@@ -108,18 +106,21 @@ fi
 
 # If any feature flag needs to be enabled, generate the file
 if [[ $ENABLE_V3 == "true" || $USE_SPANNER_GRAPH == "true" || $USE_STALE_READS_FLAG == "true" ]]; then
-    echo "Generating feature flags..."
     cat << EOF > /tmp/cdc_feature_flags.yaml
 flags:
   EnableV3: $ENABLE_V3
   UseSpannerGraph: $USE_SPANNER_GRAPH
   UseStaleReads: $USE_STALE_READS_FLAG
   SpannerGraphDatabase: $GCP_SPANNER_DATABASE_NAME
+  V2DivertFraction: 1.0
 EOF
+    echo "DEBUG: Feature flags file content:"
+    cat /tmp/cdc_feature_flags.yaml
     MIXER_ARGS+=("--feature_flags_path=/tmp/cdc_feature_flags.yaml")
 fi
 
 # Start mixer.
+echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 /workspace/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
