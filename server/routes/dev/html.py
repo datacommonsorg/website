@@ -34,3 +34,10 @@ def subject_page_tiles():
   return flask.render_template('dev/subject_page_tiles.html',
                                maps_api_key=flask.current_app.config.get(
                                    'MAPS_API_KEY', ''))
+
+
+@bp.route('/facet-examples')
+def facet_examples():
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  return flask.render_template('dev/facet_examples.html')

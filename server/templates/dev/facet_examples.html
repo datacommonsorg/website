@@ -1,0 +1,258 @@
+{#
+ Copyright 2026 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ you may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{%- extends BASE_HTML -%}
+
+{% set title = 'Facet Examples' %}
+
+{% block head %}
+  <script src="http://localhost:8080/datacommons.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Facet Examples</h1>
+  <p>This page demonstrates the new facet filtering functionality in web components.</p>
+
+  <!-- Line Component -->
+  <div class="mb-5 pb-3 border-bottom">
+    <h2 class="mt-4">Line Component</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Default (No facets)</h3>
+        <datacommons-line
+          header="US Population (Total) vs Population (Female)"
+          place="country/USA"
+          variables="Count_Person Count_Person_Female"
+        ></datacommons-line>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet ID (Single facet, all variables)</h3>
+        <datacommons-line
+          header="US Population (Male) vs Population (Female)"
+          place="country/USA"
+          variables="Count_Person_Male Count_Person_Female"
+          facetId="2825511676"
+        ></datacommons-line>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet IDs (Different facets for each variable, positional)</h3>
+        <datacommons-line
+          header="US Population (Total) vs Population (Female)"
+          place="country/USA"
+          variables="Count_Person Count_Person_Female"
+          facetIds="2458695583 2825511676"
+        ></datacommons-line>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Mapping (Facet mapping, only Count_Person given facet)</h3>
+        <datacommons-line
+          header="US Population (Total) vs Population (Female)"
+          place="country/USA"
+          variables="Count_Person Count_Person_Female"
+          facetMapping='{"Count_Person": "2458695583"}'
+        ></datacommons-line>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Mapping (Facet mapping, both given different facets.)</h3>
+        <datacommons-line
+          header="US Population (Total) vs Population (Female)"
+          place="country/USA"
+          variables="Count_Person Count_Person_Female"
+          facetMapping='{"Count_Person": "2458695583", "Count_Person_Female": "2825511676"}'
+        ></datacommons-line>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bar Component -->
+  <div class="mb-5 pb-3 border-bottom">
+    <h2 class="mt-4">Bar Component</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Default (No facets)</h3>
+        <datacommons-bar
+          header="Populations of USA, India, and China"
+          places="country/USA country/IND country/CHN"
+          variables="Count_Person"
+        ></datacommons-bar>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Single facet id)</h3>
+        <datacommons-bar
+          header="Populations of USA, India, and China"
+          places="country/USA country/IND country/CHN"
+          variables="Count_Person"
+          facetIds="3981252704"
+        ></datacommons-bar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Component -->
+  <div class="mb-5 pb-3 border-bottom">
+    <h2 class="mt-4">Map Component</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Default (No facets)</h3>
+        <datacommons-map
+          header="Population by state in the United States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variable="Count_Person"
+        ></datacommons-map>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet id)</h3>
+        <datacommons-map
+          header="Population by state in the United States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variable="Count_Person"
+          facetId="2458695583"
+        ></datacommons-map>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet mapping)</h3>
+        <datacommons-map
+          header="Population by state in the United States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variable="Count_Person"
+          facetMapping='{"Count_Person": "2458695583"}'
+        ></datacommons-map>
+      </div>
+    </div>
+  </div>
+
+  <!-- Highlight Component -->
+  <div class="mb-5 pb-3 border-bottom">
+    <h2 class="mt-4">Highlight Component</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Default (No facets)</h3>
+        <datacommons-highlight
+          header="Population of the United States"
+          place="country/USA"
+          variable="Count_Person"
+        ></datacommons-highlight>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet id)</h3>
+        <datacommons-highlight
+          header="Population of the United States"
+          place="country/USA"
+          variable="Count_Person"
+          facetId="3981252704"
+        ></datacommons-highlight>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet mapping)</h3>
+        <datacommons-highlight
+          header="Population of the United States"
+          place="country/USA"
+          variable="Count_Person"
+          facetMapping='{"Count_Person": "3981252704"}'
+        ></datacommons-highlight>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scatter Component -->
+  <div class="mb-5 pb-3 border-bottom">
+    <h2 class="mt-4">Scatter Component</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Default (No facets)</h3>
+        <datacommons-scatter
+          header="Population vs Median Household Income for US States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variables="Count_Person Median_Income_Household"
+        ></datacommons-scatter>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet ids)</h3>
+        <datacommons-scatter
+          header="Population vs Median Household Income for US States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variables="Count_Person Median_Income_Household"
+          facetIds="2825511676 1305418269"
+        ></datacommons-scatter>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet mapping)</h3>
+        <datacommons-scatter
+          header="Population vs Median Household Income for US States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variables="Count_Person Median_Income_Household"
+          facetMapping='{"Count_Person": "2825511676", "Median_Income_Household": "1305418269"}'
+        ></datacommons-scatter>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ranking Component -->
+  <div class="mb-5 pb-3 border-bottom">
+    <h2 class="mt-4">Ranking Component</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Default (No facets)</h3>
+        <datacommons-ranking
+          header="Population by state in the United States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variable="Count_Person"
+        ></datacommons-ranking>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet id)</h3>
+        <datacommons-ranking
+          header="Population by state in the United States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variable="Count_Person"
+          facetId="2458695583"
+        ></datacommons-ranking>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <h3 class="mt-3">Facet Filtered (Facet mapping)</h3>
+        <datacommons-ranking
+          header="Population by state in the United States"
+          parentPlace="country/USA"
+          childPlaceType="State"
+          variable="Count_Person"
+          facetMapping='{"Count_Person": "2458695583"}'
+        ></datacommons-ranking>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
