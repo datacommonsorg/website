@@ -98,7 +98,6 @@ export interface HighlightComponentProps
   place: string;
   variable: string;
   facetId?: string;
-  facetIds?: string[];
   facetMapping?: string;
 }
 

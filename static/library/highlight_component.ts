@@ -91,12 +91,6 @@ export class DatacommonsHighlightComponent extends LitElement {
   sources?: string[];
 
   /**
-   * Optional: List of facet IDs to use for variables
-   */
-  @property({ type: Array<string>, converter: convertArrayAttribute })
-  facetIds?: string[];
-
-  /**
    * Optional: JSON mapping of variable DCID to facet ID
    */
   @property()
@@ -113,7 +107,7 @@ export class DatacommonsHighlightComponent extends LitElement {
       this.variable,
       0,
       this.facetMapping,
-      this.facetIds,
+      undefined,
       this.facetId
     );
     const highlightTileProps: HighlightTilePropType = {
