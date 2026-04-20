@@ -452,6 +452,9 @@ export function Block(props: BlockPropType): ReactElement {
   } = useFacetEnrichment(
     facetListCacheKey,
     facetList,
+    // Callback to enrich facet choices. If it is a "within" fetch, it enriches
+    // based on the parent place and enclosed place type. Otherwise, it enriches
+    // based on all place DCIDs used in the block's tiles.
     useCallback(async () => {
       if (!facetList) {
         return [];
