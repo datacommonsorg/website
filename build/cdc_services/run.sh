@@ -97,7 +97,6 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     cat << EOF > /tmp/cdc_feature_flags.yaml
 flags:
   UseSpannerGraph: $USE_SPANNER_GRAPH
-  SpannerGraphDatabase: $GCP_SPANNER_DATABASE_NAME
   V2DivertFraction: 1.0
 EOF
     echo "DEBUG: Feature flags file content:"
