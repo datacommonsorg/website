@@ -159,7 +159,14 @@ export function getObservationDateRange(response: PointApiResponse): {
 }
 
 /**
- * Resolves the facet ID for a given variable based on mapping, positional list, or broadcast fallback.
+ * Resolves the facet ID for a given variable.
+ *
+ * Precedence order for resolution:
+ * 1. `facetMapping`: If the variable exists as a key in the mapping, its value is used.
+ * 2. `facetIds`: If provided as a list:
+ *    - If it contains a single element, that element is used for all variables (broadcast).
+ *    - If it contains multiple elements, the element at the same `index` as the variable is used.
+ * 3. `facetId`: Fallback ID used if no higher precedence match is found.
  *
  * @param variable The variable DCID.
  * @param index The index of the variable in the list.
