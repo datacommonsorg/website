@@ -28,6 +28,8 @@ import {
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -170,7 +172,26 @@ export class DatacommonsMapComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
       this.parentPlaces.forEach((placeDcid, index) => {
@@ -189,6 +210,13 @@ export class DatacommonsMapComponent extends LitElement {
         const variable = !_.isEmpty(this.variables)
           ? this.variables[Math.min(index, this.variables.length - 1)]
           : this.variable || this.statVarDcid;
+        const facetId = getFacetId(
+          variable,
+          index,
+          parsedMapping,
+          this.facetIds,
+          this.facetId
+        );
         dataSpecs.push({
           enclosedPlaceType,
           parentPlace: placeDcid,
@@ -203,6 +231,7 @@ export class DatacommonsMapComponent extends LitElement {
             scaling: 1,
             statVar: variable,
             unit: "",
+            facetId,
           },
         });
       });
@@ -210,6 +239,13 @@ export class DatacommonsMapComponent extends LitElement {
       const place = this.parentPlace || this.place || this.placeDcid;
       const variable = this.variable || this.statVarDcid;
       const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
+      const facetId = getFacetId(
+        variable,
+        0,
+        parsedMapping,
+        this.facetIds,
+        this.facetId
+      );
       dataSpecs = [
         {
           enclosedPlaceType: childPlaceType,
@@ -225,6 +261,7 @@ export class DatacommonsMapComponent extends LitElement {
             statVar: variable,
             unit: "",
             date: this.date,
+            facetId,
           },
         },
       ];
