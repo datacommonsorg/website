@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-
 import flask
+
+from shared.lib.utils import is_production_env
 
 # Define blueprint
 bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
@@ -22,14 +22,14 @@ bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
 
 @bp.route('/')
 def dev():
-  if os.environ.get('FLASK_ENV') == 'production':
+  if is_production_env():
     flask.abort(404)
   return flask.render_template('dev/dev.html')
 
 
 @bp.route('/subject-page-tiles')
 def subject_page_tiles():
-  if os.environ.get('FLASK_ENV') == 'production':
+  if is_production_env():
     flask.abort(404)
   return flask.render_template('dev/subject_page_tiles.html',
                                maps_api_key=flask.current_app.config.get(
@@ -38,6 +38,6 @@ def subject_page_tiles():
 
 @bp.route('/facet-examples')
 def facet_examples():
-  if os.environ.get('FLASK_ENV') == 'production':
+  if is_production_env():
     flask.abort(404)
   return flask.render_template('dev/facet_examples.html')
