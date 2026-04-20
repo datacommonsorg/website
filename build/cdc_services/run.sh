@@ -74,7 +74,6 @@ fi
 # Initialize feature flags variables
 ENABLE_V3="false"
 USE_SPANNER_GRAPH="false"
-USE_STALE_READS_FLAG="false"
 
 # Resolve Spanner connection details if provided in environment.
 if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; then
@@ -95,20 +94,12 @@ if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; the
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML")
 fi
 
-if [[ $USE_STALE_READS == "true" ]]; then
-    USE_STALE_READS_FLAG="true"
-    # Stale reads requires these to be true too
-    ENABLE_V3="true"
-    USE_SPANNER_GRAPH="true"
-fi
-
 # If any feature flag needs to be enabled, generate the file
-if [[ $ENABLE_V3 == "true" || $USE_SPANNER_GRAPH == "true" || $USE_STALE_READS_FLAG == "true" ]]; then
+if [[ $ENABLE_V3 == "true" || $USE_SPANNER_GRAPH == "true" ]]; then
     cat << EOF > /tmp/cdc_feature_flags.yaml
 flags:
   EnableV3: $ENABLE_V3
   UseSpannerGraph: $USE_SPANNER_GRAPH
-  UseStaleReads: $USE_STALE_READS_FLAG
   SpannerGraphDatabase: $GCP_SPANNER_DATABASE_NAME
   V2DivertFraction: 1.0
 EOF
