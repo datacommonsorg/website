@@ -72,14 +72,12 @@ if [[ $ENABLE_MODEL == "true" ]]; then
 fi
 
 # Initialize feature flags variables
-ENABLE_V3="false"
 USE_SPANNER_GRAPH="false"
 
 # Resolve Spanner connection details if provided in environment.
 if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; then
     echo "Spanner variables detected."
     USE_SPANNER_GRAPH="true"
-    ENABLE_V3="true"
     
     # Use existing GCP_PROJECT_ID, or fetch it from Metadata Server if empty
     GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
@@ -95,10 +93,9 @@ if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; the
 fi
 
 # If any feature flag needs to be enabled, generate the file
-if [[ $ENABLE_V3 == "true" || $USE_SPANNER_GRAPH == "true" ]]; then
+if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     cat << EOF > /tmp/cdc_feature_flags.yaml
 flags:
-  EnableV3: $ENABLE_V3
   UseSpannerGraph: $USE_SPANNER_GRAPH
   SpannerGraphDatabase: $GCP_SPANNER_DATABASE_NAME
   V2DivertFraction: 1.0
