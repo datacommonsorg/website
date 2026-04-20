@@ -357,7 +357,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_1704193675"
+                      "Count_Person_Female_WithHealthInsurance_3376114862"
                     ],
                     "title": "Women With Health Insurance in California",
                     "type": "LINE"
@@ -995,8 +995,8 @@
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_1704193675": {
-            "facetId": "1704193675",
+          "Count_Person_Female_WithHealthInsurance_3376114862": {
+            "facetId": "3376114862",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
