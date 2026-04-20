@@ -83,13 +83,16 @@ def generate_page_overview(
 
   if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
     overview_gemini_model = _OVERVIEW_GEMINI_3_1_LITE
+    use_thinking_config = True
   else:
     overview_gemini_model = _OVERVIEW_GEMINI_2_5_LITE
+    use_thinking_config = False
 
   page_overview = call_gemini(api_key=gemini_api_key,
                               formatted_prompt=formatted_page_overview_prompt,
                               schema=PageOverview,
-                              gemini_model=overview_gemini_model)
+                              gemini_model=overview_gemini_model,
+                              use_thinking_config=use_thinking_config)
   if not page_overview:
     return None, None
 

@@ -39,6 +39,7 @@ import {
   WEBSITE_SURFACE,
 } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
+import { useFacetEnrichment } from "../../shared/hooks/use_facet_enrichment";
 import {
   buildObservationSpecs,
   ObservationSpec,
@@ -58,8 +59,8 @@ import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getMergedSvg, transformCsvHeader } from "../../utils/tile_utils";
+import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
 import { Chart } from "./chart";
-import { useFacetMetadata } from "./compute/facet_metadata";
 import {
   Axis,
   AxisWrapper,
@@ -98,15 +99,34 @@ export function ChartLoader(): ReactElement {
   const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
-  const { facetSelectorMetadata, facetListLoading, facetListError } =
-    useFacetMetadata(
-      cache?.baseFacets || null,
-      {
+  const facetListCacheKey = `${place.value.enclosingPlace.dcid}-${place.value.enclosedPlaceType}-${x.value.statVarDcid}-${y.value.statVarDcid}`;
+
+  const baseFacetList = useMemo(() => {
+    return [
+      getFacetInfo(x.value, cache?.baseFacets?.[x.value.statVarDcid]),
+      getFacetInfo(y.value, cache?.baseFacets?.[y.value.statVarDcid]),
+    ];
+  }, [x.value, y.value, cache?.baseFacets]);
+
+  const {
+    facetList,
+    loading: facetListLoading,
+    onModalOpen,
+    totalFacetCount,
+  } = useFacetEnrichment(
+    facetListCacheKey,
+    baseFacetList,
+    useCallback(async () => {
+      const enriched = await fetchFacetsWithMetadata(cache?.baseFacets, {
         parentPlace: place.value.enclosingPlace.dcid,
         enclosedPlaceType: place.value.enclosedPlaceType,
-      },
-      WEBSITE_SURFACE
-    );
+      });
+      return [
+        getFacetInfo(x.value, enriched[x.value.statVarDcid]),
+        getFacetInfo(y.value, enriched[y.value.statVarDcid]),
+      ];
+    }, [cache?.baseFacets, x.value, y.value, place.value])
+  );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
@@ -298,14 +318,6 @@ export function ChartLoader(): ReactElement {
     return <></>;
   }
 
-  const xFacetInfo = getFacetInfo(
-    xVal,
-    facetSelectorMetadata[xVal.statVarDcid]
-  );
-  const yFacetInfo = getFacetInfo(
-    yVal,
-    facetSelectorMetadata[yVal.statVarDcid]
-  );
   const onSvFacetIdUpdated = (update): void => {
     for (const sv of Object.keys(update)) {
       if (x.value.statVarDcid === sv) {
@@ -347,9 +359,11 @@ export function ChartLoader(): ReactElement {
                   [y.value.statVarDcid]: y.value.metahash,
                 }}
                 onSvFacetIdUpdated={onSvFacetIdUpdated}
-                facetList={[xFacetInfo, yFacetInfo]}
+                facetList={facetList}
                 facetListLoading={facetListLoading}
-                facetListError={facetListError}
+                facetListError={false}
+                onFacetSelectorModalOpen={onModalOpen}
+                totalFacetCount={totalFacetCount}
                 handleEmbed={handleEmbed}
                 getObservationSpecs={getObservationSpecs}
                 containerRef={containerRef}

@@ -37,6 +37,7 @@ import {
   StatVarHierarchyType,
   StatVarInfo,
 } from "../shared/types";
+import { getUrlWithSearchParamsToPropagate } from "../utils/url_utils";
 import {
   StatVarHierarchyNodeHeader,
   StatVarHierarchyNodeHeaderPropType,
@@ -272,7 +273,7 @@ export class StatVarGroupNode extends React.Component<
       numEntitiesExistence = entityDcids.length;
     }
     axios
-      .post("/api/variable-group/info", {
+      .post(getUrlWithSearchParamsToPropagate("/api/variable-group/info"), {
         dcid: this.props.data.id,
         entities: entityDcids,
         numEntitiesExistence,

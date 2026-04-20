@@ -126,8 +126,13 @@ export function ChartLoader(): ReactElement {
     dispatchSources,
     dispatchMetadata
   );
-  const { facetList, facetListLoading, facetListError } =
-    useComputeFacetList(chartStore);
+  const {
+    facetList,
+    facetListLoading,
+    facetListError,
+    onFacetSelectorModalOpen,
+    totalFacetCount,
+  } = useComputeFacetList(chartStore);
   const { sampleDates, sampleFacet } = useComputeSampleDates(chartStore);
   const legendDomain = useComputeLegendDomain(chartStore, sampleFacet);
 
@@ -406,6 +411,8 @@ export function ChartLoader(): ReactElement {
           mapPoints={chartStore.mapPointCoordinate.data}
           rankingLink={rankingLink}
           facetList={facetList}
+          onFacetSelectorModalOpen={onFacetSelectorModalOpen}
+          totalFacetCount={totalFacetCount}
           borderGeoJsonData={
             shouldShowBorder(placeInfo.value.enclosedPlaceType)
               ? chartStore.borderGeoJson.data

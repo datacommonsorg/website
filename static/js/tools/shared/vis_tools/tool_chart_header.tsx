@@ -44,6 +44,10 @@ interface ToolChartHeaderProps {
   facetListLoading: boolean;
   // An error message to display if the fetch fails.
   facetListError: boolean;
+  // The total number of facets available
+  totalFacetCount?: number;
+  // Callback function that is run when the modal is opened to enrich facets with metadata
+  onFacetSelectorModalOpen?: () => void;
 }
 
 export function ToolChartHeader(props: ToolChartHeaderProps): ReactElement {
@@ -74,6 +78,8 @@ export function ToolChartHeader(props: ToolChartHeaderProps): ReactElement {
               GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
           });
         }}
+        onModalOpen={props.onFacetSelectorModalOpen}
+        totalFacetCount={props.totalFacetCount}
       />
     </div>
   );

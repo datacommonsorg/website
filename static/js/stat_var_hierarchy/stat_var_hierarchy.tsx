@@ -268,7 +268,7 @@ export class StatVarHierarchy extends React.Component<
           ? [statVarHierarchyConfigNode.dataSourceDcid]
           : [];
         return axios
-          .post("/api/variable-group/info", {
+          .post(getUrlWithSearchParamsToPropagate("/api/variable-group/info"), {
             dcid: statVarHierarchyConfigNode.dcid,
             entities: [...entityList, ...dataSourceEntities],
             numEntitiesExistence: this.props.numEntitiesExistence,

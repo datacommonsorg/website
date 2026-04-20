@@ -318,14 +318,17 @@ def generate_follow_up_questions(query: str,
 
   if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
     gemini_model = _QUESTIONS_GEMINI_3
+    use_thinking_config = True
   else:
     gemini_model = _QUESTIONS_GEMINI_2
+    use_thinking_config = False
 
   follow_up_questions = call_gemini(
       api_key=gemini_api_key,
       formatted_prompt=formatted_follow_up_questions_prompt,
       schema=FollowUpQuestions,
-      gemini_model=gemini_model)
+      gemini_model=gemini_model,
+      use_thinking_config=use_thinking_config)
   if not follow_up_questions:
     return []
 
