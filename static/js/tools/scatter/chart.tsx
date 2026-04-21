@@ -80,7 +80,11 @@ interface ChartPropsType {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
+  // The total number of facets available
+  totalFacetCount?: number;
   onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
+  // Callback function that is run when the modal is opened to enrich facets with metadata
+  onFacetSelectorModalOpen?: () => void;
   // A function passed through from the chart that handles the task
   // of creating the embedding used in the download functionality.
   handleEmbed?: () => void;
@@ -227,6 +231,8 @@ export function Chart(props: ChartPropsType): ReactElement {
         facetListLoading={props.facetListLoading}
         facetListError={props.facetListError}
         onSvFacetIdUpdated={props.onSvFacetIdUpdated}
+        onFacetSelectorModalOpen={props.onFacetSelectorModalOpen}
+        totalFacetCount={props.totalFacetCount}
       />
       <Card className="chart-card">
         <div className="chart-title">

@@ -16,13 +16,12 @@
 
 // Custom hook to compute the list of facets to show in source selector.
 
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
-import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../../shared/facet_selector/facet_selector";
-import { getDataCommonsClient } from "../../../utils/data_commons_client";
+import { useFacetEnrichment } from "../../../shared/hooks/use_facet_enrichment";
 import { FacetResponse } from "../../../utils/data_fetch_utils";
-import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";
+import { enrichFacetChoices } from "../../shared/facet_choice_fetcher";
 import { ChartStore } from "../chart_store";
 import { Context } from "../context";
 import { useAllStatReady } from "../ready_hooks";
@@ -31,20 +30,20 @@ export function useComputeFacetList(chartStore: ChartStore): {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
+  onFacetSelectorModalOpen: () => void;
+  totalFacetCount: number;
 } {
   const { statVar } = useContext(Context);
   const allStatReady = useAllStatReady(chartStore);
-  const [facetList, setFacetList] = useState([]);
-  const [facetListLoading, setFacetListLoading] = useState(false);
-  const [facetListError, setFacetListError] = useState(false);
-  const dataCommonsClient = useMemo(
-    () => getDataCommonsClient(null, WEBSITE_SURFACE),
+  const [baseFacetList, setBaseFacetList] = useState<FacetSelectorFacetInfo[]>(
     []
   );
+  const [facetListLoading, setFacetListLoading] = useState(false);
+  const [facetListError, setFacetListError] = useState(false);
 
   useEffect(() => {
     if (!allStatReady()) {
-      setFacetList([]);
+      setBaseFacetList([]);
       return;
     }
 
@@ -54,7 +53,7 @@ export function useComputeFacetList(chartStore: ChartStore): {
     const allStatData = chartStore.allStat.data;
     const svDcid = statVar.value.dcid;
     if (!svDcid) {
-      setFacetList([]);
+      setBaseFacetList([]);
       setFacetListLoading(false);
       return;
     }
@@ -72,30 +71,44 @@ export function useComputeFacetList(chartStore: ChartStore): {
       }
     }
 
-    fetchFacetsWithMetadata(baseFacets, {
-      entities: data ? Object.keys(data) : [],
-    })
-      .then((enrichedMap) => {
-        if (!enrichedMap[svDcid]) {
-          setFacetList([]);
-          setFacetListLoading(false);
-          return;
-        }
-        const finalFacetList = [
-          {
-            dcid: svDcid,
-            name: statVar.value.info[svDcid]?.title || svDcid,
-            metadataMap: enrichedMap[svDcid],
-          },
-        ];
-        setFacetList(finalFacetList);
-        setFacetListLoading(false);
-      })
-      .catch(() => {
-        setFacetListError(true);
-        setFacetListLoading(false);
-      });
-  }, [allStatReady, chartStore.allStat.data, statVar.value, dataCommonsClient]);
+    const finalFacetList = [
+      {
+        dcid: svDcid,
+        name: statVar.value.info[svDcid]?.title || svDcid,
+        metadataMap: baseFacets[svDcid] || {},
+      },
+    ];
+    setBaseFacetList(finalFacetList);
+    setFacetListLoading(false);
+  }, [allStatReady, chartStore.allStat.data, statVar.value]);
 
-  return { facetList, facetListLoading, facetListError };
+  const entities = chartStore.allStat.data?.data
+    ? Object.keys(chartStore.allStat.data.data)
+    : [];
+  const entitiesString = entities.join(",");
+  const cacheKey = `${statVar.value.dcid}-${entitiesString}`;
+
+  const {
+    facetList,
+    loading: enrichmentLoading,
+    onModalOpen,
+    totalFacetCount,
+  } = useFacetEnrichment(
+    cacheKey,
+    baseFacetList,
+    useCallback(async () => {
+      if (baseFacetList.length === 0) return [];
+      return enrichFacetChoices(baseFacetList, {
+        entities: entitiesString ? entitiesString.split(",") : [],
+      });
+    }, [baseFacetList, entitiesString])
+  );
+
+  return {
+    facetList: facetList || [],
+    facetListLoading: facetListLoading || enrichmentLoading,
+    facetListError,
+    onFacetSelectorModalOpen: onModalOpen,
+    totalFacetCount,
+  };
 }
