@@ -30,6 +30,8 @@ import {
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -150,9 +152,35 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const variables = this.variables || [this.variable];
-    const statVarSpecs = variables.map((statVar) => {
+    const statVarSpecs = variables.map((statVar, index) => {
+      const facetId = getFacetId(
+        statVar,
+        index,
+        parsedMapping,
+        this.facetIds,
+        this.facetId
+      );
       return {
         denom:
           this.perCapita && this.perCapita.includes(statVar)
@@ -163,6 +191,7 @@ export class DatacommonsRankingComponent extends LitElement {
         scaling: 1,
         statVar,
         unit: "",
+        facetId,
       };
     });
 

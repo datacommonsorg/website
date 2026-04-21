@@ -25,7 +25,7 @@ Before this module can be used on a project, you must ensure that the following 
     ```
     export PROJECT=<Terraform state project id>
     export BUCKET=<Terraform state bucket name>
-    gsutil mb -p $PROJECT gs://$BUCKET
+    gcloud storage buckets create --project $PROJECT gs://$BUCKET
     ```
 
 ## Software Dependencies
