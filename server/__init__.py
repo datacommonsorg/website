@@ -33,6 +33,7 @@ import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
 from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
 import server.lib.i18n as i18n
@@ -275,6 +276,9 @@ def register_routes_common(app):
   from server.routes.shared_api import variable_group as shared_variable_group
   app.register_blueprint(shared_variable_group.bp)
 
+  from server.routes.shared_api import metadata as shared_metadata
+  app.register_blueprint(shared_metadata.bp)
+
   from server.routes.shared_api.observation import date as observation_date
   app.register_blueprint(observation_date.bp)
 
@@ -411,8 +415,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
+  app.config['ENABLE_MODEL'] = os.environ.get('ENABLE_MODEL') == 'true'
+
   # Enable the NL model.
-  if os.environ.get('ENABLE_MODEL') == 'true':
+  if app.config['ENABLE_MODEL']:
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
 
     # This also requires disaster and event routes.
@@ -429,8 +435,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                                'palm-api-key')
       if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
         os.environ['GEMINI_API_KEY'] = app.config['LLM_API_KEY']
+        if is_feature_enabled(ENABLE_GEMINI_3_FLASH, app):
+          default_model = "gemini-3-flash-preview"
+        else:
+          default_model = "gemini-2.5-flash"
         app.config['NL_DETECTION_AGENT'] = create_detection_agent(
-            os.environ.get("AGENT_MODEL", "gemini-2.5-flash"),
+            os.environ.get("AGENT_MODEL", default_model),
             os.environ.get("DC_MCP_URL"))
 
     app.config[

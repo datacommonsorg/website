@@ -377,11 +377,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Rwanda",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -389,11 +389,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]

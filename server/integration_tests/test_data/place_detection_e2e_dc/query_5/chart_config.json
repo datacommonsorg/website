@@ -38,6 +38,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Administrative Area 2 Places of Mexico City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "The total number of people in a population.",
+            "title": "Population in Administrative Area 2 Places of Mexico City"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_PerArea"
                     ],
@@ -150,6 +171,48 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in Administrative Area 2 Places of Mexico City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population 85 or Over by Gender in Administrative Area 2 Places of Mexico City"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in Administrative Area 2 Places of Mexico City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population 85 or Over by Gender in Administrative Area 2 Places of Mexico City"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_Female",
                       "Count_Person_Male"
@@ -162,6 +225,48 @@
             ],
             "denom": "Count_Person",
             "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in Administrative Area 2 Places of Mexico City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender in Administrative Area 2 Places of Mexico City"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in Administrative Area 2 Places of Mexico City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender in Administrative Area 2 Places of Mexico City"
           },
           {
             "columns": [
@@ -230,9 +335,17 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
+          "Count_Person_85OrMoreYears_Female": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
           "Count_Person_85OrMoreYears_Female_multiple_place_bar_block": {
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Male": {
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
           },
           "Count_Person_85OrMoreYears_Male_multiple_place_bar_block": {
             "name": "Men over 85",
@@ -266,6 +379,9 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "AdministrativeArea1": "AdministrativeArea2"
+      },
       "placeDcid": [
         "wikidataId/Q1489"
       ]
@@ -278,7 +394,7 @@
   "place": {
     "dcid": "wikidataId/Q1489",
     "name": "Mexico City",
-    "place_type": "City"
+    "place_type": "AdministrativeArea1"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
@@ -286,11 +402,126 @@
     {
       "dcid": "wikidataId/Q1489",
       "name": "Mexico City",
-      "place_type": "City"
+      "place_type": "AdministrativeArea1"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "AdministrativeArea2": [
+        {
+          "dcid": "wikidataId/Q10832464",
+          "name": "Venustiano Carranza",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q14906254",
+          "name": "\u00c1lvaro Obreg\u00f3n",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1832732",
+          "name": "Miguel Hidalgo",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q2027082",
+          "name": "Gustavo A. Madero",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q2356998",
+          "name": "Benito Ju\u00e1rez de Ochoa Quiroz",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q408181",
+          "name": "Tl\u00e1huac",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q408187",
+          "name": "Tlalpan",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q643026",
+          "name": "Xochimilco",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q645293",
+          "name": "Cuauht\u00e9moc",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q661315",
+          "name": "Coyoac\u00e1n",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q741771",
+          "name": "Iztapalapa",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q762749",
+          "name": "Cuajimalpa",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q780038",
+          "name": "La Magdalena Contreras",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q936087",
+          "name": "Milpa Alta",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q953866",
+          "name": "Tlalpan",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q994867",
+          "name": "Azcapotzalco",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
         "dcid": "dc/topic/Age",
@@ -347,113 +578,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "wikidataId/Q956",
-        "name": "Beijing",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "nuts/DE3",
-        "name": "Berlin",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q85",
-        "name": "Cairo",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q1353",
-        "name": "Delhi",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q34647",
-        "name": "Johannesburg",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q84",
-        "name": "London",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q2807",
-        "name": "Madrid",
-        "types": [
-          "AdministrativeArea3"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q649",
-        "name": "Moscow",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "nuts/FR101",
-        "name": "Paris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q8678",
-        "name": "Rio de Janeiro",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0667000",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q3130",
-        "name": "Sydney",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "wikidataId/Q7473516",
-        "name": "Tokyo",
-        "types": [
-          "City"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/Health",

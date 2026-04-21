@@ -197,6 +197,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
           statVarSpecs={[props.statVarSpec]}
           getObservationSpecs={getObservationSpecs}
           surface={props.surface}
+          entities={[props.place.dcid]}
         />
       )}
     </div>

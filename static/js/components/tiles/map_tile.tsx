@@ -243,6 +243,20 @@ export function MapTile(props: MapTilePropType): ReactElement {
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
   const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
+  const entities = useMemo(
+    () =>
+      mapChartData
+        ? Array.from(
+            new Set(
+              mapChartData.layerData.flatMap((layer) =>
+                Object.keys(layer.dataValues || {})
+              )
+            )
+          )
+        : [],
+    [mapChartData]
+  );
+
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;
@@ -378,6 +392,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
   return (
     <ChartTileContainer
       id={props.id}
+      entities={entities}
       isLoading={isLoading}
       title={props.title}
       subtitle={props.subtitle}

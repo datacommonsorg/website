@@ -100,7 +100,7 @@ class BrowserTestMixin():
         value='//*[@id="node-content"]/div[1]/div/table/tbody/tr[3]/td')
     self.assertEqual(type_of_row[0].text, 'typeOf')
     self.assertEqual(type_of_row[1].text, 'StatisticalVariable')
-    self.assertEqual(type_of_row[2].text, 'datacommons.org')
+    self.assertEqual(type_of_row[2].text, 'HumanReadableStatVars')
 
     # Assert observation charts loaded.
     self.assertGreater(

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,418 +14,119 @@
  * limitations under the License.
  */
 
-import axios from "axios";
-import _ from "lodash";
-import React from "react";
-import { defineMessages } from "react-intl";
+/**
+ * Main component for rendering a ranking page.
+ */
 
-import { intl, LocalizedLink } from "../i18n/i18n";
-import { displayNameForPlaceType } from "../place/util";
-import { DEFAULT_POPULATION_DCID, WEBSITE_SURFACE } from "../shared/constants";
-import {
-  PointApiResponse,
-  Series,
-  SeriesApiResponse,
-} from "../shared/stat_types";
+import { ThemeProvider } from "@emotion/react";
+import React, { useEffect, useState } from "react";
+import { RawIntlProvider } from "react-intl";
+
+import { Category } from "../components/subject_page/category";
+import { intl } from "../i18n/i18n";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
-import { getMatchingObservation } from "../tools/shared_util";
-import { getRoot, stringifyFn } from "../utils/axios";
-import { getPointWithin, getSeriesWithin } from "../utils/data_fetch_utils";
-import { RankingHistogram } from "./ranking_histogram";
-import { RankingTable } from "./ranking_table";
-import { LocationRankData, RankInfo } from "./ranking_types";
-
-const GET_BOTTOM_PARAM = "bottom";
-const RANK_SIZE = 100;
-const MIN_POPULATION = 1000;
+import { NamedTypedNode } from "../shared/types";
+import theme from "../theme/theme";
+import { getEnclosedPlacesPromise } from "../utils/place_utils";
+import { getCategoryConfig } from "./ranking_config_builder";
+import { RankingTileContext } from "./ranking_context";
+import { RankingPageHeader } from "./ranking_header";
+import { RankingPageContainer } from "./ranking_page_styles";
 
 export interface RankingPagePropType {
-  placeName: string;
-  placeType: string;
-  withinPlace: string;
-  statVar: string;
+  // Name of the parent place the ranking page is for, already localized
+  parentPlaceNameLocalized: string;
+  // Type of the places to be ranked. Must be a child place type of withinPlace.
+  childPlaceType: string;
+  // DCID of the parent place
+  parentPlaceDcid: string;
+  // DCID of the stat var to be ranked
+  statVarDcid: string;
+  // Whether to divide the stat var values by population
   isPerCapita: boolean;
+  // Scaling factor to multiply the stat var values by
   scaling: number;
+  // Unit of the stat var
   unit: string;
+  // Date of the stat var
   date: string;
+  // Locale of the page
+  locale: string;
 }
 
-interface RankingPageStateType {
-  data: LocationRankData;
-}
+export const RankingPage = (props: RankingPagePropType): React.JSX.Element => {
+  // Number of places to display in the ranking tile, on inital load
+  const numEntriesToDisplayAtStart = 100;
+  // Number of places to add to the ranking tile when clicking the button to show more places
+  const showNextCount = 100;
+  // Whether all child places are shown in the ranking tile
+  const [areAllPlacesShown, setAreAllPlacesShown] = useState(false);
+  // Number of entries currently shown in the ranking tile
+  const [numEntriesCurrentlyShown, setNumEntriesCurrentlyShown] = useState(
+    numEntriesToDisplayAtStart
+  );
 
-export class Page extends React.Component<
-  RankingPagePropType,
-  RankingPageStateType
-> {
-  svTitle: string;
-  pluralPlaceType: string;
-  isBottom: boolean;
-
-  constructor(props: RankingPagePropType) {
-    super(props);
-    this.state = {
-      data: undefined,
-    };
-    this.svTitle = getStatsVarTitle(props.statVar);
-    this.pluralPlaceType = displayNameForPlaceType(
-      this.props.placeType,
-      true /* isPlural */
-    );
-    const params = new URLSearchParams(window.location.search);
-    this.isBottom = params.get(GET_BOTTOM_PARAM) !== null;
-    this.loadData = this.loadData.bind(this);
-    this.fetchDataFromRankingCache = this.fetchDataFromRankingCache.bind(this);
-  }
-
-  subtitleMessages = defineMessages({
-    all: {
-      id: "ranking-subtitle_all",
-      defaultMessage: "All {pluralPlaceType} in {placeName}",
-      description:
-        "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-    allPerCapita: {
-      id: "ranking-subtitle_all_percapita",
-      defaultMessage: "All {pluralPlaceType} in {placeName}, per capita",
-      description:
-        "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-    top: {
-      id: "ranking-subtitle_top",
-      defaultMessage: "Top {rankSize} {pluralPlaceType} in {placeName}",
-      description:
-        "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-    topPerCapita: {
-      id: "ranking-subtitle_top_percapita",
-      defaultMessage:
-        "Top {rankSize} {pluralPlaceType} in {placeName}, per capita",
-      description:
-        "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-    bottom: {
-      id: "ranking-subtitle_bottom",
-      defaultMessage: "Bottom {rankSize} {pluralPlaceType} in {placeName}",
-      description:
-        "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-    bottomPerCapita: {
-      id: "ranking-subtitle_bottom_percapita",
-      defaultMessage:
-        "Bottom {rankSize} {pluralPlaceType} in {placeName}, per capita",
-      description:
-        "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-    none: {
-      id: "ranking-subtitle_none",
-      defaultMessage: "{pluralPlaceType} in {placeName}",
-      description:
-        "Subtitle of the page, which shows ranking of contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-    nonePerCapita: {
-      id: "ranking-subtitle_none_percapita",
-      defaultMessage: "{pluralPlaceType} in {placeName}, per capita",
-      description:
-        "Subtitle of the page, which shows ranking of contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
-    },
-  });
-
-  private renderToggle(): JSX.Element {
-    const svData = this.state.data;
-    if (!_.isEmpty(svData.rankAll)) {
-      return;
-    }
-    if (this.isBottom) {
-      // show link to top 100
-      const params = new URLSearchParams(window.location.search);
-      params.delete(GET_BOTTOM_PARAM);
-      const search = params.toString();
-      const href = window.location.pathname + (search ? "?" + search : "");
-      return (
-        <LocalizedLink
-          href={href}
-          text={intl.formatMessage(
-            {
-              id: "ranking-sort_top",
-              defaultMessage: "Show Highest {rankSize}",
-              description:
-                "Link used to show the highest {rankSize} items in the sorted ranking table, where {rankSize} is a number, e.g. 100. Please keep {rankSize} as is in the final translation.",
-            },
-            {
-              rankSize: RANK_SIZE,
-            }
-          )}
-        />
-      );
-    }
-    // show link to bottom 100
-    const search = window.location.search;
-    const href =
-      window.location.pathname +
-      (search == "" ? "?" : search + "&") +
-      GET_BOTTOM_PARAM;
-    return (
-      <LocalizedLink
-        href={href}
-        text={intl.formatMessage(
-          {
-            id: "ranking-sort_bottom",
-            defaultMessage: "Show Lowest {rankSize}",
-            description:
-              "Link used to show the lowest {rankSize} items in the sorted ranking table, where {rankSize} is a number, e.g. 100. Please keep {rankSize} as is in the final translation.",
-          },
-          { rankSize: RANK_SIZE }
-        )}
-      />
-    );
-  }
-
-  render(): JSX.Element {
-    const statVar = this.props.statVar;
-    const svData = this.state.data;
-
-    let ranking;
-    if (svData) {
-      if (!_.isEmpty(svData.rankAll)) {
-        ranking = svData.rankAll;
-      } else if (this.isBottom) {
-        ranking = svData.rankBottom1000;
-      } else {
-        ranking = svData.rankTop1000;
-      }
-    }
-
-    let subtitleMessage;
-    if (ranking) {
-      if (svData.rankAll) {
-        subtitleMessage = this.props.isPerCapita
-          ? this.subtitleMessages.allPerCapita
-          : this.subtitleMessages.all;
-      } else if (svData.rankTop1000) {
-        subtitleMessage = this.props.isPerCapita
-          ? this.subtitleMessages.topPerCapita
-          : this.subtitleMessages.top;
-      } else {
-        subtitleMessage = this.props.isPerCapita
-          ? this.subtitleMessages.bottomPerCapita
-          : this.subtitleMessages.bottom;
-      }
-    } else {
-      subtitleMessage = this.props.isPerCapita
-        ? this.subtitleMessages.nonePerCapita
-        : this.subtitleMessages.none;
-    }
-
-    const subtitleArgs = {
-      rankSize: RANK_SIZE,
-      pluralPlaceType: this.pluralPlaceType,
-      placeName: this.props.placeName,
-    };
-
-    let mainBlock: JSX.Element;
-    if (svData === undefined) {
-      mainBlock = (
-        <div className="mt-4">
-          {intl.formatMessage({
-            id: "ranking-loading",
-            defaultMessage: "Loading...",
-            description: "Message shown while ranking data is still loading.",
-          })}
-        </div>
-      );
-    } else if (svData === null || (ranking && !ranking.info)) {
-      mainBlock = (
-        <div className="mt-4">
-          {intl.formatMessage({
-            id: "ranking-no_data",
-            defaultMessage: "There is no ranking data available.",
-            description:
-              "Message to notify users that there is no ranking information available to show.",
-          })}
-        </div>
-      );
-    } else {
-      mainBlock = (
-        <>
-          <RankingHistogram
-            ranking={ranking}
-            scaling={this.props.scaling}
-            unit={this.props.unit}
-          />
-          <RankingTable
-            ranking={ranking}
-            isPerCapita={this.props.isPerCapita}
-            placeType={this.props.placeType}
-            scaling={this.props.scaling}
-            sortAscending={!this.isBottom}
-            statVar={this.props.statVar}
-            unit={this.props.unit}
-          />
-        </>
-      );
-    }
-    return (
-      <div key={statVar}>
-        <div className="btn-group btn-group-sm float-right" role="group"></div>
-        <h1>
-          {intl.formatMessage(
-            {
-              id: "ranking-page_title",
-              defaultMessage: "Ranking by {statVar}",
-              description:
-                "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation.",
-            },
-            {
-              statVar: this.svTitle,
-            }
-          )}
-        </h1>
-        <h3>
-          {intl.formatMessage(subtitleMessage, subtitleArgs)}
-          {svData && this.renderToggle()}
-        </h3>
-        {mainBlock}
-      </div>
-    );
-  }
-
-  componentDidMount(): void {
-    if (this.props.date) {
-      this.loadData();
-    } else {
-      this.fetchDataFromRankingCache();
-    }
-  }
-
-  private fetchDataFromRankingCache(): void {
-    const url =
-      `${getRoot()}/api/ranking/${this.props.statVar}/${this.props.placeType}/${
-        this.props.withinPlace
-      }` + window.location.search;
-    axios
-      .get(url)
-      .then((resp) => {
-        let respData = null;
-        if (resp.data && this.props.statVar in resp.data) {
-          respData = resp.data[this.props.statVar];
-          const title = intl.formatMessage(
-            {
-              id: "ranking-document_title",
-              defaultMessage:
-                "Ranking by {statVar} - {pluralPlaceType} in {placeName}",
-              description:
-                "HTML document title for a page with rankings of places measured by a statistical variable, where {statVar} will be replaced with the statistical variable, {pluralPlaceType} with the pluralized type for the places in the ranking, e.g. Cities or States, and {placeName} is the containing place for the places in the ranking. Please keep the variables with curly brackets as is in the final translation.",
-            },
-            {
-              statVar: this.svTitle,
-              pluralPlaceType: this.pluralPlaceType,
-              placeName: this.props.placeName,
-            }
-          );
-          document.title = `${title} - ${document.title}`;
-        }
-        this.setState({
-          data: respData,
-        });
-      })
-      .catch(() => {
-        // TODO(beets): Add better error handling messages
-        this.setState({
-          data: null,
-        });
-      });
-  }
-
-  private loadData(): void {
-    const popPromise: Promise<SeriesApiResponse> = getSeriesWithin(
-      getRoot(),
-      this.props.withinPlace,
-      this.props.placeType,
-      [DEFAULT_POPULATION_DCID],
-      null,
-      WEBSITE_SURFACE
-    );
-    const statPromise: Promise<PointApiResponse> = getPointWithin(
-      getRoot(),
-      this.props.placeType,
-      this.props.withinPlace,
-      [this.props.statVar],
-      this.props.date,
-      null,
-      null,
-      WEBSITE_SURFACE
-    );
-    const placeNamesPromise: Promise<Record<string, string>> = axios
-      .get(`${getRoot()}/api/place/descendent/name`, {
-        params: {
-          dcid: this.props.withinPlace,
-          descendentType: this.props.placeType,
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
-    Promise.all([popPromise, statPromise, placeNamesPromise]).then(
-      ([population, stat, placeNames]) => {
-        let rankInfo: Array<RankInfo> = [];
-        const statData = stat.data[this.props.statVar];
-        // Get RankInfo without the actual rank for each place that there is
-        // data for
-        for (const place in statData) {
-          if (_.isEmpty(statData[place])) {
-            continue;
-          }
-          const placeStat = statData[place];
-          let value = _.isUndefined(placeStat.value) ? 0 : placeStat.value;
-          let popSeries: Series = null;
-          if (DEFAULT_POPULATION_DCID in population.data) {
-            if (place in population.data[DEFAULT_POPULATION_DCID]) {
-              popSeries = population.data[DEFAULT_POPULATION_DCID][place];
-            }
-          }
-          if (!_.isEmpty(popSeries)) {
-            const popObs = getMatchingObservation(
-              popSeries.series,
-              placeStat.date
-            );
-            if (!popObs) {
-              continue;
-            }
-            const popValue = popObs.value;
-            if (popValue < MIN_POPULATION) {
-              continue;
-            }
-            if (this.props.isPerCapita) {
-              value /= popValue;
-            }
-          } else if (this.props.isPerCapita) {
-            // empty pop series but is per capita
-            console.log(
-              `${place} excluded from ranking because of missing population data.`
-            );
-            continue;
-          }
-          rankInfo.push({
-            placeDcid: place,
-            placeName: placeNames[place] || place,
-            rank: null,
-            value,
-          });
-        }
-        // Sort the RankInfo by their values and update each RankInfo with their
-        // rank in the sorted list
-        rankInfo.sort((a, b) => b.value - a.value);
-        rankInfo = rankInfo.map((r, i) => {
-          return { ...r, rank: i + 1 };
-        });
-        this.setState({
-          data: {
-            rankAll: rankInfo.length < RANK_SIZE ? { info: rankInfo } : null,
-            rankBottom1000: { info: rankInfo.slice(-RANK_SIZE) },
-            rankTop1000: { info: rankInfo.slice(0, RANK_SIZE) },
-          },
-        });
+  // Determine whether all child places are shown in the ranking tile
+  useEffect(() => {
+    // Fetch the number of places of the child place type within the parent place
+    getEnclosedPlacesPromise(props.parentPlaceDcid, props.childPlaceType).then(
+      (enclosedPlaces) => {
+        const numChildPlaces = enclosedPlaces.length;
+        // All places are shown if the number of entries to display
+        // is greater than or equal to the number of child places
+        setAreAllPlacesShown(numEntriesCurrentlyShown >= numChildPlaces);
       }
     );
-  }
-}
+  }, [numEntriesCurrentlyShown, props.childPlaceType, props.parentPlaceDcid]);
+
+  // Get the display name of the stat var, localized
+  const statVarNameLocalized = getStatsVarTitle(props.statVarDcid);
+
+  // The parent place as a NamedTypedNode, used for the Category component
+  const parentPlaceLocalized: NamedTypedNode = {
+    name: props.parentPlaceNameLocalized,
+    dcid: props.parentPlaceDcid,
+    types: [], // Unused for ranking tile
+  };
+
+  // Callback function to update the number of entries shown in the ranking tile
+  // Because the ranking tile itself controls how many entries are shown, we use
+  // this callback to update state, so we can update the title.
+  const onShowMore = (currentNumEntries: number): void => {
+    setNumEntriesCurrentlyShown(currentNumEntries);
+  };
+
+  return (
+    <RawIntlProvider value={intl}>
+      <ThemeProvider theme={theme}>
+        <RankingPageContainer>
+          <RankingTileContext.Provider value={{ onShowMore }}>
+            <RankingPageHeader
+              parentPlaceNameLocalized={props.parentPlaceNameLocalized}
+              parentPlaceDcid={props.parentPlaceDcid}
+              childPlaceType={props.childPlaceType}
+              statVarNameLocalized={statVarNameLocalized}
+              locale={props.locale}
+              areAllPlacesShown={areAllPlacesShown}
+              numPlacesShown={numEntriesCurrentlyShown}
+              isPerCapita={props.isPerCapita}
+            />
+            <Category
+              config={getCategoryConfig(
+                props,
+                statVarNameLocalized,
+                numEntriesToDisplayAtStart,
+                showNextCount
+              )}
+              enclosedPlaceType={props.childPlaceType}
+              eventTypeSpec={{}}
+              id="ranking-page-category"
+              place={parentPlaceLocalized}
+              svgChartHeight={500}
+            />
+          </RankingTileContext.Provider>
+        </RankingPageContainer>
+      </ThemeProvider>
+    </RawIntlProvider>
+  );
+};

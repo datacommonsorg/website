@@ -19,7 +19,11 @@
 {% set title = _('Place Rankings') %}
 
 {% block head %}
+{% if use_new_ranking %}
 <link rel="stylesheet" href={{url_for('static', filename='css/ranking.min.css', t=config['VERSION'])}}>
+{% else %}
+<link rel="stylesheet" href={{url_for('static', filename='css/old_ranking.min.css', t=config['VERSION'])}}>
+{% endif %}
 <style>
   tr[data-dcid="{{ request.args.get('h') }}"] {
     background: #fffdd0;
@@ -42,5 +46,9 @@
 {% endblock %}
 
 {% block footer %}
+{% if use_new_ranking %}
 <script src={{url_for('static', filename='ranking.js', t=config['VERSION'])}}></script>
+{% else %}
+<script src={{url_for('static', filename='old_ranking.js', t=config['VERSION'])}}></script>
+{% endif %}
 {% endblock %}

@@ -197,6 +197,7 @@ const MAP_POINTS: MapPoint[] = [
 const MAP_PROPS = {
   breadcrumbDataValues: { PLACE_DCID: NUMBER },
   dates: new Set<string>([""]),
+  entities: [PLACE_DCID],
   geoJsonData: {
     features: [],
     properties: {

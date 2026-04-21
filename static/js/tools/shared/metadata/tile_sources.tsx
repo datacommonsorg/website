@@ -47,6 +47,8 @@ export function TileSources(props: {
   // the detailed metadata modal. If not supplied, we fall back to a simple
   // modal display using the sources.
   facets?: Record<string, StatMetadata>;
+  // Array of entity dcids to use for fetching
+  entities?: string[];
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
   // If available, the stat vars to link to.
@@ -67,6 +69,7 @@ export function TileSources(props: {
   surface: string;
 }): ReactElement {
   const {
+    entities,
     facets,
     statVarToFacets,
     statVarSpecs,
@@ -129,6 +132,7 @@ export function TileSources(props: {
                 {facets && statVarToFacets ? (
                   <TileMetadataModal
                     apiRoot={props.apiRoot}
+                    entities={entities}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
                     facets={facets}

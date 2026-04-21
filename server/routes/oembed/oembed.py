@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoint for oEmbed API, for embedding web components using oEmbed"""
 
+import html
 import json
 import math
 import re
@@ -42,9 +43,9 @@ def render_chart():
   # Set allowed url values
   # We want to allow only datacommons urls with /chart endpoints to be passed in
   # Hostname changes based on current config (local vs autopush/prod)
-  url_regex = "https?://*\.datacommons\.org/chart*"
+  url_regex = r"^https?://([a-zA-Z0-9-]+\.)*datacommons\.org/chart.*"
   if current_app.config['LOCAL']:
-    url_regex = "http://(127\.0\.0\.1|localhost):8080/chart*"
+    url_regex = r"^http://(127\.0\.0\.1|localhost):8080/chart.*"
 
   url = request.args.get("url", type=str)
   if not url or not re.match(url_regex, url):
@@ -56,7 +57,7 @@ def render_chart():
 
   width = min(max_width, DEFAULT_WIDTH)
   height = min(max_height, DEFAULT_HEIGHT)
-  html = f'<object width="{width}" height="{height}" data="{url}"></object>'
+  embed_html = f'<object width="{width}" height="{height}" data="{html.escape(url)}"></object>'
 
   properties = {
       "type": "rich",
@@ -65,18 +66,16 @@ def render_chart():
       "provider_url": "https://datacommons.org",
       "width": width,
       "height": height,
-      "html": html,
+      "html": embed_html,
   }
 
   if response_format == "json":
     return Response(json.dumps(properties), 200, mimetype="application/json")
 
   else:  # response_format is XML
-    # xml treats '&' as a special character, need to encode
-    properties["html"] = html.replace("&", "&amp;")
     xml = '<?xml version="1.0" encoding="utf-8" standalone="yes"?>\n'
     xml += "<oembed>\n"
     for key, val in properties.items():
-      xml += f"<{key}>{val}</{key}>\n"
+      xml += f"<{key}>{html.escape(str(val))}</{key}>\n"
     xml += "</oembed>"
     return Response(xml, 200, mimetype="text/xml")

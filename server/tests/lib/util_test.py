@@ -1828,3 +1828,18 @@ class TestFeatureFlagsTest(unittest.TestCase):
 
     # Assert production.json does not have any new flags
     self.assertTrue(production_features.issubset(non_production_features))
+
+
+class TestResolveFlaskApp(unittest.TestCase):
+
+  def test_explicit_app_provided(self):
+    mock_app = "mock_app_instance"
+    self.assertEqual(lib_util.resolve_flask_app(mock_app), mock_app)
+
+  def test_resolve_from_app_context(self):
+    with app.app_context():
+      resolved = lib_util.resolve_flask_app(None)
+      self.assertEqual(resolved, app)
+
+  def test_no_context_returns_none(self):
+    self.assertIsNone(lib_util.resolve_flask_app(None))
