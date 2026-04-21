@@ -96,6 +96,12 @@
     "description": "Enables features that rely on the V2 REST APIs"
   },
   {
+    "name": "use_v2_resolve_for_nl_search_vars",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enables using the V2 resolve API for NL search vars."
+  },
+  {
     "name": "vai_for_statvar_search",
     "enabled": true,
     "owner": "alyssaguo",
