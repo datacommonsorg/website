@@ -46,7 +46,7 @@ pytest-xdist==3.2.1
 setuptools<79.0.0
 PyYAML==6.0.2
 redis==4.5.4
-requests==2.32.4
+requests==2.33.0
 selenium==4.21.0
 typing-extensions==4.15.0
 webdriver-manager==4.0.0
