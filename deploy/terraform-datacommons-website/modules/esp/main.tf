@@ -26,7 +26,7 @@
 # specified below.
 # When testing locally, copy over the mixer grpc pb manually into the current
 # module folder, like below. (Script below assumes you are currently in module folder).
-# gsutil cp \
+# gcloud storage cp \
 #  gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \
 #  mixer-grpc.$MIXER_GITHASH.pb
 data "local_file" "mixer_grpc_pb" {
