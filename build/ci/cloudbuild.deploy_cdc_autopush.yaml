@@ -26,7 +26,7 @@ steps:
       - '--region'
       - 'us-central1'
       - '--update-env-vars'
-      - 'RESTART_TIMESTAMP=$BUILD_ID'
+      - 'RESTART_TIMESTAMP=${BUILD_ID}'
 
 tags:
   - 'cloudrun--dc-autopush'
