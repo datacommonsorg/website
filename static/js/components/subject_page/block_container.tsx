@@ -18,6 +18,9 @@
  * A container for blocks of all types.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useContext } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -64,6 +67,7 @@ export interface BlockContainerPropType {
 
 export function BlockContainer(props: BlockContainerPropType): ReactElement {
   const exploreData = useContext(ExploreContext);
+  const theme = useTheme();
 
   let footnote: string;
   if (props.footnote) {
@@ -131,7 +135,20 @@ export function BlockContainer(props: BlockContainerPropType): ReactElement {
           <mark className="block-msg-txt">{props.infoMessage}</mark>
         </div>
       )}
-      {title && <h3>{title}</h3>}
+      {title && (
+        <h3
+          css={css`
+            && {
+              ${theme.typography.family.heading}
+              ${theme.typography.heading.xs}
+              margin: 0;
+              padding: 0;
+            }
+          `}
+        >
+          {title}
+        </h3>
+      )}
       {description && <p className="block-desc">{description}</p>}
       <MetadataSummary
         metadataSummary={props.metadataSummary}

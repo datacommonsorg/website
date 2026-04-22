@@ -22,13 +22,15 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { TimeScaleOption } from "../js/chart/types";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
-import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
+import { DEFAULT_PER_CAPITA_DENOM, WEB_COMPONENT_SURFACE } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
   getVariableNameProcessingFn,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -94,6 +96,24 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   variables!: Array<string>;
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   // Optional: Regex used to process variable names
   // If provided, will only use the first case of the variable name that matches
   // this regex.
@@ -139,6 +159,7 @@ export class DatacommonsLineComponent extends LitElement {
   sources?: string[];
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const lineTileProps: LineTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
@@ -155,17 +176,27 @@ export class DatacommonsLineComponent extends LitElement {
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sources: this.sources,
-      statVarSpec: this.variables.map((variable) => ({
-        denom:
-          this.perCapita && this.perCapita.includes(variable)
-            ? DEFAULT_PER_CAPITA_DENOM
-            : "",
-        log: false,
-        name: "",
-        scaling: 1,
-        statVar: variable,
-        unit: "",
-      })),
+      statVarSpec: this.variables.map((variable, index) => {
+        const facetId = getFacetId(
+          variable,
+          index,
+          parsedMapping,
+          this.facetIds,
+          this.facetId
+        );
+        return {
+          denom:
+            this.perCapita && this.perCapita.includes(variable)
+              ? DEFAULT_PER_CAPITA_DENOM
+              : "",
+          log: false,
+          name: "",
+          scaling: 1,
+          statVar: variable,
+          unit: "",
+          facetId,
+        };
+      }),
       svgChartHeight: 200,
       title: this.header || this.title,
       timeScale: this.timeScale,
@@ -174,6 +205,7 @@ export class DatacommonsLineComponent extends LitElement {
         this.defaultVariableName
       ),
       placeNameProp: this.placeNameProp,
+      surface: WEB_COMPONENT_SURFACE,
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }

@@ -18,19 +18,8 @@
  * Entrypoint for Visualization Tool.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-
-import { loadLocaleData } from "../../i18n/i18n";
-import { App } from "./app";
+import { getStandardizedToolUrl } from "./redirect_utils";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      ReactDOM.render(
-        React.createElement(App),
-        document.getElementById("main-pane")
-      );
-    }
-  );
+  window.location.href = getStandardizedToolUrl();
 });

@@ -14,23 +14,14 @@
  * limitations under the License.
  */
 
-import {
-  DataCommonsClient,
-  DataCommonsWebClient,
-} from "@datacommonsorg/client";
+import { DataCommonsClient } from "@datacommonsorg/client";
 
 /**
  * Default @datacommonsorg/client apiRoot value is "/", meaning the current
  * hostname in the browser
+ * It also uses the website surface value for usage logging in mixer.
  */
 export const DEFAULT_CLIENT_API_ROOT = "/";
-
-export const defaultDataCommonsWebClient = new DataCommonsWebClient({
-  apiRoot: DEFAULT_CLIENT_API_ROOT,
-});
-export const defaultDataCommonsClient = new DataCommonsClient({
-  apiRoot: DEFAULT_CLIENT_API_ROOT,
-});
 
 /**
  * Returns a DataCommonsClient instance.
@@ -39,13 +30,15 @@ export const defaultDataCommonsClient = new DataCommonsClient({
  * window.location.origin
  *
  * @param apiRoot
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  * @returns DataCommonsClient instance
  */
-export function getDataCommonsClient(apiRoot?: string): DataCommonsClient {
-  if (apiRoot) {
-    return new DataCommonsClient({
-      apiRoot,
-    });
-  }
-  return defaultDataCommonsClient;
+export function getDataCommonsClient(
+  apiRoot?: string,
+  surface?: string
+): DataCommonsClient {
+  return new DataCommonsClient({
+    apiRoot: apiRoot ?? DEFAULT_CLIENT_API_ROOT,
+    surface: surface ?? null,
+  });
 }

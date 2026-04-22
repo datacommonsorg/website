@@ -19,6 +19,10 @@ import _ from "lodash";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
+  WEBSITE_SURFACE,
+  WEBSITE_SURFACE_HEADER,
+} from "../../shared/constants";
+import {
   DisplayNameApiResponse,
   EntitySeries,
   Observation,
@@ -43,6 +47,7 @@ export interface StatData {
   // Keyed by facet id.
   facets: Record<string, StatMetadata>;
   displayNames?: DisplayNameApiResponse;
+  denomFacets?: Set<string>;
 }
 
 /**
@@ -73,40 +78,6 @@ export function getStatVarGroupWithTime(
       });
     }
     result.push(new DataGroup(statVar, dataPoints));
-  }
-  return result;
-}
-
-/**
- * For each time series of the input stat data, compute the delta beteen
- * consecutive date and return the delta series.
- * TODO: Make this a function of StatData
- *
- * @param statData
- */
-export function convertToDelta(statData: StatData): StatData {
-  const result = _.cloneDeep(statData);
-  for (const statVar in result.data) {
-    for (const place in result.data[statVar]) {
-      const series = result.data[statVar][place].series;
-      const delta: Series = {
-        facet: result.data[statVar][place].facet,
-        series: [],
-      };
-      if (series.length > 1) {
-        for (let i = 0; i < series.length - 1; i++) {
-          delta.series.push({
-            date: series[i + 1].date,
-            value: series[i + 1].value - series[i].value,
-          });
-        }
-      }
-      result.data[statVar][place] = delta;
-      const index = result.dates.indexOf(series[0].date);
-      if (index !== -1) {
-        result.dates.splice(index, 1);
-      }
-    }
   }
   return result;
 }
@@ -164,7 +135,14 @@ export function fetchRawData(
     facets: {},
   });
   if (denom) {
-    denomDataPromise = getSeries("", places, [denom]);
+    denomDataPromise = getSeries(
+      "", // apiRoot
+      places,
+      [denom],
+      null, // facetIds
+      null, // highlightFacet
+      WEBSITE_SURFACE
+    );
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> =
     getPlaceDisplayNames(places);
@@ -176,6 +154,7 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .then((resp) => {
       return resp.data;
@@ -223,6 +202,12 @@ export function getStatData(
   denom = "",
   scaling = 1
 ): StatData {
+  const facets = Object.assign(
+    {},
+    rawData.statAllData.facets,
+    rawData.denomData.facets
+  );
+
   const result: StatData = {
     places,
     statVars,
@@ -231,12 +216,10 @@ export function getStatData(
     sources: new Set(),
     measurementMethods: new Set(),
     displayNames: {},
-    facets: rawData.statAllData.facets,
+    facets,
+    denomFacets: new Set<string>(),
   };
-  const facets = Object.assign(
-    rawData.statAllData.facets,
-    rawData.denomData.facets
-  );
+
   const allDates = new Set<string>();
 
   for (const sv of statVars) {
@@ -278,9 +261,9 @@ export function getStatData(
           rawData.denomData.data[denom][place].series,
           scaling
         );
-        result.sources.add(
-          facets[rawData.denomData.data[denom][place].facet].provenanceUrl
-        );
+        const denomFacet = rawData.denomData.data[denom][place].facet;
+        result.denomFacets.add(denomFacet);
+        result.sources.add(facets[denomFacet].provenanceUrl);
       }
       svData[place] = selectedSeries;
     }
@@ -331,6 +314,7 @@ export function statDataFromModels(
     sources: new Set<string>(),
     measurementMethods: new Set<string>(),
     facets: {},
+    denomFacets: new Set<string>(),
   };
   if (!mainStatData.dates.length) {
     return [mainStatData, modelData];

@@ -23,6 +23,7 @@ Access To Electricity,dc/topic/GlobalElectricityAccess
 "Achieve higher levels of economic productivity through diversification, technological upgrading and innovation, including through a focus on high-value added and labour-intensive sectors",dc/topic/sdg_8.2
 "Achieve universal health coverage, including financial risk protection, access to quality essential health-care services and access to safe, effective, quality and affordable essential medicines and vaccines for all",dc/topic/sdg_3.8
 Additional financial resources mobilized for developing countries from multiple sources,dc/topic/sdg_17.3.1
+Adjusted Quarterly Real GDP growth,Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange
 Adolescent (15 to 19 years old) birth rate,sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F
 Adolescent Birth Rate,dc/topic/AdolescentBirthRate
 "Adolescent birth rate (aged 10-19 years) per 1,000 women in that age group",dc/topic/sdg_3.7.2
@@ -2014,6 +2015,7 @@ Number of Transportation And Warehousing establishments,Count_Establishment_NAIC
 Number of Tropical Disturbance,Count_CycloneEvent_TropicalDisturbance
 Number of Tropical Storm,Count_CycloneEvent_TropicalStorm
 Number of Tuberculosis Cases,Count_MedicalConditionIncident_ConditionTuberculosis
+Number of Tuberculosis cases,Count_MedicalConditionIncident_ConditionTuberculosis
 Number of Tularemia Cases,Count_MedicalConditionIncident_ConditionTularemia
 Number of Typhoid Fever Cases,Count_MedicalConditionIncident_ConditionTyphoidFever
 Number of Utilities establishments,Count_Establishment_NAICSUtilities
@@ -2052,6 +2054,7 @@ Number of black or african american people with disabilities,Count_Person_WithDi
 Number of boys under 4 years old,Count_Person_0To4Years_Male
 Number of burglaries,Count_CriminalActivities_Burglary
 Number of car thefts,Count_CriminalActivities_MotorVehicleTheft
+Number of chicken pox cases,Count_MedicalConditionIncident_ConditionVaricella
 Number of children without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
 Number of civilians Aged 18 or More Resides In Nursing Facilities,Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities
 Number of civilians aged 18 or more,Count_Person_18OrMoreYears_Civilian
@@ -2109,6 +2112,7 @@ Number of divorced people residing in non-institutionalized group quarters,Count
 Number of divorced people residing in nursing facilities,Count_Person_Divorced_ResidesInNursingFacilities
 Number of divorced people who are foreign born,dc/twlffl9b5vgn3
 Number of elementary school teachers,Count_Teacher_ElementaryTeacher
+Number of elementary schools,Count_School_ElementarySchool
 Number of employed civilians,Count_Person_Civilian_Employed
 Number of employed people,Count_Person_Employed;dc/nm9hcklgg5zb3
 "Number of employed people in Agriculture, forestry and fishing",Count_Person_Employed_NACE/A
@@ -2273,6 +2277,7 @@ Number of girls under 4 years old,Count_Person_0To4Years_Female
 Number of hate crime incidents,Count_CriminalIncidents_IsHateCrime
 Number of heat events,Count_HeatEvent
 Number of heat waves,Count_HeatWaveEvent
+Number of high schools,Count_School_HighSchool
 Number of hispanic or latino people who reside in college or university student housing,Count_Person_HispanicOrLatino_ResidesInCollegeOrUniversityStudentHousing
 Number of hispanic or latino people who reside in group quarters,Count_Person_HispanicOrLatino_ResidesInGroupQuarters
 Number of hispanic or latino people who reside in military quarters or military ships,Count_Person_HispanicOrLatino_ResidesInMilitaryQuartersOrMilitaryShips
@@ -2448,6 +2453,8 @@ Number of infant deaths from certain conditions originating in the perinatal per
 Number of infant deaths from certain infectious and parasitic diseases,Count_Death_Upto1Years_CertainInfectiousParasiticDiseases
 "Number of infant deaths from congenital malformations, deformations and chromosomal abnormalities",Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities
 Number of intersex people,Count_Person_Intersex
+Number of junior colleges,Count_School_JuniorCollege
+Number of kindergartens,Count_School_Kindergarten
 Number of landslides,Count_DebrisFlowEvent
 Number of larceny theft,Count_CriminalActivities_LarcenyTheft
 Number of laying hens in Farm Inventory,Count_FarmInventory_Layers
@@ -2525,6 +2532,7 @@ Number of married people who reside in nursing facilities,Count_Person_MarriedAn
 "Number of married people, including separated",Count_Person_NowMarried
 Number of married white people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_WhiteAlone
 Number of maternal deaths,Count_MaternalMortalityEvent
+Number of middle schools,Count_School_MiddleSchool
 Number of mobile phone subscriptions per person,Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person
 Number of multi race people with disabilities,Count_Person_WithDisability_TwoOrMoreRaces
 Number of multi races farmers,Count_Person_Producer_TwoOrMoreRaces
@@ -2537,6 +2545,7 @@ Number of multi races students enrolled in middle school,dc/b3nmcj3w1lhed
 Number of multi races students enrolled in primary school,dc/jhjdplbeg26k1
 Number of multi-race males live Above Poverty Level In The Past 12 Months,Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces
 Number of multi-race males living Below Poverty Level In The Past 12 Months,Count_Person_Male_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces
+Number of mumps cases,Count_MedicalConditionIncident_ConditionMumps
 Number of murders and non-negligent manslaughters,Count_CriminalActivities_MurderAndNonNegligentManslaughter
 Number of muti races females who have attended some college,dc/q98jxycvs422f
 Number of muti-race females,Count_Person_Female_TwoOrMoreRaces
@@ -2733,6 +2742,7 @@ Number of people with public health insurance,Count_Person_WithPublicHealthInsur
 "Number of people work in Agriculture, Forestry, Fishing And Hunting",Count_Worker_NAICSAgricultureForestryFishingHunting
 "Number of people working in sports, hobby, music instruments, and book stores",dc/e2zdnwjjhyj36
 Number of people working in the retail trade industry,dc/p69tpsldf99h7
+Number of primary syphilis cases,Count_MedicalConditionIncident_ConditionPrimarySyphilis
 Number of privately owned Wind Electric Power Generation establishments,dc/evcytmdmc9xgd
 Number of property crime incidents,Count_CriminalActivities_PropertyCrime
 Number of prople with self care disability,Count_Person_SelfCareDifficulty
@@ -2750,6 +2760,8 @@ Number of rural scheduled caste people,Count_Person_ScheduledCaste_Rural
 Number of rural scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Rural
 Number of rural scheduled tribe people,Count_Person_ScheduledTribe_Rural
 Number of rural scheduled tribe people below 6 years,Count_Person_ScheduledTribe_YearsUpto6_Rural
+Number of salaried workers,Count_Person_WageAndSalaryWorker_Employed
+Number of scarlet fever cases,Count_MedicalConditionIncident_ConditionScarletFever
 Number of scheduled caste boys below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Male
 Number of scheduled caste females,Count_Person_ScheduledCaste_Female
 Number of scheduled caste girls below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Female
@@ -2764,6 +2776,7 @@ Number of scheduled tribe males,Count_Person_ScheduledTribe_Male
 Number of scheduled tribe people,Count_Person_ScheduledTribe
 Number of scheduled tribe people below 6 years,Count_Person_ScheduledTribe_YearsUpto6
 Number of scheduled tribe workers,Count_Person_ScheduledTribe_Workers
+Number of scrub typhus cases,Count_MedicalConditionIncident_ConditionScrubTyphus
 Number of secondary school teachers,Count_Teacher_SecondaryTeacher
 Number of senior secondary schools with grades 1 to 10,Count_School_SeniorSecondarySchool_Grade1To10
 Number of separated American Indian and Alaska Native people,Count_Person_15OrMoreYears_Separated_AmericanIndianAndAlaskaNativeAlone
@@ -2812,16 +2825,28 @@ Number of students enrolled in Middle School,Count_Person_DetailedMiddleSchool
 Number of students enrolled in Nursery School Preschool,Count_Person_DetailedEnrolledInNurserySchoolPreschool
 Number of students enrolled in Primary School,Count_Person_DetailedPrimarySchool
 Number of students enrolled in school,Count_Person_EnrolledInSchool
+Number of students in elementary schools,Count_Student_ElementarySchool
+Number of students in high schools,Count_Student_HighSchool
+Number of students in junior colleges,Count_Student_JuniorCollege_Enrolled
+Number of students in kindergartens,Count_Student_Kindergarten
+Number of students in middle schools,Count_Student_MiddleSchool
 Number of students nrolled in Undergraduate college,Count_Person_DetailedEnrolledInCollegeUndergraduateYears
 Number of suicides of incarcerated females,dc/shgj6xwg96pp3
 Number of suicides of incarcerated males,dc/ep052e5d1p2t4
 Number of suicides of incarcerated people,dc/jte92xq8qsgtd
 Number of teachers,Count_Teacher
+Number of teachers in elementary schools,Count_Teacher_ElementarySchool
+Number of teachers in high schools,Count_Teacher_HighSchool
+Number of teachers in junior colleges,Count_Teacher_JuniorCollege
+Number of teachers in kindergartens,Count_Teacher_Kindergarten
+Number of teachers in middle schools,Count_Teacher_MiddleSchool
 Number of thunderstorm wind events,Count_ThunderstormWindEvent
 Number of tornado events,Count_TornadoEvent
 Number of tropical storm events,Count_TropicalStormEvent
 Number of two or more units married couple family households,Count_Household_MarriedCoupleFamilyHousehold_TwoOrMoreUnits
+Number of unemployed graduates,Count_Person_EducationalAttainmentUniversityGraduate_Unemployed
 Number of unemployed people,Count_Person_Unemployed
+Number of unemployed people with middle school education,Count_Person_EducationalAttainmentMiddleSchool_Unemployed
 Number of united states Citizens Born In The United States,Count_Person_USCitizenBornInTheUnitedStates
 Number of united states Citizens By Naturalization,Count_Person_USCitizenByNaturalization
 Number of university and college teachers,Count_Teacher_UniversityAndCollegeTeacher

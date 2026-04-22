@@ -1,0 +1,76 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+"""Module for Gemini calls."""
+import logging
+from typing import Optional, Union
+
+from google import genai
+from pydantic import BaseModel
+
+
+def get_gemini_config(schema: Optional[BaseModel] = None,
+                      use_thinking_config: bool = False) -> dict:
+  config = {
+      "response_mime_type": "application/json",
+      "response_schema": schema
+  } if schema else {}
+  if use_thinking_config:
+    config["thinking_config"] = genai.types.ThinkingConfig(thinking_level="low")
+  return config
+
+
+def call_gemini(
+    api_key: str,
+    formatted_prompt: str,
+    gemini_model: str,
+    schema: Optional[BaseModel] = None,
+    use_thinking_config: bool = False) -> Optional[Union[BaseModel, str]]:
+  """A helper for all Gemini generations through the Python Gen AI client.
+    Args:
+        api_key: A string representing the API key required for authentication with the Gemini service.
+        formatted_prompt: A string containing the structured prompt or input to be sent to the Gemini model for generation.
+        schema: A Pydantic BaseModel class that defines the expected model's JSON response.
+        gemini_model: A string specifying the name of the Gemini model to utilize.
+        use_thinking_config: Boolean advising whether to use thinking configuration for Gemini 3.
+
+    Returns:
+    The output of the call.
+    """
+  if not api_key or not formatted_prompt:
+    return None
+
+  generate_content_config = get_gemini_config(schema, use_thinking_config)
+  gemini = genai.Client(api_key=api_key)
+
+  try:
+    gemini_response = gemini.models.generate_content(
+        model=gemini_model,
+        contents=formatted_prompt,
+        config=generate_content_config)
+    if schema and gemini_response.parsed:
+      return gemini_response.parsed
+    elif gemini_response.text:
+      return gemini_response.text
+
+  except Exception as e:
+    if schema:
+      logging.error(
+          f"Failure while calling Gemini with {schema.model_json_schema()['title']} schema | Exception Caught: {e}",
+          exc_info=True)
+    else:
+      logging.error(
+          f"Failure while calling Gemini for text generation | Exception Caught: {e}",
+          exc_info=True)
+
+  return None

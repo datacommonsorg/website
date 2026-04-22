@@ -28,6 +28,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -46,29 +47,29 @@ import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
 import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
+import {
   PointApiResponse,
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
 import { StatVarFacetMap } from "../../shared/types";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import {
-  getPoint,
-  getPointWithin,
-  getSeries,
-  getSeriesWithin,
-} from "../../utils/data_fetch_utils";
+import { getPoint, getPointWithin } from "../../utils/data_fetch_utils";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -76,6 +77,7 @@ import {
   ReplacementStrings,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
 import {
   ChartOptions,
@@ -126,7 +128,8 @@ interface BarTileSpecificSpec {
   // Optional: Disable the entity href link for this component
   disableEntityLink?: boolean;
   // Metadata for the facet to highlight.
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
+  hyperlink?: string;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -212,14 +215,51 @@ export function BarTile(props: BarTilePropType): ReactElement {
       }
     };
   }, [props.subscribe]);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or undefined if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!barChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const defaultDate =
+        getFirstCappedStatVarSpecDate(props.variables) || "LATEST";
+      if ("places" in props && !_.isEmpty(props.places)) {
+        return buildObservationSpecs({
+          statVarSpecs: props.variables,
+          statVarToFacets: barChartData.statVarToFacets,
+          placeDcids: props.places,
+          defaultDate,
+        });
+      } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+        const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+        return buildObservationSpecs({
+          statVarSpecs: props.variables,
+          statVarToFacets: barChartData.statVarToFacets,
+          entityExpression,
+          defaultDate,
+        });
+      }
+      return [];
+    };
+  }, [barChartData, props]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
       apiRoot={props.apiRoot}
       className={`${props.className} bar-chart`}
-      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={props.hyperlink}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={barChartData && barChartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(barChartData)}
@@ -229,10 +269,12 @@ export function BarTile(props: BarTilePropType): ReactElement {
       facets={barChartData?.facets}
       statVarToFacets={barChartData?.statVarToFacets}
       subtitle={props.subtitle}
+      entities={"places" in props ? props.places : [props.parentPlace]}
       title={props.title}
       statVarSpecs={props.variables}
       forwardRef={containerRef}
       chartHeight={props.svgChartHeight}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -254,13 +296,13 @@ export function BarTile(props: BarTilePropType): ReactElement {
  */
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);
-    const perCapitaVariables = props.variables
-      .filter((v) => v.denom)
-      .map((v) => v.statVar);
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
@@ -272,9 +314,9 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         entityProps,
         entities: props.places,
         fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables,
         transformHeader: transformCsvHeader,
-        variables: props.variables.map((v) => v.statVar),
+        statVarSpecs: props.variables,
+        variables: [],
       });
     } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
       return dataCommonsClient.getCsv({
@@ -283,9 +325,9 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         entityProps,
         fieldDelimiter: CSV_FIELD_DELIMITER,
         parentEntity: props.parentPlace,
-        perCapitaVariables,
         transformHeader: transformCsvHeader,
-        variables: props.variables.map((v) => v.statVar),
+        statVarSpecs: props.variables,
+        variables: [],
       });
     }
     return new Promise(() => "Error fetching CSV");
@@ -307,67 +349,114 @@ export const fetchData = async (
   props: BarTilePropType,
   dateOverride?: string
 ): Promise<BarChartData> => {
-  const statSvs = props.variables
-    .map((spec) => spec.statVar)
-    .filter((sv) => !!sv);
-  const denomSvs = props.variables
-    .map((spec) => spec.denom)
-    .filter((sv) => !!sv);
+  /*
+   In order to accommodate facet selection while keeping the stat var/facet relationship,
+   we group stat vars by their facets.
+  */
+  const svsByFacet = _.groupBy(props.variables, (spec) => spec.facetId || "");
   // Assume all variables will have the same date
   // TODO: Update getCsv to handle different dates for different variables
   const date = getFirstCappedStatVarSpecDate(props.variables, dateOverride);
   const apiRoot = props.apiRoot || "";
-  let statPromise: Promise<PointApiResponse>;
-  let denomPromise: Promise<SeriesApiResponse>;
+
+  /*
+    Each of the facet groupings above will get its own data fetch (using getPoint
+    or getPointWithin) in order to apply the correct facet to the correct stat var.
+   */
+  const statPromises: Promise<PointApiResponse>[] = [];
+  if ("places" in props && !_.isEmpty(props.places)) {
+    for (const facetId in svsByFacet) {
+      const svSpecs = svsByFacet[facetId];
+      const statSvs = svSpecs.map((spec) => spec.statVar).filter(Boolean);
+      if (_.isEmpty(statSvs)) continue;
+      statPromises.push(
+        getPoint(
+          apiRoot,
+          props.places,
+          statSvs,
+          date,
+          [statSvs],
+          props.facetSelector,
+          facetId ? [facetId] : undefined,
+          props.surface
+        )
+      );
+    }
+  } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+    for (const facetId in svsByFacet) {
+      const svSpecs = svsByFacet[facetId];
+      const statSvs = svSpecs.map((spec) => spec.statVar).filter(Boolean);
+      if (_.isEmpty(statSvs)) continue;
+      statPromises.push(
+        getPointWithin(
+          apiRoot,
+          props.enclosedPlaceType,
+          props.parentPlace,
+          statSvs,
+          date,
+          [statSvs],
+          facetId ? [facetId] : undefined,
+          props.surface
+        )
+      );
+    }
+  }
+
+  const denomSvs = props.variables.map((spec) => spec.denom).filter(Boolean);
   let filterPromise: Promise<PointApiResponse>;
   if ("places" in props && !_.isEmpty(props.places)) {
-    statPromise = getPoint(
-      apiRoot,
-      props.places,
-      statSvs,
-      date,
-      [statSvs],
-      props.highlightFacet
-    );
     filterPromise = getPoint(
       apiRoot,
       props.places,
       [FILTER_STAT_VAR],
-      "",
-      undefined
+      "", // date
+      undefined, // alignedVariables
+      null, // highlightFacet
+      null, // facetIds
+      props.surface
     );
-    denomPromise = _.isEmpty(denomSvs)
-      ? Promise.resolve(null)
-      : getSeries(apiRoot, props.places, denomSvs, []);
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
-    statPromise = getPointWithin(
-      apiRoot,
-      props.enclosedPlaceType,
-      props.parentPlace,
-      statSvs,
-      date,
-      [statSvs]
-    );
     filterPromise = getPointWithin(
       apiRoot,
       props.enclosedPlaceType,
       props.parentPlace,
       [FILTER_STAT_VAR],
-      ""
+      "", // date
+      null, // alignedVariables
+      null, // facetIds
+      props.surface
     );
-    denomPromise = _.isEmpty(denomSvs)
-      ? Promise.resolve(null)
-      : getSeriesWithin(
-          apiRoot,
-          props.parentPlace,
-          props.enclosedPlaceType,
-          denomSvs
-        );
   }
+
   try {
-    const statResp = await statPromise;
-    const denomResp = await denomPromise;
-    const filterResp = await filterPromise;
+    const [statResps, filterResp] = await Promise.all([
+      Promise.all(statPromises),
+      filterPromise,
+    ]);
+
+    // Merge the responses of all stat promises to get all facets that they use
+    const statResp: PointApiResponse = { data: {}, facets: {} };
+    for (const resp of statResps) {
+      Object.assign(statResp.data, resp.data);
+      Object.assign(statResp.facets, resp.facets);
+    }
+
+    // gets denom data that corresponds to the facets used for each entity
+    const useSeriesWithin =
+      !("places" in props && !_.isEmpty(props.places)) &&
+      "enclosedPlaceType" in props &&
+      "parentPlace" in props;
+    const [denomsByFacet, defaultDenomData] = await getDenomResp(
+      denomSvs,
+      statResp,
+      apiRoot,
+      useSeriesWithin,
+      props.surface,
+      "places" in props ? props.places : [],
+      "parentPlace" in props ? props.parentPlace : "",
+      "enclosedPlaceType" in props ? props.enclosedPlaceType : ""
+    );
+
     // Find the most populated places.
     const popPoints: RankingPoint[] = [];
     // Non-place entities won't have a value for Count_Person.
@@ -423,7 +512,8 @@ export const fetchData = async (
     return rawToChart(
       props,
       statResp,
-      denomResp,
+      denomsByFacet,
+      defaultDenomData,
       popPoints,
       placeNames,
       placeType,
@@ -439,7 +529,8 @@ export const fetchData = async (
 function rawToChart(
   props: BarTilePropType,
   statData: PointApiResponse,
-  denomData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   placeType: string,
@@ -486,13 +577,28 @@ function rawToChart(
         statVarToFacets[statVar].add(stat.facet);
       }
       if (spec.denom) {
-        const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
+        const denomInfo = getDenomInfo(
+          spec,
+          denomsByFacet,
+          placeDcid,
+          stat.date,
+          stat.facet,
+          defaultDenomData
+        );
         if (!denomInfo) {
           // skip this data point because missing denom data.
           continue;
         }
         dataPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
+        const denomStatVar = spec.denom;
+        if (denomInfo.facetId && denomInfo.facet) {
+          facets[denomInfo.facetId] = denomInfo.facet;
+          if (!statVarToFacets[denomStatVar]) {
+            statVarToFacets[denomStatVar] = new Set<string>();
+          }
+          statVarToFacets[denomStatVar].add(denomInfo.facetId);
+        }
       }
       if (scaling) {
         dataPoint.value *= scaling;
@@ -670,4 +776,37 @@ function getExploreLink(props: BarTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+function getHyperlinkFn(
+  props: BarTilePropType,
+  chartData?: BarChartData
+): string {
+  if (!props.variables || props.variables.length === 0) {
+    return "";
+  }
+  const placeDcids =
+    "places" in props
+      ? props.places
+      : "parentPlace" in props
+      ? [props.parentPlace]
+      : [];
+  let facetMetadata: StatMetadata = undefined;
+  if (chartData && chartData.statVarToFacets && chartData.facets) {
+    // Attempt to get facet data from the first variable's facet
+    const firstVar = props.variables[0].statVar;
+    const facetIds = chartData.statVarToFacets[firstVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facetMetadata = chartData.facets[firstFacetId];
+    }
+  }
+  // Fallback to facetSelector prop
+  if (
+    !facetMetadata &&
+    props.facetSelector &&
+    props.facetSelector.facetMetadata
+  ) {
+    facetMetadata = props.facetSelector.facetMetadata;
+  }
 }

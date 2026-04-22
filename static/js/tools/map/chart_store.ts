@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { GeoRaster } from "georaster-layer-for-leaflet";
-
 import { GeoJsonData, MapPoint } from "../../chart/types";
 import {
   EntityObservationListWrapper,
@@ -39,7 +37,6 @@ export enum ChartDataType {
   MAP_POINT_COORDINATE = "mapPointCoordinate",
   STAT_VAR_SUMMARY = "statVarSummary",
   ALL_DATES = "allDates",
-  GEO_RASTER = "geoRaster",
   BREADCRUMB_VALUES = "breadcrumbValues",
   MAP_POINT_VALUES = "mapPointValues",
   MAP_VALUES_DATES = "mapValuesDates",
@@ -100,16 +97,13 @@ export interface ChartStore {
     context?: DataContext;
     error?: string;
   };
-  geoRaster: {
-    data: GeoRaster;
-    context?: DataContext;
-    error?: string;
-  };
   mapValuesDates: {
     data: {
       mapValues: { [dcid: string]: number };
       mapDates: Set<string>;
       unit?: string;
+      denomFacets?: Set<string>;
+      numerFacets?: Set<string>;
     };
     context?: DataContext;
   };
@@ -167,10 +161,6 @@ export const emptyChartStore = {
     error: null,
   },
   allDates: {
-    data: null,
-    error: null,
-  },
-  geoRaster: {
     data: null,
     error: null,
   },

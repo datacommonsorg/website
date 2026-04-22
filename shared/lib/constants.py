@@ -455,3 +455,55 @@ DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
 
 # The name of the embeddings CSV file.
 EMBEDDINGS_FILE_NAME = 'embeddings.csv'
+
+SURFACE_HEADER_NAME = "x-surface"
+WEBSITE_SURFACE = "website"
+TEST_SURFACE = "integration-test"
+TEST_SURFACE_HEADER = {SURFACE_HEADER_NAME: "integration-test"}
+# This is passed into mixer if no other x-surface header is provided, and indicates
+# that this call came from an unknown DC surface via the website. This is set here to
+# differentiate these calls from public API calls that have no x-surface header,
+UNKNOWN_SURFACE = "unknown"
+
+# The GCP log router that directs these logs to BigQuery detects them
+# Based on the presence of MIXER_RESPONSE_ID_FIELD in the json payload.
+# If you update the field name here, also update the filter on the website_cache_mixer_usage_logs log router here:
+# https://pantheon.corp.google.com/logs/router?e=13803378&mods=-monitoring_api_staging&project=datcom-website-prod
+MIXER_RESPONSE_ID_FIELD = "mixer_response_ids"
+MIXER_RESPONSE_ID_HEADER = "x-response-id"
+
+# Flask App env config constants
+LOG_EXTREME_MIXER_CALLS = "LOG_EXTREME_MIXER_CALLS"
+LOG_CACHED_MIXER_RESPONSE_USAGE = "LOG_CACHED_MIXER_RESPONSE_USAGE"
+
+# Rank for sorting parents (City -> State -> Country)
+# The values are arbitrary and relative, used only to establish
+# a topological order (smaller number = "smaller" child place).
+PLACE_TYPE_RANK = {
+    "CensusBlock": 1,
+    "CensusBlockGroup": 5,
+    "CensusTract": 10,
+    "CensusZipCodeTabulationArea": 10,
+    "AdministrativeArea5": 20,
+    "AdministrativeArea4": 20,
+    "Village": 30,
+    "City": 30,
+    "Town": 30,
+    "Borough": 30,
+    "AdministrativeArea3": 30,
+    "CensusCountyDivision": 40,
+    "County": 50,
+    "AdministrativeArea2": 50,
+    "EurostatNUTS3": 50,
+    "CensusCoreBasedStatisticalArea": 60,
+    "CensusDivision": 70,
+    "State": 80,
+    "AdministrativeArea1": 80,
+    "EurostatNUTS2": 80,
+    "EurostatNUTS1": 80,
+    "Country": 100,
+    "CensusRegion": 110,
+    "GeoRegion": 120,
+    "Continent": 130,
+    "Place": 150,
+}

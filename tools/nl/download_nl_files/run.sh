@@ -14,8 +14,8 @@
 # limitations under the License.
 
 cd ../../..
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install -r nl_server/requirements.txt -q
 python3 -m pip install -r tools/nl/download_nl_files/requirements.txt -q

@@ -1,0 +1,28 @@
+{
+  "inputFiles": {
+    "alaska_hospital_entities.csv": {
+      "importType": "entities",
+      "rowEntityType": "Hospital",
+      "idColumn": "facility_id",
+      "entityColumns": [
+        "City",
+        "zip"
+      ],
+      "provenance": "Unplanned Hospital Visits"
+    },
+    "alaska_hospitals_unplanned_visits.csv": {
+      "importType": "observations",
+      "entityType": "Hospital",
+      "format": "variablePerRow",
+      "provenance": "Unplanned Hospital Visits"
+    }
+  },
+  "sources": {
+    "Center for Medicare and Medicaid Services": {
+      "url": "https://data.cms.gov",
+      "provenances": {
+        "Unplanned Hospital Visits": "https://data.cms.gov/provider-data/dataset/632h-zaca"
+      }
+    }
+  }
+}

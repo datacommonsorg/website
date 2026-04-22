@@ -18,23 +18,30 @@ import axios from "axios";
 import React from "react";
 
 import { StatVarSearchResult } from "../shared/types";
+import { extractFlagsToPropagate } from "../shared/util";
 
 /**
- * Given a query for a list of places, returns a promise with stat vars and
+ * Given a query for a list of entities, returns a promise with stat vars and
  * stat var groups that match the query
  */
 export function getStatVarSearchResults(
   query: string,
-  places: string[],
-  svOnly: boolean
+  entities: string[],
+  svOnly: boolean,
+  limit = 100
 ): Promise<StatVarSearchResult> {
   const url = "/api/stats/stat-var-search";
   const payload = {
     query,
-    places,
+    entities,
     svOnly,
+    limit,
   };
-  return axios.post(url, payload).then((resp) => {
+  const flags = extractFlagsToPropagate(window.location.href);
+  const config = {
+    params: Object.fromEntries(flags.entries()),
+  };
+  return axios.post(url, payload, config).then((resp) => {
     const data = resp.data;
     return {
       matches: data.matches || [],
@@ -52,10 +59,11 @@ export function getStatVarSearchResults(
  */
 export function getHighlightedJSX(
   id: string,
-  s: string,
+  s: string | null | undefined,
   matches: string[]
 ): JSX.Element {
-  let prevResult = [s];
+  const textToHighlight = s || id;
+  let prevResult = [textToHighlight];
   let currResult = [];
   matches.sort((a, b) => b.length - a.length);
   // Escape any invalid symbols in the returned matches

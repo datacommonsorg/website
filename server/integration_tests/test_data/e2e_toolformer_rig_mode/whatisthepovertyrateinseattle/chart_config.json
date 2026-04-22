@@ -203,6 +203,10 @@
           "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_Upto5Years_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "race": [
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AsianAlone"
         ]
       }
     },

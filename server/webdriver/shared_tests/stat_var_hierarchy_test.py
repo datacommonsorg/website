@@ -14,13 +14,15 @@
 
 import re
 
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
 
-MAP_URL = '/tools/map'
+DOWNLOAD_URL = '/tools/download'
 
 
 class StatVarHierarchyTestMixin():
@@ -28,57 +30,40 @@ class StatVarHierarchyTestMixin():
 
   def test_filter(self):
     """Test the stat var filtering based on place selection."""
-    self.driver.get(self.url_ + MAP_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL)
 
     # Wait until stat var hierarchy is present
     self.assertIsNotNone(
         wait_elem(self.driver, by=By.ID, value='hierarchy-section'))
 
     # Get the count of the first category
-    agriculture_category = find_elem(self.driver,
-                                     by=By.XPATH,
-                                     value="//*[text()='Agriculture']")
-    count_text = find_elem(agriculture_category, value='sv-count').text
+    agriculture_count_xpath = "//*[text()='Agriculture']/span[@class='sv-count']"
+    initial_count_text = find_elem(self.driver,
+                                   by=By.XPATH,
+                                   value=agriculture_count_xpath).text
 
     rgx = re.compile(r'\(([0-9]+)\)')
-    count_text = rgx.search(count_text).group(0)
+    count_initial = int(rgx.search(initial_count_text).group(1))
 
-    count_initial = int(count_text.replace('(', '').replace(')', ''))
+    # Search for California Counties
+    shared.search_for_places(self,
+                             self.driver,
+                             "California",
+                             "County",
+                             is_new_vis_tools=False)
 
-    # Wait until search box is present and Type california
-    search_box_input = find_elem(self.driver, by=By.ID, value='ac')
-    search_box_input.send_keys('California')
-
-    # Wait until there is at least one result in autocomplete results.
-    self.assertIsNotNone(wait_elem(self.driver, value='pac-item'))
-
-    # Click on the first result.
-    find_elem(self.driver, by=By.CSS_SELECTOR,
-              value='.pac-item:nth-child(1)').click()
-    self.assertIsNotNone(wait_elem(self.driver, value='chip'))
-
-    # Wait until the place type selector populates with options
-    self.assertIsNotNone(
-        wait_elem(self.driver,
-                  by=By.CSS_SELECTOR,
-                  value="option[value='County']"))
-
-    # Select the 'County' place type option
-    find_elem(self.driver, by=By.CSS_SELECTOR,
-              value="option[value='County']").click()
+    # Wait until we see a change in the agricultural count.
+    try:
+      WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+          lambda driver: initial_count_text not in driver.find_element(
+              By.XPATH, agriculture_count_xpath).text)
+    except TimeoutException:
+      self.fail("Stat var count did not update after applying place filter.")
 
     # Get the count after filtering
-    shared.wait_for_loading(self.driver)
+    count_text_after = find_elem(self.driver,
+                                 by=By.XPATH,
+                                 value=agriculture_count_xpath).text
+    count_final = int(rgx.search(count_text_after).group(1))
 
-    agriculture_category = find_elem(self.driver,
-                                     by=By.XPATH,
-                                     value="//*[text()='Agriculture']")
-
-    count_text = find_elem(agriculture_category,
-                           by=By.CLASS_NAME,
-                           value='sv-count').text
-    count_text = rgx.search(count_text).group(0)
-
-    count_filter = int(count_text.replace('(', '').replace(')', ''))
-
-    self.assertGreater(count_initial, count_filter)
+    self.assertGreater(count_initial, count_final)

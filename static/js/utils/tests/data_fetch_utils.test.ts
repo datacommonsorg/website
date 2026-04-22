@@ -18,6 +18,7 @@
 import axios from "axios";
 import { when } from "jest-when";
 
+import { TEST_SURFACE, TEST_SURFACE_HEADER } from "../../shared/constants";
 import { stringifyFn } from "../axios";
 import { getBestUnit, getPoint, getPointWithin } from "../data_fetch_utils";
 
@@ -240,6 +241,7 @@ function axiosMock(): void {
         variables: VARIABLES,
       },
       paramsSerializer: stringifyFn,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,
@@ -252,6 +254,7 @@ function axiosMock(): void {
         entities: ENTITIES,
       },
       paramsSerializer: stringifyFn,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,
@@ -286,34 +289,64 @@ test("getBestUnit", () => {
 
 test("getPoint no align", () => {
   axiosMock();
-  return getPoint("", ENTITIES, VARIABLES, DATE).then((resp) => {
+  return getPoint(
+    "",
+    ENTITIES,
+    VARIABLES,
+    DATE,
+    undefined, // alignedVariables
+    undefined, // highlightFacet
+    undefined, // facetIds
+    TEST_SURFACE
+  ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_NO_ALIGN);
   });
 });
 
 test("getPoint align", () => {
   axiosMock();
-  return getPoint("", ENTITIES, VARIABLES, DATE, [
-    ["stat_var_1", "stat_var_2"],
-  ]).then((resp) => {
+  return getPoint(
+    "",
+    ENTITIES,
+    VARIABLES,
+    DATE,
+    [["stat_var_1", "stat_var_2"]],
+    undefined, // highlightFacet
+    undefined, // facetIds
+    TEST_SURFACE
+  ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_1_2_ALIGNED);
   });
 });
 
 test("getPointWithin no align", () => {
   axiosMock();
-  return getPointWithin("", CHILD_TYPE, PARENT_ENTITY, VARIABLES, DATE).then(
-    (resp) => {
-      expect(resp).toEqual(TEST_PROCESSED_RESPONSE_NO_ALIGN);
-    }
-  );
+  return getPointWithin(
+    "",
+    CHILD_TYPE,
+    PARENT_ENTITY,
+    VARIABLES,
+    DATE,
+    undefined, // alignedVariables
+    undefined, // facetIds
+    TEST_SURFACE
+  ).then((resp) => {
+    expect(resp).toEqual(TEST_PROCESSED_RESPONSE_NO_ALIGN);
+  });
 });
 
 test("getPointWithin", () => {
   axiosMock();
-  return getPointWithin("", CHILD_TYPE, PARENT_ENTITY, VARIABLES, DATE, [
-    ["stat_var_1", "stat_var_2"],
-  ]).then((resp) => {
+  return getPointWithin(
+    "",
+    CHILD_TYPE,
+    PARENT_ENTITY,
+    VARIABLES,
+    DATE,
+    [["stat_var_1", "stat_var_2"]],
+    undefined, // facetIds
+    TEST_SURFACE
+  ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_1_2_ALIGNED);
   });
 });

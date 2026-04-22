@@ -23,11 +23,13 @@ import {
   HighlightTile,
   HighlightTilePropType,
 } from "../js/components/tiles/highlight_tile";
-import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
+import { DEFAULT_PER_CAPITA_DENOM, WEB_COMPONENT_SURFACE } from "./constants";
 import {
   convertArrayAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -89,7 +91,27 @@ export class DatacommonsHighlightComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
+    const facetId = getFacetId(
+      this.variable,
+      0,
+      parsedMapping,
+      undefined,
+      this.facetId
+    );
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       description: this.header || this.description,
@@ -110,7 +132,9 @@ export class DatacommonsHighlightComponent extends LitElement {
         scaling: 1,
         statVar: this.variable,
         unit: this.unit || "",
+        facetId,
       },
+      surface: WEB_COMPONENT_SURFACE,
     };
     return createWebComponentElement(HighlightTile, highlightTileProps);
   }

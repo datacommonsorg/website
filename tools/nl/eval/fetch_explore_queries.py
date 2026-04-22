@@ -21,7 +21,7 @@ import pandas as pd
 import requests
 
 EXPLORE_CONFIG_RELATIVE_PATH = '../../../static/js/apps/explore_landing/topics.json'
-NODEJS_URL = 'https://bard.datacommons.org/nodejs/query'
+NODEJS_URL = 'https://nl.datacommons.org/nodejs/query'
 API_KEY = os.environ.get('NODEJS_API_KEY')
 
 

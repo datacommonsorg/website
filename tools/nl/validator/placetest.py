@@ -18,7 +18,7 @@ from typing import Dict, List, Set
 
 from absl import app
 from absl import flags
-import datacommons as dc
+from datacommons_client.client import DataCommonsClient
 import requests
 import utils
 
@@ -35,10 +35,14 @@ flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
 AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
 assert AUTOPUSH_KEY
 
-# Use autopush endpoint for recon to get the latest fixes.
-URL = f'https://autopush.api.datacommons.org/v1/recognize/places?key={AUTOPUSH_KEY}'
+DC_API_KEY = os.environ.get('DC_API_KEY')
+assert DC_API_KEY
 
-POP_URL = 'https://api.datacommons.org/v1/bulk/observations/point?key=AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
+# Use autopush endpoint for recon to get the latest fixes.
+URL = f'https://autopush.api.datacommons.org/v2/recognize/places?key={AUTOPUSH_KEY}'
+
+# Use prod endpoint to get population data.
+POP_URL = f'https://api.datacommons.org/v2/observation?key={DC_API_KEY}&date=LATEST&select=entity&select=variable&select=date&select=value&variable.dcids=Count_Person&'
 
 OUT_HEADER = [
     'Query', 'OrigPlace', 'WrongPlace', 'BogusPlace', 'WrongPlaceName',
@@ -61,6 +65,7 @@ class Context:
   bad_dcids: Set[str]
   dcid_names: Dict
   dcid_pop: Dict
+  client: DataCommonsClient
 
 
 def init_result(q, sv, pl):
@@ -178,27 +183,27 @@ def update_rows(ctx):
 
   if dcids:
     try:
-      res = dc.get_property_values(dcids, 'name')
+      res = ctx.client.node.fetch_entity_names(dcids)
     except Exception as e:
       print(f'DC ERROR: {dcids} {e}')
       return
     for k, v in res.items():
       if v:
-        ctx.dcid_names[k] = v[0]
+        ctx.dcid_names[k] = v.value
 
     try:
-      url = POP_URL + '&variables=Count_Person&' + '&'.join(
-          'entities=' + e for e in dcids)
+      url = POP_URL + '&'.join('entity.dcids=' + e for e in dcids)
       resp = requests.get(url).json()
     except Exception as e:
       print(f'API ERROR: {dcids} {e}')
       return
 
-    for einfo in resp['observationsByVariable'][0].get('observationsByEntity',
-                                                       []):
-      if 'entity' not in einfo or not einfo.get('pointsByFacet'):
-        continue
-      ctx.dcid_pop[einfo['entity']] = einfo['pointsByFacet'][0]['value']
+    for vinfo in resp.get('byVariable', {}).values():
+      for entity, einfo in vinfo.get('byEntity', {}).items():
+        facet = einfo.get('orderedFacets', [{}])[0]  # Get preferred facet.
+        value = facet.get('observations', [{}])[0].get('value')
+        if value:
+          ctx.dcid_pop[entity] = value
 
   for row in ctx.rows:
     for k in ['BogusPlace', 'WrongPlace']:
@@ -271,7 +276,8 @@ def main(_):
               out_header=OUT_HEADER,
               bad_dcids=set(),
               dcid_names={},
-              dcid_pop={}))
+              dcid_pop={},
+              client=DataCommonsClient(api_key=DC_API_KEY)))
 
 
 if __name__ == "__main__":

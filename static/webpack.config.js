@@ -15,6 +15,8 @@
  */
 
 const path = require("path");
+const readline = require("readline");
+const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
@@ -37,6 +39,10 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    subject_page_tiles: [
+      __dirname + "/js/dev/subject_page_tiles.tsx",
+      __dirname + "/css/dev.scss",
+    ],
     datagemma: [
       __dirname + "/js/apps/datagemma/main.ts",
       __dirname + "/css/datagemma.scss",
@@ -45,12 +51,10 @@ const config = {
       __dirname + "/js/apps/biomed_nl/main.ts",
       __dirname + "/css/biomed_nl.scss",
     ],
-    diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",
     ],
-    timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     queryStore: path.resolve(__dirname, "js/shared/stores/query_store.ts"),
     base: [__dirname + "/js/apps/base/main.ts", __dirname + "/css/core.scss"],
@@ -85,6 +89,10 @@ const config = {
     eval_retrieval_generation_sxs: [
       __dirname + "/js/apps/eval_retrieval_generation/sxs/main.ts",
     ],
+    old_ranking: [
+      __dirname + "/js/ranking/old_ranking.ts",
+      __dirname + "/css/old_ranking.scss",
+    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
@@ -97,24 +105,7 @@ const config = {
       __dirname + "/js/apps/browser_landing/main.ts",
       __dirname + "/css/browser_landing.scss",
     ],
-    biomedical: __dirname + "/css/biomedical/biomedical_shared.scss",
-    biomedical_landing: [
-      __dirname + "/js/biomedical/landing/main.ts",
-      __dirname + "/css/biomedical/biomedical_landing.scss",
-    ],
-    disease: [
-      __dirname + "/js/biomedical/disease/disease.ts",
-      __dirname + "/css/biomedical/disease.scss",
-    ],
-    protein: [
-      __dirname + "/js/biomedical/protein/protein.ts",
-      __dirname + "/css/biomedical/protein.scss",
-    ],
     static: __dirname + "/css/static.scss",
-    screenshot: [
-      __dirname + "/js/apps/screenshot/main.ts",
-      __dirname + "/css/screenshot.scss",
-    ],
     search: [
       __dirname + "/js/search/search.ts",
       __dirname + "/css/search.scss",
@@ -166,10 +157,7 @@ const config = {
       __dirname + "/js/apps/homepage/main_custom_dc.ts",
       __dirname + "/css/homepage.scss",
     ],
-    visualization: [
-      __dirname + "/js/apps/visualization/main.ts",
-      __dirname + "/css/tools/visualization.scss",
-    ],
+    visualization: [__dirname + "/js/apps/visualization/main.ts"],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -204,9 +192,20 @@ const config = {
           },
         ],
       },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env.IS_CLOUD_BUILD": JSON.stringify(
+        process.env.IS_CLOUD_BUILD || "false"
+      ),
+    }),
     new NodePolyfillPlugin(),
     new CopyPlugin({
       patterns: [
@@ -226,11 +225,42 @@ const config = {
   ],
 };
 
+// Outputs webpack build progress in a single terminal line (if in a TTY environment).
+const interactiveProgressHandler = (percentage, message, ...args) => {
+  readline.clearLine(process.stdout, 0);
+  readline.cursorTo(process.stdout, 0);
+  if (percentage === 1) {
+    // When compilation is done, add a marker and an empty line.
+    console.info("---------\n");
+  } else {
+    process.stdout.write(
+      `webpack: ${Math.round(percentage * 100)}% ${message} ${args.join(" ")}`
+    );
+  }
+};
+
+// Supported modes are "development" and "production".
 module.exports = (env, argv) => {
-  // If in development, disable optimization.minimize.
-  // development and production are arguments.
+  console.log(`#### Building webpack in ${argv.mode} mode`);
+
+  config.stats = {
+    preset: "minimal",
+    colors: true,
+    errorDetails: true,
+    logging: "warn",
+  };
+
+  // Add more logging and debugging options in development mode.
   if (argv.mode === "development") {
     config.devtool = "source-map";
+    config.stats.preset = "log";
+
+    if (process.env.IS_CLOUD_BUILD !== "true") {
+      // Only log progress outside of cloud where it's useful to see the build starting.
+      config.plugins.push(
+        new webpack.ProgressPlugin(interactiveProgressHandler)
+      );
+    }
   }
 
   return argv.mode === "development" ? config : smp.wrap(config);

@@ -21,7 +21,6 @@
 import _ from "lodash";
 import { useCallback, useContext } from "react";
 
-import { MAP_TYPE } from "./chart";
 import { ChartStore } from "./chart_store";
 import { Context } from "./context";
 import { shouldShowBorder } from "./util";
@@ -297,28 +296,23 @@ export function useBreadcrumbValuesReady(
 }
 
 // Check if data is ready to render.
-export function useRenderReady(
-  chartStore: ChartStore
-): (mapType: MAP_TYPE) => boolean {
+export function useRenderReady(chartStore: ChartStore): () => boolean {
   const { display, statVar } = useContext(Context);
   const breadcrumbValueReady = useBreadcrumbValuesReady(chartStore);
   const mapValuesDatesReady = useMapValuesDatesReady(chartStore);
   const geoJsonReady = useGeoJsonReady(chartStore);
-  return useCallback(
-    (mapType: MAP_TYPE) => {
-      return (
-        statVar.value.info &&
-        (geoJsonReady() || mapType === MAP_TYPE.LEAFLET) &&
-        breadcrumbValueReady(!display.value.showTimeSlider) &&
-        mapValuesDatesReady(!display.value.showTimeSlider)
-      );
-    },
-    [
-      display.value.showTimeSlider,
-      statVar.value.info,
-      geoJsonReady,
-      breadcrumbValueReady,
-      mapValuesDatesReady,
-    ]
-  );
+  return useCallback(() => {
+    return (
+      statVar.value.info &&
+      geoJsonReady() &&
+      breadcrumbValueReady(!display.value.showTimeSlider) &&
+      mapValuesDatesReady(!display.value.showTimeSlider)
+    );
+  }, [
+    display.value.showTimeSlider,
+    statVar.value.info,
+    geoJsonReady,
+    breadcrumbValueReady,
+    mapValuesDatesReady,
+  ]);
 }

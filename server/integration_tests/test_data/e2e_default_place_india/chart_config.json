@@ -20,7 +20,7 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Total number of females in the population.",
+            "description": "The total number of females in a population.",
             "title": "Women"
           },
           {
@@ -53,7 +53,7 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Total number of females in the population.",
+            "description": "The total number of females in a population.",
             "title": "Women in Administrative Area 1 Places of India"
           },
           {
@@ -112,7 +112,7 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Total number of males in the population.",
+            "description": "The total number of males in a population.",
             "title": "Men in Administrative Area 1 Places of India"
           },
           {

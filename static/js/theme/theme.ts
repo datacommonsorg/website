@@ -29,6 +29,7 @@ const BREAKPOINTS = {
 };
 
 const SPACING = {
+  x2s: 2,
   xs: 4,
   sm: 8,
   md: 16,
@@ -53,26 +54,12 @@ const WIDTH = {
   xl: 1310,
 };
 
-const ICONS = {
-  xs: 12,
-  sm: 18,
-  md: 24,
-  lg: 32,
-  xl: 48,
-};
-
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
 
-const DC_BLACK_00 = "hsl(0, 0.00%, 0%)";
-const DC_BLACK_10 = "hsl(0, 0.00%, 10%)";
-const DC_BLACK_20 = "hsl(0, 0.00%, 20%)";
 const DC_BLACK_30 = "hsl(0, 0.00%, 30%)";
-const DC_BLACK_40 = "hsl(0, 0.00%, 40%)";
-const DC_BLACK_50 = "hsl(0, 0.00%, 50%)";
-const DC_BLACK_60 = "hsl(0, 0.00%, 60%)";
+
 const DC_BLACK_70 = "hsl(0, 0.00%, 70%)";
 const DC_BLACK_80 = "hsl(0, 0.00%, 80%)";
-const DC_BLACK_90 = "hsl(0, 0.00%, 90%)";
 
 const DC_WHITE = "hsl(255, 100%, 100%)";
 const DC_BONE = "hsl(216, 55%, 98%)";
@@ -81,6 +68,7 @@ const DC_BLUE = "hsl(217, 90%, 43%)";
 const DC_BLUE_DARK = "hsl(217, 90%, 15%)";
 const DC_BLUE_LIGHT = "hsl(218, 57%, 63%)";
 const DC_BLUE_LIGHTER = "hsl(204, 100%, 88%)";
+const DC_BLUE_LIGHTEST = "hsl(204, 100%, 88%, 33%)";
 const DC_BLUE_WHITE = "hsl(220, 100%, 98%)";
 const DC_BLUE_WHITE_LIGHT = "hsl(217, 90%, 95%)";
 
@@ -100,6 +88,10 @@ const DC_YELLOW = "hsl(35, 100%, 29%)";
 const DC_YELLOW_PILL_TEXT = "hsl(3, 71%, 15%)";
 const DC_YELLOW_PILL_BCKG = "hsl(40, 100%, 91%)";
 
+const DC_ORANGE = "hsl(26 100% 35.9%)";
+const DC_YELLOW_DARK = "hsl(43 100% 35.9%)";
+
+const DC_GRAY_DARK = "hsl(200, 2.9%, 41.2%)";
 const DC_GRAY = "hsl(160, 2%, 27%)";
 const DC_GRAY_LIGHT = "hsl(0, 0%, 48%)";
 const DC_GRAY_LINING = "hsl(140, 3%, 77%)";
@@ -127,6 +119,12 @@ const theme: Theme = {
       },
       tertiary: {
         base: DC_GRAY_LIGHT,
+        dark: DC_GRAY_DARK,
+      },
+      code: {
+        base: DC_GREEN,
+        light: DC_GREEN_PILL_BCKG,
+        dark: DC_GREEN_PILL_TEXT,
       },
     },
     background: {
@@ -204,6 +202,13 @@ const theme: Theme = {
         dark: DC_BLUE_DARK,
       },
     },
+    error: {
+      primary: {
+        base: DC_RED,
+        light: DC_YELLOW,
+        dark: DC_RED_PILL_TEXT,
+      },
+    },
   },
   typography: {
     family: {
@@ -213,6 +218,10 @@ const theme: Theme = {
       },
       heading: {
         fontFamily: "'Google Sans', Arial, sans-serif",
+        fontStyle: "normal",
+      },
+      code: {
+        fontFamily: "Courier, Monaco, Lucida Console, Courier New, monospace",
         fontStyle: "normal",
       },
     },
@@ -357,6 +366,17 @@ const theme: Theme = {
           border: `1px solid ${DC_BLUE}`,
         },
       },
+      light: {
+        color: DC_GRAY_LIGHT,
+        backgroundColor: "transparent",
+        border: "none",
+        borderRadius: "none",
+        ["&:hover:not(:disabled):not([aria-disabled])"]: {
+          backgroundColor: "transparent",
+          color: DC_BLUE,
+          border: "none",
+        },
+      },
     },
     size: {
       sm: {
@@ -369,6 +389,67 @@ const theme: Theme = {
         padding: `15px ${SPACING.lg}px`,
       },
     },
+  },
+  infoBox: {
+    backgroundColor: DC_BLUE_LIGHTEST,
+    icon: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.5rem",
+      },
+    },
+    heading: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      fontWeight: 500,
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.75rem",
+      },
+    },
+  },
+  codeHighlight: {
+    background: DC_WHITE,
+    border: DC_BLACK_80,
+    text: DC_GRAY,
+    highlight: DC_YELLOW_PILL_BCKG,
+    selection: DC_BLUE_WHITE_LIGHT,
+    comment: DC_GRAY_LIGHT,
+    prolog: DC_GRAY_LIGHT,
+    doctype: DC_GRAY_LIGHT,
+    cData: DC_GRAY_LIGHT,
+    punctuation: DC_BLUE_DARK,
+    property: DC_BLUE,
+    tag: DC_BLUE,
+    boolean: DC_BLUE,
+    number: DC_BLUE,
+    constant: DC_BLUE,
+    symbol: DC_BLUE,
+    deleted: DC_BLUE,
+    selector: DC_GREEN,
+    attrName: DC_GREEN,
+    string: DC_GREEN,
+    char: DC_GREEN,
+    builtin: DC_GREEN,
+    inserted: DC_GREEN,
+    operator: DC_ORANGE,
+    entity: DC_ORANGE,
+    url: DC_ORANGE,
+    langCSS: DC_ORANGE,
+    atrule: DC_BLUE,
+    attrValue: DC_BLUE,
+    keyword: DC_BLUE,
+    function: DC_BLUE,
+    className: DC_BLUE,
+    regex: DC_YELLOW_DARK,
+    important: DC_YELLOW_DARK,
+    variable: DC_YELLOW_DARK,
+    csvHeader: DC_GREEN,
+    csvSeparator: DC_ORANGE,
+    csvStringValue: DC_GRAY_LIGHT,
+    csvValue: DC_BLUE,
   },
   elevation: {
     none: {
@@ -408,6 +489,43 @@ const theme: Theme = {
   },
   tooltip: {
     width: "300px",
+  },
+  search: {
+    height: "50px",
+    radius: "32px",
+    base: {
+      border: "#5E5E5E",
+      background: "#FFFFFF",
+      icon: "#5E5E5E",
+      button: "#F1F1F1",
+      text: "#5E5E5E",
+    },
+    active: {
+      border: "#0B57D0",
+      background: "#F6F9FF",
+      icon: "#0B57D0",
+      button: "#0B57D0",
+      text: "#666666",
+    },
+  },
+  searchSuggestions: {
+    height: "300px",
+    border: "#dddddd",
+    base: {
+      background: "#F6F9FF",
+      icon: "#777777",
+      text: "#111111",
+    },
+    hover: {
+      background: "#e9eef6",
+      icon: "#0B57D0",
+      text: "#5e5e5e",
+    },
+    more: {
+      background: "#F6F9FF",
+      icon: "#0B57D0",
+      text: "#0B57D0",
+    },
   },
 };
 

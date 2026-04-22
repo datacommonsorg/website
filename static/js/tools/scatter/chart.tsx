@@ -21,7 +21,14 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  RefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import ReactDOMServer from "react-dom/server";
 import { Card } from "reactstrap";
 
@@ -35,13 +42,16 @@ import {
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_PLOT,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_STAT_VAR,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ObservationSpec } from "../../shared/observation_specs";
+import { StatMetadata } from "../../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -68,7 +78,25 @@ interface ChartPropsType {
   sources: Set<string>;
   svFacetId: Record<string, string>;
   facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
+  // The total number of facets available
+  totalFacetCount?: number;
   onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
+  // Callback function that is run when the modal is opened to enrich facets with metadata
+  onFacetSelectorModalOpen?: () => void;
+  // A function passed through from the chart that handles the task
+  // of creating the embedding used in the download functionality.
+  handleEmbed?: () => void;
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
+  // A ref to the chart container element.
+  containerRef?: RefObject<HTMLElement>;
+  facets: Record<string, StatMetadata>;
+  statVarToFacets: StatVarFacetMap;
+  statVarSpecs: StatVarSpec[];
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -90,6 +118,10 @@ export function Chart(props: ChartPropsType): ReactElement {
     xDates.add(point.xDate);
     yDates.add(point.yDate);
   });
+  const entities = useMemo(
+    () => Object.keys(props.points || {}),
+    [props.points]
+  );
   const xTitle = getTitle(Array.from(xDates), props.xLabel);
   const yTitle = getTitle(Array.from(yDates), props.yLabel);
   // Tooltip needs to start off hidden
@@ -167,12 +199,40 @@ export function Chart(props: ChartPropsType): ReactElement {
     });
   }, [statVars[0], statVars[1], props.placeInfo.enclosingPlace.dcid]);
 
+  // Calculate date ranges for each stat var to use in metadata modal
+  const statVarDateRanges = {};
+  if (props.facetList.length >= 2) {
+    const xDcid = props.facetList[0].dcid;
+    const yDcid = props.facetList[1].dcid;
+    let minXDate = "";
+    let maxXDate = "";
+    let minYDate = "";
+    let maxYDate = "";
+
+    Object.values(props.points).forEach((point) => {
+      if (point.xDate) {
+        if (!minXDate || point.xDate < minXDate) minXDate = point.xDate;
+        if (!maxXDate || point.xDate > maxXDate) maxXDate = point.xDate;
+      }
+      if (point.yDate) {
+        if (!minYDate || point.yDate < minYDate) minYDate = point.yDate;
+        if (!maxYDate || point.yDate > maxYDate) maxYDate = point.yDate;
+      }
+    });
+    statVarDateRanges[xDcid] = { minDate: minXDate, maxDate: maxXDate };
+    statVarDateRanges[yDcid] = { minDate: minYDate, maxDate: maxYDate };
+  }
+
   return (
     <div id="chart" className="chart-section-container" ref={chartContainerRef}>
       <ToolChartHeader
         svFacetId={props.svFacetId}
         facetList={props.facetList}
+        facetListLoading={props.facetListLoading}
+        facetListError={props.facetListError}
         onSvFacetIdUpdated={props.onSvFacetIdUpdated}
+        onFacetSelectorModalOpen={props.onFacetSelectorModalOpen}
+        totalFacetCount={props.totalFacetCount}
       />
       <Card className="chart-card">
         <div className="chart-title">
@@ -190,9 +250,17 @@ export function Chart(props: ChartPropsType): ReactElement {
       </Card>
       <ToolChartFooter
         chartId="scatter"
+        entities={entities}
         sources={props.sources}
         mMethods={null}
-        hideIsRatio={true}
+        hidePerCapitaOption={true}
+        handleEmbed={props.handleEmbed}
+        getObservationSpecs={props.getObservationSpecs}
+        containerRef={props.containerRef}
+        facets={props.facets}
+        statVarSpecs={props.statVarSpecs}
+        statVarToFacets={props.statVarToFacets}
+        statVarDateRanges={statVarDateRanges}
       >
         <PlotOptions />
       </ToolChartFooter>

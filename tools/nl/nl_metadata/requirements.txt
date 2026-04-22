@@ -1,0 +1,9 @@
+datacommons-client
+google-api-core
+google-cloud
+google-cloud-bigquery
+google-cloud-storage
+google-genai
+pandas
+pydantic
+python-dotenv

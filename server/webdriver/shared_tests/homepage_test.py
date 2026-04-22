@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -19,6 +20,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 class HomepageTestMixin():
   """Mixins to test the homepage."""
 
+  @pytest.mark.smoke_test
   def test_homepage_en(self):
     """Test homepage in EN."""
     self.driver.get(self.url_ + '/')

@@ -22,9 +22,11 @@ Sitemap: https://datacommons.org/sitemap/AdministrativeArea4.1.txt
 Sitemap: https://datacommons.org/sitemap/State.0.txt
 Sitemap: https://datacommons.org/sitemap/EurostatNUTS3.0.txt
 Sitemap: https://datacommons.org/sitemap/Country.0.txt
+Sitemap: https://datacommons.org/sitemap/stat_vars.txt
 Sitemap: https://datacommons.org/sitemap/CensusZipCodeTabulationArea.0.txt
 Sitemap: https://datacommons.org/sitemap/EurostatNUTS1.0.txt
 Sitemap: https://datacommons.org/sitemap/SchoolDistrict.0.txt
+Sitemap: https://datacommons.org/sitemap/CensusTract.2.txt
 Sitemap: https://datacommons.org/sitemap/CensusTract.1.txt
 Sitemap: https://datacommons.org/sitemap/EurostatNUTS2.0.txt
 Sitemap: https://datacommons.org/sitemap/CensusTract.0.txt

@@ -19,9 +19,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import LONG_TIMEOUT
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
+# TODO(juliawu): Remove feature flags once new UI is rolled out to production
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
 
@@ -45,80 +47,26 @@ class MapTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
 
-  def test_charts_from_url(self):
-    """Given the url directly, test the page shows up correctly"""
-    # Load Map Tool page with Statistical Variables.
-    self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
-
-    # Wait until the chart has loaded.
+  def test_can_enter_a_place_and_place_type(self):
+    """Test that a place can be entered in the place search bar"""
+    # Load map page and wait for it to load
+    self.driver.get(self.url_ + MAP_URL)
     shared.wait_for_loading(self.driver)
-    self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='map-items'))
 
-    # Assert place name is correct.
-    self.assertEqual(
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="place-list"]/div/span').text, 'California')
+    # Attempt to search for California counties
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             place_type="County",
+                             is_new_vis_tools=False)
 
-    # Assert chart is correct.
-    self.assertIn(
-        'Median Age of Population ',
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
-
-    # Assert was have 58 map regions and 5 legends.
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     58)
-    chart_legend = find_elem(self.driver, by=By.ID, value='choropleth-legend')
-    self.assertGreater(
-        len(find_elems(chart_legend, by=By.CLASS_NAME, value='tick')), 5)
-
-    # Click United States breadcrumb
-    find_elem(self.driver,
-              by=By.XPATH,
-              value='//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
-
-    # Assert redirect was correct
-    place_list = find_elem(self.driver, by=By.ID, value='place-list')
-    shared.wait_for_loading(self.driver)
-    self.assertEqual(
-        find_elem(place_list, by=By.XPATH, value='./div/span').text,
-        'United States of America')
-
-    # Select State place type
-    shared.wait_for_loading(self.driver)
-    place_type_selector = find_elem(self.driver,
-                                    by=By.ID,
-                                    value='place-selector-place-type')
-    place_type_selector.click()
-    find_elem(place_type_selector, by=By.XPATH, value='./option[2]').click()
-
-    # Assert that a map chart is loaded
-    self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='map-items'))
-    self.assertIn(
-        "Median Age of Population ",
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     52)
-
-    # Click explore timeline
-    find_elem(self.driver, value='explore-timeline-text').click()
-
-    # Assert rankings page loaded
-    new_page_title = (
-        'Ranking by Median Age - States in United States of America - Place ' +
-        'Rankings - ' + self.dc_title_string)
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.title_contains(new_page_title))
-    self.assertEqual(new_page_title, self.driver.title)
+    # Assert these values are in the URL
+    current_url = self.driver.current_url
+    self.assertTrue("pd%3DgeoId%2F06" in current_url)  # look for "pd=geoId/06"
+    self.assertTrue("ept%3DCounty" in current_url)  # look for "ept=County"
 
   @pytest.mark.one_at_a_time
-  def test_manually_enter_options(self):
+  def test_manually_enter_options_results_in_chart(self):
     """Test entering place and stat var options manually will cause chart to
         show up.
         """
@@ -137,34 +85,25 @@ class MapTestMixin():
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
-    # Assert chart is correct.
+    # Wait for chart to load
     shared.wait_for_loading(self.driver)
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
+
+    # Assert chart is correct.
     self.assertIn(
-        'Median Age of Population ',
+        'median age of population ',
         find_elem(self.driver,
                   by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
+                  value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
     # Assert we have the right number of regions and legends
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     58)
-    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
-    self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
-
-  def test_landing_page_link(self):
-    """Test for landing page link."""
-    self.driver.get(self.url_ + MAP_URL)
-
-    # Click on first link on landing page
-    placeholder_container = find_elem(self.driver,
-                                      by=By.ID,
-                                      value='placeholder-container')
-    find_elem(placeholder_container, by=By.XPATH,
-              value='./ul/li[2]/a[1]').click()
-
-    # Assert chart loads
-    shared.wait_for_loading(self.driver)
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
-    self.assertGreater(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                       1)
+    self.assertEqual(
+        len(find_elems(self.driver, by=By.CSS_SELECTOR,
+                       value='#map-items path')), 58)
+    wait_elem(self.driver, By.CLASS_NAME, 'tick')
+    self.assertGreater(
+        len(
+            find_elems(self.driver,
+                       by=By.CSS_SELECTOR,
+                       value='#choropleth-legend .tick')), 5)

@@ -24,21 +24,19 @@
 
 import React, { ReactElement } from "react";
 
+import { ApiButton } from "../../../components/tiles/components/api_button";
 import { NL_SOURCE_REPLACEMENTS } from "../../../constants/app/explore_constants";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
-import {
-  isFeatureEnabled,
-  METADATA_FEATURE_FLAG,
-} from "../../../shared/feature_flags/util";
 import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../../shared/ga_events";
+import { ObservationSpec } from "../../../shared/observation_specs";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../../shared/types";
-import { urlToDisplayText } from "../../../shared/util";
+import { sanitizeSourceUrl, urlToDisplayText } from "../../../shared/util";
 import { isNlInterface } from "../../../utils/explore_utils";
 import { TileMetadataModal } from "./tile_metadata_modal";
 import { TileMetadataModalSimple } from "./tile_metadata_modal_simple";
@@ -49,6 +47,8 @@ export function TileSources(props: {
   // the detailed metadata modal. If not supplied, we fall back to a simple
   // modal display using the sources.
   facets?: Record<string, StatMetadata>;
+  // Array of entity dcids to use for fetching
+  entities?: string[];
   // A mapping of which stat var used which facets
   statVarToFacets?: StatVarFacetMap;
   // If available, the stat vars to link to.
@@ -57,15 +57,29 @@ export function TileSources(props: {
   // If given and the facets and mappings are not given, we
   // fall back to the old sources.
   sources?: Set<string> | string[];
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
+  // Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+  surface: string;
 }): ReactElement {
-  const { facets, statVarToFacets, statVarSpecs, sources } = props;
+  const {
+    entities,
+    facets,
+    statVarToFacets,
+    statVarSpecs,
+    sources,
+    statVarDateRanges,
+    getObservationSpecs,
+  } = props;
   if (!facets && !sources) {
     return null;
   }
-
-  const allowNewMetadataModal = isFeatureEnabled(METADATA_FEATURE_FLAG);
 
   const sourceList: string[] = facets
     ? Array.from(
@@ -84,7 +98,7 @@ export function TileSources(props: {
       <span key={sourceUrl}>
         {index > 0 ? ", " : ""}
         <a
-          href={sourceUrl}
+          href={sanitizeSourceUrl(sourceUrl)}
           rel="noreferrer"
           target="_blank"
           title={sourceUrl}
@@ -115,21 +129,39 @@ export function TileSources(props: {
             <>
               <span {...{ part: "source-separator" }}> • </span>
               <span {...{ part: "source-show-metadata-link" }}>
-                {allowNewMetadataModal && facets && statVarToFacets ? (
+                {facets && statVarToFacets ? (
                   <TileMetadataModal
                     apiRoot={props.apiRoot}
+                    entities={entities}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
                     facets={facets}
                     statVarToFacets={statVarToFacets}
+                    statVarDateRanges={statVarDateRanges}
+                    surface={props.surface}
                   />
                 ) : (
                   <TileMetadataModalSimple
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
+                    surface={props.surface}
                   />
                 )}
+              </span>
+            </>
+          )}
+          {getObservationSpecs && (
+            <>
+              <span {...{ part: "source-separator" }}> • </span>
+              <span {...{ part: "source-show-api-link" }}>
+                <ApiButton
+                  apiRoot={props.apiRoot}
+                  getObservationSpecs={getObservationSpecs}
+                  containerRef={props.containerRef}
+                  variant="textOnly"
+                  surface={props.surface}
+                />
               </span>
             </>
           )}

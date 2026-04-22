@@ -57,6 +57,12 @@ class TestEmbeddings(unittest.TestCase):
           "agricultural output", False,
           ["dc/g/FarmInventory", 'dc/topic/AgriculturalProduction']
       ],
+      # Check that the topic is skipped when skip_topics is True.
+      [
+          "agricultural output",
+          True,
+          ["Count_Person_Agriculture_Employed"],
+      ],
       [
           "agriculture workers", False,
           ["dc/topic/Agriculture", "dc/15lrzqkb6n0y7"]

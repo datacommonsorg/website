@@ -10,109 +10,37 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/TJK",
-                      "country/SLB",
-                      "country/NPL",
-                      "country/GUY",
-                      "country/MLI",
-                      "country/LBR",
                       "country/GIN",
-                      "country/TGO",
-                      "country/COD",
-                      "country/GMB"
+                      "country/MMR",
+                      "country/CHN",
+                      "country/TCD",
+                      "country/BFA",
+                      "country/IDN",
+                      "country/NER",
+                      "country/SLE",
+                      "country/TJK",
+                      "country/BOL"
                     ],
                     "statVarKey": [
-                      "sdg/SI_POV_DAY110"
+                      "sdg/SI_POV_EMP1.AGE--Y15T2410"
                     ],
-                    "title": "Population Below International Poverty Line",
+                    "title": "Employed Population Age 15 to 24 Below International Poverty Line",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Population Below International Poverty Line"
+            "footnote": "Includes data from the following sources: ILO modelled estimates, Nov. 2023",
+            "title": "Employed Population Age 15 to 24 Below International Poverty Line"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/TJK",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Tajikistan",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SLB",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Solomon Islands",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/NPL",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Nepal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GUY",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Guyana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/LBR",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Liberia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
                     "title": "Guinea",
                     "type": "LINE"
@@ -122,51 +50,9 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/TGO",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Togo",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/COD",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Congo [DRC]",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GMB",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Gambia",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Decrease in Population Below International Poverty Line Over Time (Absolute Change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/MMR",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
                     "title": "Myanmar [Burma]",
                     "type": "LINE"
@@ -176,11 +62,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SYC",
+                    "placeDcidOverride": "country/CHN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Seychelles",
+                    "title": "China",
                     "type": "LINE"
                   }
                 ]
@@ -188,11 +74,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/AZE",
+                    "placeDcidOverride": "country/TCD",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Azerbaijan",
+                    "title": "Chad",
                     "type": "LINE"
                   }
                 ]
@@ -200,11 +86,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GUY",
+                    "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Guyana",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   }
                 ]
@@ -212,11 +98,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SRB",
+                    "placeDcidOverride": "country/IDN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Serbia",
+                    "title": "Indonesia",
                     "type": "LINE"
                   }
                 ]
@@ -224,11 +110,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SYR",
+                    "placeDcidOverride": "country/NER",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Syria",
+                    "title": "Niger",
                     "type": "LINE"
                   }
                 ]
@@ -236,11 +122,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MKD",
+                    "placeDcidOverride": "country/SLE",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Macedonia [FYROM]",
+                    "title": "Sierra Leone",
                     "type": "LINE"
                   }
                 ]
@@ -248,11 +134,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BGR",
+                    "placeDcidOverride": "country/TJK",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Bulgaria",
+                    "title": "Tajikistan",
                     "type": "LINE"
                   }
                 ]
@@ -260,51 +146,165 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SLB",
+                    "placeDcidOverride": "country/BOL",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Solomon Islands",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/KIR",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Kiribati",
+                    "title": "Bolivia",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
+            "footnote": "Includes data from the following sources: ILO modelled estimates, Nov. 2023",
+            "title": "Decrease in Employed Population Age 15 to 24 Below International Poverty Line Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MMR",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Myanmar [Burma]",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/JAM",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Jamaica",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KGZ",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Kyrgyzstan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GEO",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Georgia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MUS",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Mauritius",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/NIC",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Nicaragua",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/LKA",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Sri Lanka",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PSE",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Palestinian Territories",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MYS",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Malaysia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BTN",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Bhutan",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO modelled estimates, Nov. 2023",
+            "title": "Decrease in Employed Population Age 15 to 24 Below International Poverty Line Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
-          "sdg/SI_POV_DAY110": {
-            "name": "Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1"
+          "sdg/SI_POV_EMP1.AGE--Y15T2410": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
           },
-          "sdg/SI_POV_DAY1_growth_abs": {
-            "name": "Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1"
+          "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
           },
-          "sdg/SI_POV_DAY1_growth_pct": {
-            "name": "Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1"
+          "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "country/TJK"
+        "country/GIN"
       ]
     }
   },
@@ -681,8 +681,23 @@
         }
       ]
     },
-    "childTopics": [],
-    "exploreMore": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "sdg/SI_POV_EMP1.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -704,6 +719,13 @@
     ],
     "peerPlaces": [],
     "peerTopics": [
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",

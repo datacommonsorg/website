@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
+import axios from "axios";
 import _ from "lodash";
-import { URLSearchParams } from "url";
 
+import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_input";
 import { Theme } from "../theme/types";
+import { stringifyFn } from "../utils/axios";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
 
 // This has to be in sync with server/__init__.py
@@ -38,7 +40,12 @@ export const placeExplorerCategories = [
   "economics_new",
 ];
 
-const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl"]);
+const SEARCH_PARAMS_TO_PROPAGATE = new Set([
+  "hl",
+  "enable_feature",
+  "disable_feature",
+  "detector",
+]);
 
 const NO_DATE_CAP_RCP_STATVARS = [
   // This stat var only has data for 2100. while other stat vars along the same
@@ -125,6 +132,36 @@ export function urlToDisplayText(url: string): string {
     .replace("https://", "")
     .replace("www.", "")
     .split(/[/?#]/)[0];
+}
+
+/**
+ * Processes a source url for display in the UI.
+ * Sanitizes the url to prevent XSS attacks while also
+ * prepending https:// if the url is missing a protocol.
+ */
+export function sanitizeSourceUrl(url: string): string {
+  if (!url) {
+    return "";
+  }
+
+  const trimmedUrl = url.trim();
+
+  // Ensure we have a protocol for the parser to work
+  // If the input is missing a valid protocol, we prepend https://
+  // Prepending https:// blocks unsafe protocols like javascript:// or vbscript://
+  const urlToParse =
+    trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")
+      ? trimmedUrl
+      : "https://" + trimmedUrl;
+
+  try {
+    const parsed = new URL(urlToParse);
+    return parsed.href;
+  } catch (e) {
+    // If the URL does not have a valid URL structure, return empty
+    // This will block urls with scripts like http://javascript:alert(1)
+    return "";
+  }
 }
 
 /**
@@ -259,12 +296,12 @@ export function removeSpinner(containerId: string): void {
  * @returns the query with the pattern removed if it was found.
  */
 export function stripPatternFromQuery(query: string, pattern: string): string {
-  const regex = new RegExp("(?:.(?!" + pattern + "))+([,;\\s])?$", "i");
-
-  // Returns the query without the pattern parameter.
-  // E.g.: query: "population of Calif", pattern: "Calif",
-  // returns "population of "
-  return query.replace(regex, "");
+  // If the query ends with the pattern (case-insensitive), remove it.
+  if (query.trim().toLowerCase().endsWith(pattern.trim().toLowerCase())) {
+    return query.substring(0, query.length - pattern.length);
+  }
+  // Otherwise, return the original query.
+  return query;
 }
 
 /**
@@ -312,4 +349,93 @@ export function redirect(
   }
 
   window.open(finalUrl, "_self");
+}
+
+export function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+}
+
+export async function getStatVarInfo(dcids: string[]): Promise<any> {
+  if (!dcids || dcids.length === 0) {
+    return Promise.resolve({});
+  }
+  const flags = extractFlagsToPropagate(window.location.href);
+  const params = {
+    dcids,
+    ...Object.fromEntries(flags.entries()),
+  };
+  return axios.get("/api/variable/info", {
+    params,
+    paramsSerializer: stringifyFn,
+  });
+}
+
+export function replaceQueryWithSelection(
+  query: string,
+  result: AutoCompleteResult,
+  hasLocation: boolean,
+  statVarInfo: any
+): { query: string; placeDcid: string } {
+  if (
+    result.matchType === "stat_var_search" ||
+    result.matchType === "location_search"
+  ) {
+    // For stat vars and locations, do a case-insensitive replacement of the last
+    // occurrence of the matched concept.
+    const lowerCaseQuery = query.toLowerCase();
+    const lowerCaseMatchedQuery = result.matchedQuery.toLowerCase();
+    const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
+    if (lastIndex !== -1) {
+      const prefix = query.substring(0, lastIndex);
+      if (
+        !hasLocation &&
+        result.matchType === "stat_var_search" &&
+        !result.hasPlace
+      ) {
+        const placeTypeSummary = statVarInfo?.[result.dcid]?.placeTypeSummary;
+        if (placeTypeSummary) {
+          // Check for Earth first.
+          const earthPlace = placeTypeSummary?.Place?.topPlaces?.find(
+            (p) => p.dcid === "Earth"
+          );
+          if (earthPlace) {
+            return {
+              query: `${prefix}${result.name} in the ${earthPlace.name}`,
+              placeDcid: earthPlace.dcid,
+            };
+          }
+
+          // Ordered list of other place types.
+          const placeTypes = [
+            "Continent",
+            "Country",
+            "State",
+            "AdministrativeArea1",
+            "EurostatNUTS1",
+          ];
+          for (const placeType of placeTypes) {
+            const places = placeTypeSummary?.[placeType]?.topPlaces;
+            if (places && places.length > 0) {
+              const randomIndex = Math.floor(Math.random() * places.length);
+              const randomPlace = places[randomIndex];
+              return {
+                query: `${prefix}${result.name} in ${randomPlace.name}`,
+                placeDcid: randomPlace.dcid,
+              };
+            }
+          }
+        }
+        return {
+          query: prefix + result.name + " on Earth",
+          placeDcid: "Earth",
+        };
+      }
+      return { query: prefix + result.name, placeDcid: "" };
+    }
+  }
+  // Fallback for any other case.
+  return {
+    query: stripPatternFromQuery(query, result.matchedQuery) + result.name,
+    placeDcid: "",
+  };
 }

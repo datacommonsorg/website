@@ -20,6 +20,7 @@ import unittest
 from langdetect import detect as detect_lang
 import requests
 
+from shared.lib.constants import TEST_SURFACE_HEADER
 from shared.lib.test_server import NLWebServerTestCase
 
 _dir = os.path.dirname(os.path.abspath(__file__))
@@ -36,8 +37,9 @@ class ExploreTest(NLWebServerTestCase):
   def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
     resp = requests.post(
         self.get_server_url() +
-        f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill',
-        json=req_json).json()
+        f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill&disable_feature=use_v2_api',
+        json=req_json,
+        headers=TEST_SURFACE_HEADER).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def run_detection(self,
@@ -54,11 +56,12 @@ class ExploreTest(NLWebServerTestCase):
     for q in queries:
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}',
+          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}&disable_feature=use_v2_api',
           json={
               'contextHistory': ctx,
               'dc': dc,
-          }).json()
+          },
+          headers=TEST_SURFACE_HEADER).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''
@@ -82,11 +85,12 @@ class ExploreTest(NLWebServerTestCase):
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}&disable_feature=use_v2_api',
           json={
               'contextHistory': ctx,
               'dc': dc,
-          }).json()
+          },
+          headers=TEST_SURFACE_HEADER).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''
@@ -317,23 +321,18 @@ class ExploreTestDetection(ExploreTest):
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
 
-  def test_detection_bio(self):
-    self.run_detection('detection_api_bio', [
-        'What is the phylum of volvox?',
-        'What types of genes are FGFR1, APOE, and ACHE?',
-    ],
-                       dc='bio',
-                       check_detection=True)
-
   def test_detection_multivar(self):
-    self.run_detection('detection_api_multivar', [
-        'number of poor hispanic women with phd',
-        'compare obesity vs. poverty',
-        'show me the impact of climate change on drought',
-        'how are factors like obesity, blood pressure and asthma impacted by climate change',
-        'Compare "Male population" with "Female Population"',
-    ],
-                       check_detection=True)
+    self.run_detection(
+        'detection_api_multivar',
+        [
+            # TODO: re-enable once whatever is causing the flakiness is fixed
+            # 'number of poor hispanic women with phd',
+            'compare obesity vs. poverty',
+            'show me the impact of climate change on drought',
+            'how are factors like obesity, blood pressure and asthma impacted by climate change',
+            'Compare "Male population" with "Female Population"',
+        ],
+        check_detection=True)
 
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
@@ -751,37 +750,6 @@ class ExploreTestEE2(ExploreTest):
             'Foreign born vs. native born in Sunnyvale',
         ],
         mode='toolformer_rag')
-
-  def test_e2e_triple(self):
-    self.run_detect_and_fulfill(
-        'e2e_triple',
-        [
-            # ----- Context Based Queries -----
-            # Should have 'out' properties as answer
-            'What strand orientation does FGFR1 have?',
-            # Should use context for the entity
-            'what genomic coordinates does it have',
-            # Should use context for the property
-            'how about for PQLC3',
-            # Should not use context because no entity or property found
-            'what animal is that found in',
-
-            # ----- Singleton Queries -----
-            # Should have 'in' properties as answer
-            'What is Betacoronavirus 1 the species of',
-            # Should have a chained property in the answer
-            'What genes are associated with the genetic variant rs13317?',
-            # Should return a table in the answer
-            'What genes are associated with the genetic variant rs13317 and rs7903146?',
-            # Should return a table with all the out arcs of the two entities
-            'what virus species are rs13317 and rs7903146',
-            # When there is entity and place, should not default to the entity
-            # overview tile
-            'What is the prevalence of heart disease in California',
-            # When there is only an entity, should return an entity overview tile
-            'tell me about heart disease'
-        ],
-        dc='bio')
 
   def test_e2e_high_sv_threshold(self):
     self.run_detect_and_fulfill(

@@ -33,6 +33,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population"
           },
           {
@@ -64,6 +65,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population in Counties of California"
           },
           {
@@ -126,6 +128,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population"
           },
           {
@@ -157,6 +160,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population in Counties of California"
           },
           {
@@ -473,7 +477,7 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Total number of females in the population.",
+            "description": "The total number of females in a population.",
             "title": "Women in Counties of California"
           },
           {
@@ -506,7 +510,7 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Total number of males in the population.",
+            "description": "The total number of males in a population.",
             "title": "Men in Counties of California"
           },
           {
@@ -2094,14 +2098,12 @@
           "Count_Person_10To19Years",
           "Count_Person_18To24Years",
           "Count_Person_1To4Years",
-          "Count_Person_20To29Years",
           "Count_Person_25To34Years",
           "Count_Person_35To44Years",
           "Count_Person_45To54Years",
           "Count_Person_55To64Years",
           "Count_Person_5To17Years",
           "Count_Person_5To19Years",
-          "Count_Person_60To69Years",
           "Count_Person_65To74Years",
           "Count_Person_75OrMoreYears",
           "Count_Person_Upto9Years"

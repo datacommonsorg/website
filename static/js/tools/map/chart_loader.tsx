@@ -19,16 +19,36 @@
  * and passing the data to a `Chart` component that draws the choropleth.
  */
 
+import { dataRowsToCsv } from "@datacommonsorg/client";
 import _ from "lodash";
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+} from "react";
 
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { ChartEmbed } from "../../place/chart_embed";
+import { WEBSITE_SURFACE } from "../../shared/constants";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
+import { StatMetadata } from "../../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import {
   getCappedStatVarDate,
   loadSpinner,
   removeSpinner,
 } from "../../shared/util";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
-import { Chart, MAP_TYPE } from "./chart";
+import { getMergedSvg, transformCsvHeader } from "../../utils/tile_utils";
+import { Chart } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
 import { useComputeFacetList } from "./compute/facets";
@@ -47,7 +67,6 @@ import { useFetchDefaultStat } from "./fetcher/default_stat";
 import { useFetchDenomStat } from "./fetcher/denom_stat";
 import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import { useFetchGeoJson } from "./fetcher/geojson";
-import { useFetchGeoRaster } from "./fetcher/georaster";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { useFetchStatVarSummary } from "./fetcher/stat_var_summary";
@@ -57,12 +76,13 @@ import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
 import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
 
-export function ChartLoader(): JSX.Element {
+export function ChartLoader(): ReactElement {
   // +++++++  Context
   const { dateCtx, placeInfo, statVar, display } = useContext(Context);
 
-  // +++++++  State
-  const [mapType, setMapType] = useState(MAP_TYPE.D3);
+  // +++++++  Refs
+  const containerRef = useRef<HTMLDivElement>(null);
+  const embedModalElement = useRef<ChartEmbed>(null);
 
   // +++++++  Chart Store
   const [chartStore, dispatchChartStore] = useReducer(
@@ -80,7 +100,6 @@ export function ChartLoader(): JSX.Element {
   useFetchMapPointStat(dispatchChartStore);
   useFetchBreadcrumbStat(dispatchChartStore);
   useFetchBreadcrumbDenomStat(chartStore, dispatchChartStore);
-  useFetchGeoRaster(dispatchChartStore);
   useFetchAllDates(dispatchChartStore);
   useFetchStatVarSummary(dispatchChartStore);
   useFetchBorderGeoJson(dispatchChartStore);
@@ -107,7 +126,13 @@ export function ChartLoader(): JSX.Element {
     dispatchSources,
     dispatchMetadata
   );
-  const facetList = useComputeFacetList(chartStore);
+  const {
+    facetList,
+    facetListLoading,
+    facetListError,
+    onFacetSelectorModalOpen,
+    totalFacetCount,
+  } = useComputeFacetList(chartStore);
   const { sampleDates, sampleFacet } = useComputeSampleDates(chartStore);
   const legendDomain = useComputeLegendDomain(chartStore, sampleFacet);
 
@@ -120,22 +145,6 @@ export function ChartLoader(): JSX.Element {
       display.setDomain(legendDomain);
     }
   }, [display, legendDomain]);
-
-  // Set map type to leaflet if georaster data is available before data needed
-  // for d3 maps
-  useEffect(() => {
-    if (
-      (_.isEmpty(chartStore.mapValuesDates.data) ||
-        _.isEmpty(chartStore.geoJson.data)) &&
-      !_.isEmpty(chartStore.geoRaster.data)
-    ) {
-      setMapType(MAP_TYPE.LEAFLET);
-    }
-  }, [
-    chartStore.mapValuesDates.data,
-    chartStore.geoJson.data,
-    chartStore.geoRaster.data,
-  ]);
 
   useEffect(() => {
     if (
@@ -156,8 +165,186 @@ export function ChartLoader(): JSX.Element {
     placeInfo.value.enclosedPlaceType,
   ]);
 
-  function renderContent(): JSX.Element {
-    if (!renderReady(mapType)) {
+  // Functions for handling the logic required for the embed (download) dialog and the API dialog
+
+  /**
+   * The stat var spec for the current chart configuration.
+   */
+  const currentStatVarSpec: StatVarSpec = useMemo(() => {
+    if (!statVar.value.dcid) return null;
+    return {
+      statVar: statVar.value.dcid,
+      denom: statVar.value.perCapita ? statVar.value.denom : undefined,
+      unit: chartStore.mapValuesDates.data?.unit || undefined,
+      scaling: undefined,
+      log: false,
+      name:
+        statVar.value.info?.[statVar.value.dcid]?.title || statVar.value.dcid,
+      facetId: statVar.value.metahash || undefined,
+    };
+  }, [statVar.value, chartStore.mapValuesDates.data?.unit]);
+
+  /**
+   * Convert facet metadata and mappings (derived from the facet list) into a format
+   * to be used for citation display in the embed modal and footer.
+   */
+  const { facets, statVarToFacets } = useMemo(() => {
+    const facets: Record<string, StatMetadata> = {};
+    const statVarToFacets: StatVarFacetMap = {};
+
+    if (facetList) {
+      for (const facetInfo of facetList) {
+        const svDcid = facetInfo.dcid;
+
+        if (!statVarToFacets[svDcid]) {
+          statVarToFacets[svDcid] = new Set();
+        }
+
+        // Compile facets that are used in the actual map
+        const selectedFacetIds = new Set<string>();
+
+        if (
+          svDcid === statVar.value.dcid &&
+          chartStore.mapValuesDates.data?.numerFacets
+        ) {
+          chartStore.mapValuesDates.data.numerFacets.forEach((f) => {
+            if (facetInfo.metadataMap[f]) {
+              selectedFacetIds.add(f);
+            }
+          });
+        }
+
+        const facetIdsToAdd = Array.from(selectedFacetIds);
+
+        for (const facetId of facetIdsToAdd) {
+          statVarToFacets[svDcid].add(facetId);
+          facets[facetId] = facetInfo.metadataMap[facetId];
+        }
+      }
+    }
+
+    // If per capita, explicitly include the denominator facets
+    // that were tracked during data processing.
+    const denom = statVar.value.denom;
+    const denomFacets = chartStore.mapValuesDates.data?.denomFacets;
+
+    if (statVar.value.perCapita && denom && denomFacets?.size > 0) {
+      if (!statVarToFacets[denom]) {
+        statVarToFacets[denom] = new Set();
+      }
+
+      const denomMetadataMap = chartStore.denomStat.data?.facets || {};
+
+      for (const facetId of Array.from(denomFacets)) {
+        statVarToFacets[denom].add(facetId);
+        if (denomMetadataMap[facetId]) {
+          facets[facetId] = denomMetadataMap[facetId];
+        }
+      }
+    }
+
+    return { facets, statVarToFacets };
+  }, [
+    chartStore.denomStat.data?.facets,
+    chartStore.mapValuesDates.data?.denomFacets,
+    chartStore.mapValuesDates.data?.numerFacets,
+    facetList,
+    statVar.value.dcid,
+    statVar.value.denom,
+    statVar.value.perCapita,
+  ]);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns An array of `ObservationSpec` objects.
+   */
+  const getObservationSpecs = useCallback((): ObservationSpec[] => {
+    if (
+      !currentStatVarSpec ||
+      !placeInfo.value.enclosingPlace.dcid ||
+      !placeInfo.value.enclosedPlaceType
+    ) {
+      return [];
+    }
+
+    const entityExpression = `${placeInfo.value.enclosingPlace.dcid}<-containedInPlace+{typeOf:${placeInfo.value.enclosedPlaceType}}`;
+    const date =
+      getCappedStatVarDate(currentStatVarSpec.statVar, dateCtx.value) ||
+      "LATEST";
+
+    return buildObservationSpecs({
+      statVarSpecs: [{ ...currentStatVarSpec, date }],
+      statVarToFacets,
+      entityExpression,
+    });
+  }, [
+    currentStatVarSpec,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    dateCtx.value,
+    statVarToFacets,
+  ]);
+
+  /**
+   * Returns callback for fetching chart CSV data.
+   * @returns A promise that resolves to chart CSV data.
+   */
+  const getDataCsv = useCallback(async (): Promise<string> => {
+    if (
+      !currentStatVarSpec ||
+      !placeInfo.value.enclosingPlace.dcid ||
+      !placeInfo.value.enclosedPlaceType
+    ) {
+      return "";
+    }
+
+    const dataCommonsClient = getDataCommonsClient();
+    const date = getCappedStatVarDate(
+      currentStatVarSpec.statVar,
+      dateCtx.value
+    );
+
+    const rows = await dataCommonsClient.getDataRows({
+      childType: placeInfo.value.enclosedPlaceType,
+      date,
+      parentEntity: placeInfo.value.enclosingPlace.dcid,
+      variables: [],
+      statVarSpecs: [currentStatVarSpec],
+    });
+
+    return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
+  }, [
+    currentStatVarSpec,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    dateCtx.value,
+  ]);
+
+  /**
+   * Shows the chart embed (download) modal.
+   */
+  const handleEmbed = useCallback((): void => {
+    if (!embedModalElement.current || !containerRef.current) return;
+
+    const { svgXml, height, width } = getMergedSvg(containerRef.current);
+    embedModalElement.current.show(
+      svgXml,
+      getDataCsv,
+      width,
+      height,
+      "",
+      "",
+      "",
+      sources ? Array.from(sources) : [],
+      WEBSITE_SURFACE
+    );
+  }, [getDataCsv, sources]);
+
+  function renderContent(): ReactElement {
+    if (!renderReady()) {
       return null;
     }
     if (
@@ -179,12 +366,12 @@ export function ChartLoader(): JSX.Element {
       );
     }
 
-    if (mapType === MAP_TYPE.D3 && chartStore.geoJson.error) {
+    if (chartStore.geoJson.error) {
       removeSpinner(CHART_LOADER_SCREEN);
       return (
         <div className="p-5">
           {`Sorry, maps are not available for ` +
-            `${placeInfo.value.enclosedPlaceType}` +
+            `${placeInfo.value.enclosedPlaceType} ` +
             `in ${placeInfo.value.selectedPlace.name}. ` +
             `Try picking another place or type of place.`}
         </div>
@@ -201,8 +388,17 @@ export function ChartLoader(): JSX.Element {
     );
 
     const footer = document.getElementById("metadata").dataset.footer || "";
+
+    const entities = Array.from(
+      new Set([
+        ...Object.keys(chartStore.mapValuesDates.data?.mapValues || {}),
+        ...Object.keys(chartStore.mapPointValues.data || {}),
+        ...Object.keys(chartStore.breadcrumbValues.data || {}),
+      ])
+    );
+
     return (
-      <div className="chart-region">
+      <div className="chart-region" ref={containerRef}>
         <Chart
           geoJsonData={chartStore.geoJson.data}
           mapDataValues={chartStore.mapValuesDates.data.mapValues}
@@ -213,16 +409,24 @@ export function ChartLoader(): JSX.Element {
           unit={chartStore.mapValuesDates.data.unit}
           mapPointValues={chartStore.mapPointValues.data}
           mapPoints={chartStore.mapPointCoordinate.data}
-          europeanCountries={europeanCountries}
           rankingLink={rankingLink}
           facetList={facetList}
-          geoRaster={chartStore.geoRaster.data}
-          mapType={mapType}
+          onFacetSelectorModalOpen={onFacetSelectorModalOpen}
+          totalFacetCount={totalFacetCount}
           borderGeoJsonData={
             shouldShowBorder(placeInfo.value.enclosedPlaceType)
               ? chartStore.borderGeoJson.data
               : undefined
           }
+          facetListLoading={facetListLoading}
+          facetListError={facetListError}
+          handleEmbed={handleEmbed}
+          getObservationSpecs={getObservationSpecs}
+          containerRef={containerRef}
+          facets={facets}
+          statVarToFacets={statVarToFacets}
+          statVarSpecs={currentStatVarSpec ? [currentStatVarSpec] : []}
+          entities={entities}
         >
           {display.value.showTimeSlider &&
             sampleDates &&
@@ -255,6 +459,13 @@ export function ChartLoader(): JSX.Element {
           />
         )}
         {footer && <div className="footer">* {footer}</div>}
+        <ChartEmbed
+          ref={embedModalElement}
+          entities={entities}
+          facets={facets}
+          statVarSpecs={currentStatVarSpec ? [currentStatVarSpec] : []}
+          statVarToFacets={statVarToFacets}
+        />
       </div>
     );
   }

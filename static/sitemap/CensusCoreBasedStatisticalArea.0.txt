@@ -99,6 +99,7 @@ https://datacommons.org/place/geoId/C14010
 https://datacommons.org/place/geoId/C14020
 https://datacommons.org/place/geoId/C14100
 https://datacommons.org/place/geoId/C14140
+https://datacommons.org/place/geoId/C14160
 https://datacommons.org/place/geoId/C14180
 https://datacommons.org/place/geoId/C14220
 https://datacommons.org/place/geoId/C14260
@@ -224,6 +225,7 @@ https://datacommons.org/place/geoId/C19300
 https://datacommons.org/place/geoId/C19340
 https://datacommons.org/place/geoId/C19380
 https://datacommons.org/place/geoId/C19420
+https://datacommons.org/place/geoId/C19430
 https://datacommons.org/place/geoId/C19460
 https://datacommons.org/place/geoId/C19500
 https://datacommons.org/place/geoId/C19540
@@ -336,6 +338,7 @@ https://datacommons.org/place/geoId/C24020
 https://datacommons.org/place/geoId/C24060
 https://datacommons.org/place/geoId/C24100
 https://datacommons.org/place/geoId/C24140
+https://datacommons.org/place/geoId/C24180
 https://datacommons.org/place/geoId/C24220
 https://datacommons.org/place/geoId/C24260
 https://datacommons.org/place/geoId/C24300
@@ -422,6 +425,7 @@ https://datacommons.org/place/geoId/C27380
 https://datacommons.org/place/geoId/C27420
 https://datacommons.org/place/geoId/C27460
 https://datacommons.org/place/geoId/C27500
+https://datacommons.org/place/geoId/C27530
 https://datacommons.org/place/geoId/C27540
 https://datacommons.org/place/geoId/C27580
 https://datacommons.org/place/geoId/C27600
@@ -482,6 +486,7 @@ https://datacommons.org/place/geoId/C29940
 https://datacommons.org/place/geoId/C29980
 https://datacommons.org/place/geoId/C30020
 https://datacommons.org/place/geoId/C30060
+https://datacommons.org/place/geoId/C30100
 https://datacommons.org/place/geoId/C30140
 https://datacommons.org/place/geoId/C30220
 https://datacommons.org/place/geoId/C30260
@@ -563,6 +568,7 @@ https://datacommons.org/place/geoId/C33220
 https://datacommons.org/place/geoId/C33260
 https://datacommons.org/place/geoId/C33300
 https://datacommons.org/place/geoId/C33340
+https://datacommons.org/place/geoId/C33380
 https://datacommons.org/place/geoId/C33420
 https://datacommons.org/place/geoId/C33460
 https://datacommons.org/place/geoId/C33500
@@ -585,6 +591,7 @@ https://datacommons.org/place/geoId/C34220
 https://datacommons.org/place/geoId/C34260
 https://datacommons.org/place/geoId/C34300
 https://datacommons.org/place/geoId/C34340
+https://datacommons.org/place/geoId/C34350
 https://datacommons.org/place/geoId/C34380
 https://datacommons.org/place/geoId/C34420
 https://datacommons.org/place/geoId/C34460
@@ -644,6 +651,7 @@ https://datacommons.org/place/geoId/C36740
 https://datacommons.org/place/geoId/C36780
 https://datacommons.org/place/geoId/C36820
 https://datacommons.org/place/geoId/C36830
+https://datacommons.org/place/geoId/C36837
 https://datacommons.org/place/geoId/C36840
 https://datacommons.org/place/geoId/C36860
 https://datacommons.org/place/geoId/C36900
@@ -667,6 +675,7 @@ https://datacommons.org/place/geoId/C37580
 https://datacommons.org/place/geoId/C37620
 https://datacommons.org/place/geoId/C37660
 https://datacommons.org/place/geoId/C37740
+https://datacommons.org/place/geoId/C37770
 https://datacommons.org/place/geoId/C37780
 https://datacommons.org/place/geoId/C37800
 https://datacommons.org/place/geoId/C37860
@@ -700,7 +709,9 @@ https://datacommons.org/place/geoId/C38920
 https://datacommons.org/place/geoId/C38940
 https://datacommons.org/place/geoId/C39020
 https://datacommons.org/place/geoId/C39060
+https://datacommons.org/place/geoId/C39100
 https://datacommons.org/place/geoId/C39140
+https://datacommons.org/place/geoId/C39150
 https://datacommons.org/place/geoId/C39220
 https://datacommons.org/place/geoId/C39260
 https://datacommons.org/place/geoId/C39300
@@ -732,6 +743,7 @@ https://datacommons.org/place/geoId/C40340
 https://datacommons.org/place/geoId/C40380
 https://datacommons.org/place/geoId/C40420
 https://datacommons.org/place/geoId/C40460
+https://datacommons.org/place/geoId/C40530
 https://datacommons.org/place/geoId/C40540
 https://datacommons.org/place/geoId/C40580
 https://datacommons.org/place/geoId/C40620
@@ -778,6 +790,7 @@ https://datacommons.org/place/geoId/C42340
 https://datacommons.org/place/geoId/C42380
 https://datacommons.org/place/geoId/C42420
 https://datacommons.org/place/geoId/C42460
+https://datacommons.org/place/geoId/C42500
 https://datacommons.org/place/geoId/C42540
 https://datacommons.org/place/geoId/C42620
 https://datacommons.org/place/geoId/C42660
@@ -871,6 +884,7 @@ https://datacommons.org/place/geoId/C46220
 https://datacommons.org/place/geoId/C46300
 https://datacommons.org/place/geoId/C46340
 https://datacommons.org/place/geoId/C46380
+https://datacommons.org/place/geoId/C46420
 https://datacommons.org/place/geoId/C46460
 https://datacommons.org/place/geoId/C46500
 https://datacommons.org/place/geoId/C46520
@@ -927,6 +941,7 @@ https://datacommons.org/place/geoId/C48900
 https://datacommons.org/place/geoId/C48940
 https://datacommons.org/place/geoId/C48980
 https://datacommons.org/place/geoId/C49020
+https://datacommons.org/place/geoId/C49060
 https://datacommons.org/place/geoId/C49080
 https://datacommons.org/place/geoId/C49100
 https://datacommons.org/place/geoId/C49180
@@ -937,6 +952,7 @@ https://datacommons.org/place/geoId/C49340
 https://datacommons.org/place/geoId/C49380
 https://datacommons.org/place/geoId/C49420
 https://datacommons.org/place/geoId/C49460
+https://datacommons.org/place/geoId/C49500
 https://datacommons.org/place/geoId/C49620
 https://datacommons.org/place/geoId/C49660
 https://datacommons.org/place/geoId/C49700

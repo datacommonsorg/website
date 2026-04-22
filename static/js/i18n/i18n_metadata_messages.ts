@@ -47,6 +47,14 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Label for date range information in metadata. Example date range is: 1960-2022.",
   },
+  DisplayedDateRange: {
+    id: "metadataDisplayedDateRange",
+    defaultMessage: "(displaying {dateRange})",
+    description:
+      "A wrapper string to show which date range is being actively displayed on the chart, and this date " +
+      "range is different than the date range above. The {dateRange} variable will be replaced by the " +
+      "displayed range. For example: (displaying 2020-2022).",
+  },
   Unit: {
     id: "unit",
     defaultMessage: "Unit",
@@ -76,6 +84,12 @@ export const metadataComponentMessages = defineMessages({
       "factor applied to the value. " +
       "See: https://docs.datacommons.org/glossary.html#scaling-factor.",
   },
+  DataCommonsAggregate: {
+    id: "dataCommonsAggregate",
+    defaultMessage: "Data Commons aggregate",
+    description:
+      "Indicates that a data set is an aggregate derived by Data Commons from another data set.",
+  },
   License: {
     id: "license",
     defaultMessage: "License",
@@ -90,16 +104,27 @@ export const metadataComponentMessages = defineMessages({
       "Label for the methodology used to produce the data. Examples are: ACS 5-Year Survey, " +
       "OECD Regional Statistics.",
   },
+  Notes: {
+    id: "notes",
+    defaultMessage: "Notes",
+    description:
+      "Label for the notes section. This contains information about the data that does not fit in " +
+      "other section.",
+  },
+  PerCapitaNote: {
+    id: "perCapitaNote",
+    defaultMessage:
+      "This statistical variable was used to calculate the per capita value. “Per capita” means “per person.” To calculate a per capita value, a total amount is divided by the number of people as represented by this variable.",
+    description:
+      "Label for the notes section. This contains information about the data that does not fit in " +
+      "other section.",
+  },
   SourceAndCitation: {
     id: "sourceAndCitation",
-    defaultMessage: "Source and citation",
-    description: "Title for source and citation section in the metadata modal.",
-  },
-  DataSources: {
-    id: "dataSources",
-    defaultMessage: "Data sources",
+    defaultMessage: "Citation",
     description:
-      "Label preceding the list of data sources in the metadata modal.",
+      "Title for citation section in the metadata modal. Citation is akin to the " +
+      "definition here https://en.wikipedia.org/wiki/Citation",
   },
   MinorProcessing: {
     id: "minorProcessing",
@@ -107,12 +132,6 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Text indicating data was processed by Data Commons. This will appear in the citation " +
       "section of the metadata modal after the list of sources.",
-  },
-  CitationGuidance: {
-    id: "citationGuidance",
-    defaultMessage: "Citation guidance",
-    description:
-      "Label preceding guidance on how to cite the data sources in the metadata modal.",
   },
   PleaseCredit: {
     id: "pleaseCredit",

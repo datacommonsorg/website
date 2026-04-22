@@ -24,6 +24,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -37,6 +38,11 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+  ObservationSpecOptions,
+} from "../../shared/observation_specs";
 import { SeriesApiResponse, StatMetadata } from "../../shared/stat_types";
 import {
   NamedTypedPlace,
@@ -44,7 +50,7 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   getContextStatVar,
   getHash,
@@ -59,12 +65,14 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
   clearContainer,
+  getDenomResp,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { buildExploreUrl } from "../../utils/url_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -121,7 +129,9 @@ export interface LineTilePropType {
    */
   lazyLoadMargin?: string;
   // Metadata for the facet to highlight.
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 export interface LineChartData {
@@ -132,6 +142,8 @@ export interface LineChartData {
   facets: Record<string, StatMetadata>;
   // A mapping of which stat var used which facets
   statVarToFacets: StatVarFacetMap;
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
@@ -170,26 +182,68 @@ export function LineTile(props: LineTilePropType): ReactElement {
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!chartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const options: ObservationSpecOptions = {
+        statVarSpecs: props.statVarSpec,
+        statVarToFacets: chartData.statVarToFacets,
+      };
+      if (props.enclosedPlaceType) {
+        options.entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      } else {
+        options.placeDcids =
+          props.comparisonPlaces && props.comparisonPlaces.length > 0
+            ? props.comparisonPlaces
+            : [props.place.dcid];
+      }
+
+      return buildObservationSpecs(options);
+    };
+  }, [
+    chartData,
+    props.statVarSpec,
+    props.enclosedPlaceType,
+    props.place,
+    props.comparisonPlaces,
+  ]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
       apiRoot={props.apiRoot}
       className={`${props.className} line-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={getHyperlinkFn(props, chartData)}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={chartData && chartData.errorMsg}
       id={props.id}
+      entities={getPlaceDcids(props)}
       isInitialLoading={_.isNull(chartData)}
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(props, chartData)}
       sources={props.sources || (chartData && chartData.sources)}
       facets={chartData?.facets}
       statVarToFacets={chartData?.statVarToFacets}
+      statVarDateRanges={chartData?.statVarDateRanges}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -210,11 +264,8 @@ export function LineTile(props: LineTilePropType): ReactElement {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
   return () => {
-    const perCapitaVariables = props.statVarSpec
-      .filter((v) => v.denom)
-      .map((v) => v.statVar);
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
@@ -225,10 +276,10 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
         entityProps,
         fieldDelimiter: CSV_FIELD_DELIMITER,
         parentEntity: props.place.dcid,
-        perCapitaVariables,
         startDate: props.startDate,
         transformHeader: transformCsvHeader,
-        variables: props.statVarSpec.map((v) => v.statVar),
+        statVarSpecs: props.statVarSpec,
+        variables: [],
       });
     } else {
       const entities = getPlaceDcids(props);
@@ -237,10 +288,10 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
         entities,
         entityProps,
         fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables: _.uniq(perCapitaVariables),
         startDate: props.startDate,
         transformHeader: transformCsvHeader,
-        variables: props.statVarSpec.map((v) => v.statVar),
+        statVarSpecs: props.statVarSpec,
+        variables: [],
       });
     }
   };
@@ -301,6 +352,7 @@ export const fetchData = async (
   props: LineTilePropType
 ): Promise<LineChartData> => {
   const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
+  const denoms = [];
   for (const spec of props.statVarSpec) {
     const facetId = spec.facetId || EMPTY_FACET_ID_KEY;
     if (!facetToVariable[facetId]) {
@@ -308,7 +360,7 @@ export const fetchData = async (
     }
     facetToVariable[facetId].push(spec.statVar);
     if (spec.denom) {
-      facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
+      denoms.push(spec.denom);
     }
   }
 
@@ -328,7 +380,8 @@ export const fetchData = async (
           props.place.dcid,
           props.enclosedPlaceType,
           facetToVariable[facetId],
-          facetIds
+          facetIds,
+          props.surface
         )
       );
     } else {
@@ -340,7 +393,8 @@ export const fetchData = async (
           placeDcids,
           facetToVariable[facetId],
           facetIds,
-          props.highlightFacet
+          props.facetSelector,
+          props.surface
         )
       );
     }
@@ -357,6 +411,7 @@ export const fetchData = async (
     return mergedResponse;
   });
   const resp = await dataPromise;
+
   // get place names from dcids
   const placeDcids = Object.keys(resp.data[props.statVarSpec[0].statVar]);
   const statVarNames = await getStatVarNames(
@@ -376,7 +431,27 @@ export const fetchData = async (
     // If many places and many stat vars, legends need to show both
     useBothLabels: props.statVarSpec.length > 1 && placeDcids.length > 1,
   };
-  return rawToChart(resp, props, placeNames, statVarNames, options);
+
+  // get denom info
+  const [denomsByFacet, defaultDenomData] = await getDenomResp(
+    denoms,
+    resp,
+    props.apiRoot,
+    !!props.enclosedPlaceType,
+    props.surface,
+    !props.enclosedPlaceType ? getPlaceDcids(props) : [],
+    props.enclosedPlaceType ? props.place.dcid : "",
+    props.enclosedPlaceType
+  );
+  return rawToChart(
+    resp,
+    props,
+    placeNames,
+    statVarNames,
+    options,
+    denomsByFacet,
+    defaultDenomData
+  );
 };
 
 export function draw(
@@ -418,7 +493,9 @@ function rawToChart(
   props: LineTilePropType,
   placeDcidToName: Record<string, string>,
   statVarDcidToName: Record<string, string>,
-  options: { usePlaceLabels: boolean; useBothLabels: boolean }
+  options: { usePlaceLabels: boolean; useBothLabels: boolean },
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse
 ): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
@@ -429,6 +506,7 @@ function rawToChart(
   const facets: Record<string, StatMetadata> = {};
   const statVarToFacets: StatVarFacetMap = {};
   const allDates = new Set<string>();
+  const statVarDates = new Map<string, Set<string>>();
   // TODO: make a new wrapper to fetch series data & do the processing there.
   const unit2count = {};
   for (const spec of props.statVarSpec) {
@@ -462,11 +540,29 @@ function rawToChart(
       const series = raw.data[spec.statVar][placeDcid];
       let obsList = series.series;
       if (spec.denom) {
-        const denomSeries = raw.data[spec.denom][placeDcid];
+        let denomInfo = denomsByFacet[series.facet];
+        // if the placeDcid is not available in the facet-specific denom, use best available
+        if (denomInfo?.data?.[spec.denom]?.[placeDcid]?.series.length <= 0) {
+          denomInfo = defaultDenomData;
+        }
+        const denomSeries = denomInfo?.data?.[spec.denom]?.[placeDcid];
         obsList = computeRatio(obsList, denomSeries.series);
+        if (denomSeries?.facet) {
+          // if denom facet is never used in numerator, we need to get the source from the denom info
+          const facetInfo =
+            raw.facets[denomSeries.facet] ??
+            denomInfo?.facets[denomSeries.facet];
+          sources.add(facetInfo.provenanceUrl);
+          facets[denomSeries.facet] = facetInfo;
+          if (!statVarToFacets[spec.denom]) {
+            statVarToFacets[spec.denom] = new Set<string>();
+          }
+          statVarToFacets[spec.denom].add(denomSeries.facet);
+        }
       }
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
+        const currentSvDates = new Set<string>();
         for (const obs of obsList) {
           if (!isDateInRange(obs.date, props.startDate, props.endDate)) {
             continue;
@@ -477,7 +573,24 @@ function rawToChart(
             value: scaling ? obs.value * scaling : obs.value,
           });
           allDates.add(obs.date);
+          currentSvDates.add(obs.date);
         }
+
+        if (!statVarDates.has(spec.statVar)) {
+          statVarDates.set(spec.statVar, new Set<string>());
+        }
+        currentSvDates.forEach((date) =>
+          statVarDates.get(spec.statVar).add(date)
+        );
+        if (spec.denom) {
+          if (!statVarDates.has(spec.denom)) {
+            statVarDates.set(spec.denom, new Set<string>());
+          }
+          currentSvDates.forEach((date) =>
+            statVarDates.get(spec.denom).add(date)
+          );
+        }
+
         const label = options.useBothLabels
           ? `${statVarDcidToName[spec.statVar]} for ${
               placeDcidToName[placeDcid]
@@ -498,6 +611,21 @@ function rawToChart(
   for (let i = 0; i < dataGroups.length; i++) {
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
   }
+
+  const statVarDateRanges: Record<
+    string,
+    { minDate: string; maxDate: string }
+  > = {};
+  for (const [dcid, dates] of statVarDates.entries()) {
+    const sortedSvDates = Array.from(dates).sort();
+    if (sortedSvDates.length > 0) {
+      statVarDateRanges[dcid] = {
+        minDate: sortedSvDates[0],
+        maxDate: sortedSvDates[sortedSvDates.length - 1],
+      };
+    }
+  }
+
   const errorMsg = _.isEmpty(dataGroups)
     ? getNoDataErrorMsg(props.statVarSpec)
     : "";
@@ -509,6 +637,7 @@ function rawToChart(
     unit,
     props,
     errorMsg,
+    statVarDateRanges,
   };
 }
 
@@ -527,4 +656,36 @@ function getExploreLink(props: LineTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+function getHyperlinkFn(
+  props: LineTilePropType,
+  chartData?: LineChartData
+): string {
+  if (!props.place) {
+    return ""; // Or null, depending on how ChartTileContainer handles it
+  }
+  const placeDcids = getPlaceDcids(props);
+  let facetMetadata: StatMetadata = undefined;
+  if (chartData && chartData.statVarToFacets && chartData.facets) {
+    const firstVar = props.statVarSpec[0].statVar;
+    const facetIds = chartData.statVarToFacets[firstVar];
+    if (facetIds && facetIds.size > 0) {
+      const firstFacetId = Array.from(facetIds)[0];
+      facetMetadata = chartData.facets[firstFacetId];
+    }
+  }
+  if (
+    !facetMetadata &&
+    props.facetSelector &&
+    props.facetSelector.facetMetadata
+  ) {
+    facetMetadata = props.facetSelector.facetMetadata;
+  }
+  return buildExploreUrl(
+    "TIMELINE_WITH_HIGHLIGHT",
+    placeDcids,
+    props.statVarSpec,
+    facetMetadata
+  );
 }

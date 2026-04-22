@@ -18,6 +18,8 @@
  * Inline-header version of the NL Search Component - used in Version 2 of the header
  */
 
+/** @jsxImportSource @emotion/react */
+
 import React, { ReactElement, useEffect, useState } from "react";
 
 import {
@@ -35,6 +37,7 @@ const NlSearchBarHeaderInline = ({
   onSearch,
   shouldAutoFocus,
   enableDynamicPlaceholders,
+  enableStatVarAutocomplete,
 }: NlSearchBarImplementationProps): ReactElement => {
   const [autocompleteEnabled, setAutoCompleteEnabled] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
@@ -59,6 +62,7 @@ const NlSearchBarHeaderInline = ({
         shouldAutoFocus={shouldAutoFocus}
         barType="header"
         enableDynamicPlaceholders={enableDynamicPlaceholders}
+        enableStatVarAutocomplete={enableStatVarAutocomplete}
       />
     </div>
   );

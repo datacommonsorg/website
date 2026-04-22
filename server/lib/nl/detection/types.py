@@ -404,6 +404,7 @@ class ActualDetectorType(str, Enum):
   HybridLLMSafety = "Hybrid - LLM Safety Check"
   # The case of no detector involved.
   NOP = "Detector unnecessary"
+  Agent = "Agent Based"
 
 
 class RequestedDetectorType(str, Enum):
@@ -412,6 +413,7 @@ class RequestedDetectorType(str, Enum):
   LLM = "llm"
   Hybrid = "hybrid"
   HybridSafetyCheck = "hybridsafety"
+  Agent = "agent"
 
 
 class LlmApiType(str, Enum):

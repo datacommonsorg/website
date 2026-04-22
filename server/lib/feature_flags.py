@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,15 +13,106 @@
 # limitations under the License.
 """Common library for functions related to feature flags"""
 
-from flask import current_app
+import random
 
+from flask import current_app
+from flask import has_request_context
+from flask import request as flask_request
+
+from server.lib.util import resolve_flask_app
+
+# URL Query Parameters
+FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'
+FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
+
+# Feature Flags
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
 BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
+STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
+VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
+ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
+ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
+NEW_RANKING_PAGE = 'new_ranking_page'
+ENABLE_GEMINI_3_FLASH = 'enable_gemini_3_flash'
+USE_V2_API = 'use_v2_api'
+# This flag controls the switching of detect-and-fulfill API to use v2/resolve from current nl search vars
+USE_V2_RESOLVE_FOR_NL_SEARCH_VARS = 'use_v2_resolve_for_nl_search_vars'
 
 
-def is_feature_enabled(feature_name: str, app=None) -> bool:
-  """Returns whether the feature with `feature_name` is enabled."""
-  if not app:
-    app = current_app
-  return app.config['FEATURE_FLAGS'].get(feature_name, False)
+def is_feature_override_enabled(feature_name: str, request=None) -> bool:
+  """Check if a URL param to manually enable a feature is present.
+
+  Args:
+    feature_name: feature flag string to look for in the URL
+    request: HTTP request as a flask.Request object
+  
+  Returns:
+      True if URL param override to enable is present, False otherwise
+  """
+  if request is None:
+    return False
+  return request.args.get(
+      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM) == feature_name
+
+
+def is_feature_override_disabled(feature_name: str, request=None) -> bool:
+  """Check if a URL param to manually disable a feature is present.
+
+  Args:
+      feature_name: feature flag string to look for in the URL
+      request: HTTP request as a flask.Request object
+
+  Returns:
+      True if URL param override to disable is present, False otherwise
+  """
+  if request is None:
+    return False
+  return request.args.get(
+      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM) == feature_name
+
+
+def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
+  """Returns whether the feature with `feature_name` is enabled.
+  
+  If both the enable and disable feature flags are present, will default to
+  enabling the feature.
+
+  Args:
+    feature_name: feature flag string to look for in the URL
+    app: Optional Flask application instance. If None, it will be inferred from
+         the current Flask context.
+    request: HTTP request as a flask.Request object. If None, it will be inferred from
+             the current request context.
+  
+  Returns:
+    True if the feature is enabled, False otherwise
+  """
+  app = resolve_flask_app(app)
+
+  # If no app object is available, we cannot check feature flags, so default to False.
+  if app is None:
+    return False
+
+  # If request is not provided, try to get it from the request context.
+  if request is None and has_request_context():
+    request = flask_request
+
+  # Check for URL parameter overrides
+  if is_feature_override_enabled(feature_name, request):
+    return True
+
+  if is_feature_override_disabled(feature_name, request):
+    return False
+
+  # Check for feature flags in the app config
+  feature_flags = app.config.get('FEATURE_FLAGS', {})
+  is_feature_enabled = feature_flags.get(feature_name, {}).get('enabled', False)
+
+  # Apply rollout percentage if specified
+  if is_feature_enabled and 'rollout_percentage' in feature_flags.get(
+      feature_name, {}):
+    rollout_percentage = feature_flags[feature_name]['rollout_percentage']
+    return random.random() * 100 < rollout_percentage
+
+  return is_feature_enabled

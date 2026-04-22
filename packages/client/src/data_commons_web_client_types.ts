@@ -17,6 +17,23 @@
 /**
  * Interface definitions supporting DataCommonsWebClient
  */
+
+/*
+  StatVarSpec has a corresponding interface in: static/js/shared/types.ts
+  When updating this interface, update its corresponding definition to match.
+ */
+export interface StatVarSpec {
+  statVar: string;
+  denom: string;
+  unit: string;
+  scaling: number;
+  log: boolean;
+  name?: string;
+  date?: string;
+  noPerCapita?: boolean;
+  facetId?: string;
+}
+
 export interface StatMetadata {
   importName?: string | null;
   provenanceUrl?: string | null;

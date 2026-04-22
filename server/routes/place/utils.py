@@ -45,6 +45,7 @@ from server.routes.place.types import ServerChartConfiguration
 from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 # Template for the first sentence in the summary
 _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}."
@@ -86,7 +87,7 @@ def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
 
   Args:
     dcid: dcid of the place to get parents for
-    
+
   Returns:
     A list of places that are all the parents of the given DCID.
   """
@@ -193,7 +194,7 @@ def count_places_per_stat_var(
     places_to_consider: list[str] = []) -> List[Dict[str, int]]:
   """
   Returns a count of places with data for each stat var.
-  Removes the Stat var entirely if there are 0 places with data. 
+  Removes the Stat var entirely if there are 0 places with data.
   If there are more than 2 places with data, we just store it as 2.
   """
   stat_var_to_places_with_data = {}
@@ -236,14 +237,13 @@ async def filter_chart_config_for_data_existence(
 
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
-
     current_place_obs_point_task = asyncio.to_thread(
-        dc.obs_point, [place_dcid], current_place_stat_var_dcids)
+        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids)
     child_places_obs_point_within_task = asyncio.to_thread(
-        dc.obs_point_within, place_dcid, child_place_type,
+        dc.safe_obs_point_within, place_dcid, child_place_type,
         child_places_stat_var_dcids)
     peer_places_obs_point_within_task = asyncio.to_thread(
-        dc.obs_point_within, parent_place_dcid, place_type,
+        dc.safe_obs_point_within, parent_place_dcid, place_type,
         peer_places_stat_var_dcids)
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
@@ -533,7 +533,7 @@ def chart_config_to_overview_charts(
   Converts the given chart configuration into a list of Chart objects for API responses.
 
   Args:
-      chart_config (List[Dict]): A list of chart configuration dictionaries, 
+      chart_config (List[Dict]): A list of chart configuration dictionaries,
                                   each containing metadata like 'category', 'variables', 'title', etc.
 
   Returns:
@@ -717,7 +717,7 @@ def translate_chart_config(
   using the gettext function.
 
   Args:
-      chart_config (List[Dict]): A list of dictionaries where each dictionary contains 
+      chart_config (List[Dict]): A list of dictionaries where each dictionary contains
                                   chart configuration data. Each dictionary may have a 'titleId'
                                   field that needs to be translated into a 'title'.
       place_type: Type of the current place
@@ -859,19 +859,19 @@ def parse_nearby_value(nearby_value: str) -> Tuple[str, str | None, str | None]:
   """
   Parses a nearby value string to extract the place DCID, distance, and an optional unit.
 
-  The input string is expected to be in the format "place_dcid@distance", where 
-  `place_dcid` is a string identifier, and `distance` contains a numerical value followed 
+  The input string is expected to be in the format "place_dcid@distance", where
+  `place_dcid` is a string identifier, and `distance` contains a numerical value followed
   by an optional unit. The unit can be any string, but it is uncertain what format it will take.
 
   Args:
-      nearby_value (str): A string containing the place DCID and distance, separated by 
+      nearby_value (str): A string containing the place DCID and distance, separated by
                           an "@" symbol (e.g., "place123@1000m" or "place456@10").
 
   Returns:
       tuple: A tuple containing:
           - place_dcid (str): The place identifier extracted from the input string.
           - value (float or None): The numerical distance value if found, otherwise None.
-          - unit (str or None): The unit of the distance if present, otherwise None. 
+          - unit (str or None): The unit of the distance if present, otherwise None.
                                 The unit is any string following the number, and it may be optional.
   """
   # Split the input string into place_dcid and distance part
@@ -975,7 +975,8 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   return place_cohort_member_dcids
 
 
-def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
+def fetch_overview_table_data(
+    place_dcid: str) -> tuple[List[OverviewTableDataRow], str]:
   """
   Fetches overview table data for the specified place.
   """
@@ -989,6 +990,8 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   # Fetch all observations for each variable
   resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
+  # This indicates which mixer calls are used when this result is cached
+  mixer_response_ids = resp.get(MIXER_RESPONSE_ID_FIELD, [])
 
   # Iterate over each variable and extract the most recent observation
   for item in place_overview_table_variable_translations:
@@ -1022,7 +1025,7 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
             variableDcid=variable_dcid,
         ))
 
-  return data_rows
+  return data_rows, mixer_response_ids
 
 
 def extract_most_recent_facet_observations(

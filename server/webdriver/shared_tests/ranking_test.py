@@ -26,7 +26,10 @@ class RankingTestMixin():
   def test_northamerica_population(self):
     """Test basic ranking page."""
 
-    self.driver.get(self.url_ + '/ranking/Count_Person/Country/northamerica')
+    self.driver.get(
+        self.url_ +
+        '/ranking/Count_Person/Country/northamerica?disable_feature=new_ranking_page'
+    )
 
     subtitle_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '#main-pane h3'), 'All Countries in North America')
@@ -36,14 +39,15 @@ class RankingTestMixin():
         find_elem(self.driver, by=By.TAG_NAME, value='h1').text,
         'Ranking by Population')
 
-    table = find_elem(self.driver,
-                      by=By.XPATH,
-                      value='//*[@id="main-pane"]/div/table')
-    headers = find_elems(table, by=By.XPATH, value='.//thead/tr/th')
+    headers = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#main-pane table thead tr th')
     self.assertEqual([headers[i].text for i in range(0, 3)],
                      ['Rank', 'Country', 'Value'])
 
-    row = find_elems(table, by=By.XPATH, value='.//tbody/tr[1]/td')
+    row = find_elems(self.driver,
+                     by=By.CSS_SELECTOR,
+                     value='#main-pane table tbody tr:nth-child(1) td')
     self.assertEqual([row[i].text for i in range(0, 2)],
                      ['1', 'United States of America'])
 
@@ -63,7 +67,8 @@ class RankingTestMixin():
     """Test translations are displayed correctly in hindi, as well as bottom rankings rendered correctly."""
     self.driver.get(
         self.url_ +
-        '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi&bottom=')
+        '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi&bottom=&disable_feature=new_ranking_page'
+    )
 
     title_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
@@ -79,21 +84,27 @@ class RankingTestMixin():
         find_elem(self.driver,
                   by=By.XPATH,
                   value='//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
-        self.url_ + '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi')
+        self.url_ +
+        '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi&disable_feature=new_ranking_page'
+    )
 
-    table = find_elem(self.driver,
-                      by=By.XPATH,
-                      value='//*[@id="main-pane"]/div/table')
-    headers = find_elems(table, by=By.XPATH, value='.//thead/tr/th')
+    headers = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#main-pane table thead tr th')
     self.assertEqual([headers[i].text for i in range(0, 3)],
                      ['रैंक', 'देश', 'मान'])
-    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
-                       0)
+    self.assertGreater(
+        len(
+            find_elems(self.driver,
+                       by=By.CSS_SELECTOR,
+                       value='#main-pane table tbody tr')), 0)
 
   def test_population_top_ranking_ko(self):
     """Test translations are displayed correctly in korean, as well as top rankings rendered correctly."""
-    self.driver.get(self.url_ +
-                    '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko')
+    self.driver.get(
+        self.url_ +
+        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&disable_feature=new_ranking_page'
+    )
 
     title_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
@@ -109,15 +120,18 @@ class RankingTestMixin():
                   by=By.XPATH,
                   value='//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
         self.url_ +
-        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&bottom=')
+        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko&disable_feature=new_ranking_page&bottom='
+    )
 
-    table = find_elem(self.driver,
-                      by=By.XPATH,
-                      value='//*[@id="main-pane"]/div/table')
-    headers = find_elems(table, by=By.XPATH, value='.//thead/tr/th')
+    headers = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#main-pane table thead tr th')
     self.assertEqual([headers[i].text for i in range(0, 3)], ['순위', '국가', '값'])
-    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
-                       0)
+    self.assertGreater(
+        len(
+            find_elems(self.driver,
+                       by=By.CSS_SELECTOR,
+                       value='#main-pane table tbody tr')), 0)
 
     chart = find_elem(self.driver, value='chart-container')
     y_text = find_elems(find_elem(chart, value='y'),

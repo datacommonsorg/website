@@ -20,6 +20,7 @@ import re
 from typing import Dict, List
 
 import server.services.datacommons as dc
+from shared.lib.constants import MIXER_RESPONSE_ID_FIELD
 
 COMPLEX_UNIT_REGEX = r'\[.+ [0-9]+\]'
 
@@ -131,6 +132,8 @@ def _compact_point(point_resp, all_facets):
         else:
           data[var][entity] = {}
   result['data'] = data
+  # Setting the response ID to reference in usage logs if this result is cached
+  result[MIXER_RESPONSE_ID_FIELD] = point_resp.get(MIXER_RESPONSE_ID_FIELD, [])
   return result
 
 
@@ -167,6 +170,8 @@ def _compact_series(series_resp, all_facets):
               'series': [],
           }
   result['data'] = data
+  # Setting the request ID to reference in the cache
+  result[MIXER_RESPONSE_ID_FIELD] = series_resp[MIXER_RESPONSE_ID_FIELD] if MIXER_RESPONSE_ID_FIELD in series_resp else []
   return result
 
 
@@ -379,7 +384,7 @@ def properties(nodes, out=True):
   return result
 
 
-def property_values(nodes, prop, out=True, constraints=''):
+def property_values(nodes, prop, out=True, constraints='', max_pages=1):
   """Returns a compact property values data out of REST API response.
 
   The response is the following format:
@@ -387,8 +392,16 @@ def property_values(nodes, prop, out=True, constraints=''):
     <node_dcid>: [value list]
   }
   """
-  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                          constraints))
+  from server.lib.feature_flags import is_feature_enabled
+  from server.lib.feature_flags import USE_V2_API
+
+  if is_feature_enabled(USE_V2_API):
+    resp = dc.v2node_paginated(
+        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+        max_pages)
+  else:
+    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
+                                            constraints))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -500,16 +513,16 @@ def triples(nodes, out=True, max_pages=1):
   return result
 
 
-def descendent_places(nodes, descendent_type):
+def descendent_places(nodes, descendent_type, max_pages=1):
   # When the only node being requested is also the descendent_type, fetch all nodes of that type.
   if nodes and len(nodes) == 1 and nodes[0] == descendent_type:
-    return property_values(nodes, "typeOf", out=False)
-  return property_values(
-      nodes,
-      "containedInPlace+",
-      out=False,
-      constraints="{{typeOf:{}}}".format(descendent_type),
-  )
+    return property_values(nodes, "typeOf", out=False, max_pages=max_pages)
+
+  return property_values(nodes,
+                         "containedInPlace+",
+                         out=False,
+                         constraints="{{typeOf:{}}}".format(descendent_type),
+                         max_pages=max_pages)
 
 
 def raw_descendent_places(nodes, descendent_type):

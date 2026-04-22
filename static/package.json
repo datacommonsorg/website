@@ -25,12 +25,14 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@floating-ui/react": "^0.27.6",
+    "@mapbox/geojson-rewind": "0.5.1",
     "@types/d3": "^5.7.2",
     "@types/d3-scale": "^4.0.2",
     "@types/express": "^4.17.17",
     "@types/googlemaps": "^3.43.3",
     "@types/lodash": "^4.14.161",
     "@types/node": "^18.16.3",
+    "@types/prismjs": "^1.26.5",
     "@types/react": "^17.0.2",
     "@types/react-csv": "^1.1.3",
     "@types/react-dom": "^17.0.2",
@@ -49,24 +51,21 @@
     "easy-peasy": "^6.0.1",
     "express": "^4.21.2",
     "file-loader": "^6.1.0",
-    "firebase": "^10.12.2",
+    "firebase": "^11.10.0",
     "full-icu": "^1.4.0",
     "geo-albers-usa-territories": "0.1.0",
-    "geoblaze": "^1.2.0",
-    "geojson-rewind": "0.3.1",
-    "georaster-layer-for-leaflet": "^3.10.0",
     "google-spreadsheet": "^4.1.2",
     "html-webpack-plugin": "^4.4.1",
     "intersection-observer": "^0.12.2",
     "js-md5": "^0.8.3",
     "jsdom": "^22.0.0",
     "jszip": "^3.10.0",
-    "leaflet": "^1.9.1",
     "lit": "^2.7.5",
     "lodash": "^4.17.21",
-    "node-polyfill-webpack-plugin": "^2.0.1",
-    "nodemon": "^2.0.22",
+    "node-polyfill-webpack-plugin": "^4.1.0",
+    "nodemon": "^3.1.10",
     "papaparse": "^5.3.2",
+    "prismjs": "^1.30.0",
     "pure-rand": "^6.1.0",
     "qs": "^6.11.0",
     "query-string": "^8.1.0",
@@ -75,6 +74,7 @@
     "react-collapsible": "2.8.3",
     "react-csv": "^2.2.2",
     "react-dom": "^17.0.2",
+    "react-intersection-observer": "^9.16.0",
     "react-intl": "^6.0.4",
     "react-markdown": "^8.0.7",
     "react-table": "^7.8.0",
@@ -99,7 +99,7 @@
     "xmlserializer": "0.6.1"
   },
   "devDependencies": {
-    "@formatjs/cli": "^2.13.12",
+    "@formatjs/cli": "^6.7.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
     "@types/enzyme": "^3.10.14",
@@ -142,7 +142,7 @@
       }
     },
     "build": {
-      "command": "webpack --mode=production --progress --config webpack.config.js",
+      "command": "webpack --mode=production --config webpack.config.js",
       "dependencies": [
         "../packages/web-components:build",
         "../packages/client:build"
@@ -156,7 +156,7 @@
       ]
     },
     "dev-build": {
-      "command": "webpack --mode=development --progress --config webpack.config.js",
+      "command": "webpack --mode=development --config webpack.config.js",
       "dependencies": [
         "../packages/web-components:build",
         "../packages/client:build"
@@ -170,7 +170,7 @@
       ]
     },
     "watch": {
-      "command": "webpack --mode=development --progress --config webpack.config.js --watch",
+      "command": "webpack --mode=development --config webpack.config.js --watch",
       "dependencies": [
         "build-web-components-watch",
         "build-client-watch"

@@ -21,6 +21,8 @@ from server.lib.nl.detection.types import Place
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 
+DEFAULT_STAT_TYPE = "measuredValue"
+
 SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
     'Earth': ['earth', 'world'],
     # Continents
@@ -310,6 +312,8 @@ NON_EU_MAP_COUNTRIES = [
     'country/BGD',
     'country/CHN',
     'country/IND',
+    'country/KOR',
+    'country/MNG',
     'country/NPL',
     'country/PAK',
     'country/USA',
@@ -1001,3 +1005,16 @@ SVS_TO_CHECK_FACET = frozenset([
     "dc/evcytmdmc9xgd",
     "WagesTotal_Worker_NAICSNonclassifiable",
 ])
+
+PROP_TO_SHORT_KEY = {
+    "populationType": "pt",
+    "measuredProperty": "mp",
+    "statType": "st",
+    "measurementDenominator": "md",
+    "measurementQualifier": "mq"
+}
+
+CORE_PROPS = [
+    "populationType", "measuredProperty", "statType", "measurementDenominator",
+    "measurementQualifier"
+]

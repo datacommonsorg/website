@@ -449,7 +449,7 @@ export const Dialog = ({
   }, [open]);
 
   const isInteractive = isVisible || isClosing;
-  const shouldShow = isInteractive || keepMounted;
+  const shouldShow = open || isInteractive || keepMounted;
 
   const getActiveFadeDuration = (): number => {
     if (!isVisible) return fadeOutDuration;
@@ -583,7 +583,7 @@ export const DialogTitle = ({
           && h3 {
             ${theme.typography.family.heading}
             ${theme.typography.heading.sm}
-              margin: 0;
+            margin: 0;
             padding: 0 ${theme.spacing.xl}px 0 0;
           }
         `,
@@ -632,6 +632,9 @@ export const DialogContent = ({
         css`
           padding: 0 ${theme.spacing.lg}px;
           overflow: auto;
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.lg}px;
         `,
         baseCss,
       ]}

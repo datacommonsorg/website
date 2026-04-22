@@ -24,11 +24,14 @@ import {
   ScatterTile,
   ScatterTilePropType,
 } from "../js/components/tiles/scatter_tile";
+import { WEB_COMPONENT_SURFACE } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -117,7 +120,26 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       enclosedPlaceType: this.childPlaceType,
@@ -137,17 +159,28 @@ export class DatacommonsScatterComponent extends LitElement {
       },
       showExploreMore: this.showExploreMore,
       sources: this.sources,
-      statVarSpec: this.variables.map((variable) => ({
-        denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
-        log: false,
-        name: "",
-        scaling: 1,
-        statVar: variable,
-        unit: "",
-      })),
+      statVarSpec: this.variables.map((variable, index) => {
+        const facetId = getFacetId(
+          variable,
+          index,
+          parsedMapping,
+          this.facetIds,
+          this.facetId
+        );
+        return {
+          denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
+          log: false,
+          name: "",
+          scaling: 1,
+          statVar: variable,
+          unit: "",
+          facetId,
+        };
+      }),
       svgChartHeight: 200,
       title: this.header,
       placeNameProp: this.placeNameProp,
+      surface: WEB_COMPONENT_SURFACE,
     };
     return createWebComponentElement(ScatterTile, scatterTileProps);
   }

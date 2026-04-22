@@ -18,12 +18,18 @@
  * Main app component for scatter.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Container, Row } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import theme from "../../theme/theme";
+import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import {
   Axis,
@@ -32,7 +38,6 @@ import {
   PlaceInfo,
   useContextStore,
 } from "./context";
-import { MemoizedInfo } from "./info";
 import { PlaceOptions } from "./place_and_type_options";
 import { StatVarChooser } from "./statvar";
 import {
@@ -50,9 +55,11 @@ function App(): ReactElement {
     y.value,
     place.value
   );
-  const showInfo = !showChart && !showChooseStatVarMessage;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
+  const theme = useTheme();
+  const visToolExamples = globalThis.visToolExamples || [];
+
   return (
     <>
       <StatVarChooser
@@ -61,28 +68,41 @@ function App(): ReactElement {
       />
       <div id="plot-container">
         <Container fluid={true}>
-          {!showChart && (
-            <Row>
-              <div className="app-header">
-                <h1 className="mb-4">Scatter Plot Explorer</h1>
-                <a href="/tools/visualization#visType%3Dscatter">
-                  Go back to the new Data Commons
-                </a>
-              </div>
-            </Row>
-          )}
           <Row>
-            <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
+            <ToolHeader
+              title={intl.formatMessage(toolMessages.scatterToolTitle)}
+              subtitle={intl.formatMessage(toolMessages.scatterToolSubtitle)}
+            />
           </Row>
-          {showChooseStatVarMessage && (
-            <Row className="info-message">
-              Choose 2 statistical variables from the left pane.
-            </Row>
-          )}
-          {showInfo && (
-            <Row>
-              <MemoizedInfo />
-            </Row>
+          <Row>
+            <div
+              css={css`
+                margin-bottom: ${theme.spacing.md}px;
+                width: 100%;
+              `}
+            >
+              <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
+            </div>
+          </Row>
+          {!showChart && (
+            <>
+              {showChooseStatVarMessage ? (
+                <Row>
+                  <VisToolInstructionsBox toolType="scatter" />
+                </Row>
+              ) : (
+                <Row
+                  css={css`
+                    margin-top: ${theme.spacing.xl}px;
+                  `}
+                >
+                  <ChartLinkChips
+                    toolType="scatter"
+                    visToolExamples={visToolExamples}
+                  />
+                </Row>
+              )}
+            </>
           )}
           {showChart && (
             <Row id="chart-row">
@@ -97,17 +117,21 @@ function App(): ReactElement {
 }
 
 function AppWithContext(): ReactElement {
-  const store = useContextStore();
+  const params = new URLSearchParams(
+    decodeURIComponent(location.hash.replace(/^#/, "?"))
+  );
+  const store = useContextStore(params);
 
-  useEffect(() => applyHash(store), []);
   useEffect(() => updateHash(store), [store]);
   window.onhashchange = (): void => applyHash(store);
 
   return (
     <ThemeProvider theme={theme}>
-      <Context.Provider value={store}>
-        <App />
-      </Context.Provider>
+      <RawIntlProvider value={intl}>
+        <Context.Provider value={store}>
+          <App />
+        </Context.Provider>
+      </RawIntlProvider>
     </ThemeProvider>
   );
 }

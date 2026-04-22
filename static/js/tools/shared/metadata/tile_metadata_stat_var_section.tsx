@@ -35,8 +35,9 @@ import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { humanizeIsoDuration } from "../../../shared/periodicity";
 import { NamedNode } from "../../../shared/types";
-import { stripProtocol } from "../../../shared/util";
+import { sanitizeSourceUrl, stripProtocol } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
+import { formatDateRange } from "./citations";
 import { StatVarMetadata } from "./metadata";
 
 interface TileMetadataStatVarSectionProps {
@@ -44,6 +45,10 @@ interface TileMetadataStatVarSectionProps {
   statVar: NamedNode;
   // the list of metadata for this section (a mix of stat var and source metadata)
   metadataList: StatVarMetadata[];
+  // The specific date range for this stat var from the chart data
+  chartDataDateRange?: { minDate: string; maxDate: string };
+  // whether this stat var is used as a denominator
+  isDenom?: boolean;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
@@ -53,6 +58,8 @@ const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 export const TileMetadataStatVarSection = ({
   statVar,
   metadataList,
+  chartDataDateRange,
+  isDenom,
   apiRoot,
 }: TileMetadataStatVarSectionProps): ReactElement | null => {
   const theme = useTheme();
@@ -131,7 +138,7 @@ export const TileMetadataStatVarSection = ({
           margin-top: ${theme.spacing.md}px;
         `}
       >
-        {metadataList.map((metadata) => {
+        {metadataList.map((metadata, index) => {
           let sourceUrl: string = metadata.provenanceUrl;
           if (metadata.provenanceUrl) {
             sourceUrl = prepareSourceUrl(metadata.provenanceUrl);
@@ -140,26 +147,75 @@ export const TileMetadataStatVarSection = ({
           const unitDisplay = metadata.unit
             ? startCase(metadata.unit)
             : undefined;
-          const periodicity = metadata.periodicity
-            ? humanizeIsoDuration(metadata.periodicity)
-            : undefined;
 
-          const hasDateRange = !!(
+          let observationPeriodDisplay: string;
+          if (metadata.observationPeriod) {
+            const humanizedPeriod = humanizeIsoDuration(
+              metadata.observationPeriod
+            );
+            observationPeriodDisplay =
+              humanizedPeriod !== metadata.observationPeriod
+                ? `${humanizedPeriod} (${metadata.observationPeriod})`
+                : humanizedPeriod;
+          }
+
+          const hasChartRange = !!chartDataDateRange;
+          const hasMetaRange = !!(
             metadata.dateRangeStart || metadata.dateRangeEnd
           );
+          const showDateRangeBlock = hasChartRange || hasMetaRange;
+
+          let dateRangeValue: string;
+
+          const chartRangeString = formatDateRange(
+            chartDataDateRange?.minDate,
+            chartDataDateRange?.maxDate
+          );
+          const metaRangeString = formatDateRange(
+            metadata.dateRangeStart,
+            metadata.dateRangeEnd
+          );
+
+          /*
+            We display the date by the following logic:
+            If we have neither a metadata date range nor a chart range, we display nothing.
+            If we have only a metadata date range, we display that.
+            If we have only a chart-derived date range, we display that.
+            If we have both, but they are the same, we display that shared range.
+            If we have both and they are different, we display both, with the chart range in
+              parentheses
+           */
+          if (hasChartRange && !hasMetaRange) {
+            dateRangeValue = chartRangeString;
+          } else if (!hasChartRange && hasMetaRange) {
+            dateRangeValue = metaRangeString;
+          } else if (hasChartRange && hasMetaRange) {
+            if (metaRangeString === chartRangeString || !metaRangeString) {
+              dateRangeValue = chartRangeString;
+            } else if (!chartRangeString) {
+              dateRangeValue = metaRangeString;
+            } else {
+              const displayedString = intl.formatMessage(
+                metadataComponentMessages.DisplayedDateRange,
+                { dateRange: chartRangeString }
+              );
+              dateRangeValue = `${metaRangeString}, ${displayedString}`;
+            }
+          }
+
           const hasUnit = !!unitDisplay;
-          const hasPeriodicity = !!periodicity;
+          const hasObservationPeriod = !!observationPeriodDisplay;
 
           const optionalFieldsCount = [
-            hasDateRange,
+            showDateRangeBlock,
             hasUnit,
-            hasPeriodicity,
+            hasObservationPeriod,
           ].filter(Boolean).length;
           const measurementMethodSpan = optionalFieldsCount % 2 === 0;
 
           return (
             <div
-              key={`${metadata.statVarId}-${metadata.provenanceName}`}
+              key={`${metadata.statVarId}-${metadata.provenanceName}-${index}`}
               css={css`
                 ${metadataList.length > 1
                   ? `padding-bottom:${theme.spacing.md}px; 
@@ -190,7 +246,7 @@ export const TileMetadataStatVarSection = ({
                   {metadata.provenanceUrl && (
                     <p>
                       <a
-                        href={metadata.provenanceUrl}
+                        href={sanitizeSourceUrl(metadata.provenanceUrl)}
                         target="_blank"
                         rel="noreferrer"
                         css={css`
@@ -223,13 +279,7 @@ export const TileMetadataStatVarSection = ({
                 </ContentWrapper>
 
                 <ContentWrapper>
-                  <h4>
-                    {intl.formatMessage(metadataComponentMessages.Topic)} /{" "}
-                    {intl.formatMessage(metadataComponentMessages.DCID)}
-                  </h4>
-                  {metadata.categories && metadata.categories.length > 0 && (
-                    <p>{metadata.categories.join(", ")}</p>
-                  )}
+                  <h4>{intl.formatMessage(metadataComponentMessages.DCID)}</h4>
                   <p>
                     <a
                       href={
@@ -243,33 +293,33 @@ export const TileMetadataStatVarSection = ({
                       {statVar.dcid}
                     </a>
                   </p>
+                  {metadata.categories && metadata.categories.length > 0 && (
+                    <p>
+                      {intl.formatMessage(metadataComponentMessages.Topic)} •{" "}
+                      {metadata.categories.join(", ")}
+                    </p>
+                  )}
                 </ContentWrapper>
 
-                {hasDateRange && (
+                {showDateRangeBlock && (
                   <ContentWrapper>
                     <h4>
                       {intl.formatMessage(
                         metadataComponentMessages.MetadataDateRange
                       )}
                     </h4>
-                    <p>
-                      {[metadata.dateRangeStart, metadata.dateRangeEnd]
-                        .filter(Boolean)
-                        .join(" – ")}
-                    </p>
+                    <p>{dateRangeValue}</p>
                   </ContentWrapper>
                 )}
 
-                {hasPeriodicity && (
+                {hasObservationPeriod && (
                   <ContentWrapper>
                     <h4>
                       {intl.formatMessage(
-                        metadataComponentMessages.PublicationCadence
+                        metadataComponentMessages.ObservationPeriod
                       )}
                     </h4>
-                    <p>
-                      {periodicity} ({metadata.periodicity})
-                    </p>
+                    <p>{observationPeriodDisplay}</p>
                   </ContentWrapper>
                 )}
 
@@ -301,6 +351,26 @@ export const TileMetadataStatVarSection = ({
                       )}
                     </h4>
                     <p>{metadata.measurementMethodDescription}</p>
+                  </ContentWrapper>
+                )}
+
+                {isDenom && (
+                  <ContentWrapper
+                    css={css`
+                      grid-column: 1 / span 2;
+                      @media (max-width: ${theme.breakpoints.sm}px) {
+                        grid-column: 1;
+                      }
+                    `}
+                  >
+                    <h4>
+                      {intl.formatMessage(metadataComponentMessages.Notes)}
+                    </h4>
+                    <p>
+                      {intl.formatMessage(
+                        metadataComponentMessages.PerCapitaNote
+                      )}
+                    </p>
                   </ContentWrapper>
                 )}
 

@@ -28,13 +28,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { Fragment, ReactElement, ReactNode, useMemo } from "react";
+import React, { ReactElement, useMemo } from "react";
 
 import { intl } from "../../../i18n/i18n";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
-import { stripProtocol } from "../../../shared/util";
-import { buildCitationParts } from "./citations";
+import { buildCitationNodes, buildCitationParts } from "./citations";
 import { StatVarMetadata } from "./metadata";
 import { TileMetadataStatVarSection } from "./tile_metadata_stat_var_section";
 
@@ -44,6 +43,10 @@ interface TileMetadataModalContentProps {
   // a map of the metadata for this section (a mix of stat var
   // and source metadata), with the key being the stat var dcid.
   metadataMap: Record<string, StatVarMetadata[]>;
+  // A map of stat var dcids to their specific min and max date range from the chart
+  statVarDateRanges?: Record<string, { minDate: string; maxDate: string }>;
+  // a set of stat var dcids that are used as denominators
+  denomStatVarDcids?: Set<string>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
@@ -51,13 +54,15 @@ interface TileMetadataModalContentProps {
 export const TileMetadataModalContent = ({
   statVars,
   metadataMap,
+  statVarDateRanges,
+  denomStatVarDcids,
   apiRoot,
 }: TileMetadataModalContentProps): ReactElement => {
   const theme = useTheme();
 
   const citationParts = useMemo(
-    () => buildCitationParts(statVars, metadataMap),
-    [statVars, metadataMap]
+    () => buildCitationParts(statVars, metadataMap, statVarDateRanges),
+    [statVars, metadataMap, statVarDateRanges]
   );
 
   if (statVars.length === 0) {
@@ -82,28 +87,6 @@ export const TileMetadataModalContent = ({
     });
   }
 
-  const citationSources: ReactNode[] = citationParts.map(({ label, url }) => {
-    if (url) {
-      const urlDisplay = stripProtocol(url);
-      return (
-        <Fragment key={label}>
-          {label} (
-          <a href={url} target="_blank" rel="noreferrer">
-            {urlDisplay}
-          </a>
-          )
-        </Fragment>
-      );
-    }
-    return label;
-  });
-
-  const joinElements = (
-    items: ReactNode[],
-    separator: ReactNode = ", "
-  ): ReactNode[] =>
-    items.flatMap((item, idx) => (idx === 0 ? [item] : [separator, item]));
-
   return (
     <div
       css={css`
@@ -118,14 +101,18 @@ export const TileMetadataModalContent = ({
           key={statVar.dcid}
           statVar={statVar}
           metadataList={metadataMap[statVar.dcid] || []}
+          isDenom={denomStatVarDcids && denomStatVarDcids.has(statVar.dcid)}
           apiRoot={apiRoot}
+          chartDataDateRange={
+            statVarDateRanges ? statVarDateRanges[statVar.dcid] : undefined
+          }
         />
       ))}
 
-      {citationSources.length > 0 && (
+      {citationParts.length > 0 && (
         <div
           css={css`
-            padding: ${theme.spacing.xl}px 0 0 0;
+            padding: ${theme.spacing.lg}px 0 0 0;
             border-top: 1px solid ${theme.colors.border.primary.light};
             && {
               h3 {
@@ -153,14 +140,8 @@ export const TileMetadataModalContent = ({
           <h3>
             {intl.formatMessage(metadataComponentMessages.SourceAndCitation)}
           </h3>
-          <p>
-            {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-            {joinElements(citationSources)}
-          </p>
-          <p>
-            {intl.formatMessage(metadataComponentMessages.CitationGuidance)} •{" "}
-            {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
-          </p>
+          <p>{buildCitationNodes(citationParts)}</p>
+          <p>{intl.formatMessage(metadataComponentMessages.PleaseCredit)}</p>
         </div>
       )}
     </div>

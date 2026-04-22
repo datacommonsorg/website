@@ -101,7 +101,7 @@ _LLM_OP_TO_QUANTITY_OP = {
 
 # Returns False if the query fails safety check.
 def check_safety(query: str, ctr: Counters) -> Detection:
-  llm_resp = llm_api.detect_with_geminipro(query, [], ctr)
+  llm_resp = llm_api.detect_with_gemini(query, [], ctr)
   if llm_resp.get('UNSAFE') == True:
     return False
   return True
@@ -117,7 +117,7 @@ def detect(query: str, prev_utterance: utterance.Utterance,
     history.append((u.query, u.llm_resp))
     u = u.prev_utterance
 
-  llm_resp = llm_api.detect_with_geminipro(query, history, counters)
+  llm_resp = llm_api.detect_with_gemini(query, history, counters)
   if llm_resp.get('UNSAFE') == True:
     return None
 

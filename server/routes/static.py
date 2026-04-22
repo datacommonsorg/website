@@ -106,17 +106,24 @@ def mcf_playground():
   return render_template('mcf_playground.html')
 
 
-# TODO(shifucun): get branch cache version from mixer
 @bp.route('/version')
 def version():
   mixer_version = dc.version()
+  mixer_feature_flags = {}
+  try:
+    mixer_feature_flags = json.loads(mixer_version.get('featureFlags', '{}'))
+  except json.JSONDecodeError:
+    pass
+
   return render_template(
       'version.html',
       website_hash=os.environ.get("WEBSITE_HASH"),
       mixer_hash=mixer_version.get('gitHash', ''),
       tables=mixer_version.get('tables', ''),
       bigquery=mixer_version.get('bigquery', ''),
+      data_source_ids=mixer_version.get('dataSourceIds', []),
       featureFlags=current_app.config.get('FEATURE_FLAGS', []),
+      mixerFeatureFlags=mixer_feature_flags,
       remote_mixer_domain=mixer_version.get('remoteMixerDomain', ''))
 
 

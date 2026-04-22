@@ -261,7 +261,7 @@
                     "statVarKey": [
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "% of Suicide Events in China",
+                    "title": "Suicide Mortality Rate in China",
                     "type": "LINE"
                   }
                 ]
@@ -269,11 +269,11 @@
               {
                 "tiles": [
                   {
-                    "description": "% of Suicide Events in China",
+                    "description": "Suicide Mortality Rate in China",
                     "statVarKey": [
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "% of Suicide Events in China",
+                    "title": "Suicide Mortality Rate in China",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -428,7 +428,7 @@
             "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
-            "name": "% of Suicide Events",
+            "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {

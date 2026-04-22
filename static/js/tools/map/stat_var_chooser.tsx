@@ -46,24 +46,37 @@ interface StatVarChooserProps {
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const { dateCtx, statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState([]);
+  const [statVarWidgetIsCollapsed, setStatVarWidgetIsCollapsed] =
+    useState(true);
 
   useEffect(() => {
     const enclosingPlaceDcid = placeInfo.value.enclosingPlace.dcid;
     const enclosedPlaceType = placeInfo.value.enclosedPlaceType;
     if (_.isEmpty(enclosingPlaceDcid) || _.isEmpty(enclosedPlaceType)) {
       setSamplePlaces([]);
+      setStatVarWidgetIsCollapsed(true);
       return;
     }
-    getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType).then(
-      (enclosedPlaces) => {
+    setStatVarWidgetIsCollapsed(false);
+    getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType)
+      .then((enclosedPlaces) => {
         const samplePlaces = getSamplePlaces(
           enclosingPlaceDcid,
           enclosedPlaceType,
           enclosedPlaces
         );
         setSamplePlaces(samplePlaces);
-      }
-    );
+      })
+      .catch(() => {
+        setSamplePlaces([]);
+        alert(
+          `Can't find data for this place and breakdown. Please try a different selection.`
+        );
+        // Clear place and variables to avoid a loop of retries
+        placeInfo.setEnclosingPlace({ dcid: "", name: "" });
+        statVar.set({ dcid: "", info: null });
+        return;
+      });
   }, [placeInfo.value.enclosingPlace, placeInfo.value.enclosedPlaceType]);
 
   useEffect(() => {
@@ -112,6 +125,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       selectSV={(svDcid): void =>
         selectStatVar(dateCtx, statVar, display, placeInfo, svDcid)
       }
+      isCollapsedOverride={statVarWidgetIsCollapsed}
+      setIsCollapsedOverride={setStatVarWidgetIsCollapsed}
     />
   );
 }

@@ -98,7 +98,7 @@ export function App(props: AppPropType): JSX.Element {
     };
 
     signInWithGoogle(scopes, handleUserSignIn);
-  }, []);
+  }, [props.sheetId, setFeedbackStage, setSessionQueryId]);
 
   const initialLoadCompleted =
     allQuery && allCall && doc && sessionQueryId && evalType;

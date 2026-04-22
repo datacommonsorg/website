@@ -261,7 +261,30 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Percent_Person_WithAsthma": {
+        "age": [
+          "Percent_Person_0To4Years_WithAsthma",
+          "Percent_Person_10To14Years_WithAsthma",
+          "Percent_Person_15To17Years_WithAsthma",
+          "Percent_Person_18To24Years_WithAsthma",
+          "Percent_Person_25To34Years_WithAsthma",
+          "Percent_Person_35To44Years_WithAsthma",
+          "Percent_Person_45To54Years_WithAsthma",
+          "Percent_Person_55To64Years_WithAsthma",
+          "Percent_Person_5To9Years_WithAsthma",
+          "Percent_Person_65OrMoreYears_WithAsthma",
+          "Percent_Person_YearsUpto18_WithAsthma"
+        ],
+        "income": [
+          "Percent_Person_WithAsthma_IncomeOfUSDollar15000To24999",
+          "Percent_Person_WithAsthma_IncomeOfUSDollar25000To49999",
+          "Percent_Person_WithAsthma_IncomeOfUSDollar50000To74999",
+          "Percent_Person_WithAsthma_IncomeOfUSDollar75000Onwards",
+          "Percent_Person_WithAsthma_IncomeOfUSDollarUpto14999"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Asthma",

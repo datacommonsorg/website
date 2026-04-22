@@ -33,6 +33,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population in Counties of California"
           },
           {
@@ -61,6 +62,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population"
           },
           {
@@ -1515,7 +1517,6 @@
           "Count_Person_0To4Years_Female_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
           "Count_Person_0To4Years_Female_NotHispanicOrLatino_TwoOrMoreRaces",
           "Count_Person_0To4Years_Female_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Female_WhiteAlone",
           "Count_Person_0To4Years_Female_WhiteAloneNotHispanicOrLatino"
         ]
       },
@@ -1541,7 +1542,6 @@
           "Count_Person_0To4Years_Male_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
           "Count_Person_0To4Years_Male_NotHispanicOrLatino_TwoOrMoreRaces",
           "Count_Person_0To4Years_Male_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Male_WhiteAlone",
           "Count_Person_0To4Years_Male_WhiteAloneNotHispanicOrLatino"
         ]
       },

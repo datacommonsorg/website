@@ -116,6 +116,185 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in the Labor Force in Placer County",
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population in the Labor Force"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population in the Labor Force in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Female",
+                      "Count_Person_InLaborForce_Male"
+                    ],
+                    "title": "Labor Force by Gender in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Labor Force by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Female"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Female"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Male"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Male"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_multiple_place_bar_block",
+                      "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block",
+                      "Count_Worker_NAICSTotalAllIndustries_multiple_place_bar_block",
+                      "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block",
+                      "dc/01yc3k23tsyk_multiple_place_bar_block",
+                      "dc/e2mpgewwsl60c_multiple_place_bar_block",
+                      "dc/p69tpsldf99h7_multiple_place_bar_block",
+                      "dc/34t2kjrwbjd31_multiple_place_bar_block",
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block",
+                      "dc/j4v6keqwsl60h_multiple_place_bar_block",
+                      "dc/w5ve4140t8xsb_multiple_place_bar_block"
+                    ],
+                    "title": "Employment by Industry in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Employment by Industry"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
                     "title": "Unemployment Rate in Placer County",
@@ -177,6 +356,67 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Unemployed"
+                    ],
+                    "title": "Population: Unemployed in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Unemployed in Placer County",
+                    "statVarKey": [
+                      "Count_Person_Unemployed"
+                    ],
+                    "title": "Population: Unemployed in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Unemployed"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Unemployed"
+                    ],
+                    "title": "Population: Unemployed in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Unemployed"
+                    ],
+                    "title": "Population: Unemployed in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Unemployed in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
                     ],
                     "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
@@ -202,6 +442,10 @@
           }
         ],
         "statVarSpec": {
+          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_multiple_place_bar_block": {
+            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          },
           "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker": {
             "name": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker",
             "statVar": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
@@ -209,6 +453,22 @@
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
+          },
+          "Count_Person_InLaborForce": {
+            "name": "Population in the Labor Force",
+            "statVar": "Count_Person_InLaborForce"
+          },
+          "Count_Person_InLaborForce_Female": {
+            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "statVar": "Count_Person_InLaborForce_Female"
+          },
+          "Count_Person_InLaborForce_Male": {
+            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "statVar": "Count_Person_InLaborForce_Male"
+          },
+          "Count_Person_Unemployed": {
+            "name": "Population: Unemployed",
+            "statVar": "Count_Person_Unemployed"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
             "name": "Accommodation/Food Industry Workers",
@@ -274,6 +534,10 @@
             "name": "Real Estate and Rental and Leasing Workers",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
+          "Count_Worker_NAICSTotalAllIndustries_multiple_place_bar_block": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
           "Count_Worker_NAICSUtilities_multiple_place_bar_block": {
             "name": "Utilities Workers",
             "statVar": "Count_Worker_NAICSUtilities"
@@ -286,9 +550,25 @@
             "name": "Unemployment Rate",
             "statVar": "UnemploymentRate_Person"
           },
+          "dc/01yc3k23tsyk_multiple_place_bar_block": {
+            "name": "Population of Person: Manufacturing (NAICS/1013)",
+            "statVar": "dc/01yc3k23tsyk"
+          },
+          "dc/34t2kjrwbjd31_multiple_place_bar_block": {
+            "name": "Population Working in the Petroleum and Coal Products Manufacturing Industry",
+            "statVar": "dc/34t2kjrwbjd31"
+          },
           "dc/8p97n7l96lgg8_multiple_place_bar_block": {
             "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
+          },
+          "dc/e2mpgewwsl60c_multiple_place_bar_block": {
+            "name": "Population of Person: Natural Resources And Mining (NAICS/1011)",
+            "statVar": "dc/e2mpgewwsl60c"
+          },
+          "dc/j4v6keqwsl60h_multiple_place_bar_block": {
+            "name": "Population of Person: Computer And Electronic Product Manufacturing (NAICS/334)",
+            "statVar": "dc/j4v6keqwsl60h"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
             "name": "Manufacturing Workers",
@@ -297,6 +577,10 @@
           "dc/p69tpsldf99h7_multiple_place_bar_block": {
             "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
+          },
+          "dc/w5ve4140t8xsb_multiple_place_bar_block": {
+            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "statVar": "dc/w5ve4140t8xsb"
           }
         }
       }

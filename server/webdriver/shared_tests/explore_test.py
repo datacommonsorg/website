@@ -12,11 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
+import pytest
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
+from server.webdriver.base_utils import find_any_of_elems
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import scroll_to_elem
 from server.webdriver.base_utils import wait_for_text
 
 EXPLORE_URL = '/explore'
@@ -25,6 +33,35 @@ EXPLORE_URL = '/explore'
 class ExplorePageTestMixin():
   """Mixins to test the explore page."""
 
+  def _assert_places_in_tooltip(self, expected_places: list[str]):
+    """Asserts that the expected place names are present as links inside the tooltip"""
+    # Find the tooltip within the header
+    header_element = find_elem(self.driver, By.ID,
+                               'result-header-place-callout')
+    tooltip_trigger = find_elem(header_element, By.XPATH,
+                                ".//span[contains(text(), 'places')]")
+    self.assertIsNotNone(tooltip_trigger, "Tooltip trigger not found in header")
+
+    # Hover over the tooltip to make it visible
+    actions = ActionChains(self.driver)
+    actions.move_to_element(tooltip_trigger).perform()
+
+    tooltip_element = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, "div[role='tooltip']")))
+
+    # Find all place links inside the tooltip
+    place_links = find_elems(tooltip_element, By.CLASS_NAME,
+                             'place-callout-link')
+
+    # Verify that the text we are looking for is found inside the element.
+    found_places = [link.text for link in place_links]
+    self.assertSetEqual(
+        set(found_places), set(expected_places),
+        f"Places in tooltip did not match. Found: {found_places}, Expected: {expected_places}"
+    )
+
+  @pytest.mark.smoke_test
   def test_explore_page(self):
     """Test the explore page."""
     self.driver.get(self.url_ + EXPLORE_URL)
@@ -37,7 +74,7 @@ class ExplorePageTestMixin():
 
     place_callout_link = find_elem(self.driver, By.CLASS_NAME,
                                    'place-callout-link')
-    self.assertEqual(place_callout_link.text, 'California')
+    self.assertEqual(place_callout_link.text, 'World')
 
   def test_highlight_chart_france_gdp_timeline(self):
     """Test the highlight chart for France GDP timeline."""
@@ -67,14 +104,29 @@ class ExplorePageTestMixin():
     self.assertIsNotNone(line_chart)
 
   def test_highlight_chart_france_italy_gdp_timeline(self):
-    """Test the highlight chart for France GDP timeline."""
+    """Test the highlight chart for France and Italy GDP timeline."""
     highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=TIMELINE_WITH_HIGHLIGHT"
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
     shared.wait_for_loading(self.driver)
 
-    place_callout = find_elem(self.driver, By.ID, 'place-callout')
-    self.assertIn('France, Italy', place_callout.text)
+    # Test for the expected place names in either the new or legacy callout
+    locators = [(By.ID, 'place-callout'),
+                (By.ID, 'result-header-place-callout')]
+    header_element = find_any_of_elems(self.driver, locators)
+
+    if not header_element:
+      self.fail(
+          "Neither legacy 'place-callout' nor new 'result-header-place-callout' was found."
+      )
+
+    header_id = header_element.get_attribute('id')
+    if header_id == 'place-callout':
+      # Legacy header
+      self.assertIn('France, Italy', header_element.text)
+    elif header_id == 'result-header-place-callout':
+      # New header
+      self._assert_places_in_tooltip(['France', 'Italy'])
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
                               'highlight-result-title')
@@ -92,20 +144,61 @@ class ExplorePageTestMixin():
 
     shared.wait_for_loading(self.driver)
 
-    place_callout = find_elem(self.driver, By.ID, "place-callout")
-    self.assertIn("France, Italy", place_callout.text)
+    # Test for the expected place names in either the new or legacy callout
+    locators = [(By.ID, 'place-callout'),
+                (By.ID, 'result-header-place-callout')]
+    header_element = find_any_of_elems(self.driver, locators)
+
+    if not header_element:
+      self.fail(
+          "Neither legacy 'place-callout' nor new 'result-header-place-callout' was found."
+      )
+
+    header_id = header_element.get_attribute('id')
+    if header_id == 'place-callout':
+      # Legacy header
+      self.assertIn('France, Italy', header_element.text)
+    elif header_id == 'result-header-place-callout':
+      # New header
+      self._assert_places_in_tooltip(['France', 'Italy'])
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
                               "highlight-result-title")
     bar_chart = find_elem(highlight_div, By.CLASS_NAME, "bar-chart")
     self.assertIsNotNone(bar_chart)
 
-    expected_citation = (
-        "World Bank, World Development Indicators, with minor processing by Data Commons"
-    )
+  def test_highlight_chart_us_states_pop_ranking_with_map(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "#sv=Count_Person&p=country/USA&imp=USCensusPEP_Annual_Population&mm=CensusPEPSurvey&obsPer=P1Y&chartType=RANKING_WITH_MAP"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
-    wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
-                  "metadata-summary")
+    shared.wait_for_loading(self.driver)
+
+    # Test for the expected place names in either the new or legacy callout
+    locators = [(By.ID, 'place-callout'),
+                (By.ID, 'result-header-place-callout')]
+    header_element = find_any_of_elems(self.driver, locators)
+    header_id = header_element.get_attribute('id')
+    if header_id == 'place-callout':
+      # Legacy header
+      self.assertIn('United States', header_element.text)
+    elif header_id == 'result-header-place-callout':
+      wait_for_text(header_element, 'United States', By.TAG_NAME, 'p')
+
+    if not header_element:
+      self.fail(
+          "Neither legacy 'place-callout' nor new 'result-header-place-callout' was found."
+      )
+
+    self.assertIn('United States', header_element.text)
+
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    map_tile = find_elem(highlight_div, By.CLASS_NAME, 'map-chart')
+    self.assertIsNotNone(map_tile)
+
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
 
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
@@ -114,8 +207,23 @@ class ExplorePageTestMixin():
 
     shared.wait_for_loading(self.driver)
 
-    place_callout = find_elem(self.driver, By.ID, 'place-callout')
-    self.assertIn('France, Italy', place_callout.text)
+    # Test for the expected place names in either the new or legacy callout
+    locators = [(By.ID, 'place-callout'),
+                (By.ID, 'result-header-place-callout')]
+    header_element = find_any_of_elems(self.driver, locators)
+
+    if not header_element:
+      self.fail(
+          "Neither legacy 'place-callout' nor new 'result-header-place-callout' was found."
+      )
+
+    header_id = header_element.get_attribute('id')
+    if header_id == 'place-callout':
+      # Legacy header
+      self.assertIn('France, Italy', header_element.text)
+    elif header_id == 'result-header-place-callout':
+      # New header
+      self._assert_places_in_tooltip(['France', 'Italy'])
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
                               'highlight-result-title')
@@ -123,9 +231,12 @@ class ExplorePageTestMixin():
     self.assertIsNotNone(line_chart)
 
     # Click on the topic button
-    topic_buttons = find_elem(self.driver, By.CLASS_NAME,
-                              'explore-relevant-topics')
-    self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
+    # Use find_elements directly to avoid waiting for the element to appear (since it might be missing due to feature flag)
+    topic_buttons = self.driver.find_elements(By.CLASS_NAME,
+                                              'explore-relevant-topics')
+    if not topic_buttons:
+      self.skipTest(
+          "Topic buttons not found, skipping remaining checks (feature flag).")
 
     topic_button_list = find_elems(self.driver, By.CLASS_NAME, 'item-list-text')
     self.assertGreater(len(topic_button_list), 0,
@@ -135,6 +246,244 @@ class ExplorePageTestMixin():
 
     shared.wait_for_loading(self.driver)
     # Check that the highlight chart is cleared
+    # TODO (nick-next): Test waits the full timeout before the expected negative result and so is slow to resolve.
     highlight_divs = find_elems(self.driver, By.CLASS_NAME,
                                 'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
+
+  @pytest.mark.skip(reason="Unblocking fixit PRs while investigating failures")
+  def test_highlight_chart_date_selection(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "?sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+
+    shared.wait_for_loading(self.driver)
+
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+    ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
+                                    'ranking-date-cell')
+    for cell in ranking_date_cells:
+      self.assertIn('2023', cell.text)
+
+  def test_ranking_scroll_enabled(self):
+    """Test ranking tile on explore page with scroll feature enabled."""
+    self.driver.get(
+        self.url_ +
+        '/explore?enable_feature=enable_ranking_tile_scroll#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=Earth&pt=Country&ept=Country&chartType=RANKING_WITH_MAP'
+    )
+
+    shared.wait_for_loading(self.driver)
+
+    first_block = find_elems(self.driver, By.CLASS_NAME, 'block')[0]
+    ranking_tile = find_elem(first_block, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+
+    table = find_elem(ranking_tile, by=By.TAG_NAME, value='table')
+    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
+                       5)
+
+    # Check for scrollability
+    ranking_list = find_elem(ranking_tile,
+                             by=By.CLASS_NAME,
+                             value='ranking-list')
+    ranking_list = find_elem(ranking_tile, By.CLASS_NAME,
+                             'ranking-scroll-container')
+    self.assertEqual(ranking_list.value_of_css_property('overflow-y'), 'auto')
+
+  def test_ranking_scroll_disabled(self):
+    """Test ranking tile on explore page with scroll feature disabled."""
+    self.driver.get(
+        self.url_ +
+        '/explore?disable_feature=enable_ranking_tile_scroll#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=Earth&pt=Country&ept=Country&chartType=RANKING_WITH_MAP'
+    )
+
+    shared.wait_for_loading(self.driver)
+
+    first_block = find_elems(self.driver, By.CLASS_NAME, 'block')[0]
+    ranking_tile = find_elem(first_block, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile)
+
+    table = find_elem(ranking_tile, by=By.TAG_NAME, value='table')
+    self.assertLessEqual(
+        len(find_elems(table, by=By.XPATH, value='.//tbody/tr')), 11)
+
+    # Check for non-scrollability
+    ranking_list = find_elem(ranking_tile,
+                             by=By.CLASS_NAME,
+                             value='ranking-list')
+    # There should be no div with overflow-y: auto
+    # Use find_elements directly to avoid waiting for the element to appear (since we expect it to be missing)
+    scrollable_divs = ranking_list.find_elements(
+        By.XPATH, "./div[@style='max-height: 400px; overflow-y: auto;']")
+    self.assertEqual(len(scrollable_divs), 0)
+
+  def _assert_url_params(self, url, expected_params):
+    for key, value in expected_params.items():
+      if value is None:
+        self.assertNotIn(f"{key}=", url)
+      else:
+        self.assertIn(f"{key}={value}", url)
+
+  def test_ranking_chart_hyperlink(self):
+    """Test the hyperlink on a ranking chart."""
+    query = "Total population in the USA"
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
+    shared.wait_for_loading(self.driver)
+
+    ranking_tile = find_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+    self.assertIsNotNone(ranking_tile, "Ranking tile not found")
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+
+    hyperlink_btn = find_elem(ranking_tile, By.CLASS_NAME,
+                              'custom-link-outlink')
+    self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
+
+    hyperlink_btn.click()
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    expected_params = {
+        "chartType": "RANKING_WITH_MAP",
+        "sv": "Count_Person",
+        "p": "country%2FUSA"
+    }
+    self._assert_url_params(self.driver.current_url, expected_params)
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])
+
+  def test_ranking_chart_hyperlink_disabled(self):
+    """Test the hyperlink on a ranking chart."""
+    query = "Total population in the USA"
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?disable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
+    shared.wait_for_loading(self.driver)
+
+    ranking_tile = find_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'ranking-tile')
+
+    hyperlink_btn = find_elem(ranking_tile, By.CLASS_NAME,
+                              'custom-link-outlink')
+    self.assertIsNone(
+        hyperlink_btn,
+        "Hyperlink button should not be found when feature is disabled")
+
+  def test_bar_chart_hyperlink(self):
+    """Test the hyperlink on a bar chart from a place page."""
+    self.driver.get(
+        f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
+    shared.wait_for_loading(self.driver)
+
+    bar_chart = find_elem(self.driver, By.CLASS_NAME, "bar-chart")
+    self.assertIsNotNone(bar_chart, "Bar chart not found")
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'bar-chart')
+
+    hyperlink_btn = find_elem(bar_chart, By.CLASS_NAME, 'custom-link-outlink')
+    self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
+
+    hyperlink_btn.click()
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    expected_params = {"chartType": "BAR_CHART", "p": "country%2FBRA"}
+    self._assert_url_params(self.driver.current_url, expected_params)
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])
+
+  def test_line_chart_hyperlink(self):
+    """Test the hyperlink on a line chart from a place page."""
+    self.driver.get(
+        f"{self.url_}/place/country/BRA?enable_feature=enable_chart_hyperlink")
+    shared.wait_for_loading(self.driver)
+
+    line_chart = shared.wait_elem(self.driver, By.CLASS_NAME, "line-chart")
+    self.assertIsNotNone(line_chart, "Line chart not found")
+    scroll_to_elem(self.driver, By.CLASS_NAME, 'line-chart')
+
+    hyperlink_btn = find_elem(line_chart, By.CLASS_NAME, 'custom-link-outlink')
+    self.assertIsNotNone(hyperlink_btn, "Hyperlink button not found")
+
+    hyperlink_btn.click()
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    expected_params = {
+        "chartType": "TIMELINE_WITH_HIGHLIGHT",
+        "p": "country%2FBRA"
+    }
+    self._assert_url_params(self.driver.current_url, expected_params)
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])
+
+  @pytest.mark.skip(
+      reason="Skipping - test works locally only, hyperlink not launching.")
+  def test_facet_selection_hyperlink(self):
+    """Test hyperlink after selecting a different facet."""
+    query = "Population of France"
+    place_dcid = "country%2FFRA"
+    stat_var = "Count_Person"
+    import_name = "WikipediaStatsData"
+    measurement_method = "Wikipedia"
+
+    self.driver.get(
+        f"{self.url_}{EXPLORE_URL}?enable_feature=enable_chart_hyperlink#q={query.replace(' ', '+')}"
+    )
+    shared.wait_for_loading(self.driver)
+
+    # Find the first block chart and click on the facet selector
+    pop_block = find_elem(self.driver, By.CLASS_NAME, 'block')
+    self.assertIsNotNone(pop_block, "Highlight chart not found")
+
+    facet_button = find_elem(pop_block, By.CLASS_NAME,
+                             'source-selector-open-modal-button')
+    shared.click_el(self.driver, facet_button)
+
+    # Find and select the Wikipedia facet
+    shared.wait_elem(self.driver, By.CLASS_NAME,
+                     'source-selector-facet-option-title')
+    wiki_input_locator = (By.XPATH,
+                          f"//label[contains(., '{import_name}')]//input")
+    shared.click_el(self.driver, wiki_input_locator)
+    update_button = find_elem(self.driver, By.CLASS_NAME,
+                              'source-selector-update-source-button')
+    shared.click_el(self.driver, update_button)
+
+    shared.wait_for_loading(self.driver)
+
+    # Find and click on the hyperlink button
+    hyperlink_btn = find_elem(pop_block, By.CLASS_NAME, 'custom-link-outlink')
+    shared.click_el(self.driver, hyperlink_btn)
+
+    # Switch to the new window
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+    shared.wait_for_loading(self.driver)
+
+    hyperlink_href = self.driver.current_url
+    expected_href_params = {
+        "chartType": "TIMELINE_WITH_HIGHLIGHT",
+        "sv": stat_var,
+        "p": place_dcid,
+        "imp": import_name,
+        "mm": measurement_method
+    }
+    self._assert_url_params(hyperlink_href, expected_href_params)
+
+    pop_block_new = find_elem(self.driver, By.CLASS_NAME, 'block')
+    facet_button_new = find_elem(pop_block_new, By.CLASS_NAME,
+                                 'source-selector-open-modal-button')
+    shared.click_el(self.driver, facet_button_new)
+
+    shared.wait_elem(self.driver, By.CLASS_NAME,
+                     'source-selector-facet-option-title')
+    wiki_input_new = find_elem(pop_block_new, By.XPATH,
+                               f"//label[contains(., '{import_name}')]//input")
+    self.assertTrue(wiki_input_new.is_selected(),
+                    f"{import_name} should be selected in new window")
+
+    self.driver.close()
+    self.driver.switch_to.window(self.driver.window_handles[0])

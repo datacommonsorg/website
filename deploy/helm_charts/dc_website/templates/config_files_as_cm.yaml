@@ -1,0 +1,18 @@
+# helm_charts/dc_website/templates/config_files_as_cm.yaml
+
+# This file generates ConfigMaps from local files during Helm rendering.
+
+
+{{- if .Values.nl.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nl-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  catalog.yaml: |
+    {{- .Files.Get "nl/catalog.yaml" | nindent 4 }}
+  env.yaml: |
+    {{- toYaml .Values.nl.env | nindent 4 }}
+{{- end }}

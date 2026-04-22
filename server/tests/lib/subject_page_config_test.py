@@ -20,6 +20,7 @@ from google.protobuf import text_format
 from server.config import subject_page_pb2
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
+from web_app import app
 
 
 class TestGetAllVariables(unittest.TestCase):
@@ -109,60 +110,63 @@ class TestRemoveEmptyCharts(unittest.TestCase):
                                mock_sample_child_places,
                                mock_geojson_properties):
 
-    def properties_side_effect(nodes):
-      return {'child_id': ['prop1', 'prop2']}
+    with app.test_request_context():
 
-    def sample_child_places_side_effect(place_dcid, contained_place_type, _):
-      return ['child_id']
+      def properties_side_effect(nodes):
+        return {'child_id': ['prop1', 'prop2']}
 
-    def obs_side_effect(all_svs, place_dcids):
-      return {
-          "sv_exists_1": {
-              'place_id': True,
-              'child_id': False
-          },
-          "sv_exists_3": {
-              'place_id': True,
-              'child_id': False
-          },
-          "sv_filtered_1": {
-              'place_id': False,
-              'child_id': False
-          },
-          "sv_filtered_2": {
-              'place_id': False,
-              'child_id': False
-          },
-          "sv_filtered_3": {
-              'place_id': False,
-              'child_id': False
-          },
-          "sv_child_exists_1": {
-              'place_id': False,
-              'child_id': True
-          },
-          "sv_child_filtered_1": {
-              'place_id': False,
-              'child_id': False
-          },
-          "sv_parent_exists_1": {
-              'place_id': True,
-              'child_id': False
-          },
-          "sv_parent_filtered_1": {
-              'place_id': False,
-              'child_id': False
-          },
-      }
+      def sample_child_places_side_effect(place_dcid, contained_place_type, _):
+        return ['child_id']
 
-    mock_observation_existence.side_effect = obs_side_effect
-    mock_sample_child_places.side_effect = sample_child_places_side_effect
-    mock_geojson_properties.side_effect = properties_side_effect
+      def obs_side_effect(all_svs, place_dcids):
+        return {
+            "sv_exists_1": {
+                'place_id': True,
+                'child_id': False
+            },
+            "sv_exists_3": {
+                'place_id': True,
+                'child_id': False
+            },
+            "sv_filtered_1": {
+                'place_id': False,
+                'child_id': False
+            },
+            "sv_filtered_2": {
+                'place_id': False,
+                'child_id': False
+            },
+            "sv_filtered_3": {
+                'place_id': False,
+                'child_id': False
+            },
+            "sv_child_exists_1": {
+                'place_id': False,
+                'child_id': True
+            },
+            "sv_child_filtered_1": {
+                'place_id': False,
+                'child_id': False
+            },
+            "sv_parent_exists_1": {
+                'place_id': True,
+                'child_id': False
+            },
+            "sv_parent_filtered_1": {
+                'place_id': False,
+                'child_id': False
+            },
+        }
 
-    config = lib_util.get_subject_page_config(
-        "server/tests/test_data/existence.textproto")
-    result = lib_subject_page_config.remove_empty_charts(
-        config, 'place_id', 'child_type')
-    expect = lib_util.get_subject_page_config(
-        "server/tests/test_data/existence_expect.textproto")
-    assert result == expect
+      mock_observation_existence.side_effect = obs_side_effect
+      mock_sample_child_places.side_effect = sample_child_places_side_effect
+      mock_geojson_properties.side_effect = properties_side_effect
+
+      config = lib_util.get_subject_page_config(
+          "server/tests/test_data/existence.textproto")
+
+      result = lib_subject_page_config.remove_empty_charts(
+          config, 'place_id', 'child_type')
+      expect = lib_util.get_subject_page_config(
+          "server/tests/test_data/existence_expect.textproto")
+      assert result == expect

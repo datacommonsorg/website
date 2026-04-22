@@ -120,25 +120,6 @@
   box-shadow: none;
 }
 
-.start-instruction-tile {
-  background-color: #c2e7ff33;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding: 20px 24px;
-
-  .icon {
-    font-size: 32px;
-  }
-}
-
-#main .start-instruction-text {
-  font-size: 24px;
-  line-height: 32px;
-}
-
 #place-type-summary-section .type-column {
   width: 30%;
 }
@@ -195,4 +176,8 @@
 #date-range-separator {
   color: var(--gray);
   font-weight: bolder;
+}
+
+#select-variable-button {
+  margin-top: 1.5rem;
 }

@@ -55,16 +55,35 @@ jest.mock("../chart/draw_utils", () => {
     wrap: jest.fn(),
   };
 });
+jest.mock("../utils/app/explore_utils", () => {
+  const originalModule = jest.requireActual("../utils/app/explore_utils");
+  return {
+    __esModule: true,
+    ...originalModule,
+    getTopics: jest.fn().mockImplementation(() => [{ text: TOPIC, url: "" }]),
+  };
+});
 
 import { ThemeProvider } from "@emotion/react";
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import axios from "axios";
 import React from "react";
+import { act } from "react-dom/test-utils";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 
-import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
+import { FollowUpQuestions } from "../apps/explore/follow_up_questions";
+import { PageOverview } from "../apps/explore/page_overview";
+import { ResultHeaderSection } from "../apps/explore/result_header_section";
+import { GeoJsonData, MapPoint } from "../chart/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
-import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
+import { Chart as MapToolChart } from "../tools/map/chart";
 import {
   Context as MapContext,
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
@@ -85,8 +104,14 @@ import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
-import { FacetSelectorFacetInfo } from "./facet_selector";
+import { TEST_SURFACE } from "./constants";
+import { FacetSelectorFacetInfo } from "./facet_selector/facet_selector";
 import {
+  GA_EVENT_COMPONENT_IMPRESSION,
+  GA_EVENT_COMPONENT_VIEW,
+  GA_EVENT_PAGE_OVERVIEW_CLICK,
+  GA_EVENT_RELATED_TOPICS_CLICK,
+  GA_EVENT_RELATED_TOPICS_VIEW,
   GA_EVENT_STATVAR_HIERARCHY_CLICK,
   GA_EVENT_STATVAR_SEARCH_TRIGGERED,
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -94,14 +119,27 @@ import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_EVENT_TOOL_STAT_VAR_CLICK,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+  GA_EVENT_TOTAL_ANCHOR_COUNT,
+  GA_EVENT_TOTAL_COMPONENT_VIEW_TIME,
+  GA_PARAM_CLICK_TRACKING_MODE,
+  GA_PARAM_COMPONENT,
+  GA_PARAM_COUNT_ANCHOR_ELEMENTS,
+  GA_PARAM_PAGE_SOURCE,
   GA_PARAM_PLACE_DCID,
+  GA_PARAM_RELATED_TOPICS_MODE,
   GA_PARAM_SEARCH_TERM,
   GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_TOOL_CHART_OPTION_DELTA,
+  GA_PARAM_TOTAL_VIEW_TIME,
+  GA_PARAM_VIEW_TRACKING_MODE,
+  GA_VALUE_INITIAL_CLICK,
+  GA_VALUE_INITIAL_VIEW,
+  GA_VALUE_PAGE_EXPLORE,
+  GA_VALUE_PAGE_OVERVIEW,
+  GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+  GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
-  GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
@@ -109,38 +147,43 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
   GA_VALUE_TOOL_CHART_OPTION_SWAP,
   GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
+  GA_VALUE_TOTAL_CLICKS,
+  GA_VALUE_TOTAL_VIEWS,
 } from "./ga_events";
 import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
 import { DataPointMetadata } from "./types";
 import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
 
-const CATEGORY = "Economics";
 const PLACE_DCID = "geoId/05";
 const PLACE_NAME = "Arkansas";
 const STAT_VAR_1 = "Median_Income_Household";
 const STAT_VAR_2 = "Median_Age_Person";
 const STAT_VAR_3 = "Count_Person";
-const SOURCES = "sources";
-const ID = "a";
+const STAT_VAR_4 = "Count_Farm";
+const STAT_VAR_5 = "Annual_Generation_Electricity";
+
 const NUMBER = 123;
 const PLACE_ADDED = "africa";
-
-// Props for place explorer chart.
-const PLACE_CHART_PROPS = {
-  category: CATEGORY,
-  chartType: chartTypeEnum.LINE,
-  dcid: PLACE_DCID,
-  id: "",
-  isUsaPlace: true,
-  locale: "en",
-  names: { [PLACE_DCID]: PLACE_NAME },
-  rankingTemplateUrl: "",
-  statsVars: [STAT_VAR_1],
-  title: "",
-  trend: { exploreUrl: "", series: {}, sources: [SOURCES] },
-  unit: "",
-};
+const QUERY = "What is the health equity in Mountain View?";
+const TOPIC = "Health Equity";
+const PAGE_OVERVIEW = `To explore the rate of education in El Paso, the population's educational attainment can be investigated.
+The population with <associate's>, <bachelor's>, and doctorate degrees, along with overall educational attainment levels, represent key variables for this inquiry.
+Additionally, <student enrollment> across various educational levels can be examined to understand educational participation.`;
+const STAT_VAR_CHART_LINKS = [
+  {
+    statVarTitle: "Population With Associates Degree by Gender",
+    naturalLanguage: "associate's",
+  },
+  {
+    statVarTitle: "Population With Bachelors Degree by Gender",
+    naturalLanguage: "bachelor's",
+  },
+  {
+    statVarTitle: "Population Enrolled in Public School by Race",
+    naturalLanguage: "student enrollment",
+  },
+];
 
 // Props for map tool chart.
 const MAP_POINTS: MapPoint[] = [
@@ -154,6 +197,7 @@ const MAP_POINTS: MapPoint[] = [
 const MAP_PROPS = {
   breadcrumbDataValues: { PLACE_DCID: NUMBER },
   dates: new Set<string>([""]),
+  entities: [PLACE_DCID],
   geoJsonData: {
     features: [],
     properties: {
@@ -177,12 +221,16 @@ const MAP_PROPS = {
       name: STAT_VAR_1,
     },
   ],
+  facetListError: false,
+  facetListLoading: false,
   sampleDates: [],
   metahash: "",
   onPlay: (): null => null,
   updateDate: (): null => null,
   geoRaster: null,
-  mapType: MAP_TYPE.D3,
+  facets: {},
+  statVarToFacets: {},
+  statVarSpecs: [],
   children: null,
 };
 
@@ -198,6 +246,7 @@ const TIMELINE_PROPS = {
   removeStatVar: (): null => null,
   statVarInfos: { [STAT_VAR_1]: { title: "" } } as Record<string, StatVarInfo>,
   svFacetId: { [STAT_VAR_1]: "" },
+  surface: TEST_SURFACE,
 };
 
 // Props and context for scatter plot tool chart.
@@ -247,7 +296,72 @@ const SCATTER_PROPS = {
       metadataMap: {},
     },
   ],
+  facetListLoading: false,
+  facetListError: false,
   onSvFacetIdUpdated: (): null => null,
+  facets: {},
+  statVarToFacets: {},
+  statVarSpecs: [],
+};
+
+const PAGE_METADATA_PROPS = {
+  place: {
+    name: PLACE_NAME,
+    dcid: PLACE_DCID,
+    types: [],
+  },
+  places: [],
+  pageConfig: {
+    metadata: {
+      topicId: "",
+      topicName: "",
+      containedPlaceTypes: {},
+      eventTypeSpec: {},
+    },
+    categories: [
+      {
+        title: "",
+        blocks: [
+          {
+            columns: [],
+            title: "Population With Associates Degree by Gender",
+            category: 0,
+            index: 0,
+          },
+          {
+            columns: [],
+            title: "Population With Bachelors Degree by Gender",
+            category: 0,
+            index: 1,
+          },
+          {
+            columns: [],
+            title: "Population Enrolled in Public School by Race",
+            category: 0,
+            index: 2,
+          },
+        ],
+      },
+    ],
+  },
+  mainTopics: [{ name: PLACE_NAME, dcid: PLACE_DCID, types: [] }],
+};
+
+const FOLLOW_UP_QUESTIONS_PROPS = {
+  query: QUERY,
+  pageMetadata: PAGE_METADATA_PROPS,
+};
+
+const PAGE_OVERVIEW_PROPS = {
+  query: QUERY,
+  pageMetadata: PAGE_METADATA_PROPS,
+};
+
+const RESULT_HEADER_SECTION_PROPS = {
+  placeUrlVal: "",
+  pageMetadata: PAGE_METADATA_PROPS,
+  hideRelatedTopics: false,
+  query: QUERY,
 };
 
 const MAP_CONTEXT = {
@@ -262,7 +376,6 @@ const MAP_CONTEXT = {
       domain: [NUMBER, NUMBER, NUMBER] as [number, number, number],
       showMapPoints: false,
       showTimeSlider: false,
-      allowLeaflet: false,
     },
   } as MapDisplayOptionsWrapper,
   placeInfo: {
@@ -348,8 +461,6 @@ const SCATTER_CONTEXT = {
       enclosedPlaceType: "",
       enclosedPlaces: [],
       parentPlaces: [],
-      lowerBound: NUMBER,
-      upperBound: NUMBER,
     },
   } as ScatterPlaceInfoWrapper,
   display: {
@@ -388,16 +499,21 @@ const STAT_VAR_HIERARCHY_PROPS = {
   selectSV: (): null => null,
   deselectSV: (): null => null,
 };
+const originalFeatureFlags = globalThis.FEATURE_FLAGS;
 
 beforeEach(() => {
   jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
   jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve(null));
+  // Make a copy of the original FEATURE_FLAGS object
+  globalThis.FEATURE_FLAGS = { ...originalFeatureFlags };
 });
 
 // Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {
   cleanup();
   jest.clearAllMocks();
+  // Restore the original FEATURE_FLAGS object
+  globalThis.FEATURE_FLAGS = originalFeatureFlags;
 });
 
 describe("test ga event tool chart plot", () => {
@@ -635,9 +751,12 @@ describe("test ga event tool stat var click", () => {
     });
 
     // Click the checkbox of the stat var.
-    fireEvent.click(statVarHierarchy.container.querySelector(inputId), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      statVarHierarchy.container.querySelector(inputId) as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check gtag is called.
       expect(mockgtag.mock.calls.length).toEqual(2);
@@ -698,7 +817,7 @@ describe("test ga event tool place add", () => {
     );
 
     // Use the hardcoded result as place autocomplete.
-    fireEvent.change(placeSelector.container.querySelector("#ac"), {
+    fireEvent.change(placeSelector.container.querySelector("#ac") as Element, {
       target: { value: PLACE_ADDED },
     });
     await waitFor(() => {
@@ -766,6 +885,9 @@ describe("test ga event tool chart plot option", () => {
       .mockImplementation(() => Promise.resolve(null));
 
     // Render the component.
+    TIMELINE_PROPS.statVarInfos = {
+      [STAT_VAR_4]: { title: "", pcAllowed: true }, // Use a stat var with per capita option enabled.
+    };
     const timelineToolChart = render(
       <ThemeProvider theme={theme}>
         <TimelineToolChart {...TIMELINE_PROPS} />
@@ -791,26 +913,6 @@ describe("test ga event tool chart plot option", () => {
         },
       ]);
     });
-
-    // Click the checkbox of delta.
-    fireEvent.click(
-      timelineToolChart.container.getElementsByClassName(
-        "is-delta-input form-check-input"
-      )[0],
-      { target: { checked: true } }
-    );
-    await waitFor(() => {
-      // Check the gtag is called once, three times in total.
-      expect(mockgtag.mock.calls.length).toEqual(3);
-      // Check the parameters passed to the gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_TOOL_CHART_OPTION_CLICK,
-        {
-          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_DELTA,
-        },
-      ]);
-    });
   });
   test("call gtag when scatter tool chart option is clicked", async () => {
     // Mock gtag.
@@ -818,6 +920,24 @@ describe("test ga event tool chart plot option", () => {
     window.gtag = mockgtag;
 
     // Render the component.
+    SCATTER_CONTEXT.y.value.statVarDcid = STAT_VAR_4;
+    SCATTER_CONTEXT.y.value.statVarInfo.pcAllowed = true;
+    SCATTER_CONTEXT.x.value.statVarDcid = STAT_VAR_5;
+    SCATTER_CONTEXT.x.value.statVarInfo.pcAllowed = true;
+    SCATTER_PROPS.yLabel = STAT_VAR_4;
+    SCATTER_PROPS.xLabel = STAT_VAR_5;
+    SCATTER_PROPS.facetList = [
+      {
+        dcid: STAT_VAR_5,
+        name: STAT_VAR_5,
+        metadataMap: {},
+      },
+      {
+        dcid: STAT_VAR_4,
+        name: STAT_VAR_4,
+        metadataMap: {},
+      },
+    ];
     const scatterToolChart = render(
       <ThemeProvider theme={theme}>
         <ScatterContext.Provider value={SCATTER_CONTEXT}>
@@ -829,9 +949,12 @@ describe("test ga event tool chart plot option", () => {
     await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
 
     // Click checkbox of per capita.
-    fireEvent.click(scatterToolChart.container.querySelector("#per-capita-y"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#per-capita-y") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -846,9 +969,12 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click checkbox of log scale.
-    fireEvent.click(scatterToolChart.container.querySelector("#log-y"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#log-y") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -863,7 +989,9 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click swap x and y axis.
-    fireEvent.click(scatterToolChart.container.querySelector("#swap-axes"));
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#swap-axes") as Element
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -878,9 +1006,12 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click checkbox of show quandrants.
-    fireEvent.click(scatterToolChart.container.querySelector("#quadrants"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#quadrants") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -914,9 +1045,12 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click the checkbox of show density.
-    fireEvent.click(scatterToolChart.container.querySelector("#density"), {
-      target: { checked: true },
-    });
+    fireEvent.click(
+      scatterToolChart.container.querySelector("#density") as Element,
+      {
+        target: { checked: true },
+      }
+    );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -929,24 +1063,6 @@ describe("test ga event tool chart plot option", () => {
       // Check gtag is called once, seven times in total.
       expect(mockgtag.mock.calls.length).toEqual(7);
     });
-
-    // Blur the input of population filter.
-    fireEvent.blur(
-      scatterToolChart.container.getElementsByClassName("pop-filter-input")[0]
-    );
-    await waitFor(() => {
-      // Check the parameters passed to the gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_TOOL_CHART_OPTION_CLICK,
-        {
-          [GA_PARAM_TOOL_CHART_OPTION]:
-            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
-        },
-      ]);
-      // Check gtag is called once, eight times in total.
-      expect(mockgtag.mock.calls.length).toEqual(8);
-    });
   });
   test("call gtag when map tool chart option is clicked", async () => {
     // Mock gtag.
@@ -954,6 +1070,18 @@ describe("test ga event tool chart plot option", () => {
     window.gtag = mockgtag;
 
     // Render the component.
+    MAP_CONTEXT.statVar.value.dcid = STAT_VAR_4;
+    MAP_CONTEXT.statVar.value.info = {
+      [STAT_VAR_4]: { title: "", pcAllowed: true }, // Use a stat var with per capita option enabled.
+    };
+    MAP_PROPS.facetList = [
+      {
+        dcid: STAT_VAR_4, // Use a stat var with per capita option enabled.
+        name: STAT_VAR_4,
+        displayNames: {},
+        metadataMap: {},
+      },
+    ];
     const mapToolChart = render(
       <ThemeProvider theme={theme}>
         <MapContext.Provider value={MAP_CONTEXT}>
@@ -1000,11 +1128,16 @@ describe("test ga event for the FacetSelector component", () => {
         name: STAT_VAR_1,
         metadataMap: {
           facet1: {
-            importName: "Test Import",
-            measurementMethod: "Test Method",
+            importName: "Test Import One",
+            measurementMethod: "Test Method One",
             observationPeriod: "P1Y",
             scalingFactor: "1",
             unit: "USD",
+          },
+          facet2: {
+            importName: "Test Import One",
+            measurementMethod: "Test Method One",
+            observationPeriod: "P1M",
           },
         },
       },
@@ -1018,17 +1151,19 @@ describe("test ga event for the FacetSelector component", () => {
         <ToolChartHeader
           svFacetId={svFacetId}
           facetList={mockFacetList}
+          facetListLoading={false}
+          facetListError={false}
           onSvFacetIdUpdated={mockOnSvFacetIdUpdated}
         />
       </ThemeProvider>
     );
 
     await waitFor(() => {
-      const button = getByText(/Select (?:a\s+)?dataset/i);
+      const button = getByText(/Explore other facets/i);
       expect((button as HTMLButtonElement).disabled).toBe(false);
     });
 
-    fireEvent.click(getByText(/Select (?:a\s+)?dataset/i));
+    fireEvent.click(getByText(/Explore other facets/i));
 
     await waitFor(() => {
       expect(getByText("Update")).toBeTruthy();
@@ -1042,6 +1177,447 @@ describe("test ga event for the FacetSelector component", () => {
         GA_EVENT_TOOL_CHART_OPTION_CLICK,
         {
           [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+        }
+      );
+    });
+  });
+});
+
+describe("test ga event for Related Topics experiment", () => {
+  test("triggers GA event when FollowUpQuestion URL is clicked", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    axios.post = jest.fn().mockImplementation(() => {
+      // eslint-disable-next-line camelcase
+      return Promise.resolve({ data: { follow_up_questions: [QUERY] } });
+    });
+
+    // Render follow up component
+    const followUp = render(
+      <ThemeProvider theme={theme}>
+        <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+      </ThemeProvider>
+    );
+    act(() => {
+      mockAllIsIntersecting(false);
+    });
+
+    // Wait for questions to render
+    await waitForElementToBeRemoved(followUp.getByText("Loading..."));
+
+    // Click question url
+    fireEvent.click(followUp.getByText(QUERY));
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_CLICK,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]:
+            GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Header Related Topics URL is clicked", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render result header component
+    const resultHeader = render(
+      <ResultHeaderSection {...RESULT_HEADER_SECTION_PROPS} />
+    );
+
+    // Click related topic url
+    fireEvent.click(resultHeader.getByText(TOPIC));
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_CLICK,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when FollowUpQuestion component is viewed", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render follow up component
+    render(
+      <ThemeProvider theme={theme}>
+        <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+      </ThemeProvider>
+    );
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_VIEW,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]:
+            GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Header RelatedTopics component is viewed", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render result header component
+    render(<ResultHeaderSection {...RESULT_HEADER_SECTION_PROPS} />);
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_VIEW,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Follow Up Questions component renders questions", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest.fn().mockImplementation(() => {
+      // eslint-disable-next-line camelcase
+      return Promise.resolve({ data: { follow_up_questions: [QUERY] } });
+    });
+
+    // Render follow up component
+    render(
+      <ThemeProvider theme={theme}>
+        <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+      </ThemeProvider>
+    );
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_COMPONENT_IMPRESSION,
+        {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+        }
+      );
+    });
+  });
+});
+
+describe("test ga event for Page Overview experiment", () => {
+  test("triggers GA event when Page Overview component is rendered", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render page overview component
+    render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_COMPONENT_IMPRESSION,
+        {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Page Overview component is initially viewed", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
+
+    // Render page overview component
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
+
+    // Wait for overview to render
+    await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith("event", GA_EVENT_COMPONENT_VIEW, {
+        [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+        [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+        [GA_PARAM_VIEW_TRACKING_MODE]: GA_VALUE_INITIAL_VIEW,
+      });
+    });
+  });
+  test("triggers GA event when Page Overview is viewed twice", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
+
+    // Render page overview component
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
+
+    // Wait for overview to render
+    await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
+
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith("event", GA_EVENT_COMPONENT_VIEW, {
+        [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+        [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+        [GA_PARAM_VIEW_TRACKING_MODE]: GA_VALUE_TOTAL_VIEWS,
+      });
+    });
+    // Mock scrolling back to the component
+    act(() => {
+      mockAllIsIntersecting(false);
+      mockAllIsIntersecting(true);
+    });
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenNthCalledWith(
+        4,
+        "event",
+        GA_EVENT_COMPONENT_VIEW,
+        {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+          [GA_PARAM_VIEW_TRACKING_MODE]: GA_VALUE_TOTAL_VIEWS,
+        }
+      );
+    });
+  });
+  test("triggers GA event before unload, recording the view time of Page Overview", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    const startTime = 0;
+    const fiveSecondsLater = startTime + 5000; // 5 seconds in milliseconds
+
+    // Set up the spy
+    const dateSpy = jest.spyOn(Date, "now").mockImplementation(() => startTime);
+
+    // Mock Flask route
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
+
+    // Render page overview component
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
+
+    // Wait for overview to render
+    await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
+
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
+
+    dateSpy.mockReturnValueOnce(fiveSecondsLater);
+
+    fireEvent(window, new Event("beforeunload"));
+
+    dateSpy.mockRestore();
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_TOTAL_COMPONENT_VIEW_TIME,
+        {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+          [GA_PARAM_TOTAL_VIEW_TIME]: fiveSecondsLater.toString(),
+        }
+      );
+    });
+  });
+  test("triggers GA event when Page Overview link is clicked", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
+
+    // Render page overview component
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
+
+    // Wait for overview to render
+    await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
+
+    // Click scroll link
+    fireEvent.click(
+      pageOverview.getByText(STAT_VAR_CHART_LINKS[0].naturalLanguage)
+    );
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_PAGE_OVERVIEW_CLICK,
+        {
+          [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_INITIAL_CLICK,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Page Overview link is clicked twice", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
+
+    // Render page overview component
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
+
+    // Wait for overview to render
+    await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
+
+    // Click scroll link
+    fireEvent.click(
+      pageOverview.getByText(STAT_VAR_CHART_LINKS[0].naturalLanguage)
+    );
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_PAGE_OVERVIEW_CLICK,
+        {
+          [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_TOTAL_CLICKS,
+        }
+      );
+    });
+
+    // Click scroll link
+    fireEvent.click(
+      pageOverview.getByText(STAT_VAR_CHART_LINKS[1].naturalLanguage)
+    );
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenNthCalledWith(
+        4,
+        "event",
+        GA_EVENT_PAGE_OVERVIEW_CLICK,
+        {
+          [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_TOTAL_CLICKS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Page Overview loads counting anchor elements", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
+
+    // Render page overview component
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
+
+    // Wait for overview to render
+    await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_TOTAL_ANCHOR_COUNT,
+        {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+          [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: "3",
         }
       );
     });

@@ -25,7 +25,6 @@ import {
 } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
 import { getMatchingObservation } from "../tools/shared_util";
-import { isBetween } from "./number_utils";
 import { getUnit } from "./stat_metadata_utils";
 
 interface PlaceAxisChartData {
@@ -35,6 +34,7 @@ interface PlaceAxisChartData {
   popValue?: number;
   popDate?: string;
   unit?: string;
+  denomFacet?: string;
 }
 
 /**
@@ -42,21 +42,25 @@ interface PlaceAxisChartData {
  */
 function getPlaceAxisChartData(
   placePointStat: EntityObservation,
-  populationData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
-  popBounds?: [number, number],
   denom?: string,
   scaling?: number
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
+  if (_.isEmpty(obs)) {
+    return null;
+  }
+  // finding the denom data that matches the facet of the current observation
+  const populationData = denomsByFacet?.[obs.facet]
+    ? denomsByFacet[obs.facet]
+    : defaultDenomData;
   const denomSeries =
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
       ? populationData.data[denom][placeDcid]
       : null;
-  if (_.isEmpty(obs)) {
-    return null;
-  }
   if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.series))) {
     return null;
   }
@@ -69,10 +73,13 @@ function getPlaceAxisChartData(
   let value = obs.value || 0;
   let denomValue = null;
   let denomDate = null;
+  let denomFacet = null;
+
   if (!_.isEmpty(denomSeries)) {
     const denomObs = getMatchingObservation(denomSeries.series, obs.date);
     denomValue = denomObs.value;
     denomDate = denomObs.date;
+    denomFacet = denomSeries.facet;
     value /= denomValue;
   }
   if (scaling) {
@@ -86,22 +93,21 @@ function getPlaceAxisChartData(
       : null;
     if (popSeries && popSeries.series) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
-      if (
-        popBounds &&
-        (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
-      ) {
+      if (!popObs) {
         return null;
       }
       // If this axis is using a population denominator, use that for the population value as well
       // Otherwise, use the default "Count_Person" variable.
       popValue = popValue || popObs.value;
       popDate = popDate || popObs.date;
+      denomFacet = denomFacet || popSeries.facet;
     } else {
       console.log(`No population data for ${placeDcid}`);
     }
   }
   const unit = getUnit(metadataMap[metaHash]);
-  return { value, statDate, sources, popValue, popDate, unit };
+
+  return { value, statDate, sources, popValue, popDate, unit, denomFacet };
 }
 
 interface PlaceScatterData {
@@ -109,6 +115,8 @@ interface PlaceScatterData {
   sources: string[];
   xUnit?: string;
   yUnit?: string;
+  xDenomFacet?: string;
+  yDenomFacet?: string;
 }
 
 /**
@@ -116,11 +124,12 @@ interface PlaceScatterData {
  * @param namedPlace place to get chart data for
  * @param xStatVarData data for the x axis stat var
  * @param yStatVarData data for the y axis stat var
+ * @param denomsByFacet map of facetId to denominator series result
+ * @param defaultDenomData default denominator series result, queried without specifying facet
  * @param populationData data for the population stat vars
  * @param metadataMap map of metahash to metadata for stat var data
  * @param xDenom optional denominator to use for x axis value calculation
  * @param yDenom optional denominator to use for y axis value calculation
- * @param popBounds optional range for population of accepted points
  * @param scaling optional amount to scale the value by
  * @returns
  */
@@ -128,20 +137,20 @@ export function getPlaceScatterData(
   namedPlace: NamedPlace,
   xStatVarData: EntityObservation,
   yStatVarData: EntityObservation,
-  populationData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,
   yDenom?: string,
-  popBounds?: [number, number],
   xScaling?: number,
   yScaling?: number
 ): PlaceScatterData {
   const xChartData = getPlaceAxisChartData(
     xStatVarData,
-    populationData,
+    denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
-    popBounds,
     xDenom,
     xScaling
   );
@@ -150,10 +159,10 @@ export function getPlaceScatterData(
   }
   const yChartData = getPlaceAxisChartData(
     yStatVarData,
-    populationData,
+    denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
-    popBounds,
     yDenom,
     yScaling
   );
@@ -172,5 +181,12 @@ export function getPlaceScatterData(
     yPopDate: yChartData.popDate,
   };
   const sources = xChartData.sources.concat(yChartData.sources);
-  return { point, sources, xUnit: xChartData.unit, yUnit: yChartData.unit };
+  return {
+    point,
+    sources,
+    xUnit: xChartData.unit,
+    yUnit: yChartData.unit,
+    xDenomFacet: xChartData.denomFacet,
+    yDenomFacet: yChartData.denomFacet,
+  };
 }

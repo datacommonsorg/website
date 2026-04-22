@@ -2353,7 +2353,7 @@
   },
   "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
     "blocklist": [],
-    "title": "% of Suicide Events"
+    "title": "Suicide Mortality Rate"
   },
   "Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female": {
     "blocklist": [],

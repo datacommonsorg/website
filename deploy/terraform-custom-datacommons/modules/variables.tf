@@ -40,6 +40,12 @@ variable "maps_api_key" {
   default     = null
 }
 
+variable "disable_google_maps" {
+  description = "Whether to show Google Maps component on the website"
+  type        = bool
+  default     = false
+}
+
 variable "region" {
   description = "The GCP region where project resources will be created"
   type        = string
@@ -204,6 +210,19 @@ variable "dc_data_job_timeout" {
   description = "Timeout for the Data Commons data loading job"
   type        = string
   default     = "600s"
+}
+
+# Valid values are "base_and_custom" and "custom_only"
+variable "dc_search_scope" {
+  description = "Scope for MCP search indicators"
+  type        =  string
+  default     = "base_and_custom"
+}
+
+variable "enable_mcp" {
+  description = "Whether to run the MCP server"
+  type        = bool
+  default     = true
 }
 
 # Data Commons Cloud VPC Network variables

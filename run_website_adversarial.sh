@@ -24,8 +24,8 @@ NO_PIP=$2
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 if [[ $NO_PIP != "true" ]]; then
   python3 -m pip install --upgrade pip setuptools
   pip3 install -r server/requirements.txt
@@ -33,7 +33,7 @@ fi
 
 # copy input files
 mkdir -p input
-gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
+gcloud storage cp gs://datcom-website-adversarial/input/frequent/* input/
 
 
 dc_list=("main" "sdg")
@@ -46,7 +46,7 @@ do
   echo "  ==================================================================================="
   echo "  Executing the Adversarial Test against the $dc index, detection and fulfillment."
   python3 server/integration_tests/standalone/adversarial.py --mode=run_all --dc="$dc" --base_url="https://$domain"
-  gsutil cp ./output/$dc/reports/* gs://datcom-website-adversarial/reports/$dc/$domain/$date_str/
+  gcloud storage cp ./output/$dc/reports/* gs://datcom-website-adversarial/reports/$dc/$domain/$date_str/
   rm -rf ./output/$dc/*
   echo "  Finished the Adversarial Test against the $dc index, detection and fulfillment."
   echo "  ==================================================================================="

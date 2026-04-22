@@ -162,3 +162,17 @@
     }
   }
 }
+
+
+.load-more-section {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  .search-input-result {
+    color: #3b78e7;
+    font-weight: 500;
+  }
+}

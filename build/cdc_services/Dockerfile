@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # #### Stage 1: Build mixer. ####
-FROM golang:1.20.7 AS mixer
+FROM golang:1.24.0 AS mixer
 
 WORKDIR /workspace
 
@@ -49,7 +49,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 
 
 # #### Stage 2: Build python servers (website and NL). ####
-FROM --platform=linux/amd64 python:3.11.4-slim as py-servers
+FROM --platform=linux/amd64 python:3.11.14-slim as py-servers
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
@@ -64,14 +64,16 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 COPY server/requirements.txt ./server/requirements.txt
 COPY nl_server/requirements.txt ./nl_server/requirements.txt
 COPY nl_requirements.txt ./nl_requirements.txt
+COPY torch_requirements.txt ./torch_requirements.txt
 
 # Create a virtual env and install requirements.
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install --upgrade pip setuptools \
-    && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
-    && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
+    && pip3 install --no-cache-dir -r /workspace/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
+    && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt \
+    && pip3 install --no-cache-dir datacommons-mcp
 
 # Copy website app script.
 COPY web_app.py ./web_app.py
@@ -118,8 +120,8 @@ FROM --platform=linux/amd64 google/cloud-sdk:slim as download
 
 # Copy model and embeddings.
 RUN mkdir -p /tmp/datcom-nl-models \
-    && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ \
-    && gsutil cp -R gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv /tmp/datcom-nl-models/
+    && gcloud storage cp --recursive gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ \
+    && gcloud storage cp --recursive gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv /tmp/datcom-nl-models/
 
 
 # #### Final stage: Runtime env. ####
@@ -134,7 +136,11 @@ ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     USE_SQLITE=false \
     USE_CLOUDSQL=false \
     DC_API_ROOT=https://api.datacommons.org \
-    ENABLE_MODEL=true
+    ENABLE_MODEL=true \
+    ENABLE_MCP=true \
+    DC_TYPE=custom \
+    DC_API_BASE_URL=http://127.0.0.1:8081/v2 \
+    CUSTOM_DC_URL=http://127.0.0.1:7070
 
 WORKDIR /workspace
 

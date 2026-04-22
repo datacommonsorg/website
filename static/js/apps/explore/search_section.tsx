@@ -29,7 +29,7 @@ import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_QUERY,
   GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_EXPLORE,
+  GA_VALUE_PAGE_EXPLORE,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { getFeedbackLink } from "../../utils/explore_utils";
@@ -55,23 +55,25 @@ export function SearchSection(props: {
   );
 
   return (
-    <NlSearchBar
-      inputId="query-search-input"
-      onSearch={(q): void => {
-        triggerGAEvent(GA_EVENT_NL_SEARCH, {
-          [GA_PARAM_QUERY]: q,
-          [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE,
-        });
-        updateHash({
-          [URL_HASH_PARAMS.QUERY]: q,
-          [URL_HASH_PARAMS.PLACE]: "",
-          [URL_HASH_PARAMS.TOPIC]: "",
-          [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.QUERY,
-        });
-      }}
-      initialValue={props.query}
-      shouldAutoFocus={false}
-      feedbackLink={DEVELOPER_MODE ? feedbackLink : undefined}
-    />
+    <div className="search-section">
+      <NlSearchBar
+        inputId="query-search-input"
+        onSearch={(q): void => {
+          triggerGAEvent(GA_EVENT_NL_SEARCH, {
+            [GA_PARAM_QUERY]: q,
+            [GA_PARAM_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          });
+          updateHash({
+            [URL_HASH_PARAMS.QUERY]: q,
+            [URL_HASH_PARAMS.PLACE]: "",
+            [URL_HASH_PARAMS.TOPIC]: "",
+            [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.QUERY,
+          });
+        }}
+        initialValue={props.query}
+        shouldAutoFocus={false}
+        feedbackLink={DEVELOPER_MODE ? feedbackLink : undefined}
+      />
+    </div>
   );
 }

@@ -9,14 +9,20 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "CommonJS",
-    "target": "es6",
-    "jsx": "react",
+    "module": "esnext",
+    "target": "es2021",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "experimentalDecorators": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   },
   "exclude": [
     "node_modules",

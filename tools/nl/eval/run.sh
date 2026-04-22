@@ -41,7 +41,7 @@ while getopts ":m:f:" OPTION; do
 done
 
 cd $ROOT
-source .env/bin/activate
+source .venv/bin/activate
 pip3 install -r $DIR/requirements.txt
 python3  -m tools.nl.eval.main --model_name=$MODEL_NAME --eval_folder=$FOLDER
 deactivate

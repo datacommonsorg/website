@@ -42,15 +42,15 @@ const DEFAULT_LAZY_LOAD_ROOT_MARGIN = "0px";
  *   - {React.MutableRefObject<HTMLDivElement | null>} containerRef: A ref to be assigned to the element to be observed.
  *
  */
-export const useLazyLoad = (
+export const useLazyLoad = <T extends HTMLElement = HTMLDivElement>(
   rootMargin?: string
 ): {
   shouldLoad: boolean;
-  containerRef: MutableRefObject<HTMLDivElement | null>;
+  containerRef: MutableRefObject<T | null>;
 } => {
   const [isIntersecting, setIntersecting] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<T>(null);
   const observer = useMemo(
     () =>
       new IntersectionObserver(

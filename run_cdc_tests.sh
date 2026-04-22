@@ -14,16 +14,26 @@
 # limitations under the License.
 
 set -e
+source scripts/utils.sh
 
-./run_test.sh --setup_python
-
-source .env/bin/activate
 export FLASK_ENV=webdriver
 
+test_filter=""
 # Like run_test.sh, use flag -g for updating goldens.
 if [[ "$1" == "-g" ]]; then
   export TEST_MODE=write
   shift # Remove -g from arguments, so pytest doesn't see it.
 fi
 
-python3 -m pytest -n auto --reruns 2 server/webdriver/cdc_tests/ "$@"
+if [[ "$1" == "--smoke_test" ]]; then
+  test_filter="smoke_test"
+  shift
+fi
+
+pytest_args=("-n" "auto" "--reruns" "2")
+if [[ -n "${test_filter}" ]]; then
+  pytest_args+=("-m" "${test_filter}")
+fi
+
+assert_uv
+uv run --project server --group test -- python3 -m pytest "${pytest_args[@]}" server/webdriver/cdc_tests/ "$@"

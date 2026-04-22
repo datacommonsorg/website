@@ -20,6 +20,7 @@
 
 // TODO (nick-next): combine this with the new FacetMetadata
 // TODO (nick-next): remove all duplicate types.
+// TODO (nick-next): comment the client library version to document that `StatMetadata` matches.
 
 export interface StatMetadata {
   importName?: string;
@@ -27,8 +28,14 @@ export interface StatMetadata {
   measurementMethod?: string;
   observationPeriod?: string;
   scalingFactor?: string;
+  isDcAggregate?: boolean;
   unit?: string;
   unitDisplayName?: string;
+  sourceName?: string;
+  provenanceName?: string;
+  measurementMethodDescription?: string;
+  dateRangeStart?: string;
+  dateRangeEnd?: string;
 }
 
 export interface Observation {

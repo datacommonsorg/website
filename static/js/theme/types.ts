@@ -31,6 +31,27 @@ export interface TextVariant {
       };
 }
 
+export interface FontFamily {
+  fontFamily: string;
+  fontStyle: string;
+  [key: string]: string;
+}
+
+interface ButtonVariant {
+  backgroundColor: string;
+  color: string;
+  border: string;
+  borderRadius: string;
+  [key: string]:
+    | string
+    | number
+    | {
+        backgroundColor: string;
+        color: string;
+        border: string;
+      };
+}
+
 export interface Theme {
   breakpoints: {
     xs: number;
@@ -40,6 +61,7 @@ export interface Theme {
     xl: number;
   };
   spacing: {
+    x2s: number;
     xs: number;
     sm: number;
     md: number;
@@ -90,6 +112,11 @@ export interface Theme {
         light?: string;
         dark?: string;
       };
+      code?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
     };
     border?: {
       primary?: {
@@ -132,6 +159,13 @@ export interface Theme {
         dark?: string;
       };
       tertiary?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
+    };
+    error?: {
+      primary?: {
         base?: string;
         light?: string;
         dark?: string;
@@ -257,62 +291,11 @@ export interface Theme {
   };
   button: {
     variant: {
-      standard?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      inverted?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      text?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      flat?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
+      standard?: ButtonVariant;
+      inverted?: ButtonVariant;
+      text?: ButtonVariant;
+      flat?: ButtonVariant;
+      light?: ButtonVariant;
     };
     size: {
       sm?: {
@@ -325,6 +308,61 @@ export interface Theme {
         padding: string;
       };
     };
+  };
+  infoBox: {
+    backgroundColor: string;
+    heading: TextVariant;
+    icon: {
+      fontSize: string;
+      lineHeight: string;
+      [key: string]:
+        | string
+        | {
+            fontSize?: string;
+            lineHeight?: string;
+          };
+    };
+  };
+  codeHighlight: {
+    background?: string;
+    border?: string;
+    text?: string;
+    highlight?: string;
+    selection?: string;
+    comment?: string;
+    prolog?: string;
+    doctype?: string;
+    cData?: string;
+    punctuation?: string;
+    property?: string;
+    tag?: string;
+    boolean?: string;
+    number?: string;
+    constant?: string;
+    symbol?: string;
+    deleted?: string;
+    selector?: string;
+    attrName?: string;
+    string?: string;
+    char?: string;
+    builtin?: string;
+    inserted?: string;
+    operator?: string;
+    entity?: string;
+    url?: string;
+    langCSS?: string;
+    atrule?: string;
+    attrValue?: string;
+    keyword?: string;
+    function?: string;
+    className?: string;
+    regex?: string;
+    important?: string;
+    variable?: string;
+    csvHeader?: string;
+    csvSeparator?: string;
+    csvValue?: string;
+    csvStringValue?: string;
   };
   elevation: {
     none: {
@@ -363,5 +401,42 @@ export interface Theme {
   };
   tooltip: {
     width?: string;
+  };
+  search: {
+    height: string;
+    radius: string;
+    base: {
+      border: string;
+      background: string;
+      icon: string;
+      button: string;
+      text: string;
+    };
+    active: {
+      border: string;
+      background: string;
+      icon: string;
+      button: string;
+      text: string;
+    };
+  };
+  searchSuggestions: {
+    height: string;
+    border: string;
+    base: {
+      background: string;
+      icon: string;
+      text: string;
+    };
+    hover: {
+      background: string;
+      icon: string;
+      text: string;
+    };
+    more: {
+      background: string;
+      icon: string;
+      text: string;
+    };
   };
 }

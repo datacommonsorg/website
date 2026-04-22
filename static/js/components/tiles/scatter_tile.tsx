@@ -25,6 +25,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -42,6 +43,10 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -61,13 +66,13 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -108,11 +113,14 @@ export interface ScatterTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 interface RawData {
   placeStats: PointApiResponse;
-  population: SeriesApiResponse;
+  denomsByFacet: Record<string, SeriesApiResponse>;
+  defaultDenomData: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
   statVarNames: { [statVarDcid: string]: string };
 }
@@ -147,6 +155,23 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+
+  const entities = useMemo(
+    () =>
+      scatterChartData
+        ? Array.from(
+            new Set(
+              Object.values(scatterChartData.points).map((p) => p.place.dcid)
+            )
+          )
+        : [],
+    [scatterChartData]
+  );
+
+  /*
+    TODO: (nick-next) destructure the props similarly to highlight to
+          allow a complete dependency array.
+   */
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;
@@ -166,7 +191,16 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
         setIsLoading(false);
       }
     })();
-  }, [props, scatterChartData, shouldLoad]);
+  }, [
+    props.lazyLoad,
+    props.apiRoot,
+    props.place.dcid,
+    props.placeNameProp,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+    scatterChartData,
+    shouldLoad,
+  ]);
 
   const drawFn = useCallback(() => {
     if (!scatterChartData || !areDataPropsEqual()) {
@@ -188,6 +222,36 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
 
   useDrawOnResize(drawFn, svgContainer.current);
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!scatterChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      const defaultDate =
+        getFirstCappedStatVarSpecDate(props.statVarSpec) || "LATEST";
+      return buildObservationSpecs({
+        statVarSpecs: props.statVarSpec,
+        statVarToFacets: scatterChartData.statVarToFacets,
+        entityExpression,
+        defaultDate,
+      });
+    };
+  }, [
+    scatterChartData,
+    props.place,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+  ]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
@@ -196,8 +260,10 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props, scatterChartData)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={scatterChartData && scatterChartData.errorMsg}
       id={props.id}
+      entities={entities}
       isInitialLoading={_.isNull(scatterChartData)}
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
@@ -208,6 +274,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surface={props.surface}
     >
       <div className="scatter-tile-content">
         <div
@@ -255,29 +322,34 @@ function getDataCsvCallback(
   scatterChartData: ScatterChartData
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume both variables will have the same date
-    // TODO: Update getCsv to handle different dates for different variables
+    /*
+     TODO (nick-next): Update getDataCsv to handle different dates for different variables
+        see also chart_loader.tsx in the scatter viz tool.
+     */
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
-    const perCapitaVariables = [
+    const clientStatVarSpecs = [
       scatterChartData.xStatVar,
       scatterChartData.yStatVar,
-    ].map((v) => (v.denom ? v.statVar : ""));
+    ];
+
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
+
     return dataCommonsClient.getCsv({
       childType: props.enclosedPlaceType,
       date,
       entityProps,
       fieldDelimiter: CSV_FIELD_DELIMITER,
       parentEntity: props.place.dcid,
-      perCapitaVariables: _.uniq(perCapitaVariables),
       transformHeader: transformCsvHeader,
-      variables: [
-        scatterChartData.xStatVar.statVar,
-        scatterChartData.yStatVar.statVar,
-      ],
+      statVarSpecs: clientStatVarSpecs,
+      variables: [],
     });
   };
 }
@@ -294,12 +366,14 @@ export function getReplacementStrings(
   };
 }
 
-function getPopulationPromise(
+async function getPopulationInfo(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
+  statResp: PointApiResponse,
+  surface: string,
   apiRoot?: string
-): Promise<SeriesApiResponse> {
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const statVars = new Set<string>();
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -307,15 +381,21 @@ function getPopulationPromise(
     }
   }
   if (_.isEmpty(statVars)) {
-    return Promise.resolve(null);
-  } else {
-    return getSeriesWithin(
-      apiRoot,
-      placeDcid,
-      enclosedPlaceType,
-      Array.from(statVars)
-    );
+    return [null, null];
   }
+
+  const [denomsByFacet, defaultDenomData] = await getDenomResp(
+    [...statVars],
+    statResp,
+    apiRoot,
+    true,
+    surface,
+    null,
+    placeDcid,
+    enclosedPlaceType
+  );
+
+  return [denomsByFacet, defaultDenomData];
 }
 
 export const fetchData = async (
@@ -340,13 +420,8 @@ export const fetchData = async (
         facetId: props.statVarSpec[1].facetId,
       },
     ],
-    props.apiRoot
-  );
-  const populationPromise = getPopulationPromise(
-    props.place.dcid,
-    props.enclosedPlaceType,
-    props.statVarSpec,
-    props.apiRoot
+    props.apiRoot,
+    props.surface
   );
   const placeNamesParams = {
     dcid: props.place.dcid,
@@ -362,17 +437,33 @@ export const fetchData = async (
     })
     .then((resp) => resp.data);
   try {
-    const [placeStats, population, placeNames] = await Promise.all([
+    const [placeStats, placeNames] = await Promise.all([
       placeStatsPromise,
-      populationPromise,
       placeNamesPromise,
     ]);
+    // this formats and resolves the denominator query promises for every facet used in the numerators,
+    // plus a default denominator result that is used if a given entity's facet doesn't provide the denominator data
+    const [denomsByFacet, defaultDenomData] = await getPopulationInfo(
+      props.place.dcid,
+      props.enclosedPlaceType,
+      props.statVarSpec,
+      placeStats,
+      props.surface,
+      props.apiRoot
+    );
     const statVarNames = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot
     );
-    const rawData = { placeStats, population, placeNames, statVarNames };
-    return rawToChart(rawData, props);
+    const rawData = {
+      placeStats,
+      denomsByFacet,
+      defaultDenomData,
+      placeNames,
+      statVarNames,
+    };
+    const result = rawToChart(rawData, props);
+    return result;
   } catch (error) {
     return null;
   }
@@ -436,7 +527,8 @@ function rawToChart(
       namedPlace,
       xPlacePointStat,
       yPlacePointStat,
-      rawData.population,
+      rawData.denomsByFacet,
+      rawData.defaultDenomData,
       rawData.placeStats.facets
     );
     if (!placeChartData) {
@@ -452,11 +544,14 @@ function rawToChart(
     });
     const point = placeChartData.point;
     if (xStatVar.denom) {
+      const xPlaceFacet = xPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
         xStatVar,
-        rawData.population,
+        rawData.denomsByFacet,
         place,
-        point.xDate
+        point.xDate,
+        xPlaceFacet,
+        rawData.defaultDenomData
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
@@ -466,16 +561,27 @@ function rawToChart(
       point.xPopDate = denomInfo.date;
       point.xPopVal = denomInfo.value;
       sources.add(denomInfo.source);
+      const xDenomStatVar = xStatVar.denom;
+      if (denomInfo.facetId && denomInfo.facet) {
+        facets[denomInfo.facetId] = denomInfo.facet;
+        if (!statVarToFacets[xDenomStatVar]) {
+          statVarToFacets[xDenomStatVar] = new Set<string>();
+        }
+        statVarToFacets[xDenomStatVar].add(denomInfo.facetId);
+      }
     }
     if (xUnitScaling.scaling) {
       point.xVal *= xUnitScaling.scaling;
     }
     if (yStatVar.denom) {
+      const yPlaceFacet = yPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
         yStatVar,
-        rawData.population,
+        rawData.denomsByFacet,
         place,
-        point.yDate
+        point.yDate,
+        yPlaceFacet,
+        rawData.defaultDenomData
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
@@ -485,6 +591,14 @@ function rawToChart(
       point.yPopDate = denomInfo.date;
       point.yPopVal = denomInfo.value;
       sources.add(denomInfo.source);
+      const yDenomStatVar = yStatVar.denom;
+      if (denomInfo.facetId && denomInfo.facet) {
+        facets[denomInfo.facetId] = denomInfo.facet;
+        if (!statVarToFacets[yDenomStatVar]) {
+          statVarToFacets[yDenomStatVar] = new Set<string>();
+        }
+        statVarToFacets[yDenomStatVar].add(denomInfo.facetId);
+      }
     }
     if (yUnitScaling.scaling) {
       point.yVal *= yUnitScaling.scaling;

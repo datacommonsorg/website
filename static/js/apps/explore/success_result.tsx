@@ -1,7 +1,7 @@
 /**
  * Copyright 2023 Google LLC
  *
- * Licensed under he Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -35,13 +35,15 @@ import {
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
 import {
-  FOLLOW_UP_QUESTIONS_EXPERIMENT,
+  EXPLORE_RESULT_HEADER,
   FOLLOW_UP_QUESTIONS_GA,
   isFeatureEnabled,
+  PAGE_OVERVIEW_GA,
 } from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { getTopics } from "../../utils/app/explore_utils";
 import {
   isPlaceOverviewOnly,
   shouldSkipPlaceOverview,
@@ -52,19 +54,20 @@ import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "./debug_info";
 import { FollowUpQuestions } from "./follow_up_questions";
 import { HighlightResult } from "./highlight_result";
+import { PageOverview } from "./page_overview";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
+import { ResultHeaderSectionLegacy } from "./result_header_section_legacy";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
 
 const PAGE_ID = "explore";
 
-const EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO = 0.2;
+const showFollowUpQuestions = isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA);
 
-const showFollowUpQuestions =
-  isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA) ||
-  (isFeatureEnabled(FOLLOW_UP_QUESTIONS_EXPERIMENT) &&
-    Math.random() < EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO);
+const showPageOverview = isFeatureEnabled(PAGE_OVERVIEW_GA);
+
+const showNewExploreResultHeader = isFeatureEnabled(EXPLORE_RESULT_HEADER);
 
 interface SuccessResultPropType {
   //the query string that brought up the given results
@@ -84,35 +87,13 @@ interface SuccessResultPropType {
   hideHeaderSearchBar: boolean;
   // Object containing the highlight page metadata only.
   highlightPageMetadata?: SubjectPageMetadata;
-  // Facet for highlight
-  highlightFacet?: FacetMetadata;
+  // Criteria for selecting the facet.
+  facetSelector?: FacetSelectionCriteria;
 }
 
 export function SuccessResult(props: SuccessResultPropType): ReactElement {
   const searchSectionRef = useRef<HTMLDivElement>(null);
   const chartSectionRef = useRef<HTMLDivElement>(null);
-  if (!props.pageMetadata) {
-    return null;
-  }
-  const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
-    ? Object.keys(props.pageMetadata.childPlaces)[0]
-    : "";
-  const placeUrlVal = (
-    props.exploreContext?.entities || [props.pageMetadata.place.dcid]
-  ).join(URL_DELIM);
-  const topicUrlVal = (props.exploreContext?.variables || []).join(URL_DELIM);
-  // TODO: Consider if we want to include both topics.
-  const relatedPlaceTopic = _.isEmpty(props.pageMetadata.mainTopics)
-    ? {
-        dcid: topicUrlVal,
-        name: "",
-        types: null,
-      }
-    : props.pageMetadata.mainTopics[0];
-
-  const hashParams = queryString.parse(window.location.hash);
-  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
-  const maxBlock = parseInt(maxBlockParam as string);
 
   useEffect(() => {
     const searchBoundingBox = searchSectionRef.current?.getBoundingClientRect();
@@ -138,8 +119,32 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (!props.pageMetadata) {
+    return null;
+  }
+  const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
+    ? Object.keys(props.pageMetadata.childPlaces)[0]
+    : "";
+  const placeUrlVal = (
+    props.exploreContext?.entities || [props.pageMetadata.place.dcid]
+  ).join(URL_DELIM);
+  const topicUrlVal = (props.exploreContext?.variables || []).join(URL_DELIM);
+  // TODO: Consider if we want to include both topics.
+  const relatedPlaceTopic = _.isEmpty(props.pageMetadata.mainTopics)
+    ? {
+        dcid: topicUrlVal,
+        name: "",
+        types: null,
+      }
+    : props.pageMetadata.mainTopics[0];
+
+  const hashParams = queryString.parse(window.location.hash);
+  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
+  const maxBlock = parseInt(maxBlockParam as string);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
   const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
+  const relatedTopics = getTopics(props.pageMetadata, "");
   return (
     <div
       className={`row explore-charts${
@@ -170,22 +175,39 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
         />
         {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
-            {!placeOverviewOnly && (
-              <ResultHeaderSection
+            {!placeOverviewOnly &&
+              (showNewExploreResultHeader ? (
+                <ResultHeaderSection
+                  pageMetadata={props.pageMetadata}
+                  placeUrlVal={placeUrlVal}
+                  hideRelatedTopics={showFollowUpQuestions}
+                  query={props.query}
+                />
+              ) : (
+                <ResultHeaderSectionLegacy
+                  pageMetadata={props.pageMetadata}
+                  placeUrlVal={placeUrlVal}
+                  hideRelatedTopics={showFollowUpQuestions}
+                />
+              ))}
+            {showPageOverview && (
+              <PageOverview
+                query={props.query}
                 pageMetadata={props.pageMetadata}
-                placeUrlVal={placeUrlVal}
-                hideRelatedTopics={showFollowUpQuestions}
               />
             )}
             <RankingUnitUrlFuncContext.Provider
               value={(
                 dcid: string,
                 placeType?: string,
-                apiRoot?: string
+                apiRoot?: string,
+                statVar?: string
               ): string => {
                 return `${apiRoot || ""}/explore/#${getUpdatedHash({
                   [URL_HASH_PARAMS.PLACE]: dcid,
-                  [URL_HASH_PARAMS.TOPIC]: topicUrlVal,
+                  [URL_HASH_PARAMS.TOPIC]: [statVar, topicUrlVal]
+                    .filter(Boolean)
+                    .join("___"),
                   [URL_HASH_PARAMS.QUERY]: "",
                   [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RANKING_PLACE,
                 })}`;
@@ -201,7 +223,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 {props.highlightPageMetadata && (
                   <HighlightResult
                     highlightPageMetadata={props.highlightPageMetadata}
-                    highlightFacet={props.highlightFacet}
+                    facetSelector={props.facetSelector}
                     maxBlock={maxBlock}
                     apiRoot={props.exploreContext.apiRoot}
                   />
@@ -213,13 +235,14 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     props.pageMetadata.pageConfig,
                     maxBlock
                   )}
+                  facetSelector={props.facetSelector}
                   svgChartHeight={SVG_CHART_HEIGHT}
                   showExploreMore={true}
                 />
                 <ScrollToTopButton />
               </ExploreContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {showFollowUpQuestions && (
+            {showFollowUpQuestions && !_.isEmpty(relatedTopics) && (
               <FollowUpQuestions
                 query={props.query}
                 pageMetadata={props.pageMetadata}

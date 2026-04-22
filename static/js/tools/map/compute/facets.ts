@@ -16,47 +16,99 @@
 
 // Custom hook to compute the list of facets to show in source selector.
 
-import { useContext, useMemo } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
-import { FacetSelectorFacetInfo } from "../../../shared/facet_selector";
-import { StatMetadata } from "../../../shared/stat_types";
+import { FacetSelectorFacetInfo } from "../../../shared/facet_selector/facet_selector";
+import { useFacetEnrichment } from "../../../shared/hooks/use_facet_enrichment";
+import { FacetResponse } from "../../../utils/data_fetch_utils";
+import { enrichFacetChoices } from "../../shared/facet_choice_fetcher";
 import { ChartStore } from "../chart_store";
 import { Context } from "../context";
 import { useAllStatReady } from "../ready_hooks";
 
-export function useComputeFacetList(
-  chartStore: ChartStore
-): FacetSelectorFacetInfo[] {
+export function useComputeFacetList(chartStore: ChartStore): {
+  facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
+  onFacetSelectorModalOpen: () => void;
+  totalFacetCount: number;
+} {
   const { statVar } = useContext(Context);
   const allStatReady = useAllStatReady(chartStore);
-  return useMemo(() => {
-    if (!statVar.value.info || !allStatReady()) {
-      return null;
+  const [baseFacetList, setBaseFacetList] = useState<FacetSelectorFacetInfo[]>(
+    []
+  );
+  const [facetListLoading, setFacetListLoading] = useState(false);
+  const [facetListError, setFacetListError] = useState(false);
+
+  useEffect(() => {
+    if (!allStatReady()) {
+      setBaseFacetList([]);
+      return;
     }
-    const filteredMetadataMap: Record<string, StatMetadata> = {};
-    const facets = chartStore.allStat.data.facets;
-    const data = chartStore.allStat.data.data;
-    for (const place in data) {
-      for (const obs of data[place]) {
-        if (obs.facet in facets) {
-          filteredMetadataMap[obs.facet] = facets[obs.facet];
+
+    setFacetListLoading(true);
+    setFacetListError(false);
+
+    const allStatData = chartStore.allStat.data;
+    const svDcid = statVar.value.dcid;
+    if (!svDcid) {
+      setBaseFacetList([]);
+      setFacetListLoading(false);
+      return;
+    }
+
+    const baseFacets: FacetResponse = { [svDcid]: {} };
+    const data = allStatData.data;
+
+    if (data) {
+      for (const place in data) {
+        for (const obs of data[place]) {
+          if (allStatData.facets[obs.facet]) {
+            baseFacets[svDcid][obs.facet] = allStatData.facets[obs.facet];
+          }
         }
       }
     }
-    return [
+
+    const finalFacetList = [
       {
-        dcid: statVar.value.dcid,
-        metadataMap: filteredMetadataMap,
-        name:
-          statVar.value.dcid in statVar.value.info
-            ? statVar.value.info[statVar.value.dcid].title
-            : statVar.value.dcid,
+        dcid: svDcid,
+        name: statVar.value.info[svDcid]?.title || svDcid,
+        metadataMap: baseFacets[svDcid] || {},
       },
     ];
-  }, [
-    statVar.value.dcid,
-    statVar.value.info,
-    chartStore.allStat.data,
-    allStatReady,
-  ]);
+    setBaseFacetList(finalFacetList);
+    setFacetListLoading(false);
+  }, [allStatReady, chartStore.allStat.data, statVar.value]);
+
+  const entities = chartStore.allStat.data?.data
+    ? Object.keys(chartStore.allStat.data.data)
+    : [];
+  const entitiesString = entities.join(",");
+  const cacheKey = `${statVar.value.dcid}-${entitiesString}`;
+
+  const {
+    facetList,
+    loading: enrichmentLoading,
+    onModalOpen,
+    totalFacetCount,
+  } = useFacetEnrichment(
+    cacheKey,
+    baseFacetList,
+    useCallback(async () => {
+      if (baseFacetList.length === 0) return [];
+      return enrichFacetChoices(baseFacetList, {
+        entities: entitiesString ? entitiesString.split(",") : [],
+      });
+    }, [baseFacetList, entitiesString])
+  );
+
+  return {
+    facetList: facetList || [],
+    facetListLoading: facetListLoading || enrichmentLoading,
+    facetListError,
+    onFacetSelectorModalOpen: onModalOpen,
+    totalFacetCount,
+  };
 }

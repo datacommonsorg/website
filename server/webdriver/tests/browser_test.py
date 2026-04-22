@@ -27,7 +27,6 @@ from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
-AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
 SEARCH_INPUT = 'male asian count '
 
@@ -61,25 +60,30 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     # Assert header is correct.
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
+    title = self.driver.find_element(By.CSS_SELECTOR, '#node h1')
     self.assertEqual(title.text, 'About: Mountain View')
-    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
+    dcid_subtitle = self.driver.find_element(By.CSS_SELECTOR,
+                                             '#node h2:nth-of-type(1)')
     self.assertEqual(dcid_subtitle.text, 'dcid: geoId/0649670')
-    typeOf_subtitle = self.driver.find_element(By.XPATH,
-                                               '//*[@id="node"]/h2[2]')
+    typeOf_subtitle = self.driver.find_element(By.CSS_SELECTOR,
+                                               '#node h2:nth-of-type(2)')
     self.assertEqual(typeOf_subtitle.text, 'typeOf: City')
 
     # Assert properties contains correct dcid and typeOf
     shared.wait_for_loading(self.driver)
     element_present = EC.presence_of_element_located(
-        (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
+        (By.CSS_SELECTOR, '#node-content > div:nth-child(1) > div > table'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    table = self.driver.find_element(
-        By.XPATH, '//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = table.find_elements(By.XPATH, './/tbody/tr[2]/td')
+    dcid_row = self.driver.find_elements(
+        By.CSS_SELECTOR,
+        '#node-content > div:nth-child(1) > div > table tbody tr:nth-of-type(2) td'
+    )
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'geoId/0649670')
-    type_of_row = table.find_elements(By.XPATH, './/tbody/tr[3]/td')
+    type_of_row = self.driver.find_elements(
+        By.CSS_SELECTOR,
+        '#node-content > div:nth-child(1) > div > table tbody tr:nth-of-type(3) td'
+    )
     self.assertEqual(type_of_row[0].text, 'typeOf')
     self.assertEqual(type_of_row[1].text, 'City')
     self.assertEqual(type_of_row[2].text, 'www.wikidata.org')
@@ -91,17 +95,18 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     sv_hierarchy_section = self.driver.find_element(
         By.ID, 'stat-var-hierarchy-section')
     sv_hierarchy_container = sv_hierarchy_section.find_elements(
-        By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div')
+        By.CSS_SELECTOR, '#stat-var-hierarchy-section > div')
     self.assertTrue(len(sv_hierarchy_container) > 0)
 
     # Assert in arcs loaded
     element_present = EC.presence_of_element_located(
-        (By.XPATH, '//*[@id="browser-in-arc-section"]/div[@class="card p-0"]'))
+        (By.CSS_SELECTOR, '#browser-in-arc-section .card.p-0'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     in_arc_section = self.driver.find_element(By.ID, 'browser-in-arc-section')
     in_arc_cards = in_arc_section.find_elements(By.CLASS_NAME, 'card')
     self.assertTrue(len(in_arc_cards) > 0)
 
+  @pytest.mark.skip(reason="Disable until BQ latency is evaluated.")
   def test_observation_table_redirect(self):
     """Test that the observation table observation row links can redirect properly"""
     # Load California population browser page.
@@ -110,8 +115,8 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     # Wait for observation charts to be loaded.
     self.assertIsNotNone(find_elem(self.driver, value='observation-chart'))
     observations_section = find_elem(self.driver,
-                                     by=By.XPATH,
-                                     value='//*[@id="node-content"]/div[2]')
+                                     by=By.CSS_SELECTOR,
+                                     value='#node-content > div:nth-child(2)')
 
     # Switch to table view for the first chart
     observation_section_chart_1 = find_elem(observations_section, value='card')
@@ -121,10 +126,12 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     table_view_button.click()
 
     # Click the first row in the table view to open the browser page for that observation
-    table = find_elem(observation_section_chart_1,
-                      by=By.TAG_NAME,
-                      value='table')
-    first_row = find_elem(table, by=By.XPATH, value='.//tbody/tr[2]/td')
+    first_row = find_elem(
+        self.driver,
+        by=By.CSS_SELECTOR,
+        value=
+        '#node-content > div:nth-child(2) .card table tbody tr:nth-of-type(2) td'
+    )
     first_row.click()
 
     # Wait for the new page to open in a new tab
@@ -153,14 +160,15 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
         find_elem(node, by=By.XPATH, value='.//h2[2]').text,
         'typeOf: StatVarObservation')  # typeOf_subtitle
 
+  @pytest.mark.skip(reason="Disable until BQ latency is evaluated.")
   def test_observation_chart_redirect(self):
     """Test that the observation chart observation node links can redirect properly"""
     # Load California population browser page.
     self.driver.get(self.url_ + CA_POPULATION_URL)
     self.assertIsNotNone(
         find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="node-content"]/div[1]/div/table'))
+                  by=By.CSS_SELECTOR,
+                  value='#node-content > div:nth-child(1) > div > table'))
 
     # Click the point on the chart for the year 1850
     point = find_elem(
@@ -186,13 +194,13 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     self.assertEqual(new_page_title, self.driver.title)
 
     # Assert header of the new page is correct.
-    node = find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]')
+    node = find_elem(self.driver, by=By.CSS_SELECTOR, value='#node')
     self.assertEqual(
-        find_elem(node, by=By.XPATH, value='.//h1').text,
+        find_elem(node, by=By.CSS_SELECTOR, value='h1').text,
         'About: dc/o/y54f4zvqrzf67')  # about title.
     self.assertEqual(
-        find_elem(node, by=By.XPATH, value='.//h2[1]').text,
+        find_elem(node, by=By.CSS_SELECTOR, value='h2:nth-of-type(1)').text,
         'dcid: dc/o/y54f4zvqrzf67')  # dcid subtitle
     self.assertEqual(
-        find_elem(node, by=By.XPATH, value='.//h2[2]').text,
+        find_elem(node, by=By.CSS_SELECTOR, value='h2:nth-of-type(2)').text,
         'typeOf: StatVarObservation')  # typeOf_subtitle

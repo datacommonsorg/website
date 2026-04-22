@@ -23,7 +23,8 @@ from nl_server.embeddings import EmbeddingsResult
 from nl_server.merge import merge_search_results
 import shared.lib.detected_variables as dvars
 
-_TOPIC_PREFIX = 'dc/topic/'
+# Topic DCIDs contain this string.
+_TOPIC_DCID_SUBSTRING = '/topic/'
 
 # Number of matches to find within the SV index.
 _NUM_SV_INDEX_MATCHES = 40
@@ -76,7 +77,7 @@ def _rank_vars(candidates: EmbeddingsResult,
   sv2sentences = {}
   for c in candidates:
     for dcid in c.vars:
-      if skip_topics and dcid.startswith(_TOPIC_PREFIX):
+      if skip_topics and _TOPIC_DCID_SUBSTRING in dcid:
         continue
       # Prefer the top score (`candidates` is ordered!)
       if dcid not in sv2score:

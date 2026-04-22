@@ -2,12 +2,16 @@
 __pycache__/
 .pytest_cache
 *.pyc
+.venv*/
 .env/
 .env_website/
 .env_nl/
-screenshots/*.png
-screenshots/screenshot_url.json
-.gemini
+
+# Gemini
+.gemini/**
+.geminiignore
+!.gemini/
+!.gemini/config.yaml
 
 
 # Production static files
@@ -21,7 +25,9 @@ screenshots/screenshot_url.json
 .vscode
 .idea
 !.vscode/launch.json
+.env
 .env.list
+custom_dc/.env-test
 
 # Mac
 .DS_Store
@@ -104,9 +110,14 @@ custom_dc/data/*.db
 *.egg-info
 
 # Custom DC dev and terraform ignores
-build/cdc/dev/.env
 *.tfvars
 deploy/terraform-custom-datacommons/modules/backend.tf
 
 # NL tools ignores
 tools/nl/nl_metadata/.env
+
+# Gemini files
+GEMINI.md
+.gemini/
+# Webdriver recordings (tracked as tar.gz)
+server/tests/test_data/webdriver_recordings/

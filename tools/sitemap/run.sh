@@ -14,7 +14,14 @@
 # limitations under the License.
 
 
-python3 -m venv .env
-source .env/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip3 install -r requirements.txt
-python3 main.py
+
+if [[ "$1" == "stat_vars_only" ]]
+  then
+    python3 create_stat_vars_sitemap.py
+  else
+    python3 main.py
+    python3 create_stat_vars_sitemap.py
+fi

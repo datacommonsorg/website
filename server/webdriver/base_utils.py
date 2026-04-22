@@ -16,7 +16,11 @@
 from typing import List
 
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -24,6 +28,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
 TIMEOUT = 60
+# Charts can take a long time to load.
+# This is a custom, longer timeout to use for charts we know are slow.
+LONG_TIMEOUT = 120  # seconds
 
 
 def create_driver(preferences=None):
@@ -112,6 +119,32 @@ def find_elem(
   return elems[0] if elems else None
 
 
+def find_any_of_elems(
+    parent: webdriver.remote.webelement.WebElement,
+    locators: List[tuple]) -> webdriver.remote.webelement.WebElement | None:
+  """
+  Waits for the first element to be present from a list of locators. This can be
+  used when we do not know which of the given elements will appear, and can be used
+  to distinguish functionality behind feature flags.
+
+  Args:
+    parent: The parent to search inside of.
+    locators: A list of locator tuples, e.g., [(By.ID, 'id'), (By.CLASS_NAME, 'class')].
+
+  Returns:
+    The first of the requested elements that is found, or None if no elements are found.
+  """
+  if not locators:
+    return None
+
+  wait = WebDriverWait(parent, TIMEOUT)
+  try:
+    conditions = [EC.presence_of_element_located(loc) for loc in locators]
+    return wait.until(EC.any_of(*conditions))
+  except TimeoutException:
+    return None
+
+
 def scroll_to_elem(
     parent: webdriver.remote.webelement.WebElement,
     by: str = By.CLASS_NAME,
@@ -159,3 +192,52 @@ def wait_for_text(driver,
   """
   condition = EC.text_to_be_present_in_element((by, value), text)
   return WebDriverWait(driver, timeout_seconds).until(condition)
+
+
+def hover_until_tooltip_appears(
+    driver,
+    hover_by: str,
+    hover_value: str,
+    tooltip_text: str,
+    tooltip_by: str = By.ID,
+    tooltip_value: str = "tooltip",
+    timeout_seconds: float = TIMEOUT
+) -> webdriver.remote.webelement.WebElement | None:
+  """
+  Repeatedly hovers over an element and waits for a tooltip with specific text to appear.
+  This can be useful for avoiding race conditions.
+
+  Args:
+    driver: The Selenium WebDriver instance.
+    hover_by: The locator strategy to find the element to hover over (e.g., By.XPATH, By.ID).
+    hover_value: The locator string for the element to hover over.
+    tooltip_text: The specific text expected to be populated inside the tooltip.
+    tooltip_by: The locator strategy to find the tooltip element. Defaults to By.ID.
+    tooltip_value: The locator string for the tooltip element. Defaults to "tooltip".
+    timeout_seconds: Maximum time in seconds to wait for the tooltip and content. Defaults to TIMEOUT.
+
+  Returns:
+    The tooltip element if found, or None if no elements are found.
+  """
+
+  def _hover_and_check(d):
+    try:
+      hover_target = d.find_element(hover_by, hover_value)
+
+      # We move to the element and firethe hover event
+      ActionChains(d).move_to_element(hover_target).perform()
+
+      # Check if the tooltip was created and populated with the expected content.
+      tooltip = d.find_element(tooltip_by, tooltip_value)
+      if tooltip.is_displayed() and tooltip_text in tooltip.text:
+        return tooltip
+    except (NoSuchElementException, StaleElementReferenceException):
+      # On expected errors (like stale reference errors) return false to continue the wait loop
+      return False
+
+    return False
+
+  try:
+    return WebDriverWait(driver, timeout_seconds).until(_hover_and_check)
+  except TimeoutException:
+    return None

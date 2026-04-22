@@ -22,13 +22,15 @@ import _ from "lodash";
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
-import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
+import { DEFAULT_PER_CAPITA_DENOM, WEB_COMPONENT_SURFACE } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
   getVariableNameProcessingFn,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -191,6 +193,24 @@ export class DatacommonsBarComponent extends LitElement {
   variables!: string[];
 
   /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
+  /**
    * Optional: Y axis margin to fit the axis label text.
    * Default: 60px
    */
@@ -234,9 +254,17 @@ export class DatacommonsBarComponent extends LitElement {
   disableEntityLink?: boolean;
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
-    statVarDcids.forEach((statVarDcid) => {
+    statVarDcids.forEach((statVarDcid, index) => {
+      const facetId = getFacetId(
+        statVarDcid,
+        index,
+        parsedMapping,
+        this.facetIds,
+        this.facetId
+      );
       statVarSpec.push({
         date: this.date,
         denom:
@@ -248,6 +276,7 @@ export class DatacommonsBarComponent extends LitElement {
         scaling: 1,
         statVar: statVarDcid,
         unit: "",
+        facetId,
       });
     });
     const barTileProps: BarTilePropType = {
@@ -278,6 +307,7 @@ export class DatacommonsBarComponent extends LitElement {
       yAxisMargin: this.yAxisMargin,
       subscribe: this.subscribe,
       disableEntityLink: this.disableEntityLink,
+      surface: WEB_COMPONENT_SURFACE,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

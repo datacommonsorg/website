@@ -21,7 +21,12 @@
 import queryString from "query-string";
 
 import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
+import { StatVarSpec } from "../shared/types";
+import { extractFlagsToPropagate } from "../shared/util";
 import { FacetMetadata } from "../types/facet_metadata";
+
+// Hash params that should be persisted across pages.
+const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq", "detector"]);
 
 /**
  * Returns token for URL param.
@@ -52,19 +57,32 @@ export function getUrlTokenOrDefault(param: string, def: string): string {
  * @param params Map of param to new value.
  */
 export function getUpdatedHash(
-  params: Record<string, string | string[]>
+  params: Record<string, string | string[]>,
+  paramsToPersist?: Set<string>
 ): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  // Remove all existing params not present in the new params
+  Array.from(urlParams.keys()).forEach((key) => {
+    const isPermanentParamToPersist = PARAMS_TO_PERSIST.has(key);
+    const isCurrentParamToPersist = paramsToPersist && paramsToPersist.has(key);
+    if (key in params || isPermanentParamToPersist || isCurrentParamToPersist) {
+      // Keep param
+    } else {
+      urlParams.delete(key);
+    }
+  });
+
   for (const param in params) {
-    if (!params[param]) {
+    const value = params[param];
+    if (!value || (Array.isArray(value) && value.length === 0)) {
+      // If the value is empty, remove the param
       urlParams.delete(param);
       continue;
     }
-    if (Array.isArray(params[param])) {
-      urlParams.delete(param);
-      (<string[]>params[param]).forEach((v) => urlParams.append(param, v));
+    if (Array.isArray(value)) {
+      value.forEach((v) => urlParams.append(param, v));
     } else {
-      urlParams.set(param, <string>params[param]);
+      urlParams.set(param, value as string);
     }
   }
   return urlParams.toString();
@@ -74,8 +92,11 @@ export function getUpdatedHash(
  * Updates URL hash param with given value.
  * @param params Map of param to new value.
  */
-export function updateHash(params: Record<string, string | string[]>): void {
-  window.location.hash = getUpdatedHash(params);
+export function updateHash(
+  params: Record<string, string | string[]>,
+  paramsToPersist?: Set<string>
+): void {
+  window.location.hash = getUpdatedHash(params, paramsToPersist);
 }
 
 /**
@@ -123,7 +144,9 @@ export interface UrlHashParams {
   maxTopicSvs: string;
   maxCharts: string;
   chartType: string;
+  origin: string;
   facetMetadata?: FacetMetadata;
+  date?: string;
 }
 
 export function extractFacetMetadataUrlHashParams(
@@ -188,7 +211,9 @@ export function extractUrlHashParams(
   const maxTopicSvs = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]);
   const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
   const chartType = getSingleParam(hashParams[URL_HASH_PARAMS.CHART_TYPE]);
+  const origin = getSingleParam(hashParams[URL_HASH_PARAMS.ORIGIN]);
   const facetMetadata = extractFacetMetadataUrlHashParams(hashParams);
+  const date = getSingleParam(hashParams[URL_HASH_PARAMS.DATE]);
 
   return {
     query,
@@ -209,6 +234,108 @@ export function extractUrlHashParams(
     maxTopicSvs,
     maxCharts,
     chartType,
+    origin,
     facetMetadata,
+    date,
   };
+}
+
+/**
+ * Get the value of a query parameter from the current URL
+ * @param parameter name of the query parameter to fetch the value of
+ * @returns the value of the query parameter if set, otherwise null
+ */
+export function getQueryParamFromUrl(parameter: string): string | null {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(parameter);
+}
+
+/**
+ * Fetch locale from the URL
+ *
+ * Used to get the current locale set by a ?hl= url parameter.
+ * If the parameter is not present, defaults to the "en" locale.
+ */
+export function getLocaleFromUrl(): string {
+  return getQueryParamFromUrl("hl") || "en";
+}
+
+/**
+ * Builds a URL for the explore page with the given parameters.
+ * @param chartType The type of chart to display.
+ * @param places Array of place DCIDs.
+ * @param statVarSpecs Array of StatVarSpec objects.
+ * @returns A string representing the explore page URL.
+ */
+export function buildExploreUrl(
+  chartType: string,
+  places: string[],
+  statVarSpecs: StatVarSpec[],
+  facetMetadata?: FacetMetadata
+): string {
+  const params: Record<string, string | string[]> = {
+    chartType,
+  };
+
+  if (places && places.length > 0) {
+    params["p"] = places.join("___");
+  }
+
+  const svs = statVarSpecs.map((spec) => spec.statVar);
+  if (svs.length > 0) {
+    params["sv"] = svs.join("___");
+  }
+
+  // Add facet metadata if provided
+  if (facetMetadata) {
+    if (facetMetadata.importName) params["imp"] = facetMetadata.importName;
+    if (facetMetadata.measurementMethod)
+      params["mm"] = facetMetadata.measurementMethod;
+    if (facetMetadata.observationPeriod)
+      params["op"] = facetMetadata.observationPeriod;
+    if (facetMetadata.scalingFactor) params["sf"] = facetMetadata.scalingFactor;
+    if (facetMetadata.unit) params["unit"] = facetMetadata.unit;
+  }
+
+  const queryString = Object.keys(params)
+    .map((key) => {
+      const value = params[key];
+      if (Array.isArray(value)) {
+        return value
+          .map((v) => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`)
+          .join("&");
+      }
+      return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    })
+    .join("&");
+
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  const existingParams = urlParams.toString();
+  const separator = existingParams ? "&" : "";
+  return `/explore?${existingParams}${separator}${queryString}`;
+}
+
+/**
+ * Merges search parameters from the current window location into the given URL.
+ *
+ * Only propagates search parameters in SEARCH_PARAMS_TO_PROPAGATE.
+ * Useful for propagating URL-based search parameters to downstream child API calls.
+ *
+ * @param url The target URL or relative path to append flags to.
+ * @returns A new URL string with current feature flags appended.
+ */
+export function getUrlWithSearchParamsToPropagate(url: string): string {
+  const base =
+    window.location.origin && window.location.origin !== "null"
+      ? window.location.origin
+      : "http://localhost"; // Use localhost as fallback domain, mainly for local dev/testing
+  const urlObj = new URL(url, base);
+  const windowParams = extractFlagsToPropagate(window.location.href);
+  windowParams.forEach((value, key) => {
+    urlObj.searchParams.set(key, value);
+  });
+
+  return urlObj.origin !== base
+    ? urlObj.toString() // If url is absolute, return the full URL with flags
+    : urlObj.pathname + urlObj.search + urlObj.hash; // If url is relative, return the relative path with flags
 }

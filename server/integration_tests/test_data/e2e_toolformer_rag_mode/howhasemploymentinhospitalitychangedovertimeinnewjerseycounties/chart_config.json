@@ -1019,7 +1019,29 @@
         }
       ]
     },
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Jobs",
+        "name": "Jobs",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UnemploymentRate",
+        "name": "Unemployment Rate",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UnpaidFamilyWorkers",
+        "name": "Unpaid Family Workers",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {
       "Count_Worker_NAICSAccommodationFoodServices": {
         "establishmentOwnership": [
@@ -1031,8 +1053,8 @@
     },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Jobs",
-        "name": "Jobs",
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
         "types": [
           "Topic"
         ]
@@ -1041,8 +1063,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -1402,15 +1424,43 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/UnemploymentRate",
-        "name": "Unemployment Rate",
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/UnpaidFamilyWorkers",
-        "name": "Unpaid Family Workers",
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]

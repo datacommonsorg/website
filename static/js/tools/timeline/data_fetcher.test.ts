@@ -21,10 +21,10 @@ import axios from "axios";
 import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import { SeriesAllApiResponse } from "../../shared/stat_types";
 import { stringifyFn } from "../../utils/axios";
 import {
-  convertToDelta,
   fetchRawData,
   getStatData,
   getStatVarGroupWithTime,
@@ -43,6 +43,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -122,6 +123,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -475,6 +477,7 @@ test("get stats data with state code", () => {
     statVars: ["Count_Person"],
     sources: new Set(["source1", "source2"]),
     measurementMethods: new Set(),
+    denomFacets: new Set(),
   });
 });
 
@@ -587,6 +590,7 @@ test("get stats data where latest date with data for all stat vars is not the la
     statVars: ["Count_Person"],
     sources: new Set(["source1", "source2"]),
     measurementMethods: new Set(),
+    denomFacets: new Set(),
   });
 });
 
@@ -698,6 +702,7 @@ test("get stats data where there is no date with data for all stat vars", () => 
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(),
   });
 });
 
@@ -801,6 +806,7 @@ test("get stats data with per capita with population size 0", () => {
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(["fac1"]),
   });
 });
 
@@ -1011,6 +1017,7 @@ test("get stats data with Per capita with specified denominators", () => {
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(["facet1", "facet2"]),
   });
 });
 
@@ -1142,6 +1149,7 @@ test("get stats data with per capita with specified denominators - missing place
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(["facet1"]),
   });
 });
 
@@ -1269,6 +1277,7 @@ test("get stat data with specified source", () => {
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(),
   });
 });
 
@@ -1303,93 +1312,9 @@ test("StatsData test", () => {
     dates: [],
     sources: new Set(),
     measurementMethods: new Set(),
+    denomFacets: new Set(),
   };
   expect(getStatVarGroupWithTime(statData, "geoId/01")).toEqual([]);
-});
-
-test("convert to delta", () => {
-  let statData: StatData = {
-    facets: {},
-    data: {
-      UnemploymentRate_Person_Female: {
-        "geoId/05": {
-          series: [
-            {
-              date: "2011",
-              value: 11000,
-            },
-            {
-              date: "2012",
-              value: 12000,
-            },
-          ],
-          facet: "facet2",
-        },
-      },
-      UnemploymentRate_Person_Male: {
-        "country/USA": {
-          series: [
-            {
-              date: "2011",
-              value: 21000,
-            },
-            {
-              date: "2012",
-              value: 22000,
-            },
-          ],
-          facet: "facet1",
-        },
-      },
-    },
-    dates: ["2011", "2012"],
-    places: ["geoId/05", "country/USA"],
-    statVars: [
-      "UnemploymentRate_Person_Male",
-      "UnemploymentRate_Person_Female",
-    ],
-    sources: new Set(["source2", "source1"]),
-    measurementMethods: new Set(),
-  };
-
-  const expected: StatData = {
-    facets: {},
-    data: {
-      UnemploymentRate_Person_Female: {
-        "geoId/05": {
-          series: [
-            {
-              date: "2012",
-              value: 1000,
-            },
-          ],
-          facet: "facet2",
-        },
-      },
-      UnemploymentRate_Person_Male: {
-        "country/USA": {
-          series: [
-            {
-              date: "2012",
-              value: 1000,
-            },
-          ],
-          facet: "facet1",
-        },
-      },
-    },
-    dates: ["2012"],
-    places: ["geoId/05", "country/USA"],
-    statVars: [
-      "UnemploymentRate_Person_Male",
-      "UnemploymentRate_Person_Female",
-    ],
-    sources: new Set(["source2", "source1"]),
-    measurementMethods: new Set(),
-  };
-
-  statData = convertToDelta(statData);
-  expect(statData).toEqual(expected);
 });
 
 test("transform from models - multiple places", () => {
@@ -1436,6 +1361,7 @@ test("transform from models - multiple places", () => {
     statVars: ["Max_Temperature_RCP26"],
     sources: new Set(["nasa.gov"]),
     measurementMethods: new Set(["NASA_Mean_CCSM4"]),
+    denomFacets: new Set(),
   };
 
   const modelStatAllResponse: SeriesAllApiResponse = {
@@ -1560,6 +1486,7 @@ test("transform from models - multiple places", () => {
       statVars: ["Max_Temperature_RCP26"],
       sources: new Set(["model.nasa.gov"]),
       measurementMethods: new Set(["Mean across models"]),
+      denomFacets: new Set(),
     },
     {
       // model StatData
@@ -1644,6 +1571,7 @@ test("transform from models - multiple places", () => {
       ],
       sources: new Set(["model.nasa.gov"]),
       measurementMethods: new Set(["NASA_Mean_CCSM4", "NASA_Mean_HadGEM2-AO"]),
+      denomFacets: new Set(),
     },
   ];
   expect(
@@ -1684,6 +1612,7 @@ test("transform from models - multiple obs periods", () => {
     statVars: ["Max_Temperature_RCP26"],
     sources: new Set(["model.nasa.gov"]),
     measurementMethods: new Set(["NASA_Mean_CCSM4"]),
+    denomFacets: new Set(),
   };
 
   const modelStatAllResponse: SeriesAllApiResponse = {
@@ -1805,6 +1734,7 @@ test("transform from models - multiple obs periods", () => {
       statVars: ["Max_Temperature_RCP26"],
       sources: new Set(["p1y.nasa.gov"]),
       measurementMethods: new Set(["Mean across models"]),
+      denomFacets: new Set(),
     },
     {
       // model StatData
@@ -1863,6 +1793,7 @@ test("transform from models - multiple obs periods", () => {
       ],
       sources: new Set(["p1y.nasa.gov"]),
       measurementMethods: new Set(["NASA_Mean_CCSM4", "NASA_Mean_HadGEM2-AO"]),
+      denomFacets: new Set(),
     },
   ];
 

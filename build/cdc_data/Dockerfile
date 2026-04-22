@@ -18,11 +18,11 @@ FROM google/cloud-sdk:slim AS model-downloader
 
 # Copy model.
 RUN mkdir -p /tmp/datcom-nl-models \
-    && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
+    && gcloud storage cp --recursive gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
 
 
 # #### Stage 2: Python runtime. ####
-FROM python:3.11.4-slim AS runner
+FROM python:3.11.14-slim AS runner
 
 ARG ENV
 ENV ENV=${ENV}
@@ -36,9 +36,10 @@ COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
 COPY import/simple/requirements.txt ./import/simple/requirements.txt
 
 # Copy embeddings builder requirements.
-# Copy nl_requirements.txt since it is referenced by embeddings requirements.txt
+# Copy nl_requirements.txt and torch_requirements.txt since they are referenced by embeddings requirements.txt
 COPY tools/nl/embeddings/requirements.txt ./tools/nl/embeddings/requirements.txt
 COPY nl_requirements.txt ./nl_requirements.txt
+COPY torch_requirements.txt ./torch_requirements.txt
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
@@ -52,7 +53,8 @@ ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install -r ./import/simple/requirements.txt
 
 # Install data requirements.
-RUN pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
+# Force install CPU version of torch
+RUN pip3 install -r ./torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
     && pip3 install -r ./tools/nl/embeddings/requirements.txt
 
 # Copy the embeddings builder module.

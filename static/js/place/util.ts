@@ -24,7 +24,9 @@ import _ from "lodash";
 import { intl, localizeLink } from "../i18n/i18n";
 import {
   pageMessages,
+  pluralLowercasePlaceTypeMessages,
   pluralPlaceTypeMessages,
+  singularLowercasePlaceTypeMessages,
   singularPlaceTypeMessages,
 } from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
@@ -360,17 +362,25 @@ export function placeChartsApiResponsesToPageConfig(
   return pageConfig;
 }
 
+/*
+  TODO (nick-next): Move the special place types (Administrative Area, NUTS) into the messages
+                    to simplify this function. At the same time, create lowercase versions of
+                    the special cases.
+  TODO (nick-next): Add unit testing to this function
+ */
 /**
  * Returns place type, possibly pluralized if requested.
  *
  * @param {string} placeType PlaceType, as taken from the Data Commons Graph (in CamelCase).
  * @param {boolean} isPlural True if the result should be pluralized.
+ * @param {boolean} isLowercase True if the result should be lowercase.
  *
  * @return {string} Pluralized string for display.
  */
 export function displayNameForPlaceType(
   placeType: string,
-  isPlural = false
+  isPlural = false,
+  isLowercase = false
 ): string {
   if (placeType.startsWith("AdministrativeArea")) {
     const level = placeType.slice(-1);
@@ -436,14 +446,14 @@ export function displayNameForPlaceType(
     );
   }
 
-  let retMessage = isPlural
-    ? pluralPlaceTypeMessages[placeType]
-    : singularPlaceTypeMessages[placeType];
+  const messages = isPlural
+    ? isLowercase
+      ? pluralLowercasePlaceTypeMessages
+      : pluralPlaceTypeMessages
+    : isLowercase
+    ? singularLowercasePlaceTypeMessages
+    : singularPlaceTypeMessages;
 
-  if (!retMessage) {
-    retMessage = isPlural
-      ? pluralPlaceTypeMessages["Place"]
-      : singularPlaceTypeMessages["Place"];
-  }
+  const retMessage = messages[placeType] || messages["Place"];
   return intl.formatMessage(retMessage);
 }

@@ -75,6 +75,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   // Records which two of the three statvars are wanted if a third statvar is selected.
   const [modalSelected, setModalSelected] = useState(defaultModalSelected);
   const [modalOpen, setModalOpen] = useState(false);
+  const [statVarWidgetIsCollapsed, setStatVarWidgetIsCollapsed] =
+    useState(true);
   const [samplePlaces, setSamplePlaces] = useState(
     getSamplePlaces(
       place.value.enclosingPlace.dcid,
@@ -94,6 +96,15 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     setThirdStatVar(emptyStatVar);
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    if (place.value.enclosingPlace.dcid && place.value.enclosedPlaceType) {
+      // Show stat var widget if both a place and place type are selected
+      setStatVarWidgetIsCollapsed(false);
+    } else {
+      setStatVarWidgetIsCollapsed(true);
+    }
+  }, [place.value.enclosedPlaceType, place.value.enclosingPlace.dcid]);
 
   useEffect(() => {
     const statVarsToGetInfo = [];
@@ -164,6 +175,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         selectSV={(sv): void =>
           addStatVar(x, y, sv, setThirdStatVar, setModalOpen)
         }
+        isCollapsedOverride={statVarWidgetIsCollapsed}
+        setIsCollapsedOverride={setStatVarWidgetIsCollapsed}
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
