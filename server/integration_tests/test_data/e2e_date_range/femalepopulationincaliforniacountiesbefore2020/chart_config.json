@@ -194,7 +194,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_Female_2017"
+                      "Count_Death_Female_2002"
                     ],
                     "title": "Count of Mortality Event: Female in Counties of California (${date})",
                     "type": "MAP"
@@ -209,7 +209,7 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death_Female_2017"
+                      "Count_Death_Female_2002"
                     ],
                     "title": "Count of Mortality Event: Female in Counties of California (${date})",
                     "type": "RANKING"
@@ -929,8 +929,8 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_2017": {
-            "date": "2017",
+          "Count_Death_Female_2002": {
+            "date": "2002",
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
