@@ -10,7 +10,7 @@ dependencies = [
     "data-gemma",
     "deepdiff==8.6.2",
     "fastapi==0.135.3",
-    "flask_cors==5.0.0",
+    "flask_cors==6.0.0",
     "flask_testing==0.8.1",
     "Flask-Babel==2.0.0",
     "Flask-Caching==2.0.1",
