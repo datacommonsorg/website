@@ -22,14 +22,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../i18n/i18n";
-import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { RankingPage } from "./ranking_page";
 
 window.addEventListener("load", (): void => {
   // Get page metadata
   const parentPlaceDcid =
-    document.getElementById("within-place-dcid").dataset.pwp ||
-    EARTH_NAMED_TYPED_PLACE.dcid;
+    document.getElementById("within-place-dcid").dataset.pwp;
   const childPlaceType = document.getElementById("place-type").dataset.pt;
   const parentPlaceNameLocalized =
     document.getElementById("place-name").dataset.pn; // Already localized by flask

@@ -34,6 +34,7 @@ def ranking(stat_var, place_type, place_dcid=''):
     if place_name == '':
       place_name = place_dcid
   else:
+    place_dcid = 'Earth'
     place_name = 'the World'
   per_capita = flask.request.args.get('pc', False) != False
 
