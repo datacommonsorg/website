@@ -303,7 +303,9 @@ export class StatVarHierarchy extends React.Component<
       if (variableGroupInfos.length === 1) {
         rootSVGs.push(...(variableGroupInfos[0].childStatVarGroups || []));
         // Sort top-level dc/g/Root nodes into a fixed order
-        if (STAT_VAR_HIERARCHY_CONFIG.nodes[0].dcid === "dc/g/Root") {
+        if (
+          STAT_VAR_HIERARCHY_CONFIG.nodes.some((n) => n.dcid === "dc/g/Root")
+        ) {
           rootSVGs.sort((a, b) => {
             const orderA =
               STAT_VAR_HIERARCHY_CONFIG.topLevelPinnedOrder?.[a.id] ?? Infinity;
@@ -313,7 +315,7 @@ export class StatVarHierarchy extends React.Component<
             if (orderA !== orderB) {
               return orderA - orderB;
             }
-            return a.displayName.localeCompare(b.displayName);
+            return (a.displayName || "").localeCompare(b.displayName || "");
           });
         }
       } else {
