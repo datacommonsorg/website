@@ -302,6 +302,20 @@ export class StatVarHierarchy extends React.Component<
       // level.
       if (variableGroupInfos.length === 1) {
         rootSVGs.push(...(variableGroupInfos[0].childStatVarGroups || []));
+        // Sort top-level dc/g/Root nodes into a fixed order
+        if (STAT_VAR_HIERARCHY_CONFIG.nodes[0].dcid === "dc/g/Root") {
+          rootSVGs.sort((a, b) => {
+            const orderA =
+              STAT_VAR_HIERARCHY_CONFIG.topLevelPinnedOrder?.[a.id] ?? Infinity;
+            const orderB =
+              STAT_VAR_HIERARCHY_CONFIG.topLevelPinnedOrder?.[b.id] ?? Infinity;
+
+            if (orderA !== orderB) {
+              return orderA - orderB;
+            }
+            return a.displayName.localeCompare(b.displayName);
+          });
+        }
       } else {
         variableGroupInfos.forEach((variableGroupInfo, index) => {
           const statVarHierarchyNodeConfig =
