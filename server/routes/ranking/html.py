@@ -35,7 +35,7 @@ def ranking(stat_var, place_type, place_dcid=''):
       place_name = place_dcid
   else:
     place_dcid = 'Earth'
-    # TODO(juliawu): Once we have translations for "the World" page titles in i18n_ranking_messages.ts,
+    # TODO(juliawu): Once the "the World" page titles in i18n_ranking_messages.ts are translated,
     # remove this default place name and use the translated "world" page titles instead.
     #
     # Currently, when defaulting to "Earth" as the parent place, we don't localize the place name.
