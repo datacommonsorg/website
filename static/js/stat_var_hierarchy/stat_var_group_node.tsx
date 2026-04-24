@@ -186,12 +186,13 @@ export class StatVarGroupNode extends React.Component<
       this.props.entities.length === 0 &&
       !this.props.dataSource &&
       !this.props.numEntitiesExistence;
-    const childSV =
-      this.props.showAllSV || noFilteringActive
-        ? this.state.childSV.map((sv) => ({ ...sv, hasData: true }))
-        : this.state.childSV.filter(
-            (sv) => sv.hasData || sv.id in this.context.svPath
-          );
+    const childSV = noFilteringActive
+      ? this.state.childSV.map((sv) => ({ ...sv, hasData: true }))
+      : this.props.showAllSV
+      ? this.state.childSV
+      : this.state.childSV.filter(
+          (sv) => sv.hasData || sv.id in this.context.svPath
+        );
     const childSVG =
       this.props.showAllSV || noFilteringActive
         ? this.state.childSVG
