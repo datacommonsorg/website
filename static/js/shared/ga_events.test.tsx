@@ -742,7 +742,7 @@ describe("test ga event tool stat var click", () => {
     fireEvent.click(
       statVarHierarchy.container.getElementsByClassName(
         "Collapsible__trigger"
-      )[0]
+      )[1]
     );
     const inputId = "#" + STAT_VAR_3 + "dc\\/g\\/Demographics-" + STAT_VAR_3;
     // Wait for stat vars to get rendered.
