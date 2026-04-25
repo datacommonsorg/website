@@ -182,6 +182,8 @@ export class StatVarGroupNode extends React.Component<
         svgOnSvPath.add(path[level]);
       }
     }
+    // No filtering is active if no places, data sources, or entity count thresholds are indicated.
+    // In this case, we are in full hierarchy exploration mode.
     const noFilteringActive =
       this.props.entities.length === 0 &&
       !this.props.dataSource &&
