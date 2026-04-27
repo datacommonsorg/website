@@ -119,9 +119,9 @@ RUN npm run-script build
 FROM --platform=linux/amd64 google/cloud-sdk:slim as download
 
 # Copy model and embeddings.
-RUN mkdir -p /tmp/datcom-nl-models \
-    && gsutil cp -r gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ \
-    && gsutil cp gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv /tmp/datcom-nl-models/
+RUN gcloud config set auth/disable_credentials True \
+    && gcloud storage cp --recursive gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ \
+    && gcloud storage cp gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv /tmp/datcom-nl-models/
 
 
 # #### Final stage: Runtime env. ####
