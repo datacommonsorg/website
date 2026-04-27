@@ -31,7 +31,7 @@
   },
   {
     "name": "enable_gemini_3_flash",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables Gemini 3 Flash for NL detection."
   },

@@ -16,11 +16,12 @@
 # #### Stage 1: Download base dc model from GCS. ####
 FROM google/cloud-sdk:slim AS model-downloader
 
+# Remove auth check since these are public buckets and we don't have credentials within the container.
 # Copy model.
-RUN mkdir -p /tmp/datcom-nl-models \
-    && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
-
-
+RUN gcloud config set auth/disable_credentials True \
+    && mkdir -p /tmp/datcom-nl-models \
+    && gcloud storage cp --recursive gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
+    
 # #### Stage 2: Python runtime. ####
 FROM python:3.11.14-slim AS runner
 
