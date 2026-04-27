@@ -16,6 +16,7 @@
 # #### Stage 1: Download base dc model from GCS. ####
 FROM google/cloud-sdk:slim AS model-downloader
 
+# Remove auth check since these are public buckets and we don't have credentials within the container.
 # Copy model.
 RUN gcloud config set auth/disable_credentials True \
     && mkdir -p /tmp/datcom-nl-models \

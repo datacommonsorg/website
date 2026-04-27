@@ -118,11 +118,14 @@ RUN npm run-script build
 # #### Stage 4: Download base dc model and embeddings from GCS. ####
 FROM --platform=linux/amd64 google/cloud-sdk:slim as download
 
+# Remove auth check since these are public buckets and we don't have credentials within the container.
 # Copy model and embeddings.
 RUN gcloud config set auth/disable_credentials True \
     && mkdir -p /tmp/datcom-nl-models \
-    && gcloud storage cp --recursive gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ \
-    && gcloud storage cp gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv /tmp/datcom-nl-models/
+    && gcloud storage cp --recursive \
+        gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ \
+        gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv \
+        /tmp/datcom-nl-models/
 
 
 # #### Final stage: Runtime env. ####
