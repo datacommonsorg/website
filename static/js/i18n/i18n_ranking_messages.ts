@@ -42,15 +42,16 @@ export const rankingMessages = defineMessages({
   },
   allPlacesWorldTitle: {
     id: "ranking-subtitle_all_world",
-    defaultMessage: "All {pluralPlaceType} in the World",
+    defaultMessage: "All {pluralPlaceType} in <worldLink>the World</worldLink>",
     description:
-      "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
+      "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {pluralPlaceType} and <worldLink> tags as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate). The <worldLink> tag wraps the translation for 'the World' and will show up as a link.",
   },
   allPlacesWorldPerCapitaTitle: {
     id: "ranking-subtitle_all_world_percapita",
-    defaultMessage: "All {pluralPlaceType} in the World, per capita",
+    defaultMessage:
+      "All {pluralPlaceType} in <worldLink>the World</worldLink>, per capita",
     description:
-      "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
+      "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {pluralPlaceType} and <worldLink> tags as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate). The <worldLink> tag wraps the translation for 'the World' and will show up as a link.",
   },
   topPlacesTitle: {
     id: "ranking-subtitle_top",
@@ -67,14 +68,16 @@ export const rankingMessages = defineMessages({
   },
   topPlacesWorldTitle: {
     id: "ranking-subtitle_top_world",
-    defaultMessage: "Top {rankSize} {pluralPlaceType} in the World",
+    defaultMessage:
+      "Top {rankSize} {pluralPlaceType} in <worldLink>the World</worldLink>",
     description:
-      "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {rankSize} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
+      "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {rankSize}, {pluralPlaceType}, and <worldLink> tags as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate). The <worldLink> tag wraps the translation for 'the World' and will show up as a link.",
   },
   topPlacesWorldPerCapitaTitle: {
     id: "ranking-subtitle_top_world_percapita",
-    defaultMessage: "Top {rankSize} {pluralPlaceType} in the World, per capita",
+    defaultMessage:
+      "Top {rankSize} {pluralPlaceType} in <worldLink>the World</worldLink>, per capita",
     description:
-      "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {rankSize} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
+      "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties). Please maintain the {rankSize}, {pluralPlaceType}, and <worldLink> tags as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate). The <worldLink> tag wraps the translation for 'the World' and will show up as a link.",
   },
 });
