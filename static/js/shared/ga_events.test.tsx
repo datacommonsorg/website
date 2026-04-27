@@ -734,7 +734,7 @@ describe("test ga event tool stat var click", () => {
       expect(
         statVarHierarchy.container.getElementsByClassName(
           "Collapsible__trigger"
-        )[0]
+        )[1]
       ).toBeTruthy();
     });
 
