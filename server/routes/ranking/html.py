@@ -34,6 +34,14 @@ def ranking(stat_var, place_type, place_dcid=''):
     if place_name == '':
       place_name = place_dcid
   else:
+    place_dcid = 'Earth'
+    # TODO(juliawu): Add localization for page titles that use "the World".
+    # Currently, when defaulting to "Earth" as the parent place, we don't localize the place name.
+    # This is because at the time of revamping the ranking pages, we were restricted to
+    # using already available translations, and we don't have translations in place for
+    # titles that use "the world" (with leading particle "the") for all locales. Localizing by using
+    # place_api.get_i18n_name("Earth") would not work because the resulting titles would be missing the
+    # leading "the" (e.g. "Top 100 in World" instead of "Top 100 in the World").
     place_name = 'the World'
   per_capita = flask.request.args.get('pc', False) != False
 
