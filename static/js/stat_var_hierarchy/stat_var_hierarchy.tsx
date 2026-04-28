@@ -95,6 +95,8 @@ interface StatVarHierarchyStateType {
   togglePath: (sv: string, path?: string[]) => void;
   // Whether we should show all stat vars, even the ones without data.
   showAllSV: boolean;
+  // Whether the data is being fetched.
+  isLoading: boolean;
 }
 
 export class StatVarHierarchy extends React.Component<
@@ -113,6 +115,7 @@ export class StatVarHierarchy extends React.Component<
       rootSVGs: [],
       togglePath: this.togglePath,
       showAllSV: false,
+      isLoading: false,
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
@@ -243,11 +246,11 @@ export class StatVarHierarchy extends React.Component<
                 }, this)}
               </div>
             </div>
-          ) : (
+          ) : !this.state.isLoading ? (
             <div className="no-sv-message">
               No Available Statistical Variables
             </div>
-          )}
+          ) : null}
         </div>
         <div id="browser-screen" className="screen">
           <div id="spinner"></div>
@@ -259,6 +262,7 @@ export class StatVarHierarchy extends React.Component<
 
   private async fetchData(): Promise<void> {
     loadSpinner(SV_HIERARCHY_SECTION_ID);
+    this.setState({ isLoading: true });
     const entityList = this.props.entities.map((entity) => entity.dcid);
     const variableGroupInfoPromises: Promise<StatVarGroupNodeType>[] =
       STAT_VAR_HIERARCHY_CONFIG.nodes.map((statVarHierarchyConfigNode) => {
@@ -341,11 +345,13 @@ export class StatVarHierarchy extends React.Component<
       this.setState({
         rootSVGs,
         svPath,
+        isLoading: false,
       });
     } catch {
       removeSpinner(SV_HIERARCHY_SECTION_ID);
       this.setState({
         errorMessage: "Error retrieving stat var group root nodes",
+        isLoading: false,
       });
     }
   }
