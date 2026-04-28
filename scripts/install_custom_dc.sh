@@ -81,7 +81,7 @@ echo "Installing Custom Datacommons web application in $PROJECT_ID."
 
 # Create a Terraform state bucket if it does not exist already
 TF_STATE_BUCKET=$PROJECT_ID-terraform-state
-gsutil ls -b -p $PROJECT_ID gs://$TF_STATE_BUCKET || gsutil mb -l us-central1 -p $PROJECT_ID gs://$TF_STATE_BUCKET
+gcloud storage ls --buckets --project $PROJECT_ID gs://$TF_STATE_BUCKET || gcloud storage buckets create --location us-central1 --project $PROJECT_ID gs://$TF_STATE_BUCKET
 
 ROOT=$PWD
 
@@ -126,7 +126,7 @@ terraform init \
   -backend-config="bucket=$TF_STATE_BUCKET" \
   -backend-config="prefix=website_v1"
 
-gsutil cp \
+gcloud storage cp \
   gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \
   $WEBSITE_ROOT/deploy/terraform-datacommons-website/modules/esp/mixer-grpc.$MIXER_GITHASH.pb
 
