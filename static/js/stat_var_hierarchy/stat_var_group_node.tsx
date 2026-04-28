@@ -90,6 +90,8 @@ interface StatVarGroupNodeStateType {
   dataFetchedEntities: NamedNode[];
   // Number of SVs under this stat var group node has been selected.
   selectionCount: number;
+  // Whether the data is being fetched.
+  isLoading: boolean;
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -111,6 +113,7 @@ export class StatVarGroupNode extends React.Component<
       errorMessage: "",
       dataFetchedEntities: null,
       selectionCount: 0,
+      isLoading: false,
     };
     this.highlightedStatVar = React.createRef();
     this.dataFetchingEntities = null;
@@ -220,8 +223,7 @@ export class StatVarGroupNode extends React.Component<
         nodeDcid: this.props.data.id,
       });
     };
-    const shouldOpen =
-      this.state.isOpen && !_.isNull(this.state.dataFetchedEntities);
+    const shouldOpen = this.state.isOpen;
     return (
       <>
         {!_.isEmpty(this.state.errorMessage) && (
@@ -242,6 +244,14 @@ export class StatVarGroupNode extends React.Component<
           }
         >
           <>
+            {this.state.isLoading &&
+              _.isEmpty(this.state.childSV) &&
+              _.isEmpty(this.state.childSVG) && (
+                <div className="node-loading-spinner">
+                  <div className="spinner-circle"></div>
+                  <span>Loading...</span>
+                </div>
+              )}
             {this.props.pathToSelection.length < 2 &&
               !_.isEmpty(this.state.childSV) && (
                 <StatVarSection
@@ -283,6 +293,7 @@ export class StatVarGroupNode extends React.Component<
       entityDcids.push(this.props.dataSource);
       numEntitiesExistence = entityDcids.length;
     }
+    this.setState({ isLoading: true });
     axios
       .post(getUrlWithSearchParamsToPropagate("/api/variable-group/info"), {
         dcid: this.props.data.id,
@@ -299,6 +310,7 @@ export class StatVarGroupNode extends React.Component<
             childSV,
             childSVG,
             dataFetchedEntities: entityList,
+            isLoading: false,
           });
         }
       })
@@ -308,6 +320,7 @@ export class StatVarGroupNode extends React.Component<
           this.setState({
             errorMessage: "Error retrieving stat var group children",
             dataFetchedEntities: entityList,
+            isLoading: false,
           });
         }
       });
