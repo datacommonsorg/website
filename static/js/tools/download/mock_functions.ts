@@ -123,11 +123,15 @@ export function axiosMock(): void {
 
   // get root stat var group for places in geoId/06
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/06001", "geoId/06002"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/06001", "geoId/06002"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
@@ -140,29 +144,41 @@ export function axiosMock(): void {
 
   // get demographics stat var group for places in geoId/06
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/06001", "geoId/06002"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/06001", "geoId/06002"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/06002", "geoId/06001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/06002", "geoId/06001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   // stat var info for demographics node
   when(axios.get)
-    .calledWith("/api/variable/info", {
-      params: {
-        dcids: ["Count_Person", "Median_Age_Person"],
+    .calledWith(
+      "/api/variable/info",
+      {
+        params: {
+          dcids: ["Count_Person", "Median_Age_Person"],
+        },
+        paramsSerializer: stringifyFn,
       },
-      paramsSerializer: stringifyFn,
-    })
+      expect.anything() // axios signal
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {

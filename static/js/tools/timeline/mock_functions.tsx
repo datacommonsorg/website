@@ -534,11 +534,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 0,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: [],
+        numEntitiesExistence: 0,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -564,11 +568,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: [],
+        numEntitiesExistence: 1,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -594,11 +602,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/05"],
-      numEntitiesExistence: undefined,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/05"],
+        numEntitiesExistence: undefined,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -632,11 +644,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/05"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/05"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -670,11 +686,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Agriculture",
-      entities: ["geoId/05"],
-      numEntitiesExistence: undefined,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Agriculture",
+        entities: ["geoId/05"],
+        numEntitiesExistence: undefined,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [],
@@ -689,11 +709,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Agriculture",
-      entities: ["geoId/05"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Agriculture",
+        entities: ["geoId/05"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [],
@@ -708,11 +732,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/05"],
-      numEntitiesExistence: undefined,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/05"],
+        numEntitiesExistence: undefined,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -738,11 +766,15 @@ export function axiosMock(): void {
       },
     });
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/05"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/05"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -769,25 +801,25 @@ export function axiosMock(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_Person")
+    .calledWith("/api/variable/path?dcid=Count_Person", expect.anything())
     .mockResolvedValue({
       data: ["Count_Person", "dc/g/Demographics"],
     });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_Farm")
+    .calledWith("/api/variable/path?dcid=Count_Farm", expect.anything())
     .mockResolvedValue({
       data: ["Count_Farm", "dc/g/Agriculture"],
     });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Median_Age_Person")
+    .calledWith("/api/variable/path?dcid=Median_Age_Person", expect.anything())
     .mockResolvedValue({
       data: ["Median_Age_Person", "dc/g/Demographics"],
     });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=NotInTheTree")
+    .calledWith("/api/variable/path?dcid=NotInTheTree", expect.anything())
     .mockResolvedValue({
       data: ["NotInTheTree"],
     });
