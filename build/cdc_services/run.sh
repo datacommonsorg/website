@@ -85,6 +85,7 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
     
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+    # Until V2 APIs are enabled 100%, use the flag --use_v2_api=true on your docker run command
 fi
 
 # Start mixer.
