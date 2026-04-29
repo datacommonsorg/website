@@ -103,6 +103,8 @@ export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
 > {
+  _dataAbortController: AbortController;
+
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
@@ -135,6 +137,10 @@ export class StatVarHierarchy extends React.Component<
     ) {
       this.fetchData();
     }
+  }
+
+  componentWillUnmount(): void {
+    this._dataAbortController?.abort();
   }
 
   render(): JSX.Element {
@@ -261,8 +267,12 @@ export class StatVarHierarchy extends React.Component<
   }
 
   private async fetchData(): Promise<void> {
+    this._dataAbortController?.abort();
+    this._dataAbortController = new AbortController();
+
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     this.setState({ isLoading: true });
+
     const entityList = this.props.entities.map((entity) => entity.dcid);
     const variableGroupInfoPromises: Promise<StatVarGroupNodeType>[] =
       STAT_VAR_HIERARCHY_CONFIG.nodes.map((statVarHierarchyConfigNode) => {
@@ -272,11 +282,15 @@ export class StatVarHierarchy extends React.Component<
           ? [statVarHierarchyConfigNode.dataSourceDcid]
           : [];
         return axios
-          .post(getUrlWithSearchParamsToPropagate("/api/variable-group/info"), {
-            dcid: statVarHierarchyConfigNode.dcid,
-            entities: [...entityList, ...dataSourceEntities],
-            numEntitiesExistence: this.props.numEntitiesExistence,
-          })
+          .post(
+            getUrlWithSearchParamsToPropagate("/api/variable-group/info"),
+            {
+              dcid: statVarHierarchyConfigNode.dcid,
+              entities: [...entityList, ...dataSourceEntities],
+              numEntitiesExistence: this.props.numEntitiesExistence,
+            },
+            { signal: this._dataAbortController.signal }
+          )
           .then((resp) => {
             return resp.data;
           });
@@ -288,15 +302,17 @@ export class StatVarHierarchy extends React.Component<
         if (this.state.svPath && sv in this.state.svPath) {
           svPath[sv] = this.state.svPath[sv];
         } else {
-          statVarPathPromises.push(this.getPath(sv));
+          statVarPathPromises.push(
+            this.getPath(sv, this._dataAbortController.signal)
+          );
         }
       }
     }
 
     try {
       const variableGroupInfos = await Promise.all(variableGroupInfoPromises);
-      // const dataSourceFilter = await dataSourceFilterPromise;
       const statVarFilterPaths = await Promise.all(statVarPathPromises);
+
       removeSpinner(SV_HIERARCHY_SECTION_ID);
 
       // Set root stat var group hierarchy
@@ -347,7 +363,10 @@ export class StatVarHierarchy extends React.Component<
         svPath,
         isLoading: false,
       });
-    } catch {
+    } catch (error) {
+      if (axios.isCancel(error) || error.name === "AbortError") {
+        return;
+      }
       removeSpinner(SV_HIERARCHY_SECTION_ID);
       this.setState({
         errorMessage: "Error retrieving stat var group root nodes",
@@ -406,7 +425,7 @@ export class StatVarHierarchy extends React.Component<
   }
 
   // Get the path of a stat var from the hierarchy.
-  private getPath(sv: string): Promise<string[]> {
+  private getPath(sv: string, signal?: AbortSignal): Promise<string[]> {
     if (sv == "") {
       return Promise.resolve([]);
     }
@@ -415,7 +434,8 @@ export class StatVarHierarchy extends React.Component<
       .get(
         getUrlWithSearchParamsToPropagate(
           `/api/variable/path?dcid=${encodeURIComponent(sv)}`
-        )
+        ),
+        { signal }
       )
       .then((resp) => {
         // This is to make jest test working, should find a better way to let
