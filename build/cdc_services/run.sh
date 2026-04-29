@@ -74,7 +74,7 @@ fi
 if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     echo "Spanner Graph detected."
     
-    # TODO: Use GOOGLE_CLOUD_PROJECT for most use cases and make GCP_PROJECT_ID internal for the case where the Spanner instance is using a different project ID.
+    # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
     
     # Use existing GCP project ID, or fetch it from Metadata Server if empty
     GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
