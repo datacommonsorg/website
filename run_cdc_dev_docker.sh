@@ -75,7 +75,7 @@ Examples:
   Start all containers, using the prebuilt 'stable' release from Data Commons team.
 
 ./run_cdc_dev_docker.sh --container service
-  Start only the service container.
+  Start only the service container, using the prebuilt 'stable' release.
   Use this if you haven't made any changes to your data but just want to pick 
   up the latest code.
 
