@@ -128,7 +128,7 @@ run_data() {
 
   local message
   message="Starting Docker data container with stable release"
-  fi
+
   if [[ "$SCHEMA_UPDATE" == true ]]; then
     message+=" in schema update mode"
   fi
@@ -179,6 +179,7 @@ run_service() {
 
   if [ -n "$IMAGE" ]; then
     message="Starting Docker services container with custom image '${IMAGE}'"
+  else
     message="Starting Docker services container with stable release"
     IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
   fi
@@ -186,6 +187,7 @@ run_service() {
   if [[ "$service_hybrid" == true ]]; then
     message+=" with data in Google Cloud"
   fi
+  
   if [[ "$instructions_hybrid" == true ]]; then
     message+=" and custom instruction files in Google Cloud"
   fi
