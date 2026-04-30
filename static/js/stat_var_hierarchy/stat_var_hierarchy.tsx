@@ -268,7 +268,7 @@ export class StatVarHierarchy extends React.Component<
           ? [statVarHierarchyConfigNode.dataSourceDcid]
           : [];
         return axios
-          .post("/api/variable-group/info", {
+          .post(getUrlWithSearchParamsToPropagate("/api/variable-group/info"), {
             dcid: statVarHierarchyConfigNode.dcid,
             entities: [...entityList, ...dataSourceEntities],
             numEntitiesExistence: this.props.numEntitiesExistence,
@@ -302,6 +302,18 @@ export class StatVarHierarchy extends React.Component<
       // level.
       if (variableGroupInfos.length === 1) {
         rootSVGs.push(...(variableGroupInfos[0].childStatVarGroups || []));
+        // Sort top-level nodes into a fixed order if a pinning order is supplied
+        rootSVGs.sort((a, b) => {
+          const orderA =
+            STAT_VAR_HIERARCHY_CONFIG.topLevelPinnedOrder?.[a.id] ?? Infinity;
+          const orderB =
+            STAT_VAR_HIERARCHY_CONFIG.topLevelPinnedOrder?.[b.id] ?? Infinity;
+
+          if (orderA !== orderB) {
+            return orderA - orderB;
+          }
+          return 0;
+        });
       } else {
         variableGroupInfos.forEach((variableGroupInfo, index) => {
           const statVarHierarchyNodeConfig =

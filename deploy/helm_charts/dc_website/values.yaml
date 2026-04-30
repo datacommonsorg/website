@@ -85,6 +85,7 @@ serviceGroups:
       - "/stat-var/*"
       - "/v1/variable/*"
       - "/v1/bulk/info/variable-group"
+      - "/v2/bulk/info/variable-group"
       - "/v1/bulk/info/variable"
     replicas: 1
     resources:

@@ -20,7 +20,11 @@
 
 import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
-import { getFacets, getFacetsWithin } from "../../utils/data_fetch_utils";
+import {
+  FacetResponse,
+  getFacets,
+  getFacetsWithin,
+} from "../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "./metadata/metadata_fetcher";
 
 /**
@@ -29,7 +33,7 @@ import { fetchFacetsWithMetadata } from "./metadata/metadata_fetcher";
  */
 
 /**
- * Fetches enriched facet choices for charts that do not have an enclosed
+ * Fetches base facet choices for charts that do not have an enclosed
  * place type.  This includes chart types such as line and highlight.
  *
  * @param placeDcids - Array of place DCIDs to fetch facets for
@@ -46,18 +50,15 @@ export async function fetchFacetChoices(
     statVars.map((sv) => sv.dcid),
     WEBSITE_SURFACE
   );
-  const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
-    entities: placeDcids,
-  });
   return statVars.map((sv) => ({
     dcid: sv.dcid,
     name: sv.name || sv.dcid,
-    metadataMap: enrichedFacets[sv.dcid] || {},
+    metadataMap: baseFacets[sv.dcid] || {},
   }));
 }
 
 /**
- * Fetches enriched facet choices for charts that do not have an enclosed
+ * Fetches base facet choices for charts that have an enclosed
  * place type. This includes chart types such as scatter.
  *
  * @param parentPlace - The DCID of the parent place (e.g., a state or country)
@@ -82,13 +83,37 @@ export async function fetchFacetChoicesWithin(
   );
   const baseFacets = Object.assign({}, ...(await Promise.all(facetPromises)));
 
-  const enrichedFacets = await fetchFacetsWithMetadata(baseFacets, {
-    parentPlace,
-    enclosedPlaceType,
-  });
   return statVars.map((sv) => ({
     dcid: sv.dcid,
     name: sv.name || sv.dcid,
-    metadataMap: enrichedFacets[sv.dcid] || {},
+    metadataMap: baseFacets[sv.dcid] || {},
+  }));
+}
+
+/**
+ * Enriches a list of facet choices with metadata.
+ *
+ * @param facetList - The list of facets to enrich
+ * @param options - Options for enrichment (entities or parentPlace/enclosedPlaceType)
+ * @returns Promise of an array of enriched facet info objects
+ */
+export async function enrichFacetChoices(
+  facetList: FacetSelectorFacetInfo[],
+  options: {
+    entities?: string[];
+    parentPlace?: string;
+    enclosedPlaceType?: string;
+  }
+): Promise<FacetSelectorFacetInfo[]> {
+  const baseFacets: FacetResponse = {};
+  facetList.forEach((f) => {
+    baseFacets[f.dcid] = f.metadataMap;
+  });
+
+  const enriched = await fetchFacetsWithMetadata(baseFacets, options);
+
+  return facetList.map((f) => ({
+    ...f,
+    metadataMap: enriched[f.dcid] || {},
   }));
 }

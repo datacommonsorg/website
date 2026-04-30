@@ -5,7 +5,7 @@ deepdiff==8.6.2
 Flask[async]==2.3.2
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1
-flask_cors==5.0.0
+flask_cors==6.0.0
 flask_testing==0.8.1
 frozendict==2.3.4
 geojson_rewind==1.0.1
@@ -46,7 +46,7 @@ pytest-xdist==3.2.1
 setuptools<79.0.0
 PyYAML==6.0.2
 redis==4.5.4
-requests==2.32.4
+requests==2.33.0
 selenium==4.21.0
 typing-extensions==4.15.0
 webdriver-manager==4.0.0
