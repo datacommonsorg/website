@@ -21,11 +21,11 @@ Usage:
 
 ./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] 
   [--actions|-a run|build_run|build|build_upload|upload] [--container|-c all|service]
-  [--release|-r latest|stable] [--image|-i <custom image name:tag>] 
+  [--image|-i <custom image name:tag>] 
   [--package|-p <package name:tag>] [--schema_update|-s]
 
-If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable'
-
+If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all
+'
 All containers are run using the Data Commons-provided 'stable' image.
 
 Options:
@@ -55,15 +55,6 @@ Options:
   Only valid with 'run'. Ignored otherwise.
   For "hybrid" setups, the script will infer the correct container to run from the env.list file; this setting will be ignored.
 
---release|-r stable|latest
-  Optional with 'run' and 'build_run'.
-  Default: stable: run the prebuilt 'stable' image provided by Data Commons team.
-  Other options:
-  * latest: Run the 'latest' release provided by Data Commons team. 
-    If you specify this with an additional '--image' option, the option applies 
-    only to the data container. Otherwise, it applies to both containers. 
-    Only valid with 'run' and 'build_run'; ignored otherwise.
-
 --image|-i <custom image name:tag>
   Optional with 'run': the name and tag of the custom image to run in the service container.
   Required for all other actions: the name and tag of the custom image to build/run/upload.
@@ -84,8 +75,8 @@ Examples:
 ./run_cdc_dev_docker.sh
   Start all containers, using the prebuilt 'stable' release from Data Commons team.
 
-./run_cdc_dev_docker.sh --container service --release latest
-  Start only the service container, using the prebuilt latest release.
+./run_cdc_dev_docker.sh --container service
+  Start only the service container.
   Use this if you haven't made any changes to your data but just want to pick 
   up the latest code.
 
@@ -136,11 +127,7 @@ run_data() {
 # 1. Set local image variable, construct and print output message
 
   local message
-
-  if [[ "$RELEASE" == "latest" ]]; then
-    message="Starting Docker data container with latest release"
-  else
-    message="Starting Docker data container with stable release"
+  message="Starting Docker data container with stable release"
   fi
   if [[ "$SCHEMA_UPDATE" == true ]]; then
     message+=" in schema update mode"
@@ -177,7 +164,7 @@ run_data() {
   fi
   
 # 7. Execute the Docker command
-  docker run "${docker_args[@]}" "gcr.io/datcom-ci/datacommons-data:$RELEASE"
+  docker run "${docker_args[@]}" "gcr.io/datcom-ci/datacommons-data:stable"
 }
 
 # Run service container
@@ -192,10 +179,6 @@ run_service() {
 
   if [ -n "$IMAGE" ]; then
     message="Starting Docker services container with custom image '${IMAGE}'"
-  elif [[ "$RELEASE" == "latest" ]]; then
-    message="Starting Docker services container with latest release"
-    IMAGE="gcr.io/datcom-ci/datacommons-services:latest"
-  else
     message="Starting Docker services container with stable release"
     IMAGE="gcr.io/datcom-ci/datacommons-services:stable"
   fi
@@ -302,7 +285,6 @@ check_gcloud_credentials() {
 ENV_FILE="$PWD/custom_dc/env.list"
 ACTIONS="run"
 CONTAINER="all"
-RELEASE="stable"
 SCHEMA_UPDATE=false
 IMAGE=""
 PACKAGE=""
@@ -387,31 +369,12 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       ;;
-    -r | --release | --release=*)
-      parsed=$(parse_arg "$1" "$2" "$#")
-      val="${parsed%|*}"
-      shift_count="${parsed#*|}"
-      shift $shift_count
-
-      if [[ "$val" =~ ^(latest|stable)$ ]]; then
-        RELEASE="$val"
-      else
-        log_error "That is not a valid release option. Valid options are 'stable' or 'latest'\n"
-        exit 1
-      fi
-      ;;
     -i | --image | --image=*)
       parsed=$(parse_arg "$1" "$2" "$#")
       val="${parsed%|*}"
       shift_count="${parsed#*|}"
       shift $shift_count
-
-      if [[ "$val" =~ ^(latest|stable)$ ]]; then
-        log_error "That is not a valid custom image name. Did you mean to use the '--release' option?\n"
-        exit 1
-      else
-        IMAGE="$val"
-      fi
+      IMAGE="$val"
       ;;
     -s | --schema_update)
       SCHEMA_UPDATE=true
@@ -514,9 +477,6 @@ if [ "$service_hybrid" == true ]; then
   if [ "$ACTIONS" != "run" ] &&  [ "$ACTIONS" != "build_run" ]; then
     log_error "Invalid action for running in "hybrid" service mode.\n Valid options are 'run' or 'build_run'.\n"
     exit 1
-  fi
-  if [ -n "$IMAGE" ]; then
-    RELEASE=''
   fi
   CONTAINER="service"
 fi  
