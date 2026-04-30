@@ -24,8 +24,7 @@ Usage:
   [--image|-i <custom image name:tag>] 
   [--package|-p <package name:tag>] [--schema_update|-s]
 
-If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all
-'
+If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all'
 All containers are run using the Data Commons-provided 'stable' image.
 
 Options:
