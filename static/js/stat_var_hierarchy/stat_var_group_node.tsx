@@ -105,7 +105,6 @@ export class StatVarGroupNode extends React.Component<
   dataFetchingEntities: NamedNode[];
   _dataAbortController: AbortController;
 
-
   constructor(props: StatVarGroupNodePropType) {
     super(props);
     this.state = {
@@ -151,7 +150,6 @@ export class StatVarGroupNode extends React.Component<
   componentWillUnmount(): void {
     this._dataAbortController?.abort();
   }
-
 
   fetchDataIfNecessary(): void {
     // Check if data for current list of entities is being fetched or has already
@@ -341,7 +339,6 @@ export class StatVarGroupNode extends React.Component<
         }
       });
   }
-
 
   private scrollToHighlighted(): void {
     clearTimeout(this.delayTimer);
