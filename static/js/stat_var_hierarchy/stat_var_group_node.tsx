@@ -117,6 +117,7 @@ export class StatVarGroupNode extends React.Component<
     };
     this.highlightedStatVar = React.createRef();
     this.dataFetchingEntities = null;
+    this.dataAbortController = null;
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
     this.fetchData = this.fetchData.bind(this);
   }

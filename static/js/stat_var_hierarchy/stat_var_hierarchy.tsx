@@ -121,6 +121,7 @@ export class StatVarHierarchy extends React.Component<
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
+    this.dataAbortController = null;
   }
 
   componentDidMount(): void {
