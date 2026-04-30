@@ -23,6 +23,7 @@ import _ from "lodash";
 import React from "react";
 import Collapsible from "react-collapsible";
 
+import { ProgressActivity } from "../components/elements/icons/progress_activity";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
@@ -90,6 +91,8 @@ interface StatVarGroupNodeStateType {
   dataFetchedEntities: NamedNode[];
   // Number of SVs under this stat var group node has been selected.
   selectionCount: number;
+  // Whether the data is being fetched.
+  isLoading: boolean;
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -99,8 +102,8 @@ export class StatVarGroupNode extends React.Component<
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   delayTimer: NodeJS.Timeout;
   context: ContextType;
-  // the list of entities for which data fetch has begun, but not finished.
   dataFetchingEntities: NamedNode[];
+  dataAbortController: AbortController;
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
@@ -111,9 +114,11 @@ export class StatVarGroupNode extends React.Component<
       errorMessage: "",
       dataFetchedEntities: null,
       selectionCount: 0,
+      isLoading: false,
     };
     this.highlightedStatVar = React.createRef();
     this.dataFetchingEntities = null;
+    this.dataAbortController = null;
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
     this.fetchData = this.fetchData.bind(this);
   }
@@ -141,6 +146,10 @@ export class StatVarGroupNode extends React.Component<
     }
     this.fetchDataIfNecessary();
     this.scrollToHighlighted();
+  }
+
+  componentWillUnmount(): void {
+    this.dataAbortController?.abort();
   }
 
   fetchDataIfNecessary(): void {
@@ -220,8 +229,7 @@ export class StatVarGroupNode extends React.Component<
         nodeDcid: this.props.data.id,
       });
     };
-    const shouldOpen =
-      this.state.isOpen && !_.isNull(this.state.dataFetchedEntities);
+    const shouldOpen = this.state.isOpen;
     return (
       <>
         {!_.isEmpty(this.state.errorMessage) && (
@@ -242,6 +250,14 @@ export class StatVarGroupNode extends React.Component<
           }
         >
           <>
+            {this.state.isLoading &&
+              _.isEmpty(this.state.childSV) &&
+              _.isEmpty(this.state.childSVG) && (
+                <div className="node-loading-spinner">
+                  <ProgressActivity />
+                  <span>Loading...</span>
+                </div>
+              )}
             {this.props.pathToSelection.length < 2 &&
               !_.isEmpty(this.state.childSV) && (
                 <StatVarSection
@@ -272,6 +288,8 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
+    this.dataAbortController?.abort();
+    this.dataAbortController = new AbortController();
     const entityList = this.props.entities;
     this.dataFetchingEntities = this.props.entities;
     let numEntitiesExistence = this.props.numEntitiesExistence;
@@ -283,12 +301,17 @@ export class StatVarGroupNode extends React.Component<
       entityDcids.push(this.props.dataSource);
       numEntitiesExistence = entityDcids.length;
     }
+    this.setState({ isLoading: true });
     axios
-      .post(getUrlWithSearchParamsToPropagate("/api/variable-group/info"), {
-        dcid: this.props.data.id,
-        entities: entityDcids,
-        numEntitiesExistence,
-      })
+      .post(
+        getUrlWithSearchParamsToPropagate("/api/variable-group/info"),
+        {
+          dcid: this.props.data.id,
+          entities: entityDcids,
+          numEntitiesExistence,
+        },
+        { signal: this.dataAbortController.signal }
+      )
       .then((resp) => {
         const data = resp.data;
         const childSV: StatVarInfo[] = data["childStatVars"] || [];
@@ -299,15 +322,20 @@ export class StatVarGroupNode extends React.Component<
             childSV,
             childSVG,
             dataFetchedEntities: entityList,
+            isLoading: false,
           });
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          return;
+        }
         this.dataFetchingEntities = null;
         if (_.isEqual(entityList, this.props.entities)) {
           this.setState({
             errorMessage: "Error retrieving stat var group children",
             dataFetchedEntities: entityList,
+            isLoading: false,
           });
         }
       });
