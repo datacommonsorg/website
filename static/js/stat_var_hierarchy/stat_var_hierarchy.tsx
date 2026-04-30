@@ -103,7 +103,7 @@ export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
 > {
-  _dataAbortController: AbortController;
+  dataAbortController: AbortController;
 
   constructor(props: StatVarHierarchyPropType) {
     super(props);
@@ -140,7 +140,7 @@ export class StatVarHierarchy extends React.Component<
   }
 
   componentWillUnmount(): void {
-    this._dataAbortController?.abort();
+    this.dataAbortController?.abort();
   }
 
   render(): JSX.Element {
@@ -267,8 +267,8 @@ export class StatVarHierarchy extends React.Component<
   }
 
   private async fetchData(): Promise<void> {
-    this._dataAbortController?.abort();
-    this._dataAbortController = new AbortController();
+    this.dataAbortController?.abort();
+    this.dataAbortController = new AbortController();
 
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     this.setState({ isLoading: true });
@@ -289,7 +289,7 @@ export class StatVarHierarchy extends React.Component<
               entities: [...entityList, ...dataSourceEntities],
               numEntitiesExistence: this.props.numEntitiesExistence,
             },
-            { signal: this._dataAbortController.signal }
+            { signal: this.dataAbortController.signal }
           )
           .then((resp) => {
             return resp.data;
@@ -303,7 +303,7 @@ export class StatVarHierarchy extends React.Component<
           svPath[sv] = this.state.svPath[sv];
         } else {
           statVarPathPromises.push(
-            this.getPath(sv, this._dataAbortController.signal)
+            this.getPath(sv, this.dataAbortController.signal)
           );
         }
       }

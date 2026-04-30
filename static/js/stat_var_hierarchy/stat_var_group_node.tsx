@@ -101,9 +101,8 @@ export class StatVarGroupNode extends React.Component<
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   delayTimer: NodeJS.Timeout;
   context: ContextType;
-  // the list of entities for which data fetch has begun, but not finished.
   dataFetchingEntities: NamedNode[];
-  _dataAbortController: AbortController;
+  dataAbortController: AbortController;
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
@@ -148,7 +147,7 @@ export class StatVarGroupNode extends React.Component<
   }
 
   componentWillUnmount(): void {
-    this._dataAbortController?.abort();
+    this.dataAbortController?.abort();
   }
 
   fetchDataIfNecessary(): void {
@@ -287,8 +286,8 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
-    this._dataAbortController?.abort();
-    this._dataAbortController = new AbortController();
+    this.dataAbortController?.abort();
+    this.dataAbortController = new AbortController();
     const entityList = this.props.entities;
     this.dataFetchingEntities = this.props.entities;
     let numEntitiesExistence = this.props.numEntitiesExistence;
@@ -309,7 +308,7 @@ export class StatVarGroupNode extends React.Component<
           entities: entityDcids,
           numEntitiesExistence,
         },
-        { signal: this._dataAbortController.signal }
+        { signal: this.dataAbortController.signal }
       )
       .then((resp) => {
         const data = resp.data;
