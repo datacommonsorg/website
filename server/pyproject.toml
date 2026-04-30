@@ -10,7 +10,7 @@ dependencies = [
     "data-gemma",
     "deepdiff==8.6.2",
     "fastapi==0.135.3",
-    "flask_cors==5.0.0",
+    "flask_cors==6.0.0",
     "flask_testing==0.8.1",
     "Flask-Babel==2.0.0",
     "Flask-Caching==2.0.1",
@@ -48,7 +48,7 @@ dependencies = [
     "python-dateutil>=2.9.0.post0, <3.0.0",
     "PyYAML==6.0.2",
     "redis==4.5.4",
-    "requests==2.32.4",
+    "requests==2.33.0",
     "selenium==4.21.0",
     "typing-extensions==4.15.0",
     "webdriver-manager==4.0.0",
@@ -62,7 +62,7 @@ lint = [
     "yapf==0.40.2",
 ]
 test = [
-    "pytest==9.0.2",
+    "pytest==9.0.3",
     "pytest-flakefinder==1.1.0",
     "pytest-rerunfailures==10.2",
     "pytest-xdist==3.2.1",

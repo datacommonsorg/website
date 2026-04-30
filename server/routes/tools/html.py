@@ -24,7 +24,6 @@ from flask import request
 from flask import url_for
 
 from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
 from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
@@ -71,15 +70,6 @@ def _load_example_file(tool_or_filename, default=None):
   if data is not None:
     return copy.deepcopy(data)
   return default
-
-
-def _get_vis_tool_examples(tool_name):
-  """Returns (info_json, vis_tool_examples_json, use_standardized_ui)"""
-  use_standardized_ui = is_feature_enabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-                                           request=request)
-  if use_standardized_ui:
-    return {}, _load_example_file(f'{tool_name}_vis_tool', default=[]), True
-  return _load_example_file(tool_name, default={}), [], False
 
 
 def _is_search_supported():

@@ -46,11 +46,11 @@ git checkout master
 git pull origin master
 
 # Deploy autopush instance
-gsutil cp gs://datcom-control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
+gcloud storage cp gs://datcom-control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
 yq eval -i 'del(.tables)' deploy/storage/base_bigtable_info.yaml
 yq eval -i '.tables = []' deploy/storage/base_bigtable_info.yaml
-for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.txt); do
-  export TABLE="$(gsutil cat "$src")"
+for src in $(gcloud storage ls gs://datcom-control/autopush/*_latest_base_cache_version.txt); do
+  export TABLE="$(gcloud storage cat "$src")"
   # Skip experimental import group for non-autopush
   if [[ $TABLE == experimental* ]] && [[ $ENV != "autopush" ]]; then
     continue
