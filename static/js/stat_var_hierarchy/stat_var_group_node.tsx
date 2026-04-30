@@ -23,6 +23,7 @@ import _ from "lodash";
 import React from "react";
 import Collapsible from "react-collapsible";
 
+import { ProgressActivity } from "../components/elements/icons/progress_activity";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
@@ -253,7 +254,7 @@ export class StatVarGroupNode extends React.Component<
               _.isEmpty(this.state.childSV) &&
               _.isEmpty(this.state.childSVG) && (
                 <div className="node-loading-spinner">
-                  <div className="spinner-circle"></div>
+                  <ProgressActivity />
                   <span>Loading...</span>
                 </div>
               )}

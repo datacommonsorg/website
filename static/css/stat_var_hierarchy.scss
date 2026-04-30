@@ -232,16 +232,6 @@ $small-font-size: 0.75rem;
   align-items: center;
   gap: 8px;
   padding: 4px 15px;
-  color: #ffffff;
+  color: var(--gm-3-ref-primary-primary-100);
   font-size: 0.85rem;
-
-  .spinner-circle {
-    width: 1rem;
-    height: 1rem;
-    border: 2px solid var(--dc-gray-lite);
-    border-top: 2px solid var(--dc-primary);
-    border-radius: 100%;
-    animation: spin 1s infinite linear;
-    position: relative;
-  }
 }
