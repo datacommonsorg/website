@@ -182,16 +182,27 @@ export class StatVarGroupNode extends React.Component<
         svgOnSvPath.add(path[level]);
       }
     }
-    const childSV = this.props.showAllSV
-      ? this.state.childSV
-      : this.state.childSV.filter(
-          (sv) => sv.hasData || sv.id in this.context.svPath
-        );
-    const childSVG = this.props.showAllSV
-      ? this.state.childSVG
-      : this.state.childSVG.filter((svg) => {
-          return svg.descendentStatVarCount > 0 || svgOnSvPath.has(svg.id);
-        });
+    // No filtering is active if no places, data sources, or entity count thresholds are indicated.
+    // In this case, we are in full hierarchy exploration mode.
+    const noFilteringActive =
+      this.props.entities.length === 0 &&
+      !this.props.dataSource &&
+      !this.props.numEntitiesExistence;
+    let childSV = this.state.childSV;
+    if (noFilteringActive) {
+      childSV = childSV.map((sv) => ({ ...sv, hasData: true }));
+    } else if (!this.props.showAllSV) {
+      childSV = childSV.filter(
+        (sv) => sv.hasData || sv.id in this.context.svPath
+      );
+    }
+
+    let childSVG = this.state.childSVG;
+    if (!this.props.showAllSV && !noFilteringActive) {
+      childSVG = childSVG.filter((svg) => {
+        return svg.descendentStatVarCount > 0 || svgOnSvPath.has(svg.id);
+      });
+    }
     const getTrigger = (
       opened: boolean
     ): React.CElement<

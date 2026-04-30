@@ -71,7 +71,41 @@ if [[ $ENABLE_MODEL == "true" ]]; then
     )
 fi
 
+# Initialize feature flags variables
+USE_SPANNER_GRAPH="false"
+
+# Resolve Spanner connection details if provided in environment.
+if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; then
+    echo "Spanner variables detected."
+    USE_SPANNER_GRAPH="true"
+    
+    # Use existing GCP_PROJECT_ID, or fetch it from Metadata Server if empty
+    GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
+    
+    if [[ -z "$GCP_PROJECT_ID" ]]; then
+        echo "ERROR: Failed to resolve Project ID."
+        exit 1
+    fi
+    
+    SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
+    
+    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML")
+fi
+
+# If any feature flag needs to be enabled, generate the file
+if [[ $USE_SPANNER_GRAPH == "true" ]]; then
+    cat << EOF > /tmp/cdc_feature_flags.yaml
+flags:
+  UseSpannerGraph: $USE_SPANNER_GRAPH
+  V2DivertFraction: 1.0
+EOF
+    echo "DEBUG: Feature flags file content:"
+    cat /tmp/cdc_feature_flags.yaml
+    MIXER_ARGS+=("--feature_flags_path=/tmp/cdc_feature_flags.yaml")
+fi
+
 # Start mixer.
+echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 /workspace/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \

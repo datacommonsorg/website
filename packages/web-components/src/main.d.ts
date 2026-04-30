@@ -64,6 +64,9 @@ export interface BarComponentProps
   title?: string;
   variables: string;
   yAxisMargin?: number;
+  facetId?: string;
+  facetIds?: string[];
+  facetMapping?: string;
 }
 
 export interface GaugeComponentProps
@@ -94,6 +97,8 @@ export interface HighlightComponentProps
   header: string;
   place: string;
   variable: string;
+  facetId?: string;
+  facetMapping?: string;
 }
 
 export interface LineComponentProps
@@ -110,6 +115,9 @@ export interface LineComponentProps
   places?: string[];
   title?: string;
   variables: string[];
+  facetId?: string;
+  facetIds?: string[];
+  facetMapping?: string;
 }
 
 export type MapComponentProps = {
@@ -127,6 +135,10 @@ export type MapComponentProps = {
   subscribe?: string;
   title?: string;
   variable: string;
+  variables?: string;
+  facetId?: string;
+  facetIds?: string[];
+  facetMapping?: string;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
 
 export interface PieComponentProps
@@ -157,6 +169,10 @@ export interface RankingComponentProps
   showLowest?: boolean;
   title?: string;
   variable: string;
+  variables?: string;
+  facetId?: string;
+  facetIds?: string[];
+  facetMapping?: string;
 }
 
 export interface SliderComponentProps
@@ -203,4 +219,7 @@ export interface ScatterComponentProps
   usePerCapita?: string;
   placeNameProp?: string;
   showExploreMore?: boolean;
+  facetId?: string;
+  facetIds?: string[];
+  facetMapping?: string;
 }
