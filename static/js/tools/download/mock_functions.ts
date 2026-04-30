@@ -114,11 +114,15 @@ export function axiosMock(): void {
 
   // get root stat var group
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 0,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: [],
+        numEntitiesExistence: 0,
+      },
+      expect.anything()
+    )
     .mockResolvedValue(rootGroupsData);
 
   // get root stat var group for places in geoId/06
@@ -135,11 +139,15 @@ export function axiosMock(): void {
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/06002", "geoId/06001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/06002", "geoId/06001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything()
+    )
     .mockResolvedValue(rootGroupsData);
 
   // get demographics stat var group for places in geoId/06
@@ -202,14 +210,14 @@ export function axiosMock(): void {
 
   // get stat var path for Count_Person
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_Person")
+    .calledWith("/api/variable/path?dcid=Count_Person", expect.anything())
     .mockResolvedValue({
       data: ["Count_Person", "dc/g/Demographics"],
     });
 
   // get stat var path for Median_Age_Person
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Median_Age_Person")
+    .calledWith("/api/variable/path?dcid=Median_Age_Person", expect.anything())
     .mockResolvedValue({
       data: ["Median_Age_Person", "dc/g/Demographics"],
     });

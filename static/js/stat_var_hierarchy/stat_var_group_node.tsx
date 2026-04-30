@@ -103,6 +103,8 @@ export class StatVarGroupNode extends React.Component<
   context: ContextType;
   // the list of entities for which data fetch has begun, but not finished.
   dataFetchingEntities: NamedNode[];
+  _dataAbortController: AbortController;
+
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
@@ -145,6 +147,11 @@ export class StatVarGroupNode extends React.Component<
     this.fetchDataIfNecessary();
     this.scrollToHighlighted();
   }
+
+  componentWillUnmount(): void {
+    this._dataAbortController?.abort();
+  }
+
 
   fetchDataIfNecessary(): void {
     // Check if data for current list of entities is being fetched or has already
@@ -282,6 +289,8 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
+    this._dataAbortController?.abort();
+    this._dataAbortController = new AbortController();
     const entityList = this.props.entities;
     this.dataFetchingEntities = this.props.entities;
     let numEntitiesExistence = this.props.numEntitiesExistence;
@@ -295,11 +304,15 @@ export class StatVarGroupNode extends React.Component<
     }
     this.setState({ isLoading: true });
     axios
-      .post(getUrlWithSearchParamsToPropagate("/api/variable-group/info"), {
-        dcid: this.props.data.id,
-        entities: entityDcids,
-        numEntitiesExistence,
-      })
+      .post(
+        getUrlWithSearchParamsToPropagate("/api/variable-group/info"),
+        {
+          dcid: this.props.data.id,
+          entities: entityDcids,
+          numEntitiesExistence,
+        },
+        { signal: this._dataAbortController.signal }
+      )
       .then((resp) => {
         const data = resp.data;
         const childSV: StatVarInfo[] = data["childStatVars"] || [];
@@ -314,7 +327,10 @@ export class StatVarGroupNode extends React.Component<
           });
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          return;
+        }
         this.dataFetchingEntities = null;
         if (_.isEqual(entityList, this.props.entities)) {
           this.setState({
@@ -325,6 +341,7 @@ export class StatVarGroupNode extends React.Component<
         }
       });
   }
+
 
   private scrollToHighlighted(): void {
     clearTimeout(this.delayTimer);
