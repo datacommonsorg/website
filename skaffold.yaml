@@ -219,6 +219,7 @@ profiles:
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
               serviceGroups.recon.enableEmbeddingsSidecar: "false"
+              serviceGroups.default.enableEmbeddingsSidecar: "true"
   - name: mixer-autopush
     customActions:
       - name: deploy-cloud-esp-mixer-autopush
