@@ -37,7 +37,7 @@ class ExploreTest(NLWebServerTestCase):
   def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
     resp = requests.post(
         self.get_server_url() +
-        f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill&disable_feature=use_v2_api',
+        f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill',
         json=req_json,
         headers=TEST_SURFACE_HEADER).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
@@ -56,7 +56,7 @@ class ExploreTest(NLWebServerTestCase):
     for q in queries:
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}&disable_feature=use_v2_api',
+          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -85,7 +85,7 @@ class ExploreTest(NLWebServerTestCase):
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}&disable_feature=use_v2_api',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}',
           json={
               'contextHistory': ctx,
               'dc': dc,

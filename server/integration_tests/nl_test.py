@@ -55,7 +55,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&idx={idx}&detector={detector}&test={test}&i18n={i18n}&mode={mode}&client=test&disable_feature=use_v2_api',
+          f'/api/explore/detect-and-fulfill?q={q}&idx={idx}&detector={detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
           json={
               'contextHistory': ctx
           }).json()
