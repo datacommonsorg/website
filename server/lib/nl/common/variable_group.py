@@ -48,7 +48,8 @@ def _get_descendant_sv_nodes(
 
   # NOTE: This arbitrarily cuts off the explored groups, not every descendant
   # of the inital groups is visited.
-  resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [])
+  resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [],
+                                    include_definitions=True)
 
   sv_nodes = {}
   recurse_groups = set()

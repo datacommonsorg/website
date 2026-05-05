@@ -163,7 +163,8 @@ def _fetch_indirect_siblings(
   # Batch 3: Fetch variable group info for all sibling SVGs
   svg_siblings_info = {'data': []}
   if all_sibling_svgs:
-    svg_siblings_info = dc.get_variable_group_info(list(all_sibling_svgs), [])
+    svg_siblings_info = dc.get_variable_group_info(list(all_sibling_svgs), [],
+                                                   include_definitions=True)
 
   # Map from sibling SVG to its children for quick lookup
   svg_to_children = {}
@@ -200,7 +201,8 @@ def extend_svs(svs: List[str]):
   svg2childsvs = {}
   if not sv2svg:
     return {}
-  svginfo = dc.get_variable_group_info(list(sv2svg.values()), [])
+  svginfo = dc.get_variable_group_info(list(sv2svg.values()), [],
+                                       include_definitions=True)
   if 'data' not in svginfo:
     return {}
   for item in svginfo['data']:

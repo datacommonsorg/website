@@ -99,7 +99,7 @@ class TestVariableExtension(unittest.TestCase):
 
     # Group info side effect to handle direct and sibling group requests
     # We now return definitions directly in the mock response!
-    def group_info_side_effect(nodes, _):
+    def group_info_side_effect(nodes, _, **kwargs):
       data = []
       if svg in nodes:
         data.append({

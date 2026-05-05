@@ -379,9 +379,11 @@ def v2event(node, prop):
 
 def get_variable_group_info(nodes: List[str],
                             entities: List[str],
-                            numEntitiesExistence=1) -> Dict:
+                            numEntitiesExistence=1,
+                            include_definitions=False) -> Dict:
   """Gets the stat var group node information."""
-  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  if use_v2:
     url = get_service_url("/v2/bulk/info/variable-group")
   else:
     url = get_service_url("/v1/bulk/info/variable-group")
@@ -390,6 +392,8 @@ def get_variable_group_info(nodes: List[str],
       "constrained_entities": entities,
       "num_entities_existence": numEntitiesExistence,
   }
+  if use_v2 and include_definitions:
+    req_dict["includeDefinitions"] = True
   return post(url, req_dict)
 
 

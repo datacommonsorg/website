@@ -34,7 +34,10 @@ def variable_group_info():
   if not dcid:
     return 'error: must provide a `dcid` field', 400
 
-  resp = dc.get_variable_group_info([dcid], entities, numEntitiesExistence)
+  resp = dc.get_variable_group_info([dcid],
+                                    entities,
+                                    numEntitiesExistence,
+                                    include_definitions=not entities)
   result = resp.get("data", [{}])[0].get("info", {})
   if current_app.config["BLOCKLIST_SVG"]:
     blocklist_svgs = set(current_app.config["BLOCKLIST_SVG"])
