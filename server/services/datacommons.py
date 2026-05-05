@@ -460,7 +460,7 @@ def _get_variable_ancestors_v2(dcid: str):
 
 def get_variable_ancestors(dcid: str):
   """Gets the path of a stat var to the root of the stat var hierarchy."""
-  use_v2 = is_feature_enabled(USE_V2_API)
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
   return _get_variable_ancestors_memoized(dcid, use_v2)
 
 
