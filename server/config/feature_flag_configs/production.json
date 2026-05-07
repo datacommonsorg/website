@@ -55,7 +55,7 @@
   },
   {
     "name": "new_ranking_page",
-    "enabled": true,
+    "enabled": false,
     "owner": "juliawu",
     "description": "Enables the new ranking page UI"
   },
@@ -67,7 +67,7 @@
   },
   {
     "name": "use_v2_api",
-    "enabled": true,
+    "enabled": false,
     "owner": "juliawu",
     "description": "Enables features that rely on the V2 REST APIs"
   },
