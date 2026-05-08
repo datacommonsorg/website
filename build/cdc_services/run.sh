@@ -26,7 +26,7 @@ export NL_SERVER_PORT=${NL_SERVER_PORT:-6060}
 # If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
 if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
     echo "GCS Data Path: $GCS_DATA_PATH"
-    echo "GCS_DATA_PATH is deprecated and will be removed in the future. Use OUTPUT_DIR instead."
+    echo "GCS_DATA_PATH is deprecated. Use OUTPUT_DIR instead."
     export OUTPUT_DIR=$GCS_DATA_PATH
 fi
 
@@ -71,15 +71,12 @@ if [[ $ENABLE_MODEL == "true" ]]; then
     )
 fi
 
-# Initialize feature flags variables
-USE_SPANNER_GRAPH="false"
-
-# Resolve Spanner connection details if provided in environment.
-if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; then
-    echo "Spanner variables detected."
-    USE_SPANNER_GRAPH="true"
+if [[ $USE_SPANNER_GRAPH == "true" ]]; then
+    echo "Spanner Graph detected."
     
-    # Use existing GCP_PROJECT_ID, or fetch it from Metadata Server if empty
+    # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
+    
+    # Use existing GCP project ID, or fetch it from Metadata Server if empty
     GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
     
     if [[ -z "$GCP_PROJECT_ID" ]]; then
@@ -89,19 +86,8 @@ if [[ $GCP_SPANNER_INSTANCE_ID != "" && $GCP_SPANNER_DATABASE_NAME != "" ]]; the
     
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
     
-    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML")
-fi
-
-# If any feature flag needs to be enabled, generate the file
-if [[ $USE_SPANNER_GRAPH == "true" ]]; then
-    cat << EOF > /tmp/cdc_feature_flags.yaml
-flags:
-  UseSpannerGraph: $USE_SPANNER_GRAPH
-  V2DivertFraction: 1.0
-EOF
-    echo "DEBUG: Feature flags file content:"
-    cat /tmp/cdc_feature_flags.yaml
-    MIXER_ARGS+=("--feature_flags_path=/tmp/cdc_feature_flags.yaml")
+    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+    # Until V2 APIs are enabled 100%, use the flag --use_v2_api=true on your docker run command
 fi
 
 # Start mixer.
