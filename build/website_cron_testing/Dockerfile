@@ -14,8 +14,6 @@
 
 FROM gcr.io/datcom-ci/webdriver-chrome:2026-05-09
 
-RUN apt-get update && apt-get -y upgrade
-
 WORKDIR /resources
 
 # Install python requirements
