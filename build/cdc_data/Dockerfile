@@ -31,8 +31,9 @@ ENV ENV=${ENV}
 WORKDIR /workspace
 
 # Install curl and Google Cloud SDK for auto-triggering workflows
-RUN apt-get update && apt-get install -y curl \
-    && curl -sSL https://sdk.cloud.google.com | bash
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts \
+    && rm -rf /var/lib/apt/lists/*
 ENV PATH="/root/google-cloud-sdk/bin:${PATH}"
 
 # Copy models
