@@ -18,6 +18,7 @@ from server.app_env import _base
 class Config(_base.Config):
   GCS_BUCKET = 'datcom-website-autopush-resources'
   LOG_QUERY = True
+  SHOW_DISASTER = False
   SHOW_TOPIC = True
   GOOGLE_ANALYTICS_TAG_ID = 'G-P9M91VX1T3'
   USE_LLM = True

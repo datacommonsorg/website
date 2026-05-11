@@ -458,10 +458,16 @@ def _get_variable_ancestors_v2(dcid: str):
   return ancestors
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get_variable_ancestors(dcid: str):
   """Gets the path of a stat var to the root of the stat var hierarchy."""
-  if is_feature_enabled(USE_V2_API):
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  return _get_variable_ancestors_memoized(dcid, use_v2)
+
+
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def _get_variable_ancestors_memoized(dcid: str, use_v2: bool):
+  """Memoized helper that includes the feature flag state in the cache key."""
+  if use_v2:
     return _get_variable_ancestors_v2(dcid)
   else:
     return _get_variable_ancestors_v1(dcid)

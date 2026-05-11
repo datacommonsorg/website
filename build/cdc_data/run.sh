@@ -33,8 +33,8 @@ if [[ $OUTPUT_DIR == "" ]]; then
 fi
 
 if [[ $DATA_RUN_MODE != "" ]]; then
-    if [[ $DATA_RUN_MODE != "schemaupdate" ]]; then
-      echo "DATA_RUN_MODE must be either empty or 'schemaupdate'"
+    if [[ $DATA_RUN_MODE != "schemaupdate" && $DATA_RUN_MODE != "dcpbridge" ]]; then
+      echo "DATA_RUN_MODE must be either empty, 'schemaupdate', or 'dcpbridge'"
       exit 1
     fi
     echo "DATA_RUN_MODE=$DATA_RUN_MODE"
@@ -78,7 +78,8 @@ cd $WORKSPACE_DIR/import/simple
 python3 -m stats.main \
     --input_dir=$INPUT_DIR \
     --output_dir=$DC_OUTPUT_DIR \
-    --mode=$DATA_RUN_MODE
+    --mode=$DATA_RUN_MODE \
+    "$@"
 
 # cd back to workspace dir to run the embeddings builder.
 cd $WORKSPACE_DIR
