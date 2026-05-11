@@ -100,12 +100,20 @@
     "name": "India State Population Ranking"
   },
   {
+    "path": "/explore/economics",
+    "name": "Explore: Economics topic page"
+  },
+  {
     "path": "/explore#sv=Count_Person&p=nuts%2FUKE12&client=ui_related_topic&chartType=TIMELINE_WITH_HIGHLIGHT&imp=EurostatData_Demographic_Balance_Crude_Rates",
-    "name": "Explore: Pinned Map/Topic (Eurostat)"
+    "name": "Explore: Pinned Timeline & Highlight tiles (Eurostat)"
   },
   {
     "path": "/explore#sv=Count_Person&p=geoId%2F04___geoId%2F06&client=ui_related_topic&chartType=BAR_CHART&imp=CensusACS5yrSurvey",
-    "name": "Explore: Pinned Map/Topic (Census)"
+    "name": "Explore: Pinned Bar tile (Census)"
+  },
+  {
+    "path": "/explore?sv=LifeExpectancy_Person&p=africa&chartType=RANKING_WITH_MAP&unit=Rank&date=2023&imp=WorldDevelopmentIndicators&mb=4&test=screenshot",
+    "name": "Explore: Pinned Map & Ranking tiles (WDI)"
   },
   {
     "path": "/explore/#q=Obesity+vs+Unemployment+in+the+US+counties&mb=3&test=screenshot",
@@ -140,15 +148,7 @@
     "name": "Explore: Gender Intelligence in India (Refused)"
   },
   {
-    "path": "/disasters/Earth",
-    "name": "Earth Disasters"
-  },
-  {
-    "path": "/disasters/country/BRA",
-    "name": "Brazil Disasters"
-  },
-  {
-    "path": "/event/droughtEvent/2025-05_grid_1/31_-2",
-    "name": "Drought in Algeria"
+    "path": "topic/equity/country/USA",
+    "name": "Subject page: Equity in USA"
   }
 ]
