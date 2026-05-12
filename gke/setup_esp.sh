@@ -28,6 +28,6 @@ yq eval -i '.name = env(SERVICE_NAME)' endpoints.yaml
 yq eval -i '.title = env(API_TITLE)' endpoints.yaml
 
 ## Deploy ESP configuration
-gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.latest.pb .
+gcloud storage cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.latest.pb .
 gcloud endpoints services deploy mixer-grpc.latest.pb endpoints.yaml --project $PROJECT_ID
 gcloud services enable $SERVICE_NAME

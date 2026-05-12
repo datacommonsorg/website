@@ -102,6 +102,7 @@ interface ChartStateType {
   facetListLoading: boolean;
   facetListError: boolean;
   isDataLoaded: boolean;
+  facetsEnriched: boolean;
 }
 
 class Chart extends Component<ChartPropsType, ChartStateType> {
@@ -127,6 +128,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.loadRawData = this.loadRawData.bind(this);
     this.processData = this.processData.bind(this);
     this.enrichFacets = this.enrichFacets.bind(this);
+    this.onFacetSelectorModalOpen = this.onFacetSelectorModalOpen.bind(this);
     this.handleEmbed = this.handleEmbed.bind(this);
     this.getStatVarSpecs = this.getStatVarSpecs.bind(this);
     this.getDataCsv = this.getDataCsv.bind(this);
@@ -143,6 +145,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       facetListLoading: false,
       facetListError: false,
       isDataLoaded: false,
+      facetsEnriched: false,
     };
     this.dataCommonsClient = new DataCommonsClient({
       surface: WEBSITE_SURFACE,
@@ -221,6 +224,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           facetListLoading={this.state.facetListLoading}
           facetListError={this.state.facetListError}
           onSvFacetIdUpdated={(svFacetId): void => setMetahash(svFacetId)}
+          onFacetSelectorModalOpen={this.onFacetSelectorModalOpen}
         />
         <div className="card">
           <div className="statVarChipRegion">
@@ -440,6 +444,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       facetListLoading: true,
       rawData: null,
       isDataLoaded: false,
+      facetsEnriched: false,
     });
 
     const places = Object.keys(this.props.placeNameMap);
@@ -449,9 +454,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       const rawData = await fetchRawData(places, statVars, this.props.denom);
       this.props.onMetadataMapUpdate(rawData.metadataMap);
 
-      this.setState({ rawData }, () => {
-        void this.enrichFacets(statVars, rawData.metadataMap);
-      });
+      const facetList = this.getFacetList(statVars, rawData.metadataMap);
+      this.setState({ rawData, facetList, facetListLoading: false });
     } catch {
       this.setState({
         rawData: null,
@@ -470,11 +474,24 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         entities: Object.keys(this.props.placeNameMap),
       });
       const facetList = this.getFacetList(statVars, enriched);
-      this.setState({ facetList, facetListLoading: false });
+      this.setState({
+        facetList,
+        facetListLoading: false,
+        facetsEnriched: true,
+      });
     } catch {
       console.error("Error loading facets for selection.");
-      this.setState({ facetListLoading: false, facetListError: true });
+      this.setState({ facetListLoading: false });
     }
+  }
+
+  private onFacetSelectorModalOpen(): void {
+    const { rawData, facetsEnriched, facetListLoading } = this.state;
+    if (!rawData || facetsEnriched || facetListLoading) return;
+
+    this.setState({ facetListLoading: true });
+    const statVars = Object.keys(this.props.statVarInfos);
+    void this.enrichFacets(statVars, rawData.metadataMap);
   }
 
   private processData(): void {

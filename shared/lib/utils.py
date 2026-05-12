@@ -202,3 +202,8 @@ def escape_strings(data):
 def is_test_env() -> bool:
   env = os.environ.get('FLASK_ENV', '')
   return env in ['integration_test', 'test', 'webdriver', 'custom_test']
+
+
+def is_production_env() -> bool:
+  """Returns True if the environment is production."""
+  return os.environ.get('FLASK_ENV', '') == 'production'

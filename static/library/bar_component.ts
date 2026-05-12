@@ -28,7 +28,9 @@ import {
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
   getVariableNameProcessingFn,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -191,6 +193,24 @@ export class DatacommonsBarComponent extends LitElement {
   variables!: string[];
 
   /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
+  /**
    * Optional: Y axis margin to fit the axis label text.
    * Default: 60px
    */
@@ -234,9 +254,17 @@ export class DatacommonsBarComponent extends LitElement {
   disableEntityLink?: boolean;
 
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
-    statVarDcids.forEach((statVarDcid) => {
+    statVarDcids.forEach((statVarDcid, index) => {
+      const facetId = getFacetId(
+        statVarDcid,
+        index,
+        parsedMapping,
+        this.facetIds,
+        this.facetId
+      );
       statVarSpec.push({
         date: this.date,
         denom:
@@ -248,6 +276,7 @@ export class DatacommonsBarComponent extends LitElement {
         scaling: 1,
         statVar: statVarDcid,
         unit: "",
+        facetId,
       });
     });
     const barTileProps: BarTilePropType = {

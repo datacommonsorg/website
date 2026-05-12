@@ -82,7 +82,7 @@ test("Single place and single stat var", async () => {
   // Open demographics node in stat var widget
   wrapper
     .find("#hierarchy-section .Collapsible__trigger")
-    .at(0)
+    .at(1)
     .simulate("click");
   // Wait for the stat var info fetch
   await new Promise(process.nextTick);
@@ -207,7 +207,7 @@ test("chart options", async () => {
   // Open the Agriculture node in the stat var widget
   wrapper
     .find("#hierarchy-section .Collapsible__trigger")
-    .at(2)
+    .at(0)
     .simulate("click");
   // Wait for the stat var info fetch from the stat var widget
   await new Promise(process.nextTick);

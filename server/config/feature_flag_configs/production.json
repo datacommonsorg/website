@@ -31,7 +31,7 @@
   },
   {
     "name": "enable_gemini_3_flash",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables Gemini 3 Flash for NL detection."
   },
@@ -52,6 +52,12 @@
     "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
+  },
+  {
+    "name": "new_ranking_page",
+    "enabled": false,
+    "owner": "juliawu",
+    "description": "Enables the new ranking page UI"
   },
   {
     "name": "standardized_vis_tool",

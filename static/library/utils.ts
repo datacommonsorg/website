@@ -157,3 +157,58 @@ export function getObservationDateRange(response: PointApiResponse): {
   });
   return { minDate, maxDate };
 }
+
+/**
+ * Resolves the facet ID for a given variable.
+ *
+ * Precedence order for resolution:
+ * 1. `facetMapping`: If the variable exists as a key in the mapping, its value is used.
+ * 2. `facetIds`: If provided as a list:
+ *    - If it contains a single element, that element is used for all variables (broadcast).
+ *    - If it contains multiple elements, the element at the same `index` as the variable is used.
+ * 3. `facetId`: Fallback ID used if no higher precedence match is found.
+ *
+ * @param variable The variable DCID.
+ * @param index The index of the variable in the list.
+ * @param facetMapping Optional parsed mapping of variable to facet ID.
+ * @param facetIds Optional positional list of facet IDs.
+ * @param facetId Optional fallback facet ID.
+ * @returns The resolved facet ID or empty string.
+ */
+export function getFacetId(
+  variable: string,
+  index: number,
+  facetMapping?: Record<string, string>,
+  facetIds?: string[],
+  facetId?: string
+): string {
+  if (facetMapping && variable in facetMapping) {
+    return facetMapping[variable];
+  }
+  if (facetIds) {
+    if (facetIds.length === 1) return facetIds[0];
+    if (facetIds.length > index) return facetIds[index];
+  }
+  return facetId || "";
+}
+
+/**
+ * Parses a facetMapping JSON string into a Record<string, string>.
+ * Logs a warning if parsing fails.
+ *
+ * @param facetMapping The JSON string to parse.
+ * @returns The parsed record or undefined.
+ */
+export function parseFacetMapping(
+  facetMapping?: string
+): Record<string, string> | undefined {
+  if (!facetMapping) {
+    return undefined;
+  }
+  try {
+    return JSON.parse(facetMapping);
+  } catch (e) {
+    console.warn(`Failed to parse facetMapping JSON: ${facetMapping}`, e);
+    return undefined;
+  }
+}

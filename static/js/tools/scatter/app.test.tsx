@@ -512,107 +512,159 @@ function mockAxios(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 0,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: [],
+        numEntitiesExistence: 0,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10001", "geoId/10005", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10003", "geoId/10001", "geoId/10005"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10003", "geoId/10005", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10005", "geoId/10003", "geoId/10001"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Demographics",
-      entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
-      numEntitiesExistence: 1,
-    })
+    .calledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Demographics",
+        entities: ["geoId/10005", "geoId/10001", "geoId/10003"],
+        numEntitiesExistence: 1,
+      },
+      expect.anything() // axios signal
+    )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
@@ -628,15 +680,21 @@ function mockAxios(): void {
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_Establishment")
+    .calledWith(
+      "/api/variable/path?dcid=Count_Establishment",
+      expect.anything()
+    )
     .mockResolvedValue({ data: pathsData.Count_Establishment });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_HousingUnit")
+    .calledWith("/api/variable/path?dcid=Count_HousingUnit", expect.anything())
     .mockResolvedValue({ data: pathsData.Count_HousingUnit });
 
   when(axios.get)
-    .calledWith("/api/variable/path?dcid=Count_Person_Employed")
+    .calledWith(
+      "/api/variable/path?dcid=Count_Person_Employed",
+      expect.anything()
+    )
     .mockResolvedValue({ data: pathsData.Count_Person_Employed });
 
   when(axios.get)
@@ -712,11 +770,15 @@ test("all functionalities", async () => {
   mockAxios();
   const app = mount(<TestApp />);
   await waitFor(() => {
-    expect(axios.post).toHaveBeenCalledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 0,
-    });
+    expect(axios.post).toHaveBeenCalledWith(
+      "/api/variable-group/info",
+      {
+        dcid: "dc/g/Root",
+        entities: [],
+        numEntitiesExistence: 0,
+      },
+      expect.anything()
+    );
   });
   await app.update();
 
