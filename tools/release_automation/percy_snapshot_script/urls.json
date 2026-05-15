@@ -92,7 +92,7 @@
     "name": "Download preview"
   },
   {
-    "path": "/ranking/Count_Person/CensusZipCodeTabulationArea/country/USAdisable_feature=new_ranking_page",
+    "path": "/ranking/Count_Person/CensusZipCodeTabulationArea/country/USA?disable_feature=new_ranking_page",
     "name": "US Census Zip Code Tabulation Area Population Count"
   },
   {
