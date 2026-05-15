@@ -92,11 +92,11 @@
     "name": "Download preview"
   },
   {
-    "path": "/ranking/Count_Person/CensusZipCodeTabulationArea/country/USA",
+    "path": "/ranking/Count_Person/CensusZipCodeTabulationArea/country/USAdisable_feature=new_ranking_page",
     "name": "US Census Zip Code Tabulation Area Population Count"
   },
   {
-    "path": "/ranking/Count_Person/State/country/IND",
+    "path": "/ranking/Count_Person/State/country/IND?disable_feature=new_ranking_page",
     "name": "India State Population Ranking"
   },
   {
@@ -104,11 +104,11 @@
     "name": "Explore: Economics topic page"
   },
   {
-    "path": "/explore#sv=Count_Person&p=nuts%2FUKE12&client=ui_related_topic&chartType=TIMELINE_WITH_HIGHLIGHT&imp=EurostatData_Demographic_Balance_Crude_Rates",
+    "path": "/explore#sv=Count_Person&p=nuts%2FUKE12&client=ui_related_topic&chartType=TIMELINE_WITH_HIGHLIGHT&imp=EurostatData_Demographic_Balance_Crude_Rates&test=screenshot",
     "name": "Explore: Pinned Timeline & Highlight tiles (Eurostat)"
   },
   {
-    "path": "/explore#sv=Count_Person&p=geoId%2F04___geoId%2F06&client=ui_related_topic&chartType=BAR_CHART&imp=CensusACS5yrSurvey",
+    "path": "/explore#sv=Count_Person&p=geoId%2F04___geoId%2F06&client=ui_related_topic&chartType=BAR_CHART&imp=CensusACS5yrSurvey&test=screenshot",
     "name": "Explore: Pinned Bar tile (Census)"
   },
   {
