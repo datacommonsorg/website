@@ -73,7 +73,7 @@
   },
   {
     "name": "new_ranking_page",
-    "enabled": false,
+    "enabled": true,
     "owner": "juliawu",
     "description": "Enables the new ranking page UI"
   },
@@ -84,14 +84,8 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
-    "name": "standardized_vis_tool",
-    "enabled": true,
-    "owner": "juliawu",
-    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
-  },
-  {
     "name": "use_v2_api",
-    "enabled": false,
+    "enabled": true,
     "owner": "juliawu",
     "description": "Enables features that rely on the V2 REST APIs"
   },

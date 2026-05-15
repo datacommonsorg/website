@@ -18,10 +18,7 @@ from dataclasses import field
 from typing import Dict, List, Set, Tuple
 
 from flask import current_app
-from flask import request
 
-from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import USE_V2_API
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
@@ -129,7 +126,7 @@ def limit_extended_svs(sv: str, ext_svs: Set[str], limit: int) -> Dict:
 
 
 def _fetch_indirect_siblings(
-    svs_needing_indirect: List[str], sv2svg: Dict[str, str], use_v2: bool
+    svs_needing_indirect: List[str], sv2svg: Dict[str, str]
 ) -> Tuple[Dict[str, str], Dict[str, List[str]], Dict[str, List[Dict]]]:
   """Fetches indirect siblings (parent SVG -> sibling SVGs -> sibling SVs)."""
   # Batch 1: Fetch parents for all identified SVGs
@@ -166,26 +163,8 @@ def _fetch_indirect_siblings(
   # Batch 3: Fetch variable group info for all sibling SVGs
   svg_siblings_info = {'data': []}
   if all_sibling_svgs:
-    svg_siblings_info = dc.get_variable_group_info(list(all_sibling_svgs), [])
-
-  # Collect all child SVs from sibling groups
-  all_sibling_child_svs = set()
-  for item in svg_siblings_info.get('data', []):
-    for c in item.get('info', {}).get('childStatVars', []):
-      if 'id' in c:
-        all_sibling_child_svs.add(c['id'])
-
-  # Batch 4: Fetch variable definitions for all child SVs
-  sibling_sv_definitions = {}
-  if use_v2 and all_sibling_child_svs:
-    sibling_sv_definitions = dc.get_variable_definitions(
-        list(all_sibling_child_svs))
-
-    # Populate definitions
-    for item in svg_siblings_info.get('data', []):
-      for c in item.get('info', {}).get('childStatVars', []):
-        if 'id' in c and c['id'] in sibling_sv_definitions:
-          c['definition'] = sibling_sv_definitions[c['id']]
+    svg_siblings_info = dc.get_variable_group_info(list(all_sibling_svgs), [],
+                                                   include_definitions=True)
 
   # Map from sibling SVG to its children for quick lookup
   svg_to_children = {}
@@ -222,24 +201,12 @@ def extend_svs(svs: List[str]):
   svg2childsvs = {}
   if not sv2svg:
     return {}
-  svginfo = dc.get_variable_group_info(list(sv2svg.values()), [])
+  svginfo = dc.get_variable_group_info(list(sv2svg.values()), [],
+                                       include_definitions=True)
   if 'data' not in svginfo:
     return {}
   for item in svginfo['data']:
-    children = item['info'].get('childStatVars', [])
-    svg2childsvs[item['node']] = children
-  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
-  if use_v2:
-    all_child_svs = set()
-    for children in svg2childsvs.values():
-      all_child_svs.update(c['id'] for c in children if 'id' in c)
-
-    sv_definitions = dc.get_variable_definitions(list(all_child_svs))
-
-    for children in svg2childsvs.values():
-      for c in children:
-        if 'id' in c and c['id'] in sv_definitions:
-          c['definition'] = sv_definitions[c['id']]
+    svg2childsvs[item['node']] = item['info'].get('childStatVars', [])
 
   res = {}
   # Extended SV member -> Extended SV list
@@ -272,7 +239,7 @@ def extend_svs(svs: List[str]):
 
   # Extract batch fetching logic into a helper
   svg_to_parent, parent_to_siblings, svg_to_children = _fetch_indirect_siblings(
-      svs_needing_indirect, sv2svg, use_v2)
+      svs_needing_indirect, sv2svg)
 
   # Final Pass: Process results
   for sv, svg in sv2svg.items():
