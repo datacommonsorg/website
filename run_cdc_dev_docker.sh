@@ -46,7 +46,7 @@ Options:
   With all these options, you must also specify '--image' with the (source) 
   image name and tag.
 
--container|-c all|service|data
+--container|-c all|service|data
   Optional: The containers to run.
   Default with 'run' and 'build_run': all: Run all containers. Other options are:
   * service: Only run the service container. You can use this if you have not made any changes to your data, or   you are only running the service container locally (with the data container in the cloud) Exclusive with '--schema-update'.
