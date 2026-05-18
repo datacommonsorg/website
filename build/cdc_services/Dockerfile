@@ -154,6 +154,7 @@ COPY --from=mixer /workspace/bin/ bin
 COPY --from=mixer /workspace/esp/ esp
 COPY --from=mixer /workspace/internal/ internal
 COPY --from=mixer /workspace/mixer-grpc.pb .
+COPY mixer/deploy/featureflags mixer/deploy/featureflags
 # nginx.
 COPY build/cdc_services/nginx.conf .
 # Website and NL servers.
