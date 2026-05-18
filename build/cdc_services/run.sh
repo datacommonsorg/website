@@ -15,6 +15,10 @@
 
 set -e
 
+# Workaround for Go runtime.Caller path issue when mounting local binary
+# mkdir -p /workspace/mixer
+# ln -sf /workspace/internal /workspace/mixer/internal
+
 export MIXER_API_KEY=$DC_API_KEY
 # https://stackoverflow.com/a/62703850
 export TOKENIZERS_PARALLELISM=false
@@ -60,7 +64,7 @@ fi
 
 nginx -c /workspace/nginx.conf
 
-MIXER_ARGS=("--feature_flags_path=/workspace/mixer/deploy/featureflags/custom.yaml")
+MIXER_ARGS=()
 if [[ $ENABLE_MODEL == "true" ]]; then
     # Custom embeddings index built at 
     # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
@@ -105,7 +109,7 @@ except Exception as e:
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
     
     # 2. Enable V2 API for Mixer
-    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true" "--feature_flags_path=/workspace/mixer/deploy/featureflags/custom.yaml")
 fi
 
 # Start mixer.
