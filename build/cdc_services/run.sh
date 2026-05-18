@@ -105,7 +105,7 @@ except Exception as e:
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
     
     # 2. Enable V2 API for Mixer
-    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true" "--feature_flags_path=/workspace/mixer/deploy/featureflags/custom.yaml")
+    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
 fi
 
 # Start mixer.
