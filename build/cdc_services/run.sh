@@ -15,10 +15,6 @@
 
 set -e
 
-# Workaround for Go runtime.Caller path issue when mounting local binary
-# mkdir -p /workspace/mixer
-# ln -sf /workspace/internal /workspace/mixer/internal
-
 export MIXER_API_KEY=$DC_API_KEY
 # https://stackoverflow.com/a/62703850
 export TOKENIZERS_PARALLELISM=false
