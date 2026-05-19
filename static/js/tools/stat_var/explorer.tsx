@@ -21,6 +21,7 @@
 import React, { Component } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
+import { isFeatureEnabled } from "../../shared/feature_flags/util";
 import { StatVarSummary } from "../../shared/types";
 import { Places } from "./places";
 import { Provenance, ProvenancePropType } from "./provenance";
@@ -35,6 +36,7 @@ interface ExplorerPropType {
 
 class Explorer extends Component<ExplorerPropType, unknown> {
   render(): JSX.Element {
+    const isV2ApiEnabled = isFeatureEnabled("use_v2_api");
     const provenanceSummaryList = this.flattenProvenanceSummary();
     return (
       <div id="stat-var-explorer">
@@ -53,7 +55,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           <h4 className="description-text">{this.props.description}</h4>
         )}
         {!this.props.summary && <div>No data available.</div>}
-        {this.props.summary?.placeTypeSummary && (
+        {!isV2ApiEnabled && this.props.summary?.placeTypeSummary && (
           <h4 className="highlight-text">
             Total number of places:{" "}
             {formatNumber(this.getNumberOfPlaces(), "", true)}
@@ -67,7 +69,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         )}
         {/* The only children passed in should be the stat var explorer button */}
         {this.props.children}
-        {this.props.summary?.placeTypeSummary && (
+        {!isV2ApiEnabled && this.props.summary?.placeTypeSummary && (
           <div id="place-type-summary-section" className="table-page-section">
             <h3>Places</h3>
             <Places

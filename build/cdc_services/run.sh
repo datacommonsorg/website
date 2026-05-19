@@ -26,7 +26,7 @@ export NL_SERVER_PORT=${NL_SERVER_PORT:-6060}
 # If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
 if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
     echo "GCS Data Path: $GCS_DATA_PATH"
-    echo "GCS_DATA_PATH is deprecated and will be removed in the future. Use OUTPUT_DIR instead."
+    echo "GCS_DATA_PATH is deprecated. Use OUTPUT_DIR instead."
     export OUTPUT_DIR=$GCS_DATA_PATH
 fi
 
@@ -71,7 +71,27 @@ if [[ $ENABLE_MODEL == "true" ]]; then
     )
 fi
 
+if [[ $USE_SPANNER_GRAPH == "true" ]]; then
+    echo "Spanner Graph detected."
+    
+    # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
+    
+    # Use existing GCP project ID, or fetch it from Metadata Server if empty
+    GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
+    
+    if [[ -z "$GCP_PROJECT_ID" ]]; then
+        echo "ERROR: Failed to resolve Project ID."
+        exit 1
+    fi
+    
+    SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
+    
+    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+    # Until V2 APIs are enabled 100%, use the flag --use_v2_api=true on your docker run command
+fi
+
 # Start mixer.
+echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 /workspace/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \

@@ -7,5 +7,5 @@ Redirects can be used at datacommons.org/link/<REDIRECT-NAME>
 Make changes to this file **very carefully**, and then copy it over as:
 
 ```bash
-gsutil cp redirects.json gs://datcom-website-config/
+gcloud storage cp redirects.json gs://datcom-website-config/
 ```

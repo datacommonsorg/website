@@ -21,6 +21,7 @@
 import React, { Component } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
+import { isFeatureEnabled } from "../../shared/feature_flags/util";
 import { ProvenanceSummary } from "../../shared/types";
 import { urlToDisplayText } from "../../shared/util";
 
@@ -63,9 +64,12 @@ class Provenance extends Component<ProvenancePropType, unknown> {
               Total time series:{" "}
               {formatNumber(this.props.summary.timeSeriesCount, "", true)}
             </li>
-            {this.props.summary.releaseFrequency && (
-              <li>Release frequency: {this.props.summary.releaseFrequency}</li>
-            )}
+            {!isFeatureEnabled("use_v2_api") &&
+              this.props.summary.releaseFrequency && (
+                <li>
+                  Release frequency: {this.props.summary.releaseFrequency}
+                </li>
+              )}
           </ul>
         </div>
         <table className="node-table">
@@ -74,7 +78,7 @@ class Provenance extends Component<ProvenancePropType, unknown> {
               <th className="series-key-column">Series Key</th>
               <th className="number-column">Total Observations</th>
               <th className="number-column">Observed Places</th>
-              <th>Date Range</th>
+              <th className="date-column">Date Range</th>
               <th className="type-column">Place Types</th>
             </tr>
             {this.props.summary.seriesSummary.map((element, index) => {
@@ -136,7 +140,6 @@ class Provenance extends Component<ProvenancePropType, unknown> {
       </div>
     );
   }
-
   private getPlaceTypes(i: number): Array<string> {
     const placeTypes = [];
     for (const placeType in this.props.summary.seriesSummary[i]

@@ -269,6 +269,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       facets={barChartData?.facets}
       statVarToFacets={barChartData?.statVarToFacets}
       subtitle={props.subtitle}
+      entities={"places" in props ? props.places : [props.parentPlace]}
       title={props.title}
       statVarSpecs={props.variables}
       forwardRef={containerRef}

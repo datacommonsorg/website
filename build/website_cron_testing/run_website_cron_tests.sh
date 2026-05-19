@@ -36,7 +36,7 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
   echo "Starting nodejs tests against domain: $NODEJS_API_ROOT"
   echo "====================================================================================="
   python3 nodejs_query.py --base_url="$NODEJS_API_ROOT"
-  gsutil cp ./output/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
+  gcloud storage cp ./output/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
   rm -rf ./output/*
   failure_email="failure_email.json"
   python3 differ.py -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
@@ -58,7 +58,7 @@ if [[ $ENABLE_SANITY == "true" ]]; then
   echo "Starting sanity tests"
   echo "====================================================================================="
   python3 sanity.py --mode=home --url="$WEB_API_ROOT"
-  gsutil cp ./output/*.csv gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/sanity/
+  gcloud storage cp ./output/*.csv gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/sanity/
   rm ./output/*.csv
   echo "Finished the sanity tests."
   echo "====================================================================================="
@@ -74,13 +74,13 @@ if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
   echo "Starting adversarial tests"
   echo "====================================================================================="
   mkdir -p input
-  gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
+  gcloud storage cp gs://datcom-website-adversarial/input/frequent/* input/
   dc_list=("main" "sdg")
   for dc in "${dc_list[@]}"; do
     echo "====================================================================================="
     echo "Executing the Adversarial Test against the $dc index, detection and fulfillment."
     python3 adversarial.py --mode=run_all --dc="$dc" --base_url="$WEB_API_ROOT"
-    gsutil cp ./output/$dc/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/$dc/
+    gcloud storage cp ./output/$dc/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/$dc/
     rm -rf ./output/$dc/*
     echo "Finished the Adversarial Test against the $dc index, detection and fulfillment."
     echo "====================================================================================="

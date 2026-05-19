@@ -149,6 +149,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_place_url.side_effect = mock_url_for_side_effect
 
     self.mock_translate = self.patch(place_api, "gettext")
+    self.mock_v2node_paginated = self.patch(dc, "v2node_paginated")
     self.mock_v2node = self.patch(dc, "v2node")
 
     def fetch_translate(args, **kwargs):
@@ -173,7 +174,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def mock_v2node_api_data(self, response_list: list[dict]):
 
-    def mock_v2node_side_effect(nodes, props):
+    def mock_v2node_side_effect(nodes, props, *args, **kwargs):
       value = {
           "data":
               response_list[self.v2node_api_response_index % len(response_list)]
@@ -181,6 +182,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
       self.v2node_api_response_index += 1
       return value
 
+    self.mock_v2node_paginated.side_effect = mock_v2node_side_effect
     self.mock_v2node.side_effect = mock_v2node_side_effect
 
   def test_get_parent_places(self):

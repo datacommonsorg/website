@@ -30,6 +30,8 @@ import {
   convertBooleanAttribute,
   createWebComponentElement,
   getApiRoot,
+  getFacetId,
+  parseFacetMapping,
 } from "./utils";
 
 /**
@@ -117,6 +119,11 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showHighestLowest?: boolean;
 
+  // Optional: Number of additional items to load when the show more button is clicked.
+  // If not provided, pagination is disabled.
+  @property({ type: Number })
+  showNextCount?: number;
+
   // Optional: Set to true to show a lowest-to-highest ranking
   // Default: highest-to-lowest, if showHighestLowest is false
   @property({ type: Boolean, converter: convertBooleanAttribute })
@@ -145,9 +152,35 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /**
+   * Optional: List of facet IDs to use for variables
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  facetIds?: string[];
+
+  /**
+   * Optional: JSON mapping of variable DCID to facet ID
+   */
+  @property()
+  facetMapping?: string;
+
+  /**
+   * Optional: Facet ID to use for all variables
+   */
+  @property()
+  facetId?: string;
+
   render(): HTMLDivElement {
+    const parsedMapping = parseFacetMapping(this.facetMapping);
     const variables = this.variables || [this.variable];
-    const statVarSpecs = variables.map((statVar) => {
+    const statVarSpecs = variables.map((statVar, index) => {
+      const facetId = getFacetId(
+        statVar,
+        index,
+        parsedMapping,
+        this.facetIds,
+        this.facetId
+      );
       return {
         denom:
           this.perCapita && this.perCapita.includes(statVar)
@@ -158,6 +191,7 @@ export class DatacommonsRankingComponent extends LitElement {
         scaling: 1,
         statVar,
         unit: "",
+        facetId,
       };
     });
 
@@ -175,6 +209,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showHighestLowest: this.showHighestLowest,
         showLowest: this.showLowest,
         showMultiColumn: this.showMultiColumn,
+        showNextCount: this.showNextCount,
       },
       showExploreMore: this.showExploreMore,
       sources: this.sources,

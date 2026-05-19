@@ -384,7 +384,7 @@ def properties(nodes, out=True):
   return result
 
 
-def property_values(nodes, prop, out=True, constraints=''):
+def property_values(nodes, prop, out=True, constraints='', max_pages=1):
   """Returns a compact property values data out of REST API response.
 
   The response is the following format:
@@ -392,8 +392,16 @@ def property_values(nodes, prop, out=True, constraints=''):
     <node_dcid>: [value list]
   }
   """
-  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                          constraints))
+  from server.lib.feature_flags import is_feature_enabled
+  from server.lib.feature_flags import USE_V2_API
+
+  if is_feature_enabled(USE_V2_API):
+    resp = dc.v2node_paginated(
+        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+        max_pages)
+  else:
+    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
+                                            constraints))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -505,16 +513,16 @@ def triples(nodes, out=True, max_pages=1):
   return result
 
 
-def descendent_places(nodes, descendent_type):
+def descendent_places(nodes, descendent_type, max_pages=1):
   # When the only node being requested is also the descendent_type, fetch all nodes of that type.
   if nodes and len(nodes) == 1 and nodes[0] == descendent_type:
-    return property_values(nodes, "typeOf", out=False)
-  return property_values(
-      nodes,
-      "containedInPlace+",
-      out=False,
-      constraints="{{typeOf:{}}}".format(descendent_type),
-  )
+    return property_values(nodes, "typeOf", out=False, max_pages=max_pages)
+
+  return property_values(nodes,
+                         "containedInPlace+",
+                         out=False,
+                         constraints="{{typeOf:{}}}".format(descendent_type),
+                         max_pages=max_pages)
 
 
 def raw_descendent_places(nodes, descendent_type):

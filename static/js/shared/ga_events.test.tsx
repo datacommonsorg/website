@@ -197,6 +197,7 @@ const MAP_POINTS: MapPoint[] = [
 const MAP_PROPS = {
   breadcrumbDataValues: { PLACE_DCID: NUMBER },
   dates: new Set<string>([""]),
+  entities: [PLACE_DCID],
   geoJsonData: {
     features: [],
     properties: {
@@ -733,7 +734,7 @@ describe("test ga event tool stat var click", () => {
       expect(
         statVarHierarchy.container.getElementsByClassName(
           "Collapsible__trigger"
-        )[0]
+        )[1]
       ).toBeTruthy();
     });
 
@@ -741,7 +742,7 @@ describe("test ga event tool stat var click", () => {
     fireEvent.click(
       statVarHierarchy.container.getElementsByClassName(
         "Collapsible__trigger"
-      )[0]
+      )[1]
     );
     const inputId = "#" + STAT_VAR_3 + "dc\\/g\\/Demographics-" + STAT_VAR_3;
     // Wait for stat vars to get rendered.

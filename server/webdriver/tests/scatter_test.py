@@ -14,10 +14,7 @@
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.scatter_test import ScatterTestMixin
-from server.webdriver.shared_tests.scatter_test import \
-    StandardizedScatterTestMixin
 
 
-class TestScatter(ScatterTestMixin, StandardizedScatterTestMixin,
-                  BaseDcWebdriverTest):
+class TestScatter(ScatterTestMixin, BaseDcWebdriverTest):
   """Class to test scatter page. Tests come from ScatterTestMixin."""

@@ -34,7 +34,6 @@ class TestServiceDiscovery(unittest.TestCase):
     configure_endpoints_from_ingress(
         'server/tests/test_data/ingress/test1.yaml')
 
-    assert get_service_url('/v2/sparql') == 'http://query-host:8080/v2/sparql'
     assert get_service_url(
         '/v1/place/related') == 'http://default-host:8080/v1/place/related'
 
@@ -47,5 +46,3 @@ class TestServiceDiscovery(unittest.TestCase):
         '/v2/observation') == 'http://observations-api:5000/v2/observation'
 
     assert get_service_url('/v2/node') == 'http://v0-node-service:8888/v2/node'
-
-    assert get_service_url('/v2/sparql') == 'http://bq-service/v2/sparql'

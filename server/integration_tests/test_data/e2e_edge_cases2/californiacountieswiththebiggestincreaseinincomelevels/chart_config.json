@@ -11,14 +11,14 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06085",
-                      "geoId/06075",
                       "geoId/06081",
-                      "geoId/06001",
+                      "geoId/06075",
                       "geoId/06041",
-                      "geoId/06003",
-                      "geoId/06013",
-                      "geoId/06087",
+                      "geoId/06001",
                       "geoId/06069",
+                      "geoId/06013",
+                      "geoId/06003",
+                      "geoId/06087",
                       "geoId/06055"
                     ],
                     "statVarKey": [
@@ -49,18 +49,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06075",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_abs"
-                    ],
-                    "title": "San Francisco County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06081",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
@@ -73,11 +61,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
+                    "placeDcidOverride": "geoId/06075",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Alameda County",
+                    "title": "San Francisco County",
                     "type": "LINE"
                   }
                 ]
@@ -97,11 +85,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06003",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Alpine County",
+                    "title": "Alameda County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06069",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_abs"
+                    ],
+                    "title": "San Benito County",
                     "type": "LINE"
                   }
                 ]
@@ -121,11 +121,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06087",
+                    "placeDcidOverride": "geoId/06003",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Santa Cruz County",
+                    "title": "Alpine County",
                     "type": "LINE"
                   }
                 ]
@@ -133,11 +133,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06069",
+                    "placeDcidOverride": "geoId/06087",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "San Benito County",
+                    "title": "Santa Cruz County",
                     "type": "LINE"
                   }
                 ]
@@ -174,18 +174,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06003",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_pct"
-                    ],
-                    "title": "Alpine County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06085",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
@@ -222,11 +210,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06015",
+                    "placeDcidOverride": "geoId/06003",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Del Norte County",
+                    "title": "Alpine County",
                     "type": "LINE"
                   }
                 ]
@@ -234,11 +222,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06087",
+                    "placeDcidOverride": "geoId/06015",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Santa Cruz County",
+                    "title": "Del Norte County",
                     "type": "LINE"
                   }
                 ]
@@ -270,11 +258,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06089",
+                    "placeDcidOverride": "geoId/06087",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Shasta County",
+                    "title": "Santa Cruz County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06049",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_pct"
+                    ],
+                    "title": "Modoc County",
                     "type": "LINE"
                   }
                 ]

@@ -477,6 +477,7 @@ test("get stats data with state code", () => {
     statVars: ["Count_Person"],
     sources: new Set(["source1", "source2"]),
     measurementMethods: new Set(),
+    denomFacets: new Set(),
   });
 });
 
@@ -589,6 +590,7 @@ test("get stats data where latest date with data for all stat vars is not the la
     statVars: ["Count_Person"],
     sources: new Set(["source1", "source2"]),
     measurementMethods: new Set(),
+    denomFacets: new Set(),
   });
 });
 
@@ -700,6 +702,7 @@ test("get stats data where there is no date with data for all stat vars", () => 
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(),
   });
 });
 
@@ -803,6 +806,7 @@ test("get stats data with per capita with population size 0", () => {
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(["fac1"]),
   });
 });
 
@@ -1013,6 +1017,7 @@ test("get stats data with Per capita with specified denominators", () => {
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(["facet1", "facet2"]),
   });
 });
 
@@ -1144,6 +1149,7 @@ test("get stats data with per capita with specified denominators - missing place
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(["facet1"]),
   });
 });
 
@@ -1271,6 +1277,7 @@ test("get stat data with specified source", () => {
         provenanceUrl: "source2",
       },
     },
+    denomFacets: new Set(),
   });
 });
 
@@ -1305,6 +1312,7 @@ test("StatsData test", () => {
     dates: [],
     sources: new Set(),
     measurementMethods: new Set(),
+    denomFacets: new Set(),
   };
   expect(getStatVarGroupWithTime(statData, "geoId/01")).toEqual([]);
 });
@@ -1353,6 +1361,7 @@ test("transform from models - multiple places", () => {
     statVars: ["Max_Temperature_RCP26"],
     sources: new Set(["nasa.gov"]),
     measurementMethods: new Set(["NASA_Mean_CCSM4"]),
+    denomFacets: new Set(),
   };
 
   const modelStatAllResponse: SeriesAllApiResponse = {
@@ -1477,6 +1486,7 @@ test("transform from models - multiple places", () => {
       statVars: ["Max_Temperature_RCP26"],
       sources: new Set(["model.nasa.gov"]),
       measurementMethods: new Set(["Mean across models"]),
+      denomFacets: new Set(),
     },
     {
       // model StatData
@@ -1561,6 +1571,7 @@ test("transform from models - multiple places", () => {
       ],
       sources: new Set(["model.nasa.gov"]),
       measurementMethods: new Set(["NASA_Mean_CCSM4", "NASA_Mean_HadGEM2-AO"]),
+      denomFacets: new Set(),
     },
   ];
   expect(
@@ -1601,6 +1612,7 @@ test("transform from models - multiple obs periods", () => {
     statVars: ["Max_Temperature_RCP26"],
     sources: new Set(["model.nasa.gov"]),
     measurementMethods: new Set(["NASA_Mean_CCSM4"]),
+    denomFacets: new Set(),
   };
 
   const modelStatAllResponse: SeriesAllApiResponse = {
@@ -1722,6 +1734,7 @@ test("transform from models - multiple obs periods", () => {
       statVars: ["Max_Temperature_RCP26"],
       sources: new Set(["p1y.nasa.gov"]),
       measurementMethods: new Set(["Mean across models"]),
+      denomFacets: new Set(),
     },
     {
       // model StatData
@@ -1780,6 +1793,7 @@ test("transform from models - multiple obs periods", () => {
       ],
       sources: new Set(["p1y.nasa.gov"]),
       measurementMethods: new Set(["NASA_Mean_CCSM4", "NASA_Mean_HadGEM2-AO"]),
+      denomFacets: new Set(),
     },
   ];
 

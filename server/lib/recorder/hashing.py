@@ -34,7 +34,10 @@ API_RECORDED_POST_PARAMS = {
     },
     '/api/explore/follow-up-questions': {'q'},
     '/api/explore/detect-and-fulfill': {'q'},
-    '/api/variable-group/info': {'dcid', 'numEntitiesExistence'}
+    '/api/variable-group/info': {'dcid', 'numEntitiesExistence'},
+    '/api/metadata/facets': {
+        'statVars', 'entities', 'parentPlace', 'enclosedPlaceType'
+    }
 }
 
 # For GET requests (Query parameters)

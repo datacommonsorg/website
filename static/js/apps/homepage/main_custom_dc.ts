@@ -13,18 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * Entrypoint file for homepage.
+ * Entry point for the home page.
  */
+
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { App } from "./app";
+import { loadLocaleData } from "../../i18n/i18n";
+import { extractRoutes } from "../base/utilities/utilities";
+import { App } from "./custom_dc_app";
 
 window.addEventListener("load", (): void => {
-  // Initialize search box.
-  ReactDOM.render(
-    React.createElement(App),
-    document.getElementById("search-container")
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
   );
 });
+
+function renderPage(): void {
+  const routes = extractRoutes();
+
+  ReactDOM.render(
+    React.createElement(App, {
+      routes,
+    }),
+    document.getElementById("app-container")
+  );
+}

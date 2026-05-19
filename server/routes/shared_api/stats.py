@@ -29,6 +29,7 @@ from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
+from server.routes.shared_api import stat_var_search_v2
 import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
@@ -169,6 +170,18 @@ def search_statvar():
         break
 
     result = dc.filter_statvars(statVars, entities)
+  elif is_feature_enabled("use_v2_api"):
+    if current_app.config.get("ENABLE_MODEL", False) and current_app.config.get(
+        "CUSTOM", False):
+      filtered_statvars = stat_var_search_v2.stat_var_v2_search(query, entities)
+
+      result = {
+          "statVars": filtered_statvars,
+          "matches": [],
+          "statVarGroups": []
+      }
+    else:
+      result = {"matches": [], "statVars": [], "statVarGroups": []}
   else:
     result = dc.search_statvar(query, entities, sv_only)
   return Response(json.dumps(result), 200, mimetype='application/json')

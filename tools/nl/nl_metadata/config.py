@@ -32,7 +32,7 @@ BIGQUERY_IN_CLAUSE_BATCH_SIZE = 10000
 BIGQUERY_QUERY_BASE = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL AND prov_id != \"dc/base/ExperimentalStatVars\""
 
 # --- Gemini API Config ---
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3-flash-preview"
 GEMINI_TEMPERATURE = 1
 GEMINI_TOP_P = 1
 GEMINI_SEED = 0

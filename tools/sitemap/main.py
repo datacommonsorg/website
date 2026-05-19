@@ -18,7 +18,7 @@ import os
 import time
 from typing import List
 
-import datacommons as dc
+from datacommons_client import DataCommonsClient
 import requests
 
 logging.getLogger().setLevel(logging.INFO)
@@ -59,7 +59,7 @@ LINE_LIMIT = 45000
 # Name for sitemap with priority places to test
 PRIORITY_PLACE_SITEMAP = "PriorityPlaces.0.txt"
 
-# CSV storing BQ query results for queries that are too heavy for sparql
+# CSV storing BQ query results for queries that are too heavy for mixer
 BQ_CSV = "cities_with_population_over_500k.csv"
 
 
@@ -70,18 +70,22 @@ def chunks(lst, n):
     yield lst[i:i + n]
 
 
-def write_place_url(place_type):
+def fetch_place_dcids_by_type(dc_client: DataCommonsClient, place_type: str):
+  """Return all dcids for entities of the given type."""
+  response = dc_client.node.fetch_property_values(
+      node_dcids=place_type,
+      properties='typeOf',
+      out=False,
+  )
+  return sorted(
+      set(dcid for dcid in response.extract_connected_dcids(
+          place_type, property_dcid='typeOf') if dcid))
+
+
+def write_place_url(dc_client: DataCommonsClient, place_type: str):
   logging.info(place_type)
-  sparql = '''
-      SELECT ?dcid
-      WHERE {{
-        ?a typeOf {} .
-        ?a dcid ?dcid
-      }}
-      Order By ASC(?dcid)
-    '''.format(place_type)
   try:
-    data = dc.query(sparql)
+    data = fetch_place_dcids_by_type(dc_client, place_type)
   except Exception:
     logging.exception('Got an error while query %s', place_type)
     return
@@ -91,31 +95,30 @@ def write_place_url(place_type):
     with open(file_name, 'w') as f:
       logging.info('writing to file: %s', file_name)
       for p in places:
-        f.write(SITE_PREFIX + p['?dcid'] + '\n')
+        f.write(SITE_PREFIX + p + '\n')
     index += 1
     time.sleep(10)
 
 
-def get_us_states() -> List[str]:
+def get_us_states(dc_client: DataCommonsClient) -> List[str]:
   """Get list of DCIDs corresponding to US states and Washington DC"""
-  # Get US states and Washington DC
-  sparql = '''
-    SELECT ?dcid
-    WHERE {
-      ?a typeOf State .
-      ?a dcid ?dcid
-    }
-    Order By ASC(?dcid)
-    LIMIT 51
-  '''
-  dcids = []
   try:
-    state_data = dc.query(sparql)
-    for state in state_data:
-      if '?dcid' in state:
-        dcids.append(state['?dcid'])
+    state_data = dc_client.node.fetch_place_children(
+        place_dcids='country/USA',
+        children_type='State',
+        as_dict=True,
+    )
   except Exception:
     logging.exception('Got an error while querying for US states')
+    return []
+
+  # Includes 50 states + Washington, DC. Excludes Puerto Rico (geoId/72).
+  dcids = sorted({
+      state.get('dcid')
+      for state in state_data.get('country/USA', [])
+      if isinstance(state, dict) and state.get('dcid') and
+      state.get('dcid') != 'geoId/72'
+  })
   return dcids
 
 
@@ -150,14 +153,14 @@ def get_top_100_us_cities() -> List[str]:
   return dcids
 
 
-def write_priority_places_sitemap() -> None:
+def write_priority_places_sitemap(dc_client: DataCommonsClient) -> None:
   """Write a custom sitemap for SEO testing.
   
   Writes a sitemap with 50 US states, Washington D.C., the top 100
   US cities by population, and cities around the world with a population of
   500k or greater.
   """
-  dcids = get_us_states()
+  dcids = get_us_states(dc_client)
   dcids += get_top_100_us_cities()
   dcids += get_global_cities_with_population_over_500k()
 
@@ -175,10 +178,13 @@ def updateRobotTxt():
 
 
 def main():
-  dc.set_api_key('noop')
+  api_key = os.environ.get('DC_API_KEY', '').strip()
+  if not api_key:
+    raise ValueError('DC_API_KEY environment variable is required.')
+  dc_client = DataCommonsClient(api_key=api_key)
   for place_type in PLACES:
-    write_place_url(place_type)
-  write_priority_places_sitemap()
+    write_place_url(dc_client, place_type)
+  write_priority_places_sitemap(dc_client)
   updateRobotTxt()
 
 

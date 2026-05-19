@@ -74,7 +74,7 @@ class ExplorePageTestMixin():
 
     place_callout_link = find_elem(self.driver, By.CLASS_NAME,
                                    'place-callout-link')
-    self.assertEqual(place_callout_link.text, 'California')
+    self.assertEqual(place_callout_link.text, 'World')
 
   def test_highlight_chart_france_gdp_timeline(self):
     """Test the highlight chart for France GDP timeline."""

@@ -42,6 +42,7 @@ import {
 } from "../shared/types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { STAT_VAR_HIERARCHY_CONFIG } from "../tools/stat_var/stat_var_hierarchy_config";
+import { getUrlWithSearchParamsToPropagate } from "../utils/url_utils";
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
@@ -94,12 +95,16 @@ interface StatVarHierarchyStateType {
   togglePath: (sv: string, path?: string[]) => void;
   // Whether we should show all stat vars, even the ones without data.
   showAllSV: boolean;
+  // Whether the data is being fetched.
+  isLoading: boolean;
 }
 
 export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
 > {
+  dataAbortController: AbortController;
+
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
@@ -112,9 +117,11 @@ export class StatVarHierarchy extends React.Component<
       rootSVGs: [],
       togglePath: this.togglePath,
       showAllSV: false,
+      isLoading: false,
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
+    this.dataAbortController = null;
   }
 
   componentDidMount(): void {
@@ -131,6 +138,10 @@ export class StatVarHierarchy extends React.Component<
     ) {
       this.fetchData();
     }
+  }
+
+  componentWillUnmount(): void {
+    this.dataAbortController?.abort();
   }
 
   render(): JSX.Element {
@@ -242,11 +253,11 @@ export class StatVarHierarchy extends React.Component<
                 }, this)}
               </div>
             </div>
-          ) : (
+          ) : !this.state.isLoading ? (
             <div className="no-sv-message">
               No Available Statistical Variables
             </div>
-          )}
+          ) : null}
         </div>
         <div id="browser-screen" className="screen">
           <div id="spinner"></div>
@@ -257,7 +268,12 @@ export class StatVarHierarchy extends React.Component<
   }
 
   private async fetchData(): Promise<void> {
+    this.dataAbortController?.abort();
+    this.dataAbortController = new AbortController();
+
     loadSpinner(SV_HIERARCHY_SECTION_ID);
+    this.setState({ isLoading: true });
+
     const entityList = this.props.entities.map((entity) => entity.dcid);
     const variableGroupInfoPromises: Promise<StatVarGroupNodeType>[] =
       STAT_VAR_HIERARCHY_CONFIG.nodes.map((statVarHierarchyConfigNode) => {
@@ -267,11 +283,15 @@ export class StatVarHierarchy extends React.Component<
           ? [statVarHierarchyConfigNode.dataSourceDcid]
           : [];
         return axios
-          .post("/api/variable-group/info", {
-            dcid: statVarHierarchyConfigNode.dcid,
-            entities: [...entityList, ...dataSourceEntities],
-            numEntitiesExistence: this.props.numEntitiesExistence,
-          })
+          .post(
+            getUrlWithSearchParamsToPropagate("/api/variable-group/info"),
+            {
+              dcid: statVarHierarchyConfigNode.dcid,
+              entities: [...entityList, ...dataSourceEntities],
+              numEntitiesExistence: this.props.numEntitiesExistence,
+            },
+            { signal: this.dataAbortController.signal }
+          )
           .then((resp) => {
             return resp.data;
           });
@@ -283,15 +303,17 @@ export class StatVarHierarchy extends React.Component<
         if (this.state.svPath && sv in this.state.svPath) {
           svPath[sv] = this.state.svPath[sv];
         } else {
-          statVarPathPromises.push(this.getPath(sv));
+          statVarPathPromises.push(
+            this.getPath(sv, this.dataAbortController.signal)
+          );
         }
       }
     }
 
     try {
       const variableGroupInfos = await Promise.all(variableGroupInfoPromises);
-      // const dataSourceFilter = await dataSourceFilterPromise;
       const statVarFilterPaths = await Promise.all(statVarPathPromises);
+
       removeSpinner(SV_HIERARCHY_SECTION_ID);
 
       // Set root stat var group hierarchy
@@ -301,6 +323,18 @@ export class StatVarHierarchy extends React.Component<
       // level.
       if (variableGroupInfos.length === 1) {
         rootSVGs.push(...(variableGroupInfos[0].childStatVarGroups || []));
+        // Sort top-level nodes into a fixed order if a pinning order is supplied
+        rootSVGs.sort((a, b) => {
+          const orderA =
+            STAT_VAR_HIERARCHY_CONFIG.topLevelPinnedOrder?.[a.id] ?? Infinity;
+          const orderB =
+            STAT_VAR_HIERARCHY_CONFIG.topLevelPinnedOrder?.[b.id] ?? Infinity;
+
+          if (orderA !== orderB) {
+            return orderA - orderB;
+          }
+          return 0;
+        });
       } else {
         variableGroupInfos.forEach((variableGroupInfo, index) => {
           const statVarHierarchyNodeConfig =
@@ -328,11 +362,16 @@ export class StatVarHierarchy extends React.Component<
       this.setState({
         rootSVGs,
         svPath,
+        isLoading: false,
       });
-    } catch {
+    } catch (error) {
+      if (axios.isCancel(error) || error.name === "AbortError") {
+        return;
+      }
       removeSpinner(SV_HIERARCHY_SECTION_ID);
       this.setState({
         errorMessage: "Error retrieving stat var group root nodes",
+        isLoading: false,
       });
     }
   }
@@ -387,12 +426,18 @@ export class StatVarHierarchy extends React.Component<
   }
 
   // Get the path of a stat var from the hierarchy.
-  private getPath(sv: string): Promise<string[]> {
+  private getPath(sv: string, signal?: AbortSignal): Promise<string[]> {
     if (sv == "") {
       return Promise.resolve([]);
     }
+
     return axios
-      .get(`/api/variable/path?dcid=${encodeURIComponent(sv)}`)
+      .get(
+        getUrlWithSearchParamsToPropagate(
+          `/api/variable/path?dcid=${encodeURIComponent(sv)}`
+        ),
+        { signal }
+      )
       .then((resp) => {
         // This is to make jest test working, should find a better way to let
         // mock return new object each time.

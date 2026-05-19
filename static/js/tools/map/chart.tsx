@@ -64,6 +64,10 @@ interface ChartProps {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
+  // The total number of facets available
+  totalFacetCount?: number;
+  // Callback function that is run when the modal is opened to enrich facets with metadata
+  onFacetSelectorModalOpen?: () => void;
   children: ReactNode;
   borderGeoJsonData?: GeoJsonData;
   // A function passed through from the chart that handles the task
@@ -78,6 +82,7 @@ interface ChartProps {
   facets: Record<string, StatMetadata>;
   statVarToFacets: StatVarFacetMap;
   statVarSpecs: StatVarSpec[];
+  entities: string[];
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -135,6 +140,8 @@ export function Chart(props: ChartProps): ReactElement {
         }
         facetListLoading={props.facetListLoading}
         facetListError={props.facetListError}
+        onFacetSelectorModalOpen={props.onFacetSelectorModalOpen}
+        totalFacetCount={props.totalFacetCount}
       />
       <Card className="chart-section-card">
         <Container id={SECTION_CONTAINER_ID} fluid={true}>
@@ -200,6 +207,7 @@ export function Chart(props: ChartProps): ReactElement {
       </Card>
       <ToolChartFooter
         chartId="map"
+        entities={props.entities}
         sources={props.sources}
         mMethods={null}
         hidePerCapitaOption={!mainSvInfo.pcAllowed}

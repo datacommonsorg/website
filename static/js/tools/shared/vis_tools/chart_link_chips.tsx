@@ -23,26 +23,58 @@ import React from "react";
 import { LinkChips } from "../../../components/content/link_chips";
 import { Link } from "../../../components/elements/link_chip";
 import { intl } from "../../../i18n/i18n";
-import { toolMessages } from "../../../i18n/i18n_tool_messages";
-import { landingPageLinks } from "./landing_page_example_links";
+import {
+  toolMessages,
+  VisToolExampleChartMessages,
+} from "../../../i18n/i18n_tool_messages";
+
+declare global {
+  interface Window {
+    visToolExamples?: VisToolExample[];
+  }
+}
+
+export interface VisToolExample {
+  id: string;
+  title?: string;
+  titleMessageId?: string;
+  url: string;
+}
 
 interface ChartLinkChipsProps {
   toolType: "map" | "scatter" | "timeline";
+  visToolExamples: VisToolExample[];
 }
 
-/** Gets the set of link chips for the correct tool from the config */
-function getLinkChips(props: ChartLinkChipsProps): Link[] {
-  switch (props.toolType) {
-    case "map": {
-      return landingPageLinks.mapLinks;
-    }
-    case "scatter": {
-      return landingPageLinks.scatterLinks;
-    }
-    default: {
-      return landingPageLinks.timelineLinks;
-    }
+function getLinkChips(config: VisToolExample[]): Link[] {
+  if (!config || !Array.isArray(config)) {
+    return [];
   }
+
+  const links: Link[] = [];
+
+  for (const item of config) {
+    let finalTitle = item.title;
+
+    const messageKey =
+      item.titleMessageId as keyof typeof VisToolExampleChartMessages;
+    if (!finalTitle && messageKey && VisToolExampleChartMessages[messageKey]) {
+      finalTitle = intl.formatMessage(VisToolExampleChartMessages[messageKey]);
+    }
+
+    // if a given example does not contain an id or final title, we omit
+    if (!finalTitle || !item.id) {
+      continue;
+    }
+
+    links.push({
+      id: item.id,
+      title: finalTitle,
+      url: item.url,
+    });
+  }
+
+  return links;
 }
 
 export function ChartLinkChips(props: ChartLinkChipsProps): JSX.Element {
@@ -52,7 +84,7 @@ export function ChartLinkChips(props: ChartLinkChipsProps): JSX.Element {
       header={intl.formatMessage(toolMessages.ExamplesHeader)}
       headerComponent="h4"
       section={`${props.toolType}_tool_example_charts`}
-      linkChips={getLinkChips(props)}
+      linkChips={getLinkChips(props.visToolExamples)}
       chipTextSize="sm"
     />
   );

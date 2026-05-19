@@ -1,0 +1,322 @@
+/**
+ * Copyright 2026 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ThemeProvider } from "@emotion/react";
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { Category } from "../components/subject_page/category";
+import { loadLocaleData } from "../i18n/i18n";
+import { NamedTypedPlace } from "../shared/types";
+import theme from "../theme/theme";
+import { CategoryConfig } from "../types/subject_page_proto_types";
+
+const MOCK_CONFIG: CategoryConfig = {
+  title: "[Category Title] About California (DCID: geoId/06)",
+  statVarSpec: {
+    Count_Person: {
+      statVar: "Count_Person",
+      name: "Population",
+      denom: "",
+      unit: "",
+      scaling: 1,
+      log: false,
+    },
+    Count_Person_Female: {
+      statVar: "Count_Person_Female",
+      name: "Female Population",
+      denom: "",
+      unit: "",
+      scaling: 1,
+      log: false,
+    },
+    Count_Person_Male: {
+      statVar: "Count_Person_Male",
+      name: "Male Population",
+      denom: "",
+      unit: "",
+      scaling: 1,
+      log: false,
+    },
+    Median_Age_Person: {
+      statVar: "Median_Age_Person",
+      name: "Median Age",
+      denom: "",
+      unit: "years",
+      scaling: 1,
+      log: false,
+    },
+  },
+  blocks: [
+    {
+      title: "Place Overview",
+      description: "A single Place Overview Tile.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "PLACE_OVERVIEW",
+              title: "Sample Place Overview Tile",
+              description: "Place Overview",
+              statVarKey: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Line and Highlight",
+      description: "Line and Highlight tiles.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "HIGHLIGHT",
+              title: "Sample Highlight Tile",
+              description: "Population: ${date}",
+              statVarKey: ["Count_Person"],
+            },
+            {
+              type: "LINE",
+              title: "Sample Line Chart Tile",
+              description: "Line Chart",
+              statVarKey: ["Count_Person"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Map and Ranking",
+      description: "Map and Ranking tiles.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "MAP",
+              title: "Sample Map Tile",
+              description: "Map View",
+              statVarKey: ["Count_Person"],
+            },
+            {
+              type: "RANKING",
+              title: "Sample Ranking Tile",
+              description: "Ranking",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: true,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Bar",
+      description: "Bar chart tile.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "BAR",
+              title: "Sample Bar Chart Tile",
+              description: "Bar Chart",
+              statVarKey: ["Count_Person"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Bivariate and Scatter",
+      description: "Bivariate and Scatter plots.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "SCATTER",
+              title: "Sample Scatter Plot Tile",
+              description: "Scatter Plot",
+              statVarKey: ["Count_Person", "Median_Age_Person"],
+            },
+            {
+              type: "BIVARIATE",
+              title: "Sample Bivariate Map Tile",
+              description: "Bivariate Map",
+              statVarKey: ["Count_Person", "Median_Age_Person"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Donut and Gauge",
+      description: "Donut and Gauge tiles.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "GAUGE",
+              title: "Sample Gauge Tile",
+              description: "Gauge",
+              statVarKey: ["Median_Age_Person"],
+              gaugeTileSpec: { range: { min: 0, max: 100 } },
+            },
+            {
+              type: "DONUT",
+              title: "Sample Donut Tile",
+              description: "Donut",
+              statVarKey: ["Count_Person_Female", "Count_Person_Male"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Description",
+      description: "Description tile.",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "DESCRIPTION",
+              title: "Sample Description Tile",
+              description: "This is a descriptive tile.",
+              statVarKey: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Ranking tiles",
+      description:
+        "Test variations for Ranking tiles (Highest vs Lowest vs Both, with vs without pagination toggles).",
+      columns: [
+        {
+          tiles: [
+            {
+              type: "RANKING",
+              title: "Highest Only (No Pagination)",
+              description:
+                "Highest ranking with default count and no button toggle.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: false,
+                rankingCount: 5,
+                showNextCount: 0,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Highest Only (With Pagination)",
+              description: "Highest ranking with pagination.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: false,
+                rankingCount: 5,
+                showNextCount: 10,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Lowest Only (No Pagination)",
+              description:
+                "Lowest ranking with default count and no button toggle.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: false,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 0,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Lowest Only (With Pagination)",
+              description: "Lowest ranking with pagination.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: false,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 10,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Both Highest & Lowest (No Pagination)",
+              description: "Combined highest and lowest views without button.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 0,
+              },
+            },
+            {
+              type: "RANKING",
+              title: "Both Highest & Lowest (With Pagination)",
+              description: "Combined views with pagination.",
+              statVarKey: ["Count_Person"],
+              rankingTileSpec: {
+                showHighest: true,
+                showLowest: true,
+                rankingCount: 5,
+                showNextCount: 10,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+const MOCK_PLACE: NamedTypedPlace = {
+  dcid: "geoId/06",
+  name: "California",
+  types: ["State"],
+};
+function SubjectPageTilesDevPage(): React.JSX.Element {
+  return (
+    <ThemeProvider theme={theme}>
+      <Category
+        id="subject-page-tiles-cat"
+        config={MOCK_CONFIG}
+        place={MOCK_PLACE}
+        enclosedPlaceType="County"
+        eventTypeSpec={{}}
+        svgChartHeight={200}
+      />
+    </ThemeProvider>
+  );
+}
+
+window.addEventListener("load", (): void => {
+  loadLocaleData("en", [import("../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      ReactDOM.render(
+        React.createElement(SubjectPageTilesDevPage),
+        document.getElementById("subject-page-tiles-container")
+      );
+    }
+  );
+});

@@ -34,6 +34,7 @@ interface PlaceAxisChartData {
   popValue?: number;
   popDate?: string;
   unit?: string;
+  denomFacet?: string;
 }
 
 /**
@@ -72,10 +73,13 @@ function getPlaceAxisChartData(
   let value = obs.value || 0;
   let denomValue = null;
   let denomDate = null;
+  let denomFacet = null;
+
   if (!_.isEmpty(denomSeries)) {
     const denomObs = getMatchingObservation(denomSeries.series, obs.date);
     denomValue = denomObs.value;
     denomDate = denomObs.date;
+    denomFacet = denomSeries.facet;
     value /= denomValue;
   }
   if (scaling) {
@@ -96,12 +100,14 @@ function getPlaceAxisChartData(
       // Otherwise, use the default "Count_Person" variable.
       popValue = popValue || popObs.value;
       popDate = popDate || popObs.date;
+      denomFacet = denomFacet || popSeries.facet;
     } else {
       console.log(`No population data for ${placeDcid}`);
     }
   }
   const unit = getUnit(metadataMap[metaHash]);
-  return { value, statDate, sources, popValue, popDate, unit };
+
+  return { value, statDate, sources, popValue, popDate, unit, denomFacet };
 }
 
 interface PlaceScatterData {
@@ -109,6 +115,8 @@ interface PlaceScatterData {
   sources: string[];
   xUnit?: string;
   yUnit?: string;
+  xDenomFacet?: string;
+  yDenomFacet?: string;
 }
 
 /**
@@ -173,5 +181,12 @@ export function getPlaceScatterData(
     yPopDate: yChartData.popDate,
   };
   const sources = xChartData.sources.concat(yChartData.sources);
-  return { point, sources, xUnit: xChartData.unit, yUnit: yChartData.unit };
+  return {
+    point,
+    sources,
+    xUnit: xChartData.unit,
+    yUnit: yChartData.unit,
+    xDenomFacet: xChartData.denomFacet,
+    yDenomFacet: yChartData.denomFacet,
+  };
 }

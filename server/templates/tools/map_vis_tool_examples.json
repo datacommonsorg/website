@@ -1,0 +1,37 @@
+[
+  {
+    "id": "map_water_withdrawal_rate_in_the_usa",
+    "titleMessageId": "waterWithdrawalRateInUsa",
+    "url": "/tools/map#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
+  },
+  {
+    "id": "map_unemployment_rate_in_new_jersey",
+    "titleMessageId": "unemploymentRateInNewJersey",
+    "url": "/tools/map#%26sv%3DUnemploymentRate_Person%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F34%26ept%3DCounty"
+  },
+  {
+    "id": "map_median_income_in_texas",
+    "titleMessageId": "medianIncomeInTexas",
+    "url": "/tools/map#%26sv%3DMedian_Income_Person%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F48%26ept%3DCounty"
+  },
+  {
+    "id": "map_attainment_of_bachelor_degree_in_colorado",
+    "titleMessageId": "attainmentOfBachelorDegreeInColorado",
+    "url": "/tools/map#%26sv%3DCount_Person_EducationalAttainmentBachelorsDegreeOrHigher%26pc%3D1%26denom%3DCount_Person%26pd%3DgeoId%2F08%26ept%3DCounty"
+  },
+  {
+    "id": "map_projected_temperature_rise_in_the_usa",
+    "titleMessageId": "projectedTemperatureRiseInUsa",
+    "url": "/tools/map#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
+  },
+  {
+    "id": "map_median_age_in_usa",
+    "titleMessageId": "medianAgeInUsa",
+    "url": "/tools/map#%26sv%3DMedian_Age_Person%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
+  },
+  {
+    "id": "map_no_schooling_completed_in_usa",
+    "titleMessageId": "noSchoolingCompletedInUsa",
+    "url": "/tools/map#%26sv%3DCount_Person_EducationalAttainmentNoSchoolingCompleted%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
+  }
+]

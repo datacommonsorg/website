@@ -24,11 +24,14 @@ from google import genai
 from google.genai import types
 import json5
 
+from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
+_GEMINI_3_0_FLASH = 'gemini-3-flash-preview'
 _GEMINI_2_5_FLASH = 'gemini-2.5-flash'
-_API_VERSION = 'v1'
+_API_VERSION_3 = 'v1beta'
+_API_VERSION_2 = 'v1'
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 0.1
@@ -53,6 +56,13 @@ _GEMINI_CONFIG = types.GenerateContentConfig(
             "threshold": "BLOCK_MEDIUM_AND_ABOVE"
         },
     ])
+
+_GEMINI_2_5_CONFIG = _GEMINI_CONFIG
+
+_GEMINI_3_CONFIG = types.GenerateContentConfig(
+    temperature=_TEMPERATURE,
+    safety_settings=_GEMINI_CONFIG.safety_settings,
+    thinking_config=types.ThinkingConfig(thinking_level="low"))
 
 _SKIP_BEGIN_CHARS = ['`', '*']
 
@@ -80,18 +90,19 @@ def detect_with_gemini(query: str, history: List[List[str]],
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
 
+  model_name, api_version, config = detect_model_name()
   gemini_client = genai.Client(
       api_key=api_key,
-      http_options=genai.types.HttpOptions(api_version=_API_VERSION))
-  model_name = detect_model_name()
+      http_options=genai.types.HttpOptions(api_version=api_version))
   logging.info(f'Gemini model used for LLM API: {model_name}')
   ctr.info(
       'gemini_model',
-      f'{_API_VERSION}/{model_name}',
+      f'{api_version}/{model_name}',
   )
+
   gemini_response = gemini_client.models.generate_content(model=model_name,
                                                           contents=text,
-                                                          config=_GEMINI_CONFIG)
+                                                          config=config)
 
   ctr.timeit('gemini_pro_call', start_time)
 
@@ -185,5 +196,7 @@ def _extract_answer(resp: str) -> str:
   return '\n'.join(ans)
 
 
-def detect_model_name() -> str:
-  return _GEMINI_2_5_FLASH
+def detect_model_name() -> tuple[str, str, types.GenerateContentConfig]:
+  if is_feature_enabled(ENABLE_GEMINI_3_FLASH):
+    return _GEMINI_3_0_FLASH, _API_VERSION_3, _GEMINI_3_CONFIG
+  return _GEMINI_2_5_FLASH, _API_VERSION_2, _GEMINI_2_5_CONFIG

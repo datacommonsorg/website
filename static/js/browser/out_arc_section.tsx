@@ -40,23 +40,34 @@ interface OutArcData {
   };
 }
 
+/**
+ * Properties that should always be ignored (not shown in the out arcs table).
+ */
 const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "provenance",
   "kmlCoordinates",
-  "geoJsonCoordinates",
-  "geoJsonCoordinatesDP1",
-  "geoJsonCoordinatesDP2",
-  "geoJsonCoordinatesDP3",
-  "geoJsonCoordinatesUN",
-  "geoJsonCoordinatesUNDP1",
-  "geoJsonCoordinatesUNDP2",
-  "geoJsonCoordinatesUNDP3",
   "firePerimeter",
 ]);
 
+/**
+ * Properties that start with any of these prefixes will be ignored.
+ * This is used for properties that have many different versions (e.g. geoJsonCoordinatesDP1, geoJsonCoordinatesDP2, etc.)
+ */
+const IGNORED_OUT_ARC_PREFIXES = ["geoJsonCoordinates"];
+
+/**
+ * Returns true if the given property should be ignored (not shown in the out arcs table).
+ */
+export function shouldIgnoreProperty(property: string): boolean {
+  return (
+    IGNORED_OUT_ARC_PROPERTIES.has(property) ||
+    IGNORED_OUT_ARC_PREFIXES.some((prefix) => property.startsWith(prefix))
+  );
+}
+
 interface OutArcSectionPropType {
   dcid: string;
-  provDomain: { [key: string]: URL };
+  provenanceNames: { [key: string]: string };
   nodeTypes: string[];
   showAllProperties: boolean;
 }
@@ -110,6 +121,7 @@ export class OutArcSection extends React.Component<
     }
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
+    const isProvenanceNode = this.props.nodeTypes.includes("Provenance");
     return (
       <div className={`card p-0 ${ASYNC_ELEMENT_CLASS}`}>
         <table className="node-table">
@@ -117,14 +129,17 @@ export class OutArcSection extends React.Component<
             <tr key="header">
               <th className="property-column">Property</th>
               <th>Value</th>
-              <th>Provenance</th>
+              {!isProvenanceNode && (
+                <th className="provenance-column">Provenance</th>
+              )}
             </tr>
             <ArcTableRow
               key={DCID_PREDICATE}
               propertyLabel={DCID_PREDICATE}
               values={[{ text: this.props.dcid }]}
               provenanceId={""}
-              src={null}
+              provenanceName={null}
+              hideProvenanceColumn={isProvenanceNode}
             />
             {predicates.map((predicate) => {
               const valuesByProvenance = this.state.data[predicate];
@@ -136,12 +151,11 @@ export class OutArcSection extends React.Component<
                       propertyLabel={predicate}
                       values={valuesByProvenance[provenanceId]}
                       provenanceId={provenanceId}
-                      src={
-                        this.props.provDomain[provenanceId]
-                          ? this.props.provDomain[provenanceId]
-                          : null
+                      provenanceName={
+                        this.props.provenanceNames[provenanceId] || null
                       }
                       propIndex={index}
+                      hideProvenanceColumn={isProvenanceNode}
                     />
                   );
                 }
@@ -163,7 +177,7 @@ export class OutArcSection extends React.Component<
         const triplesData: PropertyValues = resp.data;
         const outArcsByPredProv: OutArcData = {};
         for (const pred in triplesData) {
-          if (IGNORED_OUT_ARC_PROPERTIES.has(pred)) {
+          if (shouldIgnoreProperty(pred)) {
             continue;
           }
           const predData = {};

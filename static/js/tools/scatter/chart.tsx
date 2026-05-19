@@ -25,6 +25,7 @@ import React, {
   ReactElement,
   RefObject,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -79,7 +80,11 @@ interface ChartPropsType {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
+  // The total number of facets available
+  totalFacetCount?: number;
   onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
+  // Callback function that is run when the modal is opened to enrich facets with metadata
+  onFacetSelectorModalOpen?: () => void;
   // A function passed through from the chart that handles the task
   // of creating the embedding used in the download functionality.
   handleEmbed?: () => void;
@@ -113,6 +118,10 @@ export function Chart(props: ChartPropsType): ReactElement {
     xDates.add(point.xDate);
     yDates.add(point.yDate);
   });
+  const entities = useMemo(
+    () => Object.keys(props.points || {}),
+    [props.points]
+  );
   const xTitle = getTitle(Array.from(xDates), props.xLabel);
   const yTitle = getTitle(Array.from(yDates), props.yLabel);
   // Tooltip needs to start off hidden
@@ -222,6 +231,8 @@ export function Chart(props: ChartPropsType): ReactElement {
         facetListLoading={props.facetListLoading}
         facetListError={props.facetListError}
         onSvFacetIdUpdated={props.onSvFacetIdUpdated}
+        onFacetSelectorModalOpen={props.onFacetSelectorModalOpen}
+        totalFacetCount={props.totalFacetCount}
       />
       <Card className="chart-card">
         <div className="chart-title">
@@ -239,6 +250,7 @@ export function Chart(props: ChartPropsType): ReactElement {
       </Card>
       <ToolChartFooter
         chartId="scatter"
+        entities={entities}
         sources={props.sources}
         mMethods={null}
         hidePerCapitaOption={true}

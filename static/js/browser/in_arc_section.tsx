@@ -33,7 +33,7 @@ const LOADING_CONTAINER_ID = "browser-in-arc-section";
 interface InArcSectionsPropType {
   nodeName: string;
   dcid: string;
-  provDomain: { [key: string]: URL };
+  provenanceNames: { [key: string]: string };
 }
 interface InArcSectionStateType {
   data: { [parentType: string]: { [property: string]: Array<InArcValue> } };
@@ -78,7 +78,7 @@ export class InArcSection extends React.Component<
                     parentType={parentType}
                     property={predicate}
                     arcValues={arcsByPredicate[predicate]}
-                    provDomain={this.props.provDomain}
+                    provenanceNames={this.props.provenanceNames}
                     key={parentType + predicate}
                   />
                 );

@@ -18,7 +18,8 @@
  * Inline-header version of the NL Search Component - used in Version 2 of the header
  */
 
-import { AutoCompleteInput } from "js/components/nl_search_bar/auto_complete_input";
+/** @jsxImportSource @emotion/react */
+
 import React, { ReactElement, useEffect, useState } from "react";
 
 import {
@@ -26,6 +27,7 @@ import {
   isFeatureEnabled,
 } from "../../shared/feature_flags/util";
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
+import { AutoCompleteInput } from "./auto_complete_input";
 
 const NlSearchBarHeaderInline = ({
   value,

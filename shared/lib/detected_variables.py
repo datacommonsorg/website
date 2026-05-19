@@ -99,6 +99,44 @@ def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
                        sv2sentences=sv2sentences)
 
 
+def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
+  """
+  Converts an entity dictionary from v2/resolve response into VarCandidates.
+
+  Args
+  ----
+    entity: A dictionary containing a list of candidate variables
+
+  Returns
+  -------
+    A VarCandidates object containing the parsed candidates and scores
+
+  """
+  svs = []
+  scores = []
+  sv2sentences: SV2Sentences = {}
+
+  for candidate in entity.get('candidates', []):
+    sv = candidate.get('dcid')
+    if not sv:
+      continue
+    meta = candidate.get('metadata', {})
+    score_str = meta.get('score')
+    try:
+      score = float(score_str) if score_str is not None else 0.0
+    except ValueError:
+      score = 0.0
+    sentence = meta.get('sentence', '')
+
+    svs.append(sv)
+    scores.append(score)
+    if sv not in sv2sentences:
+      sv2sentences[sv] = []
+    sv2sentences[sv].append(SentenceScore(sentence=sentence, score=score))
+
+  return VarCandidates(svs=svs, scores=scores, sv2sentences=sv2sentences)
+
+
 def var_candidates_to_dict(res: VarCandidates) -> Dict:
   result = {'SV': res.svs, 'CosineScore': res.scores}
   if res.sv2sentences:

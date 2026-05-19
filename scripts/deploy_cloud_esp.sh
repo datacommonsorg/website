@@ -58,12 +58,11 @@ if [[ $PROJECT_ID == "null" ]]; then
 fi
 
 CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $HELM_VALUES_FILE)
-LOCATION="us-central1"
-CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
-
-# Get gke credentials
-echo "Getting GKE credentials for $CLUSTER_NAME in $LOCATION..."
-gcloud container clusters get-credentials $CLUSTER_NAME --region=$LOCATION --project=$PROJECT_ID
+if [[ "$ENV" == "prod" && "$DEPLOYMENT" == "website" ]]; then
+  LOCATIONS=("us-west1" "us-central1")
+else
+  LOCATIONS=("us-central1")
+fi
 
 ESP_SERVICE_NAME=$(yq eval '.mixer.serviceName' $HELM_VALUES_FILE)
 if [[ $ESP_SERVICE_NAME == "null" ]]; then
@@ -100,7 +99,7 @@ fi
 
 # Deploy ESP configuration
 echo "Downloading mixer-grpc.$MIXER_HASH.pb..."
-gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
+gcloud storage cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
 
 echo "Deploying service configuration..."
 GCLOUD_OUTPUT=$(gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID 2>&1)
@@ -118,9 +117,17 @@ echo "Downloading full service config..."
 curl -o "/tmp/service_config.json" -H "Authorization: Bearer $(gcloud auth print-access-token)" \
   "https://servicemanagement.googleapis.com/v1/services/$SERVICE_NAME/configs/$CONFIG_ID?view=FULL"
 
-echo "Creating/Updating service-config-configmap..."
-kubectl delete configmap service-config-configmap -n $DEPLOYMENT --ignore-not-found
-kubectl create configmap service-config-configmap -n $DEPLOYMENT \
-  --from-file=service_config.json=/tmp/service_config.json
+for LOCATION in "${LOCATIONS[@]}"; do
+  CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
+
+  # Get gke credentials
+  echo "Getting GKE credentials for $CLUSTER_NAME in $LOCATION..."
+  gcloud container clusters get-credentials $CLUSTER_NAME --region=$LOCATION --project=$PROJECT_ID
+
+  echo "Creating/Updating service-config-configmap in $CLUSTER_NAME..."
+  kubectl delete configmap service-config-configmap -n $DEPLOYMENT --ignore-not-found
+  kubectl create configmap service-config-configmap -n $DEPLOYMENT \
+    --from-file=service_config.json=/tmp/service_config.json
+done
 
 echo "Cloud Endpoints deployment complete."

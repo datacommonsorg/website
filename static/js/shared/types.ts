@@ -195,6 +195,7 @@ declare global {
       eventName: string,
       parameter: Record<string, string | string[]>
     ) => void;
+    isSearchSupported?: boolean;
   }
 }
 

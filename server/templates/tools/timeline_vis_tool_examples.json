@@ -1,0 +1,22 @@
+[
+  {
+    "id": "timeline_water_withdrawal_rate_in_california",
+    "titleMessageId": "waterWithdrawalRateInCalifornia",
+    "url": "/tools/timeline#place=geoId%2F06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Aquaculture"
+  },
+  {
+    "id": "timeline_university_towns_by_income",
+    "titleMessageId": "universityTownsByIncome",
+    "url": "/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Income_Person"
+  },
+  {
+    "id": "timeline_close_but_different_berkeley_and_piedmont",
+    "titleMessageId": "closeButDifferentBerkeleyAndPiedmont",
+    "url": "/tools/timeline#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Median_Income_Person__Percent_Person_18OrMoreYears_WithPoorGeneralHealth__Monthly_Median_GrossRent_HousingUnit__Count_CriminalActivities_CombinedCrime&chart=%7B%22count-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22age-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22grossRent-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22unemploymentRate-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D"
+  },
+  {
+    "id": "timeline_close_but_different_palo_alto_and_east_palo_alto",
+    "titleMessageId": "closeButDifferentPaloAltoAndEastPaloAlto",
+    "url": "/tools/timeline#place=geoId%2F0655282%2CgeoId%2F0620956&statsVar=Median_Income_Person__UnemploymentRate_Person__Count_Person_HispanicOrLatino__Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_WhiteAlone__Percent_Person_18OrMoreYears_WithPoorGeneralHealth__Monthly_Median_GrossRent_HousingUnit&chart=%7B%22count-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22age-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%2C%22grossRent-none%22%3A%7B%22pc%22%3Afalse%2C%22delta%22%3Afalse%7D%7D"
+  }
+]

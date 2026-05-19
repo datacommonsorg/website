@@ -1,37 +1,35 @@
 {#-
- Copyright 2023 Google LLC
+Copyright 2023 Google LLC
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 -#}
 
 
 {#-
-  Required variables:
-  title: page title
-  main_id: DOM Element ID for the main content block
-  page_id: DOM Element ID for the html element
+To add pages that extend this template, set the following variables:
+title: page title (used in the browser title bar)
+main_id: DOM element ID for the main content block
+page_id: DOM element ID for the html element 
 
-  Optional variables:
-  locale: string, value for html lang attr
-  is_hide_header_search_bar: boolean, if true, the header will not contain a search bar. Default false.
-  subpage_title: string, if specified, will be displayed in the header next to Data Commons
+Override these blocks:
+head - head elements
+content - main page content
 
-  Blocks to override:
-  head - additional head elements
-  content - main page content
+For more details, please see https://docs.datacommons.org/custom_dc/custom_ui.html
 -#}
+
 <!DOCTYPE html>
-{#- Hide the header search bar for custom DC pages. -#}
+{#- Hide the header search bar. -#}
 {% set is_hide_header_search_bar = 'true' %}
 
 <html lang={{ locale }} id={{ page_id }}>
@@ -57,82 +55,47 @@
     globalThis.disableGoogleMaps = {{ config['DISABLE_GOOGLE_MAPS'] | tojson }};
   </script>
 
-  <title>{{ title }} - Custom Data Commons</title>
+  <title>{{ title }} - {{NAME}}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/core.min.css', t=config['VERSION'])}}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
   {% block head %}
   {% endblock %}
-  {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
-  {% endif %}
   <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
+  <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
 </head>
 
 <body>
-  {# Set page locale. #}
-  <div id="metadata-base" class="d-none" 
+{# Set page locale and pass header/footer configuration to base.js #}
+<div id="metadata-base" class="d-none"
+    data-header="{{ HEADER_MENU }}"
+    data-footer="{{ FOOTER_MENU }}"
+    data-logo-path="{{ LOGO_PATH }}"
+    data-logo-width="{{ LOGO_WIDTH }}"
+    data-name="{{ NAME }}"
+    data-show-disaster="{{ SHOW_DISASTER }}"
+    data-show-sustainability="{{ SHOW_SUSTAINABILITY }}"
     data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
+    data-ga-value-search-source="{{ ga_value_search_source }}"
+    data-search-bar-hash-mode="{{ is_search_bar_hash_mode }}"
+    data-hide-full-footer="{{ is_hide_full_footer }}"
+    data-hide-sub-footer="{{ is_hide_sub_footer }}"
+    data-subfooter-extra="{{ subfooter_extra_content|safe }}"
+    data-brand-logo-light="{{ brand_logo_light }}"
     data-locale="{{ locale }}"
-  >
-  </div>
+    data-sample-questions="{{ sample_questions }}"
+>
+</div>
+
+{% include 'metadata/labels.html' %}
+{% include 'metadata/routes.html' %}
 
   <div id="main">
     <header id="main-header">
-      <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
-        <div class="container-fluid">
-          <div class="navbar-brand">
-            {% if LOGO_PATH %}
-            <div class="main-header-logo">
-                <a href="{{ url_for('static.homepage') }}">
-                  <img src="{{ LOGO_PATH }}" />
-                </a>
-            </div>
-            {% endif %}
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            {% if subpage_title %}
-            <span class="sep">•</span>
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
-            </a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-            <ul class="navbar-nav float-md-right">
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.visualization') }}#visType=timeline" id="nav-timeline" class="nav-link-main "><span>Timeline</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.visualization') }}#visType=scatter" id="nav-scatter" class="nav-link-main"><span>Scatter</span> </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.visualization') }}#visType=map" id="nav-map" class="nav-link-main "><span>Map</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.download') }}" id="nav-download" class="nav-link-main "><span>Download</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('tools.stat_var') }}" id="nav-var" class="nav-link-main "><span>Variables</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('browser.browser_main') }}" id="nav-browser" class="nav-link-main "><span>Knowledge Graph</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="{{ url_for('explore.page') }}" id="nav-explorer" class="nav-link-main "><span>Search</span></a>
-                </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
     </header>
 
     <main id="{{ main_id }}" class="main-content">
@@ -140,16 +103,7 @@
       {% endblock %}
     </main>
 
-    <footer id="main-footer">
-      <div class="container">
-      </div>
-    </footer>
   </div>
-  {# Compile this down (or manually implement). Used only for nav bar so far #}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
   {% block footer %}
   {% endblock %}
 </body>

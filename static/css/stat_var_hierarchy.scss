@@ -226,3 +226,12 @@ $small-font-size: 0.75rem;
   font-style: italic;
   font-size: 0.8rem;
 }
+
+.node-loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 15px;
+  color: var(--gm-3-ref-primary-primary-100);
+  font-size: 0.85rem;
+}

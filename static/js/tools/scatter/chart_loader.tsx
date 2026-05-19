@@ -39,6 +39,7 @@ import {
   WEBSITE_SURFACE,
 } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
+import { useFacetEnrichment } from "../../shared/hooks/use_facet_enrichment";
 import {
   buildObservationSpecs,
   ObservationSpec,
@@ -58,8 +59,8 @@ import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getMergedSvg, transformCsvHeader } from "../../utils/tile_utils";
+import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
 import { Chart } from "./chart";
-import { useFacetMetadata } from "./compute/facet_metadata";
 import {
   Axis,
   AxisWrapper,
@@ -88,15 +89,44 @@ type ChartData = {
   sources: Set<string>;
   xUnit: string;
   yUnit: string;
+  xDenomFacets: Set<string>;
+  yDenomFacets: Set<string>;
+  xNumerFacets: Set<string>;
+  yNumerFacets: Set<string>;
 };
 
 export function ChartLoader(): ReactElement {
   const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
+  const facetListCacheKey = `${place.value.enclosingPlace.dcid}-${place.value.enclosedPlaceType}-${x.value.statVarDcid}-${y.value.statVarDcid}`;
 
-  const { facetSelectorMetadata, facetListLoading, facetListError } =
-    useFacetMetadata(cache?.baseFacets || null);
+  const baseFacetList = useMemo(() => {
+    return [
+      getFacetInfo(x.value, cache?.baseFacets?.[x.value.statVarDcid]),
+      getFacetInfo(y.value, cache?.baseFacets?.[y.value.statVarDcid]),
+    ];
+  }, [x.value, y.value, cache?.baseFacets]);
+
+  const {
+    facetList,
+    loading: facetListLoading,
+    onModalOpen,
+    totalFacetCount,
+  } = useFacetEnrichment(
+    facetListCacheKey,
+    baseFacetList,
+    useCallback(async () => {
+      const enriched = await fetchFacetsWithMetadata(cache?.baseFacets, {
+        parentPlace: place.value.enclosingPlace.dcid,
+        enclosedPlaceType: place.value.enclosedPlaceType,
+      });
+      return [
+        getFacetInfo(x.value, enriched[x.value.statVarDcid]),
+        getFacetInfo(y.value, enriched[y.value.statVarDcid]),
+      ];
+    }, [cache?.baseFacets, x.value, y.value, place.value])
+  );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
@@ -143,43 +173,52 @@ export function ChartLoader(): ReactElement {
     const facets: Record<string, StatMetadata> = {};
     const statVarToFacets: StatVarFacetMap = {};
 
-    if (!cache || !cache.baseFacets || !cache.metadataMap) {
+    if (!cache || !cache.metadataMap || !chartData) {
       return { facets, statVarToFacets };
     }
 
-    // We build the statVar to facet mapping and the metadata map
-    for (const statVarDcid in cache.baseFacets) {
+    // Helper to map plotted facets to their variable and populate metadata
+    const processFacets = (
+      statVarDcid: string,
+      plottedFacets: Set<string>
+    ): void => {
+      if (!statVarDcid || !plottedFacets || plottedFacets.size === 0) return;
+
       if (!statVarToFacets[statVarDcid]) {
         statVarToFacets[statVarDcid] = new Set();
       }
 
-      // Check if there is a specific facet selected for this variable
-      const selectedFacetIds = new Set<string>();
-
-      if (xVal.statVarDcid === statVarDcid && xVal.metahash) {
-        selectedFacetIds.add(xVal.metahash);
-      }
-      if (yVal.statVarDcid === statVarDcid && yVal.metahash) {
-        selectedFacetIds.add(yVal.metahash);
-      }
-
-      // If facets have been selected, we add only those to `facets`.
-      // If none are selected, we add all facets associated with the variable.
-      const facetIdsToConsider =
-        selectedFacetIds.size > 0
-          ? Array.from(selectedFacetIds)
-          : Object.keys(cache.baseFacets[statVarDcid]);
-
-      for (const facetId of facetIdsToConsider) {
+      for (const facetId of Array.from(plottedFacets)) {
         statVarToFacets[statVarDcid].add(facetId);
         if (cache.metadataMap[facetId]) {
           facets[facetId] = cache.metadataMap[facetId];
         }
       }
+    };
+
+    //Add in numerators that appear in the chart
+    processFacets(xVal.statVarDcid, chartData.xNumerFacets);
+    processFacets(yVal.statVarDcid, chartData.yNumerFacets);
+
+    //Add in denominators that appear in the chart
+    if (xVal.perCapita && xVal.denom) {
+      processFacets(xVal.denom, chartData.xDenomFacets);
+    }
+    if (yVal.perCapita && yVal.denom) {
+      processFacets(yVal.denom, chartData.yDenomFacets);
     }
 
     return { facets, statVarToFacets };
-  }, [cache, xVal.statVarDcid, xVal.metahash, yVal.statVarDcid, yVal.metahash]);
+  }, [
+    cache,
+    chartData,
+    xVal.statVarDcid,
+    xVal.perCapita,
+    xVal.denom,
+    yVal.statVarDcid,
+    yVal.perCapita,
+    yVal.denom,
+  ]);
 
   /**
    * Callback function for building observation specifications.
@@ -279,14 +318,6 @@ export function ChartLoader(): ReactElement {
     return <></>;
   }
 
-  const xFacetInfo = getFacetInfo(
-    xVal,
-    facetSelectorMetadata[xVal.statVarDcid]
-  );
-  const yFacetInfo = getFacetInfo(
-    yVal,
-    facetSelectorMetadata[yVal.statVarDcid]
-  );
   const onSvFacetIdUpdated = (update): void => {
     for (const sv of Object.keys(update)) {
       if (x.value.statVarDcid === sv) {
@@ -328,15 +359,18 @@ export function ChartLoader(): ReactElement {
                   [y.value.statVarDcid]: y.value.metahash,
                 }}
                 onSvFacetIdUpdated={onSvFacetIdUpdated}
-                facetList={[xFacetInfo, yFacetInfo]}
+                facetList={facetList}
                 facetListLoading={facetListLoading}
-                facetListError={facetListError}
+                facetListError={false}
+                onFacetSelectorModalOpen={onModalOpen}
+                totalFacetCount={totalFacetCount}
                 handleEmbed={handleEmbed}
                 getObservationSpecs={getObservationSpecs}
                 containerRef={containerRef}
               />
               <ChartEmbed
                 ref={embedModalElement}
+                entities={Object.keys(chartData.points)}
                 facets={facets}
                 statVarSpecs={currentStatVarSpecs}
                 statVarToFacets={statVarToFacets}
@@ -431,6 +465,7 @@ async function loadData(
     const metadataMap = {
       ...(statResponse.facets || {}),
       ...(statAllResponse.facets || {}),
+      ...(populationData.facets || {}),
     };
 
     const baseFacets: FacetResponse = {};
@@ -579,6 +614,11 @@ function getChartData(
   const sources: Set<string> = new Set();
   let xUnit = "";
   let yUnit = "";
+  const xDenomFacets: Set<string> = new Set();
+  const yDenomFacets: Set<string> = new Set();
+  const xNumerFacets: Set<string> = new Set();
+  const yNumerFacets: Set<string> = new Set();
+
   for (const namedPlace of place.enclosedPlaces) {
     const xDenom = x.perCapita ? x.denom : null;
     const yDenom = y.perCapita ? y.denom : null;
@@ -600,11 +640,38 @@ function getChartData(
         sources.add(source);
       }
     });
+
+    // Compile the used numerator and denominator facets
+    if (placeChartData.xDenomFacet) {
+      xDenomFacets.add(placeChartData.xDenomFacet);
+    }
+    if (placeChartData.yDenomFacet) {
+      yDenomFacets.add(placeChartData.yDenomFacet);
+    }
+
+    const xNumerFacet = xStatData?.[namedPlace.dcid]?.facet;
+    if (xNumerFacet) {
+      xNumerFacets.add(xNumerFacet);
+    }
+    const yNumerFacet = yStatData?.[namedPlace.dcid]?.facet;
+    if (yNumerFacet) {
+      yNumerFacets.add(yNumerFacet);
+    }
+
     points[namedPlace.dcid] = placeChartData.point;
     xUnit = xUnit || placeChartData.xUnit;
     yUnit = yUnit || placeChartData.yUnit;
   }
-  return { points, sources, xUnit, yUnit };
+  return {
+    points,
+    sources,
+    xUnit,
+    yUnit,
+    xDenomFacets,
+    yDenomFacets,
+    xNumerFacets,
+    yNumerFacets,
+  };
 }
 
 function getFacetInfo(

@@ -314,3 +314,28 @@ export function buildExploreUrl(
   const separator = existingParams ? "&" : "";
   return `/explore?${existingParams}${separator}${queryString}`;
 }
+
+/**
+ * Merges search parameters from the current window location into the given URL.
+ *
+ * Only propagates search parameters in SEARCH_PARAMS_TO_PROPAGATE.
+ * Useful for propagating URL-based search parameters to downstream child API calls.
+ *
+ * @param url The target URL or relative path to append flags to.
+ * @returns A new URL string with current feature flags appended.
+ */
+export function getUrlWithSearchParamsToPropagate(url: string): string {
+  const base =
+    window.location.origin && window.location.origin !== "null"
+      ? window.location.origin
+      : "http://localhost"; // Use localhost as fallback domain, mainly for local dev/testing
+  const urlObj = new URL(url, base);
+  const windowParams = extractFlagsToPropagate(window.location.href);
+  windowParams.forEach((value, key) => {
+    urlObj.searchParams.set(key, value);
+  });
+
+  return urlObj.origin !== base
+    ? urlObj.toString() // If url is absolute, return the full URL with flags
+    : urlObj.pathname + urlObj.search + urlObj.hash; // If url is relative, return the relative path with flags
+}

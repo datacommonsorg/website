@@ -260,7 +260,8 @@ def geojson():
     return lib_util.gzip_compress_response(result, is_json=True)
   geos = []
   if place_dcid and place_type:
-    geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
+    geos = fetch.descendent_places([place_dcid], place_type,
+                                   max_pages=None).get(place_dcid, [])
   if not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   # When fetching geojson data from kg, use the geojson prop at the correct
@@ -278,7 +279,7 @@ def geojson():
     names_by_geo = place_api.get_display_name(geos)
   features = []
   if geojson_prop:
-    geojson_by_geo = fetch.property_values(geos, geojson_prop)
+    geojson_by_geo = fetch.property_values(geos, geojson_prop, max_pages=None)
     # geoId/46102 is known to only have unsimplified geojson so need to use
     # geoJsonCoordinates as the prop for this one place
     if 'geoId/46102' in geojson_by_geo:
@@ -499,7 +500,8 @@ def get_map_points():
                     400,
                     mimetype='application/json')
   geos = []
-  geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
+  geos = fetch.descendent_places([place_dcid], place_type,
+                                 max_pages=None).get(place_dcid, [])
   if not geos:
     return Response(json.dumps([]), 200, mimetype='application/json')
   names_by_geo = place_api.get_i18n_name(geos)
@@ -510,7 +512,7 @@ def get_map_points():
   # eg. epaGhgrpFacilityId/1003010 has latitude and longitude but no location
   # epa/120814013 which is an AirQualitySite has a location, but no latitude
   # or longitude
-  location_by_geo = fetch.property_values(geos, "location")
+  location_by_geo = fetch.property_values(geos, "location", max_pages=None)
   # dict of <dcid used to get latlon>: <dcid of the place>
   geo_by_latlon_subject = {}
   for geo_dcid in geos:
@@ -520,9 +522,11 @@ def get_map_points():
     else:
       geo_by_latlon_subject[geo_dcid] = geo_dcid
   lat_by_subject = fetch.property_values(list(geo_by_latlon_subject.keys()),
-                                         "latitude")
+                                         "latitude",
+                                         max_pages=None)
   lon_by_subject = fetch.property_values(list(geo_by_latlon_subject.keys()),
-                                         "longitude")
+                                         "longitude",
+                                         max_pages=None)
 
   map_points_list = []
   for subject_dcid, latitude in lat_by_subject.items():

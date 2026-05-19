@@ -234,6 +234,42 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
     assert mock_post.call_count == 1
 
 
+class TestServiceDataCommonsResolveIndicator(unittest.TestCase):
+
+  def setUp(self):
+    self.app = Flask(__name__)
+    self.app.config["NL_ROOT"] = "fake_root"
+    self.app_context = self.app.app_context()
+    self.app_context.push()
+
+  def tearDown(self):
+    self.app_context.pop()
+
+  @mock.patch("server.services.datacommons.post")
+  def test_resolve_indicator(self, mock_post):
+
+    def side_effect(url, data, headers=None):
+      assert url.endswith("/v2/resolve")
+      self.assertEqual(
+          data, {
+              "nodes": ["foo", "bar"],
+              "property": "<-description->dcid",
+              "resolver": "indicator"
+          })
+      return {}
+
+    mock_post.side_effect = side_effect
+
+    from server.services.datacommons import resolve
+    resolve(
+        nodes=["foo", "bar"],
+        prop="<-description->dcid",
+        resolver="indicator",
+    )
+
+    assert mock_post.call_count == 1
+
+
 class TestServiceDataCommonsCacheSkip(unittest.TestCase):
 
   def setUp(self):

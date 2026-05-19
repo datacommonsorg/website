@@ -21,6 +21,8 @@ from server.lib.nl.detection.types import Place
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 
+DEFAULT_STAT_TYPE = "measuredValue"
+
 SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
     'Earth': ['earth', 'world'],
     # Continents

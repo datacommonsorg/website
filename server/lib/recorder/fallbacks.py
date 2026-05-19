@@ -125,6 +125,10 @@ def _fake_disaster_event_data_response(request):
       }})
 
 
+def _fake_metadata_facets_response(request):
+  return _create_fake_response({})
+
+
 # Register fallback responses
 FALLBACK_RESPONSES = {
     '/api/place/name': _fake_place_name_response,
@@ -138,6 +142,7 @@ FALLBACK_RESPONSES = {
     '/api/observation/existence': _fake_observation_existence_response,
     '/api/choropleth/geojson': _fake_choropleth_geojson_response,
     '/api/facets': _fake_facets_response,
+    '/api/metadata/facets': _fake_metadata_facets_response,
     '/api/facets/within': _fake_facets_within_response,
     '/api/node/propvals/out': _fake_node_propvals_out_response,
     '/api/place/name/i18n': _fake_place_name_i18n_response,

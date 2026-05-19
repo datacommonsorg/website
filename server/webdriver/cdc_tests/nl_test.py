@@ -35,4 +35,4 @@ class CdcNLTest(ExploreTest, CdcTestBase):
     self.assertTrue(
         find_elem(self.driver,
                   by=By.CSS_SELECTOR,
-                  value='.explore-container .search-bar').is_displayed())
+                  value='.explore-container .search-section').is_displayed())
