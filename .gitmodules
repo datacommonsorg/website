@@ -1,6 +1,6 @@
 [submodule "mixer"]
 	path = mixer
-	url = https://github.com/datacommonsorg/mixer.git
+	url = https://github.com/ONEcampaign/mixer.git
 [submodule "import"]
 	path = import
 	url = https://github.com/datacommonsorg/import.git
