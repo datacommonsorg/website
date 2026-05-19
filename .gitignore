@@ -129,3 +129,5 @@ GEMINI.md
 .gemini/
 # Webdriver recordings (tracked as tar.gz)
 server/tests/test_data/webdriver_recordings/
+/.codegraph
+*.md
