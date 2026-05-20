@@ -54,7 +54,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
                     ],
-                    "title": "Myanmar [Burma]",
+                    "title": "Myanmar",
                     "type": "LINE"
                   }
                 ]
@@ -168,7 +168,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
                     ],
-                    "title": "Myanmar [Burma]",
+                    "title": "Myanmar",
                     "type": "LINE"
                   }
                 ]
