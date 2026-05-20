@@ -24,6 +24,12 @@
     "description": "Adds the ability to deep link to bar charts, line charts, ranking and map charts"
   },
   {
+    "name": "enable_gemini_3_flash",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enables Gemini 3 Flash for NL detection."
+  },
+  {
     "name": "enable_nl_agent_detector",
     "enabled": false,
     "owner": "clincoln8",
@@ -60,12 +66,6 @@
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
   {
-    "name": "enable_gemini_3_flash",
-    "enabled": false,
-    "owner": "shixiao",
-    "description": "Enables Gemini 3 Flash for NL detection."
-  },
-  {
     "name": "metadata_modal",
     "enabled": true,
     "owner": "nick-next",
@@ -76,6 +76,12 @@
     "enabled": false,
     "owner": "juliawu",
     "description": "Enables the new ranking page UI"
+  },
+  {
+    "name": "nl_use_v2resolve",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Enables detect-and-fulfill to use v2resolve for statvar resolution instead of direct NL server calls."
   },
   {
     "name": "page_overview_ga",
