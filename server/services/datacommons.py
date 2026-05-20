@@ -380,20 +380,20 @@ def v2node_paginated(nodes, prop, max_pages=_DEFAULT_MAX_PAGES):
     _merge_v2node_response(result, response)
     fetched_pages += 1
     next_token = response.get("nextToken", "")
-    
+
     # Check if we should stop
     if not next_token:
       break
-      
+
     # Log if we are using the default (None) AND there is another page to fetch
     if max_pages is None and fetched_pages == 1:
       logger.warning(
           "v2node_paginated: Property '%s' has multiple pages. Auto-iterating all pages as no limit was specified.",
           prop)
-          
+
     if max_pages and fetched_pages >= max_pages:
       break
-      
+
   return result
 
 
