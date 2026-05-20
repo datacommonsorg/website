@@ -38,11 +38,8 @@ steps:
         DOCKER_BUILDKIT=1
         # Bundle container with website, esp and mixer.
         docker build -f build/cdc_services/Dockerfile \
-          --tag gcr.io/$_PROJECT_ID/datacommons-services:${_TAG} \
-          --tag gcr.io/$_PROJECT_ID/datacommons-services:latest \
-          .
+          --tag gcr.io/$_PROJECT_ID/datacommons-services:${_TAG} .
         docker push gcr.io/$_PROJECT_ID/datacommons-services:${_TAG}
-        docker push gcr.io/$_PROJECT_ID/datacommons-services:latest
     waitFor: ["-"]
 
   - id: push-nl-server
@@ -76,11 +73,8 @@ steps:
         set -e
         DOCKER_BUILDKIT=1
         docker build -f build/website_cron_testing/Dockerfile \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG} \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:latest \
-          .
+          --tag gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG} .
         docker push gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG}
-        docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
     waitFor: ["-"]
 
 timeout: 3600s
