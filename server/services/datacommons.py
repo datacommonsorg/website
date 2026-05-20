@@ -339,7 +339,7 @@ def _merge_v2node_response(result, paged_response):
     del result["nextToken"]
 
 
-def v2node_paginated(nodes, prop, max_pages=1):
+def v2node_paginated(nodes, prop, max_pages=None):
   """Wrapper to call V2 Node REST API.
 
     Args:
@@ -361,8 +361,20 @@ def v2node_paginated(nodes, prop, max_pages=1):
     _merge_v2node_response(result, response)
     fetched_pages += 1
     next_token = response.get("nextToken", "")
-    if not next_token or (max_pages and fetched_pages >= max_pages):
+    
+    # Check if we should stop
+    if not next_token:
       break
+      
+    # Log if we are using the default (None) AND there is another page to fetch
+    if max_pages is None and fetched_pages == 1:
+      logging.warning(
+          "v2node_paginated: Hit default page limit for property '%s'. Auto-iterating all pages as requested.",
+          prop)
+          
+    if max_pages and fetched_pages >= max_pages:
+      break
+      
   return result
 
 

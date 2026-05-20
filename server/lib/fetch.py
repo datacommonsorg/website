@@ -384,7 +384,7 @@ def properties(nodes, out=True):
   return result
 
 
-def property_values(nodes, prop, out=True, constraints='', max_pages=1):
+def property_values(nodes, prop, out=True, constraints='', max_pages=None):
   """Returns a compact property values data out of REST API response.
 
   The response is the following format:
