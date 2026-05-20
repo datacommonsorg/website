@@ -20,3 +20,4 @@ class Config(_base.Config):
   USE_LLM = True
   LOG_QUERY = True
   ENABLE_BQ = True
+  SHOW_DISASTER = False

@@ -1005,16 +1005,3 @@ SVS_TO_CHECK_FACET = frozenset([
     "dc/evcytmdmc9xgd",
     "WagesTotal_Worker_NAICSNonclassifiable",
 ])
-
-PROP_TO_SHORT_KEY = {
-    "populationType": "pt",
-    "measuredProperty": "mp",
-    "statType": "st",
-    "measurementDenominator": "md",
-    "measurementQualifier": "mq"
-}
-
-CORE_PROPS = [
-    "populationType", "measuredProperty", "statType", "measurementDenominator",
-    "measurementQualifier"
-]

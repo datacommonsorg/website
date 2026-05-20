@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM gcr.io/datcom-ci/webdriver-chrome:2025-01-15
+FROM gcr.io/datcom-ci/webdriver-chrome:2026-05-09
 
 WORKDIR /resources
 
