@@ -36,6 +36,12 @@
     "description": "Enables detector=agent to be a valid detection mode for NL parsing."
   },
   {
+    "name": "enable_nl_v2node_fetchall",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Fetch all pages of the response for certain v2node requests in detect-and-fulfill where we need full responses."
+  },
+  {
     "name": "enable_ranking_tile_scroll",
     "enabled": true,
     "owner": "gmechali",
