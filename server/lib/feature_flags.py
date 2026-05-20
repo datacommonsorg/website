@@ -40,7 +40,6 @@ USE_V2_RESOLVE_FOR_NL_SEARCH_VARS = 'use_v2_resolve_for_nl_search_vars'
 NL_USE_V2RESOLVE_FEATURE_FLAG = 'nl_use_v2resolve'
 
 
-
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
   """Check if a URL param to manually enable a feature is present.
 
