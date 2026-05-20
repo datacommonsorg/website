@@ -368,8 +368,8 @@ def v2node_paginated(nodes, prop, max_pages=None):
       
     # Log if we are using the default (None) AND there is another page to fetch
     if max_pages is None and fetched_pages == 1:
-      logging.warning(
-          "v2node_paginated: Hit default page limit for property '%s'. Auto-iterating all pages as requested.",
+      logger.warning(
+          "v2node_paginated: Property '%s' has multiple pages. Auto-iterating all pages as no limit was specified.",
           prop)
           
     if max_pages and fetched_pages >= max_pages:
