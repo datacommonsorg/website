@@ -39,7 +39,7 @@
     "name": "enable_nl_v2node_fetchall",
     "enabled": false,
     "owner": "calinc",
-    "description": "Auto-iterate v2node pages from detect-and-fulfill"
+    "description": "Fetch all pages of the response for certain v2node requests in detect-and-fulfill where we need full responses."
   },
   {
     "name": "enable_ranking_tile_scroll",
