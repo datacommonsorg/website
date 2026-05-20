@@ -24,10 +24,22 @@
     "description": "Adds the ability to deep link to bar charts, line charts, ranking and map charts"
   },
   {
+    "name": "enable_gemini_3_flash",
+    "enabled": true,
+    "owner": "shixiao",
+    "description": "Enables Gemini 3 Flash for NL detection."
+  },
+  {
     "name": "enable_nl_agent_detector",
     "enabled": false,
     "owner": "clincoln8",
     "description": "Enables detector=agent to be a valid detection mode for NL parsing."
+  },
+  {
+    "name": "enable_nl_v2node_fetchall",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Auto-iterate v2node pages from detect-and-fulfill"
   },
   {
     "name": "enable_ranking_tile_scroll",
@@ -58,12 +70,6 @@
     "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
-  },
-  {
-    "name": "enable_gemini_3_flash",
-    "enabled": true,
-    "owner": "shixiao",
-    "description": "Enables Gemini 3 Flash for NL detection."
   },
   {
     "name": "metadata_modal",
