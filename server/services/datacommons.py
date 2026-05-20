@@ -341,10 +341,10 @@ def _merge_v2node_response(result, paged_response):
 
 
 # Sentinel object to distinguish between default value and explicit None.
-_DEFAULT_MAX_PAGES = object()
+DEFAULT_MAX_PAGES = object()
 
 
-def v2node_paginated(nodes, prop, max_pages=_DEFAULT_MAX_PAGES):
+def v2node_paginated(nodes, prop, max_pages=DEFAULT_MAX_PAGES):
   """Wrapper to call V2 Node REST API.
 
     Args:
@@ -353,15 +353,15 @@ def v2node_paginated(nodes, prop, max_pages=_DEFAULT_MAX_PAGES):
         max_pages: The maximum number of pages to fetch. If None, v2node is
           queried until nextToken is not in the response.
     """
-  # We use a sentinel object (_DEFAULT_MAX_PAGES) as the default value to
+  # We use a sentinel object (DEFAULT_MAX_PAGES) as the default value to
   # distinguish between the caller not passing max_pages vs. explicitly
   # passing None.
   #
-  # - If caller does not pass max_pages, it gets _DEFAULT_MAX_PAGES. We then
+  # - If caller does not pass max_pages, it gets DEFAULT_MAX_PAGES. We then
   #   use the feature flag to decide the default behavior.
   # - If caller explicitly passes None, max_pages is None, and we preserve
   #   the behavior of auto-iterating all pages.
-  if max_pages is _DEFAULT_MAX_PAGES:
+  if max_pages is DEFAULT_MAX_PAGES:
     if is_feature_enabled(ENABLE_V2NODE_AUTO_ITERATION):
       max_pages = None  # New default: Auto-iterate all pages
     else:
