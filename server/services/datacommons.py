@@ -30,6 +30,7 @@ from server.lib.cache import cache
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.feature_flags import ENABLE_V2NODE_AUTO_ITERATION
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import USE_V2_API
 from server.routes import TIMEOUT
@@ -339,7 +340,11 @@ def _merge_v2node_response(result, paged_response):
     del result["nextToken"]
 
 
-def v2node_paginated(nodes, prop, max_pages=None):
+# Sentinel object to distinguish between default value and explicit None.
+_DEFAULT_MAX_PAGES = object()
+
+
+def v2node_paginated(nodes, prop, max_pages=_DEFAULT_MAX_PAGES):
   """Wrapper to call V2 Node REST API.
 
     Args:
@@ -348,6 +353,20 @@ def v2node_paginated(nodes, prop, max_pages=None):
         max_pages: The maximum number of pages to fetch. If None, v2node is
           queried until nextToken is not in the response.
     """
+  # We use a sentinel object (_DEFAULT_MAX_PAGES) as the default value to
+  # distinguish between the caller not passing max_pages vs. explicitly
+  # passing None.
+  #
+  # - If caller does not pass max_pages, it gets _DEFAULT_MAX_PAGES. We then
+  #   use the feature flag to decide the default behavior.
+  # - If caller explicitly passes None, max_pages is None, and we preserve
+  #   the behavior of auto-iterating all pages.
+  if max_pages is _DEFAULT_MAX_PAGES:
+    if is_feature_enabled(ENABLE_V2NODE_AUTO_ITERATION):
+      max_pages = None  # New default: Auto-iterate all pages
+    else:
+      max_pages = 1  # Old default: Fetch only 1 page
+
   fetched_pages = 0
   result = {}
   next_token = ""
