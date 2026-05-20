@@ -546,7 +546,7 @@
       "EurostatNUTS3": [
         {
           "dcid": "nuts/TR100",
-          "name": "Istanbul Province",
+          "name": "Istanbul",
           "types": [
             "EurostatNUTS3"
           ]
@@ -560,7 +560,7 @@
         },
         {
           "dcid": "nuts/TR212",
-          "name": "Edirne Province",
+          "name": "Edirne",
           "types": [
             "EurostatNUTS3"
           ]
@@ -581,7 +581,7 @@
         },
         {
           "dcid": "nuts/TR222",
-          "name": "\u00c7anakkale Province",
+          "name": "\u00c7anakkale",
           "types": [
             "EurostatNUTS3"
           ]
@@ -602,7 +602,7 @@
         },
         {
           "dcid": "nuts/TR322",
-          "name": "Denizli Province",
+          "name": "Denizli",
           "types": [
             "EurostatNUTS3"
           ]
@@ -616,7 +616,7 @@
         },
         {
           "dcid": "nuts/TR331",
-          "name": "Manisa Province",
+          "name": "Manisa",
           "types": [
             "EurostatNUTS3"
           ]
@@ -630,7 +630,7 @@
         },
         {
           "dcid": "nuts/TR333",
-          "name": "K\u00fctahya Province",
+          "name": "K\u00fctahya",
           "types": [
             "EurostatNUTS3"
           ]
@@ -644,7 +644,7 @@
         },
         {
           "dcid": "nuts/TR411",
-          "name": "Bursa Province",
+          "name": "Bursa",
           "types": [
             "EurostatNUTS3"
           ]
@@ -658,91 +658,91 @@
         },
         {
           "dcid": "nuts/TR413",
-          "name": "Bilecik Province",
+          "name": "Bilecik",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR421",
-          "name": "Kocaeli Province",
+          "name": "Kocaeli",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR422",
-          "name": "Sakarya Province",
+          "name": "Sakarya",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR423",
-          "name": "D\u00fczce Province",
+          "name": "D\u00fczce",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR424",
-          "name": "Bolu Province",
+          "name": "Bolu",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR425",
-          "name": "Yalova Province",
+          "name": "Yalova",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR510",
-          "name": "Ankara Province",
+          "name": "Ankara",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR521",
-          "name": "Konya Province",
+          "name": "Konya",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR522",
-          "name": "Karaman Province",
+          "name": "Karaman",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR611",
-          "name": "Antalya Province",
+          "name": "Antalya",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR612",
-          "name": "Isparta Province",
+          "name": "Isparta",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR613",
-          "name": "Burdur Province",
+          "name": "Burdur",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR621",
-          "name": "Adana Province",
+          "name": "Adana",
           "types": [
             "EurostatNUTS3"
           ]
@@ -756,7 +756,7 @@
         },
         {
           "dcid": "nuts/TR631",
-          "name": "Hatay Province",
+          "name": "Hatay",
           "types": [
             "EurostatNUTS3"
           ]
@@ -770,7 +770,7 @@
         },
         {
           "dcid": "nuts/TR633",
-          "name": "Osmaniye Province",
+          "name": "Osmaniye",
           "types": [
             "EurostatNUTS3"
           ]
@@ -784,7 +784,7 @@
         },
         {
           "dcid": "nuts/TR712",
-          "name": "Aksaray Province",
+          "name": "Aksaray",
           "types": [
             "EurostatNUTS3"
           ]
@@ -812,35 +812,35 @@
         },
         {
           "dcid": "nuts/TR721",
-          "name": "Kayseri Province",
+          "name": "Kayseri",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR722",
-          "name": "Sivas Province",
+          "name": "Sivas",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR723",
-          "name": "Yozgat Province",
+          "name": "Yozgat",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR811",
-          "name": "Zonguldak Province",
+          "name": "Zonguldak",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR812",
-          "name": "Karab\u00fck Province",
+          "name": "Karab\u00fck",
           "types": [
             "EurostatNUTS3"
           ]
@@ -854,7 +854,7 @@
         },
         {
           "dcid": "nuts/TR821",
-          "name": "Kastamonu Province",
+          "name": "Kastamonu",
           "types": [
             "EurostatNUTS3"
           ]
@@ -868,28 +868,28 @@
         },
         {
           "dcid": "nuts/TR823",
-          "name": "Sinop Province",
+          "name": "Sinop",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR831",
-          "name": "Samsun Province",
+          "name": "Samsun",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR832",
-          "name": "Tokat Province",
+          "name": "Tokat",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/TR833",
-          "name": "\u00c7orum Province",
+          "name": "\u00c7orum",
           "types": [
             "EurostatNUTS3"
           ]
