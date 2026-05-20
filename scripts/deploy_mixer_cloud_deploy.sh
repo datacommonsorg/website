@@ -30,5 +30,5 @@ gcloud deploy releases create "dev-manual-$TIMESTAMP" \
 --region=us-central1 \
 --skaffold-file=skaffold.yaml \
 --images="gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_GITHASH,gcr.io/datcom-ci/datacommons-embeddings-sidecar=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:mixer-sidecar" \
---deploy-parameters="mixer.githash=$MIXER_GITHASH,MIXER_GITHASH=$MIXER_GITHASH" \
+--deploy-parameters="MIXER_GITHASH=$MIXER_GITHASH" \
 --project=datcom-ci

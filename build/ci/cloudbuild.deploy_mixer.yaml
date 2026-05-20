@@ -84,7 +84,7 @@ steps:
           --region=us-central1 \
           --skaffold-file=skaffold.yaml \
           --images="${images_str}" \
-          --deploy-parameters="mixer.githash=${mixer_githash},MIXER_GITHASH=${mixer_githash}" \
+          --deploy-parameters="MIXER_GITHASH=${mixer_githash}" \
           --project=datcom-ci
 
         echo "Successfully created release ${release_name}."

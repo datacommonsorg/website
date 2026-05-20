@@ -1,0 +1,36 @@
+# Overrides for datcom-website-dev's mixer deployments
+# Default values are defined by 
+#  priority: /mixer/deploy/helm_charts/envs/mixer_dev.yaml
+#  fallback: /mixer/deploy/helm_charts/values.yaml
+
+project: "datcom-website-dev"
+
+mixer:
+  hostProject: "datcom-website-dev"
+  serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.60.165.235"
+          port: "6379"
+  enableOtlp: true
+
+serviceAccount:
+  name: website-ksa
+
+# Disable ingress for mixer in datcom-website-dev
+ingress:
+  enabled: false
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 1
+  observation:
+    replicas: 3
+  node:
+    replicas: 3
+  default:
+    replicas: 3

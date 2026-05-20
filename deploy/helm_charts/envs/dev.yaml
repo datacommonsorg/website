@@ -29,34 +29,9 @@ website:
   redis:
     enabled: false
 
-mixer:
-  serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
-  hostProject: "datcom-website-dev"
-  redis:
-    enabled: true
-    configFile: |
-      instances:
-        - region: "us-central1"
-          host: "10.60.165.235"
-          port: "6379"
-  enableOtlp: true
-
-serviceAccount:
-  name: website-ksa
-
+# Enable ingress for website
 ingress:
   enabled: true
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 1
-  observation:
-    replicas: 3
-  node:
-    replicas: 3
-  default:
-    replicas: 3
 
 nl:
   enabled: true
