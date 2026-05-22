@@ -84,6 +84,12 @@
     "description": "Enables the new ranking page UI"
   },
   {
+    "name": "nl_use_v2resolve",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Enables detect-and-fulfill to use v2resolve for statvar resolution instead of direct NL server calls."
+  },
+  {
     "name": "page_overview_ga",
     "enabled": false,
     "owner": "javiervazquez",
