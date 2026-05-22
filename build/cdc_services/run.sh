@@ -85,9 +85,11 @@ try:
     for flag in data:
         if flag.get('name') == 'use_v2_api':
             flag['enabled'] = True
+        if flag.get('name') == 'enable_nl_v2node_fetchall':
+            flag['enabled'] = True
     with open(path, 'w') as f:
         json.dump(data, f, indent=2)
-    print('Successfully enabled use_v2_api in custom.json')
+    print('Successfully enabled use_v2_api and enable_nl_v2node_fetchall in custom.json')
 except Exception as e:
     print(f'Warning: Failed to auto-enable use_v2_api in custom.json: {e}')
 "
