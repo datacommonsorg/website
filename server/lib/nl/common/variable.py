@@ -37,6 +37,12 @@ EXTENSION_SV_POST_EXISTENCE_CHECK_LIMIT = 15
 DEFAULT_MAX_PAGES = 1
 
 
+def _get_max_pages() -> int | None:
+  """Returns the max pages to fetch based on the fetchall feature flag."""
+  return None if is_feature_enabled(
+      ENABLE_NL_V2NODE_FETCHALL) else DEFAULT_MAX_PAGES
+
+
 @dataclass
 class SV:
   id: str
@@ -136,8 +142,7 @@ def _fetch_indirect_siblings(
   # Batch 1: Fetch parents for all identified SVGs
   svgs_to_expand = list({sv2svg[sv] for sv in svs_needing_indirect})
   parents_resp = {}
-  max_pages = None if is_feature_enabled(
-      ENABLE_NL_V2NODE_FETCHALL) else DEFAULT_MAX_PAGES
+  max_pages = _get_max_pages()
   if svgs_to_expand:
     parents_resp = fetch.property_values(svgs_to_expand,
                                          "specializationOf",
@@ -206,8 +211,7 @@ def extend_svs(svs: List[str]):
   """
   if not svs:
     return {}
-  max_pages = None if is_feature_enabled(
-      ENABLE_NL_V2NODE_FETCHALL) else DEFAULT_MAX_PAGES
+  max_pages = _get_max_pages()
   sv2svgs = fetch.property_values(svs, "memberOf", True, max_pages=max_pages)
   sv2svg = {sv: svg[0] for sv, svg in sv2svgs.items() if svg}
   svg2childsvs = {}
@@ -297,8 +301,7 @@ def extend_svs(svs: List[str]):
 def get_sv_name(all_svs: List[str],
                 sv_chart_titles: Dict,
                 dc: str = DCNames.MAIN_DC.value) -> Dict:
-  max_pages = None if is_feature_enabled(
-      ENABLE_NL_V2NODE_FETCHALL) else DEFAULT_MAX_PAGES
+  max_pages = _get_max_pages()
   sv2name_raw = fetch.property_values(all_svs, 'name', max_pages=max_pages)
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
@@ -344,8 +347,7 @@ def get_sv_unit(all_svs: List[str]) -> Dict:
 
 
 def get_sv_description(all_svs: List[str]) -> Dict:
-  max_pages = None if is_feature_enabled(
-      ENABLE_NL_V2NODE_FETCHALL) else DEFAULT_MAX_PAGES
+  max_pages = _get_max_pages()
   sv2desc_dc = fetch.property_values(all_svs,
                                      'description',
                                      max_pages=max_pages)
@@ -362,8 +364,7 @@ def get_sv_description(all_svs: List[str]) -> Dict:
 
 
 def get_sv_footnote(all_svs: List[str]) -> Dict:
-  max_pages = None if is_feature_enabled(
-      ENABLE_NL_V2NODE_FETCHALL) else DEFAULT_MAX_PAGES
+  max_pages = _get_max_pages()
   sv2footnote_raw = fetch.property_values(all_svs,
                                           'footnote',
                                           max_pages=max_pages)
