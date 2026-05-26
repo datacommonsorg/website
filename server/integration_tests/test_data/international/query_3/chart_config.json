@@ -369,14 +369,14 @@
       "EurostatNUTS3": [
         {
           "dcid": "nuts/ES111",
-          "name": "A Coru\u00f1a Province",
+          "name": "A Coru\u00f1a",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES112",
-          "name": "Lugo Province",
+          "name": "Lugo",
           "types": [
             "EurostatNUTS3"
           ]
@@ -390,7 +390,7 @@
         },
         {
           "dcid": "nuts/ES114",
-          "name": "Pontevedra Province",
+          "name": "Pontevedra",
           "types": [
             "EurostatNUTS3"
           ]
@@ -446,21 +446,21 @@
         },
         {
           "dcid": "nuts/ES241",
-          "name": "Huesca Province",
+          "name": "Huesca",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES242",
-          "name": "Teruel Province",
+          "name": "Teruel",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES243",
-          "name": "Zaragoza Province",
+          "name": "Zaragoza",
           "types": [
             "EurostatNUTS3"
           ]
@@ -488,14 +488,14 @@
         },
         {
           "dcid": "nuts/ES413",
-          "name": "Le\u00f3n Province",
+          "name": "Le\u00f3n",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES414",
-          "name": "Palencia Province",
+          "name": "Palencia",
           "types": [
             "EurostatNUTS3"
           ]
@@ -509,35 +509,35 @@
         },
         {
           "dcid": "nuts/ES416",
-          "name": "Segovia Province",
+          "name": "Segovia",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES417",
-          "name": "Soria Province",
+          "name": "Soria",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES418",
-          "name": "Valladolid Province",
+          "name": "Valladolid",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES419",
-          "name": "Zamora Province",
+          "name": "Zamora",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES421",
-          "name": "Albacete Province",
+          "name": "Albacete",
           "types": [
             "EurostatNUTS3"
           ]
@@ -551,21 +551,21 @@
         },
         {
           "dcid": "nuts/ES423",
-          "name": "Cuenca Province",
+          "name": "Cuenca",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES424",
-          "name": "Guadalajara Province",
+          "name": "Guadalajara",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES425",
-          "name": "Toledo Province",
+          "name": "Toledo",
           "types": [
             "EurostatNUTS3"
           ]
@@ -579,14 +579,14 @@
         },
         {
           "dcid": "nuts/ES432",
-          "name": "C\u00e1ceres Province",
+          "name": "C\u00e1ceres",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES511",
-          "name": "Barcelona Province",
+          "name": "Barcelona",
           "types": [
             "EurostatNUTS3"
           ]
@@ -621,7 +621,7 @@
         },
         {
           "dcid": "nuts/ES522",
-          "name": "Castell\u00f3n / Castell\u00f3",
+          "name": "Castell\u00f3n",
           "types": [
             "EurostatNUTS3"
           ]
@@ -656,21 +656,21 @@
         },
         {
           "dcid": "nuts/ES611",
-          "name": "Almer\u00eda Province",
+          "name": "Almer\u00eda",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES612",
-          "name": "C\u00e1diz Province",
+          "name": "C\u00e1diz",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES613",
-          "name": "C\u00f3rdoba Province",
+          "name": "C\u00f3rdoba",
           "types": [
             "EurostatNUTS3"
           ]
@@ -691,14 +691,14 @@
         },
         {
           "dcid": "nuts/ES616",
-          "name": "Ja\u00e9n Province",
+          "name": "Ja\u00e9n",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES617",
-          "name": "M\u00e1laga Province",
+          "name": "M\u00e1laga",
           "types": [
             "EurostatNUTS3"
           ]

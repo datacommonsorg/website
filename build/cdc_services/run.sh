@@ -72,8 +72,28 @@ if [[ $ENABLE_MODEL == "true" ]]; then
 fi
 
 if [[ $USE_SPANNER_GRAPH == "true" ]]; then
-    echo "Spanner Graph detected."
+    echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
     
+    # 1. Dynamically enable use_v2_api feature flag in custom.json for Website
+    # TODO: Delete this once every customer is on DCP, and we can just update custom.json.
+    python3 -c "
+import json
+path = 'server/config/feature_flag_configs/custom.json'
+try:
+    with open(path) as f:
+        data = json.load(f)
+    for flag in data:
+        if flag.get('name') == 'use_v2_api':
+            flag['enabled'] = True
+        if flag.get('name') == 'enable_nl_v2node_fetchall':
+            flag['enabled'] = True
+    with open(path, 'w') as f:
+        json.dump(data, f, indent=2)
+    print('Successfully enabled use_v2_api and enable_nl_v2node_fetchall in custom.json')
+except Exception as e:
+    print(f'Warning: Failed to auto-enable use_v2_api in custom.json: {e}')
+"
+
     # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
     
     # Use existing GCP project ID, or fetch it from Metadata Server if empty
@@ -86,8 +106,8 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
     
+    # 2. Enable V2 API for Mixer
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
-    # Until V2 APIs are enabled 100%, use the flag --use_v2_api=true on your docker run command
 fi
 
 # Start mixer.
