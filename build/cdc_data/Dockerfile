@@ -30,6 +30,12 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+# Install curl and Google Cloud SDK for auto-triggering workflows
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts \
+    && rm -rf /var/lib/apt/lists/*
+ENV PATH="/root/google-cloud-sdk/bin:${PATH}"
+
 # Copy models
 COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
 
@@ -78,5 +84,5 @@ RUN chmod +x run.sh
 # Activate the virtual env.
 ENV PATH="/workspace/venv/bin:$PATH"
 
-# Set the default command to run the script.
-CMD ["./run.sh"]
+# Set the entrypoint to force bash execution
+ENTRYPOINT ["/bin/bash", "./run.sh"]

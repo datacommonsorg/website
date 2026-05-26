@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_3563600999"
                     ],
-                    "title": "Life Expectancy in United States of America",
+                    "title": "Life Expectancy in United States",
                     "type": "LINE"
                   }
                 ]
@@ -23,11 +23,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Life Expectancy in United States of America",
+                    "description": "Life Expectancy in United States",
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in United States of America",
+                    "title": "Life Expectancy in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -47,7 +47,7 @@
                       "LifeExpectancy_Person_Female_2776657033",
                       "LifeExpectancy_Person_Male_2776657033"
                     ],
-                    "title": "Life Expectancy by Gender in United States of America",
+                    "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
                   }
                 ]
@@ -63,7 +63,7 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Number of Deaths in States of United States of America (${date})",
+                    "title": "Number of Deaths in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -78,14 +78,14 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Number of Deaths in States of United States of America (${date})",
+                    "title": "Number of Deaths in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Number of Deaths in States of United States of America"
+            "title": "Number of Deaths in States of United States"
           },
           {
             "columns": [
@@ -98,7 +98,7 @@
                     "statVarKey": [
                       "Count_Death_1662700527"
                     ],
-                    "title": "Number of Deaths in United States of America",
+                    "title": "Number of Deaths in United States",
                     "type": "LINE"
                   }
                 ]
@@ -106,11 +106,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Deaths in United States of America",
+                    "description": "Number of Deaths in United States",
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Number of Deaths in United States of America",
+                    "title": "Number of Deaths in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -130,7 +130,7 @@
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person_1113810078"
                     ],
-                    "title": "Deaths Per Capita in United States of America",
+                    "title": "Deaths Per Capita in United States",
                     "type": "LINE"
                   }
                 ]
@@ -138,11 +138,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths Per Capita in United States of America",
+                    "description": "Deaths Per Capita in United States",
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
-                    "title": "Deaths Per Capita in United States of America",
+                    "title": "Deaths Per Capita in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -161,7 +161,7 @@
                     "statVarKey": [
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_448542840"
                     ],
-                    "title": "Suicide Mortality Rate in United States of America",
+                    "title": "Suicide Mortality Rate in United States",
                     "type": "LINE"
                   }
                 ]
@@ -169,11 +169,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Suicide Mortality Rate in United States of America",
+                    "description": "Suicide Mortality Rate in United States",
                     "statVarKey": [
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "Suicide Mortality Rate in United States of America",
+                    "title": "Suicide Mortality Rate in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -192,7 +192,7 @@
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0_2966989201"
                     ],
-                    "title": "Neonatal Mortality Rate in United States of America",
+                    "title": "Neonatal Mortality Rate in United States",
                     "type": "LINE"
                   }
                 ]
@@ -200,11 +200,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Neonatal Mortality Rate in United States of America",
+                    "description": "Neonatal Mortality Rate in United States",
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0"
                     ],
-                    "title": "Neonatal Mortality Rate in United States of America",
+                    "title": "Neonatal Mortality Rate in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -224,7 +224,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_1662700527"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States of America",
+                    "title": "Count of Mortality Event: 1 Years or Less in United States",
                     "type": "LINE"
                   }
                 ]
@@ -232,11 +232,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less in United States of America",
+                    "description": "Count of Mortality Event: 1 Years or Less in United States",
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States of America",
+                    "title": "Count of Mortality Event: 1 Years or Less in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -257,7 +257,7 @@
                       "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2966989201",
                       "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2966989201"
                     ],
-                    "title": "Infant Mortality Rate by Gender in United States of America",
+                    "title": "Infant Mortality Rate by Gender in United States",
                     "type": "LINE"
                   }
                 ]
@@ -273,7 +273,7 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States of America (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -288,13 +288,13 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States of America (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Interval in Months Since Last Live Birth in States of United States of America"
+            "title": "Average Interval in Months Since Last Live Birth in States of United States"
           },
           {
             "columns": [
@@ -307,7 +307,7 @@
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963"
                     ],
-                    "title": "Infant Mortality Rate in United States of America",
+                    "title": "Infant Mortality Rate in United States",
                     "type": "LINE"
                   }
                 ]
@@ -315,11 +315,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Infant Mortality Rate in United States of America",
+                    "description": "Infant Mortality Rate in United States",
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
                     ],
-                    "title": "Infant Mortality Rate in United States of America",
+                    "title": "Infant Mortality Rate in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -336,7 +336,7 @@
                     "statVarKey": [
                       "Median_Age_Person"
                     ],
-                    "title": "Median Age of Population in States of United States of America (${date})",
+                    "title": "Median Age of Population in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -351,14 +351,14 @@
                     "statVarKey": [
                       "Median_Age_Person"
                     ],
-                    "title": "Median Age of Population in States of United States of America (${date})",
+                    "title": "Median Age of Population in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "The median age of people in a population.",
-            "title": "Median Age of Population in States of United States of America"
+            "title": "Median Age of Population in States of United States"
           },
           {
             "columns": [
@@ -371,7 +371,7 @@
                     "statVarKey": [
                       "Median_Age_Person_3795540742"
                     ],
-                    "title": "Median Age of Population in United States of America",
+                    "title": "Median Age of Population in United States",
                     "type": "LINE"
                   }
                 ]
@@ -379,11 +379,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age of Population in United States of America",
+                    "description": "Median Age of Population in United States",
                     "statVarKey": [
                       "Median_Age_Person"
                     ],
-                    "title": "Median Age of Population in United States of America",
+                    "title": "Median Age of Population in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -508,7 +508,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -516,7 +516,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     }
   ],
