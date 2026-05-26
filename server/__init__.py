@@ -52,6 +52,8 @@ BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
 
+_secret_client = None
+
 
 def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
   """Gets an api key first from the environment, then from GCP secrets.
@@ -72,7 +74,11 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
   # Try to get the key from secrets
   if gcp_project and gcp_path:
     try:
-      secret_client = secretmanager.SecretManagerServiceClient()
+      global _secret_client
+      if not _secret_client:
+        _secret_client = secretmanager.SecretManagerServiceClient(
+            transport="rest")
+      secret_client = _secret_client
       secret_name = secret_client.secret_version_path(gcp_project, gcp_path,
                                                       'latest')
       secret_response = secret_client.access_secret_version(name=secret_name)
