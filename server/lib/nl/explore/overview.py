@@ -79,14 +79,10 @@ def generate_page_overview(
   formatted_page_overview_prompt = PAGE_OVERVIEW_PROMPT.format(
       initial_query=query, stat_var_titles=stat_var_titles)
 
-  overview_gemini_model = _OVERVIEW_GEMINI_3_1_LITE
-  use_thinking_config = True
-
   page_overview = call_gemini(api_key=gemini_api_key,
                               formatted_prompt=formatted_page_overview_prompt,
                               schema=PageOverview,
-                              gemini_model=overview_gemini_model,
-                              use_thinking_config=use_thinking_config)
+                              gemini_model=_OVERVIEW_GEMINI_3_1_LITE)
   if not page_overview:
     return None, None
 

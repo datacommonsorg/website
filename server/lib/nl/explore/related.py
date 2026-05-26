@@ -314,15 +314,11 @@ def generate_follow_up_questions(query: str,
   formatted_follow_up_questions_prompt = FOLLOW_UP_QUESTIONS_PROMPT.format(
       initial_query=query, related_topics=related_topics)
 
-  gemini_model = _QUESTIONS_GEMINI_3
-  use_thinking_config = True
-
   follow_up_questions = call_gemini(
       api_key=gemini_api_key,
       formatted_prompt=formatted_follow_up_questions_prompt,
       schema=FollowUpQuestions,
-      gemini_model=gemini_model,
-      use_thinking_config=use_thinking_config)
+      gemini_model=_QUESTIONS_GEMINI_3)
   if not follow_up_questions:
     return []
 
