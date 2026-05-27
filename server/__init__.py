@@ -52,6 +52,8 @@ BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
 
+# Module-level singleton for the Secret Manager client.
+# Lazily initialized and used by _get_api_key() to avoid repeated initialization.
 _secret_client = None
 
 
