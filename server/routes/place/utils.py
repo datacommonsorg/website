@@ -500,10 +500,18 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
       List[Place]: A list of Place objects with names in the specified locale.
   """
   props = ['typeOf', 'name', 'dissolutionDate']
+  multi_places_props = fetch.multiple_property_values(place_dcids, props)
+
   # Only fetch names with locale-specific tags if the desired locale is non-english
   if locale != DEFAULT_LOCALE:
-    props.append('nameWithLanguage')
-  multi_places_props = fetch.multiple_property_values(place_dcids, props)
+    locales_str = f"{locale},{DEFAULT_LOCALE}"
+    local_names = fetch.property_values(
+        place_dcids, "nameWithLanguage", constraints=f"{{$lang:[{locales_str}]}}", max_pages=None
+    )
+    # Merge localized names into the multi-property response
+    for dcid, names in local_names.items():
+      if dcid in multi_places_props:
+        multi_places_props[dcid]['nameWithLanguage'] = names
 
   places = []
   for place_dcid in place_dcids:
