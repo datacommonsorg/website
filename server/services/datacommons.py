@@ -32,8 +32,6 @@ from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import USE_V2_API
-from server.lib.nl.common.constants import CORE_PROPS
-from server.lib.nl.common.constants import PROP_TO_SHORT_KEY
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -381,9 +379,11 @@ def v2event(node, prop):
 
 def get_variable_group_info(nodes: List[str],
                             entities: List[str],
-                            numEntitiesExistence=1) -> Dict:
+                            numEntitiesExistence=1,
+                            include_definitions=False) -> Dict:
   """Gets the stat var group node information."""
-  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  if use_v2:
     url = get_service_url("/v2/bulk/info/variable-group")
   else:
     url = get_service_url("/v1/bulk/info/variable-group")
@@ -392,59 +392,9 @@ def get_variable_group_info(nodes: List[str],
       "constrained_entities": entities,
       "num_entities_existence": numEntitiesExistence,
   }
+  if use_v2 and include_definitions:
+    req_dict["includeDefinitions"] = True
   return post(url, req_dict)
-
-
-def get_variable_definitions(nodes: List[str],
-                             batch_size: int = 1000) -> Dict[str, str]:
-  """Gets the definition strings for a list of statistical variables using constraintProperties as a whitelist."""
-  if not nodes:
-    return {}
-
-  result = {}
-
-  for i in range(0, len(nodes), batch_size):
-    chunk = nodes[i:i + batch_size]
-
-    # Fetch outgoing properties
-    prop_expr = "->*"
-    resp = v2node_paginated(chunk, prop_expr, max_pages=None)
-
-    merged_arcs = {
-        node: node_arcs.get("arcs", {})
-        for node, node_arcs in resp.get("data", {}).items()
-    }
-
-    # Process responses for this chunk
-    for node, arcs in merged_arcs.items():
-      parts = []
-
-      # Get constraint props for this specific node
-      constraint_props = []
-      if "constraintProperties" in arcs:
-        for vn in arcs["constraintProperties"].get("nodes", []):
-          prop_val = vn.get("dcid") or vn.get("value")
-          if prop_val:
-            constraint_props.append(prop_val)
-
-      props_to_include = set(constraint_props + CORE_PROPS)
-
-      for prop in sorted(arcs.keys()):
-        if prop not in props_to_include:
-          continue
-        val_nodes = arcs[prop].get("nodes", [])
-        if not val_nodes:
-          continue
-        val_obj = val_nodes[0]
-        val = val_obj.get("dcid") or val_obj.get("value")
-        if not val:
-          continue
-        key = PROP_TO_SHORT_KEY.get(prop, prop)
-        parts.append(f"{key}={val}")
-
-      result[node] = ",".join(parts)
-
-  return result
 
 
 def variable_info(nodes: List[str]) -> Dict:
@@ -508,10 +458,16 @@ def _get_variable_ancestors_v2(dcid: str):
   return ancestors
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get_variable_ancestors(dcid: str):
   """Gets the path of a stat var to the root of the stat var hierarchy."""
-  if is_feature_enabled(USE_V2_API):
+  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
+  return _get_variable_ancestors_memoized(dcid, use_v2)
+
+
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def _get_variable_ancestors_memoized(dcid: str, use_v2: bool):
+  """Memoized helper that includes the feature flag state in the cache key."""
+  if use_v2:
     return _get_variable_ancestors_v2(dcid)
   else:
     return _get_variable_ancestors_v1(dcid)

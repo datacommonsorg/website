@@ -28,6 +28,8 @@ export interface StatVarHierarchyConfig {
     // Optional: Data Source. Filter the stat var group using this entity DCID.
     dataSourceDcid?: string;
   }[];
+  // Optional: Pinned order for top-level nodes when root is dc/g/Root
+  topLevelPinnedOrder?: Record<string, number>;
 }
 
 const DEFAULT_STAT_VAR_HIERARCHY_CONFIG: StatVarHierarchyConfig = {
@@ -36,9 +38,26 @@ const DEFAULT_STAT_VAR_HIERARCHY_CONFIG: StatVarHierarchyConfig = {
       dcid: "dc/g/Root",
     },
   ],
+  topLevelPinnedOrder: {
+    "dc/g/Agriculture": 1,
+    "dc/g/Demographics": 2,
+    "dc/g/Economy": 3,
+    "dc/g/Education": 4,
+    "dc/g/Energy": 5,
+    "dc/g/Environment": 6,
+    "dc/g/Health": 7,
+    "dc/g/Housing": 8,
+    "dc/g/Crime": 9,
+    "dc/g/AboutDataCommons": 10,
+    "dc/g/Uncategorized": 11,
+    "dc/g/UN": 12,
+    "dc/g/SDG": 13,
+  },
 };
 
-const STAT_VAR_HIERARCHY_CONFIG = (globalThis.STAT_VAR_HIERARCHY_CONFIG ||
-  DEFAULT_STAT_VAR_HIERARCHY_CONFIG) as StatVarHierarchyConfig;
+const STAT_VAR_HIERARCHY_CONFIG = {
+  ...DEFAULT_STAT_VAR_HIERARCHY_CONFIG,
+  ...(globalThis.STAT_VAR_HIERARCHY_CONFIG || {}),
+} as StatVarHierarchyConfig;
 
 export { STAT_VAR_HIERARCHY_CONFIG };

@@ -39,5 +39,5 @@ fi
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
 cd server/webdriver/tests/standalone
 python3 sdg_sanity.py --base_url="$sdg_home"
-gsutil cp ./output/*.csv gs://un-sdg-sanity/$date_str/
+gcloud storage cp ./output/*.csv gs://un-sdg-sanity/$date_str/
 rm ./output/*.csv

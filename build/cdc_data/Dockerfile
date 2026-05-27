@@ -16,11 +16,12 @@
 # #### Stage 1: Download base dc model from GCS. ####
 FROM google/cloud-sdk:slim AS model-downloader
 
+# Remove auth check since these are public buckets and we don't have credentials within the container.
 # Copy model.
-RUN mkdir -p /tmp/datcom-nl-models \
-    && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
-
-
+RUN gcloud config set auth/disable_credentials True \
+    && mkdir -p /tmp/datcom-nl-models \
+    && gcloud storage cp --recursive gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
+    
 # #### Stage 2: Python runtime. ####
 FROM python:3.11.14-slim AS runner
 
@@ -28,6 +29,12 @@ ARG ENV
 ENV ENV=${ENV}
 
 WORKDIR /workspace
+
+# Install curl and Google Cloud SDK for auto-triggering workflows
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts \
+    && rm -rf /var/lib/apt/lists/*
+ENV PATH="/root/google-cloud-sdk/bin:${PATH}"
 
 # Copy models
 COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
@@ -77,5 +84,5 @@ RUN chmod +x run.sh
 # Activate the virtual env.
 ENV PATH="/workspace/venv/bin:$PATH"
 
-# Set the default command to run the script.
-CMD ["./run.sh"]
+# Set the entrypoint to force bash execution
+ENTRYPOINT ["/bin/bash", "./run.sh"]

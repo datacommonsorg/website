@@ -112,7 +112,7 @@ function deploy_cloud_esp() {
   yq eval -i '.title = env(API_TITLE)' endpoints.yaml
 
   # Deploy ESP configuration
-  gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
+  gcloud storage cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
   CONFIG_ID=$(gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID 2>&1 | awk -F'[][]' '/Service Configuration/ {print $2}')
 
   # Mount the service config for the container

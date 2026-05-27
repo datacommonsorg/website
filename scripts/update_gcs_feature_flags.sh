@@ -98,7 +98,7 @@ compare_staging_production() {
     local github_base_url="https://raw.githubusercontent.com/Datacommonsorg/website/master/server/config/feature_flag_configs"
     
     echo "Fetching staging feature flags from GCS and Github..."
-    gsutil cp "gs://datcom-website-staging-resources/feature_flags.json" "${staging_file}"
+    gcloud storage cp "gs://datcom-website-staging-resources/feature_flags.json" "${staging_file}"
     curl -sL "${github_base_url}/staging.json" -o "staging_from_github.json"
 
     if [[ $? -ne 0 ]]; then
@@ -221,7 +221,7 @@ fi
 
 
 echo "Uploading ${file} to gs://${bucket_name}/feature_flags.json"
-gsutil cp "${temp_file}" "gs://${bucket_name}/feature_flags.json"
+gcloud storage cp "${temp_file}" "gs://${bucket_name}/feature_flags.json"
 
 echo "Upload complete!"
 

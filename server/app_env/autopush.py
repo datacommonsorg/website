@@ -20,6 +20,7 @@ class Config(_base.Config):
   GCS_BUCKET = 'datcom-website-autopush-resources'
   LOG_QUERY = True
   SHOW_TOPIC = True
+  SHOW_DISASTER = False
   SHOW_SUSTAINABILITY = True
   USE_LLM = True
   HIDE_DEBUG = False

@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in United States of America",
+                    "title": "Criminal Activities in United States",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Criminal Activities in United States of America",
+                    "description": "Criminal Activities in United States",
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in United States of America",
+                    "title": "Criminal Activities in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -41,7 +41,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in States of United States of America (${date})",
+                    "title": "Criminal Activities in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -56,14 +56,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in States of United States of America (${date})",
+                    "title": "Criminal Activities in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Criminal Activities in States of United States of America"
+            "title": "Criminal Activities in States of United States"
           },
           {
             "columns": [
@@ -73,7 +73,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
                     ],
-                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States of America",
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
                     "type": "LINE"
                   }
                 ]
@@ -81,11 +81,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Murder and Non Negligent Manslaughter Cases Per Capita in United States of America",
+                    "description": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
                     "statVarKey": [
                       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
                     ],
-                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States of America",
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -117,7 +117,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Crimes by Type in United States of America (${date})",
+                    "title": "Crimes by Type in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -134,7 +134,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_AggravatedAssault"
                     ],
-                    "title": "Aggravated Assault Cases in States of United States of America (${date})",
+                    "title": "Aggravated Assault Cases in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -149,14 +149,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_AggravatedAssault"
                     ],
-                    "title": "Aggravated Assault Cases in States of United States of America (${date})",
+                    "title": "Aggravated Assault Cases in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Aggravated Assault Cases in States of United States of America"
+            "title": "Aggravated Assault Cases in States of United States"
           },
           {
             "columns": [
@@ -166,7 +166,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Burglaries in States of United States of America (${date})",
+                    "title": "Burglaries in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -181,14 +181,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Burglaries in States of United States of America (${date})",
+                    "title": "Burglaries in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Burglaries in States of United States of America"
+            "title": "Burglaries in States of United States"
           },
           {
             "columns": [
@@ -198,7 +198,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ForcibleRape"
                     ],
-                    "title": "Forcible Rapes in States of United States of America (${date})",
+                    "title": "Forcible Rapes in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -213,14 +213,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ForcibleRape"
                     ],
-                    "title": "Forcible Rapes in States of United States of America (${date})",
+                    "title": "Forcible Rapes in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Forcible Rapes in States of United States of America"
+            "title": "Forcible Rapes in States of United States"
           },
           {
             "columns": [
@@ -230,7 +230,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in States of United States of America (${date})",
+                    "title": "Larceny Theft Cases in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -245,14 +245,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in States of United States of America (${date})",
+                    "title": "Larceny Theft Cases in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Larceny Theft Cases in States of United States of America"
+            "title": "Larceny Theft Cases in States of United States"
           },
           {
             "columns": [
@@ -262,7 +262,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in States of United States of America (${date})",
+                    "title": "Motor Vehicle Thefts in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -277,14 +277,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in States of United States of America (${date})",
+                    "title": "Motor Vehicle Thefts in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Motor Vehicle Thefts in States of United States of America"
+            "title": "Motor Vehicle Thefts in States of United States"
           },
           {
             "columns": [
@@ -294,7 +294,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_PropertyCrime"
                     ],
-                    "title": "Property Related Crimes in States of United States of America (${date})",
+                    "title": "Property Related Crimes in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -309,14 +309,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_PropertyCrime"
                     ],
-                    "title": "Property Related Crimes in States of United States of America (${date})",
+                    "title": "Property Related Crimes in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Property Related Crimes in States of United States of America"
+            "title": "Property Related Crimes in States of United States"
           },
           {
             "columns": [
@@ -326,7 +326,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in States of United States of America (${date})",
+                    "title": "Robberies in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -341,14 +341,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in States of United States of America (${date})",
+                    "title": "Robberies in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Robberies in States of United States of America"
+            "title": "Robberies in States of United States"
           },
           {
             "columns": [
@@ -358,7 +358,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime"
                     ],
-                    "title": "Violent Crimes in States of United States of America (${date})",
+                    "title": "Violent Crimes in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -373,14 +373,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime"
                     ],
-                    "title": "Violent Crimes in States of United States of America (${date})",
+                    "title": "Violent Crimes in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Violent Crimes in States of United States of America"
+            "title": "Violent Crimes in States of United States"
           }
         ],
         "statVarSpec": {
@@ -474,7 +474,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -482,7 +482,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     }
   ],
