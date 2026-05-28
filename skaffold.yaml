@@ -326,6 +326,7 @@ profiles:
               project: "datcom-website-staging"
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
               serviceGroups.recon.enableEmbeddingsSidecar: "false"
+              serviceGroups.default.enableEmbeddingsSidecar: "true"
   - name: mixer-staging
     customActions:
       - name: deploy-cloud-esp-mixer-staging
