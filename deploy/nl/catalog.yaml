@@ -96,6 +96,13 @@ indexes:
     embeddings_path: gs://datcom-nl-models/base_mistral_mem_2024_07_01_10_23_43/embeddings.csv
     model: sfr-embedding-mistral-model
     healthcheck_query: "Life expectancy"
+  base_multi_entity:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/input/multi_entity
+    embeddings_path: gs://datcom-nl-models/base_multi_entity_2026_05_29_14_47_02/embeddings.csv
+    model: uae-large-v1-model
+    healthcheck_query: "Life expectancy"
+
 
 models:
   uae-large-v1-model:
