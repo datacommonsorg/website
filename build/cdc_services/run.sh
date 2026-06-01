@@ -112,7 +112,7 @@ except Exception as e:
     # 3. Use mixer custom feature flags
     MIXER_ARGS+=('--feature_flags_path=deploy/featureflags/custom.yaml')
 
-    if [[ $spanner_enable_embeddings_generation == "true" ]]; then
+    if [[ $RESOLVE_WITH_SPANNER_EMBEDDINGS == "true" ]]; then
         echo "Enabling Spanner embeddings in feature flags."
         python3 -c "
 import yaml
