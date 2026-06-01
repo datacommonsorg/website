@@ -631,16 +631,24 @@ def get_child_place_types(place: Place) -> list[str]:
     if matched_child_place_type:
       return [matched_child_place_type]
 
-  # Fetch all possible child places for the given place using its containment property.
-  raw_property_values_response = fetch.raw_property_values(
-      nodes=[place.dcid], prop="containedInPlace", out=False)
-
   # Determine the order of child place types based on the parent type.
   ordered_child_place_types = DEFAULT_CHILD_PLACE_TYPES
   for place_type in place.types:
     if place_type in PLACE_TYPES_TO_CHILD_PLACE_TYPES:
       ordered_child_place_types = PLACE_TYPES_TO_CHILD_PLACE_TYPES[place_type]
       break
+
+  # Construct constraint to filter by expected child types.
+  child_types_str = ",".join(ordered_child_place_types)
+  constraints = f"{{typeOf:[{child_types_str}]}}"
+
+  # Fetch child places matching the expected types for the given place.
+  raw_property_values_response = fetch.raw_property_values(
+      nodes=[place.dcid],
+      prop="containedInPlace",
+      out=False,
+      constraints=constraints,
+      max_pages=None)
 
   # Collect all types of child places found in the property values response.
   child_place_types = set()

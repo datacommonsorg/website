@@ -453,7 +453,7 @@ def multiple_property_values(nodes: List[str],
   return result
 
 
-def raw_property_values(nodes, prop, out=True, constraints=''):
+def raw_property_values(nodes, prop, out=True, constraints='', max_pages=1):
   """Returns full property values data out of REST API response.
 
   The response is the following format:
@@ -470,8 +470,16 @@ def raw_property_values(nodes, prop, out=True, constraints=''):
   }
 
   """
-  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                          constraints))
+  from server.lib.feature_flags import is_feature_enabled
+  from server.lib.feature_flags import USE_V2_API
+
+  if is_feature_enabled(USE_V2_API):
+    resp = dc.v2node_paginated(
+        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+        max_pages)
+  else:
+    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
+                                            constraints))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
