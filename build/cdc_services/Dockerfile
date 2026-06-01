@@ -31,6 +31,7 @@ COPY mixer/proto/ proto
 COPY mixer/internal/ internal
 COPY mixer/cmd/ cmd
 COPY mixer/esp/ esp
+COPY mixer/deploy/featureflags/ deploy/featureflags
 
 # Build protobuf.
 RUN protoc \
