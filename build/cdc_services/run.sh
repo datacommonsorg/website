@@ -108,6 +108,29 @@ except Exception as e:
     
     # 2. Enable V2 API for Mixer
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+
+    # 3. Use mixer custom feature flags
+    MIXER_ARGS+=('--feature_flags_path=deploy/featureflags/custom.yaml')
+
+    if [[ $spanner_enable_embeddings_generation == "true" ]]; then
+        echo "Enabling Spanner embeddings in feature flags."
+        python3 -c "
+import yaml
+path = 'deploy/featureflags/custom.yaml'
+try:
+    with open(path) as f:
+        data = yaml.safe_load(f) or {}
+    if 'flags' not in data:
+        data['flags'] = {}
+    data['flags']['EnableEmbeddingsResolver'] = False
+    data['flags']['EnableSpannerSearchEmbeddings'] = True
+    with open(path, 'w') as f:
+        yaml.dump(data, f, default_flow_style=False)
+    print('Successfully enabled EnableSpannerSearchEmbeddings in custom.yaml')
+except Exception as e:
+    print(f'Warning: Failed to update custom.yaml: {e}')
+"
+    fi
 fi
 
 # Start mixer.
