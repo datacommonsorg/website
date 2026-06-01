@@ -668,6 +668,72 @@ def get_child_place_types(place: Place) -> list[str]:
   return []
 
 
+# TODO(nick-nlb): look at other uses of the very similar get_child_place_types, and migrate them
+#                 to use this function instead.
+def get_child_places_by_type(
+    place: Place) -> Tuple[List[str], Dict[str, List[str]]]:
+  """
+  Determines the child place types for a given place and returns a tuple containing the
+  matched types and the places grouped by type.
+  """
+  ordered_child_place_types = []
+  # Attempt to directly match a child place type using the custom expressions.
+  for f in PLACE_MATCH_EXPRESSIONS:
+    matched_child_place_type = f(place)
+    if matched_child_place_type:
+      ordered_child_place_types = [matched_child_place_type]
+      break
+
+  if not ordered_child_place_types:
+    # Determine the order of child place types based on the parent type.
+    ordered_child_place_types = DEFAULT_CHILD_PLACE_TYPES
+    for place_type in place.types:
+      if place_type in PLACE_TYPES_TO_CHILD_PLACE_TYPES:
+        ordered_child_place_types = PLACE_TYPES_TO_CHILD_PLACE_TYPES[place_type]
+        break
+
+  # Construct constraint to filter by expected child types.
+  child_types_str = ",".join(ordered_child_place_types)
+  constraints = f"{{typeOf:[{child_types_str}]}}"
+
+  # Fetch child places matching the expected types for the given place.
+  raw_property_values_response = fetch.raw_property_values(
+      nodes=[place.dcid],
+      prop="containedInPlace+",
+      out=False,
+      constraints=constraints,
+      max_pages=None)
+
+  # Collect all types of child places found in the property values response.
+  child_place_types = set()
+  type_to_dcids = {}
+  for raw_property_value in raw_property_values_response.get(place.dcid, []):
+    dcid = raw_property_value.get("dcid")
+    if not dcid:
+      continue
+    types = raw_property_value.get("types", [])
+    child_place_types.update(types)
+    for t in types:
+      if t not in type_to_dcids:
+        type_to_dcids[t] = []
+      type_to_dcids[t].append(dcid)
+
+  child_place_type_candidates = []
+  # Return the child place types that match the ordered list of possible child types.
+  for place_type_candidate in ordered_child_place_types:
+    if place_type_candidate in child_place_types:
+      child_place_type_candidates.append(place_type_candidate)
+
+  # Filter the map to only include candidates
+  filtered_type_to_dcids = {
+      t: type_to_dcids[t]
+      for t in child_place_type_candidates
+      if t in type_to_dcids
+  }
+
+  return child_place_type_candidates, filtered_type_to_dcids
+
+
 def get_child_place_type_to_highlight(place: Place) -> str:
   """Returns the child place type to highlight"""
   ordered_child_place_types = get_child_place_types(place)
