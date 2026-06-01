@@ -83,7 +83,7 @@ class TestVariableExtension(unittest.TestCase):
     sibling_svg = "dc/g/Person_PovertyStatus_Male"
 
     # Property values side effect to handle the multi-stage traversal
-    def property_values_side_effect(nodes, prop, out=True):
+    def property_values_side_effect(nodes, prop, out=True, **kwargs):
       if prop == "memberOf" and out:
         # Initial direct group lookup
         return {sv: [svg]}
