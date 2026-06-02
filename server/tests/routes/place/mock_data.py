@@ -116,14 +116,7 @@ def create_contained_in_data(types_list):
 
 
 def create_contained_in_data_from_places(places: List[Place]) -> Dict[str, any]:
-  """Creates mock containedInPlace data from a list of Place objects.
-
-  Args:
-    places: List of Place objects.
-
-  Returns:
-    Mock data structure for containedInPlace.
-  """
+  """Creates mock containedInPlace data from a list of Place objects."""
   data = {
       "arcs": {
           "containedInPlace": {
