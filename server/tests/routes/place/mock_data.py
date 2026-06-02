@@ -115,6 +115,34 @@ def create_contained_in_data(types_list):
   return data
 
 
+def create_contained_in_data_from_places(places: List[Place]) -> Dict[str, any]:
+  """Creates mock containedInPlace data from a list of Place objects.
+
+  Args:
+    places: List of Place objects.
+
+  Returns:
+    Mock data structure for containedInPlace.
+  """
+  data = {
+      "arcs": {
+          "containedInPlace": {
+              "nodes": []
+          },
+          "containedInPlace+": {
+              "nodes": []
+          }
+      }
+  }
+
+  for place in places:
+    node = {"dcid": place.dcid, "types": place.types}
+    data["arcs"]["containedInPlace"]["nodes"].append(node)
+    data["arcs"]["containedInPlace+"]["nodes"].append(node)
+
+  return data
+
+
 def mock_dc_api_data(stat_var: str,
                      places: List[str],
                      dc_obs_point: bool = False,
