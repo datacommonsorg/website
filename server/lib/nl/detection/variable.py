@@ -18,8 +18,8 @@
 from typing import Dict, List
 
 from server.lib.feature_flags import is_feature_enabled
-from server.lib.nl.common.counters import Counters
 from server.lib.feature_flags import USE_V2_RESOLVE_FOR_NL_SEARCH_VARS
+from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import query_util
 from server.lib.nl.detection.types import DetectionArgs
 import server.lib.nl.detection.utils as dutils
