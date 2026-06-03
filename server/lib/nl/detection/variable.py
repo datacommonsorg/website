@@ -68,6 +68,7 @@ def _detect_vars_with_resolve(
     if q not in query2results:
       query2results[q] = vars.VarCandidates(svs=[], scores=[], sv2sentences={})
   debug_logs.update(resp.get('debugLogs', {}))
+  debug_logs["detect_variable_path"] = 'v2/resolve'
   return query2results, 0.7
 
 
@@ -94,6 +95,7 @@ def _detect_vars_with_nl_search(
       q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
   }
   debug_logs.update(resp.get('debugLogs', {}))
+  debug_logs["detect_variable_path"] = 'nl_search_vars'
   return query2results, resp['scoreThreshold']
 
 
