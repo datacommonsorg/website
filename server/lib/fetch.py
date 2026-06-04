@@ -454,7 +454,7 @@ def multiple_property_values(nodes: List[str],
 
 
 def raw_property_values(nodes, prop, out=True, constraints='', max_pages=1):
-  """Returns full property values data out of REST API response.
+  """Returns raw property value dictionaries from the REST API, fetching up to max_pages of results.
 
   The response is the following format:
   {
