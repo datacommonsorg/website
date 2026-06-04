@@ -108,6 +108,11 @@ except Exception as e:
     
     # 2. Enable V2 API for Mixer
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+
+    # 3. Use mixer custom feature flags
+    if [[ $RESOLVE_WITH_SPANNER_EMBEDDINGS == "true" ]]; then
+        MIXER_ARGS+=('--feature_flags_path=deploy/featureflags/custom.yaml')
+    fi
 fi
 
 # Start mixer.

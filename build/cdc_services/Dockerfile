@@ -31,6 +31,7 @@ COPY mixer/proto/ proto
 COPY mixer/internal/ internal
 COPY mixer/cmd/ cmd
 COPY mixer/esp/ esp
+COPY mixer/deploy/featureflags/ deploy/featureflags
 
 # Build protobuf.
 RUN protoc \
@@ -153,6 +154,7 @@ WORKDIR /workspace
 COPY --from=mixer /workspace/bin/ bin
 COPY --from=mixer /workspace/esp/ esp
 COPY --from=mixer /workspace/internal/ internal
+COPY --from=mixer /workspace/deploy/featureflags deploy/featureflags
 COPY --from=mixer /workspace/mixer-grpc.pb .
 # nginx.
 COPY build/cdc_services/nginx.conf .
