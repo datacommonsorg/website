@@ -132,7 +132,7 @@ profiles:
               mixer.hostProject: "datcom-website-dev"
               project: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
-              serviceGroups.recon: null
+              serviceGroups.recon.enableEmbeddingsSidecar: "false"
               serviceGroups.default.enableEmbeddingsSidecar: "true"
               mixer.githash: ${MIXER_GITHASH}
   - name: mixer-dev
@@ -218,7 +218,7 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
-              serviceGroups.recon: null
+              serviceGroups.recon.enableEmbeddingsSidecar: "false"
               serviceGroups.default.enableEmbeddingsSidecar: "true"
   - name: mixer-autopush
     customActions:
@@ -325,7 +325,7 @@ profiles:
               mixer.hostProject: "datcom-website-staging"
               project: "datcom-website-staging"
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
-              serviceGroups.recon: null
+              serviceGroups.recon.enableEmbeddingsSidecar: "false"
               serviceGroups.default.enableEmbeddingsSidecar: "true"
   - name: mixer-staging
     customActions:
@@ -459,5 +459,5 @@ profiles:
               mixer.hostProject: "datcom-website-prod"
               project: "datcom-website-prod"
               mixer.serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
-              serviceGroups.recon: null
+              serviceGroups.recon.enableEmbeddingsSidecar: "false"
               serviceGroups.default.enableEmbeddingsSidecar: "true"
