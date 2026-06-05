@@ -161,7 +161,8 @@ def detect(query: str, prev_utterance: utterance.Utterance,
       var_detection_results.append(
           variable.detect_vars(orig_query=sv,
                                debug_logs=dummy_dict,
-                               dargs=dargs))
+                               dargs=dargs,
+                               counters=counters))
     except Exception as e:
       counters.err('llm_detect_vars_value_error', {'q': sv, 'err': str(e)})
   merged_var_detection = _merge_sv_dicts(sv_list, var_detection_results)

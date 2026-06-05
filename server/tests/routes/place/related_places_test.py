@@ -19,10 +19,10 @@ from unittest import mock
 from flask import Flask
 from flask import g
 from flask import jsonify
-from flask_caching import Cache
 import pytest
 
 from server.lib import fetch
+from server.lib.cache import cache
 from server.routes.place import api
 from server.routes.place.types import Place
 from server.routes.place.types import RelatedPlacesApiResponse
@@ -62,14 +62,14 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
   def setup_app_context(self, request):
     """Setup the app context and cache for each test."""
     self.app = request.getfixturevalue('app')
-    self.cache = Cache(self.app)
+    cache.init_app(self.app)
     self.app_context = self.app.app_context()
 
   def setUp(self):
     super().setUp()
 
     self.mock_v2node = self.patch(dc, "v2node")
-    self.v2node_api_response_index = 0
+    self.mock_v2node_paginated = self.patch(dc, "v2node_paginated")
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
     self.mock_descendent_places = self.patch(fetch, "descendent_places")
@@ -101,20 +101,19 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     self.mock_descendent_places.side_effect = fetch_descendent_places_side_effect
 
   def tearDown(self):
-    self.cache.clear()
+    cache.clear()
     super().tearDown()
 
-  def mock_v2node_api_data(self, response_list: list[dict]):
-
-    def mock_v2node_side_effect(nodes, props):
-      value = {
-          "data":
-              response_list[self.v2node_api_response_index % len(response_list)]
-      }
-      self.v2node_api_response_index += 1
-      return value
+  def mock_v2node_api_data(self, data_child_places: dict,
+                           data_place_data: dict):
+    # Route response dynamically based on the requested property to bypass async race conditions
+    def mock_v2node_side_effect(nodes, prop, *args, **kwargs):
+      if "containedInPlace" in prop:
+        return {"data": data_child_places}
+      return {"data": data_place_data}
 
     self.mock_v2node.side_effect = mock_v2node_side_effect
+    self.mock_v2node_paginated.side_effect = mock_v2node_side_effect
 
   def patch(self, module, name):
     patcher = mock.patch.object(module, name)
@@ -128,11 +127,14 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       g.locale = 'en'
       data_child_places = {
           mock_data.CALIFORNIA.dcid:
-              mock_data.create_contained_in_data(["County"]),
+              mock_data.create_contained_in_data_from_places(
+                  [mock_data.SAN_MATEO_COUNTY]),
           mock_data.USA.dcid:
-              mock_data.create_contained_in_data(["State"]),
+              mock_data.create_contained_in_data_from_places(
+                  [mock_data.CALIFORNIA, mock_data.ARIZONA,
+                   mock_data.NEW_YORK]),
           mock_data.SAN_MATEO_COUNTY.dcid:
-              mock_data.create_contained_in_data(["City"]),
+              mock_data.create_contained_in_data_from_places([]),
       }
       data_place_data = {
           mock_data.SAN_MATEO_COUNTY.dcid: mock_data.SAN_MATEO_COUNTY_API_DATA,
@@ -142,28 +144,25 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
           mock_data.EARTH.dcid: mock_data.EARTH_API_DATA
       }
 
-      self.mock_v2node_api_data([
-          data_child_places, data_place_data, data_place_data, data_place_data,
-          data_place_data
-      ])
+      self.mock_v2node_api_data(data_child_places, data_place_data)
 
       response = self.app.test_client().get(
           '/api/place/related-places/geoId/06')
 
       actual = response.get_json()
       expected = jsonify(
-          RelatedPlacesApiResponse(place=Place(dcid=mock_data.CALIFORNIA.dcid,
-                                               name=mock_data.CALIFORNIA.dcid,
-                                               types=[]),
-                                   similarPlaces=[],
-                                   childPlaces=[mock_data.SAN_MATEO_COUNTY],
-                                   parentPlaces=[
-                                       mock_data.USA, mock_data.NORTH_AMERICA,
-                                       mock_data.EARTH
-                                   ],
-                                   peersWithinParent=[],
-                                   childPlaceType="County",
-                                   nearbyPlaces=[])).get_json()
+          RelatedPlacesApiResponse(
+              place=Place(dcid=mock_data.CALIFORNIA.dcid,
+                          name=mock_data.CALIFORNIA.name,
+                          types=mock_data.CALIFORNIA.types),
+              similarPlaces=[],
+              childPlaces=[mock_data.SAN_MATEO_COUNTY],
+              parentPlaces=[
+                  mock_data.USA, mock_data.NORTH_AMERICA, mock_data.EARTH
+              ],
+              peersWithinParent=[],
+              childPlaceType="County",
+              nearbyPlaces=[])).get_json()
 
       self.assertEqual(response.status_code, 200)
 
@@ -184,11 +183,14 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       g.locale = 'es'
       data_child_places = {
           mock_data.CALIFORNIA.dcid:
-              mock_data.create_contained_in_data(["County"]),
+              mock_data.create_contained_in_data_from_places(
+                  [mock_data.SAN_MATEO_COUNTY]),
           mock_data.USA.dcid:
-              mock_data.create_contained_in_data(["State"]),
+              mock_data.create_contained_in_data_from_places(
+                  [mock_data.CALIFORNIA, mock_data.ARIZONA,
+                   mock_data.NEW_YORK]),
           mock_data.SAN_MATEO_COUNTY.dcid:
-              mock_data.create_contained_in_data(["City"]),
+              mock_data.create_contained_in_data_from_places([]),
       }
       data_place_data = {
           mock_data.SAN_MATEO_COUNTY.dcid: mock_data.SAN_MATEO_COUNTY_API_DATA,
@@ -198,10 +200,7 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
           mock_data.EARTH.dcid: mock_data.EARTH_API_DATA
       }
 
-      self.mock_v2node_api_data([
-          data_child_places, data_place_data, data_place_data, data_place_data,
-          data_place_data
-      ])
+      self.mock_v2node_api_data(data_child_places, data_place_data)
 
       response = self.app.test_client().get(
           '/api/place/related-places/geoId/06?hl=es')
@@ -217,8 +216,8 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       expected = jsonify(
           RelatedPlacesApiResponse(
               place=Place(dcid=mock_data.CALIFORNIA.dcid,
-                          name=mock_data.CALIFORNIA.dcid,
-                          types=[]),
+                          name=mock_data.CALIFORNIA.name + 'es',
+                          types=mock_data.CALIFORNIA.types),
               similarPlaces=[],
               childPlaces=[
                   Place(dcid=mock_data.SAN_MATEO_COUNTY.dcid,
