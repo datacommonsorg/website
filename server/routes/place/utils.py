@@ -506,8 +506,10 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   if locale != DEFAULT_LOCALE:
     locales_str = f"{locale},{DEFAULT_LOCALE}"
     local_names = fetch.property_values(
-        place_dcids, "nameWithLanguage", constraints=f"{{$lang:[{locales_str}]}}", max_pages=None
-    )
+        place_dcids,
+        "nameWithLanguage",
+        constraints=f"{{$lang:[{locales_str}]}}",
+        max_pages=None)
     # Merge localized names into the multi-property response
     for dcid, names in local_names.items():
       if dcid in multi_places_props:

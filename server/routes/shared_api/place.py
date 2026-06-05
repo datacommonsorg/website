@@ -186,9 +186,10 @@ def get_i18n_name(dcids, should_resolve_all=True):
     return {}
   locales = i18n.locale_choices(g.locale)
   locales_str = ",".join(locales)
-  response = fetch.property_values(
-      dcids, "nameWithLanguage", constraints=f"{{$lang:[{locales_str}]}}", max_pages=None
-  )
+  response = fetch.property_values(dcids,
+                                   "nameWithLanguage",
+                                   constraints=f"{{$lang:[{locales_str}]}}",
+                                   max_pages=None)
   result = {}
   dcids_default_name = []
   for dcid in dcids:
