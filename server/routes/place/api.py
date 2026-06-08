@@ -149,23 +149,17 @@ async def related_places(place_dcid: str):
   place = place_utils.fetch_place(place_dcid, g.locale)
 
   # Fetch the child place types, find type to highlight.
-  ordered_child_place_types = await asyncio.to_thread(
-      place_utils.get_child_place_types, place)
+  ordered_child_place_types, child_places_by_type = await asyncio.to_thread(
+      place_utils.get_child_places_by_type, place)
   primary_child_place_type = ordered_child_place_types[
       0] if ordered_child_place_types else None
 
   async def get_related_place_dcids_async(
-      place: Place
-  ) -> tuple[list[str], list[str], list[Place], list[str], list[list[str]]]:
+      place: Place) -> tuple[list[str], list[str], list[Place], list[str]]:
     """Helper function to execute asynchronously the calls to fetch the DCIDs
-     for the child places, nearby places, similar places, parent places and peer places within parent.
+     for nearby places, similar places, parent places and peer places within parent.
      Returns lists of DCIDs or Places for each type of related places."""
 
-    child_tasks = [
-        asyncio.to_thread(place_utils.fetch_child_place_dcids, place,
-                          child_place_type)
-        for child_place_type in ordered_child_place_types
-    ]
     nearby_task = asyncio.to_thread(place_utils.fetch_nearby_place_dcids, place,
                                     g.locale)
     similar_task = asyncio.to_thread(place_utils.fetch_similar_place_dcids,
@@ -175,14 +169,18 @@ async def related_places(place_dcid: str):
     peers_within_parent_task = asyncio.to_thread(
         place_utils.fetch_peer_places_within, place.dcid, place.types)
 
-    nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent, *child_results = await asyncio.gather(
-        nearby_task, similar_task, parent_places_task, peers_within_parent_task,
-        *child_tasks)
-    return nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent, *child_results
+    nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent = await asyncio.gather(
+        nearby_task, similar_task, parent_places_task, peers_within_parent_task)
+    return nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent
 
-  # Fetches nearby, similar, parent, peers within parent, and child places concurrently.
-  nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent, *child_results = await get_related_place_dcids_async(
+  # Fetches nearby, similar, parent, and peers within parent concurrently.
+  nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent = await get_related_place_dcids_async(
       place)
+
+  # Populate child_results from the data fetched by get_child_places_by_type
+  child_results = [
+      child_places_by_type.get(t, []) for t in ordered_child_place_types
+  ]
 
   # Dedupes the child places but preserves ordering.
   child_place_dcids = place_utils.dedupe_preserve_order(child_results)
