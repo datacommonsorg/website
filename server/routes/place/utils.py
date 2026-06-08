@@ -501,7 +501,10 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   """
   props = ['typeOf', 'name', 'dissolutionDate']
   if locale != DEFAULT_LOCALE:
-    locales_str = f"{locale},{DEFAULT_LOCALE}"
+    from server.lib import i18n
+    resolved_locales = i18n.locale_choices(locale)
+    locale = resolved_locales[0]
+    locales_str = ",".join(resolved_locales)
     props.append(f"nameWithLanguage{{$lang:[{locales_str}]}}")
 
   multi_places_props = fetch.multiple_property_values(place_dcids, props)
