@@ -26,6 +26,7 @@ from flask_babel import gettext
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
+from server.lib.i18n import locale_choices
 from server.lib.i18n_messages import get_other_places_in_parent_place_str
 from server.lib.i18n_messages import \
     get_place_overview_table_variable_to_locale_message
@@ -501,8 +502,7 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   """
   props = ['typeOf', 'name', 'dissolutionDate']
   if locale != DEFAULT_LOCALE:
-    from server.lib import i18n
-    resolved_locales = i18n.locale_choices(locale)
+    resolved_locales = locale_choices(locale)
     locale = resolved_locales[0]
     locales_str = ",".join(resolved_locales)
     props.append(f"nameWithLanguage{{$lang:[{locales_str}]}}")
