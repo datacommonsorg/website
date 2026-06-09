@@ -233,9 +233,6 @@ def register_routes_common(app):
   from server.routes.place import api as place_api
   app.register_blueprint(place_api.bp)
 
-  from server.routes.ranking import html as ranking_html
-  app.register_blueprint(ranking_html.bp)
-
   from server.routes.search import html as search_html
   app.register_blueprint(search_html.bp)
 
