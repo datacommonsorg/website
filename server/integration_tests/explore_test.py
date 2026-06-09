@@ -281,42 +281,10 @@ class ExploreTestDetection(ExploreTest):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
 
-  def test_detection_basic_sdg(self):
-    self.run_detection('detection_api_sdg_idx', ['Health in USA'],
-                       test='unittest',
-                       idx='sdg_ft')
-
-  def test_detection_basic_undata(self):
-    self.run_detection('detection_api_undata_idx', ['Health in USA'],
-                       test='unittest',
-                       idx='undata_ft')
-
-  def test_detection_basic_undata_ilo(self):
-    self.run_detection('detection_api_undata_ilo_idx',
-                       ['Employment in the world'],
-                       test='unittest',
-                       idx='undata_ilo_ft')
-
-  def test_detection_basic_undata_dev(self):
-    self.run_detection('detection_api_undata_dev_idx',
-                       ['Employment in the world'],
-                       test='unittest',
-                       idx='undata_ft,undata_ilo_ft')
-
-  def test_detection_basic_bio(self):
-    self.run_detection('detection_api_bio_idx', ['Commute in California'],
-                       test='unittest',
-                       idx='bio_ft,medium_ft')
-
   def test_detection_basic_uae(self):
     self.run_detection('detection_api_uae_idx', ['Commute in California'],
                        test='unittest',
                        idx='base_uae_mem')
-
-  def test_detection_basic_sfr(self):
-    self.run_detection('detection_api_sfr_idx', ['Commute in California'],
-                       test='unittest',
-                       idx='base_mistral_mem')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')

@@ -19,22 +19,172 @@
                       "country/PAK"
                     ],
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
+                      "sdg/SI_POV_DAY1_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line (%) (${date})",
+                    "title": "Proportion of Population Below International Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Below International Poverty Line (%)"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Proportion of Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Using Basic Drinking Water Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Proportion of Population Using Basic Drinking Water Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Using Basic Sanitation Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Proportion of Population Using Basic Sanitation Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below International Poverty Line by Age (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below International Poverty Line by Gender (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below International Poverty Line in Rural Vs. Urban Areas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Living Below the National Poverty Line (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living Below the National Poverty Line (%)"
           },
           {
             "columns": [
@@ -61,31 +211,6 @@
             ],
             "footnote": "Includes data from the following sources: burundi institute of statistics and economic studies; CONEVAL (Consejo nacional de evaluaci\u00f3n de la pol\u00edtica de desarrollo social); central administration of statistics; cities, towns and suburbs, rural areas; DANE; department of census and statistics; EUROSTAT; eurostat; ghana statistical service; institut national de la statistique (INSTAT); instituto nacional de estad\u00edstica (INE); instituto nacional de estat\u00edstica; la direction generale du plan, insti...1306 more chars",
             "title": "Proportion of Population Living in Multidimensional Poverty"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_multiple_place_bar_block"
-                    ],
-                    "title": "Proportion of Population Living Below the National Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Living Below the National Poverty Line (%)"
           },
           {
             "columns": [
@@ -1482,192 +1607,21 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/sdg_1.1",
-        "name": "1.1: By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.2",
-        "name": "1.2: By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.3",
-        "name": "1.3: Implement nationally appropriate social protection systems and measures for all, including floors, and by 2030 achieve substantial coverage of the poor and the vulnerable",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.4",
-        "name": "1.4: By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.5",
-        "name": "1.5: By 2030, build the resilience of the poor and those in vulnerable situations and reduce their exposure and vulnerability to climate-related extreme events and other economic, social and environmental shocks and disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.a",
-        "name": "1.a: Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to provide adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.b",
-        "name": "1.b: Create sound policy frameworks at the national, regional and international levels, based on pro-poor and gender-sensitive development strategies, to support accelerated investment in poverty eradication actions",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/sdg_1",
-        "name": "1: No Poverty",
+        "dcid": "dc/topic/SDG_1",
+        "name": "SDG_1",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/sdg",
-        "name": "Sustainable Development Goals",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/sdg_2",
-        "name": "2: Zero Hunger",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_3",
-        "name": "3: Good Health and Well-being",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4",
-        "name": "4: Quality Education",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_5",
-        "name": "5: Gender Equality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_6",
-        "name": "6: Clean Water and Sanitation",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_7",
-        "name": "7: Affordable and Clean Energy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_8",
-        "name": "8: Decent Work and Economic Growth",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_9",
-        "name": "9: Industry, Innovation and Infrastructure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_10",
-        "name": "10: Reduced Inequality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_11",
-        "name": "11: Sustainable Cities and Communities",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_12",
-        "name": "12: Responsible Consumption and Production",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_13",
-        "name": "13: Climate Action",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_14",
-        "name": "14: Life Below Water",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_15",
-        "name": "15: Life on Land",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_16",
-        "name": "16: Peace and Justice Strong Institutions",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_17",
-        "name": "17: Partnerships to achieve the Goal",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "peerTopics": [],
     "varToTopics": {
       "sdg/DC_ODA_POVLG": [
         {

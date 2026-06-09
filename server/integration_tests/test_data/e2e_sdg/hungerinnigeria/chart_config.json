@@ -9,6 +9,190 @@
               {
                 "tiles": [
                   {
+                    "description": "Population in Moderate or Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN"
+                    ],
+                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN"
+                    ],
+                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population in Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population in Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN"
+                    ],
+                    "title": "Population in Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN"
+                    ],
+                    "title": "Population in Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population in Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Prevalence of Moderate or Severe Food Insecurity in the Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Prevalence of Severe Food Insecurity in the Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "description": "Number of Undernourished People in Nigeria",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFCN"
@@ -61,190 +245,6 @@
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
             "title": "Prevalence of Undernourishment"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population in Moderate or Severe Food Insecurity in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESMSN"
-                    ],
-                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESMSN"
-                    ],
-                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Population in Moderate or Severe Food Insecurity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population in Severe Food Insecurity in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESSN"
-                    ],
-                    "title": "Population in Severe Food Insecurity in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESSN"
-                    ],
-                    "title": "Population in Severe Food Insecurity in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Population in Severe Food Insecurity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESMS"
-                    ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESMS"
-                    ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Prevalence of Moderate or Severe Food Insecurity in the Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESS"
-                    ],
-                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESS"
-                    ],
-                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Prevalence of Severe Food Insecurity in the Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
-                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
-                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
-                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
-                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
           },
           {
             "columns": [
@@ -1117,50 +1117,29 @@
     "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/sdg_2.1",
-        "name": "2.1: By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round",
+        "dcid": "dc/topic/sdgAGPRDFIESMSN",
+        "name": "Population in Moderate or Severe Food Insecurity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/sdg_2.2",
-        "name": "2.2: By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons",
+        "dcid": "dc/topic/sdgAGPRDFIESSN",
+        "name": "Population in Severe Food Insecurity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/sdg_2.3",
-        "name": "2.3: By 2030, double the agricultural productivity and incomes of small-scale food producers, in particular women, indigenous peoples, family farmers, pastoralists and fishers, including through secure and equal access to land, other productive resources and inputs, knowledge, financial services, markets and opportunities for value addition and non-farm employment",
+        "dcid": "dc/topic/sdgAGPRDFIESMS",
+        "name": "Prevalence of Moderate or Severe Food Insecurity in The Population",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/sdg_2.4",
-        "name": "2.4: By 2030, ensure sustainable food production systems and implement resilient agricultural practices that increase productivity and production, that help maintain ecosystems, that strengthen capacity for adaptation to climate change, extreme weather, drought, flooding and other disasters and that progressively improve land and soil quality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.5",
-        "name": "2.5: By 2020, maintain the genetic diversity of seeds, cultivated plants and farmed and domesticated animals and their related wild species, including through soundly managed and diversified seed and plant banks at the national, regional and international levels, and promote access to and fair and equitable sharing of benefits arising from the utilization of genetic resources and associated traditional knowledge, as internationally agreed",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.a",
-        "name": "2.a: Increase investment, including through enhanced international cooperation, in rural infrastructure, agricultural research and extension services, technology development and plant and livestock gene banks in order to enhance agricultural productive capacity in developing countries, in particular least developed countries",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.c",
-        "name": "2.c: Adopt measures to ensure the proper functioning of food commodity markets and their derivatives and facilitate timely access to market information, including on food reserves, in order to help limit extreme food price volatility",
+        "dcid": "dc/topic/sdgAGPRDFIESS",
+        "name": "Prevalence of Severe Food Insecurity in The Population",
         "types": [
           "Topic"
         ]
@@ -1169,8 +1148,8 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/sdg_2",
-        "name": "2: Zero Hunger",
+        "dcid": "dc/topic/sdg_2.1.2",
+        "name": "2.1.2: Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",
         "types": [
           "Topic"
         ]
@@ -1179,8 +1158,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/sdg",
-        "name": "Sustainable Development Goals",
+        "dcid": "dc/topic/sdg_2.1",
+        "name": "2.1: By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round",
         "types": [
           "Topic"
         ]
@@ -1288,113 +1267,8 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/sdg_1",
-        "name": "1: No Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_3",
-        "name": "3: Good Health and Well-being",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4",
-        "name": "4: Quality Education",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_5",
-        "name": "5: Gender Equality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_6",
-        "name": "6: Clean Water and Sanitation",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_7",
-        "name": "7: Affordable and Clean Energy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_8",
-        "name": "8: Decent Work and Economic Growth",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_9",
-        "name": "9: Industry, Innovation and Infrastructure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_10",
-        "name": "10: Reduced Inequality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_11",
-        "name": "11: Sustainable Cities and Communities",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_12",
-        "name": "12: Responsible Consumption and Production",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_13",
-        "name": "13: Climate Action",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_14",
-        "name": "14: Life Below Water",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_15",
-        "name": "15: Life on Land",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_16",
-        "name": "16: Peace and Justice Strong Institutions",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_17",
-        "name": "17: Partnerships to achieve the Goal",
+        "dcid": "dc/topic/sdg_2.1.1",
+        "name": "2.1.1: Prevalence of undernourishment",
         "types": [
           "Topic"
         ]
