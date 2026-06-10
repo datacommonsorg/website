@@ -19,7 +19,6 @@
  * packages/web-components/src/main.ts and integration tests at
  * server/webdriver/shared.py
  */
-import { renderRankingComponent } from "../js/ranking/old_component";
 import { DatacommonsBarComponent } from "./bar_component";
 import {
   renderBarComponent,
@@ -51,7 +50,6 @@ globalThis.datacommons = {
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
-  drawRanking: renderRankingComponent,
   root: DEFAULT_API_ENDPOINT,
 };
 
