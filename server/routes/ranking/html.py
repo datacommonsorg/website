@@ -37,9 +37,7 @@ def ranking(stat_var, place_type, place_dcid=''):
     place_name = ''
     if place_dcid:
       place_names = place_api.get_i18n_name([place_dcid])
-      place_name = place_names[place_dcid]
-      if place_name == '':
-        place_name = place_dcid
+      place_name = place_names.get(place_dcid, place_dcid)
     else:
       place_dcid = 'Earth'
       # TODO(juliawu): Once the "the World" page titles in i18n_ranking_messages.ts are translated,
@@ -55,15 +53,15 @@ def ranking(stat_var, place_type, place_dcid=''):
       place_name = 'the World'
     per_capita = flask.request.args.get('pc', False) != False
     return flask.render_template('ranking.html',
-                                place_name=place_name,
-                                place_dcid=place_dcid,
-                                place_type=place_type,
-                                per_capita=per_capita,
-                                stat_var=stat_var,
-                                use_new_ranking=use_new_ranking,
-                                sample_questions=json.dumps(
-                                    current_app.config.get(
-                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))
+                                 place_name=place_name,
+                                 place_dcid=place_dcid,
+                                 place_type=place_type,
+                                 per_capita=per_capita,
+                                 stat_var=stat_var,
+                                 use_new_ranking=use_new_ranking,
+                                 sample_questions=json.dumps(
+                                     current_app.config.get(
+                                         'HOMEPAGE_SAMPLE_QUESTIONS', [])))
   # Otherwise, return HTTP 503 Temporary Unavailable response.
   else:
     return flask.abort(503)
