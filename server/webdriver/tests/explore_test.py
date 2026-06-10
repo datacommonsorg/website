@@ -119,7 +119,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     ).until(
         EC.visibility_of_element_located((
             By.XPATH,
-            "//div[contains(@class, 'dialog-content')]//h4[contains(text(), 'Observation period')]/following-sibling::p[1]"
+            "//div[contains(@class, 'dialog-content')]//h4[contains(., 'Observation period')]/following-sibling::p[1]"
         )))
     self.assertIn(
         "Monthly (P1M)", obs_period_value_before.text,
@@ -180,7 +180,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     obs_period_value_after = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.visibility_of_element_located((
             By.XPATH,
-            "//div[contains(@class, 'dialog-content')]//h4[contains(text(), 'Observation period')]/following-sibling::p[contains(text(), 'Yearly (P1Y)')]"
+            "//div[contains(@class, 'dialog-content')]//h4[contains(., 'Observation period')]/following-sibling::p[contains(., 'Yearly (P1Y)')]"
         )))
     self.assertIn(
         "Yearly (P1Y)", obs_period_value_after.text,
