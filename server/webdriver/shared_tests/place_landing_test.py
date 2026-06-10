@@ -45,9 +45,11 @@ class PlaceLandingTestMixin():
     self.assertEqual(kentucky.get_attribute('href'),
                      self.url_ + '/place/geoId/21')
 
-    median_income = self.driver.find_element(
-        By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
-    self.assertEqual(median_income.text, 'Median Income, United States')
+    # TODO(juliawu): Uncomment the block below when we complete the v2-compatible ranking pages
+    #                and the links are brought back to the place landing page.
+    # median_income = self.driver.find_element(
+    #     By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
+    # self.assertEqual(median_income.text, 'Median Income, United States')
 
     gni = self.driver.find_element(By.XPATH, '//*[@id="body"]/ul[2]/li[4]/a[2]')
     self.assertEqual(gni.text, 'Gross National Income')
@@ -89,12 +91,14 @@ class PlaceLandingTestMixin():
         By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
     self.assertEqual(median_income.text, 'Медианный доход в США')
 
-    gni = self.driver.find_element(By.XPATH, '//*[@id="body"]/ul[2]/li[4]/a[2]')
-    self.assertEqual(gni.text, 'Валовой национальный доход')
-    self.assertEqual(
-        gni.get_attribute('href'), self.url_ +
-        '/ranking/Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita/Country/?hl=ru'
-    )
+    # TODO(juliawu): Uncomment the block below when we complete the v2-compatible ranking pages
+    #                and the links are brought back to the place landing page.
+    # gni = self.driver.find_element(By.XPATH, '//*[@id="body"]/ul[2]/li[4]/a[2]')
+    # self.assertEqual(gni.text, 'Валовой национальный доход')
+    # self.assertEqual(
+    #     gni.get_attribute('href'), self.url_ +
+    #     '/ranking/Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita/Country/?hl=ru'
+    # )
 
     map_search = self.driver.find_element(By.XPATH,
                                           '//*[@id="place-autocomplete"]')
