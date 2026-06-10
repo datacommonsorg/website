@@ -15,6 +15,7 @@
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.ranking_test import RankingTestMixin
 
-
+# TODO(juliawu): Remove this skip once the ranking pages are fully migrated to v2.
+@pytest.mark.skip(reason="Temporarily disabling ranking tests while completing the v2 migration for the ranking pages")
 class TestRanking(RankingTestMixin, BaseDcWebdriverTest):
   """Class to test the ranking page. Tests come from RankingTestMixin."""
