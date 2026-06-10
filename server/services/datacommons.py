@@ -398,8 +398,9 @@ def variable_info(nodes: List[str]) -> Dict:
   return post(url, req_dict)
 
 
-def _get_variable_ancestors_v2(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy using v2 node."""
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def get_variable_ancestors(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy."""
   ancestors = []
   curr = dcid
   visited = {dcid}
@@ -440,17 +441,6 @@ def _get_variable_ancestors_v2(dcid: str):
     curr = selected_parent
 
   return ancestors
-
-
-def get_variable_ancestors(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy."""
-  return _get_variable_ancestors_memoized(dcid)
-
-
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def _get_variable_ancestors_memoized(dcid: str):
-  """Memoized helper."""
-  return _get_variable_ancestors_v2(dcid)
 
 
 def _get_all_values(resp, dcid, prop, key='dcid'):
