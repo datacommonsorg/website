@@ -55,14 +55,14 @@ def ranking(stat_var, place_type, place_dcid=''):
   # Only render a page if the feature flag is enabled
   if use_new_ranking:
     return flask.render_template('ranking.html',
-                                place_name=place_name,
-                                place_dcid=place_dcid,
-                                place_type=place_type,
-                                per_capita=per_capita,
-                                stat_var=stat_var,
-                                sample_questions=json.dumps(
-                                    current_app.config.get(
-                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))
-
-  # Otherwise return HTTP 503 Temporary Down
-  abort(503)
+                                 place_name=place_name,
+                                 place_dcid=place_dcid,
+                                 place_type=place_type,
+                                 per_capita=per_capita,
+                                 stat_var=stat_var,
+                                 sample_questions=json.dumps(
+                                     current_app.config.get(
+                                         'HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  else:
+    # Otherwise return HTTP 503 Temporary Down
+    flask.abort(503)
