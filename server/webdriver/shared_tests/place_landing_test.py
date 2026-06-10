@@ -50,13 +50,13 @@ class PlaceLandingTestMixin():
     # median_income = self.driver.find_element(
     #     By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
     # self.assertEqual(median_income.text, 'Median Income, United States')
-
-    gni = self.driver.find_element(By.XPATH, '//*[@id="body"]/ul[2]/li[4]/a[2]')
-    self.assertEqual(gni.text, 'Gross National Income')
-    self.assertEqual(
-        gni.get_attribute('href'), self.url_ +
-        '/ranking/Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita/Country/'
-    )
+    #
+    # gni = self.driver.find_element(By.XPATH, '//*[@id="body"]/ul[2]/li[4]/a[2]')
+    # self.assertEqual(gni.text, 'Gross National Income')
+    # self.assertEqual(
+    #     gni.get_attribute('href'), self.url_ +
+    #     '/ranking/Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita/Country/'
+    # )
 
     map_search = self.driver.find_element(By.XPATH,
                                           '//*[@id="place-autocomplete"]')
@@ -87,12 +87,12 @@ class PlaceLandingTestMixin():
     self.assertEqual(kentucky.get_attribute('href'),
                      self.url_ + '/place/geoId/21?hl=ru')
 
-    median_income = self.driver.find_element(
-        By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
-    self.assertEqual(median_income.text, 'Медианный доход в США')
-
     # TODO(juliawu): Uncomment the block below when we complete the v2-compatible ranking pages
     #                and the links are brought back to the place landing page.
+    # median_income = self.driver.find_element(
+    #     By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
+    # self.assertEqual(median_income.text, 'Медианный доход в США')
+    #
     # gni = self.driver.find_element(By.XPATH, '//*[@id="body"]/ul[2]/li[4]/a[2]')
     # self.assertEqual(gni.text, 'Валовой национальный доход')
     # self.assertEqual(
