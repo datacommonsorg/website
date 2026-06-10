@@ -113,18 +113,14 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         By.XPATH, ".//a[contains(text(), 'About this data')]")
     metadata_link_before.click()
 
-    # Wait for the dialog to be visible
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, '.dialog-content h4')))
-
-    dialog_content_before = find_elem(self.driver,
-                                      value='dialog-content',
-                                      by=By.CLASS_NAME)
-    # Find the "Observation period" header and check value underneath
-    obs_period_header_before = dialog_content_before.find_element(
-        By.XPATH, ".//h4[contains(text(), 'Observation period')]")
-    obs_period_value_before = obs_period_header_before.find_element(
-        By.XPATH, "following-sibling::p[1]")
+    # Wait for the observation period value to be visible and check value
+    obs_period_value_before = WebDriverWait(
+        self.driver, self.TIMEOUT_SEC
+    ).until(
+        EC.visibility_of_element_located((
+            By.XPATH,
+            "//div[contains(@class, 'dialog-content')]//h4[contains(text(), 'Observation period')]/following-sibling::p[1]"
+        )))
     self.assertIn(
         "Monthly (P1M)", obs_period_value_before.text,
         "Observation period should be 'Monthly (P1M)' before facet change.")
@@ -149,13 +145,26 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     source_options = self.driver.find_elements(
         By.CSS_SELECTOR, '.source-selector-facet-option-title')
     self.assertEqual(len(source_options), 3)
-    source_options[1].click()
+
+    target_option = None
+    for option in source_options:
+      option_text = option.get_attribute('textContent')
+      if option_text and "Yearly (P1Y)" in option_text:
+        target_option = option
+        break
+    self.assertIsNotNone(
+        target_option,
+        "Could not find a facet option with 'Yearly (P1Y)' observation period.")
+    target_option.click()
 
     modal_footer_button = find_elem(
         self.driver,
         value='source-selector-update-source-button',
         path_to_elem=['dialog-actions'])
     modal_footer_button.click()
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located(
+            (By.CSS_SELECTOR, '.dialog-content')))
 
     # Wait for the chart to reload after the change
     shared.wait_for_loading(self.driver)
@@ -167,21 +176,12 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         By.XPATH, ".//a[contains(text(), 'About this data')]")
     metadata_link_after.click()
 
-    # Wait for the dialog to be visible again
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+    # Wait for the observation period value to be updated and visible
+    obs_period_value_after = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.visibility_of_element_located((
             By.XPATH,
-            "//h4[contains(text(), 'Observation period')]/following-sibling::p[contains(text(), 'Yearly (P1Y)')]"
+            "//div[contains(@class, 'dialog-content')]//h4[contains(text(), 'Observation period')]/following-sibling::p[contains(text(), 'Yearly (P1Y)')]"
         )))
-
-    dialog_content_after = find_elem(self.driver,
-                                     value='dialog-content',
-                                     by=By.CLASS_NAME)
-    # Find the "Observation period" header and verify value has changed
-    obs_period_header_after = dialog_content_after.find_element(
-        By.XPATH, ".//h4[contains(text(), 'Observation period')]")
-    obs_period_value_after = obs_period_header_after.find_element(
-        By.XPATH, "following-sibling::p[1]")
     self.assertIn(
         "Yearly (P1Y)", obs_period_value_after.text,
         "Observation period should be 'Yearly (P1Y)' after facet change.")
