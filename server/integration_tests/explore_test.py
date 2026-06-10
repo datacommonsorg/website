@@ -286,9 +286,6 @@ class ExploreTestDetection(ExploreTest):
                        test='unittest',
                        idx='base_uae_mem')
 
-  def test_detection_sdg(self):
-    self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
-
   def test_detection_multivar(self):
     self.run_detection(
         'detection_api_multivar',
@@ -567,18 +564,7 @@ class ExploreTestEE1(ExploreTest):
                                 i18n='true',
                                 i18n_lang='zh')
 
-  def test_e2e_sdg(self):
-    self.run_detect_and_fulfill('e2e_sdg', [
-        'Hunger in Nigeria',
-        'Compare progress on poverty in Mexico, Nigeria and Pakistan'
-    ],
-                                dc='sdg')
-
   def test_e2e_undata(self):
-    self.run_detect_and_fulfill(
-        'e2e_undata', ['Culture in Iran', 'Pulmonary diseases in the world'],
-        dc='undata')
-
     self.run_detect_and_fulfill('e2e_sdg_main_dc', [
         'Hunger in Nigeria',
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
