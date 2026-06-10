@@ -129,12 +129,12 @@ def search_vector():
 def _get_property_value(sv_data: dict,
                         prop: str,
                         *,
-                        by_name: bool = False) -> str | None:
+                        by_dcid: bool = False) -> str | None:
   """Safely extracts a property value from a v2/node response item."""
   prop_arcs = sv_data.get("arcs", {})
   prop_nodes = prop_arcs.get(prop, {}).get("nodes", [])
 
-  selector = "name" if by_name else "value"
+  selector = "dcid" if by_dcid else "value"
   return prop_nodes[0].get(selector) if prop_nodes else None
 
 
@@ -208,7 +208,7 @@ def _get_indicator_metadata(dcids: set[str]) -> dict[str, dict]:
     indicator_info_map[dcid] = {
         "name": _get_property_value(sv_data, "name"),
         "description": _get_property_value(sv_data, "description"),
-        "type_of": _get_property_value(sv_data, "typeOf", by_name=True)
+        "type_of": _get_property_value(sv_data, "typeOf", by_dcid=True)
     }
   return indicator_info_map
 
