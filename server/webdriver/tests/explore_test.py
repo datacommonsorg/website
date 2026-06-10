@@ -110,7 +110,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                                    value='sources',
                                    by=By.CLASS_NAME)
     metadata_link_before = sources_div_before.find_element(
-        By.XPATH, ".//a[contains(text(), 'About this data')]")
+        By.XPATH, ".//a[contains(., 'About this data')]")
     metadata_link_before.click()
 
     # Wait for the observation period value to be visible and check value
@@ -127,7 +127,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
 
     # Close the dialog
     close_button = find_elem(self.driver, By.XPATH,
-                             "//button[contains(text(), 'Close')]")
+                             "//button[contains(., 'Close')]")
     close_button.click()
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.invisibility_of_element_located(
@@ -173,7 +173,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                                   value='sources',
                                   by=By.CLASS_NAME)
     metadata_link_after = sources_div_after.find_element(
-        By.XPATH, ".//a[contains(text(), 'About this data')]")
+        By.XPATH, ".//a[contains(., 'About this data')]")
     metadata_link_after.click()
 
     # Wait for the observation period value to be updated and visible
