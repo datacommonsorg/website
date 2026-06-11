@@ -703,7 +703,7 @@ def get_child_places_by_type(
   # Fetch child places matching the expected types for the given place.
   raw_property_values_response = fetch.raw_property_values(
       nodes=[place.dcid],
-      prop="containedInPlace+",
+      prop="containedInPlace",
       out=False,
       constraints=constraints,
       max_pages=None)
