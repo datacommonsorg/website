@@ -88,7 +88,8 @@ def detect(orig_query: str, cleaned_query: str,
     sv_detection_result = variable.detect_vars(
         orig_query=sv_detection_query,
         debug_logs=query_detection_debug_logs["query_transformations"],
-        dargs=dargs)
+        dargs=dargs,
+        counters=counters)
   except ValueError as e:
     counters.err('detect_vars_value_error', {
         'q': sv_detection_query,

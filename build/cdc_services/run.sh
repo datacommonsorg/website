@@ -85,9 +85,11 @@ try:
     for flag in data:
         if flag.get('name') == 'use_v2_api':
             flag['enabled'] = True
+        if flag.get('name') == 'enable_nl_v2node_fetchall':
+            flag['enabled'] = True
     with open(path, 'w') as f:
         json.dump(data, f, indent=2)
-    print('Successfully enabled use_v2_api in custom.json')
+    print('Successfully enabled use_v2_api and enable_nl_v2node_fetchall in custom.json')
 except Exception as e:
     print(f'Warning: Failed to auto-enable use_v2_api in custom.json: {e}')
 "
@@ -106,6 +108,14 @@ except Exception as e:
     
     # 2. Enable V2 API for Mixer
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+
+    # 3. Use mixer custom feature flags
+
+    # Currently we only read custom feature flags when we enable resolving with spanner embeddings.
+    # We will eventually always resolve from spanner embeddings.
+    if [[ $RESOLVE_WITH_SPANNER_EMBEDDINGS == "true" ]]; then
+        MIXER_ARGS+=('--feature_flags_path=deploy/featureflags/custom.yaml')
+    fi
 fi
 
 # Start mixer.
