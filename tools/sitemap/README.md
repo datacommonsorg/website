@@ -46,43 +46,6 @@ WHERE
 ORDER BY population DESC;
 ```
 
-Similarly, the query necessary to get the top 100 most populous US cities requires some heavy lifting, so we query for those DCIDs in Spanner Studio. The result of the query has been saved in `top_100_us_cities.csv`. To update the CSV,
-use the following SQL query in Spanner Studio and export the results as CSV:
-
-```sql
-WITH usa_cities AS (
-    SELECT subject_id AS city_dcid
-    FROM Node
-    WHERE 'City' IN UNNEST(types)
-      AND subject_id LIKE 'geoId/%'
-),
-city_populations AS (
-    SELECT 
-        c.city_dcid,
-        MAX(CAST(v.value AS FLOAT64)) AS max_population
-    FROM usa_cities c
-    JOIN Observation o ON c.city_dcid = o.observation_about
-    CROSS JOIN UNNEST(o.observations.values) AS v
-    WHERE o.variable_measured = 'Count_Person'
-    GROUP BY c.city_dcid
-),
-top_100_cities AS (
-    SELECT 
-        city_dcid,
-        max_population
-    FROM city_populations
-    ORDER BY max_population DESC
-    LIMIT 100
-)
-SELECT 
-    t.city_dcid,
-    n.name AS city_name,
-    CAST(t.max_population AS INT64) AS population
-FROM top_100_cities t
-JOIN Node n ON t.city_dcid = n.subject_id
-ORDER BY t.max_population DESC;
-```
-
 ## Updating stat_vars sitemap
 
 ./run.sh stat_vars_only
