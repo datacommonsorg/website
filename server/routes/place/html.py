@@ -26,12 +26,12 @@ from flask import g
 from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import NEW_RANKING_PAGE
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
-from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import NEW_RANKING_PAGE
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
