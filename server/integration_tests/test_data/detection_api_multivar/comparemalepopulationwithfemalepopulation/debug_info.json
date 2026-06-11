@@ -189,9 +189,6 @@
     "query_transformations": {
       "place_detection_input": "Compare Male population with Female Population",
       "place_detection_with_places_removed": "compare male population with female population",
-      "sv_detection_query_index_types": [
-        "base_uae_mem"
-      ],
       "sv_detection_query_input": "compare male population with female population",
       "sv_detection_query_stop_words_removal": "male population female population"
     }
