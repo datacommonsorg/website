@@ -79,7 +79,7 @@
   },
   {
     "name": "new_ranking_page",
-    "enabled": true,
+    "enabled": false,
     "owner": "juliawu",
     "description": "Enables the new ranking page UI"
   },
@@ -103,7 +103,7 @@
   },
   {
     "name": "use_v2_resolve_for_nl_search_vars",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
   },

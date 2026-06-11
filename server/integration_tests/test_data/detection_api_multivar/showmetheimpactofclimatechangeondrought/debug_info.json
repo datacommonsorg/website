@@ -129,9 +129,6 @@
     "query_transformations": {
       "place_detection_input": "show me the impact of climate change on drought",
       "place_detection_with_places_removed": "show me the impact of climate change on drought",
-      "sv_detection_query_index_types": [
-        "base_uae_mem"
-      ],
       "sv_detection_query_input": "show me the impact of climate change on drought",
       "sv_detection_query_stop_words_removal": "show climate change drought"
     }
