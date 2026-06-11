@@ -66,4 +66,5 @@ def ranking(stat_var, place_type, place_dcid=''):
                                          'HOMEPAGE_SAMPLE_QUESTIONS', [])))
   # Otherwise, return HTTP 503 Temporary Unavailable response.
   else:
-    return flask.make_response(flask.render_template("under_maintenance.html"), 503)
+    return flask.make_response(flask.render_template("under_maintenance.html"),
+                               503)
