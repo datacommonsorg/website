@@ -84,6 +84,18 @@ def _get_node_name(node_list: list[dict[str, Any]],
   return None
 
 
+def _get_provenance_name(pdata: dict[str, Any], linked_names_map: dict[str,
+                                                                       str],
+                         import_name: str | None, prov_id: str | None) -> str:
+  """Resolves the display name for a provenance node."""
+  if not pdata:
+    return import_name or (prov_id.split('/')[-1] if prov_id else "")
+  return _get_node_name(pdata.get('isPartOf', []), linked_names_map) or \
+         _get_node_name(pdata.get('name', []), linked_names_map) or \
+         import_name or \
+         (prov_id.split('/')[-1] if prov_id else "")
+
+
 def _extract_active_facets(
     sv: str, obs_resp: dict[str, Any],
     stat_var_to_facets: dict[str, list[str]]) -> list[str]:
@@ -335,11 +347,13 @@ def _build_metadata_payload(
 
     for fid in active_facets:
       finfo = facets.get(fid, {})
-      import_name = finfo.get('importName')
-      if not import_name:
-        continue
+      prov_id = finfo.get('provenanceId')
+      if not prov_id:
+        import_name = finfo.get('importName')
+        if not import_name:
+          continue
+        prov_id = f"dc/base/{import_name}"
 
-      prov_id = f"dc/base/{import_name}"
       pdata = prov_map.get(prov_id)
       if not pdata:
         continue
@@ -349,8 +363,8 @@ def _build_metadata_payload(
       mm = finfo.get('measurementMethod')
 
       source_name = _get_node_name(pdata['source'], linked_names_map)
-      prov_name = _get_node_name(pdata['isPartOf'], linked_names_map) or \
-                  _get_node_name(pdata['name'], linked_names_map) or import_name
+      prov_name = _get_provenance_name(pdata, linked_names_map,
+                                       finfo.get('importName'), prov_id)
 
       mm_desc = None
       if mm and prov_name not in MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES:
@@ -476,7 +490,10 @@ async def get_metadata() -> tuple[Response, int] | Response:
         units.add(finfo['unit'])
       if finfo.get('measurementMethod'):
         measurement_methods.add(finfo['measurementMethod'])
-      if finfo.get('importName'):
+      prov_id = finfo.get('provenanceId')
+      if prov_id:
+        provenance_endpoints.add(prov_id)
+      elif finfo.get('importName'):
         provenance_endpoints.add(f"dc/base/{finfo['importName']}")
 
   facet_date_ranges = _extract_facet_date_ranges(obs_resp, stat_vars)
@@ -599,7 +616,10 @@ async def enrich_facets() -> tuple[Response, int] | Response:
   # Collect unique references across all facets to batch-fetch their secondary metadata.
   for sv, sv_facets in facets.items():
     for fid, finfo in sv_facets.items():
-      if finfo.get('importName'):
+      prov_id = finfo.get('provenanceId')
+      if prov_id:
+        provenance_endpoints.add(prov_id)
+      elif finfo.get('importName'):
         provenance_endpoints.add(f"dc/base/{finfo['importName']}")
       if finfo.get('measurementMethod'):
         measurement_methods.add(finfo['measurementMethod'])
@@ -620,15 +640,19 @@ async def enrich_facets() -> tuple[Response, int] | Response:
         finfo['dateRangeEnd'] = dr.get('latestDate')
 
       # Resolve human-readable source and publisher names from the provenance.
-      import_name = finfo.get('importName')
-      if import_name:
-        prov_id = f"dc/base/{import_name}"
+      prov_id = finfo.get('provenanceId')
+      if prov_id:
         pdata = prov_map.get(prov_id)
-        if pdata:
-          finfo['sourceName'] = _get_node_name(pdata.get('source', []),
-                                               linked_names_map)
-          finfo['provenanceName'] = _get_node_name(pdata.get('isPartOf', []), linked_names_map) or \
-                                    _get_node_name(pdata.get('name', []), linked_names_map) or import_name
+      else:
+        import_name = finfo.get('importName')
+        pdata = prov_map.get(f"dc/base/{import_name}") if import_name else None
+
+      if pdata:
+        finfo['sourceName'] = _get_node_name(pdata.get('source', []),
+                                             linked_names_map)
+        finfo['provenanceName'] = _get_provenance_name(pdata, linked_names_map,
+                                                       finfo.get('importName'),
+                                                       prov_id)
 
       # Attach descriptive display names for the measurement method and unit.
       mm = finfo.get('measurementMethod')
