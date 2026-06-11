@@ -79,7 +79,7 @@
   },
   {
     "name": "new_ranking_page",
-    "enabled": true,
+    "enabled": false,
     "owner": "juliawu",
     "description": "Enables the new ranking page UI"
   },
