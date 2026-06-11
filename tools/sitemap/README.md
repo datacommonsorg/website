@@ -46,7 +46,7 @@ WHERE
 ORDER BY population DESC;
 ```
 
-Similarly, the query necessary to get the top 100 most populous US cities is too heavy for our python API. The result of the query has been saved in `top_100_us_cities.csv`. To update the CSV,
+Similarly, the query necessary to get the top 100 most populous US cities requires some heavy lifting, so we query for those DCIDs in Spanner Studio. The result of the query has been saved in `top_100_us_cities.csv`. To update the CSV,
 use the following SQL query in Spanner Studio and export the results as CSV:
 
 ```sql
