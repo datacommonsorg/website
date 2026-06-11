@@ -26,6 +26,7 @@ from flask_babel import gettext
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
+from server.lib.i18n import locale_choices
 from server.lib.i18n_messages import get_other_places_in_parent_place_str
 from server.lib.i18n_messages import \
     get_place_overview_table_variable_to_locale_message
@@ -500,9 +501,12 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
       List[Place]: A list of Place objects with names in the specified locale.
   """
   props = ['typeOf', 'name', 'dissolutionDate']
-  # Only fetch names with locale-specific tags if the desired locale is non-english
   if locale != DEFAULT_LOCALE:
-    props.append('nameWithLanguage')
+    resolved_locales = locale_choices(locale)
+    locale = resolved_locales[0]
+    locales_str = ",".join(resolved_locales)
+    props.append(f"nameWithLanguage{{$lang:[{locales_str}]}}")
+
   multi_places_props = fetch.multiple_property_values(place_dcids, props)
 
   places = []
@@ -567,6 +571,8 @@ def chart_config_to_overview_charts(
 
 # Maps each parent place type to a list of valid child place types.
 # This hierarchy defines how places are related in terms of containment.
+# Limitations in BT and Spanner mean that for now, these must be direct contained places.
+# TODO(nick-nlb): address contained place query in Spanner for chaining.
 PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
     "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
@@ -631,16 +637,24 @@ def get_child_place_types(place: Place) -> list[str]:
     if matched_child_place_type:
       return [matched_child_place_type]
 
-  # Fetch all possible child places for the given place using its containment property.
-  raw_property_values_response = fetch.raw_property_values(
-      nodes=[place.dcid], prop="containedInPlace", out=False)
-
   # Determine the order of child place types based on the parent type.
   ordered_child_place_types = DEFAULT_CHILD_PLACE_TYPES
   for place_type in place.types:
     if place_type in PLACE_TYPES_TO_CHILD_PLACE_TYPES:
       ordered_child_place_types = PLACE_TYPES_TO_CHILD_PLACE_TYPES[place_type]
       break
+
+  # Construct constraint to filter by expected child types.
+  child_types_str = ",".join(ordered_child_place_types)
+  constraints = f"{{typeOf:[{child_types_str}]}}"
+
+  # Fetch child places matching the expected types for the given place.
+  raw_property_values_response = fetch.raw_property_values(
+      nodes=[place.dcid],
+      prop="containedInPlace",
+      out=False,
+      constraints=constraints,
+      max_pages=None)
 
   # Collect all types of child places found in the property values response.
   child_place_types = set()
@@ -658,6 +672,72 @@ def get_child_place_types(place: Place) -> list[str]:
 
   # If no matching child place type is found, return empty.
   return []
+
+
+# TODO(nick-nlb): look at other uses of the very similar get_child_place_types, and migrate them
+#                 to use this function instead.
+def get_child_places_by_type(
+    place: Place) -> Tuple[List[str], Dict[str, List[str]]]:
+  """
+  Determines the child place types for a given place and returns a tuple containing the
+  matched types and the places grouped by type.
+  """
+  ordered_child_place_types = []
+  # Attempt to directly match a child place type using the custom expressions.
+  for f in PLACE_MATCH_EXPRESSIONS:
+    matched_child_place_type = f(place)
+    if matched_child_place_type:
+      ordered_child_place_types = [matched_child_place_type]
+      break
+
+  if not ordered_child_place_types:
+    # Determine the order of child place types based on the parent type.
+    ordered_child_place_types = DEFAULT_CHILD_PLACE_TYPES
+    for place_type in place.types:
+      if place_type in PLACE_TYPES_TO_CHILD_PLACE_TYPES:
+        ordered_child_place_types = PLACE_TYPES_TO_CHILD_PLACE_TYPES[place_type]
+        break
+
+  # Construct constraint to filter by expected child types.
+  child_types_str = ",".join(ordered_child_place_types)
+  constraints = f"{{typeOf:[{child_types_str}]}}"
+
+  # Fetch child places matching the expected types for the given place.
+  raw_property_values_response = fetch.raw_property_values(
+      nodes=[place.dcid],
+      prop="containedInPlace",
+      out=False,
+      constraints=constraints,
+      max_pages=None)
+
+  # Collect all types of child places found in the property values response.
+  child_place_types = set()
+  type_to_dcids = {}
+  for raw_property_value in raw_property_values_response.get(place.dcid, []):
+    dcid = raw_property_value.get("dcid")
+    if not dcid:
+      continue
+    types = raw_property_value.get("types", [])
+    child_place_types.update(types)
+    for t in types:
+      if t not in type_to_dcids:
+        type_to_dcids[t] = []
+      type_to_dcids[t].append(dcid)
+
+  child_place_type_candidates = []
+  # Return the child place types that match the ordered list of possible child types.
+  for place_type_candidate in ordered_child_place_types:
+    if place_type_candidate in child_place_types:
+      child_place_type_candidates.append(place_type_candidate)
+
+  # Filter the map to only include candidates
+  filtered_type_to_dcids = {
+      t: type_to_dcids[t]
+      for t in child_place_type_candidates
+      if t in type_to_dcids
+  }
+
+  return child_place_type_candidates, filtered_type_to_dcids
 
 
 def get_child_place_type_to_highlight(place: Place) -> str:
