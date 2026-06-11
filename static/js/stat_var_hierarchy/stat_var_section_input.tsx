@@ -27,7 +27,6 @@ import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
   RADIO_BUTTON_TYPES,
-  StatVarHierarchyType,
   StatVarInfo,
   StatVarSummary,
 } from "../shared/types";
