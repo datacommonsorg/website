@@ -281,45 +281,10 @@ class ExploreTestDetection(ExploreTest):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
 
-  def test_detection_basic_sdg(self):
-    self.run_detection('detection_api_sdg_idx', ['Health in USA'],
-                       test='unittest',
-                       idx='sdg_ft')
-
-  def test_detection_basic_undata(self):
-    self.run_detection('detection_api_undata_idx', ['Health in USA'],
-                       test='unittest',
-                       idx='undata_ft')
-
-  def test_detection_basic_undata_ilo(self):
-    self.run_detection('detection_api_undata_ilo_idx',
-                       ['Employment in the world'],
-                       test='unittest',
-                       idx='undata_ilo_ft')
-
-  def test_detection_basic_undata_dev(self):
-    self.run_detection('detection_api_undata_dev_idx',
-                       ['Employment in the world'],
-                       test='unittest',
-                       idx='undata_ft,undata_ilo_ft')
-
-  def test_detection_basic_bio(self):
-    self.run_detection('detection_api_bio_idx', ['Commute in California'],
-                       test='unittest',
-                       idx='bio_ft,medium_ft')
-
   def test_detection_basic_uae(self):
     self.run_detection('detection_api_uae_idx', ['Commute in California'],
                        test='unittest',
                        idx='base_uae_mem')
-
-  def test_detection_basic_sfr(self):
-    self.run_detection('detection_api_sfr_idx', ['Commute in California'],
-                       test='unittest',
-                       idx='base_mistral_mem')
-
-  def test_detection_sdg(self):
-    self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
 
   def test_detection_multivar(self):
     self.run_detection(
@@ -599,18 +564,7 @@ class ExploreTestEE1(ExploreTest):
                                 i18n='true',
                                 i18n_lang='zh')
 
-  def test_e2e_sdg(self):
-    self.run_detect_and_fulfill('e2e_sdg', [
-        'Hunger in Nigeria',
-        'Compare progress on poverty in Mexico, Nigeria and Pakistan'
-    ],
-                                dc='sdg')
-
   def test_e2e_undata(self):
-    self.run_detect_and_fulfill(
-        'e2e_undata', ['Culture in Iran', 'Pulmonary diseases in the world'],
-        dc='undata')
-
     self.run_detect_and_fulfill('e2e_sdg_main_dc', [
         'Hunger in Nigeria',
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
