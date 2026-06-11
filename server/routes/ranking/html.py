@@ -37,7 +37,9 @@ def ranking(stat_var, place_type, place_dcid=''):
     place_name = ''
     if place_dcid:
       place_names = place_api.get_i18n_name([place_dcid])
-      place_name = place_names.get(place_dcid, place_dcid)
+      place_name = place_names.get(place_dcid, '')
+      if place_name == '':
+        place_name = place_dcid
     else:
       place_dcid = 'Earth'
       # TODO(juliawu): Once the "the World" page titles in i18n_ranking_messages.ts are translated,
