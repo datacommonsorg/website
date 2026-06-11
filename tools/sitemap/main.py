@@ -62,6 +62,8 @@ PRIORITY_PLACE_SITEMAP = "PriorityPlaces.0.txt"
 # CSV storing BQ query results for queries that are too heavy for mixer
 BQ_CSV = "cities_with_population_over_500k.csv"
 
+# CSV storing top 100 most populous US cities
+TOP_100_US_CITIES_CSV = "top_100_us_cities.csv"
 
 # Generator to yield chunks from a list
 def chunks(lst, n):
@@ -142,14 +144,11 @@ def get_global_cities_with_population_over_500k() -> List[str]:
 def get_top_100_us_cities() -> List[str]:
   """Get DCIDs of top 100 US cities by population"""
   dcids = []
-  response = requests.get(
-      "https://datacommons.org/api/ranking/Count_Person/City/country/USA")
-  city_ranking_data = response.json().get("Count_Person",
-                                          {}).get("rankTop1000",
-                                                  {}).get("info", [])
-  for city in city_ranking_data[:100]:
-    if 'placeDcid' in city:
-      dcids.append(city['placeDcid'])
+  with open(TOP_100_US_CITIES_CSV) as f:
+    cities = csv.DictReader(f)
+    for city in cities:
+      if 'city_dcid' in city:
+        dcids.append(city['city_dcid'])
   return dcids
 
 
