@@ -80,6 +80,8 @@
     </li>
   </ul>
 
+  {# TODO(juliawu): Remove this if statement once ranking pages are completed. #}
+  {% if ranking_pages_enabled %}
   {# TRANSLATORS: Heading for a list of place rankings. #}
   <h3>{% trans %}Rankings{% endtrans %}</h3>
   <ul>
@@ -141,6 +143,7 @@
       </a>
     </li>
   </ul>
+  {% endif %}
 </div>
 {% endblock %}
 
