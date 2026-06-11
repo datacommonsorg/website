@@ -571,6 +571,8 @@ def chart_config_to_overview_charts(
 
 # Maps each parent place type to a list of valid child place types.
 # This hierarchy defines how places are related in terms of containment.
+# Limitations in BT and Spanner mean that for now, these must be direct contained places.
+# TODO(nick-nlb): address contained place query in Spanner for chaining.
 PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
     "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
