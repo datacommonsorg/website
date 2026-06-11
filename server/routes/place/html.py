@@ -30,6 +30,8 @@ from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import NEW_RANKING_PAGE
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -169,7 +171,7 @@ def place_explorer():
       os.path.join(current_app.root_path, 'templates', template_file)):
     template_file = 'place_landing.html'
     dcid_json = 'place_landing_dcids.json'
-
+  ranking_pages_enabled = is_feature_enabled(NEW_RANKING_PAGE)
   with open(os.path.join(current_app.root_path, 'templates', dcid_json)) as f:
     landing_dcids = json.load(f)
     # Use display names (including state, if applicable) for the static page
@@ -177,6 +179,7 @@ def place_explorer():
     return flask.render_template(
         template_file,
         place_names=place_names,
+        ranking_pages_enabled=ranking_pages_enabled,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
