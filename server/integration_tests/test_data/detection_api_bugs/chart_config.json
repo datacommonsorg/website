@@ -26,8 +26,8 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "dc/topic/Housing",
     "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
+    "dc/topic/Housing",
     "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_RenterOccupied",
     "Count_HousingUnit"
   ]

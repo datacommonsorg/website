@@ -392,16 +392,9 @@ def property_values(nodes, prop, out=True, constraints='', max_pages=1):
     <node_dcid>: [value list]
   }
   """
-  from server.lib.feature_flags import is_feature_enabled
-  from server.lib.feature_flags import USE_V2_API
-
-  if is_feature_enabled(USE_V2_API):
-    resp = dc.v2node_paginated(
-        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
-        max_pages)
-  else:
-    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                            constraints))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+      max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -448,8 +441,12 @@ def multiple_property_values(nodes: List[str],
     resp_node_arcs = resp_data.get(node, {}).get('arcs', {})
     result[node] = {}
     for prop in props:
-      prop_nodes = resp_node_arcs.get(prop, {}).get('nodes', [])
-      result[node][prop] = [p.get('dcid') or p.get('value') for p in prop_nodes]
+      # Strip inline constraints (e.g., '{...}') to get the response key return by mixer
+      base_prop = prop.split('{')[0].strip()
+      prop_nodes = resp_node_arcs.get(base_prop, {}).get('nodes', [])
+      result[node][base_prop] = [
+          p.get('dcid') or p.get('value') for p in prop_nodes
+      ]
   return result
 
 
@@ -470,16 +467,9 @@ def raw_property_values(nodes, prop, out=True, constraints='', max_pages=1):
   }
 
   """
-  from server.lib.feature_flags import is_feature_enabled
-  from server.lib.feature_flags import USE_V2_API
-
-  if is_feature_enabled(USE_V2_API):
-    resp = dc.v2node_paginated(
-        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
-        max_pages)
-  else:
-    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                            constraints))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+      max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
