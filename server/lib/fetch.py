@@ -392,16 +392,9 @@ def property_values(nodes, prop, out=True, constraints='', max_pages=1):
     <node_dcid>: [value list]
   }
   """
-  from server.lib.feature_flags import is_feature_enabled
-  from server.lib.feature_flags import USE_V2_API
-
-  if is_feature_enabled(USE_V2_API):
-    resp = dc.v2node_paginated(
-        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
-        max_pages)
-  else:
-    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                            constraints))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+      max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -474,16 +467,9 @@ def raw_property_values(nodes, prop, out=True, constraints='', max_pages=1):
   }
 
   """
-  from server.lib.feature_flags import is_feature_enabled
-  from server.lib.feature_flags import USE_V2_API
-
-  if is_feature_enabled(USE_V2_API):
-    resp = dc.v2node_paginated(
-        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
-        max_pages)
-  else:
-    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                            constraints))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+      max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
