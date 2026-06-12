@@ -140,34 +140,33 @@ def get_global_cities_with_population_over_500k() -> List[str]:
 
 
 def get_top_100_us_cities(dc_client: DataCommonsClient) -> List[str]:
-  """Get DCIDs of top 100 US cities by population using V2 API"""
+  """Get DCIDs of top 100 US cities by population"""
   try:
     # Query for cities in USA, filtering on population (Count_Person)
     response = dc_client.observation.fetch_observations_by_entity_type(
         date="latest",
         parent_entity="country/USA",
         entity_type="City",
-        variable_dcids="Count_Person"
-    )
+        variable_dcids="Count_Person")
+    records = response.to_observation_records()
   except Exception:
     logging.exception('Got an error while querying for US cities population')
     return []
-
-  records = response.to_observation_records()
 
   # Group and deduplicate city DCIDs, keeping the observation with the most recent date
   city_populations = {}  # maps city_dcid -> (population_value, date_string)
   for record in records:
     if record.entity and record.value is not None and record.date:
-      current_value, current_date = city_populations.get(record.entity, (None, ""))
+      current_value, current_date = city_populations.get(
+          record.entity, (None, ""))
       # Keep the record with the more recent date. If dates match, select the higher value.
-      if (current_date == "") or (record.date > current_date) or (record.date == current_date and record.value > current_value):
+      if (current_date == "") or (record.date > current_date) or (
+          record.date == current_date and record.value > current_value):
         city_populations[record.entity] = (record.value, record.date)
-
-  # Extract population value and sort cities descending
-  final_populations = {entity: val_date[0] for entity, val_date in city_populations.items()}
-  sorted_cities = sorted(final_populations.items(), key=lambda x: x[1], reverse=True)
-
+  # Sort cities descending by population value (index 0 of the tuple)
+  sorted_cities = sorted(city_populations.items(),
+                         key=lambda x: x[1][0],
+                         reverse=True)
   # Take the top 100 city DCIDs
   return [city[0] for city in sorted_cities[:100]]
 
