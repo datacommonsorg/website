@@ -90,10 +90,9 @@ def _get_provenance_name(pdata: dict[str, Any], linked_names_map: dict[str,
   """Resolves the display name for a provenance node."""
   if not pdata:
     return import_name or (prov_id.split('/')[-1] if prov_id else "")
-  return _get_node_name(pdata.get('isPartOf', []), linked_names_map) or \
-         _get_node_name(pdata.get('name', []), linked_names_map) or \
-         import_name or \
-         (prov_id.split('/')[-1] if prov_id else "")
+  return (_get_node_name(pdata.get('isPartOf', []), linked_names_map) or
+          _get_node_name(pdata.get('name', []), linked_names_map) or
+          import_name or (prov_id.split('/')[-1] if prov_id else ""))
 
 
 def _extract_active_facets(
@@ -650,9 +649,10 @@ async def enrich_facets() -> tuple[Response, int] | Response:
       if pdata:
         finfo['sourceName'] = _get_node_name(pdata.get('source', []),
                                              linked_names_map)
-        finfo['provenanceName'] = _get_provenance_name(pdata, linked_names_map,
-                                                       finfo.get('importName'),
-                                                       prov_id)
+      prov_name = _get_provenance_name(pdata, linked_names_map,
+                                       finfo.get('importName'), prov_id)
+      if prov_name:
+        finfo['provenanceName'] = prov_name
 
       # Attach descriptive display names for the measurement method and unit.
       mm = finfo.get('measurementMethod')
