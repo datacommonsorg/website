@@ -37,7 +37,7 @@ LONG_TIMEOUT = 120  # seconds
 def create_driver(preferences=None):
   # These options are needed to run ChromeDriver inside a Docker without a UI.
   chrome_options = Options()
-  if os.environ.get('WEBDRIVER_NON_HEADLESS') != 'true':
+  if os.environ.get('WEBDRIVER_NON_HEADLESS', '').lower() not in ('true', '1'):
     chrome_options.add_argument('--headless=new')
   chrome_options.add_argument('--no-sandbox')
   chrome_options.add_argument('--disable-dev-shm-usage')
