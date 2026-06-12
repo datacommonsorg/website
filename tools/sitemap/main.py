@@ -49,6 +49,8 @@ PLACES = [
     'Continent',
 ]
 
+PLACES = []
+
 SITE_PREFIX = 'https://datacommons.org/place/'
 SAVE_PATH = '../../static/sitemap/'
 
@@ -182,10 +184,13 @@ def write_priority_places_sitemap(dc_client: DataCommonsClient) -> None:
   dcids += get_top_100_us_cities(dc_client)
   dcids += get_global_cities_with_population_over_500k()
 
+  # Deduplicate while preserving order
+  unique_dcids = list(dict.fromkeys(dcids))
+
   # Write to file
   sitemap_location = os.path.join(SAVE_PATH, PRIORITY_PLACE_SITEMAP)
   with open(sitemap_location, "w") as f:
-    for place_dcid in dcids:
+    for place_dcid in unique_dcids:
       f.write(SITE_PREFIX + place_dcid + '\n')
 
 
