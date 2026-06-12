@@ -49,8 +49,6 @@ PLACES = [
     'Continent',
 ]
 
-PLACES = []
-
 SITE_PREFIX = 'https://datacommons.org/place/'
 SAVE_PATH = '../../static/sitemap/'
 
