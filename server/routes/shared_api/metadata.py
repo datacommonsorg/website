@@ -84,14 +84,15 @@ def _get_node_name(node_list: list[dict[str, Any]],
   return None
 
 
-def _get_provenance_name(pdata: dict[str, Any], linked_names_map: dict[str,
-                                                                       str],
+def _get_provenance_name(provenance_data: dict[str, Any],
+                         linked_names_map: dict[str, str],
                          import_name: str | None, prov_id: str | None) -> str:
   """Resolves the display name for a provenance node."""
-  if not pdata:
+  if not provenance_data:
     return import_name or (prov_id.split('/')[-1] if prov_id else "")
-  return (_get_node_name(pdata.get('isPartOf', []), linked_names_map) or
-          _get_node_name(pdata.get('name', []), linked_names_map) or
+  return (_get_node_name(provenance_data.get('isPartOf', []),
+                         linked_names_map) or
+          _get_node_name(provenance_data.get('name', []), linked_names_map) or
           import_name or (prov_id.split('/')[-1] if prov_id else ""))
 
 
@@ -126,21 +127,22 @@ def _extract_facet_date_ranges(
     for ent_data in by_entity.values():
       # Aggregate Date Ranges
       for f in ent_data.get('orderedFacets', []):
-        fid = f.get('facetId')
-        if not fid:
+        facet_id = f.get('facetId')
+        if not facet_id:
           continue
 
         earliest, latest = f.get('earliestDate'), f.get('latestDate')
 
         # If this date would expand the earliest or latest date boundaries of the facet
         # then we expand the facet date boundaries to match.
-        if earliest and (not facet_date_ranges[fid].get('earliestDate') or
-                         earliest < facet_date_ranges[fid]['earliestDate']):
-          facet_date_ranges[fid]['earliestDate'] = earliest
+        if earliest and (not facet_date_ranges[facet_id].get('earliestDate') or
+                         earliest
+                         < facet_date_ranges[facet_id]['earliestDate']):
+          facet_date_ranges[facet_id]['earliestDate'] = earliest
 
-        if latest and (not facet_date_ranges[fid].get('latestDate') or
-                       latest > facet_date_ranges[fid]['latestDate']):
-          facet_date_ranges[fid]['latestDate'] = latest
+        if latest and (not facet_date_ranges[facet_id].get('latestDate') or
+                       latest > facet_date_ranges[facet_id]['latestDate']):
+          facet_date_ranges[facet_id]['latestDate'] = latest
 
   return facet_date_ranges
 
@@ -344,26 +346,26 @@ def _build_metadata_payload(
   for sv in stat_vars:
     active_facets = sv_active_facets.get(sv, [])
 
-    for fid in active_facets:
-      finfo = facets.get(fid, {})
-      prov_id = finfo.get('provenanceId')
+    for facet_id in active_facets:
+      facet_info = facets.get(facet_id, {})
+      import_name = facet_info.get('importName')
+      prov_id = facet_info.get('provenanceId')
       if not prov_id:
-        import_name = finfo.get('importName')
         if not import_name:
           continue
         prov_id = f"dc/base/{import_name}"
 
-      pdata = prov_map.get(prov_id)
-      if not pdata:
+      provenance_data = prov_map.get(prov_id)
+      if not provenance_data:
         continue
 
-      date_ranges = facet_date_ranges.get(fid, {})
-      unit = finfo.get('unit')
-      mm = finfo.get('measurementMethod')
+      date_ranges = facet_date_ranges.get(facet_id, {})
+      unit = facet_info.get('unit')
+      mm = facet_info.get('measurementMethod')
 
-      source_name = _get_node_name(pdata['source'], linked_names_map)
-      prov_name = _get_provenance_name(pdata, linked_names_map,
-                                       finfo.get('importName'), prov_id)
+      source_name = _get_node_name(provenance_data['source'], linked_names_map)
+      prov_name = _get_provenance_name(provenance_data, linked_names_map,
+                                       import_name, prov_id)
 
       mm_desc = None
       if mm and prov_name not in MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES:
@@ -371,9 +373,11 @@ def _build_metadata_payload(
 
       resolved_unit = (unit_map.get(unit) or
                        unit.replace('_', ' ')) if unit else unit
-      license_name = _get_node_name(pdata['licenseType'], linked_names_map)
-      license_dcid = pdata['licenseType'][0].get(
-          'dcid') if pdata.get('licenseType') and pdata['licenseType'] else None
+      license_name = _get_node_name(provenance_data['licenseType'],
+                                    linked_names_map)
+      license_dcid = provenance_data['licenseType'][0].get(
+          'dcid') if provenance_data.get(
+              'licenseType') and provenance_data['licenseType'] else None
 
       metadata_map[sv].append({
           'statVarId':
@@ -385,7 +389,8 @@ def _build_metadata_payload(
           'sourceName':
               source_name,
           'provenanceUrl':
-              pdata.get('url')[0].get('value') if pdata.get('url') else None,
+              provenance_data.get('url')[0].get('value')
+              if provenance_data.get('url') else None,
           'provenanceName':
               prov_name,
           'dateRangeStart':
@@ -395,7 +400,7 @@ def _build_metadata_payload(
           'unit':
               resolved_unit,
           'observationPeriod':
-              finfo.get('observationPeriod'),
+              facet_info.get('observationPeriod'),
           'license':
               license_name,
           'licenseDcid':
@@ -482,18 +487,19 @@ async def get_metadata() -> tuple[Response, int] | Response:
   units: set[str] = set()
 
   for sv in stat_vars:
-    for fid in sv_active_facets[sv]:
+    for facet_id in sv_active_facets[sv]:
       # Aggregate measurement methods, units and import names
-      finfo = facets.get(fid, {})
-      if finfo.get('unit'):
-        units.add(finfo['unit'])
-      if finfo.get('measurementMethod'):
-        measurement_methods.add(finfo['measurementMethod'])
-      prov_id = finfo.get('provenanceId')
+      facet_info = facets.get(facet_id, {})
+      import_name = facet_info.get('importName')
+      if facet_info.get('unit'):
+        units.add(facet_info['unit'])
+      if facet_info.get('measurementMethod'):
+        measurement_methods.add(facet_info['measurementMethod'])
+      prov_id = facet_info.get('provenanceId')
       if prov_id:
         provenance_endpoints.add(prov_id)
-      elif finfo.get('importName'):
-        provenance_endpoints.add(f"dc/base/{finfo['importName']}")
+      elif import_name:
+        provenance_endpoints.add(f"dc/base/{import_name}")
 
   facet_date_ranges = _extract_facet_date_ranges(obs_resp, stat_vars)
 
@@ -614,54 +620,59 @@ async def enrich_facets() -> tuple[Response, int] | Response:
 
   # Collect unique references across all facets to batch-fetch their secondary metadata.
   for sv, sv_facets in facets.items():
-    for fid, finfo in sv_facets.items():
-      prov_id = finfo.get('provenanceId')
+    for facet_id, facet_info in sv_facets.items():
+      import_name = facet_info.get('importName')
+      prov_id = facet_info.get('provenanceId')
       if prov_id:
         provenance_endpoints.add(prov_id)
-      elif finfo.get('importName'):
-        provenance_endpoints.add(f"dc/base/{finfo['importName']}")
-      if finfo.get('measurementMethod'):
-        measurement_methods.add(finfo['measurementMethod'])
-      if finfo.get('unit'):
-        units.add(finfo['unit'])
+      elif import_name:
+        provenance_endpoints.add(f"dc/base/{import_name}")
+      if facet_info.get('measurementMethod'):
+        measurement_methods.add(facet_info['measurementMethod'])
+      if facet_info.get('unit'):
+        units.add(facet_info['unit'])
 
   prov_map, linked_names_map, mm_map, unit_map = await _fetch_secondary_metadata(
       provenance_endpoints, measurement_methods, units)
 
   # Enrich the original facets with the resolved metadata and calculated date boundaries.
   for sv, sv_facets in facets.items():
-    for fid, finfo in sv_facets.items():
-      dr = facet_date_ranges.get(fid, {})
+    for facet_id, facet_info in sv_facets.items():
+      dr = facet_date_ranges.get(facet_id, {})
       # Apply the expanded min/max date boundaries.
       if dr.get('earliestDate'):
-        finfo['dateRangeStart'] = dr.get('earliestDate')
+        facet_info['dateRangeStart'] = dr.get('earliestDate')
       if dr.get('latestDate'):
-        finfo['dateRangeEnd'] = dr.get('latestDate')
+        facet_info['dateRangeEnd'] = dr.get('latestDate')
+
+      import_name = facet_info.get('importName')
 
       # Resolve human-readable source and publisher names from the provenance.
-      prov_id = finfo.get('provenanceId')
+      prov_id = facet_info.get('provenanceId')
       if prov_id:
-        pdata = prov_map.get(prov_id)
+        provenance_data = prov_map.get(prov_id)
       else:
-        import_name = finfo.get('importName')
-        pdata = prov_map.get(f"dc/base/{import_name}") if import_name else None
+        provenance_data = prov_map.get(
+            f"dc/base/{import_name}") if import_name else None
 
-      if pdata:
-        finfo['sourceName'] = _get_node_name(pdata.get('source', []),
-                                             linked_names_map)
-      prov_name = _get_provenance_name(pdata, linked_names_map,
-                                       finfo.get('importName'), prov_id)
+      if provenance_data:
+        facet_info['sourceName'] = _get_node_name(
+            provenance_data.get('source', []), linked_names_map)
+      prov_name = _get_provenance_name(provenance_data, linked_names_map,
+                                       import_name, prov_id)
       if prov_name:
-        finfo['provenanceName'] = prov_name
+        facet_info['provenanceName'] = prov_name
 
       # Attach descriptive display names for the measurement method and unit.
-      mm = finfo.get('measurementMethod')
-      if mm and finfo.get(
+      mm = facet_info.get('measurementMethod')
+      if mm and facet_info.get(
           'provenanceName') not in MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES:
-        finfo['measurementMethodDescription'] = mm_map.get(mm) or title_case(mm)
+        facet_info['measurementMethodDescription'] = mm_map.get(
+            mm) or title_case(mm)
 
-      unit = finfo.get('unit')
+      unit = facet_info.get('unit')
       if unit:
-        finfo['unitDisplayName'] = unit_map.get(unit) or unit.replace('_', ' ')
+        facet_info['unitDisplayName'] = unit_map.get(unit) or unit.replace(
+            '_', ' ')
 
   return jsonify(facets)
