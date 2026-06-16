@@ -71,7 +71,7 @@ async def write_row(session_info: Dict, data: Dict, ctr: Dict):
   row = table.direct_row(row_key)
   mixer_version = dc.version()
   version = {
-      'website_hash': os.environ.get('WEBSITE_HASH', ''),
+      'website_hash': os.environ.get("WEBSITE_HASH"),
       'mixer_hash': mixer_version.get('gitHash', ''),
       'table': mixer_version.get('tables', ''),
       'embeddings': dc.nl_server_config()
