@@ -117,7 +117,7 @@ def version():
 
   return render_template(
       'version.html',
-      website_hash=os.environ.get("WEBSITE_HASH"),
+      website_hash=os.environ.get('WEBSITE_HASH', ''),
       mixer_hash=mixer_version.get('gitHash', ''),
       tables=mixer_version.get('tables', ''),
       bigquery=mixer_version.get('bigquery', ''),

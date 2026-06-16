@@ -56,8 +56,8 @@ class Config:
   ENV = ''
   # Name of the site. The name is changed for custom instance.
   NAME = 'Data Commons'
-  VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
-                           os.environ.get('MIXER_HASH'))
+  VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH', 'unknown'),
+                           os.environ.get('MIXER_HASH', 'unknown'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
   # Deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead of GA_ACCOUNT
