@@ -17,6 +17,21 @@
 # the wrapper script ./scripts/push_cdc_services_image.sh.
 
 steps:
+  - id: resolve-hashes
+    name: gcr.io/cloud-builders/git
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        # If the .git metadata directory is present, query Git for the commit hashes.
+        # Otherwise, fall back to the hashes supplied via Cloud Build substitutions.
+        if [ -d .git ]; then
+          git rev-parse --short=7 HEAD > website_hash.txt
+          git rev-parse --short=7 HEAD:mixer > mixer_hash.txt
+        else
+          echo "${_WEBSITE_HASH:-unknown}" > website_hash.txt
+          echo "${_MIXER_HASH:-unknown}" > mixer_hash.txt
+        fi
 
   - id: push-cdc-services-image
     name: gcr.io/cloud-builders/docker
@@ -26,9 +41,17 @@ steps:
       - |
         set -e
         DOCKER_BUILDKIT=1 docker build -f build/cdc_services/Dockerfile \
+          --build-arg MIXER_HASH=$(cat mixer_hash.txt) \
+          --build-arg WEBSITE_HASH=$(cat website_hash.txt) \
           --tag gcr.io/datcom-ci/datacommons-services:${_TAG} \
           .
         docker push gcr.io/datcom-ci/datacommons-services:${_TAG}
+    waitFor: ["resolve-hashes"]
+
+substitutions:
+  _TAG: ""
+  _WEBSITE_HASH: ""
+  _MIXER_HASH: ""
 
 timeout: 3600s
 options:
