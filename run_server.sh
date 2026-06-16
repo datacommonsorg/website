@@ -41,8 +41,8 @@ fi
 PORT=8080
 ENABLE_MODEL=false
 
-export WEBSITE_HASH=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "unknown")
-export MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "unknown")
+export WEBSITE_HASH=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "")
+export MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "")
 
 
 function help {
