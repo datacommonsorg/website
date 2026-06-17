@@ -147,7 +147,7 @@ def get_top_100_us_cities(dc_client: DataCommonsClient) -> List[str]:
         date="latest",
         parent_entity="country/USA",
         entity_type="City",
-        variable_dcids="Count_Person")
+        variable_dcids=["Count_Person"])
     records = response.to_observation_records()
   except Exception:
     logging.exception('Got an error while querying for US cities population')
