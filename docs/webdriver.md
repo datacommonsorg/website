@@ -61,9 +61,10 @@ If the API changes or data becomes stale, you must regenerate recordings.
 ## Troubleshooting
 
 ### Disable Headless Mode
-To see the browser while debugging:
-1.  Open `server/webdriver/base_utils.py`.
-2.  Comment out `chrome_options.add_argument('--headless=new')`.
+To see the browser while debugging, run the test runner with the `--non-headless` flag:
+```bash
+./run_test.sh -w --non-headless -k "my_test_name"
+```
 
 ### Screenshots
 Capture the state of the page for debugging:

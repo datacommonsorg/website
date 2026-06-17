@@ -61,16 +61,19 @@ steps:
     waitFor: ["get-label"]
 
   # Step 3: Data management container
-  - id: build-and-tag-stable-data
-    name: gcr.io/datcom-ci/deploy-tool
-    entrypoint: bash
-    args:
-      - -c
-      - |
-        set -e
-        image_label=$(cat "$_IMAGE_LABEL_PATH")
-        ./scripts/build_cdc_data_and_tag_stable.sh $image_label
-    waitFor: ["get-label"]
+  # TODO: Uncomment when we turn back on the datacommons-data pipeline.
+  # There are currently breaking changes to datacommons-data, so we
+  # will not be releasing updates to it for now.
+  # - id: build-and-tag-stable-data
+  #   name: gcr.io/datcom-ci/deploy-tool
+  #   entrypoint: bash
+  #   args:
+  #     - -c
+  #     - |
+  #       set -e
+  #       image_label=$(cat "$_IMAGE_LABEL_PATH")
+  #       ./scripts/build_cdc_data_and_tag_stable.sh $image_label
+  #   waitFor: ["get-label"]
 
 substitutions:
   _IMAGE_LABEL_PATH: "/workspace/tmp_cdc_stable_image_label.txt"
