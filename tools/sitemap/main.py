@@ -158,10 +158,10 @@ def get_top_100_us_cities(dc_client: DataCommonsClient) -> List[str]:
   for record in records:
     if record.entity and record.value is not None and record.date:
       current_value, current_date = city_populations.get(
-          record.entity, (None, ""))
+          record.entity, (-1, ""))
       # Keep the record with the more recent date. If dates match, select the higher value.
-      if (current_date == "") or (record.date > current_date) or (
-          record.date == current_date and record.value > current_value):
+      if (record.date > current_date) or (record.date == current_date and
+                                          record.value > current_value):
         city_populations[record.entity] = (record.value, record.date)
   # Sort cities descending by population value (index 0 of the tuple)
   sorted_cities = sorted(city_populations.items(),
