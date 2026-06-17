@@ -86,7 +86,11 @@ if echo "$list_result" | grep -q $commits_label; then
 
 else
   # Build and push a fresh image, adding commits label and release label.
+  WEBSITE_HASH=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "")
+  MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "")
   docker build -f "$dockerfile" \
+    --build-arg MIXER_HASH="$MIXER_HASH" \
+    --build-arg WEBSITE_HASH="$WEBSITE_HASH" \
     --tag "gcr.io/datcom-ci/${image_name}:${commits_label}" \
     --tag "gcr.io/datcom-ci/${image_name}:${release_label}" \
     .
