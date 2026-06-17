@@ -87,7 +87,10 @@ cd $WORKSPACE_DIR
 if [[ $DATA_RUN_MODE == "schemaupdate" ]]; then
     echo "Skipping embeddings builder because run mode is 'schemaupdate'."
     echo "Schema update complete."
+elif [[ $DATA_RUN_MODE == "dcpbridge" ]]; then
+    : # skip legacy gcs embeddings for DCP
 else
+    echo "Starting embeddings builder..."
     # Run embeddings builder.
     python3 -m tools.nl.embeddings.build_embeddings \
         --embeddings_name=$CUSTOM_EMBEDDINGS_INDEX \
