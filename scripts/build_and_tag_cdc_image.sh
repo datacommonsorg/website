@@ -91,9 +91,9 @@ else
   # temporary commit hash created during the autopush submodule update process
   # in scripts/update_submods_for_cdc_autopush.sh.
   # Otherwise, fall back to resolving hashes from the current HEAD.
-  if [[ "$commits_label" =~ ^[0-9a-f]{7,40}-[0-9a-f]{7,40}-[0-9a-f]{7,40}$ ]]; then
-    WEBSITE_HASH=$(echo "$commits_label" | cut -d'-' -f1)
-    MIXER_HASH=$(echo "$commits_label" | cut -d'-' -f2)
+  if [[ "$commits_label" =~ ^([0-9a-f]{7,40})-([0-9a-f]{7,40})-[0-9a-f]{7,40}$ ]]; then
+    WEBSITE_HASH="${BASH_REMATCH[1]}"
+    MIXER_HASH="${BASH_REMATCH[2]}"
   else
     WEBSITE_HASH=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "")
     MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "")
