@@ -87,8 +87,8 @@ cd $WORKSPACE_DIR
 if [[ $DATA_RUN_MODE == "schemaupdate" ]]; then
     echo "Skipping embeddings builder because run mode is 'schemaupdate'."
     echo "Schema update complete."
-elif [[ $DATA_RUN_MODE == "dcpbridge" ]]; then
-    : # skip legacy gcs embeddings for DCP
+elif [[ $DATA_RUN_MODE == "dcpbridge" && $ENABLE_SPANNER_EMBEDDINGS == "true" ]]; then
+    : # skip GCS embeddings for DCP
 else
     echo "Starting embeddings builder..."
     # Run embeddings builder.
