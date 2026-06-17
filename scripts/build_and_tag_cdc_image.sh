@@ -86,8 +86,18 @@ if echo "$list_result" | grep -q $commits_label; then
 
 else
   # Build and push a fresh image, adding commits label and release label.
-  WEBSITE_HASH=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "")
-  MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "")
+  # If the commits label matches a combined git hash pattern (website-mixer-import),
+  # extract the individual hashes directly from the label. This avoids using the
+  # temporary commit hash created during the autopush submodule update process
+  # in scripts/update_submods_for_cdc_autopush.sh.
+  # Otherwise, fall back to resolving hashes from the current HEAD.
+  if [[ "$commits_label" =~ ^([0-9a-f]{7,40})-([0-9a-f]{7,40})-[0-9a-f]{7,40}$ ]]; then
+    WEBSITE_HASH="${BASH_REMATCH[1]}"
+    MIXER_HASH="${BASH_REMATCH[2]}"
+  else
+    WEBSITE_HASH=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "")
+    MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "")
+  fi
   docker build -f "$dockerfile" \
     --build-arg MIXER_HASH="$MIXER_HASH" \
     --build-arg WEBSITE_HASH="$WEBSITE_HASH" \
