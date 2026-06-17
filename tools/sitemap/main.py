@@ -162,11 +162,11 @@ def get_top_100_us_cities(dc_client: DataCommonsClient) -> List[str]:
     # Skip records with a DCID that are "geoId/" followed by a 5-digit FIPS code.
     # This makes sure we don't add counties to our top 100 US cities list,
     # which can happen due to how some counties are currently modeled in the KG.
-    if record.entity.startswith("geoId/") and len(record.entity) == 11 and record.entity[6:].isdigit():
+    if record.entity.startswith("geoId/") and len(
+        record.entity) == 11 and record.entity[6:].isdigit():
       continue
     # Get the current record for this city, if one exists.
-    current_value, current_date = city_populations.get(
-        record.entity, (-1, ""))
+    current_value, current_date = city_populations.get(record.entity, (-1, ""))
     # Keep the record with the more recent date. If dates match, select the higher value.
     if (record.date > current_date) or (record.date == current_date and
                                         record.value > current_value):
