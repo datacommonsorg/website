@@ -29,8 +29,10 @@ steps:
           git rev-parse --short=7 HEAD > website_hash.txt
           git rev-parse --short=7 HEAD:mixer > mixer_hash.txt
         else
-          echo "${_WEBSITE_HASH:-unknown}" > website_hash.txt
-          echo "${_MIXER_HASH:-unknown}" > mixer_hash.txt
+          web_hash="$_WEBSITE_HASH"
+          mix_hash="$_MIXER_HASH"
+          echo "${web_hash:-unknown}" > website_hash.txt
+          echo "${mix_hash:-unknown}" > mixer_hash.txt
         fi
 
   - id: push-cdc-services-image
