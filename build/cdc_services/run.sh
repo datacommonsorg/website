@@ -61,7 +61,7 @@ fi
 nginx -c /workspace/nginx.conf
 
 MIXER_ARGS=()
-if [[ $ENABLE_MODEL == "true" ]]; then
+if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     # Custom embeddings index built at 
     # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
     export CUSTOM_EMBEDDINGS_INDEX=${CUSTOM_EMBEDDINGS_INDEX:-"user_all_minilm_mem"}
@@ -136,7 +136,7 @@ echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
 # Start NL server.
-if [[ $ENABLE_MODEL == "true" ]]; then
+if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     if [[ $DEBUG == "true" ]]; then
         echo "Starting NL Server in debug mode."
         python3 nl_app.py $NL_SERVER_PORT &
