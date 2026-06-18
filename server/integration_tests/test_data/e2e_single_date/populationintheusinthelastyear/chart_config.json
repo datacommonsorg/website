@@ -13,7 +13,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_2176550201"
+                      "Count_Person_1557401764"
                     ],
                     "title": "Population in United States",
                     "type": "LINE"
@@ -77,8 +77,8 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_3999249536",
-                      "Count_Person_Male_3999249536"
+                      "Count_Person_Female_2195062902",
+                      "Count_Person_Male_2195062902"
                     ],
                     "title": "Population by Gender in United States",
                     "type": "LINE"
@@ -98,7 +98,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_Employed_3707913853"
+                      "Count_Person_Employed_244784180"
                     ],
                     "title": "Population With Current Employment in United States",
                     "type": "LINE"
@@ -162,7 +162,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_InLaborForce_3707913853"
+                      "Count_Person_InLaborForce_244784180"
                     ],
                     "title": "Population in the Labor Force in United States",
                     "type": "LINE"
@@ -226,7 +226,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_ResidesInHousehold_1926704588"
+                      "Count_Person_ResidesInHousehold_350686760"
                     ],
                     "title": "Total Number of People Residing in Households in United States",
                     "type": "LINE"
@@ -255,8 +255,8 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
-          "Count_Person_2176550201": {
-            "facetId": "2176550201",
+          "Count_Person_1557401764": {
+            "facetId": "1557401764",
             "name": "Population",
             "statVar": "Count_Person"
           },
@@ -264,13 +264,13 @@
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
           },
-          "Count_Person_Employed_3707913853": {
-            "facetId": "3707913853",
+          "Count_Person_Employed_244784180": {
+            "facetId": "244784180",
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
           },
-          "Count_Person_Female_3999249536": {
-            "facetId": "3999249536",
+          "Count_Person_Female_2195062902": {
+            "facetId": "2195062902",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -278,13 +278,13 @@
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
           },
-          "Count_Person_InLaborForce_3707913853": {
-            "facetId": "3707913853",
+          "Count_Person_InLaborForce_244784180": {
+            "facetId": "244784180",
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
           },
-          "Count_Person_Male_3999249536": {
-            "facetId": "3999249536",
+          "Count_Person_Male_2195062902": {
+            "facetId": "2195062902",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
@@ -292,8 +292,8 @@
             "name": "Total number of people residing in households",
             "statVar": "Count_Person_ResidesInHousehold"
           },
-          "Count_Person_ResidesInHousehold_1926704588": {
-            "facetId": "1926704588",
+          "Count_Person_ResidesInHousehold_350686760": {
+            "facetId": "350686760",
             "name": "Total number of people residing in households",
             "statVar": "Count_Person_ResidesInHousehold"
           }
