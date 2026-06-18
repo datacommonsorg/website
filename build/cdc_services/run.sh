@@ -89,7 +89,7 @@ try:
         json.dump(data, f, indent=2)
     print('Successfully enabled enable_nl_v2node_fetchall in custom.json')
 except Exception as e:
-    print(f'Warning: Failed to auto-enable in custom.json: {e}')
+    print(f'Warning: Failed to auto-enable enable_nl_v2node_fetchall in custom.json: {e}')
 "
 
     # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
