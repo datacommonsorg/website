@@ -74,7 +74,7 @@ fi
 if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
     
-    # 1. Dynamically enable use_v2_api feature flag in custom.json for Website
+    # 1. Dynamically enable enable_nl_v2node_fetchall feature flag in custom.json for Website
     # TODO: Delete this once every customer is on DCP, and we can just update custom.json.
     python3 -c "
 import json
@@ -83,15 +83,13 @@ try:
     with open(path) as f:
         data = json.load(f)
     for flag in data:
-        if flag.get('name') == 'use_v2_api':
-            flag['enabled'] = True
         if flag.get('name') == 'enable_nl_v2node_fetchall':
             flag['enabled'] = True
     with open(path, 'w') as f:
         json.dump(data, f, indent=2)
-    print('Successfully enabled use_v2_api and enable_nl_v2node_fetchall in custom.json')
+    print('Successfully enabled enable_nl_v2node_fetchall in custom.json')
 except Exception as e:
-    print(f'Warning: Failed to auto-enable use_v2_api in custom.json: {e}')
+    print(f'Warning: Failed to auto-enable in custom.json: {e}')
 "
 
     # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
