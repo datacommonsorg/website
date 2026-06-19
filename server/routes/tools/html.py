@@ -74,8 +74,6 @@ def _load_example_file(tool_or_filename, default=None):
 
 def _is_search_supported():
   """Returns true if search is supported (either vai or enable model)."""
-  if not is_feature_enabled("use_v2_api"):
-    return True
   return (is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
                              request=request) or
           (current_app.config.get("ENABLE_MODEL", False) and

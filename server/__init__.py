@@ -33,7 +33,6 @@ import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
-from server.lib.feature_flags import ENABLE_GEMINI_3_FLASH
 from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
 import server.lib.i18n as i18n
@@ -52,6 +51,10 @@ from shared.lib import utils as lib_utils
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
+
+# Module-level singleton for the Secret Manager client.
+# Lazily initialized and used by _get_api_key() to avoid repeated initialization.
+_secret_client = None
 
 
 def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
@@ -73,7 +76,11 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
   # Try to get the key from secrets
   if gcp_project and gcp_path:
     try:
-      secret_client = secretmanager.SecretManagerServiceClient()
+      global _secret_client
+      if not _secret_client:
+        _secret_client = secretmanager.SecretManagerServiceClient(
+            transport="rest")
+      secret_client = _secret_client
       secret_name = secret_client.secret_version_path(gcp_project, gcp_path,
                                                       'latest')
       secret_response = secret_client.access_secret_version(name=secret_name)
@@ -412,7 +419,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Enable the NL model.
   if app.config['ENABLE_MODEL']:
-    libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
+    # Skip backend check if we are resolving embeddings with Spanner, as the
+    # local NL server will not be running.
+    if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') != 'true':
+      libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
 
     # This also requires disaster and event routes.
     app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
@@ -428,10 +438,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                                'palm-api-key')
       if is_feature_enabled(ENABLE_NL_AGENT_DETECTOR, app):
         os.environ['GEMINI_API_KEY'] = app.config['LLM_API_KEY']
-        if is_feature_enabled(ENABLE_GEMINI_3_FLASH, app):
-          default_model = "gemini-3-flash-preview"
-        else:
-          default_model = "gemini-2.5-flash"
+        default_model = "gemini-3-flash-preview"
         app.config['NL_DETECTION_AGENT'] = create_detection_agent(
             os.environ.get("AGENT_MODEL", default_model),
             os.environ.get("DC_MCP_URL"))

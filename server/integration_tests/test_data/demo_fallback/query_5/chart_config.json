@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "GDP (Nominal Value) in United States of America",
+                    "title": "GDP (Nominal Value) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "GDP (Nominal Value) in United States of America",
+                    "description": "GDP (Nominal Value) in United States",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "GDP (Nominal Value) in United States of America",
+                    "title": "GDP (Nominal Value) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -42,7 +42,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal GDP Per Capita in United States of America",
+                    "title": "Nominal GDP Per Capita in United States",
                     "type": "LINE"
                   }
                 ]
@@ -50,11 +50,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Nominal GDP Per Capita in United States of America",
+                    "description": "Nominal GDP Per Capita in United States",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal GDP Per Capita in United States of America",
+                    "title": "Nominal GDP Per Capita in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -71,7 +71,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "GDP (Real Value) in United States of America",
+                    "title": "GDP (Real Value) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -79,11 +79,11 @@
               {
                 "tiles": [
                   {
-                    "description": "GDP (Real Value) in United States of America",
+                    "description": "GDP (Real Value) in United States",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "GDP (Real Value) in United States of America",
+                    "title": "GDP (Real Value) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -101,7 +101,7 @@
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate of GDP in United States of America",
+                    "title": "Growth Rate of GDP in United States",
                     "type": "LINE"
                   }
                 ]
@@ -109,11 +109,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Growth Rate of GDP in United States of America",
+                    "description": "Growth Rate of GDP in United States",
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate of GDP in United States of America",
+                    "title": "Growth Rate of GDP in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -155,7 +155,7 @@
                       "dc/qt7ewllmt3826_multiple_place_bar_block",
                       "dc/zz6gwv838v9w_multiple_place_bar_block"
                     ],
-                    "title": "Breakdown of Real GDP by Industry in United States of America (${date})",
+                    "title": "Breakdown of Real GDP by Industry in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -200,7 +200,7 @@
                       "Count_Establishment_NAICSPublicAdministration_multiple_place_bar_block",
                       "Count_Establishment_NAICSNonclassifiable_multiple_place_bar_block"
                     ],
-                    "title": "Number of Establishments by Industry in United States of America (${date})",
+                    "title": "Number of Establishments by Industry in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -220,7 +220,7 @@
                       "Count_Establishment_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries",
                       "Count_Establishment_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
                     ],
-                    "title": "Number of Establishments by Ownership Type in United States of America",
+                    "title": "Number of Establishments by Ownership Type in United States",
                     "type": "LINE"
                   }
                 ]
@@ -282,7 +282,7 @@
                       "dc/sz9ckd47e35b4_multiple_place_bar_block",
                       "dc/zkmdz1rhlt7q8_multiple_place_bar_block"
                     ],
-                    "title": "Revenue by Industry Type in United States of America (${date})",
+                    "title": "Revenue by Industry Type in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -299,7 +299,7 @@
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in United States of America",
+                    "title": "Population With Current Employment in United States",
                     "type": "LINE"
                   }
                 ]
@@ -307,11 +307,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Current Employment in United States of America",
+                    "description": "Population With Current Employment in United States",
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment in United States of America",
+                    "title": "Population With Current Employment in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -356,7 +356,7 @@
                       "Count_Worker_NAICSManagementOfCompaniesEnterprises_multiple_place_bar_block",
                       "Count_Worker_NAICSNonclassifiable_multiple_place_bar_block"
                     ],
-                    "title": "Categories of Jobs in United States of America (${date})",
+                    "title": "Categories of Jobs in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -373,7 +373,7 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in United States of America",
+                    "title": "Household Median Income in United States",
                     "type": "LINE"
                   }
                 ]
@@ -381,11 +381,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Household Median Income in United States of America",
+                    "description": "Household Median Income in United States",
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in United States of America",
+                    "title": "Household Median Income in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -401,7 +401,7 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in United States of America",
+                    "title": "Individual Median Income in United States",
                     "type": "LINE"
                   }
                 ]
@@ -409,11 +409,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Individual Median Income in United States of America",
+                    "description": "Individual Median Income in United States",
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in United States of America",
+                    "title": "Individual Median Income in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -429,7 +429,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line in United States of America",
+                    "title": "Population Below Poverty Line in United States",
                     "type": "LINE"
                   }
                 ]
@@ -437,11 +437,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line in United States of America",
+                    "description": "Population Below Poverty Line in United States",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line in United States of America",
+                    "title": "Population Below Poverty Line in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -459,7 +459,7 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population by Gender in United States of America",
+                    "title": "Impoverished Population by Gender in United States",
                     "type": "LINE"
                   }
                 ]
@@ -491,7 +491,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population by Race in United States of America (${date})",
+                    "title": "Impoverished Population by Race in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -508,7 +508,7 @@
                     "statVarKey": [
                       "Area_Farm"
                     ],
-                    "title": "Total Farm Area in United States of America",
+                    "title": "Total Farm Area in United States",
                     "type": "LINE"
                   }
                 ]
@@ -516,11 +516,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Farm Area in United States of America",
+                    "description": "Total Farm Area in United States",
                     "statVarKey": [
                       "Area_Farm"
                     ],
-                    "title": "Total Farm Area in United States of America",
+                    "title": "Total Farm Area in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -536,7 +536,7 @@
                     "statVarKey": [
                       "Count_Farm"
                     ],
-                    "title": "Farms in United States of America",
+                    "title": "Farms in United States",
                     "type": "LINE"
                   }
                 ]
@@ -544,11 +544,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Farms in United States of America",
+                    "description": "Farms in United States",
                     "statVarKey": [
                       "Count_Farm"
                     ],
-                    "title": "Farms in United States of America",
+                    "title": "Farms in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -565,7 +565,7 @@
                     "statVarKey": [
                       "Income_Farm"
                     ],
-                    "title": "Total Farm Income in United States of America",
+                    "title": "Total Farm Income in United States",
                     "type": "LINE"
                   }
                 ]
@@ -573,11 +573,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Farm Income in United States of America",
+                    "description": "Total Farm Income in United States",
                     "statVarKey": [
                       "Income_Farm"
                     ],
-                    "title": "Total Farm Income in United States of America",
+                    "title": "Total Farm Income in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -594,7 +594,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAgricultureForestryFishingHunting"
                     ],
-                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States of America",
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
                     "type": "LINE"
                   }
                 ]
@@ -602,11 +602,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Agriculture, Forestry, Fishing, Hunting Workers in United States of America",
+                    "description": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
                     "statVarKey": [
                       "Count_Worker_NAICSAgricultureForestryFishingHunting"
                     ],
-                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States of America",
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -623,7 +623,7 @@
                     "statVarKey": [
                       "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
                     ],
-                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States of America",
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -631,11 +631,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States of America",
+                    "description": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
                     "statVarKey": [
                       "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
                     ],
-                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States of America",
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -651,7 +651,7 @@
                     "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
-                    "title": "Domestic Material Consumption Per Unit of GDP in United States of America",
+                    "title": "Domestic Material Consumption Per Unit of GDP in United States",
                     "type": "LINE"
                   }
                 ]
@@ -659,11 +659,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Domestic Material Consumption Per Unit of GDP in United States of America",
+                    "description": "Domestic Material Consumption Per Unit of GDP in United States",
                     "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
-                    "title": "Domestic Material Consumption Per Unit of GDP in United States of America",
+                    "title": "Domestic Material Consumption Per Unit of GDP in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -703,7 +703,7 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
                     ],
-                    "title": "GDP of the Construction Industry and More in United States of America (${date})",
+                    "title": "GDP of the Construction Industry and More in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -1233,7 +1233,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -1241,7 +1241,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     }
   ],

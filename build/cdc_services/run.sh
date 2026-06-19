@@ -22,6 +22,7 @@ export TOKENIZERS_PARALLELISM=false
 export OMP_NUM_THREADS=1
 
 export NL_SERVER_PORT=${NL_SERVER_PORT:-6060}
+export RESOLVE_WITH_SPANNER_EMBEDDINGS=${RESOLVE_WITH_SPANNER_EMBEDDINGS:-"false"}
 
 # If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
 if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
@@ -61,7 +62,7 @@ fi
 nginx -c /workspace/nginx.conf
 
 MIXER_ARGS=()
-if [[ $ENABLE_MODEL == "true" ]]; then
+if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     # Custom embeddings index built at 
     # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
     export CUSTOM_EMBEDDINGS_INDEX=${CUSTOM_EMBEDDINGS_INDEX:-"user_all_minilm_mem"}
@@ -78,6 +79,7 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     # TODO: Delete this once every customer is on DCP, and we can just update custom.json.
     python3 -c "
 import json
+import os
 path = 'server/config/feature_flag_configs/custom.json'
 try:
     with open(path) as f:
@@ -85,11 +87,16 @@ try:
     for flag in data:
         if flag.get('name') == 'use_v2_api':
             flag['enabled'] = True
+        if flag.get('name') == 'enable_nl_v2node_fetchall':
+            flag['enabled'] = True
+        if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') == 'true':
+            if flag.get('name') == 'use_v2_resolve_for_nl_search_vars':
+                flag['enabled'] = True
     with open(path, 'w') as f:
         json.dump(data, f, indent=2)
-    print('Successfully enabled use_v2_api in custom.json')
+    print('Successfully enabled feature flags in custom.json')
 except Exception as e:
-    print(f'Warning: Failed to auto-enable use_v2_api in custom.json: {e}')
+    print(f'Warning: Failed to auto-enable feature flags in custom.json: {e}')
 "
 
     # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
@@ -106,6 +113,14 @@ except Exception as e:
     
     # 2. Enable V2 API for Mixer
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
+
+    # 3. Use mixer custom feature flags
+
+    # Currently we only read custom feature flags when we enable resolving with spanner embeddings.
+    # We will eventually always resolve from spanner embeddings.
+    if [[ $RESOLVE_WITH_SPANNER_EMBEDDINGS == "true" ]]; then
+        MIXER_ARGS+=('--feature_flags_path=deploy/featureflags/custom.yaml')
+    fi
 fi
 
 # Start mixer.
@@ -126,7 +141,7 @@ echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
 # Start NL server.
-if [[ $ENABLE_MODEL == "true" ]]; then
+if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     if [[ $DEBUG == "true" ]]; then
         echo "Starting NL Server in debug mode."
         python3 nl_app.py $NL_SERVER_PORT &
