@@ -387,6 +387,7 @@ function help {
   echo "--record        Run in record mode (regenerate recordings)"
   echo "--replay        Run in replay mode (default)"
   echo "--live          Run in live mode (no recording)"
+  echo "--non-headless  Run webdriver tests in non-headless (headful) mode"
   echo "--clean         Delete existing recordings before running (requires --record and full run)"
   echo "--cdc           Run Custom DC webdriver tests"
   echo "                Respects the STARTUP_WAIT_SEC environment variable for startup wait time (default 10)."
@@ -426,6 +427,10 @@ while [[ "$#" -gt 0 ]]; do
         ;;
     --live)
         export WEBDRIVER_RECORDING_MODE=live
+        shift
+        ;;
+    --non-headless)
+        export WEBDRIVER_NON_HEADLESS=true
         shift
         ;;
     --clean)
