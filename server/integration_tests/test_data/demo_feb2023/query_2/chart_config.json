@@ -43,7 +43,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_FireEvent_285042123"
+                      "Count_FireEvent_2192360697"
                     ],
                     "title": "Count of Fire Event in California",
                     "type": "LINE"
@@ -105,7 +105,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_WildfireEvent_2519150620"
+                      "Count_WildfireEvent_3969580815"
                     ],
                     "title": "Wildfires in California",
                     "type": "LINE"
@@ -133,8 +133,8 @@
             "name": "Count of Fire Event",
             "statVar": "Count_FireEvent"
           },
-          "Count_FireEvent_285042123": {
-            "facetId": "285042123",
+          "Count_FireEvent_2192360697": {
+            "facetId": "2192360697",
             "name": "Count of Fire Event",
             "statVar": "Count_FireEvent"
           },
@@ -142,8 +142,8 @@
             "name": "Wildfires",
             "statVar": "Count_WildfireEvent"
           },
-          "Count_WildfireEvent_2519150620": {
-            "facetId": "2519150620",
+          "Count_WildfireEvent_3969580815": {
+            "facetId": "3969580815",
             "name": "Wildfires",
             "statVar": "Count_WildfireEvent"
           }
