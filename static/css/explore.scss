@@ -342,11 +342,16 @@
 .search-section-container.sticky {
   position: fixed;
   left: 0;
+  top: $header-desktop-height;
   background-color: var(--gm-3-ref-primary-primary-99);
   z-index: 9;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
   padding: 16px 0;
   transition: all ease-out 0.2s;
+
+  @media (max-width: 1068px) {
+    top: $header-mobile-no-search-height;
+  }
 
   .search-section {
     margin: 0;
