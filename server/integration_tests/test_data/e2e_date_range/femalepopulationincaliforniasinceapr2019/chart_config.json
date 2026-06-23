@@ -13,7 +13,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_1145703171"
+                      "Count_Person_Female_106335390"
                     ],
                     "title": "Women in California",
                     "type": "LINE"
@@ -79,8 +79,8 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_1145703171",
-                      "Count_Person_Male_1145703171"
+                      "Count_Person_Female_106335390",
+                      "Count_Person_Male_106335390"
                     ],
                     "title": "Population by Gender in California",
                     "type": "LINE"
@@ -133,7 +133,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_MarriedAndNotSeparated_2369573279"
+                      "Count_Person_Female_MarriedAndNotSeparated_2162723506"
                     ],
                     "title": "Non-Separated Married Women in California",
                     "type": "LINE"
@@ -197,7 +197,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Death_Female_1437305810"
+                      "Count_Death_Female_1072219919"
                     ],
                     "title": "Count of Mortality Event: Female in California",
                     "type": "LINE"
@@ -229,7 +229,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces_1145703171"
+                      "Count_Person_Female_TwoOrMoreRaces_106335390"
                     ],
                     "title": "Women Identifying as Multiracial in California",
                     "type": "LINE"
@@ -293,7 +293,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_1145703171"
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_106335390"
                     ],
                     "title": "Population: Female, Enrolled in School in California",
                     "type": "LINE"
@@ -357,7 +357,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_3376114862"
+                      "Count_Person_Female_WithHealthInsurance_3835365145"
                     ],
                     "title": "Women With Health Insurance in California",
                     "type": "LINE"
@@ -421,7 +421,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_FullTimeYearRoundWorker_4208561269"
+                      "Count_Person_Female_FullTimeYearRoundWorker_2264303154"
                     ],
                     "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in California",
                     "type": "LINE"
@@ -485,7 +485,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Female_3795540742"
+                      "Median_Age_Person_Female_3184662913"
                     ],
                     "title": "Women's Median Age in California",
                     "type": "LINE"
@@ -547,7 +547,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_AsianAlone_1145703171"
+                      "Count_Person_Female_AsianAlone_106335390"
                     ],
                     "title": "Asian Monoracial Women in California",
                     "type": "LINE"
@@ -611,7 +611,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WhiteAlone_1145703171"
+                      "Count_Person_Female_WhiteAlone_106335390"
                     ],
                     "title": "Women Identifying as White Alone in California",
                     "type": "LINE"
@@ -675,7 +675,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_1118952551"
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_1402554251"
                     ],
                     "title": "Population: Bachelors Degree or Higher, Female in California",
                     "type": "LINE"
@@ -739,7 +739,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_WithDisability_Female_4281944711"
+                      "Count_Person_WithDisability_Female_3835609526"
                     ],
                     "title": "Women With Disabilities in California",
                     "type": "LINE"
@@ -803,7 +803,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_1145703171"
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_106335390"
                     ],
                     "title": "Bachelors, Women in California",
                     "type": "LINE"
@@ -867,7 +867,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_ForeignBorn_10983471"
+                      "Count_Person_Female_ForeignBorn_2284004728"
                     ],
                     "title": "Foreign Born Women in California",
                     "type": "LINE"
@@ -896,8 +896,8 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_1437305810": {
-            "facetId": "1437305810",
+          "Count_Death_Female_1072219919": {
+            "facetId": "1072219919",
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
@@ -905,8 +905,8 @@
             "name": "Population: Bachelors Degree or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_1118952551": {
-            "facetId": "1118952551",
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_1402554251": {
+            "facetId": "1402554251",
             "name": "Population: Bachelors Degree or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
@@ -914,8 +914,8 @@
             "name": "Bachelors, Women",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
           },
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_106335390": {
+            "facetId": "106335390",
             "name": "Bachelors, Women",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
           },
@@ -923,8 +923,8 @@
             "name": "Population: Female, Enrolled in School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
-          "Count_Person_3OrMoreYears_Female_EnrolledInSchool_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool_106335390": {
+            "facetId": "106335390",
             "name": "Population: Female, Enrolled in School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
@@ -932,8 +932,8 @@
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_Female_106335390": {
+            "facetId": "106335390",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -941,8 +941,8 @@
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
-          "Count_Person_Female_AsianAlone_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_Female_AsianAlone_106335390": {
+            "facetId": "106335390",
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
@@ -950,8 +950,8 @@
             "name": "Foreign Born Women",
             "statVar": "Count_Person_Female_ForeignBorn"
           },
-          "Count_Person_Female_ForeignBorn_10983471": {
-            "facetId": "10983471",
+          "Count_Person_Female_ForeignBorn_2284004728": {
+            "facetId": "2284004728",
             "name": "Foreign Born Women",
             "statVar": "Count_Person_Female_ForeignBorn"
           },
@@ -959,8 +959,8 @@
             "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
             "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
           },
-          "Count_Person_Female_FullTimeYearRoundWorker_4208561269": {
-            "facetId": "4208561269",
+          "Count_Person_Female_FullTimeYearRoundWorker_2264303154": {
+            "facetId": "2264303154",
             "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
             "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
           },
@@ -968,8 +968,8 @@
             "name": "Non-Separated Married Women",
             "statVar": "Count_Person_Female_MarriedAndNotSeparated"
           },
-          "Count_Person_Female_MarriedAndNotSeparated_2369573279": {
-            "facetId": "2369573279",
+          "Count_Person_Female_MarriedAndNotSeparated_2162723506": {
+            "facetId": "2162723506",
             "name": "Non-Separated Married Women",
             "statVar": "Count_Person_Female_MarriedAndNotSeparated"
           },
@@ -977,8 +977,8 @@
             "name": "Women Identifying as Multiracial",
             "statVar": "Count_Person_Female_TwoOrMoreRaces"
           },
-          "Count_Person_Female_TwoOrMoreRaces_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_Female_TwoOrMoreRaces_106335390": {
+            "facetId": "106335390",
             "name": "Women Identifying as Multiracial",
             "statVar": "Count_Person_Female_TwoOrMoreRaces"
           },
@@ -986,8 +986,8 @@
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
-          "Count_Person_Female_WhiteAlone_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_Female_WhiteAlone_106335390": {
+            "facetId": "106335390",
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
@@ -995,8 +995,8 @@
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_3376114862": {
-            "facetId": "3376114862",
+          "Count_Person_Female_WithHealthInsurance_3835365145": {
+            "facetId": "3835365145",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
@@ -1004,8 +1004,8 @@
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_Male_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_Male_106335390": {
+            "facetId": "106335390",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
@@ -1013,8 +1013,8 @@
             "name": "Women With Disabilities",
             "statVar": "Count_Person_WithDisability_Female"
           },
-          "Count_Person_WithDisability_Female_4281944711": {
-            "facetId": "4281944711",
+          "Count_Person_WithDisability_Female_3835609526": {
+            "facetId": "3835609526",
             "name": "Women With Disabilities",
             "statVar": "Count_Person_WithDisability_Female"
           },
@@ -1022,8 +1022,8 @@
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
-          "Median_Age_Person_Female_3795540742": {
-            "facetId": "3795540742",
+          "Median_Age_Person_Female_3184662913": {
+            "facetId": "3184662913",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           }
