@@ -132,6 +132,13 @@ RUN gcloud config set auth/disable_credentials True \
 # #### Final stage: Runtime env. ####
 FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-08 as runner
 
+ARG MIXER_HASH=""
+ARG WEBSITE_HASH=""
+
+ENV MIXER_HASH=$MIXER_HASH \
+    WEBSITE_HASH=$WEBSITE_HASH
+
+
 # Env defaults.
 ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     ENV_PREFIX=Compose \

@@ -17,6 +17,22 @@
 # This is NOT used by the official CI/CD pipeline nor any automated triggers.
 
 steps:
+  - id: resolve-hashes
+    name: gcr.io/cloud-builders/git
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        # If the .git metadata directory is present, query Git for the commit hashes.
+        # Otherwise, fall back to the hashes supplied via Cloud Build substitutions.
+        if [ -d .git ]; then
+          git rev-parse --short=7 HEAD > website_hash.txt
+          git rev-parse --short=7 HEAD:mixer > mixer_hash.txt
+        else
+          echo "${_WEBSITE_HASH:-unknown}" > website_hash.txt
+          echo "${_MIXER_HASH:-unknown}" > mixer_hash.txt
+        fi
+
   - id: push-web-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -38,12 +54,14 @@ steps:
         DOCKER_BUILDKIT=1
         # Bundle container with website, esp and mixer.
         docker build -f build/cdc_services/Dockerfile \
+          --build-arg MIXER_HASH=$(cat mixer_hash.txt) \
+          --build-arg WEBSITE_HASH=$(cat website_hash.txt) \
           --tag gcr.io/$_PROJECT_ID/datacommons-services:${_TAG} \
           --tag gcr.io/$_PROJECT_ID/datacommons-services:latest \
           .
         docker push gcr.io/$_PROJECT_ID/datacommons-services:${_TAG}
         docker push gcr.io/$_PROJECT_ID/datacommons-services:latest
-    waitFor: ["-"]
+    waitFor: ["resolve-hashes"]
 
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
@@ -82,6 +100,12 @@ steps:
         docker push gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG}
         docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
     waitFor: ["-"]
+
+substitutions:
+  _TAG: ""
+  _PROJECT_ID: "datcom-ci"
+  _WEBSITE_HASH: ""
+  _MIXER_HASH: ""
 
 timeout: 3600s
 options:
