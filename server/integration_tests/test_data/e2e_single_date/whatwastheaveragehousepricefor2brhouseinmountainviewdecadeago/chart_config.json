@@ -13,7 +13,7 @@
                       "highlightDate": "2016"
                     },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_106335390"
+                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_1145703171"
                     ],
                     "title": "Homes Valued at $2,000,000 or More in Mountain View",
                     "type": "LINE"
@@ -158,9 +158,9 @@
             "name": "Homes Valued at $2,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
           },
-          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_106335390": {
+          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016_1145703171": {
             "date": "2016",
-            "facetId": "106335390",
+            "facetId": "1145703171",
             "name": "Homes Valued at $2,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
           },
