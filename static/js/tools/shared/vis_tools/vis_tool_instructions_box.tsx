@@ -28,6 +28,16 @@ import { intl } from "../../../i18n/i18n";
 import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
 const toolInstructions = {
+  download: {
+    variable: {
+      desktop: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableDesktopMap
+      ),
+      mobile: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableMobileMap
+      ),
+    },
+  },
   map: {
     variable: {
       desktop: intl.formatMessage(

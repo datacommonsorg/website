@@ -136,13 +136,11 @@ def stat_var():
 
 @bp.route('/download')
 def download():
-  # List of DCIDs displayed in the info page for download tool
-  # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
-  info_places = _load_example_file('download', default=[])
+  vis_tool_examples_json = _load_example_file('download_vis_tool', default=[])
 
   return flask.render_template('tools/download.html',
-                               info_places=json.dumps(info_places),
                                maps_api_key=current_app.config['MAPS_API_KEY'],
+                               vis_tool_examples_json=vis_tool_examples_json,
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))

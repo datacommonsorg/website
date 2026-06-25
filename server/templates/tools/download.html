@@ -29,10 +29,16 @@
 {% endblock %}
 
 {% block content %}
-  <div id="main-pane" data-info-places="{{ info_places }}"></div>
+  <div id="main-pane"></div>
+  <script>
+    globalThis.visToolExamples = {{ vis_tool_examples_json | tojson | safe }};
+  </script>
 {% endblock %}
 
 {% block footer %}
   <script src={{url_for('static', filename='download.js', t=config['VERSION'])}}></script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&loading=async" async defer></script>
 {% endblock %}
+
+
+

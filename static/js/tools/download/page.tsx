@@ -48,6 +48,8 @@ import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse } from "../../utils/data_fetch_utils";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import {
   Context,
   ContextType,
@@ -56,16 +58,10 @@ import {
   URL_PARAM_KEYS,
   useInitialContext,
 } from "./context";
-import { Info, InfoPlace } from "./info";
 import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
-import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 
-interface PagePropType {
-  infoPlaces: [InfoPlace, InfoPlace];
-}
-
-function App(props: PagePropType): ReactElement {
+function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
   const { options, preview, validation, facets } = useContext(Context);
@@ -267,9 +263,14 @@ function App(props: PagePropType): ReactElement {
             isDisabled={preview.disabled}
           />
         )}
-        {showInfo && <Info infoPlaces={props.infoPlaces} />}
         {showInfo && (
-          <ChartLinkChips toolType="map" visToolExamples={visToolExamples} />
+          <>
+            <VisToolInstructionsBox toolType="download" />
+            <ChartLinkChips
+              toolType="download"
+              visToolExamples={visToolExamples}
+            />
+          </>
         )}
       </div>
     </>
@@ -330,7 +331,7 @@ function App(props: PagePropType): ReactElement {
   }
 }
 
-export function Page(props: PagePropType): ReactElement {
+export function Page(): ReactElement {
   const store = useInitialContext();
 
   useEffect(() => {
@@ -340,7 +341,7 @@ export function Page(props: PagePropType): ReactElement {
   return (
     <ThemeProvider theme={theme}>
       <Context.Provider value={store}>
-        <App {...props} />
+        <App />
       </Context.Provider>
     </ThemeProvider>
   );

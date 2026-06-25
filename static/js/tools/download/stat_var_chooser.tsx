@@ -65,6 +65,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const [extraStatVar, setExtraStatVar] = useState(EMPTY_SV_AND_INFO);
   const [modalSelection, setModalSelection] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [statVarWidgetIsCollapsed, setStatVarWidgetIsCollapsed] =
+      useState(true);
   const modalSvOrder = useRef(Object.keys(props.statVars));
 
   useEffect(() => {
@@ -103,7 +105,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       <StatVarWidget
         openSvHierarchyModal={props.openSvHierarchyModal}
         openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
-        collapsible={false}
+        collapsible={true}
         svHierarchyType={StatVarHierarchyType.DOWNLOAD}
         sampleEntities={samplePlaces}
         deselectSVs={(svList: string[]): void =>
@@ -113,6 +115,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         }
         selectedSVs={selectedSVs}
         selectSV={(sv): void => selectSV(sv)}
+        isCollapsedOverride={statVarWidgetIsCollapsed}
+        setIsCollapsedOverride={setStatVarWidgetIsCollapsed}
       />
       {/* Modal for selecting stat var to replace when too many are selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
