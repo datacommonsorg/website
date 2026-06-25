@@ -74,6 +74,10 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   }, [props.statVars]);
 
   useEffect(() => {
+    setStatVarWidgetIsCollapsed(!props.enclosedPlaceType);
+  }, [props.enclosedPlaceType]);
+
+  useEffect(() => {
     if (!props.placeDcid || !props.enclosedPlaceType) {
       setSamplePlaces([]);
       return;

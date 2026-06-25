@@ -30,10 +30,7 @@ import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { Chip } from "../../shared/chip";
-import {
-  WEBSITE_SURFACE,
-  WEBSITE_SURFACE_HEADER,
-} from "../../shared/constants";
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
@@ -44,7 +41,6 @@ import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import theme from "../../theme/theme";
 import { enrichFacetChoices } from "../../tools/shared/facet_choice_fetcher";
 import { stringifyFn } from "../../utils/axios";
-import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse } from "../../utils/data_fetch_utils";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
@@ -64,13 +60,12 @@ import { StatVarChooser } from "./stat_var_chooser";
 function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
-  const { options, preview, validation, facets } = useContext(Context);
-  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
+  const { options, validation, facets } = useContext(Context);
   const visToolExamples = globalThis.visToolExamples || [];
 
   useEffect(() => {
-    if (preview.show) {
-      preview.setDisabled(true);
+    if (!shouldHideSourceSelector(options.value)) {
+      updateURL(options.value);
     }
   }, [options.value]);
 
@@ -99,7 +94,7 @@ function App(): ReactElement {
         paramsSerializer: stringifyFn,
         headers: WEBSITE_SURFACE_HEADER,
       })
-      .then(async (resp) => {
+      .then((resp) => {
         const baseFacetData: PointAllApiResponse = resp.data;
         const baseFacets: FacetResponse = {};
         for (const sv in options.value.selectedStatVars) {
@@ -131,7 +126,7 @@ function App(): ReactElement {
       .finally(() => {
         facets.setLoading(false);
       });
-  }, [options.value, dataCommonsClient]);
+  }, [options.value]);
 
   const facetListCacheKey = options.value
     ? `${options.value.selectedPlace.dcid}-${options.value.enclosedPlaceType}`
@@ -160,9 +155,7 @@ function App(): ReactElement {
     return <></>;
   }
 
-  const getDataButtonText = preview.show ? "Update Preview" : "Preview";
-  const showInfo =
-    _.isEmpty(validationErrors.incompleteSelectionMessage) && !preview.show;
+  const showPreview = !shouldHideSourceSelector(selectedOptions);
   return (
     <>
       <StatVarChooser
@@ -191,6 +184,8 @@ function App(): ReactElement {
                     ...prev,
                     selectedPlace: place,
                     enclosedPlaceType: "",
+                    selectedStatVars: {},
+                    selectedFacets: {},
                   };
                 })
               }
@@ -199,11 +194,9 @@ function App(): ReactElement {
               )}
               selectedParentPlace={selectedOptions.selectedPlace}
             />
-            <div className="download-option-section">
-              <div className="download-option-label">Variables</div>
-              {_.isEmpty(selectedOptions.selectedStatVars) ? (
-                "Please select variables"
-              ) : (
+            {!_.isEmpty(selectedOptions.selectedStatVars) && (
+              <div className="download-option-section">
+                <div className="download-option-label">Variables:</div>
                 <div className="download-sv-chips">
                   {Object.keys(selectedOptions.selectedStatVars).map((sv) => {
                     return (
@@ -216,61 +209,57 @@ function App(): ReactElement {
                     );
                   })}
                 </div>
-              )}
-            </div>
-            {!shouldHideSourceSelector(selectedOptions) && (
+              </div>
+            )}
+            {totalFacetCount > 1 && (
               <div className="download-option-section">
-                <FacetSelector
-                  mode="download"
-                  svFacetId={selectedOptions.selectedFacets}
-                  facetList={enrichedFacetList}
-                  totalFacetCount={totalFacetCount}
-                  loading={facets.loading || enrichmentLoading}
-                  error={facets.error}
-                  onSvFacetIdUpdated={(svFacetId): void => {
-                    options.set((prev) => {
-                      return { ...prev, selectedFacets: svFacetId };
-                    });
-                  }}
-                  onModalOpen={onModalOpen}
-                />
+                <div className="download-option-label">Facets:</div>
+                <div className="download-sv-chips">
+                  <FacetSelector
+                    mode="download"
+                    svFacetId={selectedOptions.selectedFacets}
+                    facetList={enrichedFacetList}
+                    totalFacetCount={totalFacetCount}
+                    loading={facets.loading || enrichmentLoading}
+                    error={facets.error}
+                    onSvFacetIdUpdated={(svFacetId): void => {
+                      options.set((prev) => {
+                        return { ...prev, selectedFacets: svFacetId };
+                      });
+                    }}
+                    onModalOpen={onModalOpen}
+                  />
+                </div>
               </div>
             )}
             <Row className="d-lg-none">
               <Col>
                 <Button color="primary" onClick={toggleSvModalCallback}>
-                  {intl.formatMessage(toolMessages.selectAVariableInstruction)}
+                  {intl.formatMessage(
+                    toolMessages.selectAVariableInstruction
+                  )}
                 </Button>
               </Col>
             </Row>
-            <Button
-              className="get-data-button"
-              onClick={onGetDataButtonClicked}
-              color="primary"
-            >
-              {getDataButtonText}
-            </Button>
           </FormBox>
-          {!_.isEmpty(validationErrors.incompleteSelectionMessage) && (
-            <div className="download-options-error-message">
-              {validationErrors.incompleteSelectionMessage}
-            </div>
-          )}
         </div>
-        {preview.show && (
+
+        {showPreview && (
           <Preview
-            selectedOptions={preview.options}
-            isDisabled={preview.disabled}
+            selectedOptions={selectedOptions}
+            isDisabled={false}
           />
         )}
-        {showInfo && (
-          <>
-            <VisToolInstructionsBox toolType="download" />
-            <ChartLinkChips
-              toolType="download"
-              visToolExamples={visToolExamples}
-            />
-          </>
+
+        {!shouldHideHelp(selectedOptions) && (
+          <VisToolInstructionsBox toolType="download" />
+        )}
+
+        {!shouldHideHints(selectedOptions) && (
+          <ChartLinkChips
+            toolType="download"
+            visToolExamples={visToolExamples}
+          />
         )}
       </div>
     </>
@@ -307,28 +296,6 @@ function App(): ReactElement {
       };
     });
   }
-
-  function onGetDataButtonClicked(): void {
-    let incompleteSelectionMessage = "";
-    if (
-      _.isEmpty(selectedOptions.selectedStatVars) ||
-      _.isEmpty(selectedOptions.selectedPlace) ||
-      _.isEmpty(selectedOptions.enclosedPlaceType)
-    ) {
-      incompleteSelectionMessage =
-        "Please select a place, place type, and at least one variable.";
-    }
-    validation.set((prev) => {
-      return { ...prev, incompleteSelectionMessage };
-    });
-    if (!_.isEmpty(incompleteSelectionMessage)) {
-      return;
-    }
-    updateURL(selectedOptions);
-    preview.setOptions(selectedOptions);
-    preview.setShow(true);
-    preview.setDisabled(false);
-  }
 }
 
 export function Page(): ReactElement {
@@ -337,6 +304,10 @@ export function Page(): ReactElement {
   useEffect(() => {
     loadStateFromURL(store);
   }, []);
+
+  window.onhashchange = (): void => {
+    loadStateFromURL(store);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -427,5 +398,20 @@ function shouldHideSourceSelector(opts: DownloadOptions): boolean {
     _.isEmpty(opts.selectedStatVars) ||
     _.isEmpty(opts.selectedPlace) ||
     _.isEmpty(opts.enclosedPlaceType)
+  );
+}
+
+function shouldHideHelp(opts: DownloadOptions): boolean {
+  return (
+    !opts ||
+    !_.isEmpty(opts.selectedStatVars) ||
+    _.isEmpty(opts.enclosedPlaceType)
+  );
+}
+
+function shouldHideHints(opts: DownloadOptions): boolean {
+  return (
+    !opts ||
+    (!_.isEmpty(opts.selectedPlace) && !_.isEmpty(opts.enclosedPlaceType))
   );
 }
