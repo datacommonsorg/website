@@ -75,7 +75,7 @@ fi
 if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
     
-    # 1. Dynamically enable use_v2_api feature flag in custom.json for Website
+    # 1. Dynamically enable feature flags in custom.json for Website
     # TODO: Delete this once every customer is on DCP, and we can just update custom.json.
     python3 -c "
 import json
@@ -85,8 +85,6 @@ try:
     with open(path) as f:
         data = json.load(f)
     for flag in data:
-        if flag.get('name') == 'use_v2_api':
-            flag['enabled'] = True
         if flag.get('name') == 'enable_nl_v2node_fetchall':
             flag['enabled'] = True
         if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') == 'true':
