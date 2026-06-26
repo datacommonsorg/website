@@ -112,5 +112,11 @@
     "enabled": true,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
+  },
+  {
+    "name": "croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD SEO metadata on provenance pages."
   }
 ]

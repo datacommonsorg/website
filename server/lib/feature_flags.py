@@ -37,6 +37,7 @@ NEW_RANKING_PAGE = 'new_ranking_page'
 USE_V2_RESOLVE_FOR_NL_SEARCH_VARS = 'use_v2_resolve_for_nl_search_vars'
 ENABLE_NL_V2NODE_FETCHALL = 'enable_nl_v2node_fetchall'
 NL_USE_V2RESOLVE_FEATURE_FLAG = 'nl_use_v2resolve'
+CROISSANT_JSON_LD_FEATURE = 'croissant_json_ld'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
