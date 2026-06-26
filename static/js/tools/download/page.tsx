@@ -48,7 +48,6 @@ import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import {
   Context,
-  ContextType,
   DownloadOptions,
   SEPARATOR,
   URL_PARAM_KEYS,
@@ -60,7 +59,8 @@ import { StatVarChooser } from "./stat_var_chooser";
 function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
-  const { options, validation, facets } = useContext(Context);
+  const { options, facets } = useContext(Context);
+  const { setList, setLoading, setError, reqObj: facetsReqObj } = facets;
   const visToolExamples = globalThis.visToolExamples || [];
 
   useEffect(() => {
@@ -71,8 +71,8 @@ function App(): ReactElement {
 
   useEffect(() => {
     if (shouldHideSourceSelector(options.value)) {
-      facets.setList(null);
-      facets.reqObj.current = {};
+      setList(null);
+      facetsReqObj.current = {};
       return;
     }
     const reqObj = {
@@ -81,13 +81,13 @@ function App(): ReactElement {
       parentEntity: options.value.selectedPlace.dcid,
       variables: Object.keys(options.value.selectedStatVars),
     };
-    if (_.isEqual(reqObj, facets.reqObj.current)) {
+    if (_.isEqual(reqObj, facetsReqObj.current)) {
       return;
     }
-    facets.reqObj.current = reqObj;
-    facets.setLoading(true);
-    facets.setError(false);
-    facets.setList(null);
+    facetsReqObj.current = reqObj;
+    setLoading(true);
+    setError(false);
+    setList(null);
     axios
       .get("/api/facets/within", {
         params: reqObj,
@@ -118,15 +118,15 @@ function App(): ReactElement {
             });
           }
         }
-        facets.setList(sourceSelectorFacetList);
+        setList(sourceSelectorFacetList);
       })
       .catch(() => {
-        facets.setError(true);
+        setError(true);
       })
       .finally(() => {
-        facets.setLoading(false);
+        setLoading(false);
       });
-  }, [options.value]);
+  }, [options.value, setList, setLoading, setError, facetsReqObj]);
 
   const facetListCacheKey = options.value
     ? `${options.value.selectedPlace.dcid}-${options.value.enclosedPlaceType}`
@@ -149,9 +149,8 @@ function App(): ReactElement {
   );
 
   const selectedOptions = options.value;
-  const validationErrors = validation.value;
 
-  if (!selectedOptions || !validationErrors) {
+  if (!selectedOptions) {
     return <></>;
   }
 
@@ -235,9 +234,7 @@ function App(): ReactElement {
             <Row className="d-lg-none">
               <Col>
                 <Button color="primary" onClick={toggleSvModalCallback}>
-                  {intl.formatMessage(
-                    toolMessages.selectAVariableInstruction
-                  )}
+                  {intl.formatMessage(toolMessages.selectAVariableInstruction)}
                 </Button>
               </Col>
             </Row>
@@ -245,10 +242,7 @@ function App(): ReactElement {
         </div>
 
         {showPreview && (
-          <Preview
-            selectedOptions={selectedOptions}
-            isDisabled={false}
-          />
+          <Preview selectedOptions={selectedOptions} isDisabled={false} />
         )}
 
         {!shouldHideHelp(selectedOptions) && (
@@ -300,13 +294,14 @@ function App(): ReactElement {
 
 export function Page(): ReactElement {
   const store = useInitialContext();
+  const setOptions = store.options.set;
 
   useEffect(() => {
-    loadStateFromURL(store);
-  }, []);
+    loadStateFromURL(setOptions);
+  }, [setOptions]);
 
   window.onhashchange = (): void => {
-    loadStateFromURL(store);
+    loadStateFromURL(setOptions);
   };
 
   return (
@@ -318,7 +313,9 @@ export function Page(): ReactElement {
   );
 }
 
-function loadStateFromURL(context: ContextType): void {
+function loadStateFromURL(
+  setOptions: React.Dispatch<React.SetStateAction<DownloadOptions>>
+): void {
   const opts: DownloadOptions = {
     enclosedPlaceType: "",
     selectedPlace: { dcid: "", name: "", types: null },
@@ -326,7 +323,7 @@ function loadStateFromURL(context: ContextType): void {
     selectedFacets: {},
   };
   if (!window.location.hash) {
-    context.options.set(opts);
+    setOptions(opts);
   }
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   const place = urlParams.get(URL_PARAM_KEYS.PLACE);
@@ -343,23 +340,18 @@ function loadStateFromURL(context: ContextType): void {
     opts.selectedFacets[sv] = sv in svFacetsVal ? svFacetsVal[sv] : "";
   }
   opts.enclosedPlaceType = urlParams.get(URL_PARAM_KEYS.PLACE_TYPE) || "";
-  context.validation.set({
-    incompleteSelectionMessage: "",
-  });
   Promise.all([placePromise, svInfoPromise])
     .then(([resolvedPlace, svInfo]) => {
       opts.selectedPlace = resolvedPlace;
       opts.selectedStatVars = svInfo;
-      context.options.set(opts);
-      context.preview.setOptions(opts);
+      setOptions(opts);
     })
     .catch(() => {
       const emptySvInfo = {};
       statVarsList.forEach((sv) => (emptySvInfo[sv] = {}));
       opts.selectedPlace = { dcid: place, name: place, types: [] };
       opts.selectedStatVars = emptySvInfo;
-      context.options.set(opts);
-      context.preview.setOptions(opts);
+      setOptions(opts);
     });
 }
 

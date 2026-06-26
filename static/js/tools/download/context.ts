@@ -24,7 +24,6 @@ import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_select
 import { StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 
-// By default sets to all available dates, previously had 3 options: Latest, All, Range MinMax
 export const DATE_ALL = "";
 
 export const URL_PARAM_KEYS = {
@@ -42,27 +41,9 @@ export interface DownloadOptions {
   selectedFacets: Record<string, string>;
 }
 
-export interface ValidationErrors {
-  incompleteSelectionMessage: string;
-}
-
 export interface OptionsWrapper {
   value: DownloadOptions;
   set: React.Dispatch<React.SetStateAction<DownloadOptions>>;
-}
-
-export interface PreviewWrapper {
-  options: DownloadOptions;
-  setOptions: React.Dispatch<React.SetStateAction<DownloadOptions>>;
-  disabled: boolean;
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface ValidationWrapper {
-  value: ValidationErrors;
-  set: React.Dispatch<React.SetStateAction<ValidationErrors>>;
 }
 
 export interface FacetStateWrapper {
@@ -79,8 +60,6 @@ export interface FacetStateWrapper {
 
 export interface ContextType {
   options: OptionsWrapper;
-  preview: PreviewWrapper;
-  validation: ValidationWrapper;
   facets: FacetStateWrapper;
 }
 
@@ -88,11 +67,6 @@ export const Context = createContext({} as ContextType);
 
 export function useInitialContext(): ContextType {
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
-  const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
-  const [previewDisabled, setPreviewDisabled] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-  const [validationErrors, setValidationErrors] =
-    useState<ValidationErrors>(null);
   const [facetList, setFacetList] = useState<FacetSelectorFacetInfo[] | null>(
     null
   );
@@ -104,18 +78,6 @@ export function useInitialContext(): ContextType {
     options: {
       value: selectedOptions,
       set: setSelectedOptions,
-    },
-    preview: {
-      options: previewOptions,
-      setOptions: setPreviewOptions,
-      disabled: previewDisabled,
-      setDisabled: setPreviewDisabled,
-      show: showPreview,
-      setShow: setShowPreview,
-    },
-    validation: {
-      value: validationErrors,
-      set: setValidationErrors,
     },
     facets: {
       list: facetList,
