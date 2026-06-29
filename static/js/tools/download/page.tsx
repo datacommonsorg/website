@@ -231,13 +231,13 @@ function App(): ReactElement {
                 </div>
               </div>
             )}
-            <Row className="d-lg-none">
-              <Col>
+            {shouldHideHints(selectedOptions) && (
+              <div className="download-option-section d-flex d-lg-none">
                 <Button color="primary" onClick={toggleSvModalCallback}>
                   {intl.formatMessage(toolMessages.selectAVariableInstruction)}
                 </Button>
-              </Col>
-            </Row>
+              </div>
+            )}
           </FormBox>
         </div>
 
@@ -260,35 +260,19 @@ function App(): ReactElement {
   );
 
   function selectStatVar(dcid: string, info: StatVarInfo): void {
-    options.set((prev) => {
-      const updatedStatVar = _.cloneDeep(prev.selectedStatVars);
-      updatedStatVar[dcid] = info;
-      const updatedFacets = _.cloneDeep(prev.selectedFacets);
-      updatedFacets[dcid] = "";
-      return {
-        ...prev,
-        selectedStatVars: updatedStatVar,
-        selectedFacets: updatedFacets,
-      };
-    });
+    options.set((prev) => ({
+      ...prev,
+      selectedStatVars: { [dcid]: info },
+      selectedFacets: { [dcid]: "" },
+    }));
   }
 
-  function removeStatVar(dcid: string): void {
-    options.set((prev) => {
-      const updatedStatVars = _.cloneDeep(prev.selectedStatVars);
-      if (dcid in updatedStatVars) {
-        delete updatedStatVars[dcid];
-      }
-      const updatedFacets = _.cloneDeep(prev.selectedFacets);
-      if (dcid in updatedFacets) {
-        delete updatedFacets[dcid];
-      }
-      return {
-        ...prev,
-        selectedStatVars: updatedStatVars,
-        selectedFacets: updatedFacets,
-      };
-    });
+  function removeStatVar(): void {
+    options.set((prev) => ({
+      ...prev,
+      selectedStatVars: {},
+      selectedFacets: {},
+    }));
   }
 }
 
