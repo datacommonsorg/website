@@ -13,7 +13,7 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_1557401764"
+                      "Count_Person_2176550201"
                     ],
                     "title": "Population in California",
                     "type": "LINE"
@@ -77,7 +77,7 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_PerArea_2666421854"
+                      "Count_Person_PerArea_3300708475"
                     ],
                     "title": "Population Density in California",
                     "type": "LINE"
@@ -108,7 +108,7 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_3184662913"
+                      "Median_Age_Person_3795540742"
                     ],
                     "title": "Median Age of Population in California",
                     "type": "LINE"
@@ -172,8 +172,8 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Female_3184662913",
-                      "Median_Age_Person_Male_3184662913"
+                      "Median_Age_Person_Female_3795540742",
+                      "Median_Age_Person_Male_3795540742"
                     ],
                     "title": "Median Age by Gender in California",
                     "type": "LINE"
@@ -350,8 +350,8 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_106335390",
-                      "Count_Person_85OrMoreYears_Male_106335390"
+                      "Count_Person_85OrMoreYears_Female_1145703171",
+                      "Count_Person_85OrMoreYears_Male_1145703171"
                     ],
                     "title": "Population 85 or Over by Gender in California",
                     "type": "LINE"
@@ -435,8 +435,8 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_106335390",
-                      "Count_Person_Male_106335390"
+                      "Count_Person_Female_1145703171",
+                      "Count_Person_Male_1145703171"
                     ],
                     "title": "Population by Gender in California",
                     "type": "LINE"
@@ -618,11 +618,11 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168",
-                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168",
-                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168",
-                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168",
-                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168"
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881"
                     ],
                     "title": "Monoracial/multiracial Breakdown in California",
                     "type": "LINE"
@@ -903,8 +903,8 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_106335390",
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_106335390"
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_1145703171",
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_1145703171"
                     ],
                     "title": "Spoken English at Home in California",
                     "type": "LINE"
@@ -1114,7 +1114,7 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_Divorced_106335390"
+                      "Count_Person_Divorced_1145703171"
                     ],
                     "title": "Divorcees in California",
                     "type": "LINE"
@@ -1175,11 +1175,6 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
-          "Count_Person_1557401764": {
-            "facetId": "1557401764",
-            "name": "Population",
-            "statVar": "Count_Person"
-          },
           "Count_Person_18To24Years_multiple_place_bar_block": {
             "name": "Population Aged 18 to 24 Years",
             "statVar": "Count_Person_18To24Years"
@@ -1191,6 +1186,11 @@
           "Count_Person_1To4Years_multiple_place_bar_block": {
             "name": "Population: 1 - 4 Years",
             "statVar": "Count_Person_1To4Years"
+          },
+          "Count_Person_2176550201": {
+            "facetId": "2176550201",
+            "name": "Population",
+            "statVar": "Count_Person"
           },
           "Count_Person_25To34Years_multiple_place_bar_block": {
             "name": "Population Aged 25 to 34 Years",
@@ -1288,8 +1288,8 @@
             "name": "Population: Some language other than English spoken at home",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
           },
-          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_106335390": {
-            "facetId": "106335390",
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_1145703171": {
+            "facetId": "1145703171",
             "name": "Population: Some language other than English spoken at home",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
           },
@@ -1317,8 +1317,8 @@
             "name": "Population: English Spoken At Home",
             "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
           },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_106335390": {
-            "facetId": "106335390",
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_1145703171": {
+            "facetId": "1145703171",
             "name": "Population: English Spoken At Home",
             "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
           },
@@ -1406,8 +1406,8 @@
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
-          "Count_Person_85OrMoreYears_Female_106335390": {
-            "facetId": "106335390",
+          "Count_Person_85OrMoreYears_Female_1145703171": {
+            "facetId": "1145703171",
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
@@ -1415,8 +1415,8 @@
             "name": "Men over 85",
             "statVar": "Count_Person_85OrMoreYears_Male"
           },
-          "Count_Person_85OrMoreYears_Male_106335390": {
-            "facetId": "106335390",
+          "Count_Person_85OrMoreYears_Male_1145703171": {
+            "facetId": "1145703171",
             "name": "Men over 85",
             "statVar": "Count_Person_85OrMoreYears_Male"
           },
@@ -1424,8 +1424,8 @@
             "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168": {
-            "facetId": "4274525168",
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1437,8 +1437,8 @@
             "name": "Asian Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168": {
-            "facetId": "4274525168",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "Asian Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1454,8 +1454,8 @@
             "name": "Black Monoracial Population",
             "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
           },
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168": {
-            "facetId": "4274525168",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "Black Population, Monoracial/Multiracial",
             "statVar": "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1467,8 +1467,8 @@
             "name": "Divorcees",
             "statVar": "Count_Person_Divorced"
           },
-          "Count_Person_Divorced_106335390": {
-            "facetId": "106335390",
+          "Count_Person_Divorced_1145703171": {
+            "facetId": "1145703171",
             "name": "Divorcees",
             "statVar": "Count_Person_Divorced"
           },
@@ -1476,8 +1476,8 @@
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_106335390": {
-            "facetId": "106335390",
+          "Count_Person_Female_1145703171": {
+            "facetId": "1145703171",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -1537,13 +1537,13 @@
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_Male_106335390": {
-            "facetId": "106335390",
+          "Count_Person_Male_1145703171": {
+            "facetId": "1145703171",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168": {
-            "facetId": "4274525168",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "Native Hawaiian and Other Pacific Islander Population, Monoracial/Multiracial",
             "statVar": "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1599,8 +1599,8 @@
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           },
-          "Count_Person_PerArea_2666421854": {
-            "facetId": "2666421854",
+          "Count_Person_PerArea_3300708475": {
+            "facetId": "3300708475",
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           },
@@ -1620,8 +1620,8 @@
             "name": "White Hispanic Monoracial Population",
             "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
           },
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_4274525168": {
-            "facetId": "4274525168",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "White Population, Monoracial/Multiracial",
             "statVar": "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1633,8 +1633,8 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "Median_Age_Person_3184662913": {
-            "facetId": "3184662913",
+          "Median_Age_Person_3795540742": {
+            "facetId": "3795540742",
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
@@ -1642,8 +1642,8 @@
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
-          "Median_Age_Person_Female_3184662913": {
-            "facetId": "3184662913",
+          "Median_Age_Person_Female_3795540742": {
+            "facetId": "3795540742",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
@@ -1651,8 +1651,8 @@
             "name": "Men's Median Age",
             "statVar": "Median_Age_Person_Male"
           },
-          "Median_Age_Person_Male_3184662913": {
-            "facetId": "3184662913",
+          "Median_Age_Person_Male_3795540742": {
+            "facetId": "3795540742",
             "name": "Men's Median Age",
             "statVar": "Median_Age_Person_Male"
           }
