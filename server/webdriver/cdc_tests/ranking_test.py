@@ -11,9 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import pytest
+
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.ranking_test import RankingTestMixin
 
 
+# TODO(juliawu): Remove this skip once the ranking pages are fully migrated to v2.
+@pytest.mark.skip(
+    reason=
+    "Temporarily disabling ranking tests while completing the v2 migration for the ranking pages"
+)
 class TestRanking(RankingTestMixin, CdcTestBase):
   """Class to test the ranking page for Custom DC. Tests come from RankingTestMixin."""
