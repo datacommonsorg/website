@@ -1,5 +1,11 @@
 [
   {
+    "name": "show_croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD metadata on dataset pages."
+  },
+  {
     "name": "autocomplete",
     "enabled": false,
     "owner": "gmechali",

@@ -1,5 +1,11 @@
 [
   {
+    "name": "show_croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Feature flag to enable Croissant JSON-LD for Dataset nodes."
+  },
+  {
     "name": "autocomplete",
     "enabled": true,
     "owner": "gmechali",

@@ -22,6 +22,7 @@ from flask import current_app
 from flask import g
 from flask import render_template
 
+import server.lib.croissant_metadata as croissant_metadata_lib
 import server.lib.render as lib_render
 import server.lib.shared as shared_api
 
@@ -47,7 +48,11 @@ def browser_node(dcid):
       node_name = api_name
   except Exception as e:
     logging.info(e)
+
+  json_ld_data = croissant_metadata_lib.build_dataset_metadata(dcid)
+
   return render_template('/browser/node.html',
                          dcid=dcid,
                          node_name=node_name,
+                         json_ld_data=json_ld_data,
                          maps_api_key=current_app.config['MAPS_API_KEY'])
