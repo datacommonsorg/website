@@ -23,7 +23,7 @@
    {% block head %}
     {% if json_ld_data %}
     <script type="application/ld+json">
-      {{ json_ld_data | tojson | safe }}
+      {{ json_ld_data | tojson}}
     </script>
     {% endif %}
    <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['VERSION'])}} >

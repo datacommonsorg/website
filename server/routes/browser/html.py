@@ -23,7 +23,6 @@ from flask import g
 from flask import render_template
 
 import server.lib.croissant_metadata as croissant_metadata_lib
-import server.lib.feature_flags as feature_flags_lib
 import server.lib.render as lib_render
 import server.lib.shared as shared_api
 
@@ -50,11 +49,7 @@ def browser_node(dcid):
   except Exception as e:
     logging.info(e)
 
-  json_ld_data = {}
-  # Provenance nodes start with dc/base/
-  if dcid.startswith("dc/base/"):
-    if feature_flags_lib.is_feature_enabled(feature_flags_lib.CROISSANT_JSON_LD_FEATURE):
-      json_ld_data = croissant_metadata_lib.build_dataset_metadata(dcid)
+  json_ld_data = croissant_metadata_lib.build_dataset_metadata(dcid)
 
   return render_template('/browser/node.html',
                          dcid=dcid,
