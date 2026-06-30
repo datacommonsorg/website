@@ -24,7 +24,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Button, Col, Row } from "reactstrap";
+import { Button, Card, Col, Row } from "reactstrap";
 
 import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
@@ -193,44 +193,34 @@ function App(): ReactElement {
               )}
               selectedParentPlace={selectedOptions.selectedPlace}
             />
-            {!_.isEmpty(selectedOptions.selectedStatVars) && (
-              <div className="download-option-section">
-                <div className="download-option-label">Variables:</div>
-                <div className="download-sv-chips">
-                  {Object.keys(selectedOptions.selectedStatVars).map((sv) => {
-                    return (
-                      <Chip
-                        key={sv}
-                        id={sv}
-                        title={selectedOptions.selectedStatVars[sv].title || sv}
-                        removeChip={removeStatVar}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-            {totalFacetCount > 1 && (
-              <div className="download-option-section">
-                <div className="download-option-label">Facets:</div>
-                <div className="download-sv-chips">
-                  <FacetSelector
-                    mode="download"
-                    svFacetId={selectedOptions.selectedFacets}
-                    facetList={enrichedFacetList}
-                    totalFacetCount={totalFacetCount}
-                    loading={facets.loading || enrichmentLoading}
-                    error={facets.error}
-                    onSvFacetIdUpdated={(svFacetId): void => {
-                      options.set((prev) => {
-                        return { ...prev, selectedFacets: svFacetId };
-                      });
-                    }}
-                    onModalOpen={onModalOpen}
-                  />
-                </div>
-              </div>
-            )}
+          </FormBox>
+        </div>
+
+        {showPreview && (
+          <Card>
+            <div className="pl-3">
+              {Object.keys(selectedOptions.selectedStatVars).map((sv) => (
+                <h3 className="mb-3" key={sv} id={sv}>
+                  {selectedOptions.selectedStatVars[sv].title || sv}
+                </h3>
+              ))}
+              {totalFacetCount > 1 && (
+                <FacetSelector
+                  mode="download"
+                  svFacetId={selectedOptions.selectedFacets}
+                  facetList={enrichedFacetList}
+                  totalFacetCount={totalFacetCount}
+                  loading={facets.loading || enrichmentLoading}
+                  error={facets.error}
+                  onSvFacetIdUpdated={(svFacetId): void => {
+                    options.set((prev) => {
+                      return { ...prev, selectedFacets: svFacetId };
+                    });
+                  }}
+                  onModalOpen={onModalOpen}
+                />
+              )}
+            </div>
             {shouldHideHints(selectedOptions) && (
               <div className="download-option-section d-flex d-lg-none">
                 <Button color="primary" onClick={toggleSvModalCallback}>
@@ -238,11 +228,8 @@ function App(): ReactElement {
                 </Button>
               </div>
             )}
-          </FormBox>
-        </div>
-
-        {showPreview && (
-          <Preview selectedOptions={selectedOptions} isDisabled={false} />
+            <Preview selectedOptions={selectedOptions} isDisabled={false} />
+          </Card>
         )}
 
         {!shouldHideHelp(selectedOptions) && (
@@ -284,9 +271,14 @@ export function Page(): ReactElement {
     loadStateFromURL(setOptions);
   }, [setOptions]);
 
-  window.onhashchange = (): void => {
-    loadStateFromURL(setOptions);
-  };
+  useEffect(() => {
+    window.onhashchange = (): void => {
+      loadStateFromURL(setOptions);
+    };
+    return (): void => {
+      window.onhashchange = null;
+    };
+  }, [setOptions]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -319,7 +311,13 @@ function loadStateFromURL(
   const svInfoPromise = !_.isEmpty(statVarsList)
     ? getStatVarInfo(statVarsList)
     : Promise.resolve({});
-  const svFacetsVal = JSON.parse(urlParams.get(URL_PARAM_KEYS.FACET_MAP)) || {};
+  let svFacetsVal: Record<string, string> = {};
+  try {
+    svFacetsVal =
+      JSON.parse(urlParams.get(URL_PARAM_KEYS.FACET_MAP) || "null") || {};
+  } catch {
+    svFacetsVal = {};
+  }
   for (const sv of statVarsList) {
     opts.selectedFacets[sv] = sv in svFacetsVal ? svFacetsVal[sv] : "";
   }

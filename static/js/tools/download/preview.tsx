@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Card } from "reactstrap";
+import { Button } from "reactstrap";
 
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
@@ -76,7 +76,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     cardClassName += " preview-disabled";
   }
   return (
-    <Card id={SECTION_ID} className={cardClassName}>
+    <div id={SECTION_ID} className={cardClassName}>
       {errorMessage && <div>{errorMessage}</div>}
       {showPreview && (
         <>
@@ -111,14 +111,14 @@ export function Preview(props: PreviewProps): JSX.Element {
             disabled={props.isDisabled}
             onClick={onDownloadClicked}
           >
-            Download
+            Download CSV
           </Button>
         </>
       )}
       <div className="screen">
         <div id="spinner"></div>
       </div>
-    </Card>
+    </div>
   );
 
   function getCsvReqPayload(): {
