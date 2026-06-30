@@ -178,6 +178,9 @@ function App(): ReactElement {
         `}
       >
         <h1>Data Download Tool</h1>
+        <p>
+          The Data Download Tool allows you to download any a variable for any available geographic regions.
+        </p>
 
         <FormBox flexDirection="column">
           <EnclosedPlacesSelector
@@ -218,36 +221,68 @@ function App(): ReactElement {
         </FormBox>
 
         {showPreview && (
-          <FormBox flexDirection="column">
-            {Object.keys(selectedOptions.selectedStatVars).map((sv) => (
-              <h3
-                key={sv}
-                id={sv}
-                css={css`
-                  margin-bottom: 0;
-                `}
-              >
-                {selectedOptions.selectedStatVars[sv].title || sv}
-              </h3>
-            ))}
-            {totalFacetCount > 1 && (
-              <FacetSelector
-                mode="download"
-                svFacetId={selectedOptions.selectedFacets}
-                facetList={enrichedFacetList}
-                totalFacetCount={totalFacetCount}
-                loading={facets.loading || enrichmentLoading}
-                error={facets.error}
-                onSvFacetIdUpdated={(svFacetId): void => {
-                  options.set((prev) => {
-                    return { ...prev, selectedFacets: svFacetId };
-                  });
-                }}
-                onModalOpen={onModalOpen}
-              />
-            )}
-            <Preview selectedOptions={selectedOptions} isDisabled={false} />
-          </FormBox>
+          <div
+            css={css`
+              border: 1px solid rgba(0, 0, 0, 0.2);
+              display: flex;
+              flex-direction: column;
+              border-radius: 0.25rem;
+              gap: ${theme.spacing.lg}px;
+              background: white;
+            `}
+          >
+            <div
+              css={css`
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                display: flex;
+                flex-direction: column;
+                padding: ${theme.spacing.lg}px;
+                padding-bottom: ${theme.spacing.md}px;
+                padding-top: ${theme.spacing.md}px;
+                gap: ${theme.spacing.md}px;
+              `}
+            >
+              {totalFacetCount > 1 && (
+                <FacetSelector
+                  mode="download"
+                  svFacetId={selectedOptions.selectedFacets}
+                  facetList={enrichedFacetList}
+                  totalFacetCount={totalFacetCount}
+                  loading={facets.loading || enrichmentLoading}
+                  error={facets.error}
+                  onSvFacetIdUpdated={(svFacetId): void => {
+                    options.set((prev) => {
+                      return { ...prev, selectedFacets: svFacetId };
+                    });
+                  }}
+                  onModalOpen={onModalOpen}
+                />
+              )}
+            </div>
+
+            <div
+              css={css`
+                display: flex;
+                flex-direction: column;
+                padding: ${theme.spacing.lg}px;
+                padding-top: 0;
+                gap: ${theme.spacing.md}px;
+              `}
+            >
+              {Object.keys(selectedOptions.selectedStatVars).map((sv) => (
+                <h3
+                  key={sv}
+                  id={sv}
+                  css={css`
+                    margin-bottom: 0;
+                  `}
+                >
+                  {selectedOptions.selectedStatVars[sv].title || sv}
+                </h3>
+              ))}
+              <Preview selectedOptions={selectedOptions} isDisabled={false} />
+            </div>
+          </div>
         )}
 
         {!shouldHideHelp(selectedOptions) && (

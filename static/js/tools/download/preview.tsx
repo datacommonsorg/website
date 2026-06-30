@@ -84,6 +84,8 @@ export function Preview(props: PreviewProps): JSX.Element {
       css={css`
         max-width: 100%;
         overflow-scroll;
+        display: flex;
+        flex-direction: column;
         padding: 0;
         margin: 0;
       `}
