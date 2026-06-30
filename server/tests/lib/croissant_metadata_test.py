@@ -160,13 +160,12 @@ class TestCroissantMetadata(unittest.TestCase):
   @patch('server.lib.croissant_metadata.fetch.property_values')
   def test_api_exception(self, mock_property_values, mock_is_feature_enabled,
                          mock_v2node):
-    # Test that exceptions during data fetching are raised
+    # Test that exceptions during data fetching are handled by returning {}
     mock_property_values.return_value = {TEST_DATASET_DCID: ["Dataset"]}
     mock_is_feature_enabled.return_value = True
 
-    mock_v2node.side_effect = Exception("API Error")
+    mock_v2node.side_effect = ValueError("API Error")
 
-    with self.assertRaises(Exception) as context:
-      build_dataset_metadata(TEST_DATASET_DCID)
+    result = build_dataset_metadata(TEST_DATASET_DCID)
 
-    self.assertTrue("API Error" in str(context.exception))
+    self.assertEqual(result, {})

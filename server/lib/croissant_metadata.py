@@ -16,18 +16,19 @@ import logging
 import server.lib.feature_flags as feature_flags_lib
 import server.services.datacommons as dc
 import server.lib.fetch as fetch
+import requests
 
 
 def build_dataset_metadata(dcid: str) -> dict:
   """Builds a Croissant JSON-LD dictionary for a Dataset node."""
 
+  if not feature_flags_lib.is_feature_enabled(
+      feature_flags_lib.CROISSANT_JSON_LD_FEATURE):
+    return {}
+
   # Verify the node is actually a Dataset node
   node_types = fetch.property_values([dcid], 'typeOf').get(dcid, [])
   if 'Dataset' not in node_types:
-    return {}
-
-  if not feature_flags_lib.is_feature_enabled(
-      feature_flags_lib.CROISSANT_JSON_LD_FEATURE):
     return {}
 
   json_ld_data = {
@@ -128,14 +129,14 @@ def build_dataset_metadata(dcid: str) -> dict:
                          {}).get("nodes", [])
           if s_url_nodes:
             source_obj["url"] = s_url_nodes[0].get("value")
-        except Exception as e:
+        except (ValueError, requests.exceptions.RequestException) as e:
           logging.warning("Error fetching source URL for %s: %s", s_dcid, e)
-          raise
+          # Continue without the URL
 
       json_ld_data["creator"] = [source_obj]
 
-  except Exception as e:
+  except (ValueError, requests.exceptions.RequestException) as e:
     logging.error("Error fetching metadata for %s: %s", dcid, e)
-    raise
+    return {}
 
   return json_ld_data
