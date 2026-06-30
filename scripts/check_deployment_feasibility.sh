@@ -265,7 +265,7 @@ for manifest in "$SPLIT_DIR"/*; do
             \"imagePullPolicy\": \"IfNotPresent\",
             \"resources\": .resources
           } |
-          with(.spec.initContainers; .[] |= {
+          with(.spec.initContainers | select(. != null); .[] |= {
             \"name\": .name,
             \"image\": (.image // \"dummy\"),
             \"imagePullPolicy\": \"IfNotPresent\",
