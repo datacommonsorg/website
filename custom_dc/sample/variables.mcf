@@ -9,7 +9,7 @@ name: "Gender wage gap"
 description: "Percentage difference between median earnings of men and women relative to median earnings of men"
 populationType: dcid:Person
 measuredProperty: dcid:wagesAnnual
-statType: dcid:meanValue
+statType: dcid:Ratio
 memberOf: dcid:OECD
 
 Node: dcid:average_annual_wage
