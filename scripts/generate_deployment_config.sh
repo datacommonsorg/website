@@ -32,7 +32,7 @@
 # Arguments:
 #   <profile>  Skaffold profile name (e.g. 'website-prod')
 
-set -e
+set -eo pipefail
 
 # Resolve paths relative to the script location
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
