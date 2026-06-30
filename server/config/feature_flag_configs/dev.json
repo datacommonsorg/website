@@ -90,12 +90,6 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
-    "name": "use_v2_api",
-    "enabled": true,
-    "owner": "juliawu",
-    "description": "Enables features that rely on the V2 REST APIs"
-  },
-  {
     "name": "use_v2_resolve_for_nl_search_vars",
     "enabled": false,
     "owner": "shixiao",
