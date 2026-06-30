@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
@@ -24,12 +27,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Button, Card, Col, Row } from "reactstrap";
+import { Button } from "reactstrap";
 
 import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
-import { Chip } from "../../shared/chip";
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
   FacetSelector,
@@ -62,6 +64,7 @@ function App(): ReactElement {
   const { options, facets } = useContext(Context);
   const { setList, setLoading, setError, reqObj: facetsReqObj } = facets;
   const visToolExamples = globalThis.visToolExamples || [];
+  const theme = useTheme();
 
   useEffect(() => {
     if (!shouldHideSourceSelector(options.value)) {
@@ -166,70 +169,85 @@ function App(): ReactElement {
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
       />
-      <div id="plot-container">
-        <h1 className="mb-4">Data Download Tool</h1>
-        <div className="download-options-container">
-          <FormBox>
-            <EnclosedPlacesSelector
-              enclosedPlaceType={selectedOptions.enclosedPlaceType}
-              onEnclosedPlaceTypeSelected={(enclosedPlaceType): void =>
-                options.set((prev) => {
-                  return { ...prev, enclosedPlaceType };
-                })
-              }
-              onPlaceSelected={(place): void =>
-                options.set((prev) => {
-                  return {
-                    ...prev,
-                    selectedPlace: place,
-                    enclosedPlaceType: "",
-                    selectedStatVars: {},
-                    selectedFacets: {},
-                  };
-                })
-              }
-              searchBarInstructionText={intl.formatMessage(
-                toolMessages.placeSearchBoxLabel
-              )}
-              selectedParentPlace={selectedOptions.selectedPlace}
-            />
-          </FormBox>
-        </div>
+      <div
+        id="plot-container"
+        css={css`
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.md}px;
+        `}
+      >
+        <h1>Data Download Tool</h1>
+
+        <FormBox flexDirection="column">
+          <EnclosedPlacesSelector
+            enclosedPlaceType={selectedOptions.enclosedPlaceType}
+            onEnclosedPlaceTypeSelected={(enclosedPlaceType): void =>
+              options.set((prev) => {
+                return { ...prev, enclosedPlaceType };
+              })
+            }
+            onPlaceSelected={(place): void =>
+              options.set((prev) => {
+                return {
+                  ...prev,
+                  selectedPlace: place,
+                  enclosedPlaceType: "",
+                  selectedStatVars: {},
+                  selectedFacets: {},
+                };
+              })
+            }
+            searchBarInstructionText={intl.formatMessage(
+              toolMessages.placeSearchBoxLabel
+            )}
+            selectedParentPlace={selectedOptions.selectedPlace}
+          />
+          {shouldHideHints(selectedOptions) && (
+            <Button
+              color="primary"
+              onClick={toggleSvModalCallback}
+              className="d-flex d-lg-none"
+              css={css`
+                max-width: max-content;
+              `}
+            >
+              {intl.formatMessage(toolMessages.selectAVariableInstruction)}
+            </Button>
+          )}
+        </FormBox>
 
         {showPreview && (
-          <Card>
-            <div className="pl-3">
-              {Object.keys(selectedOptions.selectedStatVars).map((sv) => (
-                <h3 className="mb-3" key={sv} id={sv}>
-                  {selectedOptions.selectedStatVars[sv].title || sv}
-                </h3>
-              ))}
-              {totalFacetCount > 1 && (
-                <FacetSelector
-                  mode="download"
-                  svFacetId={selectedOptions.selectedFacets}
-                  facetList={enrichedFacetList}
-                  totalFacetCount={totalFacetCount}
-                  loading={facets.loading || enrichmentLoading}
-                  error={facets.error}
-                  onSvFacetIdUpdated={(svFacetId): void => {
-                    options.set((prev) => {
-                      return { ...prev, selectedFacets: svFacetId };
-                    });
-                  }}
-                  onModalOpen={onModalOpen}
-                />
-              )}
-            </div>
-            {shouldHideHints(selectedOptions) && (
-              <div className="download-option-section d-flex d-lg-none">
-                <Button color="primary" onClick={toggleSvModalCallback}>
-                  {intl.formatMessage(toolMessages.selectAVariableInstruction)}
-                </Button>
-              </div>
+          <FormBox flexDirection="column">
+            {Object.keys(selectedOptions.selectedStatVars).map((sv) => (
+              <h3
+                key={sv}
+                id={sv}
+                css={css`
+                  margin-bottom: 0;
+                `}
+              >
+                {selectedOptions.selectedStatVars[sv].title || sv}
+              </h3>
+            ))}
+            {totalFacetCount > 1 && (
+              <FacetSelector
+                mode="download"
+                svFacetId={selectedOptions.selectedFacets}
+                facetList={enrichedFacetList}
+                totalFacetCount={totalFacetCount}
+                loading={facets.loading || enrichmentLoading}
+                error={facets.error}
+                onSvFacetIdUpdated={(svFacetId): void => {
+                  options.set((prev) => {
+                    return { ...prev, selectedFacets: svFacetId };
+                  });
+                }}
+                onModalOpen={onModalOpen}
+              />
             )}
             <Preview selectedOptions={selectedOptions} isDisabled={false} />
-          </Card>
+          </FormBox>
         )}
 
         {!shouldHideHelp(selectedOptions) && (

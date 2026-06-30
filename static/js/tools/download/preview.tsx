@@ -18,6 +18,7 @@
  * Component for rendering the preview of the csv to be download
  */
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import Papa from "papaparse";
@@ -43,6 +44,7 @@ export function Preview(props: PreviewProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const csvReqPayload = useRef({});
   const prevOptions = useRef(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (
@@ -76,7 +78,16 @@ export function Preview(props: PreviewProps): JSX.Element {
     cardClassName += " preview-disabled";
   }
   return (
-    <div id={SECTION_ID} className={cardClassName}>
+    <div
+      id={SECTION_ID}
+      className={cardClassName}
+      css={css`
+        max-width: 100%;
+        overflow-scroll;
+        padding: 0;
+        margin: 0;
+      `}
+    >
       {errorMessage && <div>{errorMessage}</div>}
       {showPreview && (
         <>
