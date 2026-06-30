@@ -25,12 +25,14 @@
 #   - kubectl to be authenticated with the target cluster.
 #
 # Usage:
-#   ./scripts/check_deployment_feasibility.sh -p <profile> [-c <kube-context>] [additional flags]
+#   ./scripts/check_deployment_feasibility.sh [options] <profile> [additional flags]
 #
 # Options:
-#   -p    The Skaffold profile name (passed to generate_deployment_config.sh, required)
 #   -c    The kubectl context to check against (optional, auto-detected if omitted)
 #   -h    Display this help message
+#
+# Arguments:
+#   <profile>  The Skaffold profile name (passed to generate_deployment_config.sh, required)
 #
 # Any trailing/additional flags (like -w or -m) will be forwarded directly to
 # generate_deployment_config.sh.
@@ -46,43 +48,45 @@ source ${DIR}/utils.sh
 # Helper Functions
 usage() {
     cat << EOF
-Usage: $0 -p <profile> [-c <kube-context>] [additional flags for generate_deployment_config.sh]
+Usage: $0 [options] <profile> [additional flags for generate_deployment_config.sh]
 
 Options:
-  -p    The Skaffold profile name (required)
   -c    The kubectl context to check against (optional, auto-detected if omitted)
   -h    Display this help message
+
+Arguments:
+  <profile>  The Skaffold profile name (required)
 
 Any trailing flags (like -w or -m) will be seamlessly forwarded to generate_deployment_config.sh.
 
 Example:
-  $0 -p website-prod -w website-tag-123
+  $0 website-prod -w website-tag-123
 EOF
     exit 1
 }
 
 # Parse Script Arguments
 CONTEXT=""
-PROFILE=""
 FORWARD_ARGS=()
 
-while getopts ":c:p:h" opt; do
+while getopts ":c:h" opt; do
     case ${opt} in
         c ) CONTEXT="$OPTARG" ;;
-        p ) PROFILE="$OPTARG" ;;
         h ) usage ;;
         \? ) usage ;;
     esac
 done
 shift $((OPTIND - 1))
 
-# Capture any remaining args to pass directly to generate_deployment_config.sh
-FORWARD_ARGS+=("$@")
-
+PROFILE="$1"
 if [[ -z "$PROFILE" ]]; then
-    log_error "-p (profile) is a required parameter."
+    log_error "Profile is a required argument."
     usage
 fi
+shift 1
+
+# Capture any remaining args to pass directly to generate_deployment_config.sh
+FORWARD_ARGS+=("$@")
 
 # Auto-detect context if not specified
 if [[ -z "$CONTEXT" ]]; then

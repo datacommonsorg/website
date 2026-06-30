@@ -129,7 +129,7 @@ export WEBSITE_GITHASH="$WEBSITE_TAG"
 export MIXER_GITHASH="$MIXER_TAG"
 
 # Run skaffold render from the repository root
-cd "$ROOT"./
+cd "$ROOT"
 
 if [[ -n "$OUTPUT_DIR" ]]; then
   mkdir -p "$OUTPUT_DIR"
