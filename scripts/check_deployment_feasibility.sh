@@ -108,7 +108,7 @@ if [[ -z "$CONTEXT" ]]; then
                 
                 if (( NUM_MATCHES > 1 )); then
                     log_warn "Multiple matching contexts found for project '$PROJECT_ID':"
-                    echo "$MATCHING_CONTEXTS" | sed 's/^/  - /' >&2
+                    echo "  - ${MATCHING_CONTEXTS//$'\n'/$'\n  - '}" >&2
                     log_warn "Defaulting to the first one: '$CONTEXT'"
                 else
                     log_success "Auto-detected kubectl context: '$CONTEXT'"

@@ -119,7 +119,7 @@ AVAILABLE_PROFILES=$(yq eval '.profiles[].name' "$ROOT/skaffold.yaml" 2>/dev/nul
 if ! echo "$AVAILABLE_PROFILES" | grep -Fxq "$PROFILE"; then
   log_error "Unknown Skaffold profile: '$TARGET_ENV'"
   echo "Available profiles in skaffold.yaml:" >&2
-  echo "$AVAILABLE_PROFILES" | sed 's/^/  - /' >&2
+  echo "  - ${AVAILABLE_PROFILES//$'\n'/$'\n  - '}" >&2
   exit 1
 fi
 
@@ -129,7 +129,7 @@ export WEBSITE_GITHASH="$WEBSITE_TAG"
 export MIXER_GITHASH="$MIXER_TAG"
 
 # Run skaffold render from the repository root
-cd "$ROOT"
+cd "$ROOT"./
 
 if [[ -n "$OUTPUT_DIR" ]]; then
   mkdir -p "$OUTPUT_DIR"
