@@ -179,7 +179,8 @@ function App(): ReactElement {
       >
         <h1>Data Download Tool</h1>
         <p>
-          The Data Download Tool allows you to download any a variable for any available geographic regions.
+          Download data for any available geographic region, one variable at a
+          time.
         </p>
 
         <FormBox flexDirection="column">
