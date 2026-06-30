@@ -59,7 +59,7 @@ class TestCroissantMetadata(unittest.TestCase):
     self.assertEqual(result.get("url"),
                      f"https://datacommons.org/browser/{TEST_DATASET_DCID}")
     self.assertEqual(result.get("conformsTo"),
-                     "http://mlcommons.org/croissant/1.0")
+                     "http://mlcommons.org/croissant/1.1")
     self.assertIn("@context", result)
     self.assertEqual(
         result.get("publisher"), {
@@ -153,7 +153,7 @@ class TestCroissantMetadata(unittest.TestCase):
         })
     self.assertIn("@context", result)
     self.assertEqual(result.get("conformsTo"),
-                     "http://mlcommons.org/croissant/1.0")
+                     "http://mlcommons.org/croissant/1.1")
 
   @patch('server.lib.croissant_metadata.dc.v2node')
   @patch('server.lib.croissant_metadata.feature_flags_lib.is_feature_enabled')

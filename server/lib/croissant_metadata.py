@@ -13,10 +13,12 @@
 # limitations under the License.
 
 import logging
-import server.lib.feature_flags as feature_flags_lib
-import server.services.datacommons as dc
-import server.lib.fetch as fetch
+
 import requests
+
+import server.lib.feature_flags as feature_flags_lib
+import server.lib.fetch as fetch
+import server.services.datacommons as dc
 
 
 def build_dataset_metadata(dcid: str) -> dict:
@@ -80,7 +82,7 @@ def build_dataset_metadata(dcid: str) -> dict:
       "@type":
           "Dataset",
       "conformsTo":
-          "http://mlcommons.org/croissant/1.0",
+          "http://mlcommons.org/croissant/1.1",
       "description":
           f"This dataset contains all the data related to dataset {dcid}",
       "url":
@@ -131,7 +133,6 @@ def build_dataset_metadata(dcid: str) -> dict:
             source_obj["url"] = s_url_nodes[0].get("value")
         except (ValueError, requests.exceptions.RequestException) as e:
           logging.warning("Error fetching source URL for %s: %s", s_dcid, e)
-          # Continue without the URL
 
       json_ld_data["creator"] = [source_obj]
 
