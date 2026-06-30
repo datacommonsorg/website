@@ -18,20 +18,16 @@
  * Component for rendering the preview of the csv to be download
  */
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Card } from "reactstrap";
+import { Button } from "reactstrap";
 
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
-import {
-  DATE_ALL,
-  DATE_LATEST,
-  DownloadDateTypes,
-  DownloadOptions,
-} from "./page";
+import { DATE_ALL, DownloadOptions } from "./context";
 
 const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
@@ -48,6 +44,7 @@ export function Preview(props: PreviewProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const csvReqPayload = useRef({});
   const prevOptions = useRef(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (
@@ -81,7 +78,18 @@ export function Preview(props: PreviewProps): JSX.Element {
     cardClassName += " preview-disabled";
   }
   return (
-    <Card id={SECTION_ID} className={cardClassName}>
+    <div
+      id={SECTION_ID}
+      className={cardClassName}
+      css={css`
+        max-width: 100%;
+        overflow-scroll;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+      `}
+    >
       {errorMessage && <div>{errorMessage}</div>}
       {showPreview && (
         <>
@@ -116,14 +124,14 @@ export function Preview(props: PreviewProps): JSX.Element {
             disabled={props.isDisabled}
             onClick={onDownloadClicked}
           >
-            Download
+            Download CSV
           </Button>
         </>
       )}
       <div className="screen">
         <div id="spinner"></div>
       </div>
-    </Card>
+    </div>
   );
 
   function getCsvReqPayload(): {
@@ -134,24 +142,13 @@ export function Preview(props: PreviewProps): JSX.Element {
     minDate: string;
     maxDate: string;
   } {
-    // When both minDate and maxDate are set as "latest", the api will get the
-    // data for the latest date.
-    let minDate = props.selectedOptions.minDate;
-    let maxDate = props.selectedOptions.maxDate;
-    if (props.selectedOptions.dateType === DownloadDateTypes.ALL) {
-      minDate = DATE_ALL;
-      maxDate = DATE_ALL;
-    } else if (props.selectedOptions.dateType === DownloadDateTypes.LATEST) {
-      minDate = DATE_LATEST;
-      maxDate = DATE_LATEST;
-    }
     return {
       parentPlace: props.selectedOptions.selectedPlace.dcid,
       childType: props.selectedOptions.enclosedPlaceType,
       statVars: Object.keys(props.selectedOptions.selectedStatVars),
       facetMap: props.selectedOptions.selectedFacets,
-      minDate,
-      maxDate,
+      minDate: DATE_ALL, // By default sets to all available dates
+      maxDate: DATE_ALL,
     };
   }
 

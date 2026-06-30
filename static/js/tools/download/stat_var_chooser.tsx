@@ -18,19 +18,7 @@
  * Component to pick statvar for download tool.
  */
 
-import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Container,
-  FormGroup,
-  Input,
-  Label,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-} from "reactstrap";
+import React, { useEffect, useState } from "react";
 
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
@@ -51,25 +39,14 @@ interface StatVarChooserProps {
   openSvHierarchyModal: boolean;
 }
 
-const EMPTY_SV_AND_INFO: { dcid: string; info: StatVarInfo } = {
-  dcid: "",
-  info: {},
-};
-const MAX_SV = 5;
-
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const [samplePlaces, setSamplePlaces] = useState([]);
-  // extraStatVar holds a stat var that is selected after the max number of
-  // selected stat vars has been reached. This stat var will either be removed
-  // or used to replace another selected stat var.
-  const [extraStatVar, setExtraStatVar] = useState(EMPTY_SV_AND_INFO);
-  const [modalSelection, setModalSelection] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const modalSvOrder = useRef(Object.keys(props.statVars));
+  const [statVarWidgetIsCollapsed, setStatVarWidgetIsCollapsed] =
+    useState(true);
 
   useEffect(() => {
-    modalSvOrder.current = Object.keys(props.statVars);
-  }, [props.statVars]);
+    setStatVarWidgetIsCollapsed(!props.enclosedPlaceType);
+  }, [props.enclosedPlaceType]);
 
   useEffect(() => {
     if (!props.placeDcid || !props.enclosedPlaceType) {
@@ -90,119 +67,32 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       });
   }, [props.placeDcid, props.enclosedPlaceType]);
 
-  const selectedSVs = { ...props.statVars };
-  // although we don't propagate the extra stat var selection to the rest of the
-  // tool, we do need to pass it to the widget because the StatVarHierarchy has
-  // it showing as selected.
-  if (!_.isEmpty(extraStatVar.dcid)) {
-    selectedSVs[extraStatVar.dcid] = extraStatVar.info;
-  }
-
   return (
-    <>
-      <StatVarWidget
-        openSvHierarchyModal={props.openSvHierarchyModal}
-        openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
-        collapsible={false}
-        svHierarchyType={StatVarHierarchyType.DOWNLOAD}
-        sampleEntities={samplePlaces}
-        deselectSVs={(svList: string[]): void =>
-          svList.forEach((sv) => {
-            props.onStatVarRemoved(sv);
-          })
-        }
-        selectedSVs={selectedSVs}
-        selectSV={(sv): void => selectSV(sv)}
-      />
-      {/* Modal for selecting stat var to replace when too many are selected */}
-      <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
-        <ModalHeader toggle={closeModal}>
-          Only 5 Statistical Variables Supported
-        </ModalHeader>
-        <ModalBody>
-          <Container>
-            <div>
-              You selected:{" "}
-              <b>{extraStatVar.info.title || extraStatVar.dcid}</b>
-            </div>
-            <div className="radio-selection-label">
-              Please choose a statistical variable to replace:
-            </div>
-            <div className="radio-selection-section">
-              {modalSvOrder.current.map((sv, idx) => {
-                return (
-                  <FormGroup key={sv} radio="true" row>
-                    <Label radio="true">
-                      <Input
-                        type="radio"
-                        name="statvar"
-                        defaultChecked={
-                          (_.isEmpty(modalSelection) && idx === 0) ||
-                          modalSelection === sv
-                        }
-                        onClick={(): void => setModalSelection(sv)}
-                      />
-                      {sv in props.statVars
-                        ? props.statVars[sv].title || sv
-                        : sv}
-                    </Label>
-                  </FormGroup>
-                );
-              })}
-            </div>
-          </Container>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={(): void => confirmStatVars()}>
-            Confirm
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </>
+    <StatVarWidget
+      openSvHierarchyModal={props.openSvHierarchyModal}
+      openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
+      collapsible={true}
+      svHierarchyType={StatVarHierarchyType.DOWNLOAD}
+      sampleEntities={samplePlaces}
+      deselectSVs={(svList: string[]): void =>
+        svList.forEach((sv) => {
+          props.onStatVarRemoved(sv);
+        })
+      }
+      selectedSVs={props.statVars}
+      selectSV={(sv): void => selectSV(sv)}
+      isCollapsedOverride={statVarWidgetIsCollapsed}
+      setIsCollapsedOverride={setStatVarWidgetIsCollapsed}
+    />
   );
 
-  /**
-   * Close the modal
-   */
-  function closeModal(): void {
-    setExtraStatVar(EMPTY_SV_AND_INFO);
-    setModalSelection("");
-    setModalOpen(false);
-  }
-
-  /**
-   * Confirms the variable to replace in the modal.
-   */
-  function confirmStatVars(): void {
-    const svToRemove = _.isEmpty(modalSelection)
-      ? modalSvOrder.current[0]
-      : modalSelection;
-    props.onStatVarRemoved(svToRemove);
-    props.onStatVarSelected(extraStatVar.dcid, extraStatVar.info);
-    closeModal();
-  }
-
-  /**
-   * Select a variable.
-   */
   function selectSV(sv: string): void {
     getStatVarInfo([sv])
       .then((svInfo) => {
-        const selectedSVInfo = svInfo[sv] || {};
-        if (Object.keys(props.statVars).length >= MAX_SV) {
-          setExtraStatVar({ dcid: sv, info: selectedSVInfo });
-          setModalOpen(true);
-        } else {
-          props.onStatVarSelected(sv, selectedSVInfo);
-        }
+        props.onStatVarSelected(sv, svInfo[sv] || {});
       })
       .catch(() => {
-        if (Object.keys(props.statVars).length >= MAX_SV) {
-          setExtraStatVar({ dcid: sv, info: {} });
-          setModalOpen(true);
-        } else {
-          props.onStatVarSelected(sv, {});
-        }
+        props.onStatVarSelected(sv, {});
       });
   }
 }
