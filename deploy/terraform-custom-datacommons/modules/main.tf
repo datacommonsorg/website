@@ -45,6 +45,45 @@ resource "google_redis_instance" "redis_instance" {
   replica_count           = var.redis_replica_count
 }
 
+# Enable Service Networking API for private IP
+resource "google_project_service" "servicenetworking" {
+  count   = var.mysql_use_private_ip ? 1 : 0
+  service = "servicenetworking.googleapis.com"
+
+  disable_on_destroy = false
+}
+
+# Allocate IP address range for private service connection
+resource "google_compute_global_address" "private_ip_address" {
+  count         = var.mysql_use_private_ip ? 1 : 0
+  name          = "${var.namespace}-cloudsql-private-ip"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = var.mysql_private_ip_prefix_length
+  network       = data.google_compute_network.default.id
+}
+
+# Create private VPC connection for Cloud SQL
+resource "google_service_networking_connection" "private_vpc_connection" {
+  count                   = var.mysql_use_private_ip ? 1 : 0
+  network                 = data.google_compute_network.default.id
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.private_ip_address[0].name]
+
+  depends_on = [google_project_service.servicenetworking]
+}
+
+# Configure peering routes for private connection
+resource "google_compute_network_peering_routes_config" "cloudsql_peering_routes" {
+  count   = var.mysql_use_private_ip ? 1 : 0
+  peering = google_service_networking_connection.private_vpc_connection[0].peering
+  network = data.google_compute_network.default.name
+  project = var.project_id
+
+  export_custom_routes = true
+  import_custom_routes = true
+}
+
 # Create MySQL instance
 resource "google_sql_database_instance" "mysql_instance" {
   name             = "${var.namespace}-${var.mysql_instance_name}"
@@ -62,7 +101,12 @@ resource "google_sql_database_instance" "mysql_instance" {
     }
 
     ip_configuration {
-      ipv4_enabled = true
+      ipv4_enabled    = !var.mysql_use_private_ip
+      private_network = var.mysql_use_private_ip ? data.google_compute_network.default.id : null
+      # Use the allocated IP range for private connections
+      allocated_ip_range = var.mysql_use_private_ip ? google_compute_global_address.private_ip_address[0].name : null
+      # Enable private path for better performance with Google Cloud services
+      enable_private_path_for_google_cloud_services = var.mysql_use_private_ip
     }
 
     disk_size = var.mysql_storage_size_gb
@@ -70,6 +114,11 @@ resource "google_sql_database_instance" "mysql_instance" {
   }
 
   deletion_protection = var.mysql_deletion_protection
+
+  depends_on = [
+    google_service_networking_connection.private_vpc_connection,
+    google_compute_network_peering_routes_config.cloudsql_peering_routes
+  ]
 }
 
 # Generate random mysql password
