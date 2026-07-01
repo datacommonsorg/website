@@ -23,6 +23,7 @@ from flask import g
 from flask import render_template
 
 import server.lib.croissant_metadata as croissant_metadata_lib
+import server.lib.fetch as fetch
 import server.lib.render as lib_render
 import server.lib.shared as shared_api
 
@@ -42,14 +43,20 @@ def bio_browser_main():
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
   node_name = dcid
+  node_types = []
   try:
-    api_name = shared_api.names([dcid]).get(dcid)
-    if api_name:
-      node_name = api_name
+    node_info = fetch.multiple_property_values([dcid], ["name", "typeOf"])
+    dcid_info = node_info.get(dcid, {})
+    names = dcid_info.get("name", [])
+    if names:
+      node_name = names[0]
+    node_types = dcid_info.get("typeOf", [])
   except Exception as e:
     logging.info(e)
 
-  json_ld_data = croissant_metadata_lib.build_dataset_metadata(dcid)
+  json_ld_data = {}
+  if 'Dataset' in node_types:
+    json_ld_data = croissant_metadata_lib.build_dataset_metadata(dcid)
 
   return render_template('/browser/node.html',
                          dcid=dcid,

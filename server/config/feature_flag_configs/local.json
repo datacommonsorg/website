@@ -1,11 +1,5 @@
 [
   {
-    "name": "show_croissant_json_ld",
-    "enabled": true,
-    "owner": "dtulsyan",
-    "description": "Enables Croissant JSON-LD metadata on dataset pages."
-  },
-  {
     "name": "autocomplete",
     "enabled": true,
     "owner": "gmechali",
@@ -94,6 +88,12 @@
     "enabled": false,
     "owner": "javiervazquez",
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
+  },
+  {
+    "name": "show_croissant_json_ld",
+    "enabled": true,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD metadata on dataset pages."
   },
   {
     "name": "use_v2_api",

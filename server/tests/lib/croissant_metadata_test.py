@@ -22,31 +22,17 @@ TEST_DATASET_DCID = "dc/d/UsCensusBureau_AmericanCommunitySurveyAcs"
 
 class TestCroissantMetadata(unittest.TestCase):
 
-  @patch('server.lib.croissant_metadata.fetch.property_values')
-  def test_not_a_dataset(self, mock_property_values):
-    # Test that if a node is not a Dataset node (e.g. it's a Country), it instantly returns {}
-    mock_property_values.return_value = {TEST_DATASET_DCID: ["Country"]}
-    result = build_dataset_metadata(TEST_DATASET_DCID)
-    self.assertEqual(result, {})
-
   @patch('server.lib.croissant_metadata.feature_flags_lib.is_feature_enabled')
-  @patch('server.lib.croissant_metadata.fetch.property_values')
-  def test_feature_flag_disabled(self, mock_property_values,
-                                 mock_is_feature_enabled):
+  def test_feature_flag_disabled(self, mock_is_feature_enabled):
     # Test that if the croissant feature flag is off, it returns {}
-    mock_property_values.return_value = {TEST_DATASET_DCID: ["Dataset"]}
     mock_is_feature_enabled.return_value = False
     result = build_dataset_metadata(TEST_DATASET_DCID)
     self.assertEqual(result, {})
 
   @patch('server.lib.croissant_metadata.dc.v2node')
   @patch('server.lib.croissant_metadata.feature_flags_lib.is_feature_enabled')
-  @patch('server.lib.croissant_metadata.fetch.property_values')
-  def test_missing_properties_handled_gracefully(self, mock_property_values,
-                                                 mock_is_feature_enabled,
+  def test_missing_properties_handled_gracefully(self, mock_is_feature_enabled,
                                                  mock_v2node):
-    # Test the relaxed logic: missing properties don't cause it to return {}, they just aren't populated
-    mock_property_values.return_value = {TEST_DATASET_DCID: ["Dataset"]}
     mock_is_feature_enabled.return_value = True
 
     # Empty node data, no name/desc/license/source
@@ -79,11 +65,8 @@ class TestCroissantMetadata(unittest.TestCase):
 
   @patch('server.lib.croissant_metadata.dc.v2node')
   @patch('server.lib.croissant_metadata.feature_flags_lib.is_feature_enabled')
-  @patch('server.lib.croissant_metadata.fetch.property_values')
-  def test_success(self, mock_property_values, mock_is_feature_enabled,
-                   mock_v2node):
+  def test_success(self, mock_is_feature_enabled, mock_v2node):
     # Test a perfect flow with all metadata present
-    mock_property_values.return_value = {TEST_DATASET_DCID: ["Dataset"]}
     mock_is_feature_enabled.return_value = True
 
     def mock_v2node_side_effect(dcids, prop):
@@ -157,11 +140,8 @@ class TestCroissantMetadata(unittest.TestCase):
 
   @patch('server.lib.croissant_metadata.dc.v2node')
   @patch('server.lib.croissant_metadata.feature_flags_lib.is_feature_enabled')
-  @patch('server.lib.croissant_metadata.fetch.property_values')
-  def test_api_exception(self, mock_property_values, mock_is_feature_enabled,
-                         mock_v2node):
+  def test_api_exception(self, mock_is_feature_enabled, mock_v2node):
     # Test that exceptions during data fetching are handled by returning {}
-    mock_property_values.return_value = {TEST_DATASET_DCID: ["Dataset"]}
     mock_is_feature_enabled.return_value = True
 
     mock_v2node.side_effect = ValueError("API Error")

@@ -28,11 +28,6 @@ def build_dataset_metadata(dcid: str) -> dict:
       feature_flags_lib.CROISSANT_JSON_LD_FEATURE):
     return {}
 
-  # Verify the node is actually a Dataset node
-  node_types = fetch.property_values([dcid], 'typeOf').get(dcid, [])
-  if 'Dataset' not in node_types:
-    return {}
-
   json_ld_data = {
       "@context": {
           "@language": "en",
