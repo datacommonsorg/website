@@ -16,18 +16,12 @@ import logging
 
 import requests
 
-import server.lib.feature_flags as feature_flags_lib
 import server.lib.fetch as fetch
 import server.services.datacommons as dc
 
 
 def build_dataset_metadata(dcid: str) -> dict:
   """Builds a Croissant JSON-LD dictionary for a Dataset node."""
-
-  if not feature_flags_lib.is_feature_enabled(
-      feature_flags_lib.CROISSANT_JSON_LD_FEATURE):
-    return {}
-
   json_ld_data = {
       "@context": {
           "@language": "en",
@@ -90,7 +84,7 @@ def build_dataset_metadata(dcid: str) -> dict:
   }
 
   try:
-    resp = dc.v2node([dcid], "->[name,description,license,source]")
+    resp = dc.v2node([dcid], "->[name,description,license,isPartOf]")
     data = (resp.get("data") or {}).get(dcid) or {}
     arcs = data.get("arcs") or {}
 
@@ -109,7 +103,7 @@ def build_dataset_metadata(dcid: str) -> dict:
       json_ld_data["license"] = license_nodes[0].get("value")
 
     # Fetch source
-    source_nodes = (arcs.get("source") or {}).get("nodes", [])
+    source_nodes = (arcs.get("isPartOf") or {}).get("nodes", [])
     if source_nodes:
       s_node = source_nodes[0]
       s_name = s_node.get("name", s_node.get("value", ""))
@@ -120,12 +114,9 @@ def build_dataset_metadata(dcid: str) -> dict:
       # Fetch its external URL
       if s_dcid:
         try:
-          s_resp = dc.v2node([s_dcid], "->url")
-          s_url_nodes = ((((s_resp.get("data") or {}).get(s_dcid) or
-                           {}).get("arcs") or {}).get("url") or
-                         {}).get("nodes", [])
-          if s_url_nodes:
-            source_obj["url"] = s_url_nodes[0].get("value")
+          urls = fetch.property_values([s_dcid], "url")
+          if urls.get(s_dcid):
+            source_obj["url"] = urls[s_dcid][0]
         except (ValueError, requests.exceptions.RequestException) as e:
           logging.warning("Error fetching source URL for %s: %s", s_dcid, e)
 
