@@ -83,38 +83,6 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Employed"
-                    ],
-                    "title": "Population With Current Employment in Cities of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Employed"
-                    ],
-                    "title": "Population With Current Employment in Cities of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population With Current Employment in Cities of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
@@ -144,38 +112,6 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in Cities of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in Cities of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population in the Labor Force in Cities of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female",
                       "Count_Person_InLaborForce_Male"
@@ -188,70 +124,6 @@
             ],
             "denom": "Count_Person",
             "title": "Labor Force by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_InLaborForce_Female"
-                    ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_InLaborForce_Female"
-                    ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_InLaborForce_Male"
-                    ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_InLaborForce_Male"
-                    ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County"
           },
           {
             "columns": [
@@ -323,38 +195,6 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Cities of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Cities of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
-            "title": "Unemployment Rate in Cities of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
@@ -378,38 +218,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Unemployed"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Unemployed"
-                    ],
-                    "title": "Population: Unemployed in Cities of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Unemployed"
-                    ],
-                    "title": "Population: Unemployed in Cities of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Unemployed in Cities of Placer County"
           },
           {
             "columns": [
@@ -586,9 +394,6 @@
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "County": "City"
-      },
       "placeDcid": [
         "geoId/06061"
       ]
@@ -613,192 +418,7 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {
-      "City": [
-        {
-          "dcid": "geoId/0601276",
-          "name": "Alta",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0603204",
-          "name": "Auburn",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0611418",
-          "name": "Carnelian Bay",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0612216",
-          "name": "Cedar Flat",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0614498",
-          "name": "Colfax",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0619455",
-          "name": "Dollar Point",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0620298",
-          "name": "Dutch Flat",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0624834",
-          "name": "Foresthill",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0630693",
-          "name": "Granite Bay",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0638548",
-          "name": "Kings Beach",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0638604",
-          "name": "Kingvale",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0641474",
-          "name": "Lincoln",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0643140",
-          "name": "Loomis",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0646632",
-          "name": "Meadow Vista",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0651000",
-          "name": "Newcastle",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0651637",
-          "name": "North Auburn",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0656546",
-          "name": "Penryn",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0662364",
-          "name": "Rocklin",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0662664",
-          "name": "Rocklin",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0662938",
-          "name": "Roseville",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0671414",
-          "name": "Sheridan",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0676015",
-          "name": "Sunnyside-Tahoe City",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0677700",
-          "name": "Tahoe Vista",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0677728",
-          "name": "Tahoma",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q5245735",
-          "name": "Deadwood",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q822230",
-          "name": "Squaw Valley",
-          "types": [
-            "City"
-          ]
-        }
-      ]
-    },
+    "childPlaces": {},
     "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
