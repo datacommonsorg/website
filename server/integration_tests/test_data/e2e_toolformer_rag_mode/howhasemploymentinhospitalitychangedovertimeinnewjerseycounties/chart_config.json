@@ -33,7 +33,7 @@
                       "geoId/34001"
                     ],
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices21_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices21_1429745441"
                     ],
                     "title": "Accommodation/Food Industry Workers",
                     "type": "LINE"
@@ -51,7 +51,7 @@
                   {
                     "placeDcidOverride": "geoId/34025",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Monmouth County",
                     "type": "LINE"
@@ -63,7 +63,7 @@
                   {
                     "placeDcidOverride": "geoId/34003",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Bergen County",
                     "type": "LINE"
@@ -75,7 +75,7 @@
                   {
                     "placeDcidOverride": "geoId/34017",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Hudson County",
                     "type": "LINE"
@@ -87,7 +87,7 @@
                   {
                     "placeDcidOverride": "geoId/34013",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Essex County",
                     "type": "LINE"
@@ -99,7 +99,7 @@
                   {
                     "placeDcidOverride": "geoId/34029",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Ocean County",
                     "type": "LINE"
@@ -111,7 +111,7 @@
                   {
                     "placeDcidOverride": "geoId/34027",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Morris County",
                     "type": "LINE"
@@ -123,7 +123,7 @@
                   {
                     "placeDcidOverride": "geoId/34023",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Middlesex County",
                     "type": "LINE"
@@ -135,7 +135,7 @@
                   {
                     "placeDcidOverride": "geoId/34015",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Gloucester County",
                     "type": "LINE"
@@ -147,7 +147,7 @@
                   {
                     "placeDcidOverride": "geoId/34035",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Somerset County",
                     "type": "LINE"
@@ -159,7 +159,7 @@
                   {
                     "placeDcidOverride": "geoId/34005",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Burlington County",
                     "type": "LINE"
@@ -171,7 +171,7 @@
                   {
                     "placeDcidOverride": "geoId/34031",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Passaic County",
                     "type": "LINE"
@@ -183,7 +183,7 @@
                   {
                     "placeDcidOverride": "geoId/34021",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Mercer County",
                     "type": "LINE"
@@ -195,7 +195,7 @@
                   {
                     "placeDcidOverride": "geoId/34007",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Camden County",
                     "type": "LINE"
@@ -207,7 +207,7 @@
                   {
                     "placeDcidOverride": "geoId/34009",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Cape May County",
                     "type": "LINE"
@@ -219,7 +219,7 @@
                   {
                     "placeDcidOverride": "geoId/34039",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Union County",
                     "type": "LINE"
@@ -231,7 +231,7 @@
                   {
                     "placeDcidOverride": "geoId/34037",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Sussex County",
                     "type": "LINE"
@@ -243,7 +243,7 @@
                   {
                     "placeDcidOverride": "geoId/34019",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Hunterdon County",
                     "type": "LINE"
@@ -255,7 +255,7 @@
                   {
                     "placeDcidOverride": "geoId/34011",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Cumberland County",
                     "type": "LINE"
@@ -267,7 +267,7 @@
                   {
                     "placeDcidOverride": "geoId/34041",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Warren County",
                     "type": "LINE"
@@ -279,7 +279,7 @@
                   {
                     "placeDcidOverride": "geoId/34033",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Salem County",
                     "type": "LINE"
@@ -291,7 +291,7 @@
                   {
                     "placeDcidOverride": "geoId/34001",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441"
                     ],
                     "title": "Atlantic County",
                     "type": "LINE"
@@ -309,7 +309,7 @@
                   {
                     "placeDcidOverride": "geoId/34015",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Gloucester County",
                     "type": "LINE"
@@ -321,7 +321,7 @@
                   {
                     "placeDcidOverride": "geoId/34017",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Hudson County",
                     "type": "LINE"
@@ -333,7 +333,7 @@
                   {
                     "placeDcidOverride": "geoId/34029",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Ocean County",
                     "type": "LINE"
@@ -345,7 +345,7 @@
                   {
                     "placeDcidOverride": "geoId/34035",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Somerset County",
                     "type": "LINE"
@@ -357,7 +357,7 @@
                   {
                     "placeDcidOverride": "geoId/34025",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Monmouth County",
                     "type": "LINE"
@@ -369,7 +369,7 @@
                   {
                     "placeDcidOverride": "geoId/34037",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Sussex County",
                     "type": "LINE"
@@ -381,7 +381,7 @@
                   {
                     "placeDcidOverride": "geoId/34019",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Hunterdon County",
                     "type": "LINE"
@@ -393,7 +393,7 @@
                   {
                     "placeDcidOverride": "geoId/34027",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Morris County",
                     "type": "LINE"
@@ -405,7 +405,7 @@
                   {
                     "placeDcidOverride": "geoId/34013",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Essex County",
                     "type": "LINE"
@@ -417,7 +417,7 @@
                   {
                     "placeDcidOverride": "geoId/34003",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Bergen County",
                     "type": "LINE"
@@ -429,7 +429,7 @@
                   {
                     "placeDcidOverride": "geoId/34031",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Passaic County",
                     "type": "LINE"
@@ -441,7 +441,7 @@
                   {
                     "placeDcidOverride": "geoId/34009",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Cape May County",
                     "type": "LINE"
@@ -453,7 +453,7 @@
                   {
                     "placeDcidOverride": "geoId/34021",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Mercer County",
                     "type": "LINE"
@@ -465,7 +465,7 @@
                   {
                     "placeDcidOverride": "geoId/34005",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Burlington County",
                     "type": "LINE"
@@ -477,7 +477,7 @@
                   {
                     "placeDcidOverride": "geoId/34011",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Cumberland County",
                     "type": "LINE"
@@ -489,7 +489,7 @@
                   {
                     "placeDcidOverride": "geoId/34023",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Middlesex County",
                     "type": "LINE"
@@ -501,7 +501,7 @@
                   {
                     "placeDcidOverride": "geoId/34007",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Camden County",
                     "type": "LINE"
@@ -513,7 +513,7 @@
                   {
                     "placeDcidOverride": "geoId/34039",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Union County",
                     "type": "LINE"
@@ -525,7 +525,7 @@
                   {
                     "placeDcidOverride": "geoId/34041",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Warren County",
                     "type": "LINE"
@@ -537,7 +537,7 @@
                   {
                     "placeDcidOverride": "geoId/34033",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Salem County",
                     "type": "LINE"
@@ -549,7 +549,7 @@
                   {
                     "placeDcidOverride": "geoId/34001",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441"
                     ],
                     "title": "Atlantic County",
                     "type": "LINE"
@@ -567,7 +567,7 @@
                   {
                     "placeDcidOverride": "geoId/34009",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Cape May County",
                     "type": "LINE"
@@ -579,7 +579,7 @@
                   {
                     "placeDcidOverride": "geoId/34025",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Monmouth County",
                     "type": "LINE"
@@ -591,7 +591,7 @@
                   {
                     "placeDcidOverride": "geoId/34015",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Gloucester County",
                     "type": "LINE"
@@ -603,7 +603,7 @@
                   {
                     "placeDcidOverride": "geoId/34027",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Morris County",
                     "type": "LINE"
@@ -615,7 +615,7 @@
                   {
                     "placeDcidOverride": "geoId/34035",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Somerset County",
                     "type": "LINE"
@@ -627,7 +627,7 @@
                   {
                     "placeDcidOverride": "geoId/34017",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Hudson County",
                     "type": "LINE"
@@ -639,7 +639,7 @@
                   {
                     "placeDcidOverride": "geoId/34029",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Ocean County",
                     "type": "LINE"
@@ -651,7 +651,7 @@
                   {
                     "placeDcidOverride": "geoId/34003",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Bergen County",
                     "type": "LINE"
@@ -663,7 +663,7 @@
                   {
                     "placeDcidOverride": "geoId/34037",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Sussex County",
                     "type": "LINE"
@@ -675,7 +675,7 @@
                   {
                     "placeDcidOverride": "geoId/34019",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Hunterdon County",
                     "type": "LINE"
@@ -687,7 +687,7 @@
                   {
                     "placeDcidOverride": "geoId/34013",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Essex County",
                     "type": "LINE"
@@ -699,7 +699,7 @@
                   {
                     "placeDcidOverride": "geoId/34021",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Mercer County",
                     "type": "LINE"
@@ -711,7 +711,7 @@
                   {
                     "placeDcidOverride": "geoId/34005",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Burlington County",
                     "type": "LINE"
@@ -723,7 +723,7 @@
                   {
                     "placeDcidOverride": "geoId/34031",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Passaic County",
                     "type": "LINE"
@@ -735,7 +735,7 @@
                   {
                     "placeDcidOverride": "geoId/34023",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Middlesex County",
                     "type": "LINE"
@@ -747,7 +747,7 @@
                   {
                     "placeDcidOverride": "geoId/34007",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Camden County",
                     "type": "LINE"
@@ -759,7 +759,7 @@
                   {
                     "placeDcidOverride": "geoId/34011",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Cumberland County",
                     "type": "LINE"
@@ -771,7 +771,7 @@
                   {
                     "placeDcidOverride": "geoId/34039",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Union County",
                     "type": "LINE"
@@ -783,7 +783,7 @@
                   {
                     "placeDcidOverride": "geoId/34041",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Warren County",
                     "type": "LINE"
@@ -795,7 +795,7 @@
                   {
                     "placeDcidOverride": "geoId/34033",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Salem County",
                     "type": "LINE"
@@ -807,7 +807,7 @@
                   {
                     "placeDcidOverride": "geoId/34001",
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
                     "title": "Atlantic County",
                     "type": "LINE"
@@ -820,23 +820,23 @@
           }
         ],
         "statVarSpec": {
-          "Count_Worker_NAICSAccommodationFoodServices21_746674784": {
-            "facetId": "746674784",
+          "Count_Worker_NAICSAccommodationFoodServices21_1429745441": {
+            "facetId": "1429745441",
             "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
-          "Count_Worker_NAICSAccommodationFoodServices_growth_abs_746674784": {
-            "facetId": "746674784",
+          "Count_Worker_NAICSAccommodationFoodServices_growth_abs_1429745441": {
+            "facetId": "1429745441",
             "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
-          "Count_Worker_NAICSAccommodationFoodServices_growth_pc_746674784": {
-            "facetId": "746674784",
+          "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441": {
+            "facetId": "1429745441",
             "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
-          "Count_Worker_NAICSAccommodationFoodServices_growth_pct_746674784": {
-            "facetId": "746674784",
+          "Count_Worker_NAICSAccommodationFoodServices_growth_pct_1429745441": {
+            "facetId": "1429745441",
             "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           }
