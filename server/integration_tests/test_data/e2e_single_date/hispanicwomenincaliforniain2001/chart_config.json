@@ -13,7 +13,7 @@
                       "highlightDate": "2001"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_HispanicOrLatino_2001_1357561940"
+                      "Count_Person_Female_HispanicOrLatino_2001_3545552300"
                     ],
                     "title": "Hispanic Women in California",
                     "type": "LINE"
@@ -182,7 +182,7 @@
                       "highlightDate": "2001"
                     },
                     "statVarKey": [
-                      "Count_Person_HispanicOrLatino_2001_3491695796"
+                      "Count_Person_HispanicOrLatino_2001_1541763368"
                     ],
                     "title": "Hispanic Population in California",
                     "type": "LINE"
@@ -351,7 +351,7 @@
                       "highlightDate": "2001"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_NotHispanicOrLatino_2001_1357561940"
+                      "Count_Person_Female_NotHispanicOrLatino_2001_3545552300"
                     ],
                     "title": "Non Hispanic Women in California",
                     "type": "LINE"
@@ -415,7 +415,7 @@
                       "highlightDate": "2001"
                     },
                     "statVarKey": [
-                      "Count_Person_Male_HispanicOrLatino_2001_1357561940"
+                      "Count_Person_Male_HispanicOrLatino_2001_3545552300"
                     ],
                     "title": "Hispanic Men in California",
                     "type": "LINE"
@@ -677,9 +677,9 @@
             "name": "Hispanic Women",
             "statVar": "Count_Person_Female_HispanicOrLatino"
           },
-          "Count_Person_Female_HispanicOrLatino_2001_1357561940": {
+          "Count_Person_Female_HispanicOrLatino_2001_3545552300": {
             "date": "2001",
-            "facetId": "1357561940",
+            "facetId": "3545552300",
             "name": "Hispanic Women",
             "statVar": "Count_Person_Female_HispanicOrLatino"
           },
@@ -688,9 +688,9 @@
             "name": "Non Hispanic Women",
             "statVar": "Count_Person_Female_NotHispanicOrLatino"
           },
-          "Count_Person_Female_NotHispanicOrLatino_2001_1357561940": {
+          "Count_Person_Female_NotHispanicOrLatino_2001_3545552300": {
             "date": "2001",
-            "facetId": "1357561940",
+            "facetId": "3545552300",
             "name": "Non Hispanic Women",
             "statVar": "Count_Person_Female_NotHispanicOrLatino"
           },
@@ -699,9 +699,9 @@
             "name": "Hispanic Population",
             "statVar": "Count_Person_HispanicOrLatino"
           },
-          "Count_Person_HispanicOrLatino_2001_3491695796": {
+          "Count_Person_HispanicOrLatino_2001_1541763368": {
             "date": "2001",
-            "facetId": "3491695796",
+            "facetId": "1541763368",
             "name": "Hispanic Population",
             "statVar": "Count_Person_HispanicOrLatino"
           },
@@ -710,9 +710,9 @@
             "name": "Hispanic Men",
             "statVar": "Count_Person_Male_HispanicOrLatino"
           },
-          "Count_Person_Male_HispanicOrLatino_2001_1357561940": {
+          "Count_Person_Male_HispanicOrLatino_2001_3545552300": {
             "date": "2001",
-            "facetId": "1357561940",
+            "facetId": "3545552300",
             "name": "Hispanic Men",
             "statVar": "Count_Person_Male_HispanicOrLatino"
           }
