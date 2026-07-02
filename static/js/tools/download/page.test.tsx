@@ -39,8 +39,6 @@ beforeEach(() => {
   window.location.hash = "";
 });
 
-
-
 async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
   // Wait for state updates
   await waitFor((): void => {

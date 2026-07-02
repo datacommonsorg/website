@@ -241,7 +241,6 @@ export function axiosMock(): void {
       data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });
 
-
   when(axios.get)
     .calledWith("/api/facets/within", {
       params: {
