@@ -42,6 +42,12 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
+    "name": "show_croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD metadata on dataset pages."
+  },
+  {
     "name": "data_overview",
     "enabled": false,
     "owner": "nick-next",

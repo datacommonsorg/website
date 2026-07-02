@@ -91,7 +91,7 @@
   },
   {
     "name": "show_croissant_json_ld",
-    "enabled": false,
+    "enabled": true,
     "owner": "dtulsyan",
     "description": "Enables Croissant JSON-LD metadata on dataset pages."
   },
