@@ -980,9 +980,9 @@ def _filter_series_dates_by_facet(series_dates_response: Dict,
 
   if "facets" in series_dates_response:
     series_dates_response["facets"] = {
-        fid: finfo
-        for fid, finfo in series_dates_response["facets"].items()
-        if fid in used_facets
+        facet_id: facet_info
+        for facet_id, facet_info in series_dates_response["facets"].items()
+        if facet_id in used_facets
     }
 
   return series_dates_response

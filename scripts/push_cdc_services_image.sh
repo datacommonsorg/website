@@ -29,8 +29,12 @@ fi
 
 set -x
 
+WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
+MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer)
+
 gcloud builds submit . \
   --async \
   --project=datcom-ci \
   --config=build/ci/cloudbuild.push_cdc_services_image.yaml \
-  --substitutions=_TAG=$IMAGE_TAG
+  --substitutions=_TAG=$IMAGE_TAG,_WEBSITE_HASH=$WEBSITE_HASH,_MIXER_HASH=$MIXER_HASH
+

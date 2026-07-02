@@ -79,15 +79,9 @@
   },
   {
     "name": "new_ranking_page",
-    "enabled": true,
+    "enabled": false,
     "owner": "juliawu",
     "description": "Enables the new ranking page UI"
-  },
-  {
-    "name": "nl_use_v2resolve",
-    "enabled": false,
-    "owner": "calinc",
-    "description": "Enables detect-and-fulfill to use v2resolve for statvar resolution instead of direct NL server calls."
   },
   {
     "name": "page_overview_ga",
@@ -103,7 +97,7 @@
   },
   {
     "name": "use_v2_resolve_for_nl_search_vars",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
   },

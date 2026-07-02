@@ -419,7 +419,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Enable the NL model.
   if app.config['ENABLE_MODEL']:
-    libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
+    # Skip backend check if we are resolving embeddings with Spanner, as the
+    # local NL server will not be running.
+    if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') != 'true':
+      libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
 
     # This also requires disaster and event routes.
     app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
