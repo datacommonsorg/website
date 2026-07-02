@@ -27,15 +27,12 @@ from server.webdriver.base_utils import wait_elem
 DOWNLOAD_URL = '/tools/download'
 SKIP_CHECK = 'SKIP_CHECK'
 TABLE_HEADERS = [
-    'placeDcid', 'placeName', 'Date:Median_Age_Person',
-    'Value:Median_Age_Person', 'Source:Median_Age_Person', 'Date:Count_Person',
-    'Value:Count_Person', 'Source:Count_Person'
+    'placeDcid', 'placeName', 'Date:Count_Person', 'Value:Count_Person',
+    'Source:Count_Person'
 ]
 # SKIP_CHECK for the values that change with each import.
 TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
-    'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
-    SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/popest.html'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
@@ -92,16 +89,10 @@ class DownloadTestMixin():
 
     # Choose stat var
     shared.click_sv_group(self.driver, "Demographics")
-    shared.click_el(
-        self.driver,
-        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
-
-    # Choose another stat var
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
-    # Click preview
+    # Wait for loading
     shared.wait_for_loading(self.driver)
-    shared.click_el(self.driver, (By.CLASS_NAME, 'get-data-button'))
 
     # Wait for table to load
     shared.wait_for_loading(self.driver)
@@ -139,8 +130,7 @@ class DownloadTestMixin():
                          f"Mismatch for header: {expected_header}")
 
     # Click download
-    shared.click_el(self.driver,
-                    (By.XPATH, '//*[@id="preview-section"]/button'))
+    shared.click_el(self.driver, (By.CLASS_NAME, 'download-button'))
 
     # Assert file downloaded
     num_tries = 0
