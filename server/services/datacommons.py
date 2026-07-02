@@ -17,6 +17,7 @@ import asyncio
 import collections
 import json
 import logging
+import math
 from typing import Dict, List
 
 from flask import current_app
@@ -456,18 +457,25 @@ def _get_all_values(resp, dcid, prop, key='dcid'):
 
 
 def _get_best_type(types_list):
-  """Selects the best type from a list of types based on PLACE_TYPE_RANK."""
+  """Selects the best type most specific place type from a list of types.
+
+  Prioritizes types with a lower non-zero rank in PLACE_TYPE_RANK (e.g. City
+  over State over Place), prioritizes standard names over 'AdministrativeArea'
+  names, and puts unrecognized types last.
+  """
   if not types_list:
     return ''
 
-  # Sort types by rank (highest rank first)
+  # Prefer known types over unknown types.
+  # Within known types, prefer smaller rank (more specific, e.g. City (30) < State (80) < Place (150))
   # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
   def sort_key(t):
-    rank = PLACE_TYPE_RANK.get(t, 0)
+    raw_rank = PLACE_TYPE_RANK.get(t, 0)
+    rank = raw_rank if raw_rank > 0 else math.inf
     is_admin = 1 if t.startswith('AdministrativeArea') else 0
-    return (rank, -is_admin)
+    return (rank, is_admin)
 
-  return sorted(types_list, key=sort_key, reverse=True)[0]
+  return sorted(types_list, key=sort_key, reverse=False)[0]
 
 
 def get_place_info(dcids: List[str]) -> Dict:

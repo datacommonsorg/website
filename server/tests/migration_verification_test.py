@@ -46,6 +46,10 @@ class TestMigrationVerification(unittest.TestCase):
                           "typeOf": {
                               "nodes": [{
                                   "dcid": "Country"
+                              }, {
+                                  "dcid": "Place"
+                              }, {
+                                  "dcid": "SomeCustomType"
                               }]
                           }
                       }
@@ -55,6 +59,10 @@ class TestMigrationVerification(unittest.TestCase):
                           "typeOf": {
                               "nodes": [{
                                   "dcid": "State"
+                              }, {
+                                  "dcid": "Place"
+                              }, {
+                                  "dcid": "SomeOtherCustomType"
                               }]
                           }
                       }
