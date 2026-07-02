@@ -241,36 +241,6 @@ export function axiosMock(): void {
       data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });
 
-  // get facets within place for Count_Person
-  when(axios.get)
-    .calledWith("/api/facets/within", {
-      params: {
-        childType: "County",
-        date: "LATEST",
-        parentEntity: "geoId/06",
-        variables: ["Count_Person"],
-      },
-      paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
-    })
-    .mockResolvedValue({
-      data: {
-        data: {
-          Count_Person: {
-            "": [
-              {
-                facet: "facetId1",
-              },
-            ],
-          },
-        },
-        facets: {
-          facetId1: {
-            importName: "Facet1",
-          },
-        },
-      },
-    });
 
   when(axios.get)
     .calledWith("/api/facets/within", {
@@ -388,47 +358,8 @@ export function axiosMock(): void {
       {
         childType: "County",
         facetMap: { Count_Person: "" },
-        maxDate: "latest",
-        minDate: "latest",
-        parentPlace: "geoId/06",
-        rowLimit: 7,
-        statVars: ["Count_Person"],
-      },
-      {
-        headers: WEBSITE_SURFACE_HEADER,
-      }
-    )
-    .mockResolvedValue({
-      data: csvData,
-    });
-
-  when(axios.post)
-    .calledWith(
-      "/api/csv/within",
-      {
-        childType: "County",
-        facetMap: { Count_Person: "" },
-        maxDate: "latest",
-        minDate: "latest",
-        parentPlace: "geoId/06",
-        statVars: ["Count_Person"],
-      },
-      {
-        headers: WEBSITE_SURFACE_HEADER,
-      }
-    )
-    .mockResolvedValue({
-      data: csvData,
-    });
-
-  when(axios.post)
-    .calledWith(
-      "/api/csv/within",
-      {
-        childType: "County",
-        facetMap: { Count_Person: "" },
         maxDate: "",
-        minDate: "2020",
+        minDate: "",
         parentPlace: "geoId/06",
         rowLimit: 7,
         statVars: ["Count_Person"],
@@ -448,7 +379,7 @@ export function axiosMock(): void {
         childType: "County",
         facetMap: { Count_Person: "" },
         maxDate: "",
-        minDate: "2020",
+        minDate: "",
         parentPlace: "geoId/06",
         statVars: ["Count_Person"],
       },

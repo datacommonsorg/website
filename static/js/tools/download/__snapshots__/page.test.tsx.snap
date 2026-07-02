@@ -34,7 +34,7 @@ exports[`Loading options from URL 1`] = `
       <td>...</td>
     </tr>
   </tbody>
-</table><button type=\\"button\\" class=\\"download-button btn btn-primary\\">Download</button>
+</table><button type=\\"button\\" class=\\"download-button btn btn-primary\\">Download CSV</button>
 <div class=\\"screen\\">
   <div id=\\"spinner\\"></div>
 </div>"
@@ -74,7 +74,7 @@ exports[`Manually updating options 1`] = `
       <td>...</td>
     </tr>
   </tbody>
-</table><button type=\\"button\\" class=\\"download-button btn btn-primary\\">Download</button>
+</table><button type=\\"button\\" class=\\"download-button btn btn-primary\\">Download CSV</button>
 <div class=\\"screen\\">
   <div id=\\"spinner\\"></div>
 </div>"
