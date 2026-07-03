@@ -132,7 +132,9 @@ function App(): ReactElement {
   }, [options.value, setList, setLoading, setError, facetsReqObj]);
 
   const facetListCacheKey = options.value
-    ? `${options.value.selectedPlace.dcid}-${options.value.enclosedPlaceType}`
+    ? `${options.value.selectedPlace.dcid}-${
+        options.value.enclosedPlaceType
+      }-${Object.keys(options.value.selectedStatVars).join(",")}`
     : "";
   const {
     facetList: enrichedFacetList,
@@ -177,11 +179,8 @@ function App(): ReactElement {
           gap: ${theme.spacing.md}px;
         `}
       >
-        <h1>Data Download Tool</h1>
-        <p>
-          Download data for any available geographic region, one variable at a
-          time.
-        </p>
+        <h1>{intl.formatMessage(toolMessages.downloadToolTitle)}</h1>
+        <p>{intl.formatMessage(toolMessages.downloadToolSubtitle)}</p>
 
         <FormBox flexDirection="column">
           <EnclosedPlacesSelector
@@ -204,6 +203,9 @@ function App(): ReactElement {
             }
             searchBarInstructionText={intl.formatMessage(
               toolMessages.placeSearchBoxLabel
+            )}
+            searchBarPlaceholderText={intl.formatMessage(
+              toolMessages.downloadToolSearchBoxPlaceholder
             )}
             selectedParentPlace={selectedOptions.selectedPlace}
           />
@@ -326,11 +328,12 @@ export function Page(): ReactElement {
   }, [setOptions]);
 
   useEffect(() => {
-    window.onhashchange = (): void => {
+    const handleHashChange = (): void => {
       loadStateFromURL(setOptions);
     };
+    window.addEventListener("hashchange", handleHashChange);
     return (): void => {
-      window.onhashchange = null;
+      window.removeEventListener("hashchange", handleHashChange);
     };
   }, [setOptions]);
 

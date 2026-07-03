@@ -19,20 +19,14 @@ import { defineMessages } from "react-intl";
 export const toolMessages = defineMessages({
   downloadToolTitle: {
     id: "download_visualization_tool_name",
-    defaultMessage: "Map Explorer",
-    description: "name of the tool that plots maps",
+    defaultMessage: "Data Download Tool",
+    description: "name of the tool that downloads data",
   },
   downloadToolSubtitle: {
     id: "download_visualization_tool_description",
     defaultMessage:
-      "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions.",
-    description: "a description of what our map explorer tool is used for",
-  },
-  downloadToolGoBackMessage: {
-    id: "download_tool_go_back_message",
-    defaultMessage: "Go back to the new Map Explorer",
-    description:
-      "label on a button that takes the user to a newer version of the Map Explorer",
+      "Download data for any available geographic region, one variable at a time.",
+    description: "a description of what our data download tool is used for",
   },
   downloadToolSearchBoxPlaceholder: {
     id: "download_tool_search_box_placeholder",
