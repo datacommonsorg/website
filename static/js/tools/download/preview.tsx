@@ -23,10 +23,16 @@ import axios from "axios";
 import _ from "lodash";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "reactstrap";
 
+import { Button } from "../../components/elements/button/button";
+import { Download } from "../../components/elements/icons/download";
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
-import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
+import {
+  downloadFile,
+  loadSpinner,
+  removeSpinner,
+  saveToFile,
+} from "../../shared/util";
 import { DATE_ALL, DownloadOptions } from "./context";
 
 const NUM_ROWS = 7;
@@ -88,6 +94,7 @@ export function Preview(props: PreviewProps): JSX.Element {
         flex-direction: column;
         padding: 0;
         margin: 0;
+        gap: ${theme.spacing.md}px;
       `}
     >
       {errorMessage && <div>{errorMessage}</div>}
@@ -118,14 +125,21 @@ export function Preview(props: PreviewProps): JSX.Element {
               </tr>
             </tbody>
           </table>
-          <Button
-            className="download-button"
-            color={"primary"}
-            disabled={props.isDisabled}
-            onClick={onDownloadClicked}
+          <div
+            css={css`
+              display: flex;
+              justify-content: flex-end;
+            `}
           >
-            Download CSV
-          </Button>
+            <Button
+              className="download-button"
+              disabled={props.isDisabled}
+              onClick={onDownloadClicked}
+              startIcon={<Download />}
+            >
+              Download CSV
+            </Button>
+          </div>
         </>
       )}
       <div className="screen">
