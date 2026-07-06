@@ -49,9 +49,12 @@ def update_mixer_flags():
         
     # Write back clean YAML
     os.makedirs(os.path.dirname(ff_path), exist_ok=True)
+    serialized = yaml.safe_dump(data, default_flow_style=False)
     with open(ff_path, 'w') as f:
-        yaml.safe_dump(data, f, default_flow_style=False)
-    print('Successfully generated Mixer custom feature flags')
+        f.write(serialized)
+    print(f"--- Generated Mixer feature flags ({ff_path}) ---")
+    print(serialized)
+    print("-------------------------------------------------")
 
 def update_website_flags():
     web_ff_path = 'server/config/feature_flag_configs/custom.json'
@@ -69,9 +72,12 @@ def update_website_flags():
                 if flag.get('name') == 'use_v2_resolve_for_nl_search_vars':
                     flag['enabled'] = True
                     
+        serialized = json.dumps(data, indent=2)
         with open(web_ff_path, 'w') as f:
-            json.dump(data, f, indent=2)
-        print('Successfully enabled feature flags in custom.json')
+            f.write(serialized)
+        print(f"--- Generated Website feature flags ({web_ff_path}) ---")
+        print(serialized)
+        print("---------------------------------------------------")
     except Exception as e:
         print(f'Warning: Failed to auto-enable feature flags in custom.json: {e}')
 
