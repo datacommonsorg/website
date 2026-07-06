@@ -133,6 +133,19 @@ export const toolMessages = defineMessages({
     description:
       "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
   },
+  infoBoxInstructionsVariableDesktopDownload: {
+    id: "info_box_instruction_variable_desktop_map",
+    defaultMessage: "Pick a statistical variable in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileDownload: {
+    id: "info_box_instruction_variable_mobile_map",
+    defaultMessage:
+      'Pick a statistical variable using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
   infoBoxInstructionsVariableDesktopMap: {
     id: "info_box_instruction_variable_desktop_map",
     defaultMessage: "Pick a statistical variable in the left pane.",

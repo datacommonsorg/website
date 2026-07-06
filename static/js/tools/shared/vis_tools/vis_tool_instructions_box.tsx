@@ -31,10 +31,10 @@ const toolInstructions = {
   download: {
     variable: {
       desktop: intl.formatMessage(
-        toolMessages.infoBoxInstructionsVariableDesktopMap
+        toolMessages.infoBoxInstructionsVariableDesktopDownload
       ),
       mobile: intl.formatMessage(
-        toolMessages.infoBoxInstructionsVariableMobileMap
+        toolMessages.infoBoxInstructionsVariableMobileDownload
       ),
     },
   },
