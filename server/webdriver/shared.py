@@ -277,9 +277,10 @@ def _search_and_select_first_item_in_dropdown(driver,
   item.click()
 
   if expect_chip:
-    # Wait for chip to be present
+    # Wait for chip or place tag to be present
     WebDriverWait(driver, TIMEOUT).until(
-        EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, '.chip, .place-tag')))
 
   # Wait for any loading spinners
   wait_for_loading(driver)
