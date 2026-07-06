@@ -76,7 +76,7 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
     
     # 1. Dynamically update feature flags for Website and Mixer
-    python3 deploy/featureflags/update_dcp_flags.py
+    python3 update_dcp_flags.py
 
     # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
     
