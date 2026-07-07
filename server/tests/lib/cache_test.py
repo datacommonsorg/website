@@ -18,11 +18,11 @@ from flask import g
 from flask_caching import Cache
 
 from server.__init__ import create_app
-from server.lib.cache import cache
 
 
 class TestCohortAwareCache(unittest.TestCase):
   """Test suite for CohortAwareCache subclassing and key partitioning/invalidation."""
+
   @classmethod
   def setUpClass(cls):
     cls.app = create_app()

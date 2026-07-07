@@ -14,7 +14,6 @@
 """Common library for functions related to feature flags"""
 
 import hashlib
-import os
 import random
 
 from flask import current_app
@@ -125,14 +124,14 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
 
 
 def assign_spanner_cohort(app, request) -> bool:
-  """Deterministically assigns the request to a Spanner cohort if the feature is enabled.
+  """Deterministically assigns the request to a Spanner cohort if enabled.
 
   Args:
-      app: Flask application instance.
-      request: HTTP request as a flask.Request object.
+    app: Flask application instance.
+    request: HTTP request as a flask.Request object.
 
   Returns:
-      True if client is in the Spanner diversion cohort, False otherwise.
+    True if client is in the Spanner diversion cohort, False otherwise.
   """
   # Check for URL parameter overrides
   if is_feature_override_enabled('divert_to_spanner', request):
@@ -168,5 +167,5 @@ def assign_spanner_cohort(app, request) -> bool:
 
   hash_input = f"{ip}|{ua}|{salt}".encode('utf-8')
   hash_val = int(hashlib.md5(hash_input).hexdigest()[:8], 16)
-  
+
   return (hash_val % 100) < rollout_percentage

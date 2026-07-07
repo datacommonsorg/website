@@ -49,6 +49,7 @@ model_cache = None
 
 class CohortAwareBackendMixin:
   """Mixin to inject Spanner cohort key suffixing into any standard cache backend."""
+
   COHORT_SUFFIX = "__cohort:spanner"
 
   def _is_isolatable_key(self, key) -> bool:
