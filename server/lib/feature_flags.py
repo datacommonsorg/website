@@ -100,8 +100,9 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
 
   if feature_name == 'divert_to_spanner' and has_request_context():
     from flask import g
-    if 'use_spanner' in g:
-      return g.use_spanner
+    if 'use_spanner' not in g:
+      g.use_spanner = assign_spanner_cohort(app, request)
+    return g.use_spanner
 
   # Check for URL parameter overrides
   if is_feature_override_enabled(feature_name, request):
