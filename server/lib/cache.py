@@ -109,13 +109,6 @@ class CohortAwareBackendMixin:
     suffixed_keys = [self._suffix_key(k) for k in keys]
     return super().get_many(*suffixed_keys, **kwargs)
 
-  def get_dict(self, *keys, **kwargs):
-    suffixed_keys = [self._suffix_key(k) for k in keys]
-    res = super().get_dict(*suffixed_keys, **kwargs)
-    # Map suffixed keys back to original keys
-    key_map = dict(zip(suffixed_keys, keys))
-    return {key_map[k]: v for k, v in res.items() if k in key_map}
-
   def set_many(self, mapping, *args, **kwargs):
     suffixed_mapping = {self._suffix_key(k): v for k, v in mapping.items()}
     return super().set_many(suffixed_mapping, *args, **kwargs)
