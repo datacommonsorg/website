@@ -13,6 +13,8 @@
 # limitations under the License.
 """Common library for functions related to feature flags"""
 
+import hashlib
+import os
 import random
 
 from flask import current_app
@@ -97,6 +99,11 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if request is None and has_request_context():
     request = flask_request
 
+  if feature_name == 'divert_to_spanner' and has_request_context():
+    from flask import g
+    if 'use_spanner' in g:
+      return g.use_spanner
+
   # Check for URL parameter overrides
   if is_feature_override_enabled(feature_name, request):
     return True
@@ -115,3 +122,47 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
     return random.random() * 100 < rollout_percentage
 
   return is_feature_enabled
+
+
+def assign_spanner_cohort(app, request) -> bool:
+  """Deterministically assigns the request to a Spanner cohort if the feature is enabled.
+
+  Args:
+      app: Flask application instance.
+      request: HTTP request as a flask.Request object.
+
+  Returns:
+      True if client is in the Spanner diversion cohort, False otherwise.
+  """
+  # Check for URL parameter overrides
+  if is_feature_override_enabled('divert_to_spanner', request):
+    return True
+  if is_feature_override_disabled('divert_to_spanner', request):
+    return False
+
+  # Check feature flag configuration
+  feature_flags = app.config.get('FEATURE_FLAGS', {})
+  flag_config = feature_flags.get('divert_to_spanner', {})
+  if not flag_config.get('enabled', False):
+    return False
+
+  rollout_percentage = flag_config.get('rollout_percentage', 0)
+  if rollout_percentage >= 100:
+    return True
+  if rollout_percentage <= 0:
+    return False
+
+  # Extract the original client IP (the first/leftmost IP in the X-Forwarded-For chain)
+  ip = request.headers.get('X-Forwarded-For', request.remote_addr) or ''
+  ip = ip.split(',')[0].strip()
+  # Handle bracketed IPv6 with port (e.g., [2001:db8::1]:12345)
+  if ip.startswith('['):
+    ip = ip.split(']')[0][1:]
+  # Handle IPv4 with port (contains exactly one colon, e.g., 198.51.100.1:443)
+  elif ip.count(':') == 1:
+    ip = ip.split(':')[0]
+
+  ua = request.headers.get('User-Agent', '') or ''
+  salt = app.config.get('SPANNER_DIVERT_SALT',
+                        'datacommons-spanner-cohort-salt')
+  return (hash_val % 100) < rollout_percentage

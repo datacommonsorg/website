@@ -31,6 +31,7 @@ from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
+from server.lib.feature_flags import assign_spanner_cohort
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
 from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
@@ -504,6 +505,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Add variables to the per-request global context.
   @app.before_request
   def before_request():
+    # Deterministic cohort assignment for divert_to_spanner
+    g.use_spanner = assign_spanner_cohort(app, request)
+
     # Add the request locale.
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)
