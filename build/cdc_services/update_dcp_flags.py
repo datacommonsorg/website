@@ -44,7 +44,7 @@ def update_mixer_flags():
     if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') == 'true':
         data['flags']['EnableSpannerSearchEmbeddings'] = True
         
-    if os.environ.get('ENABLE_UNIQUE_HISTORY_RECORDS') == 'true' or os.environ.get('ENABLE_UNIQUE_INGESTION_RUNS') == 'true':
+    if os.environ.get('ENABLE_UNIQUE_HISTORY_RECORDS') == 'true':
         data['flags']['UseNewIngestionHistorySchema'] = True
         
     # Write back clean YAML
