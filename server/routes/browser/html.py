@@ -60,7 +60,10 @@ def browser_node(dcid):
       logging.info(e)
 
     if 'Dataset' in node_types:
-      json_ld_data = croissant_metadata_lib.build_dataset_metadata(dcid)
+      extended_enabled = feature_flags_lib.is_feature_enabled(
+          feature_flags_lib.CROISSANT_EXTENDED_FEATURE)
+      json_ld_data = croissant_metadata_lib.build_dataset_metadata(
+          dcid, extended_enabled)
   else:
     try:
       api_name = shared_api.names([dcid]).get(dcid)
