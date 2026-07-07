@@ -165,4 +165,8 @@ def assign_spanner_cohort(app, request) -> bool:
   ua = request.headers.get('User-Agent', '') or ''
   salt = app.config.get('SPANNER_DIVERT_SALT',
                         'datacommons-spanner-cohort-salt')
+
+  hash_input = f"{ip}|{ua}|{salt}".encode('utf-8')
+  hash_val = int(hashlib.md5(hash_input).hexdigest()[:8], 16)
+  
   return (hash_val % 100) < rollout_percentage
