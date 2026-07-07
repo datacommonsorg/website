@@ -151,7 +151,12 @@ def cohort_aware_redis_cache_factory(app, config, args, kwargs):
   redis_url = config.get("CACHE_REDIS_URL")
   if redis_url:
     from redis import from_url as redis_from_url
-    kwargs["host"] = redis_from_url(redis_url, db=kwargs.pop("db", None))
+    kwargs.pop("db", None)
+    url_kwargs = {}
+    db = config.get("CACHE_REDIS_DB")
+    if db is not None:
+      url_kwargs["db"] = db
+    kwargs["host"] = redis_from_url(redis_url, **url_kwargs)
   return CohortAwareRedisCache(*args, **kwargs)
 
 
