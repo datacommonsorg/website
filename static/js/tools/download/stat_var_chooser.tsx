@@ -18,6 +18,7 @@
  * Component to pick statvar for download tool.
  */
 
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { getStatVarInfo } from "../../shared/stat_var";
@@ -45,8 +46,14 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     useState(true);
 
   useEffect(() => {
+    // Once a variable is selected, keep the widget open regardless of place
+    // type churn (e.g. place type list reloading empty while it refetches).
+    if (!_.isEmpty(props.statVars)) {
+      setStatVarWidgetIsCollapsed(false);
+      return;
+    }
     setStatVarWidgetIsCollapsed(!props.enclosedPlaceType);
-  }, [props.enclosedPlaceType]);
+  }, [props.enclosedPlaceType, props.statVars]);
 
   useEffect(() => {
     if (!props.placeDcid || !props.enclosedPlaceType) {

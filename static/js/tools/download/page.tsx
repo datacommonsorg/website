@@ -243,24 +243,27 @@ function App(): ReactElement {
                 padding-bottom: ${theme.spacing.md}px;
                 padding-top: ${theme.spacing.md}px;
                 gap: ${theme.spacing.md}px;
+                & > p {
+                  padding: ${theme.spacing.sm}px 0 ${theme.spacing.sm}px 0;
+                  line-height: 0.9rem;
+                  color: ${theme.colors.text.tertiary.base};
+                }
               `}
             >
-              {totalFacetCount > 1 && (
-                <FacetSelector
-                  mode="download"
-                  svFacetId={selectedOptions.selectedFacets}
-                  facetList={enrichedFacetList}
-                  totalFacetCount={totalFacetCount}
-                  loading={facets.loading || enrichmentLoading}
-                  error={facets.error}
-                  onSvFacetIdUpdated={(svFacetId): void => {
-                    options.set((prev) => {
-                      return { ...prev, selectedFacets: svFacetId };
-                    });
-                  }}
-                  onModalOpen={onModalOpen}
-                />
-              )}
+              <FacetSelector
+                mode="download"
+                svFacetId={selectedOptions.selectedFacets}
+                facetList={enrichedFacetList}
+                totalFacetCount={totalFacetCount}
+                loading={facets.loading || enrichmentLoading}
+                error={facets.error}
+                onSvFacetIdUpdated={(svFacetId): void => {
+                  options.set((prev) => {
+                    return { ...prev, selectedFacets: svFacetId };
+                  });
+                }}
+                onModalOpen={onModalOpen}
+              />
             </div>
 
             <div

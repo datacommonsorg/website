@@ -234,10 +234,9 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
   }
 
   if (!hasAlternativeSources) {
-    if (mode === "download") {
-      return null;
-    }
-    return <NoFacetChoicesMessage variant={variant} loading={loading} />;
+    return (
+      <NoFacetChoicesMessage mode={mode} variant={variant} loading={loading} />
+    );
   }
 
   const showInconsistentFacetFlag =
@@ -312,9 +311,13 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
 }
 
 function NoFacetChoicesMessage({
+  mode,
   variant,
   loading,
-}: Pick<FacetSelectorProps, "variant" | "loading">): ReactElement | null {
+}: Pick<
+  FacetSelectorProps,
+  "mode" | "variant" | "loading"
+>): ReactElement | null {
   const theme = useTheme();
   return (
     <p
@@ -335,7 +338,9 @@ function NoFacetChoicesMessage({
       `}
     >
       {intl.formatMessage(
-        facetSelectionComponentMessages.NoAlternativeDatasets
+        mode === "download"
+          ? facetSelectionComponentMessages.NoAlternativeDatasetsDowloadTool
+          : facetSelectionComponentMessages.NoAlternativeDatasets
       )}
     </p>
   );
