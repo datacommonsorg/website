@@ -18,6 +18,13 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "divert_to_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Diverts traffic to Spanner database backend.",
+    "rollout_percentage": 0
+  },
+  {
     "name": "enable_chart_hyperlink",
     "enabled": false,
     "owner": "gmechali",
