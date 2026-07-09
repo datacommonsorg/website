@@ -19,10 +19,15 @@ import os
 from pathlib import Path
 from typing import Callable, Optional, Union
 
+from flask import g
 from flask import has_request_context
 from flask import request
 from flask import Response
 from flask_caching import Cache
+from flask_caching.backends.filesystemcache import FileSystemCache
+from flask_caching.backends.nullcache import NullCache
+from flask_caching.backends.rediscache import RedisCache
+from flask_caching.backends.simplecache import SimpleCache
 
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
@@ -41,6 +46,141 @@ cache = None
 # model_cache is flask cache for endpoints that invoke vertex models.
 model_cache = None
 
+
+class CohortAwareBackendMixin:
+  """Mixin to inject Spanner cohort key suffixing into any standard cache backend."""
+
+  COHORT_SUFFIX = "__cohort:spanner"
+
+  def _is_isolatable_key(self, key) -> bool:
+    if not isinstance(key, str):
+      return False
+    if key.endswith('_memver') or key.endswith(self.COHORT_SUFFIX):
+      return False
+    return True
+
+  def _suffix_key(self, key):
+    # Only suffix if in request context and assigned to Spanner
+    if has_request_context() and g.get('use_spanner',
+                                       False) and self._is_isolatable_key(key):
+      return f"{key}{self.COHORT_SUFFIX}"
+    return key
+
+  def get(self, key, *args, **kwargs):
+    return super().get(self._suffix_key(key), *args, **kwargs)
+
+  def set(self, key, value, *args, **kwargs):
+    return super().set(self._suffix_key(key), value, *args, **kwargs)
+
+  def add(self, key, value, *args, **kwargs):
+    return super().add(self._suffix_key(key), value, *args, **kwargs)
+
+  def inc(self, key, delta=1, *args, **kwargs):
+    return super().inc(self._suffix_key(key), delta, *args, **kwargs)
+
+  def dec(self, key, delta=1, *args, **kwargs):
+    return super().dec(self._suffix_key(key), delta, *args, **kwargs)
+
+  def delete(self, key, *args, **kwargs):
+    # 1. Delete the base key (Bigtable / Contextless)
+    res = super().delete(key, *args, **kwargs)
+    # 2. Proactively delete the Spanner key to prevent stale data
+    res_spanner = False
+    if self._is_isolatable_key(key):
+      res_spanner = super().delete(f"{key}{self.COHORT_SUFFIX}", *args,
+                                   **kwargs)
+    return res or res_spanner
+
+  def has(self, key, *args, **kwargs):
+    return super().has(self._suffix_key(key), *args, **kwargs)
+
+  def delete_many(self, *keys, **kwargs):
+    # 1. Delete the base keys and capture their result
+    res = super().delete_many(*keys, **kwargs)
+    # 2. Proactively delete corresponding Spanner keys
+    spanner_keys = [
+        f"{k}{self.COHORT_SUFFIX}" for k in keys if self._is_isolatable_key(k)
+    ]
+    if spanner_keys:
+      super().delete_many(*spanner_keys, **kwargs)
+    return res
+
+  def get_many(self, *keys, **kwargs):
+    suffixed_keys = [self._suffix_key(k) for k in keys]
+    return super().get_many(*suffixed_keys, **kwargs)
+
+  def set_many(self, mapping, *args, **kwargs):
+    suffixed_mapping = {self._suffix_key(k): v for k, v in mapping.items()}
+    return super().set_many(suffixed_mapping, *args, **kwargs)
+
+
+class CohortAwareRedisCache(CohortAwareBackendMixin, RedisCache):
+  pass
+
+
+class CohortAwareFileSystemCache(CohortAwareBackendMixin, FileSystemCache):
+  pass
+
+
+class CohortAwareSimpleCache(CohortAwareBackendMixin, SimpleCache):
+  pass
+
+
+class CohortAwareNullCache(CohortAwareBackendMixin, NullCache):
+  pass
+
+
+def cohort_aware_redis_cache_factory(app, config, args, kwargs):
+  """Factory to map Flask config to CohortAwareRedisCache constructor."""
+  kwargs.update(
+      dict(
+          host=config.get("CACHE_REDIS_HOST", "localhost"),
+          port=config.get("CACHE_REDIS_PORT", 6379),
+          password=config.get("CACHE_REDIS_PASSWORD"),
+          db=config.get("CACHE_REDIS_DB", 0),
+          key_prefix=config.get("CACHE_KEY_PREFIX"),
+          default_timeout=config.get("CACHE_DEFAULT_TIMEOUT", 300),
+      ))
+  redis_url = config.get("CACHE_REDIS_URL")
+  if redis_url:
+    from redis import from_url as redis_from_url
+    kwargs.pop("db", None)
+    url_kwargs = {}
+    db = config.get("CACHE_REDIS_DB")
+    if db is not None:
+      url_kwargs["db"] = db
+    kwargs["host"] = redis_from_url(redis_url, **url_kwargs)
+  return CohortAwareRedisCache(*args, **kwargs)
+
+
+def cohort_aware_filesystem_cache_factory(app, config, args, kwargs):
+  """Factory to map Flask config to CohortAwareFileSystemCache constructor."""
+  cache_dir = config.get("CACHE_DIR")
+  if cache_dir and cache_dir not in args:
+    args.insert(0, cache_dir)
+  kwargs.update(
+      dict(
+          threshold=config.get("CACHE_THRESHOLD", 500),
+          ignore_errors=config.get("CACHE_IGNORE_ERRORS", False),
+      ))
+  return CohortAwareFileSystemCache(*args, **kwargs)
+
+
+def cohort_aware_simple_cache_factory(app, config, args, kwargs):
+  """Factory to map Flask config to CohortAwareSimpleCache constructor."""
+  kwargs.update(
+      dict(
+          threshold=config.get("CACHE_THRESHOLD", 500),
+          ignore_errors=config.get("CACHE_IGNORE_ERRORS", False),
+      ))
+  return CohortAwareSimpleCache(*args, **kwargs)
+
+
+def cohort_aware_null_cache_factory(app, config, args, kwargs):
+  """Factory for CohortAwareNullCache."""
+  return CohortAwareNullCache(*args, **kwargs)
+
+
 redis_config = lib_redis.get_redis_config()
 REDIS_HOST = os.environ.get('REDIS_HOST', '')
 
@@ -51,7 +191,7 @@ if redis_config:
   redis_port = redis_config['port']
   _redis_cache = Cache(
       config={
-          'CACHE_TYPE': 'RedisCache',
+          'CACHE_TYPE': 'server.lib.cache.cohort_aware_redis_cache_factory',
           'CACHE_REDIS_HOST': redis_host,
           'CACHE_REDIS_PORT': redis_port,
           'CACHE_REDIS_URL': 'redis://{}:{}'.format(redis_host, redis_port)
@@ -60,8 +200,10 @@ if redis_config:
 else:
   model_cache = Cache(
       config={
-          'CACHE_TYPE': 'FileSystemCache',
-          'CACHE_DIR': os.path.join(Path(__file__).parents[2], '.cache')
+          'CACHE_TYPE':
+              'server.lib.cache.cohort_aware_filesystem_cache_factory',
+          'CACHE_DIR':
+              os.path.join(Path(__file__).parents[2], '.cache')
       })
 
 cfg = lib_config.get_config()
@@ -72,10 +214,13 @@ if cfg.USE_MEMCACHE or REDIS_HOST:
   if _redis_cache:
     cache = _redis_cache
   else:
-    cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+    cache = Cache(config={
+        'CACHE_TYPE': 'server.lib.cache.cohort_aware_simple_cache_factory'
+    })
 else:
   # For some instance with fast updated data, we may not want to use memcache.
-  cache = Cache(config={'CACHE_TYPE': 'NullCache'})
+  cache = Cache(
+      config={'CACHE_TYPE': 'server.lib.cache.cohort_aware_null_cache_factory'})
 
 
 def should_skip_cache():
