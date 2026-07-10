@@ -194,7 +194,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_Female_2017"
+                      "Count_Death_Female_2002"
                     ],
                     "title": "Count of Mortality Event: Female in Counties of California (${date})",
                     "type": "MAP"
@@ -209,7 +209,7 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death_Female_2017"
+                      "Count_Death_Female_2002"
                     ],
                     "title": "Count of Mortality Event: Female in Counties of California (${date})",
                     "type": "RANKING"
@@ -421,7 +421,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_3376114862"
+                      "Count_Person_Female_WithHealthInsurance_1704193675"
                     ],
                     "title": "Women With Health Insurance in California",
                     "type": "LINE"
@@ -899,7 +899,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_ForeignBorn_10983471"
+                      "Count_Person_Female_ForeignBorn_196790193"
                     ],
                     "title": "Foreign Born Women in California",
                     "type": "LINE"
@@ -929,8 +929,8 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_2017": {
-            "date": "2017",
+          "Count_Death_Female_2002": {
+            "date": "2002",
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
@@ -989,8 +989,8 @@
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
-          "Count_Person_Female_ForeignBorn_10983471": {
-            "facetId": "10983471",
+          "Count_Person_Female_ForeignBorn_196790193": {
+            "facetId": "196790193",
             "name": "Foreign Born Women",
             "statVar": "Count_Person_Female_ForeignBorn"
           },
@@ -1039,13 +1039,13 @@
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
-          "Count_Person_Female_WithHealthInsurance_2019": {
-            "date": "2019",
+          "Count_Person_Female_WithHealthInsurance_1704193675": {
+            "facetId": "1704193675",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_3376114862": {
-            "facetId": "3376114862",
+          "Count_Person_Female_WithHealthInsurance_2019": {
+            "date": "2019",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
