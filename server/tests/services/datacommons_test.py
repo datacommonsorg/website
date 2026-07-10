@@ -308,12 +308,18 @@ class TestServiceDataCommonsCacheSkip(unittest.TestCase):
       self.assertFalse(should_skip_cache())
 
   def test_skip_cache_header_forwarded_to_mixer(self):
-    with self.app.test_request_context(headers={"X-Skip-Cache": "TRUE"}):
-      self.assertEqual(get_basic_request_headers().get("X-Skip-Cache"), "true")
+    true_values = ["true", "TRUE", "True", "tRuE"]
+    for value in true_values:
+      with self.subTest(value=value):
+        with self.app.test_request_context(headers={"X-Skip-Cache": value}):
+          self.assertEqual(get_basic_request_headers().get("X-Skip-Cache"), "true")
 
   def test_invalid_skip_cache_header_not_forwarded(self):
-    with self.app.test_request_context(headers={"X-Skip-Cache": "false"}):
-      self.assertNotIn("X-Skip-Cache", get_basic_request_headers())
+    false_values = ["false", "", "1", "0", "yes", "no", "invalid", "True "]
+    for value in false_values:
+      with self.subTest(value=value):
+        with self.app.test_request_context(headers={"X-Skip-Cache": value}):
+          self.assertNotIn("X-Skip-Cache", get_basic_request_headers())
 
 
 class TestServiceDataCommonsNLSearchVarsInParallel(
