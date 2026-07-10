@@ -75,27 +75,8 @@ fi
 if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
     
-    # 1. Dynamically enable feature flags in custom.json for Website
-    # TODO: Delete this once every customer is on DCP, and we can just update custom.json.
-    python3 -c "
-import json
-import os
-path = 'server/config/feature_flag_configs/custom.json'
-try:
-    with open(path) as f:
-        data = json.load(f)
-    for flag in data:
-        if flag.get('name') == 'enable_nl_v2node_fetchall':
-            flag['enabled'] = True
-        if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') == 'true':
-            if flag.get('name') == 'use_v2_resolve_for_nl_search_vars':
-                flag['enabled'] = True
-    with open(path, 'w') as f:
-        json.dump(data, f, indent=2)
-    print('Successfully enabled feature flags in custom.json')
-except Exception as e:
-    print(f'Warning: Failed to auto-enable feature flags in custom.json: {e}')
-"
+    # 1. Dynamically update feature flags for Website and Mixer
+    python3 update_dcp_flags.py
 
     # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
     
@@ -112,11 +93,7 @@ except Exception as e:
     # 2. Enable V2 API for Mixer
     MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
 
-    # 3. Use mixer custom feature flags
-
-    # Currently we only read custom feature flags when we enable resolving with spanner embeddings.
-    # We will eventually always resolve from spanner embeddings.
-    if [[ $RESOLVE_WITH_SPANNER_EMBEDDINGS == "true" ]]; then
+    if [[ $RESOLVE_WITH_SPANNER_EMBEDDINGS == "true" || $ENABLE_UNIQUE_HISTORY_RECORDS == "true" ]]; then
         MIXER_ARGS+=('--feature_flags_path=deploy/featureflags/custom.yaml')
     fi
 fi

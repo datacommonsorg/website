@@ -21,6 +21,7 @@ import math
 from typing import Dict, List
 
 from flask import current_app
+from flask import g
 from flask import has_app_context
 from flask import has_request_context
 from flask import request
@@ -58,6 +59,8 @@ def get_basic_request_headers() -> dict:
     # Used in mixer's usage logs
     headers[SURFACE_HEADER_NAME] = request.headers.get(SURFACE_HEADER_NAME,
                                                        UNKNOWN_SURFACE)
+    if g.get('use_spanner', False):
+      headers['X-Divert-Spanner'] = 'true'
 
   return headers
 
