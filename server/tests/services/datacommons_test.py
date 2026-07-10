@@ -312,7 +312,8 @@ class TestServiceDataCommonsCacheSkip(unittest.TestCase):
     for value in true_values:
       with self.subTest(value=value):
         with self.app.test_request_context(headers={"X-Skip-Cache": value}):
-          self.assertEqual(get_basic_request_headers().get("X-Skip-Cache"), "true")
+          self.assertEqual(get_basic_request_headers().get("X-Skip-Cache"),
+                           "true")
 
   def test_invalid_skip_cache_header_not_forwarded(self):
     false_values = ["false", "", "1", "0", "yes", "no", "invalid", "True "]
