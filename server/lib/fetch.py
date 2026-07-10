@@ -511,7 +511,7 @@ def triples(nodes, out=True, max_pages=1):
   return result
 
 
-def descendent_places(nodes, descendent_type, max_pages=1):
+def descendent_places(nodes, descendent_type, max_pages=None):
   # When the only node being requested is also the descendent_type, fetch all nodes of that type.
   if nodes and len(nodes) == 1 and nodes[0] == descendent_type:
     return property_values(nodes, "typeOf", out=False, max_pages=max_pages)
