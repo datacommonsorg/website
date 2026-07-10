@@ -523,12 +523,13 @@ def descendent_places(nodes, descendent_type, max_pages=None):
                          max_pages=max_pages)
 
 
-def raw_descendent_places(nodes, descendent_type):
+def raw_descendent_places(nodes, descendent_type, max_pages=None):
   return raw_property_values(
       nodes,
       'containedInPlace+',
       out=False,
-      constraints='{{typeOf:{}}}'.format(descendent_type))
+      constraints='{{typeOf:{}}}'.format(descendent_type),
+      max_pages=max_pages)
 
 
 def resolve_id(nodes, in_prop, out_prop):
