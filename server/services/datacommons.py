@@ -60,6 +60,8 @@ def get_basic_request_headers() -> dict:
                                                        UNKNOWN_SURFACE)
     if g.get('use_spanner', False):
       headers['X-Divert-Spanner'] = 'true'
+    if should_skip_cache():
+      headers['X-Skip-Cache'] = 'true'
 
   return headers
 
