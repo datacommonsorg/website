@@ -370,8 +370,7 @@
           "Count_CriminalIncidents_Intimidation_IsHateCrime",
           "Count_CriminalIncidents_KidnappingOrAbduction_IsHateCrime",
           "Count_CriminalIncidents_MotorVehicleTheft_IsHateCrime",
-          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime",
-          "Count_CriminalIncidents_NotSpecified_IsHateCrime"
+          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime"
         ]
       },
       "dc/jtf63bh66k41g": {
