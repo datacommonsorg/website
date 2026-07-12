@@ -18,6 +18,12 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "divert_to_spanner",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Diverts traffic to Spanner database backend."
+  },
+  {
     "name": "enable_chart_hyperlink",
     "enabled": false,
     "owner": "gmechali",
@@ -88,6 +94,18 @@
     "enabled": false,
     "owner": "javiervazquez",
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
+  },
+  {
+    "name": "show_croissant_extended_feature",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables extended Croissant JSON-LD features like distribution and recordSet."
+  },
+  {
+    "name": "show_croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD metadata on dataset pages."
   },
   {
     "name": "use_v2_api",
