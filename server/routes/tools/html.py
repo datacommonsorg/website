@@ -143,8 +143,7 @@ def download():
   vis_tool_examples_json = {}
   info_places = []
   if download_tool:
-    vis_tool_examples_json = _load_example_file('download_vis_tool',
-                                                default=[])
+    vis_tool_examples_json = _load_example_file('download_vis_tool', default=[])
   else:
     # List of DCIDs displayed in the info page for download tool
     # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
