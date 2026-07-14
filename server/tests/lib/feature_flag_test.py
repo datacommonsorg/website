@@ -119,3 +119,73 @@ class TestFeatureFlags(unittest.TestCase):
         is_feature_enabled(TEST_FEATURE_FLAG,
                            app=self.app,
                            request=response.request))
+
+  def test_spanner_diversion_cohort_assignment(self):
+    """Test deterministic cohort assignment for divert_to_spanner."""
+    from flask import g
+
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=50)
+
+    # Request 1: IP '192.168.1.1', UA 'Mozilla/5.0'
+    with self.client as c:
+      c.get('/',
+            headers={
+                'X-Forwarded-For': '192.168.1.1',
+                'User-Agent': 'Mozilla/5.0'
+            })
+      val1 = g.use_spanner
+
+    # Request 2: Same IP and UA -> must return the exact same cohort assignment
+    with self.client as c:
+      c.get('/',
+            headers={
+                'X-Forwarded-For': '192.168.1.1',
+                'User-Agent': 'Mozilla/5.0'
+            })
+      val2 = g.use_spanner
+
+    self.assertEqual(val1, val2)
+
+    # Verify that the leftmost IP (representing original client IP) is used.
+    # Request 3: IP '192.168.1.1', with downstream proxy IPs '10.0.0.1, 10.0.0.2'
+    with self.client as c:
+      c.get('/',
+            headers={
+                'X-Forwarded-For': '192.168.1.1, 10.0.0.1, 10.0.0.2',
+                'User-Agent': 'Mozilla/5.0'
+            })
+      val3 = g.use_spanner
+
+    self.assertEqual(val1, val3)
+
+    # Verify IPv4 port stripping: "192.168.1.1:12345" and "192.168.1.1" must result in identical values
+    from unittest.mock import MagicMock
+
+    from server.lib.feature_flags import assign_spanner_cohort
+
+    def make_mock_req(ip_header, ua='Mozilla/5.0'):
+      req = MagicMock()
+      req.headers = {}
+      if ip_header:
+        req.headers['X-Forwarded-For'] = ip_header
+      req.headers['User-Agent'] = ua
+      req.remote_addr = '127.0.0.1'
+      return req
+
+    self.assertEqual(
+        assign_spanner_cohort(self.app, make_mock_req("192.168.1.1:12345")),
+        assign_spanner_cohort(self.app, make_mock_req("192.168.1.1")))
+
+    # Verify IPv6 bracketed port stripping: "[2001:db8::1]:12345" and "[2001:db8::1]"
+    self.assertEqual(
+        assign_spanner_cohort(self.app, make_mock_req("[2001:db8::1]:12345")),
+        assign_spanner_cohort(self.app, make_mock_req("[2001:db8::1]")))
+
+    # Verify that override query params work
+    with self.client as c:
+      c.get('/?enable_feature=divert_to_spanner')
+      self.assertTrue(g.use_spanner)
+
+    with self.client as c:
+      c.get('/?disable_feature=divert_to_spanner')
+      self.assertFalse(g.use_spanner)

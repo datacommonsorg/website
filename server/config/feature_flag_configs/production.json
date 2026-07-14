@@ -42,6 +42,12 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
+    "name": "show_croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD metadata on dataset pages."
+  },
+  {
     "name": "data_overview",
     "enabled": false,
     "owner": "nick-next",
@@ -67,7 +73,7 @@
   },
   {
     "name": "use_v2_resolve_for_nl_search_vars",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
   },
