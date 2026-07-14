@@ -23,6 +23,10 @@ import ReactDOM from "react-dom";
 import { toTitleCase } from "../tools/shared_util";
 import { getPlaceDcids } from "../utils/place_utils";
 import { Chip } from "./chip";
+import {
+  DOWNLOAD_TOOL_FEATURE_FLAG,
+  isFeatureEnabled,
+} from "./feature_flags/util";
 import { PlaceTag } from "./place_tag";
 
 // Hardcoded results to respond to in the place autocomplete.
@@ -75,7 +79,9 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
     const hideInput = this.props.numPlacesLimit
       ? placeIds.length >= this.props.numPlacesLimit
       : false;
-    const isSingleSelect = this.props.numPlacesLimit === 1;
+    const isSingleSelect =
+      this.props.numPlacesLimit === 1 &&
+      isFeatureEnabled(DOWNLOAD_TOOL_FEATURE_FLAG);
     return (
       <div id="search">
         <div

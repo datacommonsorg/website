@@ -43,6 +43,10 @@ import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection
 import { messages } from "../../i18n/i18n_messages";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { findMatchingFacets } from "../../utils/data_fetch_utils";
+import {
+  DOWNLOAD_TOOL_FEATURE_FLAG,
+  isFeatureEnabled,
+} from "../feature_flags/util";
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
 import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
@@ -169,7 +173,7 @@ const buildFinalFacetList = (
   return filteredList;
 };
 
-export function FacetSelector(props: FacetSelectorProps): ReactElement {
+export function FacetSelector(props: FacetSelectorProps): ReactElement | null {
   const {
     variant = "standard",
     mode,
@@ -234,6 +238,9 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
   }
 
   if (!hasAlternativeSources) {
+    if (mode === "download" && !isFeatureEnabled(DOWNLOAD_TOOL_FEATURE_FLAG)) {
+      return null;
+    }
     return (
       <NoFacetChoicesMessage mode={mode} variant={variant} loading={loading} />
     );

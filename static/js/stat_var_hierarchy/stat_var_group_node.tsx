@@ -31,8 +31,8 @@ import {
   triggerGAEvent,
 } from "../shared/ga_events";
 import {
+  isRadioButtonType,
   NamedNode,
-  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
   StatVarHierarchyType,
@@ -50,7 +50,9 @@ const SCROLL_DELAY = 400;
 // Stat var hierarchy types where nodes containing selected SV should be
 // expanded on initial render of the page.
 const INITIAL_EXPANSION_TYPES = [
-  ...Array.from(RADIO_BUTTON_TYPES),
+  ...Object.values(StatVarHierarchyType).filter((type) =>
+    isRadioButtonType(type)
+  ),
   StatVarHierarchyType.BROWSER,
 ];
 

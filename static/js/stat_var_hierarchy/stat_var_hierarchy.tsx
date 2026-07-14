@@ -34,8 +34,8 @@ import {
   triggerGAEvent,
 } from "../shared/ga_events";
 import {
+  isRadioButtonType,
   NamedNode,
-  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarGroupNodeType,
   StatVarHierarchyType,
@@ -416,7 +416,7 @@ export class StatVarHierarchy extends React.Component<
           });
         }
       }
-      const svPath = RADIO_BUTTON_TYPES.has(this.props.type)
+      const svPath = isRadioButtonType(this.props.type)
         ? { [sv]: path }
         : Object.assign({ [sv]: path }, this.state.svPath);
       this.setState({
