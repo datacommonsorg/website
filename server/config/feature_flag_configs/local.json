@@ -18,6 +18,12 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "download_tool",
+    "enabled": true,
+    "owner": "pablonoel",
+    "description": "Feature flag to enable the new download tool UI"
+  },
+  {
     "name": "enable_chart_hyperlink",
     "enabled": false,
     "owner": "gmechali",
