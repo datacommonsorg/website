@@ -16,6 +16,8 @@
 
 import unittest
 
+from flask import g
+
 from server.__init__ import create_app
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM
@@ -122,8 +124,6 @@ class TestFeatureFlags(unittest.TestCase):
 
   def test_spanner_diversion_cohort_assignment(self):
     """Test deterministic cohort assignment for divert_to_spanner."""
-    from flask import g
-
     mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=50)
 
     # Request 1: IP '192.168.1.1', UA 'Mozilla/5.0'
@@ -192,10 +192,6 @@ class TestFeatureFlags(unittest.TestCase):
 
   def test_spanner_diversion_ip_overrides(self):
     """Test cohort overrides based on client IP addresses/subnets."""
-    from flask import g
-
-    from server.lib.feature_flags import assign_spanner_cohort
-
     # 1. Force to Spanner cohort (0% rollout, but IP is overridden to Spanner)
     mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=0)
     self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = "192.168.1.1,10.0.0.0/8"

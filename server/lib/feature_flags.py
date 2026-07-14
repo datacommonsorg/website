@@ -127,7 +127,8 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
 
 
 def ip_in_list(ip_str: str, ip_patterns: list[str]) -> bool:
-  """Checks if an IP address matches any of the IP address or CIDR network patterns.
+  """
+  Checks if an IP address matches any of the IP address or CIDR network patterns.
 
   Args:
     ip_str: Client IP address string (e.g., '192.168.1.1' or '2001:db8::1').
