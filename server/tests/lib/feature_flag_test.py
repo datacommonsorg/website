@@ -189,3 +189,81 @@ class TestFeatureFlags(unittest.TestCase):
     with self.client as c:
       c.get('/?disable_feature=divert_to_spanner')
       self.assertFalse(g.use_spanner)
+
+  def test_spanner_diversion_ip_overrides(self):
+    """Test cohort overrides based on client IP addresses/subnets."""
+    from flask import g
+
+    from server.lib.feature_flags import assign_spanner_cohort
+
+    # 1. Force to Spanner cohort (0% rollout, but IP is overridden to Spanner)
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=0)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = "192.168.1.1,10.0.0.0/8"
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertTrue(g.use_spanner)
+
+    with self.client as c:
+      c.get('/',
+            headers={'X-Forwarded-For': '10.5.2.3'})  # matches CIDR 10.0.0.0/8
+      self.assertTrue(g.use_spanner)
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.2'})  # does not match
+      self.assertFalse(g.use_spanner)
+
+    # 2. Force to Non-Spanner cohort (100% rollout, but IP is overridden to non-Spanner)
+    mock_feature_flags(self.app, ["divert_to_spanner"],
+                       True,
+                       rolloutPercent=100)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
+    self.app.config[
+        "DB_COHORT_FORCE_NON_SPANNER_IPS"] = "192.168.1.1,10.0.0.0/8"
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertFalse(g.use_spanner)
+
+    with self.client as c:
+      c.get('/',
+            headers={'X-Forwarded-For': '10.5.2.3'})  # matches CIDR 10.0.0.0/8
+      self.assertFalse(g.use_spanner)
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.2'})  # does not match
+      self.assertTrue(g.use_spanner)
+
+    # 3. URL Parameter Precedence (URL parameter wins over IP override)
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=0)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = "192.168.1.1"
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
+    with self.client as c:
+      # IP says yes, but URL disable override says no
+      c.get('/?disable_feature=divert_to_spanner',
+            headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertFalse(g.use_spanner)
+
+    mock_feature_flags(self.app, ["divert_to_spanner"],
+                       True,
+                       rolloutPercent=100)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = "192.168.1.1"
+    with self.client as c:
+      # IP says no, but URL enable override says yes
+      c.get('/?enable_feature=divert_to_spanner',
+            headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertTrue(g.use_spanner)
+
+    # 4. Conflict Precedence (non-Spanner override wins if IP is in both)
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=50)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = "192.168.1.1"
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = "192.168.1.1"
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertFalse(g.use_spanner)
+
+    # Clean up configs
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""

@@ -403,6 +403,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                               cfg.SECRET_PROJECT,
                                               'maps-api-key')
 
+  app.config['DB_COHORT_FORCE_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-spanner-ips')
+  app.config['DB_COHORT_FORCE_NON_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_NON_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-non-spanner-ips')
+
   if cfg.LOCAL:
     app.config['LOCAL'] = True
 
