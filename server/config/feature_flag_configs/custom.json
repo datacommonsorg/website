@@ -108,12 +108,6 @@
     "description": "Enables Croissant JSON-LD metadata on dataset pages."
   },
   {
-    "name": "use_v2_api",
-    "enabled": false,
-    "owner": "juliawu",
-    "description": "Enables features that rely on the V2 REST APIs"
-  },
-  {
     "name": "use_v2_resolve_for_nl_search_vars",
     "enabled": false,
     "owner": "shixiao",
