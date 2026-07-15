@@ -25,12 +25,13 @@ import React from "react";
 
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
+import { StatVarInfo, StatVarSummary } from "../shared/types";
 import {
+  hideTooltip,
   isRadioButtonType,
-  StatVarInfo,
-  StatVarSummary,
-} from "../shared/types";
-import { hideTooltip, showTooltip, SV_HIERARCHY_SECTION_ID } from "./util";
+  showTooltip,
+  SV_HIERARCHY_SECTION_ID,
+} from "./util";
 
 const TOOLTIP_TOP_OFFSET = 10;
 

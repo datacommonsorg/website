@@ -44,8 +44,8 @@ import { messages } from "../../i18n/i18n_messages";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { findMatchingFacets } from "../../utils/data_fetch_utils";
 import {
-  DOWNLOAD_TOOL_FEATURE_FLAG,
   isFeatureEnabled,
+  USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
 } from "../feature_flags/util";
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
@@ -238,7 +238,10 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement | null {
   }
 
   if (!hasAlternativeSources) {
-    if (mode === "download" && !isFeatureEnabled(DOWNLOAD_TOOL_FEATURE_FLAG)) {
+    if (
+      mode === "download" &&
+      !isFeatureEnabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG)
+    ) {
       return null;
     }
     return (

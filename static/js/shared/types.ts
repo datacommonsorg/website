@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-import {
-  DOWNLOAD_TOOL_FEATURE_FLAG,
-  isFeatureEnabled,
-} from "./feature_flags/util";
-
 /**
  * Struct to hold a place with dcid and display name. This is commonly used
  * throughout the repo.
@@ -76,21 +71,6 @@ export const RADIO_BUTTON_TYPES = new Set([
   StatVarHierarchyType.STAT_VAR,
   StatVarHierarchyType.DOWNLOAD,
 ]);
-
-/**
- * Returns whether the given stat var hierarchy type should render as a
- * radio button (single select) instead of a checkbox (multi select).
- *
- * DOWNLOAD only behaves as single-select when the new download tool is
- * enabled - the legacy download tool still supports selecting multiple
- * stat vars via checkboxes.
- */
-export function isRadioButtonType(type: string): boolean {
-  if (type === StatVarHierarchyType.DOWNLOAD) {
-    return isFeatureEnabled(DOWNLOAD_TOOL_FEATURE_FLAG);
-  }
-  return RADIO_BUTTON_TYPES.has(type);
-}
 
 export interface StatVarInfo {
   id: string;

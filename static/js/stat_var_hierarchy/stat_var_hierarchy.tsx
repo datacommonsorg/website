@@ -34,7 +34,6 @@ import {
   triggerGAEvent,
 } from "../shared/ga_events";
 import {
-  isRadioButtonType,
   NamedNode,
   StatVarGroupInfo,
   StatVarGroupNodeType,
@@ -47,6 +46,7 @@ import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
   hideTooltip,
+  isRadioButtonType,
   showTooltip,
   SV_HIERARCHY_SECTION_ID,
   TOOLTIP_ID,

@@ -23,7 +23,7 @@ from flask import g
 from flask import request
 from flask import url_for
 
-from server.lib.feature_flags import DOWNLOAD_TOOL_FEATURE_FLAG
+from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
 
@@ -137,12 +137,12 @@ def stat_var():
 
 @bp.route('/download')
 def download():
-  download_tool = is_feature_enabled(DOWNLOAD_TOOL_FEATURE_FLAG,
-                                     request=request)
+  use_new_download_tool = is_feature_enabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
+                                             request=request)
 
   vis_tool_examples_json = {}
   info_places = []
-  if download_tool:
+  if use_new_download_tool:
     vis_tool_examples_json = _load_example_file('download_vis_tool', default=[])
   else:
     # List of DCIDs displayed in the info page for download tool
@@ -151,7 +151,7 @@ def download():
 
   return flask.render_template('tools/download.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],
-                               download_tool=download_tool,
+                               use_new_download_tool=use_new_download_tool,
                                info_places=json.dumps(info_places),
                                vis_tool_examples_json=vis_tool_examples_json,
                                sample_questions=json.dumps(

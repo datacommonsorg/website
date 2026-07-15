@@ -21,6 +21,8 @@ from flask import Blueprint
 from flask import make_response
 from flask import request
 
+from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.shared import date_greater_equal_min
 from server.lib.shared import date_lesser_equal_max
 from server.lib.shared import is_valid_date
@@ -250,10 +252,18 @@ def get_stats_within_place_csv():
   row_limit = request.json.get("rowLimit")
   if row_limit:
     row_limit = int(row_limit)
+  use_new_download_tool = is_feature_enabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
+                                             request=request)
   result_csv = []
   header_row = ["placeDcid", "placeName"]
   for sv in sv_list:
-    header_row.extend(["Date:" + sv, "Value:" + sv, "Source:" + sv])
+    # The new download tool only allows selecting a single stat var at a
+    # time, so the stat var no longer needs to be encoded in the column
+    # headers - it's included in the downloaded file name instead.
+    if use_new_download_tool:
+      header_row.extend(["Date", "Value", "Source"])
+    else:
+      header_row.extend(["Date:" + sv, "Value:" + sv, "Source:" + sv])
   result_csv.append(header_row)
   # when min_date and max_date are the same and non empty, we will get the
   # data for that one date
@@ -274,8 +284,12 @@ def get_stats_within_place_csv():
   csv_writer.writerows(result_csv)
   response = make_response(si.getvalue())
   response.headers["Content-type"] = "text/csv"
+  if use_new_download_tool:
+    filename = "{}_{}_{}.csv".format(parent_place, child_type,
+                                     "_".join(sv_list))
+  else:
+    filename = "{}_{}.csv".format(parent_place, child_type)
   response.headers[
-      "Content-Disposition"] = "attachment; filename={}_{}.csv".format(
-          parent_place, child_type)
+      "Content-Disposition"] = "attachment; filename={}".format(filename)
   response.status_code = 200
   return response

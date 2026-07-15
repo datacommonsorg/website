@@ -29,7 +29,7 @@
 {% endblock %}
 
 {% block content %}
-  {% if download_tool %}
+  {% if use_new_download_tool %}
       <div id="main-pane"></div>
       <script>
         globalThis.visToolExamples = {{ vis_tool_examples_json | tojson | safe }};
@@ -42,7 +42,7 @@
 
 {% block footer %}
 
-  {% if download_tool %}
+  {% if use_new_download_tool %}
     <script src={{url_for('static', filename='download.js', t=config['VERSION'])}}></script>
   {% else %}
     <script src={{url_for('static', filename='old_download.js', t=config['VERSION'])}}></script>

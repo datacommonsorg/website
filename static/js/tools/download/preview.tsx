@@ -25,6 +25,7 @@ import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
+import { Check } from "../../components/elements/icons/check";
 import { Download } from "../../components/elements/icons/download";
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
@@ -39,6 +40,23 @@ const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
 const NUM_COL_PER_SV = 3;
 const NUM_DEFAULT_COL = 2;
+const DOWNLOADED_RESET_DELAY_MS = 1500;
+
+const iconWrapper = css`
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  & > svg {
+    position: absolute;
+    inset: 0;
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+  & .hidden {
+    opacity: 0;
+    transform: scale(0);
+  }
+`;
 
 interface PreviewProps {
   selectedOptions: DownloadOptions;
@@ -48,6 +66,7 @@ interface PreviewProps {
 export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [downloaded, setDownloaded] = useState(false);
   const csvReqPayload = useRef({});
   const prevOptions = useRef(null);
   const theme = useTheme();
@@ -63,6 +82,15 @@ export function Preview(props: PreviewProps): JSX.Element {
     csvReqPayload.current = getCsvReqPayload();
     fetchPreviewData();
   }, [props, errorMessage]);
+
+  useEffect(() => {
+    if (!downloaded) return;
+    const id = setTimeout(
+      () => setDownloaded(false),
+      DOWNLOADED_RESET_DELAY_MS
+    );
+    return (): void => clearTimeout(id);
+  }, [downloaded]);
 
   // We only want to show preview once preview data has been fetched.
   const showPreview = _.isEmpty(errorMessage) && !_.isEmpty(previewData);
@@ -135,7 +163,12 @@ export function Preview(props: PreviewProps): JSX.Element {
               className="download-button"
               disabled={props.isDisabled}
               onClick={onDownloadClicked}
-              startIcon={<Download />}
+              startIcon={
+                <span css={iconWrapper}>
+                  <Download className={downloaded ? "hidden" : undefined} />
+                  <Check className={!downloaded ? "hidden" : undefined} />
+                </span>
+              }
             >
               Download CSV
             </Button>
@@ -177,10 +210,14 @@ export function Preview(props: PreviewProps): JSX.Element {
       .post("/api/csv/within", csvReqPayload.current, headers)
       .then((resp) => {
         if (resp.data) {
+          const statVarDcids = Object.keys(
+            props.selectedOptions.selectedStatVars
+          ).join("_");
           saveToFile(
-            `${props.selectedOptions.selectedPlace.name}_${props.selectedOptions.enclosedPlaceType}.csv`,
+            `${props.selectedOptions.selectedPlace.name}_${props.selectedOptions.enclosedPlaceType}_${statVarDcids}.csv`,
             resp.data
           );
+          setDownloaded(true);
         } else {
           alert("Sorry, there was a problem downloading the csv.");
         }

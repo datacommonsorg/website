@@ -24,8 +24,8 @@ import { toTitleCase } from "../tools/shared_util";
 import { getPlaceDcids } from "../utils/place_utils";
 import { Chip } from "./chip";
 import {
-  DOWNLOAD_TOOL_FEATURE_FLAG,
   isFeatureEnabled,
+  USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
 } from "./feature_flags/util";
 import { PlaceTag } from "./place_tag";
 
@@ -81,7 +81,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
       : false;
     const isSingleSelect =
       this.props.numPlacesLimit === 1 &&
-      isFeatureEnabled(DOWNLOAD_TOOL_FEATURE_FLAG);
+      isFeatureEnabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG);
     return (
       <div id="search">
         <div

@@ -16,7 +16,7 @@
 
 // Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-export const DOWNLOAD_TOOL_FEATURE_FLAG = "download_tool";
+export const USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG = "use_new_download_tool";
 export const FOLLOW_UP_QUESTIONS_GA = "follow_up_questions_ga";
 export const PAGE_OVERVIEW_GA = "page_overview_ga";
 export const EXPLORE_RESULT_HEADER = "explore_result_header";

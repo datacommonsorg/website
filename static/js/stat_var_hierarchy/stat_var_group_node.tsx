@@ -31,7 +31,6 @@ import {
   triggerGAEvent,
 } from "../shared/ga_events";
 import {
-  isRadioButtonType,
   NamedNode,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
@@ -45,6 +44,7 @@ import {
 } from "./node_header";
 import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarSection } from "./stat_var_section";
+import { isRadioButtonType } from "./util";
 
 const SCROLL_DELAY = 400;
 // Stat var hierarchy types where nodes containing selected SV should be
