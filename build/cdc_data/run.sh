@@ -53,16 +53,6 @@ WORKSPACE_DIR=$(pwd)
 
 # Paths based off of OUTPUT_DIR.
 DC_OUTPUT_DIR=$OUTPUT_DIR/datacommons
-DC_NL_EMBEDDINGS_DIR=$DC_OUTPUT_DIR/nl/embeddings
-ADDITIONAL_CATALOG_PATH=$DC_NL_EMBEDDINGS_DIR/custom_catalog.yaml
-
-# The custom embeddings index type.
-# See: https://github.com/datacommonsorg/website/blob/2dabf815b82dcd5ff226ed94d8bbdab545ffd4d7/nl_server/custom_dc_env.yaml#L6
-CUSTOM_EMBEDDINGS_INDEX=user_all_minilm_mem
-
-# Set IS_CUSTOM_DC var to true.
-# This is used by the embeddings builder to set up a custom dc env.
-export IS_CUSTOM_DC=true
 
 if [[ $USE_SQLITE == "true" ]]; then
     # Set SQLITE_PATH for sqlite imports.
@@ -81,17 +71,4 @@ python3 -m stats.main \
     --mode=$DATA_RUN_MODE \
     "$@"
 
-# cd back to workspace dir to run the embeddings builder.
-cd $WORKSPACE_DIR
-
-if [[ $DATA_RUN_MODE == "schemaupdate" ]]; then
-    echo "Skipping embeddings builder because run mode is 'schemaupdate'."
-    echo "Schema update complete."
-else
-    # Run embeddings builder.
-    python3 -m tools.nl.embeddings.build_embeddings \
-        --embeddings_name=$CUSTOM_EMBEDDINGS_INDEX \
-    --output_dir=$DC_NL_EMBEDDINGS_DIR \
-    --additional_catalog_path=$ADDITIONAL_CATALOG_PATH
-  echo "Data loading complete."
-fi
+echo "Data loading complete."

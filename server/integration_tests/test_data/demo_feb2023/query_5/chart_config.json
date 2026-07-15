@@ -690,8 +690,8 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_InLaborForce_Male",
-                      "Count_Person_InLaborForce_Female"
+                      "Count_Person_InLaborForce_Female",
+                      "Count_Person_InLaborForce_Male"
                     ],
                     "title": "Labor Force by Gender in Placer County",
                     "type": "LINE"
@@ -708,9 +708,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_InLaborForce_Male_growth_abs"
+                      "Count_Person_InLaborForce_Female_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -719,9 +719,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_InLaborForce_Female_growth_abs"
+                      "Count_Person_InLaborForce_Male_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -764,9 +764,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_InLaborForce_Male_growth_pc"
+                      "Count_Person_InLaborForce_Female_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -775,9 +775,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_InLaborForce_Female_growth_pc"
+                      "Count_Person_InLaborForce_Male_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
                     "type": "LINE"
                   }
                 ]

@@ -22,6 +22,7 @@ from requests import Response
 
 from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
+from server.services.datacommons import _get_best_type
 from server.services.datacommons import nl_search_vars
 from server.services.datacommons import nl_search_vars_in_parallel
 from server.services.datacommons import v2node_paginated
@@ -376,3 +377,29 @@ class TestServiceDataCommonsNLSearchVarsInParallel(
 
         self.assertEqual(result, {"idx1": idx1_result, "idx2": idx2_result})
         self.assertEqual(mock_post.call_count, 2)
+
+
+class TestGetBestType(unittest.TestCase):
+
+  def test_get_best_type(self):
+    # Empty list
+    self.assertEqual(_get_best_type([]), '')
+
+    # List with Place and other ranking type -> should exclude Place
+    self.assertEqual(_get_best_type(['State', 'Place']), 'State')
+    self.assertEqual(_get_best_type(['Place', 'Country']), 'Country')
+
+    # List with Place and custom non-ranking type -> should keep Place
+    self.assertEqual(_get_best_type(['SomeCustomType', 'Place']), 'Place')
+
+    # List with multiple ranking types and Place -> should exclude Place and return State
+    self.assertEqual(_get_best_type(['City', 'State', 'Place']), 'State')
+
+    # List with no Place -> should return highest rank
+    self.assertEqual(_get_best_type(['City', 'State']), 'State')
+
+    # List with only Place -> should return Place
+    self.assertEqual(_get_best_type(['Place']), 'Place')
+
+    # List with only custom non-ranking type -> should return it
+    self.assertEqual(_get_best_type(['SomeCustomType']), 'SomeCustomType')
