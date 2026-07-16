@@ -46,11 +46,20 @@ const PlaceOverviewTable = (props: {
   const containerRef = useRef(null);
   const dataRows = props.placeOverviewTableApiResponse.data;
 
-  const sourceUrls = new Set(
-    dataRows.map((dataRow) => {
-      return dataRow.provenanceUrl;
-    })
-  );
+  const sourceUrls = new Set<string>();
+  dataRows.forEach((dataRow) => {
+    const url = dataRow.provenanceUrl;
+    if (url) {
+      try {
+        const parsedUrl = new URL(url);
+        if (parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:") {
+          sourceUrls.add(url);
+        }
+      } catch (e) {
+        // Skip invalid URL
+      }
+    }
+  });
 
   return (
     <div data-testid="place-overview-table">
