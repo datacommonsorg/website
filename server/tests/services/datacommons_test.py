@@ -22,8 +22,8 @@ from requests import Response
 
 from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
-from server.services.datacommons import get_basic_request_headers
 from server.services.datacommons import _get_best_type
+from server.services.datacommons import get_basic_request_headers
 from server.services.datacommons import nl_search_vars
 from server.services.datacommons import nl_search_vars_in_parallel
 from server.services.datacommons import v2node_paginated
