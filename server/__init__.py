@@ -22,6 +22,8 @@ from flask import redirect
 from flask import request
 from flask_babel import Babel
 import flask_cors
+from google.api_core.exceptions import Forbidden
+from google.api_core.exceptions import GoogleAPICallError
 from google.api_core.exceptions import NotFound
 from google.api_core.exceptions import PermissionDenied
 from google.cloud import secretmanager
@@ -90,8 +92,11 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       logging.warning(
           f'No key found at {gcp_path} of the configured GCP project.')
       return ''
-    except PermissionDenied as e:
+    except (PermissionDenied, Forbidden) as e:
       logging.warning(e)
+      return ''
+    except GoogleAPICallError as e:
+      logging.warning(f'Error fetching key {gcp_path} from GCP project: {e}')
       return ''
 
   # If key is not found, return an empty string
@@ -402,6 +407,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['MAPS_API_KEY'] = _get_api_key(['MAPS_API_KEY', 'maps_api_key'],
                                               cfg.SECRET_PROJECT,
                                               'maps-api-key')
+
+  app.config['DB_COHORT_FORCE_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-spanner-ips')
+  app.config['DB_COHORT_FORCE_NON_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_NON_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-non-spanner-ips')
 
   if cfg.LOCAL:
     app.config['LOCAL'] = True
