@@ -465,6 +465,12 @@ def _get_best_type(types_list):
   if not types_list:
     return ''
 
+  if 'Place' in types_list:
+    has_other_ranking_type = any(
+        t in PLACE_TYPE_RANK and t != 'Place' for t in types_list)
+    if has_other_ranking_type:
+      types_list = [t for t in types_list if t != 'Place']
+
   # Sort types by rank (highest rank first)
   # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
   def sort_key(t):

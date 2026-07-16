@@ -30,7 +30,7 @@
 
    {% block content %}
    <div class="container">
-       <div id="node" data-dcid="{{dcid}}" data-nn="{{node_name}}"></div>
+       <div id="node" data-dcid="{{dcid}}" data-nn="{{node_name}}" data-has-json-ld="{{ 'true' if json_ld_data else 'false' }}"></div>
    </div>
    {% endblock %}
 

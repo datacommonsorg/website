@@ -115,7 +115,7 @@
   },
   {
     "name": "use_v2_resolve_for_nl_search_vars",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
   },
