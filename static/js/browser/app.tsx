@@ -21,9 +21,9 @@
 import axios from "axios";
 import React from "react";
 
+import { ArrowForward } from "../components/elements/icons/arrow_forward";
 import { GoogleMap } from "../components/google_map";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
-import { ArrowForward } from "../components/elements/icons/arrow_forward";
 import { StatVarHierarchyType } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { ImageSection } from "./image_section";
@@ -156,19 +156,22 @@ export class BrowserPage extends React.Component<
             <h2 className="browser-header-subtitle">dcid: {this.props.dcid}</h2>
             <h2 className="browser-header-subtitle">
               typeOf: {this.props.nodeTypes.join(", ")}
-              {this.props.hasJsonLdData && this.props.nodeTypes.includes("Dataset") && this.state.datasetSource && (
-                <>
-                  {" \u2022 "}
-                  <a
-                    href={`/tools/statvar#s=${this.state.datasetSource}&d=${this.props.dcid}`}
-                    style={{ display: "inline-flex", alignItems: "center", fontWeight: "normal" }}
-                  >
-                    Explore dataset <ArrowForward style={{ marginLeft: "4px" }} />
-                  </a>
-                </>
-              )}
+              {this.props.hasJsonLdData &&
+                this.props.nodeTypes.includes("Dataset") &&
+                this.state.datasetSource && (
+                  <>
+                    {" \u2022 "}
+                    <a
+                      className="explore-dataset-link"
+                      href={`/tools/statvar#s=${encodeURIComponent(
+                        this.state.datasetSource
+                      )}&d=${encodeURIComponent(this.props.dcid)}`}
+                    >
+                      Explore dataset <ArrowForward />
+                    </a>
+                  </>
+                )}
             </h2>
-
           </>
         )}
         <div id="overview-map">
@@ -237,7 +240,11 @@ export class BrowserPage extends React.Component<
     const promises: Promise<any>[] = [axios.get("/api/browser/provenance")];
     if (this.props.hasJsonLdData && this.props.nodeTypes.includes("Dataset")) {
       promises.push(
-        axios.get(`/api/node/propvals/out?prop=isPartOf&dcids=${this.props.dcid}`)
+        axios.get(
+          `/api/node/propvals/out?prop=isPartOf&dcids=${encodeURIComponent(
+            this.props.dcid
+          )}`
+        )
       );
     }
 
