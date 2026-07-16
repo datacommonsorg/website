@@ -23,6 +23,7 @@ from requests import Response
 from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
 from server.services.datacommons import _get_best_type
+from server.services.datacommons import get_basic_request_headers
 from server.services.datacommons import nl_search_vars
 from server.services.datacommons import nl_search_vars_in_parallel
 from server.services.datacommons import v2node_paginated
@@ -306,6 +307,21 @@ class TestServiceDataCommonsCacheSkip(unittest.TestCase):
     """Test that should_skip_cache() returns False when no X-Skip-Cache header"""
     with self.app.test_request_context():
       self.assertFalse(should_skip_cache())
+
+  def test_skip_cache_header_forwarded_to_mixer(self):
+    true_values = ["true", "TRUE", "True", "tRuE"]
+    for value in true_values:
+      with self.subTest(value=value):
+        with self.app.test_request_context(headers={"X-Skip-Cache": value}):
+          self.assertEqual(get_basic_request_headers().get("X-Skip-Cache"),
+                           "true")
+
+  def test_invalid_skip_cache_header_not_forwarded(self):
+    false_values = ["false", "", "1", "0", "yes", "no", "invalid", "True "]
+    for value in false_values:
+      with self.subTest(value=value):
+        with self.app.test_request_context(headers={"X-Skip-Cache": value}):
+          self.assertNotIn("X-Skip-Cache", get_basic_request_headers())
 
 
 class TestServiceDataCommonsNLSearchVarsInParallel(
