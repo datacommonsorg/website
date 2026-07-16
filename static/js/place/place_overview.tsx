@@ -51,12 +51,14 @@ const PlaceOverviewTable = (props: {
     const url = dataRow.provenanceUrl;
     if (url) {
       try {
-        new URL(url);
-        sourceUrls.add(url);
+        const parsedUrl = new URL(url);
+        if (parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:") {
+          sourceUrls.add(url);
+        }
       } catch (e) {
         // Skip invalid URL
       }
-    } 
+    }
   });
 
   return (
