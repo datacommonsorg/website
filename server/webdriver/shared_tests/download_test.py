@@ -15,6 +15,7 @@ import os
 import tempfile
 
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -91,12 +92,25 @@ class DownloadTestMixin():
                              is_new_vis_tools=False)
 
     # Choose stat var
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_sv_group(self.driver, "Demographics")
+
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Choose another stat var
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
     # Click preview
@@ -122,15 +136,27 @@ class DownloadTestMixin():
                             value='#preview-section table tbody tr')
     self.assertGreater(len(table_rows), 1)
 
-    # Create a map of header text to cell text for the first row
+    # Wait for all cells in the first row to be fully rendered to prevent race conditions
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(lambda d: len(
+        d.find_elements(By.CSS_SELECTOR,
+                        '#preview-section table tbody tr:nth-child(1) td')) ==
+                                                       len(actual_headers))
+
+    # Re-retrieve cells now that they are guaranteed to be fully rendered
     first_row_cell_elements = find_elems(
         self.driver,
         By.CSS_SELECTOR,
         value='#preview-section table tbody tr:nth-child(1) td')
-    actual_row_data = {
-        actual_headers[i]: cell.text
-        for i, cell in enumerate(first_row_cell_elements)
-    }
+
+    actual_row_data = {}
+    for i, cell in enumerate(first_row_cell_elements):
+      header = actual_headers[i]
+      try:
+        # Extract link href if cell contains a link, otherwise use cell text
+        link = cell.find_element(By.TAG_NAME, 'a')
+        actual_row_data[header] = link.get_attribute('href')
+      except NoSuchElementException:
+        actual_row_data[header] = cell.text
 
     # Check each expected value against the actual data using the header map
     for i, expected_header in enumerate(TABLE_HEADERS):

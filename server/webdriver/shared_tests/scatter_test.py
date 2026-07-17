@@ -79,16 +79,26 @@ class ScatterTestMixin():
                              is_new_vis_tools=False)
 
     # Choose stat vars
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_sv_group(self.driver, "Demographics")
 
     # Click on median age
-    shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Click on median income
-    shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
@@ -129,16 +139,26 @@ class ScatterTestMixin():
     shared.click_el(self.driver, (By.ID, 'scatter-chart-type-selector-map'))
 
     # Choose stat vars
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_sv_group(self.driver, "Demographics")
 
     # Click on median age
-    shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Click on median income
-    shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
@@ -188,16 +208,26 @@ class ScatterTestMixin():
     shared.click_el(self.driver, (By.ID, 'scatter-chart-type-selector-scatter'))
 
     # Choose stat vars
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_sv_group(self.driver, "Demographics")
 
     # Click on median age
-    shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Click on median income
-    shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'screen')))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
