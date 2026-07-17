@@ -603,7 +603,7 @@
     "name": "Placer County",
     "place_type": "County"
   },
-  "placeFallback" {},
+  "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
