@@ -215,9 +215,10 @@ export function Preview(props: PreviewProps): JSX.Element {
     };
     setDownloading(true);
     const flags = extractFlagsToPropagate(window.location.href);
-    const url = flags.size > 0
-      ? `/api/csv/within?${flags.toString()}`
-      : "/api/csv/within";
+    const url =
+      flags.size > 0
+        ? `/api/csv/within?${flags.toString()}`
+        : "/api/csv/within";
     axios
       .post(url, csvReqPayload.current, headers)
       .then((resp) => {
@@ -253,9 +254,10 @@ export function Preview(props: PreviewProps): JSX.Element {
       headers: WEBSITE_SURFACE_HEADER,
     };
     const flags = extractFlagsToPropagate(window.location.href);
-    const url = flags.size > 0
-      ? `/api/csv/within?${flags.toString()}`
-      : "/api/csv/within";
+    const url =
+      flags.size > 0
+        ? `/api/csv/within?${flags.toString()}`
+        : "/api/csv/within";
     axios
       .post(url, reqObject, headers)
       .then((resp) => {
