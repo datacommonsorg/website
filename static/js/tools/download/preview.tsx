@@ -27,6 +27,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/elements/button/button";
 import { Check } from "../../components/elements/icons/check";
 import { Download } from "../../components/elements/icons/download";
+import { ProgressActivity } from "../../components/elements/icons/progress_activity";
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
   downloadFile,
@@ -67,6 +68,7 @@ export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [downloaded, setDownloaded] = useState(false);
+  const [downloading, setDownloading] = useState(false);
   const csvReqPayload = useRef({});
   const prevOptions = useRef(null);
   const theme = useTheme();
@@ -161,13 +163,17 @@ export function Preview(props: PreviewProps): JSX.Element {
           >
             <Button
               className="download-button"
-              disabled={props.isDisabled}
+              disabled={props.isDisabled || downloading}
               onClick={onDownloadClicked}
               startIcon={
-                <span css={iconWrapper}>
-                  <Download className={downloaded ? "hidden" : undefined} />
-                  <Check className={!downloaded ? "hidden" : undefined} />
-                </span>
+                downloading ? (
+                  <ProgressActivity />
+                ) : (
+                  <span css={iconWrapper}>
+                    <Download className={downloaded ? "hidden" : undefined} />
+                    <Check className={!downloaded ? "hidden" : undefined} />
+                  </span>
+                )
               }
             >
               Download CSV
@@ -206,6 +212,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     const headers = {
       headers: WEBSITE_SURFACE_HEADER,
     };
+    setDownloading(true);
     axios
       .post("/api/csv/within", csvReqPayload.current, headers)
       .then((resp) => {
@@ -224,6 +231,9 @@ export function Preview(props: PreviewProps): JSX.Element {
       })
       .catch(() => {
         alert("Sorry, there was a problem downloading the csv.");
+      })
+      .finally(() => {
+        setDownloading(false);
       });
   }
 
