@@ -26,10 +26,7 @@ from server.webdriver.base_utils import wait_elem
 
 DOWNLOAD_URL = '/tools/download'
 SKIP_CHECK = 'SKIP_CHECK'
-TABLE_HEADERS = [
-    'placeDcid', 'placeName', 'Date:Count_Person', 'Value:Count_Person',
-    'Source:Count_Person'
-]
+TABLE_HEADERS = ['placeDcid', 'placeName', 'Date', 'Value', 'Source']
 # SKIP_CHECK for the values that change with each import.
 TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
@@ -141,4 +138,4 @@ class DownloadTestMixin():
       if len(downloaded_files) > 0:
         break
       num_tries += 1
-    self.assertEqual(downloaded_files[0], "California_County.csv")
+    self.assertEqual(downloaded_files[0], "California_County_Count_Person.csv")
