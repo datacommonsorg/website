@@ -129,8 +129,7 @@ class DownloadTestMixin():
         value='#preview-section table tbody tr:nth-child(1) td')
 
     actual_row_data = {}
-    for i, cell in enumerate(first_row_cell_elements):
-      header = actual_headers[i]
+    for header, cell in zip(actual_headers, first_row_cell_elements):
       try:
         # Extract link href if cell contains a link, otherwise use cell text
         link = cell.find_element(By.TAG_NAME, 'a')
