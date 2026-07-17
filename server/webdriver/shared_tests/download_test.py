@@ -88,16 +88,10 @@ class DownloadTestMixin():
                              is_new_vis_tools=False)
 
     # Choose stat var
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.invisibility_of_element_located((By.ID, 'screen')))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.invisibility_of_element_located((By.ID, 'spinner')))
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_sv_group(self.driver, "Demographics")
 
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.invisibility_of_element_located((By.ID, 'screen')))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.invisibility_of_element_located((By.ID, 'spinner')))
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
     # Wait for loading
