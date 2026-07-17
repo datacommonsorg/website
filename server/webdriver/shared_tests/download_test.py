@@ -58,7 +58,7 @@ class DownloadTestMixin():
   def test_server_and_page(self):
     """Test the server can run successfully."""
     title_text = "Download Tool - " + self.dc_title_string
-    self.driver.get(self.url_ + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL + '?enable_feature=use_new_download_tool')
 
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
@@ -76,7 +76,7 @@ class DownloadTestMixin():
     """
         Test entering options will show preview and allow download of a file
         """
-    self.driver.get(self.url_ + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL + '?enable_feature=use_new_download_tool')
 
     shared.search_for_places(self,
                              self.driver,

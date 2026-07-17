@@ -31,6 +31,7 @@ import { ProgressActivity } from "../../components/elements/icons/progress_activ
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
   downloadFile,
+  extractFlagsToPropagate,
   loadSpinner,
   removeSpinner,
   saveToFile,
@@ -213,8 +214,12 @@ export function Preview(props: PreviewProps): JSX.Element {
       headers: WEBSITE_SURFACE_HEADER,
     };
     setDownloading(true);
+    const flags = extractFlagsToPropagate(window.location.href);
+    const url = flags.size > 0
+      ? `/api/csv/within?${flags.toString()}`
+      : "/api/csv/within";
     axios
-      .post("/api/csv/within", csvReqPayload.current, headers)
+      .post(url, csvReqPayload.current, headers)
       .then((resp) => {
         if (resp.data) {
           const statVarDcids = Object.keys(
@@ -247,8 +252,12 @@ export function Preview(props: PreviewProps): JSX.Element {
     const headers = {
       headers: WEBSITE_SURFACE_HEADER,
     };
+    const flags = extractFlagsToPropagate(window.location.href);
+    const url = flags.size > 0
+      ? `/api/csv/within?${flags.toString()}`
+      : "/api/csv/within";
     axios
-      .post("/api/csv/within", reqObject, headers)
+      .post(url, reqObject, headers)
       .then((resp) => {
         if (resp.data) {
           Papa.parse(resp.data, {
