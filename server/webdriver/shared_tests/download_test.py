@@ -27,16 +27,10 @@ from server.webdriver.base_utils import wait_elem
 
 DOWNLOAD_URL = '/tools/download'
 SKIP_CHECK = 'SKIP_CHECK'
-TABLE_HEADERS = [
-    'placeDcid', 'placeName', 'Date:Median_Age_Person',
-    'Value:Median_Age_Person', 'Source:Median_Age_Person', 'Date:Count_Person',
-    'Value:Count_Person', 'Source:Count_Person'
-]
+TABLE_HEADERS = ['placeDcid', 'placeName', 'Date', 'Value', 'Source']
 # SKIP_CHECK for the values that change with each import.
 TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
-    'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
-    SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/popest.html'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
@@ -65,7 +59,8 @@ class DownloadTestMixin():
   def test_server_and_page(self):
     """Test the server can run successfully."""
     title_text = "Download Tool - " + self.dc_title_string
-    self.driver.get(self.url_ + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL +
+                    '?enable_feature=use_new_download_tool')
 
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
@@ -83,7 +78,8 @@ class DownloadTestMixin():
     """
         Test entering options will show preview and allow download of a file
         """
-    self.driver.get(self.url_ + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL +
+                    '?enable_feature=use_new_download_tool')
 
     shared.search_for_places(self,
                              self.driver,
@@ -102,20 +98,10 @@ class DownloadTestMixin():
         EC.invisibility_of_element_located((By.ID, 'screen')))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.invisibility_of_element_located((By.ID, 'spinner')))
-    shared.click_el(
-        self.driver,
-        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
-
-    # Choose another stat var
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.invisibility_of_element_located((By.ID, 'screen')))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.invisibility_of_element_located((By.ID, 'spinner')))
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
-    # Click preview
+    # Wait for loading
     shared.wait_for_loading(self.driver)
-    shared.click_el(self.driver, (By.CLASS_NAME, 'get-data-button'))
 
     # Wait for table to load
     shared.wait_for_loading(self.driver)
@@ -165,8 +151,7 @@ class DownloadTestMixin():
                          f"Mismatch for header: {expected_header}")
 
     # Click download
-    shared.click_el(self.driver,
-                    (By.XPATH, '//*[@id="preview-section"]/button'))
+    shared.click_el(self.driver, (By.CLASS_NAME, 'download-button'))
 
     # Assert file downloaded
     num_tries = 0
@@ -177,4 +162,4 @@ class DownloadTestMixin():
       if len(downloaded_files) > 0:
         break
       num_tries += 1
-    self.assertEqual(downloaded_files[0], "California_County.csv")
+    self.assertEqual(downloaded_files[0], "California_County_Count_Person.csv")

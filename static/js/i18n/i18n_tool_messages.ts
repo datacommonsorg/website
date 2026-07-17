@@ -17,6 +17,23 @@
 import { defineMessages } from "react-intl";
 
 export const toolMessages = defineMessages({
+  downloadToolTitle: {
+    id: "download_visualization_tool_name",
+    defaultMessage: "Data Download Tool",
+    description: "name of the tool that downloads data",
+  },
+  downloadToolSubtitle: {
+    id: "download_visualization_tool_description",
+    defaultMessage:
+      "Download data for any available geographic region, one variable at a time.",
+    description: "a description of what our data download tool is used for",
+  },
+  downloadToolSearchBoxPlaceholder: {
+    id: "download_tool_search_box_placeholder",
+    defaultMessage: "Enter a country or state to get started",
+    description:
+      "Placeholder text in a search bar inviting the user to type in the name of a place",
+  },
   mapToolTitle: {
     id: "map_visualization_tool_name",
     defaultMessage: "Map Explorer",
@@ -113,6 +130,19 @@ export const toolMessages = defineMessages({
     id: "info_box_instruction_variable_mobile_scatter",
     defaultMessage:
       'Pick two statistical variables using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsVariableDesktopDownload: {
+    id: "info_box_instruction_variable_desktop_map",
+    defaultMessage: "Pick a statistical variable in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileDownload: {
+    id: "info_box_instruction_variable_mobile_map",
+    defaultMessage:
+      'Pick a statistical variable using the "select variable" button above.',
     description:
       "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
   },

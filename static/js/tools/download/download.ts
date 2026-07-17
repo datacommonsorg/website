@@ -21,6 +21,5 @@ import { Page } from "./page";
 
 window.addEventListener("load", (): void => {
   const mainPainElem = document.getElementById("main-pane");
-  const infoPlaces = JSON.parse(mainPainElem.dataset.infoPlaces) || [];
-  ReactDOM.render(React.createElement(Page, { infoPlaces }), mainPainElem);
+  ReactDOM.render(React.createElement(Page), mainPainElem);
 });

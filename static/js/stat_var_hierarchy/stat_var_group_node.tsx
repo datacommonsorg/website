@@ -32,7 +32,6 @@ import {
 } from "../shared/ga_events";
 import {
   NamedNode,
-  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
   StatVarHierarchyType,
@@ -45,12 +44,15 @@ import {
 } from "./node_header";
 import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarSection } from "./stat_var_section";
+import { isRadioButtonType } from "./util";
 
 const SCROLL_DELAY = 400;
 // Stat var hierarchy types where nodes containing selected SV should be
 // expanded on initial render of the page.
 const INITIAL_EXPANSION_TYPES = [
-  ...Array.from(RADIO_BUTTON_TYPES),
+  ...Object.values(StatVarHierarchyType).filter((type) =>
+    isRadioButtonType(type)
+  ),
   StatVarHierarchyType.BROWSER,
 ];
 
