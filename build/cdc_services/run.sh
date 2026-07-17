@@ -22,7 +22,6 @@ export TOKENIZERS_PARALLELISM=false
 export OMP_NUM_THREADS=1
 
 export NL_SERVER_PORT=${NL_SERVER_PORT:-6060}
-export RESOLVE_WITH_SPANNER_EMBEDDINGS=${RESOLVE_WITH_SPANNER_EMBEDDINGS:-"false"}
 
 # If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
 if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
@@ -77,14 +76,14 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     
     # 1. Dynamically update feature flags for Website and Mixer
     python3 update_dcp_flags.py
-
-    # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
-    
-    # Use existing GCP project ID, or fetch it from Metadata Server if empty
-    GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
+    # Resolve Project ID across standard environment variables, or fall back to Compute/Cloud Run Metadata Server
+    GCP_PROJECT_ID=${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-$PROJECT_ID}}
+    if [[ -z "$GCP_PROJECT_ID" ]]; then
+        GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)
+    fi
     
     if [[ -z "$GCP_PROJECT_ID" ]]; then
-        echo "ERROR: Failed to resolve Project ID."
+        echo "ERROR: GCP_PROJECT_ID (or GOOGLE_CLOUD_PROJECT / PROJECT_ID) not specified and could not be resolved from metadata."
         exit 1
     fi
     

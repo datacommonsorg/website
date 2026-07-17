@@ -41,9 +41,11 @@ def update_mixer_flags():
         data['flags'] = {}
         
     # Dynamically inject flags based on explicit environment variable settings
+    # TODO: Clean up RESOLVE_WITH_SPANNER_EMBEDDINGS override since DCP is fully migrated to Spanner embeddings and canonical flags reside directly in dcp.yaml.
     if 'RESOLVE_WITH_SPANNER_EMBEDDINGS' in os.environ:
         data['flags']['EnableSpannerSearchEmbeddings'] = os.environ['RESOLVE_WITH_SPANNER_EMBEDDINGS'].lower() == 'true'
         
+    # TODO(gmechali): Clean up ENABLE_UNIQUE_HISTORY_RECORDS override once completely removed from Terraform and dcp.yaml provides canonical default.
     if 'ENABLE_UNIQUE_HISTORY_RECORDS' in os.environ:
         data['flags']['UseNewIngestionHistorySchema'] = os.environ['ENABLE_UNIQUE_HISTORY_RECORDS'].lower() == 'true'
         
