@@ -121,7 +121,7 @@
   },
   {
     "name": "use_new_download_tool",
-    "enabled": true,
+    "enabled": false,
     "owner": "pablonoel",
     "description": "Feature flag to enable the new download tool UI"
   },
