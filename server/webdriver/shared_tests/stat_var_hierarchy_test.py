@@ -36,6 +36,17 @@ class StatVarHierarchyTestMixin():
     self.assertIsNotNone(
         wait_elem(self.driver, by=By.ID, value='hierarchy-section'))
 
+    # Expand the stat var widget if it starts collapsed
+    explore_menu = find_elem(self.driver, by=By.ID, value='explore')
+    if 'collapsed' in explore_menu.get_attribute('class'):
+      toggle_btn = find_elem(self.driver, by=By.ID, value='explore-menu-toggle')
+      toggle_btn.click()
+      # Wait for the collapsed class to be removed
+      WebDriverWait(
+          self.driver,
+          self.TIMEOUT_SEC).until(lambda driver: 'collapsed' not in find_elem(
+              driver, by=By.ID, value='explore').get_attribute('class'))
+
     # Get the count of the first category
     agriculture_count_xpath = "//*[text()='Agriculture']/span[@class='sv-count']"
     initial_count_text = find_elem(self.driver,

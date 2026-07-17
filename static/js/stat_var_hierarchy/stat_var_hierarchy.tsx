@@ -35,7 +35,6 @@ import {
 } from "../shared/ga_events";
 import {
   NamedNode,
-  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarGroupNodeType,
   StatVarHierarchyType,
@@ -47,6 +46,7 @@ import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
   hideTooltip,
+  isRadioButtonType,
   showTooltip,
   SV_HIERARCHY_SECTION_ID,
   TOOLTIP_ID,
@@ -416,7 +416,7 @@ export class StatVarHierarchy extends React.Component<
           });
         }
       }
-      const svPath = RADIO_BUTTON_TYPES.has(this.props.type)
+      const svPath = isRadioButtonType(this.props.type)
         ? { [sv]: path }
         : Object.assign({ [sv]: path }, this.state.svPath);
       this.setState({

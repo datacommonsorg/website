@@ -50,9 +50,10 @@
     width: 24px;
   }
 
-  .input-area-hidden #ac {
+  #location-field.input-area-hidden #ac {
     visibility: hidden;
     width: 0;
+    flex-grow: 0;
   }
 
   #location-field #ac {
