@@ -95,7 +95,7 @@ test("Loading options from URL", async () => {
     savedFile = fileName;
   });
   await waitFor(() => {
-    expect(savedFile).toEqual("California_County.csv");
+    expect(savedFile).toEqual("California_County_Count_Person.csv");
   });
   wrapper.unmount();
   container.remove();
@@ -169,7 +169,7 @@ test("Manually updating options", async () => {
     savedFile = fileName;
   });
   await waitFor(() => {
-    expect(savedFile).toEqual("California_County.csv");
+    expect(savedFile).toEqual("California_County_Count_Person.csv");
   });
   wrapper.unmount();
   container.remove();
