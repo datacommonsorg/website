@@ -23,8 +23,8 @@ from flask import g
 from flask import request
 from flask import url_for
 
-from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
 from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
 from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')

@@ -21,8 +21,8 @@ from flask import Blueprint
 from flask import make_response
 from flask import request
 
-from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
 from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
 from server.lib.shared import date_greater_equal_min
 from server.lib.shared import date_lesser_equal_max
 from server.lib.shared import is_valid_date
@@ -289,7 +289,7 @@ def get_stats_within_place_csv():
                                      "_".join(sv_list))
   else:
     filename = "{}_{}.csv".format(parent_place, child_type)
-  response.headers[
-      "Content-Disposition"] = "attachment; filename={}".format(filename)
+  response.headers["Content-Disposition"] = "attachment; filename={}".format(
+      filename)
   response.status_code = 200
   return response
