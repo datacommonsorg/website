@@ -121,6 +121,12 @@
     "description": "Enables using the V2 resolve API for NL search vars."
   },
   {
+    "name": "use_new_download_tool",
+    "enabled": true,
+    "owner": "pablonoel",
+    "description": "Feature flag to enable the new download tool UI"
+  },
+  {
     "name": "vai_for_statvar_search",
     "enabled": true,
     "owner": "alyssaguo",

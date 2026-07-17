@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @jsxImportSource @emotion/react */
 
+import { css } from "@emotion/react";
 import {} from "googlemaps";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
@@ -21,6 +23,11 @@ import ReactDOM from "react-dom";
 import { toTitleCase } from "../tools/shared_util";
 import { getPlaceDcids } from "../utils/place_utils";
 import { Chip } from "./chip";
+import {
+  isFeatureEnabled,
+  USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
+} from "./feature_flags/util";
+import { PlaceTag } from "./place_tag";
 
 // Hardcoded results to respond to in the place autocomplete.
 const NORTH_AMERICA_DCID = "northamerica";
@@ -50,6 +57,10 @@ interface PlaceSearchBarPropType {
 class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
   inputElem: React.RefObject<HTMLInputElement>;
   ac: google.maps.places.Autocomplete;
+  // Set when a place is removed via the single-select tag, so
+  // componentDidUpdate can refocus #ac once its DOM state (disabled/value)
+  // has actually been updated for the new, now-empty place list.
+  private focusInputOnUpdate = false;
 
   constructor(props: PlaceSearchBarPropType) {
     super(props);
@@ -58,11 +69,19 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
     this.ac = null;
   }
 
+  private removePlaceAndRefocus = (placeId: string): void => {
+    this.focusInputOnUpdate = true;
+    this.props.removePlace(placeId);
+  };
+
   render(): JSX.Element {
     const placeIds = Object.keys(this.props.places);
     const hideInput = this.props.numPlacesLimit
       ? placeIds.length >= this.props.numPlacesLimit
       : false;
+    const isSingleSelect =
+      this.props.numPlacesLimit === 1 &&
+      isFeatureEnabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG);
     return (
       <div id="search">
         <div
@@ -73,19 +92,32 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
           <span id="prompt">Find : </span>
           <div id="place-list-container">
             <span id="place-list">
-              {placeIds.map((placeId) => (
-                <Chip
-                  id={placeId}
-                  title={
-                    this.props.places[placeId]
-                      ? this.props.places[placeId]
-                      : placeId
-                  }
-                  key={placeId}
-                  removeChip={this.props.removePlace}
-                  color={CHIP_COLOR}
-                ></Chip>
-              ))}
+              {placeIds.map((placeId) =>
+                isSingleSelect ? (
+                  <PlaceTag
+                    id={placeId}
+                    title={
+                      this.props.places[placeId]
+                        ? this.props.places[placeId]
+                        : placeId
+                    }
+                    key={placeId}
+                    removeChip={this.removePlaceAndRefocus}
+                  ></PlaceTag>
+                ) : (
+                  <Chip
+                    id={placeId}
+                    title={
+                      this.props.places[placeId]
+                        ? this.props.places[placeId]
+                        : placeId
+                    }
+                    key={placeId}
+                    removeChip={this.props.removePlace}
+                    color={CHIP_COLOR}
+                  ></Chip>
+                )
+              )}
             </span>
             <input ref={this.inputElem} id="ac" type="text" />
           </div>
@@ -125,6 +157,10 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
 
   componentDidUpdate(): void {
     this.setPlaceholder();
+    if (this.focusInputOnUpdate) {
+      this.focusInputOnUpdate = false;
+      this.inputElem.current?.focus();
+    }
   }
 
   static getHardcodedResultDcid(inputVal: string): string {

@@ -69,6 +69,7 @@ export const StatVarHierarchyType = {
 export const RADIO_BUTTON_TYPES = new Set([
   StatVarHierarchyType.MAP,
   StatVarHierarchyType.STAT_VAR,
+  StatVarHierarchyType.DOWNLOAD,
 ]);
 
 export interface StatVarInfo {
