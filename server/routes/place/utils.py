@@ -600,7 +600,7 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
 # These are used for overriding or customizing the default hierarchy in certain cases.
 PLACE_MATCH_EXPRESSIONS: Callable[[Place], str | None] = [
     # Matches "Earth" (type "Place") and returns "Continent"
-    lambda place: "Continent" if "Place" in place.types else None,
+    lambda place: "Continent" if place.types == ["Place"] else None,
     # Use "State" instead of AdministrativeArea1 for country/USA
     lambda place: "State" if place.dcid == "country/USA" else None,
     # Use "Country" for all  "UNGeoRegion"

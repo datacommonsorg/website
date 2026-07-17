@@ -16,6 +16,8 @@
 
 import unittest
 
+from flask import g
+
 from server.__init__ import create_app
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM
@@ -119,3 +121,145 @@ class TestFeatureFlags(unittest.TestCase):
         is_feature_enabled(TEST_FEATURE_FLAG,
                            app=self.app,
                            request=response.request))
+
+  def test_spanner_diversion_cohort_assignment(self):
+    """Test deterministic cohort assignment for divert_to_spanner."""
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=50)
+
+    # Request 1: IP '192.168.1.1', UA 'Mozilla/5.0'
+    with self.client as c:
+      c.get('/',
+            headers={
+                'X-Forwarded-For': '192.168.1.1',
+                'User-Agent': 'Mozilla/5.0'
+            })
+      val1 = g.use_spanner
+
+    # Request 2: Same IP and UA -> must return the exact same cohort assignment
+    with self.client as c:
+      c.get('/',
+            headers={
+                'X-Forwarded-For': '192.168.1.1',
+                'User-Agent': 'Mozilla/5.0'
+            })
+      val2 = g.use_spanner
+
+    self.assertEqual(val1, val2)
+
+    # Verify that the leftmost IP (representing original client IP) is used.
+    # Request 3: IP '192.168.1.1', with downstream proxy IPs '10.0.0.1, 10.0.0.2'
+    with self.client as c:
+      c.get('/',
+            headers={
+                'X-Forwarded-For': '192.168.1.1, 10.0.0.1, 10.0.0.2',
+                'User-Agent': 'Mozilla/5.0'
+            })
+      val3 = g.use_spanner
+
+    self.assertEqual(val1, val3)
+
+    # Verify IPv4 port stripping: "192.168.1.1:12345" and "192.168.1.1" must result in identical values
+    from unittest.mock import MagicMock
+
+    from server.lib.feature_flags import assign_spanner_cohort
+
+    def make_mock_req(ip_header, ua='Mozilla/5.0'):
+      req = MagicMock()
+      req.headers = {}
+      if ip_header:
+        req.headers['X-Forwarded-For'] = ip_header
+      req.headers['User-Agent'] = ua
+      req.remote_addr = '127.0.0.1'
+      return req
+
+    self.assertEqual(
+        assign_spanner_cohort(self.app, make_mock_req("192.168.1.1:12345")),
+        assign_spanner_cohort(self.app, make_mock_req("192.168.1.1")))
+
+    # Verify IPv6 bracketed port stripping: "[2001:db8::1]:12345" and "[2001:db8::1]"
+    self.assertEqual(
+        assign_spanner_cohort(self.app, make_mock_req("[2001:db8::1]:12345")),
+        assign_spanner_cohort(self.app, make_mock_req("[2001:db8::1]")))
+
+    # Verify that override query params work
+    with self.client as c:
+      c.get('/?enable_feature=divert_to_spanner')
+      self.assertTrue(g.use_spanner)
+
+    with self.client as c:
+      c.get('/?disable_feature=divert_to_spanner')
+      self.assertFalse(g.use_spanner)
+
+  def test_spanner_diversion_ip_overrides(self):
+    """Test cohort overrides based on client IP addresses/subnets."""
+    # 1. Force to Spanner cohort (0% rollout, but IP is overridden to Spanner)
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=0)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = "192.168.1.1,10.0.0.0/8"
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertTrue(g.use_spanner)
+
+    with self.client as c:
+      c.get('/',
+            headers={'X-Forwarded-For': '10.5.2.3'})  # matches CIDR 10.0.0.0/8
+      self.assertTrue(g.use_spanner)
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.2'})  # does not match
+      self.assertFalse(g.use_spanner)
+
+    # 2. Force to Non-Spanner cohort (100% rollout, but IP is overridden to non-Spanner)
+    mock_feature_flags(self.app, ["divert_to_spanner"],
+                       True,
+                       rolloutPercent=100)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
+    self.app.config[
+        "DB_COHORT_FORCE_NON_SPANNER_IPS"] = "192.168.1.1,10.0.0.0/8"
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertFalse(g.use_spanner)
+
+    with self.client as c:
+      c.get('/',
+            headers={'X-Forwarded-For': '10.5.2.3'})  # matches CIDR 10.0.0.0/8
+      self.assertFalse(g.use_spanner)
+
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.2'})  # does not match
+      self.assertTrue(g.use_spanner)
+
+    # 3. URL Parameter Precedence (URL parameter wins over IP override)
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=0)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = "192.168.1.1"
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
+    with self.client as c:
+      # IP says yes, but URL disable override says no
+      c.get('/?disable_feature=divert_to_spanner',
+            headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertFalse(g.use_spanner)
+
+    mock_feature_flags(self.app, ["divert_to_spanner"],
+                       True,
+                       rolloutPercent=100)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = "192.168.1.1"
+    with self.client as c:
+      # IP says no, but URL enable override says yes
+      c.get('/?enable_feature=divert_to_spanner',
+            headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertTrue(g.use_spanner)
+
+    # 4. Conflict Precedence (non-Spanner override wins if IP is in both)
+    mock_feature_flags(self.app, ["divert_to_spanner"], True, rolloutPercent=50)
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = "192.168.1.1"
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = "192.168.1.1"
+    with self.client as c:
+      c.get('/', headers={'X-Forwarded-For': '192.168.1.1'})
+      self.assertFalse(g.use_spanner)
+
+    # Clean up configs
+    self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
+    self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
