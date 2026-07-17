@@ -79,7 +79,7 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     # Resolve Project ID across standard environment variables, or fall back to Compute/Cloud Run Metadata Server
     GCP_PROJECT_ID=${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-$PROJECT_ID}}
     if [[ -z "$GCP_PROJECT_ID" ]]; then
-        GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)
+        GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null) || true
     fi
     
     if [[ -z "$GCP_PROJECT_ID" ]]; then
