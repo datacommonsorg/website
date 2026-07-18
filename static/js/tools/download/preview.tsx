@@ -18,25 +18,47 @@
  * Component for rendering the preview of the csv to be download
  */
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Card } from "reactstrap";
 
+import { Button } from "../../components/elements/button/button";
+import { Check } from "../../components/elements/icons/check";
+import { Download } from "../../components/elements/icons/download";
+import { ProgressActivity } from "../../components/elements/icons/progress_activity";
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
-import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
 import {
-  DATE_ALL,
-  DATE_LATEST,
-  DownloadDateTypes,
-  DownloadOptions,
-} from "./page";
+  downloadFile,
+  extractFlagsToPropagate,
+  loadSpinner,
+  removeSpinner,
+  saveToFile,
+} from "../../shared/util";
+import { DATE_ALL, DownloadOptions } from "./context";
 
 const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
 const NUM_COL_PER_SV = 3;
 const NUM_DEFAULT_COL = 2;
+const DOWNLOADED_RESET_DELAY_MS = 1500;
+
+const iconWrapper = css`
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  & > svg {
+    position: absolute;
+    inset: 0;
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+  & .hidden {
+    opacity: 0;
+    transform: scale(0);
+  }
+`;
 
 interface PreviewProps {
   selectedOptions: DownloadOptions;
@@ -46,8 +68,11 @@ interface PreviewProps {
 export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [downloaded, setDownloaded] = useState(false);
+  const [downloading, setDownloading] = useState(false);
   const csvReqPayload = useRef({});
   const prevOptions = useRef(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (
@@ -60,6 +85,15 @@ export function Preview(props: PreviewProps): JSX.Element {
     csvReqPayload.current = getCsvReqPayload();
     fetchPreviewData();
   }, [props, errorMessage]);
+
+  useEffect(() => {
+    if (!downloaded) return;
+    const id = setTimeout(
+      () => setDownloaded(false),
+      DOWNLOADED_RESET_DELAY_MS
+    );
+    return (): void => clearTimeout(id);
+  }, [downloaded]);
 
   // We only want to show preview once preview data has been fetched.
   const showPreview = _.isEmpty(errorMessage) && !_.isEmpty(previewData);
@@ -81,7 +115,19 @@ export function Preview(props: PreviewProps): JSX.Element {
     cardClassName += " preview-disabled";
   }
   return (
-    <Card id={SECTION_ID} className={cardClassName}>
+    <div
+      id={SECTION_ID}
+      className={cardClassName}
+      css={css`
+        max-width: 100%;
+        overflow-scroll;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        gap: ${theme.spacing.md}px;
+      `}
+    >
       {errorMessage && <div>{errorMessage}</div>}
       {showPreview && (
         <>
@@ -110,20 +156,36 @@ export function Preview(props: PreviewProps): JSX.Element {
               </tr>
             </tbody>
           </table>
-          <Button
-            className="download-button"
-            color={"primary"}
-            disabled={props.isDisabled}
-            onClick={onDownloadClicked}
+          <div
+            css={css`
+              display: flex;
+              justify-content: flex-end;
+            `}
           >
-            Download
-          </Button>
+            <Button
+              className="download-button"
+              disabled={props.isDisabled || downloading}
+              onClick={onDownloadClicked}
+              startIcon={
+                downloading ? (
+                  <ProgressActivity />
+                ) : (
+                  <span css={iconWrapper}>
+                    <Download className={downloaded ? "hidden" : undefined} />
+                    <Check className={!downloaded ? "hidden" : undefined} />
+                  </span>
+                )
+              }
+            >
+              Download CSV
+            </Button>
+          </div>
         </>
       )}
       <div className="screen">
         <div id="spinner"></div>
       </div>
-    </Card>
+    </div>
   );
 
   function getCsvReqPayload(): {
@@ -134,24 +196,13 @@ export function Preview(props: PreviewProps): JSX.Element {
     minDate: string;
     maxDate: string;
   } {
-    // When both minDate and maxDate are set as "latest", the api will get the
-    // data for the latest date.
-    let minDate = props.selectedOptions.minDate;
-    let maxDate = props.selectedOptions.maxDate;
-    if (props.selectedOptions.dateType === DownloadDateTypes.ALL) {
-      minDate = DATE_ALL;
-      maxDate = DATE_ALL;
-    } else if (props.selectedOptions.dateType === DownloadDateTypes.LATEST) {
-      minDate = DATE_LATEST;
-      maxDate = DATE_LATEST;
-    }
     return {
       parentPlace: props.selectedOptions.selectedPlace.dcid,
       childType: props.selectedOptions.enclosedPlaceType,
       statVars: Object.keys(props.selectedOptions.selectedStatVars),
       facetMap: props.selectedOptions.selectedFacets,
-      minDate,
-      maxDate,
+      minDate: DATE_ALL, // By default sets to all available dates
+      maxDate: DATE_ALL,
     };
   }
 
@@ -162,20 +213,33 @@ export function Preview(props: PreviewProps): JSX.Element {
     const headers = {
       headers: WEBSITE_SURFACE_HEADER,
     };
+    setDownloading(true);
+    const flags = extractFlagsToPropagate(window.location.href);
+    const url =
+      flags.size > 0
+        ? `/api/csv/within?${flags.toString()}`
+        : "/api/csv/within";
     axios
-      .post("/api/csv/within", csvReqPayload.current, headers)
+      .post(url, csvReqPayload.current, headers)
       .then((resp) => {
         if (resp.data) {
+          const statVarDcids = Object.keys(
+            props.selectedOptions.selectedStatVars
+          ).join("_");
           saveToFile(
-            `${props.selectedOptions.selectedPlace.name}_${props.selectedOptions.enclosedPlaceType}.csv`,
+            `${props.selectedOptions.selectedPlace.name}_${props.selectedOptions.enclosedPlaceType}_${statVarDcids}.csv`,
             resp.data
           );
+          setDownloaded(true);
         } else {
           alert("Sorry, there was a problem downloading the csv.");
         }
       })
       .catch(() => {
         alert("Sorry, there was a problem downloading the csv.");
+      })
+      .finally(() => {
+        setDownloading(false);
       });
   }
 
@@ -189,8 +253,13 @@ export function Preview(props: PreviewProps): JSX.Element {
     const headers = {
       headers: WEBSITE_SURFACE_HEADER,
     };
+    const flags = extractFlagsToPropagate(window.location.href);
+    const url =
+      flags.size > 0
+        ? `/api/csv/within?${flags.toString()}`
+        : "/api/csv/within";
     axios
-      .post("/api/csv/within", reqObject, headers)
+      .post(url, reqObject, headers)
       .then((resp) => {
         if (resp.data) {
           Papa.parse(resp.data, {
