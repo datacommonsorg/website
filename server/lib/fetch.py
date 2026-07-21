@@ -433,8 +433,8 @@ def multiple_property_values(nodes: List[str],
       # }
   """
   props_expression = f"[{', '.join(props)}]"
-  resp = dc.v2node_paginated(nodes, '{}{}'.format('->' if out else '<-',
-                                        props_expression), max_pages)
+  resp = dc.v2node_paginated(
+      nodes, '{}{}'.format('->' if out else '<-', props_expression), max_pages)
 
   # Parse response into a structured dictionary
   result: Dict[str, Dict[str, List[str]]] = {}
