@@ -53,8 +53,9 @@ class StatVarHierarchyTestMixin():
                                    by=By.XPATH,
                                    value=agriculture_count_xpath).text
 
-    rgx = re.compile(r'\(([0-9]+)\)')
-    count_initial = int(rgx.search(initial_count_text).group(1))
+    rgx = re.compile(r'\(([0-9,]+)\)')
+    count_initial = int(
+        rgx.search(initial_count_text).group(1).replace(',', ''))
 
     # Search for California Counties
     shared.search_for_places(self,
@@ -75,6 +76,6 @@ class StatVarHierarchyTestMixin():
     count_text_after = find_elem(self.driver,
                                  by=By.XPATH,
                                  value=agriculture_count_xpath).text
-    count_final = int(rgx.search(count_text_after).group(1))
+    count_final = int(rgx.search(count_text_after).group(1).replace(',', ''))
 
     self.assertGreater(count_initial, count_final)
