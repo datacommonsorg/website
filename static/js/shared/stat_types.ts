@@ -23,6 +23,7 @@
 // TODO (nick-next): comment the client library version to document that `StatMetadata` matches.
 
 export interface StatMetadata {
+  provenanceId?: string;
   importName?: string;
   provenanceUrl?: string;
   measurementMethod?: string;
