@@ -386,6 +386,21 @@ test("findMatchingFacets", () => {
     })
   ).toEqual(["facet_2"]);
 
+  // Test: Fallback to provenanceId match when importName is empty string.
+  // Situation: Highlight criteria has importName 'StormNOAA_Agg', facet has provenanceId 'dc/base/StormNOAA_Agg' and empty importName.
+  // Expectation: Matches and returns the facet ID.
+  const facetsFallbackEmptyImport = {
+    facet_2_empty_import: {
+      importName: "",
+      provenanceId: "dc/base/StormNOAA_Agg",
+    },
+  };
+  expect(
+    findMatchingFacets(facetsFallbackEmptyImport, {
+      facetMetadata: { importName: "StormNOAA_Agg" },
+    })
+  ).toEqual(["facet_2_empty_import"]);
+
   // Test: No match on wrong importName.
   // Situation: Highlight criteria has importName 'StormNOAA_Agg', facet has importName 'Different_Import'.
   // Expectation: Does not match (returns empty array).

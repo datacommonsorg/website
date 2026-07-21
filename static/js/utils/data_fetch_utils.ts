@@ -129,7 +129,7 @@ export function findMatchingFacets(
     if (
       !highlightFacet ||
       (!_.isEmpty(highlightFacet.importName) &&
-        (f.importName
+        (!_.isEmpty(f.importName)
           ? highlightFacet.importName !== f.importName
           : f.provenanceId !== `dc/base/${highlightFacet.importName}`)) ||
       (!_.isEmpty(highlightFacet.measurementMethod) &&
