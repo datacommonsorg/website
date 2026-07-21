@@ -405,8 +405,9 @@ class TestGetBestType(unittest.TestCase):
     self.assertEqual(_get_best_type(['State', 'Place']), 'State')
     self.assertEqual(_get_best_type(['Place', 'Country']), 'Country')
 
-    # List with Place and custom non-ranking type -> should keep Place
-    self.assertEqual(_get_best_type(['SomeCustomType', 'Place']), 'Place')
+    # List with Place and custom non-ranking type -> should exclude Place
+    self.assertEqual(_get_best_type(['SomeCustomType', 'Place']),
+                     'SomeCustomType')
 
     # List with multiple ranking types and Place -> should exclude Place and return State
     self.assertEqual(_get_best_type(['City', 'State', 'Place']), 'State')

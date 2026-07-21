@@ -466,9 +466,8 @@ def _get_best_type(types_list):
     return ''
 
   if 'Place' in types_list:
-    has_other_ranking_type = any(
-        t in PLACE_TYPE_RANK and t != 'Place' for t in types_list)
-    if has_other_ranking_type:
+    has_other_type = any(t != 'Place' for t in types_list)
+    if has_other_type:
       types_list = [t for t in types_list if t != 'Place']
 
   # Sort types by rank (highest rank first)
