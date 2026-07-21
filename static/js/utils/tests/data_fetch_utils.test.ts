@@ -415,4 +415,3 @@ test("findMatchingFacets", () => {
     })
   ).toEqual([]);
 });
-
