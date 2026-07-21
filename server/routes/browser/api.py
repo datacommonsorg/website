@@ -36,9 +36,9 @@ def provenance():
     return jsonify({})
 
   properties_to_fetch = ['name']
-  prop_resp = fetch.multiple_property_values(prov_dcids, 
+  prop_resp = fetch.multiple_property_values(prov_dcids,
                                              properties_to_fetch,
-                                             True, 
+                                             True,
                                              max_pages=None)
 
   result = {}
