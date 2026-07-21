@@ -15,6 +15,7 @@ import os
 import tempfile
 
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -87,7 +88,10 @@ class DownloadTestMixin():
                              is_new_vis_tools=False)
 
     # Choose stat var
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_sv_group(self.driver, "Demographics")
+
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
     # Wait for loading
@@ -112,15 +116,26 @@ class DownloadTestMixin():
                             value='#preview-section table tbody tr')
     self.assertGreater(len(table_rows), 1)
 
-    # Create a map of header text to cell text for the first row
+    # Wait for all cells in the first row to be fully rendered to prevent race conditions
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(lambda d: len(
+        d.find_elements(By.CSS_SELECTOR,
+                        '#preview-section table tbody tr:nth-child(1) td')) ==
+                                                       len(actual_headers))
+
+    # Re-retrieve cells now that they are guaranteed to be fully rendered
     first_row_cell_elements = find_elems(
         self.driver,
         By.CSS_SELECTOR,
         value='#preview-section table tbody tr:nth-child(1) td')
-    actual_row_data = {
-        actual_headers[i]: cell.text
-        for i, cell in enumerate(first_row_cell_elements)
-    }
+
+    actual_row_data = {}
+    for header, cell in zip(actual_headers, first_row_cell_elements):
+      try:
+        # Extract link href if cell contains a link, otherwise use cell text
+        link = cell.find_element(By.TAG_NAME, 'a')
+        actual_row_data[header] = link.get_attribute('href')
+      except NoSuchElementException:
+        actual_row_data[header] = cell.text
 
     # Check each expected value against the actual data using the header map
     for i, expected_header in enumerate(TABLE_HEADERS):
