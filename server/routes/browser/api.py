@@ -26,7 +26,7 @@ bp = flask.Blueprint('api_browser', __name__, url_prefix='/api/browser')
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def provenance():
   """Return provenance name for all available data sources."""
-  prov_resp = fetch.property_values(['Provenance'], 'typeOf', False)
+  prov_resp = fetch.property_values(['Provenance'], 'typeOf', False, max_pages=None)
   prov_dcids = prov_resp.get('Provenance', [])
 
   if not prov_dcids:
@@ -34,7 +34,7 @@ def provenance():
 
   properties_to_fetch = ['name']
   prop_resp = fetch.multiple_property_values(prov_dcids, properties_to_fetch,
-                                             True)
+                                             True, max_pages=None)
 
   result = {}
   for dcid, props in prop_resp.items():
