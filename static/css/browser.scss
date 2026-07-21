@@ -35,6 +35,16 @@
   line-height: 1.2rem;
 }
 
+.explore-dataset-link {
+  display: inline-flex;
+  align-items: center;
+  font-weight: normal;
+
+  svg {
+    margin-left: 4px;
+  }
+}
+
 .observations-table .node-table tr > td:last-of-type {
   width: 70%;
 }

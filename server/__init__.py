@@ -22,6 +22,8 @@ from flask import redirect
 from flask import request
 from flask_babel import Babel
 import flask_cors
+from google.api_core.exceptions import Forbidden
+from google.api_core.exceptions import GoogleAPICallError
 from google.api_core.exceptions import NotFound
 from google.api_core.exceptions import PermissionDenied
 from google.cloud import secretmanager
@@ -31,6 +33,7 @@ from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
+from server.lib.feature_flags import assign_spanner_cohort
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
 from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
@@ -89,8 +92,11 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       logging.warning(
           f'No key found at {gcp_path} of the configured GCP project.')
       return ''
-    except PermissionDenied as e:
+    except (PermissionDenied, Forbidden) as e:
       logging.warning(e)
+      return ''
+    except GoogleAPICallError as e:
+      logging.warning(f'Error fetching key {gcp_path} from GCP project: {e}')
       return ''
 
   # If key is not found, return an empty string
@@ -402,6 +408,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                               cfg.SECRET_PROJECT,
                                               'maps-api-key')
 
+  app.config['DB_COHORT_FORCE_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-spanner-ips')
+  app.config['DB_COHORT_FORCE_NON_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_NON_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-non-spanner-ips')
+
   if cfg.LOCAL:
     app.config['LOCAL'] = True
 
@@ -504,6 +517,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Add variables to the per-request global context.
   @app.before_request
   def before_request():
+    # Deterministic cohort assignment for divert_to_spanner
+    g.use_spanner = assign_spanner_cohort(app, request)
+
     # Add the request locale.
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)

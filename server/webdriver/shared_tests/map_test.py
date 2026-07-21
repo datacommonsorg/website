@@ -79,8 +79,10 @@ class MapTestMixin():
                              is_new_vis_tools=False)
 
     # Choose stat var
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_sv_group(self.driver, "Demographics")
-    shared.wait_for_loading(self.driver)
+
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_el(
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))

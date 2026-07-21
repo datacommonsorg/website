@@ -22,6 +22,9 @@ from flask import current_app
 from flask import g
 from flask import render_template
 
+import server.lib.croissant_metadata as croissant_metadata_lib
+import server.lib.feature_flags as feature_flags_lib
+import server.lib.fetch as fetch
 import server.lib.render as lib_render
 import server.lib.shared as shared_api
 
@@ -41,13 +44,36 @@ def bio_browser_main():
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
   node_name = dcid
-  try:
-    api_name = shared_api.names([dcid]).get(dcid)
-    if api_name:
-      node_name = api_name
-  except Exception as e:
-    logging.info(e)
+  node_types = []
+  json_ld_data = {}
+
+  if feature_flags_lib.is_feature_enabled(
+      feature_flags_lib.CROISSANT_JSON_LD_FEATURE):
+    try:
+      node_info = fetch.multiple_property_values([dcid], ["name", "typeOf"])
+      dcid_info = node_info.get(dcid, {})
+      names = dcid_info.get("name", [])
+      if names:
+        node_name = names[0]
+      node_types = dcid_info.get("typeOf", [])
+    except Exception as e:
+      logging.info(e)
+
+    if 'Dataset' in node_types:
+      extended_enabled = feature_flags_lib.is_feature_enabled(
+          feature_flags_lib.CROISSANT_EXTENDED_FEATURE)
+      json_ld_data = croissant_metadata_lib.build_dataset_metadata(
+          dcid, extended_enabled)
+  else:
+    try:
+      api_name = shared_api.names([dcid]).get(dcid)
+      if api_name:
+        node_name = api_name
+    except Exception as e:
+      logging.info(e)
+
   return render_template('/browser/node.html',
                          dcid=dcid,
                          node_name=node_name,
+                         json_ld_data=json_ld_data,
                          maps_api_key=current_app.config['MAPS_API_KEY'])

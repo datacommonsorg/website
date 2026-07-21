@@ -42,7 +42,7 @@ export interface VisToolExample {
 }
 
 interface ChartLinkChipsProps {
-  toolType: "map" | "scatter" | "timeline";
+  toolType: "map" | "scatter" | "timeline" | "download";
   visToolExamples: VisToolExample[];
 }
 

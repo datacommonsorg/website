@@ -20,6 +20,7 @@ import logging
 from typing import Dict, List
 
 from flask import current_app
+from flask import g
 from flask import has_app_context
 from flask import has_request_context
 from flask import request
@@ -57,6 +58,10 @@ def get_basic_request_headers() -> dict:
     # Used in mixer's usage logs
     headers[SURFACE_HEADER_NAME] = request.headers.get(SURFACE_HEADER_NAME,
                                                        UNKNOWN_SURFACE)
+    if g.get('use_spanner', False):
+      headers['X-Divert-Spanner'] = 'true'
+    if should_skip_cache():
+      headers['X-Skip-Cache'] = 'true'
 
   return headers
 
@@ -459,6 +464,11 @@ def _get_best_type(types_list):
   """Selects the best type from a list of types based on PLACE_TYPE_RANK."""
   if not types_list:
     return ''
+
+  if 'Place' in types_list:
+    filtered_types = [t for t in types_list if t != 'Place']
+    if filtered_types:
+      types_list = filtered_types
 
   # Sort types by rank (highest rank first)
   # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
