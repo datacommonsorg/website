@@ -417,7 +417,7 @@ def multiple_property_values(nodes: List[str],
       nodes (List[str]): List of node dcids.
       props (List[str]): Properties to retrieve for each node.
       out (bool): If True, fetches outgoing properties; otherwise, incoming (default: True).
-      max_pages (int): The maximum number of pages to fetch.
+      max_pages (int | None): The maximum number of pages to fetch. If None, fetches all pages.
 
   Returns:
       dict: A dictionary mapping each node to its properties and their values.
