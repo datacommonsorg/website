@@ -357,24 +357,15 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_85Years_Neoplasms_multiple_place_bar_block"
+                      "Count_Death_35To44Years_Neoplasms",
+                      "Count_Death_45To54Years_Neoplasms",
+                      "Count_Death_55To64Years_Neoplasms",
+                      "Count_Death_65To74Years_Neoplasms",
+                      "Count_Death_75To84Years_Neoplasms"
                     ],
-                    "title": "Cancer Deaths by Age in Placer County (${date})",
-                    "type": "BAR"
+                    "title": "Cancer Deaths by Age in Placer County",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -705,54 +696,6 @@
               }
             ],
             "title": "Depression in Cities of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_MentalBehaviouralDisorders"
-                    ],
-                    "title": "Deaths Due to Mental and Behavioural Disorders in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Deaths Due to Mental and Behavioural Disorders in Placer County",
-                    "statVarKey": [
-                      "Count_Death_MentalBehaviouralDisorders"
-                    ],
-                    "title": "Deaths Due to Mental and Behavioural Disorders in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Deaths Due to Mental and Behavioural Disorders"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_65To74Years_MentalBehaviouralDisorders",
-                      "Count_Death_75To84Years_MentalBehaviouralDisorders",
-                      "Count_Death_85Years_MentalBehaviouralDisorders"
-                    ],
-                    "title": "Mental Health Deaths by Age in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mental Health Deaths by Age"
           },
           {
             "columns": [
@@ -1301,48 +1244,87 @@
             ],
             "denom": "Count_Person",
             "title": "People With Only Private Health Insurance in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Percentage of Population That Has Received An Annual Checkup in Placer County",
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population That Has Received An Annual Checkup"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population That Has Received An Annual Checkup in Cities of Placer County"
           }
         ],
         "statVarSpec": {
-          "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block": {
+          "Count_Death_35To44Years_Neoplasms": {
             "name": "Neoplasms Deaths Among 35 - 44 Years Olds",
             "statVar": "Count_Death_35To44Years_Neoplasms"
           },
-          "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block": {
+          "Count_Death_45To54Years_Neoplasms": {
             "name": "Neoplasms Deaths Among 45 - 54 Years Olds",
             "statVar": "Count_Death_45To54Years_Neoplasms"
           },
-          "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block": {
+          "Count_Death_55To64Years_Neoplasms": {
             "name": "Neoplasms Deaths Among 55 - 64 Years Olds",
             "statVar": "Count_Death_55To64Years_Neoplasms"
           },
-          "Count_Death_65To74Years_MentalBehaviouralDisorders": {
-            "name": "Deaths due to Mental and Behavioral Disorders (65 - 74 years)",
-            "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
-          },
-          "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block": {
+          "Count_Death_65To74Years_Neoplasms": {
             "name": "Neoplasms Deaths Among 65 - 74 Years Olds",
             "statVar": "Count_Death_65To74Years_Neoplasms"
           },
-          "Count_Death_75To84Years_MentalBehaviouralDisorders": {
-            "name": "Deaths due to Mental and Behavioral Disorders (75 - 84 years)",
-            "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
-          },
-          "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block": {
+          "Count_Death_75To84Years_Neoplasms": {
             "name": "Neoplasms Deaths Among 75 - 84 Years Olds",
             "statVar": "Count_Death_75To84Years_Neoplasms"
-          },
-          "Count_Death_85Years_MentalBehaviouralDisorders": {
-            "name": "Deaths due to Mental and Behavioral Disorders (over 85 years)",
-            "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
-          },
-          "Count_Death_85Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Neoplasms Deaths Among 85+ Years Olds",
-            "statVar": "Count_Death_85Years_Neoplasms"
-          },
-          "Count_Death_MentalBehaviouralDisorders": {
-            "name": "Deaths Due To Mental And Behavioural Disorders",
-            "statVar": "Count_Death_MentalBehaviouralDisorders"
           },
           "Count_Death_Neoplasms": {
             "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
@@ -1474,6 +1456,11 @@
           "Percent_Person_Children_WithAsthma": {
             "name": "Percent of Children That Have Asthma",
             "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_ReceivedAnnualCheckup": {
+            "name": "Percentage of Population That Has Received an Annual Checkup",
+            "statVar": "Percent_Person_ReceivedAnnualCheckup",
             "unit": "%"
           },
           "Percent_Person_ReceivedCholesterolScreening": {
@@ -1861,57 +1848,6 @@
       }
     ],
     "exploreMore": {
-      "Count_Death_45To54Years_Neoplasms": {
-        "gender": [
-          "Count_Death_45To54Years_Neoplasms_Female",
-          "Count_Death_45To54Years_Neoplasms_Male"
-        ]
-      },
-      "Count_Death_55To64Years_Neoplasms": {
-        "gender": [
-          "Count_Death_55To64Years_Neoplasms_Female",
-          "Count_Death_55To64Years_Neoplasms_Male"
-        ]
-      },
-      "Count_Death_65To74Years_Neoplasms": {
-        "gender": [
-          "Count_Death_65To74Years_Neoplasms_Female",
-          "Count_Death_65To74Years_Neoplasms_Male"
-        ],
-        "race": [
-          "Count_Death_65To74Years_Neoplasms_AsianOrPacificIslander",
-          "Count_Death_65To74Years_Neoplasms_White"
-        ]
-      },
-      "Count_Death_75To84Years_MentalBehaviouralDisorders": {
-        "gender": [
-          "Count_Death_75To84Years_MentalBehaviouralDisorders_Female",
-          "Count_Death_75To84Years_MentalBehaviouralDisorders_Male"
-        ]
-      },
-      "Count_Death_75To84Years_Neoplasms": {
-        "gender": [
-          "Count_Death_75To84Years_Neoplasms_Female",
-          "Count_Death_75To84Years_Neoplasms_Male"
-        ],
-        "race": [
-          "Count_Death_75To84Years_Neoplasms_AsianOrPacificIslander",
-          "Count_Death_75To84Years_Neoplasms_White"
-        ]
-      },
-      "Count_Death_85Years_Neoplasms": {
-        "gender": [
-          "Count_Death_85Years_Neoplasms_Female",
-          "Count_Death_85Years_Neoplasms_Male"
-        ]
-      },
-      "Count_Death_MentalBehaviouralDisorders": {
-        "age": [
-          "Count_Death_65To74Years_MentalBehaviouralDisorders",
-          "Count_Death_75To84Years_MentalBehaviouralDisorders",
-          "Count_Death_85Years_MentalBehaviouralDisorders"
-        ]
-      },
       "Count_Death_Neoplasms": {
         "age": [
           "Count_Death_35To44Years_Neoplasms",
@@ -1919,11 +1855,23 @@
           "Count_Death_55To64Years_Neoplasms",
           "Count_Death_65To74Years_Neoplasms",
           "Count_Death_75To84Years_Neoplasms",
-          "Count_Death_85Years_Neoplasms",
           "Count_MortalityEvent_85OrMoreYears_ICD10/C00-D48"
+        ],
+        "gender": [
+          "Count_Death_Neoplasms_Female",
+          "Count_Death_Neoplasms_Male"
+        ],
+        "race": [
+          "Count_MortalityEvent_ICD10/C00-D48_AsianOrPacificIslander",
+          "Count_MortalityEvent_ICD10/C00-D48_BlackOrAfricanAmericanAlone",
+          "Count_MortalityEvent_ICD10/C00-D48_WhiteAlone"
         ]
       },
       "Count_Person_NoHealthInsurance": {
+        "age": [
+          "Count_Person_16OrMoreYears_NoHealthInsurance",
+          "Count_Person_16To64Years_NoHealthInsurance"
+        ],
         "gender": [
           "Count_Person_Female_NoHealthInsurance",
           "Count_Person_Male_NoHealthInsurance"
@@ -1955,204 +1903,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/17031",
-        "name": "Cook",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12031",
-        "name": "Duval",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48201",
-        "name": "Harris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/HealthEquity",

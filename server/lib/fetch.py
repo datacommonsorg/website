@@ -408,7 +408,8 @@ def property_values(nodes, prop, out=True, constraints='', max_pages=1):
 
 def multiple_property_values(nodes: List[str],
                              props: List[str],
-                             out=True) -> Dict[str, Dict[str, List[str]]]:
+                             out=True,
+                             max_pages=1) -> Dict[str, Dict[str, List[str]]]:
   """
   Fetches specified properties for given nodes using the /v2/node API.
 
@@ -416,6 +417,7 @@ def multiple_property_values(nodes: List[str],
       nodes (List[str]): List of node dcids.
       props (List[str]): Properties to retrieve for each node.
       out (bool): If True, fetches outgoing properties; otherwise, incoming (default: True).
+      max_pages (int | None): The maximum number of pages to fetch. If None, fetches all pages.
 
   Returns:
       dict: A dictionary mapping each node to its properties and their values.
@@ -431,8 +433,8 @@ def multiple_property_values(nodes: List[str],
       # }
   """
   props_expression = f"[{', '.join(props)}]"
-  resp = dc.v2node(nodes, '{}{}'.format('->' if out else '<-',
-                                        props_expression))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}'.format('->' if out else '<-', props_expression), max_pages)
 
   # Parse response into a structured dictionary
   result: Dict[str, Dict[str, List[str]]] = {}

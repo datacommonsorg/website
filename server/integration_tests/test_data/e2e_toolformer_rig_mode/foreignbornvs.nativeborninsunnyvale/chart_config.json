@@ -21,19 +21,19 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block"
                     ],
-                    "title": "Population: Foreign Born (${date})",
+                    "title": "Count_Person_5OrMoreYears_ForeignBorn (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born"
+            "title": "Count_Person_5OrMoreYears_ForeignBorn"
           }
         ],
         "statVarSpec": {
           "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block": {
-            "name": "Population: Foreign Born",
+            "name": "Count_Person_5OrMoreYears_ForeignBorn",
             "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           }
         }

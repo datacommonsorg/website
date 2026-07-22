@@ -276,7 +276,7 @@
                     "statVarKey": [
                       "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Mexico City",
+                    "title": "Count_Person_ForeignBorn in Mexico City",
                     "type": "LINE"
                   }
                 ]
@@ -284,11 +284,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born in Mexico City",
+                    "description": "Count_Person_ForeignBorn in Mexico City",
                     "statVarKey": [
                       "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Mexico City",
+                    "title": "Count_Person_ForeignBorn in Mexico City",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -305,7 +305,7 @@
                     "statVarKey": [
                       "Count_BirthEvent"
                     ],
-                    "title": "Count of Birth Event in Mexico City",
+                    "title": "Count_BirthEvent in Mexico City",
                     "type": "LINE"
                   }
                 ]
@@ -313,22 +313,22 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Birth Event in Mexico City",
+                    "description": "Count_BirthEvent in Mexico City",
                     "statVarKey": [
                       "Count_BirthEvent"
                     ],
-                    "title": "Count of Birth Event in Mexico City",
+                    "title": "Count_BirthEvent in Mexico City",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Birth Event"
+            "title": "Count_BirthEvent"
           }
         ],
         "statVarSpec": {
           "Count_BirthEvent": {
-            "name": "Count of Birth Event",
+            "name": "Count_BirthEvent",
             "statVar": "Count_BirthEvent"
           },
           "Count_Person": {
@@ -356,7 +356,7 @@
             "statVar": "Count_Person_Female"
           },
           "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
+            "name": "Count_Person_ForeignBorn",
             "statVar": "Count_Person_ForeignBorn"
           },
           "Count_Person_Male": {

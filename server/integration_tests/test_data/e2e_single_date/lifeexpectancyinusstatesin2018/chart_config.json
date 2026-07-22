@@ -44,7 +44,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_2018_3563600999"
+                      "LifeExpectancy_Person_2018_8027911949465806975"
                     ],
                     "title": "Life Expectancy in United States",
                     "type": "LINE"
@@ -139,8 +139,8 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female_2018_2776657033",
-                      "LifeExpectancy_Person_Male_2018_2776657033"
+                      "LifeExpectancy_Person_Female_2018_-8605212475562558818",
+                      "LifeExpectancy_Person_Male_2018_-8605212475562558818"
                     ],
                     "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
@@ -191,7 +191,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_2018_1437305810"
+                      "Count_Death_2018_-7547045098859764773"
                     ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
@@ -223,7 +223,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person_2018_1113810078"
+                      "Count_Death_AsAFractionOfCount_Person_2018_-4227026274840779483"
                     ],
                     "title": "Deaths Per Capita in United States",
                     "type": "LINE"
@@ -318,7 +318,7 @@
                     "statVarKey": [
                       "Count_Death_Female_2018"
                     ],
-                    "title": "Count of Mortality Event: Female in States of United States (${date})",
+                    "title": "Count_Death_Female in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -333,14 +333,14 @@
                     "statVarKey": [
                       "Count_Death_Female_2018"
                     ],
-                    "title": "Count of Mortality Event: Female in States of United States (${date})",
+                    "title": "Count_Death_Female in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female in States of United States"
+            "title": "Count_Death_Female in States of United States"
           },
           {
             "columns": [
@@ -351,9 +351,9 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_Female_2018_1437305810"
+                      "Count_Death_Female_2018_-7547045098859764773"
                     ],
-                    "title": "Count of Mortality Event: Female in United States",
+                    "title": "Count_Death_Female in United States",
                     "type": "LINE"
                   }
                 ]
@@ -361,18 +361,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: Female in United States",
+                    "description": "Count_Death_Female in United States",
                     "statVarKey": [
                       "Count_Death_Female_2018"
                     ],
-                    "title": "Count of Mortality Event: Female in United States",
+                    "title": "Count_Death_Female in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female"
+            "title": "Count_Death_Female"
           },
           {
             "columns": [
@@ -479,7 +479,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "sdg/SH_DYN_NMRT.AGE--M0_2018_2966989201"
+                      "sdg/SH_DYN_NMRT.AGE--M0_2018_-4768507140143104330"
                     ],
                     "title": "Neonatal Mortality Rate in United States",
                     "type": "LINE"
@@ -605,8 +605,8 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_2966989201",
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2018_2966989201"
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_-4768507140143104330",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2018_-4768507140143104330"
                     ],
                     "title": "Infant Mortality Rate by Gender in United States",
                     "type": "LINE"
@@ -656,7 +656,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1123266408"
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_10249593405338339941"
                     ],
                     "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "type": "LINE"
@@ -718,7 +718,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018_606064963"
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018_291378936879825715"
                     ],
                     "title": "Infant Mortality Rate in United States",
                     "type": "LINE"
@@ -749,7 +749,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
+                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -764,13 +764,13 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
+                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States"
+            "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in States of United States"
           },
           {
             "columns": [
@@ -813,7 +813,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_2018_3795540742"
+                      "Median_Age_Person_2018_2550419630908544036"
                     ],
                     "title": "Median Age of Population in United States",
                     "type": "LINE"
@@ -843,9 +843,9 @@
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018_606064963": {
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018_291378936879825715": {
             "date": "2018",
-            "facetId": "606064963",
+            "facetId": "291378936879825715",
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
@@ -854,9 +854,9 @@
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
-          "Count_Death_2018_1437305810": {
+          "Count_Death_2018_-7547045098859764773": {
             "date": "2018",
-            "facetId": "1437305810",
+            "facetId": "-7547045098859764773",
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
@@ -880,9 +880,9 @@
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
-          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1123266408": {
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_10249593405338339941": {
             "date": "2018",
-            "facetId": "1123266408",
+            "facetId": "10249593405338339941",
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
@@ -891,9 +891,9 @@
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
-          "Count_Death_AsAFractionOfCount_Person_2018_1113810078": {
+          "Count_Death_AsAFractionOfCount_Person_2018_-4227026274840779483": {
             "date": "2018",
-            "facetId": "1113810078",
+            "facetId": "-4227026274840779483",
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
@@ -959,13 +959,13 @@
           },
           "Count_Death_Female_2018": {
             "date": "2018",
-            "name": "Count of Mortality Event: Female",
+            "name": "Count_Death_Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_2018_1437305810": {
+          "Count_Death_Female_2018_-7547045098859764773": {
             "date": "2018",
-            "facetId": "1437305810",
-            "name": "Count of Mortality Event: Female",
+            "facetId": "-7547045098859764773",
+            "name": "Count_Death_Female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block_2018": {
@@ -975,7 +975,7 @@
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018": {
             "date": "2018",
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_Neoplasms_Female_multiple_place_bar_block_2018": {
@@ -1048,9 +1048,9 @@
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_2018_3563600999": {
+          "LifeExpectancy_Person_2018_8027911949465806975": {
             "date": "2018",
-            "facetId": "3563600999",
+            "facetId": "8027911949465806975",
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
@@ -1059,9 +1059,9 @@
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
-          "LifeExpectancy_Person_Female_2018_2776657033": {
+          "LifeExpectancy_Person_Female_2018_-8605212475562558818": {
             "date": "2018",
-            "facetId": "2776657033",
+            "facetId": "-8605212475562558818",
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
@@ -1070,9 +1070,9 @@
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
-          "LifeExpectancy_Person_Male_2018_2776657033": {
+          "LifeExpectancy_Person_Male_2018_-8605212475562558818": {
             "date": "2018",
-            "facetId": "2776657033",
+            "facetId": "-8605212475562558818",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
@@ -1086,21 +1086,21 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "Median_Age_Person_2018_3795540742": {
+          "Median_Age_Person_2018_2550419630908544036": {
             "date": "2018",
-            "facetId": "3795540742",
+            "facetId": "2550419630908544036",
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_2966989201": {
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_-4768507140143104330": {
             "date": "2018",
-            "facetId": "2966989201",
+            "facetId": "-4768507140143104330",
             "name": "Infant mortality rate",
             "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
           },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2018_2966989201": {
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2018_-4768507140143104330": {
             "date": "2018",
-            "facetId": "2966989201",
+            "facetId": "-4768507140143104330",
             "name": "Infant mortality rate [under 1 year old, Male]",
             "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
           },
@@ -1109,9 +1109,9 @@
             "name": "Neonatal mortality rate",
             "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           },
-          "sdg/SH_DYN_NMRT.AGE--M0_2018_2966989201": {
+          "sdg/SH_DYN_NMRT.AGE--M0_2018_-4768507140143104330": {
             "date": "2018",
-            "facetId": "2966989201",
+            "facetId": "-4768507140143104330",
             "name": "Neonatal mortality rate",
             "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           }
@@ -1573,106 +1573,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CHN",
-        "name": "China",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/IND",
-        "name": "India",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NGA",
-        "name": "Nigeria",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/GBR",
-        "name": "United Kingdom",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/CausesOfDeath",

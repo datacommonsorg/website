@@ -393,7 +393,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in China",
                     "type": "LINE"
                   }
                 ]
@@ -401,17 +401,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "description": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in China",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in China",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+            "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           }
         ],
         "statVarSpec": {
@@ -432,7 +432,7 @@
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "LifeExpectancy_Person": {
@@ -511,6 +511,48 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q10447355",
+          "name": "wikidataId/Q10447355",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q10946792",
+          "name": "wikidataId/Q10946792",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11061196",
+          "name": "wikidataId/Q11061196",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11133836",
+          "name": "wikidataId/Q11133836",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11133854",
+          "name": "wikidataId/Q11133854",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11135149",
+          "name": "wikidataId/Q11135149",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q11725",
           "name": "Chongqing",
           "types": [
@@ -574,6 +616,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q17038813",
+          "name": "wikidataId/Q17038813",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q17269",
           "name": "Tibet Autonomous Region",
           "types": [
@@ -595,6 +644,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q19855951",
+          "name": "wikidataId/Q19855951",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q21208",
           "name": "Hebei",
           "types": [
@@ -604,6 +660,13 @@
         {
           "dcid": "wikidataId/Q312485",
           "name": "Central and Western District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q34476188",
+          "name": "wikidataId/Q34476188",
           "types": [
             "AdministrativeArea1"
           ]
@@ -782,69 +845,6 @@
           "types": [
             "AdministrativeArea1"
           ]
-        },
-        {
-          "dcid": "wikidataId/Q871442",
-          "name": "Yuen Long District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q875773",
-          "name": "Kwun Tong District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q877132",
-          "name": "Kwai Tsing District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q877813",
-          "name": "Tai Po District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q878503",
-          "name": "Wong Tai Sin District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q878514",
-          "name": "Tsuen Wan District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q956",
-          "name": "Beijing",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q986383",
-          "name": "Tuen Mun District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q986415",
-          "name": "Kowloon City District",
-          "types": [
-            "AdministrativeArea1"
-          ]
         }
       ]
     },
@@ -876,106 +876,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/IND",
-        "name": "India",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NGA",
-        "name": "Nigeria",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/GBR",
-        "name": "United Kingdom",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/CausesOfDeath",

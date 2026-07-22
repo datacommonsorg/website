@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line in India",
+                    "title": "Population Below Poverty Line",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line in India",
+                    "description": "Population Below Poverty Line",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line in India",
+                    "title": "Population Below Poverty Line",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -46,7 +46,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "title": "Population Below Poverty Line (Per Capita) (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -57,13 +57,13 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "title": "Population Below Poverty Line (Per Capita) (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India"
+            "title": "Population Below Poverty Line (Per Capita)"
           },
           {
             "columns": [
@@ -73,7 +73,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in India",
+                    "title": "Population Below Poverty Line (Per Capita)",
                     "type": "LINE"
                   }
                 ]
@@ -81,11 +81,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line (Per Capita) in India",
+                    "description": "Population Below Poverty Line (Per Capita)",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in India",
+                    "title": "Population Below Poverty Line (Per Capita)",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -102,7 +102,7 @@
                       "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population by Residency in India",
+                    "title": "Impoverished Population by Residency",
                     "type": "LINE"
                   }
                 ]
@@ -135,7 +135,7 @@
                       "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line (%) in India (${date})",
+                    "title": "Proportion of Population Below International Poverty Line (%) (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -151,7 +151,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal GDP Per Capita in India",
+                    "title": "Nominal GDP Per Capita",
                     "type": "LINE"
                   }
                 ]
@@ -159,11 +159,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Nominal GDP Per Capita in India",
+                    "description": "Nominal GDP Per Capita",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal GDP Per Capita in India",
+                    "title": "Nominal GDP Per Capita",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -180,7 +180,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
                     ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita",
                     "type": "LINE"
                   }
                 ]
@@ -188,11 +188,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
                     ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -276,7 +276,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/IND",
-    "name": "India",
+    "name": "",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -284,7 +284,7 @@
   "places": [
     {
       "dcid": "country/IND",
-      "name": "India",
+      "name": "",
       "place_type": "Country"
     }
   ],
@@ -544,6 +544,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q46107",
+          "name": "Dadra and Nagar Haveli",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q6432969",
           "name": "Kosal state movement",
           "types": [
@@ -658,106 +665,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CHN",
-        "name": "China",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NGA",
-        "name": "Nigeria",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/GBR",
-        "name": "United Kingdom",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/EconomicActivity",

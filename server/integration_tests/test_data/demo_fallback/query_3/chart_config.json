@@ -179,7 +179,7 @@
                     "statVarKey": [
                       "dc/hxsdmw575en24"
                     ],
-                    "title": "Population (Measured Based on Jurisdiction): Incarcerated in California",
+                    "title": "Dc/Hxsdmw575En24 in California",
                     "type": "LINE"
                   }
                 ]
@@ -187,18 +187,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population (Measured Based on Jurisdiction): Incarcerated in California",
+                    "description": "Dc/Hxsdmw575En24 in California",
                     "statVarKey": [
                       "dc/hxsdmw575en24"
                     ],
-                    "title": "Population (Measured Based on Jurisdiction): Incarcerated in California",
+                    "title": "Dc/Hxsdmw575En24 in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population (Measured Based on Jurisdiction): Incarcerated"
+            "title": "Dc/Hxsdmw575En24"
           }
         ],
         "statVarSpec": {
@@ -243,15 +243,15 @@
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Aggravated Assault",
+            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Intimidation",
+            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Robbery",
+            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime"
           },
           "Count_CriminalIncidents_IsHateCrime": {
@@ -259,7 +259,7 @@
             "statVar": "Count_CriminalIncidents_IsHateCrime"
           },
           "dc/hxsdmw575en24": {
-            "name": "Population (Measured Based on Jurisdiction): Incarcerated",
+            "name": "dc/hxsdmw575en24",
             "statVar": "dc/hxsdmw575en24"
           },
           "dc/jtf63bh66k41g": {
@@ -313,19 +313,6 @@
     "childPlaces": {},
     "childTopics": [],
     "exploreMore": {
-      "Count_CriminalActivities_CombinedCrime": {
-        "crimeType": [
-          "Count_CriminalActivities_AggravatedAssault",
-          "Count_CriminalActivities_Burglary",
-          "Count_CriminalActivities_ForcibleRape",
-          "Count_CriminalActivities_LarcenyTheft",
-          "Count_CriminalActivities_MotorVehicleTheft",
-          "Count_CriminalActivities_MurderAndNonNegligentManslaughter",
-          "Count_CriminalActivities_PropertyCrime",
-          "Count_CriminalActivities_Robbery",
-          "Count_CriminalActivities_ViolentCrime"
-        ]
-      },
       "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime": {
         "targetedDisabilityStatus": [
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_MentalDisability",
@@ -353,7 +340,6 @@
         ],
         "crimeType": [
           "Count_CriminalIncidents_AggravatedAssault_IsHateCrime",
-          "Count_CriminalIncidents_AllOtherLarceny_IsHateCrime",
           "Count_CriminalIncidents_Arson_IsHateCrime",
           "Count_CriminalIncidents_Burglary_IsHateCrime",
           "Count_CriminalIncidents_CounterfeitingOrForgery_IsHateCrime",
