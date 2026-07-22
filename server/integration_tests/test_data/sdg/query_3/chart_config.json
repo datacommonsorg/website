@@ -723,14 +723,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Health",

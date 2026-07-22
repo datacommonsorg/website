@@ -62,7 +62,7 @@
                     "statVarKey": [
                       "dc/b3nmcj3w1lhed"
                     ],
-                    "title": "Dc/B3Nmcj3W1Lhed in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -70,18 +70,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Dc/B3Nmcj3W1Lhed in Sunnyvale",
+                    "description": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/b3nmcj3w1lhed"
                     ],
-                    "title": "Dc/B3Nmcj3W1Lhed in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/B3Nmcj3W1Lhed"
+            "title": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School"
           },
           {
             "columns": [
@@ -91,7 +91,7 @@
                     "statVarKey": [
                       "dc/g4fthg3t3y5td"
                     ],
-                    "title": "Dc/G4Fthg3T3Y5Td in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -99,18 +99,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Dc/G4Fthg3T3Y5Td in Sunnyvale",
+                    "description": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/g4fthg3t3y5td"
                     ],
-                    "title": "Dc/G4Fthg3T3Y5Td in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/G4Fthg3T3Y5Td"
+            "title": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School"
           },
           {
             "columns": [
@@ -120,7 +120,7 @@
                     "statVarKey": [
                       "dc/e2szvml8jkld8"
                     ],
-                    "title": "Dc/E2Szvml8Jkld8 in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -128,18 +128,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Dc/E2Szvml8Jkld8 in Sunnyvale",
+                    "description": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/e2szvml8jkld8"
                     ],
-                    "title": "Dc/E2Szvml8Jkld8 in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/E2Szvml8Jkld8"
+            "title": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School"
           },
           {
             "columns": [
@@ -149,7 +149,7 @@
                     "statVarKey": [
                       "dc/qvf1yrhwzp8rd"
                     ],
-                    "title": "Dc/Qvf1Yrhwzp8Rd in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -157,18 +157,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Dc/Qvf1Yrhwzp8Rd in Sunnyvale",
+                    "description": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/qvf1yrhwzp8rd"
                     ],
-                    "title": "Dc/Qvf1Yrhwzp8Rd in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/Qvf1Yrhwzp8Rd"
+            "title": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School"
           },
           {
             "columns": [
@@ -178,7 +178,7 @@
                     "statVarKey": [
                       "dc/zvr6djt1p9gj3"
                     ],
-                    "title": "Dc/Zvr6Djt1P9Gj3 in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -186,18 +186,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Dc/Zvr6Djt1P9Gj3 in Sunnyvale",
+                    "description": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/zvr6djt1p9gj3"
                     ],
-                    "title": "Dc/Zvr6Djt1P9Gj3 in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/Zvr6Djt1P9Gj3"
+            "title": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School"
           },
           {
             "columns": [
@@ -207,7 +207,7 @@
                     "statVarKey": [
                       "dc/njgzb8knf11n8"
                     ],
-                    "title": "Dc/Njgzb8Knf11N8 in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, American Indian or Alaska Native Alone, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -215,18 +215,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Dc/Njgzb8Knf11N8 in Sunnyvale",
+                    "description": "Population: Years 3 Onwards, Middle School, American Indian or Alaska Native Alone, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/njgzb8knf11n8"
                     ],
-                    "title": "Dc/Njgzb8Knf11N8 in Sunnyvale",
+                    "title": "Population: Years 3 Onwards, Middle School, American Indian or Alaska Native Alone, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/Njgzb8Knf11N8"
+            "title": "Population: Years 3 Onwards, Middle School, American Indian or Alaska Native Alone, Enrolled in School"
           },
           {
             "columns": [
@@ -378,13 +378,13 @@
                     "statVarKey": [
                       "Count_Student_DirectCertificationLunch"
                     ],
-                    "title": "Count_Student_DirectCertificationLunch in Middle Schools of Sunnyvale (${date})",
+                    "title": "Count of Student: Direct Certification Lunch in Middle Schools of Sunnyvale (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Count_Student_DirectCertificationLunch in Middle Schools of Sunnyvale"
+            "title": "Count of Student: Direct Certification Lunch in Middle Schools of Sunnyvale"
           },
           {
             "columns": [
@@ -398,13 +398,13 @@
                     "statVarKey": [
                       "Count_Student_FreeLunch"
                     ],
-                    "title": "Count_Student_FreeLunch in Middle Schools of Sunnyvale (${date})",
+                    "title": "Count of Student: Free Lunch in Middle Schools of Sunnyvale (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Count_Student_FreeLunch in Middle Schools of Sunnyvale"
+            "title": "Count of Student: Free Lunch in Middle Schools of Sunnyvale"
           },
           {
             "columns": [
@@ -429,11 +429,11 @@
         ],
         "statVarSpec": {
           "Count_Person_DetailedEnrolledInCollegeUndergraduateYears": {
-            "name": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears",
+            "name": "Population: Years 3 Onwards, Enrolled In College Undergraduate Years, Enrolled In School",
             "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
           },
           "Count_Person_DetailedEnrolledInKindergarten": {
-            "name": "Count_Person_DetailedEnrolledInKindergarten",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Enrolled In School",
             "statVar": "Count_Person_DetailedEnrolledInKindergarten"
           },
           "Count_Person_DetailedHighSchool": {
@@ -449,11 +449,11 @@
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
           "Count_Student_DirectCertificationLunch": {
-            "name": "Count_Student_DirectCertificationLunch",
+            "name": "Count of Student: Direct Certification Lunch",
             "statVar": "Count_Student_DirectCertificationLunch"
           },
           "Count_Student_FreeLunch": {
-            "name": "Count_Student_FreeLunch",
+            "name": "Count of Student: Free Lunch",
             "statVar": "Count_Student_FreeLunch"
           },
           "Count_Student_MiddleSchool": {
@@ -466,143 +466,143 @@
             "unit": "%"
           },
           "dc/1c4zcyw02n71g_multiple_place_bar_block": {
-            "name": "dc/1c4zcyw02n71g",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Asian Alone, Enrolled In School",
             "statVar": "dc/1c4zcyw02n71g"
           },
           "dc/3n8g9we5yv7th_multiple_place_bar_block": {
-            "name": "dc/3n8g9we5yv7th",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Two Or More Races, Enrolled In School",
             "statVar": "dc/3n8g9we5yv7th"
           },
           "dc/556pqlh586bmc_multiple_place_bar_block": {
-            "name": "dc/556pqlh586bmc",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Native Hawaiian Or Other Pacific Islander Alone, Enrolled In School",
             "statVar": "dc/556pqlh586bmc"
           },
           "dc/68cg2z97cpl7d_multiple_place_bar_block": {
-            "name": "dc/68cg2z97cpl7d",
+            "name": "Population: Years 3 Onwards, Primary School, Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/68cg2z97cpl7d"
           },
           "dc/6zbb7s5nx6rxb_multiple_place_bar_block": {
-            "name": "dc/6zbb7s5nx6rxb",
+            "name": "Population: Years 3 Onwards, Middle School, Some Other Race Alone, Enrolled In School",
             "statVar": "dc/6zbb7s5nx6rxb"
           },
           "dc/7g77dy8hfb1rg_multiple_place_bar_block": {
-            "name": "dc/7g77dy8hfb1rg",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/7g77dy8hfb1rg"
           },
           "dc/b3nmcj3w1lhed": {
-            "name": "dc/b3nmcj3w1lhed",
+            "name": "Population: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
             "statVar": "dc/b3nmcj3w1lhed"
           },
           "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
-            "name": "dc/b3nmcj3w1lhed",
+            "name": "Population: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
             "statVar": "dc/b3nmcj3w1lhed"
           },
           "dc/b6h698m2vmdcc_multiple_place_bar_block": {
-            "name": "dc/b6h698m2vmdcc",
+            "name": "Population: Years 3 Onwards, Primary School, White Alone Not Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/b6h698m2vmdcc"
           },
           "dc/bf85zc6wypd2h_multiple_place_bar_block": {
-            "name": "dc/bf85zc6wypd2h",
+            "name": "Population: Years 3 Onwards, Primary School, White Alone, Enrolled In School",
             "statVar": "dc/bf85zc6wypd2h"
           },
           "dc/c57vzg7l74577_multiple_place_bar_block": {
-            "name": "dc/c57vzg7l74577",
+            "name": "Population: Years 3 Onwards, Middle School, Native Hawaiian Or Other Pacific Islander Alone, Enrolled In School",
             "statVar": "dc/c57vzg7l74577"
           },
           "dc/c6n2z7vh9sy31_multiple_place_bar_block": {
-            "name": "dc/c6n2z7vh9sy31",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Some Other Race Alone, Enrolled In School",
             "statVar": "dc/c6n2z7vh9sy31"
           },
           "dc/c75qlm98pmcb2_multiple_place_bar_block": {
-            "name": "dc/c75qlm98pmcb2",
+            "name": "Population: Years 3 Onwards, Middle School, White Alone Not Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/c75qlm98pmcb2"
           },
           "dc/e2szvml8jkld8": {
-            "name": "dc/e2szvml8jkld8",
+            "name": "Population: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
             "statVar": "dc/e2szvml8jkld8"
           },
           "dc/e2szvml8jkld8_multiple_place_bar_block": {
-            "name": "dc/e2szvml8jkld8",
+            "name": "Population: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
             "statVar": "dc/e2szvml8jkld8"
           },
           "dc/e4y4hqq6mjfsh_multiple_place_bar_block": {
-            "name": "dc/e4y4hqq6mjfsh",
+            "name": "Population: Years 3 Onwards, Primary School, Black Or African American Alone, Enrolled In School",
             "statVar": "dc/e4y4hqq6mjfsh"
           },
           "dc/env3140jqssg8_multiple_place_bar_block": {
-            "name": "dc/env3140jqssg8",
+            "name": "Population: Years 3 Onwards, Primary School, Some Other Race Alone, Enrolled In School",
             "statVar": "dc/env3140jqssg8"
           },
           "dc/g4fthg3t3y5td": {
-            "name": "dc/g4fthg3t3y5td",
+            "name": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
             "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/g4fthg3t3y5td_multiple_place_bar_block": {
-            "name": "dc/g4fthg3t3y5td",
+            "name": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
             "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/g8kg52zcxzw9f": {
-            "name": "dc/g8kg52zcxzw9f",
+            "name": "Population: Years 3 Onwards, Female, Enrolled In Kindergarten, Enrolled In School",
             "statVar": "dc/g8kg52zcxzw9f"
           },
           "dc/gr3zem8shyhbf_multiple_place_bar_block": {
-            "name": "dc/gr3zem8shyhbf",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, White Alone, Enrolled In School",
             "statVar": "dc/gr3zem8shyhbf"
           },
           "dc/jhjdplbeg26k1_multiple_place_bar_block": {
-            "name": "dc/jhjdplbeg26k1",
+            "name": "Population: Years 3 Onwards, Primary School, Two Or More Races, Enrolled In School",
             "statVar": "dc/jhjdplbeg26k1"
           },
           "dc/njgzb8knf11n8": {
-            "name": "dc/njgzb8knf11n8",
+            "name": "Population: Years 3 Onwards, Middle School, American Indian Or Alaska Native Alone, Enrolled In School",
             "statVar": "dc/njgzb8knf11n8"
           },
           "dc/njgzb8knf11n8_multiple_place_bar_block": {
-            "name": "dc/njgzb8knf11n8",
+            "name": "Population: Years 3 Onwards, Middle School, American Indian Or Alaska Native Alone, Enrolled In School",
             "statVar": "dc/njgzb8knf11n8"
           },
           "dc/ns1rqx6wy9909_multiple_place_bar_block": {
-            "name": "dc/ns1rqx6wy9909",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Black Or African American Alone, Enrolled In School",
             "statVar": "dc/ns1rqx6wy9909"
           },
           "dc/nt9cq96phw6nf_multiple_place_bar_block": {
-            "name": "dc/nt9cq96phw6nf",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, White Alone Not Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/nt9cq96phw6nf"
           },
           "dc/p34mhcpgtth76": {
-            "name": "dc/p34mhcpgtth76",
+            "name": "Population: Years 3 Onwards, Male, Enrolled In Kindergarten, Enrolled In School",
             "statVar": "dc/p34mhcpgtth76"
           },
           "dc/p4jzvj8q1lnmd_multiple_place_bar_block": {
-            "name": "dc/p4jzvj8q1lnmd",
+            "name": "Population: Years 3 Onwards, Primary School, American Indian Or Alaska Native Alone, Enrolled In School",
             "statVar": "dc/p4jzvj8q1lnmd"
           },
           "dc/qnphlls92tvs9_multiple_place_bar_block": {
-            "name": "dc/qnphlls92tvs9",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, American Indian Or Alaska Native Alone, Enrolled In School",
             "statVar": "dc/qnphlls92tvs9"
           },
           "dc/qvf1yrhwzp8rd": {
-            "name": "dc/qvf1yrhwzp8rd",
+            "name": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
             "statVar": "dc/qvf1yrhwzp8rd"
           },
           "dc/qvf1yrhwzp8rd_multiple_place_bar_block": {
-            "name": "dc/qvf1yrhwzp8rd",
+            "name": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
             "statVar": "dc/qvf1yrhwzp8rd"
           },
           "dc/wk2vjrzfgyq5d_multiple_place_bar_block": {
-            "name": "dc/wk2vjrzfgyq5d",
+            "name": "Population: Years 3 Onwards, Primary School, Native Hawaiian Or Other Pacific Islander Alone, Enrolled In School",
             "statVar": "dc/wk2vjrzfgyq5d"
           },
           "dc/x9e7150515yt7_multiple_place_bar_block": {
-            "name": "dc/x9e7150515yt7",
+            "name": "Population: Years 3 Onwards, Primary School, Asian Alone, Enrolled In School",
             "statVar": "dc/x9e7150515yt7"
           },
           "dc/zvr6djt1p9gj3": {
-            "name": "dc/zvr6djt1p9gj3",
+            "name": "Population: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/zvr6djt1p9gj3"
           },
           "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
-            "name": "dc/zvr6djt1p9gj3",
+            "name": "Population: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/zvr6djt1p9gj3"
           }
         }
@@ -669,85 +669,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears": {
-        "race": [
-          "dc/0jtctjm33mgh1",
-          "dc/1t989xd1tn701",
-          "dc/4wkzsq23w6reb",
-          "dc/50yq5l3ek70t7",
-          "dc/55d9n710f1l43",
-          "dc/mwbmxs2q9zcgd",
-          "dc/nhmjhp72kjr48",
-          "dc/wjtdrd9wq4m2g",
-          "dc/zv5g19y8dl9r1"
-        ]
-      },
-      "Count_Person_DetailedEnrolledInKindergarten": {
-        "race": [
-          "dc/1c4zcyw02n71g",
-          "dc/3n8g9we5yv7th",
-          "dc/556pqlh586bmc",
-          "dc/7g77dy8hfb1rg",
-          "dc/c6n2z7vh9sy31",
-          "dc/gr3zem8shyhbf",
-          "dc/ns1rqx6wy9909",
-          "dc/nt9cq96phw6nf",
-          "dc/qnphlls92tvs9"
-        ]
-      },
-      "Count_Person_DetailedHighSchool": {
-        "race": [
-          "dc/1kt512ynvpmc2",
-          "dc/3bg4r46ly61q9",
-          "dc/4hzyqndyzntm",
-          "dc/9q73ecfhmd0y9",
-          "dc/cc8wk2n0ywd9",
-          "dc/dxsxcw009pdm4",
-          "dc/dzfdgrtcv5h7",
-          "dc/fh4td3znm3l4g",
-          "dc/g8537zqf45wl3"
-        ]
-      },
-      "Count_Person_DetailedMiddleSchool": {
-        "race": [
-          "dc/6zbb7s5nx6rxb",
-          "dc/b3nmcj3w1lhed",
-          "dc/c57vzg7l74577",
-          "dc/c75qlm98pmcb2",
-          "dc/e2szvml8jkld8",
-          "dc/g4fthg3t3y5td",
-          "dc/njgzb8knf11n8",
-          "dc/qvf1yrhwzp8rd",
-          "dc/zvr6djt1p9gj3"
-        ]
-      },
-      "Count_Person_DetailedPrimarySchool": {
-        "race": [
-          "dc/68cg2z97cpl7d",
-          "dc/b6h698m2vmdcc",
-          "dc/bf85zc6wypd2h",
-          "dc/e4y4hqq6mjfsh",
-          "dc/env3140jqssg8",
-          "dc/jhjdplbeg26k1",
-          "dc/p4jzvj8q1lnmd",
-          "dc/wk2vjrzfgyq5d",
-          "dc/x9e7150515yt7"
-        ]
-      },
-      "dc/g8kg52zcxzw9f": {
-        "typeOfSchool": [
-          "dc/kzyx3ll4kpfk1",
-          "dc/wvxlkgg1rw7k7"
-        ]
-      },
-      "dc/p34mhcpgtth76": {
-        "typeOfSchool": [
-          "dc/jf4mf9csthtf8",
-          "dc/we93hmvng2zn2"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/StudentEnrollmentLevels",
@@ -767,7 +689,358 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0649670",
+        "name": "Mountain View",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/StudentsInKindergarten",

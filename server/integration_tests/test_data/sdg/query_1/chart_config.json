@@ -883,26 +883,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "sdg/SI_POV_EMP1.AGE--Y15T24": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-        ]
-      },
-      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-        ]
-      },
-      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

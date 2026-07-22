@@ -835,7 +835,7 @@
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -850,13 +850,13 @@
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Census Tracts of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome in Census Tracts of Placer County"
+            "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Census Tracts of Placer County"
           },
           {
             "columns": [
@@ -866,7 +866,7 @@
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome in Placer County",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -874,17 +874,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome in Placer County",
+                    "description": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Placer County",
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome in Placer County",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+            "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income"
           },
           {
             "columns": [
@@ -1004,11 +1004,11 @@
             "statVar": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
           },
           "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone",
+            "name": "Median Income of Household: Some Other Race Alone",
             "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
           },
           "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
+            "name": "Median Income of Household: Two Or More Races",
             "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone": {
@@ -1016,7 +1016,7 @@
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
           },
           "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino",
+            "name": "Median Income of Household: White Alone Not Hispanic Or Latino",
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
@@ -1048,7 +1048,7 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
-            "name": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome",
+            "name": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income",
             "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
           }
         }
@@ -1459,38 +1459,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Mean_Income_Household": {
-        "householdType": [
-          "Mean_Income_Household_FamilyHousehold",
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-          "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      },
-      "Median_Earnings_Person": {
-        "gender": [
-          "Median_Earnings_Person_Female",
-          "Median_Earnings_Person_Male"
-        ]
-      },
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ],
-        "householderRace": [
-          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
-          "Median_Income_Household_HouseholderRaceAsianAlone",
-          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
-          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
-          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
-          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone",
-          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
-          "Median_Income_Household_HouseholderRaceWhiteAlone",
-          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Income",
@@ -1510,7 +1479,204 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "AdministrativeArea"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "AdministrativeArea"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06085",
+        "name": "Santa Clara",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/Businesses",

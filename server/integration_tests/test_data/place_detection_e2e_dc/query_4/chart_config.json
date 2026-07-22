@@ -49,13 +49,13 @@
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied_multiple_place_bar_block"
                     ],
-                    "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied (${date})",
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
+            "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied"
           },
           {
             "columns": [
@@ -152,14 +152,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block"
                     ],
-                    "title": "Count_HousingUnit_HomeValueUpto49999USDollar (${date})",
+                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_HousingUnit_HomeValueUpto49999USDollar"
+            "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           }
         ],
         "statVarSpec": {
@@ -168,27 +168,27 @@
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_HomeValueUpto49999USDollar",
+            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_1000To1249USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 1000 To 1249, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_1000To1249USDollar"
           },
           "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_100To149USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 100 To 149, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
           },
           "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_1250To1499USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 1250 To 1499, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_1250To1499USDollar"
           },
           "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_1500To1999USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 1500 To 1999, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_1500To1999USDollar"
           },
           "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_150To199USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 150 To 199, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_150To199USDollar"
           },
           "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block": {
@@ -196,91 +196,91 @@
             "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
           },
           "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_2000To2499USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 2000 To 2499, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
           },
           "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_200To249USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 200 To 249, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_200To249USDollar"
           },
           "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_2500To2999USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 2500 To 2999, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_2500To2999USDollar"
           },
           "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_250To299USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 250 To 299, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_250To299USDollar"
           },
           "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_3000To3499USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 3000 To 3499, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_3000To3499USDollar"
           },
           "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_300To349USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 300 To 349, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_300To349USDollar"
           },
           "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 3500 Onwards, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_3500OrMoreUSDollar"
           },
           "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_350To399USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 350 To 399, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
           },
           "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_400To449USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 400 To 449, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_400To449USDollar"
           },
           "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_450To499USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 450 To 499, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_450To499USDollar"
           },
           "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_500To549USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 500 To 549, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_500To549USDollar"
           },
           "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_550To599USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 550 To 599, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_550To599USDollar"
           },
           "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_600To649USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 600 To 649, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_600To649USDollar"
           },
           "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_650To699USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 650 To 699, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_650To699USDollar"
           },
           "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_700To749USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 700 To 749, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_700To749USDollar"
           },
           "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_750To799USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 750 To 799, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_750To799USDollar"
           },
           "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_800To899USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 800 To 899, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
           },
           "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_900To999USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar 900 To 999, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_900To999USDollar"
           },
           "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block": {
-            "name": "Count_HousingUnit_WithRent_Upto100USDollar",
+            "name": "Count of Housing Unit: With Cash Rent, US Dollar Upto 100, Occupied Housing Unit, Renter Occupied",
             "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
           },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
-            "name": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts",
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage, Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
-            "name": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts",
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage, Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied_multiple_place_bar_block": {
-            "name": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied",
+            "name": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied",
             "statVar": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
           }
         }

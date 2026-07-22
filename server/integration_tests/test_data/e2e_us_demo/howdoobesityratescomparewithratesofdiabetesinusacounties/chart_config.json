@@ -98,13 +98,13 @@
                       "dc/4lvmzr1h1ylk1_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Dc/4Lvmzr1H1Ylk1 (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Percent of Person: Years 20 Onwards, Female, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
-            "title": "dc/4lvmzr1h1ylk1 vs. Diabetes"
+            "title": "Percent of Person: Years 20 Onwards, Female, Obesity vs. Diabetes"
           },
           {
             "columns": [
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1"
                     ],
-                    "title": "Dc/4Lvmzr1H1Ylk1 in Counties of United States (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Female, Obesity in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -129,13 +129,13 @@
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1"
                     ],
-                    "title": "Dc/4Lvmzr1H1Ylk1 in Counties of United States (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Female, Obesity in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Dc/4Lvmzr1H1Ylk1 in Counties of United States"
+            "title": "Percent of Person: Years 20 Onwards, Female, Obesity in Counties of United States"
           },
           {
             "columns": [
@@ -149,7 +149,7 @@
                       "dc/x13tvt8jsgrm4_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Dc/X13Tvt8Jsgrm4 (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Percent of Person: Years 20 Onwards, Male, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -157,7 +157,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "dc/x13tvt8jsgrm4 vs. Diabetes"
+            "title": "Percent of Person: Years 20 Onwards, Male, Obesity vs. Diabetes"
           },
           {
             "columns": [
@@ -167,7 +167,7 @@
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4"
                     ],
-                    "title": "Dc/X13Tvt8Jsgrm4 in Counties of United States (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Male, Obesity in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -182,13 +182,13 @@
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4"
                     ],
-                    "title": "Dc/X13Tvt8Jsgrm4 in Counties of United States (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Male, Obesity in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Dc/X13Tvt8Jsgrm4 in Counties of United States"
+            "title": "Percent of Person: Years 20 Onwards, Male, Obesity in Counties of United States"
           }
         ],
         "statVarSpec": {
@@ -215,20 +215,20 @@
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1": {
-            "name": "dc/4lvmzr1h1ylk1",
+            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/4lvmzr1h1ylk1_scatter": {
-            "name": "dc/4lvmzr1h1ylk1",
+            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
             "noPerCapita": true,
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/x13tvt8jsgrm4": {
-            "name": "dc/x13tvt8jsgrm4",
+            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           },
           "dc/x13tvt8jsgrm4_scatter": {
-            "name": "dc/x13tvt8jsgrm4",
+            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           }
         }
@@ -266,350 +266,350 @@
       "County": [
         {
           "dcid": "geoId/01001",
-          "name": "Autauga County, Alabama",
+          "name": "Autauga",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01003",
-          "name": "Baldwin County, Alabama",
+          "name": "Baldwin",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01005",
-          "name": "Barbour County, Alabama",
+          "name": "Barbour",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01007",
-          "name": "Bibb County, Alabama",
+          "name": "Bibb",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01009",
-          "name": "Blount County, Alabama",
+          "name": "Blount",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01011",
-          "name": "Bullock County, Alabama",
+          "name": "Bullock",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01013",
-          "name": "Butler County, Alabama",
+          "name": "Butler",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01015",
-          "name": "Calhoun County, Alabama",
+          "name": "Calhoun",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01017",
-          "name": "Chambers County, Alabama",
+          "name": "Chambers",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01019",
-          "name": "Cherokee County, Alabama",
+          "name": "Cherokee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01021",
-          "name": "Chilton County, Alabama",
+          "name": "Chilton",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01023",
-          "name": "Choctaw County, Alabama",
+          "name": "Choctaw",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01025",
-          "name": "Clarke County, Alabama",
+          "name": "Clarke",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01027",
-          "name": "Clay County, Alabama",
+          "name": "Clay",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01029",
-          "name": "Cleburne County, Alabama",
+          "name": "Cleburne",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01031",
-          "name": "Coffee County, Alabama",
+          "name": "Coffee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01033",
-          "name": "Colbert County, Alabama",
+          "name": "Colbert",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01035",
-          "name": "Conecuh County, Alabama",
+          "name": "Conecuh",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01037",
-          "name": "Coosa County, Alabama",
+          "name": "Coosa",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01039",
-          "name": "Covington County, Alabama",
+          "name": "Covington",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01041",
-          "name": "Crenshaw County, Alabama",
+          "name": "Crenshaw",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01043",
-          "name": "Cullman County, Alabama",
+          "name": "Cullman",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01045",
-          "name": "Dale County, Alabama",
+          "name": "Dale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01047",
-          "name": "Dallas County, Alabama",
+          "name": "Dallas",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01049",
-          "name": "DeKalb County, Alabama",
+          "name": "DeKalb",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01051",
-          "name": "Elmore County, Alabama",
+          "name": "Elmore",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01053",
-          "name": "Escambia County, Alabama",
+          "name": "Escambia",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01055",
-          "name": "Etowah County, Alabama",
+          "name": "Etowah",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01057",
-          "name": "Fayette County, Alabama",
+          "name": "Fayette",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01059",
-          "name": "Franklin County, Alabama",
+          "name": "Franklin",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01061",
-          "name": "Geneva County, Alabama",
+          "name": "Geneva",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01063",
-          "name": "Greene County, Alabama",
+          "name": "Greene",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01065",
-          "name": "Hale County, Alabama",
+          "name": "Hale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01067",
-          "name": "Henry County, Alabama",
+          "name": "Henry",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01069",
-          "name": "Houston County, Alabama",
+          "name": "Houston",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01071",
-          "name": "Jackson County, Alabama",
+          "name": "Jackson",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01073",
-          "name": "Jefferson County, Alabama",
+          "name": "Jefferson",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01075",
-          "name": "Lamar County, Alabama",
+          "name": "Lamar",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01077",
-          "name": "Lauderdale County, Alabama",
+          "name": "Lauderdale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01079",
-          "name": "Lawrence County, Alabama",
+          "name": "Lawrence",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01081",
-          "name": "Lee County, Alabama",
+          "name": "Lee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01083",
-          "name": "Limestone County, Alabama",
+          "name": "Limestone",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01085",
-          "name": "Lowndes County, Alabama",
+          "name": "Lowndes",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01087",
-          "name": "Macon County, Alabama",
+          "name": "Macon",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01089",
-          "name": "Madison County, Alabama",
+          "name": "Madison",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01091",
-          "name": "Marengo County, Alabama",
+          "name": "Marengo",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01093",
-          "name": "Marion County, Alabama",
+          "name": "Marion",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01095",
-          "name": "Marshall County, Alabama",
+          "name": "Marshall",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01097",
-          "name": "Mobile County, Alabama",
+          "name": "Mobile",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01099",
-          "name": "Monroe County, Alabama",
+          "name": "Monroe",
           "types": [
             "County"
           ]
@@ -651,7 +651,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/PreventativeHealth",

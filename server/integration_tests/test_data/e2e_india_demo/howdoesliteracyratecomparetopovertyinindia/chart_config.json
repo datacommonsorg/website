@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line",
+                    "title": "Population Below Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line",
+                    "description": "Population Below Poverty Line in India",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line",
+                    "title": "Population Below Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -41,7 +41,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita)",
+                    "title": "Population Below Poverty Line (Per Capita) in India",
                     "type": "LINE"
                   }
                 ]
@@ -49,11 +49,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line (Per Capita)",
+                    "description": "Population Below Poverty Line (Per Capita) in India",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita)",
+                    "title": "Population Below Poverty Line (Per Capita) in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -69,7 +69,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) (${date})",
+                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -84,13 +84,13 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) (${date})",
+                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Line (Per Capita)"
+            "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India"
           }
         ],
         "statVarSpec": {
@@ -120,7 +120,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/IND",
-    "name": "",
+    "name": "India",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -128,7 +128,7 @@
   "places": [
     {
       "dcid": "country/IND",
-      "name": "",
+      "name": "India",
       "place_type": "Country"
     }
   ],
@@ -461,20 +461,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -494,7 +481,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/EconomicActivity",
