@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
+                    "title": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -27,13 +27,13 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
+                    "title": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States"
+            "title": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts in States of United States"
           },
           {
             "columns": [
@@ -43,7 +43,7 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
+                    "title": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -58,13 +58,13 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
+                    "title": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States"
+            "title": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts in States of United States"
           },
           {
             "columns": [
@@ -91,7 +91,7 @@
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States (${date})",
+                    "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -106,13 +106,13 @@
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States (${date})",
+                    "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States"
+            "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied in States of United States"
           },
           {
             "columns": [
@@ -122,7 +122,7 @@
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
+                    "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied in United States",
                     "type": "LINE"
                   }
                 ]
@@ -130,17 +130,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
+                    "description": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied in United States",
                     "statVarKey": [
                       "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
+                    "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Gross Rent of Housing Unit: With Cash Rent"
+            "title": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
           },
           {
             "columns": [
@@ -150,7 +150,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_Upto100USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100 USD or Less in States of United States (${date})",
+                    "title": "Count_HousingUnit_WithRent_Upto100USDollar in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -165,14 +165,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_Upto100USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100 USD or Less in States of United States (${date})",
+                    "title": "Count_HousingUnit_WithRent_Upto100USDollar in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 100 USD or Less in States of United States"
+            "title": "Count_HousingUnit_WithRent_Upto100USDollar in States of United States"
           },
           {
             "columns": [
@@ -182,7 +182,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_100To149USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100-149 USD in States of United States (${date})",
+                    "title": "Count_HousingUnit_WithRent_100To149USDollar in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -197,14 +197,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_WithRent_100To149USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100-149 USD in States of United States (${date})",
+                    "title": "Count_HousingUnit_WithRent_100To149USDollar in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 100-149 USD in States of United States"
+            "title": "Count_HousingUnit_WithRent_100To149USDollar in States of United States"
           },
           {
             "columns": [
@@ -323,7 +323,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
+                    "title": "Count_HousingUnit_HomeValueUpto49999USDollar in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -338,14 +338,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
+                    "title": "Count_HousingUnit_HomeValueUpto49999USDollar in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 49,999 USD or Less in States of United States"
+            "title": "Count_HousingUnit_HomeValueUpto49999USDollar in States of United States"
           },
           {
             "columns": [
@@ -355,7 +355,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in United States",
+                    "title": "Count_HousingUnit_HomeValueUpto49999USDollar in United States",
                     "type": "LINE"
                   }
                 ]
@@ -363,18 +363,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Housing Unit: 49,999 USD or Less in United States",
+                    "description": "Count_HousingUnit_HomeValueUpto49999USDollar in United States",
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in United States",
+                    "title": "Count_HousingUnit_HomeValueUpto49999USDollar in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 49,999 USD or Less"
+            "title": "Count_HousingUnit_HomeValueUpto49999USDollar"
           }
         ],
         "statVarSpec": {
@@ -383,31 +383,31 @@
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar": {
-            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "name": "Count_HousingUnit_HomeValueUpto49999USDollar",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 1,000 - 1,249 USD",
+            "name": "Count_HousingUnit_WithRent_1000To1249USDollar",
             "statVar": "Count_HousingUnit_WithRent_1000To1249USDollar"
           },
           "Count_HousingUnit_WithRent_100To149USDollar": {
-            "name": "Count of Housing Unit: 100 - 149 USD",
+            "name": "Count_HousingUnit_WithRent_100To149USDollar",
             "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
           },
           "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 100 - 149 USD",
+            "name": "Count_HousingUnit_WithRent_100To149USDollar",
             "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
           },
           "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 1,250 - 1,499 USD",
+            "name": "Count_HousingUnit_WithRent_1250To1499USDollar",
             "statVar": "Count_HousingUnit_WithRent_1250To1499USDollar"
           },
           "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 1,500 - 1,999 USD",
+            "name": "Count_HousingUnit_WithRent_1500To1999USDollar",
             "statVar": "Count_HousingUnit_WithRent_1500To1999USDollar"
           },
           "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 150 - 199 USD",
+            "name": "Count_HousingUnit_WithRent_150To199USDollar",
             "statVar": "Count_HousingUnit_WithRent_150To199USDollar"
           },
           "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block": {
@@ -415,95 +415,95 @@
             "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
           },
           "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 2,000 - 2,499 USD",
+            "name": "Count_HousingUnit_WithRent_2000To2499USDollar",
             "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
           },
           "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 200 - 249 USD",
+            "name": "Count_HousingUnit_WithRent_200To249USDollar",
             "statVar": "Count_HousingUnit_WithRent_200To249USDollar"
           },
           "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 2,500 - 2,999 USD",
+            "name": "Count_HousingUnit_WithRent_2500To2999USDollar",
             "statVar": "Count_HousingUnit_WithRent_2500To2999USDollar"
           },
           "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 250 - 299 USD",
+            "name": "Count_HousingUnit_WithRent_250To299USDollar",
             "statVar": "Count_HousingUnit_WithRent_250To299USDollar"
           },
           "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 3,000 - 3,499 USD",
+            "name": "Count_HousingUnit_WithRent_3000To3499USDollar",
             "statVar": "Count_HousingUnit_WithRent_3000To3499USDollar"
           },
           "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 300 - 349 USD",
+            "name": "Count_HousingUnit_WithRent_300To349USDollar",
             "statVar": "Count_HousingUnit_WithRent_300To349USDollar"
           },
           "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 3,500 USD or More",
+            "name": "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
             "statVar": "Count_HousingUnit_WithRent_3500OrMoreUSDollar"
           },
           "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 350 - 399 USD",
+            "name": "Count_HousingUnit_WithRent_350To399USDollar",
             "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
           },
           "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 400 - 449 USD",
+            "name": "Count_HousingUnit_WithRent_400To449USDollar",
             "statVar": "Count_HousingUnit_WithRent_400To449USDollar"
           },
           "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 450 - 499 USD",
+            "name": "Count_HousingUnit_WithRent_450To499USDollar",
             "statVar": "Count_HousingUnit_WithRent_450To499USDollar"
           },
           "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 500 - 549 USD",
+            "name": "Count_HousingUnit_WithRent_500To549USDollar",
             "statVar": "Count_HousingUnit_WithRent_500To549USDollar"
           },
           "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 550 - 599 USD",
+            "name": "Count_HousingUnit_WithRent_550To599USDollar",
             "statVar": "Count_HousingUnit_WithRent_550To599USDollar"
           },
           "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 600 - 649 USD",
+            "name": "Count_HousingUnit_WithRent_600To649USDollar",
             "statVar": "Count_HousingUnit_WithRent_600To649USDollar"
           },
           "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 650 - 699 USD",
+            "name": "Count_HousingUnit_WithRent_650To699USDollar",
             "statVar": "Count_HousingUnit_WithRent_650To699USDollar"
           },
           "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 700 - 749 USD",
+            "name": "Count_HousingUnit_WithRent_700To749USDollar",
             "statVar": "Count_HousingUnit_WithRent_700To749USDollar"
           },
           "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 750 - 799 USD",
+            "name": "Count_HousingUnit_WithRent_750To799USDollar",
             "statVar": "Count_HousingUnit_WithRent_750To799USDollar"
           },
           "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 800 - 899 USD",
+            "name": "Count_HousingUnit_WithRent_800To899USDollar",
             "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
           },
           "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 900 - 999 USD",
+            "name": "Count_HousingUnit_WithRent_900To999USDollar",
             "statVar": "Count_HousingUnit_WithRent_900To999USDollar"
           },
           "Count_HousingUnit_WithRent_Upto100USDollar": {
-            "name": "Count of Housing Unit: 100 USD or Less",
+            "name": "Count_HousingUnit_WithRent_Upto100USDollar",
             "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
           },
           "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 100 USD or Less",
+            "name": "Count_HousingUnit_WithRent_Upto100USDollar",
             "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
           },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "name": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts",
             "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "name": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts",
             "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied": {
-            "name": "Median Gross Rent of Housing Unit: With Cash Rent",
+            "name": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied",
             "statVar": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
           }
         }
@@ -912,106 +912,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CHN",
-        "name": "China",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/IND",
-        "name": "India",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NGA",
-        "name": "Nigeria",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/GBR",
-        "name": "United Kingdom",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/HousesByHomeValue",

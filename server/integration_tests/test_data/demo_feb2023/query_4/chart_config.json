@@ -201,7 +201,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
+                    "title": "Count_Person_InLaborForce_Female in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -212,14 +212,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County (${date})",
+                    "title": "Count_Person_InLaborForce_Female in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, in Labor Force, Female in Cities of Placer County"
+            "title": "Count_Person_InLaborForce_Female in Cities of Placer County"
           },
           {
             "columns": [
@@ -233,7 +233,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
+                    "title": "Count_Person_InLaborForce_Male in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -244,14 +244,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County (${date})",
+                    "title": "Count_Person_InLaborForce_Male in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, in Labor Force, Male in Cities of Placer County"
+            "title": "Count_Person_InLaborForce_Male in Cities of Placer County"
           },
           {
             "columns": [
@@ -358,7 +358,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Placer County",
+                    "title": "Count_Person_Unemployed in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -366,18 +366,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Unemployed in Placer County",
+                    "description": "Count_Person_Unemployed in Placer County",
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Placer County",
+                    "title": "Count_Person_Unemployed in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Unemployed"
+            "title": "Count_Person_Unemployed"
           },
           {
             "columns": [
@@ -391,7 +391,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Cities of Placer County (${date})",
+                    "title": "Count_Person_Unemployed in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -402,14 +402,14 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Cities of Placer County (${date})",
+                    "title": "Count_Person_Unemployed in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Unemployed in Cities of Placer County"
+            "title": "Count_Person_Unemployed in Cities of Placer County"
           },
           {
             "columns": [
@@ -419,7 +419,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "title": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -427,27 +427,27 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "description": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker in Placer County",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "title": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker"
+            "title": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
           }
         ],
         "statVarSpec": {
           "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_multiple_place_bar_block": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "name": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
             "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
           },
           "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker": {
-            "name": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker",
+            "name": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker",
             "statVar": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
           },
           "Count_Person_Employed": {
@@ -459,15 +459,15 @@
             "statVar": "Count_Person_InLaborForce"
           },
           "Count_Person_InLaborForce_Female": {
-            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "name": "Count_Person_InLaborForce_Female",
             "statVar": "Count_Person_InLaborForce_Female"
           },
           "Count_Person_InLaborForce_Male": {
-            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "name": "Count_Person_InLaborForce_Male",
             "statVar": "Count_Person_InLaborForce_Male"
           },
           "Count_Person_Unemployed": {
-            "name": "Population: Unemployed",
+            "name": "Count_Person_Unemployed",
             "statVar": "Count_Person_Unemployed"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
@@ -551,7 +551,7 @@
             "statVar": "UnemploymentRate_Person"
           },
           "dc/01yc3k23tsyk_multiple_place_bar_block": {
-            "name": "Population of Person: Manufacturing (NAICS/1013)",
+            "name": "dc/01yc3k23tsyk",
             "statVar": "dc/01yc3k23tsyk"
           },
           "dc/34t2kjrwbjd31_multiple_place_bar_block": {
@@ -563,11 +563,11 @@
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/e2mpgewwsl60c_multiple_place_bar_block": {
-            "name": "Population of Person: Natural Resources And Mining (NAICS/1011)",
+            "name": "dc/e2mpgewwsl60c",
             "statVar": "dc/e2mpgewwsl60c"
           },
           "dc/j4v6keqwsl60h_multiple_place_bar_block": {
-            "name": "Population of Person: Computer And Electronic Product Manufacturing (NAICS/334)",
+            "name": "dc/j4v6keqwsl60h",
             "statVar": "dc/j4v6keqwsl60h"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
@@ -579,7 +579,7 @@
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/w5ve4140t8xsb_multiple_place_bar_block": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "name": "dc/w5ve4140t8xsb",
             "statVar": "dc/w5ve4140t8xsb"
           }
         }
@@ -800,7 +800,39 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Worker_NAICSConstruction": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSConstruction",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSConstruction"
+        ]
+      },
+      "Count_Worker_NAICSFinanceInsurance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSFinanceInsurance",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSFinanceInsurance"
+        ]
+      },
+      "Count_Worker_NAICSHealthCareSocialAssistance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance"
+        ]
+      },
+      "Count_Worker_NAICSInformation": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSInformation"
+        ]
+      },
+      "Count_Worker_NAICSTotalAllIndustries": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Jobs",
@@ -820,204 +852,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/17031",
-        "name": "Cook",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12031",
-        "name": "Duval",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48201",
-        "name": "Harris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/UnemploymentRate",

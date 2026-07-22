@@ -24,13 +24,13 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent10"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+            "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           {
             "columns": [
@@ -155,7 +155,7 @@
                 ]
               }
             ],
-            "title": "Change in Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) Over Time (Absolute Change)"
+            "title": "Change in Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -280,20 +280,20 @@
                 ]
               }
             ],
-            "title": "Change in Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) Over Time (Percent Change)"
+            "title": "Change in Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent10": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           }
         }
