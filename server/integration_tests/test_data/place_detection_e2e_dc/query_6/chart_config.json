@@ -581,7 +581,7 @@
                     "statVarKey": [
                       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -592,14 +592,14 @@
                     "statVarKey": [
                       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months in Counties of United States"
+            "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -609,7 +609,7 @@
                     "statVarKey": [
                       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months in United States",
                     "type": "LINE"
                   }
                 ]
@@ -617,18 +617,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months in United States",
+                    "description": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months in United States",
                     "statVarKey": [
                       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+            "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months"
           },
           {
             "columns": [
@@ -703,7 +703,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -714,14 +714,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months in Counties of United States"
+            "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -731,7 +731,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States",
                     "type": "LINE"
                   }
                 ]
@@ -739,18 +739,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months in United States",
+                    "description": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+            "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months"
           },
           {
             "columns": [
@@ -764,7 +764,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -775,14 +775,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months in Counties of United States"
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -792,7 +792,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States",
                     "type": "LINE"
                   }
                 ]
@@ -800,18 +800,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months in United States",
+                    "description": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months"
           },
           {
             "columns": [
@@ -825,7 +825,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -836,14 +836,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months in Counties of United States"
+            "title": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -853,7 +853,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level in the Past 12 Months in United States",
                     "type": "LINE"
                   }
                 ]
@@ -861,18 +861,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months in United States",
+                    "description": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level in the Past 12 Months in United States",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months in United States",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level in the Past 12 Months in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+            "title": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level in the Past 12 Months"
           }
         ],
         "statVarSpec": {
@@ -881,19 +881,19 @@
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
+            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
+            "name": "Count of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months",
+            "name": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-            "name": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+            "name": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
@@ -1019,350 +1019,350 @@
       "County": [
         {
           "dcid": "geoId/01001",
-          "name": "Autauga County, Alabama",
+          "name": "Autauga",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01003",
-          "name": "Baldwin County, Alabama",
+          "name": "Baldwin",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01005",
-          "name": "Barbour County, Alabama",
+          "name": "Barbour",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01007",
-          "name": "Bibb County, Alabama",
+          "name": "Bibb",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01009",
-          "name": "Blount County, Alabama",
+          "name": "Blount",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01011",
-          "name": "Bullock County, Alabama",
+          "name": "Bullock",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01013",
-          "name": "Butler County, Alabama",
+          "name": "Butler",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01015",
-          "name": "Calhoun County, Alabama",
+          "name": "Calhoun",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01017",
-          "name": "Chambers County, Alabama",
+          "name": "Chambers",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01019",
-          "name": "Cherokee County, Alabama",
+          "name": "Cherokee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01021",
-          "name": "Chilton County, Alabama",
+          "name": "Chilton",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01023",
-          "name": "Choctaw County, Alabama",
+          "name": "Choctaw",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01025",
-          "name": "Clarke County, Alabama",
+          "name": "Clarke",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01027",
-          "name": "Clay County, Alabama",
+          "name": "Clay",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01029",
-          "name": "Cleburne County, Alabama",
+          "name": "Cleburne",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01031",
-          "name": "Coffee County, Alabama",
+          "name": "Coffee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01033",
-          "name": "Colbert County, Alabama",
+          "name": "Colbert",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01035",
-          "name": "Conecuh County, Alabama",
+          "name": "Conecuh",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01037",
-          "name": "Coosa County, Alabama",
+          "name": "Coosa",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01039",
-          "name": "Covington County, Alabama",
+          "name": "Covington",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01041",
-          "name": "Crenshaw County, Alabama",
+          "name": "Crenshaw",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01043",
-          "name": "Cullman County, Alabama",
+          "name": "Cullman",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01045",
-          "name": "Dale County, Alabama",
+          "name": "Dale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01047",
-          "name": "Dallas County, Alabama",
+          "name": "Dallas",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01049",
-          "name": "DeKalb County, Alabama",
+          "name": "DeKalb",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01051",
-          "name": "Elmore County, Alabama",
+          "name": "Elmore",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01053",
-          "name": "Escambia County, Alabama",
+          "name": "Escambia",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01055",
-          "name": "Etowah County, Alabama",
+          "name": "Etowah",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01057",
-          "name": "Fayette County, Alabama",
+          "name": "Fayette",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01059",
-          "name": "Franklin County, Alabama",
+          "name": "Franklin",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01061",
-          "name": "Geneva County, Alabama",
+          "name": "Geneva",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01063",
-          "name": "Greene County, Alabama",
+          "name": "Greene",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01065",
-          "name": "Hale County, Alabama",
+          "name": "Hale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01067",
-          "name": "Henry County, Alabama",
+          "name": "Henry",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01069",
-          "name": "Houston County, Alabama",
+          "name": "Houston",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01071",
-          "name": "Jackson County, Alabama",
+          "name": "Jackson",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01073",
-          "name": "Jefferson County, Alabama",
+          "name": "Jefferson",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01075",
-          "name": "Lamar County, Alabama",
+          "name": "Lamar",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01077",
-          "name": "Lauderdale County, Alabama",
+          "name": "Lauderdale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01079",
-          "name": "Lawrence County, Alabama",
+          "name": "Lawrence",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01081",
-          "name": "Lee County, Alabama",
+          "name": "Lee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01083",
-          "name": "Limestone County, Alabama",
+          "name": "Limestone",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01085",
-          "name": "Lowndes County, Alabama",
+          "name": "Lowndes",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01087",
-          "name": "Macon County, Alabama",
+          "name": "Macon",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01089",
-          "name": "Madison County, Alabama",
+          "name": "Madison",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01091",
-          "name": "Marengo County, Alabama",
+          "name": "Marengo",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01093",
-          "name": "Marion County, Alabama",
+          "name": "Marion",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01095",
-          "name": "Marshall County, Alabama",
+          "name": "Marshall",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01097",
-          "name": "Mobile County, Alabama",
+          "name": "Mobile",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01099",
-          "name": "Monroe County, Alabama",
+          "name": "Monroe",
           "types": [
             "County"
           ]
@@ -1399,109 +1399,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-        "benefitsStatus": [
-          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdSize": [
-          "Count_Household_With2Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With3To4Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With5To6Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With7OrMorePerson_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdWorkerSize": [
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderEducationalAttainment": [
-          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderOwnChildrenUnder18Years": [
-          "Count_Household_Householder0OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder1To2OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder3To4OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder5OrMoreOwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderRace": [
-          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceAsianAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceWhiteAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderRelatedChildrenUnder18Years": [
-          "Count_Household_Householder0RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder1To2RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder3To4RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder5OrMoreRelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "occupancyTenure": [
-          "Count_Household_FamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
-        "benefitsStatus": [
-          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdSize": [
-          "Count_Household_With2Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With3To4Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With5To6Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With7OrMorePerson_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdWorkerSize": [
-          "Count_Household_MarriedCoupleFamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_MarriedCoupleFamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_MarriedCoupleFamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_MarriedCoupleFamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderEducationalAttainment": [
-          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderOwnChildrenUnder18Years": [
-          "Count_Household_Householder0OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder1To2OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder3To4OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder5OrMoreOwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderRace": [
-          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceAsianAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "gender": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -1521,7 +1419,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/Businesses",

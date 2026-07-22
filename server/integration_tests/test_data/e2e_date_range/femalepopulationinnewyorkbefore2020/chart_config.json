@@ -133,7 +133,7 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool_10169881228856630405"
                     ],
-                    "title": "Count_Person_3OrMoreYears_Female_EnrolledInSchool in New York",
+                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in New York",
                     "type": "LINE"
                   }
                 ]
@@ -141,18 +141,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Person_3OrMoreYears_Female_EnrolledInSchool in New York",
+                    "description": "Population: Years 3 Onwards, Female, Enrolled in School in New York",
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019"
                     ],
-                    "title": "Count_Person_3OrMoreYears_Female_EnrolledInSchool in New York",
+                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+            "title": "Population: Years 3 Onwards, Female, Enrolled in School"
           },
           {
             "columns": [
@@ -197,7 +197,7 @@
                     "statVarKey": [
                       "Count_Person_Female_FullTimeYearRoundWorker_1253607589033393869"
                     ],
-                    "title": "Count_Person_Female_FullTimeYearRoundWorker in New York",
+                    "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in New York",
                     "type": "LINE"
                   }
                 ]
@@ -205,18 +205,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Person_Female_FullTimeYearRoundWorker in New York",
+                    "description": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in New York",
                     "statVarKey": [
                       "Count_Person_Female_FullTimeYearRoundWorker_2019"
                     ],
-                    "title": "Count_Person_Female_FullTimeYearRoundWorker in New York",
+                    "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Person_Female_FullTimeYearRoundWorker"
+            "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker"
           },
           {
             "columns": [
@@ -324,7 +324,7 @@
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_9879717220170227367"
                     ],
-                    "title": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female in New York",
+                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
                     "type": "LINE"
                   }
                 ]
@@ -332,18 +332,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female in New York",
+                    "description": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019"
                     ],
-                    "title": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female in New York",
+                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+            "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female"
           },
           {
             "columns": [
@@ -420,7 +420,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings_10221448756907153750"
                     ],
-                    "title": "Count_Person_16OrMoreYears_Female_WithEarnings in New York",
+                    "title": "Population: Years 16 Onwards, Female, With Earnings in New York",
                     "type": "LINE"
                   }
                 ]
@@ -428,18 +428,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Person_16OrMoreYears_Female_WithEarnings in New York",
+                    "description": "Population: Years 16 Onwards, Female, With Earnings in New York",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings_2019"
                     ],
-                    "title": "Count_Person_16OrMoreYears_Female_WithEarnings in New York",
+                    "title": "Population: Years 16 Onwards, Female, With Earnings in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Person_16OrMoreYears_Female_WithEarnings"
+            "title": "Population: Years 16 Onwards, Female, With Earnings"
           },
           {
             "columns": [
@@ -477,22 +477,22 @@
         "statVarSpec": {
           "Count_Person_16OrMoreYears_Female_WithEarnings_10221448756907153750": {
             "facetId": "10221448756907153750",
-            "name": "Count_Person_16OrMoreYears_Female_WithEarnings",
+            "name": "Population: Years 16 Onwards, Female, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Female_WithEarnings_2019": {
             "date": "2019",
-            "name": "Count_Person_16OrMoreYears_Female_WithEarnings",
+            "name": "Population: Years 16 Onwards, Female, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019": {
             "date": "2019",
-            "name": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_9879717220170227367": {
             "facetId": "9879717220170227367",
-            "name": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_10169881228856630405": {
@@ -507,12 +507,12 @@
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool_10169881228856630405": {
             "facetId": "10169881228856630405",
-            "name": "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019": {
             "date": "2019",
-            "name": "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_85OrMoreYears_Female_16559184819460950966": {
@@ -547,12 +547,12 @@
           },
           "Count_Person_Female_FullTimeYearRoundWorker_1253607589033393869": {
             "facetId": "1253607589033393869",
-            "name": "Count_Person_Female_FullTimeYearRoundWorker",
+            "name": "Population: Years 16 To 64, Female, USC Full Time Year Round Worker",
             "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
           },
           "Count_Person_Female_FullTimeYearRoundWorker_2019": {
             "date": "2019",
-            "name": "Count_Person_Female_FullTimeYearRoundWorker",
+            "name": "Population: Years 16 To 64, Female, USC Full Time Year Round Worker",
             "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
           },
           "Count_Person_Female_MarriedAndNotSeparated_2019": {
@@ -650,22 +650,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_Female": {
-        "race": [
-          "Count_Person_Female_AsianAlone",
-          "Count_Person_Female_TwoOrMoreRaces",
-          "Count_Person_Female_WhiteAlone"
-        ]
-      },
-      "Median_Age_Person_Female": {
-        "race": [
-          "Median_Age_Person_Female_AsianAlone",
-          "Median_Age_Person_Female_TwoOrMoreRaces",
-          "Median_Age_Person_Female_WhiteAlone"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Gender",
@@ -685,7 +670,358 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0649670",
+        "name": "Mountain View",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4865000",
+        "name": "San Antonio",
+        "types": [
+          "City"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/Age",

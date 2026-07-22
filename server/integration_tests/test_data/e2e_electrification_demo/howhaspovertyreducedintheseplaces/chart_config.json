@@ -332,23 +332,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "sdg/SI_POV_DAY1": {
-        "age": [
-          "sdg/SI_POV_DAY1.AGE--Y0T14",
-          "sdg/SI_POV_DAY1.AGE--Y15T64",
-          "sdg/SI_POV_DAY1.AGE--Y_GE65"
-        ],
-        "sdg_sex": [
-          "sdg/SI_POV_DAY1.SEX--F",
-          "sdg/SI_POV_DAY1.SEX--M"
-        ],
-        "sdg_urbanisation": [
-          "sdg/SI_POV_DAY1.URBANISATION--R",
-          "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

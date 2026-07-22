@@ -31,7 +31,7 @@
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area_FloodEvent in Brazil",
+                    "title": "Area of Flood Event in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -39,17 +39,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Area_FloodEvent in Brazil",
+                    "description": "Area of Flood Event in Brazil",
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area_FloodEvent in Brazil",
+                    "title": "Area of Flood Event in Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Area_FloodEvent"
+            "title": "Area of Flood Event"
           },
           {
             "columns": [
@@ -63,13 +63,13 @@
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area_FloodEvent in Administrative Area 1 Places of Brazil (${date})",
+                    "title": "Area of Flood Event in Administrative Area 1 Places of Brazil (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Area_FloodEvent in Administrative Area 1 Places of Brazil"
+            "title": "Area of Flood Event in Administrative Area 1 Places of Brazil"
           },
           {
             "columns": [
@@ -122,7 +122,7 @@
         ],
         "statVarSpec": {
           "Area_FloodEvent": {
-            "name": "Area_FloodEvent",
+            "name": "Area of Flood Event",
             "statVar": "Area_FloodEvent"
           },
           "Count_FloodEvent": {
@@ -391,7 +391,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/Drought",
