@@ -13,7 +13,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_2176550201"
+                      "Count_Person_8912910856362438925"
                     ],
                     "title": "Population in United States",
                     "type": "LINE"
@@ -77,8 +77,8 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_3999249536",
-                      "Count_Person_Male_3999249536"
+                      "Count_Person_Female_-3569062324837314298",
+                      "Count_Person_Male_-3569062324837314298"
                     ],
                     "title": "Population by Gender in United States",
                     "type": "LINE"
@@ -98,7 +98,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_Employed_3707913853"
+                      "Count_Person_Employed_7677933150416978191"
                     ],
                     "title": "Population With Current Employment in United States",
                     "type": "LINE"
@@ -162,7 +162,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_InLaborForce_3707913853"
+                      "Count_Person_InLaborForce_7677933150416978191"
                     ],
                     "title": "Population in the Labor Force in United States",
                     "type": "LINE"
@@ -226,7 +226,7 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_ResidesInHousehold_1926704588"
+                      "Count_Person_ResidesInHousehold_576843814454795564"
                     ],
                     "title": "Total Number of People Residing in Households in United States",
                     "type": "LINE"
@@ -255,8 +255,8 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
-          "Count_Person_2176550201": {
-            "facetId": "2176550201",
+          "Count_Person_8912910856362438925": {
+            "facetId": "8912910856362438925",
             "name": "Population",
             "statVar": "Count_Person"
           },
@@ -264,13 +264,13 @@
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
           },
-          "Count_Person_Employed_3707913853": {
-            "facetId": "3707913853",
+          "Count_Person_Employed_7677933150416978191": {
+            "facetId": "7677933150416978191",
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
           },
-          "Count_Person_Female_3999249536": {
-            "facetId": "3999249536",
+          "Count_Person_Female_-3569062324837314298": {
+            "facetId": "-3569062324837314298",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -278,13 +278,13 @@
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
           },
-          "Count_Person_InLaborForce_3707913853": {
-            "facetId": "3707913853",
+          "Count_Person_InLaborForce_7677933150416978191": {
+            "facetId": "7677933150416978191",
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
           },
-          "Count_Person_Male_3999249536": {
-            "facetId": "3999249536",
+          "Count_Person_Male_-3569062324837314298": {
+            "facetId": "-3569062324837314298",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
@@ -292,8 +292,8 @@
             "name": "Total number of people residing in households",
             "statVar": "Count_Person_ResidesInHousehold"
           },
-          "Count_Person_ResidesInHousehold_1926704588": {
-            "facetId": "1926704588",
+          "Count_Person_ResidesInHousehold_576843814454795564": {
+            "facetId": "576843814454795564",
             "name": "Total number of people residing in households",
             "statVar": "Count_Person_ResidesInHousehold"
           }
@@ -760,106 +760,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CHN",
-        "name": "China",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/IND",
-        "name": "India",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NGA",
-        "name": "Nigeria",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/GBR",
-        "name": "United Kingdom",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/Health",

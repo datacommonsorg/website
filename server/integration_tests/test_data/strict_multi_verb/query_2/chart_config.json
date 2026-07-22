@@ -73,7 +73,7 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Asia in California",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -81,18 +81,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: With Earnings, Foreign Born, Asia in California",
+                    "description": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia in California",
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Asia in California",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, Foreign Born, Asia"
+            "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
           },
           {
             "columns": [
@@ -106,7 +106,7 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -117,14 +117,14 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, Foreign Born, Asia in Counties of California"
+            "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia in Counties of California"
           },
           {
             "columns": [
@@ -134,7 +134,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -142,17 +142,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "description": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Asia"
+            "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           {
             "columns": [
@@ -166,7 +166,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -177,13 +177,13 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California"
+            "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California"
           },
           {
             "columns": [
@@ -193,7 +193,7 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Asia in California",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -201,17 +201,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income of Household: Foreign Born, Asia in California",
+                    "description": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Asia in California",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Household: Foreign Born, Asia"
+            "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           {
             "columns": [
@@ -225,7 +225,7 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -236,13 +236,13 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Household: Foreign Born, Asia in Counties of California"
+            "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California"
           },
           {
             "columns": [
@@ -298,7 +298,7 @@
                     "statVarKey": [
                       "Count_Person_0To4Years_AsianAlone"
                     ],
-                    "title": "Population: 0-4 Years, Asian Alone in Counties of California (${date})",
+                    "title": "Count_Person_0To4Years_AsianAlone in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -309,14 +309,14 @@
                     "statVarKey": [
                       "Count_Person_0To4Years_AsianAlone"
                     ],
-                    "title": "Population: 0-4 Years, Asian Alone in Counties of California (${date})",
+                    "title": "Count_Person_0To4Years_AsianAlone in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 0-4 Years, Asian Alone in Counties of California"
+            "title": "Count_Person_0To4Years_AsianAlone in Counties of California"
           },
           {
             "columns": [
@@ -330,7 +330,7 @@
                     "statVarKey": [
                       "Count_Person_10To14Years_AsianAlone"
                     ],
-                    "title": "Population: 10-14 Years, Asian Alone in Counties of California (${date})",
+                    "title": "Count_Person_10To14Years_AsianAlone in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -341,14 +341,14 @@
                     "statVarKey": [
                       "Count_Person_10To14Years_AsianAlone"
                     ],
-                    "title": "Population: 10-14 Years, Asian Alone in Counties of California (${date})",
+                    "title": "Count_Person_10To14Years_AsianAlone in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 10-14 Years, Asian Alone in Counties of California"
+            "title": "Count_Person_10To14Years_AsianAlone in Counties of California"
           },
           {
             "columns": [
@@ -417,7 +417,7 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in California",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -425,18 +425,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: With Earnings, Foreign Born, Eastern Asia in California",
+                    "description": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in California",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia"
+            "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           {
             "columns": [
@@ -450,7 +450,7 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -461,14 +461,14 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in Counties of California"
+            "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California"
           },
           {
             "columns": [
@@ -478,7 +478,7 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Eastern Asia in California",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -486,17 +486,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income of Household: Foreign Born, Eastern Asia in California",
+                    "description": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Eastern Asia in California",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Household: Foreign Born, Eastern Asia"
+            "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           {
             "columns": [
@@ -510,7 +510,7 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -521,13 +521,13 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Household: Foreign Born, Eastern Asia in Counties of California"
+            "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California"
           },
           {
             "columns": [
@@ -537,7 +537,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Eastern Asia in California",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -545,17 +545,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Earnings of Household: Foreign Born, Eastern Asia in California",
+                    "description": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Eastern Asia in California",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Eastern Asia"
+            "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           {
             "columns": [
@@ -569,7 +569,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -580,13 +580,13 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Eastern Asia in Counties of California"
+            "title": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia in Counties of California"
           },
           {
             "columns": [
@@ -596,7 +596,7 @@
                     "statVarKey": [
                       "Count_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: Foreign Born, Asia in California",
+                    "title": "Count_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -604,18 +604,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: Foreign Born, Asia in California",
+                    "description": "Count_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "statVarKey": [
                       "Count_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: Foreign Born, Asia in California",
+                    "title": "Count_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Foreign Born, Asia"
+            "title": "Count_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           {
             "columns": [
@@ -629,7 +629,7 @@
                     "statVarKey": [
                       "Count_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Count_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -640,14 +640,14 @@
                     "statVarKey": [
                       "Count_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Count_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Foreign Born, Asia in Counties of California"
+            "title": "Count_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California"
           },
           {
             "columns": [
@@ -657,7 +657,7 @@
                     "statVarKey": [
                       "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Retirement Income of Household: Foreign Born, Asia in California",
+                    "title": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -665,17 +665,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Retirement Income of Household: Foreign Born, Asia in California",
+                    "description": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "statVarKey": [
                       "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Retirement Income of Household: Foreign Born, Asia in California",
+                    "title": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Retirement Income of Household: Foreign Born, Asia"
+            "title": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           {
             "columns": [
@@ -689,7 +689,7 @@
                     "statVarKey": [
                       "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Retirement Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -700,13 +700,13 @@
                     "statVarKey": [
                       "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Retirement Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Mean Retirement Income of Household: Foreign Born, Asia in Counties of California"
+            "title": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California"
           },
           {
             "columns": [
@@ -777,7 +777,7 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in California",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -785,17 +785,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income of Household: Foreign Born, South Eastern Asia in California",
+                    "description": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia in California",
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in California",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Household: Foreign Born, South Eastern Asia"
+            "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
           },
           {
             "columns": [
@@ -809,7 +809,7 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -820,13 +820,13 @@
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Household: Foreign Born, South Eastern Asia in Counties of California"
+            "title": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia in Counties of California"
           },
           {
             "columns": [
@@ -836,7 +836,7 @@
                     "statVarKey": [
                       "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Social Security Income of Household: Foreign Born, Asia in California",
+                    "title": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -844,17 +844,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Social Security Income of Household: Foreign Born, Asia in California",
+                    "description": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "statVarKey": [
                       "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Social Security Income of Household: Foreign Born, Asia in California",
+                    "title": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Social Security Income of Household: Foreign Born, Asia"
+            "title": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           {
             "columns": [
@@ -868,7 +868,7 @@
                     "statVarKey": [
                       "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Social Security Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -879,13 +879,13 @@
                     "statVarKey": [
                       "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Social Security Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Mean Social Security Income of Household: Foreign Born, Asia in Counties of California"
+            "title": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia in Counties of California"
           },
           {
             "columns": [
@@ -895,7 +895,7 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, South Eastern Asia in California",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia in California",
                     "type": "LINE"
                   }
                 ]
@@ -903,18 +903,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: With Earnings, Foreign Born, South Eastern Asia in California",
+                    "description": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia in California",
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, South Eastern Asia in California",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, Foreign Born, South Eastern Asia"
+            "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
           },
           {
             "columns": [
@@ -928,7 +928,7 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -939,111 +939,111 @@
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
-                    "title": "Count of Household: With Earnings, Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, Foreign Born, South Eastern Asia in Counties of California"
+            "title": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia in Counties of California"
           }
         ],
         "statVarSpec": {
           "Count_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Count of Household: Foreign Born, Asia",
+            "name": "Count_Household_ForeignBorn_PlaceOfBirthAsia",
             "statVar": "Count_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Count of Household: With Earnings, Foreign Born, Asia",
+            "name": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
           },
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Count of Household: With Earnings, Foreign Born, Eastern Asia",
+            "name": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia": {
-            "name": "Count of Household: With Earnings, Foreign Born, South Eastern Asia",
+            "name": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
           },
           "Count_Person_0To4Years_AsianAlone": {
-            "name": "Population: 0 - 4 Years, Asian Alone",
+            "name": "Count_Person_0To4Years_AsianAlone",
             "statVar": "Count_Person_0To4Years_AsianAlone"
           },
           "Count_Person_0To4Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 0 - 4 Years, Asian Alone",
+            "name": "Count_Person_0To4Years_AsianAlone",
             "statVar": "Count_Person_0To4Years_AsianAlone"
           },
           "Count_Person_10To14Years_AsianAlone": {
-            "name": "Population: 10 - 14 Years, Asian Alone",
+            "name": "Count_Person_10To14Years_AsianAlone",
             "statVar": "Count_Person_10To14Years_AsianAlone"
           },
           "Count_Person_10To14Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 10 - 14 Years, Asian Alone",
+            "name": "Count_Person_10To14Years_AsianAlone",
             "statVar": "Count_Person_10To14Years_AsianAlone"
           },
           "Count_Person_15To19Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 15 - 19 Years, Asian Alone",
+            "name": "Count_Person_15To19Years_AsianAlone",
             "statVar": "Count_Person_15To19Years_AsianAlone"
           },
           "Count_Person_20To24Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 20 - 24 Years, Asian Alone",
+            "name": "Count_Person_20To24Years_AsianAlone",
             "statVar": "Count_Person_20To24Years_AsianAlone"
           },
           "Count_Person_25To29Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 25 - 29 Years, Asian Alone",
+            "name": "Count_Person_25To29Years_AsianAlone",
             "statVar": "Count_Person_25To29Years_AsianAlone"
           },
           "Count_Person_30To34Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 30 - 34 Years, Asian Alone",
+            "name": "Count_Person_30To34Years_AsianAlone",
             "statVar": "Count_Person_30To34Years_AsianAlone"
           },
           "Count_Person_35To39Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 35 - 39 Years, Asian Alone",
+            "name": "Count_Person_35To39Years_AsianAlone",
             "statVar": "Count_Person_35To39Years_AsianAlone"
           },
           "Count_Person_40To44Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 40 - 44 Years, Asian Alone",
+            "name": "Count_Person_40To44Years_AsianAlone",
             "statVar": "Count_Person_40To44Years_AsianAlone"
           },
           "Count_Person_45To49Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 45 - 49 Years, Asian Alone",
+            "name": "Count_Person_45To49Years_AsianAlone",
             "statVar": "Count_Person_45To49Years_AsianAlone"
           },
           "Count_Person_50To54Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 50 - 54 Years, Asian Alone",
+            "name": "Count_Person_50To54Years_AsianAlone",
             "statVar": "Count_Person_50To54Years_AsianAlone"
           },
           "Count_Person_55To59Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 55 - 59 Years, Asian Alone",
+            "name": "Count_Person_55To59Years_AsianAlone",
             "statVar": "Count_Person_55To59Years_AsianAlone"
           },
           "Count_Person_5To9Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 5 - 9 Years, Asian Alone",
+            "name": "Count_Person_5To9Years_AsianAlone",
             "statVar": "Count_Person_5To9Years_AsianAlone"
           },
           "Count_Person_60To64Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 60 - 64 Years, Asian Alone",
+            "name": "Count_Person_60To64Years_AsianAlone",
             "statVar": "Count_Person_60To64Years_AsianAlone"
           },
           "Count_Person_65To69Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 65 - 69 Years, Asian Alone",
+            "name": "Count_Person_65To69Years_AsianAlone",
             "statVar": "Count_Person_65To69Years_AsianAlone"
           },
           "Count_Person_70To74Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 70 - 74 Years, Asian Alone",
+            "name": "Count_Person_70To74Years_AsianAlone",
             "statVar": "Count_Person_70To74Years_AsianAlone"
           },
           "Count_Person_75To79Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 75 - 79 Years, Asian Alone",
+            "name": "Count_Person_75To79Years_AsianAlone",
             "statVar": "Count_Person_75To79Years_AsianAlone"
           },
           "Count_Person_80To84Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 80 - 84 Years, Asian Alone",
+            "name": "Count_Person_80To84Years_AsianAlone",
             "statVar": "Count_Person_80To84Years_AsianAlone"
           },
           "Count_Person_85OrMoreYears_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: 85 Years or More, Asian Alone",
+            "name": "Count_Person_85OrMoreYears_AsianAlone",
             "statVar": "Count_Person_85OrMoreYears_AsianAlone"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone": {
@@ -1055,31 +1055,31 @@
             "statVar": "Count_Person_AsianAlone"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Earnings of Household: Foreign Born, Asia",
+            "name": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Mean Earnings of Household: Foreign Born, Eastern Asia",
+            "name": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Retirement Income of Household: Foreign Born, Asia",
+            "name": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia",
             "statVar": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Social Security Income of Household: Foreign Born, Asia",
+            "name": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia",
             "statVar": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Median Income of Household: Foreign Born, Asia",
+            "name": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Median Income of Household: Foreign Born, Eastern Asia",
+            "name": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia": {
-            "name": "Median Income of Household: Foreign Born, South Eastern Asia",
+            "name": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
           },
           "Median_Income_Household_HouseholderRaceAsianAlone": {

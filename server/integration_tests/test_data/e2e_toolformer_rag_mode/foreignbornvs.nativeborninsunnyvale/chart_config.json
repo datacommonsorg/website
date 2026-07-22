@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
+                    "title": "Count_Person_5OrMoreYears_ForeignBorn in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born in Sunnyvale",
+                    "description": "Count_Person_5OrMoreYears_ForeignBorn in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
+                    "title": "Count_Person_5OrMoreYears_ForeignBorn in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born"
+            "title": "Count_Person_5OrMoreYears_ForeignBorn"
           },
           {
             "columns": [
@@ -41,7 +41,7 @@
                     "statVarKey": [
                       "dc/xdfcsgf05b4mc"
                     ],
-                    "title": "Population: Foreign Born, Asian Alone in Sunnyvale",
+                    "title": "Dc/Xdfcsgf05B4Mc in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -49,18 +49,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born, Asian Alone in Sunnyvale",
+                    "description": "Dc/Xdfcsgf05B4Mc in Sunnyvale",
                     "statVarKey": [
                       "dc/xdfcsgf05b4mc"
                     ],
-                    "title": "Population: Foreign Born, Asian Alone in Sunnyvale",
+                    "title": "Dc/Xdfcsgf05B4Mc in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born, Asian Alone"
+            "title": "Dc/Xdfcsgf05B4Mc"
           },
           {
             "columns": [
@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "dc/ym3bfmz5e91gg"
                     ],
-                    "title": "Population: Foreign Born, White Alone in Sunnyvale",
+                    "title": "Dc/Ym3Bfmz5E91Gg in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -78,18 +78,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born, White Alone in Sunnyvale",
+                    "description": "Dc/Ym3Bfmz5E91Gg in Sunnyvale",
                     "statVarKey": [
                       "dc/ym3bfmz5e91gg"
                     ],
-                    "title": "Population: Foreign Born, White Alone in Sunnyvale",
+                    "title": "Dc/Ym3Bfmz5E91Gg in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born, White Alone"
+            "title": "Dc/Ym3Bfmz5E91Gg"
           },
           {
             "columns": [
@@ -99,7 +99,7 @@
                     "statVarKey": [
                       "dc/6bkn9vt30f5c1"
                     ],
-                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "title": "Dc/6Bkn9Vt30F5C1 in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -107,18 +107,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "description": "Dc/6Bkn9Vt30F5C1 in Sunnyvale",
                     "statVarKey": [
                       "dc/6bkn9vt30f5c1"
                     ],
-                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "title": "Dc/6Bkn9Vt30F5C1 in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born, American Indian or Alaska Native Alone"
+            "title": "Dc/6Bkn9Vt30F5C1"
           },
           {
             "columns": [
@@ -128,7 +128,7 @@
                     "statVarKey": [
                       "dc/gvnh5cpl9h1rf"
                     ],
-                    "title": "Population: With Income, Foreign Born in Sunnyvale",
+                    "title": "Dc/Gvnh5Cpl9H1Rf in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -136,18 +136,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: With Income, Foreign Born in Sunnyvale",
+                    "description": "Dc/Gvnh5Cpl9H1Rf in Sunnyvale",
                     "statVarKey": [
                       "dc/gvnh5cpl9h1rf"
                     ],
-                    "title": "Population: With Income, Foreign Born in Sunnyvale",
+                    "title": "Dc/Gvnh5Cpl9H1Rf in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Income, Foreign Born"
+            "title": "Dc/Gvnh5Cpl9H1Rf"
           },
           {
             "columns": [
@@ -157,7 +157,7 @@
                     "statVarKey": [
                       "dc/29vy1f58gdm0g"
                     ],
-                    "title": "Population: Foreign Born, Two or More Races in Sunnyvale",
+                    "title": "Dc/29Vy1F58Gdm0G in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -165,18 +165,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born, Two or More Races in Sunnyvale",
+                    "description": "Dc/29Vy1F58Gdm0G in Sunnyvale",
                     "statVarKey": [
                       "dc/29vy1f58gdm0g"
                     ],
-                    "title": "Population: Foreign Born, Two or More Races in Sunnyvale",
+                    "title": "Dc/29Vy1F58Gdm0G in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born, Two or More Races"
+            "title": "Dc/29Vy1F58Gdm0G"
           },
           {
             "columns": [
@@ -311,7 +311,7 @@
                     "statVarKey": [
                       "Median_Age_Person_ForeignBorn"
                     ],
-                    "title": "Median Age: Foreign Born in Sunnyvale",
+                    "title": "Median_Age_Person_ForeignBorn in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -319,17 +319,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age: Foreign Born in Sunnyvale",
+                    "description": "Median_Age_Person_ForeignBorn in Sunnyvale",
                     "statVarKey": [
                       "Median_Age_Person_ForeignBorn"
                     ],
-                    "title": "Median Age: Foreign Born in Sunnyvale",
+                    "title": "Median_Age_Person_ForeignBorn in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Age: Foreign Born"
+            "title": "Median_Age_Person_ForeignBorn"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
                     "statVarKey": [
                       "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn"
                     ],
-                    "title": "Median Income: Foreign Born in Sunnyvale",
+                    "title": "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -347,17 +347,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income: Foreign Born in Sunnyvale",
+                    "description": "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn in Sunnyvale",
                     "statVarKey": [
                       "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn"
                     ],
-                    "title": "Median Income: Foreign Born in Sunnyvale",
+                    "title": "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Income: Foreign Born"
+            "title": "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn"
           },
           {
             "columns": [
@@ -367,7 +367,7 @@
                     "statVarKey": [
                       "dc/1lm9k2vdxj4c6"
                     ],
-                    "title": "Population: Asian and Pacific Island Languages, Foreign Born in Sunnyvale",
+                    "title": "Dc/1Lm9K2Vdxj4C6 in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -375,18 +375,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Asian and Pacific Island Languages, Foreign Born in Sunnyvale",
+                    "description": "Dc/1Lm9K2Vdxj4C6 in Sunnyvale",
                     "statVarKey": [
                       "dc/1lm9k2vdxj4c6"
                     ],
-                    "title": "Population: Asian and Pacific Island Languages, Foreign Born in Sunnyvale",
+                    "title": "Dc/1Lm9K2Vdxj4C6 in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Asian and Pacific Island Languages, Foreign Born"
+            "title": "Dc/1Lm9K2Vdxj4C6"
           },
           {
             "columns": [
@@ -396,7 +396,7 @@
                     "statVarKey": [
                       "dc/wj5l0n6wkep45"
                     ],
-                    "title": "Population: Other Indo European Languages, Foreign Born in Sunnyvale",
+                    "title": "Dc/Wj5L0N6Wkep45 in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -404,18 +404,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Other Indo European Languages, Foreign Born in Sunnyvale",
+                    "description": "Dc/Wj5L0N6Wkep45 in Sunnyvale",
                     "statVarKey": [
                       "dc/wj5l0n6wkep45"
                     ],
-                    "title": "Population: Other Indo European Languages, Foreign Born in Sunnyvale",
+                    "title": "Dc/Wj5L0N6Wkep45 in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Other Indo European Languages, Foreign Born"
+            "title": "Dc/Wj5L0N6Wkep45"
           },
           {
             "columns": [
@@ -425,7 +425,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
                     ],
-                    "title": "Population: 15 Years or More, Married and Not Separated, Foreign Born in Sunnyvale",
+                    "title": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -433,18 +433,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 15 Years or More, Married and Not Separated, Foreign Born in Sunnyvale",
+                    "description": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
                     ],
-                    "title": "Population: 15 Years or More, Married and Not Separated, Foreign Born in Sunnyvale",
+                    "title": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 15 Years or More, Married and Not Separated, Foreign Born"
+            "title": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
           },
           {
             "columns": [
@@ -454,7 +454,7 @@
                     "statVarKey": [
                       "dc/v7bhlqc1lfxlg"
                     ],
-                    "title": "Population: Foreign Born, Black or African American Alone in Sunnyvale",
+                    "title": "Dc/V7Bhlqc1Lfxlg in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -462,27 +462,27 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born, Black or African American Alone in Sunnyvale",
+                    "description": "Dc/V7Bhlqc1Lfxlg in Sunnyvale",
                     "statVarKey": [
                       "dc/v7bhlqc1lfxlg"
                     ],
-                    "title": "Population: Foreign Born, Black or African American Alone in Sunnyvale",
+                    "title": "Dc/V7Bhlqc1Lfxlg in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born, Black or African American Alone"
+            "title": "Dc/V7Bhlqc1Lfxlg"
           }
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn": {
-            "name": "Population: 15 Years or More, Married And Not Separated, Foreign Born",
+            "name": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn",
             "statVar": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
           },
           "Count_Person_5OrMoreYears_ForeignBorn": {
-            "name": "Population: Foreign Born",
+            "name": "Count_Person_5OrMoreYears_ForeignBorn",
             "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ForeignBorn": {
@@ -494,7 +494,7 @@
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_ForeignBorn"
           },
           "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
+            "name": "Count_Person_ForeignBorn",
             "statVar": "Count_Person_ForeignBorn"
           },
           "Count_Person_ForeignBorn_PlaceOfBirthCaribbean_multiple_place_bar_block": {
@@ -510,11 +510,11 @@
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthMexico"
           },
           "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica_multiple_place_bar_block": {
-            "name": "Population: Foreign Born, Southamerica",
+            "name": "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica",
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica"
           },
           "Count_Person_Native": {
-            "name": "Population: Native",
+            "name": "Count_Person_Native",
             "statVar": "Count_Person_Native"
           },
           "Count_Person_NotAUSCitizen": {
@@ -522,11 +522,11 @@
             "statVar": "Count_Person_NotAUSCitizen"
           },
           "Count_Person_PlaceOfBirthAsia_multiple_place_bar_block": {
-            "name": "Population: Foreign Born, Asia",
+            "name": "Count_Person_PlaceOfBirthAsia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           },
           "Count_Person_PlaceOfBirthEurope_multiple_place_bar_block": {
-            "name": "Population: Foreign Born, Europe",
+            "name": "Count_Person_PlaceOfBirthEurope",
             "statVar": "Count_Person_PlaceOfBirthEurope"
           },
           "Count_Person_USCitizenBornInTheUnitedStates": {
@@ -538,43 +538,43 @@
             "statVar": "Count_Person_USCitizenByNaturalization"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age: Foreign Born",
+            "name": "Median_Age_Person_ForeignBorn",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn": {
-            "name": "Median Income: Foreign Born",
+            "name": "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn",
             "statVar": "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn"
           },
           "dc/1lm9k2vdxj4c6": {
-            "name": "Population: Asian And Pacific Island Languages, Foreign Born",
+            "name": "dc/1lm9k2vdxj4c6",
             "statVar": "dc/1lm9k2vdxj4c6"
           },
           "dc/29vy1f58gdm0g": {
-            "name": "Population: Foreign Born, Two or More Races",
+            "name": "dc/29vy1f58gdm0g",
             "statVar": "dc/29vy1f58gdm0g"
           },
           "dc/6bkn9vt30f5c1": {
-            "name": "Population: Foreign Born, American Indian or Alaska Native Alone",
+            "name": "dc/6bkn9vt30f5c1",
             "statVar": "dc/6bkn9vt30f5c1"
           },
           "dc/gvnh5cpl9h1rf": {
-            "name": "Population: With Income, Foreign Born",
+            "name": "dc/gvnh5cpl9h1rf",
             "statVar": "dc/gvnh5cpl9h1rf"
           },
           "dc/v7bhlqc1lfxlg": {
-            "name": "Population: Foreign Born, Black or African American Alone",
+            "name": "dc/v7bhlqc1lfxlg",
             "statVar": "dc/v7bhlqc1lfxlg"
           },
           "dc/wj5l0n6wkep45": {
-            "name": "Population: Other Indo European Languages, Foreign Born",
+            "name": "dc/wj5l0n6wkep45",
             "statVar": "dc/wj5l0n6wkep45"
           },
           "dc/xdfcsgf05b4mc": {
-            "name": "Population: Foreign Born, Asian Alone",
+            "name": "dc/xdfcsgf05b4mc",
             "statVar": "dc/xdfcsgf05b4mc"
           },
           "dc/ym3bfmz5e91gg": {
-            "name": "Population: Foreign Born, White Alone",
+            "name": "dc/ym3bfmz5e91gg",
             "statVar": "dc/ym3bfmz5e91gg"
           }
         }
@@ -647,14 +647,6 @@
           "dc/1lm9k2vdxj4c6",
           "dc/wj5l0n6wkep45"
         ],
-        "placeOfBirth": [
-          "Count_Person_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_PlaceOfBirthAsia",
-          "Count_Person_PlaceOfBirthEurope"
-        ],
         "race": [
           "dc/29vy1f58gdm0g",
           "dc/6bkn9vt30f5c1",
@@ -669,110 +661,6 @@
           "dc/hbqhxpwsdvyj8",
           "dc/sqqee4d2eczw4",
           "dc/ves02m300f6lc"
-        ]
-      },
-      "Count_Person_ForeignBorn": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_25To34Years_ForeignBorn",
-          "Count_Person_35To44Years_ForeignBorn",
-          "Count_Person_45To54Years_ForeignBorn",
-          "Count_Person_55To59Years_ForeignBorn",
-          "Count_Person_5To17Years_ForeignBorn",
-          "Count_Person_60To61Years_ForeignBorn",
-          "Count_Person_62To64Years_ForeignBorn",
-          "Count_Person_65To74Years_ForeignBorn",
-          "Count_Person_75OrMoreYears_ForeignBorn",
-          "Count_Person_Upto5Years_ForeignBorn"
-        ],
-        "incomeStatus": [
-          "dc/dyhxtqe2pxhl5",
-          "dc/gvnh5cpl9h1rf"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthMexico": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthMexico"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthSouthamerica"
-        ]
-      },
-      "Count_Person_PlaceOfBirthAsia": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
-        ]
-      },
-      "Count_Person_PlaceOfBirthEurope": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthEurope"
         ]
       },
       "Median_Age_Person_ForeignBorn": {
@@ -793,42 +681,12 @@
           "dc/yx0mdj3dnk3mb"
         ]
       },
-      "dc/29vy1f58gdm0g": {
-        "abilityToSpeakEnglish": [
-          "dc/55cs80tc3ryvh",
-          "dc/tby1462m0e7eb"
-        ]
-      },
-      "dc/6bkn9vt30f5c1": {
-        "abilityToSpeakEnglish": [
-          "dc/834l34hp5krkd",
-          "dc/slhc0k07wwmq1"
-        ]
-      },
-      "dc/v7bhlqc1lfxlg": {
-        "abilityToSpeakEnglish": [
-          "dc/j84rwbdl9knx5",
-          "dc/x883yyh2dtnmd"
-        ]
-      },
       "dc/wj5l0n6wkep45": {
         "abilityToSpeakEnglish": [
           "dc/0165994v0l8fh",
           "dc/6rzmvxpgqlww6",
           "dc/92mnzpclp7tbd",
           "dc/vdss0k16mbq34"
-        ]
-      },
-      "dc/xdfcsgf05b4mc": {
-        "abilityToSpeakEnglish": [
-          "dc/ktkbjq2bkp8xc",
-          "dc/qx3kfy4r5ce49"
-        ]
-      },
-      "dc/ym3bfmz5e91gg": {
-        "abilityToSpeakEnglish": [
-          "dc/qt93zwetzzjw7",
-          "dc/why1nnx9w8qj9"
         ]
       }
     },
@@ -851,358 +709,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/3502000",
-        "name": "Albuquerque",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0203000",
-        "name": "Anchorage municipality",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2603000",
-        "name": "Ann Arbor",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1304000",
-        "name": "Atlanta",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4805000",
-        "name": "Austin",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2404000",
-        "name": "Baltimore",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1608830",
-        "name": "Boise",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2507000",
-        "name": "Boston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4513330",
-        "name": "Charleston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3712000",
-        "name": "Charlotte",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3915000",
-        "name": "Cincinnati",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3916000",
-        "name": "Cleveland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3918000",
-        "name": "Columbus",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4819000",
-        "name": "Dallas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0820000",
-        "name": "Denver",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2622000",
-        "name": "Detroit",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4824000",
-        "name": "El Paso",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0937000",
-        "name": "Hartford",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4835000",
-        "name": "Houston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1836003",
-        "name": "Indianapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2836000",
-        "name": "Jackson",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1235000",
-        "name": "Jacksonville",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2938000",
-        "name": "Kansas City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3240000",
-        "name": "Las Vegas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0541000",
-        "name": "Little Rock",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0644000",
-        "name": "Los Angeles",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2148006",
-        "name": "Louisville/Jefferson County metro government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5548000",
-        "name": "Madison",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4748000",
-        "name": "Memphis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1245000",
-        "name": "Miami",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5553000",
-        "name": "Milwaukee",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2743000",
-        "name": "Minneapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0649670",
-        "name": "Mountain View",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4752006",
-        "name": "Nashville-Davidson metropolitan government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0952000",
-        "name": "New Haven",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2255000",
-        "name": "New Orleans",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0653000",
-        "name": "Oakland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4055000",
-        "name": "Oklahoma City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3137000",
-        "name": "Omaha",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1253000",
-        "name": "Orlando",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0655282",
-        "name": "Palo Alto",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4260000",
-        "name": "Philadelphia",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0455000",
-        "name": "Phoenix",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4261000",
-        "name": "Pittsburgh",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4159000",
-        "name": "Portland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5167000",
-        "name": "Richmond",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0664000",
-        "name": "Sacramento",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4967000",
-        "name": "Salt Lake City",
-        "types": [
-          "City"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/Age",

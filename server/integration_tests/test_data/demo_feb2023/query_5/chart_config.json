@@ -710,7 +710,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Count_Person_InLaborForce_Female in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -721,7 +721,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Count_Person_InLaborForce_Male in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -738,7 +738,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female_growth_pct"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Count_Person_InLaborForce_Female in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -749,7 +749,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male_growth_pct"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Count_Person_InLaborForce_Male in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -766,7 +766,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "title": "Count_Person_InLaborForce_Female in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -777,7 +777,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "title": "Count_Person_InLaborForce_Male in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -828,7 +828,7 @@
                     "statVarKey": [
                       "dc/w5ve4140t8xsb_growth_abs"
                     ],
-                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "title": "Dc/W5Ve4140T8Xsb in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -839,7 +839,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_abs"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "title": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -856,7 +856,7 @@
                     "statVarKey": [
                       "dc/w5ve4140t8xsb_growth_pct"
                     ],
-                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "title": "Dc/W5Ve4140T8Xsb in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -878,7 +878,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "title": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -906,7 +906,7 @@
                     "statVarKey": [
                       "dc/w5ve4140t8xsb_growth_pc"
                     ],
-                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "title": "Dc/W5Ve4140T8Xsb in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -917,7 +917,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pc"
                     ],
-                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "title": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -929,51 +929,51 @@
         ],
         "statVarSpec": {
           "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "name": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
             "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
           },
           "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_abs": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "name": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
             "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
           },
           "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pc": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "name": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
             "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
           },
           "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct": {
-            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "name": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
             "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
           },
           "Count_Person_InLaborForce_Female": {
-            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "name": "Count_Person_InLaborForce_Female",
             "statVar": "Count_Person_InLaborForce_Female"
           },
           "Count_Person_InLaborForce_Female_growth_abs": {
-            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "name": "Count_Person_InLaborForce_Female",
             "statVar": "Count_Person_InLaborForce_Female"
           },
           "Count_Person_InLaborForce_Female_growth_pc": {
-            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "name": "Count_Person_InLaborForce_Female",
             "statVar": "Count_Person_InLaborForce_Female"
           },
           "Count_Person_InLaborForce_Female_growth_pct": {
-            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "name": "Count_Person_InLaborForce_Female",
             "statVar": "Count_Person_InLaborForce_Female"
           },
           "Count_Person_InLaborForce_Male": {
-            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "name": "Count_Person_InLaborForce_Male",
             "statVar": "Count_Person_InLaborForce_Male"
           },
           "Count_Person_InLaborForce_Male_growth_abs": {
-            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "name": "Count_Person_InLaborForce_Male",
             "statVar": "Count_Person_InLaborForce_Male"
           },
           "Count_Person_InLaborForce_Male_growth_pc": {
-            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "name": "Count_Person_InLaborForce_Male",
             "statVar": "Count_Person_InLaborForce_Male"
           },
           "Count_Person_InLaborForce_Male_growth_pct": {
-            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "name": "Count_Person_InLaborForce_Male",
             "statVar": "Count_Person_InLaborForce_Male"
           },
           "Count_Worker_NAICSAccommodationFoodServices": {
@@ -1297,19 +1297,19 @@
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/w5ve4140t8xsb": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "name": "dc/w5ve4140t8xsb",
             "statVar": "dc/w5ve4140t8xsb"
           },
           "dc/w5ve4140t8xsb_growth_abs": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "name": "dc/w5ve4140t8xsb",
             "statVar": "dc/w5ve4140t8xsb"
           },
           "dc/w5ve4140t8xsb_growth_pc": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "name": "dc/w5ve4140t8xsb",
             "statVar": "dc/w5ve4140t8xsb"
           },
           "dc/w5ve4140t8xsb_growth_pct": {
-            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "name": "dc/w5ve4140t8xsb",
             "statVar": "dc/w5ve4140t8xsb"
           }
         }
@@ -1528,22 +1528,80 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "Count_Person_InLaborForce_Female": {
-        "maritalStatus": [
-          "Count_Person_InLaborForce_Female_Divorced",
-          "Count_Person_InLaborForce_Female_MarriedAndNotSeparated",
-          "Count_Person_InLaborForce_Female_NeverMarried",
-          "Count_Person_InLaborForce_Female_Separated",
-          "Count_Person_InLaborForce_Female_Widowed"
+      "Count_Worker_NAICSAccommodationFoodServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSAccommodationFoodServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSAccommodationFoodServices"
         ]
       },
-      "Count_Person_InLaborForce_Male": {
-        "maritalStatus": [
-          "Count_Person_InLaborForce_Male_Divorced",
-          "Count_Person_InLaborForce_Male_MarriedAndNotSeparated",
-          "Count_Person_InLaborForce_Male_NeverMarried",
-          "Count_Person_InLaborForce_Male_Separated",
-          "Count_Person_InLaborForce_Male_Widowed"
+      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSAdministrativeSupportWasteManagementRemediationServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSAdministrativeSupportWasteManagementRemediationServices"
+        ]
+      },
+      "Count_Worker_NAICSArtsEntertainmentRecreation": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSArtsEntertainmentRecreation",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSArtsEntertainmentRecreation"
+        ]
+      },
+      "Count_Worker_NAICSConstruction": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSConstruction",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSConstruction"
+        ]
+      },
+      "Count_Worker_NAICSEducationalServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSEducationalServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSEducationalServices"
+        ]
+      },
+      "Count_Worker_NAICSFinanceInsurance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSFinanceInsurance",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSFinanceInsurance"
+        ]
+      },
+      "Count_Worker_NAICSHealthCareSocialAssistance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSHealthCareSocialAssistance"
+        ]
+      },
+      "Count_Worker_NAICSOtherServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSOtherServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSOtherServices"
+        ]
+      },
+      "Count_Worker_NAICSProfessionalScientificTechnicalServices": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSProfessionalScientificTechnicalServices"
+        ]
+      },
+      "Count_Worker_NAICSTotalAllIndustries": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
+        ]
+      },
+      "Count_Worker_NAICSUtilities": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSUtilities",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSUtilities"
+        ]
+      },
+      "dc/8p97n7l96lgg8": {
+        "establishmentOwnership": [
+          "dc/8lwmn5d08rpd2",
+          "dc/wkn0fmqw6ezxc",
+          "dc/wnrvlpncdkj38"
         ]
       }
     },
@@ -1566,204 +1624,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/17031",
-        "name": "Cook",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12031",
-        "name": "Duval",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48201",
-        "name": "Harris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/UnemploymentRate",

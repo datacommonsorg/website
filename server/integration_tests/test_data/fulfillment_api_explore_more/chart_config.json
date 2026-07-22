@@ -206,7 +206,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
+                    "title": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -221,14 +221,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
+                    "title": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Cities of Santa Clara County"
+            "title": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -269,7 +269,7 @@
             "statVar": "Count_Person_15OrMoreYears_Divorced_AsianAlone"
           },
           "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone": {
-            "name": "Population: 15 Years or More, Divorced, Black or African American Alone",
+            "name": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
             "statVar": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino": {
@@ -568,53 +568,21 @@
           "Count_Person_Female_Divorced",
           "Count_Person_Male_Divorced"
         ],
-        "placeOfBirth": [
-          "dc/66sy80vs0b8q7",
-          "dc/dj7cvhr91sff5",
-          "dc/drvcnjld04b06",
-          "dc/twlffl9b5vgn3"
-        ]
-      },
-      "Count_Person_Female_Divorced": {
-        "age": [
-          "Count_Person_15To19Years_Female_Divorced",
-          "Count_Person_16OrMoreYears_Female_Divorced",
-          "Count_Person_20To34Years_Female_Divorced",
-          "Count_Person_35To44Years_Female_Divorced",
-          "Count_Person_45To54Years_Female_Divorced",
-          "Count_Person_55To64Years_Female_Divorced"
+        "nativity": [
+          "Count_Person_15OrMoreYears_Divorced_ForeignBorn",
+          "Count_Person_15OrMoreYears_Divorced_Native"
         ],
         "race": [
-          "dc/5f7zv3ydq8ttb",
-          "dc/7lwnw9syv0hb7",
-          "dc/9lq3bgx0gq5x6",
-          "dc/c53jk16c4g1r1",
-          "dc/d0n993ddpgxr3",
-          "dc/jvhsg0tbsk0d4",
-          "dc/ky1hbybytyzq",
-          "dc/m5wzmsxyngrh9",
-          "dc/q378bg9lpfnx5"
-        ]
-      },
-      "Count_Person_Male_Divorced": {
-        "age": [
-          "Count_Person_15To19Years_Male_Divorced",
-          "Count_Person_16OrMoreYears_Male_Divorced",
-          "Count_Person_20To34Years_Male_Divorced",
-          "Count_Person_35To44Years_Male_Divorced",
-          "Count_Person_45To54Years_Male_Divorced",
-          "Count_Person_55To64Years_Male_Divorced"
-        ],
-        "race": [
-          "dc/4vss7dyxcf7xc",
-          "dc/bfvrlp1kfypsb",
-          "dc/cqlt4r8lh54bf",
-          "dc/myd3m7cwvsn7g",
-          "dc/rflxtne8wnyr6",
-          "dc/rxprknx7sls4c",
-          "dc/sqfy1r8mbg8j7",
-          "dc/wsxptgxe4dy33",
-          "dc/zwsmx83980w3f"
+          "Count_Person_15OrMoreYears_Divorced_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_15OrMoreYears_Divorced_AsianAlone",
+          "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
+          "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino",
+          "Count_Person_15OrMoreYears_Divorced_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_15OrMoreYears_Divorced_OneRace",
+          "Count_Person_15OrMoreYears_Divorced_SomeOtherRaceAlone",
+          "Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces",
+          "Count_Person_15OrMoreYears_Divorced_WhiteAlone",
+          "Count_Person_15OrMoreYears_Divorced_WhiteAloneNotHispanicOrLatino"
         ]
       }
     },
@@ -637,197 +605,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/17031",
-        "name": "Cook",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12031",
-        "name": "Duval",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48201",
-        "name": "Harris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/MaritalStatusBreakdown",

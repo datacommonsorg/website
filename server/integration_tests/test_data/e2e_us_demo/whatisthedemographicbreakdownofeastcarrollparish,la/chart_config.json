@@ -44,7 +44,7 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "title": "Count_Person_1To4Years in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -59,14 +59,14 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "title": "Count_Person_1To4Years in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1-4 Years in Cities of East Carroll Parish"
+            "title": "Count_Person_1To4Years in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -202,7 +202,7 @@
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "title": "Count_Person_18OrMoreYears in East Carroll Parish",
                     "type": "LINE"
                   }
                 ]
@@ -210,18 +210,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 18 Years or More in East Carroll Parish",
+                    "description": "Count_Person_18OrMoreYears in East Carroll Parish",
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "title": "Count_Person_18OrMoreYears in East Carroll Parish",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or More"
+            "title": "Count_Person_18OrMoreYears"
           },
           {
             "columns": [
@@ -231,7 +231,7 @@
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "title": "Count_Person_18OrMoreYears in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -246,14 +246,14 @@
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "title": "Count_Person_18OrMoreYears in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or More in Cities of East Carroll Parish"
+            "title": "Count_Person_18OrMoreYears in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -385,7 +385,7 @@
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "title": "Count_Person_Upto18Years in East Carroll Parish",
                     "type": "LINE"
                   }
                 ]
@@ -393,18 +393,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 18 Years or Less in East Carroll Parish",
+                    "description": "Count_Person_Upto18Years in East Carroll Parish",
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "title": "Count_Person_Upto18Years in East Carroll Parish",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or Less"
+            "title": "Count_Person_Upto18Years"
           },
           {
             "columns": [
@@ -414,7 +414,7 @@
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "title": "Count_Person_Upto18Years in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -429,14 +429,14 @@
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "title": "Count_Person_Upto18Years in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or Less in Cities of East Carroll Parish"
+            "title": "Count_Person_Upto18Years in Cities of East Carroll Parish"
           }
         ],
         "statVarSpec": {
@@ -445,7 +445,7 @@
             "statVar": "Count_Person"
           },
           "Count_Person_18OrMoreYears": {
-            "name": "Population: 18 Years or More",
+            "name": "Count_Person_18OrMoreYears",
             "statVar": "Count_Person_18OrMoreYears"
           },
           "Count_Person_18To24Years_multiple_place_bar_block": {
@@ -453,11 +453,11 @@
             "statVar": "Count_Person_18To24Years"
           },
           "Count_Person_1To4Years": {
-            "name": "Population: 1 - 4 Years",
+            "name": "Count_Person_1To4Years",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_1To4Years_multiple_place_bar_block": {
-            "name": "Population: 1 - 4 Years",
+            "name": "Count_Person_1To4Years",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_25To34Years_multiple_place_bar_block": {
@@ -473,7 +473,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: 55 - 64 Years",
+            "name": "Count_Person_55To64Years",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5To17Years": {
@@ -529,7 +529,7 @@
             "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
           "Count_Person_Upto18Years": {
-            "name": "Population: 18 Years or Less",
+            "name": "Count_Person_Upto18Years",
             "statVar": "Count_Person_Upto18Years"
           },
           "Median_Age_Person": {
@@ -600,15 +600,6 @@
           "Count_Person_65To74Years",
           "Count_Person_75OrMoreYears",
           "Count_Person_Upto18Years"
-        ],
-        "income": [
-          "Count_Person_IncomeOf10000To14999USDollar",
-          "Count_Person_IncomeOf25000To34999USDollar",
-          "Count_Person_IncomeOf35000To49999USDollar",
-          "Count_Person_IncomeOf50000To64999USDollar",
-          "Count_Person_IncomeOf65000To74999USDollar",
-          "Count_Person_IncomeOf75000OrMoreUSDollar",
-          "Count_Person_IncomeOfUpto9999USDollar"
         ]
       }
     },
@@ -631,204 +622,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/17031",
-        "name": "Cook",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12031",
-        "name": "Duval",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48201",
-        "name": "Harris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/AgeMedians",
