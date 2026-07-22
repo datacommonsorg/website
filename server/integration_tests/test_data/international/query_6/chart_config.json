@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area_DroughtEvent in Africa",
+                    "title": "Area of Drought Event in Africa",
                     "type": "LINE"
                   }
                 ]
@@ -20,17 +20,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Area_DroughtEvent in Africa",
+                    "description": "Area of Drought Event in Africa",
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area_DroughtEvent in Africa",
+                    "title": "Area of Drought Event in Africa",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Area_DroughtEvent"
+            "title": "Area of Drought Event"
           },
           {
             "columns": [
@@ -40,7 +40,7 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area_DroughtEvent in Countries of Africa (${date})",
+                    "title": "Area of Drought Event in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -55,13 +55,13 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area_DroughtEvent in Countries of Africa (${date})",
+                    "title": "Area of Drought Event in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Area_DroughtEvent in Countries of Africa"
+            "title": "Area of Drought Event in Countries of Africa"
           },
           {
             "columns": [
@@ -130,7 +130,7 @@
                     "statVarKey": [
                       "PrecipitationRate"
                     ],
-                    "title": "PrecipitationRate in Countries of Africa (${date})",
+                    "title": "Precipitation Rate of Place in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -145,13 +145,13 @@
                     "statVarKey": [
                       "PrecipitationRate"
                     ],
-                    "title": "PrecipitationRate in Countries of Africa (${date})",
+                    "title": "Precipitation Rate of Place in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "PrecipitationRate in Countries of Africa"
+            "title": "Precipitation Rate of Place in Countries of Africa"
           },
           {
             "columns": [
@@ -161,7 +161,7 @@
                     "statVarKey": [
                       "Max_Rainfall"
                     ],
-                    "title": "Max_Rainfall in Countries of Africa (${date})",
+                    "title": "Max Rainfall of Place in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -176,14 +176,14 @@
                     "statVarKey": [
                       "Max_Rainfall"
                     ],
-                    "title": "Max_Rainfall in Countries of Africa (${date})",
+                    "title": "Max Rainfall of Place in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "Max near-surface rainfall.",
-            "title": "Max_Rainfall in Countries of Africa"
+            "title": "Max Rainfall of Place in Countries of Africa"
           },
           {
             "columns": [
@@ -193,7 +193,7 @@
                     "statVarKey": [
                       "Mean_Rainfall"
                     ],
-                    "title": "Mean_Rainfall in Countries of Africa (${date})",
+                    "title": "Mean Rainfall of Place in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -208,14 +208,14 @@
                     "statVarKey": [
                       "Mean_Rainfall"
                     ],
-                    "title": "Mean_Rainfall in Countries of Africa (${date})",
+                    "title": "Mean Rainfall of Place in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "Mean near-surface rainfall.",
-            "title": "Mean_Rainfall in Countries of Africa"
+            "title": "Mean Rainfall of Place in Countries of Africa"
           },
           {
             "columns": [
@@ -284,7 +284,7 @@
         ],
         "statVarSpec": {
           "Area_DroughtEvent": {
-            "name": "Area_DroughtEvent",
+            "name": "Area of Drought Event",
             "statVar": "Area_DroughtEvent"
           },
           "Count_DroughtEvent": {
@@ -292,15 +292,15 @@
             "statVar": "Count_DroughtEvent"
           },
           "Max_Rainfall": {
-            "name": "Max_Rainfall",
+            "name": "Max Rainfall of Place",
             "statVar": "Max_Rainfall"
           },
           "Mean_Rainfall": {
-            "name": "Mean_Rainfall",
+            "name": "Mean Rainfall of Place",
             "statVar": "Mean_Rainfall"
           },
           "PrecipitationRate": {
-            "name": "PrecipitationRate",
+            "name": "Precipitation Rate of Place",
             "statVar": "PrecipitationRate"
           },
           "sdg/ER_H2O_STRESS": {

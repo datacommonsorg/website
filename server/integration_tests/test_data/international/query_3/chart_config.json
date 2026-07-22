@@ -194,7 +194,7 @@
                     "statVarKey": [
                       "dc/nm9hcklgg5zb3"
                     ],
-                    "title": "Dc/Nm9Hcklgg5Zb3 in Eurostat Nuts 3 Places of Spain (${date})",
+                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -209,14 +209,14 @@
                     "statVarKey": [
                       "dc/nm9hcklgg5zb3"
                     ],
-                    "title": "Dc/Nm9Hcklgg5Zb3 in Eurostat Nuts 3 Places of Spain (${date})",
+                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/Nm9Hcklgg5Zb3 in Eurostat Nuts 3 Places of Spain"
+            "title": "Population: Employed in Eurostat Nuts 3 Places of Spain"
           },
           {
             "columns": [
@@ -226,7 +226,7 @@
                     "statVarKey": [
                       "dc/nm9hcklgg5zb3"
                     ],
-                    "title": "Dc/Nm9Hcklgg5Zb3 in Spain",
+                    "title": "Population: Employed in Spain",
                     "type": "LINE"
                   }
                 ]
@@ -234,18 +234,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Dc/Nm9Hcklgg5Zb3 in Spain",
+                    "description": "Population: Employed in Spain",
                     "statVarKey": [
                       "dc/nm9hcklgg5zb3"
                     ],
-                    "title": "Dc/Nm9Hcklgg5Zb3 in Spain",
+                    "title": "Population: Employed in Spain",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/Nm9Hcklgg5Zb3"
+            "title": "Population: Employed"
           },
           {
             "columns": [
@@ -327,7 +327,7 @@
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           },
           "dc/nm9hcklgg5zb3": {
-            "name": "dc/nm9hcklgg5zb3",
+            "name": "Population: Employed",
             "statVar": "dc/nm9hcklgg5zb3"
           },
           "sdg/EN_MAT_DOMCMPG": {
@@ -720,29 +720,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "sdg/EN_MAT_DOMCMPG": {
-        "sdg_product": [
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF1",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF11",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF121",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF122",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF13",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF14",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF2",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF21",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF22",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF3",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF4",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF41",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF413",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF421",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF422",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3A",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3B"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/GDP",
@@ -762,7 +740,113 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/EducationExpenditure",

@@ -185,14 +185,14 @@
                     "statVarKey": [
                       "dc/hxsdmw575en24_multiple_place_bar_block"
                     ],
-                    "title": "Dc/Hxsdmw575En24 (${date})",
+                    "title": "Population (Measured Based on Jurisdiction): Incarcerated (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Dc/Hxsdmw575En24"
+            "title": "Population (Measured Based on Jurisdiction): Incarcerated"
           }
         ],
         "statVarSpec": {
@@ -237,11 +237,11 @@
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime",
+            "name": "Count of Hate Crime Incidents: Disability Status, Aggravated Assault",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime",
+            "name": "Count of Hate Crime Incidents: Disability Status, Robbery",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime"
           },
           "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block": {
@@ -249,7 +249,7 @@
             "statVar": "Count_CriminalIncidents_IsHateCrime"
           },
           "dc/hxsdmw575en24_multiple_place_bar_block": {
-            "name": "dc/hxsdmw575en24",
+            "name": "Population (Measured Based On Jurisdiction): Incarcerated",
             "statVar": "dc/hxsdmw575en24"
           },
           "dc/jtf63bh66k41g_multiple_place_bar_block": {
@@ -291,55 +291,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime": {
-        "targetedDisabilityStatus": [
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_MentalDisability",
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_PhysicalDisability"
-        ]
-      },
-      "Count_CriminalIncidents_IsHateCrime": {
-        "biasMotivation": [
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationMultipleBias_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationOtherRaceOrEthnicity_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationRaceOrEthnicity_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationSingleBias_IsHateCrime"
-        ],
-        "crimeType": [
-          "Count_CriminalIncidents_AggravatedAssault_IsHateCrime",
-          "Count_CriminalIncidents_Arson_IsHateCrime",
-          "Count_CriminalIncidents_Burglary_IsHateCrime",
-          "Count_CriminalIncidents_CounterfeitingOrForgery_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstPerson_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstProperty_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstSociety_IsHateCrime",
-          "Count_CriminalIncidents_DestructionOrDamageOrVandalismOfProperty_IsHateCrime",
-          "Count_CriminalIncidents_DrugEquipmentViolations_IsHateCrime",
-          "Count_CriminalIncidents_DrugOrNarcoticViolations_IsHateCrime",
-          "Count_CriminalIncidents_ExtortionOrBlackmail_IsHateCrime",
-          "Count_CriminalIncidents_FalsePretenseOrSwindleOrConfidenceGame_IsHateCrime",
-          "Count_CriminalIncidents_HackingOrComputerInvasion_IsHateCrime",
-          "Count_CriminalIncidents_Impersonation_IsHateCrime",
-          "Count_CriminalIncidents_Intimidation_IsHateCrime",
-          "Count_CriminalIncidents_KidnappingOrAbduction_IsHateCrime",
-          "Count_CriminalIncidents_MotorVehicleTheft_IsHateCrime",
-          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime",
-          "Count_CriminalIncidents_PornographyOrObsceneMaterial_IsHateCrime"
-        ]
-      },
-      "dc/jtf63bh66k41g": {
-        "gender": [
-          "dc/q2pgyz35p79l4",
-          "dc/z29z7w7ldnwl4"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Crime",

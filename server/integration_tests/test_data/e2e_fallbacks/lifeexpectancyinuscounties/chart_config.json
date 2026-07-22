@@ -57,6 +57,38 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
+                    "title": "Number of Deaths in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
                   }
@@ -112,9 +144,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_DiseasesOfTheCirculatorySystem"
+                      "Count_Death_DiseasesOfTheNervousSystem"
                     ],
-                    "title": "Deaths From Diseases of the Circulatory System in Counties of United States (${date})",
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -127,16 +159,48 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death_DiseasesOfTheCirculatorySystem"
+                      "Count_Death_DiseasesOfTheNervousSystem"
                     ],
-                    "title": "Deaths From Diseases of the Circulatory System in Counties of United States (${date})",
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Circulatory System in Counties of United States"
+            "title": "Deaths From Diseases of the Nervous System in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Diseases of the Respiratory System in Counties of United States"
           },
           {
             "columns": [
@@ -179,7 +243,39 @@
                     "statVarKey": [
                       "Count_Death_Female"
                     ],
-                    "title": "Count_Death_Female in United States",
+                    "title": "Count of Mortality Event: Female in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States",
                     "type": "LINE"
                   }
                 ]
@@ -187,18 +283,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Death_Female in United States",
+                    "description": "Count of Mortality Event: Female in United States",
                     "statVarKey": [
                       "Count_Death_Female"
                     ],
-                    "title": "Count_Death_Female in United States",
+                    "title": "Count of Mortality Event: Female in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Death_Female"
+            "title": "Count of Mortality Event: Female"
           },
           {
             "columns": [
@@ -301,7 +397,39 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count_Death_Upto1Years in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years"
+                    ],
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Years Upto 1 in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years"
+                    ],
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "LINE"
                   }
                 ]
@@ -309,18 +437,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Death_Upto1Years in United States",
+                    "description": "Count of Mortality Event: Years Upto 1 in United States",
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count_Death_Upto1Years in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Death_Upto1Years"
+            "title": "Count of Mortality Event: Years Upto 1"
           },
           {
             "columns": [
@@ -525,7 +653,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -533,17 +661,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in United States",
+                    "description": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in United States",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+            "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event)"
           },
           {
             "columns": [
@@ -635,10 +763,6 @@
             "name": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
             "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
           },
-          "Count_Death_DiseasesOfTheCirculatorySystem": {
-            "name": "Deaths From Diseases of the Circulatory System",
-            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
-          },
           "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block": {
             "name": "Female Deaths Due To Diseases of The Circulatory System",
             "statVar": "Count_Death_DiseasesOfTheCirculatorySystem_Female"
@@ -647,8 +771,16 @@
             "name": "Deaths From Diseases of the Circulatory System",
             "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
           },
+          "Count_Death_DiseasesOfTheNervousSystem": {
+            "name": "Deaths From Diseases of the Nervous System",
+            "statVar": "Count_Death_DiseasesOfTheNervousSystem"
+          },
+          "Count_Death_DiseasesOfTheRespiratorySystem": {
+            "name": "Deaths From Diseases of the Respiratory System",
+            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
+          },
           "Count_Death_Female": {
-            "name": "Count_Death_Female",
+            "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female": {
@@ -660,7 +792,7 @@
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
+            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
@@ -676,7 +808,7 @@
             "statVar": "Count_Death_Neoplasms"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count_Death_Upto1Years",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {
@@ -782,350 +914,350 @@
       "County": [
         {
           "dcid": "geoId/01001",
-          "name": "Autauga County, Alabama",
+          "name": "Autauga",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01003",
-          "name": "Baldwin County, Alabama",
+          "name": "Baldwin",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01005",
-          "name": "Barbour County, Alabama",
+          "name": "Barbour",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01007",
-          "name": "Bibb County, Alabama",
+          "name": "Bibb",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01009",
-          "name": "Blount County, Alabama",
+          "name": "Blount",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01011",
-          "name": "Bullock County, Alabama",
+          "name": "Bullock",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01013",
-          "name": "Butler County, Alabama",
+          "name": "Butler",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01015",
-          "name": "Calhoun County, Alabama",
+          "name": "Calhoun",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01017",
-          "name": "Chambers County, Alabama",
+          "name": "Chambers",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01019",
-          "name": "Cherokee County, Alabama",
+          "name": "Cherokee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01021",
-          "name": "Chilton County, Alabama",
+          "name": "Chilton",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01023",
-          "name": "Choctaw County, Alabama",
+          "name": "Choctaw",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01025",
-          "name": "Clarke County, Alabama",
+          "name": "Clarke",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01027",
-          "name": "Clay County, Alabama",
+          "name": "Clay",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01029",
-          "name": "Cleburne County, Alabama",
+          "name": "Cleburne",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01031",
-          "name": "Coffee County, Alabama",
+          "name": "Coffee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01033",
-          "name": "Colbert County, Alabama",
+          "name": "Colbert",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01035",
-          "name": "Conecuh County, Alabama",
+          "name": "Conecuh",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01037",
-          "name": "Coosa County, Alabama",
+          "name": "Coosa",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01039",
-          "name": "Covington County, Alabama",
+          "name": "Covington",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01041",
-          "name": "Crenshaw County, Alabama",
+          "name": "Crenshaw",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01043",
-          "name": "Cullman County, Alabama",
+          "name": "Cullman",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01045",
-          "name": "Dale County, Alabama",
+          "name": "Dale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01047",
-          "name": "Dallas County, Alabama",
+          "name": "Dallas",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01049",
-          "name": "DeKalb County, Alabama",
+          "name": "DeKalb",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01051",
-          "name": "Elmore County, Alabama",
+          "name": "Elmore",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01053",
-          "name": "Escambia County, Alabama",
+          "name": "Escambia",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01055",
-          "name": "Etowah County, Alabama",
+          "name": "Etowah",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01057",
-          "name": "Fayette County, Alabama",
+          "name": "Fayette",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01059",
-          "name": "Franklin County, Alabama",
+          "name": "Franklin",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01061",
-          "name": "Geneva County, Alabama",
+          "name": "Geneva",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01063",
-          "name": "Greene County, Alabama",
+          "name": "Greene",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01065",
-          "name": "Hale County, Alabama",
+          "name": "Hale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01067",
-          "name": "Henry County, Alabama",
+          "name": "Henry",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01069",
-          "name": "Houston County, Alabama",
+          "name": "Houston",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01071",
-          "name": "Jackson County, Alabama",
+          "name": "Jackson",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01073",
-          "name": "Jefferson County, Alabama",
+          "name": "Jefferson",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01075",
-          "name": "Lamar County, Alabama",
+          "name": "Lamar",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01077",
-          "name": "Lauderdale County, Alabama",
+          "name": "Lauderdale",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01079",
-          "name": "Lawrence County, Alabama",
+          "name": "Lawrence",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01081",
-          "name": "Lee County, Alabama",
+          "name": "Lee",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01083",
-          "name": "Limestone County, Alabama",
+          "name": "Limestone",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01085",
-          "name": "Lowndes County, Alabama",
+          "name": "Lowndes",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01087",
-          "name": "Macon County, Alabama",
+          "name": "Macon",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01089",
-          "name": "Madison County, Alabama",
+          "name": "Madison",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01091",
-          "name": "Marengo County, Alabama",
+          "name": "Marengo",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01093",
-          "name": "Marion County, Alabama",
+          "name": "Marion",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01095",
-          "name": "Marshall County, Alabama",
+          "name": "Marshall",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01097",
-          "name": "Mobile County, Alabama",
+          "name": "Mobile",
           "types": [
             "County"
           ]
         },
         {
           "dcid": "geoId/01099",
-          "name": "Monroe County, Alabama",
+          "name": "Monroe",
           "types": [
             "County"
           ]
@@ -1133,83 +1265,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Death": {
-        "age": [
-          "Count_Death_0Years",
-          "Count_Death_Upto1Years"
-        ],
-        "causeOfDeath": [
-          "Count_Death_AbnormalNotClassfied",
-          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
-          "Count_Death_CertainInfectiousParasiticDiseases",
-          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders",
-          "Count_Death_DiseasesOfTheCirculatorySystem",
-          "Count_Death_Neoplasms",
-          "Count_MortalityEvent_Assault(Homicide)",
-          "Count_MortalityEvent_Suicide"
-        ],
-        "gender": [
-          "Count_Death_Female",
-          "Count_Death_Male"
-        ]
-      },
-      "Count_Death_AsAFractionOfCount_Person": {
-        "causeOfDeath": [
-          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
-          "Count_MortalityEvent_Assault(Homicide)_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/A00-B99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/C00-D48_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/D50-D89_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/I00-I99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/P00-P96_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/Q00-Q99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/R00-R99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_Suicide_AsAFractionOf_Count_Person"
-        ]
-      },
-      "Count_Death_Female": {
-        "causeOfDeath": [
-          "Count_Death_AbnormalNotClassfied_Female",
-          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female",
-          "Count_Death_CertainInfectiousParasiticDiseases_Female",
-          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female",
-          "Count_Death_DiseasesOfTheCirculatorySystem_Female",
-          "Count_Death_Neoplasms_Female",
-          "Count_MortalityEvent_Assault(Homicide)_Female"
-        ]
-      },
-      "Count_Death_Upto1Years": {
-        "causeOfDeath": [
-          "Count_Death_Upto1Years_AbnormalNotClassfied",
-          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod",
-          "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases",
-          "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities",
-          "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem",
-          "Count_Death_Upto1Years_Neoplasms",
-          "Count_MortalityEvent_YearsUpto1_AIDS",
-          "Count_MortalityEvent_YearsUpto1_AllOtherFormsOfChronicIschemicHeartDisease",
-          "Count_MortalityEvent_YearsUpto1_Assault(Homicide)ByDischargeOfFirearms",
-          "Count_MortalityEvent_YearsUpto1_Asthma",
-          "Count_MortalityEvent_YearsUpto1_Atherosclerosis",
-          "Count_MortalityEvent_YearsUpto1_ChronicLiverDiseaseAndCirrhosis",
-          "Count_MortalityEvent_YearsUpto1_Malnutrition",
-          "Count_MortalityEvent_YearsUpto1_NutritionalDeficiencies",
-          "Count_MortalityEvent_YearsUpto1_OtherChronicLiverDiseaseAndCirrhosis",
-          "Count_MortalityEvent_YearsUpto1_OtherChronicLowerRespiratoryDiseases",
-          "Count_MortalityEvent_YearsUpto1_OtherFormsOfChronicIschemicHeartDisease",
-          "Count_MortalityEvent_YearsUpto1_PneumonitisDueToSolidsAndLiquids"
-        ]
-      },
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",
@@ -1229,7 +1285,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/CausesOfDeath",

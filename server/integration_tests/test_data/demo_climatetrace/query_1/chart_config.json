@@ -333,7 +333,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_Agriculture"
                     ],
-                    "title": "Annual_Emissions_Methane_Agriculture in the World (${date})",
+                    "title": "Annual Amount of Emissions: Agriculture, Methane in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -344,14 +344,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_Agriculture"
                     ],
-                    "title": "Annual_Emissions_Methane_Agriculture in the World (${date})",
+                    "title": "Annual Amount of Emissions: Agriculture, Methane in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_Methane_Agriculture in the World"
+            "title": "Annual Amount of Emissions: Agriculture, Methane in the World"
           },
           {
             "columns": [
@@ -365,7 +365,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_FossilFuelOperations"
                     ],
-                    "title": "Annual_Emissions_Methane_FossilFuelOperations in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fossil Fuel Operations, Methane in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -376,14 +376,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_FossilFuelOperations"
                     ],
-                    "title": "Annual_Emissions_Methane_FossilFuelOperations in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fossil Fuel Operations, Methane in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_Methane_FossilFuelOperations in the World"
+            "title": "Annual Amount of Emissions: Fossil Fuel Operations, Methane in the World"
           },
           {
             "columns": [
@@ -417,7 +417,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Agriculture"
                     ],
-                    "title": "Annual_Emissions_NitrousOxide_Agriculture in the World (${date})",
+                    "title": "Annual Amount of Emissions: Agriculture, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -428,14 +428,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Agriculture"
                     ],
-                    "title": "Annual_Emissions_NitrousOxide_Agriculture in the World (${date})",
+                    "title": "Annual Amount of Emissions: Agriculture, Nitrous Oxide in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_NitrousOxide_Agriculture in the World"
+            "title": "Annual Amount of Emissions: Agriculture, Nitrous Oxide in the World"
           },
           {
             "columns": [
@@ -449,7 +449,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
                     ],
-                    "title": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -460,14 +460,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
                     ],
-                    "title": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating in the World"
+            "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World"
           },
           {
             "columns": [
@@ -511,7 +511,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -522,14 +522,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking in the World"
+            "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World"
           },
           {
             "columns": [
@@ -543,7 +543,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_RiceCultivation"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_RiceCultivation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Rice Cultivation, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -554,14 +554,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_RiceCultivation"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_RiceCultivation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Rice Cultivation, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_GreenhouseGas_RiceCultivation in the World"
+            "title": "Annual Amount of Emissions: Rice Cultivation, Greenhouse Gas in the World"
           },
           {
             "columns": [
@@ -575,7 +575,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_OilAndGasProduction in the World (${date})",
+                    "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -586,14 +586,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_OilAndGasProduction in the World (${date})",
+                    "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_GreenhouseGas_OilAndGasProduction in the World"
+            "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas in the World"
           },
           {
             "columns": [
@@ -607,7 +607,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_EntericFermentation"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_EntericFermentation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Enteric Fermentation, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -618,14 +618,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_EntericFermentation"
                     ],
-                    "title": "Annual_Emissions_GreenhouseGas_EntericFermentation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Enteric Fermentation, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual_Emissions_GreenhouseGas_EntericFermentation in the World"
+            "title": "Annual Amount of Emissions: Enteric Fermentation, Greenhouse Gas in the World"
           }
         ],
         "statVarSpec": {
@@ -686,67 +686,67 @@
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
           },
           "Annual_Emissions_GreenhouseGas_EntericFermentation": {
-            "name": "Annual_Emissions_GreenhouseGas_EntericFermentation",
+            "name": "Annual Amount of Emissions: Enteric Fermentation, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_EntericFermentation"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking": {
-            "name": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Cooking, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
           },
           "Annual_Emissions_GreenhouseGas_OilAndGasProduction": {
-            "name": "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
+            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
           },
           "Annual_Emissions_GreenhouseGas_RiceCultivation": {
-            "name": "Annual_Emissions_GreenhouseGas_RiceCultivation",
+            "name": "Annual Amount of Emissions: Rice Cultivation, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_RiceCultivation"
           },
           "Annual_Emissions_Methane_Agriculture": {
-            "name": "Annual_Emissions_Methane_Agriculture",
+            "name": "Annual Amount of Emissions: Agriculture, Methane",
             "statVar": "Annual_Emissions_Methane_Agriculture"
           },
           "Annual_Emissions_Methane_FossilFuelOperations": {
-            "name": "Annual_Emissions_Methane_FossilFuelOperations",
+            "name": "Annual Amount of Emissions: Fossil Fuel Operations, Methane",
             "statVar": "Annual_Emissions_Methane_FossilFuelOperations"
           },
           "Annual_Emissions_Methane_OpenBurningWaste": {
-            "name": "Annual_Emissions_Methane_OpenBurningWaste",
+            "name": "Annual Amount of Emissions: Open Burning Waste, Methane",
             "statVar": "Annual_Emissions_Methane_OpenBurningWaste"
           },
           "Annual_Emissions_Methane_WasteManagement": {
-            "name": "Annual_Emissions_Methane_WasteManagement",
+            "name": "Annual Amount of Emissions: Waste Management, Methane",
             "statVar": "Annual_Emissions_Methane_WasteManagement"
           },
           "Annual_Emissions_NitrousOxide_Agriculture": {
-            "name": "Annual_Emissions_NitrousOxide_Agriculture",
+            "name": "Annual Amount of Emissions: Agriculture, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
           },
           "Annual_Emissions_NitrousOxide_Agriculture_multiple_place_bar_block": {
-            "name": "Annual_Emissions_NitrousOxide_Agriculture",
+            "name": "Annual Amount of Emissions: Agriculture, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
           },
           "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating": {
-            "name": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
           },
           "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating_multiple_place_bar_block": {
-            "name": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
           },
           "Annual_Emissions_NitrousOxide_Manufacturing_multiple_place_bar_block": {
-            "name": "Annual_Emissions_NitrousOxide_Manufacturing",
+            "name": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Manufacturing"
           },
           "Annual_Emissions_NitrousOxide_Transportation_multiple_place_bar_block": {
-            "name": "Annual_Emissions_NitrousOxide_Transportation",
+            "name": "Annual Amount of Emissions: Transportation, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Transportation"
           },
           "Annual_Emissions_NitrousOxide_WasteManagement_multiple_place_bar_block": {
-            "name": "Annual_Emissions_NitrousOxide_WasteManagement",
+            "name": "Annual Amount of Emissions: Waste Management, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_WasteManagement"
           },
           "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge_multiple_place_bar_block": {
-            "name": "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge",
+            "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
           },
           "eia/INTL.4008-8-MMTCD.A": {
