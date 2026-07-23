@@ -3,19 +3,19 @@ typeOf: dcid:StatVarGroup
 name: "OECD"
 specializationOf: dcid:dc/g/Root
 
-Node: dcid:gender_wage_gap
+Node: dcid:Ratio_Average_Wages_To_Male_Average_Wages
 typeOf: dcid:StatisticalVariable
 name: "Gender wage gap"
 description: "Percentage difference between median earnings of men and women relative to median earnings of men"
 populationType: dcid:Person
 measuredProperty: dcid:wagesAnnual
-statType: dcid:meanValue
+statType: dcid:Ratio
 memberOf: dcid:OECD
 
-Node: dcid:average_annual_wage
+Node: dcid:Annual_Average_Wage
 typeOf: dcid:StatisticalVariable
 name: "Average annual wage"
-description: "Annual rates paid per employee in full-time equivalent unit in the total economy."
+description: "Annual rates paid per employee in full-time equivalent unit in the total economy"
 populationType: dcid:Person
 measuredProperty: dcid:wagesAnnual
 statType: dcid:meanValue
