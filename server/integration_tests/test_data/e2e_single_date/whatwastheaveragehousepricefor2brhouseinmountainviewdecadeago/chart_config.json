@@ -76,7 +76,7 @@
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue100000To199999USDollar",
+            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_2016": {
@@ -97,27 +97,27 @@
           },
           "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue200000To299999USDollar",
+            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue300000To499999USDollar",
+            "name": "Count of Housing Unit: US Dollar 300000 To 499999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
           },
           "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue500000To999999USDollar",
+            "name": "Count of Housing Unit: US Dollar 500000 To 999999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue50000To99999USDollar",
+            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValueUpto49999USDollar",
+            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           }
         }
