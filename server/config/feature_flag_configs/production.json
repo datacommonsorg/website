@@ -54,6 +54,13 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "divert_to_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Diverts traffic to Spanner database backend.",
+    "rollout_percentage": 5
+  },
+  {
     "name": "metadata_modal",
     "enabled": true,
     "owner": "nick-next",
@@ -64,12 +71,6 @@
     "enabled": false,
     "owner": "juliawu",
     "description": "Enables the new ranking page UI"
-  },
-  {
-    "name": "use_v2_api",
-    "enabled": true,
-    "owner": "juliawu",
-    "description": "Enables features that rely on the V2 REST APIs"
   },
   {
     "name": "use_v2_resolve_for_nl_search_vars",

@@ -671,46 +671,6 @@
             ],
             "footnote": "Includes data from the following sources: eurostat; WESR / global material flows database.",
             "title": "Domestic Material Consumption Per Unit of GDP"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
-                    ],
-                    "title": "GDP of the Construction Industry and More in United States (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Related: GDP of the Construction Industry and More"
           }
         ],
         "statVarSpec": {
@@ -1179,7 +1139,7 @@
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/qt7ewllmt3826_multiple_place_bar_block": {
-            "name": "dc/qt7ewllmt3826",
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/44-45",
             "statVar": "dc/qt7ewllmt3826"
           },
           "dc/rw3t3r74kv7mc_multiple_place_bar_block": {
@@ -1211,7 +1171,7 @@
             "statVar": "dc/zkmdz1rhlt7q8"
           },
           "dc/zz6gwv838v9w_multiple_place_bar_block": {
-            "name": "dc/zz6gwv838v9w",
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/48-49",
             "statVar": "dc/zz6gwv838v9w"
           },
           "sdg/EN_MAT_DOMCMPG": {
@@ -1256,37 +1216,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Amount_EconomicActivity_GrossDomesticProduction_RealValue": {
-        "naics": [
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreationAccommodationFoodServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSDurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServicesHealthCareSocialAssistance_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsuranceRealEstateRentalLeasing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue"
-        ]
-      },
-      "dc/1wf1h5esex2d": {
-        "establishmentOwnership": [
-          "dc/n1mgflew2xqm8",
-          "dc/php87mcmrlfj1",
-          "dc/wnkqptsmsrvp4"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/GDP",

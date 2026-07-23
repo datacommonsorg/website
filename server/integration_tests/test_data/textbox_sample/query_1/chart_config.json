@@ -563,7 +563,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in California",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in California",
                     "type": "LINE"
                   }
                 ]
@@ -571,17 +571,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Earnings of Household: Foreign Born, Northamerica in California",
+                    "description": "Mean Earnings of Household: USC Foreign Born, Northamerica in California",
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in California",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Northamerica"
+            "title": "Mean Earnings of Household: USC Foreign Born, Northamerica"
           },
           {
             "columns": [
@@ -591,7 +591,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in Counties of California (${date})",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -606,13 +606,13 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in Counties of California (${date})",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Northamerica in Counties of California"
+            "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in Counties of California"
           },
           {
             "columns": [
@@ -701,7 +701,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
                     "type": "LINE"
                   }
                 ]
@@ -709,17 +709,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "description": "Mean Earnings of Household: USC Foreign Born, Asia in California",
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Asia"
+            "title": "Mean Earnings of Household: USC Foreign Born, Asia"
           },
           {
             "columns": [
@@ -729,7 +729,7 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -744,13 +744,13 @@
                     "statVarKey": [
                       "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California"
+            "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California"
           },
           {
             "columns": [
@@ -877,11 +877,11 @@
             "statVar": "Count_Household_FamilyHousehold"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Earnings of Household: Foreign Born, Asia",
+            "name": "Mean Earnings of Household: USC Foreign Born, Asia",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica": {
-            "name": "Mean Earnings of Household: Foreign Born, Northamerica",
+            "name": "Mean Earnings of Household: USC Foreign Born, Northamerica",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
           },
           "Mean_IncomeDeficit_Household_FamilyHousehold": {
@@ -1322,33 +1322,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Household_FamilyHousehold": {
-        "familyIncome": [
-          "Count_Household_0.5OrLessRatioToPovertyLine_FamilyHousehold",
-          "Count_Household_1.25OrLessRatioToPovertyLine_FamilyHousehold",
-          "Count_Household_1.5OrLessRatioToPovertyLine_FamilyHousehold",
-          "Count_Household_1.85OrLessRatioToPovertyLine_FamilyHousehold",
-          "Count_Household_2OrLessRatioToPovertyLine_FamilyHousehold",
-          "Count_Household_3OrLessRatioToPovertyLine_FamilyHousehold",
-          "Count_Household_4OrLessRatioToPovertyLine_FamilyHousehold",
-          "Count_Household_5OrLessRatioToPovertyLine_FamilyHousehold"
-        ]
-      },
-      "Mean_Income_Household": {
-        "householdType": [
-          "Mean_Income_Household_FamilyHousehold",
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-          "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      },
-      "Median_Earnings_Person": {
-        "gender": [
-          "Median_Earnings_Person_Female",
-          "Median_Earnings_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/HouseholdIncomeDistribution",

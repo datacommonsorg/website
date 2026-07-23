@@ -21,19 +21,19 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block"
                     ],
-                    "title": "Population: Foreign Born (${date})",
+                    "title": "Population: Years 5 Onwards, USC Foreign Born (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born"
+            "title": "Population: Years 5 Onwards, USC Foreign Born"
           }
         ],
         "statVarSpec": {
           "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block": {
-            "name": "Population: Foreign Born",
+            "name": "Population: Years 5 Onwards, USC Foreign Born",
             "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           }
         }

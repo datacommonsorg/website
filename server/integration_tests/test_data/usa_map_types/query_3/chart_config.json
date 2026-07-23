@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Washington",
+                    "title": "Population: BLS Unemployed in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Unemployed in Washington",
+                    "description": "Population: BLS Unemployed in Washington",
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed in Washington",
+                    "title": "Population: BLS Unemployed in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Unemployed"
+            "title": "Population: BLS Unemployed"
           },
           {
             "columns": [
@@ -189,7 +189,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 16 Onwards, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -204,14 +204,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 16 Onwards, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington"
+            "title": "Population: Years 16 Onwards, With Earnings in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -221,7 +221,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: 16 Years or More, With Earnings in Washington",
+                    "title": "Population: Years 16 Onwards, With Earnings in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -229,18 +229,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 Years or More, With Earnings in Washington",
+                    "description": "Population: Years 16 Onwards, With Earnings in Washington",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: 16 Years or More, With Earnings in Washington",
+                    "title": "Population: Years 16 Onwards, With Earnings in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, With Earnings"
+            "title": "Population: Years 16 Onwards, With Earnings"
           },
           {
             "columns": [
@@ -250,7 +250,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: 15 Years or More, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 15 Onwards, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -265,14 +265,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: 15 Years or More, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 15 Onwards, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 15 Years or More, With Income in Census Zip Code Tabulation Areas of Washington"
+            "title": "Population: Years 15 Onwards, With Income in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -282,7 +282,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: 15 Years or More, With Income in Washington",
+                    "title": "Population: Years 15 Onwards, With Income in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -290,18 +290,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 15 Years or More, With Income in Washington",
+                    "description": "Population: Years 15 Onwards, With Income in Washington",
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: 15 Years or More, With Income in Washington",
+                    "title": "Population: Years 15 Onwards, With Income in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 15 Years or More, With Income"
+            "title": "Population: Years 15 Onwards, With Income"
           },
           {
             "columns": [
@@ -311,7 +311,7 @@
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -326,14 +326,14 @@
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington"
+            "title": "Population: Years 16 to 64, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -343,7 +343,7 @@
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -351,18 +351,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16-64 Years, Male, Did Not Work in Washington",
+                    "description": "Population: Years 16 to 64, Male, Did Not Work in Washington",
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Male, Did Not Work"
+            "title": "Population: Years 16 to 64, Male, Did Not Work"
           },
           {
             "columns": [
@@ -372,7 +372,7 @@
                     "statVarKey": [
                       "Count_Person_NotInLaborForce"
                     ],
-                    "title": "Population: 16 Years or More, Not in Labor Force in Washington",
+                    "title": "Population: Years 16 Onwards, BLS Not in Labor Force in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -380,18 +380,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 Years or More, Not in Labor Force in Washington",
+                    "description": "Population: Years 16 Onwards, BLS Not in Labor Force in Washington",
                     "statVarKey": [
                       "Count_Person_NotInLaborForce"
                     ],
-                    "title": "Population: 16 Years or More, Not in Labor Force in Washington",
+                    "title": "Population: Years 16 Onwards, BLS Not in Labor Force in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 Years or More, Not in Labor Force"
+            "title": "Population: Years 16 Onwards, BLS Not in Labor Force"
           },
           {
             "columns": [
@@ -458,7 +458,7 @@
                     "statVarKey": [
                       "dc/dyhxtqe2pxhl5"
                     ],
-                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 15 Onwards, No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -473,14 +473,14 @@
                     "statVarKey": [
                       "dc/dyhxtqe2pxhl5"
                     ],
-                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: Years 15 Onwards, No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington"
+            "title": "Population: Years 15 Onwards, No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -490,7 +490,7 @@
                     "statVarKey": [
                       "dc/dyhxtqe2pxhl5"
                     ],
-                    "title": "Population: No Income, Foreign Born in Washington",
+                    "title": "Population: Years 15 Onwards, No Income, Foreign Born in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -498,18 +498,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: No Income, Foreign Born in Washington",
+                    "description": "Population: Years 15 Onwards, No Income, Foreign Born in Washington",
                     "statVarKey": [
                       "dc/dyhxtqe2pxhl5"
                     ],
-                    "title": "Population: No Income, Foreign Born in Washington",
+                    "title": "Population: Years 15 Onwards, No Income, Foreign Born in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: No Income, Foreign Born"
+            "title": "Population: Years 15 Onwards, No Income, Foreign Born"
           },
           {
             "columns": [
@@ -608,11 +608,11 @@
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome": {
-            "name": "Population: 15 Years or More, With Income",
+            "name": "Population: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_16OrMoreYears_WithEarnings": {
-            "name": "Population: 16 Years or More, With Earnings",
+            "name": "Population: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_Employed": {
@@ -624,7 +624,7 @@
             "statVar": "Count_Person_InLaborForce"
           },
           "Count_Person_Male_DidNotWork": {
-            "name": "Population: 16 - 64 Years, Male, Did Not Work",
+            "name": "Population: Years 16 To 64, Male, Did Not Work",
             "statVar": "Count_Person_Male_DidNotWork"
           },
           "Count_Person_NotEnrolledInSchool": {
@@ -632,11 +632,11 @@
             "statVar": "Count_Person_NotEnrolledInSchool"
           },
           "Count_Person_NotInLaborForce": {
-            "name": "Population: 16 Years or More, Not in Labor Force",
+            "name": "Population: Years 16 Onwards, BLS Not In Labor Force",
             "statVar": "Count_Person_NotInLaborForce"
           },
           "Count_Person_Unemployed": {
-            "name": "Population: Unemployed",
+            "name": "Population: BLS Unemployed",
             "statVar": "Count_Person_Unemployed"
           },
           "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
@@ -656,7 +656,7 @@
             "statVar": "UnemploymentRate_Person"
           },
           "dc/dyhxtqe2pxhl5": {
-            "name": "Population: No Income, Foreign Born",
+            "name": "Population: Years 15 Onwards, No Income, Foreign Born",
             "statVar": "dc/dyhxtqe2pxhl5"
           }
         }
@@ -1045,17 +1045,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_NotInLaborForce": {
-        "residenceType": [
-          "Count_Person_NotInLaborForce_ResidesInAdultCorrectionalFacilities",
-          "Count_Person_NotInLaborForce_ResidesInCollegeOrUniversityStudentHousing",
-          "Count_Person_NotInLaborForce_ResidesInGroupQuarters",
-          "Count_Person_NotInLaborForce_ResidesInNoninstitutionalizedGroupQuarters",
-          "Count_Person_NotInLaborForce_ResidesInNursingFacilities"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/UnemploymentRate",

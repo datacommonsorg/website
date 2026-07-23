@@ -30,18 +30,14 @@ import React from "react";
 
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import * as SharedUtil from "../../shared/util";
-import { InfoPlace } from "./info";
 import { axiosMock } from "./mock_functions";
 import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const globalAny: any = global;
-
-const INFO_PLACES: [InfoPlace, InfoPlace] = [
-  { name: "Place 1", dcid: "dcid/1" },
-  { name: "Place 2", dcid: "dcid/2" },
-];
+beforeEach(() => {
+  window.location.hash = "";
+});
 
 async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
   // Wait for state updates
@@ -56,31 +52,25 @@ async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
 }
 
 test("Loading options from URL", async () => {
-  globalAny.window = Object.create(window);
-  // Set url hash
-  Object.defineProperty(window, "location", {
-    writable: true,
-    value: {
-      hash: "#place=geoId/06&pt=County&sv=Count_Person",
-    },
-  });
+  window.location.hash = "#place=geoId/06&pt=County&sv=Count_Person";
   // Mock all the async axios calls
   axiosMock();
   // Render the component
+  const container = document.createElement("div");
+  document.body.appendChild(container);
   const wrapper = mount(
     <ThemeProvider theme={theme}>
-      <Page infoPlaces={INFO_PLACES} />
-    </ThemeProvider>
+      <Page />
+    </ThemeProvider>,
+    { attachTo: container }
   );
   await waitForComponentUpdates(wrapper);
-  // Check that preview table shows up on click and matches snapshot
-  wrapper.find(".get-data-button").at(0).simulate("click");
-  await waitForComponentUpdates(wrapper);
+
   await waitFor(() => {
     expect(wrapper.text()).toContain("placeDcid");
   });
   expect(
-    pretty(wrapper.find("#preview-section").at(0).getDOMNode().innerHTML)
+    pretty(document.getElementById("preview-section").innerHTML)
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
   wrapper.find(".download-button").at(0).simulate("click");
@@ -91,8 +81,8 @@ test("Loading options from URL", async () => {
       facetMap: {
         Count_Person: "",
       },
-      maxDate: "latest",
-      minDate: "latest",
+      maxDate: "",
+      minDate: "",
       parentPlace: "geoId/06",
       statVars: ["Count_Person"],
     },
@@ -105,26 +95,24 @@ test("Loading options from URL", async () => {
     savedFile = fileName;
   });
   await waitFor(() => {
-    expect(savedFile).toEqual("California_County.csv");
+    expect(savedFile).toEqual("California_County_Count_Person.csv");
   });
+  wrapper.unmount();
+  container.remove();
 });
 
 test("Manually updating options", async () => {
-  globalAny.window = Object.create(window);
-  // Set url hash
-  Object.defineProperty(window, "location", {
-    writable: true,
-    value: {
-      hash: "#place=geoId/06",
-    },
-  });
+  window.location.hash = "#place=geoId/06";
   // Mock all the async axios calls
   axiosMock();
   // Render the component
+  const container = document.createElement("div");
+  document.body.appendChild(container);
   const wrapper = mount(
     <ThemeProvider theme={theme}>
-      <Page infoPlaces={INFO_PLACES} />
-    </ThemeProvider>
+      <Page />
+    </ThemeProvider>,
+    { attachTo: container }
   );
   await waitForComponentUpdates(wrapper);
   // Choose place type
@@ -139,14 +127,7 @@ test("Manually updating options", async () => {
     );
   });
   await waitForComponentUpdates(wrapper);
-  // Update Date Range
-  wrapper.find("#date-range").at(0).simulate("click");
-  wrapper.update();
-  wrapper
-    .find(".download-date-range-input")
-    .at(0)
-    .simulate("change", { target: { value: "2020" } });
-  wrapper.update();
+
   // Add stat vars using stat var widget
   wrapper
     .find("#hierarchy-section .Collapsible__trigger")
@@ -158,22 +139,12 @@ test("Manually updating options", async () => {
     .at(0)
     .simulate("change", { target: { checked: true } });
   await waitForComponentUpdates(wrapper);
-  wrapper
-    .find("#hierarchy-section input")
-    .at(1)
-    .simulate("change", { target: { checked: true } });
-  await waitForComponentUpdates(wrapper);
-  // Delete one stat var using the chips
-  wrapper.find(".download-sv-chips .chip-action i").at(1).simulate("click");
-  await waitForComponentUpdates(wrapper);
-  // Check that preview table shows up on click and matches snapshot
-  wrapper.find(".get-data-button").at(0).simulate("click");
-  await waitForComponentUpdates(wrapper);
+
   await waitFor(() => {
     expect(wrapper.text()).toContain("placeDcid");
   });
   expect(
-    pretty(wrapper.find("#preview-section").at(0).getDOMNode().innerHTML)
+    pretty(document.getElementById("preview-section").innerHTML)
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
   wrapper.find(".download-button").at(0).simulate("click");
@@ -185,7 +156,7 @@ test("Manually updating options", async () => {
         Count_Person: "",
       },
       maxDate: "",
-      minDate: "2020",
+      minDate: "",
       parentPlace: "geoId/06",
       statVars: ["Count_Person"],
     },
@@ -198,6 +169,8 @@ test("Manually updating options", async () => {
     savedFile = fileName;
   });
   await waitFor(() => {
-    expect(savedFile).toEqual("California_County.csv");
+    expect(savedFile).toEqual("California_County_Count_Person.csv");
   });
+  wrapper.unmount();
+  container.remove();
 });

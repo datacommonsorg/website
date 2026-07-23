@@ -31,6 +31,8 @@ const TYPE_OF_OBSERVATION = "StatVarObservation";
 window.addEventListener("load", (): void => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
+  const hasJsonLdData =
+    document.getElementById("node").dataset.hasJsonLd === "true";
   const urlParams = new URLSearchParams(window.location.search);
   const statVarId = urlParams.get("statVar") || "";
   if (!_.isEmpty(statVarId)) {
@@ -50,7 +52,7 @@ window.addEventListener("load", (): void => {
   Promise.all([typesPromise, numStatVarsPromise])
     .then(([typesData, numStatVars]) => {
       const types = typesData[dcid] || [];
-      const listOfTypes = types.map((type) => type.dcid);
+      const listOfTypes = [...new Set(types.map((type) => type.dcid))];
       const nodeTypes = getNodeTypes(dcid, listOfTypes, statVarId);
       const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
       ReactDOM.render(
@@ -61,6 +63,7 @@ window.addEventListener("load", (): void => {
           pageDisplayType,
           shouldShowStatVarHierarchy: numStatVars > 0 && _.isEmpty(statVarId),
           statVarId,
+          hasJsonLdData,
         }),
         document.getElementById("node")
       );
@@ -74,6 +77,7 @@ window.addEventListener("load", (): void => {
           pageDisplayType: PageDisplayType.GENERAL,
           shouldShowStatVarHierarchy: false,
           statVarId,
+          hasJsonLdData,
         }),
         document.getElementById("node")
       );

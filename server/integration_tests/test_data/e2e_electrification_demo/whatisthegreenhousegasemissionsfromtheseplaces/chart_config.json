@@ -477,11 +477,11 @@
             "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Cooking, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Road Vehicles, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_multiple_place_bar_block": {
@@ -644,50 +644,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Annual_Emissions_GreenhouseGas": {
-        "emissionSource": [
-          "Annual_Emissions_GreenhouseGas_Agriculture",
-          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
-          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
-          "Annual_Emissions_GreenhouseGas_CopperMining",
-          "Annual_Emissions_GreenhouseGas_CroplandFire",
-          "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
-          "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
-          "Annual_Emissions_GreenhouseGas_EntericFermentation",
-          "Annual_Emissions_GreenhouseGas_ForestClearing",
-          "Annual_Emissions_GreenhouseGas_ForestFire",
-          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForAviation",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRailways",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-          "Annual_Emissions_GreenhouseGas_IronMining",
-          "Annual_Emissions_GreenhouseGas_ManagedSoils",
-          "Annual_Emissions_GreenhouseGas_Manufacturing",
-          "Annual_Emissions_GreenhouseGas_ManureManagement",
-          "Annual_Emissions_GreenhouseGas_MaritimeShipping",
-          "Annual_Emissions_GreenhouseGas_MaritimeTransport",
-          "Annual_Emissions_GreenhouseGas_MineralExtraction",
-          "Annual_Emissions_GreenhouseGas_OilAndGas",
-          "Annual_Emissions_GreenhouseGas_OpenBurningWaste",
-          "Annual_Emissions_GreenhouseGas_PetroleumRefining",
-          "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
-          "Annual_Emissions_GreenhouseGas_RiceCultivation",
-          "Annual_Emissions_GreenhouseGas_RockQuarry",
-          "Annual_Emissions_GreenhouseGas_SandQuarry",
-          "Annual_Emissions_GreenhouseGas_SavannaFire",
-          "Annual_Emissions_GreenhouseGas_ShrublandFire",
-          "Annual_Emissions_GreenhouseGas_SolidFuelTransformation",
-          "Annual_Emissions_GreenhouseGas_SolidWasteDisposal",
-          "Annual_Emissions_GreenhouseGas_SteelManufacturing",
-          "Annual_Emissions_GreenhouseGas_Transportation",
-          "Annual_Emissions_GreenhouseGas_WasteManagement",
-          "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Emissions",

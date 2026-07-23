@@ -384,7 +384,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -392,17 +392,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "description": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+            "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event)"
           },
           {
             "columns": [
@@ -472,7 +472,7 @@
             "statVar": "Count_BirthEvent"
           },
           "Count_BirthEvent_AsAFractionOfCount_Person": {
-            "name": "Count of Birth Event (Per Capita)",
+            "name": "Count of Birth Event (Per capita)",
             "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
           },
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
@@ -484,7 +484,7 @@
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Person": {

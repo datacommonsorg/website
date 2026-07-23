@@ -16,10 +16,19 @@ from functools import wraps
 import unittest
 from unittest import mock
 
+from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
 import server.tests.routes.api.mock_data as mock_data
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import TEST_SURFACE_HEADER
 from web_app import app
+
+_use_new_download_tool = app.config.get('FEATURE_FLAGS', {}).get(
+    USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG, {}).get('enabled', False)
+
+if _use_new_download_tool:
+  CSV_HEADERS = "placeDcid,placeName,Date,Value,Source,Date,Value,Source\r\n"
+else:
+  CSV_HEADERS = "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
 
 
 def with_request_context(headers=None):
@@ -107,8 +116,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         headers={SURFACE_HEADER_NAME: TEST_SURFACE_HEADER})
     assert latest_date.status_code == 200
     assert latest_date.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
         +
         "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
@@ -123,8 +131,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                          json=single_date_req_json)
     assert single_date.status_code == 200
     assert single_date.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n"
         +
         "geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n"
@@ -143,8 +150,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         endpoint_url, json=latest_date_facets_req_json)
     assert latest_date_facets.status_code == 200
     assert latest_date_facets.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
         +
         "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
@@ -161,8 +167,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         endpoint_url, json=single_date_facets_req_json)
     assert single_date_facets.status_code == 200
     assert single_date_facets.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n"
         +
         "geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n"
@@ -209,8 +214,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     all_dates = app.test_client().post(endpoint_url, json=base_req_json)
     assert all_dates.status_code == 200
     assert all_dates.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
+        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
         "geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
         +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
@@ -237,8 +241,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     min_year = app.test_client().post(endpoint_url, json=min_year_req_json)
     assert min_year.status_code == 200
     assert min_year.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
         +
         "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
@@ -261,8 +264,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     min_month = app.test_client().post(endpoint_url, json=min_month_req_json)
     assert min_month.status_code == 200
     assert min_month.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
         +
         "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
@@ -285,8 +287,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     max_year = app.test_client().post(endpoint_url, json=max_year_req_json)
     assert max_year.status_code == 200
     assert max_year.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
+        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
         "geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
         +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
@@ -311,8 +312,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     max_month = app.test_client().post(endpoint_url, json=max_month_req_json)
     assert max_month.status_code == 200
     assert max_month.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
+        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
         "geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
         +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
@@ -337,8 +337,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                               json=min_and_max_year_req_json)
     assert min_and_max_year.status_code == 200
     assert min_and_max_year.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
         +
         "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
@@ -360,8 +359,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                                json=min_and_max_month_req_json)
     assert min_and_max_month.status_code == 200
     assert min_and_max_month.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
         +
         "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
@@ -382,8 +380,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         endpoint_url, json=min_year_max_month_req_json)
     assert min_year_max_month.status_code == 200
     assert min_year_max_month.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
         +
         "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
@@ -404,8 +401,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         endpoint_url, json=min_month_max_year_req_json)
     assert min_month_max_year.status_code == 200
     assert min_month_max_year.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        +
+        CSV_HEADERS +
         "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
         +
         "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
@@ -429,8 +425,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                              json=all_dates_facet_req_json)
     assert all_dates_facet.status_code == 200
     assert all_dates_facet.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
+        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
         "geoId/01,,2011,4747424,https://www.census.gov/,,,\r\n" +
         "geoId/01,,2012,4777326,https://www.census.gov/,,,\r\n" +
         "geoId/01,,,,,2015-05,4.2,https://www.bls.gov/lau/\r\n" +
@@ -456,8 +451,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         endpoint_url, json=min_and_max_year_facet_req_json)
     assert min_and_max_year_facet.status_code == 200
     assert min_and_max_year_facet.data.decode("utf-8") == (
-        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-        + "geoId/01,,,,,2015-05,4.2,https://www.bls.gov/lau/\r\n" +
+        CSV_HEADERS + "geoId/01,,,,,2015-05,4.2,https://www.bls.gov/lau/\r\n" +
         "geoId/01,,,,,2017-11,4,https://www.bls.gov/lau/\r\n" +
         "geoId/01,,,,,2018-01,4.5,https://www.bls.gov/lau/\r\n" +
         "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +

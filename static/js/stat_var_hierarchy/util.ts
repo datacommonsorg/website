@@ -20,11 +20,34 @@
 
 import * as d3 from "d3";
 
-import { Boundary } from "../shared/types";
+import {
+  isFeatureEnabled,
+  USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
+} from "../shared/feature_flags/util";
+import {
+  Boundary,
+  RADIO_BUTTON_TYPES,
+  StatVarHierarchyType,
+} from "../shared/types";
 
 export const TOOLTIP_ID = "tree-widget-tooltip";
 // id value of the div that holds this stat var hierarchy section.
 export const SV_HIERARCHY_SECTION_ID = "stat-var-hierarchy-section";
+
+/**
+ * Returns whether the given stat var hierarchy type should render as a
+ * radio button (single select) instead of a checkbox (multi select).
+ *
+ * DOWNLOAD only behaves as single-select when the new download tool is
+ * enabled - the legacy download tool still supports selecting multiple
+ * stat vars via checkboxes.
+ */
+export function isRadioButtonType(type: string): boolean {
+  if (type === StatVarHierarchyType.DOWNLOAD) {
+    return isFeatureEnabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG);
+  }
+  return RADIO_BUTTON_TYPES.has(type);
+}
 
 /** Function to make tooltip show up given the html for the tooltip and position
  * to display the tooltip at.

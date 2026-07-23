@@ -122,38 +122,6 @@
             ],
             "denom": "Count_Person",
             "title": "Crimes by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
-                      "Count_CriminalActivities_Burglary_multiple_place_bar_block",
-                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
-                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block",
-                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
-                    ],
-                    "title": "Motor Vehicle Thefts and More in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Related: Motor Vehicle Thefts and More"
           }
         ],
         "statVarSpec": {

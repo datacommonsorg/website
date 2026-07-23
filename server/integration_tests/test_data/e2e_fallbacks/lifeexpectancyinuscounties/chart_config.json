@@ -397,7 +397,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -412,14 +412,14 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: 1 Years or Less in Counties of United States"
+            "title": "Count of Mortality Event: Years Upto 1 in Counties of United States"
           },
           {
             "columns": [
@@ -429,7 +429,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "LINE"
                   }
                 ]
@@ -437,18 +437,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less in United States",
+                    "description": "Count of Mortality Event: Years Upto 1 in United States",
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: 1 Years or Less"
+            "title": "Count of Mortality Event: Years Upto 1"
           },
           {
             "columns": [
@@ -653,7 +653,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -661,17 +661,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "description": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in United States",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+            "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event)"
           },
           {
             "columns": [
@@ -792,7 +792,7 @@
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
@@ -808,7 +808,7 @@
             "statVar": "Count_Death_Neoplasms"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: 1 Years or Less",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {
@@ -1265,83 +1265,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Death": {
-        "age": [
-          "Count_Death_0Years",
-          "Count_Death_Upto1Years"
-        ],
-        "causeOfDeath": [
-          "Count_Death_AbnormalNotClassfied",
-          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
-          "Count_Death_CertainInfectiousParasiticDiseases",
-          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders",
-          "Count_Death_DiseasesOfTheCirculatorySystem",
-          "Count_Death_Neoplasms",
-          "Count_MortalityEvent_Assault(Homicide)",
-          "Count_MortalityEvent_Suicide"
-        ],
-        "gender": [
-          "Count_Death_Female",
-          "Count_Death_Male"
-        ]
-      },
-      "Count_Death_AsAFractionOfCount_Person": {
-        "causeOfDeath": [
-          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
-          "Count_MortalityEvent_Assault(Homicide)_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/A00-B99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/C00-D48_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/D50-D89_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/I00-I99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/P00-P96_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/Q00-Q99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_ICD10/R00-R99_AsAFractionOf_Count_Person",
-          "Count_MortalityEvent_Suicide_AsAFractionOf_Count_Person"
-        ]
-      },
-      "Count_Death_Female": {
-        "causeOfDeath": [
-          "Count_Death_AbnormalNotClassfied_Female",
-          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female",
-          "Count_Death_CertainInfectiousParasiticDiseases_Female",
-          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female",
-          "Count_Death_DiseasesOfTheCirculatorySystem_Female",
-          "Count_Death_Neoplasms_Female",
-          "Count_MortalityEvent_Assault(Homicide)_Female"
-        ]
-      },
-      "Count_Death_Upto1Years": {
-        "causeOfDeath": [
-          "Count_Death_Upto1Years_AbnormalNotClassfied",
-          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod",
-          "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases",
-          "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities",
-          "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem",
-          "Count_Death_Upto1Years_Neoplasms",
-          "Count_MortalityEvent_YearsUpto1_AIDS",
-          "Count_MortalityEvent_YearsUpto1_AllOtherFormsOfChronicIschemicHeartDisease",
-          "Count_MortalityEvent_YearsUpto1_Assault(Homicide)ByDischargeOfFirearms",
-          "Count_MortalityEvent_YearsUpto1_Asthma",
-          "Count_MortalityEvent_YearsUpto1_Atherosclerosis",
-          "Count_MortalityEvent_YearsUpto1_ChronicLiverDiseaseAndCirrhosis",
-          "Count_MortalityEvent_YearsUpto1_Malnutrition",
-          "Count_MortalityEvent_YearsUpto1_NutritionalDeficiencies",
-          "Count_MortalityEvent_YearsUpto1_OtherChronicLiverDiseaseAndCirrhosis",
-          "Count_MortalityEvent_YearsUpto1_OtherChronicLowerRespiratoryDiseases",
-          "Count_MortalityEvent_YearsUpto1_OtherFormsOfChronicIschemicHeartDisease",
-          "Count_MortalityEvent_YearsUpto1_PneumonitisDueToSolidsAndLiquids"
-        ]
-      },
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",

@@ -9,6 +9,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Women in India",
                     "statVarKey": [
                       "Count_Person_Female"
@@ -61,20 +72,12 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/IND"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Female_multiple_place_bar_block",
-                      "Count_Person_Male_multiple_place_bar_block"
+                      "Count_Person_Female",
+                      "Count_Person_Male"
                     ],
-                    "title": "Population by Gender in India (${date})",
-                    "type": "BAR"
+                    "title": "Population by Gender in India",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -117,6 +120,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Urban_Female"
+                    ],
+                    "title": "Total Urban Female Population in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -214,158 +228,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Female, Worker in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Female, Literate in India",
-                    "statVarKey": [
-                      "Count_Person_Literate_Female"
-                    ],
-                    "title": "Population: Female, Literate in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Literate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Literate_Female"
-                    ],
-                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Literate_Female"
-                    ],
-                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Literate in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Total Rural Female Population in India",
-                    "statVarKey": [
-                      "Count_Person_Rural_Female"
-                    ],
-                    "title": "Total Rural Female Population in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Rural_Female"
-                    ],
-                    "title": "Total Rural Female Population in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Rural_Female"
-                    ],
-                    "title": "Total Rural Female Population in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Female, Christianity in India",
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Christian_Female"
-                    ],
-                    "title": "Population: Female, Christianity in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Christianity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Christian_Female"
-                    ],
-                    "title": "Population: Female, Christianity in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Christian_Female"
-                    ],
-                    "title": "Population: Female, Christianity in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Christianity in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -485,56 +347,6 @@
             ],
             "description": "Labor force participation rate is the proportion of the population ages 15-64 that is economically active: all people who supply labor for the production of goods and services during a specified period. International labour organization, ILOSTAT database. Data retrieved in march 1, 2020.",
             "title": "Percent of Females Working Age Population in the Labor Force"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Female, Islam in India",
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Muslim_Female"
-                    ],
-                    "title": "Population: Female, Islam in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Islam"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Muslim_Female"
-                    ],
-                    "title": "Population: Female, Islam in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Muslim_Female"
-                    ],
-                    "title": "Population: Female, Islam in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Islam in Administrative Area 1 Places of India"
           }
         ],
         "statVarSpec": {
@@ -550,25 +362,9 @@
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_multiple_place_bar_block": {
-            "name": "Women",
-            "statVar": "Count_Person_Female"
-          },
-          "Count_Person_Literate_Female": {
-            "name": "Population: Female, Literate",
-            "statVar": "Count_Person_Literate_Female"
-          },
           "Count_Person_Male": {
             "name": "Men",
             "statVar": "Count_Person_Male"
-          },
-          "Count_Person_Male_multiple_place_bar_block": {
-            "name": "Men",
-            "statVar": "Count_Person_Male"
-          },
-          "Count_Person_Rural_Female": {
-            "name": "Total rural female population",
-            "statVar": "Count_Person_Rural_Female"
           },
           "Count_Person_Urban_Female": {
             "name": "Total urban female population",
@@ -581,14 +377,6 @@
           "LifeExpectancy_Person_Female": {
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
-          },
-          "indianCensus/Count_Person_Religion_Christian_Female": {
-            "name": "Population: Female, Christianity",
-            "statVar": "indianCensus/Count_Person_Religion_Christian_Female"
-          },
-          "indianCensus/Count_Person_Religion_Muslim_Female": {
-            "name": "Population: Female, Islam",
-            "statVar": "indianCensus/Count_Person_Religion_Muslim_Female"
           }
         }
       }
@@ -876,6 +664,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q46107",
+          "name": "Dadra and Nagar Haveli",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q6432969",
           "name": "Kosal state movement",
           "types": [
@@ -927,18 +722,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_Female": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_Female",
-          "Count_Person_Urban_Female"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Christian_Female",
-          "indianCensus/Count_Person_Religion_Muslim_Female"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Gender",

@@ -152,7 +152,7 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: 1-4 Years in Counties of California (${date})",
+                    "title": "Population: Years 1 to 4 in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -167,14 +167,14 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: 1-4 Years in Counties of California (${date})",
+                    "title": "Population: Years 1 to 4 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1-4 Years in Counties of California"
+            "title": "Population: Years 1 to 4 in Counties of California"
           },
           {
             "columns": [
@@ -648,7 +648,7 @@
                     "statVarKey": [
                       "Median_Age_Person_Native"
                     ],
-                    "title": "Median Age: Native in Counties of California (${date})",
+                    "title": "Median Age of Person: USC Native in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -663,13 +663,13 @@
                     "statVarKey": [
                       "Median_Age_Person_Native"
                     ],
-                    "title": "Median Age: Native in Counties of California (${date})",
+                    "title": "Median Age of Person: USC Native in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Age: Native in Counties of California"
+            "title": "Median Age of Person: USC Native in Counties of California"
           },
           {
             "columns": [
@@ -679,7 +679,7 @@
                     "statVarKey": [
                       "Median_Age_Person_Native"
                     ],
-                    "title": "Median Age: Native in California",
+                    "title": "Median Age of Person: USC Native in California",
                     "type": "LINE"
                   }
                 ]
@@ -687,17 +687,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age: Native in California",
+                    "description": "Median Age of Person: USC Native in California",
                     "statVarKey": [
                       "Median_Age_Person_Native"
                     ],
-                    "title": "Median Age: Native in California",
+                    "title": "Median Age of Person: USC Native in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Age: Native"
+            "title": "Median Age of Person: USC Native"
           },
           {
             "columns": [
@@ -707,7 +707,7 @@
                     "statVarKey": [
                       "Median_Age_Person_ForeignBorn"
                     ],
-                    "title": "Median Age: Foreign Born in Counties of California (${date})",
+                    "title": "Median Age of Person: USC Foreign Born in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -722,13 +722,13 @@
                     "statVarKey": [
                       "Median_Age_Person_ForeignBorn"
                     ],
-                    "title": "Median Age: Foreign Born in Counties of California (${date})",
+                    "title": "Median Age of Person: USC Foreign Born in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Age: Foreign Born in Counties of California"
+            "title": "Median Age of Person: USC Foreign Born in Counties of California"
           },
           {
             "columns": [
@@ -738,7 +738,7 @@
                     "statVarKey": [
                       "Median_Age_Person_ForeignBorn"
                     ],
-                    "title": "Median Age: Foreign Born in California",
+                    "title": "Median Age of Person: USC Foreign Born in California",
                     "type": "LINE"
                   }
                 ]
@@ -746,17 +746,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age: Foreign Born in California",
+                    "description": "Median Age of Person: USC Foreign Born in California",
                     "statVarKey": [
                       "Median_Age_Person_ForeignBorn"
                     ],
-                    "title": "Median Age: Foreign Born in California",
+                    "title": "Median Age of Person: USC Foreign Born in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Age: Foreign Born"
+            "title": "Median Age of Person: USC Foreign Born"
           },
           {
             "columns": [
@@ -1009,11 +1009,11 @@
             "statVar": "Count_Person_18To24Years"
           },
           "Count_Person_1To4Years": {
-            "name": "Population: 1 - 4 Years",
+            "name": "Population: Years 1 To 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_1To4Years_multiple_place_bar_block": {
-            "name": "Population: 1 - 4 Years",
+            "name": "Population: Years 1 To 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_25To34Years_multiple_place_bar_block": {
@@ -1029,7 +1029,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: 55 - 64 Years",
+            "name": "Population: Years 55 To 64",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5To17Years": {
@@ -1077,7 +1077,7 @@
             "statVar": "Median_Age_Person_Female_WhiteAlone"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age: Foreign Born",
+            "name": "Median Age of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "Median_Age_Person_Male": {
@@ -1093,7 +1093,7 @@
             "statVar": "Median_Age_Person_Male_WhiteAlone"
           },
           "Median_Age_Person_Native": {
-            "name": "Median Age: Native",
+            "name": "Median Age of Person: USC Native",
             "statVar": "Median_Age_Person_Native"
           },
           "Median_Age_Person_NoHealthInsurance": {
@@ -1494,80 +1494,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_0To4Years_Female": {
-        "race": [
-          "Count_Person_0To4Years_Female_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_0To4Years_Female_AsianAlone",
-          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_0To4Years_Female_HispanicOrLatino",
-          "Count_Person_0To4Years_Female_HispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianAlone",
-          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_0To4Years_Female_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_0To4Years_Female_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_0To4Years_Female_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Female_HispanicOrLatino_WhiteAlone",
-          "Count_Person_0To4Years_Female_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_0To4Years_Female_NotHispanicOrLatino",
-          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_0To4Years_Female_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_0To4Years_Female_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_0To4Years_Female_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Female_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Female_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
-      "Count_Person_0To4Years_Male": {
-        "race": [
-          "Count_Person_0To4Years_Male_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_0To4Years_Male_AsianAlone",
-          "Count_Person_0To4Years_Male_BlackOrAfricanAmericanAlone",
-          "Count_Person_0To4Years_Male_HispanicOrLatino",
-          "Count_Person_0To4Years_Male_HispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_0To4Years_Male_HispanicOrLatino_AsianAlone",
-          "Count_Person_0To4Years_Male_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_0To4Years_Male_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_0To4Years_Male_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_0To4Years_Male_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Male_HispanicOrLatino_WhiteAlone",
-          "Count_Person_0To4Years_Male_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_0To4Years_Male_NotHispanicOrLatino",
-          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_0To4Years_Male_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_0To4Years_Male_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_0To4Years_Male_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Male_TwoOrMoreRaces",
-          "Count_Person_0To4Years_Male_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
-        ],
-        "nativity": [
-          "Median_Age_Person_ForeignBorn",
-          "Median_Age_Person_Native"
-        ],
-        "race": [
-          "Median_Age_Person_AsianAlone",
-          "Median_Age_Person_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_TwoOrMoreRaces",
-          "Median_Age_Person_WhiteAlone"
-        ]
-      },
-      "Median_Age_Person_WhiteAlone": {
-        "gender": [
-          "Median_Age_Person_Female_WhiteAlone",
-          "Median_Age_Person_Male_WhiteAlone"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/AgeMedians",

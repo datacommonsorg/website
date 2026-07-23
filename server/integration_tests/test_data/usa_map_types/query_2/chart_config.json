@@ -835,7 +835,7 @@
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -850,13 +850,13 @@
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Census Tracts of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County"
+            "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Census Tracts of Placer County"
           },
           {
             "columns": [
@@ -866,7 +866,7 @@
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median Income: Less Than High School Graduate in Placer County",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -874,17 +874,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income: Less Than High School Graduate in Placer County",
+                    "description": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Placer County",
                     "statVarKey": [
                       "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
                     ],
-                    "title": "Median Income: Less Than High School Graduate in Placer County",
+                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Income: Less Than High School Graduate"
+            "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income"
           },
           {
             "columns": [
@@ -1008,7 +1008,7 @@
             "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
           },
           "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Median Income of Household: Two or More Races",
+            "name": "Median Income of Household: Two Or More Races",
             "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone": {
@@ -1016,7 +1016,7 @@
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
           },
           "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Median Income of Household: White Alone Not Hispanic or Latino",
+            "name": "Median Income of Household: White Alone Not Hispanic Or Latino",
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
@@ -1048,7 +1048,7 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
-            "name": "Median Income: Less Than High School Graduate",
+            "name": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income",
             "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
           }
         }
@@ -1459,38 +1459,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Mean_Income_Household": {
-        "householdType": [
-          "Mean_Income_Household_FamilyHousehold",
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-          "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      },
-      "Median_Earnings_Person": {
-        "gender": [
-          "Median_Earnings_Person_Female",
-          "Median_Earnings_Person_Male"
-        ]
-      },
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ],
-        "householderRace": [
-          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
-          "Median_Income_Household_HouseholderRaceAsianAlone",
-          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
-          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
-          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
-          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone",
-          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
-          "Median_Income_Household_HouseholderRaceWhiteAlone",
-          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Income",
@@ -1522,7 +1491,7 @@
         "dcid": "geoId/36005",
         "name": "Bronx",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {
@@ -1662,7 +1631,7 @@
         "dcid": "geoId/36081",
         "name": "Queens",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {

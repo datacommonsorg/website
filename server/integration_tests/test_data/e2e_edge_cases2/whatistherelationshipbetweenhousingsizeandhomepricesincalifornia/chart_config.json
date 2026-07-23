@@ -16,14 +16,14 @@
                       "Count_HousingUnit_scatter",
                       "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
                     ],
-                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: 49,999 USD or Less"
+            "title": "Housing Units vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -65,7 +65,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -80,14 +80,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 49,999 USD or Less in Counties of California"
+            "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in Counties of California"
           },
           {
             "columns": [
@@ -101,14 +101,14 @@
                       "Count_HousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
                     ],
-                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 50,000 - 99,999 USD"
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -150,7 +150,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue50000To99999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 50,000-99,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -165,14 +165,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue50000To99999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 50,000-99,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 50,000-99,999 USD in Counties of California"
+            "title": "Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied in Counties of California"
           },
           {
             "columns": [
@@ -186,14 +186,14 @@
                       "Count_HousingUnit_VacantHousingUnit_scatter",
                       "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
                     ],
-                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar 100000 to 199999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: 100,000 - 199,999 USD"
+            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -235,7 +235,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100,000-199,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 100000 to 199999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -250,14 +250,14 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100,000-199,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 100000 to 199999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 100,000-199,999 USD in Counties of California"
+            "title": "Count of Housing Unit: US Dollar 100000 to 199999, Occupied Housing Unit, Owner Occupied in Counties of California"
           },
           {
             "columns": [
@@ -271,14 +271,14 @@
                       "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
                     ],
-                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 200,000 - 299,999 USD"
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -319,7 +319,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue200000To299999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -334,13 +334,13 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue200000To299999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California"
+            "title": "Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied in Counties of California"
           },
           {
             "columns": [
@@ -354,14 +354,14 @@
                       "Count_HousingUnit_scatter",
                       "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
                     ],
-                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: 50,000 - 99,999 USD"
+            "title": "Housing Units vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -375,14 +375,14 @@
                       "Count_HousingUnit_scatter",
                       "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
                     ],
-                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar 100000 to 199999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: 100,000 - 199,999 USD"
+            "title": "Housing Units vs. Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -396,14 +396,14 @@
                       "Count_HousingUnit_scatter",
                       "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
                     ],
-                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: 200,000 - 299,999 USD"
+            "title": "Housing Units vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -417,14 +417,14 @@
                       "Count_HousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
                     ],
-                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 49,999 USD or Less"
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -438,14 +438,14 @@
                       "Count_HousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
                     ],
-                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: US Dollar 100000 to 199999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 100,000 - 199,999 USD"
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -459,14 +459,14 @@
                       "Count_HousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
                     ],
-                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 200,000 - 299,999 USD"
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -480,14 +480,14 @@
                       "Count_HousingUnit_VacantHousingUnit_scatter",
                       "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
                     ],
-                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: 49,999 USD or Less"
+            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -501,14 +501,14 @@
                       "Count_HousingUnit_VacantHousingUnit_scatter",
                       "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
                     ],
-                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: 50,000 - 99,999 USD"
+            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -522,14 +522,14 @@
                       "Count_HousingUnit_VacantHousingUnit_scatter",
                       "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
                     ],
-                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: 200,000 - 299,999 USD"
+            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -543,14 +543,14 @@
                       "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
                     ],
-                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 49,999 USD or Less"
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -564,14 +564,14 @@
                       "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
                     ],
-                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 50,000 - 99,999 USD"
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           }
         ],
         "statVarSpec": {
@@ -580,35 +580,35 @@
             "statVar": "Count_HousingUnit"
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar": {
-            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar_scatter": {
-            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue200000To299999USDollar": {
-            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue200000To299999USDollar_scatter": {
-            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar": {
-            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar_scatter": {
-            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar": {
-            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar_scatter": {
-            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_OwnerOccupied": {
@@ -1048,138 +1048,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_HousingUnit": {
-        "cashRentStatus": [
-          "Count_HousingUnit_NoCashRent",
-          "Count_HousingUnit_WithCashRent"
-        ],
-        "dateBuilt": [
-          "Count_HousingUnit_1940To1949DateBuilt",
-          "Count_HousingUnit_1950To1959DateBuilt",
-          "Count_HousingUnit_1960To1969DateBuilt",
-          "Count_HousingUnit_1970To1979DateBuilt",
-          "Count_HousingUnit_1980To1989DateBuilt",
-          "Count_HousingUnit_1990To1999DateBuilt",
-          "Count_HousingUnit_2000To2004DateBuilt",
-          "Count_HousingUnit_2000To2009DateBuilt",
-          "Count_HousingUnit_2005OrLaterDateBuilt",
-          "Count_HousingUnit_2010OrLaterDateBuilt",
-          "Count_HousingUnit_2010To2013DateBuilt",
-          "Count_HousingUnit_2014OrLaterDateBuilt",
-          "Count_HousingUnit_Before1939DateBuilt",
-          "dc/btvj7k04hldhg",
-          "dc/gq1p3lek49lz7"
-        ],
-        "facilities": [
-          "Count_HousingUnit_CompleteKitchenFacilities_OccupiedHousingUnit",
-          "Count_HousingUnit_CompletePlumbingFacilities_OccupiedHousingUnit",
-          "Count_HousingUnit_IncompleteKitchenFacilities_OccupiedHousingUnit",
-          "Count_HousingUnit_IncompletePlumbingFacilities_OccupiedHousingUnit"
-        ],
-        "grossRent": [
-          "Count_HousingUnit_WithRent_1000To1249USDollar",
-          "Count_HousingUnit_WithRent_100To149USDollar",
-          "Count_HousingUnit_WithRent_1250To1499USDollar",
-          "Count_HousingUnit_WithRent_1500To1999USDollar",
-          "Count_HousingUnit_WithRent_150To199USDollar",
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
-          "Count_HousingUnit_WithRent_2000To2499USDollar",
-          "Count_HousingUnit_WithRent_200To249USDollar",
-          "Count_HousingUnit_WithRent_2500To2999USDollar",
-          "Count_HousingUnit_WithRent_250To299USDollar",
-          "Count_HousingUnit_WithRent_3000To3499USDollar",
-          "Count_HousingUnit_WithRent_300To349USDollar",
-          "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
-          "Count_HousingUnit_WithRent_350To399USDollar",
-          "Count_HousingUnit_WithRent_400To449USDollar",
-          "Count_HousingUnit_WithRent_450To499USDollar",
-          "Count_HousingUnit_WithRent_500To549USDollar",
-          "Count_HousingUnit_WithRent_550To599USDollar",
-          "Count_HousingUnit_WithRent_600To649USDollar",
-          "Count_HousingUnit_WithRent_650To699USDollar",
-          "Count_HousingUnit_WithRent_700To749USDollar",
-          "Count_HousingUnit_WithRent_750To799USDollar",
-          "Count_HousingUnit_WithRent_800To899USDollar",
-          "Count_HousingUnit_WithRent_900To999USDollar",
-          "Count_HousingUnit_WithRent_Upto100USDollar"
-        ],
-        "homeValue": [
-          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
-          "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-          "Count_HousingUnit_HomeValue100000To124999USDollar",
-          "Count_HousingUnit_HomeValue100000To199999USDollar",
-          "Count_HousingUnit_HomeValue10000To14999USDollar",
-          "Count_HousingUnit_HomeValue125000To149999USDollar",
-          "Count_HousingUnit_HomeValue1500000To1999999USDollar",
-          "Count_HousingUnit_HomeValue150000To174999USDollar",
-          "Count_HousingUnit_HomeValue15000To19999USDollar",
-          "Count_HousingUnit_HomeValue175000To199999USDollar",
-          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
-          "Count_HousingUnit_HomeValue200000To249999USDollar",
-          "Count_HousingUnit_HomeValue200000To299999USDollar",
-          "Count_HousingUnit_HomeValue20000To24999USDollar",
-          "Count_HousingUnit_HomeValue250000To299999USDollar",
-          "Count_HousingUnit_HomeValue25000To29999USDollar",
-          "Count_HousingUnit_HomeValue300000To399999USDollar",
-          "Count_HousingUnit_HomeValue300000To499999USDollar",
-          "Count_HousingUnit_HomeValue30000To34999USDollar",
-          "Count_HousingUnit_HomeValue35000To39999USDollar",
-          "Count_HousingUnit_HomeValue400000To499999USDollar",
-          "Count_HousingUnit_HomeValue40000To49999USDollar",
-          "Count_HousingUnit_HomeValue500000To749999USDollar",
-          "Count_HousingUnit_HomeValue500000To999999USDollar",
-          "Count_HousingUnit_HomeValue50000To59999USDollar",
-          "Count_HousingUnit_HomeValue50000To99999USDollar",
-          "Count_HousingUnit_HomeValue60000To69999USDollar",
-          "Count_HousingUnit_HomeValue70000To79999USDollar",
-          "Count_HousingUnit_HomeValue750000To999999USDollar",
-          "Count_HousingUnit_HomeValue80000To89999USDollar",
-          "Count_HousingUnit_HomeValue90000To99999USDollar",
-          "Count_HousingUnit_HomeValueUpto10000USDollar",
-          "Count_HousingUnit_HomeValueUpto49999USDollar"
-        ],
-        "householderRace": [
-          "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone",
-          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
-          "Count_HousingUnit_HouseholderRaceAsianAlone",
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
-        ],
-        "numberOfRooms": [
-          "Count_HousingUnit_WithTotal2Rooms",
-          "Count_HousingUnit_WithTotal3Rooms",
-          "Count_HousingUnit_WithTotal4Rooms",
-          "Count_HousingUnit_WithTotal5Rooms",
-          "Count_HousingUnit_WithTotal6Rooms",
-          "Count_HousingUnit_WithTotal7Rooms",
-          "Count_HousingUnit_WithTotal8Rooms",
-          "Count_HousingUnit_WithTotal9OrMoreRooms"
-        ],
-        "occupancyStatus": [
-          "Count_HousingUnit_OccupiedHousingUnit",
-          "Count_HousingUnit_VacantHousingUnit"
-        ]
-      },
-      "Count_HousingUnit_OwnerOccupied": {
-        "householderRace": [
-          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied"
-        ]
-      },
-      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
-        "householderRace": [
-          "Median_HomeValue_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceAsianAlone_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceTwoOrMoreRaces_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
-          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAlone_OccupiedHousingUnit_OwnerOccupied"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Housing",

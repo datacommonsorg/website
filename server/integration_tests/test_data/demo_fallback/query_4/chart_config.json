@@ -71,7 +71,7 @@
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1"
                     ],
-                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Female, Obesity in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -86,13 +86,13 @@
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1"
                     ],
-                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Female, Obesity in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Prevalence: Female, Obesity in Counties of California"
+            "title": "Percent of Person: Years 20 Onwards, Female, Obesity in Counties of California"
           },
           {
             "columns": [
@@ -102,7 +102,7 @@
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4"
                     ],
-                    "title": "Prevalence: Male, Obesity in Counties of California (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Male, Obesity in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -117,14 +117,14 @@
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4"
                     ],
-                    "title": "Prevalence: Male, Obesity in Counties of California (${date})",
+                    "title": "Percent of Person: Years 20 Onwards, Male, Obesity in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Prevalence: Male, Obesity in Counties of California"
+            "title": "Percent of Person: Years 20 Onwards, Male, Obesity in Counties of California"
           },
           {
             "columns": [
@@ -1250,11 +1250,11 @@
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1": {
-            "name": "Prevalence: Female, Obesity",
+            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/x13tvt8jsgrm4": {
-            "name": "Prevalence: Male, Obesity",
+            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           }
         }
@@ -1643,26 +1643,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_NoHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_NoHealthInsurance",
-          "Count_Person_Male_NoHealthInsurance"
-        ]
-      },
-      "Count_Person_WithHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_WithHealthInsurance",
-          "Count_Person_Male_WithHealthInsurance"
-        ]
-      },
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/HealthBehavior",

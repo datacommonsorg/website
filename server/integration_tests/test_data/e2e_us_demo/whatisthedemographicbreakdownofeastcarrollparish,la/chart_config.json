@@ -44,7 +44,7 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "title": "Population: Years 1 to 4 in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -59,14 +59,14 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "title": "Population: Years 1 to 4 in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1-4 Years in Cities of East Carroll Parish"
+            "title": "Population: Years 1 to 4 in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -202,7 +202,7 @@
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "title": "Population: Years 18 Onwards in East Carroll Parish",
                     "type": "LINE"
                   }
                 ]
@@ -210,18 +210,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 18 Years or More in East Carroll Parish",
+                    "description": "Population: Years 18 Onwards in East Carroll Parish",
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "title": "Population: Years 18 Onwards in East Carroll Parish",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or More"
+            "title": "Population: Years 18 Onwards"
           },
           {
             "columns": [
@@ -231,7 +231,7 @@
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "title": "Population: Years 18 Onwards in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -246,14 +246,14 @@
                     "statVarKey": [
                       "Count_Person_18OrMoreYears"
                     ],
-                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "title": "Population: Years 18 Onwards in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or More in Cities of East Carroll Parish"
+            "title": "Population: Years 18 Onwards in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -385,7 +385,7 @@
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "title": "Population: Years Upto 18 in East Carroll Parish",
                     "type": "LINE"
                   }
                 ]
@@ -393,18 +393,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 18 Years or Less in East Carroll Parish",
+                    "description": "Population: Years Upto 18 in East Carroll Parish",
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "title": "Population: Years Upto 18 in East Carroll Parish",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or Less"
+            "title": "Population: Years Upto 18"
           },
           {
             "columns": [
@@ -414,7 +414,7 @@
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "title": "Population: Years Upto 18 in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -429,14 +429,14 @@
                     "statVarKey": [
                       "Count_Person_Upto18Years"
                     ],
-                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "title": "Population: Years Upto 18 in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 18 Years or Less in Cities of East Carroll Parish"
+            "title": "Population: Years Upto 18 in Cities of East Carroll Parish"
           }
         ],
         "statVarSpec": {
@@ -445,7 +445,7 @@
             "statVar": "Count_Person"
           },
           "Count_Person_18OrMoreYears": {
-            "name": "Population: 18 Years or More",
+            "name": "Population: Years 18 Onwards",
             "statVar": "Count_Person_18OrMoreYears"
           },
           "Count_Person_18To24Years_multiple_place_bar_block": {
@@ -453,11 +453,11 @@
             "statVar": "Count_Person_18To24Years"
           },
           "Count_Person_1To4Years": {
-            "name": "Population: 1 - 4 Years",
+            "name": "Population: Years 1 To 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_1To4Years_multiple_place_bar_block": {
-            "name": "Population: 1 - 4 Years",
+            "name": "Population: Years 1 To 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_25To34Years_multiple_place_bar_block": {
@@ -473,7 +473,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: 55 - 64 Years",
+            "name": "Population: Years 55 To 64",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5To17Years": {
@@ -529,7 +529,7 @@
             "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
           "Count_Person_Upto18Years": {
-            "name": "Population: 18 Years or Less",
+            "name": "Population: Years Upto 18",
             "statVar": "Count_Person_Upto18Years"
           },
           "Median_Age_Person": {
@@ -586,32 +586,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person": {
-        "age": [
-          "Count_Person_18OrMoreYears",
-          "Count_Person_18To24Years",
-          "Count_Person_1To4Years",
-          "Count_Person_25To34Years",
-          "Count_Person_35To44Years",
-          "Count_Person_45To54Years",
-          "Count_Person_55To64Years",
-          "Count_Person_5To17Years",
-          "Count_Person_65To74Years",
-          "Count_Person_75OrMoreYears",
-          "Count_Person_Upto18Years"
-        ],
-        "income": [
-          "Count_Person_IncomeOf10000To14999USDollar",
-          "Count_Person_IncomeOf25000To34999USDollar",
-          "Count_Person_IncomeOf35000To49999USDollar",
-          "Count_Person_IncomeOf50000To64999USDollar",
-          "Count_Person_IncomeOf65000To74999USDollar",
-          "Count_Person_IncomeOf75000OrMoreUSDollar",
-          "Count_Person_IncomeOfUpto9999USDollar"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/AgeDistribution",
@@ -643,7 +618,7 @@
         "dcid": "geoId/36005",
         "name": "Bronx",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {
@@ -783,7 +758,7 @@
         "dcid": "geoId/36081",
         "name": "Queens",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {

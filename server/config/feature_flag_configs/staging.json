@@ -19,9 +19,10 @@
   },
   {
     "name": "divert_to_spanner",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-nlb",
-    "description": "Diverts traffic to Spanner database backend."
+    "description": "Diverts traffic to Spanner database backend.",
+    "rollout_percentage": 100
   },
   {
     "name": "enable_chart_hyperlink",
@@ -108,16 +109,16 @@
     "description": "Enables Croissant JSON-LD metadata on dataset pages."
   },
   {
-    "name": "use_v2_api",
-    "enabled": true,
-    "owner": "juliawu",
-    "description": "Enables features that rely on the V2 REST APIs"
-  },
-  {
     "name": "use_v2_resolve_for_nl_search_vars",
     "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
+  },
+  {
+    "name": "use_new_download_tool",
+    "enabled": true,
+    "owner": "pablonoel",
+    "description": "Feature flag to enable the new download tool UI"
   },
   {
     "name": "vai_for_statvar_search",

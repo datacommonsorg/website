@@ -545,20 +545,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_BirthEvent": {
-        "gender": [
-          "Count_BirthEvent_Female",
-          "Count_BirthEvent_Male"
-        ]
-      },
-      "Count_Person": {
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Demographics",

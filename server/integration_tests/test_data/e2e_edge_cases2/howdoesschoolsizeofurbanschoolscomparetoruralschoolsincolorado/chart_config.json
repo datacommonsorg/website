@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInKindergarten"
                     ],
-                    "title": "Population: Enrolled in Kindergarten in Colorado",
+                    "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Enrolled in Kindergarten in Colorado",
+                    "description": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInKindergarten"
                     ],
-                    "title": "Population: Enrolled in Kindergarten in Colorado",
+                    "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Enrolled in Kindergarten"
+            "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School"
           },
           {
             "columns": [
@@ -123,7 +123,7 @@
         ],
         "statVarSpec": {
           "Count_Person_DetailedEnrolledInKindergarten": {
-            "name": "Population: Enrolled in Kindergarten",
+            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Enrolled In School",
             "statVar": "Count_Person_DetailedEnrolledInKindergarten"
           },
           "Count_Person_DetailedHighSchool": {
@@ -176,60 +176,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_DetailedEnrolledInKindergarten": {
-        "race": [
-          "dc/1c4zcyw02n71g",
-          "dc/3n8g9we5yv7th",
-          "dc/556pqlh586bmc",
-          "dc/7g77dy8hfb1rg",
-          "dc/c6n2z7vh9sy31",
-          "dc/gr3zem8shyhbf",
-          "dc/ns1rqx6wy9909",
-          "dc/nt9cq96phw6nf",
-          "dc/qnphlls92tvs9"
-        ]
-      },
-      "Count_Person_DetailedHighSchool": {
-        "race": [
-          "dc/1kt512ynvpmc2",
-          "dc/3bg4r46ly61q9",
-          "dc/4hzyqndyzntm",
-          "dc/9q73ecfhmd0y9",
-          "dc/cc8wk2n0ywd9",
-          "dc/dxsxcw009pdm4",
-          "dc/dzfdgrtcv5h7",
-          "dc/fh4td3znm3l4g",
-          "dc/g8537zqf45wl3"
-        ]
-      },
-      "Count_Person_DetailedMiddleSchool": {
-        "race": [
-          "dc/6zbb7s5nx6rxb",
-          "dc/b3nmcj3w1lhed",
-          "dc/c57vzg7l74577",
-          "dc/c75qlm98pmcb2",
-          "dc/e2szvml8jkld8",
-          "dc/g4fthg3t3y5td",
-          "dc/njgzb8knf11n8",
-          "dc/qvf1yrhwzp8rd",
-          "dc/zvr6djt1p9gj3"
-        ]
-      },
-      "Count_Person_DetailedPrimarySchool": {
-        "race": [
-          "dc/68cg2z97cpl7d",
-          "dc/b6h698m2vmdcc",
-          "dc/bf85zc6wypd2h",
-          "dc/e4y4hqq6mjfsh",
-          "dc/env3140jqssg8",
-          "dc/jhjdplbeg26k1",
-          "dc/p4jzvj8q1lnmd",
-          "dc/wk2vjrzfgyq5d",
-          "dc/x9e7150515yt7"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Schools",

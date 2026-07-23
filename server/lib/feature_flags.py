@@ -14,6 +14,7 @@
 """Common library for functions related to feature flags"""
 
 import hashlib
+import ipaddress
 import random
 
 from flask import current_app
@@ -30,6 +31,7 @@ FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
 BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
+USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG = 'use_new_download_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
@@ -125,6 +127,38 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   return is_feature_enabled
 
 
+def ip_in_list(ip_str: str, ip_patterns: list[str]) -> bool:
+  """
+  Checks if an IP address matches any of the IP address or CIDR network patterns.
+
+  Args:
+    ip_str: Client IP address string (e.g., '192.168.1.1' or '2001:db8::1').
+    ip_patterns: List of IP addresses or CIDR subnets (e.g., ['192.168.1.1', '10.0.0.0/8']).
+
+  Returns:
+    True if the IP matches any pattern, False otherwise.
+  """
+  if not ip_str or not ip_patterns:
+    return False
+  try:
+    ip = ipaddress.ip_address(ip_str)
+  except ValueError:
+    return False
+
+  for pattern in ip_patterns:
+    try:
+      if '/' in pattern:
+        network = ipaddress.ip_network(pattern, strict=False)
+        if ip in network:
+          return True
+      else:
+        if ip == ipaddress.ip_address(pattern):
+          return True
+    except ValueError:
+      pass
+  return False
+
+
 def assign_spanner_cohort(app, request) -> bool:
   """Deterministically assigns the request to a Spanner cohort if enabled.
 
@@ -147,12 +181,6 @@ def assign_spanner_cohort(app, request) -> bool:
   if not flag_config.get('enabled', False):
     return False
 
-  rollout_percentage = flag_config.get('rollout_percentage', 0)
-  if rollout_percentage >= 100:
-    return True
-  if rollout_percentage <= 0:
-    return False
-
   # Extract the original client IP (the first/leftmost IP in the X-Forwarded-For chain)
   ip = request.headers.get('X-Forwarded-For', request.remote_addr) or ''
   ip = ip.split(',')[0].strip()
@@ -162,6 +190,30 @@ def assign_spanner_cohort(app, request) -> bool:
   # Handle IPv4 with port (contains exactly one colon, e.g., 198.51.100.1:443)
   elif ip.count(':') == 1:
     ip = ip.split(':')[0]
+
+  # Check IP-based cohort overrides
+  force_non_spanner_raw = app.config.get(
+      'DB_COHORT_FORCE_NON_SPANNER_IPS') or ''
+  if force_non_spanner_raw:
+    force_non_spanner_ips = [
+        i.strip() for i in force_non_spanner_raw.split(',') if i.strip()
+    ]
+    if ip_in_list(ip, force_non_spanner_ips):
+      return False
+
+  force_spanner_raw = app.config.get('DB_COHORT_FORCE_SPANNER_IPS') or ''
+  if force_spanner_raw:
+    force_spanner_ips = [
+        i.strip() for i in force_spanner_raw.split(',') if i.strip()
+    ]
+    if ip_in_list(ip, force_spanner_ips):
+      return True
+
+  rollout_percentage = flag_config.get('rollout_percentage', 0)
+  if rollout_percentage >= 100:
+    return True
+  if rollout_percentage <= 0:
+    return False
 
   ua = request.headers.get('User-Agent', '') or ''
   salt = app.config.get('SPANNER_DIVERT_SALT',

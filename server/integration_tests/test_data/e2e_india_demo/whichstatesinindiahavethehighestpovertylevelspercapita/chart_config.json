@@ -544,6 +544,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q46107",
+          "name": "Dadra and Nagar Haveli",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q6432969",
           "name": "Kosal state movement",
           "types": [
@@ -610,35 +617,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
-        ]
-      },
-      "sdg/SI_POV_DAY1": {
-        "age": [
-          "sdg/SI_POV_DAY1.AGE--Y0T14",
-          "sdg/SI_POV_DAY1.AGE--Y15T64",
-          "sdg/SI_POV_DAY1.AGE--Y_GE65"
-        ],
-        "sdg_sex": [
-          "sdg/SI_POV_DAY1.SEX--F",
-          "sdg/SI_POV_DAY1.SEX--M"
-        ],
-        "sdg_urbanisation": [
-          "sdg/SI_POV_DAY1.URBANISATION--R",
-          "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

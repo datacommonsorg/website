@@ -720,29 +720,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "sdg/EN_MAT_DOMCMPG": {
-        "sdg_product": [
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF1",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF11",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF121",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF122",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF13",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF14",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF2",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF21",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF22",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF3",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF4",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF41",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF413",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF421",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF422",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3A",
-          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3B"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/GDP",

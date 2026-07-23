@@ -220,22 +220,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_CriminalActivities_CombinedCrime": {
-        "crimeType": [
-          "Count_CriminalActivities_AggravatedAssault",
-          "Count_CriminalActivities_Arson",
-          "Count_CriminalActivities_Burglary",
-          "Count_CriminalActivities_ForcibleRape",
-          "Count_CriminalActivities_LarcenyTheft",
-          "Count_CriminalActivities_MotorVehicleTheft",
-          "Count_CriminalActivities_MurderAndNonNegligentManslaughter",
-          "Count_CriminalActivities_PropertyCrime",
-          "Count_CriminalActivities_Robbery",
-          "Count_CriminalActivities_ViolentCrime"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Crime",

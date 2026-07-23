@@ -423,16 +423,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_IncomeOf35000To49999USDollar": {
-        "placeOfBirth": [
-          "dc/1c4p0em56brwg",
-          "dc/907pbhy3r7ew4",
-          "dc/b5cgqzknltjsb",
-          "dc/hrl4g7g9pzej8"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/IndividualIncomeDistribution",

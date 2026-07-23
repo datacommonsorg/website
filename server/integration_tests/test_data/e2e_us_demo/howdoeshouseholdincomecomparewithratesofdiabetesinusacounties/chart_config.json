@@ -794,15 +794,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Mean_Income_Household": {
-        "householdType": [
-          "Mean_Income_Household_FamilyHousehold",
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-          "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Diabetes",

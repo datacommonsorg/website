@@ -36,14 +36,26 @@ class StatVarHierarchyTestMixin():
     self.assertIsNotNone(
         wait_elem(self.driver, by=By.ID, value='hierarchy-section'))
 
+    # Expand the stat var widget if it starts collapsed
+    explore_menu = find_elem(self.driver, by=By.ID, value='explore')
+    if 'collapsed' in explore_menu.get_attribute('class'):
+      toggle_btn = find_elem(self.driver, by=By.ID, value='explore-menu-toggle')
+      toggle_btn.click()
+      # Wait for the collapsed class to be removed
+      WebDriverWait(
+          self.driver,
+          self.TIMEOUT_SEC).until(lambda driver: 'collapsed' not in find_elem(
+              driver, by=By.ID, value='explore').get_attribute('class'))
+
     # Get the count of the first category
     agriculture_count_xpath = "//*[text()='Agriculture']/span[@class='sv-count']"
     initial_count_text = find_elem(self.driver,
                                    by=By.XPATH,
                                    value=agriculture_count_xpath).text
 
-    rgx = re.compile(r'\(([0-9]+)\)')
-    count_initial = int(rgx.search(initial_count_text).group(1))
+    rgx = re.compile(r'\(([0-9,]+)\)')
+    count_initial = int(
+        rgx.search(initial_count_text).group(1).replace(',', ''))
 
     # Search for California Counties
     shared.search_for_places(self,
@@ -64,6 +76,6 @@ class StatVarHierarchyTestMixin():
     count_text_after = find_elem(self.driver,
                                  by=By.XPATH,
                                  value=agriculture_count_xpath).text
-    count_final = int(rgx.search(count_text_after).group(1))
+    count_final = int(rgx.search(count_text_after).group(1).replace(',', ''))
 
     self.assertGreater(count_initial, count_final)

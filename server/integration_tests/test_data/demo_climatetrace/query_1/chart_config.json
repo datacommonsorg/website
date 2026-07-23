@@ -690,7 +690,7 @@
             "statVar": "Annual_Emissions_GreenhouseGas_EntericFermentation"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking": {
-            "name": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Cooking, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
           },
           "Annual_Emissions_GreenhouseGas_OilAndGasProduction": {
@@ -726,11 +726,11 @@
             "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
           },
           "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating": {
-            "name": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
           },
           "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide",
+            "name": "Annual Amount of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
           },
           "Annual_Emissions_NitrousOxide_Manufacturing_multiple_place_bar_block": {

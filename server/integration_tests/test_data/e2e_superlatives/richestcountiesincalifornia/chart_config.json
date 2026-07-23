@@ -462,7 +462,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -477,7 +477,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue50000To99999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 50,000-99,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 50000 to 99999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -492,7 +492,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100,000-199,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 100000 to 199999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -507,7 +507,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue200000To299999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -522,7 +522,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue300000To499999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 300,000-499,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 300000 to 499999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -537,7 +537,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue500000To999999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 500,000-999,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: US Dollar 500000 to 999999, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -588,7 +588,7 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in Counties of California (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -603,7 +603,7 @@
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in Counties of California (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage, Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -623,7 +623,7 @@
                     "statVarKey": [
                       "dc/065dmg2ls1heb"
                     ],
-                    "title": "Count of Housing Unit: With Mortgage, 1,500-1,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -638,7 +638,7 @@
                     "statVarKey": [
                       "dc/9b9gqxj27fqwc"
                     ],
-                    "title": "Count of Housing Unit: With Mortgage, 3,000 USD or More in Counties of California (${date})",
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -653,7 +653,7 @@
                     "statVarKey": [
                       "dc/ejpm616jd1pq1"
                     ],
-                    "title": "Count of Housing Unit: With Mortgage, 2,000-2,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -668,7 +668,7 @@
                     "statVarKey": [
                       "dc/g0yn22m8r3639"
                     ],
-                    "title": "Count of Housing Unit: With Mortgage, 800 USD or Less in Counties of California (${date})",
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -683,7 +683,7 @@
                     "statVarKey": [
                       "dc/h34ge8t21h9m1"
                     ],
-                    "title": "Count of Housing Unit: With Mortgage, 800-1,499 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -698,7 +698,7 @@
                     "statVarKey": [
                       "dc/rkq1jgk08zfs7"
                     ],
-                    "title": "Count of Housing Unit: With Mortgage, 0 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -719,7 +719,7 @@
                     "statVarKey": [
                       "dc/5jy4dp16mtssg"
                     ],
-                    "title": "Count of Housing Unit: Without Mortgage, 0 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -734,7 +734,7 @@
                     "statVarKey": [
                       "dc/c9cl49nnrv5x4"
                     ],
-                    "title": "Count of Housing Unit: Without Mortgage, 1,500-1,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -749,7 +749,7 @@
                     "statVarKey": [
                       "dc/m60n94sqql2d3"
                     ],
-                    "title": "Count of Housing Unit: Without Mortgage, 3,000 USD or More in Counties of California (${date})",
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -764,7 +764,7 @@
                     "statVarKey": [
                       "dc/nrh9sl7zy12bf"
                     ],
-                    "title": "Count of Housing Unit: Without Mortgage, 800-1,499 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -779,7 +779,7 @@
                     "statVarKey": [
                       "dc/q0p7fcll1lv8c"
                     ],
-                    "title": "Count of Housing Unit: Without Mortgage, 800 USD or Less in Counties of California (${date})",
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -794,7 +794,7 @@
                     "statVarKey": [
                       "dc/ye0f3ej72hhj7"
                     ],
-                    "title": "Count of Housing Unit: Without Mortgage, 2,000-2,999 USD in Counties of California (${date})",
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -810,7 +810,7 @@
             "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar": {
-            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
@@ -818,23 +818,23 @@
             "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
           },
           "Count_HousingUnit_HomeValue200000To299999USDollar": {
-            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue300000To499999USDollar": {
-            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
+            "name": "Count of Housing Unit: US Dollar 300000 To 499999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
           },
           "Count_HousingUnit_HomeValue500000To999999USDollar": {
-            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
+            "name": "Count of Housing Unit: US Dollar 500000 To 999999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar": {
-            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar": {
-            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_Person_IncomeOf10000To14999USDollar": {
@@ -866,11 +866,11 @@
             "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage, Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage, Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
@@ -902,7 +902,7 @@
             "statVar": "dc/015d58s9xh8kd"
           },
           "dc/065dmg2ls1heb": {
-            "name": "Count of Housing Unit: With Mortgage, 1,500 - 1,999 USD",
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
             "statVar": "dc/065dmg2ls1heb"
           },
           "dc/2wgh04kx6es88": {
@@ -922,7 +922,7 @@
             "statVar": "dc/5f3gkej4mrq24"
           },
           "dc/5jy4dp16mtssg": {
-            "name": "Count of Housing Unit: Without Mortgage, 0 USD",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
             "statVar": "dc/5jy4dp16mtssg"
           },
           "dc/7jqw95h5wbelb": {
@@ -930,7 +930,7 @@
             "statVar": "dc/7jqw95h5wbelb"
           },
           "dc/9b9gqxj27fqwc": {
-            "name": "Count of Housing Unit: With Mortgage, 3,000 USD or More",
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
             "statVar": "dc/9b9gqxj27fqwc"
           },
           "dc/9pmyhk89dj3pf": {
@@ -942,19 +942,19 @@
             "statVar": "dc/b4dj4sbgqybh7"
           },
           "dc/c9cl49nnrv5x4": {
-            "name": "Count of Housing Unit: Without Mortgage, 1,500 - 1,999 USD",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
             "statVar": "dc/c9cl49nnrv5x4"
           },
           "dc/ejpm616jd1pq1": {
-            "name": "Count of Housing Unit: With Mortgage, 2,000 - 2,999 USD",
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
             "statVar": "dc/ejpm616jd1pq1"
           },
           "dc/g0yn22m8r3639": {
-            "name": "Count of Housing Unit: With Mortgage, 800 USD or Less",
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
             "statVar": "dc/g0yn22m8r3639"
           },
           "dc/h34ge8t21h9m1": {
-            "name": "Count of Housing Unit: With Mortgage, 800 - 1,499 USD",
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
             "statVar": "dc/h34ge8t21h9m1"
           },
           "dc/jefhcs9qxc971": {
@@ -970,19 +970,19 @@
             "statVar": "dc/m07n4w3ywjzs3"
           },
           "dc/m60n94sqql2d3": {
-            "name": "Count of Housing Unit: Without Mortgage, 3,000 USD or More",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
             "statVar": "dc/m60n94sqql2d3"
           },
           "dc/nrh9sl7zy12bf": {
-            "name": "Count of Housing Unit: Without Mortgage, 800 - 1,499 USD",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
             "statVar": "dc/nrh9sl7zy12bf"
           },
           "dc/q0p7fcll1lv8c": {
-            "name": "Count of Housing Unit: Without Mortgage, 800 USD or Less",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
             "statVar": "dc/q0p7fcll1lv8c"
           },
           "dc/rkq1jgk08zfs7": {
-            "name": "Count of Housing Unit: With Mortgage, 0 USD",
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
             "statVar": "dc/rkq1jgk08zfs7"
           },
           "dc/t6m99mqmqxjbc": {
@@ -994,7 +994,7 @@
             "statVar": "dc/xj2nk2bg60fg"
           },
           "dc/ye0f3ej72hhj7": {
-            "name": "Count of Housing Unit: Without Mortgage, 2,000 - 2,999 USD",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
             "statVar": "dc/ye0f3ej72hhj7"
           },
           "dc/yw52qqrrb2w11": {

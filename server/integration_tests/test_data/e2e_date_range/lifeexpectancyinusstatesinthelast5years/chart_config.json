@@ -13,7 +13,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_3563600999"
+                      "LifeExpectancy_Person_8027911949465806975"
                     ],
                     "title": "Life Expectancy in United States",
                     "type": "LINE"
@@ -44,8 +44,8 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female_2776657033",
-                      "LifeExpectancy_Person_Male_2776657033"
+                      "LifeExpectancy_Person_Female_9841531598146992798",
+                      "LifeExpectancy_Person_Male_9841531598146992798"
                     ],
                     "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
@@ -96,7 +96,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_1662700527"
+                      "Count_Death_4486658077301201845"
                     ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
@@ -128,7 +128,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person_1113810078"
+                      "Count_Death_AsAFractionOfCount_Person_14219717798868772133"
                     ],
                     "title": "Deaths Per Capita in United States",
                     "type": "LINE"
@@ -159,7 +159,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_448542840"
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_530950429473454944"
                     ],
                     "title": "Suicide Mortality Rate in United States",
                     "type": "LINE"
@@ -190,7 +190,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "sdg/SH_DYN_NMRT.AGE--M0_2966989201"
+                      "sdg/SH_DYN_NMRT.AGE--M0_13678236933566447286"
                     ],
                     "title": "Neonatal Mortality Rate in United States",
                     "type": "LINE"
@@ -222,9 +222,9 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_Upto1Years_1662700527"
+                      "Count_Death_Upto1Years_4486658077301201845"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "LINE"
                   }
                 ]
@@ -232,18 +232,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less in United States",
+                    "description": "Count of Mortality Event: Years Upto 1 in United States",
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: 1 Years or Less"
+            "title": "Count of Mortality Event: Years Upto 1"
           },
           {
             "columns": [
@@ -254,8 +254,8 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2966989201",
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2966989201"
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_13678236933566447286"
                     ],
                     "title": "Infant Mortality Rate by Gender in United States",
                     "type": "LINE"
@@ -305,7 +305,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963"
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_291378936879825715"
                     ],
                     "title": "Infant Mortality Rate in United States",
                     "type": "LINE"
@@ -369,7 +369,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_3795540742"
+                      "Median_Age_Person_2550419630908544036"
                     ],
                     "title": "Median Age of Population in United States",
                     "type": "LINE"
@@ -402,13 +402,13 @@
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963": {
-            "facetId": "606064963",
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_291378936879825715": {
+            "facetId": "291378936879825715",
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
-          "Count_Death_1662700527": {
-            "facetId": "1662700527",
+          "Count_Death_4486658077301201845": {
+            "facetId": "4486658077301201845",
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
@@ -416,8 +416,8 @@
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
-          "Count_Death_AsAFractionOfCount_Person_1113810078": {
-            "facetId": "1113810078",
+          "Count_Death_AsAFractionOfCount_Person_14219717798868772133": {
+            "facetId": "14219717798868772133",
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
@@ -425,36 +425,36 @@
             "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
-          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_448542840": {
-            "facetId": "448542840",
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_530950429473454944": {
+            "facetId": "530950429473454944",
             "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: 1 Years or Less",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
-          "Count_Death_Upto1Years_1662700527": {
-            "facetId": "1662700527",
-            "name": "Count of Mortality Event: 1 Years or Less",
+          "Count_Death_Upto1Years_4486658077301201845": {
+            "facetId": "4486658077301201845",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_3563600999": {
-            "facetId": "3563600999",
+          "LifeExpectancy_Person_8027911949465806975": {
+            "facetId": "8027911949465806975",
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_Female_2776657033": {
-            "facetId": "2776657033",
+          "LifeExpectancy_Person_Female_9841531598146992798": {
+            "facetId": "9841531598146992798",
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
-          "LifeExpectancy_Person_Male_2776657033": {
-            "facetId": "2776657033",
+          "LifeExpectancy_Person_Male_9841531598146992798": {
+            "facetId": "9841531598146992798",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
@@ -466,18 +466,18 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "Median_Age_Person_3795540742": {
-            "facetId": "3795540742",
+          "Median_Age_Person_2550419630908544036": {
+            "facetId": "2550419630908544036",
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2966989201": {
-            "facetId": "2966989201",
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286": {
+            "facetId": "13678236933566447286",
             "name": "Infant mortality rate",
             "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
           },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2966989201": {
-            "facetId": "2966989201",
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_13678236933566447286": {
+            "facetId": "13678236933566447286",
             "name": "Infant mortality rate [under 1 year old, Male]",
             "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
           },
@@ -485,8 +485,8 @@
             "name": "Neonatal mortality rate",
             "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           },
-          "sdg/SH_DYN_NMRT.AGE--M0_2966989201": {
-            "facetId": "2966989201",
+          "sdg/SH_DYN_NMRT.AGE--M0_13678236933566447286": {
+            "facetId": "13678236933566447286",
             "name": "Neonatal mortality rate",
             "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           }
@@ -876,26 +876,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Death": {
-        "age": [
-          "Count_Death_0Years",
-          "Count_Death_Upto1Years"
-        ]
-      },
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      },
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",
