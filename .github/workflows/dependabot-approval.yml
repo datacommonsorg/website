@@ -57,7 +57,7 @@ jobs:
           gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --author "app/dependabot" \
-            --limit 1000 \
+            --limit 100 \
             --json url,createdAt,labels,autoMergeRequest,statusCheckRollup,mergeStateStatus > /tmp/dependabot_prs.json
 
       - name: Isolate Conflicted PRs (State 4)
