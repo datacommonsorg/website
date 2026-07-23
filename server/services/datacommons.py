@@ -676,7 +676,7 @@ def resolve(nodes, prop, resolver="place", target=None):
         target: Optional target parameter to scope resolution.
     """
   if target is None and resolver == "indicator":
-    target = os.environ.get("V2_RESOLVE_INDICATORS_TARGET", "")
+    target = current_app.config.get("V2_RESOLVE_INDICATORS_TARGET", "")
   url = get_service_url("/v2/resolve")
   req = {"nodes": nodes, "property": prop, "resolver": resolver}
   if target:

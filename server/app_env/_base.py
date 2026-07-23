@@ -120,3 +120,5 @@ class Config:
   # - /nl/eval/retrieval_generation (RIG Eval)
   # - /nl/eval/retrieval_generation_sxs (SxS Eval)
   ENABLE_DATAGEMMA_EVAL_TOOLS = False
+  # Target parameter for v2/resolve API calls when resolver=indicator
+  V2_RESOLVE_INDICATORS_TARGET = os.environ.get('V2_RESOLVE_INDICATORS_TARGET', '')
