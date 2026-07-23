@@ -1,40 +1,15 @@
 {
-  "childEntityType": "City",
-  "classifications": [
-    {
-      "ranking_type": [
-        1
-      ],
-      "type": 2
-    },
-    {
-      "contained_in_place_type": "City",
-      "had_default_type": false,
-      "type": 4
-    },
-    {
-      "type": 14
-    }
-  ],
   "client": "test_detect",
-  "comparisonEntities": [],
-  "comparisonVariables": [],
+  "config": {},
   "context": {},
   "debug": {},
-  "entities": [
-    "geoId/06085"
-  ],
-  "nonPlaceEntities": [],
-  "properties": [],
-  "sessionId": "007_999999999",
-  "variables": [
-    "Count_CriminalActivities_MotorVehicleTheft",
-    "Count_CriminalActivities_LarcenyTheft",
-    "Count_CriminalActivities_Robbery",
-    "Count_CriminalActivities_Burglary",
-    "Count_CriminalActivities_PropertyCrime",
-    "Count_CriminalActivities_CombinedCrime",
-    "dc/topic/Crime",
-    "Count_CriminalIncidents"
+  "failure": "Sorry, could not complete your request. No place found in the query.",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "userMessages": [
+    "Sorry, could not complete your request. No place found in the query."
   ]
 }

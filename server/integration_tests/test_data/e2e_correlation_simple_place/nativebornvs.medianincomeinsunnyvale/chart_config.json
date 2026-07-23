@@ -10,9 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Native"
+                      "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Median Income of Person: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,45 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "description": "Median Income of Person: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_Native"
+                      "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Median Income of Person: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Native"
+            "title": "Median Income of Person: Years 15 Onwards, With Income, Foreign Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_Native"
+                    ],
+                    "title": "Median Age of US Born Women in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of US Born Women in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Age_Person_Female_Native"
+                    ],
+                    "title": "Median Age of US Born Women in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of US Born Women"
           },
           {
             "columns": [
@@ -67,9 +94,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_ForeignBorn"
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
+                    "title": "Median Income of American Indian or Alaska Native Households in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -77,18 +104,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born in Sunnyvale",
+                    "description": "Median Income of American Indian or Alaska Native Households in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_ForeignBorn"
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
+                    "title": "Median Income of American Indian or Alaska Native Households in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Foreign Born"
+            "title": "Median Income of American Indian or Alaska Native Households"
           },
           {
             "columns": [
@@ -96,9 +122,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Earnings_Person"
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthCaribbean"
                     ],
-                    "title": "Individual Median Earnings in Sunnyvale",
+                    "title": "Median Income of Household: USC Foreign Born, Caribbean in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -106,133 +132,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Individual Median Earnings in Sunnyvale",
+                    "description": "Median Income of Household: USC Foreign Born, Caribbean in Sunnyvale",
                     "statVarKey": [
-                      "Median_Earnings_Person"
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthCaribbean"
                     ],
-                    "title": "Individual Median Earnings in Sunnyvale",
+                    "title": "Median Income of Household: USC Foreign Born, Caribbean in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Earnings"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_PlaceOfBirthAsia"
-                    ],
-                    "title": "Population: USC Foreign Born, Asia in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: USC Foreign Born, Asia in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_PlaceOfBirthAsia"
-                    ],
-                    "title": "Population: USC Foreign Born, Asia in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/6bkn9vt30f5c1"
-                    ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "statVarKey": [
-                      "dc/6bkn9vt30f5c1"
-                    ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
-                    ],
-                    "title": "Foreign-born Caribbean Origin in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Foreign-born Caribbean Origin in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
-                    ],
-                    "title": "Foreign-born Caribbean Origin in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Foreign-born Caribbean Origin"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
-                    ],
-                    "title": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
-                    ],
-                    "title": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Foreign-born Central American Origin (Except Mexico)"
+            "title": "Median Income of Household: USC Foreign Born, Caribbean"
           },
           {
             "columns": [
@@ -261,44 +171,321 @@
               }
             ],
             "title": "Median Age of Person: USC Native"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEurope"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Europe in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: USC Foreign Born, Europe in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEurope"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Europe in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Europe"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Income of Household: Mexican Born in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: Mexican Born in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
+                    ],
+                    "title": "Median Income of Household: Mexican Born in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Mexican Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Household Median Income in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+                    ],
+                    "title": "Median Income of Native Hawaiian or Other Pacific Islander Households in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Native Hawaiian or Other Pacific Islander Households in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+                    ],
+                    "title": "Median Income of Native Hawaiian or Other Pacific Islander Households in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Native Hawaiian or Other Pacific Islander Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthLatinAmerica"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Latin America in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: USC Foreign Born, Latin America in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthLatinAmerica"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Latin America in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Latin America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Central America Except Mexico in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: USC Foreign Born, Central America Except Mexico in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Central America Except Mexico in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Central America Except Mexico"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Asia in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: USC Foreign Born, Asia in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Asia in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Men Born in the United States in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Men Born in the United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/gvnh5cpl9h1rf"
+                    ],
+                    "title": "Population: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
+                    "statVarKey": [
+                      "dc/gvnh5cpl9h1rf"
+                    ],
+                    "title": "Population: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 15 Onwards, With Income, Foreign Born"
           }
         ],
         "statVarSpec": {
-          "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
-            "statVar": "Count_Person_ForeignBorn"
+          "Median_Age_Person_Female_Native": {
+            "name": "Median Age of US Born Women",
+            "statVar": "Median_Age_Person_Female_Native"
           },
-          "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
-            "name": "Foreign-born Caribbean origin",
-            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
-          },
-          "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
-            "name": "Foreign-born Central American origin (except Mexico)",
-            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
-          },
-          "Count_Person_Native": {
-            "name": "Population: Years 5 Onwards, USC Native",
-            "statVar": "Count_Person_Native"
-          },
-          "Count_Person_PlaceOfBirthAsia": {
-            "name": "Population: USC Foreign Born, Asia",
-            "statVar": "Count_Person_PlaceOfBirthAsia"
+          "Median_Age_Person_Male_Native": {
+            "name": "Median Age of Men Born in the United States",
+            "statVar": "Median_Age_Person_Male_Native"
           },
           "Median_Age_Person_Native": {
             "name": "Median Age of Person: USC Native",
             "statVar": "Median_Age_Person_Native"
           },
-          "Median_Earnings_Person": {
-            "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person"
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia": {
+            "name": "Median Income of Household: USC Foreign Born, Asia",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthCaribbean": {
+            "name": "Median Income of Household: USC Foreign Born, Caribbean",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthCaribbean"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
+            "name": "Median Income of Household: USC Foreign Born, Central America Except Mexico",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthEurope": {
+            "name": "Median Income of Household: USC Foreign Born, Europe",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthEurope"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthLatinAmerica": {
+            "name": "Median Income of Household: USC Foreign Born, Latin America",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthLatinAmerica"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico": {
+            "name": "Median Income of Household: Mexican Born",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthMexico"
+          },
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+            "name": "Median Income of American Indian or Alaska Native Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+          },
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+            "name": "Median Income of Native Hawaiian or Other Pacific Islander Households",
+            "statVar": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
           },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
           },
-          "dc/6bkn9vt30f5c1": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, American Indian Or Alaska Native Alone",
-            "statVar": "dc/6bkn9vt30f5c1"
+          "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn": {
+            "name": "Median Income of Person: Years 15 Onwards, With Income, Foreign Born",
+            "statVar": "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn"
+          },
+          "dc/gvnh5cpl9h1rf": {
+            "name": "Population: Years 15 Onwards, With Income, Foreign Born",
+            "statVar": "dc/gvnh5cpl9h1rf"
           }
         }
       }
@@ -331,25 +518,45 @@
     "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/PlaceOfBirth",
-        "name": "Place of Birth",
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/LanguageSpokenAtHome_ForeignBorn",
-        "name": "Language Spoken by Foreign Born Population",
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
         "types": [
           "Topic"
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Median_Age_Person_Native": {
+        "gender": [
+          "Median_Age_Person_Female_Native",
+          "Median_Age_Person_Male_Native"
+        ]
+      },
+      "Median_Income_Household": {
+        "householderRace": [
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+        ]
+      }
+    },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Immigration",
-        "name": "Immigration",
+        "dcid": "dc/topic/Income",
+        "name": "Income",
         "types": [
           "Topic"
         ]
@@ -358,8 +565,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Nationality",
-        "name": "Nationality",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -719,8 +926,22 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/CitizenshipStatus",
-        "name": "Citizenship Status",
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
         "types": [
           "Topic"
         ]

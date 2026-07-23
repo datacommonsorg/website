@@ -11,41 +11,41 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
+                      "geoId/06085",
+                      "geoId/06081",
+                      "geoId/06041",
+                      "geoId/06075",
+                      "geoId/06001",
+                      "geoId/06013",
+                      "geoId/06059"
                     ],
                     "statVarKey": [
-                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block"
+                      "Median_Income_Household_multiple_place_bar_block"
                     ],
-                    "title": "Number of People Earning $35,000 and $49,999 (${date}) - Top 7 of 16",
+                    "title": "Household Median Income (${date}) - Top 7 of 58",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Number of People Earning $35,000 and $49,999"
+            "title": "Household Median Income"
           }
         ],
         "statVarSpec": {
-          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
-            "name": "Number of People Earning $35,000 and $49,999",
-            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
+          "Median_Income_Household_multiple_place_bar_block": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06037"
+        "geoId/06085"
       ]
     }
   },
@@ -422,12 +422,34 @@
         }
       ]
     },
-    "childTopics": [],
-    "exploreMore": {},
-    "mainTopics": [
+    "childTopics": [
       {
         "dcid": "dc/topic/IndividualIncomeDistribution",
         "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
         "types": [
           "Topic"
         ]
@@ -436,15 +458,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/IncomeEquity",
-        "name": "Income Equity",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -804,15 +819,43 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]

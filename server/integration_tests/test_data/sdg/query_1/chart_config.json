@@ -348,9 +348,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "GiniIndex_EconomicActivity"
                     ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
+                    "title": "Gini Index of Economic Activity of a Population in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -363,80 +363,23 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "GiniIndex_EconomicActivity"
                     ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
+                    "title": "Gini Index of Economic Activity of a Population in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Drinking Water Services in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Sanitation Services in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
+            "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
+            "title": "Gini Index of Economic Activity of a Population in Countries of Africa"
           }
         ],
         "statVarSpec": {
+          "GiniIndex_EconomicActivity": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -480,14 +423,6 @@
           "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": {
             "name": "Employed Men Aged 25 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-          },
-          "sdg/SP_ACS_BSRVH2O": {
-            "name": "Population Using Basic Drinking Water Services",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
-          },
-          "sdg/SP_ACS_BSRVSAN": {
-            "name": "Population Using Basic Sanitation Services",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
@@ -883,7 +818,26 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/SI_POV_EMP1.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

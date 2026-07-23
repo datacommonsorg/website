@@ -69,6 +69,67 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, With Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 16 Onwards, With Earnings in California",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, With Earnings in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, With Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, With Earnings in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, With Earnings in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, With Earnings in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
                     "title": "Median Family Household Income in California",
@@ -128,9 +189,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Count_Person_Female_WithEarnings"
                     ],
-                    "title": "Average Income for Households in California",
+                    "title": "Earning Women in California",
                     "type": "LINE"
                   }
                 ]
@@ -138,17 +199,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Households in California",
+                    "description": "Earning Women in California",
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Count_Person_Female_WithEarnings"
                     ],
-                    "title": "Average Income for Households in California",
+                    "title": "Earning Women in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Households"
+            "denom": "Count_Person",
+            "title": "Earning Women"
           },
           {
             "columns": [
@@ -156,9 +218,67 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Count_Person_Male_WithEarnings"
                     ],
-                    "title": "Average Income for Households in Counties of California (${date})",
+                    "title": "Earning Men in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Earning Men in California",
+                    "statVarKey": [
+                      "Count_Person_Male_WithEarnings"
+                    ],
+                    "title": "Earning Men in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Earning Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Female_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, Female, With Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 16 Onwards, Female, With Earnings in California",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Female_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, Female, With Earnings in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, Female, With Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Female_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, Female, With Earnings in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -171,15 +291,136 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Count_Person_16OrMoreYears_Female_WithEarnings"
                     ],
-                    "title": "Average Income for Households in Counties of California (${date})",
+                    "title": "Population: Years 16 Onwards, Female, With Earnings in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Households in Counties of California"
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, Female, With Earnings in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Male_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, Male, With Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 16 Onwards, Male, With Earnings in California",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Male_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, Male, With Earnings in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, Male, With Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Male_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, Male, With Earnings in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Male_WithEarnings"
+                    ],
+                    "title": "Population: Years 16 Onwards, Male, With Earnings in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, Male, With Earnings in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in California",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings in Counties of California"
           },
           {
             "columns": [
@@ -246,9 +487,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
+                      "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Average Income for Nonfamily Households in California",
+                    "title": "Population: Years 15 Onwards, With Income in California",
                     "type": "LINE"
                   }
                 ]
@@ -256,195 +497,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Nonfamily Households in California",
+                    "description": "Population: Years 15 Onwards, With Income in California",
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
+                      "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Average Income for Nonfamily Households in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Nonfamily Households"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Average Income for Nonfamily Households in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Average Income for Nonfamily Households in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Nonfamily Households in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Household Median Income in California",
-                    "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Household Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Household Median Income in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Family Household in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Income Deficit of Household: Family Household in California",
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Family Household in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Income Deficit of Household: Family Household"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Family Household in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Family Household in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Income Deficit of Household: Family Household in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold"
-                    ],
-                    "title": "Count of Household: Family Household in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Household: Family Household in California",
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold"
-                    ],
-                    "title": "Count of Household: Family Household in California",
+                    "title": "Population: Years 15 Onwards, With Income in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household"
+            "title": "Population: Years 15 Onwards, With Income"
           },
           {
             "columns": [
@@ -452,9 +516,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold"
+                      "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Count of Household: Family Household in Counties of California (${date})",
+                    "title": "Population: Years 15 Onwards, With Income in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -467,16 +531,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold"
+                      "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Count of Household: Family Household in Counties of California (${date})",
+                    "title": "Population: Years 15 Onwards, With Income in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household in Counties of California"
+            "title": "Population: Years 15 Onwards, With Income in Counties of California"
           },
           {
             "columns": [
@@ -484,9 +548,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Income_Farm"
                     ],
-                    "title": "Average Income for Married Couple Family Households in California",
+                    "title": "Total Farm Income in California",
                     "type": "LINE"
                   }
                 ]
@@ -494,17 +558,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Married Couple Family Households in California",
+                    "description": "Total Farm Income in California",
                     "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Income_Farm"
                     ],
-                    "title": "Average Income for Married Couple Family Households in California",
+                    "title": "Total Farm Income in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Married Couple Family Households"
+            "denom": "Count_Person",
+            "title": "Total Farm Income"
           },
           {
             "columns": [
@@ -512,9 +577,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Income_Farm"
                     ],
-                    "title": "Average Income for Married Couple Family Households in Counties of California (${date})",
+                    "title": "Total Farm Income in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -527,15 +592,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Income_Farm"
                     ],
-                    "title": "Average Income for Married Couple Family Households in Counties of California (${date})",
+                    "title": "Total Farm Income in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Married Couple Family Households in Counties of California"
+            "denom": "Count_Person",
+            "title": "Total Farm Income in Counties of California"
           },
           {
             "columns": [
@@ -543,27 +609,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold",
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold",
-                      "Median_Income_Household_NonfamilyHousehold"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker"
                     ],
-                    "title": "Median Income by Household Type in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income by Household Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in California",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards in California",
                     "type": "LINE"
                   }
                 ]
@@ -571,17 +619,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Earnings of Household: USC Foreign Born, Northamerica in California",
+                    "description": "Count of Household: Family Household, Worker 3 Onwards in California",
                     "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker"
                     ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in California",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Northamerica"
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 3 Onwards"
           },
           {
             "columns": [
@@ -589,9 +638,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker"
                     ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in Counties of California (${date})",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -604,325 +653,58 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker"
                     ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in Counties of California (${date})",
+                    "title": "Count of Household: Family Household, Worker 3 Onwards in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Northamerica in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person_Female",
-                      "Median_Earnings_Person_Male"
-                    ],
-                    "title": "Median Household Income by Gender in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Household Income by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person_Female"
-                    ],
-                    "title": "Median Earnings for Women in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_Female"
-                    ],
-                    "title": "Median Earnings for Women in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Earnings for Women in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person_Male"
-                    ],
-                    "title": "Median Earnings for Men in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_Male"
-                    ],
-                    "title": "Median Earnings for Men in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Earnings for Men in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Earnings of Household: USC Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Income Deficit of Household: Married Couple Family Household in California",
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Income Deficit of Household: Married Couple Family Household"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Earnings in California",
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings in Counties of California"
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 3 Onwards in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Household_FamilyHousehold": {
-            "name": "Count of Household: Family Household",
-            "statVar": "Count_Household_FamilyHousehold"
+          "Count_Household_FamilyHousehold_With3OrMoreWorker": {
+            "name": "Count of Household: Family Household, Worker 3 Onwards",
+            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker"
           },
-          "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Earnings of Household: USC Foreign Born, Asia",
-            "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+          "Count_Person_15OrMoreYears_WithIncome": {
+            "name": "Population: Years 15 Onwards, With Income",
+            "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
-          "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica": {
-            "name": "Mean Earnings of Household: USC Foreign Born, Northamerica",
-            "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+          "Count_Person_16OrMoreYears_Female_WithEarnings": {
+            "name": "Population: Years 16 Onwards, Female, With Earnings",
+            "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
-          "Mean_IncomeDeficit_Household_FamilyHousehold": {
-            "name": "Mean Income Deficit of Household: Family Household",
-            "statVar": "Mean_IncomeDeficit_Household_FamilyHousehold"
+          "Count_Person_16OrMoreYears_Male_WithEarnings": {
+            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
-          "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Mean Income Deficit of Household: Married Couple Family Household",
-            "statVar": "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+          "Count_Person_16OrMoreYears_WithEarnings": {
+            "name": "Population: Years 16 Onwards, With Earnings",
+            "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
-          "Mean_Income_Household": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
+          "Count_Person_Female_WithEarnings": {
+            "name": "Earning Women",
+            "statVar": "Count_Person_Female_WithEarnings"
+          },
+          "Count_Person_Male_WithEarnings": {
+            "name": "Earning Men",
+            "statVar": "Count_Person_Male_WithEarnings"
+          },
+          "Income_Farm": {
+            "name": "Total Farm Income",
+            "statVar": "Income_Farm"
           },
           "Mean_Income_Household_FamilyHousehold": {
             "name": "Average Income for Family Households",
             "statVar": "Mean_Income_Household_FamilyHousehold"
           },
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Average Income for Married Couple Family Households",
-            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
-          },
-          "Mean_Income_Household_NonfamilyHousehold": {
-            "name": "Average Income for Nonfamily Households",
-            "statVar": "Mean_Income_Household_NonfamilyHousehold"
-          },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
-          },
-          "Median_Earnings_Person_Female": {
-            "name": "Median Earnings for Women",
-            "statVar": "Median_Earnings_Person_Female"
-          },
-          "Median_Earnings_Person_Male": {
-            "name": "Median Earnings for Men",
-            "statVar": "Median_Earnings_Person_Male"
-          },
-          "Median_Income_Household": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
           },
           "Median_Income_Household_FamilyHousehold": {
             "name": "Median Family Household Income",
@@ -931,10 +713,6 @@
           "Median_Income_Household_MarriedCoupleFamilyHousehold": {
             "name": "Median Married Couple Family Household Income",
             "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
-          },
-          "Median_Income_Household_NonfamilyHousehold": {
-            "name": "Nonfamily Household Median Income",
-            "statVar": "Median_Income_Household_NonfamilyHousehold"
           }
         }
       }
@@ -1322,7 +1100,20 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_16OrMoreYears_WithEarnings": {
+        "gender": [
+          "Count_Person_16OrMoreYears_Female_WithEarnings",
+          "Count_Person_16OrMoreYears_Male_WithEarnings"
+        ]
+      },
+      "Median_Earnings_Person": {
+        "gender": [
+          "Median_Earnings_Person_Female",
+          "Median_Earnings_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/HouseholdIncomeDistribution",

@@ -69,65 +69,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Family Household Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Family Household Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Family Household Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Median_Income_Person"
                     ],
                     "title": "Individual Median Income in East Carroll Parish",
@@ -246,6 +187,124 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Family Household Income in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Married Couple Family Household Income in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold"
                     ],
                     "title": "Average Income for Family Households in East Carroll Parish",
@@ -298,6 +357,65 @@
               }
             ],
             "title": "Average Income for Family Households in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -383,29 +501,28 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
                     "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
-                      "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
                     ],
-                    "title": "Median Household Income by Race in East Carroll Parish (${date})",
-                    "type": "BAR"
+                    "title": "Median Income of White Households in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of White Households in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
+                    ],
+                    "title": "Median Income of White Households in East Carroll Parish",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Household Income by Race"
+            "title": "Median Income of White Households"
           },
           {
             "columns": [
@@ -443,6 +560,35 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/22035"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Median Household Income by Race in East Carroll Parish (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
                     ],
@@ -468,124 +614,6 @@
               }
             ],
             "title": "Median Income of Black or African American Households in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Married Couple Family Household Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Married Couple Family Household Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Married Couple Family Household Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Earnings in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -652,6 +680,183 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+                    ],
+                    "title": "Median Income of Women (15 Years or Older) With Income in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Women (15 Years or Older) With Income in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+                    ],
+                    "title": "Median Income of Women (15 Years or Older) With Income in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Women (15 Years or Older) With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+                    ],
+                    "title": "Median Income of Women (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+                    ],
+                    "title": "Median Income of Women (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Women (15 Years or Older) With Income in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
+                    ],
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Person: Years 18 Onwards, Civilian, With Income in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
+                    ],
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
+                    ],
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
+                    ],
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold"
                     ],
                     "title": "Average Income for Nonfamily Households in East Carroll Parish",
@@ -704,242 +909,6 @@
               }
             ],
             "title": "Average Income for Nonfamily Households in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income for Households With Food Stamps in the Past Year in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households With Food Stamps in the Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households With Food Stamps in the Past Year in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Men (15 Years or Older) With Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-                    ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Men (15 Years or Older) With Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income for Households Without Food Stamps in the Past Year in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households Without Food Stamps in the Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households Without Food Stamps in the Past Year in Cities of East Carroll Parish"
           }
         ],
         "statVarSpec": {
@@ -1011,25 +980,21 @@
             "name": "Nonfamily Household Median Income",
             "statVar": "Median_Income_Household_NonfamilyHousehold"
           },
-          "Median_Income_Household_WithFoodStampsInThePast12Months": {
-            "name": "Median Income for Households With Food Stamps in the Past Year",
-            "statVar": "Median_Income_Household_WithFoodStampsInThePast12Months"
-          },
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months": {
-            "name": "Median Income for Households Without Food Stamps in the Past Year",
-            "statVar": "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
+          },
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+            "name": "Median Income of Women (15 Years or Older) With Income",
+            "statVar": "Median_Income_Person_15OrMoreYears_Female_WithIncome"
           },
           "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
             "name": "Median Income of Men (15 Years or Older) With Income",
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
-          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
-            "name": "Median Income of Person: Years 25 Onwards, Less Than High School Graduate, With Income",
-            "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+          "Median_Income_Person_18OrMoreYears_Civilian_WithIncome": {
+            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           }
         }
       }
@@ -1103,7 +1068,35 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Mean_Income_Household": {
+        "householdType": [
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold"
+        ]
+      },
+      "Median_Earnings_Person": {
+        "gender": [
+          "Median_Earnings_Person_Female",
+          "Median_Earnings_Person_Male"
+        ]
+      },
+      "Median_Income_Household": {
+        "householderRace": [
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
+          "Median_Income_Household_HouseholderRaceWhiteAlone",
+          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Median_Income_Person": {
+        "gender": [
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Income",
