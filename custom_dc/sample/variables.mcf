@@ -3,13 +3,13 @@ typeOf: dcid:StatVarGroup
 name: "OECD"
 specializationOf: dcid:dc/g/Root
 
-Node: dcid:Ratio_Average_Wages_To_Male_Average_Wages
+Node: dcid:Difference_Average_Wages_To_Male_Average_Wages
 typeOf: dcid:StatisticalVariable
 name: "Gender wage gap"
 description: "Percentage difference between median earnings of men and women relative to median earnings of men"
 populationType: dcid:Person
 measuredProperty: dcid:wagesAnnual
-statType: dcid:Ratio
+statType: dcid:difference
 memberOf: dcid:OECD
 
 Node: dcid:Annual_Average_Wage
