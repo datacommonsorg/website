@@ -27,6 +27,7 @@ def stat_var_v2_search(query: str, entities: list[str]) -> list[dict[str, str]]:
 
 def _resolve_candidates(query: str) -> list[dict[str, str]]:
   """Resolves a natural language query to a list of candidate DCIDs."""
+  # Statvar search explicitly queries both base and custom indicators.
   resolve_resp = dc.resolve(
       nodes=[query],
       prop="<-description->dcid",
