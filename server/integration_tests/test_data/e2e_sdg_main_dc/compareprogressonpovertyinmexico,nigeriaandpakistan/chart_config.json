@@ -36,87 +36,6 @@
               }
             ],
             "title": "Proportion of Population Below International Poverty Line (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_multiple_place_bar_block"
-                    ],
-                    "title": "Population Below International Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Population Below International Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block"
-                    ],
-                    "title": "Population Using Basic Drinking Water Services (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Drinking Water Services"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block"
-                    ],
-                    "title": "Population Using Basic Sanitation Services (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Sanitation Services"
           }
         ],
         "statVarSpec": {
@@ -151,14 +70,6 @@
           "sdg/SI_POV_DAY1_multiple_place_bar_block": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
-          },
-          "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block": {
-            "name": "Population Using Basic Drinking Water Services",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
-          },
-          "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block": {
-            "name": "Population Using Basic Sanitation Services",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
@@ -208,7 +119,23 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/SI_POV_DAY1": {
+        "age": [
+          "sdg/SI_POV_DAY1.AGE--Y0T14",
+          "sdg/SI_POV_DAY1.AGE--Y15T64",
+          "sdg/SI_POV_DAY1.AGE--Y_GE65"
+        ],
+        "sdg_sex": [
+          "sdg/SI_POV_DAY1.SEX--F",
+          "sdg/SI_POV_DAY1.SEX--M"
+        ],
+        "sdg_urbanisation": [
+          "sdg/SI_POV_DAY1.URBANISATION--R",
+          "sdg/SI_POV_DAY1.URBANISATION--U"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

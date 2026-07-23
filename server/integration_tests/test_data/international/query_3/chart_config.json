@@ -192,41 +192,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
                     ],
-                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
-                    ],
-                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Employed in Eurostat Nuts 3 Places of Spain"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
-                    ],
-                    "title": "Population: Employed in Spain",
+                    "title": "Gross National Income Based on Purchasing Power Parity in Spain",
                     "type": "LINE"
                   }
                 ]
@@ -234,18 +202,46 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Employed in Spain",
+                    "description": "Gross National Income Based on Purchasing Power Parity in Spain",
                     "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
                     ],
-                    "title": "Population: Employed in Spain",
+                    "title": "Gross National Income Based on Purchasing Power Parity in Spain",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Employed"
+            "title": "Gross National Income Based on Purchasing Power Parity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                    ],
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                    ],
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
           },
           {
             "columns": [
@@ -274,35 +270,6 @@
               }
             ],
             "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/EN_MAT_DOMCMPG"
-                    ],
-                    "title": "Domestic Material Consumption Per Unit of GDP in Spain",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Domestic Material Consumption Per Unit of GDP in Spain",
-                    "statVarKey": [
-                      "sdg/EN_MAT_DOMCMPG"
-                    ],
-                    "title": "Domestic Material Consumption Per Unit of GDP in Spain",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: eurostat; WESR / global material flows database.",
-            "title": "Domestic Material Consumption Per Unit of GDP"
           }
         ],
         "statVarSpec": {
@@ -322,17 +289,17 @@
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
+          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+            "name": "Gross National Income Based on Purchasing Power Parity",
+            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
+          },
+          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+            "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
+            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+          },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-          },
-          "dc/nm9hcklgg5zb3": {
-            "name": "Population: Employed",
-            "statVar": "dc/nm9hcklgg5zb3"
-          },
-          "sdg/EN_MAT_DOMCMPG": {
-            "name": "Domestic material consumption per unit of GDP",
-            "statVar": "sdg/EN_MAT_DOMCMPG"
           }
         }
       }
