@@ -58,7 +58,7 @@
     "enabled": true,
     "owner": "nick-nlb",
     "description": "Diverts traffic to Spanner database backend.",
-    "rollout_percentage": 5
+    "rollout_percentage": 0
   },
   {
     "name": "metadata_modal",
