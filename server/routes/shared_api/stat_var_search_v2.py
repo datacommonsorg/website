@@ -27,12 +27,9 @@ def stat_var_v2_search(query: str, entities: list[str]) -> list[dict[str, str]]:
 
 def _resolve_candidates(query: str) -> list[dict[str, str]]:
   """Resolves a natural language query to a list of candidate DCIDs."""
-  url = dc.get_service_url("/v2/resolve")
-  resolve_resp = dc.post(url, {
-      "nodes": [query],
-      "property": "<-description->dcid",
-      "resolver": "indicator"
-  })
+  resolve_resp = dc.resolve(nodes=[query],
+                            prop="<-description->dcid",
+                            resolver="indicator")
 
   candidates = []
   for ent in resolve_resp.get("entities", []):

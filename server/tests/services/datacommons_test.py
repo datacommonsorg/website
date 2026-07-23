@@ -271,6 +271,58 @@ class TestServiceDataCommonsResolveIndicator(unittest.TestCase):
 
     assert mock_post.call_count == 1
 
+  @mock.patch("server.services.datacommons.post")
+  def test_resolve_indicator_with_target_param(self, mock_post):
+
+    def side_effect(url, data, headers=None):
+      assert url.endswith("/v2/resolve")
+      self.assertEqual(
+          data, {
+              "nodes": ["foo", "bar"],
+              "property": "<-description->dcid",
+              "resolver": "indicator",
+              "target": "sdmx"
+          })
+      return {}
+
+    mock_post.side_effect = side_effect
+
+    from server.services.datacommons import resolve
+    resolve(
+        nodes=["foo", "bar"],
+        prop="<-description->dcid",
+        resolver="indicator",
+        target="sdmx",
+    )
+
+    assert mock_post.call_count == 1
+
+  @mock.patch.dict(os.environ, {"V2_RESOLVE_TARGET": "sdmx_env"})
+  @mock.patch("server.services.datacommons.post")
+  def test_resolve_indicator_with_target_env_var(self, mock_post):
+
+    def side_effect(url, data, headers=None):
+      assert url.endswith("/v2/resolve")
+      self.assertEqual(
+          data, {
+              "nodes": ["foo", "bar"],
+              "property": "<-description->dcid",
+              "resolver": "indicator",
+              "target": "sdmx_env"
+          })
+      return {}
+
+    mock_post.side_effect = side_effect
+
+    from server.services.datacommons import resolve
+    resolve(
+        nodes=["foo", "bar"],
+        prop="<-description->dcid",
+        resolver="indicator",
+    )
+
+    assert mock_post.call_count == 1
+
 
 class TestServiceDataCommonsCacheSkip(unittest.TestCase):
 

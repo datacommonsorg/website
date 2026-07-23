@@ -17,6 +17,7 @@ import asyncio
 import collections
 import json
 import logging
+import os
 from typing import Dict, List
 
 from flask import current_app
@@ -665,16 +666,22 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop, resolver="place"):
+def resolve(nodes, prop, resolver="place", target=""):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
         resolver: The resolver to use (default: "place").
+        target: Optional target parameter to scope resolution.
     """
+  if not target:
+    target = os.environ.get("V2_RESOLVE_TARGET", "")
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
+  req = {"nodes": nodes, "property": prop, "resolver": resolver}
+  if target:
+    req["target"] = target
+  return post(url, req)
 
 
 def nl_search_vars(
