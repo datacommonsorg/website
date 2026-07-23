@@ -11,35 +11,15 @@
         "id": "tools-0",
         "items": [
           {
-            "title": "Knowledge Graph",
-            "url": "{browser.browser_main}",
-            "description": "Explore what data is available and understand the graph structure"
-          },
-          {
             "title": "Statistical Variable Explorer",
             "url": "{tools.stat_var}",
             "description": "Explore statistical variable details including metadata and observations"
-          },
-          {
-            "title": "Data Download Tool",
-            "url": "{tools.download}",
-            "description": "Download data for selected statistical variables"
           }
         ]
       },
       {
         "id": "tools-1",
         "items": [
-          {
-            "title": "Map Explorer",
-            "url": "{tools.visualization}#visType=map",
-            "description": "Study how a selected statistical variable can vary across geographic regions"
-          },
-          {
-            "title": "Scatter Plot Explorer",
-            "url": "{tools.visualization}#visType=scatter",
-            "description": "Visualize the correlation between two statistical variables"
-          },
           {
             "title": "Timelines Explorer",
             "url": "{tools.visualization}#visType=timeline",

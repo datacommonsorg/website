@@ -111,6 +111,7 @@ resource "google_storage_bucket" "gcs_data_bucket" {
   name                        = local.gcs_data_bucket_name
   location                    = var.gcs_data_bucket_location
   uniform_bucket_level_access = true
+  force_destroy = true
 }
 
 # Input 'folder' for the data loading job.
