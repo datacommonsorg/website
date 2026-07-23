@@ -666,7 +666,7 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop, resolver="place", target=""):
+def resolve(nodes, prop, resolver="place", target=None):
   """Resolves nodes based on the given property.
 
     Args:
@@ -675,7 +675,7 @@ def resolve(nodes, prop, resolver="place", target=""):
         resolver: The resolver to use (default: "place").
         target: Optional target parameter to scope resolution.
     """
-  if not target and resolver == "indicator":
+  if target is None and resolver == "indicator":
     target = os.environ.get("V2_RESOLVE_INDICATORS_TARGET", "")
   url = get_service_url("/v2/resolve")
   req = {"nodes": nodes, "property": prop, "resolver": resolver}
