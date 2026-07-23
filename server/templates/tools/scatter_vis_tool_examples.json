@@ -5,8 +5,8 @@
     "url": "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26qd%3D1%26dd%3D1%26pp%3D"
   },
   {
-    "id": "scatter_literate_population_per_capita_vs_population_below_poverty_level_per_capita_for_states_in_india",
-    "titleMessageId": "literatePopulationVsPopulationBelowPovertyLevel",
-    "url": "/tools/scatter#svx%3DCount_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person%26dx%3DCount_Person%26svy%3DCount_Person_Literate%26pcy%3D1%26dy%3DCount_Person%26epd%3Dcountry%2FIND%26ept%3DAdministrativeArea1"
+    "id": "scatter_percent_obesity_vs_median_income_for_counties_in_the_usa",
+    "titleMessageId": "percentObesityVsMedianIncome",
+    "url": "/tools/scatter#svx%3DPercent_Person_Obesity%26dx%3DCount_Person%26svy%3DMedian_Income_Person%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty"
   }
 ]

@@ -267,6 +267,13 @@ export const VisToolExampleChartMessages = defineMessages({
     description:
       "Title of a scatter plot showing the correlation between the literate population per capita and population below poverty level per capita for states in India",
   },
+  percentObesityVsMedianIncome: {
+    id: "scatter_percent_obesity_vs_median_income_for_counties_in_the_usa",
+    defaultMessage:
+      "Percentage of obesity vs. median income for counties in the USA",
+    description:
+      "Title of a scatter plot showing the correlation between the percentage of obesity and median income for counties in the USA",
+  },
   waterWithdrawalRateInCalifornia: {
     id: "water_withdrawal_rate_in_california",
     defaultMessage: "Water withdrawal rate in California",
