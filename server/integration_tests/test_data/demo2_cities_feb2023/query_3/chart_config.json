@@ -162,7 +162,7 @@
                     "statVarKey": [
                       "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome in Sunnyvale",
+                    "title": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -170,17 +170,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome in Sunnyvale",
+                    "description": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home in Sunnyvale",
                     "statVarKey": [
                       "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome in Sunnyvale",
+                    "title": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+            "title": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home"
           },
           {
             "columns": [
@@ -221,7 +221,7 @@
         ],
         "statVarSpec": {
           "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
-            "name": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
+            "name": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home",
             "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
           },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
@@ -229,15 +229,15 @@
             "statVar": "dc/0gettc3bc60cb"
           },
           "dc/1fw0t5m6459gb_multiple_place_bar_block": {
-            "name": "dc/1fw0t5m6459gb",
+            "name": "Population: Years 16 Onwards, Minute 10 To 14, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/1fw0t5m6459gb"
           },
           "dc/4xklqxfc27w1f_multiple_place_bar_block": {
-            "name": "dc/4xklqxfc27w1f",
+            "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/4xklqxfc27w1f"
           },
           "dc/62gn48xpbqew9_multiple_place_bar_block": {
-            "name": "dc/62gn48xpbqew9",
+            "name": "Population: Years 16 Onwards, Minute 30 To 34, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/62gn48xpbqew9"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
@@ -245,59 +245,59 @@
             "statVar": "dc/6rltk4kf75612"
           },
           "dc/6zrlr86zt61yg_multiple_place_bar_block": {
-            "name": "dc/6zrlr86zt61yg",
+            "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/6zrlr86zt61yg"
           },
           "dc/7wt44yv38rew_multiple_place_bar_block": {
-            "name": "dc/7wt44yv38rew",
+            "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/7wt44yv38rew"
           },
           "dc/7ykp70f9rtck9_multiple_place_bar_block": {
-            "name": "dc/7ykp70f9rtck9",
+            "name": "Population: Years 16 Onwards, Minute 20 To 24, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/7ykp70f9rtck9"
           },
           "dc/80q8jrnkvwtt3_multiple_place_bar_block": {
-            "name": "dc/80q8jrnkvwtt3",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/80q8jrnkvwtt3"
           },
           "dc/bre4whrdn7pt7_multiple_place_bar_block": {
-            "name": "dc/bre4whrdn7pt7",
+            "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/bre4whrdn7pt7"
           },
           "dc/cs8fvwkmpmlpg_multiple_place_bar_block": {
-            "name": "dc/cs8fvwkmpmlpg",
+            "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/cs8fvwkmpmlpg"
           },
           "dc/dbe0drezxrpv6_multiple_place_bar_block": {
-            "name": "dc/dbe0drezxrpv6",
+            "name": "Population: Years 16 Onwards, Minute 5 To 9, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/dbe0drezxrpv6"
           },
           "dc/dj7khl7q78412_multiple_place_bar_block": {
-            "name": "dc/dj7khl7q78412",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/dj7khl7q78412"
           },
           "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
-            "name": "dc/dn2h9yfcgbkg2",
+            "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/dn2h9yfcgbkg2"
           },
           "dc/e27c5t4tbplg_multiple_place_bar_block": {
-            "name": "dc/e27c5t4tbplg",
+            "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/e27c5t4tbplg"
           },
           "dc/exr9t81en1h34_multiple_place_bar_block": {
-            "name": "dc/exr9t81en1h34",
+            "name": "Population: Years 16 Onwards, Minute 25 To 29, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/exr9t81en1h34"
           },
           "dc/fgt7thnws9vx9_multiple_place_bar_block": {
-            "name": "dc/fgt7thnws9vx9",
+            "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/fgt7thnws9vx9"
           },
           "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
-            "name": "dc/fyc3yvjy0xw6g",
+            "name": "Population: Years 16 Onwards, Minute Upto 5, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/fyc3yvjy0xw6g"
           },
           "dc/h7ft916g93ys2_multiple_place_bar_block": {
-            "name": "dc/h7ft916g93ys2",
+            "name": "Population: Years 16 Onwards, Minute 90 Onwards, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/h7ft916g93ys2"
           },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
@@ -305,71 +305,71 @@
             "statVar": "dc/hbkh95kc7pkb6"
           },
           "dc/j7lkt2ww5qsn5_multiple_place_bar_block": {
-            "name": "dc/j7lkt2ww5qsn5",
+            "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/j7lkt2ww5qsn5"
           },
           "dc/jszfr5wd4f7pb_multiple_place_bar_block": {
-            "name": "dc/jszfr5wd4f7pb",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/jszfr5wd4f7pb"
           },
           "dc/jxsx1rb4xg84f_multiple_place_bar_block": {
-            "name": "dc/jxsx1rb4xg84f",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/jxsx1rb4xg84f"
           },
           "dc/k33ngtzpqxql6_multiple_place_bar_block": {
-            "name": "dc/k33ngtzpqxql6",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/k33ngtzpqxql6"
           },
           "dc/kfr6chpkw90e3_multiple_place_bar_block": {
-            "name": "dc/kfr6chpkw90e3",
+            "name": "Population: Years 16 Onwards, Minute 60 To 89, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/kfr6chpkw90e3"
           },
           "dc/kt900ezddrf79_multiple_place_bar_block": {
-            "name": "dc/kt900ezddrf79",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/kt900ezddrf79"
           },
           "dc/m615rq99fwf2c_multiple_place_bar_block": {
-            "name": "dc/m615rq99fwf2c",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/m615rq99fwf2c"
           },
           "dc/n2vhkpw0slkv5_multiple_place_bar_block": {
-            "name": "dc/n2vhkpw0slkv5",
+            "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/n2vhkpw0slkv5"
           },
           "dc/nfdf9rt7kbggb_multiple_place_bar_block": {
-            "name": "dc/nfdf9rt7kbggb",
+            "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/nfdf9rt7kbggb"
           },
           "dc/nvrxn11yxlen2_multiple_place_bar_block": {
-            "name": "dc/nvrxn11yxlen2",
+            "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/nvrxn11yxlen2"
           },
           "dc/pplpj0y0mzd3g_multiple_place_bar_block": {
-            "name": "dc/pplpj0y0mzd3g",
+            "name": "Population: Years 16 Onwards, Minute 40 To 44, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/pplpj0y0mzd3g"
           },
           "dc/r0delcsw86kc6_multiple_place_bar_block": {
-            "name": "dc/r0delcsw86kc6",
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/r0delcsw86kc6"
           },
           "dc/slp5hywj7b9c1_multiple_place_bar_block": {
-            "name": "dc/slp5hywj7b9c1",
+            "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/slp5hywj7b9c1"
           },
           "dc/t0hh9jhx104k7_multiple_place_bar_block": {
-            "name": "dc/t0hh9jhx104k7",
+            "name": "Population: Years 16 Onwards, Minute 45 To 59, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/t0hh9jhx104k7"
           },
           "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
-            "name": "dc/v33p7mwnpe9vb",
+            "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/v33p7mwnpe9vb"
           },
           "dc/vfs5dgtzhp4j4_multiple_place_bar_block": {
-            "name": "dc/vfs5dgtzhp4j4",
+            "name": "Population: Years 16 Onwards, Minute 35 To 39, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/vfs5dgtzhp4j4"
           },
           "dc/vgwx3kjjzz8wf_multiple_place_bar_block": {
-            "name": "dc/vgwx3kjjzz8wf",
+            "name": "Population: Years 16 Onwards, Minute 15 To 19, USC Employed And Working, BLS In Labor Force, Outside Of Home",
             "statVar": "dc/vgwx3kjjzz8wf"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
@@ -385,11 +385,11 @@
             "statVar": "dc/wc8q05drd74bd"
           },
           "dc/y9yb58snpfzw5_multiple_place_bar_block": {
-            "name": "dc/y9yb58snpfzw5",
+            "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/y9yb58snpfzw5"
           },
           "dc/zcth2y8fqte1f_multiple_place_bar_block": {
-            "name": "dc/zcth2y8fqte1f",
+            "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/zcth2y8fqte1f"
           }
         }
@@ -430,67 +430,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
-        "commuteMode": [
-          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanCarpooled_WorkCommute_Employed_WorkedOutsideOfHome",
-          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanDroveAlone_WorkCommute_Employed_WorkedOutsideOfHome",
-          "Mean_CommuteTime_Person_Years16Onwards_PublicTransportationExcludingTaxicab_WorkCommute_Employed_WorkedOutsideOfHome"
-        ],
-        "gender": [
-          "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_Female_WorkedOutsideOfHome",
-          "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_Male_WorkedOutsideOfHome"
-        ]
-      },
-      "dc/0gettc3bc60cb": {
-        "hasOccupation": [
-          "dc/jszfr5wd4f7pb",
-          "dc/k33ngtzpqxql6",
-          "dc/kt900ezddrf79",
-          "dc/r0delcsw86kc6"
-        ]
-      },
-      "dc/6rltk4kf75612": {
-        "hasOccupation": [
-          "dc/7wt44yv38rew",
-          "dc/cs8fvwkmpmlpg",
-          "dc/dn2h9yfcgbkg2",
-          "dc/nfdf9rt7kbggb"
-        ]
-      },
-      "dc/hbkh95kc7pkb6": {
-        "hasOccupation": [
-          "dc/4xklqxfc27w1f",
-          "dc/j7lkt2ww5qsn5",
-          "dc/n2vhkpw0slkv5",
-          "dc/nvrxn11yxlen2"
-        ]
-      },
-      "dc/vp8cbt6k79t94": {
-        "hasOccupation": [
-          "dc/bre4whrdn7pt7",
-          "dc/fgt7thnws9vx9",
-          "dc/v33p7mwnpe9vb",
-          "dc/zcth2y8fqte1f"
-        ]
-      },
-      "dc/vt2q292eme79f": {
-        "hasOccupation": [
-          "dc/6zrlr86zt61yg",
-          "dc/e27c5t4tbplg",
-          "dc/slp5hywj7b9c1",
-          "dc/y9yb58snpfzw5"
-        ]
-      },
-      "dc/wc8q05drd74bd": {
-        "hasOccupation": [
-          "dc/80q8jrnkvwtt3",
-          "dc/dj7khl7q78412",
-          "dc/jxsx1rb4xg84f",
-          "dc/m615rq99fwf2c"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/CommuteMode",
@@ -510,7 +450,358 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0649670",
+        "name": "Mountain View",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/CommuteTime",

@@ -44,8 +44,8 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female_-8605212475562558818",
-                      "LifeExpectancy_Person_Male_-8605212475562558818"
+                      "LifeExpectancy_Person_Female_9841531598146992798",
+                      "LifeExpectancy_Person_Male_9841531598146992798"
                     ],
                     "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
@@ -128,7 +128,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person_-4227026274840779483"
+                      "Count_Death_AsAFractionOfCount_Person_14219717798868772133"
                     ],
                     "title": "Deaths Per Capita in United States",
                     "type": "LINE"
@@ -190,7 +190,7 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "sdg/SH_DYN_NMRT.AGE--M0_-4768507140143104330"
+                      "sdg/SH_DYN_NMRT.AGE--M0_13678236933566447286"
                     ],
                     "title": "Neonatal Mortality Rate in United States",
                     "type": "LINE"
@@ -224,7 +224,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_4486658077301201845"
                     ],
-                    "title": "Count_Death_Upto1Years in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "LINE"
                   }
                 ]
@@ -232,18 +232,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Death_Upto1Years in United States",
+                    "description": "Count of Mortality Event: Years Upto 1 in United States",
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count_Death_Upto1Years in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Death_Upto1Years"
+            "title": "Count of Mortality Event: Years Upto 1"
           },
           {
             "columns": [
@@ -254,8 +254,8 @@
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_-4768507140143104330",
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_-4768507140143104330"
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_13678236933566447286"
                     ],
                     "title": "Infant Mortality Rate by Gender in United States",
                     "type": "LINE"
@@ -416,8 +416,8 @@
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
-          "Count_Death_AsAFractionOfCount_Person_-4227026274840779483": {
-            "facetId": "-4227026274840779483",
+          "Count_Death_AsAFractionOfCount_Person_14219717798868772133": {
+            "facetId": "14219717798868772133",
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
@@ -431,12 +431,12 @@
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count_Death_Upto1Years",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_4486658077301201845": {
             "facetId": "4486658077301201845",
-            "name": "Count_Death_Upto1Years",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "LifeExpectancy_Person": {
@@ -448,13 +448,13 @@
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_Female_-8605212475562558818": {
-            "facetId": "-8605212475562558818",
+          "LifeExpectancy_Person_Female_9841531598146992798": {
+            "facetId": "9841531598146992798",
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
-          "LifeExpectancy_Person_Male_-8605212475562558818": {
-            "facetId": "-8605212475562558818",
+          "LifeExpectancy_Person_Male_9841531598146992798": {
+            "facetId": "9841531598146992798",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
@@ -471,13 +471,13 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_-4768507140143104330": {
-            "facetId": "-4768507140143104330",
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286": {
+            "facetId": "13678236933566447286",
             "name": "Infant mortality rate",
             "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
           },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_-4768507140143104330": {
-            "facetId": "-4768507140143104330",
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_13678236933566447286": {
+            "facetId": "13678236933566447286",
             "name": "Infant mortality rate [under 1 year old, Male]",
             "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
           },
@@ -485,8 +485,8 @@
             "name": "Neonatal mortality rate",
             "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           },
-          "sdg/SH_DYN_NMRT.AGE--M0_-4768507140143104330": {
-            "facetId": "-4768507140143104330",
+          "sdg/SH_DYN_NMRT.AGE--M0_13678236933566447286": {
+            "facetId": "13678236933566447286",
             "name": "Neonatal mortality rate",
             "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           }
@@ -876,26 +876,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Death": {
-        "age": [
-          "Count_Death_0Years",
-          "Count_Death_Upto1Years"
-        ]
-      },
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      },
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",
@@ -915,7 +896,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/CausesOfDeath",

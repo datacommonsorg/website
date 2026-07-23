@@ -206,7 +206,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone in Cities of Santa Clara County (${date})",
+                    "title": "Population: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -221,14 +221,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone in Cities of Santa Clara County (${date})",
+                    "title": "Population: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone in Cities of Santa Clara County"
+            "title": "Population: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -269,7 +269,7 @@
             "statVar": "Count_Person_15OrMoreYears_Divorced_AsianAlone"
           },
           "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone": {
-            "name": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
+            "name": "Population: Years 15 Onwards, Divorced, Black Or African American Alone",
             "statVar": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino": {
@@ -562,30 +562,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_Divorced": {
-        "gender": [
-          "Count_Person_Female_Divorced",
-          "Count_Person_Male_Divorced"
-        ],
-        "nativity": [
-          "Count_Person_15OrMoreYears_Divorced_ForeignBorn",
-          "Count_Person_15OrMoreYears_Divorced_Native"
-        ],
-        "race": [
-          "Count_Person_15OrMoreYears_Divorced_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_15OrMoreYears_Divorced_AsianAlone",
-          "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
-          "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino",
-          "Count_Person_15OrMoreYears_Divorced_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_15OrMoreYears_Divorced_OneRace",
-          "Count_Person_15OrMoreYears_Divorced_SomeOtherRaceAlone",
-          "Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces",
-          "Count_Person_15OrMoreYears_Divorced_WhiteAlone",
-          "Count_Person_15OrMoreYears_Divorced_WhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/DivorcedPopulationByDemographic",
@@ -605,7 +582,197 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "AdministrativeArea"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "AdministrativeArea"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/MaritalStatusBreakdown",

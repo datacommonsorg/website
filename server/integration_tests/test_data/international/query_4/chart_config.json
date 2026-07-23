@@ -75,7 +75,7 @@
                     "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
                     ],
-                    "title": "Count_BirthEvent_AsAFractionOfCount_Person in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -86,13 +86,13 @@
                     "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
                     ],
-                    "title": "Count_BirthEvent_AsAFractionOfCount_Person in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count_BirthEvent_AsAFractionOfCount_Person in Eurostat Nuts 3 Places of Turkey"
+            "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey"
           },
           {
             "columns": [
@@ -102,7 +102,7 @@
                     "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
                     ],
-                    "title": "Count_BirthEvent_AsAFractionOfCount_Person in Turkey",
+                    "title": "Count of Birth Event (Per Capita) in Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -110,17 +110,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_BirthEvent_AsAFractionOfCount_Person in Turkey",
+                    "description": "Count of Birth Event (Per Capita) in Turkey",
                     "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
                     ],
-                    "title": "Count_BirthEvent_AsAFractionOfCount_Person in Turkey",
+                    "title": "Count of Birth Event (Per Capita) in Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count_BirthEvent_AsAFractionOfCount_Person"
+            "title": "Count of Birth Event (Per Capita)"
           },
           {
             "columns": [
@@ -163,7 +163,7 @@
                     "statVarKey": [
                       "Count_BirthEvent"
                     ],
-                    "title": "Count_BirthEvent in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -174,13 +174,13 @@
                     "statVarKey": [
                       "Count_BirthEvent"
                     ],
-                    "title": "Count_BirthEvent in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count_BirthEvent in Eurostat Nuts 3 Places of Turkey"
+            "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey"
           },
           {
             "columns": [
@@ -190,7 +190,7 @@
                     "statVarKey": [
                       "Count_BirthEvent"
                     ],
-                    "title": "Count_BirthEvent in Turkey",
+                    "title": "Count of Birth Event in Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -198,17 +198,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_BirthEvent in Turkey",
+                    "description": "Count of Birth Event in Turkey",
                     "statVarKey": [
                       "Count_BirthEvent"
                     ],
-                    "title": "Count_BirthEvent in Turkey",
+                    "title": "Count of Birth Event in Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count_BirthEvent"
+            "title": "Count of Birth Event"
           },
           {
             "columns": [
@@ -384,7 +384,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in Turkey",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -392,17 +392,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in Turkey",
+                    "description": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent in Turkey",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+            "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event)"
           },
           {
             "columns": [
@@ -468,11 +468,11 @@
         ],
         "statVarSpec": {
           "Count_BirthEvent": {
-            "name": "Count_BirthEvent",
+            "name": "Count of Birth Event",
             "statVar": "Count_BirthEvent"
           },
           "Count_BirthEvent_AsAFractionOfCount_Person": {
-            "name": "Count_BirthEvent_AsAFractionOfCount_Person",
+            "name": "Count of Birth Event (Per capita)",
             "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
           },
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
@@ -484,7 +484,7 @@
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
+            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Person": {
@@ -909,7 +909,113 @@
     ],
     "parentPlaces": [],
     "parentTopics": [],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",

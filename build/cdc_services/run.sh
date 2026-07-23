@@ -88,10 +88,12 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     fi
     
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
-    
+    SPANNER_SEARCH_CONFIG_PATH=${SPANNER_SEARCH_CONFIG_PATH:-"/workspace/internal/server/spanner/spanner_config/dcp_default.yaml"}
+
     # 2. Enable V2 API for Mixer
     MIXER_ARGS+=(
         "--spanner_graph_info=$SPANNER_CONFIG_YAML"
+        "--spanner_search_config_path=$SPANNER_SEARCH_CONFIG_PATH"
         "--use_spanner_graph=true"
         "--feature_flags_path=deploy/featureflags/dcp.yaml"
     )
