@@ -174,15 +174,21 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome_multiple_place_bar_block"
+                      "dc/vh36nvvkwxz5g_multiple_place_bar_block",
+                      "dc/n99t0lnl3fch6_multiple_place_bar_block",
+                      "dc/2hhr4qp4b4r0b_multiple_place_bar_block",
+                      "dc/j7pej9wer7lkd_multiple_place_bar_block",
+                      "dc/b9plt3q5k6gyb_multiple_place_bar_block",
+                      "dc/06m8j6xz3h0wf_multiple_place_bar_block"
                     ],
-                    "title": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home (${date})",
+                    "title": "Natural Resources, Construction and Maintenance Occupations (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home"
+            "denom": "Count_Person",
+            "title": "Natural Resources, Construction and Maintenance Occupations"
           },
           {
             "columns": [
@@ -199,49 +205,43 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "dc/fyc3yvjy0xw6g_multiple_place_bar_block",
-                      "dc/dbe0drezxrpv6_multiple_place_bar_block",
-                      "dc/1fw0t5m6459gb_multiple_place_bar_block",
-                      "dc/vgwx3kjjzz8wf_multiple_place_bar_block",
-                      "dc/7ykp70f9rtck9_multiple_place_bar_block",
-                      "dc/exr9t81en1h34_multiple_place_bar_block",
-                      "dc/62gn48xpbqew9_multiple_place_bar_block",
-                      "dc/vfs5dgtzhp4j4_multiple_place_bar_block",
-                      "dc/pplpj0y0mzd3g_multiple_place_bar_block",
-                      "dc/t0hh9jhx104k7_multiple_place_bar_block",
-                      "dc/kfr6chpkw90e3_multiple_place_bar_block",
-                      "dc/h7ft916g93ys2_multiple_place_bar_block"
+                      "dc/zf0wjwwyddbj4_multiple_place_bar_block",
+                      "dc/2r1c78wzvbq58_multiple_place_bar_block",
+                      "dc/9vlv8l9dbgsk7_multiple_place_bar_block",
+                      "dc/m54m06x6r5xm9_multiple_place_bar_block",
+                      "dc/wqbf0ppbmly7_multiple_place_bar_block",
+                      "dc/bhc16vntggjyd_multiple_place_bar_block"
                     ],
-                    "title": "Commuters by Commute Time (${date})",
+                    "title": "Military Specific Occupation (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commuters by Commute Time"
+            "title": "Military Specific Occupation"
           }
         ],
         "statVarSpec": {
-          "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome_multiple_place_bar_block": {
-            "name": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home",
-            "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+          "dc/06m8j6xz3h0wf_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-4",
+            "statVar": "dc/06m8j6xz3h0wf"
           },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
           },
-          "dc/1fw0t5m6459gb_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 10 To 14, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/1fw0t5m6459gb"
+          "dc/2hhr4qp4b4r0b_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-4",
+            "statVar": "dc/2hhr4qp4b4r0b"
+          },
+          "dc/2r1c78wzvbq58_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-6",
+            "statVar": "dc/2r1c78wzvbq58"
           },
           "dc/4xklqxfc27w1f_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/4xklqxfc27w1f"
-          },
-          "dc/62gn48xpbqew9_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 30 To 34, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/62gn48xpbqew9"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
@@ -255,13 +255,21 @@
             "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/7wt44yv38rew"
           },
-          "dc/7ykp70f9rtck9_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 20 To 24, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/7ykp70f9rtck9"
-          },
           "dc/80q8jrnkvwtt3_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/80q8jrnkvwtt3"
+          },
+          "dc/9vlv8l9dbgsk7_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-6",
+            "statVar": "dc/9vlv8l9dbgsk7"
+          },
+          "dc/b9plt3q5k6gyb_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-4",
+            "statVar": "dc/b9plt3q5k6gyb"
+          },
+          "dc/bhc16vntggjyd_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-6",
+            "statVar": "dc/bhc16vntggjyd"
           },
           "dc/bre4whrdn7pt7_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
@@ -270,10 +278,6 @@
           "dc/cs8fvwkmpmlpg_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/cs8fvwkmpmlpg"
-          },
-          "dc/dbe0drezxrpv6_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 5 To 9, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/dbe0drezxrpv6"
           },
           "dc/dj7khl7q78412_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
@@ -287,21 +291,9 @@
             "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/e27c5t4tbplg"
           },
-          "dc/exr9t81en1h34_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 25 To 29, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/exr9t81en1h34"
-          },
           "dc/fgt7thnws9vx9_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/fgt7thnws9vx9"
-          },
-          "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute Upto 5, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/fyc3yvjy0xw6g"
-          },
-          "dc/h7ft916g93ys2_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 90 Onwards, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/h7ft916g93ys2"
           },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
             "name": "Public Transit",
@@ -310,6 +302,10 @@
           "dc/j7lkt2ww5qsn5_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
             "statVar": "dc/j7lkt2ww5qsn5"
+          },
+          "dc/j7pej9wer7lkd_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-4",
+            "statVar": "dc/j7pej9wer7lkd"
           },
           "dc/jszfr5wd4f7pb_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
@@ -323,13 +319,13 @@
             "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/k33ngtzpqxql6"
           },
-          "dc/kfr6chpkw90e3_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 60 To 89, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/kfr6chpkw90e3"
-          },
           "dc/kt900ezddrf79_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/kt900ezddrf79"
+          },
+          "dc/m54m06x6r5xm9_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-6",
+            "statVar": "dc/m54m06x6r5xm9"
           },
           "dc/m615rq99fwf2c_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Car Truck Or Van Carpooled, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
@@ -339,6 +335,10 @@
             "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-2",
             "statVar": "dc/n2vhkpw0slkv5"
           },
+          "dc/n99t0lnl3fch6_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-4",
+            "statVar": "dc/n99t0lnl3fch6"
+          },
           "dc/nfdf9rt7kbggb_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/nfdf9rt7kbggb"
@@ -346,10 +346,6 @@
           "dc/nvrxn11yxlen2_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Public Transportation Excluding Taxicab, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/nvrxn11yxlen2"
-          },
-          "dc/pplpj0y0mzd3g_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 40 To 44, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/pplpj0y0mzd3g"
           },
           "dc/r0delcsw86kc6_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-5",
@@ -359,21 +355,13 @@
             "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/slp5hywj7b9c1"
           },
-          "dc/t0hh9jhx104k7_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 45 To 59, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/t0hh9jhx104k7"
-          },
           "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/v33p7mwnpe9vb"
           },
-          "dc/vfs5dgtzhp4j4_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 35 To 39, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/vfs5dgtzhp4j4"
-          },
-          "dc/vgwx3kjjzz8wf_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Minute 15 To 19, USC Employed And Working, BLS In Labor Force, Outside Of Home",
-            "statVar": "dc/vgwx3kjjzz8wf"
+          "dc/vh36nvvkwxz5g_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-4",
+            "statVar": "dc/vh36nvvkwxz5g"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
             "name": "Walk to work",
@@ -387,6 +375,10 @@
             "name": "Carpool",
             "statVar": "dc/wc8q05drd74bd"
           },
+          "dc/wqbf0ppbmly7_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Car Truck Or Van Drove Alone, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-6",
+            "statVar": "dc/wqbf0ppbmly7"
+          },
           "dc/y9yb58snpfzw5_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Taxicab Motorcycle Bicycle Or Other Means, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-1",
             "statVar": "dc/y9yb58snpfzw5"
@@ -394,6 +386,10 @@
           "dc/zcth2y8fqte1f_multiple_place_bar_block": {
             "name": "Population: Years 16 Onwards, Walked, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-3",
             "statVar": "dc/zcth2y8fqte1f"
+          },
+          "dc/zf0wjwwyddbj4_multiple_place_bar_block": {
+            "name": "Population: Years 16 Onwards, Worked At Home, USC Employed And Working, BLS In Labor Force, SO Cv 2018/high Level Aggregation-6",
+            "statVar": "dc/zf0wjwwyddbj4"
           }
         }
       }
@@ -438,7 +434,68 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "dc/0gettc3bc60cb": {
+        "hasOccupation": [
+          "dc/b9plt3q5k6gyb",
+          "dc/jszfr5wd4f7pb",
+          "dc/k33ngtzpqxql6",
+          "dc/kt900ezddrf79",
+          "dc/r0delcsw86kc6",
+          "dc/wqbf0ppbmly7"
+        ]
+      },
+      "dc/6rltk4kf75612": {
+        "hasOccupation": [
+          "dc/7wt44yv38rew",
+          "dc/cs8fvwkmpmlpg",
+          "dc/dn2h9yfcgbkg2",
+          "dc/nfdf9rt7kbggb",
+          "dc/vh36nvvkwxz5g",
+          "dc/zf0wjwwyddbj4"
+        ]
+      },
+      "dc/hbkh95kc7pkb6": {
+        "hasOccupation": [
+          "dc/2hhr4qp4b4r0b",
+          "dc/4xklqxfc27w1f",
+          "dc/9vlv8l9dbgsk7",
+          "dc/j7lkt2ww5qsn5",
+          "dc/n2vhkpw0slkv5",
+          "dc/nvrxn11yxlen2"
+        ]
+      },
+      "dc/vp8cbt6k79t94": {
+        "hasOccupation": [
+          "dc/2r1c78wzvbq58",
+          "dc/bre4whrdn7pt7",
+          "dc/fgt7thnws9vx9",
+          "dc/n99t0lnl3fch6",
+          "dc/v33p7mwnpe9vb",
+          "dc/zcth2y8fqte1f"
+        ]
+      },
+      "dc/vt2q292eme79f": {
+        "hasOccupation": [
+          "dc/06m8j6xz3h0wf",
+          "dc/6zrlr86zt61yg",
+          "dc/bhc16vntggjyd",
+          "dc/e27c5t4tbplg",
+          "dc/slp5hywj7b9c1",
+          "dc/y9yb58snpfzw5"
+        ]
+      },
+      "dc/wc8q05drd74bd": {
+        "hasOccupation": [
+          "dc/80q8jrnkvwtt3",
+          "dc/dj7khl7q78412",
+          "dc/j7pej9wer7lkd",
+          "dc/jxsx1rb4xg84f",
+          "dc/m54m06x6r5xm9",
+          "dc/m615rq99fwf2c"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/CommuteMode",

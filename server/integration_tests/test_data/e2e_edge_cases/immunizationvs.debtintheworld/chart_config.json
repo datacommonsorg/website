@@ -9,6 +9,57 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "IncrementalCount_Vaccine_COVID_19_Administered_scatter",
+                      "sdg/DT_DOD_DECT_GN_ZS_scatter"
+                    ],
+                    "title": "COVID-19 Vaccines Administered Daily (${yDate}) Vs. External Debt Stocks as a Proportion of GNI (${xDate}) in the World",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "COVID-19 Vaccines Administered Daily vs. External debt stocks as a proportion of GNI"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "IncrementalCount_Vaccine_COVID_19_Administered"
+                    ],
+                    "title": "COVID-19 Vaccines Administered Daily in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "IncrementalCount_Vaccine_COVID_19_Administered"
+                    ],
+                    "title": "COVID-19 Vaccines Administered Daily in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "COVID-19 Vaccines Administered Daily in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
@@ -35,11 +86,85 @@
             ],
             "footnote": "Includes data from the following sources: world bank, international debt statistics.",
             "title": "External Debt Stocks as a Proportion of GNI in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "CumulativeCount_Vaccine_COVID_19_Administered_scatter",
+                      "sdg/DT_DOD_DECT_GN_ZS_scatter"
+                    ],
+                    "title": "Total COVID-19 Vaccines Administered (${yDate}) Vs. External Debt Stocks as a Proportion of GNI (${xDate}) in the World",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Total COVID-19 Vaccines Administered vs. External debt stocks as a proportion of GNI"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "CumulativeCount_Vaccine_COVID_19_Administered"
+                    ],
+                    "title": "Total COVID-19 Vaccines Administered in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "CumulativeCount_Vaccine_COVID_19_Administered"
+                    ],
+                    "title": "Total COVID-19 Vaccines Administered in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Total COVID-19 Vaccines Administered in the World"
           }
         ],
         "statVarSpec": {
+          "CumulativeCount_Vaccine_COVID_19_Administered": {
+            "name": "Total COVID-19 Vaccines Administered",
+            "statVar": "CumulativeCount_Vaccine_COVID_19_Administered"
+          },
+          "CumulativeCount_Vaccine_COVID_19_Administered_scatter": {
+            "name": "Total COVID-19 Vaccines Administered",
+            "noPerCapita": true,
+            "statVar": "CumulativeCount_Vaccine_COVID_19_Administered"
+          },
+          "IncrementalCount_Vaccine_COVID_19_Administered": {
+            "name": "COVID-19 Vaccines Administered Daily",
+            "statVar": "IncrementalCount_Vaccine_COVID_19_Administered"
+          },
+          "IncrementalCount_Vaccine_COVID_19_Administered_scatter": {
+            "name": "COVID-19 Vaccines Administered Daily",
+            "noPerCapita": true,
+            "statVar": "IncrementalCount_Vaccine_COVID_19_Administered"
+          },
           "sdg/DT_DOD_DECT_GN_ZS": {
             "name": "External debt stocks as a proportion of GNI",
+            "statVar": "sdg/DT_DOD_DECT_GN_ZS"
+          },
+          "sdg/DT_DOD_DECT_GN_ZS_scatter": {
+            "name": "External debt stocks as a proportion of GNI",
+            "noPerCapita": true,
             "statVar": "sdg/DT_DOD_DECT_GN_ZS"
           }
         }
@@ -430,6 +555,13 @@
     "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
+      {
+        "dcid": "dc/topic/Vaccines",
+        "name": "Vaccines",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/Debt",
         "name": "Debt",
