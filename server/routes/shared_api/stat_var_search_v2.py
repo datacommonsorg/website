@@ -27,9 +27,12 @@ def stat_var_v2_search(query: str, entities: list[str]) -> list[dict[str, str]]:
 
 def _resolve_candidates(query: str) -> list[dict[str, str]]:
   """Resolves a natural language query to a list of candidate DCIDs."""
-  resolve_resp = dc.resolve(nodes=[query],
-                            prop="<-description->dcid",
-                            resolver="indicator")
+  resolve_resp = dc.resolve(
+      nodes=[query],
+      prop="<-description->dcid",
+      resolver="indicator",
+      target="base_and_custom",
+  )
 
   candidates = []
   for ent in resolve_resp.get("entities", []):
