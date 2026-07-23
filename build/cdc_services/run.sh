@@ -96,6 +96,7 @@ if [[ $USE_SPANNER_GRAPH == "true" ]]; then
         "--spanner_search_config_path=$SPANNER_SEARCH_CONFIG_PATH"
         "--use_spanner_graph=true"
         "--feature_flags_path=deploy/featureflags/dcp.yaml"
+        "--host_project=$GCP_PROJECT_ID"
     )
 fi
 
