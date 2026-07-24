@@ -40,7 +40,7 @@ def update_mixer_flags():
     if 'flags' not in data or data['flags'] is None:
         data['flags'] = {}
         
-    # ---> OVERRIDE FEATUREFLAG VALUES WITH ENVS HERE <---
+    # ---> OVERRIDE FEATURE FLAG VALUES WITH ENV VARS HERE <---
     # Canonical default feature flags reside directly in deploy/featureflags/dcp.yaml.
     # To add dynamic environment variable overrides during container startup, follow this pattern:
     #
