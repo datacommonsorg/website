@@ -40,17 +40,13 @@ def update_mixer_flags():
     if 'flags' not in data or data['flags'] is None:
         data['flags'] = {}
         
-    # Dynamically inject flags based on explicit environment variable settings
-    # TODO: Clean up RESOLVE_WITH_SPANNER_EMBEDDINGS override since DCP is fully migrated to Spanner embeddings and canonical flags reside directly in dcp.yaml.
-    if 'RESOLVE_WITH_SPANNER_EMBEDDINGS' in os.environ:
-        data['flags']['EnableSpannerSearchEmbeddings'] = os.environ['RESOLVE_WITH_SPANNER_EMBEDDINGS'].lower() == 'true'
-        
-    # TODO(gmechali): Clean up ENABLE_UNIQUE_HISTORY_RECORDS override once completely removed from Terraform and dcp.yaml provides canonical default.
-    if 'ENABLE_UNIQUE_HISTORY_RECORDS' in os.environ:
-        data['flags']['UseNewIngestionHistorySchema'] = os.environ['ENABLE_UNIQUE_HISTORY_RECORDS'].lower() == 'true'
-        
-    if 'USE_SPANNER_KEY_VALUE_STORE' in os.environ:
-        data['flags']['UseSpannerKeyValueStore'] = os.environ['USE_SPANNER_KEY_VALUE_STORE'].lower() == 'true'
+    # ---> OVERRIDE FEATUREFLAG VALUES WITH ENVS HERE <---
+    # Canonical default feature flags reside directly in deploy/featureflags/dcp.yaml.
+    # To add dynamic environment variable overrides during container startup, follow this pattern:
+    #
+    # Example:
+    # if 'SOME_ENV_VAR' in os.environ:
+    #     data['flags']['SomeFeatureFlag'] = os.environ['SOME_ENV_VAR'].lower() == 'true'
         
     # Write back clean YAML
     os.makedirs(os.path.dirname(ff_path), exist_ok=True)
