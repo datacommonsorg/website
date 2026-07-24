@@ -14,6 +14,162 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Percent_Person_WithArthritis"
+                    ],
+                    "title": "Arthritis in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis"
+                    ],
+                    "title": "Arthritis in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Arthritis in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis_multiple_place_bar_block",
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
+                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
+                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence of Health Conditions in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Health Conditions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asthma in California",
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
                     "title": "High Blood Pressure in Counties of California (${date})",
@@ -121,17 +277,1366 @@
               }
             ],
             "title": "Percent of Adults With Blood Pressure Who Take Medication"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer (Excluding Skin Cancer) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Cancer (Excluding Skin Cancer) in California",
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer (Excluding Skin Cancer)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Neoplasms"
+                    ],
+                    "title": "Deaths From Neoplasms (Tumors or Abnormal Growths) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Neoplasms"
+                    ],
+                    "title": "Deaths From Neoplasms (Tumors or Abnormal Growths) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Neoplasms (Tumors or Abnormal Growths) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Neoplasms"
+                    ],
+                    "title": "Deaths From Neoplasms (Tumors or Abnormal Growths) in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths From Neoplasms (Tumors or Abnormal Growths) in California",
+                    "statVarKey": [
+                      "Count_Death_Neoplasms"
+                    ],
+                    "title": "Deaths From Neoplasms (Tumors or Abnormal Growths) in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Neoplasms (Tumors or Abnormal Growths)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_1To4Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_5To14Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_15To24Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_25To34Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block"
+                    ],
+                    "title": "Cancer Deaths by Age in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Cancer Deaths by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening"
+                    ],
+                    "title": "Women 21-65 Years Who Received Cervical Cancer Screening in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening"
+                    ],
+                    "title": "Women 21-65 Years Who Received Cervical Cancer Screening in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Women 21-65 Years Who Received Cervical Cancer Screening in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_50To74Years_Female_ReceivedMammography"
+                    ],
+                    "title": "Women 50-74 Years, Who Received Mammography in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_50To74Years_Female_ReceivedMammography"
+                    ],
+                    "title": "Women 50-74 Years, Who Received Mammography in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Women 50-74 Years, Who Received Mammography in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithHighCholesterol"
+                    ],
+                    "title": "High Cholesterol in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighCholesterol"
+                    ],
+                    "title": "High Cholesterol in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "High Cholesterol in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighCholesterol"
+                    ],
+                    "title": "High Cholesterol in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "High Cholesterol in California",
+                    "statVarKey": [
+                      "Percent_Person_WithHighCholesterol"
+                    ],
+                    "title": "High Cholesterol in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "High Cholesterol"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_ReceivedCholesterolScreening"
+                    ],
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_ReceivedCholesterolScreening"
+                    ],
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Adult Population Received Cholesterol Screening in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_ReceivedCholesterolScreening"
+                    ],
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Percentage of Adult Population Received Cholesterol Screening in California",
+                    "statVarKey": [
+                      "Percent_Person_ReceivedCholesterolScreening"
+                    ],
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Adult Population Received Cholesterol Screening"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithMentalHealthNotGood"
+                    ],
+                    "title": "Mental Health Issues in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithMentalHealthNotGood"
+                    ],
+                    "title": "Mental Health Issues in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mental Health Issues in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithMentalHealthNotGood"
+                    ],
+                    "title": "Mental Health Issues in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mental Health Issues in California",
+                    "statVarKey": [
+                      "Percent_Person_WithMentalHealthNotGood"
+                    ],
+                    "title": "Mental Health Issues in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mental Health Issues"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithDepression"
+                    ],
+                    "title": "Depression in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithDepression"
+                    ],
+                    "title": "Depression in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Depression in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithDepression"
+                    ],
+                    "title": "Depression in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Depression in California",
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithDepression"
+                    ],
+                    "title": "Depression in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Depression"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_MentalBehaviouralDisorders"
+                    ],
+                    "title": "Deaths Due to Mental and Behavioural Disorders in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_MentalBehaviouralDisorders"
+                    ],
+                    "title": "Deaths Due to Mental and Behavioural Disorders in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths Due to Mental and Behavioural Disorders in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_35To44Years_MentalBehaviouralDisorders"
+                    ],
+                    "title": "Deaths Due to Mental and Behavioral Disorders (35-44 Years) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_35To44Years_MentalBehaviouralDisorders"
+                    ],
+                    "title": "Deaths Due to Mental and Behavioral Disorders (35-44 Years) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths Due to Mental and Behavioral Disorders (35-44 Years) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_45To54Years_MentalBehaviouralDisorders"
+                    ],
+                    "title": "Deaths Due to Mental and Behavioral Disorders (45-55 Years) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_45To54Years_MentalBehaviouralDisorders"
+                    ],
+                    "title": "Deaths Due to Mental and Behavioral Disorders (45-55 Years) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths Due to Mental and Behavioral Disorders (45-55 Years) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientDeceased"
+                    ],
+                    "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Deceased in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Deceased in California",
+                    "statVarKey": [
+                      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientDeceased"
+                    ],
+                    "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Deceased in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Deceased"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientHospitalized"
+                    ],
+                    "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Hospitalized in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Hospitalized in California",
+                    "statVarKey": [
+                      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientHospitalized"
+                    ],
+                    "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Hospitalized in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Hospitalized"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment"
+                    ],
+                    "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Visited Emergency Department in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Medical Condition Incident: Summer Season, Heat Stress, Visited Emergency Department in California",
+                    "statVarKey": [
+                      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment"
+                    ],
+                    "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Visited Emergency Department in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Medical Condition Incident: Summer Season, Heat Stress, Visited Emergency Department"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Men With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Men With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female",
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Disabled Population by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Disabled Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of American Indian/Alaska Natives With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Number of Black/African Americans With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Number of Black/African Americans With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Black/African Americans With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_WithDisability_OneRace_multiple_place_bar_block",
+                      "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Disabled Population by Race in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Disabled Population by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance"
+                    ],
+                    "title": "Women With No Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance"
+                    ],
+                    "title": "Women With No Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With No Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Men With No Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Men With No Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With No Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance",
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Uninsured by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Uninsured by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "Men With Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "Men With Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance",
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "With Health Insurance by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "With Health Insurance by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Health Insurance in California",
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Without Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Without Health Insurance in California",
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Without Health Insurance"
           }
         ],
         "statVarSpec": {
+          "Count_Death_15To24Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 15 - 24 Years Olds",
+            "statVar": "Count_Death_15To24Years_Neoplasms"
+          },
+          "Count_Death_1To4Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 1 - 4 Years Olds",
+            "statVar": "Count_Death_1To4Years_Neoplasms"
+          },
+          "Count_Death_25To34Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 25 - 34 Years Olds",
+            "statVar": "Count_Death_25To34Years_Neoplasms"
+          },
+          "Count_Death_35To44Years_MentalBehaviouralDisorders": {
+            "name": "Deaths due to Mental and Behavioral Disorders (35 - 44 years)",
+            "statVar": "Count_Death_35To44Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 35 - 44 Years Olds",
+            "statVar": "Count_Death_35To44Years_Neoplasms"
+          },
+          "Count_Death_45To54Years_MentalBehaviouralDisorders": {
+            "name": "Deaths due to Mental and Behavioral Disorders (45 - 55 years)",
+            "statVar": "Count_Death_45To54Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 45 - 54 Years Olds",
+            "statVar": "Count_Death_45To54Years_Neoplasms"
+          },
+          "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 55 - 64 Years Olds",
+            "statVar": "Count_Death_55To64Years_Neoplasms"
+          },
+          "Count_Death_5To14Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 5 - 14 Years Olds",
+            "statVar": "Count_Death_5To14Years_Neoplasms"
+          },
+          "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 65 - 74 Years Olds",
+            "statVar": "Count_Death_65To74Years_Neoplasms"
+          },
+          "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 75 - 84 Years Olds",
+            "statVar": "Count_Death_75To84Years_Neoplasms"
+          },
+          "Count_Death_MentalBehaviouralDisorders": {
+            "name": "Deaths Due To Mental And Behavioural Disorders",
+            "statVar": "Count_Death_MentalBehaviouralDisorders"
+          },
+          "Count_Death_Neoplasms": {
+            "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
+            "statVar": "Count_Death_Neoplasms"
+          },
+          "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among Infants",
+            "statVar": "Count_Death_Upto1Years_Neoplasms"
+          },
+          "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientDeceased": {
+            "name": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Deceased",
+            "statVar": "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientDeceased"
+          },
+          "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientHospitalized": {
+            "name": "Count of Medical Condition Incident: Summer Season, Heat Stress, Patient Hospitalized",
+            "statVar": "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientHospitalized"
+          },
+          "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment": {
+            "name": "Count of Medical Condition Incident: Summer Season, Heat Stress, Visited Emergency Department",
+            "statVar": "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment"
+          },
+          "Count_Person_Female_NoHealthInsurance": {
+            "name": "Women With No Health Insurance",
+            "statVar": "Count_Person_Female_NoHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance": {
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Male_NoHealthInsurance": {
+            "name": "Men With No Health Insurance",
+            "statVar": "Count_Person_Male_NoHealthInsurance"
+          },
+          "Count_Person_Male_WithHealthInsurance": {
+            "name": "Men With Health Insurance",
+            "statVar": "Count_Person_Male_WithHealthInsurance"
+          },
+          "Count_Person_NoHealthInsurance": {
+            "name": "Population Without Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance"
+          },
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone": {
+            "name": "Number of Black/African Americans With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Number of Black/African Americans With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_Female": {
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Number of Hispanic/Latinos With Disabilities",
+            "statVar": "Count_Person_WithDisability_HispanicOrLatino"
+          },
+          "Count_Person_WithDisability_Male": {
+            "name": "Men With Disabilities",
+            "statVar": "Count_Person_WithDisability_Male"
+          },
+          "Count_Person_WithDisability_OneRace_multiple_place_bar_block": {
+            "name": "Single-Race Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_OneRace"
+          },
+          "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Disabled Population of Some Other Race",
+            "statVar": "Count_Person_WithDisability_SomeOtherRaceAlone"
+          },
+          "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Disabled Population of Two or More Races",
+            "statVar": "Count_Person_WithDisability_TwoOrMoreRaces"
+          },
+          "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Non Hispanic or Latino White Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Disabled Population",
+            "statVar": "Count_Person_WithDisability_WhiteAlone"
+          },
+          "Count_Person_WithHealthInsurance": {
+            "name": "Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance"
+          },
+          "Percent_Person_18OrMoreYears_WithDepression": {
+            "name": "Depression",
+            "statVar": "Percent_Person_18OrMoreYears_WithDepression",
+            "unit": "%"
+          },
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
             "name": "Percent of Adults with Blood Pressure Who Take Medication",
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
             "unit": "%"
           },
+          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening": {
+            "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
+            "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
+            "unit": "%"
+          },
+          "Percent_Person_50To74Years_Female_ReceivedMammography": {
+            "name": "Women 50 - 74 Years, Who Received Mammography",
+            "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
+            "unit": "%"
+          },
+          "Percent_Person_Children_WithAsthma": {
+            "name": "Percent of Children That Have Asthma",
+            "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_ReceivedCholesterolScreening": {
+            "name": "Percentage of Adult Population Received Cholesterol Screening",
+            "statVar": "Percent_Person_ReceivedCholesterolScreening",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis_multiple_place_bar_block": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
+            "name": "Chronic Kidney Disease",
+            "statVar": "Percent_Person_WithChronicKidneyDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
+            "name": "Coronary Heart Disease",
+            "statVar": "Percent_Person_WithCoronaryHeartDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
+          },
           "Percent_Person_WithHighBloodPressure": {
             "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
+            "name": "High Blood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighCholesterol": {
+            "name": "High Cholesterol",
+            "statVar": "Percent_Person_WithHighCholesterol",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
+            "name": "High Cholesterol",
+            "statVar": "Percent_Person_WithHighCholesterol",
+            "unit": "%"
+          },
+          "Percent_Person_WithMentalHealthNotGood": {
+            "name": "Mental Health Issues",
+            "statVar": "Percent_Person_WithMentalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
+            "name": "Mental Health Issues",
+            "statVar": "Percent_Person_WithMentalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithStroke_multiple_place_bar_block": {
+            "name": "Stroke",
+            "statVar": "Percent_Person_WithStroke",
             "unit": "%"
           }
         }
@@ -519,12 +2024,143 @@
         }
       ]
     },
-    "childTopics": [],
-    "exploreMore": {},
-    "mainTopics": [
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/BloodPressure",
         "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_Death_Neoplasms": {
+        "age": [
+          "Count_Death_15To24Years_Neoplasms",
+          "Count_Death_1To4Years_Neoplasms",
+          "Count_Death_25To34Years_Neoplasms",
+          "Count_Death_35To44Years_Neoplasms",
+          "Count_Death_45To54Years_Neoplasms",
+          "Count_Death_55To64Years_Neoplasms",
+          "Count_Death_5To14Years_Neoplasms",
+          "Count_Death_65To74Years_Neoplasms",
+          "Count_Death_75To84Years_Neoplasms",
+          "Count_Death_Upto1Years_Neoplasms"
+        ]
+      },
+      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_PatientHospitalized": {
+        "age": [
+          "Count_MedicalConditionIncident_0To4Years_SummerSeason_ConditionHeatStress_PatientHospitalized",
+          "Count_MedicalConditionIncident_15To34Years_SummerSeason_ConditionHeatStress_PatientHospitalized",
+          "Count_MedicalConditionIncident_35To64Years_SummerSeason_ConditionHeatStress_PatientHospitalized",
+          "Count_MedicalConditionIncident_5To14Years_SummerSeason_ConditionHeatStress_PatientHospitalized",
+          "Count_MedicalConditionIncident_65OrMoreYears_SummerSeason_ConditionHeatStress_PatientHospitalized"
+        ],
+        "gender": [
+          "Count_MedicalConditionIncident_SummerSeason_Female_ConditionHeatStress_PatientHospitalized",
+          "Count_MedicalConditionIncident_SummerSeason_Male_ConditionHeatStress_PatientHospitalized"
+        ]
+      },
+      "Count_MedicalConditionIncident_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment": {
+        "age": [
+          "Count_MedicalConditionIncident_0To4Years_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment",
+          "Count_MedicalConditionIncident_15To34Years_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment",
+          "Count_MedicalConditionIncident_35To64Years_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment",
+          "Count_MedicalConditionIncident_5To14Years_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment",
+          "Count_MedicalConditionIncident_65OrMoreYears_SummerSeason_ConditionHeatStress_VisitedEmergencyDepartment"
+        ],
+        "gender": [
+          "Count_MedicalConditionIncident_SummerSeason_Female_ConditionHeatStress_VisitedEmergencyDepartment",
+          "Count_MedicalConditionIncident_SummerSeason_Male_ConditionHeatStress_VisitedEmergencyDepartment"
+        ]
+      },
+      "Count_Person_NoHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_NoHealthInsurance",
+          "Count_Person_Male_NoHealthInsurance"
+        ]
+      },
+      "Count_Person_WithHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_WithHealthInsurance",
+          "Count_Person_Male_WithHealthInsurance"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -533,8 +2169,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
+        "dcid": "dc/topic/Health",
+        "name": "Health",
         "types": [
           "Topic"
         ]
@@ -894,77 +2530,37 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
+        "dcid": "dc/topic/HealthEquity",
+        "name": "Health Equity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Asthma",
-        "name": "Asthma",
+        "dcid": "dc/topic/HealthInsurance",
+        "name": "Health Insurance",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeatIllnesses",
-        "name": "Heat Illnesses",
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "svSource": "PAST_QUERY",
+  "userMessages": [
+    "See relevant statistics based on the previous query."
+  ]
 }

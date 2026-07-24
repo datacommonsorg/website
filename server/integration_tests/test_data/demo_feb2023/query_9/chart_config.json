@@ -14,15 +14,15 @@
                     },
                     "statVarKey": [
                       "Median_Income_Household_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
+                      "Percent_Person_WithArthritis_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
+                    "title": "Household Median Income (${yDate}) Vs. Arthritis (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income vs. High Blood Pressure"
+            "title": "Household Median Income vs. Arthritis"
           },
           {
             "columns": [
@@ -61,9 +61,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
+                      "Percent_Person_WithArthritis"
                     ],
-                    "title": "High Blood Pressure in States of United States (${date})",
+                    "title": "Arthritis in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -76,15 +76,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
+                      "Percent_Person_WithArthritis"
                     ],
-                    "title": "High Blood Pressure in States of United States (${date})",
+                    "title": "Arthritis in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "High Blood Pressure in States of United States"
+            "title": "Arthritis in States of United States"
           },
           {
             "columns": [
@@ -96,15 +96,15 @@
                     },
                     "statVarKey": [
                       "Median_Income_Person_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                      "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "title": "Individual Median Income (${yDate}) Vs. Asthma (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income vs. Percent of Adults with Blood Pressure Who Take Medication"
+            "title": "Individual Median Income vs. Asthma"
           },
           {
             "columns": [
@@ -143,9 +143,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+                      "Percent_Person_WithAsthma"
                     ],
-                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States (${date})",
+                    "title": "Asthma in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -158,15 +158,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+                      "Percent_Person_WithAsthma"
                     ],
-                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States (${date})",
+                    "title": "Asthma in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States"
+            "title": "Asthma in States of United States"
           },
           {
             "columns": [
@@ -178,15 +178,117 @@
                     },
                     "statVarKey": [
                       "Median_Income_Household_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                      "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "title": "Household Median Income (${yDate}) Vs. Asthma (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income vs. Percent of Adults with Blood Pressure Who Take Medication"
+            "title": "Household Median Income vs. Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_scatter",
+                      "Percent_Person_WithCancerExcludingSkinCancer_scatter"
+                    ],
+                    "title": "Household Median Income (${yDate}) Vs. Cancer (Excluding Skin Cancer) (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income vs. Cancer (excluding skin cancer)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer (Excluding Skin Cancer) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_scatter",
+                      "Percent_Person_WithChronicKidneyDisease_scatter"
+                    ],
+                    "title": "Household Median Income (${yDate}) Vs. Chronic Kidney Disease (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income vs. Chronic Kidney Disease"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithChronicKidneyDisease"
+                    ],
+                    "title": "Chronic Kidney Disease in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithChronicKidneyDisease"
+                    ],
+                    "title": "Chronic Kidney Disease in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Chronic Kidney Disease in States of United States"
           },
           {
             "columns": [
@@ -198,15 +300,55 @@
                     },
                     "statVarKey": [
                       "Median_Income_Person_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
+                      "Percent_Person_WithArthritis_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
+                    "title": "Individual Median Income (${yDate}) Vs. Arthritis (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income vs. High Blood Pressure"
+            "title": "Individual Median Income vs. Arthritis"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_scatter",
+                      "Percent_Person_WithCancerExcludingSkinCancer_scatter"
+                    ],
+                    "title": "Individual Median Income (${yDate}) Vs. Cancer (Excluding Skin Cancer) (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income vs. Cancer (excluding skin cancer)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_scatter",
+                      "Percent_Person_WithChronicKidneyDisease_scatter"
+                    ],
+                    "title": "Individual Median Income (${yDate}) Vs. Chronic Kidney Disease (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income vs. Chronic Kidney Disease"
           }
         ],
         "statVarSpec": {
@@ -228,26 +370,48 @@
             "noPerCapita": true,
             "statVar": "Median_Income_Person"
           },
-          "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
-            "name": "Percent of Adults with Blood Pressure Who Take Medication",
-            "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
+          "Percent_Person_WithArthritis": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
             "unit": "%"
           },
-          "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter": {
-            "name": "Percent of Adults with Blood Pressure Who Take Medication",
+          "Percent_Person_WithArthritis_scatter": {
+            "name": "Arthritis",
             "noPerCapita": true,
-            "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
+            "statVar": "Percent_Person_WithArthritis",
             "unit": "%"
           },
-          "Percent_Person_WithHighBloodPressure": {
-            "name": "High Blood Pressure",
-            "statVar": "Percent_Person_WithHighBloodPressure",
+          "Percent_Person_WithAsthma": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
             "unit": "%"
           },
-          "Percent_Person_WithHighBloodPressure_scatter": {
-            "name": "High Blood Pressure",
+          "Percent_Person_WithAsthma_scatter": {
+            "name": "Asthma",
             "noPerCapita": true,
-            "statVar": "Percent_Person_WithHighBloodPressure",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer_scatter": {
+            "name": "Cancer (excluding skin cancer)",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicKidneyDisease": {
+            "name": "Chronic Kidney Disease",
+            "statVar": "Percent_Person_WithChronicKidneyDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicKidneyDisease_scatter": {
+            "name": "Chronic Kidney Disease",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_WithChronicKidneyDisease",
             "unit": "%"
           }
         }
@@ -656,6 +820,83 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "exploreMore": {},
@@ -668,8 +909,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -685,8 +926,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
+        "dcid": "dc/topic/Health",
+        "name": "Health",
         "types": [
           "Topic"
         ]
@@ -836,71 +1077,36 @@
         ]
       },
       {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
+        "dcid": "dc/topic/HealthEquity",
+        "name": "Health Equity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Asthma",
-        "name": "Asthma",
+        "dcid": "dc/topic/HealthInsurance",
+        "name": "Health Insurance",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeatIllnesses",
-        "name": "Heat Illnesses",
+        "dcid": "dc/topic/GlobalHealth",
+        "name": "Global Health",
         "types": [
           "Topic"
         ]

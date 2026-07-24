@@ -10,9 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                      "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below Poverty Line in India",
+                    "title": "Population Below International Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -20,19 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Line in India",
+                    "description": "Population Below International Poverty Line in India",
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                      "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below Poverty Line in India",
+                    "title": "Population Below International Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Population Below Poverty Line"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Population Below International Poverty Line"
           },
           {
             "columns": [
@@ -99,18 +98,121 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+                      "sdg/SD_MDP_ANDI",
+                      "sdg/SD_MDP_ANDI.URBANISATION--R",
+                      "sdg/SD_MDP_ANDI.URBANISATION--U"
                     ],
-                    "title": "Impoverished Population by Residency in India",
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) in India",
                     "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHC"
+                    ],
+                    "title": "Population in Poverty in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in Poverty in India",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHC"
+                    ],
+                    "title": "Population in Poverty in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: burundi institute of statistics and economic studies; CONEVAL (Consejo nacional de evaluaci\u00f3n de la pol\u00edtica de desarrollo social); central administration of statistics; cities, towns and suburbs, rural areas; DANE; department of census and statistics; EUROSTAT; eurostat; ghana statistical service; institut national de la statistique (INSTAT); instituto nacional de estad\u00edstica (INE); instituto nacional de estat\u00edstica; la direction generale du plan, insti...1306 more chars",
+            "title": "Population in Poverty"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHC.URBANISATION--R",
+                      "sdg/SD_MDP_MUHC.URBANISATION--U"
+                    ],
+                    "title": "Proportion of Population Living in Multidimensional Poverty, by Location (%) in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living in Multidimensional Poverty, by Location (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below Poverty Line in India",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in India",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Impoverished Population by Residency"
+            "title": "Population Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC"
+                    ],
+                    "title": "Employed Population Below International Poverty Line in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Employed Population Below International Poverty Line in India",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC"
+                    ],
+                    "title": "Employed Population Below International Poverty Line in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living Below the National Poverty Line (%)"
           },
           {
             "columns": [
@@ -149,6 +251,36 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Rural Residents, Below Poverty Line in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rural Residents, Below Poverty Line in India",
+                    "statVarKey": [
+                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Rural Residents, Below Poverty Line in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Rural Residents, Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
                     "title": "Nominal GDP Per Capita in India",
@@ -178,9 +310,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                      "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "title": "Urban Residents, Below Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -188,27 +320,55 @@
               {
                 "tiles": [
                   {
-                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "description": "Urban Residents, Below Poverty Line in India",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                      "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
+                    "title": "Urban Residents, Below Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Urban Residents, Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SlumArea"
+                    ],
+                    "title": "Number of People Living in Slum Area in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Number of People Living in Slum Area in India",
+                    "statVarKey": [
+                      "Count_Person_SlumArea"
+                    ],
+                    "title": "Number of People Living in Slum Area in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Number of People Living in Slum Area"
           }
         ],
         "statVarSpec": {
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-          },
-          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
-            "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
-            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
@@ -222,9 +382,41 @@
             "name": "Rural residents, Below Poverty Line",
             "statVar": "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
           },
+          "Count_Person_SlumArea": {
+            "name": "Number of people living in slum area",
+            "statVar": "Count_Person_SlumArea"
+          },
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+          },
+          "sdg/SD_MDP_ANDI": {
+            "name": "Average Deprivations for Population in Poverty",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--R": {
+            "name": "Average Deprivation for Impoverished Rural Population",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--U": {
+            "name": "Average Deprivation for Impoverished Urban Population",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--U"
+          },
+          "sdg/SD_MDP_MUHC": {
+            "name": "Population in Poverty",
+            "statVar": "sdg/SD_MDP_MUHC"
+          },
+          "sdg/SD_MDP_MUHC.URBANISATION--R": {
+            "name": "Impoverished Rural Population",
+            "statVar": "sdg/SD_MDP_MUHC.URBANISATION--R"
+          },
+          "sdg/SD_MDP_MUHC.URBANISATION--U": {
+            "name": "Impoverished Urban Population",
+            "statVar": "sdg/SD_MDP_MUHC.URBANISATION--U"
+          },
+          "sdg/SI_POV_DAY1": {
+            "name": "Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
             "name": "Population Age Under 15 Below International Poverty Line",
@@ -257,6 +449,10 @@
           "sdg/SI_POV_DAY1_multiple_place_bar_block": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
+          },
+          "sdg/SI_POV_NAHC": {
+            "name": "Employed Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_NAHC"
           }
         }
       }
@@ -601,27 +797,52 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty by Residency",
-        "types": [
-          "Topic"
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
         ]
       },
-      {
-        "dcid": "dc/topic/sdg_1",
-        "name": "No Poverty",
-        "types": [
-          "Topic"
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
+          "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
+        ]
+      },
+      "sdg/SD_MDP_ANDI": {
+        "sdg_urbanisation": [
+          "sdg/SD_MDP_ANDI.URBANISATION--R",
+          "sdg/SD_MDP_ANDI.URBANISATION--U"
+        ]
+      },
+      "sdg/SD_MDP_MUHC": {
+        "sdg_urbanisation": [
+          "sdg/SD_MDP_MUHC.URBANISATION--R",
+          "sdg/SD_MDP_MUHC.URBANISATION--U"
+        ]
+      },
+      "sdg/SI_POV_DAY1": {
+        "age": [
+          "sdg/SI_POV_DAY1.AGE--Y0T14",
+          "sdg/SI_POV_DAY1.AGE--Y15T64",
+          "sdg/SI_POV_DAY1.AGE--Y_GE65"
+        ],
+        "sdg_sex": [
+          "sdg/SI_POV_DAY1.SEX--F",
+          "sdg/SI_POV_DAY1.SEX--M"
+        ],
+        "sdg_urbanisation": [
+          "sdg/SI_POV_DAY1.URBANISATION--R",
+          "sdg/SI_POV_DAY1.URBANISATION--U"
         ]
       }
-    ],
-    "exploreMore": {},
+    },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
+        "dcid": "dc/topic/sdgSIPOVDAY1",
+        "name": "Population Below International Poverty Line",
         "types": [
           "Topic"
         ]
@@ -630,8 +851,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/sdg_1.1.1",
+        "name": "Population Below the Poverty Line",
         "types": [
           "Topic"
         ]
@@ -737,36 +958,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

@@ -215,23 +215,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F",
-                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
-                    ],
-                    "title": "Adolescent Birth Rate by Age in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Adolescent Birth Rate by Age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -293,116 +276,17 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "IncrementalCount_Person"
+                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F",
+                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
                     ],
-                    "title": "Population Change in Eurostat Nuts 3 Places of Turkey (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "IncrementalCount_Person"
-                    ],
-                    "title": "Population Change in Eurostat Nuts 3 Places of Turkey (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Change in Eurostat Nuts 3 Places of Turkey"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "IncrementalCount_Person"
-                    ],
-                    "title": "Population Change in Turkey",
+                    "title": "Adolescent Birth Rate by Age in Turkey",
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Change in Turkey",
-                    "statVarKey": [
-                      "IncrementalCount_Person"
-                    ],
-                    "title": "Population Change in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
               }
             ],
-            "title": "Population Change"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Infant Mortality Rate in Turkey",
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event)"
+            "title": "Adolescent Birth Rate by Age"
           },
           {
             "columns": [
@@ -464,6 +348,65 @@
             ],
             "description": "The total number of people in a population.",
             "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_PerArea"
+                    ],
+                    "title": "Population Density in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PerArea"
+                    ],
+                    "title": "Population Density in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Density in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PerArea"
+                    ],
+                    "title": "Population Density in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Density in Turkey",
+                    "statVarKey": [
+                      "Count_Person_PerArea"
+                    ],
+                    "title": "Population Density in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Density"
           }
         ],
         "statVarSpec": {
@@ -479,17 +422,13 @@
             "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-          },
-          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
-            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-          },
           "Count_Person": {
             "name": "Population",
             "statVar": "Count_Person"
+          },
+          "Count_Person_PerArea": {
+            "name": "Population Density",
+            "statVar": "Count_Person_PerArea"
           },
           "FertilityRate_Person_Female": {
             "name": "Fertility Rate",
@@ -498,10 +437,6 @@
           "GrowthRate_Count_Person": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
-          },
-          "IncrementalCount_Person": {
-            "name": "Population Change",
-            "statVar": "IncrementalCount_Person"
           },
           "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F": {
             "name": "Adolescent birth rate [10 to 14 years old, Female]",

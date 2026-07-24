@@ -38,64 +38,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
-                    ],
-                    "title": "Larceny Theft Cases in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Larceny Theft Cases in California",
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
-                    ],
-                    "title": "Larceny Theft Cases in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Larceny Theft Cases"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime"
-                    ],
-                    "title": "Criminal Activities in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Criminal Activities in California",
-                    "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime"
-                    ],
-                    "title": "Criminal Activities in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Criminal Activities"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -105,23 +47,23 @@
                       "geoId/06"
                     ],
                     "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
                       "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
                       "Count_CriminalActivities_Burglary_multiple_place_bar_block",
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
                       "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
                       "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Crimes by Type in California (${date})",
+                    "title": "Motor Vehicle Thefts and More in California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Crimes by Type"
+            "title": "Related: Motor Vehicle Thefts and More"
           }
         ],
         "statVarSpec": {
@@ -133,17 +75,9 @@
             "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
           },
-          "Count_CriminalActivities_CombinedCrime": {
-            "name": "Criminal Activities",
-            "statVar": "Count_CriminalActivities_CombinedCrime"
-          },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
             "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
-          },
-          "Count_CriminalActivities_LarcenyTheft": {
-            "name": "Larceny Theft Cases",
-            "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
             "name": "Larceny Theft Cases",
