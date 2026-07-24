@@ -10,6 +10,111 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Undernourishment in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
+            "title": "Undernourishment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_WASHARI"
+                    ],
+                    "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: global health observatory (GHO), world health organisation (WHO).",
+            "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Under 5 With Moderate or Severe Stunting"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Moderate or Severe Stunting in Population Under 5"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
                     "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
@@ -187,111 +292,6 @@
               }
             ],
             "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC"
-                    ],
-                    "title": "Undernourishment in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Undernourishment in Nigeria",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC"
-                    ],
-                    "title": "Undernourishment in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
-            "title": "Undernourishment"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
-                    "statVarKey": [
-                      "sdg/SH_STA_WASHARI"
-                    ],
-                    "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: global health observatory (GHO), world health organisation (WHO).",
-            "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_STNTN.AGE--Y0T4"
-                    ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
-                    "statVarKey": [
-                      "sdg/SH_STA_STNTN.AGE--Y0T4"
-                    ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
-            "title": "Children Under 5 With Moderate or Severe Stunting"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_STNT.AGE--Y0T4"
-                    ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
-                    "statVarKey": [
-                      "sdg/SH_STA_STNT.AGE--Y0T4"
-                    ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
-            "title": "Moderate or Severe Stunting in Population Under 5"
           }
         ],
         "statVarSpec": {
@@ -390,29 +390,8 @@
     "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/sdgAGPRDFIESMSN",
-        "name": "Population With Moderate or Severe Food Insecurity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdgAGPRDFIESSN",
-        "name": "Population With Severe Food Insecurity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdgAGPRDFIESMS",
-        "name": "Moderate or Severe Food Insecurity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdgAGPRDFIESS",
-        "name": "Severe Food Insecurity",
+        "dcid": "dc/topic/HeightStunting",
+        "name": "Height Stunting",
         "types": [
           "Topic"
         ]
@@ -421,23 +400,15 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/sdg_2.1.2",
-        "name": "Food Insecurity",
+        "dcid": "dc/topic/Malnutrition",
+        "name": "Malnutrition",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/sdg_2.1",
-        "name": "End Hunger by 2030",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -538,15 +509,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/sdg_2.1.1",
-        "name": "Undernourishment",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

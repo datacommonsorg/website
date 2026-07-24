@@ -234,9 +234,644 @@
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
             "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/ETH",
+                      "country/KEN",
+                      "country/SEN",
+                      "country/MAR",
+                      "country/GHA",
+                      "country/MLI",
+                      "country/RWA"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC7"
+                    ],
+                    "title": "Employed Population Below International Poverty Line",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
+            "title": "Employed Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
+            "title": "Decrease in Employed Population Below International Poverty Line Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
+            "title": "Decrease in Employed Population Below International Poverty Line Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/MLI",
+                      "country/RWA",
+                      "country/MAR"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI3"
+                    ],
+                    "title": "Average Deprivations for Population in Poverty",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: CONEVAL (Consejo Nacional  de Evaluaci\u00f3n de la Pol\u00edtica de Desarrollo Social); DANE; Department of Census and Statistics; Ghana Statistical Service; Institut National de la Statistique (INSTAT); Instituto Nacional de Estad\u00edstica\u00a0(INE); Instituto Nacional de Estat\u00edstica; La Direction Generale du Plan, Instituto Nacional de Estat\u00edstica (INE); Ministry of Economics and Finance - Directorate of Economic and Financial Studies; Ministry of Economy, Planning an...1020 more chars",
+            "title": "Average Deprivations for Population in Poverty"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: CONEVAL (Consejo Nacional  de Evaluaci\u00f3n de la Pol\u00edtica de Desarrollo Social); DANE; Department of Census and Statistics; Ghana Statistical Service; Institut National de la Statistique (INSTAT); Instituto Nacional de Estad\u00edstica\u00a0(INE); Instituto Nacional de Estat\u00edstica; La Direction Generale du Plan, Instituto Nacional de Estat\u00edstica (INE); Ministry of Economics and Finance - Directorate of Economic and Financial Studies; Ministry of Economy, Planning an...1020 more chars",
+            "title": "Decrease in Average Deprivations for Population in Poverty Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_pct"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_pct"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: CONEVAL (Consejo Nacional  de Evaluaci\u00f3n de la Pol\u00edtica de Desarrollo Social); DANE; Department of Census and Statistics; Ghana Statistical Service; Institut National de la Statistique (INSTAT); Instituto Nacional de Estad\u00edstica\u00a0(INE); Instituto Nacional de Estat\u00edstica; La Direction Generale du Plan, Instituto Nacional de Estat\u00edstica (INE); Ministry of Economics and Finance - Directorate of Economic and Financial Studies; Ministry of Economy, Planning an...1020 more chars",
+            "title": "Decrease in Average Deprivations for Population in Poverty Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/MLI",
+                      "country/MAR"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC2"
+                    ],
+                    "title": "Households in Poverty",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Insti...274 more chars",
+            "title": "Households in Poverty"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Insti...274 more chars",
+            "title": "Decrease in Households in Poverty Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Insti...274 more chars",
+            "title": "Decrease in Households in Poverty Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/KEN",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/ETH",
+                      "country/RWA",
+                      "country/BEN"
+                    ],
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity7"
+                    ],
+                    "title": "Gini Index of Economic Activity of a Population",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
+            "title": "Gini Index of Economic Activity of a Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
+            "title": "Decrease in Gini Index of Economic Activity of a Population Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
+            "title": "Decrease in Gini Index of Economic Activity of a Population Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
+          "GiniIndex_EconomicActivity7": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
+          "GiniIndex_EconomicActivity_growth_abs": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
+          "GiniIndex_EconomicActivity_growth_pct": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
+          "sdg/SD_MDP_ANDI3": {
+            "name": "Average Deprivations for Population in Poverty",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_MDP_ANDI_growth_abs": {
+            "name": "Average Deprivations for Population in Poverty",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_MDP_ANDI_growth_pct": {
+            "name": "Average Deprivations for Population in Poverty",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_MDP_MUHHC2": {
+            "name": "Households in Poverty",
+            "statVar": "sdg/SD_MDP_MUHHC"
+          },
+          "sdg/SD_MDP_MUHHC_growth_abs": {
+            "name": "Households in Poverty",
+            "statVar": "sdg/SD_MDP_MUHHC"
+          },
+          "sdg/SD_MDP_MUHHC_growth_pct": {
+            "name": "Households in Poverty",
+            "statVar": "sdg/SD_MDP_MUHHC"
+          },
           "sdg/SI_POV_DAY18": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -248,6 +883,18 @@
           "sdg/SI_POV_DAY1_growth_pct": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
+          },
+          "sdg/SI_POV_NAHC7": {
+            "name": "Employed Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SI_POV_NAHC_growth_abs": {
+            "name": "Employed Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SI_POV_NAHC_growth_pct": {
+            "name": "Employed Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_NAHC"
           }
         }
       }
@@ -332,7 +979,23 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/SI_POV_DAY1": {
+        "age": [
+          "sdg/SI_POV_DAY1.AGE--Y0T14",
+          "sdg/SI_POV_DAY1.AGE--Y15T64",
+          "sdg/SI_POV_DAY1.AGE--Y_GE65"
+        ],
+        "sdg_sex": [
+          "sdg/SI_POV_DAY1.SEX--F",
+          "sdg/SI_POV_DAY1.SEX--M"
+        ],
+        "sdg_urbanisation": [
+          "sdg/SI_POV_DAY1.URBANISATION--R",
+          "sdg/SI_POV_DAY1.URBANISATION--U"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

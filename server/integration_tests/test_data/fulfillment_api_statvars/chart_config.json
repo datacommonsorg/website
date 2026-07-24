@@ -654,7 +654,22 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "WagesTotal_Worker_NAICSInformation": {
+        "establishmentOwnership": [
+          "WagesTotal_Worker_FederalGovernmentOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_PrivatelyOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_StateGovernmentOwnedEstablishment_NAICSInformation"
+        ]
+      },
+      "dc/xj2nk2bg60fg": {
+        "gender": [
+          "dc/276ednqpnbxv5",
+          "dc/744grk0mkflf2"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/IndividualIncomeByIndustry",

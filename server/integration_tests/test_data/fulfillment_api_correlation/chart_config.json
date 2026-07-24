@@ -815,7 +815,20 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Percent_Person_WithAsthma": {
+        "gender": [
+          "Percent_Person_Years18Onwards_Female_WithAsthma",
+          "Percent_Person_Years18Onwards_Male_WithAsthma"
+        ],
+        "race": [
+          "Percent_Person_WithAsthma_BlackOrAfricanAmericanAlone",
+          "Percent_Person_WithAsthma_OtherRace",
+          "Percent_Person_WithAsthma_TwoOrMoreRaces",
+          "Percent_Person_WithAsthma_WhiteAlone"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/WorkCommute",
