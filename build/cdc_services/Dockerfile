@@ -153,7 +153,7 @@ ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     DC_TYPE=custom \
     DC_API_BASE_URL=http://127.0.0.1:8081/v2 \
     CUSTOM_DC_URL=http://127.0.0.1:7070 \
-    DC_AGENT_API_ROOT=http://localhost:8081/v2 \
+    DC_AGENT_API_ROOT=http://127.0.0.1:8081/v2 \
     DC_USE_AGENT_API=true
 
 WORKDIR /workspace
