@@ -19,9 +19,10 @@
   },
   {
     "name": "divert_to_spanner",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-nlb",
-    "description": "Diverts traffic to Spanner database backend."
+    "description": "Diverts traffic to Spanner database backend.",
+    "rollout_percentage": 100
   },
   {
     "name": "enable_chart_hyperlink",

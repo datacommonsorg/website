@@ -266,6 +266,7 @@ class TestSearchStatVar(unittest.TestCase):
 
     def post_side_effect(url, req_json):
       if "/v2/resolve" in url:
+        assert req_json.get("target") == "base_and_custom"
         return {
             "entities": [{
                 "candidates": [{
