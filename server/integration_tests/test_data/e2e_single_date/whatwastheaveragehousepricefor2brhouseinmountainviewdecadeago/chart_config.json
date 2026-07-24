@@ -66,6 +66,132 @@
             ],
             "denom": "Count_Person",
             "title": "Home Value of Houses"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_WithTotal2Rooms_2016_10169881228856630405"
+                    ],
+                    "title": "Count of Housing Unit: Rooms 2 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Housing Unit: Rooms 2 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_WithTotal2Rooms_2016"
+                    ],
+                    "title": "Count of Housing Unit: Rooms 2 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: Rooms 2"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To249999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $200,000 to $249,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $200,000 to $249,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To249999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $200,000 to $249,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $200,000 to $249,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0649670"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_WithTotal2Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal1Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal3Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal4Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal5Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal6Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal7Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal8Rooms_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_WithTotal9OrMoreRooms_multiple_place_bar_block_2016"
+                    ],
+                    "title": "Count of Housing Unit: Rooms 2 and More in Mountain View (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Count of Housing Unit: Rooms 2 and More"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0649670"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2016",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016"
+                    ],
+                    "title": "Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied and More in Mountain View (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied and More"
           }
         ],
         "statVarSpec": {
@@ -76,7 +202,7 @@
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue100000To199999USDollar",
+            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_2016": {
@@ -95,30 +221,97 @@
             "name": "Homes Valued at $2,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
           },
+          "Count_HousingUnit_HomeValue200000To249999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $200,000 to $249,999",
+            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To249999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $200,000 to $249,999",
+            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
+          },
           "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue200000To299999USDollar",
+            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue300000To499999USDollar",
+            "name": "Count of Housing Unit: US Dollar 300000 To 499999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
           },
           "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue500000To999999USDollar",
+            "name": "Count of Housing Unit: US Dollar 500000 To 999999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValue50000To99999USDollar",
+            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count_HousingUnit_HomeValueUpto49999USDollar",
+            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
+          "Count_HousingUnit_WithTotal1Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 1",
+            "statVar": "Count_HousingUnit_WithTotal1Rooms"
+          },
+          "Count_HousingUnit_WithTotal2Rooms_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 2",
+            "statVar": "Count_HousingUnit_WithTotal2Rooms"
+          },
+          "Count_HousingUnit_WithTotal2Rooms_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Count of Housing Unit: Rooms 2",
+            "statVar": "Count_HousingUnit_WithTotal2Rooms"
+          },
+          "Count_HousingUnit_WithTotal2Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 2",
+            "statVar": "Count_HousingUnit_WithTotal2Rooms"
+          },
+          "Count_HousingUnit_WithTotal3Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 3",
+            "statVar": "Count_HousingUnit_WithTotal3Rooms"
+          },
+          "Count_HousingUnit_WithTotal4Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 4",
+            "statVar": "Count_HousingUnit_WithTotal4Rooms"
+          },
+          "Count_HousingUnit_WithTotal5Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 5",
+            "statVar": "Count_HousingUnit_WithTotal5Rooms"
+          },
+          "Count_HousingUnit_WithTotal6Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 6",
+            "statVar": "Count_HousingUnit_WithTotal6Rooms"
+          },
+          "Count_HousingUnit_WithTotal7Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 7",
+            "statVar": "Count_HousingUnit_WithTotal7Rooms"
+          },
+          "Count_HousingUnit_WithTotal8Rooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 8",
+            "statVar": "Count_HousingUnit_WithTotal8Rooms"
+          },
+          "Count_HousingUnit_WithTotal9OrMoreRooms_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Rooms 9 Onwards",
+            "statVar": "Count_HousingUnit_WithTotal9OrMoreRooms"
           }
         }
       }

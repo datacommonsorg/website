@@ -97,162 +97,6 @@
                     },
                     "statVarKey": [
                       "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino_scatter"
-                    ],
-                    "title": "Diabetes (${yDate}) Vs. Hispanic Monoracial Women Above Poverty Line (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Diabetes vs. Hispanic Monoracial Women Above poverty line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
-                    ],
-                    "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
-                    ],
-                    "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino_scatter"
-                    ],
-                    "title": "Diabetes (${yDate}) Vs. Hispanic Population Above Poverty Line (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Diabetes vs. Hispanic Population Above poverty line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
-                    ],
-                    "title": "Hispanic Population Above Poverty Line in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
-                    ],
-                    "title": "Hispanic Population Above Poverty Line in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Hispanic Population Above Poverty Line in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter"
-                    ],
-                    "title": "Diabetes (${yDate}) Vs. African American Men Above Poverty Line Over the Last Year (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Diabetes vs. African American Men Above poverty line Over the Last Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "African American Men Above Poverty Line Over the Last Year in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "African American Men Above Poverty Line Over the Last Year in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "African American Men Above Poverty Line Over the Last Year in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_WithDiabetes_scatter",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter"
                     ],
                     "title": "Diabetes (${yDate}) Vs. Hispanic Men Below Poverty Line (${xDate}) in Counties of California",
@@ -305,16 +149,16 @@
                     },
                     "statVarKey": [
                       "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter"
+                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino_scatter"
                     ],
-                    "title": "Diabetes (${yDate}) Vs. Hispanic Women Below Poverty Line (${xDate}) in Counties of California",
+                    "title": "Diabetes (${yDate}) Vs. Hispanic Monoracial Women Above Poverty Line (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Diabetes vs. Hispanic Women Below Poverty Line"
+            "title": "Diabetes vs. Hispanic Monoracial Women Above poverty line"
           },
           {
             "columns": [
@@ -322,9 +166,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
                     ],
-                    "title": "Hispanic Women Below Poverty Line in Counties of California (${date})",
+                    "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -337,15 +181,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
                     ],
-                    "title": "Hispanic Women Below Poverty Line in Counties of California (${date})",
+                    "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Hispanic Women Below Poverty Line in Counties of California"
+            "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -357,16 +201,16 @@
                     },
                     "statVarKey": [
                       "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter"
                     ],
-                    "title": "Diabetes (${yDate}) Vs. Asians Below Poverty Line (${xDate}) in Counties of California",
+                    "title": "Diabetes (${yDate}) Vs. Population Below Poverty Line (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Diabetes vs. Asians Below Poverty Line"
+            "title": "Diabetes vs. Population Below poverty line"
           },
           {
             "columns": [
@@ -374,9 +218,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Asians Below Poverty Line in Counties of California (${date})",
+                    "title": "Population Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -389,15 +233,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Asians Below Poverty Line in Counties of California (${date})",
+                    "title": "Population Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Asians Below Poverty Line in Counties of California"
+            "title": "Population Below Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -409,16 +253,15 @@
                     },
                     "statVarKey": [
                       "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter"
                     ],
-                    "title": "Diabetes (${yDate}) Vs. Black or African Americans Below Poverty (${xDate}) in Counties of California",
+                    "title": "Diabetes (${yDate}) Vs. Population Below Poverty Line (Per Capita) (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Diabetes vs. Black or African Americans Below Poverty"
+            "title": "Diabetes vs. Population Below poverty line (Per Capita)"
           },
           {
             "columns": [
@@ -426,9 +269,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Black or African Americans Below Poverty in Counties of California (${date})",
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -441,15 +284,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Black or African Americans Below Poverty in Counties of California (${date})",
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Black or African Americans Below Poverty in Counties of California"
+            "title": "Population Below Poverty Line (Per Capita) in Counties of California"
           },
           {
             "columns": [
@@ -461,16 +304,16 @@
                     },
                     "statVarKey": [
                       "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_scatter"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter"
                     ],
-                    "title": "Diabetes (${yDate}) Vs. Native Hawaiian or Other Pacific Islander Americans Below Poverty Line (${xDate}) in Counties of California",
+                    "title": "Diabetes (${yDate}) Vs. Women Below Poverty Line (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Diabetes vs. Native Hawaiian or Other Pacific Islander Americans Below Poverty Line"
+            "title": "Diabetes vs. Women below Poverty Line"
           },
           {
             "columns": [
@@ -478,9 +321,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line in Counties of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -493,41 +336,82 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line in Counties of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line in Counties of California"
+            "title": "Women Below Poverty Line in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes_scatter",
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter"
+                    ],
+                    "title": "Diabetes (${yDate}) Vs. Males in Poverty (In Last Year) (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Diabetes vs. Males in Poverty (in last year)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Males in Poverty (In Last Year) in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino": {
-            "name": "Hispanic Population Above poverty line",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
+          "Count_Person_BelowPovertyLevelInThePast12Months": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino_scatter": {
-            "name": "Hispanic Population Above poverty line",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+            "name": "Population Below poverty line (Per Capita)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-            "name": "Asians Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter": {
-            "name": "Asians Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-            "name": "Black or African Americans Below Poverty",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter": {
-            "name": "Black or African Americans Below Poverty",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter": {
+            "name": "Population Below poverty line (Per Capita)",
+            "noPerCapita": true,
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
             "name": "Hispanic or Latino Americans Below Poverty Line",
@@ -537,13 +421,9 @@
             "name": "Hispanic or Latino Americans Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
-            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_scatter": {
-            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+          "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino": {
             "name": "Hispanic Monoracial Women Above poverty line",
@@ -553,21 +433,17 @@
             "name": "Hispanic Monoracial Women Above poverty line",
             "statVar": "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
           },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-            "name": "Hispanic Women Below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter": {
-            "name": "Hispanic Women Below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-            "name": "African American Men Above poverty line Over the Last Year",
-            "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter": {
-            "name": "African American Men Above poverty line Over the Last Year",
-            "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
             "name": "Hispanic Men Below Poverty Line",
@@ -576,6 +452,10 @@
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter": {
             "name": "Hispanic Men Below Poverty Line",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Percent_Person_WithDiabetes": {
             "name": "Diabetes",
@@ -974,7 +854,77 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months"
+        ],
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "dc/09v28v6bwqt0c",
+          "dc/5811pl3dnbwf6",
+          "dc/80jslqrjzz46b",
+          "dc/b81mz72elhl79",
+          "dc/dcg7es0zw2xp",
+          "dc/erhgxzkr3bkjb",
+          "dc/esztqf9cp5l34",
+          "dc/fcr8wpnnwtj31",
+          "dc/w3zfjp242w1k"
+        ]
+      },
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "dc/05sgpg5lkl0j3",
+          "dc/09szykgkfnwzf",
+          "dc/2kxtg8p02r8m2",
+          "dc/4x51zbljbhdsb",
+          "dc/7ec5kvhmd9lr7",
+          "dc/7whbh9y32dkq1",
+          "dc/rqzdxj4lkdsx1",
+          "dc/s2m3q5svmvf9h",
+          "dc/yl5sv6vx88jxd"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Diabetes",

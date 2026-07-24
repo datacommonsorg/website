@@ -10,29 +10,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female"
+                      "Count_Person_Female",
+                      "Count_Person_Male"
                     ],
-                    "title": "Women in United States of America",
+                    "title": "Population by Gender in United States of America",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women in United States of America",
-                    "statVarKey": [
-                      "Count_Person_Female"
-                    ],
-                    "title": "Women in United States of America",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "description": "The total number of females in a population.",
-            "title": "Women"
+            "title": "Population by Gender"
           },
           {
             "columns": [
@@ -73,24 +61,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female",
-                      "Count_Person_Male"
-                    ],
-                    "title": "Population by Gender in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_Male"
                     ],
                     "title": "Men in States of United States of America (${date})",
@@ -117,492 +87,6 @@
             "denom": "Count_Person",
             "description": "The total number of males in a population.",
             "title": "Men in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_MarriedAndNotSeparated"
-                    ],
-                    "title": "Non-Separated Married Women in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Non-Separated Married Women in United States of America",
-                    "statVarKey": [
-                      "Count_Person_Female_MarriedAndNotSeparated"
-                    ],
-                    "title": "Non-Separated Married Women in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Non-Separated Married Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_MarriedAndNotSeparated"
-                    ],
-                    "title": "Non-Separated Married Women in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_MarriedAndNotSeparated"
-                    ],
-                    "title": "Non-Separated Married Women in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Non-Separated Married Women in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: Female in United States of America",
-                    "statVarKey": [
-                      "Count_Death_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces"
-                    ],
-                    "title": "Women Identifying as Multiracial in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women Identifying as Multiracial in United States of America",
-                    "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces"
-                    ],
-                    "title": "Women Identifying as Multiracial in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Identifying as Multiracial"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces"
-                    ],
-                    "title": "Women Identifying as Multiracial in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces"
-                    ],
-                    "title": "Women Identifying as Multiracial in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Identifying as Multiracial in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
-                    ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
-                    "statVarKey": [
-                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
-                    ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Female, Enrolled in School"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
-                    ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
-                    ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance"
-                    ],
-                    "title": "Women With Health Insurance in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women With Health Insurance in United States of America",
-                    "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance"
-                    ],
-                    "title": "Women With Health Insurance in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women With Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance"
-                    ],
-                    "title": "Women With Health Insurance in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance"
-                    ],
-                    "title": "Women With Health Insurance in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women With Health Insurance in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in United States of America",
-                    "statVarKey": [
-                      "Count_Person_Female_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Years 16 to 64, Female, USC Full Time Year Round Worker in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women's Median Age in United States of America",
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Women's Median Age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Women's Median Age in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_AsianAlone"
-                    ],
-                    "title": "Asian Monoracial Women in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Asian Monoracial Women in United States of America",
-                    "statVarKey": [
-                      "Count_Person_Female_AsianAlone"
-                    ],
-                    "title": "Asian Monoracial Women in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Asian Monoracial Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_AsianAlone"
-                    ],
-                    "title": "Asian Monoracial Women in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_AsianAlone"
-                    ],
-                    "title": "Asian Monoracial Women in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Asian Monoracial Women in States of United States of America"
           },
           {
             "columns": [
@@ -671,9 +155,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                      "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in United States of America",
+                    "title": "Population: Years 15 to 19, Female, Separated in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -681,18 +165,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in United States of America",
+                    "description": "Population: Years 15 to 19, Female, Separated in United States of America",
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                      "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in United States of America",
+                    "title": "Population: Years 15 to 19, Female, Separated in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female"
+            "title": "Separated Female Population by Age"
           },
           {
             "columns": [
@@ -700,9 +184,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                      "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in States of United States of America (${date})",
+                    "title": "Population: Years 15 to 19, Female, Separated in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -715,16 +199,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                      "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in States of United States of America (${date})",
+                    "title": "Population: Years 15 to 19, Female, Separated in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in States of United States of America"
+            "title": "Population: Years 15 to 19, Female, Separated in States of United States of America"
           },
           {
             "columns": [
@@ -732,9 +216,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_WithDisability_Female"
+                      "Count_Person_Female_AsianAlone"
                     ],
-                    "title": "Women With Disabilities in United States of America",
+                    "title": "Asian Monoracial Women in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -742,18 +226,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Women With Disabilities in United States of America",
+                    "description": "Asian Monoracial Women in United States of America",
                     "statVarKey": [
-                      "Count_Person_WithDisability_Female"
+                      "Count_Person_Female_AsianAlone"
                     ],
-                    "title": "Women With Disabilities in United States of America",
+                    "title": "Asian Monoracial Women in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Women With Disabilities"
+            "title": "Asian Monoracial Women"
           },
           {
             "columns": [
@@ -761,9 +245,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_WithDisability_Female"
+                      "Count_Person_Female_AsianAlone"
                     ],
-                    "title": "Women With Disabilities in States of United States of America (${date})",
+                    "title": "Asian Monoracial Women in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -776,16 +260,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_WithDisability_Female"
+                      "Count_Person_Female_AsianAlone"
                     ],
-                    "title": "Women With Disabilities in States of United States of America (${date})",
+                    "title": "Asian Monoracial Women in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Women With Disabilities in States of United States of America"
+            "title": "Asian Monoracial Women in States of United States of America"
           },
           {
             "columns": [
@@ -793,9 +277,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                      "Count_Person_Female_NonWhite"
                     ],
-                    "title": "Bachelors, Women in United States of America",
+                    "title": "Non White Women in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -803,18 +287,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Bachelors, Women in United States of America",
+                    "description": "Non White Women in United States of America",
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                      "Count_Person_Female_NonWhite"
                     ],
-                    "title": "Bachelors, Women in United States of America",
+                    "title": "Non White Women in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Bachelors, Women"
+            "title": "Non White Women"
           },
           {
             "columns": [
@@ -822,9 +306,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                      "Count_Person_Female_MarriedAndNotSeparated"
                     ],
-                    "title": "Bachelors, Women in States of United States of America (${date})",
+                    "title": "Non-Separated Married Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Non-Separated Married Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated"
+                    ],
+                    "title": "Non-Separated Married Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non-Separated Married Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated"
+                    ],
+                    "title": "Non-Separated Married Women in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -837,16 +350,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                      "Count_Person_Female_MarriedAndNotSeparated"
                     ],
-                    "title": "Bachelors, Women in States of United States of America (${date})",
+                    "title": "Non-Separated Married Women in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Bachelors, Women in States of United States of America"
+            "title": "Non-Separated Married Women in States of United States of America"
           },
           {
             "columns": [
@@ -908,20 +421,469 @@
             ],
             "denom": "Count_Person",
             "title": "Foreign Born Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/lnp5g90fwpct8"
+                    ],
+                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/lnp5g90fwpct8"
+                    ],
+                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_AsianOrPacificIslander"
+                    ],
+                    "title": "Asian or Pacific Islander Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asian or Pacific Islander Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_AsianOrPacificIslander"
+                    ],
+                    "title": "Asian or Pacific Islander Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian or Pacific Islander Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_AsianOrPacificIslander"
+                    ],
+                    "title": "Asian or Pacific Islander Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_AsianOrPacificIslander"
+                    ],
+                    "title": "Asian or Pacific Islander Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian or Pacific Islander Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NotHispanicOrLatino"
+                    ],
+                    "title": "Non Hispanic Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Non Hispanic Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_NotHispanicOrLatino"
+                    ],
+                    "title": "Non Hispanic Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NotHispanicOrLatino"
+                    ],
+                    "title": "Non Hispanic Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_NotHispanicOrLatino"
+                    ],
+                    "title": "Non Hispanic Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Hispanic Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in United States of America",
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black or African American Monoracial Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Black or African American Monoracial Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black or African American Monoracial Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black or African American Monoracial Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black or African American Monoracial Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black or African American Monoracial Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black or African American Monoracial Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 3 Onwards, Female, Enrolled in School"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithOwnChildrenUnder18_Female"
+                    ],
+                    "title": "Population: With Own Children Under 18, Female in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: With Own Children Under 18, Female in United States of America",
+                    "statVarKey": [
+                      "Count_Person_WithOwnChildrenUnder18_Female"
+                    ],
+                    "title": "Population: With Own Children Under 18, Female in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: With Own Children Under 18, Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithOwnChildrenUnder18_Female"
+                    ],
+                    "title": "Population: With Own Children Under 18, Female in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithOwnChildrenUnder18_Female"
+                    ],
+                    "title": "Population: With Own Children Under 18, Female in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: With Own Children Under 18, Female in States of United States of America"
           }
         ],
         "statVarSpec": {
-          "Count_Death_Female": {
-            "name": "Count of Mortality Event: Female",
-            "statVar": "Count_Death_Female"
-          },
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
-            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
-            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
-          },
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female": {
-            "name": "Bachelors, Women",
-            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+          "Count_Person_15To19Years_Female_Separated": {
+            "name": "Population: Years 15 To 19, Female, Separated",
+            "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool": {
             "name": "Population: Years 3 Onwards, Female, Enrolled In School",
@@ -935,41 +897,53 @@
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
+          "Count_Person_Female_AsianOrPacificIslander": {
+            "name": "Asian or Pacific Islander Women",
+            "statVar": "Count_Person_Female_AsianOrPacificIslander"
+          },
+          "Count_Person_Female_BlackOrAfricanAmericanAlone": {
+            "name": "Black or African American Monoracial Women",
+            "statVar": "Count_Person_Female_BlackOrAfricanAmericanAlone"
+          },
           "Count_Person_Female_ForeignBorn": {
             "name": "Foreign Born Women",
             "statVar": "Count_Person_Female_ForeignBorn"
           },
-          "Count_Person_Female_FullTimeYearRoundWorker": {
-            "name": "Population: Years 16 To 64, Female, USC Full Time Year Round Worker",
-            "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
+          "Count_Person_Female_HispanicOrLatino": {
+            "name": "Hispanic Women",
+            "statVar": "Count_Person_Female_HispanicOrLatino"
           },
           "Count_Person_Female_MarriedAndNotSeparated": {
             "name": "Non-Separated Married Women",
             "statVar": "Count_Person_Female_MarriedAndNotSeparated"
           },
-          "Count_Person_Female_TwoOrMoreRaces": {
-            "name": "Women Identifying as Multiracial",
-            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          "Count_Person_Female_NonWhite": {
+            "name": "Non White Women",
+            "statVar": "Count_Person_Female_NonWhite"
+          },
+          "Count_Person_Female_NotHispanicOrLatino": {
+            "name": "Non Hispanic Women",
+            "statVar": "Count_Person_Female_NotHispanicOrLatino"
           },
           "Count_Person_Female_WhiteAlone": {
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
-          "Count_Person_Female_WithHealthInsurance": {
-            "name": "Women With Health Insurance",
-            "statVar": "Count_Person_Female_WithHealthInsurance"
-          },
           "Count_Person_Male": {
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_WithDisability_Female": {
-            "name": "Women With Disabilities",
-            "statVar": "Count_Person_WithDisability_Female"
+          "Count_Person_WithOwnChildrenUnder18_Female": {
+            "name": "Population: With Own Children Under 18, Female",
+            "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Median_Age_Person_Female": {
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
+          },
+          "dc/lnp5g90fwpct8": {
+            "name": "Population (Measured Based On Jurisdiction): Female, Incarcerated",
+            "statVar": "dc/lnp5g90fwpct8"
           }
         }
       }
@@ -1357,7 +1331,27 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_Female": {
+        "race": [
+          "Count_Person_Female_AsianAlone",
+          "Count_Person_Female_AsianOrPacificIslander",
+          "Count_Person_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_Female_HispanicOrLatino",
+          "Count_Person_Female_NonWhite",
+          "Count_Person_Female_NotHispanicOrLatino",
+          "Count_Person_Female_WhiteAlone"
+        ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_AsianAlone",
+          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Female_HispanicOrLatino",
+          "Median_Age_Person_Female_WhiteAlone"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Gender",

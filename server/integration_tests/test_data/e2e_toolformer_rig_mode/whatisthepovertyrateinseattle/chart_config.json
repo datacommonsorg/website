@@ -33,80 +33,12 @@
             "denom": "Count_Person",
             "startWithDenom": true,
             "title": "Population Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Line (Two or More Races) in Seattle",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Below Poverty Line (Two or More Races) in Seattle",
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Line (Two or More Races) in Seattle",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Below Poverty Line (Two or More Races)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Males in Poverty (In Last Year) in Seattle",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Males in Poverty (In Last Year) in Seattle",
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Males in Poverty (In Last Year) in Seattle",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Males in Poverty (In Last Year)"
           }
         ],
         "statVarSpec": {
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
-            "name": "Below Poverty Line (Two or More Races)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           }
         }
       }

@@ -264,148 +264,12 @@
               }
             ],
             "title": "Infant Mortality Rate by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Interval in Months Since Last Live Birth in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2021"
-                    },
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_291378936879825715"
-                    ],
-                    "title": "Infant Mortality Rate in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Infant Mortality Rate in United States",
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "The median age of people in a population.",
-            "title": "Median Age of Population in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2021"
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_2550419630908544036"
-                    ],
-                    "title": "Median Age of Population in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population in United States",
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "The median age of people in a population.",
-            "title": "Median Age of Population"
           }
         ],
         "statVarSpec": {
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_291378936879825715": {
-            "facetId": "291378936879825715",
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_4486658077301201845": {
             "facetId": "4486658077301201845",
@@ -457,19 +321,6 @@
             "facetId": "9841531598146992798",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
-          },
-          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
-            "name": "Average interval in months since last live birth",
-            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-          },
-          "Median_Age_Person": {
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
-          },
-          "Median_Age_Person_2550419630908544036": {
-            "facetId": "2550419630908544036",
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286": {
             "facetId": "13678236933566447286",
@@ -876,7 +727,14 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",
