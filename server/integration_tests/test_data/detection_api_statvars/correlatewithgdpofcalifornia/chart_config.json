@@ -36,18 +36,22 @@
     "dc/topic/GDP",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+    "dc/topic/EconomicActivity",
+    "dc/topic/GlobalEconomicActivity",
+    "dc/topic/Economy",
     "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
     "InflationAdjustedGDP",
     "dc/topic/GDPByIndustry",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
     "Amount_EconomicActivity_GrossValueAdded_RealValue",
-    "dc/topic/EconomicActivity",
     "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector",
     "USStateQuarterlyIndustryGDP_NAICS_23",
-    "dc/topic/Economy",
+    "dc/topic/sdg_8.1.1",
     "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita",
-    "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+    "dc/topic/sdg_8.2.1",
+    "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange",
+    "dc/topic/IndustriesByGDP"
   ]
 }

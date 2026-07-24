@@ -16,10 +16,10 @@
     "geoId/06"
   ],
   "comparisonVariables": [
-    "dc/topic/CommuteMode",
     "dc/topic/WorkCommute",
-    "dc/topic/CommuteModeByOccupation",
+    "dc/topic/CommuteMode",
     "dc/topic/CommuteTime",
+    "dc/topic/CommuteModeByOccupation",
     "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
   ],
   "context": {},

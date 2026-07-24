@@ -28,16 +28,16 @@
     "Median_Income_Household_FamilyHousehold",
     "Median_Earnings_Person_Male",
     "Median_Income_Household_MarriedCoupleFamilyHousehold",
+    "dc/topic/MedianHouseholdIncomeByGender",
     "Median_Income_Person_18OrMoreYears_Civilian_WithIncome",
     "Median_Income_Household_NonfamilyHousehold",
+    "dc/topic/MedianHouseholdIncomeByRace",
     "Median_Income_Household_HouseholderRaceWhiteAlone",
     "Median_Earnings_Person_Female",
     "Mean_Income_Household_FamilyHousehold",
     "dc/topic/IndividualIncomeDistribution",
     "Median_Income_Person_25OrMoreYears_EducationalAttainmentSomeCollegeOrAssociatesDegree_WithIncome",
     "Median_Income_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_WithIncome",
-    "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome",
-    "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn",
-    "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+    "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
   ]
 }

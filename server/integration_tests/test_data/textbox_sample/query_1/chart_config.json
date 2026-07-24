@@ -663,6 +663,85 @@
             ],
             "denom": "Count_Person",
             "title": "Count of Household: Family Household, Worker 3 Onwards in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female",
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Household Income by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Men in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -705,6 +784,14 @@
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
+          },
+          "Median_Earnings_Person_Female": {
+            "name": "Median Earnings for Women",
+            "statVar": "Median_Earnings_Person_Female"
+          },
+          "Median_Earnings_Person_Male": {
+            "name": "Median Earnings for Men",
+            "statVar": "Median_Earnings_Person_Male"
           },
           "Median_Income_Household_FamilyHousehold": {
             "name": "Median Family Household Income",

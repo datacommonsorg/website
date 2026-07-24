@@ -19,10 +19,10 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "dc/topic/CommuteMode",
     "dc/topic/WorkCommute",
-    "dc/topic/CommuteModeByOccupation",
+    "dc/topic/CommuteMode",
     "dc/topic/CommuteTime",
+    "dc/topic/CommuteModeByOccupation",
     "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
   ]
 }

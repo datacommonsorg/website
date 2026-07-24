@@ -562,7 +562,30 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_Divorced": {
+        "gender": [
+          "Count_Person_Female_Divorced",
+          "Count_Person_Male_Divorced"
+        ],
+        "nativity": [
+          "Count_Person_15OrMoreYears_Divorced_ForeignBorn",
+          "Count_Person_15OrMoreYears_Divorced_Native"
+        ],
+        "race": [
+          "Count_Person_15OrMoreYears_Divorced_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_15OrMoreYears_Divorced_AsianAlone",
+          "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
+          "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino",
+          "Count_Person_15OrMoreYears_Divorced_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_15OrMoreYears_Divorced_OneRace",
+          "Count_Person_15OrMoreYears_Divorced_SomeOtherRaceAlone",
+          "Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces",
+          "Count_Person_15OrMoreYears_Divorced_WhiteAlone",
+          "Count_Person_15OrMoreYears_Divorced_WhiteAloneNotHispanicOrLatino"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/DivorcedPopulationByDemographic",

@@ -423,6 +423,85 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Earnings_Person_Female",
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Household Income by Gender in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Women in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Men in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household_HouseholderRaceWhiteAlone"
                     ],
                     "title": "Median Income of White Households in East Carroll Parish",
@@ -475,6 +554,66 @@
               }
             ],
             "title": "Median Income of White Households in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/22035"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Median Household Income by Race in East Carroll Parish (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Income of Black or African American Households in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Income of Black or African American Households in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Black or African American Households in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -658,23 +797,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income of Hispanic or Latino Households in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-                    ],
-                    "title": "Median Income of Hispanic or Latino Households in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Hispanic or Latino Households"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
                     ],
@@ -735,9 +857,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Earnings_Person_Male"
+                      "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Earnings for Men in East Carroll Parish",
+                    "title": "Average Income for Nonfamily Households in East Carroll Parish",
                     "type": "LINE"
                   }
                 ]
@@ -745,17 +867,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Earnings for Men in East Carroll Parish",
+                    "description": "Average Income for Nonfamily Households in East Carroll Parish",
                     "statVarKey": [
-                      "Median_Earnings_Person_Male"
+                      "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Earnings for Men in East Carroll Parish",
+                    "title": "Average Income for Nonfamily Households in East Carroll Parish",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Earnings for Men"
+            "title": "Average Income for Nonfamily Households"
           },
           {
             "columns": [
@@ -763,9 +885,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Earnings_Person_Male"
+                      "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Earnings for Men in Cities of East Carroll Parish (${date})",
+                    "title": "Average Income for Nonfamily Households in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -778,74 +900,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Earnings_Person_Male"
+                      "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Earnings for Men in Cities of East Carroll Parish (${date})",
+                    "title": "Average Income for Nonfamily Households in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Earnings for Men in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Income of Black or African American Households in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income of Black or African American Households in East Carroll Parish",
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Income of Black or African American Households in East Carroll Parish",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Black or African American Households"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Income of Black or African American Households in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Income of Black or African American Households in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Black or African American Households in Cities of East Carroll Parish"
+            "title": "Average Income for Nonfamily Households in Cities of East Carroll Parish"
           }
         ],
         "statVarSpec": {
@@ -857,9 +920,17 @@
             "name": "Average Income for Family Households",
             "statVar": "Mean_Income_Household_FamilyHousehold"
           },
+          "Mean_Income_Household_NonfamilyHousehold": {
+            "name": "Average Income for Nonfamily Households",
+            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
+          },
+          "Median_Earnings_Person_Female": {
+            "name": "Median Earnings for Women",
+            "statVar": "Median_Earnings_Person_Female"
           },
           "Median_Earnings_Person_Male": {
             "name": "Median Earnings for Men",
@@ -877,11 +948,27 @@
             "name": "Median Income of Black or African American Households",
             "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
           },
-          "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Median Income of Black or African American Households",
+            "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+          },
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block": {
             "name": "Median Income of Hispanic or Latino Households",
             "statVar": "Median_Income_Household_HouseholderRaceHispanicOrLatino"
           },
+          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Median Income of Household: Two Or More Races",
+            "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
+          },
           "Median_Income_Household_HouseholderRaceWhiteAlone": {
+            "name": "Median Income of White Households",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Median Income of Household: White Alone Not Hispanic Or Latino",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
             "name": "Median Income of White Households",
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
           },
@@ -988,11 +1075,19 @@
           "Mean_Income_Household_NonfamilyHousehold"
         ]
       },
+      "Median_Earnings_Person": {
+        "gender": [
+          "Median_Earnings_Person_Female",
+          "Median_Earnings_Person_Male"
+        ]
+      },
       "Median_Income_Household": {
         "householderRace": [
           "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
           "Median_Income_Household_HouseholderRaceHispanicOrLatino",
-          "Median_Income_Household_HouseholderRaceWhiteAlone"
+          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
+          "Median_Income_Household_HouseholderRaceWhiteAlone",
+          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
         ]
       },
       "Median_Income_Person": {

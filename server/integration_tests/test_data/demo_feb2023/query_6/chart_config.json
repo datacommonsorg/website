@@ -1860,7 +1860,82 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Death_45To54Years_Neoplasms": {
+        "gender": [
+          "Count_Death_45To54Years_Neoplasms_Female",
+          "Count_Death_45To54Years_Neoplasms_Male"
+        ]
+      },
+      "Count_Death_55To64Years_Neoplasms": {
+        "gender": [
+          "Count_Death_55To64Years_Neoplasms_Female",
+          "Count_Death_55To64Years_Neoplasms_Male"
+        ]
+      },
+      "Count_Death_65To74Years_Neoplasms": {
+        "gender": [
+          "Count_Death_65To74Years_Neoplasms_Female",
+          "Count_Death_65To74Years_Neoplasms_Male"
+        ],
+        "race": [
+          "Count_Death_65To74Years_Neoplasms_AsianOrPacificIslander",
+          "Count_Death_65To74Years_Neoplasms_White"
+        ]
+      },
+      "Count_Death_75To84Years_MentalBehaviouralDisorders": {
+        "gender": [
+          "Count_Death_75To84Years_MentalBehaviouralDisorders_Female",
+          "Count_Death_75To84Years_MentalBehaviouralDisorders_Male"
+        ]
+      },
+      "Count_Death_75To84Years_Neoplasms": {
+        "gender": [
+          "Count_Death_75To84Years_Neoplasms_Female",
+          "Count_Death_75To84Years_Neoplasms_Male"
+        ],
+        "race": [
+          "Count_Death_75To84Years_Neoplasms_AsianOrPacificIslander",
+          "Count_Death_75To84Years_Neoplasms_White"
+        ]
+      },
+      "Count_Death_85Years_Neoplasms": {
+        "gender": [
+          "Count_Death_85Years_Neoplasms_Female",
+          "Count_Death_85Years_Neoplasms_Male"
+        ]
+      },
+      "Count_Death_MentalBehaviouralDisorders": {
+        "age": [
+          "Count_Death_65To74Years_MentalBehaviouralDisorders",
+          "Count_Death_75To84Years_MentalBehaviouralDisorders",
+          "Count_Death_85Years_MentalBehaviouralDisorders"
+        ]
+      },
+      "Count_Death_Neoplasms": {
+        "age": [
+          "Count_Death_35To44Years_Neoplasms",
+          "Count_Death_45To54Years_Neoplasms",
+          "Count_Death_55To64Years_Neoplasms",
+          "Count_Death_65To74Years_Neoplasms",
+          "Count_Death_75To84Years_Neoplasms",
+          "Count_Death_85Years_Neoplasms",
+          "Count_MortalityEvent_85OrMoreYears_ICD10/C00-D48"
+        ]
+      },
+      "Count_Person_NoHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_NoHealthInsurance",
+          "Count_Person_Male_NoHealthInsurance"
+        ]
+      },
+      "Count_Person_WithHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_WithHealthInsurance",
+          "Count_Person_Male_WithHealthInsurance"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/HealthConditions",

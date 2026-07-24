@@ -169,6 +169,68 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll_multiple_place_bar_block",
+                      "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll_multiple_place_bar_block",
+                      "Sales_Establishment_NAICSWholesaleTrade_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_multiple_place_bar_block",
+                      "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSUtilities_WithPayroll_multiple_place_bar_block",
+                      "dc/2hl1yfxglmq0c_multiple_place_bar_block",
+                      "dc/2kz6b9kvps8c9_multiple_place_bar_block",
+                      "dc/31hbegrgs0x05_multiple_place_bar_block",
+                      "dc/3wx4hzg5p6zdb_multiple_place_bar_block",
+                      "dc/41s8qer7mpew9_multiple_place_bar_block",
+                      "dc/4fbqq2v75fwbc_multiple_place_bar_block",
+                      "dc/8mty3dlrx26e5_multiple_place_bar_block",
+                      "dc/8vcbgqlfzwvtf_multiple_place_bar_block",
+                      "dc/9bcetmhgnge5f_multiple_place_bar_block",
+                      "dc/c0zdt686eek05_multiple_place_bar_block",
+                      "dc/d796515q44h02_multiple_place_bar_block",
+                      "dc/ekrg82bjht898_multiple_place_bar_block",
+                      "dc/f2g63f2rjbdyh_multiple_place_bar_block",
+                      "dc/g8sxhs8lzmb15_multiple_place_bar_block",
+                      "dc/gf47xlzfbd3t8_multiple_place_bar_block",
+                      "dc/ghk2rsfpsnc29_multiple_place_bar_block",
+                      "dc/gy5fk764jzhvd_multiple_place_bar_block",
+                      "dc/jxwhv6vc0rye7_multiple_place_bar_block",
+                      "dc/m46wj1egm7j56_multiple_place_bar_block",
+                      "dc/rw3t3r74kv7mc_multiple_place_bar_block",
+                      "dc/sythffk3c3ne7_multiple_place_bar_block",
+                      "dc/sz9ckd47e35b4_multiple_place_bar_block",
+                      "dc/zkmdz1rhlt7q8_multiple_place_bar_block"
+                    ],
+                    "title": "Revenue by Industry Type in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Revenue by Industry Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
                     ],
@@ -343,9 +405,161 @@
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           },
+          "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Construction",
+            "statVar": "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Arts, Entertainment, Recreation",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Educational Services",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Health Care and Social Assistance",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Information",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Other Services",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Professional, Scientific, Technical Services",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll"
+          },
+          "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Administrative, Support, Waste Management",
+            "statVar": "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Finance and Insurance",
+            "statVar": "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Company Management",
+            "statVar": "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Real Estate, Rental, Leasing",
+            "statVar": "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSUtilities_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments With Payroll: Utilities",
+            "statVar": "Revenue_Establishment_NAICSUtilities_WithPayroll"
+          },
+          "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Accommodation And Food Services",
+            "statVar": "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll"
+          },
+          "Sales_Establishment_NAICSWholesaleTrade_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Wholesale Trade",
+            "statVar": "Sales_Establishment_NAICSWholesaleTrade_WithPayroll"
+          },
+          "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Mining, Quarrying, Oil & Gas",
+            "statVar": "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll"
+          },
+          "dc/2hl1yfxglmq0c_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Miscellaneous Store Retailers",
+            "statVar": "dc/2hl1yfxglmq0c"
+          },
+          "dc/2kz6b9kvps8c9_multiple_place_bar_block": {
+            "name": "Revenue of Establishment With Payroll: Couriers And Messengers",
+            "statVar": "dc/2kz6b9kvps8c9"
+          },
+          "dc/31hbegrgs0x05_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Sports, Hobby, Music Instrument, Book Stores",
+            "statVar": "dc/31hbegrgs0x05"
+          },
+          "dc/3wx4hzg5p6zdb_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Nonstore Retailers",
+            "statVar": "dc/3wx4hzg5p6zdb"
+          },
+          "dc/41s8qer7mpew9_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: General Merchandise Stores",
+            "statVar": "dc/41s8qer7mpew9"
+          },
+          "dc/4fbqq2v75fwbc_multiple_place_bar_block": {
+            "name": "Revenue of Establishments With Payroll: Transportation And Warehousing",
+            "statVar": "dc/4fbqq2v75fwbc"
+          },
+          "dc/8mty3dlrx26e5_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Chemical Manufacturing",
+            "statVar": "dc/8mty3dlrx26e5"
+          },
+          "dc/8vcbgqlfzwvtf_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Printing And Related Support Activities",
+            "statVar": "dc/8vcbgqlfzwvtf"
+          },
+          "dc/9bcetmhgnge5f_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Furniture And Related Product Manufacturing",
+            "statVar": "dc/9bcetmhgnge5f"
+          },
+          "dc/c0zdt686eek05_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishment With Payroll: Miscellaneous Manufacturing",
+            "statVar": "dc/c0zdt686eek05"
+          },
+          "dc/d796515q44h02_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Paper Manufacturing",
+            "statVar": "dc/d796515q44h02"
+          },
+          "dc/ekrg82bjht898_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Computer And Electronic Product Manufacturing",
+            "statVar": "dc/ekrg82bjht898"
+          },
+          "dc/f2g63f2rjbdyh_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishment With Payroll: Machinery Manufacturing",
+            "statVar": "dc/f2g63f2rjbdyh"
+          },
+          "dc/g8sxhs8lzmb15_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Retail Trade",
+            "statVar": "dc/g8sxhs8lzmb15"
+          },
+          "dc/gf47xlzfbd3t8_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Plastics And Rubber Products Manufacturing",
+            "statVar": "dc/gf47xlzfbd3t8"
+          },
+          "dc/ghk2rsfpsnc29_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Transportation Equipment Manufacturing",
+            "statVar": "dc/ghk2rsfpsnc29"
+          },
+          "dc/gy5fk764jzhvd_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Fabricated Metal Product Manufacturing",
+            "statVar": "dc/gy5fk764jzhvd"
+          },
+          "dc/jxwhv6vc0rye7_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Wood Product Manufacturing",
+            "statVar": "dc/jxwhv6vc0rye7"
+          },
+          "dc/m46wj1egm7j56_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Petroleum And Coal Products Manufacturing",
+            "statVar": "dc/m46wj1egm7j56"
+          },
           "dc/qt7ewllmt3826_multiple_place_bar_block": {
             "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/44-45",
             "statVar": "dc/qt7ewllmt3826"
+          },
+          "dc/rw3t3r74kv7mc_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Primary Metal Manufacturing",
+            "statVar": "dc/rw3t3r74kv7mc"
+          },
+          "dc/sythffk3c3ne7_multiple_place_bar_block": {
+            "name": "Revenue of Establishments With Payroll: Warehousing And Storage",
+            "statVar": "dc/sythffk3c3ne7"
+          },
+          "dc/sz9ckd47e35b4_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Electrical Equipment And Appliance Mfg.",
+            "statVar": "dc/sz9ckd47e35b4"
+          },
+          "dc/zkmdz1rhlt7q8_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Nonmetallic Mineral Product Manufacturing",
+            "statVar": "dc/zkmdz1rhlt7q8"
           },
           "dc/zz6gwv838v9w_multiple_place_bar_block": {
             "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/48-49",
