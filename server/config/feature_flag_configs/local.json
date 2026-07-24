@@ -31,12 +31,6 @@
     "description": "Adds the ability to deep link to bar charts, line charts, ranking and map charts"
   },
   {
-    "name": "enable_gemini_3_flash",
-    "enabled": false,
-    "owner": "shixiao",
-    "description": "Enables Gemini 3 Flash for NL detection."
-  },
-  {
     "name": "enable_nl_agent_detector",
     "enabled": true,
     "owner": "clincoln8",
