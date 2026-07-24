@@ -36,6 +36,12 @@
     "description": "Enables Gemini 3 Flash for NL detection."
   },
   {
+    "name": "enable_gemini_3_5_flash",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enables Gemini 3.5 Flash for NL detection."
+  },
+  {
     "name": "enable_nl_agent_detector",
     "enabled": false,
     "owner": "clincoln8",
