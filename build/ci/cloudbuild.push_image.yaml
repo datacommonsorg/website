@@ -57,10 +57,8 @@ steps:
           --build-arg MIXER_HASH=$(cat mixer_hash.txt) \
           --build-arg WEBSITE_HASH=$(cat website_hash.txt) \
           --tag gcr.io/$_PROJECT_ID/datacommons-services:${_TAG} \
-          --tag gcr.io/$_PROJECT_ID/datacommons-services:latest \
           .
         docker push gcr.io/$_PROJECT_ID/datacommons-services:${_TAG}
-        docker push gcr.io/$_PROJECT_ID/datacommons-services:latest
     waitFor: ["resolve-hashes"]
 
   - id: push-nl-server
@@ -95,10 +93,8 @@ steps:
         DOCKER_BUILDKIT=1
         docker build -f build/website_cron_testing/Dockerfile \
           --tag gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG} \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:latest \
           .
         docker push gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG}
-        docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
     waitFor: ["-"]
 
 substitutions:
