@@ -19,6 +19,11 @@ import time
 from typing import cast, Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.feature_flags import DISABLE_EXPLORE_MORE_IN_NL_SEARCH
+from server.lib.feature_flags import \
+    DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER
+from server.lib.feature_flags import DIVERT_TO_SPANNER
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 import server.lib.nl.common.utterance as nl_uttr
@@ -61,9 +66,15 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
 
   plotted_orig_vars = _get_plotted_orig_vars(state)
 
+  disable_explore_more = (
+      is_feature_enabled(DISABLE_EXPLORE_MORE_IN_NL_SEARCH) or
+      (is_feature_enabled(DIVERT_TO_SPANNER) and
+       is_feature_enabled(DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER)))
+
   explore_peer_groups = {}
   if (not state.uttr.insight_ctx.get(params.Params.EXP_MORE_DISABLED) and
-      not params.is_special_dc(state.uttr.insight_ctx)):
+      not params.is_special_dc(state.uttr.insight_ctx) and
+      not disable_explore_more):
     explore_more_chart_vars_map = _get_explore_more_chart_vars(state)
     explore_peer_groups = extension.chart_vars_to_explore_peer_groups(
         state, explore_more_chart_vars_map)

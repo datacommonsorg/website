@@ -41,6 +41,9 @@ USE_V2_RESOLVE_FOR_NL_SEARCH_VARS = 'use_v2_resolve_for_nl_search_vars'
 ENABLE_NL_V2NODE_FETCHALL = 'enable_nl_v2node_fetchall'
 CROISSANT_JSON_LD_FEATURE = 'show_croissant_json_ld'
 CROISSANT_EXTENDED_FEATURE = 'show_croissant_extended_feature'
+DISABLE_EXPLORE_MORE_IN_NL_SEARCH = 'disable_explore_more_in_nl_search'
+DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER = 'disable_explore_more_in_nl_search_for_spanner'
+DIVERT_TO_SPANNER = 'divert_to_spanner'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
@@ -101,7 +104,7 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if request is None and has_request_context():
     request = flask_request
 
-  if feature_name == 'divert_to_spanner' and has_request_context():
+  if feature_name == DIVERT_TO_SPANNER and has_request_context():
     from flask import g
     if 'use_spanner' not in g:
       g.use_spanner = assign_spanner_cohort(app, request)
@@ -170,14 +173,14 @@ def assign_spanner_cohort(app, request) -> bool:
     True if client is in the Spanner diversion cohort, False otherwise.
   """
   # Check for URL parameter overrides
-  if is_feature_override_enabled('divert_to_spanner', request):
+  if is_feature_override_enabled(DIVERT_TO_SPANNER, request):
     return True
-  if is_feature_override_disabled('divert_to_spanner', request):
+  if is_feature_override_disabled(DIVERT_TO_SPANNER, request):
     return False
 
   # Check feature flag configuration
   feature_flags = app.config.get('FEATURE_FLAGS', {})
-  flag_config = feature_flags.get('divert_to_spanner', {})
+  flag_config = feature_flags.get(DIVERT_TO_SPANNER, {})
   if not flag_config.get('enabled', False):
     return False
 
