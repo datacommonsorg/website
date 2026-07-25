@@ -25,8 +25,11 @@ FEATURE_OVERRIDES = {}
 
 def post_request(url, **kwargs):
   """Wraps requests.post, automatically appending override parameters to the URL."""
+  if not FEATURE_OVERRIDES:
+    return requests.post(url, **kwargs)
+
   parsed_url = urllib.parse.urlparse(url)
-  query_params = urllib.parse.parse_qs(parsed_url.query)
+  query_params = urllib.parse.parse_qs(parsed_url.query, keep_blank_values=True)
 
   for flag, enabled in FEATURE_OVERRIDES.items():
     param_name = 'enable_feature' if enabled else 'disable_feature'
