@@ -58,8 +58,8 @@ def is_feature_override_enabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(
-      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM) == feature_name
+  return feature_name in request.args.getlist(
+      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM)
 
 
 def is_feature_override_disabled(feature_name: str, request=None) -> bool:
@@ -74,8 +74,8 @@ def is_feature_override_disabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(
-      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM) == feature_name
+  return feature_name in request.args.getlist(
+      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM)
 
 
 def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
