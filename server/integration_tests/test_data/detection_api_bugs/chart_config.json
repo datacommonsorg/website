@@ -14,8 +14,7 @@
   "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [
-    "dc/topic/HousesByHomeValue",
-    "dc/topic/HousesByOwnershipCost"
+    "dc/topic/HousesByHomeValue"
   ],
   "context": {},
   "debug": {},
@@ -26,9 +25,8 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "dc/topic/Housing",
-    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
-    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_RenterOccupied",
-    "Count_HousingUnit"
+    "Count_HousingUnit",
+    "dc/topic/HousesByRoomCount",
+    "dc/topic/Housing"
   ]
 }

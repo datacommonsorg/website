@@ -9,121 +9,1229 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "description": "Population: Literate in India",
+                    "statVarKey": [
+                      "Count_Person_Literate"
+                    ],
+                    "title": "Population: Literate in India",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Literate"
+                    ],
+                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate"
+                    ],
+                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Illiterate in India",
+                    "statVarKey": [
+                      "Count_Person_Illiterate"
+                    ],
+                    "title": "Population: Illiterate in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Illiterate"
+                    ],
+                    "title": "Population: Illiterate in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Illiterate"
+                    ],
+                    "title": "Population: Illiterate in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Male, Literate in India",
+                    "statVarKey": [
+                      "Count_Person_Literate_Male"
+                    ],
+                    "title": "Population: Male, Literate in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Male, Literate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Literate_Male"
+                    ],
+                    "title": "Population: Male, Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate_Male"
+                    ],
+                    "title": "Population: Male, Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Male, Literate in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Literate, Christianity in India",
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Literate"
+                    ],
+                    "title": "Population: Literate, Christianity in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Christianity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Literate"
+                    ],
+                    "title": "Population: Literate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Literate"
+                    ],
+                    "title": "Population: Literate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Christianity in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Female, Literate in India",
+                    "statVarKey": [
+                      "Count_Person_Literate_Female"
+                    ],
+                    "title": "Population: Female, Literate in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Literate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Literate_Female"
+                    ],
+                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate_Female"
+                    ],
+                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Literate in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Literate, Islam in India",
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Literate"
+                    ],
+                    "title": "Population: Literate, Islam in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Islam"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Literate"
+                    ],
+                    "title": "Population: Literate, Islam in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Literate"
+                    ],
+                    "title": "Population: Literate, Islam in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Islam in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Illiterate Males in India",
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Male"
+                    ],
+                    "title": "Number of Illiterate Males in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Number of illiterate males.",
+            "title": "Number of Illiterate Males"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Male"
+                    ],
+                    "title": "Number of Illiterate Males in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Male"
+                    ],
+                    "title": "Number of Illiterate Males in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Number of illiterate males.",
+            "title": "Number of Illiterate Males in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Illiterate Females in India",
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Female"
+                    ],
+                    "title": "Number of Illiterate Females in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Number of illiterate females.",
+            "title": "Number of Illiterate Females"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Female"
+                    ],
+                    "title": "Number of Illiterate Females in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Female"
+                    ],
+                    "title": "Number of Illiterate Females in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Number of illiterate females.",
+            "title": "Number of Illiterate Females in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Illiterate, Christianity in India",
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Illiterate"
+                    ],
+                    "title": "Population: Illiterate, Christianity in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Christianity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Illiterate"
+                    ],
+                    "title": "Population: Illiterate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Illiterate"
+                    ],
+                    "title": "Population: Illiterate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Christianity in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Literate, Urban in India",
+                    "statVarKey": [
+                      "Count_Person_Literate_Urban"
+                    ],
+                    "title": "Population: Literate, Urban in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Urban"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Literate_Urban"
+                    ],
+                    "title": "Population: Literate, Urban in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate_Urban"
+                    ],
+                    "title": "Population: Literate, Urban in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Urban in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Illiterate, Islam in India",
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Illiterate"
+                    ],
+                    "title": "Population: Illiterate, Islam in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Islam"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Illiterate"
+                    ],
+                    "title": "Population: Illiterate, Islam in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Illiterate"
+                    ],
+                    "title": "Population: Illiterate, Islam in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Islam in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Literate, Rural in India",
+                    "statVarKey": [
+                      "Count_Person_Literate_Rural"
+                    ],
+                    "title": "Population: Literate, Rural in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Rural"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Literate_Rural"
+                    ],
+                    "title": "Population: Literate, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate_Rural"
+                    ],
+                    "title": "Population: Literate, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Rural in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Illiterate, Rural in India",
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Rural"
+                    ],
+                    "title": "Population: Illiterate, Rural in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Rural"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Rural"
+                    ],
+                    "title": "Population: Illiterate, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Rural"
+                    ],
+                    "title": "Population: Illiterate, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Rural in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Literate, Buddhism in India",
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Buddhist_Literate"
+                    ],
+                    "title": "Population: Literate, Buddhism in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Buddhism"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Buddhist_Literate"
+                    ],
+                    "title": "Population: Literate, Buddhism in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Buddhist_Literate"
+                    ],
+                    "title": "Population: Literate, Buddhism in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Buddhism in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Literate, Hinduism in India",
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Hindu_Literate"
+                    ],
+                    "title": "Population: Literate, Hinduism in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Hinduism"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Hindu_Literate"
+                    ],
+                    "title": "Population: Literate, Hinduism in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Hindu_Literate"
+                    ],
+                    "title": "Population: Literate, Hinduism in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Hinduism in Administrative Area 1 Places of India"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "Count_Person_Illiterate": {
+            "name": "Population: Illiterate",
+            "statVar": "Count_Person_Illiterate"
+          },
+          "Count_Person_Illiterate_Female": {
+            "name": "Number of illiterate females",
+            "statVar": "Count_Person_Illiterate_Female"
+          },
+          "Count_Person_Illiterate_Male": {
+            "name": "Number of illiterate males",
+            "statVar": "Count_Person_Illiterate_Male"
+          },
+          "Count_Person_Illiterate_Rural": {
+            "name": "Population: Illiterate, Rural",
+            "statVar": "Count_Person_Illiterate_Rural"
+          },
+          "Count_Person_Literate": {
+            "name": "Population: Literate",
+            "statVar": "Count_Person_Literate"
+          },
+          "Count_Person_Literate_Female": {
+            "name": "Population: Female, Literate",
+            "statVar": "Count_Person_Literate_Female"
+          },
+          "Count_Person_Literate_Male": {
+            "name": "Population: Male, Literate",
+            "statVar": "Count_Person_Literate_Male"
+          },
+          "Count_Person_Literate_Rural": {
+            "name": "Population: Literate, Rural",
+            "statVar": "Count_Person_Literate_Rural"
+          },
+          "Count_Person_Literate_Urban": {
+            "name": "Population: Literate, Urban",
+            "statVar": "Count_Person_Literate_Urban"
+          },
+          "indianCensus/Count_Person_Religion_Buddhist_Literate": {
+            "name": "Population: Literate, Buddhism",
+            "statVar": "indianCensus/Count_Person_Religion_Buddhist_Literate"
+          },
+          "indianCensus/Count_Person_Religion_Christian_Illiterate": {
+            "name": "Population: Illiterate, Christianity",
+            "statVar": "indianCensus/Count_Person_Religion_Christian_Illiterate"
+          },
+          "indianCensus/Count_Person_Religion_Christian_Literate": {
+            "name": "Population: Literate, Christianity",
+            "statVar": "indianCensus/Count_Person_Religion_Christian_Literate"
+          },
+          "indianCensus/Count_Person_Religion_Hindu_Literate": {
+            "name": "Population: Literate, Hinduism",
+            "statVar": "indianCensus/Count_Person_Religion_Hindu_Literate"
+          },
+          "indianCensus/Count_Person_Religion_Muslim_Illiterate": {
+            "name": "Population: Illiterate, Islam",
+            "statVar": "indianCensus/Count_Person_Religion_Muslim_Illiterate"
+          },
+          "indianCensus/Count_Person_Religion_Muslim_Literate": {
+            "name": "Population: Literate, Islam",
+            "statVar": "indianCensus/Count_Person_Religion_Muslim_Literate"
+          }
+        }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "AdministrativeArea1"
+      },
       "placeDcid": [
-        "wikidataId/Q1165"
+        "country/IND"
       ]
     }
   },
   "context": {},
   "debug": {},
   "entities": [],
-  "pastSourceContext": "",
+  "pastSourceContext": "India",
   "place": {
-    "dcid": "wikidataId/Q1165",
-    "name": "Bihar",
-    "place_type": "AdministrativeArea1"
+    "dcid": "country/IND",
+    "name": "India",
+    "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1184",
-      "name": "Jharkhand",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1498",
-      "name": "Uttar Pradesh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1195",
-      "name": "Meghalaya",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1164",
-      "name": "Assam",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1437",
-      "name": "Rajasthan",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "AdministrativeArea1"
+      "dcid": "country/IND",
+      "name": "India",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
-        "types": [
-          "Topic"
+    "childPlaces": {
+      "AdministrativeArea1": [
+        {
+          "dcid": "wikidataId/Q1061",
+          "name": "Gujarat",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1159",
+          "name": "Andhra Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1162",
+          "name": "Arunachal Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1164",
+          "name": "Assam",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1165",
+          "name": "Bihar",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1168",
+          "name": "Chhattisgarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1171",
+          "name": "Goa",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1174",
+          "name": "Haryana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1177",
+          "name": "Himachal Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1184",
+          "name": "Jharkhand",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1185",
+          "name": "Karnataka",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1186",
+          "name": "Kerala",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1188",
+          "name": "Madhya Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1191",
+          "name": "Maharashtra",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1193",
+          "name": "Manipur",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1195",
+          "name": "Meghalaya",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q120971341",
+          "name": "Chandigarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1353",
+          "name": "Delhi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1356",
+          "name": "West Bengal",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1363",
+          "name": "Tripura",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1437",
+          "name": "Rajasthan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1445",
+          "name": "Tamil Nadu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1498",
+          "name": "Uttar Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1499",
+          "name": "Uttarakhand",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1502",
+          "name": "Mizoram",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1505",
+          "name": "Sikkim",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1599",
+          "name": "Nagaland",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q200130",
+          "name": "Azad Kashmir",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q200667",
+          "name": "Ladakh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q22048",
+          "name": "Odisha",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q22424",
+          "name": "Punjab",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q260713",
+          "name": "Gorkhaland",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q26927",
+          "name": "Lakshadweep",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q2893890",
+          "name": "Kamtapur",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40888",
+          "name": "Andaman and Nicobar Islands",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43433",
+          "name": "Chandigarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q46107",
+          "name": "Dadra and Nagar Haveli",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q6432969",
+          "name": "Kosal state movement",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q66278313",
+          "name": "Jammu and Kashmir",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q66710",
+          "name": "Daman and Diu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q66743",
+          "name": "Puducherry",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q677037",
+          "name": "Telangana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q77997266",
+          "name": "Dadra and Nagar Haveli and Daman and Diu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q9357528",
+          "name": "National Capital Territory of Delhi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_Illiterate": {
+        "gender": [
+          "Count_Person_Illiterate_Female",
+          "Count_Person_Illiterate_Male"
+        ],
+        "religion": [
+          "indianCensus/Count_Person_Religion_Christian_Illiterate",
+          "indianCensus/Count_Person_Religion_Muslim_Illiterate"
         ]
       },
-      {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
-        "types": [
-          "Topic"
+      "Count_Person_Illiterate_Female": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Illiterate_Rural_Female",
+          "Count_Person_Illiterate_Urban_Female"
+        ],
+        "religion": [
+          "indianCensus/Count_Person_Religion_Buddhist_Illiterate_Female",
+          "indianCensus/Count_Person_Religion_Christian_Illiterate_Female",
+          "indianCensus/Count_Person_Religion_Hindu_Illiterate_Female",
+          "indianCensus/Count_Person_Religion_Jain_Illiterate_Female",
+          "indianCensus/Count_Person_Religion_Muslim_Illiterate_Female",
+          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Illiterate_Female",
+          "indianCensus/Count_Person_Religion_ReligionNotStated_Illiterate_Female",
+          "indianCensus/Count_Person_Religion_Sikh_Illiterate_Female"
+        ],
+        "socialCategory": [
+          "Count_Person_ScheduledCaste_Illiterate_Female",
+          "Count_Person_ScheduledTribe_Illiterate_Female"
         ]
       },
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
+      "Count_Person_Literate": {
+        "gender": [
+          "Count_Person_Literate_Female",
+          "Count_Person_Literate_Male"
+        ],
+        "placeOfResidenceClassification": [
+          "Count_Person_Literate_Rural",
+          "Count_Person_Literate_Urban"
+        ],
+        "religion": [
+          "indianCensus/Count_Person_Religion_Buddhist_Literate",
+          "indianCensus/Count_Person_Religion_Christian_Literate",
+          "indianCensus/Count_Person_Religion_Hindu_Literate",
+          "indianCensus/Count_Person_Religion_Muslim_Literate"
         ]
       },
-      {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
-        "types": [
-          "Topic"
+      "Count_Person_Literate_Female": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Literate_Rural_Female",
+          "Count_Person_Literate_Urban_Female"
+        ],
+        "religion": [
+          "indianCensus/Count_Person_Religion_Buddhist_Literate_Female",
+          "indianCensus/Count_Person_Religion_Christian_Literate_Female",
+          "indianCensus/Count_Person_Religion_Hindu_Literate_Female",
+          "indianCensus/Count_Person_Religion_Jain_Literate_Female",
+          "indianCensus/Count_Person_Religion_Muslim_Literate_Female",
+          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Literate_Female",
+          "indianCensus/Count_Person_Religion_ReligionNotStated_Literate_Female",
+          "indianCensus/Count_Person_Religion_Sikh_Literate_Female"
         ]
       }
-    ],
-    "exploreMore": {},
+    },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
+        "dcid": "dc/topic/Literacy",
+        "name": "Literacy",
         "types": [
           "Topic"
         ]
@@ -131,12 +1239,110 @@
     ],
     "parentPlaces": [],
     "parentTopics": [],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": []
   },
-  "showForm": true,
-  "svSource": "UNFULFILLED",
+  "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "Sorry, there were no relevant statistics about the topic for Bihar. See available topic categories with statistics for Bihar."
+    "See relevant statistics for India based on the previous query."
   ]
 }

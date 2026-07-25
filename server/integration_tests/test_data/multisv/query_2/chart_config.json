@@ -118,124 +118,9 @@
             ],
             "denom": "Count_Person",
             "title": "Impoverished Population by By Language Spoken at Home"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_Obesity_multiple_place_bar_block"
-                    ],
-                    "title": "Prevalence of Obesity (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Obesity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level in the Past 12 Months"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Households With Food Stamps in the Past Year and Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Family Households Below the Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Family Households Below the Poverty Line"
           }
         ],
         "statVarSpec": {
-          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Family Households Below the poverty line",
-            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level In The Past 12 Months",
-            "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Households With Food Stamps in the Past Year and below poverty line",
-            "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Population: Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
@@ -295,11 +180,6 @@
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          },
-          "Percent_Person_Obesity_multiple_place_bar_block": {
-            "name": "Prevalence of Obesity",
-            "statVar": "Percent_Person_Obesity",
-            "unit": "%"
           }
         }
       }
@@ -358,7 +238,107 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months"
+        ],
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "race": [
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_AsianAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

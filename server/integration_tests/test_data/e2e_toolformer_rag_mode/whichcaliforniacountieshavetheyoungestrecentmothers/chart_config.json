@@ -14,6 +14,65 @@
                       "showLowest": true
                     },
                     "statVarKey": [
+                      "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 19, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 19 Years Female) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 19, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 19 Years Female) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Years 15 to 19, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 19 Years Female) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 19, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 19 Years Female) in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 15 to 19, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 19 Years Female) in California",
+                    "statVarKey": [
+                      "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 19, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 19 Years Female) in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Years 15 to 19, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 19 Years Female)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
                       "Mean_MothersAge_BirthEvent_LiveBirth"
                     ],
                     "title": "Average Mother'S Age in Years in Counties of California (${date})",
@@ -62,9 +121,76 @@
               }
             ],
             "title": "Average Mother'S Age in Years"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 50, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 50 Years Female) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 50, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 50 Years Female) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Years 15 to 50, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 50 Years Female) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 50, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 50 Years Female) in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 15 to 50, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 50 Years Female) in California",
+                    "statVarKey": [
+                      "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female"
+                    ],
+                    "title": "Population: Years 15 to 50, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 50 Years Female) in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Years 15 to 50, Birth in the Past 12 Months, Female (As Fraction of Count Person 15 to 50 Years Female)"
           }
         ],
         "statVarSpec": {
+          "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female": {
+            "name": "Population: Years 15 To 19, Birth In The Past 12 Months, Female (As fraction of Count Person 15 To 19 Years Female)",
+            "statVar": "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female"
+          },
+          "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female": {
+            "name": "Population: Years 15 To 50, Birth In The Past 12 Months, Female (As fraction of Count Person 15 To 50 Years Female)",
+            "statVar": "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female"
+          },
           "Mean_MothersAge_BirthEvent_LiveBirth": {
             "name": "Average mother's age in years",
             "statVar": "Mean_MothersAge_BirthEvent_LiveBirth"

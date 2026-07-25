@@ -10,17 +10,28 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_ForeignBorn",
-                      "Count_Person_Native"
+                      "Count_Person_5OrMoreYears_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Population: Years 5 Onwards, USC Foreign Born in Sunnyvale",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 5 Onwards, USC Foreign Born in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_ForeignBorn"
+                    ],
+                    "title": "Population: Years 5 Onwards, USC Foreign Born in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Population: Years 5 Onwards, USC Native"
+            "title": "Population: Years 5 Onwards, USC Foreign Born"
           },
           {
             "columns": [
@@ -28,17 +39,86 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_ForeignBorn",
+                      "dc/xdfcsgf05b4mc"
+                    ],
+                    "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/xdfcsgf05b4mc"
+                    ],
+                    "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthEurope"
+                    ],
+                    "title": "Population: USC Foreign Born, Europe in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: USC Foreign Born, Europe in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthEurope"
+                    ],
+                    "title": "Population: USC Foreign Born, Europe in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: USC Foreign Born, Europe"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_PlaceOfBirthAsia"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Population: USC Foreign Born, Asia in Sunnyvale",
+                    "title": "Population: USC Foreign Born, Asia in Sunnyvale",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: USC Foreign Born, Asia in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia"
+                    ],
+                    "title": "Population: USC Foreign Born, Asia in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Population: USC Foreign Born, Asia"
+            "title": "Population: USC Foreign Born, Asia"
           },
           {
             "columns": [
@@ -46,17 +126,27 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_ForeignBorn",
-                      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
+                      "Median_Age_Person_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Caribbean Origin in Sunnyvale",
+                    "title": "Median Age of Person: USC Foreign Born in Sunnyvale",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Person: USC Foreign Born in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn"
+                    ],
+                    "title": "Median Age of Person: USC Foreign Born in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Caribbean Origin"
+            "title": "Median Age of Person: USC Foreign Born"
           },
           {
             "columns": [
@@ -64,17 +154,65 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_ForeignBorn",
-                      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+                      "dc/ym3bfmz5e91gg"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
+                    "title": "Population: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/ym3bfmz5e91gg"
+                    ],
+                    "title": "Population: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Central American Origin (Except Mexico)"
+            "title": "Population: Years 5 Onwards, USC Foreign Born, White Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthEurope_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthEasternAsia_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthMexico_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthSouthCentralAsia_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthSouthEasternAsia_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_multiple_place_bar_block",
+                      "Count_Person_ForeignBorn_PlaceOfBirthWesternAsia_multiple_place_bar_block",
+                      "Count_Person_PlaceOfBirthAsia_multiple_place_bar_block",
+                      "Count_Person_PlaceOfBirthLatinAmerica_multiple_place_bar_block"
+                    ],
+                    "title": "Population: USC Foreign Born, Europe and More in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Population: USC Foreign Born, Europe and More"
           },
           {
             "columns": [
@@ -82,17 +220,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/xdfcsgf05b4mc",
-                      "dc/6bkn9vt30f5c1"
+                      "Median_Age_Person_ForeignBorn",
+                      "Median_Age_Person_Native"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone and Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "title": "Median Age of Person: USC Foreign Born and Median Age of Person: USC Native in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone and Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone"
+            "title": "Related: Median Age of Person: USC Foreign Born and Median Age of Person: USC Native"
           }
         ],
         "statVarSpec": {
@@ -100,29 +237,81 @@
             "name": "Population: Years 5 Onwards, USC Foreign Born",
             "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           },
-          "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
+          "Count_Person_ForeignBorn_PlaceOfBirthCaribbean_multiple_place_bar_block": {
             "name": "Foreign-born Caribbean origin",
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
           },
-          "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
+          "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_multiple_place_bar_block": {
             "name": "Foreign-born Central American origin (except Mexico)",
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
           },
-          "Count_Person_Native": {
-            "name": "Population: Years 5 Onwards, USC Native",
-            "statVar": "Count_Person_Native"
+          "Count_Person_ForeignBorn_PlaceOfBirthEasternAsia_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Eastern Asia",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthEasternAsia"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthMexico_multiple_place_bar_block": {
+            "name": "Foreign-born, Mexican origin",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthMexico"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Northern Western Europe",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthSouthCentralAsia_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, South Central Asia",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthSouthCentralAsia"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthSouthEasternAsia_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, South Eastern Asia",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Southamerica",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Southern Eastern Europe",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthWesternAsia_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Western Asia",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthWesternAsia"
           },
           "Count_Person_PlaceOfBirthAsia": {
             "name": "Population: USC Foreign Born, Asia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           },
-          "dc/6bkn9vt30f5c1": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, American Indian Or Alaska Native Alone",
-            "statVar": "dc/6bkn9vt30f5c1"
+          "Count_Person_PlaceOfBirthAsia_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Asia",
+            "statVar": "Count_Person_PlaceOfBirthAsia"
+          },
+          "Count_Person_PlaceOfBirthEurope": {
+            "name": "Population: USC Foreign Born, Europe",
+            "statVar": "Count_Person_PlaceOfBirthEurope"
+          },
+          "Count_Person_PlaceOfBirthEurope_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Europe",
+            "statVar": "Count_Person_PlaceOfBirthEurope"
+          },
+          "Count_Person_PlaceOfBirthLatinAmerica_multiple_place_bar_block": {
+            "name": "Population: USC Foreign Born, Latin America",
+            "statVar": "Count_Person_PlaceOfBirthLatinAmerica"
+          },
+          "Median_Age_Person_ForeignBorn": {
+            "name": "Median Age of Person: USC Foreign Born",
+            "statVar": "Median_Age_Person_ForeignBorn"
+          },
+          "Median_Age_Person_Native": {
+            "name": "Median Age of Person: USC Native",
+            "statVar": "Median_Age_Person_Native"
           },
           "dc/xdfcsgf05b4mc": {
             "name": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone",
             "statVar": "dc/xdfcsgf05b4mc"
+          },
+          "dc/ym3bfmz5e91gg": {
+            "name": "Population: Years 5 Onwards, USC Foreign Born, White Alone",
+            "statVar": "dc/ym3bfmz5e91gg"
           }
         }
       }
@@ -153,27 +342,112 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_5OrMoreYears_ForeignBorn": {
+        "race": [
+          "dc/xdfcsgf05b4mc",
+          "dc/ym3bfmz5e91gg"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCaribbean"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthEasternAsia": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthEasternAsia",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthEasternAsia",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthEasternAsia"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthMexico": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthMexico",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthMexico",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthMexico"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthNorthernWesternEurope",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthNorthernWesternEurope",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthNorthernWesternEurope"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthSouthCentralAsia": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthCentralAsia",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthCentralAsia",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthCentralAsia"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthSouthEasternAsia": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthEasternAsia",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthEasternAsia",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthamerica",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthamerica",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthamerica"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthernEasternEurope",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthernEasternEurope",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthernEasternEurope"
+        ]
+      },
+      "Count_Person_PlaceOfBirthAsia": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
+        ]
+      },
+      "Count_Person_PlaceOfBirthEurope": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthEurope"
+        ]
+      },
+      "Median_Age_Person_ForeignBorn": {
+        "placeOfBirth": [
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthAsia",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthCaribbean",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthEasternAsia",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthEurope",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthMexico",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthSouthCentralAsia",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthSouthEasternAsia",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthSouthamerica",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope"
+        ]
+      }
+    },
+    "mainTopics": [
       {
         "dcid": "dc/topic/PlaceOfBirth",
         "name": "Place of Birth",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/LanguageSpokenAtHome_ForeignBorn",
-        "name": "Language Spoken by Foreign Born Population",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {},
-    "mainTopics": [
-      {
-        "dcid": "dc/topic/Immigration",
-        "name": "Immigration",
         "types": [
           "Topic"
         ]
@@ -182,8 +456,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Nationality",
-        "name": "Nationality",
+        "dcid": "dc/topic/Immigration",
+        "name": "Immigration",
         "types": [
           "Topic"
         ]
@@ -543,8 +817,8 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/CitizenshipStatus",
-        "name": "Citizenship Status",
+        "dcid": "dc/topic/LanguageSpokenAtHome_ForeignBorn",
+        "name": "Language Spoken by Foreign Born Population",
         "types": [
           "Topic"
         ]

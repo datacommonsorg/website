@@ -234,67 +234,6 @@
             ],
             "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
             "title": "Male Life Expectancy in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in the World",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Maternal Mortality Ratio in the World",
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
-            "title": "Maternal Mortality Ratio"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
-            "title": "Maternal Mortality Ratio in the World"
           }
         ],
         "statVarSpec": {
@@ -317,10 +256,6 @@
           "LifeExpectancy_Person_Male": {
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
-          },
-          "sdg/SH_STA_MORT.SEX--F": {
-            "name": "Maternal mortality ratio",
-            "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }
       }
@@ -723,7 +658,14 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Health",

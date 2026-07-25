@@ -10,28 +10,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_EnrolledInSchool",
                       "Count_Person_DetailedEnrolledInKindergarten"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
+                    "title": "Population Currently Enrolled in School and Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
-                    "statVarKey": [
-                      "Count_Person_DetailedEnrolledInKindergarten"
-                    ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School"
+            "title": "Population Currently Enrolled in School and Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School"
           },
           {
             "columns": [
@@ -39,28 +28,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_EnrolledInSchool",
                       "Count_Person_DetailedPrimarySchool"
                     ],
-                    "title": "Elementary School Students in Colorado",
+                    "title": "Population Currently Enrolled in School and Elementary School Students in Colorado",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Elementary School Students in Colorado",
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
-                    ],
-                    "title": "Elementary School Students in Colorado",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Elementary School Students"
+            "title": "Population Currently Enrolled in School and Elementary School Students"
           },
           {
             "columns": [
@@ -68,28 +46,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_EnrolledInSchool",
                       "Count_Person_DetailedMiddleSchool"
                     ],
-                    "title": "Middle School Students in Colorado",
+                    "title": "Population Currently Enrolled in School and Middle School Students in Colorado",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Middle School Students in Colorado",
-                    "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
-                    ],
-                    "title": "Middle School Students in Colorado",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Middle School Students"
+            "title": "Population Currently Enrolled in School and Middle School Students"
           },
           {
             "columns": [
@@ -97,28 +64,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_EnrolledInSchool",
                       "Count_Person_DetailedHighSchool"
                     ],
-                    "title": "High School Students in Colorado",
+                    "title": "Population Currently Enrolled in School and High School Students in Colorado",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "High School Students in Colorado",
-                    "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
-                    ],
-                    "title": "High School Students in Colorado",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "High School Students"
+            "title": "Population Currently Enrolled in School and High School Students"
           }
         ],
         "statVarSpec": {
@@ -137,6 +93,10 @@
           "Count_Person_DetailedPrimarySchool": {
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
+          },
+          "Count_Person_EnrolledInSchool": {
+            "name": "Population Currently Enrolled in School",
+            "statVar": "Count_Person_EnrolledInSchool"
           }
         }
       }
@@ -166,7 +126,360 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "PublicSchool": [
+        {
+          "dcid": "nces/000080199989",
+          "name": "\"ZEBULON PIKE YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199990",
+          "name": "\"SOL VISTA YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199991",
+          "name": "\"LOOKOUT MOUNTAIN YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199992",
+          "name": "\"SPRING CREEK YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199994",
+          "name": "\"MOUNT VIEW YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199995",
+          "name": "\"MARVIN W. FOOTE YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199996",
+          "name": "\"GRAND MESA YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199997",
+          "name": "\"MOUNT VIEW YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199998",
+          "name": "\"PLATTE VALLEY YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/000080199999",
+          "name": "\"GRAND MESA YOUTH SERVICES CENTER\"",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080000100214",
+          "name": "Cheyenne Wells Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080000100215",
+          "name": "Cheyenne Wells Junior/High School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080000101428",
+          "name": "Cheyenne Wells Middle School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080000400709",
+          "name": "Rocky Mountain School Of Expeditionary Learning",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001601745",
+          "name": "Yuma Preschool",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001601819",
+          "name": "Yuma Middle School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001601820",
+          "name": "Kenneth P Morris Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001601821",
+          "name": "Yuma High School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001701816",
+          "name": "Wray Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001701817",
+          "name": "Buchanan Middle School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001701818",
+          "name": "Wray Junior Senior High School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001801741",
+          "name": "Idalia Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001801742",
+          "name": "Idalia Junior-Senior High School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001901743",
+          "name": "Liberty Elementary School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080001901744",
+          "name": "Liberty School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002000727",
+          "name": "Academy Of Charter Schools",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001569",
+          "name": "Crown Pointe Charter Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001612",
+          "name": "Youth & Family Academy Charter",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001720",
+          "name": "Frontier Charter Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001780",
+          "name": "Indian Peaks Charter School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001876",
+          "name": "Community Leadership Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001882",
+          "name": "New America School - Aurora",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001912",
+          "name": "Colorado Springs Charter Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001913",
+          "name": "Ross Montessori School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001915",
+          "name": "The Pinnacle Charter School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001926",
+          "name": "The Pinnacle Charter School Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002001998",
+          "name": "Academy Of Arts And Knowledge Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002002010",
+          "name": "The Pinnacle Charter School Middle",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002002018",
+          "name": "Stone Creek School",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002002033",
+          "name": "High Point Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006305",
+          "name": "Caprock Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006310",
+          "name": "Colorado Early Colleges Colorado Springs",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006320",
+          "name": "Ricardo Flores Magon Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006338",
+          "name": "Pikes Peak Prep",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006365",
+          "name": "Scholars To Leaders Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006370",
+          "name": "The Vanguard School (High)",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006390",
+          "name": "Early College Of Arvada",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006393",
+          "name": "Goal Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006402",
+          "name": "The Vanguard School (Middle)",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/080002006418",
+          "name": "Animas High School",
+          "types": [
+            "PublicSchool"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
         "dcid": "dc/topic/StudentPopulation",
@@ -176,7 +489,84 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_DetailedEnrolledInKindergarten": {
+        "race": [
+          "dc/1c4zcyw02n71g",
+          "dc/3n8g9we5yv7th",
+          "dc/556pqlh586bmc",
+          "dc/7g77dy8hfb1rg",
+          "dc/c6n2z7vh9sy31",
+          "dc/gr3zem8shyhbf",
+          "dc/ns1rqx6wy9909",
+          "dc/nt9cq96phw6nf",
+          "dc/qnphlls92tvs9"
+        ]
+      },
+      "Count_Person_DetailedHighSchool": {
+        "race": [
+          "dc/1kt512ynvpmc2",
+          "dc/3bg4r46ly61q9",
+          "dc/4hzyqndyzntm",
+          "dc/9q73ecfhmd0y9",
+          "dc/cc8wk2n0ywd9",
+          "dc/dxsxcw009pdm4",
+          "dc/dzfdgrtcv5h7",
+          "dc/fh4td3znm3l4g",
+          "dc/g8537zqf45wl3"
+        ]
+      },
+      "Count_Person_DetailedMiddleSchool": {
+        "race": [
+          "dc/6zbb7s5nx6rxb",
+          "dc/b3nmcj3w1lhed",
+          "dc/c57vzg7l74577",
+          "dc/c75qlm98pmcb2",
+          "dc/e2szvml8jkld8",
+          "dc/g4fthg3t3y5td",
+          "dc/njgzb8knf11n8",
+          "dc/qvf1yrhwzp8rd",
+          "dc/zvr6djt1p9gj3"
+        ]
+      },
+      "Count_Person_DetailedPrimarySchool": {
+        "race": [
+          "dc/68cg2z97cpl7d",
+          "dc/b6h698m2vmdcc",
+          "dc/bf85zc6wypd2h",
+          "dc/e4y4hqq6mjfsh",
+          "dc/env3140jqssg8",
+          "dc/jhjdplbeg26k1",
+          "dc/p4jzvj8q1lnmd",
+          "dc/wk2vjrzfgyq5d",
+          "dc/x9e7150515yt7"
+        ]
+      },
+      "Count_Person_EnrolledInSchool": {
+        "detailedLevelOfSchool": [
+          "Count_Person_DetailedEnrolledInKindergarten",
+          "Count_Person_DetailedHighSchool",
+          "Count_Person_DetailedMiddleSchool",
+          "Count_Person_DetailedPrimarySchool"
+        ],
+        "gender": [
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
+        ],
+        "race": [
+          "dc/5qnjtqc0w783b",
+          "dc/km8en9ep7bwh6"
+        ],
+        "residenceType": [
+          "Count_Person_ResidesInAdultCorrectionalFacilities_EnrolledInSchool",
+          "Count_Person_ResidesInCollegeOrUniversityStudentHousing_EnrolledInSchool",
+          "Count_Person_ResidesInGroupQuarters_EnrolledInSchool",
+          "Count_Person_ResidesInInstitutionalizedGroupQuarters_EnrolledInSchool",
+          "Count_Person_ResidesInNoninstitutionalizedGroupQuarters_EnrolledInSchool",
+          "Count_Person_ResidesInNursingFacilities_EnrolledInSchool"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Schools",
@@ -567,5 +957,7 @@
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
-  "userMessages": []
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

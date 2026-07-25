@@ -445,102 +445,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population With Current Employment in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2025"
-                    },
-                    "statVarKey": [
-                      "Count_Person_InLaborForce_7677933150416978191"
-                    ],
-                    "title": "Population in the Labor Force in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population in the Labor Force in United States",
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population in the Labor Force"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population in the Labor Force in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2025"
-                    },
-                    "statVarKey": [
-                      "Count_Person_ResidesInHousehold_576843814454795564"
-                    ],
-                    "title": "Total Number of People Residing in Households in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Total Number of People Residing in Households in United States",
-                    "statVarKey": [
-                      "Count_Person_ResidesInHousehold"
-                    ],
-                    "title": "Total Number of People Residing in Households in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Total Number of People Residing in Households"
           }
         ],
         "statVarSpec": {
@@ -628,15 +532,6 @@
             "name": "White Hispanic Monoracial Population",
             "statVar": "Count_Person_HispanicOrLatino_WhiteAlone"
           },
-          "Count_Person_InLaborForce": {
-            "name": "Population in the Labor Force",
-            "statVar": "Count_Person_InLaborForce"
-          },
-          "Count_Person_InLaborForce_7677933150416978191": {
-            "facetId": "7677933150416978191",
-            "name": "Population in the Labor Force",
-            "statVar": "Count_Person_InLaborForce"
-          },
           "Count_Person_Male_14877681748872237318": {
             "facetId": "14877681748872237318",
             "name": "Men",
@@ -685,15 +580,6 @@
           "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
             "name": "Non Hispanic White Population, Monoracial/Multiracial",
             "statVar": "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_ResidesInHousehold": {
-            "name": "Total number of people residing in households",
-            "statVar": "Count_Person_ResidesInHousehold"
-          },
-          "Count_Person_ResidesInHousehold_576843814454795564": {
-            "facetId": "576843814454795564",
-            "name": "Total number of people residing in households",
-            "statVar": "Count_Person_ResidesInHousehold"
           },
           "Count_Person_WhiteAlone": {
             "name": "White Monoracial Population",
@@ -1143,7 +1029,37 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person": {
+        "gender": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ],
+        "race": [
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_AsianAlone",
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_WhiteAloneNotHispanicOrLatino"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Demographics",
