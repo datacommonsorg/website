@@ -18,6 +18,18 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "disable_explore_more_in_nl_search",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow."
+  },
+  {
+    "name": "disable_explore_more_in_nl_search_for_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow specifically when using Spanner."
+  },
+  {
     "name": "divert_to_spanner",
     "enabled": true,
     "owner": "nick-nlb",
