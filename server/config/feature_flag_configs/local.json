@@ -121,6 +121,18 @@
     "description": "Enables Croissant JSON-LD metadata on dataset pages."
   },
   {
+    "name": "use_separate_property_value_calls",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls instead of a single wildcard query to avoid Spanner edge starvation."
+  },
+  {
+    "name": "use_separate_property_value_calls_for_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls specifically when using Spanner."
+  },
+  {
     "name": "use_v2_resolve_for_nl_search_vars",
     "enabled": false,
     "owner": "shixiao",
