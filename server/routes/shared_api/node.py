@@ -22,6 +22,12 @@ from flask import request
 from flask import Response
 
 from server.lib import fetch
+from server.lib.feature_flags import DIVERT_TO_SPANNER
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_SEPARATE_PROPERTY_VALUE_CALLS
+from server.lib.feature_flags import \
+    USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER
+import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 
@@ -46,7 +52,32 @@ def triples(direction, dcid):
   """Returns all the triples given a node dcid."""
   if direction != 'in' and direction != 'out':
     return "Invalid direction provided, please use 'in' or 'out'", 400
-  return fetch.triples([dcid], direction == 'out').get(dcid, {})
+
+  # Check if the feature flag to use separate calls is enabled
+  use_separate_calls = (
+      is_feature_enabled(USE_SEPARATE_PROPERTY_VALUE_CALLS) or
+      (is_feature_enabled(DIVERT_TO_SPANNER) and
+       is_feature_enabled(USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER)))
+
+  out = direction == 'out'
+
+  if use_separate_calls:
+    # 1. Fetch the list of properties for the node
+    props_dict = fetch.properties([dcid], out)
+    props = props_dict.get(dcid, [])
+
+    # 2. Query each property individually
+    result = {}
+    for prop in props:
+      prop_expr = f"->{prop}" if out else f"<-{prop}"
+      resp = dc.v2node_paginated([dcid], prop_expr, max_pages=1)
+      # Extract values for this property and add to result
+      for node, node_arcs in resp.get('data', {}).items():
+        for p, val in node_arcs.get('arcs', {}).items():
+          result.setdefault(p, []).extend(val.get('nodes', []))
+    return result
+
+  return fetch.triples([dcid], out).get(dcid, {})
 
 
 @bp.route('/propvals/<path:direction>', methods=['GET', 'POST'])
