@@ -44,6 +44,8 @@ CROISSANT_EXTENDED_FEATURE = 'show_croissant_extended_feature'
 DISABLE_EXPLORE_MORE_IN_NL_SEARCH = 'disable_explore_more_in_nl_search'
 DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER = 'disable_explore_more_in_nl_search_for_spanner'
 DIVERT_TO_SPANNER = 'divert_to_spanner'
+USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
+USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
