@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Node data endpoints."""
-from concurrent.futures import as_completed
-from concurrent.futures import ThreadPoolExecutor
+import asyncio
 from dataclasses import dataclass
 import json
 import re
@@ -52,7 +51,7 @@ class PropertySpec:
 
 
 @bp.route('/triples/<path:direction>/<path:dcid>')
-def triples(direction, dcid):
+async def triples(direction, dcid):
   """Returns all the triples given a node dcid."""
   if direction != 'in' and direction != 'out':
     return "Invalid direction provided, please use 'in' or 'out'", 400
@@ -67,14 +66,15 @@ def triples(direction, dcid):
 
   if use_separate_calls:
     # 1. Fetch the list of properties for the node
-    props_dict = fetch.properties([dcid], out)
+    props_dict = await asyncio.to_thread(fetch.properties, [dcid], out)
     props = props_dict.get(dcid, [])
 
-    # 2. Query each property individually in parallel
     result = {}
+    if not props:
+      return result
 
     # Extract all request globals from parent g to propagate to worker threads
-    parent_g = {k: getattr(g, k) for k in g}
+    parent_g = g.__dict__.copy()
 
     def fetch_prop_values(prop, parent_g_data):
       # Restore request globals in the worker thread's context
@@ -83,24 +83,25 @@ def triples(direction, dcid):
       prop_expr = f"->{prop}" if out else f"<-{prop}"
       return prop, dc.v2node_paginated([dcid], prop_expr, max_pages=1)
 
-    with ThreadPoolExecutor(max_workers=len(props) if props else 1) as executor:
-      futures = []
-      for prop in props:
-        # Dynamically wrap each task invocation with a copy of request context
-        # and pass the parent globals
-        wrapped_task = copy_current_request_context(
-            lambda p=prop: fetch_prop_values(p, parent_g))
-        futures.append(executor.submit(wrapped_task))
+    # Dynamically wrap each task invocation with a copy of request context
+    # and pass the parent globals
+    tasks = []
+    for prop in props:
+      wrapped_task = copy_current_request_context(
+          lambda p=prop: fetch_prop_values(p, parent_g))
+      tasks.append(asyncio.to_thread(wrapped_task))
 
-      for future in as_completed(futures):
-        prop, resp = future.result()
-        # Extract values for this property and add to result
-        for _, node_arcs in resp.get('data', {}).items():
-          for p, val in node_arcs.get('arcs', {}).items():
-            result.setdefault(p, []).extend(val.get('nodes', []))
+    resps = await asyncio.gather(*tasks)
+
+    for prop, resp in resps:
+      # Extract values for this property and add to result
+      for _, node_arcs in resp.get('data', {}).items():
+        for p, val in node_arcs.get('arcs', {}).items():
+          result.setdefault(p, []).extend(val.get('nodes', []))
     return result
 
-  return fetch.triples([dcid], out).get(dcid, {})
+  fallback_resp = await asyncio.to_thread(fetch.triples, [dcid], out)
+  return fallback_resp.get(dcid, {})
 
 
 @bp.route('/propvals/<path:direction>', methods=['GET', 'POST'])
