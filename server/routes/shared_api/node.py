@@ -12,12 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Node data endpoints."""
+from concurrent.futures import as_completed
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 import json
 import re
 from typing import List
 
 import flask
+from flask import copy_current_request_context
+from flask import g
 from flask import request
 from flask import Response
 
@@ -66,15 +70,34 @@ def triples(direction, dcid):
     props_dict = fetch.properties([dcid], out)
     props = props_dict.get(dcid, [])
 
-    # 2. Query each property individually
+    # 2. Query each property individually in parallel
     result = {}
-    for prop in props:
+
+    # Extract all request globals from parent g to propagate to worker threads
+    parent_g = {k: getattr(g, k) for k in g}
+
+    def fetch_prop_values(prop, parent_g_data):
+      # Restore request globals in the worker thread's context
+      for k, v in parent_g_data.items():
+        setattr(g, k, v)
       prop_expr = f"->{prop}" if out else f"<-{prop}"
-      resp = dc.v2node_paginated([dcid], prop_expr, max_pages=1)
-      # Extract values for this property and add to result
-      for node, node_arcs in resp.get('data', {}).items():
-        for p, val in node_arcs.get('arcs', {}).items():
-          result.setdefault(p, []).extend(val.get('nodes', []))
+      return prop, dc.v2node_paginated([dcid], prop_expr, max_pages=1)
+
+    with ThreadPoolExecutor(max_workers=len(props) if props else 1) as executor:
+      futures = []
+      for prop in props:
+        # Dynamically wrap each task invocation with a copy of request context
+        # and pass the parent globals
+        wrapped_task = copy_current_request_context(
+            lambda p=prop: fetch_prop_values(p, parent_g))
+        futures.append(executor.submit(wrapped_task))
+
+      for future in as_completed(futures):
+        prop, resp = future.result()
+        # Extract values for this property and add to result
+        for _, node_arcs in resp.get('data', {}).items():
+          for p, val in node_arcs.get('arcs', {}).items():
+            result.setdefault(p, []).extend(val.get('nodes', []))
     return result
 
   return fetch.triples([dcid], out).get(dcid, {})
