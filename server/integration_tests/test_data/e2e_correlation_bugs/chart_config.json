@@ -798,73 +798,46 @@
       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
         "age": [
           "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_AsianAlone"
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone"
         ]
       },
       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
         "age": [
           "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
         ]
       },
       "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
         "age": [
           "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
         ]
       },
       "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
         "age": [
           "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
         ]
       },
       "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino": {
         "age": [
           "dc/09v28v6bwqt0c",
           "dc/5811pl3dnbwf6",
-          "dc/80jslqrjzz46b",
           "dc/b81mz72elhl79",
-          "dc/cz34prg08c4wd",
-          "dc/dcg7es0zw2xp",
           "dc/erhgxzkr3bkjb",
           "dc/esztqf9cp5l34",
           "dc/fcr8wpnnwtj31",
-          "dc/s6by0ncnxtml5",
-          "dc/vterxg0m029p1",
-          "dc/w3zfjp242w1k",
-          "dc/zdkmf9qhzd7d4"
+          "dc/w3zfjp242w1k"
         ]
       },
       "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
         "age": [
-          "dc/05sgpg5lkl0j3",
           "dc/09szykgkfnwzf",
           "dc/2kxtg8p02r8m2",
-          "dc/2tqnf30z8dlk6",
           "dc/4x51zbljbhdsb",
           "dc/7ec5kvhmd9lr7",
-          "dc/7whbh9y32dkq1",
           "dc/rqzdxj4lkdsx1",
           "dc/s2m3q5svmvf9h",
-          "dc/tl7sdvd65ql5d",
-          "dc/w2n8clm9v8cb3",
           "dc/yl5sv6vx88jxd"
         ]
       }
