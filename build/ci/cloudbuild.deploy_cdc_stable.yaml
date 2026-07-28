@@ -32,7 +32,6 @@ steps:
       - "gcr.io/datcom-ci/datacommons-services:stable"
       - "--region"
       - "us-central1"
-      - "--allow-unauthenticated"
       - "--update-env-vars"
       - "RESTART_TIMESTAMP=${BUILD_ID}"
 
