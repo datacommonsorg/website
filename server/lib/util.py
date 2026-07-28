@@ -477,6 +477,9 @@ def load_feature_flags():
     if 'rollout_percentage' in flag:
       feature_flag_dict[
           flag['name']]['rollout_percentage'] = flag['rollout_percentage']
+    if 'numerical_value' in flag:
+      feature_flag_dict[
+          flag['name']]['numerical_value'] = flag['numerical_value']
   return feature_flag_dict
 
 

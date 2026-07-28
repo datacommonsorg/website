@@ -17,7 +17,9 @@
 
 from typing import Dict, List
 
+from server.lib.feature_flags import get_feature_flag_value
 from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import SPANNER_EMBEDDING_THRESHOLD
 from server.lib.feature_flags import USE_V2_RESOLVE_FOR_NL_SEARCH_VARS
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import query_util
@@ -36,6 +38,8 @@ _INIT_SCORE = (_HIGHEST_SCORE + 0.1)
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
 _MAX_MULTIVAR_PARTS = 2
+
+_DEFAULT_SPANNER_EMBEDDING_THRESHOLD = 0.7
 
 
 #
@@ -70,7 +74,9 @@ def _detect_vars_with_resolve(
       query2results[q] = vars.VarCandidates(svs=[], scores=[], sv2sentences={})
   debug_logs.update(resp.get('debugLogs', {}))
   counters.info("detect_variable_path", 'v2/resolve')
-  return query2results, 0.7
+  threshold = get_feature_flag_value(SPANNER_EMBEDDING_THRESHOLD,
+                                     default_value=_DEFAULT_SPANNER_EMBEDDING_THRESHOLD)
+  return query2results, threshold
 
 
 def _detect_vars_with_nl_search(

@@ -34,6 +34,7 @@ import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 import {
   DISABLE_FEATURE_URL_PARAM,
   ENABLE_FEATURE_URL_PARAM,
+  getFeatureFlags,
   isFeatureEnabled,
 } from "./util";
 
@@ -137,5 +138,38 @@ describe("isFeatureEnabled", () => {
       [featureName]: { enabled: true, rollout_percentage: 0 },
     };
     expect(isFeatureEnabled(featureName)).toBe(false);
+  });
+});
+
+describe("getFeatureFlags", () => {
+  const featureName = "testFeature";
+
+  afterEach(() => {
+    globalThis.FEATURE_FLAGS = undefined;
+  });
+
+  test("returns numericalValue when numerical_value is defined", () => {
+    globalThis.FEATURE_FLAGS = {
+      // eslint-disable-next-line camelcase
+      [featureName]: { enabled: true, numerical_value: 0.7 },
+    };
+    const flags = getFeatureFlags();
+    expect(flags[featureName]).toEqual({
+      enabled: true,
+      numericalValue: 0.7,
+      rolloutPercentage: undefined,
+    });
+  });
+
+  test("returns undefined numericalValue when numerical_value is not defined", () => {
+    globalThis.FEATURE_FLAGS = {
+      [featureName]: { enabled: true },
+    };
+    const flags = getFeatureFlags();
+    expect(flags[featureName]).toEqual({
+      enabled: true,
+      numericalValue: undefined,
+      rolloutPercentage: undefined,
+    });
   });
 });
