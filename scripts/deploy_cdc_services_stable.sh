@@ -28,4 +28,7 @@
 set -e
 set -x
 
-gcloud builds submit --config build/ci/cloudbuild.deploy_cdc_stable.yaml --project datcom-ci --no-source
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ROOT="$(dirname "$DIR")"
+
+gcloud builds submit --config "$ROOT/build/ci/cloudbuild.deploy_cdc_stable.yaml" --project datcom-ci --no-source
