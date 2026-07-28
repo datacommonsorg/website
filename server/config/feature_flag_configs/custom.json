@@ -144,6 +144,13 @@
     "description": "Feature flag to enable the new download tool UI"
   },
   {
+    "name": "spanner_embedding_threshold",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Threshold for Spanner vector search embeddings resolution in NL search.",
+    "numerical_value": 0.6
+  },
+  {
     "name": "vai_for_statvar_search",
     "enabled": false,
     "owner": "alyssaguo",
