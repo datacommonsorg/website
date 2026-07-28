@@ -355,73 +355,12 @@
             ],
             "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
             "title": "Maternal Mortality Ratio"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in China",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Infant Mortality Rate in China",
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in China",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
           }
         ],
         "statVarSpec": {
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
@@ -430,10 +369,6 @@
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
             "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
-          },
-          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
-            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
@@ -511,6 +446,48 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q10447355",
+          "name": "wikidataId/Q10447355",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q10946792",
+          "name": "wikidataId/Q10946792",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11061196",
+          "name": "wikidataId/Q11061196",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11133836",
+          "name": "wikidataId/Q11133836",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11133854",
+          "name": "wikidataId/Q11133854",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11135149",
+          "name": "wikidataId/Q11135149",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q11725",
           "name": "Chongqing",
           "types": [
@@ -574,6 +551,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q17038813",
+          "name": "wikidataId/Q17038813",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q17269",
           "name": "Tibet Autonomous Region",
           "types": [
@@ -595,6 +579,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q19855951",
+          "name": "wikidataId/Q19855951",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q21208",
           "name": "Hebei",
           "types": [
@@ -604,6 +595,13 @@
         {
           "dcid": "wikidataId/Q312485",
           "name": "Central and Western District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q34476188",
+          "name": "wikidataId/Q34476188",
           "types": [
             "AdministrativeArea1"
           ]
@@ -779,69 +777,6 @@
         {
           "dcid": "wikidataId/Q8686",
           "name": "Shanghai",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q871442",
-          "name": "Yuen Long District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q875773",
-          "name": "Kwun Tong District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q877132",
-          "name": "Kwai Tsing District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q877813",
-          "name": "Tai Po District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q878503",
-          "name": "Wong Tai Sin District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q878514",
-          "name": "Tsuen Wan District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q956",
-          "name": "Beijing",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q986383",
-          "name": "Tuen Mun District",
-          "types": [
-            "AdministrativeArea1"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q986415",
-          "name": "Kowloon City District",
           "types": [
             "AdministrativeArea1"
           ]

@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Massachusetts",
                     "type": "LINE"
                   }
                 ]
@@ -20,17 +20,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
+                    "description": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Massachusetts",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
+                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in Massachusetts",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+            "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event)"
           },
           {
             "columns": [
@@ -40,7 +40,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of Massachusetts (${date})",
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of Massachusetts (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -55,7 +55,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of Massachusetts (${date})",
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of Massachusetts (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -63,7 +63,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Count of Mortality Event: 1 Years or Less in Counties of Massachusetts"
+            "title": "Count of Mortality Event: Years Upto 1 in Counties of Massachusetts"
           },
           {
             "columns": [
@@ -160,7 +160,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) in Massachusetts",
+                    "title": "Count of Mortality Event: Years Upto 1, Female (As Fraction of Count Birth Event Female) in Massachusetts",
                     "type": "LINE"
                   }
                 ]
@@ -168,17 +168,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) in Massachusetts",
+                    "description": "Count of Mortality Event: Years Upto 1, Female (As Fraction of Count Birth Event Female) in Massachusetts",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) in Massachusetts",
+                    "title": "Count of Mortality Event: Years Upto 1, Female (As Fraction of Count Birth Event Female) in Massachusetts",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)"
+            "title": "Count of Mortality Event: Years Upto 1, Female (As Fraction of Count Birth Event Female)"
           },
           {
             "columns": [
@@ -188,7 +188,7 @@
                     "statVarKey": [
                       "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) in Massachusetts",
+                    "title": "Count of Mortality Event: Years Upto 1, Male (As Fraction of Count Birth Event Male) in Massachusetts",
                     "type": "LINE"
                   }
                 ]
@@ -196,34 +196,34 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) in Massachusetts",
+                    "description": "Count of Mortality Event: Years Upto 1, Male (As Fraction of Count Birth Event Male) in Massachusetts",
                     "statVarKey": [
                       "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) in Massachusetts",
+                    "title": "Count of Mortality Event: Years Upto 1, Male (As Fraction of Count Birth Event Male) in Massachusetts",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)"
+            "title": "Count of Mortality Event: Years Upto 1, Male (As Fraction of Count Birth Event Male)"
           }
         ],
         "statVarSpec": {
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female": {
-            "name": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)",
+            "name": "Count of Mortality Event: Years Upto 1, Female (As fraction of Count Birth Event Female)",
             "statVar": "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
           },
           "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male": {
-            "name": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)",
+            "name": "Count of Mortality Event: Years Upto 1, Male (As fraction of Count Birth Event Male)",
             "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: 1 Years or Less",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied": {

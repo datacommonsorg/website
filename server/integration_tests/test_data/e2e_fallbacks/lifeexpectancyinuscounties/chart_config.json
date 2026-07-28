@@ -397,7 +397,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -412,14 +412,14 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
+                    "title": "Count of Mortality Event: Years Upto 1 in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: 1 Years or Less in Counties of United States"
+            "title": "Count of Mortality Event: Years Upto 1 in Counties of United States"
           },
           {
             "columns": [
@@ -429,7 +429,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "LINE"
                   }
                 ]
@@ -437,18 +437,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: 1 Years or Less in United States",
+                    "description": "Count of Mortality Event: Years Upto 1 in United States",
                     "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less in United States",
+                    "title": "Count of Mortality Event: Years Upto 1 in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Mortality Event: 1 Years or Less"
+            "title": "Count of Mortality Event: Years Upto 1"
           },
           {
             "columns": [
@@ -528,188 +528,12 @@
               }
             ],
             "title": "Infant Mortality Rate by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
-                    ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States",
-                    "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
-                    ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mortality Rate (Age Adjusted, Per Capita)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Interval in Months Since Last Live Birth in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
-                    ],
-                    "title": "Male Mortality Rate (Age Adjusted) in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Male Mortality Rate (Age Adjusted) in United States",
-                    "statVarKey": [
-                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
-                    ],
-                    "title": "Male Mortality Rate (Age Adjusted) in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Male Mortality Rate (Age Adjusted)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Infant Mortality Rate in United States",
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Female Mortality Rate (Age Adjusted) in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Female Mortality Rate (Age Adjusted) in United States",
-                    "statVarKey": [
-                      "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Female Mortality Rate (Age Adjusted) in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Female Mortality Rate (Age Adjusted)"
           }
         ],
         "statVarSpec": {
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_AbnormalNotClassfied_Female": {
             "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
@@ -722,10 +546,6 @@
           "Count_Death_AbnormalNotClassfied_multiple_place_bar_block": {
             "name": "Deaths Due To Abnormal Symptoms, Signs And Clinical And Laboratory Findings",
             "statVar": "Count_Death_AbnormalNotClassfied"
-          },
-          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person": {
-            "name": "Mortality Rate (Age Adjusted, Per Capita)",
-            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
@@ -783,21 +603,9 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female": {
-            "name": "Female Mortality Rate (Age Adjusted)",
-            "statVar": "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
-          },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
             "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
-          },
-          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
-            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-          },
-          "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
-            "name": "Male Mortality Rate (Age Adjusted)",
-            "statVar": "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
           },
           "Count_Death_Neoplasms_Female_multiple_place_bar_block": {
             "name": "Female Deaths Due To Neoplasms",
@@ -808,7 +616,7 @@
             "statVar": "Count_Death_Neoplasms"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: 1 Years or Less",
+            "name": "Count of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {
@@ -862,10 +670,6 @@
           "LifeExpectancy_Person_Male": {
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
-          },
-          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
-            "name": "Average interval in months since last live birth",
-            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
             "name": "Infant mortality rate",
@@ -1267,10 +1071,6 @@
     "childTopics": [],
     "exploreMore": {
       "Count_Death": {
-        "age": [
-          "Count_Death_0Years",
-          "Count_Death_Upto1Years"
-        ],
         "causeOfDeath": [
           "Count_Death_AbnormalNotClassfied",
           "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
@@ -1281,10 +1081,6 @@
           "Count_Death_Neoplasms",
           "Count_MortalityEvent_Assault(Homicide)",
           "Count_MortalityEvent_Suicide"
-        ],
-        "gender": [
-          "Count_Death_Female",
-          "Count_Death_Male"
         ]
       },
       "Count_Death_AsAFractionOfCount_Person": {

@@ -60,6 +60,14 @@ class TestFeatureFlags(unittest.TestCase):
     # Return False if request is not provided
     self.assertFalse(
         is_feature_override_enabled(TEST_FEATURE_FLAG, request=None))
+    # Return True for multiple overrides
+    response = self.client.get(
+        f"/?{FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM}=flag_a&{FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM}=flag_b"
+    )
+    self.assertTrue(
+        is_feature_override_enabled("flag_a", request=response.request))
+    self.assertTrue(
+        is_feature_override_enabled("flag_b", request=response.request))
 
   def test_is_feature_override_disabled_helper(self):
     """Tests the is_feature_override_disabled helper function."""
@@ -79,6 +87,14 @@ class TestFeatureFlags(unittest.TestCase):
     # Return False if request is not provided
     self.assertFalse(
         is_feature_override_disabled(TEST_FEATURE_FLAG, request=None))
+    # Return True for multiple overrides
+    response = self.client.get(
+        f"/?{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}=flag_a&{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}=flag_b"
+    )
+    self.assertTrue(
+        is_feature_override_disabled("flag_a", request=response.request))
+    self.assertTrue(
+        is_feature_override_disabled("flag_b", request=response.request))
 
   def test_feature_flag_enabled_by_app_config(self):
     """Should return true if feature flag is enabled in config"""

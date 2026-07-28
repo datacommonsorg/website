@@ -466,10 +466,9 @@ def _get_best_type(types_list):
     return ''
 
   if 'Place' in types_list:
-    has_other_ranking_type = any(
-        t in PLACE_TYPE_RANK and t != 'Place' for t in types_list)
-    if has_other_ranking_type:
-      types_list = [t for t in types_list if t != 'Place']
+    filtered_types = [t for t in types_list if t != 'Place']
+    if filtered_types:
+      types_list = filtered_types
 
   # Sort types by rank (highest rank first)
   # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
@@ -666,16 +665,22 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop, resolver="place"):
+def resolve(nodes, prop, resolver="place", target=None):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
         resolver: The resolver to use (default: "place").
+        target: Optional target parameter to scope resolution.
     """
+  if target is None and resolver == "indicator":
+    target = current_app.config.get("V2_RESOLVE_INDICATORS_TARGET", "")
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
+  req = {"nodes": nodes, "property": prop, "resolver": resolver}
+  if target:
+    req["target"] = target
+  return post(url, req)
 
 
 def nl_search_vars(

@@ -52,7 +52,7 @@ window.addEventListener("load", (): void => {
   Promise.all([typesPromise, numStatVarsPromise])
     .then(([typesData, numStatVars]) => {
       const types = typesData[dcid] || [];
-      const listOfTypes = types.map((type) => type.dcid);
+      const listOfTypes = [...new Set(types.map((type) => type.dcid))];
       const nodeTypes = getNodeTypes(dcid, listOfTypes, statVarId);
       const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
       ReactDOM.render(

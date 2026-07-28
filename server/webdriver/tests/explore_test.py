@@ -198,12 +198,15 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     chart_block = None
     for block in all_chart_blocks:
       header = find_elem(block, By.TAG_NAME, 'h3')
-      if header and header.text == "Population: 1-4 Years in States of United States":
+      if header and header.text in [
+          "Population: 1-4 Years in States of United States",
+          "Population: Years 1 to 4 in States of United States"
+      ]:
         chart_block = block
         break
     self.assertIsNotNone(
         chart_block,
-        "Could not find the 'Population: 1-4 Years in States of United States' map block."
+        "Could not find the 'Population: 1-4 Years in States of United States' or 'Population: Years 1 to 4 in States of United States' map block."
     )
 
     original_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
@@ -224,8 +227,19 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         By.CSS_SELECTOR, '.source-selector-facet-option-title')
     self.assertEqual(len(source_options), 4)
 
-    # Select the second source option
-    source_options[1].click()
+    # Select the source option with "wonder" in the name
+    def find_wonder_option(driver):
+      options = driver.find_elements(By.CSS_SELECTOR,
+                                     '.source-selector-facet-option-title')
+      for opt in options:
+        txt = opt.get_attribute('textContent')
+        if txt and "wonder" in txt.lower():
+          return opt
+      return False
+
+    target_option = WebDriverWait(self.driver,
+                                  self.TIMEOUT_SEC).until(find_wonder_option)
+    target_option.click()
 
     # Click the modal-footer button to apply the changes
     modal_footer_button = find_elem(

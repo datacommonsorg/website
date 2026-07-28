@@ -12,16 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Node data endpoints."""
+import asyncio
 from dataclasses import dataclass
 import json
 import re
 from typing import List
 
 import flask
+from flask import copy_current_request_context
+from flask import g
 from flask import request
 from flask import Response
 
 from server.lib import fetch
+from server.lib.feature_flags import DIVERT_TO_SPANNER
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_SEPARATE_PROPERTY_VALUE_CALLS
+from server.lib.feature_flags import \
+    USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER
+import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 
@@ -42,11 +51,57 @@ class PropertySpec:
 
 
 @bp.route('/triples/<path:direction>/<path:dcid>')
-def triples(direction, dcid):
+async def triples(direction, dcid):
   """Returns all the triples given a node dcid."""
   if direction != 'in' and direction != 'out':
     return "Invalid direction provided, please use 'in' or 'out'", 400
-  return fetch.triples([dcid], direction == 'out').get(dcid, {})
+
+  # Check if the feature flag to use separate calls is enabled
+  use_separate_calls = (
+      is_feature_enabled(USE_SEPARATE_PROPERTY_VALUE_CALLS) or
+      (is_feature_enabled(DIVERT_TO_SPANNER) and
+       is_feature_enabled(USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER)))
+
+  out = direction == 'out'
+
+  if use_separate_calls:
+    # 1. Fetch the list of properties for the node
+    props_dict = await asyncio.to_thread(fetch.properties, [dcid], out)
+    props = props_dict.get(dcid, [])
+
+    result = {}
+    if not props:
+      return result
+
+    # Extract all request globals from parent g to propagate to worker threads
+    parent_g = g.__dict__.copy()
+
+    def fetch_prop_values(prop, parent_g_data):
+      # Restore request globals in the worker thread's context
+      for k, v in parent_g_data.items():
+        setattr(g, k, v)
+      prop_expr = f"->{prop}" if out else f"<-{prop}"
+      return prop, dc.v2node_paginated([dcid], prop_expr, max_pages=1)
+
+    # Dynamically wrap each task invocation with a copy of request context
+    # and pass the parent globals
+    tasks = []
+    for prop in props:
+      wrapped_task = copy_current_request_context(
+          lambda p=prop: fetch_prop_values(p, parent_g))
+      tasks.append(asyncio.to_thread(wrapped_task))
+
+    resps = await asyncio.gather(*tasks)
+
+    for prop, resp in resps:
+      # Extract values for this property and add to result
+      for _, node_arcs in resp.get('data', {}).items():
+        for p, val in node_arcs.get('arcs', {}).items():
+          result.setdefault(p, []).extend(val.get('nodes', []))
+    return result
+
+  fallback_resp = await asyncio.to_thread(fetch.triples, [dcid], out)
+  return fallback_resp.get(dcid, {})
 
 
 @bp.route('/propvals/<path:direction>', methods=['GET', 'POST'])
