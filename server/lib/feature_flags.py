@@ -138,6 +138,10 @@ def get_feature_flag_value(feature_name: str, default_value: float, app=None, re
 
   if not is_feature_enabled(feature_name, app, request):
     return default_value
+
+  app = resolve_flask_app(app)
+  if app is None:
+    return default_value
   feature_flags = app.config.get('FEATURE_FLAGS', {})
   flag_config = feature_flags.get(feature_name, {})
 
