@@ -21,8 +21,6 @@ from flask import Blueprint
 from flask import g
 from flask import request
 from flask import Response
-from flask import url_for
-from flask_babel import gettext
 from markupsafe import escape
 
 from server.lib import fetch
