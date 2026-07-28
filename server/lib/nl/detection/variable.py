@@ -17,9 +17,10 @@
 
 from typing import Dict, List
 
-from server.lib.feature_flags import get_feature_flag_value
+from flask import current_app
+from flask import has_app_context
+
 from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import SPANNER_EMBEDDING_THRESHOLD
 from server.lib.feature_flags import USE_V2_RESOLVE_FOR_NL_SEARCH_VARS
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import query_util
@@ -74,9 +75,11 @@ def _detect_vars_with_resolve(
       query2results[q] = vars.VarCandidates(svs=[], scores=[], sv2sentences={})
   debug_logs.update(resp.get('debugLogs', {}))
   counters.info("detect_variable_path", 'v2/resolve')
-  threshold = get_feature_flag_value(
-      SPANNER_EMBEDDING_THRESHOLD,
-      default_value=_DEFAULT_SPANNER_EMBEDDING_THRESHOLD)
+  threshold = _DEFAULT_SPANNER_EMBEDDING_THRESHOLD
+
+  if has_app_context():
+    threshold = current_app.config.get('SPANNER_EMBEDDING_THRESHOLD',
+                                       _DEFAULT_SPANNER_EMBEDDING_THRESHOLD)
   return query2results, threshold
 
 

@@ -147,29 +147,5 @@ describe("getFeatureFlags", () => {
   afterEach(() => {
     globalThis.FEATURE_FLAGS = undefined;
   });
-
-  test("returns numericalValue when numerical_value is defined", () => {
-    globalThis.FEATURE_FLAGS = {
-      // eslint-disable-next-line camelcase
-      [featureName]: { enabled: true, numerical_value: 0.7 },
-    };
-    const flags = getFeatureFlags();
-    expect(flags[featureName]).toEqual({
-      enabled: true,
-      numericalValue: 0.7,
-      rolloutPercentage: undefined,
-    });
-  });
-
-  test("returns undefined numericalValue when numerical_value is not defined", () => {
-    globalThis.FEATURE_FLAGS = {
-      [featureName]: { enabled: true },
-    };
-    const flags = getFeatureFlags();
-    expect(flags[featureName]).toEqual({
-      enabled: true,
-      numericalValue: undefined,
-      rolloutPercentage: undefined,
-    });
-  });
 });
+

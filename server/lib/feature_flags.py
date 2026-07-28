@@ -46,7 +46,7 @@ DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER = 'disable_explore_more_in_nl_sear
 DIVERT_TO_SPANNER = 'divert_to_spanner'
 USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
 USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
-SPANNER_EMBEDDING_THRESHOLD = 'spanner_embedding_threshold'
+
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
@@ -131,44 +131,6 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
     return random.random() * 100 < rollout_percentage
 
   return is_feature_enabled
-
-
-def get_feature_flag_value(feature_name: str,
-                           default_value: float,
-                           app=None,
-                           request=None):
-  """Returns the numerical value for the feature with `feature_name` is enabled.
-  
-  If the feature is disabled or does not have a configured numerical value, will
-  default to returning `default_value`.
-
-  Args:
-    feature_name: feature flag string to look for in the URL
-    default_value: fallback value to return if the feature is disabled or no
-                   numerical value is configured.
-    app: Optional Flask application instance. If None, it will be inferred from
-         the current Flask context.
-    request: HTTP request as a flask.Request object. If None, it will be
-             inferred from the current request context.
-  
-  Returns:
-    The configured numerical value if the feature is enabled and has one,
-    default_value otherwise
-  """
-
-  if not is_feature_enabled(feature_name, app, request):
-    return default_value
-
-  app = resolve_flask_app(app)
-  if app is None:
-    return default_value
-  feature_flags = app.config.get('FEATURE_FLAGS', {})
-  flag_config = feature_flags.get(feature_name, {})
-
-  if not flag_config:
-    return default_value
-
-  return flag_config.get('numerical_value', default_value)
 
 
 def ip_in_list(ip_str: str, ip_patterns: list[str]) -> bool:

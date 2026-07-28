@@ -36,6 +36,7 @@ class DCConfig(Config):
   SHOW_SUSTAINABILITY = True
   USE_LLM = True
   HIDE_DEBUG = False
+  SPANNER_EMBEDDING_THRESHOLD = 0.6
 
 
 # This is only used for testing bad-words file before push.

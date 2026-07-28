@@ -59,7 +59,7 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
  */
 export function getFeatureFlags(): Record<
   string,
-  { enabled: boolean; rolloutPercentage?: number; numericalValue?: number }
+  { enabled: boolean; rolloutPercentage?: number }
 > {
   const flags = (globalThis.FEATURE_FLAGS || {}) as Record<
     string,
@@ -69,8 +69,6 @@ export function getFeatureFlags(): Record<
       // feature flag config JSON files.
       // eslint-disable-next-line camelcase
       rollout_percentage?: number;
-      // eslint-disable-next-line camelcase
-      numerical_value?: number;
     }
   >;
   return Object.fromEntries(
@@ -79,7 +77,6 @@ export function getFeatureFlags(): Record<
       {
         enabled: value.enabled,
         rolloutPercentage: value.rollout_percentage, // convert to camelCase
-        numericalValue: value.numerical_value, // convert to camelCase
       },
     ])
   );

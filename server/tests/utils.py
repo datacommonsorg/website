@@ -19,12 +19,9 @@ from typing import List
 def mock_feature_flags(app,
                        flags: List[str],
                        enabled: bool,
-                       rolloutPercent: int = None,
-                       numericalValue: float = None):
+                       rolloutPercent: int = None):
   """Mocks the feature flags"""
   for flag in flags:
     app.config["FEATURE_FLAGS"][flag] = {"enabled": enabled}
     if rolloutPercent is not None:
       app.config["FEATURE_FLAGS"][flag]["rollout_percentage"] = rolloutPercent
-    if numericalValue is not None:
-      app.config["FEATURE_FLAGS"][flag]["numerical_value"] = numericalValue
