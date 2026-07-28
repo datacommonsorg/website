@@ -34,7 +34,6 @@ import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 import {
   DISABLE_FEATURE_URL_PARAM,
   ENABLE_FEATURE_URL_PARAM,
-  getFeatureFlags,
   isFeatureEnabled,
 } from "./util";
 
@@ -140,12 +139,3 @@ describe("isFeatureEnabled", () => {
     expect(isFeatureEnabled(featureName)).toBe(false);
   });
 });
-
-describe("getFeatureFlags", () => {
-  const featureName = "testFeature";
-
-  afterEach(() => {
-    globalThis.FEATURE_FLAGS = undefined;
-  });
-});
-

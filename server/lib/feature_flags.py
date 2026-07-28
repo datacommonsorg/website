@@ -48,7 +48,6 @@ USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
 USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
 
 
-
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
   """Check if a URL param to manually enable a feature is present.
 
