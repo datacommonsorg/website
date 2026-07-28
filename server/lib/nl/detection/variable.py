@@ -74,8 +74,9 @@ def _detect_vars_with_resolve(
       query2results[q] = vars.VarCandidates(svs=[], scores=[], sv2sentences={})
   debug_logs.update(resp.get('debugLogs', {}))
   counters.info("detect_variable_path", 'v2/resolve')
-  threshold = get_feature_flag_value(SPANNER_EMBEDDING_THRESHOLD,
-                                     default_value=_DEFAULT_SPANNER_EMBEDDING_THRESHOLD)
+  threshold = get_feature_flag_value(
+      SPANNER_EMBEDDING_THRESHOLD,
+      default_value=_DEFAULT_SPANNER_EMBEDDING_THRESHOLD)
   return query2results, threshold
 
 

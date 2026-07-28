@@ -133,8 +133,28 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   return is_feature_enabled
 
 
-def get_feature_flag_value(feature_name: str, default_value: float, app=None, request=None):
-  """Gets numerical_value associated with a feature flag."""
+def get_feature_flag_value(feature_name: str,
+                           default_value: float,
+                           app=None,
+                           request=None):
+  """Returns the numerical value for the feature with `feature_name` is enabled.
+  
+  If the feature is disabled or does not have a configured numerical value, will
+  default to returning `default_value`.
+
+  Args:
+    feature_name: feature flag string to look for in the URL
+    default_value: fallback value to return if the feature is disabled or no
+                   numerical value is configured.
+    app: Optional Flask application instance. If None, it will be inferred from
+         the current Flask context.
+    request: HTTP request as a flask.Request object. If None, it will be
+             inferred from the current request context.
+  
+  Returns:
+    The configured numerical value if the feature is enabled and has one,
+    default_value otherwise
+  """
 
   if not is_feature_enabled(feature_name, app, request):
     return default_value

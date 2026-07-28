@@ -28,4 +28,3 @@ def mock_feature_flags(app,
       app.config["FEATURE_FLAGS"][flag]["rollout_percentage"] = rolloutPercent
     if numericalValue is not None:
       app.config["FEATURE_FLAGS"][flag]["numerical_value"] = numericalValue
-

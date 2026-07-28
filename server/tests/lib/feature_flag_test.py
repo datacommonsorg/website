@@ -284,22 +284,19 @@ class TestFeatureFlags(unittest.TestCase):
   def test_get_feature_flag_value(self):
     """Test get_feature_flag_value with numerical_value and default fallbacks."""
     # Test enabled flag with numerical_value
-    mock_feature_flags(self.app, [TEST_FEATURE_FLAG],
-                       True,
-                       numericalValue=0.7)
+    mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True, numericalValue=0.7)
     with self.app.test_request_context():
-      self.assertEqual(
-          get_feature_flag_value(TEST_FEATURE_FLAG, 0.5, self.app), 0.7)
+      self.assertEqual(get_feature_flag_value(TEST_FEATURE_FLAG, 0.5, self.app),
+                       0.7)
 
     # Test enabled flag without numerical_value falls back to default_value
     mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True)
     with self.app.test_request_context():
-      self.assertEqual(
-          get_feature_flag_value(TEST_FEATURE_FLAG, 0.5, self.app), 0.5)
+      self.assertEqual(get_feature_flag_value(TEST_FEATURE_FLAG, 0.5, self.app),
+                       0.5)
 
     # Test disabled flag returns default_value
     mock_feature_flags(self.app, [TEST_FEATURE_FLAG], False)
     with self.app.test_request_context():
-      self.assertEqual(
-          get_feature_flag_value(TEST_FEATURE_FLAG, 0.5, self.app), 0.5)
-
+      self.assertEqual(get_feature_flag_value(TEST_FEATURE_FLAG, 0.5, self.app),
+                       0.5)
