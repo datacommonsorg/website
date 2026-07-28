@@ -205,6 +205,8 @@ fi
 bucket_name=$(get_bucket_name "$environment")
 
 if [[ "$environment" == "production" ]]; then
+    echo "Please conduct a careful review before restarting production servers & coordinate with the oncaller."
+    echo "Remember to additionally announce this on the oncall thread."
     if [[ -z "$skip_staging_prompt" || "$skip_staging_prompt" != "true" ]]; then
         read -p "Have you validated these feature flags in staging? (yes/no) " -n 1 -r
         echo
@@ -231,10 +233,6 @@ if [[ -n "$should_restart" ]]; then
     restart_kubernetes_deployment "$environment"
   fi
 else
-  if [[ "$environment" == "production" ]]; then
-    echo "Please conduct a careful review before restarting production servers & coordinate with the oncaller."
-    echo "Remember to additionally announce this on the oncall thread."
-  fi
   read -p "Do you want to restart the Kubernetes deployment? (yes/no) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
