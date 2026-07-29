@@ -21,6 +21,7 @@ class Config(_base.Config):
   USE_LLM = True
   LOG_EXTREME_MIXER_CALLS = False
   LOG_CACHED_MIXER_RESPONSE_USAGE = False
+  SPANNER_EMBEDDING_THRESHOLD = 0.6
 
 
 class AutopushConfig(Config):

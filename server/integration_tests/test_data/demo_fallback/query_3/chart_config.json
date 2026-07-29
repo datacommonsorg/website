@@ -112,6 +112,35 @@
             ],
             "denom": "Count_Person",
             "title": "Hate Crime Cases by Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Murder and Non Negligent Manslaughter Cases in California",
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Murder and Non Negligent Manslaughter Cases"
           }
         ],
         "statVarSpec": {
@@ -138,6 +167,10 @@
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
+          "Count_CriminalActivities_MurderAndNonNegligentManslaughter": {
+            "name": "Murder and Non Negligent Manslaughter Cases",
+            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
           },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",

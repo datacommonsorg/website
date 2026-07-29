@@ -14,16 +14,16 @@
                     },
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime_scatter",
-                      "Count_CriminalActivities_AggravatedAssault_scatter"
+                      "dc/62pg70d2beyh9_scatter"
                     ],
-                    "title": "Criminal Activities (${yDate}) Vs. Aggravated Assault Cases (${xDate}) in States of United States",
+                    "title": "Criminal Activities (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Criminal Activities vs. Aggravated Assault Cases"
+            "title": "Criminal Activities vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced"
           },
           {
             "columns": [
@@ -63,6 +63,59 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "dc/62pg70d2beyh9"
+                    ],
+                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/62pg70d2beyh9"
+                    ],
+                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault_scatter",
+                      "dc/ttms13r578hq9_scatter"
+                    ],
+                    "title": "Aggravated Assault Cases (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Aggravated Assault Cases vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_CriminalActivities_AggravatedAssault"
                     ],
                     "title": "Aggravated Assault Cases in States of United States (${date})",
@@ -88,6 +141,154 @@
             ],
             "denom": "Count_Person",
             "title": "Aggravated Assault Cases in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/ttms13r578hq9"
+                    ],
+                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/ttms13r578hq9"
+                    ],
+                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime_scatter",
+                      "dc/36d93ckypx3bb_scatter"
+                    ],
+                    "title": "Criminal Activities (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Criminal Activities vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/36d93ckypx3bb"
+                    ],
+                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/36d93ckypx3bb"
+                    ],
+                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime_scatter",
+                      "dc/ttms13r578hq9_scatter"
+                    ],
+                    "title": "Criminal Activities (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Criminal Activities vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault_scatter",
+                      "dc/62pg70d2beyh9_scatter"
+                    ],
+                    "title": "Aggravated Assault Cases (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Aggravated Assault Cases vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault_scatter",
+                      "dc/36d93ckypx3bb_scatter"
+                    ],
+                    "title": "Aggravated Assault Cases (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Aggravated Assault Cases vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced"
           }
         ],
         "statVarSpec": {
@@ -106,6 +307,30 @@
           "Count_CriminalActivities_CombinedCrime_scatter": {
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
+          "dc/36d93ckypx3bb": {
+            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced",
+            "statVar": "dc/36d93ckypx3bb"
+          },
+          "dc/36d93ckypx3bb_scatter": {
+            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced",
+            "statVar": "dc/36d93ckypx3bb"
+          },
+          "dc/62pg70d2beyh9": {
+            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced",
+            "statVar": "dc/62pg70d2beyh9"
+          },
+          "dc/62pg70d2beyh9_scatter": {
+            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced",
+            "statVar": "dc/62pg70d2beyh9"
+          },
+          "dc/ttms13r578hq9": {
+            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced",
+            "statVar": "dc/ttms13r578hq9"
+          },
+          "dc/ttms13r578hq9_scatter": {
+            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced",
+            "statVar": "dc/ttms13r578hq9"
           }
         }
       }
@@ -501,6 +726,13 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Incarceration",
+        "name": "Incarceration",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "parentPlaces": [],
@@ -609,5 +841,7 @@
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
-  "userMessages": []
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

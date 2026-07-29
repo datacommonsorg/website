@@ -25,6 +25,7 @@ class Config(_base.Config):
   LOG_CACHED_MIXER_RESPONSE_USAGE = False
   ENABLE_EMBEDDINGS_PLAYGROUND = True
   ENABLE_DATAGEMMA_EVAL_TOOLS = True
+  SPANNER_EMBEDDING_THRESHOLD = 0.6
 
 
 class DCConfig(Config):
@@ -36,7 +37,6 @@ class DCConfig(Config):
   SHOW_SUSTAINABILITY = True
   USE_LLM = True
   HIDE_DEBUG = False
-  SPANNER_EMBEDDING_THRESHOLD = 0.6
 
 
 # This is only used for testing bad-words file before push.
