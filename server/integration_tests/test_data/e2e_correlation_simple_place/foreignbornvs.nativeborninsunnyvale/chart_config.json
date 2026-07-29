@@ -149,12 +149,42 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Immigration",
-        "name": "Immigration",
-        "types": [
-          "Topic"
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_5OrMoreYears_ForeignBorn": {
+        "race": [
+          "dc/xdfcsgf05b4mc",
+          "dc/ym3bfmz5e91gg"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthEasternAsia": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthEasternAsia",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthEasternAsia"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthMexico": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthMexico",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthMexico"
+        ]
+      },
+      "Count_Person_PlaceOfBirthAsia": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
         ]
       },
       {

@@ -9,21 +9,29 @@
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
                     "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime_scatter",
-                      "dc/62pg70d2beyh9_scatter"
+                      "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
-                    "type": "SCATTER"
+                    "title": "Criminal Activities in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Criminal Activities in United States",
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Criminal Activities vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced"
+            "title": "Criminal Activities"
           },
           {
             "columns": [
@@ -63,52 +71,60 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/62pg70d2beyh9"
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
-                    "type": "MAP"
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
+                    "description": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
                     "statVarKey": [
-                      "dc/62pg70d2beyh9"
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
-                    "type": "RANKING"
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced in States of United States"
+            "description": "Intentional homicides are estimates of unlawful homicides purposely inflicted as a result of domestic disputes, interpersonal violence, violent conflicts over land resources, intergang violence over turf or control, and predatory violence and killing by armed groups. Intentional homicide does not include all intentional killing; the difference is usually in the organization of the killing. Individuals or small groups usually commit homicide, whereas killing in armed conflict is usually committed by fairly cohesive groups of up to several hundred members and is thus usually excluded. UN office on drugs and Crime's international homicide statistics database.",
+            "title": "Murder and Non Negligent Manslaughter Cases Per Capita"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
-                    "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault_scatter",
-                      "dc/ttms13r578hq9_scatter"
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Aggravated Assault Cases (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
-                    "type": "SCATTER"
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block",
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
+                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
+                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block",
+                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Crimes by Type in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Aggravated Assault Cases vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced"
+            "title": "Crimes by Type"
           },
           {
             "columns": [
@@ -148,9 +164,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/ttms13r578hq9"
+                      "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "title": "Burglaries in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -163,37 +179,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "dc/ttms13r578hq9"
+                      "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "title": "Burglaries in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime_scatter",
-                      "dc/36d93ckypx3bb_scatter"
-                    ],
-                    "title": "Criminal Activities (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Criminal Activities vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced"
+            "title": "Burglaries in States of United States"
           },
           {
             "columns": [
@@ -201,9 +196,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/36d93ckypx3bb"
+                      "Count_CriminalActivities_ForcibleRape"
                     ],
-                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "title": "Forcible Rapes in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -216,79 +211,176 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "dc/36d93ckypx3bb"
+                      "Count_CriminalActivities_ForcibleRape"
                     ],
-                    "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced in States of United States (${date})",
+                    "title": "Forcible Rapes in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced in States of United States"
+            "title": "Forcible Rapes in States of United States"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime_scatter",
-                      "dc/ttms13r578hq9_scatter"
+                      "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Criminal Activities (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Male, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
-                    "type": "SCATTER"
+                    "title": "Larceny Theft Cases in States of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Criminal Activities vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced"
+            "title": "Larceny Theft Cases in States of United States"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault_scatter",
-                      "dc/62pg70d2beyh9_scatter"
+                      "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Aggravated Assault Cases (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
-                    "type": "SCATTER"
+                    "title": "Motor Vehicle Thefts in States of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Aggravated Assault Cases vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced"
+            "title": "Motor Vehicle Thefts in States of United States"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault_scatter",
-                      "dc/36d93ckypx3bb_scatter"
+                      "Count_CriminalActivities_PropertyCrime"
                     ],
-                    "title": "Aggravated Assault Cases (${yDate}) Vs. Count of Incarceration Event (Measured Based on Jurisdiction): Admitted to Prison, Female, Incarcerated, Years 2 Onwards, Sentenced (${xDate}) in States of United States",
-                    "type": "SCATTER"
+                    "title": "Property Related Crimes in States of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Aggravated Assault Cases vs. Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced"
+            "title": "Property Related Crimes in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Robberies in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_ViolentCrime"
+                    ],
+                    "title": "Violent Crimes in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_ViolentCrime"
+                    ],
+                    "title": "Violent Crimes in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Violent Crimes in States of United States"
           }
         ],
         "statVarSpec": {
@@ -296,41 +388,73 @@
             "name": "Aggravated Assault Cases",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
-          "Count_CriminalActivities_AggravatedAssault_scatter": {
+          "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block": {
             "name": "Aggravated Assault Cases",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
+          },
+          "Count_CriminalActivities_Burglary": {
+            "name": "Burglaries",
+            "statVar": "Count_CriminalActivities_Burglary"
+          },
+          "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
+            "name": "Burglaries",
+            "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_CombinedCrime": {
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
-          "Count_CriminalActivities_CombinedCrime_scatter": {
-            "name": "Criminal Activities",
-            "statVar": "Count_CriminalActivities_CombinedCrime"
+          "Count_CriminalActivities_ForcibleRape": {
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
           },
-          "dc/36d93ckypx3bb": {
-            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced",
-            "statVar": "dc/36d93ckypx3bb"
+          "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
           },
-          "dc/36d93ckypx3bb_scatter": {
-            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Female, Incarcerated, Years 2 Onwards, Sentenced",
-            "statVar": "dc/36d93ckypx3bb"
+          "Count_CriminalActivities_LarcenyTheft": {
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
-          "dc/62pg70d2beyh9": {
-            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced",
-            "statVar": "dc/62pg70d2beyh9"
+          "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
-          "dc/62pg70d2beyh9_scatter": {
-            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Incarcerated, Years 2 Onwards, Sentenced",
-            "statVar": "dc/62pg70d2beyh9"
+          "Count_CriminalActivities_MotorVehicleTheft": {
+            "name": "Motor Vehicle Thefts",
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
-          "dc/ttms13r578hq9": {
-            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced",
-            "statVar": "dc/ttms13r578hq9"
+          "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
+            "name": "Motor Vehicle Thefts",
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
-          "dc/ttms13r578hq9_scatter": {
-            "name": "Count of Incarceration Event (Measured Based On Jurisdiction): Admitted To Prison, Male, Incarcerated, Years 2 Onwards, Sentenced",
-            "statVar": "dc/ttms13r578hq9"
+          "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person": {
+            "name": "Murder and Non Negligent Manslaughter Cases Per Capita",
+            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+          },
+          "Count_CriminalActivities_PropertyCrime": {
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_Robbery": {
+            "name": "Robberies",
+            "statVar": "Count_CriminalActivities_Robbery"
+          },
+          "Count_CriminalActivities_Robbery_multiple_place_bar_block": {
+            "name": "Robberies",
+            "statVar": "Count_CriminalActivities_Robbery"
+          },
+          "Count_CriminalActivities_ViolentCrime": {
+            "name": "Violent Crimes",
+            "statVar": "Count_CriminalActivities_ViolentCrime"
+          },
+          "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
+            "name": "Violent Crimes",
+            "statVar": "Count_CriminalActivities_ViolentCrime"
           }
         }
       }
