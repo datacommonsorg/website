@@ -281,18 +281,6 @@
           "dc/wk2vjrzfgyq5d",
           "dc/x9e7150515yt7"
         ]
-      },
-      "Count_Person_EnrolledInSchool": {
-        "detailedLevelOfSchool": [
-          "Count_Person_DetailedEnrolledInKindergarten",
-          "Count_Person_DetailedHighSchool",
-          "Count_Person_DetailedMiddleSchool",
-          "Count_Person_DetailedPrimarySchool"
-        ],
-        "gender": [
-          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
-          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
-        ]
       }
     },
     "mainTopics": [

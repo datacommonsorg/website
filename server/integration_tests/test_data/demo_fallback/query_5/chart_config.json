@@ -656,13 +656,7 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSManufacturing_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue",
-          "dc/qt7ewllmt3826",
-          "dc/zz6gwv838v9w"
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue"
         ]
       }
     },
