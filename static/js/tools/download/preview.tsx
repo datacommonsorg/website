@@ -22,15 +22,16 @@ import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import Papa from "papaparse";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useIntl } from "react-intl";
 
 import { Button } from "../../components/elements/button/button";
 import { Check } from "../../components/elements/icons/check";
 import { Download } from "../../components/elements/icons/download";
 import { ProgressActivity } from "../../components/elements/icons/progress_activity";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
-  downloadFile,
   extractFlagsToPropagate,
   loadSpinner,
   removeSpinner,
@@ -40,8 +41,6 @@ import { DATE_ALL, DownloadOptions } from "./context";
 
 const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
-const NUM_COL_PER_SV = 3;
-const NUM_DEFAULT_COL = 2;
 const DOWNLOADED_RESET_DELAY_MS = 1500;
 
 const iconWrapper = css`
@@ -73,6 +72,7 @@ export function Preview(props: PreviewProps): JSX.Element {
   const csvReqPayload = useRef({});
   const prevOptions = useRef(null);
   const theme = useTheme();
+  const intl = useIntl();
 
   useEffect(() => {
     if (
@@ -98,15 +98,22 @@ export function Preview(props: PreviewProps): JSX.Element {
   // We only want to show preview once preview data has been fetched.
   const showPreview = _.isEmpty(errorMessage) && !_.isEmpty(previewData);
   // 1st row of previewData will be the header and the rest are the data rows.
-  const header = showPreview ? previewData[0] : [];
-  const dataRows = showPreview
-    ? previewData.slice(1).filter((row) => row.length > NUM_DEFAULT_COL)
+  const allColumnsHeader = showPreview ? previewData[0] : [];
+  const allColumnsDataRows = showPreview
+    ? previewData
+        .slice(1)
+        .filter((row) => row.length === allColumnsHeader.length)
     : [];
-  const numCols =
-    NUM_DEFAULT_COL +
-    Object.keys(props.selectedOptions.selectedStatVars).length * NUM_COL_PER_SV;
+  // Don't show columns that are empty for every row in the preview.
+  const visibleColumnIndices = allColumnsHeader
+    .map((_heading, idx) => idx)
+    .filter((idx) => allColumnsDataRows.some((row) => !_.isEmpty(row[idx])));
+  const header = visibleColumnIndices.map((idx) => allColumnsHeader[idx]);
+  const dataRows = allColumnsDataRows.map((row) =>
+    visibleColumnIndices.map((idx) => row[idx])
+  );
   // Add a row at the bottom of the table with "..." in each cell
-  const emptyRow = new Array(numCols).fill("");
+  const emptyRow = new Array(header.length).fill("");
 
   let cardClassName = "preview-container";
   if (!_.isEmpty(errorMessage)) {
@@ -131,6 +138,35 @@ export function Preview(props: PreviewProps): JSX.Element {
       {errorMessage && <div>{errorMessage}</div>}
       {showPreview && (
         <>
+          <div
+            css={css`
+              display: flex;
+              justify-content: space-between;
+              gap: ${theme.spacing.xl}px;
+            `}
+          >
+            <p>
+              {intl.formatMessage(toolMessages.downloadToolPreviewDisclaimer)}
+            </p>
+
+            <Button
+              className="download-button"
+              disabled={props.isDisabled || downloading}
+              onClick={onDownloadClicked}
+              startIcon={
+                downloading ? (
+                  <ProgressActivity />
+                ) : (
+                  <span css={iconWrapper}>
+                    <Download className={downloaded ? "hidden" : undefined} />
+                    <Check className={!downloaded ? "hidden" : undefined} />
+                  </span>
+                )
+              }
+            >
+              {intl.formatMessage(toolMessages.downloadCsvButton)}
+            </Button>
+          </div>
           <table>
             <thead>
               <tr>
@@ -177,7 +213,7 @@ export function Preview(props: PreviewProps): JSX.Element {
                 )
               }
             >
-              Download CSV
+              {intl.formatMessage(toolMessages.downloadCsvButton)}
             </Button>
           </div>
         </>
@@ -232,11 +268,11 @@ export function Preview(props: PreviewProps): JSX.Element {
           );
           setDownloaded(true);
         } else {
-          alert("Sorry, there was a problem downloading the csv.");
+          alert(intl.formatMessage(toolMessages.downloadToolCsvDownloadError));
         }
       })
       .catch(() => {
-        alert("Sorry, there was a problem downloading the csv.");
+        alert(intl.formatMessage(toolMessages.downloadToolCsvDownloadError));
       })
       .finally(() => {
         setDownloading(false);
@@ -275,7 +311,9 @@ export function Preview(props: PreviewProps): JSX.Element {
       .catch(() => {
         removeSpinner(SECTION_ID);
         setPreviewData([]);
-        setErrorMessage("Sorry, there was a problem retrieving data.");
+        setErrorMessage(
+          intl.formatMessage(toolMessages.downloadToolPreviewFetchError)
+        );
       });
   }
 }

@@ -23,11 +23,55 @@ from flask import request
 
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
+import server.lib.fetch as fetch
 from server.lib.shared import date_greater_equal_min
 from server.lib.shared import date_lesser_equal_max
 from server.lib.shared import is_valid_date
 from server.lib.shared import names
 import server.services.datacommons as dc
+
+# Header row for the tidy (one row per entity/variable/date) csv format used
+# by the new download tool.
+TIDY_CSV_HEADER_ROW = [
+    "Entity DCID",
+    "Entity properties isoCode",
+    "Entity properties name",
+    "Variable DCID",
+    "Variable observation date",
+    "Variable observation metadata importName",
+    "Variable observation metadata measurementMethod",
+    "Variable observation metadata observationPeriod",
+    "Variable observation metadata provenanceUrl",
+    "Variable observation metadata scalingFactor",
+    "Variable observation metadata unit",
+    "Variable observation metadata unitDisplayName",
+    "Variable observation value",
+    "Variable properties name",
+]
+
+
+def _get_entity_and_variable_props(place_list, sv_list):
+  """Fetches isoCode/name for entities and name for variables.
+
+  Returns:
+      A tuple of (entity_props, variable_props) where entity_props maps
+      place dcid to {"isoCode": str, "name": str} and variable_props maps
+      sv dcid to {"name": str}.
+  """
+  entity_prop_values = fetch.multiple_property_values(place_list,
+                                                       ["isoCode", "name"])
+  variable_prop_values = fetch.multiple_property_values(sv_list, ["name"])
+  entity_props = {}
+  for place, props in entity_prop_values.items():
+    entity_props[place] = {
+        "isoCode": (props.get("isoCode") or [""])[0],
+        "name": (props.get("name") or [""])[0],
+    }
+  variable_props = {}
+  for sv, props in variable_prop_values.items():
+    variable_props[sv] = {"name": (props.get("name") or [""])[0]}
+  return entity_props, variable_props
+
 
 # Define blueprint
 bp = Blueprint("csv", __name__, url_prefix='/api/csv')
@@ -216,6 +260,169 @@ def get_series_csv_rows(series_response,
   return result
 
 
+def get_point_within_tidy_csv_rows(parent_place,
+                                   child_type,
+                                   sv_list,
+                                   facet_map,
+                                   date,
+                                   row_limit=None):
+  """Gets the tidy csv rows (one row per entity/variable) for a set of
+    statistical variables data for child places of a certain place type
+    contained in a parent place.
+
+  Args:
+      parent_place: the parent place of the places to get data for
+      child_type: the type of places to get data for
+      sv_list: list of variables to get data for
+      facet_map: map of sv dcid to the id of the facet to get data from
+      date: the date to get the data for
+      row_limit (optional): number of csv rows to return
+
+  Returns:
+      An array where each item in the array is a csv row. These csv rows are
+      represented as an array where each item is the value of a cell in the
+      row.
+  """
+  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date)
+  facets = fetch.get_processed_facets(points_response.get("facets", {}))
+
+  # dict of place dcid to dict of sv dcid to chosen data point.
+  data_by_place = {}
+  for sv, sv_data in points_response.get("byVariable", {}).items():
+    target_facet = facet_map.get(sv, "")
+    for place, place_data in sv_data.get("byEntity", {}).items():
+      if not place in data_by_place:
+        data_by_place[place] = {}
+      points_by_facet = place_data.get("orderedFacets", [])
+      best = None
+      for point in points_by_facet:
+        if target_facet == "":
+          if not best or point['observations'][0]['date'] > best[
+              'observations'][0]['date']:
+            best = point
+        elif point.get("facetId") == target_facet:
+          data_by_place[place][sv] = point
+          break
+      if best:
+        data_by_place[place][sv] = best
+
+  place_list = sorted(list(data_by_place.keys()))
+  entity_props, variable_props = _get_entity_and_variable_props(
+      place_list, sv_list)
+
+  result = []
+  for place in place_list:
+    entity = entity_props.get(place, {})
+    for sv in sv_list:
+      data = data_by_place.get(place, {}).get(sv, {})
+      if not data:
+        continue
+      if row_limit and len(result) >= row_limit:
+        return result
+      observation = data['observations'][0]
+      facet = facets.get(data.get("facetId", ""), {})
+      result.append([
+          place,
+          entity.get("isoCode", ""),
+          entity.get("name", ""),
+          sv,
+          observation.get("date", ""),
+          facet.get("importName", ""),
+          facet.get("measurementMethod", ""),
+          facet.get("observationPeriod", ""),
+          facet.get("provenanceUrl", ""),
+          facet.get("scalingFactor", ""),
+          facet.get("unit", ""),
+          facet.get("unitDisplayName", ""),
+          observation.get("value", ""),
+          variable_props.get(sv, {}).get("name", ""),
+      ])
+  return result
+
+
+def get_series_tidy_csv_rows(series_response,
+                             sv_list,
+                             facet_map,
+                             min_date,
+                             max_date,
+                             row_limit=None):
+  """Gets the tidy csv rows (one row per entity/variable/date) for a set of
+    statistical variable series for a certain date range.
+
+  Args:
+      series_response: the response from a dc.obs_series_within call
+      sv_list: list of variables to get data for
+      facet_map: map of sv dcid to the id of the facet to get data from
+      min_date (optional): the earliest date as a string to get data for. If
+          not set get all dates up to max_date (if max_date is set).
+      max_date (optional): the latest date as a string to get data for. If not
+          set, get all dates starting at min_date (if min_date is set).
+      row_limit (optional): number of csv rows to return
+
+  Returns:
+      An array where each item in the array is a csv row. These csv rows are
+      represented as an array where each item is the value of a cell in the
+      row.
+  """
+  facets = fetch.get_processed_facets(series_response.get("facets", {}))
+  # dict of place dcid to dict of sv dcid to chosen series.
+  data_by_place = {}
+  for sv, sv_data in series_response.get("byVariable", {}).items():
+    target_facet = facet_map.get(sv, "")
+    for place, place_data in sv_data.get("byEntity", {}).items():
+      if not place in data_by_place:
+        data_by_place[place] = {}
+      series_by_facet = place_data.get("orderedFacets", [])
+      for series in series_by_facet:
+        if target_facet == "":
+          data_by_place[place][sv] = series
+          break
+        if series.get("facetId") == target_facet:
+          data_by_place[place][sv] = series
+          break
+
+  place_list = sorted(list(data_by_place.keys()))
+  entity_props, variable_props = _get_entity_and_variable_props(
+      place_list, sv_list)
+
+  result = []
+  for place in place_list:
+    entity = entity_props.get(place, {})
+    for sv in sv_list:
+      sv_series = data_by_place.get(place, {}).get(sv, {})
+      if not sv_series:
+        continue
+      facet = facets.get(sv_series.get("facetId", ""), {})
+      var_name = variable_props.get(sv, {}).get("name", "")
+      observations = sorted(sv_series.get("observations", []),
+                            key=lambda x: x["date"])
+      for observation in observations:
+        date = observation.get("date", "")
+        if not date_greater_equal_min(date, min_date):
+          continue
+        if not date_lesser_equal_max(date, max_date):
+          continue
+        if row_limit and len(result) >= row_limit:
+          return result
+        result.append([
+            place,
+            entity.get("isoCode", ""),
+            entity.get("name", ""),
+            sv,
+            date,
+            facet.get("importName", ""),
+            facet.get("measurementMethod", ""),
+            facet.get("observationPeriod", ""),
+            facet.get("provenanceUrl", ""),
+            facet.get("scalingFactor", ""),
+            facet.get("unit", ""),
+            facet.get("unitDisplayName", ""),
+            observation.get("value", ""),
+            var_name,
+        ])
+  return result
+
+
 @bp.route('/within', methods=['POST'])
 def get_stats_within_place_csv():
   """Gets the statistical variable data as a csv for child places of a
@@ -255,14 +462,11 @@ def get_stats_within_place_csv():
   use_new_download_tool = is_feature_enabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
                                              request=request)
   result_csv = []
-  header_row = ["placeDcid", "placeName"]
-  for sv in sv_list:
-    # The new download tool only allows selecting a single stat var at a
-    # time, so the stat var no longer needs to be encoded in the column
-    # headers - it's included in the downloaded file name instead.
-    if use_new_download_tool:
-      header_row.extend(["Date", "Value", "Source"])
-    else:
+  if use_new_download_tool:
+    header_row = list(TIDY_CSV_HEADER_ROW)
+  else:
+    header_row = ["placeDcid", "placeName"]
+    for sv in sv_list:
       header_row.extend(["Date:" + sv, "Value:" + sv, "Source:" + sv])
   result_csv.append(header_row)
   # when min_date and max_date are the same and non empty, we will get the
@@ -271,14 +475,24 @@ def get_stats_within_place_csv():
     date = min_date
     if min_date == "latest":
       date = "LATEST"
-    result_csv.extend(
-        get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
-                                  date, row_limit))
+    if use_new_download_tool:
+      result_csv.extend(
+          get_point_within_tidy_csv_rows(parent_place, child_type, sv_list,
+                                         facet_map, date, row_limit))
+    else:
+      result_csv.extend(
+          get_point_within_csv_rows(parent_place, child_type, sv_list,
+                                    facet_map, date, row_limit))
   else:
     series_response = dc.obs_series_within(parent_place, child_type, sv_list)
-    result_csv.extend(
-        get_series_csv_rows(series_response, sv_list, facet_map, min_date,
-                            max_date, row_limit))
+    if use_new_download_tool:
+      result_csv.extend(
+          get_series_tidy_csv_rows(series_response, sv_list, facet_map,
+                                   min_date, max_date, row_limit))
+    else:
+      result_csv.extend(
+          get_series_csv_rows(series_response, sv_list, facet_map, min_date,
+                              max_date, row_limit))
   si = io.StringIO()
   csv_writer = csv.writer(si)
   csv_writer.writerows(result_csv)
