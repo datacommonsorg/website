@@ -966,8 +966,7 @@
           "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
           "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months",
           "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto6Years_BelowPovertyLevelInThePast12Months"
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months"
         ],
         "gender": [
           "Count_Person_Female_BelowPovertyLevelInThePast12Months",
