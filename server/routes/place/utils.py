@@ -507,7 +507,7 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
     locales_str = ",".join(resolved_locales)
     props.append(f"nameWithLanguage{{$lang:[{locales_str}]}}")
 
-  multi_places_props = fetch.multiple_property_values(place_dcids, props)
+  multi_places_props = fetch.multiple_property_values(place_dcids, props, max_pages=None)
 
   places = []
   for place_dcid in place_dcids:
