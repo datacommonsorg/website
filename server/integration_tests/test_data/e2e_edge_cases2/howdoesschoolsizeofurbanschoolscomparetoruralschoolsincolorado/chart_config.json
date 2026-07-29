@@ -552,18 +552,6 @@
         "gender": [
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
           "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
-        ],
-        "race": [
-          "dc/5qnjtqc0w783b",
-          "dc/km8en9ep7bwh6"
-        ],
-        "residenceType": [
-          "Count_Person_ResidesInAdultCorrectionalFacilities_EnrolledInSchool",
-          "Count_Person_ResidesInCollegeOrUniversityStudentHousing_EnrolledInSchool",
-          "Count_Person_ResidesInGroupQuarters_EnrolledInSchool",
-          "Count_Person_ResidesInInstitutionalizedGroupQuarters_EnrolledInSchool",
-          "Count_Person_ResidesInNoninstitutionalizedGroupQuarters_EnrolledInSchool",
-          "Count_Person_ResidesInNursingFacilities_EnrolledInSchool"
         ]
       }
     },
