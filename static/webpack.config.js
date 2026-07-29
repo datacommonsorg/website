@@ -47,10 +47,6 @@ const config = {
       __dirname + "/js/apps/datagemma/main.ts",
       __dirname + "/css/datagemma.scss",
     ],
-    biomed_nl: [
-      __dirname + "/js/apps/biomed_nl/main.ts",
-      __dirname + "/css/biomed_nl.scss",
-    ],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",

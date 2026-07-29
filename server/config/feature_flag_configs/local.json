@@ -6,12 +6,6 @@
     "description": "Feature flag to enable place autocomplete."
   },
   {
-    "name": "biomed_nl",
-    "enabled": true,
-    "owner": "calinc",
-    "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
-  },
-  {
     "name": "data_overview",
     "enabled": true,
     "owner": "nick-next",

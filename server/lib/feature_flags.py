@@ -29,7 +29,6 @@ FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
 
 # Feature Flags
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
-BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
 USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG = 'use_new_download_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
