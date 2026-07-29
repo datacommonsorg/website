@@ -662,6 +662,12 @@
         ]
       },
       "Count_Person_Female": {
+        "age": [
+          "Count_Person_15To44Years_Female",
+          "Count_Person_21OrMoreYears_Female",
+          "Count_Person_62OrMoreYears_Female",
+          "Count_Person_85OrMoreYears_Female"
+        ],
         "race": [
           "Count_Person_Female_AsianAlone",
           "Count_Person_Female_BlackOrAfricanAmericanAlone",
