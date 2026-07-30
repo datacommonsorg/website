@@ -139,6 +139,12 @@
     "description": "Enables using the V2 resolve API for NL search vars."
   },
   {
+    "name": "use_config_threshold_for_spanner_embedding",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Gates the use of config SPANNER_EMBEDDING_THRESHOLD. If false, it will use the default threshold."
+  },
+  {
     "name": "use_new_download_tool",
     "enabled": true,
     "owner": "pablonoel",
