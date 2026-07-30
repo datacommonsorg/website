@@ -79,32 +79,6 @@ def detect_from_query_dc(orig_query: str,
 
   resolved_entities = []
   entities_str = []
-  if allow_triples:
-    # Get the query parts for entities in the query that already has places
-    # stripped out. This is to ensure that we are only resolving each part of
-    # the query to one of entity or place
-    debug_logs["dc_recognize_entities"] = {}
-    entity_query_items = dc.recognize_entities(stripped_query_str)
-    entity_query_parts = _get_query_parts(entity_query_items, 'entities',
-                                          debug_logs["dc_recognize_entities"])
-
-    # Get resolved entities
-    resolved_entities = _get_resolved_entities(entity_query_parts)
-    resolved_entity_dcids = set([e.dcid for e in resolved_entities])
-
-    # Get the parts of the query (with places already stripped out) that
-    # resolved to an entity and the query string with those parts also stripped
-    # out in addition to the places that are already stripped out.
-    entities_str, stripped_entities_query_str = _get_stripped_string(
-        entity_query_parts, resolved_entity_dcids)
-
-    # The stripped query string returned by place detection should only have
-    # entities stripped out if there were no places stripped OR there are more
-    # that _MAX_ENTITIES_QUERY entity strings found. This is because the
-    # stripped query string will eventually be used for sv/prop detection and
-    # some entities may be part of entity descriptions
-    if not places_str or len(entities_str) > _MAX_ENTITIES_QUERY:
-      stripped_query_str = stripped_entities_query_str
 
   place_detection = PlaceDetection(
       query_original=query,
