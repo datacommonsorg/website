@@ -78,7 +78,8 @@ def _detect_vars_with_resolve(
   counters.info("detect_variable_path", 'v2/resolve')
   threshold = _DEFAULT_SPANNER_EMBEDDING_THRESHOLD
 
-  if is_feature_enabled(USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING) and has_app_context():
+  if is_feature_enabled(
+      USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING) and has_app_context():
     threshold = current_app.config.get('SPANNER_EMBEDDING_THRESHOLD',
                                        _DEFAULT_SPANNER_EMBEDDING_THRESHOLD)
   return query2results, threshold
