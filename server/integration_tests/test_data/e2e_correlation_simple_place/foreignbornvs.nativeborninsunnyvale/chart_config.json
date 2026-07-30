@@ -353,79 +353,31 @@
       "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
         "age": [
           "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCaribbean"
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean"
         ]
       },
       "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
         "age": [
           "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
         ]
       },
       "Count_Person_ForeignBorn_PlaceOfBirthEasternAsia": {
         "age": [
           "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthEasternAsia",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthEasternAsia",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthEasternAsia"
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthEasternAsia"
         ]
       },
       "Count_Person_ForeignBorn_PlaceOfBirthMexico": {
         "age": [
           "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthMexico"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthNorthernWesternEurope",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthNorthernWesternEurope",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthNorthernWesternEurope"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthSouthCentralAsia": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthCentralAsia",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthCentralAsia",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthCentralAsia"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthSouthEasternAsia": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthEasternAsia",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthEasternAsia",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthEasternAsia"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthSouthamerica": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthamerica"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthSouthernEasternEurope",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthSouthernEasternEurope",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthSouthernEasternEurope"
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthMexico"
         ]
       },
       "Count_Person_PlaceOfBirthAsia": {
         "age": [
           "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
-        ]
-      },
-      "Count_Person_PlaceOfBirthEurope": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthEurope"
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
         ]
       },
       "Median_Age_Person_ForeignBorn": {

@@ -594,16 +594,6 @@
         "gender": [
           "Count_Person_Illiterate_Female",
           "Count_Person_Illiterate_Male"
-        ],
-        "placeOfResidenceClassification": [
-          "Count_Person_Illiterate_Rural",
-          "Count_Person_Illiterate_Urban"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Illiterate",
-          "indianCensus/Count_Person_Religion_Christian_Illiterate",
-          "indianCensus/Count_Person_Religion_Hindu_Illiterate",
-          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Illiterate"
         ]
       },
       "Count_Person_Literate": {
