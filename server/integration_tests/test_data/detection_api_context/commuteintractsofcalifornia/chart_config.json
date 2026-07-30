@@ -23,9 +23,6 @@
     "dc/topic/CommuteMode",
     "dc/topic/CommuteTime",
     "dc/topic/CommuteModeByOccupation",
-    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
-    "dc/hbkh95kc7pkb6",
-    "dc/vp8cbt6k79t94",
-    "dc/0gettc3bc60cb"
+    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
   ]
 }

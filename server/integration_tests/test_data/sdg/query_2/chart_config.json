@@ -9,18 +9,302 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "comparisonPlaces": [
+                      "country/GIN",
+                      "country/MMR",
+                      "country/CHN",
+                      "country/TCD",
+                      "country/BFA",
+                      "country/IDN",
+                      "country/NER",
+                      "country/SLE",
+                      "country/TJK",
+                      "country/BOL"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T2410"
+                    ],
+                    "title": "Employed Population Age 15 to 24 Below International Poverty Line",
+                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "footnote": "Includes data from the following sources: ILO modelled estimates, Nov. 2023",
+            "title": "Employed Population Age 15 to 24 Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MMR",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Myanmar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CHN",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/TCD",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Chad",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Burkina Faso",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/IDN",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Indonesia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Niger",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SLE",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Sierra Leone",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/TJK",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Tajikistan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BOL",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs"
+                    ],
+                    "title": "Bolivia",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO modelled estimates, Nov. 2023",
+            "title": "Decrease in Employed Population Age 15 to 24 Below International Poverty Line Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MMR",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Myanmar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/JAM",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Jamaica",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KGZ",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Kyrgyzstan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GEO",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Georgia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MUS",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Mauritius",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/NIC",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Nicaragua",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/LKA",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Sri Lanka",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PSE",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Palestinian Territories",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MYS",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Malaysia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BTN",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct"
+                    ],
+                    "title": "Bhutan",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO modelled estimates, Nov. 2023",
+            "title": "Decrease in Employed Population Age 15 to 24 Below International Poverty Line Over Time (Percent Change)"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "sdg/SI_POV_EMP1.AGE--Y15T2410": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24_growth_abs": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24_growth_pct": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
+          }
+        }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "Earth"
+        "country/GIN"
       ]
     }
   },
@@ -43,62 +327,414 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/ABW",
+          "name": "Aruba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AFG",
+          "name": "Afghanistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AIA",
+          "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARE",
+          "name": "United Arab Emirates",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARG",
+          "name": "Argentina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ASM",
+          "name": "American Samoa",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATA",
+          "name": "Antarctica",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATB",
+          "name": "British Antarctic Territory",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATG",
+          "name": "Antigua and Barbuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATN",
+          "name": "Dronning Maud Land",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUS",
+          "name": "Australia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BES",
+          "name": "Bonaire, Sint Eustatius and Saba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGD",
+          "name": "Bangladesh",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHR",
+          "name": "Bahrain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHS",
+          "name": "Bahamas",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLZ",
+          "name": "Belize",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BMU",
+          "name": "Bermuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BOL",
+          "name": "Bolivia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRA",
+          "name": "Brazil",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRB",
+          "name": "Barbados",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRN",
+          "name": "Brunei",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BTN",
+          "name": "Bhutan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BVT",
+          "name": "Bouvet Island",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAN",
+          "name": "Canada",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CCK",
+          "name": "Cocos (Keeling) Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHL",
+          "name": "Chile",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHN",
+          "name": "China",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Equity",
-        "name": "Equity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
         "types": [
           "Topic"
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/SI_POV_EMP1.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+        ]
+      }
+    },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
-  "showForm": true,
-  "svSource": "UNFULFILLED",
-  "userMessages": [
-    "Sorry, there were no relevant statistics about the topic for World. See available topic categories with statistics for World."
-  ]
+  "svSource": "PAST_QUERY",
+  "userMessages": []
 }

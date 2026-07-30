@@ -742,62 +742,6 @@
               }
             ],
             "title": "Median Earnings for Men in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Person_Male"
-                    ],
-                    "title": "Average Earnings for Men in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Average Earnings for Men in California",
-                    "statVarKey": [
-                      "Mean_Earnings_Person_Male"
-                    ],
-                    "title": "Average Earnings for Men in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Earnings for Men"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Person_Female"
-                    ],
-                    "title": "Average Earnings for Women in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Average Earnings for Women in California",
-                    "statVarKey": [
-                      "Mean_Earnings_Person_Female"
-                    ],
-                    "title": "Average Earnings for Women in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Earnings for Women"
           }
         ],
         "statVarSpec": {
@@ -832,14 +776,6 @@
           "Income_Farm": {
             "name": "Total Farm Income",
             "statVar": "Income_Farm"
-          },
-          "Mean_Earnings_Person_Female": {
-            "name": "Average Earnings for Women",
-            "statVar": "Mean_Earnings_Person_Female"
-          },
-          "Mean_Earnings_Person_Male": {
-            "name": "Average Earnings for Men",
-            "statVar": "Mean_Earnings_Person_Male"
           },
           "Mean_Income_Household_FamilyHousehold": {
             "name": "Average Income for Family Households",

@@ -20,10 +20,7 @@
     "dc/topic/CommuteMode",
     "dc/topic/CommuteTime",
     "dc/topic/CommuteModeByOccupation",
-    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
-    "dc/hbkh95kc7pkb6",
-    "dc/vp8cbt6k79t94",
-    "dc/0gettc3bc60cb"
+    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
   ],
   "context": {},
   "debug": {},
@@ -38,19 +35,6 @@
     "Percent_Person_WithAsthma",
     "Percent_Person_Children_WithAsthma",
     "dc/topic/AsthmaMalePopulationByAge",
-    "dc/topic/AsthmaFemalePopulationByAge",
-    "dc/topic/Diabetes",
-    "dc/topic/Tuberculosis",
-    "dc/topic/Health",
-    "dc/topic/Arthritis",
-    "dc/topic/HeartDisease",
-    "dc/topic/Cancer",
-    "dc/topic/BloodPressure",
-    "dc/topic/AirQualityIndex",
-    "dc/topic/COVID19",
-    "dc/topic/CarbonMonoxide",
-    "dc/topic/PM2.5",
-    "dc/topic/Stroke",
-    "dc/topic/HealthConditions"
+    "dc/topic/AsthmaFemalePopulationByAge"
   ]
 }

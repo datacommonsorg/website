@@ -24,12 +24,5 @@
   "nonPlaceEntities": [],
   "properties": [],
   "sessionId": "007_999999999",
-  "variables": [
-    "dc/topic/StudentPopulation",
-    "Count_Person_EducationalAttainmentDoctorateDegree",
-    "dc/topic/StudentsInCollege",
-    "dc/topic/Education",
-    "Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears",
-    "dc/topic/Jobs"
-  ]
+  "variables": []
 }

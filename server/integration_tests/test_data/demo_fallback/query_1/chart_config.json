@@ -9,34 +9,13 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/0667000",
-                      "geoId/1714000"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_SpeakEnglishWell_multiple_place_bar_block"
-                    ],
-                    "title": "English Speakers (${date})",
-                    "type": "BAR"
+                    "type": "PLACE_OVERVIEW"
                   }
                 ]
               }
-            ],
-            "denom": "Count_Person",
-            "title": "English Speakers"
+            ]
           }
-        ],
-        "statVarSpec": {
-          "Count_Person_SpeakEnglishWell_multiple_place_bar_block": {
-            "name": "English Speakers",
-            "statVar": "Count_Person_SpeakEnglishWell"
-          }
-        }
+        ]
       }
     ],
     "metadata": {
@@ -70,16 +49,68 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
-    "mainTopics": [],
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [],
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
+  "showForm": true,
+  "svSource": "UNRECOGNIZED",
   "userMessages": [
-    "Low confidence in understanding your query. Displaying the closest results."
+    "Could not recognize any topic from the query. See available topic categories for San Francisco."
   ]
 }

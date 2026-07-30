@@ -310,35 +310,6 @@
               }
             ],
             "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate in United States",
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
-            "title": "Unemployment Rate"
           }
         ],
         "statVarSpec": {
@@ -493,10 +464,6 @@
           "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll_multiple_place_bar_block": {
             "name": "Revenue of Establishments with Payroll: Mining, Quarrying, Oil & Gas",
             "statVar": "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll"
-          },
-          "UnemploymentRate_Person": {
-            "name": "Unemployment Rate",
-            "statVar": "UnemploymentRate_Person"
           },
           "dc/2hl1yfxglmq0c_multiple_place_bar_block": {
             "name": "Sales of Establishments With Payroll: Miscellaneous Store Retailers",
@@ -654,9 +621,16 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSManufacturing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue"
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue",
+          "dc/qt7ewllmt3826",
+          "dc/zz6gwv838v9w"
         ]
       }
     },

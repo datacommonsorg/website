@@ -363,106 +363,12 @@
             "denom": "Count_Person",
             "startWithDenom": true,
             "title": "Number of People Living in Slum Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
-                    ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
-                    ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Murder and Non Negligent Manslaughter Cases Per Capita in India",
-                    "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "Intentional homicides are estimates of unlawful homicides purposely inflicted as a result of domestic disputes, interpersonal violence, violent conflicts over land resources, intergang violence over turf or control, and predatory violence and killing by armed groups. Intentional homicide does not include all intentional killing; the difference is usually in the organization of the killing. Individuals or small groups usually commit homicide, whereas killing in armed conflict is usually committed by fairly cohesive groups of up to several hundred members and is thus usually excluded. UN office on drugs and Crime's international homicide statistics database.",
-            "title": "Murder and Non Negligent Manslaughter Cases Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_FOOD_WST_PC"
-                    ],
-                    "title": "Food Waste Per Capita in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Food Waste Per Capita in India",
-                    "statVarKey": [
-                      "sdg/AG_FOOD_WST_PC"
-                    ],
-                    "title": "Food Waste Per Capita in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: eurostat; food waste index report / WESR; food waste index report 2021.",
-            "title": "Food Waste Per Capita"
           }
         ],
         "statVarSpec": {
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-          },
-          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
-            "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
-            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
-          },
-          "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person": {
-            "name": "Murder and Non Negligent Manslaughter Cases Per Capita",
-            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
@@ -483,10 +389,6 @@
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-          },
-          "sdg/AG_FOOD_WST_PC": {
-            "name": "Food waste per capita",
-            "statVar": "sdg/AG_FOOD_WST_PC"
           },
           "sdg/SD_MDP_ANDI": {
             "name": "Average Deprivations for Population in Poverty",
@@ -907,13 +809,6 @@
         "placeOfResidenceClassification": [
           "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
-        ]
-      },
-      "sdg/AG_FOOD_WST_PC": {
-        "sdg_foodWasteSector": [
-          "sdg/AG_FOOD_WST_PC.FOOD_WASTE_SECTOR--FWS_HHS",
-          "sdg/AG_FOOD_WST_PC.FOOD_WASTE_SECTOR--FWS_OOHC",
-          "sdg/AG_FOOD_WST_PC.FOOD_WASTE_SECTOR--FWS_RTL"
         ]
       },
       "sdg/SD_MDP_ANDI": {

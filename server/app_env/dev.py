@@ -26,4 +26,3 @@ class Config(_base.Config):
   USE_MEMCACHE = False
   ENABLE_BQ = True
   DISABLE_CRAWLERS = True
-  SPANNER_EMBEDDING_THRESHOLD = 0.6
