@@ -64,74 +64,9 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Tamil Spoken at Home"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
-                    ],
-                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
-                    ],
-                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
-                    ],
-                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in United States",
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
-                    ],
-                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home"
           }
         ],
         "statVarSpec": {
-          "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome": {
-            "name": "Population: Malayalam Kannada Or Other Dravidian Languages Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
-          },
           "Count_Person_5OrMoreYears_TamilSpokenAtHome": {
             "name": "Population: Tamil Spoken At Home",
             "statVar": "Count_Person_5OrMoreYears_TamilSpokenAtHome"
@@ -186,7 +121,14 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_5OrMoreYears_TamilSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TamilSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TamilSpokenAtHome"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/NonEnglishLanguageAtHome",

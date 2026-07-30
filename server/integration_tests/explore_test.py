@@ -20,6 +20,7 @@ import unittest
 from langdetect import detect as detect_lang
 import requests
 
+from server.integration_tests.utils import post_request
 from shared.lib.constants import TEST_SURFACE_HEADER
 from shared.lib.test_server import NLWebServerTestCase
 
@@ -35,7 +36,7 @@ _MAX_FOOTNOTE_LENGTH = 500
 class ExploreTest(NLWebServerTestCase):
 
   def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
-    resp = requests.post(
+    resp = post_request(
         self.get_server_url() +
         f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill',
         json=req_json,
@@ -54,7 +55,7 @@ class ExploreTest(NLWebServerTestCase):
                     reranker=''):
     ctx = {}
     for q in queries:
-      resp = requests.post(
+      resp = post_request(
           self.get_server_url() +
           f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}',
           json={
@@ -83,7 +84,7 @@ class ExploreTest(NLWebServerTestCase):
                              var_threshold=''):
     ctx = []
     for (index, q) in enumerate(queries):
-      resp = requests.post(
+      resp = post_request(
           self.get_server_url() +
           f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}',
           json={

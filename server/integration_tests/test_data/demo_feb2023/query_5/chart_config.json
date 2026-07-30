@@ -1527,7 +1527,84 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Worker_NAICSAccommodationFoodServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSAccommodationFoodServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSAccommodationFoodServices"
+        ]
+      },
+      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSAdministrativeSupportWasteManagementRemediationServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSAdministrativeSupportWasteManagementRemediationServices"
+        ]
+      },
+      "Count_Worker_NAICSArtsEntertainmentRecreation": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSArtsEntertainmentRecreation",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSArtsEntertainmentRecreation"
+        ]
+      },
+      "Count_Worker_NAICSConstruction": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSConstruction",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSConstruction"
+        ]
+      },
+      "Count_Worker_NAICSEducationalServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSEducationalServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSEducationalServices"
+        ]
+      },
+      "Count_Worker_NAICSFinanceInsurance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSFinanceInsurance",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSFinanceInsurance"
+        ]
+      },
+      "Count_Worker_NAICSHealthCareSocialAssistance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSHealthCareSocialAssistance"
+        ]
+      },
+      "Count_Worker_NAICSOtherServices": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSOtherServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSOtherServices"
+        ]
+      },
+      "Count_Worker_NAICSProfessionalScientificTechnicalServices": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSProfessionalScientificTechnicalServices"
+        ]
+      },
+      "Count_Worker_NAICSTotalAllIndustries": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
+        ]
+      },
+      "Count_Worker_NAICSUtilities": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSUtilities",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSUtilities"
+        ]
+      },
+      "dc/8p97n7l96lgg8": {
+        "establishmentOwnership": [
+          "dc/8lwmn5d08rpd2",
+          "dc/wkn0fmqw6ezxc",
+          "dc/wnrvlpncdkj38"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Jobs",

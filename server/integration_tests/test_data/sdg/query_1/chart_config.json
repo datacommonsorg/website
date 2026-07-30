@@ -348,9 +348,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "sdg/SI_POV_NAHC"
                     ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
+                    "title": "Employed Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -363,16 +363,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "sdg/SI_POV_NAHC"
                     ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
+                    "title": "Employed Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Drinking Water Services in Countries of Africa"
+            "footnote": "Includes data from the following sources: poverty and inequality platform, world bank.",
+            "title": "Employed Population Below International Poverty Line in Countries of Africa"
           },
           {
             "columns": [
@@ -380,9 +380,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
+                      "sdg/SD_MDP_ANDI"
                     ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
+                    "title": "Average Deprivations for Population in Poverty in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -395,16 +395,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
+                      "sdg/SD_MDP_ANDI"
                     ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
+                    "title": "Average Deprivations for Population in Poverty in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Population Using Basic Sanitation Services in Countries of Africa"
+            "footnote": "Includes data from the following sources: CONEVAL (Consejo nacional de evaluaci\u00f3n de la pol\u00edtica de desarrollo social); DANE; department of census and statistics; ghana statistical service; institut national de la statistique (INSTAT); instituto nacional de estad\u00edstica (INE); instituto nacional de estat\u00edstica; la direction generale du plan, instituto nacional de estat\u00edstica (INE); ministry of economics and finance - directorate of economic and financial studies; ministry of economy, planning and...1020 more chars",
+            "title": "Average Deprivations for Population in Poverty in Countries of Africa"
           },
           {
             "columns": [
@@ -412,31 +412,150 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                      "sdg/SD_MDP_ANDI.URBANISATION--R"
                     ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
-                    "type": "LINE"
+                    "title": "Average Deprivation for Impoverished Rural Population in Countries of Africa (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                      "sdg/SD_MDP_ANDI.URBANISATION--R"
                     ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
-                    "type": "HIGHLIGHT"
+                    "title": "Average Deprivation for Impoverished Rural Population in Countries of Africa (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
-            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
+            "footnote": "Includes data from the following sources: CONEVAL (Consejo nacional de evaluaci\u00f3n de la pol\u00edtica de desarrollo social); DANE; department of census and statistics; ghana statistical service; institut national de la statistique (INSTAT); instituto nacional de estad\u00edstica (INE); instituto nacional de estat\u00edstica; ministry of economics and finance - directorate of economic and financial studies; ministry of economy, planning and development; ministry of planning development & special initiatives; mi...743 more chars",
+            "title": "Average Deprivation for Impoverished Rural Population in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_CSMP.AGE--Y0T17"
+                    ],
+                    "title": "Impoverished Children Under 18 Years in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SD_MDP_CSMP.AGE--Y0T17"
+                    ],
+                    "title": "Impoverished Children Under 18 Years in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: bureau of statistics; burundi institute of statistics and economic studies; institut national de la statistique (INSTAT), la cellule technique de coordination du cadre strat\u00e9gique de lutte contre la pauvret\u00e9 (CT-CSCLP); la direction generale du plan, instituto nacional de estat\u00edstica (INE); ministry of economy and international cooperation; national development planning commission; national statistical office; national statistics institute (INE) of angol...260 more chars",
+            "title": "Impoverished Children Under 18 Years in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
+                    ],
+                    "title": "Impoverished Children in Rural Areas in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
+                    ],
+                    "title": "Impoverished Children in Rural Areas in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: bureau of statistics; burundi institute of statistics and economic studies; la direction generale du plan, instituto nacional de estat\u00edstica (INE); national development planning commission; national statistical office; national statistics institute (INE) of angola; statistical committee of republic of armenia; statistics south africa; the ministry of social solidarity (MoSS), the central agency for public mobilization and statistics (CAPMAS); zambia stat...65 more chars",
+            "title": "Impoverished Children in Rural Areas in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity"
+                    ],
+                    "title": "Gini Index of Economic Activity of a Population in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity"
+                    ],
+                    "title": "Gini Index of Economic Activity of a Population in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
+            "title": "Gini Index of Economic Activity of a Population in Countries of Africa"
           }
         ],
         "statVarSpec": {
+          "GiniIndex_EconomicActivity": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
+          "sdg/SD_MDP_ANDI": {
+            "name": "Average Deprivations for Population in Poverty",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--R": {
+            "name": "Average Deprivation for Impoverished Rural Population",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
+          },
+          "sdg/SD_MDP_CSMP.AGE--Y0T17": {
+            "name": "Impoverished Children Under 18 Years",
+            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17"
+          },
+          "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R": {
+            "name": "Impoverished Children in Rural Areas",
+            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
+          },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -481,13 +600,9 @@
             "name": "Employed Men Aged 25 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
           },
-          "sdg/SP_ACS_BSRVH2O": {
-            "name": "Population Using Basic Drinking Water Services",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
-          },
-          "sdg/SP_ACS_BSRVSAN": {
-            "name": "Population Using Basic Sanitation Services",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
+          "sdg/SI_POV_NAHC": {
+            "name": "Employed Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_NAHC"
           }
         }
       }
@@ -883,7 +998,26 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/SI_POV_EMP1.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

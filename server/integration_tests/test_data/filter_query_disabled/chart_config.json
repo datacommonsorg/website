@@ -10,6 +10,65 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Men's Median Age in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Age_Person"
                     ],
                     "title": "Median Age of Population in Counties of California (${date})",
@@ -102,9 +161,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_Male"
+                      "Median_Age_Person_Female"
                     ],
-                    "title": "Men's Median Age in Counties of California (${date})",
+                    "title": "Women's Median Age in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -117,15 +204,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Male"
+                      "Median_Age_Person_Male_WhiteAlone"
                     ],
-                    "title": "Men's Median Age in Counties of California (${date})",
+                    "title": "Median Age of White Men in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Men's Median Age in Counties of California"
+            "title": "Median Age of White Men in Counties of California"
           },
           {
             "columns": [
@@ -133,16 +220,381 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_Female",
-                      "Median_Age_Person_Male"
+                      "Median_Age_Person_Male_WhiteAlone"
                     ],
-                    "title": "Median Age by Gender in California",
+                    "title": "Median Age of White Men in California",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of White Men in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in California",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Age by Gender"
+            "title": "Median Age of White Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of White Women in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Men in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Men in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Black or African American Men in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Men in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Income in California",
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Hispanic or Latino Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Hispanic or Latino Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Hispanic or Latino Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Black or African American Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Black or African American Women in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Female_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Women"
           },
           {
             "columns": [
@@ -246,9 +698,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female"
+                      "Median_Age_Person_WhiteAlone"
                     ],
-                    "title": "Women Over 85 in Counties of California (${date})",
+                    "title": "Median Age of White Population in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -261,16 +713,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female"
+                      "Median_Age_Person_WhiteAlone"
                     ],
-                    "title": "Women Over 85 in Counties of California (${date})",
+                    "title": "Median Age of White Population in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Women Over 85 in Counties of California"
+            "title": "Median Age of White Population in Counties of California"
           },
           {
             "columns": [
@@ -278,172 +729,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Male"
+                      "Median_Age_Person_WhiteAlone"
                     ],
-                    "title": "Men Over 85 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Male"
-                    ],
-                    "title": "Men Over 85 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Men Over 85 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female",
-                      "Count_Person_85OrMoreYears_Male"
-                    ],
-                    "title": "Population 85 or Over by Gender in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population 85 or Over by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_0To4Years_Female"
-                    ],
-                    "title": "Girls (4 and Under) in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_0To4Years_Female"
-                    ],
-                    "title": "Girls (4 and Under) in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Girls (4 and Under) in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_0To4Years_Male"
-                    ],
-                    "title": "Boys (4 and Under) in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_0To4Years_Male"
-                    ],
-                    "title": "Boys (4 and Under) in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Boys (4 and Under) in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_0To4Years_Female",
-                      "Count_Person_0To4Years_Male"
-                    ],
-                    "title": "Children Population by Gender in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Children Population by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_TwoOrMoreRaces"
-                    ],
-                    "title": "Median Age of Multiracial Population in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_TwoOrMoreRaces"
-                    ],
-                    "title": "Median Age of Multiracial Population in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Multiracial Population in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_TwoOrMoreRaces"
-                    ],
-                    "title": "Median Age of Multiracial Population in California",
+                    "title": "Median Age of White Population in California",
                     "type": "LINE"
                   }
                 ]
@@ -451,17 +739,76 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age of Multiracial Population in California",
+                    "description": "Median Age of White Population in California",
                     "statVarKey": [
-                      "Median_Age_Person_TwoOrMoreRaces"
+                      "Median_Age_Person_WhiteAlone"
                     ],
-                    "title": "Median Age of Multiracial Population in California",
+                    "title": "Median Age of White Population in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Age of Multiracial Population"
+            "title": "Median Age of White Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Hispanic or Latino Men in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Men in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Hispanic or Latino Men in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_HispanicOrLatino"
+                    ],
+                    "title": "Median Age of Hispanic or Latino Men in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Hispanic or Latino Men"
           },
           {
             "columns": [
@@ -528,183 +875,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Population in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Population in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of White Population in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Population in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of White Population in California",
-                    "statVarKey": [
-                      "Median_Age_Person_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Population in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of White Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Age of Black or African American Population in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Age of Black or African American Population in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Black or African American Population in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Age of Black or African American Population in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Black or African American Population in California",
-                    "statVarKey": [
-                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Median Age of Black or African American Population in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Black or African American Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Native"
-                    ],
-                    "title": "Median Age of Person: USC Native in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Native"
-                    ],
-                    "title": "Median Age of Person: USC Native in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Person: USC Native in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Native"
-                    ],
-                    "title": "Median Age of Person: USC Native in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Person: USC Native in California",
-                    "statVarKey": [
-                      "Median_Age_Person_Native"
-                    ],
-                    "title": "Median Age of Person: USC Native in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Person: USC Native"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Median_Age_Person_ForeignBorn"
                     ],
                     "title": "Median Age of Person: USC Foreign Born in Counties of California (${date})",
@@ -757,253 +927,9 @@
               }
             ],
             "title": "Median Age of Person: USC Foreign Born"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Male_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Men in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Male_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Men in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of White Men in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Male_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Men in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of White Men in California",
-                    "statVarKey": [
-                      "Median_Age_Person_Male_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Men in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of White Men"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Male_Native"
-                    ],
-                    "title": "Median Age of Men Born in the United States in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Male_Native"
-                    ],
-                    "title": "Median Age of Men Born in the United States in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Men Born in the United States in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Male_Native"
-                    ],
-                    "title": "Median Age of Men Born in the United States in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Men Born in the United States in California",
-                    "statVarKey": [
-                      "Median_Age_Person_Male_Native"
-                    ],
-                    "title": "Median Age of Men Born in the United States in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Men Born in the United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Female_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Women in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Female_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Women in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of White Women in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Female_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Women in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of White Women in California",
-                    "statVarKey": [
-                      "Median_Age_Person_Female_WhiteAlone"
-                    ],
-                    "title": "Median Age of White Women in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of White Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_NoHealthInsurance"
-                    ],
-                    "title": "Median Age of Population With No Health Insurance in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_NoHealthInsurance"
-                    ],
-                    "title": "Median Age of Population With No Health Insurance in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population With No Health Insurance in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_NoHealthInsurance"
-                    ],
-                    "title": "Median Age of Population With No Health Insurance in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population With No Health Insurance in California",
-                    "statVarKey": [
-                      "Median_Age_Person_NoHealthInsurance"
-                    ],
-                    "title": "Median Age of Population With No Health Insurance in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population With No Health Insurance"
           }
         ],
         "statVarSpec": {
-          "Count_Person_0To4Years_Female": {
-            "name": "Girls (4 and under)",
-            "statVar": "Count_Person_0To4Years_Female"
-          },
-          "Count_Person_0To4Years_Male": {
-            "name": "Boys (4 and under)",
-            "statVar": "Count_Person_0To4Years_Male"
-          },
           "Count_Person_18To24Years_multiple_place_bar_block": {
             "name": "Population Aged 18 to 24 Years",
             "statVar": "Count_Person_18To24Years"
@@ -1048,14 +974,6 @@
             "name": "Population Aged 75 and Up",
             "statVar": "Count_Person_75OrMoreYears"
           },
-          "Count_Person_85OrMoreYears_Female": {
-            "name": "Women over 85",
-            "statVar": "Count_Person_85OrMoreYears_Female"
-          },
-          "Count_Person_85OrMoreYears_Male": {
-            "name": "Men over 85",
-            "statVar": "Count_Person_85OrMoreYears_Male"
-          },
           "Median_Age_Person": {
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
@@ -1072,6 +990,10 @@
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
+          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone": {
+            "name": "Median Age of Black or African American Women",
+            "statVar": "Median_Age_Person_Female_BlackOrAfricanAmericanAlone"
+          },
           "Median_Age_Person_Female_WhiteAlone": {
             "name": "Median Age of White Women",
             "statVar": "Median_Age_Person_Female_WhiteAlone"
@@ -1080,33 +1002,33 @@
             "name": "Median Age of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
+          "Median_Age_Person_HispanicOrLatino": {
+            "name": "Median Age of Hispanic or Latino Population",
+            "statVar": "Median_Age_Person_HispanicOrLatino"
+          },
           "Median_Age_Person_Male": {
             "name": "Men's Median Age",
             "statVar": "Median_Age_Person_Male"
           },
-          "Median_Age_Person_Male_Native": {
-            "name": "Median Age of Men Born in the United States",
-            "statVar": "Median_Age_Person_Male_Native"
+          "Median_Age_Person_Male_BlackOrAfricanAmericanAlone": {
+            "name": "Median Age of Black or African American Men",
+            "statVar": "Median_Age_Person_Male_BlackOrAfricanAmericanAlone"
+          },
+          "Median_Age_Person_Male_HispanicOrLatino": {
+            "name": "Median Age of Hispanic or Latino Men",
+            "statVar": "Median_Age_Person_Male_HispanicOrLatino"
           },
           "Median_Age_Person_Male_WhiteAlone": {
             "name": "Median Age of White Men",
             "statVar": "Median_Age_Person_Male_WhiteAlone"
           },
-          "Median_Age_Person_Native": {
-            "name": "Median Age of Person: USC Native",
-            "statVar": "Median_Age_Person_Native"
-          },
-          "Median_Age_Person_NoHealthInsurance": {
-            "name": "Median Age of Population With No Health Insurance",
-            "statVar": "Median_Age_Person_NoHealthInsurance"
-          },
-          "Median_Age_Person_TwoOrMoreRaces": {
-            "name": "Median Age of Multiracial Population",
-            "statVar": "Median_Age_Person_TwoOrMoreRaces"
-          },
           "Median_Age_Person_WhiteAlone": {
             "name": "Median Age of White Population",
             "statVar": "Median_Age_Person_WhiteAlone"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
           }
         }
       }
@@ -1494,7 +1416,51 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
+        ],
+        "race": [
+          "Median_Age_Person_AsianAlone",
+          "Median_Age_Person_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_HispanicOrLatino",
+          "Median_Age_Person_WhiteAlone"
+        ]
+      },
+      "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+        "gender": [
+          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Male_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Female_WhiteAlone"
+        ]
+      },
+      "Median_Age_Person_Male": {
+        "race": [
+          "Median_Age_Person_Male_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Male_HispanicOrLatino",
+          "Median_Age_Person_Male_WhiteAlone"
+        ]
+      },
+      "Median_Age_Person_WhiteAlone": {
+        "gender": [
+          "Median_Age_Person_Female_WhiteAlone",
+          "Median_Age_Person_Male_WhiteAlone"
+        ]
+      },
+      "Median_Income_Person": {
+        "gender": [
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/AgeMedians",

@@ -9,246 +9,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_AsianAlone"
-                    ],
-                    "title": "Population Asian Alone in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Asian Alone in California",
-                    "statVarKey": [
-                      "Count_Person_AsianAlone"
-                    ],
-                    "title": "Population Asian Alone in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Asian Alone"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_AsianAlone"
-                    ],
-                    "title": "Population Asian Alone in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_AsianAlone"
-                    ],
-                    "title": "Population Asian Alone in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Asian Alone in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Household: With Earnings, USC Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, USC Foreign Born, Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Earnings of Household: USC Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income of Household: USC Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Household: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Household: USC Foreign Born, Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -356,6 +116,65 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: USC Foreign Born, Asia in California",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household_HouseholderRaceAsianAlone"
                     ],
                     "title": "Median Income of Asian Households in California",
@@ -408,305 +227,6 @@
               }
             ],
             "title": "Median Income of Asian Households in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in California",
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income of Household: USC Foreign Born, Eastern Asia in California",
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Household: USC Foreign Born, Eastern Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Household: USC Foreign Born, Eastern Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in California",
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-                    ],
-                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: USC Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Household: USC Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Count_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: USC Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Count of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: USC Foreign Born, Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Retirement Income of Household: USC Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Retirement Income of Household: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in Counties of California"
           },
           {
             "columns": [
@@ -775,9 +295,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Median Income of Household: USC Foreign Born, South Eastern Asia in California",
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in California",
                     "type": "LINE"
                   }
                 ]
@@ -785,136 +305,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income of Household: USC Foreign Born, South Eastern Asia in California",
+                    "description": "Count of Household: With Earnings, USC Foreign Born, Asia in California",
                     "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Median Income of Household: USC Foreign Born, South Eastern Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Household: USC Foreign Born, South Eastern Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, South Eastern Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
-                    ],
-                    "title": "Median Income of Household: USC Foreign Born, South Eastern Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Household: USC Foreign Born, South Eastern Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Social Security Income of Household: USC Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Social Security Income of Household: USC Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Social Security Income of Household: USC Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Social Security Income of Household: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Social Security Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
-                    ],
-                    "title": "Mean Social Security Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Social Security Income of Household: USC Foreign Born, Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia in California",
-                    "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
-                    ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia in California",
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia"
+            "title": "Count of Household: With Earnings, USC Foreign Born, Asia"
           },
           {
             "columns": [
@@ -926,9 +328,9 @@
                       "showLowest": true
                     },
                     "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -937,23 +339,664 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
-                    "title": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Asia in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia in Counties of California"
+            "title": "Count of Household: With Earnings, USC Foreign Born, Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AsianAlone"
+                    ],
+                    "title": "Population Asian Alone in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Asian Alone in California",
+                    "statVarKey": [
+                      "Count_Person_AsianAlone"
+                    ],
+                    "title": "Population Asian Alone in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Asian Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AsianAlone"
+                    ],
+                    "title": "Population Asian Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AsianAlone"
+                    ],
+                    "title": "Population Asian Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Asian Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: USC Foreign Born, Eastern Asia in California",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Eastern Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: USC Foreign Born, Eastern Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Earnings of Household: USC Foreign Born, Asia in California",
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: USC Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: USC Foreign Born, Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asians Below Poverty Line in California",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asians Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asians Below Poverty Line in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "ASCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_10To14Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_15To19Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_20To24Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_25To29Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_30To34Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_35To39Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_40To44Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_45To49Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_50To54Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_55To59Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_5To9Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_60To64Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_65To69Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_70To74Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_75To79Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_80To84Years_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_85OrMoreYears_Female_AsianAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Asian Alone Female Population by Age in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Alone Female Population by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female_AsianAlone"
+                    ],
+                    "title": "Population: Years 0 to 4, Female, Asian Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female_AsianAlone"
+                    ],
+                    "title": "Population: Years 0 to 4, Female, Asian Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 0 to 4, Female, Asian Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_10To14Years_Female_AsianAlone"
+                    ],
+                    "title": "Population: Years 10 to 14, Female, Asian Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_10To14Years_Female_AsianAlone"
+                    ],
+                    "title": "Population: Years 10 to 14, Female, Asian Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 10 to 14, Female, Asian Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Asian Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Asian Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Asian Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Retirement Income of Household: USC Foreign Born, Asia in California",
+                    "statVarKey": [
+                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Retirement Income of Household: USC Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in California",
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, USC Foreign Born, Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Retirement Income in the Past 12 Months, USC Foreign Born, Asia in California",
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, USC Foreign Born, Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Retirement Income in the Past 12 Months, USC Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Retirement Income in the Past 12 Months, USC Foreign Born, Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Retirement Income in the Past 12 Months, USC Foreign Born, Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in California",
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: USC Foreign Born, Eastern Asia in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Count of Household: USC Foreign Born, Asia",
-            "statVar": "Count_Household_ForeignBorn_PlaceOfBirthAsia"
-          },
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia": {
             "name": "Count of Household: With Earnings, USC Foreign Born, Asia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
@@ -962,9 +1005,9 @@
             "name": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
           },
-          "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia": {
-            "name": "Count of Household: With Earnings, USC Foreign Born, South Eastern Asia",
-            "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+          "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia": {
+            "name": "Count of Household: With Retirement Income In The Past 12 Months, USC Foreign Born, Asia",
+            "statVar": "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia"
           },
           "Count_Person_0To4Years_AsianAlone": {
             "name": "Population: Years 0 To 4, Asian Alone",
@@ -974,6 +1017,14 @@
             "name": "Population: Years 0 To 4, Asian Alone",
             "statVar": "Count_Person_0To4Years_AsianAlone"
           },
+          "Count_Person_0To4Years_Female_AsianAlone": {
+            "name": "Population: Years 0 To 4, Female, Asian Alone",
+            "statVar": "Count_Person_0To4Years_Female_AsianAlone"
+          },
+          "Count_Person_0To4Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 0 To 4, Female, Asian Alone",
+            "statVar": "Count_Person_0To4Years_Female_AsianAlone"
+          },
           "Count_Person_10To14Years_AsianAlone": {
             "name": "Population: Years 10 To 14, Asian Alone",
             "statVar": "Count_Person_10To14Years_AsianAlone"
@@ -982,69 +1033,141 @@
             "name": "Population: Years 10 To 14, Asian Alone",
             "statVar": "Count_Person_10To14Years_AsianAlone"
           },
+          "Count_Person_10To14Years_Female_AsianAlone": {
+            "name": "Population: Years 10 To 14, Female, Asian Alone",
+            "statVar": "Count_Person_10To14Years_Female_AsianAlone"
+          },
+          "Count_Person_10To14Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 10 To 14, Female, Asian Alone",
+            "statVar": "Count_Person_10To14Years_Female_AsianAlone"
+          },
           "Count_Person_15To19Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 15 To 19, Asian Alone",
             "statVar": "Count_Person_15To19Years_AsianAlone"
+          },
+          "Count_Person_15To19Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 15 To 19, Female, Asian Alone",
+            "statVar": "Count_Person_15To19Years_Female_AsianAlone"
           },
           "Count_Person_20To24Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 20 To 24, Asian Alone",
             "statVar": "Count_Person_20To24Years_AsianAlone"
           },
+          "Count_Person_20To24Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 20 To 24, Female, Asian Alone",
+            "statVar": "Count_Person_20To24Years_Female_AsianAlone"
+          },
           "Count_Person_25To29Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 25 To 29, Asian Alone",
             "statVar": "Count_Person_25To29Years_AsianAlone"
+          },
+          "Count_Person_25To29Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 25 To 29, Female, Asian Alone",
+            "statVar": "Count_Person_25To29Years_Female_AsianAlone"
           },
           "Count_Person_30To34Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 30 To 34, Asian Alone",
             "statVar": "Count_Person_30To34Years_AsianAlone"
           },
+          "Count_Person_30To34Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 30 To 34, Female, Asian Alone",
+            "statVar": "Count_Person_30To34Years_Female_AsianAlone"
+          },
           "Count_Person_35To39Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 35 To 39, Asian Alone",
             "statVar": "Count_Person_35To39Years_AsianAlone"
+          },
+          "Count_Person_35To39Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 35 To 39, Female, Asian Alone",
+            "statVar": "Count_Person_35To39Years_Female_AsianAlone"
           },
           "Count_Person_40To44Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 40 To 44, Asian Alone",
             "statVar": "Count_Person_40To44Years_AsianAlone"
           },
+          "Count_Person_40To44Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 40 To 44, Female, Asian Alone",
+            "statVar": "Count_Person_40To44Years_Female_AsianAlone"
+          },
           "Count_Person_45To49Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 45 To 49, Asian Alone",
             "statVar": "Count_Person_45To49Years_AsianAlone"
+          },
+          "Count_Person_45To49Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 45 To 49, Female, Asian Alone",
+            "statVar": "Count_Person_45To49Years_Female_AsianAlone"
           },
           "Count_Person_50To54Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 50 To 54, Asian Alone",
             "statVar": "Count_Person_50To54Years_AsianAlone"
           },
+          "Count_Person_50To54Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 50 To 54, Female, Asian Alone",
+            "statVar": "Count_Person_50To54Years_Female_AsianAlone"
+          },
           "Count_Person_55To59Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 55 To 59, Asian Alone",
             "statVar": "Count_Person_55To59Years_AsianAlone"
+          },
+          "Count_Person_55To59Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 55 To 59, Female, Asian Alone",
+            "statVar": "Count_Person_55To59Years_Female_AsianAlone"
           },
           "Count_Person_5To9Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 5 To 9, Asian Alone",
             "statVar": "Count_Person_5To9Years_AsianAlone"
           },
+          "Count_Person_5To9Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 5 To 9, Female, Asian Alone",
+            "statVar": "Count_Person_5To9Years_Female_AsianAlone"
+          },
           "Count_Person_60To64Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 60 To 64, Asian Alone",
             "statVar": "Count_Person_60To64Years_AsianAlone"
+          },
+          "Count_Person_60To64Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 60 To 64, Female, Asian Alone",
+            "statVar": "Count_Person_60To64Years_Female_AsianAlone"
           },
           "Count_Person_65To69Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 65 To 69, Asian Alone",
             "statVar": "Count_Person_65To69Years_AsianAlone"
           },
+          "Count_Person_65To69Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 65 To 69, Female, Asian Alone",
+            "statVar": "Count_Person_65To69Years_Female_AsianAlone"
+          },
           "Count_Person_70To74Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 70 To 74, Asian Alone",
             "statVar": "Count_Person_70To74Years_AsianAlone"
+          },
+          "Count_Person_70To74Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 70 To 74, Female, Asian Alone",
+            "statVar": "Count_Person_70To74Years_Female_AsianAlone"
           },
           "Count_Person_75To79Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 75 To 79, Asian Alone",
             "statVar": "Count_Person_75To79Years_AsianAlone"
           },
+          "Count_Person_75To79Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 75 To 79, Female, Asian Alone",
+            "statVar": "Count_Person_75To79Years_Female_AsianAlone"
+          },
           "Count_Person_80To84Years_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 80 To 84, Asian Alone",
             "statVar": "Count_Person_80To84Years_AsianAlone"
           },
+          "Count_Person_80To84Years_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 80 To 84, Female, Asian Alone",
+            "statVar": "Count_Person_80To84Years_Female_AsianAlone"
+          },
           "Count_Person_85OrMoreYears_AsianAlone_multiple_place_bar_block": {
             "name": "Population: Years 85 Onwards, Asian Alone",
             "statVar": "Count_Person_85OrMoreYears_AsianAlone"
+          },
+          "Count_Person_85OrMoreYears_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Population: Years 85 Onwards, Female, Asian Alone",
+            "statVar": "Count_Person_85OrMoreYears_Female_AsianAlone"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone": {
             "name": "Asian Population Above poverty line",
@@ -1053,6 +1176,10 @@
           "Count_Person_AsianAlone": {
             "name": "Population Asian Alone",
             "statVar": "Count_Person_AsianAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+            "name": "Asians Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
             "name": "Mean Earnings of Household: USC Foreign Born, Asia",
@@ -1066,9 +1193,9 @@
             "name": "Mean Retirement Income of Household: USC Foreign Born, Asia",
             "statVar": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
           },
-          "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Social Security Income of Household: USC Foreign Born, Asia",
-            "statVar": "Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthAsia"
+          "Median_Age_Person_AsianAlone": {
+            "name": "Median Age of Asian Population",
+            "statVar": "Median_Age_Person_AsianAlone"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia": {
             "name": "Median Income of Household: USC Foreign Born, Asia",
@@ -1077,10 +1204,6 @@
           "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
             "name": "Median Income of Household: USC Foreign Born, Eastern Asia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
-          },
-          "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia": {
-            "name": "Median Income of Household: USC Foreign Born, South Eastern Asia",
-            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
           },
           "Median_Income_Household_HouseholderRaceAsianAlone": {
             "name": "Median Income of Asian Households",

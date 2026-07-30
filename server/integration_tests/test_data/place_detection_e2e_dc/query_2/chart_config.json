@@ -10,6 +10,450 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "dc/065dmg2ls1heb"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/065dmg2ls1heb"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/9b9gqxj27fqwc"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/9b9gqxj27fqwc"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/ejpm616jd1pq1"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/ejpm616jd1pq1"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/g0yn22m8r3639"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/g0yn22m8r3639"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/h34ge8t21h9m1"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/h34ge8t21h9m1"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/rkq1jgk08zfs7"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/rkq1jgk08zfs7"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "dc/065dmg2ls1heb_multiple_place_bar_block",
+                      "dc/9b9gqxj27fqwc_multiple_place_bar_block",
+                      "dc/ejpm616jd1pq1_multiple_place_bar_block",
+                      "dc/g0yn22m8r3639_multiple_place_bar_block",
+                      "dc/h34ge8t21h9m1_multiple_place_bar_block",
+                      "dc/rkq1jgk08zfs7_multiple_place_bar_block"
+                    ],
+                    "title": "Houses With Mortgage in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Houses With Mortgage"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/5jy4dp16mtssg"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/5jy4dp16mtssg"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/c9cl49nnrv5x4"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/c9cl49nnrv5x4"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 to 1999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/m60n94sqql2d3"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/m60n94sqql2d3"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/nrh9sl7zy12bf"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/nrh9sl7zy12bf"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 to 1499 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/q0p7fcll1lv8c"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/q0p7fcll1lv8c"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/ye0f3ej72hhj7"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/ye0f3ej72hhj7"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 to 2999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "dc/5jy4dp16mtssg_multiple_place_bar_block",
+                      "dc/c9cl49nnrv5x4_multiple_place_bar_block",
+                      "dc/m60n94sqql2d3_multiple_place_bar_block",
+                      "dc/nrh9sl7zy12bf_multiple_place_bar_block",
+                      "dc/q0p7fcll1lv8c_multiple_place_bar_block",
+                      "dc/ye0f3ej72hhj7_multiple_place_bar_block"
+                    ],
+                    "title": "Houses Without Mortgage in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Houses Without Mortgage"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
                     "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage, Occupied Housing Unit, Owner Occupied in States of United States (${date})",
@@ -82,418 +526,9 @@
               }
             ],
             "title": "Ownership Cost by Mortgage Status"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
-                    ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
-                    ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
-                    ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied in United States",
-                    "statVarKey": [
-                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
-                    ],
-                    "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_Upto100USDollar"
-                    ],
-                    "title": "Count of Housing Unit: With Cash Rent, US Dollar Upto 100, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_Upto100USDollar"
-                    ],
-                    "title": "Count of Housing Unit: With Cash Rent, US Dollar Upto 100, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: With Cash Rent, US Dollar Upto 100, Occupied Housing Unit, Renter Occupied in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_100To149USDollar"
-                    ],
-                    "title": "Count of Housing Unit: With Cash Rent, US Dollar 100 to 149, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_100To149USDollar"
-                    ],
-                    "title": "Count of Housing Unit: With Cash Rent, US Dollar 100 to 149, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: With Cash Rent, US Dollar 100 to 149, Occupied Housing Unit, Renter Occupied in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block"
-                    ],
-                    "title": "Houses by Rental Amount in United States (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Houses by Rental Amount"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto10000USDollar"
-                    ],
-                    "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto10000USDollar"
-                    ],
-                    "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued at $10,000 or Less in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto10000USDollar"
-                    ],
-                    "title": "Homes Valued at $10,000 or Less in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued at $10,000 or Less in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto10000USDollar"
-                    ],
-                    "title": "Homes Valued at $10,000 or Less in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued at $10,000 or Less"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar"
-                    ],
-                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar"
-                    ],
-                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar"
-                    ],
-                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar"
-                    ],
-                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           }
         ],
         "statVarSpec": {
-          "Count_HousingUnit_HomeValueUpto10000USDollar": {
-            "name": "Homes Valued at $10,000 or Less",
-            "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
-          },
-          "Count_HousingUnit_HomeValueUpto49999USDollar": {
-            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
-            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
-          },
-          "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 1000 To 1249, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_1000To1249USDollar"
-          },
-          "Count_HousingUnit_WithRent_100To149USDollar": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 100 To 149, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
-          },
-          "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 100 To 149, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
-          },
-          "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 1250 To 1499, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_1250To1499USDollar"
-          },
-          "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 1500 To 1999, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_1500To1999USDollar"
-          },
-          "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 150 To 199, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_150To199USDollar"
-          },
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Housing Units Valued at $2,000 or More",
-            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
-          },
-          "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 2000 To 2499, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
-          },
-          "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 200 To 249, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_200To249USDollar"
-          },
-          "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 2500 To 2999, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_2500To2999USDollar"
-          },
-          "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 250 To 299, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_250To299USDollar"
-          },
-          "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 3000 To 3499, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_3000To3499USDollar"
-          },
-          "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 300 To 349, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_300To349USDollar"
-          },
-          "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 3500 Onwards, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_3500OrMoreUSDollar"
-          },
-          "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 350 To 399, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
-          },
-          "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 400 To 449, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_400To449USDollar"
-          },
-          "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 450 To 499, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_450To499USDollar"
-          },
-          "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 500 To 549, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_500To549USDollar"
-          },
-          "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 550 To 599, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_550To599USDollar"
-          },
-          "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 600 To 649, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_600To649USDollar"
-          },
-          "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 650 To 699, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_650To699USDollar"
-          },
-          "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 700 To 749, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_700To749USDollar"
-          },
-          "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 750 To 799, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_750To799USDollar"
-          },
-          "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 800 To 899, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
-          },
-          "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar 900 To 999, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_900To999USDollar"
-          },
-          "Count_HousingUnit_WithRent_Upto100USDollar": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar Upto 100, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
-          },
-          "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: With Cash Rent, US Dollar Upto 100, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
-          },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage, Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
@@ -502,9 +537,101 @@
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage, Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
-          "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied": {
-            "name": "Median Gross Rent of Housing Unit: With Cash Rent, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
+          "dc/065dmg2ls1heb": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "statVar": "dc/065dmg2ls1heb"
+          },
+          "dc/065dmg2ls1heb_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "statVar": "dc/065dmg2ls1heb"
+          },
+          "dc/5jy4dp16mtssg": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "statVar": "dc/5jy4dp16mtssg"
+          },
+          "dc/5jy4dp16mtssg_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "statVar": "dc/5jy4dp16mtssg"
+          },
+          "dc/9b9gqxj27fqwc": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "statVar": "dc/9b9gqxj27fqwc"
+          },
+          "dc/9b9gqxj27fqwc_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "statVar": "dc/9b9gqxj27fqwc"
+          },
+          "dc/c9cl49nnrv5x4": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "statVar": "dc/c9cl49nnrv5x4"
+          },
+          "dc/c9cl49nnrv5x4_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "statVar": "dc/c9cl49nnrv5x4"
+          },
+          "dc/ejpm616jd1pq1": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "statVar": "dc/ejpm616jd1pq1"
+          },
+          "dc/ejpm616jd1pq1_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "statVar": "dc/ejpm616jd1pq1"
+          },
+          "dc/g0yn22m8r3639": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "statVar": "dc/g0yn22m8r3639"
+          },
+          "dc/g0yn22m8r3639_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "statVar": "dc/g0yn22m8r3639"
+          },
+          "dc/h34ge8t21h9m1": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "statVar": "dc/h34ge8t21h9m1"
+          },
+          "dc/h34ge8t21h9m1_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "statVar": "dc/h34ge8t21h9m1"
+          },
+          "dc/m60n94sqql2d3": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "statVar": "dc/m60n94sqql2d3"
+          },
+          "dc/m60n94sqql2d3_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "statVar": "dc/m60n94sqql2d3"
+          },
+          "dc/nrh9sl7zy12bf": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "statVar": "dc/nrh9sl7zy12bf"
+          },
+          "dc/nrh9sl7zy12bf_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "statVar": "dc/nrh9sl7zy12bf"
+          },
+          "dc/q0p7fcll1lv8c": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "statVar": "dc/q0p7fcll1lv8c"
+          },
+          "dc/q0p7fcll1lv8c_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "statVar": "dc/q0p7fcll1lv8c"
+          },
+          "dc/rkq1jgk08zfs7": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "statVar": "dc/rkq1jgk08zfs7"
+          },
+          "dc/rkq1jgk08zfs7_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "statVar": "dc/rkq1jgk08zfs7"
+          },
+          "dc/ye0f3ej72hhj7": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "statVar": "dc/ye0f3ej72hhj7"
+          },
+          "dc/ye0f3ej72hhj7_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "statVar": "dc/ye0f3ej72hhj7"
           }
         }
       }
@@ -895,8 +1022,8 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/HousesByOwnershipCost",
-        "name": "Houses by Ownership Cost",
+        "dcid": "dc/topic/HousesByTaxAmount",
+        "name": "Houses by Tax Amount",
         "types": [
           "Topic"
         ]
@@ -1021,8 +1148,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/HousesByTaxAmount",
-        "name": "Houses by Tax Amount",
+        "dcid": "dc/topic/HousesByOwnershipCost",
+        "name": "Houses by Ownership Cost",
         "types": [
           "Topic"
         ]
