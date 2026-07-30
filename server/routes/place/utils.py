@@ -500,6 +500,9 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   Returns:
       List[Place]: A list of Place objects with names in the specified locale.
   """
+  if not place_dcids:
+    return []
+
   props = ['typeOf', 'name', 'dissolutionDate']
   if locale != DEFAULT_LOCALE:
     resolved_locales = locale_choices(locale)
