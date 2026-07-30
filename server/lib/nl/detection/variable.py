@@ -21,6 +21,7 @@ from flask import current_app
 from flask import has_app_context
 
 from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING
 from server.lib.feature_flags import USE_V2_RESOLVE_FOR_NL_SEARCH_VARS
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import query_util
@@ -77,7 +78,7 @@ def _detect_vars_with_resolve(
   counters.info("detect_variable_path", 'v2/resolve')
   threshold = _DEFAULT_SPANNER_EMBEDDING_THRESHOLD
 
-  if has_app_context():
+  if is_feature_enabled(USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING) and has_app_context():
     threshold = current_app.config.get('SPANNER_EMBEDDING_THRESHOLD',
                                        _DEFAULT_SPANNER_EMBEDDING_THRESHOLD)
   return query2results, threshold
