@@ -39,7 +39,6 @@ PATH_GROUPING = {
     '/api/place/summary/': 'api_place_summary',
     '/api/place/mapinfo/': 'api_place_mapinfo',
     '/api/place/type/': 'api_place_type',
-    '/api/ranking/': 'api_ranking',
 }
 
 

@@ -25,6 +25,7 @@ from flask_babel import Babel
 from flask_caching import Cache
 import pytest
 
+from server.lib.cache import cache
 from server.routes.place import utils
 from server.routes.place.types import BlockConfig
 from server.routes.place.types import Category
@@ -94,6 +95,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.app = app
     self.cache = Cache(self.app)
+    cache.init_app(self.app)
     self.app_context = self.app.test_request_context()
 
   def setUp(self):
@@ -148,7 +150,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_place_url = self.patch(utils, "get_place_url")
     self.mock_place_url.side_effect = mock_url_for_side_effect
 
-    self.mock_translate = self.patch(place_api, "gettext")
+    self.mock_translate = self.patch(utils, "gettext")
     self.mock_v2node_paginated = self.patch(dc, "v2node_paginated")
     self.mock_v2node = self.patch(dc, "v2node")
 

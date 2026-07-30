@@ -1,0 +1,46 @@
+# This workflow surfaces an annotation check in PR reviews when production feature flags are modified.
+name: Feature flag checks
+
+on:
+  pull_request:
+    branches: ["master"]
+  merge_group:
+    branches: ["master"]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  production_flag_change_warning:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Detect changes to prod feature flag files
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: changes
+        with:
+          filters: |
+            prod_flags:
+              - 'server/config/feature_flag_configs/production.json'
+
+      - name: Display production feature flag review warning and checklist
+        if: steps.changes.outputs.prod_flags == 'true'
+        run: |
+          # Output GitHub annotation warning so it appears in PR Conversation and Files Changed UI
+          WARNING_MSG="⚠️ Please conduct a careful review before merging this production change & coordinate with the oncaller.%0A"
+          WARNING_MSG+="%0AMerging this PR will trigger a rolling restart of all Kubernetes pods in production.%0A"
+          WARNING_MSG+="%0AThings to check before approving:%0A"
+          WARNING_MSG+="1. Staging Validated: Have these exact flag changes been tested and verified in staging?%0A"
+          WARNING_MSG+="2. Rolling Restart: Merging will trigger a rolling restart of all Kubernetes pods in production.%0A"
+          WARNING_MSG+="3. Cache Invalidation: If API responses change, remember to clear the Redis cache after merging.%0A"
+          WARNING_MSG+="4. Time Window: Ensure updates occur during global working hours; request lead approval for Friday–Sunday updates.%0A"
+          WARNING_MSG+="5. Oncall Communication: Please additionally announce this update on the oncall thread.%0A"
+          WARNING_MSG+="6. Type Safety: Verify that flag value types match what the server binary expects."
+
+          echo "::warning title=Production Feature Flag Change - Review Checklist::${WARNING_MSG}"
