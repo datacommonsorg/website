@@ -138,7 +138,6 @@ endpoints = Endpoints([
     '/v1/bulk/info/variable-group',
     '/v1/variable/ancestors',
     '/v1/variable/search',
-    '/v1/recognize/entities',
     '/v1/recognize/places',
     # v2
     '/v2/observation',
