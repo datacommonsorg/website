@@ -119,6 +119,8 @@ def version():
       'version.html',
       website_hash=os.environ.get("WEBSITE_HASH"),
       mixer_hash=mixer_version.get('gitHash', ''),
+      spanner_staleness_timestamp=mixer_version.get('spannerStalenessTimestamp',
+                                                    ''),
       tables=mixer_version.get('tables', ''),
       bigquery=mixer_version.get('bigquery', ''),
       data_source_ids=mixer_version.get('dataSourceIds', []),
