@@ -22,7 +22,7 @@ import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import Papa from "papaparse";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Button } from "../../components/elements/button/button";

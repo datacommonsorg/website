@@ -59,7 +59,7 @@ def _get_entity_and_variable_props(place_list, sv_list):
       sv dcid to {"name": str}.
   """
   entity_prop_values = fetch.multiple_property_values(place_list,
-                                                       ["isoCode", "name"])
+                                                      ["isoCode", "name"])
   variable_prop_values = fetch.multiple_property_values(sv_list, ["name"])
   entity_props = {}
   for place, props in entity_prop_values.items():
