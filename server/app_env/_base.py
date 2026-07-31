@@ -123,3 +123,5 @@ class Config:
   # Target parameter for v2/resolve API calls when resolver=indicator
   V2_RESOLVE_INDICATORS_TARGET = os.environ.get('V2_RESOLVE_INDICATORS_TARGET',
                                                 '')
+  # Threshold for Spanner vector search embeddings resolution in NL search.
+  SPANNER_EMBEDDING_THRESHOLD = 0.6
