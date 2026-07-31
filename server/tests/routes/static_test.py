@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import unittest
+from unittest.mock import patch
 
 from web_app import app
 
@@ -49,3 +50,30 @@ class TestStaticPages(unittest.TestCase):
     response = app.test_client().get('/feedback')
     assert response.status_code == 200
     assert b"We would love to get your feedback!" in response.data
+
+  @patch('server.routes.static.dc.version')
+  def test_version_with_spanner_staleness_timestamp(self, mock_version):
+    mock_version.return_value = {
+        'gitHash': 'mixer-hash',
+        'spannerStalenessTimestamp': '2026-07-29T10:21:34.123456Z',
+    }
+
+    response = app.test_client().get('/version')
+
+    assert response.status_code == 200
+    assert b'mixer-hash' in response.data
+    assert b'Spanner Staleness Timestamp:' in response.data
+    assert b'2026-07-29T10:21:34.123456Z' in response.data
+    assert b'This value may be cached.' in response.data
+    assert b'X-Skip-Cache: true' in response.data
+
+  @patch('server.routes.static.dc.version')
+  def test_version_without_spanner_staleness_timestamp(self, mock_version):
+    mock_version.return_value = {'gitHash': 'older-mixer-hash'}
+
+    response = app.test_client().get('/version')
+
+    assert response.status_code == 200
+    assert b'older-mixer-hash' in response.data
+    assert b'Spanner Staleness Timestamp:' in response.data
+    assert b'Not available' in response.data
