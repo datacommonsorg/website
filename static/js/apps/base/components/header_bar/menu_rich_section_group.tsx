@@ -54,44 +54,38 @@ const MenuRichSectionGroup = ({
   const tabIndex = open ? 0 : -1;
 
   return (
-    <div
-      css={css`
-        display: block;
-        margin: 0;
-        padding: 0;
-      `}
-    >
+    <>
       {menuGroup.title && (
         <h3
           css={css`
             ${theme.typography.family.heading};
-            ${theme.typography.text.sm};
+            ${theme.typography.menu.sm};
             text-transform: uppercase;
             color: ${theme.colors.text.primary.base};
             font-weight: 300;
             margin-bottom: ${theme.spacing.md}px;
           `}
         >
-          {menuGroup.title} - test
+          {menuGroup.title}
         </h3>
       )}
       {menuGroup.items.map((item, index) => (
         <div
           key={index}
           css={css`
-            margin-bottom: ${theme.spacing.xl}px;
+            margin-bottom: ${theme.spacing.lg}px;
           `}
         >
           {item.title && item.url ? (
             <h4
               css={css`
                 ${theme.typography.family.heading};
-                ${theme.typography.text.md};
+                ${theme.typography.menu.md};
                 display: inline-flex;
                 align-items: center;
                 font-size: 1rem;
                 font-weight: 500;
-                margin-bottom: ${theme.spacing.md}px;
+                margin-bottom: ${theme.spacing.sm}px;
               `}
             >
               <a
@@ -120,7 +114,7 @@ const MenuRichSectionGroup = ({
                   <span
                     css={css`
                       ${theme.typography.family.text};
-                      ${theme.typography.text.md};
+                      ${theme.typography.menu.md};
                       display: flex;
                       align-items: center;
                       text-decoration: none;
@@ -133,7 +127,7 @@ const MenuRichSectionGroup = ({
                   <span
                     css={css`
                       ${theme.typography.family.text};
-                      ${theme.typography.text.md};
+                      ${theme.typography.menu.md};
                       display: flex;
                       align-items: center;
                       text-decoration: none;
@@ -149,7 +143,7 @@ const MenuRichSectionGroup = ({
             <h5
               css={css`
                 ${theme.typography.family.heading};
-                ${theme.typography.text.sm};
+                ${theme.typography.menu.sm};
                 text-transform: uppercase;
                 color: ${theme.colors.text.primary.base};
                 font-weight: 300;
@@ -164,8 +158,9 @@ const MenuRichSectionGroup = ({
             <p
               css={css`
                 ${theme.typography.family.text};
-                ${theme.typography.text.sm};
+                ${theme.typography.menu.sm};
                 font-weight: 300;
+                margin: 0;
               `}
             >
               {item.description}
@@ -177,7 +172,7 @@ const MenuRichSectionGroup = ({
           )}
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

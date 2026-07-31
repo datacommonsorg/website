@@ -287,7 +287,7 @@ const MenuMobile = ({
                 css={css`
                   display: flex;
                   flex-direction: column;
-                  gap: ${theme.spacing.sm}px;
+                  gap: ${theme.spacing.md}px;
                   padding: 0;
                   margin: 0;
                   list-style: none;
@@ -307,7 +307,7 @@ const MenuMobile = ({
                         tabIndex={tabIndex}
                         css={css`
                           ${theme.typography.family.text};
-                          ${theme.typography.text.sm};
+                          ${theme.typography.menu.lg};
                           background-color: transparent;
                           display: flex;
                           justify-content: space-between;
@@ -335,7 +335,7 @@ const MenuMobile = ({
                         tabIndex={tabIndex}
                         css={css`
                           ${theme.typography.family.text};
-                          ${theme.typography.text.sm};
+                          ${theme.typography.menu.lg};
                           background-color: transparent;
                           display: flex;
                           justify-content: space-between;

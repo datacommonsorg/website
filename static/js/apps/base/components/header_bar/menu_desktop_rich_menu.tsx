@@ -84,7 +84,7 @@ const MenuDesktopRichMenu = ({
         <h3
           css={css`
             ${theme.typography.family.heading};
-            ${theme.typography.text.lg};
+            ${theme.typography.menu.xl};
             font-weight: 100;
           `}
         >
@@ -94,7 +94,7 @@ const MenuDesktopRichMenu = ({
           <p
             css={css`
               ${theme.typography.family.text};
-              ${theme.typography.text.sm};
+              ${theme.typography.menu.sm};
             `}
           >
             {menuItem.introduction.description}

@@ -320,6 +320,37 @@ const theme: Theme = {
         },
       },
     },
+    menu: {
+      xs: {
+        fontSize: "1.375rem",
+        lineHeight: "1.75rem",
+        fontWeight: 300,
+      },
+      sm: {
+        fontSize: "0.875rem",
+        lineHeight: "1.25rem",
+        fontWeight: 400,
+      },
+      md: {
+        fontSize: "1rem",
+        lineHeight: "1.5rem",
+        fontWeight: 400,
+      },
+      lg: {
+        fontSize: "1.1rem",
+        lineHeight: "1.65rem",
+        fontWeight: 400,
+      },
+      xl: {
+        fontSize: "2.25rem",
+        lineHeight: "2.75rem",
+        fontWeight: 300,
+        [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
+          fontSize: "1.8rem",
+          lineHeight: "2.4rem",
+        },
+      },
+    },
   },
   box: {
     primary: {

@@ -262,6 +262,14 @@ export interface Theme {
       lg: TextVariant;
       xl: TextVariant;
     };
+    // menu Variants
+    menu: {
+      xs: TextVariant;
+      sm: TextVariant;
+      md: TextVariant;
+      lg: TextVariant;
+      xl: TextVariant;
+    };
   };
   box: {
     primary?: {
