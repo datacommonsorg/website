@@ -52,10 +52,8 @@ def with_request_context(headers=None):
 
 
 class TestGetStatsWithinPlaceCsv(unittest.TestCase):
-  """Tests for the legacy (wide) CSV format.
-
-  Used when the new download tool feature flag is disabled.
-  """
+  """Tests for the legacy (wide) csv format used when the new download tool
+  feature flag is disabled."""
 
   def test_required_params(self):
     """Failure if required fields are not present."""
@@ -210,10 +208,8 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
 
 
 class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
-  """Tests for the tidy CSV format.
-
-  Used by the new download tool (one row per entity/variable/date).
-  """
+  """Tests for the tidy (one row per entity/variable/date) csv format used
+  by the new download tool."""
 
   def setUp(self):
     self.entity_props = {
