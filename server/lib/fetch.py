@@ -47,7 +47,7 @@ def _get_unit_names(units: List[str]) -> Dict:
 
 # For all facets that have a unit with a shortDisplayName, adds a
 # unitDisplayName property to the facet with the short display name as the value
-def _get_processed_facets(facets):
+def get_processed_facets(facets):
   units = set()
   for facet in facets.values():
     facet_unit = facet.get('unit', '')
@@ -193,7 +193,7 @@ def point_core(entities, variables, date, all_facets):
   }
   """
   resp = dc.obs_point(entities, variables, date)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
@@ -221,7 +221,7 @@ def point_within_core(ancestor_entity,
   """
   resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
                              facet_ids)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
@@ -243,7 +243,7 @@ def series_core(entities, variables, all_facets, facet_ids=None):
   }
   """
   resp = dc.obs_series(entities, variables, facet_ids)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
@@ -315,7 +315,7 @@ def series_within_core(ancestor_entity,
   """
   resp = dc.obs_series_within(ancestor_entity, descendent_type, variables,
                               facet_ids)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
