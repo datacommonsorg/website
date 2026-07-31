@@ -107,7 +107,7 @@ def get_point_within_csv_rows(parent_place,
   for sv, sv_data in points_response.get("byVariable", {}).items():
     target_facet = facet_map.get(sv, "")
     for place, place_data in sv_data.get("byEntity", {}).items():
-      if not place in data_by_place:
+      if place not in data_by_place:
         data_by_place[place] = {}
       points_by_facet = place_data.get("orderedFacets", [])
       best = None
@@ -177,7 +177,7 @@ def get_series_csv_rows(series_response,
   for sv, sv_data in series_response.get("byVariable", {}).items():
     target_facet = facet_map.get(sv, "")
     for place, place_data in sv_data.get("byEntity", {}).items():
-      if not place in data_by_place:
+      if place not in data_by_place:
         data_by_place[place] = {}
       series_by_facet = place_data.get("orderedFacets", [])
       for series in series_by_facet:
@@ -291,15 +291,17 @@ def get_point_within_tidy_csv_rows(parent_place,
   for sv, sv_data in points_response.get("byVariable", {}).items():
     target_facet = facet_map.get(sv, "")
     for place, place_data in sv_data.get("byEntity", {}).items():
-      if not place in data_by_place:
+      if place not in data_by_place:
         data_by_place[place] = {}
       points_by_facet = place_data.get("orderedFacets", [])
       best = None
       for point in points_by_facet:
         if target_facet == "":
-          if not best or point['observations'][0]['date'] > best[
-              'observations'][0]['date']:
-            best = point
+          obs = point.get("observations")  
+        obs = point.get("observations")  
+        if obs:  
+          if not best or obs[0].get("date", "") > best["observations"][0].get("date", ""):  
+            best = point   
         elif point.get("facetId") == target_facet:
           data_by_place[place][sv] = point
           break
@@ -319,7 +321,10 @@ def get_point_within_tidy_csv_rows(parent_place,
         continue
       if row_limit and len(result) >= row_limit:
         return result
-      observation = data['observations'][0]
+      observations = data.get('observations', [])
+      if not observations:
+        continue
+      observation = observations[0]
       facet = facets.get(data.get("facetId", ""), {})
       result.append([
           place,
@@ -370,7 +375,7 @@ def get_series_tidy_csv_rows(series_response,
   for sv, sv_data in series_response.get("byVariable", {}).items():
     target_facet = facet_map.get(sv, "")
     for place, place_data in sv_data.get("byEntity", {}).items():
-      if not place in data_by_place:
+      if place not in data_by_place:
         data_by_place[place] = {}
       series_by_facet = place_data.get("orderedFacets", [])
       for series in series_by_facet:
@@ -395,7 +400,7 @@ def get_series_tidy_csv_rows(series_response,
       facet = facets.get(sv_series.get("facetId", ""), {})
       var_name = variable_props.get(sv, {}).get("name", "")
       observations = sorted(sv_series.get("observations", []),
-                            key=lambda x: x["date"])
+                            key=lambda x: x.get("date", ""))
       for observation in observations:
         date = observation.get("date", "")
         if not date_greater_equal_min(date, min_date):
