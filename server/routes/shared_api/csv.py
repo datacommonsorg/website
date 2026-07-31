@@ -297,11 +297,12 @@ def get_point_within_tidy_csv_rows(parent_place,
       best = None
       for point in points_by_facet:
         if target_facet == "":
-          obs = point.get("observations")  
-        obs = point.get("observations")  
-        if obs:  
-          if not best or obs[0].get("date", "") > best["observations"][0].get("date", ""):  
-            best = point   
+          obs = point.get("observations")
+        obs = point.get("observations")
+        if obs:
+          if not best or obs[0].get("date", "") > best["observations"][0].get(
+              "date", ""):
+            best = point
         elif point.get("facetId") == target_facet:
           data_by_place[place][sv] = point
           break
