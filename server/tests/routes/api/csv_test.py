@@ -52,8 +52,7 @@ def with_request_context(headers=None):
 
 
 class TestGetStatsWithinPlaceCsv(unittest.TestCase):
-  """
-  Tests for the legacy (wide) CSV format.
+  """Tests for the legacy (wide) CSV format.
 
   Used when the new download tool feature flag is disabled.
   """
@@ -211,8 +210,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
 
 
 class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
-  """
-  Tests for the tidy CSV format.
+  """Tests for the tidy CSV format.
 
   Used by the new download tool (one row per entity/variable/date).
   """

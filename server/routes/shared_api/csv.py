@@ -51,8 +51,7 @@ TIDY_CSV_HEADER_ROW = [
 
 
 def _get_entity_and_variable_props(place_list, sv_list):
-  """
-  Fetch isoCode and name for entities, and name for variables.
+  """Fetch isoCode and name for entities, and name for variables.
 
   Returns a tuple of (entity_props, variable_props) where entity_props maps
   place dcid to {"isoCode": str, "name": str} and variable_props maps
@@ -266,20 +265,18 @@ def get_point_within_tidy_csv_rows(parent_place,
                                    facet_map,
                                    date,
                                    row_limit=None):
-  """
-  Get tidy CSV rows for child places.
+  """Get tidy CSV rows (one row per entity/variable) for child places.
 
   Gets the tidy CSV rows (one row per entity/variable) for a set of
   statistical variables data for child places of a certain place type
   contained in a parent place.
 
-  Args:
-      parent_place: The parent place of the places to get data for.
-      child_type: The type of places to get data for.
-      sv_list: List of variables to get data for.
-      facet_map: Map of sv dcid to the id of the facet to get data from.
-      date: The date to get the data for.
-      row_limit (optional): Number of CSV rows to return.
+  parent_place: The parent place of the places to get data for.
+  child_type: The type of places to get data for.
+  sv_list: List of variables to get data for.
+  facet_map: Map of sv dcid to the id of the facet to get data from.
+  date: The date to get the data for.
+  row_limit (optional): Number of CSV rows to return.
 
   Returns an array where each item is a CSV row represented as an array of values.
   """
@@ -346,19 +343,17 @@ def get_series_tidy_csv_rows(series_response,
                              min_date,
                              max_date,
                              row_limit=None):
-  """
-  Get tidy CSV rows for a set of variable series.
+  """Get tidy CSV rows (one row per entity/variable/date) for a set of series.
 
   Gets the tidy CSV rows (one row per entity/variable/date) for a set of
   statistical variable series for a certain date range.
 
-  Args:
-      series_response: The response from a dc.obs_series_within call.
-      sv_list: List of variables to get data for.
-      facet_map: Map of sv dcid to the id of the facet to get data from.
-      min_date (optional): The earliest date as a string to get data for.
-      max_date (optional): The latest date as a string to get data for.
-      row_limit (optional): Number of CSV rows to return.
+  series_response: The response from a dc.obs_series_within call.
+  sv_list: List of variables to get data for.
+  facet_map: Map of sv dcid to the id of the facet to get data from.
+  min_date (optional): The earliest date as a string to get data for.
+  max_date (optional): The latest date as a string to get data for.
+  row_limit (optional): Number of CSV rows to return.
 
   Returns an array where each item is a CSV row represented as an array of values.
   """
