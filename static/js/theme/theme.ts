@@ -36,7 +36,7 @@ const SPACING = {
   lg: 24,
   xl: 32,
   xxl: 48,
-  huge: 64,
+  xxxl: 64,
 };
 
 const SECTIONS = {
@@ -52,6 +52,21 @@ const WIDTH = {
   md: 750,
   lg: 1040,
   xl: 1310,
+};
+
+const HEADER = {
+  sm: 142,
+  md: 128,
+  lg: 96,
+  width: 1728,
+};
+
+const ICONS = {
+  xs: 12,
+  sm: 18,
+  md: 24,
+  lg: 32,
+  xl: 48,
 };
 
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
@@ -96,6 +111,7 @@ const DC_GRAY = "hsl(160, 2%, 27%)";
 const DC_GRAY_LIGHT = "hsl(0, 0%, 48%)";
 const DC_GRAY_LINING = "hsl(140, 3%, 77%)";
 const DC_GRAY_TOOLTIP = "hsl(213, 43%, 96%)";
+const DC_GRAY_LIGHTER = "hsl(0, 0%, 94.9%)";
 
 const DC_GRAY_PILL_TEXT = DC_YELLOW;
 const DC_GRAY_PILL_BCKG = "hsl(240, 29%, 91%)";
@@ -105,6 +121,7 @@ const theme: Theme = {
   spacing: SPACING,
   sections: SECTIONS,
   width: WIDTH,
+  header: HEADER,
   colors: {
     text: {
       primary: {
@@ -461,6 +478,14 @@ const theme: Theme = {
     },
     secondary: {
       boxShadow: "0 2px 5px hsla(0,0%,0%,0.1)",
+    },
+    header: {
+      primary: {
+        boxShadow: "0 1px 2px rgb(94, 94, 94, 0.1)",
+      },
+      secondary: {
+        boxShadow: "0 1px 2px rgb(94, 94, 94, 0.5)",
+      },
     },
   },
   radius: {

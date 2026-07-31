@@ -16,6 +16,9 @@
 
 /** A component to render the rich menu drop-down for the mobile menu */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
@@ -36,14 +39,41 @@ const MenuMobileRichMenu = ({
   labels,
   routes,
 }: MenuMobileRichMenuProps): ReactElement => {
+  const theme = useTheme();
   if (!menuItem) return null;
+
+  const sectionCss = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.md}px;
+    border-bottom: 1px solid #cccccc;
+    padding: 0 0 ${theme.spacing.md}px 0;
+    &:last-of-type {
+      border-bottom: none;
+    }
+  `;
 
   return (
     <>
-      <div className={"introduction-section"}>
-        <h3>{labels[menuItem.introduction?.label ?? menuItem.label]}</h3>
+      <div css={sectionCss}>
+        <h3
+          css={css`
+            ${theme.typography.family.heading};
+            ${theme.typography.text.lg};
+            font-weight: 100;
+          `}
+        >
+          {labels[menuItem.introduction?.label ?? menuItem.label]}
+        </h3>
         {menuItem.introduction?.description && (
-          <p>{menuItem.introduction.description}</p>
+          <p
+            css={css`
+              ${theme.typography.family.text};
+              ${theme.typography.text.sm};
+            `}
+          >
+            {menuItem.introduction.description}
+          </p>
         )}
         {menuItem.introduction.links?.length > 0 && (
           <MenuRichLinkGroup
@@ -54,7 +84,7 @@ const MenuMobileRichMenu = ({
         )}
       </div>
       {menuItem.primarySectionGroups?.length > 0 && (
-        <div className={"primary-section"}>
+        <div css={sectionCss}>
           {menuItem.primarySectionGroups.map((primarySectionGroup, index) => (
             <MenuRichSectionGroup
               key={index}
@@ -67,7 +97,7 @@ const MenuMobileRichMenu = ({
         </div>
       )}
       {menuItem.secondarySectionGroups?.length > 0 && (
-        <div className={"secondary-section"}>
+        <div css={sectionCss}>
           {menuItem.secondarySectionGroups.map(
             (secondarySectionGroup, index) => (
               <MenuRichSectionGroup

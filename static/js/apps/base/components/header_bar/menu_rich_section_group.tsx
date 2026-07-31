@@ -16,6 +16,9 @@
 
 /** A component to render a section group of the rich menu (both mobile and desktop) */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { ArrowOutward } from "../../../../components/elements/icons/arrow_outward";
@@ -47,18 +50,63 @@ const MenuRichSectionGroup = ({
   type,
   open,
 }: MenuRichSectionGroupProps): ReactElement => {
+  const theme = useTheme();
   const tabIndex = open ? 0 : -1;
 
   return (
-    <div className={"group"}>
-      {menuGroup.title && <h3>{menuGroup.title}</h3>}
+    <div
+      css={css`
+        display: block;
+        margin: 0;
+        padding: 0;
+      `}
+    >
+      {menuGroup.title && (
+        <h3
+          css={css`
+            ${theme.typography.family.heading};
+            ${theme.typography.text.sm};
+            text-transform: uppercase;
+            color: ${theme.colors.text.primary.base};
+            font-weight: 300;
+            margin-bottom: ${theme.spacing.md}px;
+          `}
+        >
+          {menuGroup.title} - test
+        </h3>
+      )}
       {menuGroup.items.map((item, index) => (
-        <div key={index} className={"item"}>
+        <div
+          key={index}
+          css={css`
+            margin-bottom: ${theme.spacing.xl}px;
+          `}
+        >
           {item.title && item.url ? (
-            <h4>
+            <h4
+              css={css`
+                ${theme.typography.family.heading};
+                ${theme.typography.text.md};
+                display: inline-flex;
+                align-items: center;
+                font-size: 1rem;
+                font-weight: 500;
+                margin-bottom: ${theme.spacing.md}px;
+              `}
+            >
               <a
                 href={resolveHref(item.url, routes)}
-                className={"item-link"}
+                css={css`
+                  display: flex;
+                  gap: ${theme.spacing.sm}px;
+                  margin: 0;
+                  padding: 0;
+                  &:hover {
+                    span {
+                      text-decoration: underline;
+                    }
+                  }
+                `}
                 onClick={(): boolean => {
                   triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                     [GA_PARAM_ID]: `${type} submenu ${menuGroup.id}-${index}`,
@@ -69,12 +117,28 @@ const MenuRichSectionGroup = ({
                 tabIndex={tabIndex}
               >
                 {item.linkType === "external" && (
-                  <span className="icon">
+                  <span
+                    css={css`
+                      ${theme.typography.family.text};
+                      ${theme.typography.text.md};
+                      display: flex;
+                      align-items: center;
+                      text-decoration: none;
+                    `}
+                  >
                     <ArrowOutward />
                   </span>
                 )}
                 {item.linkType === "rss" && (
-                  <span className="icon">
+                  <span
+                    css={css`
+                      ${theme.typography.family.text};
+                      ${theme.typography.text.md};
+                      display: flex;
+                      align-items: center;
+                      text-decoration: none;
+                    `}
+                  >
                     <RssFeed />
                   </span>
                 )}
@@ -82,10 +146,31 @@ const MenuRichSectionGroup = ({
               </a>
             </h4>
           ) : (
-            <h5>{item.title}</h5>
+            <h5
+              css={css`
+                ${theme.typography.family.heading};
+                ${theme.typography.text.sm};
+                text-transform: uppercase;
+                color: ${theme.colors.text.primary.base};
+                font-weight: 300;
+                margin: 0 0 ${theme.spacing.sm}px 0;
+              `}
+            >
+              {item.title}
+            </h5>
           )}
 
-          {item.description && <p>{item.description}</p>}
+          {item.description && (
+            <p
+              css={css`
+                ${theme.typography.family.text};
+                ${theme.typography.text.sm};
+                font-weight: 300;
+              `}
+            >
+              {item.description}
+            </p>
+          )}
 
           {item.links?.length > 0 && (
             <MenuRichLinkGroup links={item.links} routes={routes} open={open} />

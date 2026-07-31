@@ -16,6 +16,9 @@
 
 /** A component to render a group of links (both mobile and desktop) */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { ArrowOutward } from "../../../../components/elements/icons/arrow_outward";
@@ -37,43 +40,100 @@ const MenuRichLinkGroup = ({
   routes,
   open,
 }: MenuRichLinkGroupProps): ReactElement => {
+  const theme = useTheme();
   const tabIndex = open ? 0 : -1;
 
   return (
-    <div className="item-links">
+    <>
       {links.map((link, index) => (
-        <div key={index} className="link-item">
+        <div
+          key={index}
+          css={css`
+            display: flex;
+            gap: ${theme.spacing.sm}px;
+            ${theme.typography.family.text};
+            ${theme.typography.text.sm};
+          `}
+        >
           {link.linkType === "rss" ? (
             <>
               <a
                 href={resolveHref(link.url, routes)}
-                className={"link"}
                 tabIndex={tabIndex}
+                css={css`
+                  display: flex;
+                  gap: ${theme.spacing.sm}px
+                  margin: 0;
+                  padding: 0;
+                  &:hover {
+                    span:nth-of-type(1) {
+                      text-decoration: underline;
+                    }
+                  }
+                `}
               >
-                <span className="icon">
+                <span
+                  css={css`
+                    ${theme.typography.family.text};
+                    ${theme.typography.text.md};
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                  `}
+                >
                   <RssFeed />
                 </span>
-                <span className="link-title">RSS Feed</span>
+                <span
+                  css={css`
+                    text-decoration: none;
+                  `}
+                >
+                  RSS Feed
+                </span>
               </a>
               {link.title && <span>• {link.title}</span>}
             </>
           ) : (
             <a
               href={resolveHref(link.url, routes)}
-              className={"link"}
               tabIndex={tabIndex}
+              css={css`
+                display: flex;
+                gap: ${theme.spacing.sm}px
+                margin: 0;
+                padding: 0;
+                &:hover {
+                  span:nth-of-type(1) {
+                    text-decoration: underline;
+                  }
+                }
+              `}
             >
               {link.linkType === "external" && (
-                <span className="icon">
+                <span
+                  css={css`
+                    ${theme.typography.family.text};
+                    ${theme.typography.text.md};
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                  `}
+                >
                   <ArrowOutward />
                 </span>
               )}
-              <span className="link-title">{link.title}</span>
+              <span
+                css={css`
+                  text-decoration: none;
+                `}
+              >
+                {link.title}
+              </span>
             </a>
           )}
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
