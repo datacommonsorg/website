@@ -3,7 +3,7 @@
     "name": "autocomplete",
     "enabled": true,
     "owner": "gmechali",
-    "description": "Feature flag to enable place autocomplete."
+    "description": "Feature flag to enable place autocomplete ."
   },
   {
     "name": "biomed_nl",
