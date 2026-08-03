@@ -130,9 +130,9 @@ export function Preview(props: PreviewProps): JSX.Element {
         overflow-scroll;
         display: flex;
         flex-direction: column;
-        padding: 0;
+        padding: 0 ${theme.spacing.lg}px ${theme.spacing.lg}px;
         margin: 0;
-        gap: ${theme.spacing.md}px;
+        gap: ${theme.spacing.lg}px;
       `}
     >
       {errorMessage && <div>{errorMessage}</div>}
@@ -142,13 +142,41 @@ export function Preview(props: PreviewProps): JSX.Element {
             css={css`
               display: flex;
               justify-content: space-between;
+              align-items: flex-start;
               gap: ${theme.spacing.xl}px;
+              @media (max-width: ${theme.breakpoints.md}px) {
+                gap: ${theme.spacing.md}px;
+                flex-direction: column;
+              }
             `}
           >
-            <p>
-              {intl.formatMessage(toolMessages.downloadToolPreviewDisclaimer)}
-            </p>
-
+            <div
+              css={css`
+                display: flex;
+                flex-direction: column;
+                gap: ${theme.spacing.md}px;
+                flex-shrink: 2;
+              `}
+            >
+              {Object.keys(props.selectedOptions.selectedStatVars).map((sv) => (
+                <h3
+                  key={sv}
+                  id={sv}
+                  css={css`
+                    margin-bottom: 0;
+                  `}
+                >
+                  {props.selectedOptions.selectedStatVars[sv].title || sv}
+                </h3>
+              ))}
+              <p
+                css={css`
+                  margin: 0;
+                `}
+              >
+                {intl.formatMessage(toolMessages.downloadToolPreviewDisclaimer)}
+              </p>
+            </div>
             <Button
               className="download-button"
               disabled={props.isDisabled || downloading}
@@ -163,11 +191,53 @@ export function Preview(props: PreviewProps): JSX.Element {
                   </span>
                 )
               }
+              css={css`
+                flex-shrink: 0;
+              `}
             >
               {intl.formatMessage(toolMessages.downloadCsvButton)}
             </Button>
           </div>
-          <table>
+          <table
+            css={css`
+              && {
+                overflow-x: auto;
+                width: 100%;
+                display: inline-block;
+                font-size: 0.9rem;
+                border: 1px solid #ccc;
+                border-collapse: collapse;
+                th,
+                td {
+                  border: 1px solid #ccc;
+                }
+                th {
+                  background: #f5f6fa;
+                  border-top: none;
+                  font-size: 0.8rem;
+                  line-height: 1rem;
+                  white-space: nowrap;
+                  padding: 0.5rem;
+                }
+                td {
+                  text-align: left;
+                  padding: 0.2rem 0.5rem;
+                }
+                tr:last-child td {
+                  border-bottom: none;
+                }
+                tr td:first-child,
+                tr th:first-child {
+                  border-left: none;
+                }
+                tr td:last-child,
+                tr th:last-child {
+                  border-right: none;
+                  width: 100%;
+                }
+              }
+            `}
+          >
             <thead>
               <tr>
                 {header.map((heading, idx) => {
