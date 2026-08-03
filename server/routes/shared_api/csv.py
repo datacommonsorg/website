@@ -41,7 +41,7 @@ TIDY_CSV_HEADER_ROW = [
     "Import name",
     "Measurement method",
     "Observation period",
-    "Provenance url",
+    "Provenance URL",
     "Scaling factor",
     "Unit",
     "Unit display name",

@@ -126,8 +126,6 @@ export function Preview(props: PreviewProps): JSX.Element {
       id={SECTION_ID}
       className={cardClassName}
       css={css`
-        max-width: 100%;
-        overflow-scroll;
         display: flex;
         flex-direction: column;
         padding: 0 ${theme.spacing.lg}px ${theme.spacing.lg}px;
@@ -166,7 +164,7 @@ export function Preview(props: PreviewProps): JSX.Element {
                     margin-bottom: 0;
                   `}
                 >
-                  {props.selectedOptions.selectedStatVars[sv].title || sv}
+                  {props.selectedOptions.selectedStatVars[sv]?.title || sv}
                 </h3>
               ))}
               <p
@@ -201,9 +199,9 @@ export function Preview(props: PreviewProps): JSX.Element {
           <table
             css={css`
               && {
-                overflow-x: auto;
-                width: 100%;
-                display: inline-block;
+                max-width: 100%;
+                overflow-x: scroll;
+                display: block;
                 font-size: 0.9rem;
                 border: 1px solid #ccc;
                 border-collapse: collapse;
