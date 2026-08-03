@@ -126,7 +126,7 @@ const MenuMobile = ({
             href={resolveHref(menuItem.url, routes)}
             css={css`
               ${theme.typography.family.text};
-              ${theme.typography.text.sm};
+              ${theme.typography.menu.xs};
               color: ${theme.colors.text.secondary.base};
               overflow: hidden;
               white-space: nowrap;

@@ -59,7 +59,7 @@ const MenuRichSectionGroup = ({
         <h3
           css={css`
             ${theme.typography.family.heading};
-            ${theme.typography.menu.sm};
+            ${theme.typography.menu.xs};
             text-transform: uppercase;
             color: ${theme.colors.text.primary.base};
             font-weight: 300;
@@ -143,7 +143,7 @@ const MenuRichSectionGroup = ({
             <h5
               css={css`
                 ${theme.typography.family.heading};
-                ${theme.typography.menu.sm};
+                ${theme.typography.menu.xs};
                 text-transform: uppercase;
                 color: ${theme.colors.text.primary.base};
                 font-weight: 300;
@@ -158,7 +158,7 @@ const MenuRichSectionGroup = ({
             <p
               css={css`
                 ${theme.typography.family.text};
-                ${theme.typography.menu.sm};
+                ${theme.typography.menu.xs};
                 font-weight: 300;
                 margin: 0;
               `}

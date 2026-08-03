@@ -94,7 +94,7 @@ const MenuDesktopRichMenu = ({
           <p
             css={css`
               ${theme.typography.family.text};
-              ${theme.typography.menu.sm};
+              ${theme.typography.menu.xs};
             `}
           >
             {menuItem.introduction.description}

@@ -91,7 +91,7 @@ const HeaderLogo = ({
         }}
         css={css`
           ${theme.typography.family.heading};
-          ${theme.typography.text.md};
+          ${theme.typography.menu.md};
           color: ${theme.colors.text.primary.dark};
           &:hover {
             text-decoration: none;

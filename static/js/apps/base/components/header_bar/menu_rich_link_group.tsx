@@ -52,7 +52,7 @@ const MenuRichLinkGroup = ({
             display: flex;
             gap: ${theme.spacing.sm}px;
             ${theme.typography.family.text};
-            ${theme.typography.text.sm};
+            ${theme.typography.menu.xs};
           `}
         >
           {link.linkType === "rss" ? (
@@ -75,7 +75,7 @@ const MenuRichLinkGroup = ({
                 <span
                   css={css`
                     ${theme.typography.family.text};
-                    ${theme.typography.text.md};
+                    ${theme.typography.menu.md};
                     display: flex;
                     align-items: center;
                     text-decoration: none;
@@ -113,7 +113,7 @@ const MenuRichLinkGroup = ({
                 <span
                   css={css`
                     ${theme.typography.family.text};
-                    ${theme.typography.text.md};
+                    ${theme.typography.menu.md};
                     display: flex;
                     align-items: center;
                     text-decoration: none;

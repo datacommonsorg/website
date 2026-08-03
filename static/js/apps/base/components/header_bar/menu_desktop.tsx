@@ -134,7 +134,7 @@ const MenuDesktop = ({
                 <a
                   css={css`
                     ${theme.typography.family.text};
-                    ${theme.typography.text.sm};
+                    ${theme.typography.menu.xs};
                     display: flex;
                     align-items: center;
                     padding: 8px 0;
@@ -164,7 +164,7 @@ const MenuDesktop = ({
                       display: flex;
                       align-items: center;
                       ${theme.typography.family.text};
-                      ${theme.typography.text.sm};
+                      ${theme.typography.menu.xs};
                       border: 0;
                       padding: ${theme.spacing.sm}px 0;
                       margin: 0;

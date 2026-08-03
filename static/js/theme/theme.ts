@@ -322,14 +322,14 @@ const theme: Theme = {
     },
     menu: {
       xs: {
-        fontSize: "1.375rem",
-        lineHeight: "1.75rem",
-        fontWeight: 300,
-      },
-      sm: {
         fontSize: "0.875rem",
         lineHeight: "1.25rem",
         fontWeight: 400,
+      },
+      sm: {
+        fontSize: "1.375rem",
+        lineHeight: "1.75rem",
+        fontWeight: 300,
       },
       md: {
         fontSize: "1rem",
