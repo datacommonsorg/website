@@ -16,19 +16,24 @@ from functools import wraps
 import unittest
 from unittest import mock
 
-from server.lib.feature_flags import USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG
 import server.tests.routes.api.mock_data as mock_data
 from shared.lib.constants import SURFACE_HEADER_NAME
 from shared.lib.constants import TEST_SURFACE_HEADER
 from web_app import app
 
-_use_new_download_tool = app.config.get('FEATURE_FLAGS', {}).get(
-    USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG, {}).get('enabled', False)
+CSV_HEADERS = "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
 
-if _use_new_download_tool:
-  CSV_HEADERS = "placeDcid,placeName,Date,Value,Source,Date,Value,Source\r\n"
-else:
-  CSV_HEADERS = "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
+TIDY_CSV_HEADERS = (
+    "Entity DCID,Entity properties isoCode,Entity properties name,"
+    "Variable DCID,Variable observation date,"
+    "Variable observation metadata importName,"
+    "Variable observation metadata measurementMethod,"
+    "Variable observation metadata observationPeriod,"
+    "Variable observation metadata provenanceUrl,"
+    "Variable observation metadata scalingFactor,"
+    "Variable observation metadata unit,"
+    "Variable observation metadata unitDisplayName,"
+    "Variable observation value,Variable properties name\r\n")
 
 
 def with_request_context(headers=None):
@@ -47,6 +52,8 @@ def with_request_context(headers=None):
 
 
 class TestGetStatsWithinPlaceCsv(unittest.TestCase):
+  """Tests for the legacy (wide) csv format used when the new download tool
+  feature flag is disabled."""
 
   def test_required_params(self):
     """Failure if required fields are not present."""
@@ -72,9 +79,11 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     assert no_stat_vars.status_code == 400
 
   @with_request_context(headers=TEST_SURFACE_HEADER)
+  @mock.patch('server.routes.shared_api.csv.is_feature_enabled')
   @mock.patch('server.routes.shared_api.csv.dc.obs_point_within')
   @mock.patch('server.routes.shared_api.csv.names')
-  def test_single_date(self, mock_place_names, mock_point_within):
+  def test_single_date(self, mock_place_names, mock_point_within, mock_flag):
+    mock_flag.return_value = False
     expected_parent_place = "country/USA"
     expected_child_type = "State"
     children_places = ["geoId/01", "geoId/02", "geoId/06"]
@@ -139,53 +148,17 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         "geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n"
     )
 
-    latest_date_facets_req_json = base_req_json.copy()
-    latest_date_facets_req_json["minDate"] = "latest"
-    latest_date_facets_req_json["maxDate"] = "latest"
-    latest_date_facets_req_json["facetMap"] = {
-        "Count_Person": "1145703171",
-        "UnemploymentRate_Person": "1249140336"
-    }
-    latest_date_facets = app.test_client().post(
-        endpoint_url, json=latest_date_facets_req_json)
-    assert latest_date_facets.status_code == 200
-    assert latest_date_facets.data.decode("utf-8") == (
-        CSV_HEADERS +
-        "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,2020,836990,https://www.census.gov/,,,\r\n")
-
-    single_date_facets_req_json = base_req_json.copy()
-    single_date_facets_req_json["minDate"] = expected_date
-    single_date_facets_req_json["maxDate"] = expected_date
-    single_date_facets_req_json["facetMap"] = {
-        "Count_Person": "2517965213",
-        "UnemploymentRate_Person": ""
-    }
-    single_date_facets = app.test_client().post(
-        endpoint_url, json=single_date_facets_req_json)
-    assert single_date_facets.status_code == 200
-    assert single_date_facets.data.decode("utf-8") == (
-        CSV_HEADERS +
-        "geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n"
-    )
-
+  @mock.patch('server.routes.shared_api.csv.is_feature_enabled')
   @mock.patch('server.routes.shared_api.csv.dc.obs_series_within')
   @mock.patch('server.routes.shared_api.csv.names')
-  def test_date_range(self, mock_place_names, mock_series_within):
+  def test_date_range(self, mock_place_names, mock_series_within, mock_flag):
+    mock_flag.return_value = False
     expected_parent_place = "country/USA"
     expected_child_type = "State"
     children_places = ["geoId/01", "geoId/06"]
     expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
     expected_min_date_year = "2015"
     expected_max_date_year = "2018"
-    expected_min_date_month = "2015-01"
-    expected_max_date_month = "2018-01"
 
     def place_side_effect(places):
       if places == children_places:
@@ -211,125 +184,6 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         "statVars": expected_stat_vars
     }
 
-    all_dates = app.test_client().post(endpoint_url, json=base_req_json)
-    assert all_dates.status_code == 200
-    assert all_dates.data.decode("utf-8") == (
-        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
-        + "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,2019,1068778,https://www.census.gov/programs-surveys/popest.html,2019-05,3.6,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,,,,1991-08,5.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,2014,2817628,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2020-04,1.2,https://www.bls.gov/lau/\r\n")
-
-    min_year_req_json = base_req_json.copy()
-    min_year_req_json["minDate"] = expected_min_date_year
-    min_year = app.test_client().post(endpoint_url, json=min_year_req_json)
-    assert min_year.status_code == 200
-    assert min_year.data.decode("utf-8") == (
-        CSV_HEADERS +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
-        + "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,2019,1068778,https://www.census.gov/programs-surveys/popest.html,2019-05,3.6,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2020-04,1.2,https://www.bls.gov/lau/\r\n")
-
-    min_month_req_json = base_req_json.copy()
-    min_month_req_json["minDate"] = expected_min_date_month
-    min_month = app.test_client().post(endpoint_url, json=min_month_req_json)
-    assert min_month.status_code == 200
-    assert min_month.data.decode("utf-8") == (
-        CSV_HEADERS +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
-        + "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,2019,1068778,https://www.census.gov/programs-surveys/popest.html,2019-05,3.6,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2020-04,1.2,https://www.bls.gov/lau/\r\n")
-
-    max_year_req_json = base_req_json.copy()
-    max_year_req_json["maxDate"] = expected_max_date_year
-    max_year = app.test_client().post(endpoint_url, json=max_year_req_json)
-    assert max_year.status_code == 200
-    assert max_year.data.decode("utf-8") == (
-        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
-        + "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,1991-08,5.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,2014,2817628,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n")
-
-    max_month_req_json = base_req_json.copy()
-    max_month_req_json["maxDate"] = expected_max_date_month
-    max_month = app.test_client().post(endpoint_url, json=max_month_req_json)
-    assert max_month.status_code == 200
-    assert max_month.data.decode("utf-8") == (
-        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,,,,1991-08,5.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,2014,2817628,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
-    )
-
     min_and_max_year_req_json = base_req_json.copy()
     min_and_max_year_req_json["minDate"] = expected_min_date_year
     min_and_max_year_req_json["maxDate"] = expected_max_date_year
@@ -352,110 +206,160 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         + "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
         "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n")
 
-    min_and_max_month_req_json = base_req_json.copy()
-    min_and_max_month_req_json["minDate"] = expected_min_date_month
-    min_and_max_month_req_json["maxDate"] = expected_max_date_month
-    min_and_max_month = app.test_client().post(endpoint_url,
-                                               json=min_and_max_month_req_json)
-    assert min_and_max_month.status_code == 200
-    assert min_and_max_month.data.decode("utf-8") == (
-        CSV_HEADERS +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
+
+class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
+  """Tests for the tidy (one row per entity/variable/date) csv format used
+  by the new download tool."""
+
+  def setUp(self):
+    self.entity_props = {
+        "geoId/01": {
+            "isoCode": ["US-AL"],
+            "name": ["Alabama"]
+        },
+        "geoId/02": {
+            "isoCode": [],
+            "name": []
+        },
+        "geoId/06": {
+            "isoCode": ["US-CA"],
+            "name": ["California"]
+        },
+    }
+    self.variable_props = {
+        "Count_Person": {
+            "name": ["Population"]
+        },
+        "UnemploymentRate_Person": {
+            "name": ["Unemployment Rate"]
+        },
+    }
+
+  def _mock_property_values(self, nodes, props):
+    if props == ["isoCode", "name"]:
+      return {node: self.entity_props.get(node, {}) for node in nodes}
+    if props == ["name"]:
+      return {node: self.variable_props.get(node, {}) for node in nodes}
+    return {}
+
+  @mock.patch('server.routes.shared_api.csv.fetch.multiple_property_values')
+  @mock.patch('server.routes.shared_api.csv.fetch.get_processed_facets')
+  @mock.patch('server.routes.shared_api.csv.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.csv.dc.obs_point_within')
+  def test_single_date(self, mock_point_within, mock_flag,
+                       mock_get_processed_facets, mock_property_values):
+    mock_flag.return_value = True
+    mock_get_processed_facets.side_effect = lambda facets: facets
+    mock_property_values.side_effect = self._mock_property_values
+
+    expected_parent_place = "country/USA"
+    expected_child_type = "State"
+    expected_stat_vars = ["Count_Person"]
+    expected_date = "2015"
+
+    def point_within_side_effect(parent_place, child_type, stat_vars, date):
+      if (parent_place != expected_parent_place or
+          child_type != expected_child_type or
+          set(stat_vars) != set(expected_stat_vars)):
+        return {}
+      if date == expected_date:
+        return mock_data.POINT_WITHIN_2015_ALL_FACETS
+
+    mock_point_within.side_effect = point_within_side_effect
+
+    req_json = {
+        "parentPlace": expected_parent_place,
+        "childType": expected_child_type,
+        "statVars": expected_stat_vars,
+        "minDate": expected_date,
+        "maxDate": expected_date,
+    }
+    resp = app.test_client().post("api/csv/within", json=req_json)
+    assert resp.status_code == 200
+    assert resp.data.decode("utf-8") == (
+        TIDY_CSV_HEADERS +
+        "geoId/01,US-AL,Alabama,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,3120960,Population\r\n"
         +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
+        "geoId/02,,,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,625216,Population\r\n"
         +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
+        "geoId/06,US-CA,California,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,9931715,Population\r\n"
     )
 
-    min_year_max_month_req_json = base_req_json.copy()
-    min_year_max_month_req_json["minDate"] = expected_min_date_year
-    min_year_max_month_req_json["maxDate"] = expected_max_date_month
-    min_year_max_month = app.test_client().post(
-        endpoint_url, json=min_year_max_month_req_json)
-    assert min_year_max_month.status_code == 200
-    assert min_year_max_month.data.decode("utf-8") == (
-        CSV_HEADERS +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
+  @mock.patch('server.routes.shared_api.csv.fetch.multiple_property_values')
+  @mock.patch('server.routes.shared_api.csv.fetch.get_processed_facets')
+  @mock.patch('server.routes.shared_api.csv.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.csv.dc.obs_series_within')
+  def test_date_range(self, mock_series_within, mock_flag,
+                      mock_get_processed_facets, mock_property_values):
+    mock_flag.return_value = True
+    mock_get_processed_facets.side_effect = lambda facets: facets
+    mock_property_values.side_effect = self._mock_property_values
+
+    expected_parent_place = "country/USA"
+    expected_child_type = "State"
+    expected_stat_vars = ["Count_Person"]
+
+    def series_within_side_effect(parent_place, child_type, stat_vars):
+      if (parent_place == expected_parent_place and
+          child_type == expected_child_type and
+          stat_vars == expected_stat_vars):
+        return mock_data.SERIES_WITHIN_ALL_FACETS
+      return {}
+
+    mock_series_within.side_effect = series_within_side_effect
+
+    req_json = {
+        "parentPlace": expected_parent_place,
+        "childType": expected_child_type,
+        "statVars": expected_stat_vars,
+        "minDate": "2015",
+        "maxDate": "2018",
+    }
+    resp = app.test_client().post("api/csv/within", json=req_json)
+    assert resp.status_code == 200
+    assert resp.data.decode("utf-8") == (
+        TIDY_CSV_HEADERS +
+        "geoId/01,US-AL,Alabama,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,1030475,Population\r\n"
         +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
+        "geoId/01,US-AL,Alabama,Count_Person,2017,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,1052482,Population\r\n"
         +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
+        "geoId/01,US-AL,Alabama,Count_Person,2018,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,1060665,Population\r\n"
         +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
+        "geoId/06,US-CA,California,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,2866939,Population\r\n"
         +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
+        "geoId/06,US-CA,California,Count_Person,2016,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,2917563,Population\r\n"
         +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
+        "geoId/06,US-CA,California,Count_Person,2017,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,2969905,Population\r\n"
     )
 
-    min_month_max_year_req_json = base_req_json.copy()
-    min_month_max_year_req_json["minDate"] = expected_min_date_month
-    min_month_max_year_req_json["maxDate"] = expected_max_date_year
-    min_month_max_year = app.test_client().post(
-        endpoint_url, json=min_month_max_year_req_json)
-    assert min_month_max_year.status_code == 200
-    assert min_month_max_year.data.decode("utf-8") == (
-        CSV_HEADERS +
-        "geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n"
-        + "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n"
-        +
-        "geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n"
-        +
-        "geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n"
-        + "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n")
+  @mock.patch('server.routes.shared_api.csv.fetch.multiple_property_values')
+  @mock.patch('server.routes.shared_api.csv.fetch.get_processed_facets')
+  @mock.patch('server.routes.shared_api.csv.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.csv.dc.obs_point_within')
+  def test_row_limit(self, mock_point_within, mock_flag,
+                     mock_get_processed_facets, mock_property_values):
+    mock_flag.return_value = True
+    mock_get_processed_facets.side_effect = lambda facets: facets
+    mock_property_values.side_effect = self._mock_property_values
 
-    all_dates_facet_req_json = base_req_json.copy()
-    all_dates_facet_req_json["facetMap"] = {
-        "Count_Person": "1145703171",
-        "UnemploymentRate_Person": ""
-    }
-    all_dates_facet = app.test_client().post(endpoint_url,
-                                             json=all_dates_facet_req_json)
-    assert all_dates_facet.status_code == 200
-    assert all_dates_facet.data.decode("utf-8") == (
-        CSV_HEADERS + "geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,2011,4747424,https://www.census.gov/,,,\r\n" +
-        "geoId/01,,2012,4777326,https://www.census.gov/,,,\r\n" +
-        "geoId/01,,,,,2015-05,4.2,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,,,,2017-11,4,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,,,,2018-01,4.5,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,,,,2019-05,3.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,1991-08,5.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2015-10,6.4,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2017-05,4.8,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2020-04,1.2,https://www.bls.gov/lau/\r\n")
+    expected_parent_place = "country/USA"
+    expected_child_type = "State"
+    expected_stat_vars = ["Count_Person"]
+    expected_date = "2015"
 
-    min_and_max_year_facet_req_json = base_req_json.copy()
-    min_and_max_year_facet_req_json["minDate"] = expected_min_date_year
-    min_and_max_year_facet_req_json["maxDate"] = expected_max_date_year
-    min_and_max_year_facet_req_json["facetMap"] = {
-        "Count_Person": "1145703171",
-        "UnemploymentRate_Person": ""
+    mock_point_within.return_value = mock_data.POINT_WITHIN_2015_ALL_FACETS
+
+    req_json = {
+        "parentPlace": expected_parent_place,
+        "childType": expected_child_type,
+        "statVars": expected_stat_vars,
+        "minDate": expected_date,
+        "maxDate": expected_date,
+        "rowLimit": 1,
     }
-    min_and_max_year_facet = app.test_client().post(
-        endpoint_url, json=min_and_max_year_facet_req_json)
-    assert min_and_max_year_facet.status_code == 200
-    assert min_and_max_year_facet.data.decode("utf-8") == (
-        CSV_HEADERS + "geoId/01,,,,,2015-05,4.2,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,,,,2017-11,4,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,,,,2018-01,4.5,https://www.bls.gov/lau/\r\n" +
-        "geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2015-10,6.4,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2017-05,4.8,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n" +
-        "geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n")
+    resp = app.test_client().post("api/csv/within", json=req_json)
+    assert resp.status_code == 200
+    assert resp.data.decode("utf-8") == (
+        TIDY_CSV_HEADERS +
+        "geoId/01,US-AL,Alabama,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,3120960,Population\r\n"
+    )

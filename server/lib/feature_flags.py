@@ -29,7 +29,6 @@ FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
 
 # Feature Flags
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
-BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
 USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG = 'use_new_download_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
@@ -46,6 +45,7 @@ DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER = 'disable_explore_more_in_nl_sear
 DIVERT_TO_SPANNER = 'divert_to_spanner'
 USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
 USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
+USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING = 'use_config_threshold_for_spanner_embedding'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:

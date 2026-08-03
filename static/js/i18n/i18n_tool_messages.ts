@@ -34,6 +34,30 @@ export const toolMessages = defineMessages({
     description:
       "Placeholder text in a search bar inviting the user to type in the name of a place",
   },
+  downloadToolPreviewDisclaimer: {
+    id: "download_tool_preview_disclaimer",
+    defaultMessage:
+      "This is a preview. Download the CSV to get all the available data.",
+    description:
+      "Message telling the user that the table shown is only a partial preview and they must download the CSV to get the complete data",
+  },
+  downloadCsvButton: {
+    id: "download_csv_button",
+    defaultMessage: "Download CSV",
+    description: "Label on a button that downloads data as a CSV file",
+  },
+  downloadToolPreviewFetchError: {
+    id: "download_tool_preview_fetch_error",
+    defaultMessage: "Sorry, there was a problem retrieving data.",
+    description:
+      "Error message shown when the preview data for a download fails to load",
+  },
+  downloadToolCsvDownloadError: {
+    id: "download_tool_csv_download_error",
+    defaultMessage: "Sorry, there was a problem downloading the csv.",
+    description:
+      "Error message shown in an alert popup when downloading a CSV file fails",
+  },
   mapToolTitle: {
     id: "map_visualization_tool_name",
     defaultMessage: "Map Explorer",

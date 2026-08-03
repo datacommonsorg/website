@@ -766,12 +766,6 @@ def recognize_places(query):
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
 
 
-def recognize_entities(query):
-  url = get_service_url("/v1/recognize/entities")
-  resp = post(url, {"queries": [query]})
-  return resp.get("queryItems", {}).get(query.lower(), {}).get("items", [])
-
-
 def find_entities(places: list[str]) -> dict[str, list[str]]:
   """Resolves a list of place names to their corresponding Data Commons DCIDs."""
   resp = resolve(places, "<-description->dcid")
