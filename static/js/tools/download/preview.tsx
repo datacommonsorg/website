@@ -42,6 +42,14 @@ import { DATE_ALL, DownloadOptions } from "./context";
 const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
 const DOWNLOADED_RESET_DELAY_MS = 1500;
+// Columns hidden from the preview table (still included in the downloaded
+// CSV).
+const PREVIEW_HIDDEN_COLUMNS = new Set(["Unit"]);
+// Column header labels overridden in the preview table (downloaded CSV keeps
+// the original label).
+const PREVIEW_COLUMN_LABELS: Record<string, string> = {
+  "Unit display name": "Unit",
+};
 
 const iconWrapper = css`
   position: relative;
@@ -107,8 +115,12 @@ export function Preview(props: PreviewProps): JSX.Element {
   // Don't show columns that are empty for every row in the preview.
   const visibleColumnIndices = allColumnsHeader
     .map((_heading, idx) => idx)
+    .filter((idx) => !PREVIEW_HIDDEN_COLUMNS.has(allColumnsHeader[idx]))
     .filter((idx) => allColumnsDataRows.some((row) => !_.isEmpty(row[idx])));
-  const header = visibleColumnIndices.map((idx) => allColumnsHeader[idx]);
+  const header = visibleColumnIndices.map(
+    (idx) =>
+      PREVIEW_COLUMN_LABELS[allColumnsHeader[idx]] || allColumnsHeader[idx]
+  );
   const dataRows = allColumnsDataRows.map((row) =>
     visibleColumnIndices.map((idx) => row[idx])
   );

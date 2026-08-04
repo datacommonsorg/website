@@ -34,6 +34,7 @@ import server.services.datacommons as dc
 # by the new download tool.
 TIDY_CSV_HEADER_ROW = [
     "Entity DCID",
+    "Variable properties name",
     "ISO code",
     "Name",
     "Variable DCID",
@@ -46,7 +47,6 @@ TIDY_CSV_HEADER_ROW = [
     "Unit",
     "Unit display name",
     "Value",
-    "Variable properties name",
 ]
 
 
@@ -328,6 +328,7 @@ def get_point_within_tidy_csv_rows(parent_place,
       facet = facets.get(data.get("facetId", ""), {})
       result.append([
           place,
+          variable_props.get(sv, {}).get("name", ""),
           entity.get("isoCode", ""),
           entity.get("name", ""),
           sv,
@@ -340,7 +341,6 @@ def get_point_within_tidy_csv_rows(parent_place,
           facet.get("unit", ""),
           facet.get("unitDisplayName", ""),
           observation.get("value", ""),
-          variable_props.get(sv, {}).get("name", ""),
       ])
   return result
 
@@ -411,6 +411,7 @@ def get_series_tidy_csv_rows(series_response,
           return result
         result.append([
             place,
+            var_name,
             entity.get("isoCode", ""),
             entity.get("name", ""),
             sv,
@@ -423,7 +424,6 @@ def get_series_tidy_csv_rows(series_response,
             facet.get("unit", ""),
             facet.get("unitDisplayName", ""),
             observation.get("value", ""),
-            var_name,
         ])
   return result
 
