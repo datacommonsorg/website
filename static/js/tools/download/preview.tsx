@@ -49,7 +49,7 @@ const PREVIEW_HIDDEN_COLUMNS = new Set(["Unit"]);
 // the original label).
 const PREVIEW_COLUMN_LABELS: Record<string, string> = {
   "Unit display name": "Unit",
-  "Variable properties name": "Name",
+  "Variable properties name": "Property Name",
 };
 
 const iconWrapper = css`
