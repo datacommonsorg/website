@@ -49,6 +49,7 @@ const PREVIEW_HIDDEN_COLUMNS = new Set(["Unit"]);
 // the original label).
 const PREVIEW_COLUMN_LABELS: Record<string, string> = {
   "Unit display name": "Unit",
+  "Variable properties name": "Name",
 };
 
 const iconWrapper = css`
@@ -239,6 +240,10 @@ export function Preview(props: PreviewProps): JSX.Element {
                 tr td:first-child,
                 tr th:first-child {
                   border-left: none;
+                }
+                tr td:nth-child(2),
+                tr th:nth-child(2) {
+                  min-width: 180px;
                 }
                 tr td:last-child,
                 tr th:last-child {
