@@ -38,6 +38,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 WAIT_TIMEOUT = 15
+PAGE_LOAD_SECONDS = 60
 URLS_FILE = "urls.json"
 
 
@@ -99,13 +100,13 @@ def take_single_snapshot(name: str, url: str):
     try:
       WebDriverWait(driver, WAIT_TIMEOUT).until(
           EC.presence_of_element_located((By.TAG_NAME, "body")))
-      time.sleep(5)  # Additional sleep to ensure full rendering
+      time.sleep(PAGE_LOAD_SECONDS)  # Additional sleep to ensure full rendering
       print(f"[PID {os.getpid()}] Page '{name}' loaded. ✅")
     except TimeoutException:
       print(
           f"[PID {os.getpid()}] Warning: Timed out waiting for primary element (body) on '{name}'. Proceeding with fallback sleep. ⏳"
       )
-      time.sleep(5)
+      time.sleep(PAGE_LOAD_SECONDS)
 
     percy_snapshot(driver, name, responsiveSnapshotCapture=True)
     print(f"[PID {os.getpid()}] Snapshot taken for '{name}'. Done. 🎉")
