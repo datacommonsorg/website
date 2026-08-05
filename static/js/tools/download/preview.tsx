@@ -44,13 +44,15 @@ const SECTION_ID = "preview-section";
 const DOWNLOADED_RESET_DELAY_MS = 1500;
 // Columns hidden from the preview table (still included in the downloaded
 // CSV).
-const PREVIEW_HIDDEN_COLUMNS = new Set(["Unit"]);
+const PREVIEW_HIDDEN_COLUMNS = new Set<string>([
+  "Import name",
+  "Observation period",
+  "Scaling factor",
+  "Unit display name",
+]);
 // Column header labels overridden in the preview table (downloaded CSV keeps
 // the original label).
-const PREVIEW_COLUMN_LABELS: Record<string, string> = {
-  "Unit display name": "Unit",
-  "Variable properties name": "Property Name",
-};
+const PREVIEW_COLUMN_LABELS: Record<string, string> = {};
 
 const iconWrapper = css`
   position: relative;
@@ -127,6 +129,8 @@ export function Preview(props: PreviewProps): JSX.Element {
   );
   // Add a row at the bottom of the table with "..." in each cell
   const emptyRow = new Array(header.length).fill("");
+  const wideColumnIdx = allColumnsHeader.indexOf("Variable name");
+  const wideColumnVisibleIdx = visibleColumnIndices.indexOf(wideColumnIdx);
 
   let cardClassName = "preview-container";
   if (!_.isEmpty(errorMessage)) {
@@ -241,10 +245,6 @@ export function Preview(props: PreviewProps): JSX.Element {
                 tr th:first-child {
                   border-left: none;
                 }
-                tr td:nth-child(2),
-                tr th:nth-child(2) {
-                  min-width: 180px;
-                }
                 tr td:last-child,
                 tr th:last-child {
                   border-right: none;
@@ -256,7 +256,19 @@ export function Preview(props: PreviewProps): JSX.Element {
             <thead>
               <tr>
                 {header.map((heading, idx) => {
-                  return <th key={"heading" + idx}>{heading}</th>;
+                  return (
+                    <th
+                      key={"heading" + idx}
+                      css={
+                        idx === wideColumnVisibleIdx &&
+                        css`
+                          min-width: 180px;
+                        `
+                      }
+                    >
+                      {heading}
+                    </th>
+                  );
                 })}
               </tr>
             </thead>
@@ -265,14 +277,38 @@ export function Preview(props: PreviewProps): JSX.Element {
                 return (
                   <tr key={"row" + rowIdx}>
                     {row.map((cell, cellIdx) => {
-                      return <td key={`row${rowIdx}cell${cellIdx}`}>{cell}</td>;
+                      return (
+                        <td
+                          key={`row${rowIdx}cell${cellIdx}`}
+                          css={
+                            cellIdx === wideColumnVisibleIdx &&
+                            css`
+                              min-width: 180px;
+                            `
+                          }
+                        >
+                          {cell}
+                        </td>
+                      );
                     })}
                   </tr>
                 );
               })}
               <tr>
                 {emptyRow.map((_, idx) => {
-                  return <td key={"empty" + idx}>...</td>;
+                  return (
+                    <td
+                      key={"empty" + idx}
+                      css={
+                        idx === wideColumnVisibleIdx &&
+                        css`
+                          min-width: 180px;
+                        `
+                      }
+                    >
+                      ...
+                    </td>
+                  );
                 })}
               </tr>
             </tbody>
