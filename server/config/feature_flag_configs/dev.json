@@ -7,7 +7,7 @@
   },
   {
     "name": "biomed_nl",
-    "enabled": true,
+    "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
@@ -137,6 +137,12 @@
     "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
+  },
+  {
+    "name": "use_config_threshold_for_spanner_embedding",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Gates the use of config SPANNER_EMBEDDING_THRESHOLD. If false, it will use the default threshold."
   },
   {
     "name": "use_new_download_tool",
