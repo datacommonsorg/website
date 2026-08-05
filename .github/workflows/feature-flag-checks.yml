@@ -2,14 +2,12 @@
 name: Feature flag checks
 
 on:
+  # zizmor: ignore[dangerous-triggers] - {Needed to post comments on PRs from forked repos; no PR code is checked out or executed.}
   pull_request_target:
-    branches: ["master"]
-  merge_group:
     branches: ["master"]
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   production_flag_change_warning:
@@ -32,7 +30,7 @@ jobs:
               - 'server/config/feature_flag_configs/production.json'
 
       - name: Comment production feature flag review checklist on PR
-        if: steps.changes.outputs.prod_flags == 'true' && (github.event_name == 'pull_request' || github.event_name == 'pull_request_target')
+        if: steps.changes.outputs.prod_flags == 'true' && github.event_name == 'pull_request_target'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
@@ -43,7 +41,6 @@ jobs:
 
             ### Things to check before approving:
             - [ ] **Staging Validated**: Have these exact flag changes been tested and verified in staging?
-            - [ ] **Rolling Restart**: Merging will trigger a rolling restart of all Kubernetes pods in production.
             - [ ] **Cache Invalidation**: If API responses change, remember to clear the Redis cache after merging.
             - [ ] **Time Window**: Ensure updates occur during global working hours; request lead approval for Friday–Sunday updates.
             - [ ] **Oncall Communication**: Please additionally announce this update on the oncall thread.
