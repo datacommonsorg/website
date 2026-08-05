@@ -73,7 +73,7 @@ test("Loading options from URL", async () => {
     pretty(document.getElementById("preview-section").innerHTML)
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
-  wrapper.find(".download-button").at(0).simulate("click");
+  wrapper.find(".download-button").hostNodes().at(0).simulate("click");
   expect(axios.post).toHaveBeenCalledWith(
     "/api/csv/within",
     {
@@ -147,7 +147,7 @@ test("Manually updating options", async () => {
     pretty(document.getElementById("preview-section").innerHTML)
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
-  wrapper.find(".download-button").at(0).simulate("click");
+  wrapper.find(".download-button").hostNodes().at(0).simulate("click");
   expect(axios.post).toHaveBeenCalledWith(
     "/api/csv/within",
     {
