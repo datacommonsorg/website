@@ -195,7 +195,13 @@ const MenuMobile = ({
           transition: width 0.3s ease;
           ${theme.elevation.header.secondary};
           z-index: 1000;
-          width: ${open ? "" : 0};
+          width: ${open ? "480px" : "0"};
+          @media (max-width: 580px) {
+            width: ${open ? "320px" : "0"};
+          }
+          @media (max-width: 400px) {
+            width: ${open ? "280px" : "0"};
+          }
         `}
       >
         <div

@@ -62,7 +62,7 @@ const MenuRichLinkGroup = ({
                 tabIndex={tabIndex}
                 css={css`
                   display: flex;
-                  gap: ${theme.spacing.sm}px
+                  gap: ${theme.spacing.sm}px;
                   margin: 0;
                   padding: 0;
                   &:hover {
@@ -99,7 +99,7 @@ const MenuRichLinkGroup = ({
               tabIndex={tabIndex}
               css={css`
                 display: flex;
-                gap: ${theme.spacing.sm}px
+                gap: ${theme.spacing.sm}px;
                 margin: 0;
                 padding: 0;
                 &:hover {
