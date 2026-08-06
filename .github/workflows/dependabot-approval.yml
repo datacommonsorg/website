@@ -16,6 +16,7 @@ name: Dependabot auto-approve
 # - Bypass 7-Day Wait: Manually approve and merge the PR yourself via the GitHub UI.
 
 on: 
+  # zizmor: ignore[dangerous-triggers] - {Needed to access secrets for Dependabot PRs; no PR code is checked out or executed.}
   pull_request_target:
     branches:
       - master
@@ -25,12 +26,13 @@ on:
     # Allows manual triggering of the workflow
 
 permissions:
-  pull-requests: write
-  contents: write
+  contents: read
 
 jobs:
   trigger-tests:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     # Checking the author will prevent your Action run failing on non-Dependabot PRs
     # Only run this job when triggered by a pull_request_target event
     if: github.event_name == 'pull_request_target' && github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'datacommonsorg/website'
@@ -47,6 +49,9 @@ jobs:
 
   approve-and-merge-7-days:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
     # Only run this on a schedule or manual dispatch
     if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.repository == 'datacommonsorg/website'
     steps:
