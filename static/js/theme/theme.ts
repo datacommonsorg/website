@@ -58,15 +58,8 @@ const HEADER = {
   sm: 142,
   md: 128,
   lg: 96,
+  xl: 68,
   width: 1728,
-};
-
-const ICONS = {
-  xs: 12,
-  sm: 18,
-  md: 24,
-  lg: 32,
-  xl: 48,
 };
 
 const DC_BLACK = "hsl(0, 0%, 18.82%)";

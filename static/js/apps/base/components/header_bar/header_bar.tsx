@@ -126,7 +126,9 @@ const HeaderBar = ({
             flex-grow: 1;
             justify-content: space-between;
             padding: 0 ${theme.spacing.lg}px;
-            height: ${theme.header.lg}px;
+            height: ${hideHeaderSearchBar
+              ? theme.header.xl
+              : theme.header.lg}px;
             gap: ${theme.spacing.md}px;
             @media (min-width: ${theme.breakpoints.lg}px) {
               display: none;
@@ -134,8 +136,12 @@ const HeaderBar = ({
             @media (max-width: 620px) {
               display: grid;
               grid-template-columns: 1fr min-content;
-              grid-template-rows: min-content min-content;
-              height: ${theme.header.sm}px;
+              grid-template-rows: ${hideHeaderSearchBar
+                ? "min-content"
+                : "min-content min-content"};
+              height: ${hideHeaderSearchBar
+                ? theme.header.xl
+                : theme.header.sm}px;
               gap: ${theme.spacing.md}px;
               padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
               .header-search {
@@ -145,7 +151,9 @@ const HeaderBar = ({
             }
             @media (max-width: 340px) {
               gap: ${theme.spacing.sm}px;
-              height: ${theme.header.md}px;
+              height: ${hideHeaderSearchBar
+                ? theme.header.xl
+                : theme.header.md}px;
             }
           `}
         >
