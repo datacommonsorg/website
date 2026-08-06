@@ -10,24 +10,30 @@ exports[`Loading options from URL 1`] = `
 <table class=\\"css-1mu2woh\\">
   <thead>
     <tr>
-      <th class=\\"css-0\\">placeDcid</th>
-      <th class=\\"css-0\\">placeName</th>
-      <th class=\\"css-0\\">Date:Count_Person</th>
-      <th class=\\"css-0\\">Value:Count_Person</th>
-      <th class=\\"css-0\\">Source:Count_Person</th>
+      <th class=\\"css-0\\">Entity DCID</th>
+      <th class=\\"css-0\\">Entity name</th>
+      <th class=\\"css-0\\">Variable DCID</th>
+      <th class=\\"css-1rwaco\\">Variable name</th>
+      <th class=\\"css-0\\">Date</th>
+      <th class=\\"css-0\\">Value</th>
+      <th class=\\"css-0\\">Provenance URL</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td class=\\"css-0\\">geoId/06001</td>
       <td class=\\"css-0\\">Alameda County</td>
+      <td class=\\"css-0\\">Count_Person</td>
+      <td class=\\"css-1obz4pf\\">Population</td>
       <td class=\\"css-0\\">2021</td>
       <td class=\\"css-0\\">1648556</td>
-      <td class=\\"css-0\\">https://www2.census.go</td>
+      <td class=\\"css-0\\">https://www2.census.gov</td>
     </tr>
     <tr>
       <td class=\\"css-0\\">geoId/06002</td>
       <td class=\\"css-0\\">Alpine County</td>
+      <td class=\\"css-0\\">Count_Person</td>
+      <td class=\\"css-1obz4pf\\">Population</td>
       <td class=\\"css-0\\">2021</td>
       <td class=\\"css-0\\">1235</td>
       <td class=\\"css-0\\">https://www2.census.gov/</td>
@@ -35,6 +41,8 @@ exports[`Loading options from URL 1`] = `
     <tr>
       <td class=\\"css-0\\">...</td>
       <td class=\\"css-0\\">...</td>
+      <td class=\\"css-0\\">...</td>
+      <td class=\\"css-1rwaco\\">...</td>
       <td class=\\"css-0\\">...</td>
       <td class=\\"css-0\\">...</td>
       <td class=\\"css-0\\">...</td>
@@ -57,24 +65,30 @@ exports[`Manually updating options 1`] = `
 <table class=\\"css-1mu2woh\\">
   <thead>
     <tr>
-      <th class=\\"css-0\\">placeDcid</th>
-      <th class=\\"css-0\\">placeName</th>
-      <th class=\\"css-0\\">Date:Count_Person</th>
-      <th class=\\"css-0\\">Value:Count_Person</th>
-      <th class=\\"css-0\\">Source:Count_Person</th>
+      <th class=\\"css-0\\">Entity DCID</th>
+      <th class=\\"css-0\\">Entity name</th>
+      <th class=\\"css-0\\">Variable DCID</th>
+      <th class=\\"css-1rwaco\\">Variable name</th>
+      <th class=\\"css-0\\">Date</th>
+      <th class=\\"css-0\\">Value</th>
+      <th class=\\"css-0\\">Provenance URL</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td class=\\"css-0\\">geoId/06001</td>
       <td class=\\"css-0\\">Alameda County</td>
+      <td class=\\"css-0\\">Count_Person</td>
+      <td class=\\"css-1obz4pf\\">Population</td>
       <td class=\\"css-0\\">2021</td>
       <td class=\\"css-0\\">1648556</td>
-      <td class=\\"css-0\\">https://www2.census.go</td>
+      <td class=\\"css-0\\">https://www2.census.gov</td>
     </tr>
     <tr>
       <td class=\\"css-0\\">geoId/06002</td>
       <td class=\\"css-0\\">Alpine County</td>
+      <td class=\\"css-0\\">Count_Person</td>
+      <td class=\\"css-1obz4pf\\">Population</td>
       <td class=\\"css-0\\">2021</td>
       <td class=\\"css-0\\">1235</td>
       <td class=\\"css-0\\">https://www2.census.gov/</td>
@@ -82,6 +96,8 @@ exports[`Manually updating options 1`] = `
     <tr>
       <td class=\\"css-0\\">...</td>
       <td class=\\"css-0\\">...</td>
+      <td class=\\"css-0\\">...</td>
+      <td class=\\"css-1rwaco\\">...</td>
       <td class=\\"css-0\\">...</td>
       <td class=\\"css-0\\">...</td>
       <td class=\\"css-0\\">...</td>

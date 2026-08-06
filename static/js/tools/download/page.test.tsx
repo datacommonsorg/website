@@ -67,7 +67,7 @@ test("Loading options from URL", async () => {
   await waitForComponentUpdates(wrapper);
 
   await waitFor(() => {
-    expect(wrapper.text()).toContain("placeDcid");
+    expect(wrapper.text()).toContain("Entity DCID");
   });
   expect(
     pretty(document.getElementById("preview-section").innerHTML)
@@ -141,7 +141,7 @@ test("Manually updating options", async () => {
   await waitForComponentUpdates(wrapper);
 
   await waitFor(() => {
-    expect(wrapper.text()).toContain("placeDcid");
+    expect(wrapper.text()).toContain("Entity DCID");
   });
   expect(
     pretty(document.getElementById("preview-section").innerHTML)
