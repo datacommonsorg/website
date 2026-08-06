@@ -75,7 +75,7 @@ const MenuRichLinkGroup = ({
                 <span
                   css={css`
                     ${theme.typography.family.text};
-                    ${theme.typography.menu.md};
+                    ${theme.typography.menu.sm};
                     display: flex;
                     align-items: center;
                     text-decoration: none;
@@ -113,7 +113,7 @@ const MenuRichLinkGroup = ({
                 <span
                   css={css`
                     ${theme.typography.family.text};
-                    ${theme.typography.menu.md};
+                    ${theme.typography.menu.sm};
                     display: flex;
                     align-items: center;
                     text-decoration: none;

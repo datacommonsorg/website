@@ -70,22 +70,15 @@ const MenuRichSectionGroup = ({
         </h3>
       )}
       {menuGroup.items.map((item, index) => (
-        <div
-          key={index}
-          css={css`
-            margin-bottom: ${theme.spacing.lg}px;
-          `}
-        >
+        <div key={index}>
           {item.title && item.url ? (
             <h4
               css={css`
                 ${theme.typography.family.heading};
-                ${theme.typography.menu.md};
+                ${theme.typography.menu.sm};
+                font-weight: 500;
                 display: inline-flex;
                 align-items: center;
-                font-size: 1rem;
-                font-weight: 500;
-                margin-bottom: ${theme.spacing.sm}px;
               `}
             >
               <a
@@ -114,7 +107,7 @@ const MenuRichSectionGroup = ({
                   <span
                     css={css`
                       ${theme.typography.family.text};
-                      ${theme.typography.menu.md};
+                      ${theme.typography.menu.sm};
                       display: flex;
                       align-items: center;
                       text-decoration: none;
@@ -127,7 +120,7 @@ const MenuRichSectionGroup = ({
                   <span
                     css={css`
                       ${theme.typography.family.text};
-                      ${theme.typography.menu.md};
+                      ${theme.typography.menu.sm};
                       display: flex;
                       align-items: center;
                       text-decoration: none;
@@ -144,10 +137,9 @@ const MenuRichSectionGroup = ({
               css={css`
                 ${theme.typography.family.heading};
                 ${theme.typography.menu.xs};
+                font-weight: 300;
                 text-transform: uppercase;
                 color: ${theme.colors.text.primary.base};
-                font-weight: 300;
-                margin: 0 0 ${theme.spacing.sm}px 0;
               `}
             >
               {item.title}

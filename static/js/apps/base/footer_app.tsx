@@ -18,9 +18,11 @@
  * The app that renders the footer component on all pages via the base template
  */
 
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Labels } from "../../shared/types/base";
+import theme from "../../theme/theme";
 import Footer from "./components/footer";
 
 interface FooterAppProps {
@@ -37,5 +39,9 @@ export function FooterApp({
   brandLogoLight,
   labels,
 }: FooterAppProps): ReactElement {
-  return <Footer brandLogoLight={brandLogoLight} labels={labels} />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Footer brandLogoLight={brandLogoLight} labels={labels} />
+    </ThemeProvider>
+  );
 }

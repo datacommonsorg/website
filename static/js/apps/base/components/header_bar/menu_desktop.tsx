@@ -228,10 +228,10 @@ const MenuDesktop = ({
                       overflow: hidden;
                       background: ${theme.colors.background.primary.base};
                       transition: max-height 0.4s ease-in-out;
-                      max-height: ${openMenu === index
-                        ? `${panelHeight}px`
-                        : "0"};
                     `}
+                    style={{
+                      maxHeight: openMenu === index ? `${panelHeight}px` : "0",
+                    }}
                   >
                     <MenuDesktopRichMenu
                       menuItem={menuItem}

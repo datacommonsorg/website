@@ -115,7 +115,7 @@ const MenuDesktopRichMenu = ({
             grid-column: 2 / span 2;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: ${theme.spacing.xl}px;
+            gap: ${theme.spacing.lg}px ${theme.spacing.xl}px;
             border-left: 1px solid #f2f2f2;
           `}
         >

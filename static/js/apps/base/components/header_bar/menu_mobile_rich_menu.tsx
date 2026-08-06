@@ -45,22 +45,26 @@ const MenuMobileRichMenu = ({
   const sectionCss = css`
     display: flex;
     flex-direction: column;
-    gap: ${theme.spacing.sm}px;
-    border-bottom: 1px solid #cccccc;
-    padding: 0 0 ${theme.spacing.md}px 0;
-    &:last-of-type {
-      border-bottom: none;
-    }
+    gap: ${theme.spacing.lg}px;
   `;
 
   return (
     <>
-      <div css={sectionCss}>
+      <div
+        css={css`
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.md}px;
+          border-bottom: 1px solid #cccccc;
+          padding: 0 0 ${theme.spacing.lg}px 0;
+        `}
+      >
         <h3
           css={css`
             ${theme.typography.family.heading};
             ${theme.typography.menu.xl};
             font-weight: 100;
+            margin: 0;
           `}
         >
           {labels[menuItem.introduction?.label ?? menuItem.label]}
@@ -70,6 +74,7 @@ const MenuMobileRichMenu = ({
             css={css`
               ${theme.typography.family.text};
               ${theme.typography.menu.xs};
+              margin: 0;
             `}
           >
             {menuItem.introduction.description}
