@@ -760,39 +760,10 @@ def version():
   return get(url)
 
 
-def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
-  url = get_service_url("/v1/place/ranking")
-  return post(
-      url,
-      {
-          "stat_var_dcids": [variable],
-          "place_type": descendent_type,
-          "within_place": ancestor,
-          "is_per_capita": per_capita,
-      },
-  )
-
-
-def related_place(dcid, variables, ancestor=None, per_capita=False):
-  url = get_service_url("/v1/place/related")
-  req_json = {"dcid": dcid, "stat_var_dcids": sorted(variables)}
-  if ancestor:
-    req_json["within_place"] = ancestor
-  if per_capita:
-    req_json["is_per_capita"] = per_capita
-  return post(url, req_json)
-
-
 def recognize_places(query):
   url = get_service_url("/v2/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
-
-
-def recognize_entities(query):
-  url = get_service_url("/v1/recognize/entities")
-  resp = post(url, {"queries": [query]})
-  return resp.get("queryItems", {}).get(query.lower(), {}).get("items", [])
 
 
 def find_entities(places: list[str]) -> dict[str, list[str]]:

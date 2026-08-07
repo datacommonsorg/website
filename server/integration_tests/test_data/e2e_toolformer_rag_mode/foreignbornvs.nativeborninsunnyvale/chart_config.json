@@ -222,10 +222,6 @@
     "childTopics": [],
     "exploreMore": {
       "Count_Person_5OrMoreYears_ForeignBorn": {
-        "placeOfBirth": [
-          "Count_Person_5OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5OrMoreYears_ForeignBorn_PlaceOfBirthEurope"
-        ],
         "race": [
           "dc/xdfcsgf05b4mc",
           "dc/ym3bfmz5e91gg"
@@ -235,34 +231,14 @@
         "age": [
           "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
           "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia"
         ]
       },
       "Count_Person_PlaceOfBirthEurope": {
         "age": [
           "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
           "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_5OrMoreYears_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthEurope"
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthEurope"
         ]
       },
       "Median_Age_Person_ForeignBorn": {

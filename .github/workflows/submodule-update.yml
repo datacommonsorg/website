@@ -18,12 +18,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           # Use the PAT from your robot account for write permissions
           token: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
           submodules: recursive # Initialize and update submodules
           fetch-depth: 0 # Fetch all history for all branches and tags
+          persist-credentials: false
 
       - name: Configure Git
         run: |
@@ -55,7 +56,7 @@ jobs:
       - name: Create Pull Request
         id: cpr
         if: steps.update_submodules.outputs.submodules_updated == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6
         with:
           token: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
           commit-message: "chore: Update submodules [skip ci]"
@@ -73,8 +74,9 @@ jobs:
         if: steps.cpr.outputs.pull-request-number != ''
         env:
          GITHUB_TOKEN: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
+         STEPS_CPR_OUTPUTS_PULL_REQUEST_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
         run: |
-         PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
+         PR_NUMBER=${STEPS_CPR_OUTPUTS_PULL_REQUEST_NUMBER}
 
          echo "Attempting to merge PR #$PR_NUMBER using PAT and --admin flag..."
 

@@ -27,6 +27,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Button } from "reactstrap";
 
 import { FormBox } from "../../components/form_components/form_box";
@@ -341,11 +342,13 @@ export function Page(): ReactElement {
   }, [setOptions]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Context.Provider value={store}>
-        <App />
-      </Context.Provider>
-    </ThemeProvider>
+    <RawIntlProvider value={intl}>
+      <ThemeProvider theme={theme}>
+        <Context.Provider value={store}>
+          <App />
+        </Context.Provider>
+      </ThemeProvider>
+    </RawIntlProvider>
   );
 }
 
