@@ -13,6 +13,8 @@
 # limitations under the License.
 """Common library for functions related to feature flags"""
 
+import hashlib
+import ipaddress
 import random
 
 from flask import current_app
@@ -27,17 +29,23 @@ FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
 
 # Feature Flags
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
-BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
+USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG = 'use_new_download_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
 NEW_RANKING_PAGE = 'new_ranking_page'
-USE_V2_API = 'use_v2_api'
 # This flag controls the switching of detect-and-fulfill API to use v2/resolve from current nl search vars
 USE_V2_RESOLVE_FOR_NL_SEARCH_VARS = 'use_v2_resolve_for_nl_search_vars'
 ENABLE_NL_V2NODE_FETCHALL = 'enable_nl_v2node_fetchall'
-NL_USE_V2RESOLVE_FEATURE_FLAG = 'nl_use_v2resolve'
+CROISSANT_JSON_LD_FEATURE = 'show_croissant_json_ld'
+CROISSANT_EXTENDED_FEATURE = 'show_croissant_extended_feature'
+DISABLE_EXPLORE_MORE_IN_NL_SEARCH = 'disable_explore_more_in_nl_search'
+DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER = 'disable_explore_more_in_nl_search_for_spanner'
+DIVERT_TO_SPANNER = 'divert_to_spanner'
+USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
+USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
+USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING = 'use_config_threshold_for_spanner_embedding'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
@@ -52,8 +60,8 @@ def is_feature_override_enabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(
-      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM) == feature_name
+  return feature_name in request.args.getlist(
+      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM)
 
 
 def is_feature_override_disabled(feature_name: str, request=None) -> bool:
@@ -68,8 +76,8 @@ def is_feature_override_disabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(
-      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM) == feature_name
+  return feature_name in request.args.getlist(
+      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM)
 
 
 def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
@@ -98,6 +106,12 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if request is None and has_request_context():
     request = flask_request
 
+  if feature_name == DIVERT_TO_SPANNER and has_request_context():
+    from flask import g
+    if 'use_spanner' not in g:
+      g.use_spanner = assign_spanner_cohort(app, request)
+    return g.use_spanner
+
   # Check for URL parameter overrides
   if is_feature_override_enabled(feature_name, request):
     return True
@@ -116,3 +130,102 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
     return random.random() * 100 < rollout_percentage
 
   return is_feature_enabled
+
+
+def ip_in_list(ip_str: str, ip_patterns: list[str]) -> bool:
+  """
+  Checks if an IP address matches any of the IP address or CIDR network patterns.
+
+  Args:
+    ip_str: Client IP address string (e.g., '192.168.1.1' or '2001:db8::1').
+    ip_patterns: List of IP addresses or CIDR subnets (e.g., ['192.168.1.1', '10.0.0.0/8']).
+
+  Returns:
+    True if the IP matches any pattern, False otherwise.
+  """
+  if not ip_str or not ip_patterns:
+    return False
+  try:
+    ip = ipaddress.ip_address(ip_str)
+  except ValueError:
+    return False
+
+  for pattern in ip_patterns:
+    try:
+      if '/' in pattern:
+        network = ipaddress.ip_network(pattern, strict=False)
+        if ip in network:
+          return True
+      else:
+        if ip == ipaddress.ip_address(pattern):
+          return True
+    except ValueError:
+      pass
+  return False
+
+
+def assign_spanner_cohort(app, request) -> bool:
+  """Deterministically assigns the request to a Spanner cohort if enabled.
+
+  Args:
+    app: Flask application instance.
+    request: HTTP request as a flask.Request object.
+
+  Returns:
+    True if client is in the Spanner diversion cohort, False otherwise.
+  """
+  # Check for URL parameter overrides
+  if is_feature_override_enabled(DIVERT_TO_SPANNER, request):
+    return True
+  if is_feature_override_disabled(DIVERT_TO_SPANNER, request):
+    return False
+
+  # Check feature flag configuration
+  feature_flags = app.config.get('FEATURE_FLAGS', {})
+  flag_config = feature_flags.get(DIVERT_TO_SPANNER, {})
+  if not flag_config.get('enabled', False):
+    return False
+
+  # Extract the original client IP (the first/leftmost IP in the X-Forwarded-For chain)
+  ip = request.headers.get('X-Forwarded-For', request.remote_addr) or ''
+  ip = ip.split(',')[0].strip()
+  # Handle bracketed IPv6 with port (e.g., [2001:db8::1]:12345)
+  if ip.startswith('['):
+    ip = ip.split(']')[0][1:]
+  # Handle IPv4 with port (contains exactly one colon, e.g., 198.51.100.1:443)
+  elif ip.count(':') == 1:
+    ip = ip.split(':')[0]
+
+  # Check IP-based cohort overrides
+  force_non_spanner_raw = app.config.get(
+      'DB_COHORT_FORCE_NON_SPANNER_IPS') or ''
+  if force_non_spanner_raw:
+    force_non_spanner_ips = [
+        i.strip() for i in force_non_spanner_raw.split(',') if i.strip()
+    ]
+    if ip_in_list(ip, force_non_spanner_ips):
+      return False
+
+  force_spanner_raw = app.config.get('DB_COHORT_FORCE_SPANNER_IPS') or ''
+  if force_spanner_raw:
+    force_spanner_ips = [
+        i.strip() for i in force_spanner_raw.split(',') if i.strip()
+    ]
+    if ip_in_list(ip, force_spanner_ips):
+      return True
+
+  rollout_percentage = flag_config.get('rollout_percentage', 0)
+  if rollout_percentage >= 100:
+    return True
+  if rollout_percentage <= 0:
+    return False
+
+  ua = request.headers.get('User-Agent', '') or ''
+  salt = app.config.get('SPANNER_DIVERT_SALT',
+                        'datacommons-spanner-cohort-salt')
+
+  hash_input = f"{ip}|{ua}|{salt}".encode('utf-8')
+  hash_val = int(
+      hashlib.md5(hash_input, usedforsecurity=False).hexdigest()[:8], 16)
+
+  return (hash_val % 100) < rollout_percentage

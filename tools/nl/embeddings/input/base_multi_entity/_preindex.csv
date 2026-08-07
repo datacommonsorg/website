@@ -406,6 +406,7 @@ Area of farms with whites farmers,Area_Farm_Producer_WhiteAlone
 Area of flood event,Area_FloodEvent
 Area of forest,Area_LandCover_Forest
 Area of tree covered land,Area_LandCover_Tree
+Associated Financing Interest Subsidies Disbursements,Amount_EconomicActivity_AssociatedFinancingInterestSubsidiesDisbursements
 Atmospheric pressure at Surface Level,AtmosphericPressure_SurfaceLevel
 Average Age of Mothers at Live Birth,Mean_MothersAge_BirthEvent_LiveBirth
 Average Age of Pregnancy Measured from Start of Last Menstrual Period,Mean_LmpGestationalAge_BirthEvent_LiveBirth
@@ -466,6 +467,7 @@ Bio Gasoline consumption by Transport Industry,Annual_Consumption_Fuel_Transport
 Breast Cancer Deaths,WHO/SA_0000001438
 Burned Area of Fire Event,BurnedArea_FireEvent
 Burned Area of Fire Event in Forest,BurnedArea_FireEvent_Forest
+Capital Subscriptions Deposits,Amount_EconomicActivity_CapitalSubscriptionsDeposits
 Carbon Dioxide Emissions per Capita,Amount_Emissions_CarbonDioxide_PerCapita
 Child mortality for Ages Up to 14 Years,Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years
 Colon and Rectum Cancer Deaths,WHO/SA_0000001439
@@ -611,7 +613,9 @@ Deaths from Falls,WHO/SA_0000001442
 Deaths from Fires,WHO/SA_0000001443
 Deaths from Poisoning,WHO/SA_0000001450
 Deaths from Prematurity and Low Birth Weight,WHO/SA_0000001451
+Debt Forgiveness,Amount_EconomicActivity_DebtForgiveness
 Deposit interest rate,worldBank/FR_INR_DPST
+Development Food Aid,Amount_EconomicActivity_DevelopmentFoodAid
 Diabetes Deaths,WHO/SA_0000001440
 Diesel Oil consumption by Paper Pulp Print Industry,Annual_Consumption_Fuel_PaperPulpPrintIndustry_DieselOil
 Diesel Oil consumption by Rail Transport,Annual_Consumption_Fuel_RailTransport_DieselOil
@@ -822,6 +826,8 @@ Gross Domestic Product (GDP) of the utilities industry,Amount_EconomicActivity_G
 Gross Domestic Product (GDP) of the wholesale trade industry,Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue
 Gross National Income Based on Purchasing Power Parity,Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity
 Gross National Income per capita Based on Purchasing Power Parity,Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita
+Gross Official Development Assistance (ODA),Amount_EconomicActivity_GrossODA
+Gross Official Development Assistance (ODA) Loans,Amount_EconomicActivity_GrossODALoans
 Growth rate of GDP in agriculture,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Agriculture
 Growth rate of GDP in telecommunications,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Telecommunications
 Growth rate of GDP in the manufacturing sector,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector
@@ -838,6 +844,7 @@ Household Kerosene Consumption,Annual_Consumption_Fuel_Households_Kerosene
 Household Liquefied Petroleum Gas Consumption,Annual_Consumption_Fuel_Households_LiquifiedPetroleumGas
 Household Natural Gas Consumption,Annual_Consumption_Fuel_Households_NaturalGas
 Household Vegetal Waste Consumption,Annual_Consumption_Fuel_Households_VegetalWaste
+Humanitarian Aid,Amount_EconomicActivity_HumanitarianAid
 Imports Economic Activity Import From With Import Source Aircraft As AFraction Of Imports Economic Activity Aircraft,Imports_EconomicActivity_ImportFromWithImportSource_Aircraft_AsAFractionOf_Imports_EconomicActivity_Aircraft
 Imports Economic Activity Import From With Import Source All Products As AFraction Of Imports Economic Activity All Products,Imports_EconomicActivity_ImportFromWithImportSource_AllProducts_AsAFractionOf_Imports_EconomicActivity_AllProducts
 Imports Economic Activity Import From With Import Source Animal Fats As AFraction Of Imports Economic Activity Animal Fats,Imports_EconomicActivity_ImportFromWithImportSource_AnimalFats_AsAFractionOf_Imports_EconomicActivity_AnimalFats
@@ -914,11 +921,13 @@ Imports Economic Activity Import From With Import Source Unspecified As AFractio
 Imports Economic Activity Import From With Import Source Vegetable Oils As AFraction Of Imports Economic Activity Vegetable Oils,Imports_EconomicActivity_ImportFromWithImportSource_VegetableOils_AsAFractionOf_Imports_EconomicActivity_VegetableOils
 Imports Economic Activity Import From With Import Source Vegetables And Their Preparations As AFraction Of Imports Economic Activity Vegetables And Their Preparations,Imports_EconomicActivity_ImportFromWithImportSource_VegetablesAndTheirPreparations_AsAFractionOf_Imports_EconomicActivity_VegetablesAndTheirPreparations
 Imports Economic Activity Import From With Import Source Wood And Wood Products As AFraction Of Imports Economic Activity Wood And Wood Products,Imports_EconomicActivity_ImportFromWithImportSource_WoodAndWoodProducts_AsAFractionOf_Imports_EconomicActivity_WoodAndWoodProducts
+Imputed Multilateral Official Development Assistance (ODA),Amount_EconomicActivity_ImputedMultilateralODA
 Income Inequality Between males and females,GenderIncomeInequality_Person_15OrMoreYears_WithIncome
 Infant mortality,Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent
 Infant mortality rate,Count_MortalityEvent_Infant_AsAFractionOf_Count_BirthEvent_LiveBirth
 Inflation Adjusted GDP,InflationAdjustedGDP
 Insured Unemployment Rate,InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow
+Interest Received Official Development Assistance (ODA),Amount_EconomicActivity_InterestReceivedODA
 Inward Remittance as a Fraction of Nominal Gross Domestic Product,Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal
 Ischemic Heart Disease Deaths,WHO/SA_0000001444
 Kerosene Jet Fuel consumption by Transport Industry,Annual_Consumption_Fuel_TransportIndustry_KeroseneJetFuel
@@ -1124,6 +1133,7 @@ Natural Gas consumption by Textile And Leather Industry,Annual_Consumption_Fuel_
 Natural Gas consumption by Transport Equipment Industry,Annual_Consumption_Fuel_TransportEquipmentIndustry_NaturalGas
 Natural Gas consumption by Transport Industry,Annual_Consumption_Fuel_TransportIndustry_NaturalGas
 Natural Gas consumption by Wood And Wood Products Industry,Annual_Consumption_Fuel_WoodAndWoodProductsIndustry_NaturalGas
+Net Debt Relief,Amount_EconomicActivity_NetDebtRelief
 Newborn mortality rate,Count_MortalityEvent_Newborn_AsAFractionOf_Count_BirthEvent_LiveBirth
 Number Of Cases Of Cutaneous Leishmaniasis Reported,WHO/NTD_LEISHCNUM
 Number Of Cases Of Visceral Leishmaniasis Reported,WHO/NTD_LEISHVNUM
@@ -2690,6 +2700,17 @@ Number of wild land fires,Count_WildlandFireEvent
 Number of winter storms,Count_WinterStormEvent
 Number of winter weather events,Count_WinterWeatherEvent
 Number of workers working in support activities for transportation,dc/bb4peddkgmqe7
+Official Development Assistance (ODA) Disbursements,Amount_EconomicActivity_OfficialDevelopmentAssistanceDisbursements
+Official Development Assistance (ODA) Grants Disbursements,Amount_EconomicActivity_ODAGrantsDisbursements
+Official Development Assistance (ODA) Loans Equity Investment,Amount_EconomicActivity_ODALoansEquityInvestment
+Official Development Assistance (ODA) Loans Net Disbursements,Amount_EconomicActivity_ODALoansNetDisbursements
+Official Development Assistance (ODA) Loans Repayments,Amount_EconomicActivity_ODALoansRepayments
+Official Development Assistance (ODA) Loans Rescheduled Debt,Amount_EconomicActivity_ODALoansRescheduledDebt
+Official Development Assistance (ODA) Total Net Excluding Debt Relief,Amount_EconomicActivity_ODATotalNetExcludingDebtRelief
+Official Development Assistance (ODA) as a Fraction of Gross National Income (GNI),Amount_EconomicActivity_ODA_AsAFractionOf_GNI
+Official Development Assistance (ODA) per Capita,Amount_EconomicActivity_ODA_AsAFractionOf_Count_Person
+Offsetting Entries For Debt Relief Official Development Assistance (ODA) Claims,Amount_EconomicActivity_OffsettingEntriesForDebtReliefODAClaims
+Other Debt Grants,Amount_EconomicActivity_OtherDebtGrants
 Palmer Drought Severity Index,PalmerDroughtSeverityIndex_Atmosphere
 Paraffin Waxes consumption by Fuel,Annual_Consumption_Fuel_ParaffinWaxes
 Paraffin Waxes consumption by Fuel for Non Energy Use,Annual_Consumption_Fuel_ParaffinWaxes_NonEnergyUse
@@ -2808,6 +2829,7 @@ Real Gross Value Added from Manufacturing,Amount_EconomicActivity_GrossValueAdde
 "Real Gross Value Added from Transport, Storage, and Communications",Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue
 "Real Gross Value Added from Wholesale, Retail Trade, Restaurants, and Hotels",Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue
 Real lending interest rate,worldBank/FR_INR_RINR
+Recoveries On Grants,Amount_EconomicActivity_RecoveriesOnGrants
 Red List Index,sdg/ER_RSK_LST
 Renewable electricity share of total electricity output,worldBank/4_1_SHARE_RE_IN_ELECTRICITY
 Renewable energy share of the total energy consumption,sdg/EG_FEC_RNEW
@@ -2841,6 +2863,7 @@ Student test performance,dc/c58mvty4nhxdb
 Student to Teacher Ratio,Percent_Student_AsAFractionOf_Count_Teacher
 Surface-Level Dew Point Temperature,DewPointTemperature_SurfaceLevel
 Sustainable fisheries as a proportion of GDP,sdg/EN_SCP_FSHGDP
+Technical Cooperation Disbursements,Amount_EconomicActivity_TechnicalCooperationDisbursements
 The average area covered by commercial solar installations,Mean_CoverageArea_SolarInstallation_Commercial
 The average area covered by residential solar installations,Mean_CoverageArea_SolarInstallation_Residential
 Total COVID-19 deaths,CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased

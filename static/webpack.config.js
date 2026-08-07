@@ -47,10 +47,6 @@ const config = {
       __dirname + "/js/apps/datagemma/main.ts",
       __dirname + "/css/datagemma.scss",
     ],
-    biomed_nl: [
-      __dirname + "/js/apps/biomed_nl/main.ts",
-      __dirname + "/css/biomed_nl.scss",
-    ],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",
@@ -89,10 +85,6 @@ const config = {
     eval_retrieval_generation_sxs: [
       __dirname + "/js/apps/eval_retrieval_generation/sxs/main.ts",
     ],
-    old_ranking: [
-      __dirname + "/js/ranking/old_ranking.ts",
-      __dirname + "/css/old_ranking.scss",
-    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
@@ -112,6 +104,10 @@ const config = {
     ],
     download: [
       __dirname + "/js/tools/download/download.ts",
+      __dirname + "/css/tools/download.scss",
+    ],
+    old_download: [
+      __dirname + "/js/tools/old_download/download.ts",
       __dirname + "/css/tools/download.scss",
     ],
     import_wizard: [

@@ -103,8 +103,12 @@ set -e
 # Build custom image
 build() {
   log_notice "Starting Docker build of '$IMAGE'. This will take several minutes..."
+  local website_hash=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "")
+  local mixer_hash=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "")
   docker build --tag $IMAGE \
-  -f build/cdc_services/Dockerfile .
+    --build-arg MIXER_HASH="$mixer_hash" \
+    --build-arg WEBSITE_HASH="$website_hash" \
+    -f build/cdc_services/Dockerfile .
 }
 
 # Package and push custom image to GCP

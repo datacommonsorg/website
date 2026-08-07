@@ -27,7 +27,14 @@ website:
   flaskEnv: dev
   replicas: 5
   redis:
-    enabled: false
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.245.59.179",
+          "port": "6379"
+        }
+      }
 
 mixer:
   serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"

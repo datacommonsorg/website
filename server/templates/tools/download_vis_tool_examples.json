@@ -1,0 +1,32 @@
+[
+  {
+    "id": "download_median_age_counties_usa",
+    "title": "Median Age across counties in USA",
+    "url": "/tools/download#place=country%2FUSA&pt=County&sv=Median_Age_Person"
+  },
+  {
+    "id": "download_median_income_counties_texas",
+    "title": "Median Income across counties in Texas",
+    "url": "/tools/download#place=geoId%2F48&pt=County&sv=Median_Income_Person"
+  },
+  {
+    "id": "download_unemployment_rate_counties_california",
+    "title": "Unemployment Rate across counties in California",
+    "url": "/tools/download#place=geoId%2F06&pt=County&sv=UnemploymentRate_Person"
+  },
+  {
+    "id": "download_bachelors_degree_counties_usa",
+    "title": "Bachelor's Degree Attainment across counties in USA",
+    "url": "/tools/download#place=country%2FUSA&pt=County&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher"
+  },
+  {
+    "id": "download_water_withdrawal_counties_usa",
+    "title": "Water Withdrawal Rate across counties in USA",
+    "url": "/tools/download#place=country%2FUSA&pt=County&sv=WithdrawalRate_Water"
+  },
+  {
+    "id": "download_median_income_states_usa",
+    "title": "Median Income across states in USA",
+    "url": "/tools/download#place=country%2FUSA&pt=State&sv=Median_Income_Person"
+  }
+]

@@ -26,6 +26,7 @@ from flask_babel import gettext
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
+from server.lib.i18n import locale_choices
 from server.lib.i18n_messages import get_other_places_in_parent_place_str
 from server.lib.i18n_messages import \
     get_place_overview_table_variable_to_locale_message
@@ -499,11 +500,19 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   Returns:
       List[Place]: A list of Place objects with names in the specified locale.
   """
+  if not place_dcids:
+    return []
+
   props = ['typeOf', 'name', 'dissolutionDate']
-  # Only fetch names with locale-specific tags if the desired locale is non-english
   if locale != DEFAULT_LOCALE:
-    props.append('nameWithLanguage')
-  multi_places_props = fetch.multiple_property_values(place_dcids, props)
+    resolved_locales = locale_choices(locale)
+    locale = resolved_locales[0]
+    locales_str = ",".join(resolved_locales)
+    props.append(f"nameWithLanguage{{$lang:[{locales_str}]}}")
+
+  multi_places_props = fetch.multiple_property_values(place_dcids,
+                                                      props,
+                                                      max_pages=None)
 
   places = []
   for place_dcid in place_dcids:
@@ -567,6 +576,8 @@ def chart_config_to_overview_charts(
 
 # Maps each parent place type to a list of valid child place types.
 # This hierarchy defines how places are related in terms of containment.
+# Limitations in BT and Spanner mean that for now, these must be direct contained places.
+# TODO(nick-nlb): address contained place query in Spanner for chaining.
 PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
     "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
@@ -594,7 +605,7 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
 # These are used for overriding or customizing the default hierarchy in certain cases.
 PLACE_MATCH_EXPRESSIONS: Callable[[Place], str | None] = [
     # Matches "Earth" (type "Place") and returns "Continent"
-    lambda place: "Continent" if "Place" in place.types else None,
+    lambda place: "Continent" if place.types == ["Place"] else None,
     # Use "State" instead of AdministrativeArea1 for country/USA
     lambda place: "State" if place.dcid == "country/USA" else None,
     # Use "Country" for all  "UNGeoRegion"
@@ -699,7 +710,7 @@ def get_child_places_by_type(
   # Fetch child places matching the expected types for the given place.
   raw_property_values_response = fetch.raw_property_values(
       nodes=[place.dcid],
-      prop="containedInPlace+",
+      prop="containedInPlace",
       out=False,
       constraints=constraints,
       max_pages=None)

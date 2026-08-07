@@ -21,6 +21,7 @@
 import axios from "axios";
 import React from "react";
 
+import { ArrowForward } from "../components/elements/icons/arrow_forward";
 import { GoogleMap } from "../components/google_map";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { StatVarHierarchyType } from "../shared/types";
@@ -46,11 +47,13 @@ interface BrowserPagePropType {
   statVarId: string;
   nodeTypes: string[];
   shouldShowStatVarHierarchy: boolean;
+  hasJsonLdData?: boolean;
 }
 
 interface BrowserPageStateType {
   provenanceNames: { [key: string]: string };
   dataFetched: boolean;
+  datasetSource?: string;
 }
 
 function setListenerForScrollTo(): void {
@@ -102,6 +105,7 @@ export class BrowserPage extends React.Component<
     this.state = {
       dataFetched: false,
       provenanceNames: {},
+      datasetSource: "",
     };
   }
 
@@ -152,6 +156,21 @@ export class BrowserPage extends React.Component<
             <h2 className="browser-header-subtitle">dcid: {this.props.dcid}</h2>
             <h2 className="browser-header-subtitle">
               typeOf: {this.props.nodeTypes.join(", ")}
+              {this.props.hasJsonLdData &&
+                this.props.nodeTypes.includes("Dataset") &&
+                this.state.datasetSource && (
+                  <>
+                    {" \u2022 "}
+                    <a
+                      className="explore-dataset-link"
+                      href={`/tools/statvar#s=${encodeURIComponent(
+                        this.state.datasetSource
+                      )}&d=${encodeURIComponent(this.props.dcid)}`}
+                    >
+                      Explore dataset <ArrowForward />
+                    </a>
+                  </>
+                )}
             </h2>
           </>
         )}
@@ -218,18 +237,38 @@ export class BrowserPage extends React.Component<
   }
 
   private fetchData(): void {
-    axios
-      .get("/api/browser/provenance")
-      .then((resp) => {
-        const provenance = resp.data;
+    const promises: Promise<any>[] = [axios.get("/api/browser/provenance")];
+    if (this.props.hasJsonLdData && this.props.nodeTypes.includes("Dataset")) {
+      promises.push(
+        axios.get(
+          `/api/node/propvals/out?prop=isPartOf&dcids=${encodeURIComponent(
+            this.props.dcid
+          )}`
+        )
+      );
+    }
+
+    Promise.all(promises)
+      .then((resps) => {
+        const provenance = resps[0].data;
         const provenanceNames = {};
         for (const provId in provenance) {
           const provenanceName = provenance[provId].name;
           provenanceNames[provId] = provenanceName;
         }
+
+        let datasetSource = "";
+        if (resps.length > 1) {
+          const isPartOfResp = resps[1].data[this.props.dcid] || [];
+          if (isPartOfResp.length > 0) {
+            datasetSource = isPartOfResp[0].dcid;
+          }
+        }
+
         this.setState({
           dataFetched: true,
           provenanceNames,
+          datasetSource,
         });
       })
       .catch((e) => {

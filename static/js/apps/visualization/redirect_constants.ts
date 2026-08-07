@@ -62,10 +62,15 @@ export interface ParamNameMapping {
 }
 
 // Types of charts supported by both tools
-export type VisType = "map" | "scatter" | "timeline";
+export type VisType = "map" | "scatter" | "timeline" | "download";
 
 // Allowed values for visType hash parameter
-export const ALLOWED_VIS_TOOL_TYPES = ["map", "scatter", "timeline"];
+export const ALLOWED_VIS_TOOL_TYPES = [
+  "map",
+  "scatter",
+  "timeline",
+  "download",
+];
 
 // Separator between multiple hash parameter values used by /tools/*
 export const DEFAULT_PARAM_SEPARATOR = ",";

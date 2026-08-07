@@ -69,7 +69,7 @@ For more details, please see https://docs.datacommons.org/custom_dc/custom_ui.ht
   <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
 </head>
 
-<body>
+<body {% if is_hide_header_search_bar %}class="no-header-search-bar"{% endif %}>
 {# Set page locale and pass header/footer configuration to base.js #}
 <div id="metadata-base" class="d-none"
     data-header="{{ HEADER_MENU }}"

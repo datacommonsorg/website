@@ -15,6 +15,7 @@ import os
 import tempfile
 
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,16 +27,10 @@ from server.webdriver.base_utils import wait_elem
 
 DOWNLOAD_URL = '/tools/download'
 SKIP_CHECK = 'SKIP_CHECK'
-TABLE_HEADERS = [
-    'placeDcid', 'placeName', 'Date:Median_Age_Person',
-    'Value:Median_Age_Person', 'Source:Median_Age_Person', 'Date:Count_Person',
-    'Value:Count_Person', 'Source:Count_Person'
-]
+TABLE_HEADERS = ['placeDcid', 'placeName', 'Date', 'Value', 'Source']
 # SKIP_CHECK for the values that change with each import.
 TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
-    'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
-    SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/popest.html'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
@@ -64,7 +59,8 @@ class DownloadTestMixin():
   def test_server_and_page(self):
     """Test the server can run successfully."""
     title_text = "Download Tool - " + self.dc_title_string
-    self.driver.get(self.url_ + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL +
+                    '?enable_feature=use_new_download_tool')
 
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
@@ -82,7 +78,8 @@ class DownloadTestMixin():
     """
         Test entering options will show preview and allow download of a file
         """
-    self.driver.get(self.url_ + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL +
+                    '?enable_feature=use_new_download_tool')
 
     shared.search_for_places(self,
                              self.driver,
@@ -91,17 +88,14 @@ class DownloadTestMixin():
                              is_new_vis_tools=False)
 
     # Choose stat var
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_sv_group(self.driver, "Demographics")
-    shared.click_el(
-        self.driver,
-        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
-    # Choose another stat var
+    shared.wait_for_invisibility_of_loaders(self.driver, self.TIMEOUT_SEC)
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
-    # Click preview
+    # Wait for loading
     shared.wait_for_loading(self.driver)
-    shared.click_el(self.driver, (By.CLASS_NAME, 'get-data-button'))
 
     # Wait for table to load
     shared.wait_for_loading(self.driver)
@@ -122,15 +116,26 @@ class DownloadTestMixin():
                             value='#preview-section table tbody tr')
     self.assertGreater(len(table_rows), 1)
 
-    # Create a map of header text to cell text for the first row
+    # Wait for all cells in the first row to be fully rendered to prevent race conditions
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(lambda d: len(
+        d.find_elements(By.CSS_SELECTOR,
+                        '#preview-section table tbody tr:nth-child(1) td')) ==
+                                                       len(actual_headers))
+
+    # Re-retrieve cells now that they are guaranteed to be fully rendered
     first_row_cell_elements = find_elems(
         self.driver,
         By.CSS_SELECTOR,
         value='#preview-section table tbody tr:nth-child(1) td')
-    actual_row_data = {
-        actual_headers[i]: cell.text
-        for i, cell in enumerate(first_row_cell_elements)
-    }
+
+    actual_row_data = {}
+    for header, cell in zip(actual_headers, first_row_cell_elements):
+      try:
+        # Extract link href if cell contains a link, otherwise use cell text
+        link = cell.find_element(By.TAG_NAME, 'a')
+        actual_row_data[header] = link.get_attribute('href')
+      except NoSuchElementException:
+        actual_row_data[header] = cell.text
 
     # Check each expected value against the actual data using the header map
     for i, expected_header in enumerate(TABLE_HEADERS):
@@ -139,8 +144,7 @@ class DownloadTestMixin():
                          f"Mismatch for header: {expected_header}")
 
     # Click download
-    shared.click_el(self.driver,
-                    (By.XPATH, '//*[@id="preview-section"]/button'))
+    shared.click_el(self.driver, (By.CLASS_NAME, 'download-button'))
 
     # Assert file downloaded
     num_tries = 0
@@ -151,4 +155,4 @@ class DownloadTestMixin():
       if len(downloaded_files) > 0:
         break
       num_tries += 1
-    self.assertEqual(downloaded_files[0], "California_County.csv")
+    self.assertEqual(downloaded_files[0], "California_County_Count_Person.csv")

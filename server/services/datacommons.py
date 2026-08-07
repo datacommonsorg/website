@@ -20,6 +20,7 @@ import logging
 from typing import Dict, List
 
 from flask import current_app
+from flask import g
 from flask import has_app_context
 from flask import has_request_context
 from flask import request
@@ -30,8 +31,6 @@ from server.lib.cache import cache
 from server.lib.cache import memoize_and_log_mixer_usage
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
-from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import USE_V2_API
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -59,6 +58,10 @@ def get_basic_request_headers() -> dict:
     # Used in mixer's usage logs
     headers[SURFACE_HEADER_NAME] = request.headers.get(SURFACE_HEADER_NAME,
                                                        UNKNOWN_SURFACE)
+    if g.get('use_spanner', False):
+      headers['X-Divert-Spanner'] = 'true'
+    if should_skip_cache():
+      headers['X-Skip-Cache'] = 'true'
 
   return headers
 
@@ -382,40 +385,27 @@ def get_variable_group_info(nodes: List[str],
                             numEntitiesExistence=1,
                             include_definitions=False) -> Dict:
   """Gets the stat var group node information."""
-  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
-  if use_v2:
-    url = get_service_url("/v2/bulk/info/variable-group")
-  else:
-    url = get_service_url("/v1/bulk/info/variable-group")
+  url = get_service_url("/v2/bulk/info/variable-group")
   req_dict = {
       "nodes": nodes,
       "constrained_entities": entities,
       "num_entities_existence": numEntitiesExistence,
   }
-  if use_v2 and include_definitions:
+  if include_definitions:
     req_dict["includeDefinitions"] = True
   return post(url, req_dict)
 
 
 def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
-  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
-    url = get_service_url("/v2/bulk/info/variable")
-  else:
-    url = get_service_url("/v1/bulk/info/variable")
+  url = get_service_url("/v2/bulk/info/variable")
   req_dict = {"nodes": nodes}
   return post(url, req_dict)
 
 
-def _get_variable_ancestors_v1(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy using v1/variable/ancestors."""
-  url = get_service_url("/v1/variable/ancestors")
-  url = f"{url}/{dcid}"
-  return get(url).get("ancestors", [])
-
-
-def _get_variable_ancestors_v2(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy using v2 node."""
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+def get_variable_ancestors(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy."""
   ancestors = []
   curr = dcid
   visited = {dcid}
@@ -458,21 +448,6 @@ def _get_variable_ancestors_v2(dcid: str):
   return ancestors
 
 
-def get_variable_ancestors(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy."""
-  use_v2 = is_feature_enabled(USE_V2_API, app=current_app, request=request)
-  return _get_variable_ancestors_memoized(dcid, use_v2)
-
-
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def _get_variable_ancestors_memoized(dcid: str, use_v2: bool):
-  """Memoized helper that includes the feature flag state in the cache key."""
-  if use_v2:
-    return _get_variable_ancestors_v2(dcid)
-  else:
-    return _get_variable_ancestors_v1(dcid)
-
-
 def _get_all_values(resp, dcid, prop, key='dcid'):
   """Retrieves all values for a given property from the v2node response."""
   node_data = resp.get('data', {}).get(dcid, {})
@@ -489,6 +464,11 @@ def _get_best_type(types_list):
   """Selects the best type from a list of types based on PLACE_TYPE_RANK."""
   if not types_list:
     return ''
+
+  if 'Place' in types_list:
+    filtered_types = [t for t in types_list if t != 'Place']
+    if filtered_types:
+      types_list = filtered_types
 
   # Sort types by rank (highest rank first)
   # If ranks are tied, prefer types that don't start with 'AdministrativeArea'
@@ -685,16 +665,22 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop, resolver="place"):
+def resolve(nodes, prop, resolver="place", target=None):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
         resolver: The resolver to use (default: "place").
+        target: Optional target parameter to scope resolution.
     """
+  if target is None and resolver == "indicator":
+    target = current_app.config.get("V2_RESOLVE_INDICATORS_TARGET", "")
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
+  req = {"nodes": nodes, "property": prop, "resolver": resolver}
+  if target:
+    req["target"] = target
+  return post(url, req)
 
 
 def nl_search_vars(
@@ -774,42 +760,10 @@ def version():
   return get(url)
 
 
-def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
-  url = get_service_url("/v1/place/ranking")
-  return post(
-      url,
-      {
-          "stat_var_dcids": [variable],
-          "place_type": descendent_type,
-          "within_place": ancestor,
-          "is_per_capita": per_capita,
-      },
-  )
-
-
-def related_place(dcid, variables, ancestor=None, per_capita=False):
-  url = get_service_url("/v1/place/related")
-  req_json = {"dcid": dcid, "stat_var_dcids": sorted(variables)}
-  if ancestor:
-    req_json["within_place"] = ancestor
-  if per_capita:
-    req_json["is_per_capita"] = per_capita
-  return post(url, req_json)
-
-
 def recognize_places(query):
-  if is_feature_enabled(USE_V2_API, app=current_app, request=request):
-    url = get_service_url("/v2/recognize/places")
-  else:
-    url = get_service_url("/v1/recognize/places")
+  url = get_service_url("/v2/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
-
-
-def recognize_entities(query):
-  url = get_service_url("/v1/recognize/entities")
-  resp = post(url, {"queries": [query]})
-  return resp.get("queryItems", {}).get(query.lower(), {}).get("items", [])
 
 
 def find_entities(places: list[str]) -> dict[str, list[str]]:
@@ -830,18 +784,6 @@ def find_entities(places: list[str]) -> dict[str, list[str]]:
         retval[node] = dcids
 
   return retval
-
-
-def search_statvar(query, places, sv_only):
-  url = get_service_url("/v1/variable/search")
-  return post(
-      url,
-      {
-          "query": query,
-          "places": places,
-          "sv_only": sv_only,
-      },
-  )
 
 
 def filter_statvars(stat_vars, entities):

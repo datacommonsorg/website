@@ -94,40 +94,6 @@
                       "country/SEN"
                     ],
                     "statVarKey": [
-                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
-                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block"
-                    ],
-                    "title": "Adolescent Birth Rate by Age (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Adolescent Birth Rate by Age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
-                    ],
-                    "statVarKey": [
                       "GrowthRate_Count_Person_multiple_place_bar_block"
                     ],
                     "title": "Rate of Population Growth (${date})",
@@ -162,16 +128,16 @@
                       "country/SEN"
                     ],
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block"
+                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
+                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Infant Mortality Rate (${date})",
+                    "title": "Adolescent Birth Rate by Age (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
+            "title": "Adolescent Birth Rate by Age"
           },
           {
             "columns": [
@@ -212,10 +178,6 @@
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block": {
             "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Person_multiple_place_bar_block": {
             "name": "Population",

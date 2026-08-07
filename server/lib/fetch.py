@@ -47,7 +47,7 @@ def _get_unit_names(units: List[str]) -> Dict:
 
 # For all facets that have a unit with a shortDisplayName, adds a
 # unitDisplayName property to the facet with the short display name as the value
-def _get_processed_facets(facets):
+def get_processed_facets(facets):
   units = set()
   for facet in facets.values():
     facet_unit = facet.get('unit', '')
@@ -193,7 +193,7 @@ def point_core(entities, variables, date, all_facets):
   }
   """
   resp = dc.obs_point(entities, variables, date)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
@@ -221,7 +221,7 @@ def point_within_core(ancestor_entity,
   """
   resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
                              facet_ids)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
@@ -243,7 +243,7 @@ def series_core(entities, variables, all_facets, facet_ids=None):
   }
   """
   resp = dc.obs_series(entities, variables, facet_ids)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
@@ -315,7 +315,7 @@ def series_within_core(ancestor_entity,
   """
   resp = dc.obs_series_within(ancestor_entity, descendent_type, variables,
                               facet_ids)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
+  resp['facets'] = get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
@@ -392,16 +392,9 @@ def property_values(nodes, prop, out=True, constraints='', max_pages=1):
     <node_dcid>: [value list]
   }
   """
-  from server.lib.feature_flags import is_feature_enabled
-  from server.lib.feature_flags import USE_V2_API
-
-  if is_feature_enabled(USE_V2_API):
-    resp = dc.v2node_paginated(
-        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
-        max_pages)
-  else:
-    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                            constraints))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+      max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -415,7 +408,8 @@ def property_values(nodes, prop, out=True, constraints='', max_pages=1):
 
 def multiple_property_values(nodes: List[str],
                              props: List[str],
-                             out=True) -> Dict[str, Dict[str, List[str]]]:
+                             out=True,
+                             max_pages=1) -> Dict[str, Dict[str, List[str]]]:
   """
   Fetches specified properties for given nodes using the /v2/node API.
 
@@ -423,6 +417,7 @@ def multiple_property_values(nodes: List[str],
       nodes (List[str]): List of node dcids.
       props (List[str]): Properties to retrieve for each node.
       out (bool): If True, fetches outgoing properties; otherwise, incoming (default: True).
+      max_pages (int | None): The maximum number of pages to fetch. If None, fetches all pages.
 
   Returns:
       dict: A dictionary mapping each node to its properties and their values.
@@ -438,8 +433,8 @@ def multiple_property_values(nodes: List[str],
       # }
   """
   props_expression = f"[{', '.join(props)}]"
-  resp = dc.v2node(nodes, '{}{}'.format('->' if out else '<-',
-                                        props_expression))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}'.format('->' if out else '<-', props_expression), max_pages)
 
   # Parse response into a structured dictionary
   result: Dict[str, Dict[str, List[str]]] = {}
@@ -448,8 +443,12 @@ def multiple_property_values(nodes: List[str],
     resp_node_arcs = resp_data.get(node, {}).get('arcs', {})
     result[node] = {}
     for prop in props:
-      prop_nodes = resp_node_arcs.get(prop, {}).get('nodes', [])
-      result[node][prop] = [p.get('dcid') or p.get('value') for p in prop_nodes]
+      # Strip inline constraints (e.g., '{...}') to get the response key return by mixer
+      base_prop = prop.split('{')[0].strip()
+      prop_nodes = resp_node_arcs.get(base_prop, {}).get('nodes', [])
+      result[node][base_prop] = [
+          p.get('dcid') or p.get('value') for p in prop_nodes
+      ]
   return result
 
 
@@ -470,16 +469,9 @@ def raw_property_values(nodes, prop, out=True, constraints='', max_pages=1):
   }
 
   """
-  from server.lib.feature_flags import is_feature_enabled
-  from server.lib.feature_flags import USE_V2_API
-
-  if is_feature_enabled(USE_V2_API):
-    resp = dc.v2node_paginated(
-        nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
-        max_pages)
-  else:
-    resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                            constraints))
+  resp = dc.v2node_paginated(
+      nodes, '{}{}{}'.format('->' if out else '<-', prop, constraints),
+      max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
@@ -521,7 +513,7 @@ def triples(nodes, out=True, max_pages=1):
   return result
 
 
-def descendent_places(nodes, descendent_type, max_pages=1):
+def descendent_places(nodes, descendent_type, max_pages=None):
   # When the only node being requested is also the descendent_type, fetch all nodes of that type.
   if nodes and len(nodes) == 1 and nodes[0] == descendent_type:
     return property_values(nodes, "typeOf", out=False, max_pages=max_pages)
@@ -533,12 +525,13 @@ def descendent_places(nodes, descendent_type, max_pages=1):
                          max_pages=max_pages)
 
 
-def raw_descendent_places(nodes, descendent_type):
+def raw_descendent_places(nodes, descendent_type, max_pages=None):
   return raw_property_values(
       nodes,
       'containedInPlace+',
       out=False,
-      constraints='{{typeOf:{}}}'.format(descendent_type))
+      constraints='{{typeOf:{}}}'.format(descendent_type),
+      max_pages=max_pages)
 
 
 def resolve_id(nodes, in_prop, out_prop):

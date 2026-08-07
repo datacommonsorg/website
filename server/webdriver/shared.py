@@ -62,6 +62,15 @@ def wait_for_loading(driver, timeout_seconds=LOADING_WAIT_TIME_SEC):
       break
 
 
+def wait_for_invisibility_of_loaders(driver,
+                                     timeout_seconds=LOADING_WAIT_TIME_SEC):
+  """Waits for the invisibility of the screen overlay and spinner elements."""
+  WebDriverWait(driver, timeout_seconds).until(
+      EC.invisibility_of_element_located((By.ID, 'screen')))
+  WebDriverWait(driver, timeout_seconds).until(
+      EC.invisibility_of_element_located((By.ID, 'spinner')))
+
+
 def click_sv_group(driver, svg_name):
   """In the stat var widget, click on the stat var group titled svg_name."""
   xpath_selector = f"//div[contains(@class, 'node-title') and .//*[contains(text(), '{svg_name}')]]"
@@ -277,9 +286,10 @@ def _search_and_select_first_item_in_dropdown(driver,
   item.click()
 
   if expect_chip:
-    # Wait for chip to be present
+    # Wait for chip or place tag to be present
     WebDriverWait(driver, TIMEOUT).until(
-        EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, '.chip, .place-tag')))
 
   # Wait for any loading spinners
   wait_for_loading(driver)

@@ -20,7 +20,12 @@ import { when } from "jest-when";
 
 import { TEST_SURFACE, TEST_SURFACE_HEADER } from "../../shared/constants";
 import { stringifyFn } from "../axios";
-import { getBestUnit, getPoint, getPointWithin } from "../data_fetch_utils";
+import {
+  findMatchingFacets,
+  getBestUnit,
+  getPoint,
+  getPointWithin,
+} from "../data_fetch_utils";
 
 const TEST_UNIT = "unit";
 const CHILD_TYPE = "childType";
@@ -349,4 +354,79 @@ test("getPointWithin", () => {
   ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_1_2_ALIGNED);
   });
+});
+
+test("findMatchingFacets", () => {
+  // Test: Direct importName match.
+  // Situation: Highlight criteria has importName 'StormNOAA_Agg', facet has importName 'StormNOAA_Agg'.
+  // Expectation: Matches and returns the facet ID.
+  const facetsDirect = {
+    facet_1: {
+      importName: "StormNOAA_Agg",
+      provenanceId: "dc/base/StormNOAA_Agg",
+    },
+  };
+  expect(
+    findMatchingFacets(facetsDirect, {
+      facetMetadata: { importName: "StormNOAA_Agg" },
+    })
+  ).toEqual(["facet_1"]);
+
+  // Test: Fallback to provenanceId match.
+  // Situation: Highlight criteria has importName 'StormNOAA_Agg', facet has provenanceId 'dc/base/StormNOAA_Agg' but no importName.
+  // Expectation: Matches and returns the facet ID.
+  const facetsFallback = {
+    facet_2: {
+      provenanceId: "dc/base/StormNOAA_Agg",
+    },
+  };
+  expect(
+    findMatchingFacets(facetsFallback, {
+      facetMetadata: { importName: "StormNOAA_Agg" },
+    })
+  ).toEqual(["facet_2"]);
+
+  // Test: Fallback to provenanceId match when importName is empty string.
+  // Situation: Highlight criteria has importName 'StormNOAA_Agg', facet has provenanceId 'dc/base/StormNOAA_Agg' and empty importName.
+  // Expectation: Matches and returns the facet ID.
+  const facetsFallbackEmptyImport = {
+    facet_2_empty_import: {
+      importName: "",
+      provenanceId: "dc/base/StormNOAA_Agg",
+    },
+  };
+  expect(
+    findMatchingFacets(facetsFallbackEmptyImport, {
+      facetMetadata: { importName: "StormNOAA_Agg" },
+    })
+  ).toEqual(["facet_2_empty_import"]);
+
+  // Test: No match on wrong importName.
+  // Situation: Highlight criteria has importName 'StormNOAA_Agg', facet has importName 'Different_Import'.
+  // Expectation: Does not match (returns empty array).
+  const facetsMismatchImport = {
+    facet_3: {
+      importName: "Different_Import",
+      provenanceId: "dc/base/StormNOAA_Agg",
+    },
+  };
+  expect(
+    findMatchingFacets(facetsMismatchImport, {
+      facetMetadata: { importName: "StormNOAA_Agg" },
+    })
+  ).toEqual([]);
+
+  // Test: No match on wrong provenanceId prefix.
+  // Situation: Highlight criteria has importName 'StormNOAA_Agg', facet has provenanceId 'other/prefix/StormNOAA_Agg' and no importName.
+  // Expectation: Does not match (returns empty array).
+  const facetsMismatchProvenance = {
+    facet_4: {
+      provenanceId: "other/prefix/StormNOAA_Agg",
+    },
+  };
+  expect(
+    findMatchingFacets(facetsMismatchProvenance, {
+      facetMetadata: { importName: "StormNOAA_Agg" },
+    })
+  ).toEqual([]);
 });

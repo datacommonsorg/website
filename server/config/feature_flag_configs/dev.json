@@ -7,7 +7,7 @@
   },
   {
     "name": "biomed_nl",
-    "enabled": true,
+    "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
@@ -16,6 +16,25 @@
     "enabled": true,
     "owner": "nick-next",
     "description": "Enables the data_overview/<place> routes."
+  },
+  {
+    "name": "disable_explore_more_in_nl_search",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow."
+  },
+  {
+    "name": "disable_explore_more_in_nl_search_for_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow specifically when using Spanner."
+  },
+  {
+    "name": "divert_to_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Diverts traffic to Spanner database backend.",
+    "rollout_percentage": 100
   },
   {
     "name": "enable_chart_hyperlink",
@@ -90,28 +109,52 @@
     "description": "Enables the new ranking page UI"
   },
   {
-    "name": "nl_use_v2resolve",
-    "enabled": false,
-    "owner": "calinc",
-    "description": "Enables detect-and-fulfill to use v2resolve for statvar resolution instead of direct NL server calls."
-  },
-  {
     "name": "page_overview_ga",
     "enabled": false,
     "owner": "javiervazquez",
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
-    "name": "use_v2_api",
+    "name": "show_croissant_extended_feature",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables extended Croissant JSON-LD features like distribution and recordSet."
+  },
+  {
+    "name": "show_croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD metadata on dataset pages."
+  },
+  {
+    "name": "use_separate_property_value_calls",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls instead of a single wildcard query to avoid Spanner edge starvation."
+  },
+  {
+    "name": "use_separate_property_value_calls_for_spanner",
     "enabled": true,
-    "owner": "juliawu",
-    "description": "Enables features that rely on the V2 REST APIs"
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls specifically when using Spanner."
   },
   {
     "name": "use_v2_resolve_for_nl_search_vars",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
+  },
+  {
+    "name": "use_config_threshold_for_spanner_embedding",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Gates the use of config SPANNER_EMBEDDING_THRESHOLD. If false, it will use the default threshold."
+  },
+  {
+    "name": "use_new_download_tool",
+    "enabled": true,
+    "owner": "pablonoel",
+    "description": "Feature flag to enable the new download tool UI"
   },
   {
     "name": "vai_for_statvar_search",

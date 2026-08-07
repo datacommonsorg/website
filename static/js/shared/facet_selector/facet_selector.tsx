@@ -43,6 +43,10 @@ import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection
 import { messages } from "../../i18n/i18n_messages";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { findMatchingFacets } from "../../utils/data_fetch_utils";
+import {
+  isFeatureEnabled,
+  USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG,
+} from "../feature_flags/util";
 import { StatMetadata } from "../stat_types";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
 import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
@@ -169,7 +173,7 @@ const buildFinalFacetList = (
   return filteredList;
 };
 
-export function FacetSelector(props: FacetSelectorProps): ReactElement {
+export function FacetSelector(props: FacetSelectorProps): ReactElement | null {
   const {
     variant = "standard",
     mode,
@@ -234,10 +238,15 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
   }
 
   if (!hasAlternativeSources) {
-    if (mode === "download") {
+    if (
+      mode === "download" &&
+      !isFeatureEnabled(USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG)
+    ) {
       return null;
     }
-    return <NoFacetChoicesMessage variant={variant} loading={loading} />;
+    return (
+      <NoFacetChoicesMessage mode={mode} variant={variant} loading={loading} />
+    );
   }
 
   const showInconsistentFacetFlag =
@@ -312,9 +321,13 @@ export function FacetSelector(props: FacetSelectorProps): ReactElement {
 }
 
 function NoFacetChoicesMessage({
+  mode,
   variant,
   loading,
-}: Pick<FacetSelectorProps, "variant" | "loading">): ReactElement | null {
+}: Pick<
+  FacetSelectorProps,
+  "mode" | "variant" | "loading"
+>): ReactElement | null {
   const theme = useTheme();
   return (
     <p
@@ -335,7 +348,9 @@ function NoFacetChoicesMessage({
       `}
     >
       {intl.formatMessage(
-        facetSelectionComponentMessages.NoAlternativeDatasets
+        mode === "download"
+          ? facetSelectionComponentMessages.NoAlternativeDatasetsDowloadTool
+          : facetSelectionComponentMessages.NoAlternativeDatasets
       )}
     </p>
   );

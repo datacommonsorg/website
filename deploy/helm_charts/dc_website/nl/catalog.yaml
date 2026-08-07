@@ -96,7 +96,7 @@ indexes:
   base_multi_entity:
     store_type: MEMORY
     source_path: ../../../../tools/nl/embeddings/input/base_multi_entity
-    embeddings_path: gs://datcom-nl-models/base_multi_entity_2026_05_29_14_47_02/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/base_multi_entity_2026_07_17_09_16_09/embeddings.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
 

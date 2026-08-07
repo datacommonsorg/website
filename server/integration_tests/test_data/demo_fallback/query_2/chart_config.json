@@ -78,32 +78,6 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Murder and Non Negligent Manslaughter Cases"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block"
                     ],
                     "title": "Hate Crime Incidents (${date})",
@@ -141,58 +115,6 @@
             ],
             "denom": "Count_Person",
             "title": "Hate Crime Cases by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "dc/jtf63bh66k41g_multiple_place_bar_block"
-                    ],
-                    "title": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "dc/hxsdmw575en24_multiple_place_bar_block"
-                    ],
-                    "title": "Population (Measured Based on Jurisdiction): Incarcerated (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population (Measured Based on Jurisdiction): Incarcerated"
           }
         ],
         "statVarSpec": {
@@ -220,10 +142,6 @@
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
-          "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block": {
-            "name": "Murder and Non Negligent Manslaughter Cases",
-            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
-          },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
@@ -237,24 +155,16 @@
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Aggravated Assault",
+            "name": "Count of Hate Crime Incidents: Disability Status, Aggravated Assault",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Robbery",
+            "name": "Count of Hate Crime Incidents: Disability Status, Robbery",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime"
           },
           "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block": {
             "name": "Hate Crime Incidents",
             "statVar": "Count_CriminalIncidents_IsHateCrime"
-          },
-          "dc/hxsdmw575en24_multiple_place_bar_block": {
-            "name": "Population (Measured Based on Jurisdiction): Incarcerated",
-            "statVar": "dc/hxsdmw575en24"
-          },
-          "dc/jtf63bh66k41g_multiple_place_bar_block": {
-            "name": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated",
-            "statVar": "dc/jtf63bh66k41g"
           }
         }
       }
@@ -292,19 +202,6 @@
     "childPlaces": {},
     "childTopics": [],
     "exploreMore": {
-      "Count_CriminalActivities_CombinedCrime": {
-        "crimeType": [
-          "Count_CriminalActivities_AggravatedAssault",
-          "Count_CriminalActivities_Burglary",
-          "Count_CriminalActivities_ForcibleRape",
-          "Count_CriminalActivities_LarcenyTheft",
-          "Count_CriminalActivities_MotorVehicleTheft",
-          "Count_CriminalActivities_MurderAndNonNegligentManslaughter",
-          "Count_CriminalActivities_PropertyCrime",
-          "Count_CriminalActivities_Robbery",
-          "Count_CriminalActivities_ViolentCrime"
-        ]
-      },
       "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime": {
         "targetedDisabilityStatus": [
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_MentalDisability",
@@ -326,7 +223,6 @@
         ],
         "crimeType": [
           "Count_CriminalIncidents_AggravatedAssault_IsHateCrime",
-          "Count_CriminalIncidents_AllOtherLarceny_IsHateCrime",
           "Count_CriminalIncidents_Arson_IsHateCrime",
           "Count_CriminalIncidents_Burglary_IsHateCrime",
           "Count_CriminalIncidents_CounterfeitingOrForgery_IsHateCrime",
@@ -343,14 +239,7 @@
           "Count_CriminalIncidents_Intimidation_IsHateCrime",
           "Count_CriminalIncidents_KidnappingOrAbduction_IsHateCrime",
           "Count_CriminalIncidents_MotorVehicleTheft_IsHateCrime",
-          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime",
-          "Count_CriminalIncidents_NotSpecified_IsHateCrime"
-        ]
-      },
-      "dc/jtf63bh66k41g": {
-        "gender": [
-          "dc/q2pgyz35p79l4",
-          "dc/z29z7w7ldnwl4"
+          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime"
         ]
       }
     },

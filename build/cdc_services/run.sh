@@ -61,7 +61,7 @@ fi
 nginx -c /workspace/nginx.conf
 
 MIXER_ARGS=()
-if [[ $ENABLE_MODEL == "true" ]]; then
+if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     # Custom embeddings index built at 
     # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
     export CUSTOM_EMBEDDINGS_INDEX=${CUSTOM_EMBEDDINGS_INDEX:-"user_all_minilm_mem"}
@@ -74,48 +74,30 @@ fi
 if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
     
-    # 1. Dynamically enable use_v2_api feature flag in custom.json for Website
-    # TODO: Delete this once every customer is on DCP, and we can just update custom.json.
-    python3 -c "
-import json
-path = 'server/config/feature_flag_configs/custom.json'
-try:
-    with open(path) as f:
-        data = json.load(f)
-    for flag in data:
-        if flag.get('name') == 'use_v2_api':
-            flag['enabled'] = True
-        if flag.get('name') == 'enable_nl_v2node_fetchall':
-            flag['enabled'] = True
-    with open(path, 'w') as f:
-        json.dump(data, f, indent=2)
-    print('Successfully enabled use_v2_api and enable_nl_v2node_fetchall in custom.json')
-except Exception as e:
-    print(f'Warning: Failed to auto-enable use_v2_api in custom.json: {e}')
-"
-
-    # TODO: Rename this to existing GOOGLE_CLOUD_PROJECT.
-    
-    # Use existing GCP project ID, or fetch it from Metadata Server if empty
-    GCP_PROJECT_ID=${GCP_PROJECT_ID:-$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null)}
+    # 1. Dynamically update feature flags for Website and Mixer
+    python3 update_dcp_flags.py
+    # Resolve Project ID across standard environment variables, or fall back to Compute/Cloud Run Metadata Server
+    GCP_PROJECT_ID=${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-$PROJECT_ID}}
+    if [[ -z "$GCP_PROJECT_ID" ]]; then
+        GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null) || true
+    fi
     
     if [[ -z "$GCP_PROJECT_ID" ]]; then
-        echo "ERROR: Failed to resolve Project ID."
+        echo "ERROR: GCP_PROJECT_ID (or GOOGLE_CLOUD_PROJECT / PROJECT_ID) not specified and could not be resolved from metadata."
         exit 1
     fi
     
     SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
-    
+    SPANNER_SEARCH_CONFIG_PATH=${SPANNER_SEARCH_CONFIG_PATH:-"/workspace/internal/server/spanner/spanner_config/dcp_default.yaml"}
+
     # 2. Enable V2 API for Mixer
-    MIXER_ARGS+=("--spanner_graph_info=$SPANNER_CONFIG_YAML" "--use_spanner_graph=true")
-
-    # 3. Use mixer custom feature flags
-
-    # Currently we only read custom feature flags when we enable resolving with spanner embeddings.
-    # We will eventually always resolve from spanner embeddings.
-    if [[ $RESOLVE_WITH_SPANNER_EMBEDDINGS == "true" ]]; then
-        MIXER_ARGS+=('--feature_flags_path=deploy/featureflags/custom.yaml')
-    fi
+    MIXER_ARGS+=(
+        "--spanner_graph_info=$SPANNER_CONFIG_YAML"
+        "--spanner_search_config_path=$SPANNER_SEARCH_CONFIG_PATH"
+        "--use_spanner_graph=true"
+        "--feature_flags_path=deploy/featureflags/dcp.yaml"
+        "--host_project=$GCP_PROJECT_ID"
+    )
 fi
 
 # Start mixer.
@@ -136,7 +118,7 @@ echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
 # Start NL server.
-if [[ $ENABLE_MODEL == "true" ]]; then
+if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     if [[ $DEBUG == "true" ]]; then
         echo "Starting NL Server in debug mode."
         python3 nl_app.py $NL_SERVER_PORT &

@@ -22,6 +22,8 @@ from flask import redirect
 from flask import request
 from flask_babel import Babel
 import flask_cors
+from google.api_core.exceptions import Forbidden
+from google.api_core.exceptions import GoogleAPICallError
 from google.api_core.exceptions import NotFound
 from google.api_core.exceptions import PermissionDenied
 from google.cloud import secretmanager
@@ -31,7 +33,7 @@ from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
-from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
+from server.lib.feature_flags import assign_spanner_cohort
 from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
 from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
@@ -89,8 +91,11 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       logging.warning(
           f'No key found at {gcp_path} of the configured GCP project.')
       return ''
-    except PermissionDenied as e:
+    except (PermissionDenied, Forbidden) as e:
       logging.warning(e)
+      return ''
+    except GoogleAPICallError as e:
+      logging.warning(f'Error fetching key {gcp_path} from GCP project: {e}')
       return ''
 
   # If key is not found, return an empty string
@@ -193,23 +198,6 @@ def register_routes_datagemma(app, cfg):
   app.register_blueprint(dev_datagemma_html.bp)
 
 
-def register_routes_biomed_nl(app, cfg):
-  # Set the gemini api key
-  app.config['BIOMED_NL_GEMINI_API_KEY'] = _get_api_key(
-      ['BIOMED_NL_GEMINI_API_KEY'], cfg.SECRET_PROJECT,
-      'biomed-nl-gemini-api-key')
-
-  if not app.config['BIOMED_NL_GEMINI_API_KEY']:
-    app.logger.warning('Biomed NL routes not registered due to missing API key')
-    return
-
-  # Install blueprint for experimental biomed NL page
-  from server.routes.experiments.biomed_nl import api as biomed_nl_api
-  app.register_blueprint(biomed_nl_api.bp)
-  from server.routes.experiments.biomed_nl import html as biomed_nl_html
-  app.register_blueprint(biomed_nl_html.bp)
-
-
 def register_routes_common(app):
   # apply blueprints for main app
   from server.routes import static
@@ -245,9 +233,6 @@ def register_routes_common(app):
   # TODO: Extract more out to base_dc
   from server.routes.browser import api as browser_api
   app.register_blueprint(browser_api.bp)
-
-  from server.routes.ranking import api as ranking_api
-  app.register_blueprint(ranking_api.bp)
 
   from server.routes.nl import api as nl_api
   app.register_blueprint(nl_api.bp)
@@ -361,9 +346,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if _enable_datagemma():
     register_routes_datagemma(app, cfg)
 
-  if is_feature_enabled(BIOMED_NL_FEATURE_FLAG, app):
-    register_routes_biomed_nl(app, cfg)
-
   if is_feature_enabled(DATA_OVERVIEW_FEATURE_FLAG, app):
     from server.routes.data_overview import html as data_overview_html
     app.register_blueprint(data_overview_html.bp)
@@ -402,6 +384,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                               cfg.SECRET_PROJECT,
                                               'maps-api-key')
 
+  app.config['DB_COHORT_FORCE_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-spanner-ips')
+  app.config['DB_COHORT_FORCE_NON_SPANNER_IPS'] = _get_api_key(
+      ['DB_COHORT_FORCE_NON_SPANNER_IPS'], cfg.SECRET_PROJECT,
+      'db-cohort-force-non-spanner-ips')
+
   if cfg.LOCAL:
     app.config['LOCAL'] = True
 
@@ -419,7 +408,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Enable the NL model.
   if app.config['ENABLE_MODEL']:
-    libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
+    # Skip backend check if we are resolving embeddings with Spanner, as the
+    # local NL server will not be running.
+    if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') != 'true':
+      libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
 
     # This also requires disaster and event routes.
     app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
@@ -501,6 +493,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Add variables to the per-request global context.
   @app.before_request
   def before_request():
+    # Deterministic cohort assignment for divert_to_spanner
+    g.use_spanner = assign_spanner_cohort(app, request)
+
     # Add the request locale.
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)

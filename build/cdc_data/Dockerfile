@@ -12,17 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-# #### Stage 1: Download base dc model from GCS. ####
-FROM google/cloud-sdk:slim AS model-downloader
-
-# Remove auth check since these are public buckets and we don't have credentials within the container.
-# Copy model.
-RUN gcloud config set auth/disable_credentials True \
-    && mkdir -p /tmp/datcom-nl-models \
-    && gcloud storage cp --recursive gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
-    
-# #### Stage 2: Python runtime. ####
+# #### Python runtime. ####
 FROM python:3.11.14-slim AS runner
 
 ARG ENV
@@ -30,23 +20,9 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Install curl and Google Cloud SDK for auto-triggering workflows
-RUN apt-get update && apt-get install -y --no-install-recommends curl \
-    && curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts \
-    && rm -rf /var/lib/apt/lists/*
-ENV PATH="/root/google-cloud-sdk/bin:${PATH}"
-
-# Copy models
-COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy simple importer requirements.
 COPY import/simple/requirements.txt ./import/simple/requirements.txt
-
-# Copy embeddings builder requirements.
-# Copy nl_requirements.txt and torch_requirements.txt since they are referenced by embeddings requirements.txt
-COPY tools/nl/embeddings/requirements.txt ./tools/nl/embeddings/requirements.txt
-COPY nl_requirements.txt ./nl_requirements.txt
-COPY torch_requirements.txt ./torch_requirements.txt
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
@@ -55,23 +31,9 @@ ARG PIP_NO_CACHE_DIR=1
 RUN python -m venv /workspace/venv
 ENV PATH="/workspace/venv/bin:$PATH"
 
-# TODO: Install requirements for embeddings importer and data importer in separate virtual envs.
-# Install embeddings importer requirements.
+# Install simple importer requirements.
 RUN pip3 install -r ./import/simple/requirements.txt
 
-# Install data requirements.
-# Force install CPU version of torch
-RUN pip3 install -r ./torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
-    && pip3 install -r ./tools/nl/embeddings/requirements.txt
-
-# Copy the embeddings builder module.
-COPY tools/nl/embeddings/. ./tools/nl/embeddings/
-# Copy the shared module.
-COPY shared/. ./shared/
-# Copy nl_server module. Some scripts from here are used by the embeddings builder.
-COPY nl_server/. /workspace/nl_server/
-# Copy yaml files used by the embeddings builder.
-COPY deploy/nl/. /datacommons/nl/
 # Copy simple importer.
 COPY import/simple/ ./import/simple/
 

@@ -45,6 +45,13 @@ export const facetSelectionComponentMessages = defineMessages({
       "Text displayed in place of the facet select button when no stat var has more than " +
       "one facet associated with it, and therefore there is nothing for the user to select. ",
   },
+  NoAlternativeDatasetsDowloadTool: {
+    id: "noAlternativeDatasetsDownloadTool",
+    defaultMessage: "One facet available for this statistical variable",
+    description:
+      "Text displayed in place of the facet select button when no stat var has more than " +
+      "one facet associated with it, and therefore there is nothing for the user to select. ",
+  },
   SelectDatasetForDownloadPromptMessage: {
     id: "selectDatasetForDownloadPromptMessage",
     defaultMessage:

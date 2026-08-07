@@ -69,65 +69,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in Census Tracts of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Family Household Income in Census Tracts of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Family Household Income in Placer County",
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Family Household Income in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Family Household Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Median_Income_Person"
                     ],
                     "title": "Individual Median Income in Census Tracts of Placer County (${date})",
@@ -187,6 +128,65 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Family Household Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_Income_Household"
                     ],
                     "title": "Average Income for Households in Census Tracts of Placer County (${date})",
@@ -239,6 +239,65 @@
               }
             ],
             "title": "Average Income for Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Married Couple Family Household Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income"
           },
           {
             "columns": [
@@ -384,9 +443,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Census Tracts of Placer County (${date})",
+                    "title": "Nonfamily Household Median Income in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -399,15 +458,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Census Tracts of Placer County (${date})",
+                    "title": "Nonfamily Household Median Income in Census Tracts of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Married Couple Family Household Income in Census Tracts of Placer County"
+            "title": "Nonfamily Household Median Income in Census Tracts of Placer County"
           },
           {
             "columns": [
@@ -415,9 +474,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "title": "Nonfamily Household Median Income in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -425,76 +484,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Married Couple Family Household Income in Placer County",
+                    "description": "Nonfamily Household Median Income in Placer County",
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "title": "Nonfamily Household Median Income in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Married Couple Family Household Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Census Tracts of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings in Census Tracts of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Earnings in Placer County",
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings"
+            "title": "Nonfamily Household Median Income"
           },
           {
             "columns": [
@@ -526,6 +526,93 @@
               }
             ],
             "title": "Median Income of White Households in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
+                    ],
+                    "title": "Median Income of White Households in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of White Households in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
+                    ],
+                    "title": "Median Income of White Households in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of White Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income"
           },
           {
             "columns": [
@@ -597,9 +684,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
                     ],
-                    "title": "Nonfamily Household Median Income in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Women (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -612,15 +699,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
                     ],
-                    "title": "Nonfamily Household Median Income in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Women (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Nonfamily Household Median Income in Census Tracts of Placer County"
+            "title": "Median Income of Women (15 Years or Older) With Income in Census Tracts of Placer County"
           },
           {
             "columns": [
@@ -628,9 +715,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
                     ],
-                    "title": "Nonfamily Household Median Income in Placer County",
+                    "title": "Median Income of Women (15 Years or Older) With Income in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -638,17 +725,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Nonfamily Household Median Income in Placer County",
+                    "description": "Median Income of Women (15 Years or Older) With Income in Placer County",
                     "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome"
                     ],
-                    "title": "Nonfamily Household Median Income in Placer County",
+                    "title": "Median Income of Women (15 Years or Older) With Income in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Nonfamily Household Median Income"
+            "title": "Median Income of Women (15 Years or Older) With Income"
           },
           {
             "columns": [
@@ -656,9 +743,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
+                      "Median_Earnings_Person"
                     ],
-                    "title": "Average Income for Nonfamily Households in Census Tracts of Placer County (${date})",
+                    "title": "Individual Median Earnings in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -671,15 +758,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
+                      "Median_Earnings_Person"
                     ],
-                    "title": "Average Income for Nonfamily Households in Census Tracts of Placer County (${date})",
+                    "title": "Individual Median Earnings in Census Tracts of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Nonfamily Households in Census Tracts of Placer County"
+            "title": "Individual Median Earnings in Census Tracts of Placer County"
           },
           {
             "columns": [
@@ -687,9 +774,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
+                      "Median_Earnings_Person"
                     ],
-                    "title": "Average Income for Nonfamily Households in Placer County",
+                    "title": "Individual Median Earnings in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -697,17 +784,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Nonfamily Households in Placer County",
+                    "description": "Individual Median Earnings in Placer County",
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
+                      "Median_Earnings_Person"
                     ],
-                    "title": "Average Income for Nonfamily Households in Placer County",
+                    "title": "Individual Median Earnings in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Nonfamily Households"
+            "title": "Individual Median Earnings"
           },
           {
             "columns": [
@@ -715,9 +802,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
+                    "title": "Average Income for Married Couple Family Households in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Average Income for Married Couple Family Households in Placer County",
+                    "statVarKey": [
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Average Income for Married Couple Family Households in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Married Couple Family Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
+                    ],
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -730,15 +845,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
                     ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Census Tracts of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County"
+            "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Census Tracts of Placer County"
           },
           {
             "columns": [
@@ -746,9 +861,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
                     ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -756,194 +871,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "description": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Placer County",
                     "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
                     ],
-                    "title": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Income of Men (15 Years or Older) With Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income for Households With Food Stamps in the Past Year in Placer County",
-                    "statVarKey": [
-                      "Median_Income_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households With Food Stamps in the Past Year in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households With Food Stamps in the Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income: Less Than High School Graduate in Placer County",
-                    "statVarKey": [
-                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-                    ],
-                    "title": "Median Income: Less Than High School Graduate in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income: Less Than High School Graduate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Income for Households Without Food Stamps in the Past Year in Placer County",
-                    "statVarKey": [
-                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-                    ],
-                    "title": "Median Income for Households Without Food Stamps in the Past Year in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income for Households Without Food Stamps in the Past Year"
+            "title": "Median Income of Person: Years 18 Onwards, Civilian, With Income"
           }
         ],
         "statVarSpec": {
@@ -955,9 +893,9 @@
             "name": "Average Income for Family Households",
             "statVar": "Mean_Income_Household_FamilyHousehold"
           },
-          "Mean_Income_Household_NonfamilyHousehold": {
-            "name": "Average Income for Nonfamily Households",
-            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Average Income for Married Couple Family Households",
+            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
           },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
@@ -1008,7 +946,7 @@
             "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
           },
           "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Median Income of Household: Two or More Races",
+            "name": "Median Income of Household: Two Or More Races",
             "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone": {
@@ -1016,7 +954,7 @@
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
           },
           "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Median Income of Household: White Alone Not Hispanic or Latino",
+            "name": "Median Income of Household: White Alone Not Hispanic Or Latino",
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
@@ -1031,25 +969,21 @@
             "name": "Nonfamily Household Median Income",
             "statVar": "Median_Income_Household_NonfamilyHousehold"
           },
-          "Median_Income_Household_WithFoodStampsInThePast12Months": {
-            "name": "Median Income for Households With Food Stamps in the Past Year",
-            "statVar": "Median_Income_Household_WithFoodStampsInThePast12Months"
-          },
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months": {
-            "name": "Median Income for Households Without Food Stamps in the Past Year",
-            "statVar": "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
+          },
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+            "name": "Median Income of Women (15 Years or Older) With Income",
+            "statVar": "Median_Income_Person_15OrMoreYears_Female_WithIncome"
           },
           "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
             "name": "Median Income of Men (15 Years or Older) With Income",
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
-          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
-            "name": "Median Income: Less Than High School Graduate",
-            "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+          "Median_Income_Person_18OrMoreYears_Civilian_WithIncome": {
+            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           }
         }
       }
@@ -1474,10 +1408,6 @@
         ]
       },
       "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ],
         "householderRace": [
           "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
           "Median_Income_Household_HouseholderRaceAsianAlone",
@@ -1488,6 +1418,12 @@
           "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
           "Median_Income_Household_HouseholderRaceWhiteAlone",
           "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Median_Income_Person": {
+        "gender": [
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
         ]
       }
     },
@@ -1522,7 +1458,7 @@
         "dcid": "geoId/36005",
         "name": "Bronx",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {
@@ -1662,7 +1598,7 @@
         "dcid": "geoId/36081",
         "name": "Queens",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {

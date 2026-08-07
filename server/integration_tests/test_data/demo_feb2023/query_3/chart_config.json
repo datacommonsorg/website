@@ -112,7 +112,7 @@
         "dcid": "geoId/36005",
         "name": "Bronx",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {
@@ -252,7 +252,7 @@
         "dcid": "geoId/36081",
         "name": "Queens",
         "types": [
-          "County"
+          "AdministrativeArea"
         ]
       },
       {

@@ -42,10 +42,35 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
+    "name": "show_croissant_json_ld",
+    "enabled": false,
+    "owner": "dtulsyan",
+    "description": "Enables Croissant JSON-LD metadata on dataset pages."
+  },
+  {
     "name": "data_overview",
     "enabled": false,
     "owner": "nick-next",
     "description": "Enables the data_overview/<place> routes."
+  },
+  {
+    "name": "disable_explore_more_in_nl_search",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow."
+  },
+  {
+    "name": "disable_explore_more_in_nl_search_for_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow specifically when using Spanner."
+  },
+  {
+    "name": "divert_to_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Diverts traffic to Spanner database backend.",
+    "rollout_percentage": 100
   },
   {
     "name": "metadata_modal",
@@ -60,14 +85,20 @@
     "description": "Enables the new ranking page UI"
   },
   {
-    "name": "use_v2_api",
+    "name": "use_separate_property_value_calls",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls instead of a single wildcard query to avoid Spanner edge starvation."
+  },
+  {
+    "name": "use_separate_property_value_calls_for_spanner",
     "enabled": true,
-    "owner": "juliawu",
-    "description": "Enables features that rely on the V2 REST APIs"
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls specifically when using Spanner."
   },
   {
     "name": "use_v2_resolve_for_nl_search_vars",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
   },
