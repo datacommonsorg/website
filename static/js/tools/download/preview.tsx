@@ -44,15 +44,19 @@ const SECTION_ID = "preview-section";
 const DOWNLOADED_RESET_DELAY_MS = 1500;
 // Columns hidden from the preview table (still included in the downloaded
 // CSV).
+// Column names below must match TIDY_CSV_HEADER_ROW in
+// server/routes/shared_api/csv.py — keep both in sync when renaming.
 const PREVIEW_HIDDEN_COLUMNS = new Set<string>([
+  "Unit DCID",
   "Import name",
   "Observation period",
   "Scaling factor",
-  "Unit display name",
 ]);
 // Column header labels overridden in the preview table (downloaded CSV keeps
 // the original label).
-const PREVIEW_COLUMN_LABELS: Record<string, string> = {};
+const PREVIEW_COLUMN_LABELS: Record<string, string> = {
+  "Unit display name": "Unit",
+};
 
 const iconWrapper = css`
   position: relative;

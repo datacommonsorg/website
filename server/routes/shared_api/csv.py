@@ -32,6 +32,8 @@ import server.services.datacommons as dc
 
 # Header row for the tidy (one row per entity/variable/date) csv format used
 # by the new download tool.
+# Column names below must match PREVIEW_HIDDEN_COLUMNS / PREVIEW_COLUMN_LABELS
+# in static/js/tools/download/preview.tsx — keep both in sync when renaming.
 TIDY_CSV_HEADER_ROW = [
     "Entity DCID",
     "Entity name",
@@ -40,13 +42,13 @@ TIDY_CSV_HEADER_ROW = [
     "Variable name",
     "Date",
     "Value",
-    "Unit",
+    "Unit display name",
+    "Unit DCID",
     "Measurement method",
     "Provenance URL",
     "Import name",
     "Observation period",
     "Scaling factor",
-    "Unit display name",
 ]
 
 
@@ -334,13 +336,13 @@ def get_point_within_tidy_csv_rows(parent_place,
           variable_props.get(sv, {}).get("name", ""),
           observation.get("date", ""),
           observation.get("value", ""),
+          facet.get("unitDisplayName", ""),
           facet.get("unit", ""),
           facet.get("measurementMethod", ""),
           facet.get("provenanceUrl", ""),
           facet.get("importName", ""),
           facet.get("observationPeriod", ""),
           facet.get("scalingFactor", ""),
-          facet.get("unitDisplayName", ""),
       ])
   return result
 
@@ -417,13 +419,13 @@ def get_series_tidy_csv_rows(series_response,
             var_name,
             date,
             observation.get("value", ""),
+            facet.get("unitDisplayName", ""),
             facet.get("unit", ""),
             facet.get("measurementMethod", ""),
             facet.get("provenanceUrl", ""),
             facet.get("importName", ""),
             facet.get("observationPeriod", ""),
             facet.get("scalingFactor", ""),
-            facet.get("unitDisplayName", ""),
         ])
   return result
 
