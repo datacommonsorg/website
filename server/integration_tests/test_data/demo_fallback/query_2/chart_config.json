@@ -115,6 +115,32 @@
             ],
             "denom": "Count_Person",
             "title": "Hate Crime Cases by Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Murder and Non Negligent Manslaughter Cases"
           }
         ],
         "statVarSpec": {
@@ -141,6 +167,10 @@
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
+          "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block": {
+            "name": "Murder and Non Negligent Manslaughter Cases",
+            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
           },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
@@ -239,7 +269,8 @@
           "Count_CriminalIncidents_Intimidation_IsHateCrime",
           "Count_CriminalIncidents_KidnappingOrAbduction_IsHateCrime",
           "Count_CriminalIncidents_MotorVehicleTheft_IsHateCrime",
-          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime"
+          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime",
+          "Count_CriminalIncidents_PornographyOrObsceneMaterial_IsHateCrime"
         ]
       }
     },

@@ -615,9 +615,333 @@
               }
             ],
             "title": "Infant Mortality Rate by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Interval in Months Since Last Live Birth in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_2018"
+                    ],
+                    "title": "Men's Median Age in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_2018"
+                    ],
+                    "title": "Men's Median Age in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_2018_2550419630908544036"
+                    ],
+                    "title": "Men's Median Age in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Men's Median Age in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_2018"
+                    ],
+                    "title": "Men's Median Age in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_10249593405338339941"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "The median age of people in a population.",
+            "title": "Median Age of Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_2018_2550419630908544036"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "The median age of people in a population.",
+            "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_2018_5660793366985337682"
+                    ],
+                    "title": "Crude Birth Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Crude Birth Rate in United States",
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Crude Birth Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2018"
+                    ],
+                    "title": "Women's Median Age in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2018"
+                    ],
+                    "title": "Women's Median Age in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2018_2550419630908544036"
+                    ],
+                    "title": "Women's Median Age in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2018"
+                    ],
+                    "title": "Women's Median Age in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_2018": {
+            "date": "2018",
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_2018_5660793366985337682": {
+            "date": "2018",
+            "facetId": "5660793366985337682",
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
           "Count_Death_2018": {
             "date": "2018",
             "name": "Number of Deaths",
@@ -643,6 +967,17 @@
             "date": "2018",
             "name": "Deaths Due To Abnormal Symptoms, Signs And Clinical And Laboratory Findings",
             "statVar": "Count_Death_AbnormalNotClassfied"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018": {
+            "date": "2018",
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_10249593405338339941": {
+            "date": "2018",
+            "facetId": "10249593405338339941",
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
           "Count_Death_AsAFractionOfCount_Person_2018": {
             "date": "2018",
@@ -828,6 +1163,44 @@
             "facetId": "9841531598146992798",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
+          },
+          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018": {
+            "date": "2018",
+            "name": "Average interval in months since last live birth",
+            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+          },
+          "Median_Age_Person_2018": {
+            "date": "2018",
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_2018_2550419630908544036": {
+            "date": "2018",
+            "facetId": "2550419630908544036",
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_Female_2018": {
+            "date": "2018",
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Female_2018_2550419630908544036": {
+            "date": "2018",
+            "facetId": "2550419630908544036",
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Male_2018": {
+            "date": "2018",
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
+          },
+          "Median_Age_Person_Male_2018_2550419630908544036": {
+            "date": "2018",
+            "facetId": "2550419630908544036",
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_13678236933566447286": {
             "date": "2018",
@@ -1282,6 +1655,12 @@
         "gender": [
           "LifeExpectancy_Person_Female",
           "LifeExpectancy_Person_Male"
+        ]
+      },
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
         ]
       }
     },
