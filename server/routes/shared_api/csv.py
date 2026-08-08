@@ -42,7 +42,7 @@ TIDY_CSV_HEADER_ROW = [
     "Variable name",
     "Date",
     "Value",
-    "Unit display name",
+    "Unit",
     "Unit DCID",
     "Measurement method",
     "Provenance URL",

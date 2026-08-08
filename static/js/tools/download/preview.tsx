@@ -52,11 +52,6 @@ const PREVIEW_HIDDEN_COLUMNS = new Set<string>([
   "Observation period",
   "Scaling factor",
 ]);
-// Column header labels overridden in the preview table (downloaded CSV keeps
-// the original label).
-const PREVIEW_COLUMN_LABELS: Record<string, string> = {
-  "Unit display name": "Unit",
-};
 
 const iconWrapper = css`
   position: relative;
@@ -124,10 +119,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     .map((_heading, idx) => idx)
     .filter((idx) => !PREVIEW_HIDDEN_COLUMNS.has(allColumnsHeader[idx]))
     .filter((idx) => allColumnsDataRows.some((row) => !_.isEmpty(row[idx])));
-  const header = visibleColumnIndices.map(
-    (idx) =>
-      PREVIEW_COLUMN_LABELS[allColumnsHeader[idx]] || allColumnsHeader[idx]
-  );
+  const header = visibleColumnIndices.map((idx) => allColumnsHeader[idx]);
   const dataRows = allColumnsDataRows.map((row) =>
     visibleColumnIndices.map((idx) => row[idx])
   );
