@@ -24,16 +24,9 @@ from web_app import app
 CSV_HEADERS = "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
 
 TIDY_CSV_HEADERS = (
-    "Entity DCID,Entity properties isoCode,Entity properties name,"
-    "Variable DCID,Variable observation date,"
-    "Variable observation metadata importName,"
-    "Variable observation metadata measurementMethod,"
-    "Variable observation metadata observationPeriod,"
-    "Variable observation metadata provenanceUrl,"
-    "Variable observation metadata scalingFactor,"
-    "Variable observation metadata unit,"
-    "Variable observation metadata unitDisplayName,"
-    "Variable observation value,Variable properties name\r\n")
+    "Entity DCID,Entity name,ISO code,Variable DCID,Variable name,Date,Value,Unit,"
+    "Measurement method,Provenance URL,Import name,Observation period,"
+    "Scaling factor,Unit display name\r\n")
 
 
 def with_request_context(headers=None):
@@ -278,11 +271,11 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
     assert resp.status_code == 200
     assert resp.data.decode("utf-8") == (
         TIDY_CSV_HEADERS +
-        "geoId/01,US-AL,Alabama,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,3120960,Population\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,3120960,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
         +
-        "geoId/02,,,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,625216,Population\r\n"
+        "geoId/02,,,Count_Person,Population,2015,625216,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
         +
-        "geoId/06,US-CA,California,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,9931715,Population\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2015,9931715,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
     )
 
   @mock.patch('server.routes.shared_api.csv.fetch.multiple_property_values')
@@ -319,17 +312,17 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
     assert resp.status_code == 200
     assert resp.data.decode("utf-8") == (
         TIDY_CSV_HEADERS +
-        "geoId/01,US-AL,Alabama,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,1030475,Population\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,1030475,testUnit,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
         +
-        "geoId/01,US-AL,Alabama,Count_Person,2017,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,1052482,Population\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2017,1052482,testUnit,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
         +
-        "geoId/01,US-AL,Alabama,Count_Person,2018,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,1060665,Population\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2018,1060665,testUnit,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
         +
-        "geoId/06,US-CA,California,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,2866939,Population\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2015,2866939,testUnit,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
         +
-        "geoId/06,US-CA,California,Count_Person,2016,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,2917563,Population\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2016,2917563,testUnit,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
         +
-        "geoId/06,US-CA,California,Count_Person,2017,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,testUnit,,2969905,Population\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2017,2969905,testUnit,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
     )
 
   @mock.patch('server.routes.shared_api.csv.fetch.multiple_property_values')
@@ -361,5 +354,5 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
     assert resp.status_code == 200
     assert resp.data.decode("utf-8") == (
         TIDY_CSV_HEADERS +
-        "geoId/01,US-AL,Alabama,Count_Person,2015,CensusPEP,CensusPEPSurvey,,https://www.census.gov/programs-surveys/popest.html,,,,3120960,Population\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,3120960,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,,\r\n"
     )
