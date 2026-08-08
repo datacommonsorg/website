@@ -1,5 +1,7 @@
 # NodeJs Query Differ
 
+> **Note:** Automated execution of the NodeJs Query test in GKE periodic cron jobs is currently disabled by default (`enableNodejs: false` under `cronTesting` in Helm charts) pending Node.js server deprecation. You can re-enable automated runs per environment or run tests manually as described below.
+
 NodeJs Query test runs as cron jobs on GKE. Each run produces a set of json
 files. These results are saved in GCS bucket
 [gs://datcom-website-periodic-testing](https://pantheon.corp.google.com/storage/browser/datcom-website-periodic-testing)
