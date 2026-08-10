@@ -11,6 +11,97 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_multiple_place_bar_block"
+                    ],
+                    "title": "Household Median Income (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Individual Median Income (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Number of People Earning Up to $9,999 (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Earning Up to $9,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15
                     },
                     "comparisonPlaces": [
@@ -53,6 +144,66 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
+                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Number of People Earning $25,000 and $34,999 (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Earning $25,000 and $34,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Number of People Earning $35,000 and $49,999 (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Earning $35,000 and $49,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
                       "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block"
                     ],
                     "title": "Number of People Earning Between $50,000 and $64,999 (${date}) - Top 7 of 12",
@@ -71,8 +222,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "geoId/06037",
@@ -84,15 +234,16 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
-                      "dc/m07n4w3ywjzs3_multiple_place_bar_block"
+                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block"
                     ],
-                    "title": "Median Incomes in Construction (${date}) - Top 7 of 12",
+                    "title": "Number of People Earning Between $65,000 and $74,999 (${date}) - Top 7 of 12",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Construction"
+            "denom": "Count_Person",
+            "title": "Number of People Earning Between $65,000 and $74,999"
           },
           {
             "columns": [
@@ -145,165 +296,15 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
-                      "dc/7jqw95h5wbelb_multiple_place_bar_block"
+                      "dc/015d58s9xh8kd_multiple_place_bar_block"
                     ],
-                    "title": "Median Incomes in Public Administration (${date}) - Top 7 of 12",
+                    "title": "Median Incomes in Real Estate and Rental and Leasing (${date}) - Top 7 of 12",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Public Administration"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "dc/xj2nk2bg60fg_multiple_place_bar_block"
-                    ],
-                    "title": "Median Incomes in Information Industry (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Incomes in Information Industry"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block"
-                    ],
-                    "title": "Number of People Earning $25,000 and $34,999 (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Number of People Earning $25,000 and $34,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold_multiple_place_bar_block"
-                    ],
-                    "title": "Nonfamily Household Median Income (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Nonfamily Household Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "Median_Income_Person_multiple_place_bar_block"
-                    ],
-                    "title": "Individual Median Income (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block"
-                    ],
-                    "title": "Number of People Earning $35,000 and $49,999 (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Number of People Earning $35,000 and $49,999"
+            "title": "Median Incomes in Real Estate and Rental and Leasing"
           },
           {
             "columns": [
@@ -355,6 +356,66 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
+                      "dc/3ex11eg2q9hp6_multiple_place_bar_block"
+                    ],
+                    "title": "Median Income of Manufacturing Workers (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Manufacturing Workers"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "dc/4z9xy6wn8xns1_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Administrative and Support and Waste Management Services (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Administrative and Support and Waste Management Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
                       "dc/5f3gkej4mrq24_multiple_place_bar_block"
                     ],
                     "title": "Median Incomes in Retail Trade (${date}) - Top 7 of 12",
@@ -385,75 +446,15 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
-                      "Median_Income_Household_multiple_place_bar_block"
+                      "dc/7jqw95h5wbelb_multiple_place_bar_block"
                     ],
-                    "title": "Household Median Income (${date}) - Top 7 of 12",
+                    "title": "Median Incomes in Public Administration (${date}) - Top 7 of 12",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "dc/015d58s9xh8kd_multiple_place_bar_block"
-                    ],
-                    "title": "Median Incomes in Real Estate and Rental and Leasing (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Incomes in Real Estate and Rental and Leasing"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "dc/3ex11eg2q9hp6_multiple_place_bar_block"
-                    ],
-                    "title": "Median Income of Manufacturing Workers (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income of Manufacturing Workers"
+            "title": "Median Incomes in Public Administration"
           },
           {
             "columns": [
@@ -505,6 +506,127 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
+                      "dc/b4dj4sbgqybh7_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Mining, Quarrying, and Oil and Gas Extraction (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Mining, Quarrying, and Oil and Gas Extraction"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "dc/jefhcs9qxc971_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Educational Services (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Median Incomes in Educational Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "dc/knhvyxwsd3y6h_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Other Services, Except Public Administration (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Other Services, Except Public Administration"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
+                      "dc/m07n4w3ywjzs3_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Construction (${date}) - Top 7 of 12",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Construction"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06037",
+                      "geoId/06073",
+                      "geoId/06059",
+                      "geoId/06065",
+                      "geoId/06071",
+                      "geoId/06067",
+                      "geoId/06085"
+                    ],
+                    "statVarKey": [
                       "dc/t6m99mqmqxjbc_multiple_place_bar_block"
                     ],
                     "title": "Median Incomes in Management of Companies and Enterprises (${date}) - Top 7 of 12",
@@ -523,36 +645,6 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block"
-                    ],
-                    "title": "Number of People Earning Between $65,000 and $74,999 (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Number of People Earning Between $65,000 and $74,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -566,76 +658,15 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
-                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block"
+                      "dc/xj2nk2bg60fg_multiple_place_bar_block"
                     ],
-                    "title": "Number of People Earning Up to $9,999 (${date}) - Top 7 of 12",
+                    "title": "Median Incomes in Information Industry (${date}) - Top 7 of 12",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Number of People Earning Up to $9,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold_multiple_place_bar_block"
-                    ],
-                    "title": "Median Married Couple Family Household Income (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Married Couple Family Household Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "dc/b4dj4sbgqybh7_multiple_place_bar_block"
-                    ],
-                    "title": "Median Incomes in Mining, Quarrying, and Oil and Gas Extraction (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Incomes in Mining, Quarrying, and Oil and Gas Extraction"
+            "title": "Median Incomes in Information Industry"
           },
           {
             "columns": [
@@ -749,15 +780,15 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
-                      "dc/4z9xy6wn8xns1_multiple_place_bar_block"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold_multiple_place_bar_block"
                     ],
-                    "title": "Median Incomes in Administrative and Support and Waste Management Services (${date}) - Top 7 of 12",
+                    "title": "Median Married Couple Family Household Income (${date}) - Top 7 of 12",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Administrative and Support and Waste Management Services"
+            "title": "Median Married Couple Family Household Income"
           },
           {
             "columns": [
@@ -779,46 +810,15 @@
                       "geoId/06085"
                     ],
                     "statVarKey": [
-                      "dc/jefhcs9qxc971_multiple_place_bar_block"
+                      "Median_Income_Household_NonfamilyHousehold_multiple_place_bar_block"
                     ],
-                    "title": "Median Incomes in Educational Services (${date}) - Top 7 of 12",
+                    "title": "Nonfamily Household Median Income (${date}) - Top 7 of 12",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Median Incomes in Educational Services"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06037",
-                      "geoId/06073",
-                      "geoId/06059",
-                      "geoId/06065",
-                      "geoId/06071",
-                      "geoId/06067",
-                      "geoId/06085"
-                    ],
-                    "statVarKey": [
-                      "dc/knhvyxwsd3y6h_multiple_place_bar_block"
-                    ],
-                    "title": "Median Incomes in Other Services, Except Public Administration (${date}) - Top 7 of 12",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Incomes in Other Services, Except Public Administration"
+            "title": "Nonfamily Household Median Income"
           }
         ],
         "statVarSpec": {
