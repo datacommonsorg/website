@@ -248,9 +248,9 @@ class NLTestDemo(NLTest):
             # This should be a place comparison for a single more prominent SV.
             "Poverty vs. Obesity in California and Florida",
             # Filter query with top cities.
-            "California cities with hispanic population over 10000",
+            "California cities with hispanic population over 20000",
             # Filter query with another SV.
-            "Prevalence of Asthma in California cities with hispanic population over 10000",
+            "Prevalence of Asthma in California cities with hispanic population over 20000",
         ],
         # Use heuristic because LLM fallback is not very deterministic.
         detector='heuristic',
