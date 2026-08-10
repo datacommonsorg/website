@@ -49,4 +49,5 @@ data:
   nodejsApiRoot: {{ .Values.cronTesting.nodejsApiRoot | quote }}
   enableSanity: {{ .Values.cronTesting.enableSanity | quote }}
   enableAdversarial: {{ .Values.cronTesting.enableAdversarial | quote }}
+  enableNodejs: {{ .Values.cronTesting.enableNodejs | quote }}
 {{- end }}

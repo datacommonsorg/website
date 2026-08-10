@@ -147,6 +147,8 @@ cronTesting:
   enableSanity: true
   # whether or not adversarial tests are enabled
   enableAdversarial: true
+  # whether or not nodejs query tests are enabled
+  enableNodejs: false
   # node pool to use
   nodePool:
   # schedule to run the cron tests on
