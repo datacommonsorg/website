@@ -26,7 +26,7 @@ CSV_HEADERS = "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:C
 TIDY_CSV_HEADERS = (
     "Entity DCID,Entity name,ISO code,Variable DCID,Variable name,Date,Value,Unit,"
     "Measurement method,Provenance URL,Import name,Observation period,"
-    "Scaling factor,Unit display name\r\n")
+    "Scaling factor,Unit DCID\r\n")
 
 
 def with_request_context(headers=None):
