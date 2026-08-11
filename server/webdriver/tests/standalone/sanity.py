@@ -262,8 +262,9 @@ class WebsiteSanityTest:
     # session preserves React's in-memory state and conversational context history,
     # causing subsequent standalone queries to be misrouted as multi-turn follow-ups.
     self.driver.get("about:blank")
-    self.driver.get(page.url)
+
     start = datetime.now()
+    self.driver.get(page.url)
 
     page.title = self.driver.title if page.title is None else page.title
 
