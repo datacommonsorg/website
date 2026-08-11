@@ -42,13 +42,13 @@ TIDY_CSV_HEADER_ROW = [
     "Variable name",
     "Date",
     "Value",
+    "Unit DCID",
     "Unit",
     "Measurement method",
     "Provenance URL",
     "Import name",
     "Observation period",
     "Scaling factor",
-    "Unit DCID",
 ]
 
 
@@ -336,13 +336,13 @@ def get_point_within_tidy_csv_rows(parent_place,
           variable_props.get(sv, {}).get("name", ""),
           observation.get("date", ""),
           observation.get("value", ""),
+          facet.get("unit", ""),
           facet.get("unitDisplayName", ""),
           facet.get("measurementMethod", ""),
           facet.get("provenanceUrl", ""),
           facet.get("importName", ""),
           facet.get("observationPeriod", ""),
           facet.get("scalingFactor", ""),
-          facet.get("unit", ""),
       ])
   return result
 
@@ -419,13 +419,13 @@ def get_series_tidy_csv_rows(series_response,
             var_name,
             date,
             observation.get("value", ""),
+            facet.get("unit", ""),
             facet.get("unitDisplayName", ""),
             facet.get("measurementMethod", ""),
             facet.get("provenanceUrl", ""),
             facet.get("importName", ""),
             facet.get("observationPeriod", ""),
             facet.get("scalingFactor", ""),
-            facet.get("unit", ""),
         ])
   return result
 
