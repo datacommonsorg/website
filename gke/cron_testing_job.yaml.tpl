@@ -59,4 +59,9 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: enableAdversarial
+            - name: ENABLE_NODEJS
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: enableNodejs
           restartPolicy: Never
