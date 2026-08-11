@@ -113,5 +113,6 @@ cronTesting:
   enabled: true
   webApiRoot: "http://website-service:8080"
   nodejsApiRoot: "http://website-nodejs-service:8080"
+  enableNodejs: false # temporarily turned down pending nodejs server deprecation
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically
