@@ -602,10 +602,6 @@
             "url": "q=What+is+the+median+age+in+Texas"
           },
           {
-            "title": "Which state in the US has most people of Caribbean origin?",
-            "url": "q=Which+state+in+the+US+has+most+people+of+Caribbean+origin"
-          },
-          {
             "title": "What are the demographics of divorced people in California?",
             "url": "q=What+are+the+demographics+of+divorced+people+in+California"
           },
@@ -912,7 +908,9 @@
       "meta": {
         "dataPointCount": 0,
         "variableCount": 3786,
-        "sources": ["United Nations (UN)"]
+        "sources": [
+          "United Nations (UN)"
+        ]
       }
     }
   }

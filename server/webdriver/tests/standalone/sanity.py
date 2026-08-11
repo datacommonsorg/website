@@ -257,9 +257,13 @@ class WebsiteSanityTest:
 
   def explore(self, page: WebPage, recurse: bool = False):
     logging.info("Running: %s", page.url)
-    start = datetime.now()
-
+    # Navigate to about:blank first to force a fresh page load for each query.
+    # Without this, navigating between /explore#... hash URLs in the same browser
+    # session preserves React's in-memory state and conversational context history,
+    # causing subsequent standalone queries to be misrouted as multi-turn follow-ups.
+    self.driver.get("about:blank")
     self.driver.get(page.url)
+    start = datetime.now()
 
     page.title = self.driver.title if page.title is None else page.title
 
