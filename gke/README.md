@@ -129,7 +129,7 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Add a cron testing job
 
-Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job.
+Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job. Specific test suites (Sanity, Adversarial, Node.js Query) can be controlled via `enableSanity`, `enableAdversarial`, and `enableNodejs` under `cronTesting` in the environment Helm charts. Note that `enableNodejs` defaults to `false` pending Node.js server deprecation.
 
 To set up cron testing for a cluster, run:
 
