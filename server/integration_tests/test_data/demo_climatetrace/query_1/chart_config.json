@@ -498,6 +498,291 @@
             ],
             "denom": "Count_Person",
             "title": "Nitrous Oxide Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
+                    ],
+                    "title": "Annual Amount of Emissions: Wastewater Treatment and Discharge, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
+                    ],
+                    "title": "Annual Amount of Emissions: Wastewater Treatment and Discharge, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Wastewater Treatment and Discharge, Greenhouse Gas in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SolidWasteDisposal"
+                    ],
+                    "title": "Annual Amount of Emissions: Solid Waste Disposal, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SolidWasteDisposal"
+                    ],
+                    "title": "Annual Amount of Emissions: Solid Waste Disposal, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Solid Waste Disposal, Greenhouse Gas in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+                    ],
+                    "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+                    ],
+                    "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World",
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_MaritimeShipping"
+                    ],
+                    "title": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_MaritimeShipping"
+                    ],
+                    "title": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OpenBurningWaste"
+                    ],
+                    "title": "Annual Amount of Emissions: Open Burning Waste, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OpenBurningWaste"
+                    ],
+                    "title": "Annual Amount of Emissions: Open Burning Waste, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Open Burning Waste, Greenhouse Gas in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas in the World"
           }
         ],
         "statVarSpec": {
@@ -512,6 +797,10 @@
           "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Agriculture",
             "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
+          },
+          "Annual_Emissions_CarbonDioxide_ElectricityGeneration": {
+            "name": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
           },
           "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Fossil Fuel Operations",
@@ -556,6 +845,34 @@
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration": {
             "name": "Greenhouse Gas Emissions from Electricity Generation",
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+          },
+          "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant": {
+            "name": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
+          },
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles": {
+            "name": "Annual Amount of Emissions: Fuel Combustion For Road Vehicles, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
+          },
+          "Annual_Emissions_GreenhouseGas_MaritimeShipping": {
+            "name": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_MaritimeShipping"
+          },
+          "Annual_Emissions_GreenhouseGas_OilAndGasProduction": {
+            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+          },
+          "Annual_Emissions_GreenhouseGas_OpenBurningWaste": {
+            "name": "Annual Amount of Emissions: Open Burning Waste, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OpenBurningWaste"
+          },
+          "Annual_Emissions_GreenhouseGas_SolidWasteDisposal": {
+            "name": "Annual Amount of Emissions: Solid Waste Disposal, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_SolidWasteDisposal"
+          },
+          "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge": {
+            "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
           },
           "Annual_Emissions_Methane_Agriculture": {
             "name": "Annual Amount of Emissions: Agriculture, Methane",

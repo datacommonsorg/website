@@ -2,12 +2,12 @@
   "inputFiles": {
     "average_annual_wage.csv": {
       "entityType": "Country",
-      "provenance": "OECD average annual wages",
+      "provenance": "OECDAverageAnnualWages",
       "format": "variablePerRow"
     },
     "gender_wage_gap.csv": {
       "entityType": "Country",
-      "provenance": "OECD gender wage gap",
+      "provenance": "OECDGenderWageGap",
       "format": "variablePerRow"
     }
   },
@@ -16,8 +16,8 @@
     "oecd.org": {
       "url": "https://oecd.org",
       "provenances": {
-        "OECD average annual wages": "https://www.oecd.org/en/data/indicators/average-annual-wages.html",
-        "OECD gender wage gap": "https://www.oecd.org/en/data/indicators/gender-wage-gap.html"
+        "OECDAverageAnnualWages": "https://www.oecd.org/en/data/indicators/average-annual-wages.html",
+        "OECDGenderWageGap": "https://www.oecd.org/en/data/indicators/gender-wage-gap.html"
       }
     }
   }

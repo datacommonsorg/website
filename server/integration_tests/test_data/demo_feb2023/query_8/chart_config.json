@@ -121,6 +121,25 @@
               }
             ],
             "title": "Percent of Adults With Blood Pressure Who Take Medication"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_H2O_STRESS",
+                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322",
+                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_BTFXE",
+                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_GTT"
+                    ],
+                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources (%) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources (%)"
           }
         ],
         "statVarSpec": {
@@ -133,6 +152,22 @@
             "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
+          },
+          "sdg/ER_H2O_STRESS": {
+            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources",
+            "statVar": "sdg/ER_H2O_STRESS"
+          },
+          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322": {
+            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources [Agriculture]",
+            "statVar": "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
+          },
+          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_BTFXE": {
+            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources [Industries]",
+            "statVar": "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_BTFXE"
+          },
+          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_GTT": {
+            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources [Services (G to T)]",
+            "statVar": "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_GTT"
           }
         }
       }
@@ -520,7 +555,15 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/ER_H2O_STRESS": {
+        "sdg_activity": [
+          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322",
+          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_BTFXE",
+          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_GTT"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/BloodPressure",
