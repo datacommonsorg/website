@@ -1,86 +1,86 @@
-Node: dcid:cms/AlaskaHospitals
+Node: dcid:AlaskaHospitals
 typeOf: dcid:StatVarGroup
 name: "Alaska Hospitals"
 specializationOf: dcid:dc/g/Root
 
-Node: dcid:cms/Patient
+Node: dcid:Patient
 typeOf: schema:Class
 name: "Patient"
 subclassOf: schema:Person
 
-Node: dcid:cms/ReturnPatient
+Node: dcid:ReturnPatient
 typeOf: schema:Class
 name: "Return patient"
-subclassOf: dcid:cms/Patient
+subclassOf: dcid:Patient
 
-Node: dcid:cms/medicalCondition
+Node: dcid:medicalCondition
 typeOf: schema:Property
 name: "Medical condition"
-domainIncludes: dcid:cms/Patient,dcid:cms/ReturnPatient
+domainIncludes: dcid:Patient,dcid:ReturnPatient
 rangeIncludes: dcs:MedicalConditionIncidentTypeEnum
 
-Node: dcid:cms/Pneumonia
+Node: dcid:Pneumonia
 typeOf: dcs:MedicalConditionIncidentTypeEnum
 name: "Pneumonia"
 
-Node: dcid:cms/HeartFailure
+Node: dcid:HeartFailure
 typeOf: dcs:MedicalConditionIncidentTypeEnum
 name: "Heart failure"
 
-Node: dcid:cms/HeartAttack
+Node: dcid:HeartAttack
 typeOf: dcs:MedicalConditionIncidentTypeEnum
 name: "Heart attack"
 
-Node: dcid:cms/Count_Patients_HeartAttack
+Node: dcid:Count_Patients_HeartAttack
 typeOf: dcs:StatisticalVariable
 name: "Count of heart attack patients"
 description: "Per-hospital total number of heart attack patients"
-populationType: dcid:cms/Patient
-measuredProperty: dcid:cms/medicalCondition
+populationType: dcid:Patient
+measuredProperty: dcid:medicalCondition
 statType: dcid:count
-memberOf: dcid:cms/AlaskaHospitals
+memberOf: dcid:AlaskaHospitals
 
-Node: dcid:cms/Count_ReturnPatients_HeartAttack
+Node: dcid:Count_ReturnPatients_HeartAttack
 typeOf: dcs:StatisticalVariable
 name: "Count of heart attack patients returned"
 description: "Per-hospital number of heart attack patients returned unplanned in a 30-day period"
-populationType: dcid:cms/ReturnPatient
-measuredProperty: dcid:cms/medicalCondition
+populationType: dcid:ReturnPatient
+measuredProperty: dcid:medicalCondition
 statType: dcid:count
-memberOf: dcid:cms/AlaskaHospitals
+memberOf: dcid:AlaskaHospitals
 
-Node: dcid:cms/Count_Patients_HeartFailure
+Node: dcid:Count_Patients_HeartFailure
 typeOf: dcs:StatisticalVariable
 name: "Count of heart failure patients"
 description: "Per-hospital total number of heart failure patients"
-populationType: dcid:cms/Patient
-measuredProperty: dcid:cms/medicalCondition
+populationType: dcid:Patient
+measuredProperty: dcid:medicalCondition
 statType: dcid:count
-memberOf: dcid:cms/AlaskaHospitals
+memberOf: dcid:AlaskaHospitals
 
-Node: dcid:cms/Count_ReturnPatients_HeartFailure
+Node: dcid:Count_ReturnPatients_HeartFailure
 typeOf: dcs:StatisticalVariable
 name: "Count of heart failure patients returned"
 description: "Per-hospital number of heart failure patients returned unplanned in a 30-day period"
-populationType: dcid:cms/ReturnPatient
-measuredProperty: dcid:cms/medicalCondition
+populationType: dcid:ReturnPatient
+measuredProperty: dcid:medicalCondition
 statType: dcid:count
-memberOf: dcid:cms/AlaskaHospitals
+memberOf: dcid:AlaskaHospitals
 
-Node: dcid:cms/Count_Patients_Pneumonia
+Node: dcid:Count_Patients_Pneumonia
 typeOf: dcs:StatisticalVariable
 name: "Count of pneumonia patients"
 description: "Per-hospital number of pneumonia patients"
-populationType: dcid:cms/Patient
-measuredProperty: dcid:cms/medicalCondition
+populationType: dcid:Patient
+measuredProperty: dcid:medicalCondition
 statType: dcid:count
-memberOf: dcid:cms/AlaskaHospitals
+memberOf: dcid:AlaskaHospitals
 
-Node: dcid:cms/Count_ReturnPatients_Pneumonia
+Node: dcid:Count_ReturnPatients_Pneumonia
 typeOf: dcs:StatisticalVariable
 name: "Count of pneumonia patients returned"
 description: "Per-hospital number of pneumonia patients returned unplanned in a 30-day period"
-populationType: dcid:cms/ReturnPatient
+populationType: dcid:ReturnPatient
 measuredProperty: dcid:cma/medicalCondition
 statType: dcid:count
-memberOf: dcid:cms/AlaskaHospitals
+memberOf: dcid:AlaskaHospitals
