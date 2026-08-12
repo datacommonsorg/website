@@ -118,6 +118,92 @@
               }
             ],
             "title": "Floods in Administrative Area 1 Places of Brazil"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Max_Rainfall"
+                    ],
+                    "title": "Max Rainfall of Place in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Max Rainfall of Place in Brazil",
+                    "statVarKey": [
+                      "Max_Rainfall"
+                    ],
+                    "title": "Max Rainfall of Place in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Max near-surface rainfall.",
+            "title": "Max Rainfall of Place"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Min_Rainfall"
+                    ],
+                    "title": "Min Rainfall of Place in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Min Rainfall of Place in Brazil",
+                    "statVarKey": [
+                      "Min_Rainfall"
+                    ],
+                    "title": "Min Rainfall of Place in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Min near-surface rainfall.",
+            "title": "Min Rainfall of Place"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Droughts in Brazil",
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Droughts"
           }
         ],
         "statVarSpec": {
@@ -125,9 +211,21 @@
             "name": "Area of Flood Event",
             "statVar": "Area_FloodEvent"
           },
+          "Count_DroughtEvent": {
+            "name": "Droughts",
+            "statVar": "Count_DroughtEvent"
+          },
           "Count_FloodEvent": {
             "name": "Floods",
             "statVar": "Count_FloodEvent"
+          },
+          "Max_Rainfall": {
+            "name": "Max Rainfall of Place",
+            "statVar": "Max_Rainfall"
+          },
+          "Min_Rainfall": {
+            "name": "Min Rainfall of Place",
+            "statVar": "Min_Rainfall"
           }
         }
       }
