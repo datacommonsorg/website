@@ -215,7 +215,7 @@ class NLTestDemo(NLTest):
         [
             # We have no stats on this, so we should return SF overview.
             # Two places should be detected but San Francisco is the main place.
-            'Number of Shakespeare fans in San Francisco and Chicago.',
+            'Total number of Shakespeare fans in San Francisco and Chicago.',
             # We should support comparison across multiple places in a single query.
             # Since there are multiple places we shouldn't need the trigger word "compare".
             'Crime in California and Florida',
