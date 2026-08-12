@@ -30,8 +30,8 @@ echo "==========================================================================
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
 echo "====================================================================================="
 
-# Run nodejs query tests if NODEJS_API_ROOT is set.
-if [[ $NODEJS_API_ROOT != "" ]]; then
+# Run nodejs query tests if ENABLE_NODEJS is "true" and NODEJS_API_ROOT is set.
+if [[ $ENABLE_NODEJS == "true" && $NODEJS_API_ROOT != "" ]]; then
   echo "====================================================================================="
   echo "Starting nodejs tests against domain: $NODEJS_API_ROOT"
   echo "====================================================================================="
@@ -48,7 +48,7 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
   rm -rf ./output/*
 else
   echo "====================================================================================="
-  echo "Skipping nodejs tests because missing NODEJS_API_ROOT"
+  echo "Skipping nodejs tests (ENABLE_NODEJS is '${ENABLE_NODEJS}' and NODEJS_API_ROOT is '${NODEJS_API_ROOT}')"
   echo "====================================================================================="
 fi
 
