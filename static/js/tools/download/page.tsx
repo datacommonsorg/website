@@ -267,28 +267,7 @@ function App(): ReactElement {
               />
             </div>
 
-            <div
-              css={css`
-                display: flex;
-                flex-direction: column;
-                padding: ${theme.spacing.lg}px;
-                padding-top: 0;
-                gap: ${theme.spacing.md}px;
-              `}
-            >
-              {Object.keys(selectedOptions.selectedStatVars).map((sv) => (
-                <h3
-                  key={sv}
-                  id={sv}
-                  css={css`
-                    margin-bottom: 0;
-                  `}
-                >
-                  {selectedOptions.selectedStatVars[sv].title || sv}
-                </h3>
-              ))}
-              <Preview selectedOptions={selectedOptions} isDisabled={false} />
-            </div>
+            <Preview selectedOptions={selectedOptions} isDisabled={false} />
           </div>
         )}
 
