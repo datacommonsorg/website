@@ -145,7 +145,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if end_date:
     sv_place_latest_date = utils.get_predicted_latest_date(
         existing_svs, state.date_range)
-  selected_svs = list(existing_svs.keys())
+  selected_svs = list(
+      dict.fromkeys(sv for sv in selected_svs if sv in existing_svs))
   if not selected_svs:
     state.uttr.counters.err('filter-with-dual-vars_selectedexistencefailed',
                             selected_svs)
