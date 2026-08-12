@@ -43,12 +43,6 @@
     "description": "Adds the ability to deep link to bar charts, line charts, ranking and map charts"
   },
   {
-    "name": "enable_gemini_3_flash",
-    "enabled": true,
-    "owner": "shixiao",
-    "description": "Enables Gemini 3 Flash for NL detection."
-  },
-  {
     "name": "enable_gemini_3_5_flash",
     "enabled": false,
     "owner": "shixiao",
@@ -146,7 +140,7 @@
   },
   {
     "name": "use_config_threshold_for_spanner_embedding",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Gates the use of config SPANNER_EMBEDDING_THRESHOLD. If false, it will use the default threshold."
   },

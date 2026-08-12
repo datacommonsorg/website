@@ -292,9 +292,42 @@
               }
             ],
             "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_FOOD_WST"
+                    ],
+                    "title": "Food Waste in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Food Waste in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_FOOD_WST"
+                    ],
+                    "title": "Food Waste in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: eurostat; food waste index report / WESR; food waste index report 2021; food waste index report 2024; FoodWise mauritius; forest regulation, semarnat secretariat of the environment and natural resources; ministerio de econom\u00eda; ministry of agriculture, forestry and fisheries and ministry of environment; palestinian central bureau of statistics; u.S. Environmental protection agency.",
+            "title": "Food Waste"
           }
         ],
         "statVarSpec": {
+          "sdg/AG_FOOD_WST": {
+            "name": "Food waste",
+            "statVar": "sdg/AG_FOOD_WST"
+          },
           "sdg/AG_PRD_FIESMS": {
             "name": "Moderate or Severe Food Insecurity",
             "statVar": "sdg/AG_PRD_FIESMS"
@@ -397,7 +430,15 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/AG_FOOD_WST": {
+        "sdg_foodWasteSector": [
+          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_HHS",
+          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_OOHC",
+          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_RTL"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Malnutrition",
