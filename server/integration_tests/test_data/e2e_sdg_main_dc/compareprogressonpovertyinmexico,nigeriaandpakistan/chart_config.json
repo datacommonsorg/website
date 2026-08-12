@@ -36,9 +36,487 @@
               }
             ],
             "title": "Proportion of Population Below International Poverty Line (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_multiple_place_bar_block"
+                    ],
+                    "title": "Employed Population Below International Poverty Line (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living Below the National Poverty Line (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_multiple_place_bar_block",
+                      "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_multiple_place_bar_block"
+                    ],
+                    "title": "Mothers With Newborns Receiving Maternity Cash Benefit (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI).",
+            "title": "Mothers With Newborns Receiving Maternity Cash Benefit"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_multiple_place_bar_block"
+                    ],
+                    "title": "Children/Households Receiving Family Cash Benefit (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_WKINJRY_multiple_place_bar_block",
+                      "sdg/SI_COV_WKINJRY.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_COV_WKINJRY.SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_multiple_place_bar_block"
+                    ],
+                    "title": "Population Covered by Social Assistance Programs (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Using Basic Drinking Water Services, by Location (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Using Basic Sanitation Services, by Location (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_LGL_LNDDOC_multiple_place_bar_block",
+                      "sdg/SP_LGL_LNDDOC.SEX--F_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_MMHN_multiple_place_bar_block"
+                    ],
+                    "title": "Deaths and Missing Persons From Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "infoMessage": "Data for \"Nigeria\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Deaths and Missing Persons From Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_MTMP_multiple_place_bar_block"
+                    ],
+                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Deaths and Missing Persons From Disasters Per 100k Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_MORT_multiple_place_bar_block"
+                    ],
+                    "title": "Deaths From Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Deaths From Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_DAFF_multiple_place_bar_block"
+                    ],
+                    "title": "Population Affected by Disasters Per 100k Capita (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Population Affected by Disasters Per 100k Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/DC_ODA_POVLG_multiple_place_bar_block"
+                    ],
+                    "title": "Grants for Poverty Reduction (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
+            "title": "Grants for Poverty Reduction"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_XPD_ESED_multiple_place_bar_block"
+                    ],
+                    "title": "Government Spending on Essential Services and Education (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022;...132 more chars",
+            "infoMessage": "Data for \"Nigeria\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Government Spending on Essential Services and Education"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_multiple_place_bar_block"
+                    ],
+                    "title": "Gini Index of Economic Activity of a Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
+            "title": "Gini Index of Economic Activity of a Population"
           }
         ],
         "statVarSpec": {
+          "GiniIndex_EconomicActivity_multiple_place_bar_block": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
+          "sdg/DC_ODA_POVLG_multiple_place_bar_block": {
+            "name": "Grants for Poverty Reduction",
+            "statVar": "sdg/DC_ODA_POVLG"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Average Deprivation for Impoverished Rural Population",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Average Deprivation for Impoverished Urban Population",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--U"
+          },
+          "sdg/SD_MDP_ANDI_multiple_place_bar_block": {
+            "name": "Average Deprivations for Population in Poverty",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_XPD_ESED_multiple_place_bar_block": {
+            "name": "Government Spending on Essential Services and Education",
+            "statVar": "sdg/SD_XPD_ESED"
+          },
+          "sdg/SI_COV_CHLD_multiple_place_bar_block": {
+            "name": "Children/Households Receiving Family Cash Benefit",
+            "statVar": "sdg/SI_COV_CHLD"
+          },
+          "sdg/SI_COV_MATNL.SEX--F_multiple_place_bar_block": {
+            "name": "Mothers With Newborns Receiving Maternity Cash Benefit",
+            "statVar": "sdg/SI_COV_MATNL.SEX--F"
+          },
+          "sdg/SI_COV_POOR_multiple_place_bar_block": {
+            "name": "Population Covered by Social Assistance Programs",
+            "statVar": "sdg/SI_COV_POOR"
+          },
+          "sdg/SI_COV_WKINJRY.SEX--F_multiple_place_bar_block": {
+            "name": "Female Employed Population Covered for Work Injury",
+            "statVar": "sdg/SI_COV_WKINJRY.SEX--F"
+          },
+          "sdg/SI_COV_WKINJRY.SEX--M_multiple_place_bar_block": {
+            "name": "Male Employed Population Covered for Work Injury",
+            "statVar": "sdg/SI_COV_WKINJRY.SEX--M"
+          },
+          "sdg/SI_COV_WKINJRY_multiple_place_bar_block": {
+            "name": "Employed Population Covered for Work Injury",
+            "statVar": "sdg/SI_COV_WKINJRY"
+          },
           "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
             "name": "Population Age Under 15 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
@@ -70,6 +548,58 @@
           "sdg/SI_POV_DAY1_multiple_place_bar_block": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
+          },
+          "sdg/SI_POV_NAHC_multiple_place_bar_block": {
+            "name": "Employed Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Rural Population Using Basic Drinking Water Services",
+            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
+          },
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Urban Population Using Basic Drinking Water Services",
+            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+          },
+          "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block": {
+            "name": "Population Using Basic Drinking Water Services",
+            "statVar": "sdg/SP_ACS_BSRVH2O"
+          },
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Rural Population Using Basic Sanitation Services",
+            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
+          },
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Urban Population Using Basic Sanitation Services",
+            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+          },
+          "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block": {
+            "name": "Population Using Basic Sanitation Services",
+            "statVar": "sdg/SP_ACS_BSRVSAN"
+          },
+          "sdg/SP_LGL_LNDDOC.SEX--F_multiple_place_bar_block": {
+            "name": "Female Adults With Legally Recognized Land Rights",
+            "statVar": "sdg/SP_LGL_LNDDOC.SEX--F"
+          },
+          "sdg/SP_LGL_LNDDOC_multiple_place_bar_block": {
+            "name": "Adults With Legally Recognized Land Rights",
+            "statVar": "sdg/SP_LGL_LNDDOC"
+          },
+          "sdg/VC_DSR_DAFF_multiple_place_bar_block": {
+            "name": "Population Affected by Disasters Per 100k Capita",
+            "statVar": "sdg/VC_DSR_DAFF"
+          },
+          "sdg/VC_DSR_MMHN_multiple_place_bar_block": {
+            "name": "Deaths and Missing Persons From Disasters",
+            "statVar": "sdg/VC_DSR_MMHN"
+          },
+          "sdg/VC_DSR_MORT_multiple_place_bar_block": {
+            "name": "Deaths From Disasters",
+            "statVar": "sdg/VC_DSR_MORT"
+          },
+          "sdg/VC_DSR_MTMP_multiple_place_bar_block": {
+            "name": "Deaths and Missing Persons From Disasters Per 100k Capita",
+            "statVar": "sdg/VC_DSR_MTMP"
           }
         }
       }
@@ -120,6 +650,18 @@
       }
     ],
     "exploreMore": {
+      "sdg/SD_MDP_ANDI": {
+        "sdg_urbanisation": [
+          "sdg/SD_MDP_ANDI.URBANISATION--R",
+          "sdg/SD_MDP_ANDI.URBANISATION--U"
+        ]
+      },
+      "sdg/SI_COV_WKINJRY": {
+        "sdg_sex": [
+          "sdg/SI_COV_WKINJRY.SEX--F",
+          "sdg/SI_COV_WKINJRY.SEX--M"
+        ]
+      },
       "sdg/SI_POV_DAY1": {
         "age": [
           "sdg/SI_POV_DAY1.AGE--Y0T14",
@@ -133,6 +675,18 @@
         "sdg_urbanisation": [
           "sdg/SI_POV_DAY1.URBANISATION--R",
           "sdg/SI_POV_DAY1.URBANISATION--U"
+        ]
+      },
+      "sdg/SP_ACS_BSRVH2O": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+        ]
+      },
+      "sdg/SP_ACS_BSRVSAN": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
         ]
       }
     },

@@ -355,9 +355,133 @@
             ],
             "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
             "title": "Maternal Mortality Ratio"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Crude Birth Rate in China",
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Fertility Rate in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Fertility Rate in China",
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Fertility Rate"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
@@ -369,6 +493,10 @@
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
             "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "FertilityRate_Person_Female": {
+            "name": "Fertility Rate",
+            "statVar": "FertilityRate_Person_Female"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
