@@ -1,0 +1,86 @@
+Node: dcid:cms/AlaskaHospitals
+typeOf: dcid:StatVarGroup
+name: "Alaska Hospitals"
+specializationOf: dcid:dc/g/Root
+
+Node: dcid:cms/Patient
+typeOf: schema:Class
+name: "Patient"
+subclassOf: schema:Person
+
+Node: dcid:cms/ReturnPatient
+typeOf: schema:Class
+name: "Return patient"
+subclassOf: dcid:cms/Patient
+
+Node: dcid:cms/medicalCondition
+typeOf: schema:Property
+name: "Medical condition"
+domainIncludes: dcid:cms/Patient,dcid:cms/ReturnPatient
+rangeIncludes: dcs:MedicalConditionIncidentTypeEnum
+
+Node: dcid:cms/Pneumonia
+typeOf: dcs:MedicalConditionIncidentTypeEnum
+name: "Pneumonia"
+
+Node: dcid:cms/HeartFailure
+typeOf: dcs:MedicalConditionIncidentTypeEnum
+name: "Heart failure"
+
+Node: dcid:cms/HeartAttack
+typeOf: dcs:MedicalConditionIncidentTypeEnum
+name: "Heart attack"
+
+Node: dcid:cms/Count_Patients_HeartAttack
+typeOf: dcs:StatisticalVariable
+name: "Count of heart attack patients"
+description: "Per-hospital total number of heart attack patients"
+populationType: dcid:cms/Patient
+measuredProperty: dcid:cms/medicalCondition
+statType: dcid:count
+memberOf: dcid:cms/AlaskaHospitals
+
+Node: dcid:cms/Count_ReturnPatients_HeartAttack
+typeOf: dcs:StatisticalVariable
+name: "Count of heart attack patients returned"
+description: "Per-hospital number of heart attack patients returned unplanned in a 30-day period"
+populationType: dcid:cms/ReturnPatient
+measuredProperty: dcid:cms/medicalCondition
+statType: dcid:count
+memberOf: dcid:cms/AlaskaHospitals
+
+Node: dcid:cms/Count_Patients_HeartFailure
+typeOf: dcs:StatisticalVariable
+name: "Count of heart failure patients"
+description: "Per-hospital total number of heart failure patients"
+populationType: dcid:cms/Patient
+measuredProperty: dcid:cms/medicalCondition
+statType: dcid:count
+memberOf: dcid:cms/AlaskaHospitals
+
+Node: dcid:cms/Count_ReturnPatients_HeartFailure
+typeOf: dcs:StatisticalVariable
+name: "Count of heart failure patients returned"
+description: "Per-hospital number of heart failure patients returned unplanned in a 30-day period"
+populationType: dcid:cms/ReturnPatient
+measuredProperty: dcid:cms/medicalCondition
+statType: dcid:count
+memberOf: dcid:cms/AlaskaHospitals
+
+Node: dcid:cms/Count_Patients_Pneumonia
+typeOf: dcs:StatisticalVariable
+name: "Count of pneumonia patients"
+description: "Per-hospital number of pneumonia patients"
+populationType: dcid:cms/Patient
+measuredProperty: dcid:cms/medicalCondition
+statType: dcid:count
+memberOf: dcid:cms/AlaskaHospitals
+
+Node: dcid:cms/Count_ReturnPatients_Pneumonia
+typeOf: dcs:StatisticalVariable
+name: "Count of pneumonia patients returned"
+description: "Per-hospital number of pneumonia patients returned unplanned in a 30-day period"
+populationType: dcid:cms/ReturnPatient
+measuredProperty: dcid:cma/medicalCondition
+statType: dcid:count
+memberOf: dcid:cms/AlaskaHospitals
