@@ -32,21 +32,23 @@ import server.services.datacommons as dc
 
 # Header row for the tidy (one row per entity/variable/date) csv format used
 # by the new download tool.
+# Column names below must match PREVIEW_HIDDEN_COLUMNS in
+# static/js/tools/download/preview.tsx — keep both in sync when renaming.
 TIDY_CSV_HEADER_ROW = [
     "Entity DCID",
-    "Entity properties isoCode",
-    "Entity properties name",
+    "Entity name",
+    "ISO code",
     "Variable DCID",
-    "Variable observation date",
-    "Variable observation metadata importName",
-    "Variable observation metadata measurementMethod",
-    "Variable observation metadata observationPeriod",
-    "Variable observation metadata provenanceUrl",
-    "Variable observation metadata scalingFactor",
-    "Variable observation metadata unit",
-    "Variable observation metadata unitDisplayName",
-    "Variable observation value",
-    "Variable properties name",
+    "Variable name",
+    "Date",
+    "Value",
+    "Unit DCID",
+    "Unit",
+    "Measurement method",
+    "Provenance URL",
+    "Import name",
+    "Observation period",
+    "Scaling factor",
 ]
 
 
@@ -328,19 +330,19 @@ def get_point_within_tidy_csv_rows(parent_place,
       facet = facets.get(data.get("facetId", ""), {})
       result.append([
           place,
-          entity.get("isoCode", ""),
           entity.get("name", ""),
+          entity.get("isoCode", ""),
           sv,
+          variable_props.get(sv, {}).get("name", ""),
           observation.get("date", ""),
-          facet.get("importName", ""),
-          facet.get("measurementMethod", ""),
-          facet.get("observationPeriod", ""),
-          facet.get("provenanceUrl", ""),
-          facet.get("scalingFactor", ""),
+          observation.get("value", ""),
           facet.get("unit", ""),
           facet.get("unitDisplayName", ""),
-          observation.get("value", ""),
-          variable_props.get(sv, {}).get("name", ""),
+          facet.get("measurementMethod", ""),
+          facet.get("provenanceUrl", ""),
+          facet.get("importName", ""),
+          facet.get("observationPeriod", ""),
+          facet.get("scalingFactor", ""),
       ])
   return result
 
@@ -411,19 +413,19 @@ def get_series_tidy_csv_rows(series_response,
           return result
         result.append([
             place,
-            entity.get("isoCode", ""),
             entity.get("name", ""),
+            entity.get("isoCode", ""),
             sv,
+            var_name,
             date,
-            facet.get("importName", ""),
-            facet.get("measurementMethod", ""),
-            facet.get("observationPeriod", ""),
-            facet.get("provenanceUrl", ""),
-            facet.get("scalingFactor", ""),
+            observation.get("value", ""),
             facet.get("unit", ""),
             facet.get("unitDisplayName", ""),
-            observation.get("value", ""),
-            var_name,
+            facet.get("measurementMethod", ""),
+            facet.get("provenanceUrl", ""),
+            facet.get("importName", ""),
+            facet.get("observationPeriod", ""),
+            facet.get("scalingFactor", ""),
         ])
   return result
 
