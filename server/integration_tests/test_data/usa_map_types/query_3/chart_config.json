@@ -270,6 +270,304 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Years 16 Onwards, With Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_WithIncome"
+                    ],
+                    "title": "Population: Years 15 Onwards, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_WithIncome"
+                    ],
+                    "title": "Population: Years 15 Onwards, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 15 Onwards, With Income in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_WithIncome"
+                    ],
+                    "title": "Population: Years 15 Onwards, With Income in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 15 Onwards, With Income in Washington",
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_WithIncome"
+                    ],
+                    "title": "Population: Years 15 Onwards, With Income in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 15 Onwards, With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Not Currently Enrolled in School in Washington",
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Not Currently Enrolled in School"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotInLaborForce"
+                    ],
+                    "title": "Population: Years 16 Onwards, BLS Not in Labor Force in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 16 Onwards, BLS Not in Labor Force in Washington",
+                    "statVarKey": [
+                      "Count_Person_NotInLaborForce"
+                    ],
+                    "title": "Population: Years 16 Onwards, BLS Not in Labor Force in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, BLS Not in Labor Force"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_DidNotWork"
+                    ],
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_DidNotWork"
+                    ],
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 to 64, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_DidNotWork"
+                    ],
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 16 to 64, Male, Did Not Work in Washington",
+                    "statVarKey": [
+                      "Count_Person_Male_DidNotWork"
+                    ],
+                    "title": "Population: Years 16 to 64, Male, Did Not Work in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 to 64, Male, Did Not Work"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow"
+                    ],
+                    "title": "Insured Unemployment Rate in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Insured Unemployment Rate in Washington",
+                    "statVarKey": [
+                      "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow"
+                    ],
+                    "title": "Insured Unemployment Rate in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Insured Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Workers in All Industries in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Workers in All Industries in Washington",
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Workers in All Industries in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Workers in All Industries"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Civilian_InLaborForce"
+                    ],
+                    "title": "Population: Years 16 Onwards, Civilian, BLS in Labor Force in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Years 16 Onwards, Civilian, BLS in Labor Force in Washington",
+                    "statVarKey": [
+                      "Count_Person_Civilian_InLaborForce"
+                    ],
+                    "title": "Population: Years 16 Onwards, Civilian, BLS in Labor Force in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Years 16 Onwards, Civilian, BLS in Labor Force"
           }
         ],
         "statVarSpec": {
@@ -277,9 +575,17 @@
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
+          "Count_Person_15OrMoreYears_WithIncome": {
+            "name": "Population: Years 15 Onwards, With Income",
+            "statVar": "Count_Person_15OrMoreYears_WithIncome"
+          },
           "Count_Person_16OrMoreYears_WithEarnings": {
             "name": "Population: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
+          },
+          "Count_Person_Civilian_InLaborForce": {
+            "name": "Population: Years 16 Onwards, Civilian, BLS In Labor Force",
+            "statVar": "Count_Person_Civilian_InLaborForce"
           },
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
@@ -289,6 +595,18 @@
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
           },
+          "Count_Person_Male_DidNotWork": {
+            "name": "Population: Years 16 To 64, Male, Did Not Work",
+            "statVar": "Count_Person_Male_DidNotWork"
+          },
+          "Count_Person_NotEnrolledInSchool": {
+            "name": "Population Not Currently Enrolled in School",
+            "statVar": "Count_Person_NotEnrolledInSchool"
+          },
+          "Count_Person_NotInLaborForce": {
+            "name": "Population: Years 16 Onwards, BLS Not In Labor Force",
+            "statVar": "Count_Person_NotInLaborForce"
+          },
           "Count_Person_Unemployed": {
             "name": "Population: BLS Unemployed",
             "statVar": "Count_Person_Unemployed"
@@ -296,6 +614,14 @@
           "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
             "name": "State Unemployment Insurance Claims",
             "statVar": "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+          },
+          "Count_Worker_NAICSTotalAllIndustries": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
+          "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow": {
+            "name": "Insured Unemployment Rate",
+            "statVar": "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow"
           },
           "UnemploymentRate_Person": {
             "name": "Unemployment Rate",
@@ -350,7 +676,17 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Worker_NAICSTotalAllIndustries": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_GovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/UnemploymentRate",
