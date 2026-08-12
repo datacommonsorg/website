@@ -131,6 +131,141 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government",
+                      "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+                    ],
+                    "title": "Education Expenditure Compared to Total Spending in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Education Expenditure Compared to Total Spending"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Healthcare Expenditure Per Person in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Healthcare Expenditure Per Person in Spain",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Healthcare Expenditure Per Person in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Current expenditures on health per capita in current u.S. Dollars. Health expenditure includes both goods and services.",
+            "title": "Healthcare Expenditure Per Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_Remittance_InwardRemittance"
+                    ],
+                    "title": "Inward Remittances in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Inward Remittances in Spain",
+                    "statVarKey": [
+                      "Amount_Remittance_InwardRemittance"
+                    ],
+                    "title": "Inward Remittances in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Personal remittances comprise personal transfers and compensation of employees. Personal transfers consist of all current transfers in cash or in kind made or received by resident households to or from nonresident households. Personal transfers thus include all current transfers between resident and nonresident individuals. Compensation of employees refers to the income of border, seasonal, and other short-term workers who are employed in an economy where they are not resident and of residents employed by nonresident entities. Data are the sum of two items defined in the sixth edition of the IMF's balance of payments manual: personal transfers and compensation of employees. Data are in current u.S. Dollars. World bank staff estimates based on IMF balance of payments data.",
+            "title": "Inward Remittances"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+                    ],
+                    "title": "Inward Remittances as a Percentage of Nominal Gross Domestic Production in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Inward Remittances as a Percentage of Nominal Gross Domestic Production in Spain",
+                    "statVarKey": [
+                      "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+                    ],
+                    "title": "Inward Remittances as a Percentage of Nominal Gross Domestic Production in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Personal remittances comprise personal transfers and compensation of employees. Personal transfers consist of all current transfers in cash or in kind made or received by resident households to or from nonresident households. Personal transfers thus include all current transfers between resident and nonresident individuals. Compensation of employees refers to the income of border, seasonal, and other short-term workers who are employed in an economy where they are not resident and of residents employed by nonresident entities. Data are the sum of two items defined in the sixth edition of the IMF's balance of payments manual: personal transfers and compensation of employees. World bank staff estimates based on IMF balance of payments data, and world bank and OECD GDP estimates.",
+            "title": "Inward Remittances as a Percentage of Nominal Gross Domestic Production"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_Remittance_OutwardRemittance"
+                    ],
+                    "title": "Outward Remittances in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Outward Remittances in Spain",
+                    "statVarKey": [
+                      "Amount_Remittance_OutwardRemittance"
+                    ],
+                    "title": "Outward Remittances in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Personal remittances comprise personal transfers and compensation of employees. Personal transfers consist of all current transfers in cash or in kind made or received by resident households to or from nonresident households. Personal transfers thus include all current transfers between resident and nonresident individuals. Compensation of employees refers to the income of border, seasonal, and other short-term workers who are employed in an economy where they are not resident and of residents employed by nonresident entities. Data are the sum of two items defined in the sixth edition of the IMF's balance of payments manual: personal transfers and compensation of employees. Data are in current u.S. Dollars. World bank staff estimates based on IMF balance of payments data, and world bank and OECD GDP estimates.",
+            "title": "Outward Remittances"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
                     "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain (${date})",
@@ -192,41 +327,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
                     ],
-                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
-                    ],
-                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Employed in Eurostat Nuts 3 Places of Spain"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
-                    ],
-                    "title": "Population: Employed in Spain",
+                    "title": "Gross National Income Based on Purchasing Power Parity in Spain",
                     "type": "LINE"
                   }
                 ]
@@ -234,18 +337,46 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Employed in Spain",
+                    "description": "Gross National Income Based on Purchasing Power Parity in Spain",
                     "statVarKey": [
-                      "dc/nm9hcklgg5zb3"
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
                     ],
-                    "title": "Population: Employed in Spain",
+                    "title": "Gross National Income Based on Purchasing Power Parity in Spain",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Employed"
+            "title": "Gross National Income Based on Purchasing Power Parity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                    ],
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                    ],
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
           },
           {
             "columns": [
@@ -274,41 +405,24 @@
               }
             ],
             "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/EN_MAT_DOMCMPG"
-                    ],
-                    "title": "Domestic Material Consumption Per Unit of GDP in Spain",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Domestic Material Consumption Per Unit of GDP in Spain",
-                    "statVarKey": [
-                      "sdg/EN_MAT_DOMCMPG"
-                    ],
-                    "title": "Domestic Material Consumption Per Unit of GDP in Spain",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: eurostat; WESR / global material flows database.",
-            "title": "Domestic Material Consumption Per Unit of GDP"
           }
         ],
         "statVarSpec": {
           "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange": {
             "name": "Adjusted GDP Growth Rate (Quarter-over-Quarter)",
             "statVar": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+          },
+          "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+            "name": "% Govt Expenditure on Education",
+            "statVar": "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
+          },
+          "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+            "name": "% Nominal GDP Spent on Education",
+            "statVar": "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
+          "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person": {
+            "name": "Healthcare Expenditure Per Person",
+            "statVar": "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
@@ -322,17 +436,29 @@
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
+          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+            "name": "Gross National Income Based on Purchasing Power Parity",
+            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
+          },
+          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+            "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
+            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+          },
+          "Amount_Remittance_InwardRemittance": {
+            "name": "Inward Remittances",
+            "statVar": "Amount_Remittance_InwardRemittance"
+          },
+          "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+            "name": "Inward Remittances as a Percentage of Nominal Gross Domestic Production",
+            "statVar": "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
+          "Amount_Remittance_OutwardRemittance": {
+            "name": "Outward Remittances",
+            "statVar": "Amount_Remittance_OutwardRemittance"
+          },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-          },
-          "dc/nm9hcklgg5zb3": {
-            "name": "Population: Employed",
-            "statVar": "dc/nm9hcklgg5zb3"
-          },
-          "sdg/EN_MAT_DOMCMPG": {
-            "name": "Domestic material consumption per unit of GDP",
-            "statVar": "sdg/EN_MAT_DOMCMPG"
           }
         }
       }

@@ -362,28 +362,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
-                    "title": "Infant Mortality Rate in China",
-                    "type": "LINE"
+                    "title": "Crude Birth Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Infant Mortality Rate in China",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
-                    "title": "Infant Mortality Rate in China",
-                    "type": "HIGHLIGHT"
+                    "title": "Crude Birth Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate in Administrative Area 1 Places of China"
           },
           {
             "columns": [
@@ -391,9 +394,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in China",
+                    "title": "Crude Birth Rate in China",
                     "type": "LINE"
                   }
                 ]
@@ -401,27 +404,87 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in China",
+                    "description": "Crude Birth Rate in China",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event) in China",
+                    "title": "Crude Birth Rate in China",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: Years Upto 1 (As Fraction of Count Birth Event)"
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Fertility Rate in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Fertility Rate in China",
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Fertility Rate"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
@@ -431,9 +494,9 @@
             "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
-          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
-            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          "FertilityRate_Person_Female": {
+            "name": "Fertility Rate",
+            "statVar": "FertilityRate_Person_Female"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
@@ -849,7 +912,14 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",

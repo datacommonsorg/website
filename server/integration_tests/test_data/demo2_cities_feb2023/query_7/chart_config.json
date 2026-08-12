@@ -94,40 +94,6 @@
                       "country/SEN"
                     ],
                     "statVarKey": [
-                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
-                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block"
-                    ],
-                    "title": "Adolescent Birth Rate by Age (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Adolescent Birth Rate by Age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/TUN",
-                      "country/MWI",
-                      "country/GMB",
-                      "country/ERI",
-                      "country/MLI",
-                      "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
-                    ],
-                    "statVarKey": [
                       "GrowthRate_Count_Person_multiple_place_bar_block"
                     ],
                     "title": "Rate of Population Growth (${date})",
@@ -162,16 +128,16 @@
                       "country/SEN"
                     ],
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block"
+                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
+                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Infant Mortality Rate (${date})",
+                    "title": "Adolescent Birth Rate by Age (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
+            "title": "Adolescent Birth Rate by Age"
           },
           {
             "columns": [
@@ -206,16 +172,321 @@
             ],
             "description": "The total number of people in a population.",
             "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/TUN",
+                      "country/MWI",
+                      "country/GMB",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEM.AGE--Y15T24_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM.AGE--Y_GE15_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM.AGE--Y_GE25_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate, by Age - 13th ICLS (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Eritrea\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate, by Age - 13th ICLS (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/TUN",
+                      "country/MWI",
+                      "country/GMB",
+                      "country/MLI",
+                      "country/SSD",
+                      "country/CMR",
+                      "country/SEN"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate, by Sex and Age - 13th ICLS (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Eritrea\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate, by Sex and Age - 13th ICLS (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MWI",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate, by Age - 19th ICLS (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate, by Age - 19th ICLS (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MWI",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--M_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--M_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate, by Sex and Age - 19th ICLS (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate, by Sex and Age - 19th ICLS (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MAR",
+                      "country/MWI",
+                      "country/GMB",
+                      "country/CMR",
+                      "country/SEN"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__DISABILITY_STATUS--PD_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__DISABILITY_STATUS--PWD_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate Amon Population 15 Years Old and Over - 13th ICLS, by Disability Status (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate Amon Population 15 Years Old and Over - 13th ICLS, by Disability Status (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MAR",
+                      "country/MWI",
+                      "country/GMB",
+                      "country/CMR",
+                      "country/SEN"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PD_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PWD_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate Amon Female Population 15 Years Old and Over - 13th ICLS, by Disability Status (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate Amon Female Population 15 Years Old and Over - 13th ICLS, by Disability Status (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MAR",
+                      "country/MWI",
+                      "country/GMB",
+                      "country/CMR",
+                      "country/SEN"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PD_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PWD_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate Amon Male Population 15 Years Old and Over - 13th ICLS, by Disability Status (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate Amon Male Population 15 Years Old and Over - 13th ICLS, by Disability Status (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MWI",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__DISABILITY_STATUS--PD_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__DISABILITY_STATUS--PWD_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate Amon Population 15 Years Old and Over - 19th ICLS, by Disability Status (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate Amon Population 15 Years Old and Over - 19th ICLS, by Disability Status (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MWI",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PD_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PWD_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate Amon Female Population 15 Years Old and Over - 19th ICLS, by Disability Status (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate Amon Female Population 15 Years Old and Over - 19th ICLS, by Disability Status (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MWI",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PD_multiple_place_bar_block",
+                      "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PWD_multiple_place_bar_block"
+                    ],
+                    "title": "Unemployment Rate Amon Male Population 15 Years Old and Over - 19th ICLS, by Disability Status (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Unemployment Rate Amon Male Population 15 Years Old and Over - 19th ICLS, by Disability Status (%)"
           }
         ],
         "statVarSpec": {
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block": {
             "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Person_multiple_place_bar_block": {
             "name": "Population",
@@ -228,6 +499,150 @@
           "GrowthRate_Count_Person_multiple_place_bar_block": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 to 24 years old, Female]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 to 24 years old, Male]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y15T24_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 to 24 years old]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y15T24"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Female]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Male]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y_GE15_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE15"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [25 years old and over, Female]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [25 years old and over, Male]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M"
+          },
+          "sdg/SL_TLF_UEM.AGE--Y_GE25_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [25 years old and over]",
+            "statVar": "sdg/SL_TLF_UEM.AGE--Y_GE25"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__DISABILITY_STATUS--PD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Disability status = Persons with disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__DISABILITY_STATUS--PD"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__DISABILITY_STATUS--PWD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Disability status = Persons without disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__DISABILITY_STATUS--PWD"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Female, Disability status = Persons with disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PD"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PWD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Female, Disability status = Persons without disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PWD"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Female]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Male, Disability status = Persons with disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PD"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PWD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Male, Disability status = Persons without disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PWD"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over, Male]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SL_TLF_UEMDIS.AGE--Y_GE15_multiple_place_bar_block": {
+            "name": "Unemployment rate - 13th ICLS [15 years old and over]",
+            "statVar": "sdg/SL_TLF_UEMDIS.AGE--Y_GE15"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__DISABILITY_STATUS--PD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Disability status = Persons with disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__DISABILITY_STATUS--PD"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__DISABILITY_STATUS--PWD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Disability status = Persons without disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__DISABILITY_STATUS--PWD"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Female, Disability status = Persons with disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PD"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PWD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Female, Disability status = Persons without disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F__DISABILITY_STATUS--PWD"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Female]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Male, Disability status = Persons with disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PD"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PWD_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Male, Disability status = Persons without disability]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M__DISABILITY_STATUS--PWD"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Male]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over]",
+            "statVar": "sdg/SL_TLF_UEMDIS_19ICLS.AGE--Y_GE15"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 to 24 years old, Female]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--F"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 to 24 years old, Male]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--M"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 to 24 years old]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Female]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over, Male]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [15 years old and over]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--F_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [25 years old and over, Female]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--F"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--M_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [25 years old and over, Male]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--M"
+          },
+          "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25_multiple_place_bar_block": {
+            "name": "Unemployment rate - 19th ICLS [25 years old and over]",
+            "statVar": "sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25"
           },
           "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block": {
             "name": "Adolescent birth rate [10 to 14 years old, Female]",
@@ -312,7 +727,26 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/SL_TLF_UEM.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F",
+          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M"
+        ]
+      },
+      "sdg/SL_TLF_UEM.AGE--Y_GE15": {
+        "sdg_sex": [
+          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F",
+          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M"
+        ]
+      },
+      "sdg/SL_TLF_UEM.AGE--Y_GE25": {
+        "sdg_sex": [
+          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F",
+          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Births",

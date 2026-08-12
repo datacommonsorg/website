@@ -119,6 +119,47 @@
             ],
             "denom": "Count_Person",
             "title": "High School Students"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Student_HighSchool"
+                    ],
+                    "title": "Students in High School in Public Schools of Colorado (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Students in High School in Public Schools of Colorado"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Student_AsAFractionOf_Count_Teacher"
+                    ],
+                    "title": "Student-Teacher Ratio in Public Schools of Colorado (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Student-Teacher Ratio in Public Schools of Colorado"
           }
         ],
         "statVarSpec": {
@@ -137,11 +178,23 @@
           "Count_Person_DetailedPrimarySchool": {
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
+          },
+          "Count_Student_HighSchool": {
+            "name": "Students in High School",
+            "statVar": "Count_Student_HighSchool"
+          },
+          "Percent_Student_AsAFractionOf_Count_Teacher": {
+            "name": "Student-Teacher Ratio",
+            "statVar": "Percent_Student_AsAFractionOf_Count_Teacher",
+            "unit": "%"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "PublicSchool"
+      },
       "placeDcid": [
         "geoId/08"
       ]
@@ -176,7 +229,60 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_DetailedEnrolledInKindergarten": {
+        "race": [
+          "dc/1c4zcyw02n71g",
+          "dc/3n8g9we5yv7th",
+          "dc/556pqlh586bmc",
+          "dc/7g77dy8hfb1rg",
+          "dc/c6n2z7vh9sy31",
+          "dc/gr3zem8shyhbf",
+          "dc/ns1rqx6wy9909",
+          "dc/nt9cq96phw6nf",
+          "dc/qnphlls92tvs9"
+        ]
+      },
+      "Count_Person_DetailedHighSchool": {
+        "race": [
+          "dc/1kt512ynvpmc2",
+          "dc/3bg4r46ly61q9",
+          "dc/4hzyqndyzntm",
+          "dc/9q73ecfhmd0y9",
+          "dc/cc8wk2n0ywd9",
+          "dc/dxsxcw009pdm4",
+          "dc/dzfdgrtcv5h7",
+          "dc/fh4td3znm3l4g",
+          "dc/g8537zqf45wl3"
+        ]
+      },
+      "Count_Person_DetailedMiddleSchool": {
+        "race": [
+          "dc/6zbb7s5nx6rxb",
+          "dc/b3nmcj3w1lhed",
+          "dc/c57vzg7l74577",
+          "dc/c75qlm98pmcb2",
+          "dc/e2szvml8jkld8",
+          "dc/g4fthg3t3y5td",
+          "dc/njgzb8knf11n8",
+          "dc/qvf1yrhwzp8rd",
+          "dc/zvr6djt1p9gj3"
+        ]
+      },
+      "Count_Person_DetailedPrimarySchool": {
+        "race": [
+          "dc/68cg2z97cpl7d",
+          "dc/b6h698m2vmdcc",
+          "dc/bf85zc6wypd2h",
+          "dc/e4y4hqq6mjfsh",
+          "dc/env3140jqssg8",
+          "dc/jhjdplbeg26k1",
+          "dc/p4jzvj8q1lnmd",
+          "dc/wk2vjrzfgyq5d",
+          "dc/x9e7150515yt7"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Schools",
@@ -567,5 +673,7 @@
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
-  "userMessages": []
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

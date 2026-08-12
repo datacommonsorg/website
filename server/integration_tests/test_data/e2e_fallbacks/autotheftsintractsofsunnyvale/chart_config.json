@@ -68,6 +68,64 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_CriminalActivities_Burglary"
+                    ],
+                    "title": "Burglaries in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Burglaries in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary"
+                    ],
+                    "title": "Burglaries in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Burglaries"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Robberies in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Robberies"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
                     "title": "Criminal Activities in Sunnyvale",
@@ -134,6 +192,10 @@
             "name": "Arson Crimes",
             "statVar": "Count_CriminalActivities_Arson"
           },
+          "Count_CriminalActivities_Burglary": {
+            "name": "Burglaries",
+            "statVar": "Count_CriminalActivities_Burglary"
+          },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
             "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
@@ -165,6 +227,10 @@
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_Robbery": {
+            "name": "Robberies",
+            "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_Robbery_multiple_place_bar_block": {
             "name": "Robberies",

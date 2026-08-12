@@ -159,13 +159,15 @@
 .download-info-table-example th {
   background: #f5f6fa;
   border-top: none;
+  font-size: 0.8rem;
+  line-height: 1rem;
 }
 
 .preview-container th,
 .preview-container td,
 .download-info-table-example th,
 .download-info-table-example td {
-  text-align: center;
+  text-align: left;
   padding: 0.2rem 0.5rem;
 }
 

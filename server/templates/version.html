@@ -54,6 +54,16 @@
           </td>
         </tr>
         <tr>
+          <td width="200px">
+            Spanner Staleness Timestamp:
+          </td>
+          <td>
+            {{spanner_staleness_timestamp or 'Not available'}}
+            <br>
+            <small>This value may be cached. Send <code>X-Skip-Cache: true</code> to fetch the latest value.</small>
+          </td>
+        </tr>
+        <tr>
           <td width="200px">Remote Mixer Domain:</td>
           <td>
             <a href="{{remote_mixer_domain}}/version">{{remote_mixer_domain}}</a>

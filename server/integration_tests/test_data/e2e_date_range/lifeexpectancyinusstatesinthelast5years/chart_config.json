@@ -301,13 +301,44 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2021"
                     },
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_291378936879825715"
+                      "Median_Age_Person_Male_2550419630908544036"
                     ],
-                    "title": "Infant Mortality Rate in United States",
+                    "title": "Men's Median Age in United States",
                     "type": "LINE"
                   }
                 ]
@@ -315,18 +346,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Infant Mortality Rate in United States",
+                    "description": "Men's Median Age in United States",
                     "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                      "Median_Age_Person_Male"
                     ],
-                    "title": "Infant Mortality Rate in United States",
+                    "title": "Men's Median Age in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Infant Mortality Rate"
+            "title": "Men's Median Age"
           },
           {
             "columns": [
@@ -391,21 +421,332 @@
             ],
             "description": "The median age of people in a population.",
             "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2021"
+                    },
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_5660793366985337682"
+                    ],
+                    "title": "Crude Birth Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Crude Birth Rate in United States",
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2021"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2550419630908544036"
+                    ],
+                    "title": "Women's Median Age in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Men Born in the United States in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2021"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native_5861401611713998024"
+                    ],
+                    "title": "Median Age of Men Born in the United States in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Men Born in the United States in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Men Born in the United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age of Person: USC Native in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age of Person: USC Native in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Person: USC Native in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2021"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Native_5861401611713998024"
+                    ],
+                    "title": "Median Age of Person: USC Native in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Person: USC Native in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age of Person: USC Native in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Person: USC Native"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Men in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2021"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone_5861401611713998024"
+                    ],
+                    "title": "Median Age of White Men in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of White Men in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_MothersAge_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Mother'S Age in Years in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_MothersAge_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Mother'S Age in Years in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Mother'S Age in Years in States of United States"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_5660793366985337682": {
+            "facetId": "5660793366985337682",
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-          },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_291378936879825715": {
-            "facetId": "291378936879825715",
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_4486658077301201845": {
             "facetId": "4486658077301201845",
@@ -462,6 +803,10 @@
             "name": "Average interval in months since last live birth",
             "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
           },
+          "Mean_MothersAge_BirthEvent_LiveBirth": {
+            "name": "Average mother's age in years",
+            "statVar": "Mean_MothersAge_BirthEvent_LiveBirth"
+          },
           "Median_Age_Person": {
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
@@ -470,6 +815,51 @@
             "facetId": "2550419630908544036",
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_Female": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Female_2550419630908544036": {
+            "facetId": "2550419630908544036",
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Male": {
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
+          },
+          "Median_Age_Person_Male_2550419630908544036": {
+            "facetId": "2550419630908544036",
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
+          },
+          "Median_Age_Person_Male_Native": {
+            "name": "Median Age of Men Born in the United States",
+            "statVar": "Median_Age_Person_Male_Native"
+          },
+          "Median_Age_Person_Male_Native_5861401611713998024": {
+            "facetId": "5861401611713998024",
+            "name": "Median Age of Men Born in the United States",
+            "statVar": "Median_Age_Person_Male_Native"
+          },
+          "Median_Age_Person_Male_WhiteAlone": {
+            "name": "Median Age of White Men",
+            "statVar": "Median_Age_Person_Male_WhiteAlone"
+          },
+          "Median_Age_Person_Male_WhiteAlone_5861401611713998024": {
+            "facetId": "5861401611713998024",
+            "name": "Median Age of White Men",
+            "statVar": "Median_Age_Person_Male_WhiteAlone"
+          },
+          "Median_Age_Person_Native": {
+            "name": "Median Age of Person: USC Native",
+            "statVar": "Median_Age_Person_Native"
+          },
+          "Median_Age_Person_Native_5861401611713998024": {
+            "facetId": "5861401611713998024",
+            "name": "Median Age of Person: USC Native",
+            "statVar": "Median_Age_Person_Native"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286": {
             "facetId": "13678236933566447286",
@@ -876,7 +1266,20 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      },
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",

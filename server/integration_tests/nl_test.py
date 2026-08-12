@@ -18,6 +18,7 @@ import os
 from langdetect import detect as detect_lang
 import requests
 
+from server.integration_tests.utils import post_request
 from shared.lib.test_server import NLWebServerTestCase
 
 _dir = os.path.dirname(os.path.abspath(__file__))
@@ -53,7 +54,7 @@ class NLTest(NLWebServerTestCase):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
-      resp = requests.post(
+      resp = post_request(
           self.get_server_url() +
           f'/api/explore/detect-and-fulfill?q={q}&idx={idx}&detector={detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
           json={
@@ -214,7 +215,7 @@ class NLTestDemo(NLTest):
         [
             # We have no stats on this, so we should return SF overview.
             # Two places should be detected but San Francisco is the main place.
-            'Number of Shakespeare fans in San Francisco and Chicago.',
+            'Total number of Shakespeare fans in San Francisco and Chicago.',
             # We should support comparison across multiple places in a single query.
             # Since there are multiple places we shouldn't need the trigger word "compare".
             'Crime in California and Florida',
@@ -247,9 +248,9 @@ class NLTestDemo(NLTest):
             # This should be a place comparison for a single more prominent SV.
             "Poverty vs. Obesity in California and Florida",
             # Filter query with top cities.
-            "California cities with hispanic population over 10000",
+            "California cities with hispanic population over 20000",
             # Filter query with another SV.
-            "Prevalence of Asthma in California cities with hispanic population over 10000",
+            "Prevalence of Asthma in California cities with hispanic population over 20000",
         ],
         # Use heuristic because LLM fallback is not very deterministic.
         detector='heuristic',

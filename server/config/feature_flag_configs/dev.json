@@ -7,7 +7,7 @@
   },
   {
     "name": "biomed_nl",
-    "enabled": true,
+    "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
@@ -18,22 +18,29 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
-    "name": "divert_to_spanner",
+    "name": "disable_explore_more_in_nl_search",
     "enabled": false,
     "owner": "nick-nlb",
-    "description": "Diverts traffic to Spanner database backend."
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow."
+  },
+  {
+    "name": "disable_explore_more_in_nl_search_for_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Bypasses the gathering and processing of explore more related queries in the explore flow specifically when using Spanner."
+  },
+  {
+    "name": "divert_to_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Diverts traffic to Spanner database backend.",
+    "rollout_percentage": 100
   },
   {
     "name": "enable_chart_hyperlink",
     "enabled": false,
     "owner": "gmechali",
     "description": "Adds the ability to deep link to bar charts, line charts, ranking and map charts"
-  },
-  {
-    "name": "enable_gemini_3_flash",
-    "enabled": false,
-    "owner": "shixiao",
-    "description": "Enables Gemini 3 Flash for NL detection."
   },
   {
     "name": "enable_nl_agent_detector",
@@ -108,10 +115,28 @@
     "description": "Enables Croissant JSON-LD metadata on dataset pages."
   },
   {
+    "name": "use_separate_property_value_calls",
+    "enabled": false,
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls instead of a single wildcard query to avoid Spanner edge starvation."
+  },
+  {
+    "name": "use_separate_property_value_calls_for_spanner",
+    "enabled": true,
+    "owner": "nick-nlb",
+    "description": "Gates the use of separate property value calls specifically when using Spanner."
+  },
+  {
     "name": "use_v2_resolve_for_nl_search_vars",
     "enabled": true,
     "owner": "shixiao",
     "description": "Enables using the V2 resolve API for NL search vars."
+  },
+  {
+    "name": "use_config_threshold_for_spanner_embedding",
+    "enabled": true,
+    "owner": "shixiao",
+    "description": "Gates the use of config SPANNER_EMBEDDING_THRESHOLD. If false, it will use the default threshold."
   },
   {
     "name": "use_new_download_tool",

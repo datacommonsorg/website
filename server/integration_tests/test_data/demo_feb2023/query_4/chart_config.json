@@ -800,7 +800,39 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Worker_NAICSConstruction": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSConstruction",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSConstruction"
+        ]
+      },
+      "Count_Worker_NAICSFinanceInsurance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSFinanceInsurance",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSFinanceInsurance"
+        ]
+      },
+      "Count_Worker_NAICSHealthCareSocialAssistance": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance"
+        ]
+      },
+      "Count_Worker_NAICSInformation": {
+        "establishmentOwnership": [
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSInformation"
+        ]
+      },
+      "Count_Worker_NAICSTotalAllIndustries": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Jobs",

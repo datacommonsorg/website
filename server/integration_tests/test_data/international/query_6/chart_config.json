@@ -128,9 +128,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "PrecipitationRate"
+                      "Min_Rainfall"
                     ],
-                    "title": "Precipitation Rate of Place in Countries of Africa (${date})",
+                    "title": "Min Rainfall of Place in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -143,15 +143,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "PrecipitationRate"
+                      "Min_Rainfall"
                     ],
-                    "title": "Precipitation Rate of Place in Countries of Africa (${date})",
+                    "title": "Min Rainfall of Place in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Precipitation Rate of Place in Countries of Africa"
+            "description": "Min near-surface rainfall.",
+            "title": "Min Rainfall of Place in Countries of Africa"
           },
           {
             "columns": [
@@ -223,31 +224,27 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/ER_H2O_STRESS"
+                      "Area_FloodEvent"
                     ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa (${date})",
-                    "type": "MAP"
+                    "title": "Area of Flood Event in Africa",
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
+                    "description": "Area of Flood Event in Africa",
                     "statVarKey": [
-                      "sdg/ER_H2O_STRESS"
+                      "Area_FloodEvent"
                     ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa (${date})",
-                    "type": "RANKING"
+                    "title": "Area of Flood Event in Africa",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: food and agriculture organisation of united nations (FAO).",
-            "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa"
+            "title": "Area of Flood Event"
           },
           {
             "columns": [
@@ -255,9 +252,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
+                      "Area_FloodEvent"
                     ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa (${date})",
+                    "title": "Area of Flood Event in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -270,16 +267,74 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
+                      "Area_FloodEvent"
                     ],
-                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa (${date})",
+                    "title": "Area of Flood Event in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: food and agriculture organisation of united nations (FAO).",
-            "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa"
+            "title": "Area of Flood Event in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Floods in Africa",
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Africa",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Floods"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Floods in Countries of Africa"
           }
         ],
         "statVarSpec": {
@@ -287,9 +342,17 @@
             "name": "Area of Drought Event",
             "statVar": "Area_DroughtEvent"
           },
+          "Area_FloodEvent": {
+            "name": "Area of Flood Event",
+            "statVar": "Area_FloodEvent"
+          },
           "Count_DroughtEvent": {
             "name": "Droughts",
             "statVar": "Count_DroughtEvent"
+          },
+          "Count_FloodEvent": {
+            "name": "Floods",
+            "statVar": "Count_FloodEvent"
           },
           "Max_Rainfall": {
             "name": "Max Rainfall of Place",
@@ -299,17 +362,9 @@
             "name": "Mean Rainfall of Place",
             "statVar": "Mean_Rainfall"
           },
-          "PrecipitationRate": {
-            "name": "Precipitation Rate of Place",
-            "statVar": "PrecipitationRate"
-          },
-          "sdg/ER_H2O_STRESS": {
-            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources",
-            "statVar": "sdg/ER_H2O_STRESS"
-          },
-          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322": {
-            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources [Agriculture]",
-            "statVar": "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
+          "Min_Rainfall": {
+            "name": "Min Rainfall of Place",
+            "statVar": "Min_Rainfall"
           }
         }
       }

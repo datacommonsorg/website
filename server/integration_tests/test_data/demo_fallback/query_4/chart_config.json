@@ -132,6 +132,65 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Diabetes in California",
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Diabetes in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Percent_Person_WithArthritis"
                     ],
                     "title": "Arthritis in California",
@@ -991,57 +1050,6 @@
               }
             ],
             "title": "Percentage of Population That Has Received An Annual Checkup in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_BingeDrinking",
-                      "Percent_Person_Obesity",
-                      "Percent_Person_PhysicalInactivity",
-                      "Percent_Person_SleepLessThan7Hours",
-                      "Percent_Person_Smoking"
-                    ],
-                    "title": "Health Behavior in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Health Behavior"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_BingeDrinking"
-                    ],
-                    "title": "Prevalence of Binge Drinking in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_BingeDrinking"
-                    ],
-                    "title": "Prevalence of Binge Drinking in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Binge Drinking in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -1149,34 +1157,14 @@
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
-          "Percent_Person_BingeDrinking": {
-            "name": "Prevalence of Binge Drinking",
-            "statVar": "Percent_Person_BingeDrinking",
-            "unit": "%"
-          },
           "Percent_Person_Obesity": {
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           },
-          "Percent_Person_PhysicalInactivity": {
-            "name": "Prevalence of Physical Inactivity",
-            "statVar": "Percent_Person_PhysicalInactivity",
-            "unit": "%"
-          },
           "Percent_Person_ReceivedAnnualCheckup": {
             "name": "Percentage of Population That Has Received an Annual Checkup",
             "statVar": "Percent_Person_ReceivedAnnualCheckup",
-            "unit": "%"
-          },
-          "Percent_Person_SleepLessThan7Hours": {
-            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
-            "statVar": "Percent_Person_SleepLessThan7Hours",
-            "unit": "%"
-          },
-          "Percent_Person_Smoking": {
-            "name": "Prevalence of Smoking",
-            "statVar": "Percent_Person_Smoking",
             "unit": "%"
           },
           "Percent_Person_WithArthritis": {
@@ -1217,6 +1205,11 @@
           "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
             "name": "Coronary Heart Disease",
             "statVar": "Percent_Person_WithCoronaryHeartDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithDiabetes": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
             "unit": "%"
           },
           "Percent_Person_WithDiabetes_multiple_place_bar_block": {
@@ -1643,7 +1636,26 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_NoHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_NoHealthInsurance",
+          "Count_Person_Male_NoHealthInsurance"
+        ]
+      },
+      "Count_Person_WithHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_WithHealthInsurance",
+          "Count_Person_Male_WithHealthInsurance"
+        ]
+      },
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/HealthBehavior",

@@ -18,14 +18,24 @@
   "sessionId": "007_999999999",
   "variables": [
     "dc/xj2nk2bg60fg",
-    "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
-    "WagesAnnual_Establishment_NAICSInformation",
-    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
     "dc/topic/Income",
-    "dc/topic/IndividualIncomeByIndustry",
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
     "Count_Worker_NAICSInformation",
     "WagesTotal_Worker_NAICSInformation",
+    "dc/topic/IndividualIncomeByIndustry",
+    "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
+    "USStateQuarterlyIndustryGDP_NAICS_51",
+    "WagesAnnual_Establishment_NAICSInformation",
+    "Count_Person_15OrMoreYears_WithIncome",
+    "dc/topic/IndustriesByRevenue",
+    "dc/topic/IncomeEquity",
+    "Count_Person_15OrMoreYears_InformationAndTelecommunication_Employed",
+    "dc/x3gghqtglpr59",
+    "dc/topic/GDPByIndustry",
+    "dc/topic/VeteransIncome",
     "Count_Person_16OrMoreYears_WithEarnings",
-    "dc/topic/IndustriesByRevenue"
+    "Count_Person_Employed_NACE/J",
+    "dc/topic/InternetPublishingAndBroadcastingIndustry",
+    "Income_Farm"
   ]
 }

@@ -344,10 +344,6 @@
             "url": "q=Does+obesity+correlate+with+lack+of+sleep+in+US+counties"
           },
           {
-            "title": "Which countries have the best immunization rates in the world?",
-            "url": "q=Which+countries+have+the+best+immunization+rates+in+the+world"
-          },
-          {
             "title": "Tell me about infant mortality in the world",
             "url": "q=Tell+me+about+infant+mortality+in+the+world"
           },
@@ -598,20 +594,12 @@
             "url": "q=tell+me+about+immigrants+in+florida"
           },
           {
-            "title": "Which country has the most old people?",
-            "url": "q=Which+country+has+the+most+old+people"
-          },
-          {
             "title": "Tell me statistics on married people in New York State",
             "url": "q=Tell+me+statistics+on+married+people+in+New+York+State"
           },
           {
             "title": "What is the median age in Texas?",
             "url": "q=What+is+the+median+age+in+Texas"
-          },
-          {
-            "title": "Which state in the US has most people of Caribbean origin?",
-            "url": "q=Which+state+in+the+US+has+most+people+of+Caribbean+origin"
           },
           {
             "title": "What are the demographics of divorced people in California?",
@@ -870,10 +858,6 @@
             "url": "q=Poverty+in+Mexico&dc=sdg"
           },
           {
-            "title": "Progress on health related goals in Pakistan",
-            "url": "q=Progress+on+health+related+goals+in+Pakistan&dc=sdg"
-          },
-          {
             "title": "SDG goals on gender equality across the world",
             "url": "q=SDG+goals+on+gender+equality+across+the+world&dc=sdg"
           },
@@ -924,7 +908,9 @@
       "meta": {
         "dataPointCount": 0,
         "variableCount": 3786,
-        "sources": ["United Nations (UN)"]
+        "sources": [
+          "United Nations (UN)"
+        ]
       }
     }
   }

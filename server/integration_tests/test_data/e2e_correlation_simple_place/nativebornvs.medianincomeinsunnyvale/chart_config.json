@@ -10,9 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Native"
+                      "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Population: Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "description": "Population: Foreign Born in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_Native"
+                      "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Population: Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Native"
+            "title": "Population: Foreign Born"
           },
           {
             "columns": [
@@ -67,9 +67,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_ForeignBorn"
+                      "Count_Person_Native"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
+                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -77,46 +77,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born in Sunnyvale",
+                    "description": "Population: Years 5 Onwards, USC Native in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_ForeignBorn"
+                      "Count_Person_Native"
                     ],
-                    "title": "Population: Foreign Born in Sunnyvale",
+                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Earnings in Sunnyvale",
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings"
+            "title": "Population: Years 5 Onwards, USC Native"
           },
           {
             "columns": [
@@ -146,35 +118,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population: USC Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/6bkn9vt30f5c1"
-                    ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "statVarKey": [
-                      "dc/6bkn9vt30f5c1"
-                    ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone"
           },
           {
             "columns": [
@@ -240,9 +183,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_Native"
+                      "Median_Age_Person_Female_Native"
                     ],
-                    "title": "Median Age of Person: USC Native in Sunnyvale",
+                    "title": "Median Age of US Born Women in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -250,17 +193,34 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age of Person: USC Native in Sunnyvale",
+                    "description": "Median Age of US Born Women in Sunnyvale",
                     "statVarKey": [
-                      "Median_Age_Person_Native"
+                      "Median_Age_Person_Female_Native"
                     ],
-                    "title": "Median Age of Person: USC Native in Sunnyvale",
+                    "title": "Median Age of US Born Women in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Age of Person: USC Native"
+            "title": "Median Age of US Born Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_Native",
+                      "Median_Age_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Median Age of US Born Women and Median Age of Foreign-Born Women in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Related: Median Age of US Born Women and Median Age of Foreign-Born Women"
           }
         ],
         "statVarSpec": {
@@ -284,21 +244,17 @@
             "name": "Population: USC Foreign Born, Asia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           },
-          "Median_Age_Person_Native": {
-            "name": "Median Age of Person: USC Native",
-            "statVar": "Median_Age_Person_Native"
+          "Median_Age_Person_Female_ForeignBorn": {
+            "name": "Median Age of Foreign-Born Women",
+            "statVar": "Median_Age_Person_Female_ForeignBorn"
           },
-          "Median_Earnings_Person": {
-            "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person"
+          "Median_Age_Person_Female_Native": {
+            "name": "Median Age of US Born Women",
+            "statVar": "Median_Age_Person_Female_Native"
           },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
-          },
-          "dc/6bkn9vt30f5c1": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, American Indian Or Alaska Native Alone",
-            "statVar": "dc/6bkn9vt30f5c1"
           }
         }
       }
@@ -331,15 +287,15 @@
     "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/PlaceOfBirth",
-        "name": "Place of Birth",
+        "dcid": "dc/topic/Immigration",
+        "name": "Immigration",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/LanguageSpokenAtHome_ForeignBorn",
-        "name": "Language Spoken by Foreign Born Population",
+        "dcid": "dc/topic/CitizenshipStatus",
+        "name": "Citizenship Status",
         "types": [
           "Topic"
         ]
@@ -348,8 +304,8 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Immigration",
-        "name": "Immigration",
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
         "types": [
           "Topic"
         ]
@@ -358,8 +314,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Nationality",
-        "name": "Nationality",
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
         "types": [
           "Topic"
         ]
@@ -719,8 +675,43 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/CitizenshipStatus",
-        "name": "Citizenship Status",
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Race",
+        "name": "Population by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
         "types": [
           "Topic"
         ]

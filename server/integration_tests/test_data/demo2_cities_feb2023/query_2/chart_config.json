@@ -31,12 +31,111 @@
               }
             ],
             "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+                    ],
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+                    ],
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Chronic Obstructive Pulmonary Disease"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Prevalence of Smoking in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Smoking in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Prevalence of Smoking in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Smoking"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "High Blood Pressure in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "High Blood Pressure"
           }
         ],
         "statVarSpec": {
+          "Percent_Person_Smoking": {
+            "name": "Prevalence of Smoking",
+            "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          },
           "Percent_Person_WithAsthma": {
             "name": "Asthma",
             "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighBloodPressure": {
+            "name": "High Blood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           }
         }
@@ -68,12 +167,83 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
-    "exploreMore": {},
-    "mainTopics": [
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/Asthma",
         "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -82,8 +252,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
+        "dcid": "dc/topic/Health",
+        "name": "Health",
         "types": [
           "Topic"
         ]
@@ -443,64 +613,22 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
+        "dcid": "dc/topic/HealthEquity",
+        "name": "Health Equity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
+        "dcid": "dc/topic/HealthInsurance",
+        "name": "Health Insurance",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]

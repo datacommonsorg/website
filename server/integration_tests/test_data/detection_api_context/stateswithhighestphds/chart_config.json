@@ -2,16 +2,6 @@
   "childEntityType": "State",
   "classifications": [
     {
-      "quantity": {
-        "idx": 0,
-        "qval": {
-          "cmp": "GE",
-          "val": 2.2250738585072014e-308
-        }
-      },
-      "type": 3
-    },
-    {
       "ranking_type": [
         1
       ],
@@ -35,12 +25,11 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
+    "dc/topic/StudentPopulation",
     "Count_Person_EducationalAttainmentDoctorateDegree",
-    "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
-    "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male",
+    "dc/topic/StudentsInCollege",
+    "dc/topic/Education",
     "Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears",
-    "Count_Person_25OrMoreYears_Female_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Female",
-    "Count_Person_25OrMoreYears_Male_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Male",
-    "dc/topic/StudentsInCollege"
+    "dc/topic/Jobs"
   ]
 }

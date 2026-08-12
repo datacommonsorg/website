@@ -665,16 +665,22 @@ def get_series_dates(parent_entity, child_type, variables):
   return {"datesByVariable": resp_dates, "facets": all_facets}
 
 
-def resolve(nodes, prop, resolver="place"):
+def resolve(nodes, prop, resolver="place", target=None):
   """Resolves nodes based on the given property.
 
     Args:
         nodes: A list of node dcids.
         prop: Property expression indicating the property to resolve.
         resolver: The resolver to use (default: "place").
+        target: Optional target parameter to scope resolution.
     """
+  if target is None and resolver == "indicator":
+    target = current_app.config.get("V2_RESOLVE_INDICATORS_TARGET", "")
   url = get_service_url("/v2/resolve")
-  return post(url, {"nodes": nodes, "property": prop, "resolver": resolver})
+  req = {"nodes": nodes, "property": prop, "resolver": resolver}
+  if target:
+    req["target"] = target
+  return post(url, req)
 
 
 def nl_search_vars(
@@ -754,39 +760,10 @@ def version():
   return get(url)
 
 
-def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
-  url = get_service_url("/v1/place/ranking")
-  return post(
-      url,
-      {
-          "stat_var_dcids": [variable],
-          "place_type": descendent_type,
-          "within_place": ancestor,
-          "is_per_capita": per_capita,
-      },
-  )
-
-
-def related_place(dcid, variables, ancestor=None, per_capita=False):
-  url = get_service_url("/v1/place/related")
-  req_json = {"dcid": dcid, "stat_var_dcids": sorted(variables)}
-  if ancestor:
-    req_json["within_place"] = ancestor
-  if per_capita:
-    req_json["is_per_capita"] = per_capita
-  return post(url, req_json)
-
-
 def recognize_places(query):
   url = get_service_url("/v2/recognize/places")
   resp = post(url, {"queries": [query]})
   return resp.get("queryItems", {}).get(query, {}).get("items", [])
-
-
-def recognize_entities(query):
-  url = get_service_url("/v1/recognize/entities")
-  resp = post(url, {"queries": [query]})
-  return resp.get("queryItems", {}).get(query.lower(), {}).get("items", [])
 
 
 def find_entities(places: list[str]) -> dict[str, list[str]]:

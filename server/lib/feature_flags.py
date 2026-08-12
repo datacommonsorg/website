@@ -29,7 +29,6 @@ FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
 
 # Feature Flags
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
-BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
 USE_NEW_DOWNLOAD_TOOL_FEATURE_FLAG = 'use_new_download_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
@@ -41,6 +40,12 @@ USE_V2_RESOLVE_FOR_NL_SEARCH_VARS = 'use_v2_resolve_for_nl_search_vars'
 ENABLE_NL_V2NODE_FETCHALL = 'enable_nl_v2node_fetchall'
 CROISSANT_JSON_LD_FEATURE = 'show_croissant_json_ld'
 CROISSANT_EXTENDED_FEATURE = 'show_croissant_extended_feature'
+DISABLE_EXPLORE_MORE_IN_NL_SEARCH = 'disable_explore_more_in_nl_search'
+DISABLE_EXPLORE_MORE_IN_NL_SEARCH_FOR_SPANNER = 'disable_explore_more_in_nl_search_for_spanner'
+DIVERT_TO_SPANNER = 'divert_to_spanner'
+USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
+USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
+USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING = 'use_config_threshold_for_spanner_embedding'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
@@ -55,8 +60,8 @@ def is_feature_override_enabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(
-      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM) == feature_name
+  return feature_name in request.args.getlist(
+      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM)
 
 
 def is_feature_override_disabled(feature_name: str, request=None) -> bool:
@@ -71,8 +76,8 @@ def is_feature_override_disabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(
-      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM) == feature_name
+  return feature_name in request.args.getlist(
+      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM)
 
 
 def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
@@ -101,7 +106,7 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if request is None and has_request_context():
     request = flask_request
 
-  if feature_name == 'divert_to_spanner' and has_request_context():
+  if feature_name == DIVERT_TO_SPANNER and has_request_context():
     from flask import g
     if 'use_spanner' not in g:
       g.use_spanner = assign_spanner_cohort(app, request)
@@ -170,14 +175,14 @@ def assign_spanner_cohort(app, request) -> bool:
     True if client is in the Spanner diversion cohort, False otherwise.
   """
   # Check for URL parameter overrides
-  if is_feature_override_enabled('divert_to_spanner', request):
+  if is_feature_override_enabled(DIVERT_TO_SPANNER, request):
     return True
-  if is_feature_override_disabled('divert_to_spanner', request):
+  if is_feature_override_disabled(DIVERT_TO_SPANNER, request):
     return False
 
   # Check feature flag configuration
   feature_flags = app.config.get('FEATURE_FLAGS', {})
-  flag_config = feature_flags.get('divert_to_spanner', {})
+  flag_config = feature_flags.get(DIVERT_TO_SPANNER, {})
   if not flag_config.get('enabled', False):
     return False
 
