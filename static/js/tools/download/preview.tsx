@@ -42,6 +42,16 @@ import { DATE_ALL, DownloadOptions } from "./context";
 const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
 const DOWNLOADED_RESET_DELAY_MS = 1500;
+// Columns hidden from the preview table (still included in the downloaded
+// CSV).
+// Column names below must match TIDY_CSV_HEADER_ROW in
+// server/routes/shared_api/csv.py — keep both in sync when renaming.
+const PREVIEW_HIDDEN_COLUMNS = new Set<string>([
+  "Unit DCID",
+  "Import name",
+  "Observation period",
+  "Scaling factor",
+]);
 
 const iconWrapper = css`
   position: relative;
@@ -107,6 +117,7 @@ export function Preview(props: PreviewProps): JSX.Element {
   // Don't show columns that are empty for every row in the preview.
   const visibleColumnIndices = allColumnsHeader
     .map((_heading, idx) => idx)
+    .filter((idx) => !PREVIEW_HIDDEN_COLUMNS.has(allColumnsHeader[idx]))
     .filter((idx) => allColumnsDataRows.some((row) => !_.isEmpty(row[idx])));
   const header = visibleColumnIndices.map((idx) => allColumnsHeader[idx]);
   const dataRows = allColumnsDataRows.map((row) =>
@@ -114,6 +125,8 @@ export function Preview(props: PreviewProps): JSX.Element {
   );
   // Add a row at the bottom of the table with "..." in each cell
   const emptyRow = new Array(header.length).fill("");
+  const wideColumnIdx = allColumnsHeader.indexOf("Variable name");
+  const wideColumnVisibleIdx = visibleColumnIndices.indexOf(wideColumnIdx);
 
   let cardClassName = "preview-container";
   if (!_.isEmpty(errorMessage)) {
@@ -126,13 +139,11 @@ export function Preview(props: PreviewProps): JSX.Element {
       id={SECTION_ID}
       className={cardClassName}
       css={css`
-        max-width: 100%;
-        overflow-scroll;
         display: flex;
         flex-direction: column;
-        padding: 0;
+        padding: 0 ${theme.spacing.lg}px ${theme.spacing.lg}px;
         margin: 0;
-        gap: ${theme.spacing.md}px;
+        gap: ${theme.spacing.lg}px;
       `}
     >
       {errorMessage && <div>{errorMessage}</div>}
@@ -142,13 +153,41 @@ export function Preview(props: PreviewProps): JSX.Element {
             css={css`
               display: flex;
               justify-content: space-between;
+              align-items: flex-start;
               gap: ${theme.spacing.xl}px;
+              @media (max-width: ${theme.breakpoints.md}px) {
+                gap: ${theme.spacing.md}px;
+                flex-direction: column;
+              }
             `}
           >
-            <p>
-              {intl.formatMessage(toolMessages.downloadToolPreviewDisclaimer)}
-            </p>
-
+            <div
+              css={css`
+                display: flex;
+                flex-direction: column;
+                gap: ${theme.spacing.md}px;
+                flex-shrink: 2;
+              `}
+            >
+              {Object.keys(props.selectedOptions.selectedStatVars).map((sv) => (
+                <h3
+                  key={sv}
+                  id={sv}
+                  css={css`
+                    margin-bottom: 0;
+                  `}
+                >
+                  {props.selectedOptions.selectedStatVars[sv]?.title || sv}
+                </h3>
+              ))}
+              <p
+                css={css`
+                  margin: 0;
+                `}
+              >
+                {intl.formatMessage(toolMessages.downloadToolPreviewDisclaimer)}
+              </p>
+            </div>
             <Button
               className="download-button"
               disabled={props.isDisabled || downloading}
@@ -163,15 +202,69 @@ export function Preview(props: PreviewProps): JSX.Element {
                   </span>
                 )
               }
+              css={css`
+                flex-shrink: 0;
+              `}
             >
               {intl.formatMessage(toolMessages.downloadCsvButton)}
             </Button>
           </div>
-          <table>
+          <table
+            css={css`
+              && {
+                max-width: 100%;
+                overflow-x: scroll;
+                display: block;
+                font-size: 0.9rem;
+                border: 1px solid #ccc;
+                border-collapse: collapse;
+                th,
+                td {
+                  border: 1px solid #ccc;
+                }
+                th {
+                  background: #f5f6fa;
+                  border-top: none;
+                  font-size: 0.8rem;
+                  line-height: 1rem;
+                  white-space: nowrap;
+                  padding: 0.5rem;
+                }
+                td {
+                  text-align: left;
+                  padding: 0.2rem 0.5rem;
+                }
+                tr:last-child td {
+                  border-bottom: none;
+                }
+                tr td:first-child,
+                tr th:first-child {
+                  border-left: none;
+                }
+                tr td:last-child,
+                tr th:last-child {
+                  border-right: none;
+                  width: 100%;
+                }
+              }
+            `}
+          >
             <thead>
               <tr>
                 {header.map((heading, idx) => {
-                  return <th key={"heading" + idx}>{heading}</th>;
+                  return (
+                    <th
+                      key={"heading" + idx}
+                      css={
+                        idx === wideColumnVisibleIdx &&
+                        css`
+                          min-width: 180px;
+                        `
+                      }
+                    >
+                      {heading}
+                    </th>
+                  );
                 })}
               </tr>
             </thead>
@@ -180,14 +273,38 @@ export function Preview(props: PreviewProps): JSX.Element {
                 return (
                   <tr key={"row" + rowIdx}>
                     {row.map((cell, cellIdx) => {
-                      return <td key={`row${rowIdx}cell${cellIdx}`}>{cell}</td>;
+                      return (
+                        <td
+                          key={`row${rowIdx}cell${cellIdx}`}
+                          css={
+                            cellIdx === wideColumnVisibleIdx &&
+                            css`
+                              min-width: 180px;
+                            `
+                          }
+                        >
+                          {cell}
+                        </td>
+                      );
                     })}
                   </tr>
                 );
               })}
               <tr>
                 {emptyRow.map((_, idx) => {
-                  return <td key={"empty" + idx}>...</td>;
+                  return (
+                    <td
+                      key={"empty" + idx}
+                      css={
+                        idx === wideColumnVisibleIdx &&
+                        css`
+                          min-width: 180px;
+                        `
+                      }
+                    >
+                      ...
+                    </td>
+                  );
                 })}
               </tr>
             </tbody>
