@@ -81,6 +81,6 @@ typeOf: dcs:StatisticalVariable
 name: "Count of pneumonia patients returned"
 description: "Per-hospital number of pneumonia patients returned unplanned in a 30-day period"
 populationType: dcid:ReturnPatient
-measuredProperty: dcid:cma/medicalCondition
+measuredProperty: dcid:medicalCondition
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
