@@ -121,8 +121,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('failed_comparison_existence', '')
     return False
 
-  # If this is the top result, add to answer place.
-  if rank == 0 and places:
+  # If answer places have not been set yet, add to answer place.
+  if not state.uttr.answerPlaces and places:
     ans_places = copy.deepcopy(get_max_ans_places(places, state.uttr))
     state.uttr.answerPlaces = ans_places
     state.uttr.counters.info('comparison_answer_places',

@@ -80,9 +80,9 @@ def populate(state: PopulateState,
     chart_vars.svs = exist_svs
 
     # Maybe set Answer Places.  Be very conservative here.
-    # We only do this if this is the first chart, user requested ranking
-    # result and this is for 1 SV.
-    if (rank == 0 and len(chart_vars.svs) == 1 and
+    # We only do this if answer places have not been set yet, user requested
+    # ranking result and this is for 1 SV.
+    if (not state.uttr.answerPlaces and len(chart_vars.svs) == 1 and
         len(state.ranking_types) == 1 and
         state.ranking_types[0] in [RankingType.HIGH, RankingType.LOW]):
       _compute_answer_places(state, places[0], chart_vars.svs[0])
@@ -123,7 +123,6 @@ def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):
     ranked_places.reverse()
 
   ans_places = copy.deepcopy(get_max_ans_places(ranked_places, state.uttr))
-
   state.uttr.answerPlaces = ans_places
   state.uttr.counters.info('ranking-across-places_answer_places',
                            [p.dcid for p in ans_places])

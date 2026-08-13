@@ -88,7 +88,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     ranked_children.reverse()
   shortlist = ranked_children[:_MAX_PLACES_TO_RETURN]
 
-  if rank == 0:
+  if not state.uttr.answerPlaces:
     # Set answer places.
     ans_places = copy.deepcopy(get_max_ans_places(ranked_children, state.uttr))
     state.uttr.answerPlaces = ans_places
