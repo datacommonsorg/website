@@ -487,7 +487,7 @@ class ExploreTestEE1(ExploreTest):
     self.run_detect_and_fulfill('e2e_electrification_demo', [
         'Which countries in Africa have had the greatest increase in electricity access?',
         'How has poverty changed over time in these places?',
-        'How has life expectency increased in these countries?',
+        'How has life expectancy increased in these countries?',
         'How has the GDP grown?',
         'What is the greenhouse gas emissions from these places?',
         'How do these places compare with the US and Germany?',
