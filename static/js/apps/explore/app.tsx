@@ -162,7 +162,6 @@ export function App(props: AppProps): ReactElement {
             <AutoPlay
               autoPlayQuery={autoPlayQuery}
               inputQuery={(query): void => {
-                setQuery(query);
                 setStoreQueryString(query);
               }}
               disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
