@@ -10,17 +10,18 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/GIN",
-                      "country/MLI",
-                      "country/BEN",
-                      "country/ETH",
-                      "country/SEN",
-                      "country/RWA",
+                      "country/KEN",
+                      "country/MAR",
                       "country/GHA",
-                      "country/MAR"
+                      "country/RWA",
+                      "country/SEN",
+                      "country/ETH",
+                      "country/BEN",
+                      "country/MLI",
+                      "country/GIN"
                     ],
                     "statVarKey": [
-                      "sdg/SI_POV_DAY18"
+                      "sdg/SI_POV_DAY19"
                     ],
                     "title": "Population Below International Poverty Line",
                     "type": "LINE"
@@ -36,11 +37,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Guinea",
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
@@ -48,59 +49,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Benin",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Rwanda",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -120,29 +73,89 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Morocco",
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Decrease in Population Below International Poverty Line Over Time (Absolute Change)"
+            "title": "Change in Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BEN",
+                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Benin",
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
@@ -150,59 +163,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Mali",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -222,18 +187,78 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Rwanda",
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
+            "title": "Change in Population Below International Poverty Line Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -241,16 +266,17 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/ETH",
-                      "country/KEN",
-                      "country/SEN",
-                      "country/MAR",
-                      "country/GHA",
+                      "country/BEN",
+                      "country/RWA",
                       "country/MLI",
-                      "country/RWA"
+                      "country/GHA",
+                      "country/MAR",
+                      "country/SEN",
+                      "country/KEN",
+                      "country/ETH"
                     ],
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC7"
+                      "sdg/SI_POV_NAHC8"
                     ],
                     "title": "Employed Population Below International Poverty Line",
                     "type": "LINE"
@@ -266,11 +292,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_abs"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -278,47 +304,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_abs"
                     ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GHA",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Ghana",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -338,29 +328,77 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_abs"
                     ],
-                    "title": "Rwanda",
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
-            "title": "Decrease in Employed Population Below International Poverty Line Over Time (Absolute Change)"
+            "title": "Change in Employed Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_pct"
                     ],
-                    "title": "Morocco",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -368,47 +406,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_pct"
                     ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GHA",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
-                    ],
-                    "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/KEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
-                    ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
-                    ],
-                    "title": "Senegal",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -428,18 +430,66 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_pct"
                     ],
-                    "title": "Mali",
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
-            "title": "Decrease in Employed Population Below International Poverty Line Over Time (Percent Change)"
+            "title": "Change in Employed Population Below International Poverty Line Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -447,12 +497,13 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/MLI",
+                      "country/GHA",
+                      "country/MAR",
                       "country/RWA",
-                      "country/MAR"
+                      "country/MLI"
                     ],
                     "statVarKey": [
-                      "sdg/SD_MDP_ANDI3"
+                      "sdg/SD_MDP_ANDI4"
                     ],
                     "title": "Average Deprivations for Population in Poverty",
                     "type": "LINE"
@@ -468,11 +519,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "sdg/SD_MDP_ANDI_growth_abs"
                     ],
-                    "title": "Mali",
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_abs"
+                    ],
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -492,29 +555,41 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SD_MDP_ANDI_growth_abs"
                     ],
-                    "title": "Morocco",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: CONEVAL (Consejo Nacional  de Evaluaci\u00f3n de la Pol\u00edtica de Desarrollo Social); DANE; Department of Census and Statistics; Ghana Statistical Service; Institut National de la Statistique (INSTAT); Instituto Nacional de Estad\u00edstica\u00a0(INE); Instituto Nacional de Estat\u00edstica; La Direction Generale du Plan, Instituto Nacional de Estat\u00edstica (INE); Ministry of Economics and Finance - Directorate of Economic and Financial Studies; Ministry of Economy, Planning an...1020 more chars",
-            "title": "Decrease in Average Deprivations for Population in Poverty Over Time (Absolute Change)"
+            "title": "Change in Average Deprivations for Population in Poverty Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "sdg/SD_MDP_ANDI_growth_pct"
                     ],
-                    "title": "Mali",
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_pct"
+                    ],
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -534,18 +609,18 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SD_MDP_ANDI_growth_pct"
                     ],
-                    "title": "Morocco",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: CONEVAL (Consejo Nacional  de Evaluaci\u00f3n de la Pol\u00edtica de Desarrollo Social); DANE; Department of Census and Statistics; Ghana Statistical Service; Institut National de la Statistique (INSTAT); Instituto Nacional de Estad\u00edstica\u00a0(INE); Instituto Nacional de Estat\u00edstica; La Direction Generale du Plan, Instituto Nacional de Estat\u00edstica (INE); Ministry of Economics and Finance - Directorate of Economic and Financial Studies; Ministry of Economy, Planning an...1020 more chars",
-            "title": "Decrease in Average Deprivations for Population in Poverty Over Time (Percent Change)"
+            "title": "Change in Average Deprivations for Population in Poverty Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -553,8 +628,8 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/MLI",
-                      "country/MAR"
+                      "country/MAR",
+                      "country/MLI"
                     ],
                     "statVarKey": [
                       "sdg/SD_MDP_MUHHC2"
@@ -573,18 +648,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SD_MDP_MUHHC_growth_abs"
@@ -593,28 +656,28 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Insti...274 more chars",
-            "title": "Decrease in Households in Poverty Over Time (Absolute Change)"
+            "title": "Change in Households in Poverty Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
-                    ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SD_MDP_MUHHC_growth_pct"
@@ -623,10 +686,22 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Insti...274 more chars",
-            "title": "Decrease in Households in Poverty Over Time (Percent Change)"
+            "title": "Change in Households in Poverty Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -634,16 +709,18 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/KEN",
-                      "country/SEN",
-                      "country/GIN",
-                      "country/MLI",
-                      "country/ETH",
+                      "country/GHA",
+                      "country/MAR",
+                      "country/BEN",
                       "country/RWA",
-                      "country/BEN"
+                      "country/ETH",
+                      "country/MLI",
+                      "country/GIN",
+                      "country/SEN",
+                      "country/KEN"
                     ],
                     "statVarKey": [
-                      "GiniIndex_EconomicActivity7"
+                      "GiniIndex_EconomicActivity9"
                     ],
                     "title": "Gini Index of Economic Activity of a Population",
                     "type": "LINE"
@@ -659,11 +736,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_abs"
                     ],
-                    "title": "Kenya",
+                    "title": "Ghana",
                     "type": "LINE"
                   }
                 ]
@@ -671,11 +748,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_abs"
                     ],
-                    "title": "Senegal",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -683,35 +760,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_abs"
                     ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "GiniIndex_EconomicActivity_growth_abs"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "GiniIndex_EconomicActivity_growth_abs"
-                    ],
-                    "title": "Ethiopia",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -731,29 +784,77 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BEN",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_abs"
                     ],
-                    "title": "Benin",
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
-            "title": "Decrease in Gini Index of Economic Activity of a Population Over Time (Absolute Change)"
+            "title": "Change in Gini Index of Economic Activity of a Population Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_pct"
                     ],
-                    "title": "Guinea",
+                    "title": "Ghana",
                     "type": "LINE"
                   }
                 ]
@@ -761,11 +862,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_pct"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -773,35 +874,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_pct"
                     ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "GiniIndex_EconomicActivity_growth_pct"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "GiniIndex_EconomicActivity_growth_pct"
-                    ],
-                    "title": "Mali",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -821,18 +898,66 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BEN",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_pct"
                     ],
-                    "title": "Benin",
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
-            "title": "Decrease in Gini Index of Economic Activity of a Population Over Time (Percent Change)"
+            "title": "Change in Gini Index of Economic Activity of a Population Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -840,17 +965,19 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/ETH",
-                      "country/SEN",
-                      "country/SOM",
-                      "country/GHA",
-                      "country/GIN",
-                      "country/MLI",
+                      "country/KEN",
+                      "country/MAR",
+                      "country/RWA",
                       "country/BEN",
-                      "country/RWA"
+                      "country/MLI",
+                      "country/GIN",
+                      "country/GHA",
+                      "country/SOM",
+                      "country/SEN",
+                      "country/ETH"
                     ],
                     "statVarKey": [
-                      "sdg/SN_ITK_DEFC8"
+                      "sdg/SN_ITK_DEFC10"
                     ],
                     "title": "Undernourishment",
                     "type": "LINE"
@@ -866,11 +993,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_abs"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
@@ -878,11 +1005,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_abs"
                     ],
-                    "title": "Senegal",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -890,47 +1017,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SOM",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_abs"
                     ],
-                    "title": "Somalia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GHA",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_abs"
-                    ],
-                    "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_abs"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_abs"
-                    ],
-                    "title": "Mali",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -950,29 +1041,89 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_abs"
                     ],
-                    "title": "Rwanda",
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_abs"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_abs"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SOM",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_abs"
+                    ],
+                    "title": "Somalia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_abs"
+                    ],
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: Food and Agriculture Organization of the United Nations (FAO)",
-            "title": "Decrease in Undernourishment Over Time (Absolute Change)"
+            "title": "Change in Undernourishment Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_pct"
                     ],
-                    "title": "Senegal",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -980,11 +1131,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GHA",
+                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_pct"
                     ],
-                    "title": "Ghana",
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
@@ -992,47 +1143,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_pct"
                     ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_pct"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_pct"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_pct"
-                    ],
-                    "title": "Benin",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -1052,18 +1167,78 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_pct"
                     ],
-                    "title": "Rwanda",
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_pct"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_pct"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_pct"
+                    ],
+                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: Food and Agriculture Organization of the United Nations (FAO)",
-            "title": "Decrease in Undernourishment Over Time (Percent Change)"
+            "title": "Change in Undernourishment Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -1071,11 +1246,19 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/MAR",
-                      "country/SEN"
+                      "country/ETH",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/BEN",
+                      "country/GHA",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/GIN",
+                      "country/SEN",
+                      "country/MAR"
                     ],
                     "statVarKey": [
-                      "Count_Person_SlumArea2"
+                      "Count_Person_SlumArea10"
                     ],
                     "title": "Number of People Living in Slum Area",
                     "type": "LINE"
@@ -1091,11 +1274,95 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Count_Person_SlumArea_growth_abs"
                     ],
-                    "title": "Morocco",
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SOM",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Somalia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -1111,13 +1378,133 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Decrease in Number of People Living in Slum Area Over Time (Absolute Change)"
+            "title": "Change in Number of People Living in Slum Area Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SOM",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Somalia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -1129,25 +1516,121 @@
                     "type": "LINE"
                   }
                 ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Number of People Living in Slum Area Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SOM",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Somalia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pc"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
               },
               {
                 "tiles": [
                   {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
-                      "Count_Person_SlumArea_growth_pct"
+                      "Count_Person_SlumArea_growth_pc"
                     ],
                     "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Decrease in Number of People Living in Slum Area Over Time (Percent Change)"
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -1159,26 +1642,14 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "Count_Person_SlumArea_growth_pc"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Decrease in Number of People Living in Slum Area Over Time (Per Capita Change)"
+            "title": "Change in Number of People Living in Slum Area Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
-          "Count_Person_SlumArea2": {
+          "Count_Person_SlumArea10": {
             "name": "Number of people living in slum area",
             "statVar": "Count_Person_SlumArea"
           },
@@ -1194,7 +1665,7 @@
             "name": "Number of people living in slum area",
             "statVar": "Count_Person_SlumArea"
           },
-          "GiniIndex_EconomicActivity7": {
+          "GiniIndex_EconomicActivity9": {
             "name": "Gini Index of Economic Activity of a Population",
             "statVar": "GiniIndex_EconomicActivity"
           },
@@ -1206,7 +1677,7 @@
             "name": "Gini Index of Economic Activity of a Population",
             "statVar": "GiniIndex_EconomicActivity"
           },
-          "sdg/SD_MDP_ANDI3": {
+          "sdg/SD_MDP_ANDI4": {
             "name": "Average Deprivations for Population in Poverty",
             "statVar": "sdg/SD_MDP_ANDI"
           },
@@ -1230,7 +1701,7 @@
             "name": "Households in Poverty",
             "statVar": "sdg/SD_MDP_MUHHC"
           },
-          "sdg/SI_POV_DAY18": {
+          "sdg/SI_POV_DAY19": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
@@ -1242,7 +1713,7 @@
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_NAHC7": {
+          "sdg/SI_POV_NAHC8": {
             "name": "Employed Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_NAHC"
           },
@@ -1254,7 +1725,7 @@
             "name": "Employed Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_NAHC"
           },
-          "sdg/SN_ITK_DEFC8": {
+          "sdg/SN_ITK_DEFC10": {
             "name": "Undernourishment",
             "statVar": "sdg/SN_ITK_DEFC"
           },
@@ -1271,7 +1742,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/GIN"
+        "country/KEN"
       ]
     }
   },
