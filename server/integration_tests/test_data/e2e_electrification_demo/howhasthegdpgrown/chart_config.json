@@ -18,11 +18,10 @@
                       "country/MLI",
                       "country/GIN",
                       "country/BEN",
-                      "country/RWA",
-                      "country/SOM"
+                      "country/RWA"
                     ],
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal10"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal9"
                     ],
                     "title": "GDP (Nominal Value)",
                     "type": "LINE"
@@ -143,18 +142,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SOM",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Somalia",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "denom": "Count_Person",
@@ -243,18 +230,6 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
                     "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SOM",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Somalia",
                     "type": "LINE"
                   }
                 ]
@@ -397,18 +372,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SOM",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Somalia",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "denom": "Count_Person",
@@ -417,7 +380,7 @@
           }
         ],
         "statVarSpec": {
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal10": {
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal9": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
@@ -497,11 +460,6 @@
     {
       "dcid": "country/RWA",
       "name": "Rwanda",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SOM",
-      "name": "Somalia",
       "place_type": "Country"
     }
   ],

@@ -151,7 +151,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                       sv_place_latest_date=sv_place_latest_date,
                                       sv_place_facet=sv_place_facet)
 
-    if rank == 0 and field == 'abs' and ranked_places:
+    if not state.uttr.answerPlaces and ranked_places:
       ans_places = copy.deepcopy(ranked_places)
       state.uttr.answerPlaces = ans_places
       state.uttr.counters.info('time-delta-across-places_answer_places',
