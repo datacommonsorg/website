@@ -486,10 +486,11 @@ class ExploreTestEE1(ExploreTest):
   def test_e2e_electrification_demo(self):
     self.run_detect_and_fulfill('e2e_electrification_demo', [
         'Which countries in Africa have had the greatest increase in electricity access?',
-        'How has poverty reduced in these places?',
+        'How has poverty changed over time in these countries?',
+        'How has life expectancy increased in these places?',
         'How has the GDP grown?',
         'What is the greenhouse gas emissions from these places?',
-        'How do these countries compare with the US and Germany?',
+        'How do these places compare with the US and Germany?',
     ])
 
   def test_e2e_india_demo(self):
