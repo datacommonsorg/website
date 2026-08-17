@@ -528,9 +528,280 @@
               }
             ],
             "title": "Infant Mortality Rate by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Interval in Months Since Last Live Birth in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Men's Median Age in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "The median age of people in a population.",
+            "title": "Median Age of Population in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in United States",
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "The median age of people in a population.",
+            "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Crude Birth Rate in United States",
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
@@ -546,6 +817,10 @@
           "Count_Death_AbnormalNotClassfied_multiple_place_bar_block": {
             "name": "Deaths Due To Abnormal Symptoms, Signs And Clinical And Laboratory Findings",
             "statVar": "Count_Death_AbnormalNotClassfied"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person": {
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
@@ -670,6 +945,22 @@
           "LifeExpectancy_Person_Male": {
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
+          },
+          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
+            "name": "Average interval in months since last live birth",
+            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+          },
+          "Median_Age_Person": {
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_Female": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Male": {
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
             "name": "Infant mortality rate",
@@ -1135,6 +1426,12 @@
         "gender": [
           "LifeExpectancy_Person_Female",
           "LifeExpectancy_Person_Male"
+        ]
+      },
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
         ]
       }
     },

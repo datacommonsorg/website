@@ -31,12 +31,111 @@
               }
             ],
             "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+                    ],
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+                    ],
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Chronic Obstructive Pulmonary Disease"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Prevalence of Smoking in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Smoking in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Prevalence of Smoking in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Smoking"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "High Blood Pressure in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "High Blood Pressure"
           }
         ],
         "statVarSpec": {
+          "Percent_Person_Smoking": {
+            "name": "Prevalence of Smoking",
+            "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          },
           "Percent_Person_WithAsthma": {
             "name": "Asthma",
             "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighBloodPressure": {
+            "name": "High Blood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           }
         }

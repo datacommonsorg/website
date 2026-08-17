@@ -70,7 +70,9 @@ export function axiosMock(): void {
   };
 
   const csvData =
-    "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person\ngeoId/06001,Alameda County,2021,1648556,https://www2.census.go\ngeoId/06002,Alpine County,2021,1235,https://www2.census.gov/";
+    "Entity DCID,Entity name,ISO code,Variable DCID,Variable name,Date,Value,Unit DCID,Unit,Measurement method,Provenance URL,Import name,Observation period,Scaling factor\n" +
+    "geoId/06001,Alameda County,,Count_Person,Population,2021,1648556,,,,https://www2.census.gov,,,\n" +
+    "geoId/06002,Alpine County,,Count_Person,Population,2021,1235,,,,https://www2.census.gov/,,,";
 
   // get statvar properties Count_Person
   when(axios.get)

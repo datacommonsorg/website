@@ -94,9 +94,371 @@
               }
             ],
             "title": "Ownership Cost by Mortgage Status"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto10000USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued at $10,000 or Less (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued at $10,000 or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue20000To24999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $20,000 to $24,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $20,000 to $24,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $15,000 to $19,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $15,000 to $19,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue30000To34999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $30,000 to $34,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $30,000 to $34,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue25000To29999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $25,000 to $29,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $25,000 to $29,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue40000To49999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $40,000 to $49,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $40,000 to $49,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue10000To14999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $10,000 and $14,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $10,000 and $14,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue70000To79999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $70,000 to $79,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $70,000 to $79,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue35000To39999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $35,000 to $39,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $35,000 to $39,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue60000To69999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $60,000 to $69,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $60,000 to $69,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $90,000 to $99,999"
           }
         ],
         "statVarSpec": {
+          "Count_HousingUnit_HomeValue10000To14999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $10,000 and $14,999",
+            "statVar": "Count_HousingUnit_HomeValue10000To14999USDollar"
+          },
+          "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $15,000 to $19,999",
+            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
+          },
+          "Count_HousingUnit_HomeValue20000To24999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $20,000 to $24,999",
+            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
+          },
+          "Count_HousingUnit_HomeValue25000To29999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $25,000 to $29,999",
+            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
+          },
+          "Count_HousingUnit_HomeValue30000To34999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $30,000 to $34,999",
+            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
+          },
+          "Count_HousingUnit_HomeValue35000To39999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $35,000 to $39,999",
+            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
+          },
+          "Count_HousingUnit_HomeValue40000To49999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $40,000 to $49,999",
+            "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
+          },
+          "Count_HousingUnit_HomeValue60000To69999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $60,000 to $69,999",
+            "statVar": "Count_HousingUnit_HomeValue60000To69999USDollar"
+          },
+          "Count_HousingUnit_HomeValue70000To79999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $70,000 to $79,999",
+            "statVar": "Count_HousingUnit_HomeValue70000To79999USDollar"
+          },
+          "Count_HousingUnit_HomeValue90000To99999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $90,000 to $99,999",
+            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto10000USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued at $10,000 or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage, Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
