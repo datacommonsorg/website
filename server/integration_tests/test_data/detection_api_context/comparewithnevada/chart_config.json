@@ -21,9 +21,12 @@
   "sessionId": "007_999999999",
   "variables": [
     "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
+    "dc/0gettc3bc60cb",
+    "dc/hbkh95kc7pkb6",
     "dc/topic/CommuteMode",
     "dc/topic/CommuteModeByOccupation",
     "dc/topic/CommuteTime",
-    "dc/topic/WorkCommute"
+    "dc/topic/WorkCommute",
+    "dc/vp8cbt6k79t94"
   ]
 }

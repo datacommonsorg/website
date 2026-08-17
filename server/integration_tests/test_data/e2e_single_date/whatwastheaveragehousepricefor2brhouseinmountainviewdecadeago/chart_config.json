@@ -136,6 +136,38 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue250000To299999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $250,000 to $299,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $250,000 to $299,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue250000To299999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $250,000 to $299,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $250,000 to $299,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -145,24 +177,21 @@
                       "geoId/0649670"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_WithTotal2Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal1Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal3Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal4Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal5Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal6Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal7Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal8Rooms_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_WithTotal9OrMoreRooms_multiple_place_bar_block_2016"
+                      "dc/065dmg2ls1heb_multiple_place_bar_block_2016",
+                      "dc/9b9gqxj27fqwc_multiple_place_bar_block_2016",
+                      "dc/ejpm616jd1pq1_multiple_place_bar_block_2016",
+                      "dc/g0yn22m8r3639_multiple_place_bar_block_2016",
+                      "dc/h34ge8t21h9m1_multiple_place_bar_block_2016",
+                      "dc/rkq1jgk08zfs7_multiple_place_bar_block_2016"
                     ],
-                    "title": "Count of Housing Unit: Rooms 2 and More in Mountain View (${date})",
+                    "title": "Houses With Mortgage in Mountain View (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Count of Housing Unit: Rooms 2 and More"
+            "title": "Houses With Mortgage"
           },
           {
             "columns": [
@@ -171,27 +200,284 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "geoId/0649670"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2016",
-                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016"
+                      "dc/5jy4dp16mtssg_multiple_place_bar_block_2016",
+                      "dc/c9cl49nnrv5x4_multiple_place_bar_block_2016",
+                      "dc/m60n94sqql2d3_multiple_place_bar_block_2016",
+                      "dc/nrh9sl7zy12bf_multiple_place_bar_block_2016",
+                      "dc/q0p7fcll1lv8c_multiple_place_bar_block_2016",
+                      "dc/ye0f3ej72hhj7_multiple_place_bar_block_2016"
                     ],
-                    "title": "Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied and More in Mountain View (${date})",
+                    "title": "Houses Without Mortgage in Mountain View (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Count of Housing Unit: US Dollar 200000 to 299999, Occupied Housing Unit, Owner Occupied and More"
+            "title": "Houses Without Mortgage"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue20000To24999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $20,000 to $24,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $20,000 to $24,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue20000To24999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $20,000 to $24,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $20,000 to $24,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue25000To29999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $25,000 to $29,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $25,000 to $29,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue25000To29999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $25,000 to $29,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $25,000 to $29,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue80000To89999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $80,000 to $89,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $80,000 to $89,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue80000To89999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $80,000 to $89,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $80,000 to $89,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue30000To34999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $30,000 to $34,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $30,000 to $34,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue30000To34999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $30,000 to $34,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $30,000 to $34,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue70000To79999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $70,000 to $79,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $70,000 to $79,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue70000To79999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $70,000 to $79,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $70,000 to $79,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue175000To199999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $175,000 to $199,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $175,000 to $199,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue175000To199999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $175,000 to $199,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $175,000 to $199,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $90,000 to $99,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $90,000 to $99,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue300000To399999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Housing Units Valued at $300,000-$399,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Housing Units Valued at $300,000-$399,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue300000To399999USDollar_2016"
+                    ],
+                    "title": "Housing Units Valued at $300,000-$399,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Housing Units Valued at $300,000-$399,999"
           }
         ],
         "statVarSpec": {
@@ -209,6 +495,17 @@
             "date": "2016",
             "name": "Homes Valued Between $1,500,000 and $1,999,999",
             "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue175000To199999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $175,000 to $199,999",
+            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue175000To199999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $175,000 to $199,999",
+            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_2016": {
             "date": "2016",
@@ -237,10 +534,65 @@
             "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
+          "Count_HousingUnit_HomeValue20000To24999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $20,000 to $24,999",
+            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
+          },
+          "Count_HousingUnit_HomeValue20000To24999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $20,000 to $24,999",
+            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
+          },
+          "Count_HousingUnit_HomeValue250000To299999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $250,000 to $299,999",
+            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue250000To299999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $250,000 to $299,999",
+            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue25000To29999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $25,000 to $29,999",
+            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
+          },
+          "Count_HousingUnit_HomeValue25000To29999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $25,000 to $29,999",
+            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To399999USDollar_2016": {
+            "date": "2016",
+            "name": "Housing Units Valued at $300,000-$399,999",
+            "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To399999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Housing Units Valued at $300,000-$399,999",
+            "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
+          },
           "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
             "name": "Count of Housing Unit: US Dollar 300000 To 499999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue30000To34999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $30,000 to $34,999",
+            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
+          },
+          "Count_HousingUnit_HomeValue30000To34999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $30,000 to $34,999",
+            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
           },
           "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
@@ -252,15 +604,43 @@
             "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
+          "Count_HousingUnit_HomeValue70000To79999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $70,000 to $79,999",
+            "statVar": "Count_HousingUnit_HomeValue70000To79999USDollar"
+          },
+          "Count_HousingUnit_HomeValue70000To79999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $70,000 to $79,999",
+            "statVar": "Count_HousingUnit_HomeValue70000To79999USDollar"
+          },
+          "Count_HousingUnit_HomeValue80000To89999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $80,000 to $89,999",
+            "statVar": "Count_HousingUnit_HomeValue80000To89999USDollar"
+          },
+          "Count_HousingUnit_HomeValue80000To89999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $80,000 to $89,999",
+            "statVar": "Count_HousingUnit_HomeValue80000To89999USDollar"
+          },
+          "Count_HousingUnit_HomeValue90000To99999USDollar_2016": {
+            "date": "2016",
+            "name": "Homes Valued Between $90,000 to $99,999",
+            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValue90000To99999USDollar_2016_10169881228856630405": {
+            "date": "2016",
+            "facetId": "10169881228856630405",
+            "name": "Homes Valued Between $90,000 to $99,999",
+            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
+          },
           "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
             "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
-          },
-          "Count_HousingUnit_WithTotal1Rooms_multiple_place_bar_block_2016": {
-            "date": "2016",
-            "name": "Count of Housing Unit: Rooms 1",
-            "statVar": "Count_HousingUnit_WithTotal1Rooms"
           },
           "Count_HousingUnit_WithTotal2Rooms_2016": {
             "date": "2016",
@@ -273,45 +653,65 @@
             "name": "Count of Housing Unit: Rooms 2",
             "statVar": "Count_HousingUnit_WithTotal2Rooms"
           },
-          "Count_HousingUnit_WithTotal2Rooms_multiple_place_bar_block_2016": {
+          "dc/065dmg2ls1heb_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 2",
-            "statVar": "Count_HousingUnit_WithTotal2Rooms"
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "statVar": "dc/065dmg2ls1heb"
           },
-          "Count_HousingUnit_WithTotal3Rooms_multiple_place_bar_block_2016": {
+          "dc/5jy4dp16mtssg_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 3",
-            "statVar": "Count_HousingUnit_WithTotal3Rooms"
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "statVar": "dc/5jy4dp16mtssg"
           },
-          "Count_HousingUnit_WithTotal4Rooms_multiple_place_bar_block_2016": {
+          "dc/9b9gqxj27fqwc_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 4",
-            "statVar": "Count_HousingUnit_WithTotal4Rooms"
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "statVar": "dc/9b9gqxj27fqwc"
           },
-          "Count_HousingUnit_WithTotal5Rooms_multiple_place_bar_block_2016": {
+          "dc/c9cl49nnrv5x4_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 5",
-            "statVar": "Count_HousingUnit_WithTotal5Rooms"
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "statVar": "dc/c9cl49nnrv5x4"
           },
-          "Count_HousingUnit_WithTotal6Rooms_multiple_place_bar_block_2016": {
+          "dc/ejpm616jd1pq1_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 6",
-            "statVar": "Count_HousingUnit_WithTotal6Rooms"
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "statVar": "dc/ejpm616jd1pq1"
           },
-          "Count_HousingUnit_WithTotal7Rooms_multiple_place_bar_block_2016": {
+          "dc/g0yn22m8r3639_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 7",
-            "statVar": "Count_HousingUnit_WithTotal7Rooms"
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "statVar": "dc/g0yn22m8r3639"
           },
-          "Count_HousingUnit_WithTotal8Rooms_multiple_place_bar_block_2016": {
+          "dc/h34ge8t21h9m1_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 8",
-            "statVar": "Count_HousingUnit_WithTotal8Rooms"
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "statVar": "dc/h34ge8t21h9m1"
           },
-          "Count_HousingUnit_WithTotal9OrMoreRooms_multiple_place_bar_block_2016": {
+          "dc/m60n94sqql2d3_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 9 Onwards",
-            "statVar": "Count_HousingUnit_WithTotal9OrMoreRooms"
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "statVar": "dc/m60n94sqql2d3"
+          },
+          "dc/nrh9sl7zy12bf_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "statVar": "dc/nrh9sl7zy12bf"
+          },
+          "dc/q0p7fcll1lv8c_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "statVar": "dc/q0p7fcll1lv8c"
+          },
+          "dc/rkq1jgk08zfs7_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "statVar": "dc/rkq1jgk08zfs7"
+          },
+          "dc/ye0f3ej72hhj7_multiple_place_bar_block_2016": {
+            "date": "2016",
+            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "statVar": "dc/ye0f3ej72hhj7"
           }
         }
       }

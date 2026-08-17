@@ -533,9 +533,106 @@
             ],
             "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
             "title": "Gini Index of Economic Activity of a Population in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Undernourishment in Africa",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Africa",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
+            "title": "Undernourishment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
+            "title": "Undernourishment in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SlumArea"
+                    ],
+                    "title": "Number of People Living in Slum Area in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_SlumArea"
+                    ],
+                    "title": "Number of People Living in Slum Area in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Living in Slum Area in Countries of Africa"
           }
         ],
         "statVarSpec": {
+          "Count_Person_SlumArea": {
+            "name": "Number of people living in slum area",
+            "statVar": "Count_Person_SlumArea"
+          },
           "GiniIndex_EconomicActivity": {
             "name": "Gini Index of Economic Activity of a Population",
             "statVar": "GiniIndex_EconomicActivity"
@@ -603,6 +700,10 @@
           "sdg/SI_POV_NAHC": {
             "name": "Employed Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SN_ITK_DEFC": {
+            "name": "Undernourishment",
+            "statVar": "sdg/SN_ITK_DEFC"
           }
         }
       }
