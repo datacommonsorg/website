@@ -356,7 +356,7 @@ def get_topic_vars_recurive(topic: str,
   return new_svs
 
 
-def get_topic_vars(topic: str, dc: str):
+def get_topic_vars(topic: str, dc: str = DCNames.MAIN_DC.value):
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
@@ -369,7 +369,7 @@ def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
   # This is an SV, so get parent SVPGs, if any
   if utils.is_sv(topic_or_sv):
     psvpg = _parents_raw([topic_or_sv], 'member', dc)
-    psvpg_ids = [p['dcid'] for p in psvpg]
+    psvpg_ids = [p['dcid'] for p in psvpg if 'dcid' in p]
     # Get its actual topic, if any.
     topics = psvpg_ids + [topic_or_sv]
   else:
@@ -384,7 +384,9 @@ def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
   children = _members_raw(topics, 'relevantVariable', dc)
   resp = []
   for pvals in children.values():
-    for p in pvals:
+    for p in (pvals or []):
+      if not isinstance(p, dict):
+        continue
       if 'value' in p:
         del p['value']
       if 'dcid' not in p:
@@ -409,19 +411,22 @@ def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
 
 
 def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
-  if 'TOPIC_CACHE' in current_app.config:
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
     return current_app.config['TOPIC_CACHE'][dc].get_extended_svgs(topic)
   else:
-    return fetch.property_values(nodes=[topic], prop='extendedVariable')[topic]
+    return fetch.property_values(nodes=[topic],
+                                 prop='extendedVariable').get(topic, [])
 
 
 def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
-    if 'TOPIC_CACHE' in current_app.config:
+    if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+        'TOPIC_CACHE']:
       name = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
     if not name:
-      resp = fetch.property_values(nodes=[sv], prop='name')[sv]
+      resp = fetch.property_values(nodes=[sv], prop='name').get(sv, [])
       if resp:
         name = resp[0]
   return name
@@ -430,13 +435,13 @@ def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
 def svpg_description(sv: str):
   name = TOPIC_AND_SVPG_DESC_OVERRIDE.get(sv, '')
   if not name:
-    resp = fetch.property_values(nodes=[sv], prop='description')[sv]
+    resp = fetch.property_values(nodes=[sv], prop='description').get(sv, [])
     if resp:
       name = resp[0]
   return name
 
 
-def _get_svpg_vars(svpg: str, dc: str) -> List[str]:
+def _get_svpg_vars(svpg: str, dc: str = DCNames.MAIN_DC.value) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
     svs = _members(svpg, 'member', dc)
@@ -492,19 +497,26 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _members(node: str, prop: str, dc: str) -> List[str]:
+def _members(node: str, prop: str, dc: str = DCNames.MAIN_DC.value) -> List[str]:
+  if not node:
+    return []
   val_list = []
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
     resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
-    val_list = [v['dcid'] for v in resp]
+    val_list = [v['dcid'] for v in resp if 'dcid' in v]
   if not val_list:
     val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
 
 
-def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
+def _members_raw(nodes: List[str],
+                 prop: str,
+                 dc: str = DCNames.MAIN_DC.value) -> Dict[str, List[Dict]]:
   val_map = {}
+  if not nodes:
+    return val_map
+
   missing_nodes = []
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
@@ -519,21 +531,32 @@ def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
 
   if missing_nodes:
     unique_missing = list(dict.fromkeys(missing_nodes))
-    raw_res = fetch.raw_property_values(nodes=unique_missing, prop=prop)
+    raw_res = fetch.raw_property_values(nodes=unique_missing, prop=prop) or {}
     for n in missing_nodes:
-      val_map[n] = raw_res.get(n, [])
+      val_map[n] = raw_res.get(n, []) or []
   return val_map
 
 
-def _parents_raw(nodes: List[str], prop: str, dc: str) -> List[Dict]:
+def _parents_raw(nodes: List[str],
+                 prop: str,
+                 dc: str = DCNames.MAIN_DC.value) -> List[Dict]:
   parent_list = []
+  if not nodes:
+    return parent_list
+
   missing_nodes = []
+  seen_dcids = set()
+
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
     for n in nodes:
       plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
       if plist:
-        parent_list.extend(plist)
+        for p in plist:
+          dcid = p.get('dcid')
+          if dcid and dcid not in seen_dcids:
+            seen_dcids.add(dcid)
+            parent_list.append(p)
       else:
         missing_nodes.append(n)
   else:
@@ -543,9 +566,11 @@ def _parents_raw(nodes: List[str], prop: str, dc: str) -> List[Dict]:
     unique_missing = list(dict.fromkeys(missing_nodes))
     parents = fetch.raw_property_values(nodes=unique_missing,
                                         prop=prop,
-                                        out=False)
+                                        out=False) or {}
     for pvals in parents.values():
-      for p in pvals:
+      for p in (pvals or []):
+        if not isinstance(p, dict):
+          continue
         if 'value' in p:
           del p['value']
         if 'dcid' not in p:
@@ -555,16 +580,22 @@ def _parents_raw(nodes: List[str], prop: str, dc: str) -> List[Dict]:
           continue
         if prop == 'member' and not utils.is_svpg(id):
           continue
-        parent_list.append(p)
+        if id not in seen_dcids:
+          seen_dcids.add(id)
+          parent_list.append(p)
   return parent_list
 
 
 # Reads Props that are strings encoding ordered DCIDs.
 def _prop_val_ordered(node: str, prop: str) -> List[str]:
-  sv_list = fetch.property_values(nodes=[node], prop=prop).get(node, [])
+  if not node:
+    return []
+  sv_list = fetch.property_values(nodes=[node], prop=prop).get(node, []) or []
   svs = []
   seen = set()
   for item in sv_list:
+    if not isinstance(item, str):
+      continue
     for v in item.split(','):
       v = v.strip()
       if v and v not in seen:

@@ -52,8 +52,13 @@ class TestTopicFallback(unittest.TestCase):
       mock_property_values.assert_called_once_with(
           nodes=['dc/topic/DynamicTopic'], prop='relevantVariableList')
 
+  def test_members_empty_or_none(self):
+    with self.app.app_context():
+      self.assertEqual(topic._members('', 'relevantVariable', 'main'), [])
+      self.assertEqual(topic._members(None, 'relevantVariable', 'main'), [])
+
   @patch('server.lib.fetch.raw_property_values')
-  def test_members_raw_fallback(self, mock_raw_property_values):
+  def test_members_raw_fallback_and_dedup(self, mock_raw_property_values):
     mock_cache = MagicMock()
 
     def fake_get_members(n):
@@ -77,8 +82,10 @@ class TestTopicFallback(unittest.TestCase):
     }
 
     with self.app.app_context():
-      res = topic._members_raw(['dc/topic/Cached', 'dc/topic/Dynamic'],
-                               'relevantVariable', 'main')
+      # Passing duplicate 'dc/topic/Dynamic' to verify request deduplication
+      res = topic._members_raw(
+          ['dc/topic/Cached', 'dc/topic/Dynamic', 'dc/topic/Dynamic'],
+          'relevantVariable', 'main')
       self.assertEqual(len(res), 2)
       self.assertEqual(res['dc/topic/Cached'], [{
           'dcid': 'sv1',
@@ -92,6 +99,14 @@ class TestTopicFallback(unittest.TestCase):
       }])
       mock_raw_property_values.assert_called_once_with(
           nodes=['dc/topic/Dynamic'], prop='relevantVariable')
+
+  @patch('server.lib.fetch.raw_property_values')
+  def test_members_raw_fetch_none_or_empty(self, mock_raw_property_values):
+    mock_raw_property_values.return_value = None
+    with self.app.app_context():
+      res = topic._members_raw(['dc/topic/NonExistent'], 'relevantVariable',
+                               'main')
+      self.assertEqual(res, {'dc/topic/NonExistent': []})
 
   @patch('server.lib.fetch.raw_property_values')
   def test_parents_raw_fallback(self, mock_raw_property_values):
@@ -115,12 +130,21 @@ class TestTopicFallback(unittest.TestCase):
             'name': 'Dynamic Parent',
             'types': ['Topic'],
             'value': 'extra'
+        }, {
+            'dcid': 'non_topic_parent',
+            'name': 'Invalid',
+            'types': ['SomethingElse']
+        }, {
+            'dcid': 'dc/topic/CachedParent',
+            'name': 'Duplicate Cached Parent',
+            'types': ['Topic']
         }]
     }
 
     with self.app.app_context():
       res = topic._parents_raw(['sv_cached', 'sv_dynamic'], 'relevantVariable',
                                'main')
+      # 'non_topic_parent' should be filtered out, 'value' deleted, and duplicates deduplicated
       self.assertEqual(res, [{
           'dcid': 'dc/topic/CachedParent',
           'name': 'Cached Parent',
@@ -134,10 +158,97 @@ class TestTopicFallback(unittest.TestCase):
                                                        prop='relevantVariable',
                                                        out=False)
 
+  @patch('server.lib.fetch.raw_property_values')
+  def test_parents_raw_fetch_none_or_empty(self, mock_raw_property_values):
+    mock_raw_property_values.return_value = None
+    with self.app.app_context():
+      res = topic._parents_raw(['sv_nonexistent'], 'relevantVariable', 'main')
+      self.assertEqual(res, [])
+
   @patch('server.lib.fetch.property_values')
   def test_prop_val_ordered(self, mock_property_values):
     mock_property_values.return_value = {
-        'node1': ['sv1, sv2, sv1', 'sv3,  sv2 , sv4', '']
+        'node1': ['sv1, sv2, sv1', 'sv3,  sv2 , sv4', '', None, 123]
     }
     res = topic._prop_val_ordered('node1', 'relevantVariableList')
     self.assertEqual(res, ['sv1', 'sv2', 'sv3', 'sv4'])
+
+  def test_prop_val_ordered_empty_node(self):
+    self.assertEqual(topic._prop_val_ordered('', 'relevantVariableList'), [])
+    self.assertEqual(topic._prop_val_ordered(None, 'relevantVariableList'), [])
+
+  @patch('server.lib.fetch.property_values')
+  def test_get_topic_vars(self, mock_property_values):
+    # Override topic
+    self.assertEqual(
+        topic.get_topic_vars('dc/topic/AgricultureEmissionsByGas', 'main'),
+        ['dc/svpg/AgricultureEmissionsByGas'])
+
+    # Non-topic
+    self.assertEqual(topic.get_topic_vars('Count_Person', 'main'), [])
+
+    # Dynamic topic fallback
+    mock_property_values.return_value = {'dc/topic/Custom': ['sv1, sv2']}
+    with self.app.app_context():
+      self.assertEqual(
+          topic.get_topic_vars('dc/topic/Custom', 'main'), ['sv1', 'sv2'])
+
+  @patch('server.lib.fetch.raw_property_values')
+  def test_get_child_topics(self, mock_raw_property_values):
+    mock_raw_property_values.return_value = {
+        'dc/topic/Parent': [
+            {
+                'dcid': 'dc/topic/Child1',
+                'name': 'Child 1',
+                'types': ['Topic']
+            },
+            {
+                'dcid': 'Count_Person',  # Not a topic
+                'name': 'Person Count',
+                'types': ['StatisticalVariable']
+            },
+            {
+                'dcid': 'dc/topic/Parent',  # Self-reference
+                'name': 'Self',
+                'types': ['Topic']
+            }
+        ]
+    }
+    with self.app.app_context():
+      res = topic.get_child_topics(['dc/topic/Parent'], 'main')
+      self.assertEqual(res, [{
+          'dcid': 'dc/topic/Child1',
+          'name': 'Child 1',
+          'types': ['Topic']
+      }])
+
+  @patch('server.lib.fetch.raw_property_values')
+  def test_get_parent_topics_for_sv(self, mock_raw_property_values):
+    # SV queries member prop first to find SVPG, then relevantVariable on SVPG + SV
+    mock_raw_property_values.side_effect = [
+        # SVPG lookup: 'member'
+        {
+            'Count_Person': [{
+                'dcid': 'dc/svpg/Demographics',
+                'name': 'Demographics',
+                'types': ['StatVarPeerGroup']
+            }]
+        },
+        # Topic lookup: 'relevantVariable' on ['dc/svpg/Demographics', 'Count_Person']
+        {
+            'dc/svpg/Demographics': [{
+                'dcid': 'dc/topic/DemographicsTopic',
+                'name': 'Demographics Topic',
+                'types': ['Topic']
+            }],
+            'Count_Person': []
+        }
+    ]
+    with self.app.app_context():
+      res = topic.get_parent_topics('Count_Person', 'main')
+      self.assertEqual(res, [{
+          'dcid': 'dc/topic/DemographicsTopic',
+          'name': 'Demographics Topic',
+          'types': ['Topic']
+      }])
+
