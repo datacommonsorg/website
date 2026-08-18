@@ -67,13 +67,13 @@ test("Loading options from URL", async () => {
   await waitForComponentUpdates(wrapper);
 
   await waitFor(() => {
-    expect(wrapper.text()).toContain("placeDcid");
+    expect(wrapper.text()).toContain("Entity DCID");
   });
   expect(
     pretty(document.getElementById("preview-section").innerHTML)
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
-  wrapper.find(".download-button").at(0).simulate("click");
+  wrapper.find(".download-button").hostNodes().at(0).simulate("click");
   expect(axios.post).toHaveBeenCalledWith(
     "/api/csv/within",
     {
@@ -141,13 +141,13 @@ test("Manually updating options", async () => {
   await waitForComponentUpdates(wrapper);
 
   await waitFor(() => {
-    expect(wrapper.text()).toContain("placeDcid");
+    expect(wrapper.text()).toContain("Entity DCID");
   });
   expect(
     pretty(document.getElementById("preview-section").innerHTML)
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
-  wrapper.find(".download-button").at(0).simulate("click");
+  wrapper.find(".download-button").hostNodes().at(0).simulate("click");
   expect(axios.post).toHaveBeenCalledWith(
     "/api/csv/within",
     {
