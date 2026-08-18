@@ -494,32 +494,54 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
 
 def _members(node: str, prop: str, dc: str) -> List[str]:
   val_list = []
-  if 'TOPIC_CACHE' in current_app.config:
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
     resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
     val_list = [v['dcid'] for v in resp]
-  else:
+  if not val_list:
     val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
 
 
-def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[str]]:
+def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
   val_map = {}
-  if 'TOPIC_CACHE' in current_app.config:
+  missing_nodes = []
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
     for n in nodes:
-      val_map[n] = current_app.config['TOPIC_CACHE'][dc].get_members(n)
+      members = current_app.config['TOPIC_CACHE'][dc].get_members(n)
+      if members:
+        val_map[n] = members
+      else:
+        missing_nodes.append(n)
   else:
-    val_map = fetch.raw_property_values(nodes=nodes, prop=prop)
+    missing_nodes = list(nodes)
+
+  if missing_nodes:
+    raw_res = fetch.raw_property_values(nodes=missing_nodes, prop=prop)
+    for n in missing_nodes:
+      val_map[n] = raw_res.get(n, [])
   return val_map
 
 
 def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
   parent_list = []
-  if 'TOPIC_CACHE' in current_app.config:
+  missing_nodes = []
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
     for n in nodes:
       plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
-      parent_list.extend(plist)
+      if plist:
+        parent_list.extend(plist)
+      else:
+        missing_nodes.append(n)
   else:
-    parents = fetch.raw_property_values(nodes=nodes, prop=prop, out=False)
+    missing_nodes = list(nodes)
+
+  if missing_nodes:
+    parents = fetch.raw_property_values(nodes=missing_nodes,
+                                        prop=prop,
+                                        out=False)
     for pvals in parents.values():
       for p in pvals:
         if 'value' in p:
@@ -537,9 +559,13 @@ def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
 
 # Reads Props that are strings encoding ordered DCIDs.
 def _prop_val_ordered(node: str, prop: str) -> List[str]:
-  sv_list = fetch.property_values(nodes=[node], prop=prop)[node]
+  sv_list = fetch.property_values(nodes=[node], prop=prop).get(node, [])
   svs = []
-  if sv_list:
-    sv_list = sv_list[0]
-    svs = [v.strip() for v in sv_list.split(',') if v.strip()]
+  seen = set()
+  for item in sv_list:
+    for v in item.split(','):
+      v = v.strip()
+      if v and v not in seen:
+        seen.add(v)
+        svs.append(v)
   return svs

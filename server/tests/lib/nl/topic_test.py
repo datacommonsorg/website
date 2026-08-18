@@ -1,0 +1,143 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the 'License');
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an 'AS IS' BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import unittest
+from unittest.mock import MagicMock
+from unittest.mock import patch
+
+from flask import Flask
+
+from server.lib.nl.common import topic
+
+
+class TestTopicFallback(unittest.TestCase):
+
+  def setUp(self):
+    self.app = Flask(__name__)
+
+  def test_members_cached(self):
+    mock_cache = MagicMock()
+    mock_cache.get_members.return_value = [{'dcid': 'sv1'}, {'dcid': 'sv2'}]
+    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
+
+    with self.app.app_context():
+      res = topic._members('dc/topic/CachedTopic', 'relevantVariable', 'main')
+      self.assertEqual(res, ['sv1', 'sv2'])
+      mock_cache.get_members.assert_called_once_with('dc/topic/CachedTopic')
+
+  @patch('server.lib.fetch.property_values')
+  def test_members_fallback(self, mock_property_values):
+    mock_cache = MagicMock()
+    mock_cache.get_members.return_value = []
+    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
+
+    mock_property_values.return_value = {
+        'dc/topic/DynamicTopic': ['sv1, sv2', 'sv2, sv3']
+    }
+
+    with self.app.app_context():
+      res = topic._members('dc/topic/DynamicTopic', 'relevantVariable', 'main')
+      self.assertEqual(res, ['sv1', 'sv2', 'sv3'])
+      mock_property_values.assert_called_once_with(
+          nodes=['dc/topic/DynamicTopic'], prop='relevantVariableList')
+
+  @patch('server.lib.fetch.raw_property_values')
+  def test_members_raw_fallback(self, mock_raw_property_values):
+    mock_cache = MagicMock()
+
+    def fake_get_members(n):
+      if n == 'dc/topic/Cached':
+        return [{
+            'dcid': 'sv1',
+            'name': 'SV 1',
+            'types': ['StatisticalVariable']
+        }]
+      return []
+
+    mock_cache.get_members.side_effect = fake_get_members
+    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
+
+    mock_raw_property_values.return_value = {
+        'dc/topic/Dynamic': [{
+            'dcid': 'sv2',
+            'name': 'SV 2',
+            'types': ['StatisticalVariable']
+        }]
+    }
+
+    with self.app.app_context():
+      res = topic._members_raw(['dc/topic/Cached', 'dc/topic/Dynamic'],
+                               'relevantVariable', 'main')
+      self.assertEqual(len(res), 2)
+      self.assertEqual(res['dc/topic/Cached'], [{
+          'dcid': 'sv1',
+          'name': 'SV 1',
+          'types': ['StatisticalVariable']
+      }])
+      self.assertEqual(res['dc/topic/Dynamic'], [{
+          'dcid': 'sv2',
+          'name': 'SV 2',
+          'types': ['StatisticalVariable']
+      }])
+      mock_raw_property_values.assert_called_once_with(
+          nodes=['dc/topic/Dynamic'], prop='relevantVariable')
+
+  @patch('server.lib.fetch.raw_property_values')
+  def test_parents_raw_fallback(self, mock_raw_property_values):
+    mock_cache = MagicMock()
+
+    def fake_get_parents(n, prop):
+      if n == 'sv_cached':
+        return [{
+            'dcid': 'dc/topic/CachedParent',
+            'name': 'Cached Parent',
+            'types': ['Topic']
+        }]
+      return []
+
+    mock_cache.get_parents.side_effect = fake_get_parents
+    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
+
+    mock_raw_property_values.return_value = {
+        'sv_dynamic': [{
+            'dcid': 'dc/topic/DynamicParent',
+            'name': 'Dynamic Parent',
+            'types': ['Topic'],
+            'value': 'extra'
+        }]
+    }
+
+    with self.app.app_context():
+      res = topic._parents_raw(['sv_cached', 'sv_dynamic'], 'relevantVariable',
+                               'main')
+      self.assertEqual(res, [{
+          'dcid': 'dc/topic/CachedParent',
+          'name': 'Cached Parent',
+          'types': ['Topic']
+      }, {
+          'dcid': 'dc/topic/DynamicParent',
+          'name': 'Dynamic Parent',
+          'types': ['Topic']
+      }])
+      mock_raw_property_values.assert_called_once_with(nodes=['sv_dynamic'],
+                                                       prop='relevantVariable',
+                                                       out=False)
+
+  @patch('server.lib.fetch.property_values')
+  def test_prop_val_ordered(self, mock_property_values):
+    mock_property_values.return_value = {
+        'node1': ['sv1, sv2, sv1', 'sv3,  sv2 , sv4', '']
+    }
+    res = topic._prop_val_ordered('node1', 'relevantVariableList')
+    self.assertEqual(res, ['sv1', 'sv2', 'sv3', 'sv4'])
