@@ -37,11 +37,11 @@ if ! git diff-index --quiet HEAD --; then
 fi
 
 # Find the remote associated with the main repo
-# The tag operations later in the script require a remote using SSH authentication.
-# If there are multiple remotes with 'git@github.com:datacommonsorg' in their URL, pick the first one
-upstream_remote=$(git remote -v | awk '/git@github.com:datacommonsorg/ && /(push)/ {print $1; exit}')
+# The tag operations later in the script require a remote using SSH or Token/HTTPS authentication.
+# If there are multiple remotes with 'github.com/datacommonsorg' or 'github.com:datacommonsorg' in their URL, pick the first one
+upstream_remote=$(git remote -v | awk '/github\.com(\/|:)datacommonsorg/ && /\(push\)/ {print $1; exit}')
 if [ -z "$upstream_remote" ]; then
-  echo "No remote found with 'git@github.com:datacommonsorg' in its URL. Make sure you have a remote using SSH authentication added."
+  echo "No remote found with 'github.com/datacommonsorg' or 'github.com:datacommonsorg' in its URL. Make sure you have a remote for the main repo added."
   exit 1
 fi
 echo "Remote for main repo is '${upstream_remote}'".
