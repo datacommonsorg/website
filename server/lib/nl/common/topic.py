@@ -518,13 +518,14 @@ def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
     missing_nodes = list(nodes)
 
   if missing_nodes:
-    raw_res = fetch.raw_property_values(nodes=missing_nodes, prop=prop)
+    unique_missing = list(dict.fromkeys(missing_nodes))
+    raw_res = fetch.raw_property_values(nodes=unique_missing, prop=prop)
     for n in missing_nodes:
       val_map[n] = raw_res.get(n, [])
   return val_map
 
 
-def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
+def _parents_raw(nodes: List[str], prop: str, dc: str) -> List[Dict]:
   parent_list = []
   missing_nodes = []
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
@@ -539,7 +540,8 @@ def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
     missing_nodes = list(nodes)
 
   if missing_nodes:
-    parents = fetch.raw_property_values(nodes=missing_nodes,
+    unique_missing = list(dict.fromkeys(missing_nodes))
+    parents = fetch.raw_property_values(nodes=unique_missing,
                                         prop=prop,
                                         out=False)
     for pvals in parents.values():
