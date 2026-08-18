@@ -31,10 +31,10 @@ cleanup() {
 trap cleanup EXIT
 
 # Check if working directory is clean before proceeding
-# if ! git diff-index --quiet HEAD --; then
-#   echo "Error: Working directory is not clean. Commit or stash your changes before running this script."
-#   exit 1
-# fi
+if ! git diff-index --quiet HEAD --; then
+  echo "Error: Working directory is not clean. Commit or stash your changes before running this script."
+  exit 1
+fi
 
 # Find the remote associated with the main repo
 # The tag operations later in the script require a remote using SSH or Token/HTTPS authentication.
