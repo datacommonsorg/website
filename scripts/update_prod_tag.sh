@@ -39,7 +39,7 @@ fi
 # Find the remote associated with the main repo
 # The tag operations later in the script require a remote using SSH or Token/HTTPS authentication.
 # If there are multiple remotes with 'github.com/datacommonsorg' or 'github.com:datacommonsorg' in their URL, pick the first one
-upstream_remote=$(git remote -v | awk '/github\.com[:\/]datacommonsorg/ && /(push)/ {print $1; exit}')
+upstream_remote=$(git remote -v | awk '/github\.com(\/|:)datacommonsorg/ && /\(push\)/ {print $1; exit}')
 if [ -z "$upstream_remote" ]; then
   echo "No remote found with 'github.com/datacommonsorg' or 'github.com:datacommonsorg' in its URL. Make sure you have a remote for the main repo added."
   exit 1
