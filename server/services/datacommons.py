@@ -110,10 +110,18 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
   call_logger.finish(response)
 
   if response.status_code != 200:
+    err_msg = ""
+    try:
+      resp_json = response.json()
+      err_msg = (resp_json.get("message") or
+                 resp_json.get("fault", {}).get("faultstring") or
+                 resp_json.get("error", {}).get("message") or
+                 str(resp_json))
+    except Exception:
+      err_msg = response.text
     raise ValueError(
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
-            response.status_code, response.reason,
-            response.json()["message"]))
+            response.status_code, response.reason, err_msg))
   res_json = response.json()
   response_id = response.headers.get(MIXER_RESPONSE_ID_HEADER)
   # This is used to log cached mixer usage and is a list to be compatible with other cached

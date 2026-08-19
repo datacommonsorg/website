@@ -34,12 +34,10 @@ def get_config():
     # Override the api mixer path (API_ROOT) if WEBSITE_MIXER_API_ROOT is set
     if os.environ.get("WEBSITE_MIXER_API_ROOT"):
       cfg.API_ROOT = os.environ.get("WEBSITE_MIXER_API_ROOT")
-    # Set up secret project for GCP deployment
-    if not cfg.LOCAL:
+    # Set up secret project for GCP deployment if not already explicitly specified
+    if not cfg.LOCAL and not getattr(cfg, 'SECRET_PROJECT', None):
       try:
         _, project_id = google.auth.default()
-        # For webdriver tests and integration test, the SECRET_PROJECT is
-        # overwritten to datcom-ci when running on cloudbuild.
         cfg.SECRET_PROJECT = project_id
       except Exception as e:
         logging.warning(
