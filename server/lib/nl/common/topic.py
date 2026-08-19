@@ -498,6 +498,21 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
 
 
 def _members(node: str, prop: str, dc: str = DCNames.MAIN_DC.value) -> List[str]:
+  """Retrieves member DCIDs for a container node (Topic or StatVarPeerGroup).
+
+  Attempts in-memory TOPIC_CACHE lookup first. If the node is missing from cache
+  or has empty members (e.g. dynamic custom topics in DCP), falls back to
+  fetching the consolidated list property (e.g. 'relevantVariableList' or
+  'memberList') from Cloud Spanner / Mixer via _prop_val_ordered().
+
+  Args:
+    node: Container DCID (e.g., 'dc/topic/Poverty', 'custom/topic/DisplacedPersons').
+    prop: Base predicate name ('relevantVariable' or 'member').
+    dc: Data Commons instance name (e.g. 'main', 'custom').
+
+  Returns:
+    List of member entity DCIDs.
+  """
   if not node:
     return []
   val_list = []
@@ -513,6 +528,20 @@ def _members(node: str, prop: str, dc: str = DCNames.MAIN_DC.value) -> List[str]
 def _members_raw(nodes: List[str],
                  prop: str,
                  dc: str = DCNames.MAIN_DC.value) -> Dict[str, List[Dict]]:
+  """Batch-retrieves raw member dictionaries for multiple container nodes.
+
+  Used during multi-topic discovery (e.g. get_child_topics). Fulfills cached
+  nodes from in-memory TOPIC_CACHE and batch-queries missing nodes directly from
+  the graph via fetch.raw_property_values().
+
+  Args:
+    nodes: List of container DCIDs to inspect.
+    prop: Predicate name ('relevantVariable' or 'member').
+    dc: Data Commons instance name.
+
+  Returns:
+    Dict mapping node DCID -> list of raw member arc dicts.
+  """
   val_map = {}
   if not nodes:
     return val_map
@@ -540,6 +569,19 @@ def _members_raw(nodes: List[str],
 def _parents_raw(nodes: List[str],
                  prop: str,
                  dc: str = DCNames.MAIN_DC.value) -> List[Dict]:
+  """Batch-retrieves raw parent container dictionaries for child nodes.
+
+  Traverses inverse graph arcs (out=False) to find parent Topics or SVPGs
+  asserting 'relevantVariable' or 'member' pointing to the given nodes.
+
+  Args:
+    nodes: List of child DCIDs (StatisticalVariables or SVPGs).
+    prop: Predicate name to follow inversely ('relevantVariable' or 'member').
+    dc: Data Commons instance name.
+
+  Returns:
+    Deduplicated list of parent node dictionaries.
+  """
   parent_list = []
   if not nodes:
     return parent_list
@@ -588,6 +630,19 @@ def _parents_raw(nodes: List[str],
 
 # Reads Props that are strings encoding ordered DCIDs.
 def _prop_val_ordered(node: str, prop: str) -> List[str]:
+  """Fetches and parses comma-delimited DCID list properties from the graph.
+
+  Handles consolidated list predicates (e.g. 'relevantVariableList' or
+  'memberList') stored as CSV strings in Node.value. Splits on commas, trims
+  whitespace, and deduplicates entries while strictly preserving curated order.
+
+  Args:
+    node: Subject DCID.
+    prop: List predicate name (e.g. 'relevantVariableList').
+
+  Returns:
+    Ordered list of distinct DCID strings.
+  """
   if not node:
     return []
   sv_list = fetch.property_values(nodes=[node], prop=prop).get(node, []) or []
@@ -602,3 +657,4 @@ def _prop_val_ordered(node: str, prop: str) -> List[str]:
         seen.add(v)
         svs.append(v)
   return svs
+
