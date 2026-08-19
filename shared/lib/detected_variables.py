@@ -133,18 +133,25 @@ def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
   sv2sentences: SV2Sentences = {}
   sv2types: Dict[str, str] = {}
 
+  def _extract_node_type(types_val) -> str:
+    if isinstance(types_val, list):
+      return str(types_val[0]) if types_val and types_val[0] else ''
+    return str(types_val) if types_val else ''
+
   for candidate in entity.get('candidates', []):
     sv = candidate.get('dcid')
     if not sv:
       continue
-    types_val = candidate.get('typeOf', '')
-    if isinstance(types_val, list):
-      node_type = types_val[0] if types_val else ''
-    else:
-      node_type = str(types_val)
+    node_type = _extract_node_type(candidate.get('typeOf'))
     if node_type:
       sv2types[sv] = node_type
 
+    # Extract types for immediate children if present
+    for child in candidate.get('children', []):
+      child_sv = child.get('dcid')
+      child_type = _extract_node_type(child.get('typeOf'))
+      if child_sv and child_type:
+        sv2types[child_sv] = child_type
 
     meta = candidate.get('metadata', {})
     score_str = meta.get('score')
@@ -159,6 +166,7 @@ def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
     if sv not in sv2sentences:
       sv2sentences[sv] = []
     sv2sentences[sv].append(SentenceScore(sentence=sentence, score=score))
+
 
   return VarCandidates(svs=svs,
                        scores=scores,

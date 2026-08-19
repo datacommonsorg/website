@@ -307,11 +307,21 @@ class TestSchemaDrivenClassification(unittest.TestCase):
         'candidates': [
             {
                 'dcid': 'custom/topic/DisplacedPersons',
-                'typeOf': 'Topic',
+                'typeOf': ['Topic'],
                 'metadata': {
                     'score': '0.86',
                     'sentence': 'Displaced Persons'
-                }
+                },
+                'children': [
+                    {
+                        'dcid': 'custom/svpg/IDP_By_Region',
+                        'typeOf': ['StatVarPeerGroup']
+                    },
+                    {
+                        'dcid': 'Count_Person_Displaced_RegionB',
+                        'typeOf': ['StatisticalVariable']
+                    }
+                ]
             },
             {
                 'dcid': 'Count_Person_Displaced_RegionA',
@@ -330,6 +340,8 @@ class TestSchemaDrivenClassification(unittest.TestCase):
     ])
     self.assertEqual(candidates.sv2types, {
         'custom/topic/DisplacedPersons': 'Topic',
+        'custom/svpg/IDP_By_Region': 'StatVarPeerGroup',
+        'Count_Person_Displaced_RegionB': 'StatisticalVariable',
         'Count_Person_Displaced_RegionA': 'StatisticalVariable'
     })
 
@@ -337,4 +349,6 @@ class TestSchemaDrivenClassification(unittest.TestCase):
     data = dvars.var_candidates_to_dict(candidates)
     self.assertIn('SV_to_Types', data)
     self.assertEqual(data['SV_to_Types']['custom/topic/DisplacedPersons'], 'Topic')
+    self.assertEqual(data['SV_to_Types']['custom/svpg/IDP_By_Region'], 'StatVarPeerGroup')
+
 
