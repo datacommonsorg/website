@@ -19,6 +19,8 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import fetch
+from server.lib.feature_flags import ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.explore.params import DCNames
@@ -503,9 +505,10 @@ def _members(node: str,
   """Retrieves member DCIDs for a container node (Topic or StatVarPeerGroup).
 
   Attempts in-memory TOPIC_CACHE lookup first. If the node is missing from cache
-  (e.g. dynamic custom topics in DCP), falls back to fetching the consolidated
-  list property (e.g. 'relevantVariableList' or 'memberList') from Cloud Spanner
-  / Mixer via _prop_val_ordered().
+  (e.g. dynamic custom topics in DCP) and schema-driven resolution is enabled,
+  falls back to fetching the consolidated list property (e.g.
+  'relevantVariableList' or 'memberList') from Cloud Spanner / Mixer via
+  _prop_val_ordered().
 
   Args:
     node: Container DCID (e.g., 'dc/topic/Poverty', 'custom/topic/DisplacedPersons').
@@ -524,7 +527,10 @@ def _members(node: str,
     if node in cache.out_map:
       resp = cache.get_members(node)
       val_list = [v['dcid'] for v in resp if 'dcid' in v]
-  if not val_list:
+    elif is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
+      val_list = _prop_val_ordered(node, prop + 'List')
+  elif is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION) or (
+      'TOPIC_CACHE' not in current_app.config):
     val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
 
@@ -536,7 +542,8 @@ def _members_raw(nodes: List[str],
 
   Used during multi-topic discovery (e.g. get_child_topics). Fulfills cached
   nodes from in-memory TOPIC_CACHE and batch-queries missing nodes directly from
-  the graph via fetch.raw_property_values().
+  the graph via fetch.raw_property_values() when schema-driven resolution is
+  enabled.
 
   Args:
     nodes: List of container DCIDs to inspect.
@@ -550,22 +557,29 @@ def _members_raw(nodes: List[str],
   if not nodes:
     return val_map
 
-  missing_nodes = []
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
     cache = current_app.config['TOPIC_CACHE'][dc]
-    for n in nodes:
-      if n in cache.out_map:
+    if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
+      missing_nodes = []
+      for n in nodes:
+        if n in cache.out_map:
+          val_map[n] = cache.get_members(n)
+        else:
+          missing_nodes.append(n)
+      if missing_nodes:
+        unique_missing = list(dict.fromkeys(missing_nodes))
+        raw_res = fetch.raw_property_values(nodes=unique_missing,
+                                            prop=prop) or {}
+        for n in missing_nodes:
+          val_map[n] = raw_res.get(n, []) or []
+    else:
+      for n in nodes:
         val_map[n] = cache.get_members(n)
-      else:
-        missing_nodes.append(n)
   else:
-    missing_nodes = list(nodes)
-
-  if missing_nodes:
-    unique_missing = list(dict.fromkeys(missing_nodes))
-    raw_res = fetch.raw_property_values(nodes=unique_missing, prop=prop) or {}
-    for n in missing_nodes:
+    unique_nodes = list(dict.fromkeys(nodes))
+    raw_res = fetch.raw_property_values(nodes=unique_nodes, prop=prop) or {}
+    for n in nodes:
       val_map[n] = raw_res.get(n, []) or []
   return val_map
 

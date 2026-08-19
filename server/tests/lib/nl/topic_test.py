@@ -37,8 +37,11 @@ class TestTopicFallback(unittest.TestCase):
       self.assertEqual(res, ['sv1', 'sv2'])
       mock_cache.get_members.assert_called_once_with('dc/topic/CachedTopic')
 
+  @patch('server.lib.nl.common.topic.is_feature_enabled')
   @patch('server.lib.fetch.property_values')
-  def test_members_fallback(self, mock_property_values):
+  def test_members_fallback(self, mock_property_values,
+                            mock_is_feature_enabled):
+    mock_is_feature_enabled.return_value = True
     mock_cache = MagicMock()
     mock_cache.out_map = {}
     mock_cache.get_members.return_value = []
@@ -54,13 +57,31 @@ class TestTopicFallback(unittest.TestCase):
       mock_property_values.assert_called_once_with(
           nodes=['dc/topic/DynamicTopic'], prop='relevantVariableList')
 
+  @patch('server.lib.nl.common.topic.is_feature_enabled')
+  @patch('server.lib.fetch.property_values')
+  def test_members_flag_disabled_no_fallback(self, mock_property_values,
+                                             mock_is_feature_enabled):
+    mock_is_feature_enabled.return_value = False
+    mock_cache = MagicMock()
+    mock_cache.out_map = {}
+    mock_cache.get_members.return_value = []
+    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
+
+    with self.app.app_context():
+      res = topic._members('dc/topic/DynamicTopic', 'relevantVariable', 'main')
+      self.assertEqual(res, [])
+      mock_property_values.assert_not_called()
+
   def test_members_empty_or_none(self):
     with self.app.app_context():
       self.assertEqual(topic._members('', 'relevantVariable', 'main'), [])
       self.assertEqual(topic._members(None, 'relevantVariable', 'main'), [])
 
+  @patch('server.lib.nl.common.topic.is_feature_enabled')
   @patch('server.lib.fetch.raw_property_values')
-  def test_members_raw_fallback_and_dedup(self, mock_raw_property_values):
+  def test_members_raw_fallback_and_dedup(self, mock_raw_property_values,
+                                          mock_is_feature_enabled):
+    mock_is_feature_enabled.return_value = True
     mock_cache = MagicMock()
     mock_cache.out_map = {'dc/topic/Cached': MagicMock()}
 
@@ -102,6 +123,22 @@ class TestTopicFallback(unittest.TestCase):
       }])
       mock_raw_property_values.assert_called_once_with(
           nodes=['dc/topic/Dynamic'], prop='relevantVariable')
+
+  @patch('server.lib.nl.common.topic.is_feature_enabled')
+  @patch('server.lib.fetch.raw_property_values')
+  def test_members_raw_flag_disabled_no_fallback(self, mock_raw_property_values,
+                                                 mock_is_feature_enabled):
+    mock_is_feature_enabled.return_value = False
+    mock_cache = MagicMock()
+    mock_cache.out_map = {'dc/topic/Cached': MagicMock()}
+    mock_cache.get_members.return_value = []
+    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
+
+    with self.app.app_context():
+      res = topic._members_raw(['dc/topic/Cached', 'dc/topic/Dynamic'],
+                               'relevantVariable', 'main')
+      self.assertEqual(res, {'dc/topic/Cached': [], 'dc/topic/Dynamic': []})
+      mock_raw_property_values.assert_not_called()
 
   @patch('server.lib.fetch.raw_property_values')
   def test_members_raw_fetch_none_or_empty(self, mock_raw_property_values):
