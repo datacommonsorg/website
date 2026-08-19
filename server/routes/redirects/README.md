@@ -1,6 +1,6 @@
 The `redirects.json` file in this directory is stored in a GCS bucket and
-read by the production Flask server on each redirection call (to achieve
-immediate update without rollout/restart).
+read by the Flask server on server start. A rollout/restart is required
+for these changes to be read and take effect in production.
 
 Redirects can be used at datacommons.org/link/<REDIRECT-NAME>
 
