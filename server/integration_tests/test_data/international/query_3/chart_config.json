@@ -663,7 +663,7 @@
         },
         {
           "dcid": "nuts/ES421",
-          "name": "Albacete",
+          "name": "nuts/ES421",
           "types": [
             "EurostatNUTS3"
           ]

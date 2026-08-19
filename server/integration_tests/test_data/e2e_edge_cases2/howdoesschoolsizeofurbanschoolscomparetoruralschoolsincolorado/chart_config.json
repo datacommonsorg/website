@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInKindergarten"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
+                    "description": "Count of Person: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInKindergarten"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School in Colorado",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Enrolled in Kindergarten, Enrolled in School"
           },
           {
             "columns": [
@@ -164,7 +164,7 @@
         ],
         "statVarSpec": {
           "Count_Person_DetailedEnrolledInKindergarten": {
-            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Enrolled In Kindergarten, Enrolled In School",
             "statVar": "Count_Person_DetailedEnrolledInKindergarten"
           },
           "Count_Person_DetailedHighSchool": {

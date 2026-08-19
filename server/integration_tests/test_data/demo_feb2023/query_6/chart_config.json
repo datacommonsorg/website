@@ -1899,12 +1899,6 @@
           "Count_Death_75To84Years_Neoplasms_White"
         ]
       },
-      "Count_Death_85Years_Neoplasms": {
-        "gender": [
-          "Count_Death_85Years_Neoplasms_Female",
-          "Count_Death_85Years_Neoplasms_Male"
-        ]
-      },
       "Count_Death_MentalBehaviouralDisorders": {
         "age": [
           "Count_Death_65To74Years_MentalBehaviouralDisorders",
@@ -1919,8 +1913,7 @@
           "Count_Death_55To64Years_Neoplasms",
           "Count_Death_65To74Years_Neoplasms",
           "Count_Death_75To84Years_Neoplasms",
-          "Count_Death_85Years_Neoplasms",
-          "Count_MortalityEvent_85OrMoreYears_ICD10/C00-D48"
+          "Count_Death_85Years_Neoplasms"
         ]
       },
       "Count_Person_NoHealthInsurance": {

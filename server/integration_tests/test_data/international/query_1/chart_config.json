@@ -79,7 +79,7 @@
                     "statVarKey": [
                       "Count_Household_Rural"
                     ],
-                    "title": "Total Number of Rural Households in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Household: Rural in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -90,7 +90,7 @@
                     "statVarKey": [
                       "Count_Household_Rural"
                     ],
-                    "title": "Total Number of Rural Households in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Household: Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -98,18 +98,18 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of households located in rural areas.",
-            "title": "Total Number of Rural Households in Administrative Area 2 Places of India"
+            "title": "Count of Household: Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Total Number of Rural Households in India",
+                    "description": "Count of Household: Rural in India",
                     "statVarKey": [
                       "Count_Household_Rural"
                     ],
-                    "title": "Total Number of Rural Households in India",
+                    "title": "Count of Household: Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -117,7 +117,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of households located in rural areas.",
-            "title": "Total Number of Rural Households"
+            "title": "Count of Household: Rural"
           },
           {
             "columns": [
@@ -131,7 +131,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Male"
                     ],
-                    "title": "Total Rural Male Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Male, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -142,7 +142,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Male"
                     ],
-                    "title": "Total Rural Male Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Male, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -150,18 +150,18 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of males living in rural areas.",
-            "title": "Total Rural Male Population in Administrative Area 2 Places of India"
+            "title": "Count of Person: Male, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Total Rural Male Population in India",
+                    "description": "Count of Person: Male, Rural in India",
                     "statVarKey": [
                       "Count_Person_Rural_Male"
                     ],
-                    "title": "Total Rural Male Population in India",
+                    "title": "Count of Person: Male, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -169,7 +169,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of males living in rural areas.",
-            "title": "Total Rural Male Population"
+            "title": "Count of Person: Male, Rural"
           },
           {
             "columns": [
@@ -183,7 +183,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Female, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -194,7 +194,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Female, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -202,18 +202,18 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population in Administrative Area 2 Places of India"
+            "title": "Count of Person: Female, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Total Rural Female Population in India",
+                    "description": "Count of Person: Female, Rural in India",
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in India",
+                    "title": "Count of Person: Female, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -221,7 +221,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population"
+            "title": "Count of Person: Female, Rural"
           },
           {
             "columns": [
@@ -235,7 +235,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Rural"
                     ],
-                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Christianity in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -246,32 +246,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Rural"
                     ],
-                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Christianity in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Christianity in Administrative Area 2 Places of India"
+            "title": "Count of Person: Rural, Christianity in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Rural, Christianity in India",
+                    "description": "Count of Person: Rural, Christianity in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Rural"
                     ],
-                    "title": "Population: Rural, Christianity in India",
+                    "title": "Count of Person: Rural, Christianity in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Christianity"
+            "title": "Count of Person: Rural, Christianity"
           },
           {
             "columns": [
@@ -285,7 +285,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Rural"
                     ],
-                    "title": "Population: Rural, Islam in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Islam in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -296,32 +296,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Rural"
                     ],
-                    "title": "Population: Rural, Islam in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Islam in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Islam in Administrative Area 2 Places of India"
+            "title": "Count of Person: Rural, Islam in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Rural, Islam in India",
+                    "description": "Count of Person: Rural, Islam in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Rural"
                     ],
-                    "title": "Population: Rural, Islam in India",
+                    "title": "Count of Person: Rural, Islam in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Islam"
+            "title": "Count of Person: Rural, Islam"
           },
           {
             "columns": [
@@ -335,7 +335,7 @@
                     "statVarKey": [
                       "Count_Person_Workers_Rural"
                     ],
-                    "title": "Population: Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Worker in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -346,32 +346,32 @@
                     "statVarKey": [
                       "Count_Person_Workers_Rural"
                     ],
-                    "title": "Population: Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Worker in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Worker in Administrative Area 2 Places of India"
+            "title": "Count of Person: Rural, Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Rural, Worker in India",
+                    "description": "Count of Person: Rural, Worker in India",
                     "statVarKey": [
                       "Count_Person_Workers_Rural"
                     ],
-                    "title": "Population: Rural, Worker in India",
+                    "title": "Count of Person: Rural, Worker in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Worker"
+            "title": "Count of Person: Rural, Worker"
           },
           {
             "columns": [
@@ -385,7 +385,7 @@
                     "statVarKey": [
                       "Count_Person_Houseless_Rural"
                     ],
-                    "title": "Population: Houseless, Rural in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Houseless, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -396,32 +396,32 @@
                     "statVarKey": [
                       "Count_Person_Houseless_Rural"
                     ],
-                    "title": "Population: Houseless, Rural in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Houseless, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Houseless, Rural in Administrative Area 2 Places of India"
+            "title": "Count of Person: Houseless, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Houseless, Rural in India",
+                    "description": "Count of Person: Houseless, Rural in India",
                     "statVarKey": [
                       "Count_Person_Houseless_Rural"
                     ],
-                    "title": "Population: Houseless, Rural in India",
+                    "title": "Count of Person: Houseless, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Houseless, Rural"
+            "title": "Count of Person: Houseless, Rural"
           },
           {
             "columns": [
@@ -435,7 +435,7 @@
                     "statVarKey": [
                       "Count_Person_NonWorker_Rural"
                     ],
-                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -446,32 +446,32 @@
                     "statVarKey": [
                       "Count_Person_NonWorker_Rural"
                     ],
-                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India"
+            "title": "Count of Person: Rural, Non Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Rural, Non Worker in India",
+                    "description": "Count of Person: Rural, Non Worker in India",
                     "statVarKey": [
                       "Count_Person_NonWorker_Rural"
                     ],
-                    "title": "Population: Rural, Non Worker in India",
+                    "title": "Count of Person: Rural, Non Worker in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Non Worker"
+            "title": "Count of Person: Rural, Non Worker"
           },
           {
             "columns": [
@@ -593,7 +593,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Sikh_Rural"
                     ],
-                    "title": "Population: Rural, Sikhism in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Sikhism in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -604,32 +604,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Sikh_Rural"
                     ],
-                    "title": "Population: Rural, Sikhism in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Sikhism in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Sikhism in Administrative Area 2 Places of India"
+            "title": "Count of Person: Rural, Sikhism in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Rural, Sikhism in India",
+                    "description": "Count of Person: Rural, Sikhism in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Sikh_Rural"
                     ],
-                    "title": "Population: Rural, Sikhism in India",
+                    "title": "Count of Person: Rural, Sikhism in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Sikhism"
+            "title": "Count of Person: Rural, Sikhism"
           },
           {
             "columns": [
@@ -643,7 +643,7 @@
                     "statVarKey": [
                       "Count_Person_Houseless_Workers_Rural"
                     ],
-                    "title": "Population: Houseless, Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Houseless, Rural, Worker in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -654,32 +654,32 @@
                     "statVarKey": [
                       "Count_Person_Houseless_Workers_Rural"
                     ],
-                    "title": "Population: Houseless, Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Houseless, Rural, Worker in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Houseless, Rural, Worker in Administrative Area 2 Places of India"
+            "title": "Count of Person: Houseless, Rural, Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Houseless, Rural, Worker in India",
+                    "description": "Count of Person: Houseless, Rural, Worker in India",
                     "statVarKey": [
                       "Count_Person_Houseless_Workers_Rural"
                     ],
-                    "title": "Population: Houseless, Rural, Worker in India",
+                    "title": "Count of Person: Houseless, Rural, Worker in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Houseless, Rural, Worker"
+            "title": "Count of Person: Houseless, Rural, Worker"
           },
           {
             "columns": [
@@ -693,7 +693,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Rural"
                     ],
-                    "title": "Population: Rural, Hinduism in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Hinduism in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -704,53 +704,53 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Rural"
                     ],
-                    "title": "Population: Rural, Hinduism in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Person: Rural, Hinduism in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Hinduism in Administrative Area 2 Places of India"
+            "title": "Count of Person: Rural, Hinduism in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Rural, Hinduism in India",
+                    "description": "Count of Person: Rural, Hinduism in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Rural"
                     ],
-                    "title": "Population: Rural, Hinduism in India",
+                    "title": "Count of Person: Rural, Hinduism in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Hinduism"
+            "title": "Count of Person: Rural, Hinduism"
           }
         ],
         "statVarSpec": {
           "Count_Household_Houseless_Rural": {
-            "name": "Count of Household: Houseless, Rural",
+            "name": "Count Of Household: Houseless, Rural",
             "statVar": "Count_Household_Houseless_Rural"
           },
           "Count_Household_Rural": {
-            "name": "Total number of rural households",
+            "name": "Count Of Household: Rural",
             "statVar": "Count_Household_Rural"
           },
           "Count_Person_Houseless_Rural": {
-            "name": "Population: Houseless, Rural",
+            "name": "Count Of Person: Houseless, Rural",
             "statVar": "Count_Person_Houseless_Rural"
           },
           "Count_Person_Houseless_Workers_Rural": {
-            "name": "Population: Houseless, Rural, Worker",
+            "name": "Count Of Person: Houseless, Rural, Worker",
             "statVar": "Count_Person_Houseless_Workers_Rural"
           },
           "Count_Person_NonWorker_Rural": {
-            "name": "Population: Rural, Non Worker",
+            "name": "Count Of Person: Rural, Non Worker",
             "statVar": "Count_Person_NonWorker_Rural"
           },
           "Count_Person_Rural": {
@@ -762,31 +762,31 @@
             "statVar": "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Rural_Female": {
-            "name": "Total rural female population",
+            "name": "Count Of Person: Female, Rural",
             "statVar": "Count_Person_Rural_Female"
           },
           "Count_Person_Rural_Male": {
-            "name": "Total rural male population",
+            "name": "Count Of Person: Male, Rural",
             "statVar": "Count_Person_Rural_Male"
           },
           "Count_Person_Workers_Rural": {
-            "name": "Population: Rural, Worker",
+            "name": "Count Of Person: Rural, Worker",
             "statVar": "Count_Person_Workers_Rural"
           },
           "indianCensus/Count_Person_Religion_Christian_Rural": {
-            "name": "Population: Rural, Christianity",
+            "name": "Count Of Person: Rural, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Rural"
           },
           "indianCensus/Count_Person_Religion_Hindu_Rural": {
-            "name": "Population: Rural, Hinduism",
+            "name": "Count Of Person: Rural, Hinduism",
             "statVar": "indianCensus/Count_Person_Religion_Hindu_Rural"
           },
           "indianCensus/Count_Person_Religion_Muslim_Rural": {
-            "name": "Population: Rural, Islam",
+            "name": "Count Of Person: Rural, Islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Rural"
           },
           "indianCensus/Count_Person_Religion_Sikh_Rural": {
-            "name": "Population: Rural, Sikhism",
+            "name": "Count Of Person: Rural, Sikhism",
             "statVar": "indianCensus/Count_Person_Religion_Sikh_Rural"
           },
           "worldBank/EG_ELC_ACCS_RU_ZS": {

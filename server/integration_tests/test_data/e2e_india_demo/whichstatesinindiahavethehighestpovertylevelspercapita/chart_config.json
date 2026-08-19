@@ -909,13 +909,6 @@
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
         ]
       },
-      "sdg/AG_FOOD_WST_PC": {
-        "sdg_foodWasteSector": [
-          "sdg/AG_FOOD_WST_PC.FOOD_WASTE_SECTOR--FWS_HHS",
-          "sdg/AG_FOOD_WST_PC.FOOD_WASTE_SECTOR--FWS_OOHC",
-          "sdg/AG_FOOD_WST_PC.FOOD_WASTE_SECTOR--FWS_RTL"
-        ]
-      },
       "sdg/SD_MDP_ANDI": {
         "sdg_urbanisation": [
           "sdg/SD_MDP_ANDI.URBANISATION--R",

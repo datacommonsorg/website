@@ -617,7 +617,7 @@
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Fuel Combustion For Road Vehicles, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Fuel Combustion For Road Vehicles, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
           },
           "Annual_Emissions_GreenhouseGas_Manufacturing_multiple_place_bar_block": {
@@ -625,19 +625,19 @@
             "statVar": "Annual_Emissions_GreenhouseGas_Manufacturing"
           },
           "Annual_Emissions_GreenhouseGas_MaritimeShipping_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Maritime Shipping, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_MaritimeShipping"
           },
           "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Oil And Gas Production, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
           },
           "Annual_Emissions_GreenhouseGas_OilAndGas_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Oil And Gas, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_OilAndGas"
           },
           "Annual_Emissions_GreenhouseGas_SolidWasteDisposal_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Solid Waste Disposal, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Solid Waste Disposal, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_SolidWasteDisposal"
           },
           "Annual_Emissions_GreenhouseGas_Transportation_multiple_place_bar_block": {
@@ -649,7 +649,7 @@
             "statVar": "Annual_Emissions_GreenhouseGas_WasteManagement"
           },
           "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Wastewater Treatment And Discharge, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
           },
           "Annual_Emissions_GreenhouseGas_multiple_place_bar_block": {
@@ -786,35 +786,12 @@
           "Annual_Emissions_GreenhouseGas_EntericFermentation",
           "Annual_Emissions_GreenhouseGas_ForestClearing",
           "Annual_Emissions_GreenhouseGas_ForestFire",
-          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForAviation",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRailways",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-          "Annual_Emissions_GreenhouseGas_IronMining",
-          "Annual_Emissions_GreenhouseGas_ManagedSoils",
           "Annual_Emissions_GreenhouseGas_Manufacturing",
-          "Annual_Emissions_GreenhouseGas_ManureManagement",
           "Annual_Emissions_GreenhouseGas_MaritimeShipping",
-          "Annual_Emissions_GreenhouseGas_MaritimeTransport",
-          "Annual_Emissions_GreenhouseGas_MineralExtraction",
           "Annual_Emissions_GreenhouseGas_OilAndGas",
           "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
-          "Annual_Emissions_GreenhouseGas_OpenBurningWaste",
-          "Annual_Emissions_GreenhouseGas_PetrochemicalProduction",
-          "Annual_Emissions_GreenhouseGas_PetroleumRefining",
-          "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
-          "Annual_Emissions_GreenhouseGas_RiceCultivation",
-          "Annual_Emissions_GreenhouseGas_RockQuarry",
-          "Annual_Emissions_GreenhouseGas_SandQuarry",
-          "Annual_Emissions_GreenhouseGas_SavannaFire",
-          "Annual_Emissions_GreenhouseGas_ShrublandFire",
-          "Annual_Emissions_GreenhouseGas_SolidFuelTransformation",
           "Annual_Emissions_GreenhouseGas_SolidWasteDisposal",
-          "Annual_Emissions_GreenhouseGas_SteelManufacturing",
           "Annual_Emissions_GreenhouseGas_Transportation",
           "Annual_Emissions_GreenhouseGas_WasteManagement",
           "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"

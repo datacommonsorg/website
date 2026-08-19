@@ -450,7 +450,20 @@
           "Count_Person_20To24Years_HispanicOrLatino",
           "Count_Person_20Years_HispanicOrLatino",
           "Count_Person_21To64Years_HispanicOrLatino",
-          "Count_Person_21Years_HispanicOrLatino"
+          "Count_Person_21Years_HispanicOrLatino",
+          "Count_Person_22Years_HispanicOrLatino",
+          "Count_Person_23Years_HispanicOrLatino",
+          "Count_Person_24Years_HispanicOrLatino",
+          "Count_Person_25OrMoreYears_HispanicOrLatino",
+          "Count_Person_25To29Years_HispanicOrLatino",
+          "Count_Person_25Years_HispanicOrLatino",
+          "Count_Person_26Years_HispanicOrLatino",
+          "Count_Person_27Years_HispanicOrLatino",
+          "Count_Person_28Years_HispanicOrLatino",
+          "Count_Person_29Years_HispanicOrLatino",
+          "Count_Person_2Years_HispanicOrLatino",
+          "Count_Person_30To34Years_HispanicOrLatino",
+          "Count_Person_30Years_HispanicOrLatino"
         ]
       }
     },

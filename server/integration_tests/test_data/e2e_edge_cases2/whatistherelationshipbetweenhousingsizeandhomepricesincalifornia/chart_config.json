@@ -23,7 +23,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
+            "title": "Housing Units vs. Count Of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -108,7 +108,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
+            "title": "Owner-Occupied Homes vs. Count Of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -193,7 +193,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
+            "title": "Vacant Housing Units vs. Count Of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -278,7 +278,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
+            "title": "Median Home Value Of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count Of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -361,7 +361,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
+            "title": "Housing Units vs. Count Of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -382,7 +382,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
+            "title": "Housing Units vs. Count Of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -403,7 +403,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
+            "title": "Housing Units vs. Count Of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -424,7 +424,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
+            "title": "Owner-Occupied Homes vs. Count Of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -445,7 +445,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
+            "title": "Owner-Occupied Homes vs. Count Of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -466,7 +466,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
+            "title": "Owner-Occupied Homes vs. Count Of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -487,7 +487,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
+            "title": "Vacant Housing Units vs. Count Of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -508,7 +508,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
+            "title": "Vacant Housing Units vs. Count Of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -529,7 +529,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
+            "title": "Vacant Housing Units vs. Count Of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -550,7 +550,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
+            "title": "Median Home Value Of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count Of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied"
           },
           {
             "columns": [
@@ -571,7 +571,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
+            "title": "Median Home Value Of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count Of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied"
           }
         ],
         "statVarSpec": {
@@ -580,35 +580,35 @@
             "statVar": "Count_HousingUnit"
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar": {
-            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar_scatter": {
-            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue200000To299999USDollar": {
-            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue200000To299999USDollar_scatter": {
-            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar": {
-            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar_scatter": {
-            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar": {
-            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar_scatter": {
-            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_OwnerOccupied": {
@@ -632,11 +632,11 @@
             "statVar": "Count_HousingUnit"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
-            "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
+            "name": "Median Home Value Of Housing Unit: Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter": {
-            "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
+            "name": "Median Home Value Of Housing Unit: Occupied Housing Unit, Owner Occupied",
             "noPerCapita": true,
             "statVar": "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           }
@@ -1070,38 +1070,9 @@
       },
       "Count_HousingUnit_OwnerOccupied": {
         "homeValue": [
-          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
-          "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-          "Count_HousingUnit_HomeValue100000To124999USDollar",
           "Count_HousingUnit_HomeValue100000To199999USDollar",
-          "Count_HousingUnit_HomeValue10000To14999USDollar",
-          "Count_HousingUnit_HomeValue125000To149999USDollar",
-          "Count_HousingUnit_HomeValue1500000To1999999USDollar",
-          "Count_HousingUnit_HomeValue150000To174999USDollar",
-          "Count_HousingUnit_HomeValue15000To19999USDollar",
-          "Count_HousingUnit_HomeValue175000To199999USDollar",
-          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
-          "Count_HousingUnit_HomeValue200000To249999USDollar",
           "Count_HousingUnit_HomeValue200000To299999USDollar",
-          "Count_HousingUnit_HomeValue20000To24999USDollar",
-          "Count_HousingUnit_HomeValue250000To299999USDollar",
-          "Count_HousingUnit_HomeValue25000To29999USDollar",
-          "Count_HousingUnit_HomeValue300000To399999USDollar",
-          "Count_HousingUnit_HomeValue300000To499999USDollar",
-          "Count_HousingUnit_HomeValue30000To34999USDollar",
-          "Count_HousingUnit_HomeValue35000To39999USDollar",
-          "Count_HousingUnit_HomeValue400000To499999USDollar",
-          "Count_HousingUnit_HomeValue40000To49999USDollar",
-          "Count_HousingUnit_HomeValue500000To749999USDollar",
-          "Count_HousingUnit_HomeValue500000To999999USDollar",
-          "Count_HousingUnit_HomeValue50000To59999USDollar",
           "Count_HousingUnit_HomeValue50000To99999USDollar",
-          "Count_HousingUnit_HomeValue60000To69999USDollar",
-          "Count_HousingUnit_HomeValue70000To79999USDollar",
-          "Count_HousingUnit_HomeValue750000To999999USDollar",
-          "Count_HousingUnit_HomeValue80000To89999USDollar",
-          "Count_HousingUnit_HomeValue90000To99999USDollar",
-          "Count_HousingUnit_HomeValueUpto10000USDollar",
           "Count_HousingUnit_HomeValueUpto49999USDollar"
         ]
       }

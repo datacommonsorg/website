@@ -62,7 +62,7 @@
                     "statVarKey": [
                       "dc/b3nmcj3w1lhed"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -70,18 +70,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/b3nmcj3w1lhed"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Middle School, Two or More Races, Enrolled in School"
           },
           {
             "columns": [
@@ -91,7 +91,7 @@
                     "statVarKey": [
                       "dc/zvr6djt1p9gj3"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -99,18 +99,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/zvr6djt1p9gj3"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Middle School, Hispanic or Latino, Enrolled in School"
           },
           {
             "columns": [
@@ -120,7 +120,7 @@
                     "statVarKey": [
                       "dc/e2szvml8jkld8"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -128,18 +128,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/e2szvml8jkld8"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Middle School, Black or African American Alone, Enrolled in School"
           },
           {
             "columns": [
@@ -149,7 +149,7 @@
                     "statVarKey": [
                       "dc/g4fthg3t3y5td"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -157,18 +157,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/g4fthg3t3y5td"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Middle School, Asian Alone, Enrolled in School"
           },
           {
             "columns": [
@@ -178,7 +178,7 @@
                     "statVarKey": [
                       "dc/qvf1yrhwzp8rd"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -186,18 +186,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "dc/qvf1yrhwzp8rd"
                     ],
-                    "title": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Middle School, White Alone, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Middle School, White Alone, Enrolled in School"
           },
           {
             "columns": [
@@ -260,7 +260,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInGrade8"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -268,18 +268,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInGrade8"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 8, Enrolled in School"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInGrade6"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -347,18 +347,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInGrade6"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 6, Enrolled in School"
           },
           {
             "columns": [
@@ -368,7 +368,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInGrade7"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -376,18 +376,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School in Sunnyvale",
+                    "description": "Count of Person: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_DetailedEnrolledInGrade7"
                     ],
-                    "title": "Population: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School in Sunnyvale",
+                    "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Enrolled in Grade 7, Enrolled in School"
           },
           {
             "columns": [
@@ -421,15 +421,15 @@
         ],
         "statVarSpec": {
           "Count_Person_DetailedEnrolledInGrade6": {
-            "name": "Population: Years 3 Onwards, Enrolled In Grade 6, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Enrolled In Grade 6, Enrolled In School",
             "statVar": "Count_Person_DetailedEnrolledInGrade6"
           },
           "Count_Person_DetailedEnrolledInGrade7": {
-            "name": "Population: Years 3 Onwards, Enrolled In Grade 7, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Enrolled In Grade 7, Enrolled In School",
             "statVar": "Count_Person_DetailedEnrolledInGrade7"
           },
           "Count_Person_DetailedEnrolledInGrade8": {
-            "name": "Population: Years 3 Onwards, Enrolled In Grade 8, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Enrolled In Grade 8, Enrolled In School",
             "statVar": "Count_Person_DetailedEnrolledInGrade8"
           },
           "Count_Person_DetailedMiddleSchool": {
@@ -457,59 +457,59 @@
             "statVar": "Count_Teacher"
           },
           "dc/6zbb7s5nx6rxb_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Some Other Race Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Some Other Race Alone, Enrolled In School",
             "statVar": "dc/6zbb7s5nx6rxb"
           },
           "dc/b3nmcj3w1lhed": {
-            "name": "Population: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
             "statVar": "dc/b3nmcj3w1lhed"
           },
           "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
             "statVar": "dc/b3nmcj3w1lhed"
           },
           "dc/c57vzg7l74577_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Native Hawaiian Or Other Pacific Islander Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Native Hawaiian Or Other Pacific Islander Alone, Enrolled In School",
             "statVar": "dc/c57vzg7l74577"
           },
           "dc/c75qlm98pmcb2_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, White Alone Not Hispanic Or Latino, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, White Alone Not Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/c75qlm98pmcb2"
           },
           "dc/e2szvml8jkld8": {
-            "name": "Population: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
             "statVar": "dc/e2szvml8jkld8"
           },
           "dc/e2szvml8jkld8_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
             "statVar": "dc/e2szvml8jkld8"
           },
           "dc/g4fthg3t3y5td": {
-            "name": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
             "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/g4fthg3t3y5td_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
             "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/njgzb8knf11n8_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, American Indian Or Alaska Native Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, American Indian Or Alaska Native Alone, Enrolled In School",
             "statVar": "dc/njgzb8knf11n8"
           },
           "dc/qvf1yrhwzp8rd": {
-            "name": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
             "statVar": "dc/qvf1yrhwzp8rd"
           },
           "dc/qvf1yrhwzp8rd_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
             "statVar": "dc/qvf1yrhwzp8rd"
           },
           "dc/zvr6djt1p9gj3": {
-            "name": "Population: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/zvr6djt1p9gj3"
           },
           "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
             "statVar": "dc/zvr6djt1p9gj3"
           }
         }
@@ -577,6 +577,45 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "Count_Person_DetailedEnrolledInGrade6": {
+        "race": [
+          "dc/1v84c9j8gg1g6",
+          "dc/6dsh2c30wcptc",
+          "dc/deh75ckkkc8w3",
+          "dc/fpkjrc19wfr82",
+          "dc/nc36cwd39pqyb",
+          "dc/r7xqdm2s9r7d7",
+          "dc/s7ce9rqnnxx2",
+          "dc/ykmg1pn1ee421",
+          "dc/zxgqmcexf910g"
+        ]
+      },
+      "Count_Person_DetailedEnrolledInGrade7": {
+        "race": [
+          "dc/3s0q1pjxf4d56",
+          "dc/708rvcfph3j43",
+          "dc/7b1kt6jvs29m5",
+          "dc/8276gss3d3q82",
+          "dc/bzb64xknj90x",
+          "dc/psvlr9qyj0gmb",
+          "dc/rysbtdzyxtzwg",
+          "dc/sp5k1jygkt21",
+          "dc/t3qdrccyvv92d"
+        ]
+      },
+      "Count_Person_DetailedEnrolledInGrade8": {
+        "race": [
+          "dc/7ssfc4pnxyqvd",
+          "dc/cmspqtw32e039",
+          "dc/epw963xktppx9",
+          "dc/fwwm465nrweyb",
+          "dc/jbj3e09w9hsl8",
+          "dc/mgewrrcbsg5mc",
+          "dc/nkhxr3btprred",
+          "dc/rrp56w0hvs6x6",
+          "dc/tgvpcmdbx6jn5"
+        ]
+      },
       "Count_Person_DetailedMiddleSchool": {
         "race": [
           "dc/6zbb7s5nx6rxb",
@@ -610,6 +649,10 @@
           "Count_Person_DetailedEnrolledInGrade8",
           "Count_Person_DetailedMiddleSchool",
           "Count_Person_DetailedPrimarySchool"
+        ],
+        "gender": [
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
         ]
       }
     },

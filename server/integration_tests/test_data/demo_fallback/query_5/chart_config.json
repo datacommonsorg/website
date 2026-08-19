@@ -575,7 +575,7 @@
             "statVar": "dc/m46wj1egm7j56"
           },
           "dc/qt7ewllmt3826_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/44-45",
+            "name": "Amount Of Economic Activity (Real Value): Gross Domestic Production, NAICS/44-45",
             "statVar": "dc/qt7ewllmt3826"
           },
           "dc/rw3t3r74kv7mc_multiple_place_bar_block": {
@@ -595,7 +595,7 @@
             "statVar": "dc/zkmdz1rhlt7q8"
           },
           "dc/zz6gwv838v9w_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/48-49",
+            "name": "Amount Of Economic Activity (Real Value): Gross Domestic Production, NAICS/48-49",
             "statVar": "dc/zz6gwv838v9w"
           }
         }
@@ -642,21 +642,13 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreationAccommodationFoodServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSDurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServicesHealthCareSocialAssistance_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsuranceRealEstateRentalLeasing_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue"
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue"
         ]
       }
     },

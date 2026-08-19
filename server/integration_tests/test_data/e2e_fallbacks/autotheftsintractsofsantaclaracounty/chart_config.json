@@ -198,8 +198,10 @@
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
                       "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
                       "Count_CriminalActivities_Burglary_multiple_place_bar_block",
+                      "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block",
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
                       "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block",
                       "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
@@ -231,6 +233,10 @@
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
+          "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block": {
+            "name": "Criminal Activities",
+            "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
             "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
@@ -250,6 +256,10 @@
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
+          "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block": {
+            "name": "Murder and Non Negligent Manslaughter Cases",
+            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
           },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
