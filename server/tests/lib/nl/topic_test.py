@@ -315,7 +315,7 @@ class TestSchemaDrivenClassification(unittest.TestCase):
             },
             {
                 'dcid': 'Count_Person_Displaced_RegionA',
-                'types': ['StatisticalVariable'],
+                'typeOf': ['StatisticalVariable'],
                 'metadata': {
                     'score': '0.75',
                     'sentence': 'Displaced Persons in Region A'

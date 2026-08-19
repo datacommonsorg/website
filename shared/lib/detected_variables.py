@@ -104,17 +104,29 @@ def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
 
 
 def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
-  """
-  Converts an entity dictionary from v2/resolve response into VarCandidates.
+  """Converts an entity dictionary from a /v2/resolve response into VarCandidates.
 
-  Args
-  ----
-    entity: A dictionary containing a list of candidate variables
+  Expected input structure from Mixer's /v2/resolve endpoint (ResolveResponse.Entity):
+    {
+      "node": "Displaced Persons",
+      "candidates": [
+        {
+          "dcid": "custom/topic/DisplacedPersons",
+          "typeOf": ["Topic"],
+          "metadata": {
+            "score": "0.8752",
+            "sentence": "Displaced Persons"
+          }
+        }
+      ]
+    }
 
-  Returns
-  -------
-    A VarCandidates object containing the parsed candidates and scores
+  Args:
+    entity: An Entity dictionary from a /v2/resolve JSON response.
 
+  Returns:
+    A VarCandidates object containing parsed candidate DCIDs, cosine scores,
+    matched sentences, and schema typeOf mappings (sv2types).
   """
   svs = []
   scores = []
@@ -125,13 +137,14 @@ def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
     sv = candidate.get('dcid')
     if not sv:
       continue
-    types_val = candidate.get('typeOf') or candidate.get('types') or ''
+    types_val = candidate.get('typeOf', '')
     if isinstance(types_val, list):
       node_type = types_val[0] if types_val else ''
     else:
       node_type = str(types_val)
     if node_type:
       sv2types[sv] = node_type
+
 
     meta = candidate.get('metadata', {})
     score_str = meta.get('score')
