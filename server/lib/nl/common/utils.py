@@ -57,7 +57,9 @@ def is_svg(sv: str, type_map: dict = None) -> bool:
   if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
     if type_map and sv in type_map:
       t = type_map[sv]
-      return 'StatVarGroup' in t if isinstance(t, (list, set)) else t == 'StatVarGroup'
+      return 'StatVarGroup' in t if isinstance(t,
+                                               (list,
+                                                set)) else t == 'StatVarGroup'
     return '/g/' in sv or sv.startswith(('dc/g/', 'c/g/'))
   return sv.startswith("dc/g/") or sv.startswith("c/g/")
 
@@ -66,7 +68,8 @@ def is_svpg(sv: str, type_map: dict = None) -> bool:
   if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
     if type_map and sv in type_map:
       t = type_map[sv]
-      return 'StatVarPeerGroup' in t if isinstance(t, (list, set)) else t == 'StatVarPeerGroup'
+      return 'StatVarPeerGroup' in t if isinstance(
+          t, (list, set)) else t == 'StatVarPeerGroup'
     return '/svpg/' in sv or sv.startswith(('dc/svpg/', 'c/svpg/'))
   return sv.startswith("dc/svpg/") or sv.startswith("c/svpg/")
 

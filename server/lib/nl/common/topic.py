@@ -497,7 +497,9 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _members(node: str, prop: str, dc: str = DCNames.MAIN_DC.value) -> List[str]:
+def _members(node: str,
+             prop: str,
+             dc: str = DCNames.MAIN_DC.value) -> List[str]:
   """Retrieves member DCIDs for a container node (Topic or StatVarPeerGroup).
 
   Attempts in-memory TOPIC_CACHE lookup first. If the node is missing from cache
@@ -606,9 +608,8 @@ def _parents_raw(nodes: List[str],
 
   if missing_nodes:
     unique_missing = list(dict.fromkeys(missing_nodes))
-    parents = fetch.raw_property_values(nodes=unique_missing,
-                                        prop=prop,
-                                        out=False) or {}
+    parents = fetch.raw_property_values(
+        nodes=unique_missing, prop=prop, out=False) or {}
     for pvals in parents.values():
       for p in (pvals or []):
         if not isinstance(p, dict):
@@ -657,4 +658,3 @@ def _prop_val_ordered(node: str, prop: str) -> List[str]:
         seen.add(v)
         svs.append(v)
   return svs
-

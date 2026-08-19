@@ -167,7 +167,6 @@ def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
       sv2sentences[sv] = []
     sv2sentences[sv].append(SentenceScore(sentence=sentence, score=score))
 
-
   return VarCandidates(svs=svs,
                        scores=scores,
                        sv2sentences=sv2sentences,

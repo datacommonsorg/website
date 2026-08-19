@@ -190,8 +190,8 @@ class TestTopicFallback(unittest.TestCase):
     # Dynamic topic fallback
     mock_property_values.return_value = {'dc/topic/Custom': ['sv1, sv2']}
     with self.app.app_context():
-      self.assertEqual(
-          topic.get_topic_vars('dc/topic/Custom', 'main'), ['sv1', 'sv2'])
+      self.assertEqual(topic.get_topic_vars('dc/topic/Custom', 'main'),
+                       ['sv1', 'sv2'])
 
   @patch('server.lib.fetch.raw_property_values')
   def test_get_child_topics(self, mock_raw_property_values):
@@ -304,51 +304,46 @@ class TestSchemaDrivenClassification(unittest.TestCase):
   def test_resolve_entity_to_var_candidates_with_types(self):
     from shared.lib import detected_variables as dvars
     entity = {
-        'candidates': [
-            {
-                'dcid': 'custom/topic/DisplacedPersons',
-                'typeOf': ['Topic'],
-                'metadata': {
-                    'score': '0.86',
-                    'sentence': 'Displaced Persons'
-                },
-                'children': [
-                    {
-                        'dcid': 'custom/svpg/IDP_By_Region',
-                        'typeOf': ['StatVarPeerGroup']
-                    },
-                    {
-                        'dcid': 'Count_Person_Displaced_RegionB',
-                        'typeOf': ['StatisticalVariable']
-                    }
-                ]
+        'candidates': [{
+            'dcid':
+                'custom/topic/DisplacedPersons',
+            'typeOf': ['Topic'],
+            'metadata': {
+                'score': '0.86',
+                'sentence': 'Displaced Persons'
             },
-            {
-                'dcid': 'Count_Person_Displaced_RegionA',
-                'typeOf': ['StatisticalVariable'],
-                'metadata': {
-                    'score': '0.75',
-                    'sentence': 'Displaced Persons in Region A'
-                }
+            'children': [{
+                'dcid': 'custom/svpg/IDP_By_Region',
+                'typeOf': ['StatVarPeerGroup']
+            }, {
+                'dcid': 'Count_Person_Displaced_RegionB',
+                'typeOf': ['StatisticalVariable']
+            }]
+        }, {
+            'dcid': 'Count_Person_Displaced_RegionA',
+            'typeOf': ['StatisticalVariable'],
+            'metadata': {
+                'score': '0.75',
+                'sentence': 'Displaced Persons in Region A'
             }
-        ]
+        }]
     }
     candidates = dvars.resolve_entity_to_var_candidates(entity)
-    self.assertEqual(candidates.svs, [
-        'custom/topic/DisplacedPersons',
-        'Count_Person_Displaced_RegionA'
-    ])
-    self.assertEqual(candidates.sv2types, {
-        'custom/topic/DisplacedPersons': 'Topic',
-        'custom/svpg/IDP_By_Region': 'StatVarPeerGroup',
-        'Count_Person_Displaced_RegionB': 'StatisticalVariable',
-        'Count_Person_Displaced_RegionA': 'StatisticalVariable'
-    })
+    self.assertEqual(
+        candidates.svs,
+        ['custom/topic/DisplacedPersons', 'Count_Person_Displaced_RegionA'])
+    self.assertEqual(
+        candidates.sv2types, {
+            'custom/topic/DisplacedPersons': 'Topic',
+            'custom/svpg/IDP_By_Region': 'StatVarPeerGroup',
+            'Count_Person_Displaced_RegionB': 'StatisticalVariable',
+            'Count_Person_Displaced_RegionA': 'StatisticalVariable'
+        })
 
     # Test serialization roundtrip
     data = dvars.var_candidates_to_dict(candidates)
     self.assertIn('SV_to_Types', data)
-    self.assertEqual(data['SV_to_Types']['custom/topic/DisplacedPersons'], 'Topic')
-    self.assertEqual(data['SV_to_Types']['custom/svpg/IDP_By_Region'], 'StatVarPeerGroup')
-
-
+    self.assertEqual(data['SV_to_Types']['custom/topic/DisplacedPersons'],
+                     'Topic')
+    self.assertEqual(data['SV_to_Types']['custom/svpg/IDP_By_Region'],
+                     'StatVarPeerGroup')
