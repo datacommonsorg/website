@@ -896,47 +896,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
-        ]
-      },
-      "sdg/SD_MDP_ANDI": {
-        "sdg_urbanisation": [
-          "sdg/SD_MDP_ANDI.URBANISATION--R",
-          "sdg/SD_MDP_ANDI.URBANISATION--U"
-        ]
-      },
-      "sdg/SD_MDP_MUHC": {
-        "sdg_urbanisation": [
-          "sdg/SD_MDP_MUHC.URBANISATION--R",
-          "sdg/SD_MDP_MUHC.URBANISATION--U"
-        ]
-      },
-      "sdg/SI_POV_DAY1": {
-        "age": [
-          "sdg/SI_POV_DAY1.AGE--Y0T14",
-          "sdg/SI_POV_DAY1.AGE--Y15T64",
-          "sdg/SI_POV_DAY1.AGE--Y_GE65"
-        ],
-        "sdg_sex": [
-          "sdg/SI_POV_DAY1.SEX--F",
-          "sdg/SI_POV_DAY1.SEX--M"
-        ],
-        "sdg_urbanisation": [
-          "sdg/SI_POV_DAY1.URBANISATION--R",
-          "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/sdgSIPOVDAY1",

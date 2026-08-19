@@ -555,15 +555,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "sdg/ER_H2O_STRESS": {
-        "sdg_activity": [
-          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322",
-          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_BTFXE",
-          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_GTT"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/BloodPressure",

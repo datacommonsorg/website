@@ -20,9 +20,7 @@ import requests
 
 # Central dictionary of feature flags to override for all integration tests.
 # Set value to True to force enable, False to force disable.
-FEATURE_OVERRIDES = {
-    'disable_explore_more_in_nl_search_for_spanner': False,
-}
+FEATURE_OVERRIDES = {}
 
 
 def post_request(url, **kwargs):

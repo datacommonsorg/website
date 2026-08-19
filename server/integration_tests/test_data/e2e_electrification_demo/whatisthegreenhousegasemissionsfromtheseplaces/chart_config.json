@@ -784,35 +784,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Annual_Emissions_GreenhouseGas": {
-        "emissionSource": [
-          "Annual_Emissions_GreenhouseGas_Agriculture",
-          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
-          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
-          "Annual_Emissions_GreenhouseGas_CopperMining",
-          "Annual_Emissions_GreenhouseGas_CroplandFire",
-          "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
-          "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
-          "Annual_Emissions_GreenhouseGas_EntericFermentation",
-          "Annual_Emissions_GreenhouseGas_ForestClearing",
-          "Annual_Emissions_GreenhouseGas_ForestFire",
-          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRailways",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-          "Annual_Emissions_GreenhouseGas_Manufacturing",
-          "Annual_Emissions_GreenhouseGas_MaritimeShipping",
-          "Annual_Emissions_GreenhouseGas_MaritimeTransport",
-          "Annual_Emissions_GreenhouseGas_MineralExtraction",
-          "Annual_Emissions_GreenhouseGas_OilAndGas",
-          "Annual_Emissions_GreenhouseGas_SolidWasteDisposal",
-          "Annual_Emissions_GreenhouseGas_Transportation",
-          "Annual_Emissions_GreenhouseGas_WasteManagement",
-          "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Emissions",

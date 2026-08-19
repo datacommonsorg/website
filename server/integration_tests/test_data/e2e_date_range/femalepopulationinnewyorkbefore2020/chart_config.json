@@ -654,30 +654,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person": {
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      },
-      "Count_Person_Female": {
-        "race": [
-          "Count_Person_Female_AsianAlone",
-          "Count_Person_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_Female_HispanicOrLatino",
-          "Count_Person_Female_WhiteAlone"
-        ]
-      },
-      "Median_Age_Person_Female": {
-        "race": [
-          "Median_Age_Person_Female_AsianAlone",
-          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_Female_HispanicOrLatino",
-          "Median_Age_Person_Female_WhiteAlone"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Gender",

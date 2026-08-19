@@ -1251,20 +1251,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_16OrMoreYears_WithEarnings": {
-        "gender": [
-          "Count_Person_16OrMoreYears_Female_WithEarnings",
-          "Count_Person_16OrMoreYears_Male_WithEarnings"
-        ]
-      },
-      "Median_Earnings_Person": {
-        "gender": [
-          "Median_Earnings_Person_Female",
-          "Median_Earnings_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/HouseholdIncomeDistribution",

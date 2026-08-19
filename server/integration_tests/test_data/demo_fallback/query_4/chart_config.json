@@ -1636,26 +1636,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_NoHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_NoHealthInsurance",
-          "Count_Person_Male_NoHealthInsurance"
-        ]
-      },
-      "Count_Person_WithHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_WithHealthInsurance",
-          "Count_Person_Male_WithHealthInsurance"
-        ]
-      },
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/HealthBehavior",

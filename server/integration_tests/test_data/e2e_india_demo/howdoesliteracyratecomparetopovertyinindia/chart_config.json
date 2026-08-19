@@ -589,20 +589,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_Illiterate": {
-        "gender": [
-          "Count_Person_Illiterate_Female",
-          "Count_Person_Illiterate_Male"
-        ]
-      },
-      "Count_Person_Literate": {
-        "gender": [
-          "Count_Person_Literate_Female",
-          "Count_Person_Literate_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Literacy",

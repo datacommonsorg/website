@@ -1497,32 +1497,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-        "householdWorkerSize": [
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "gender": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

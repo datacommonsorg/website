@@ -1414,14 +1414,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome10"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income",
+                    "title": "Count of Person: Years 15 Onwards, With Income",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, With Income"
+            "title": "Count of Person: Years 15 Onwards, With Income"
           },
           {
             "columns": [
@@ -1547,7 +1547,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 15 Onwards, With Income Over Time (Absolute Change)"
+            "title": "Increase in Count of Person: Years 15 Onwards, With Income Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -1673,7 +1673,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 15 Onwards, With Income Over Time (Percent Change)"
+            "title": "Increase in Count of Person: Years 15 Onwards, With Income Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -1799,7 +1799,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 15 Onwards, With Income Over Time (Per Capita Change)"
+            "title": "Increase in Count of Person: Years 15 Onwards, With Income Over Time (Per Capita Change)"
           },
           {
             "columns": [
@@ -2377,14 +2377,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings10"
                     ],
-                    "title": "Population: Years 16 Onwards, With Earnings",
+                    "title": "Count of Person: Years 16 Onwards, With Earnings",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, With Earnings"
           },
           {
             "columns": [
@@ -2510,7 +2510,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, With Earnings Over Time (Absolute Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, With Earnings Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -2636,7 +2636,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, With Earnings Over Time (Percent Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, With Earnings Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -2762,7 +2762,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, With Earnings Over Time (Per Capita Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, With Earnings Over Time (Per Capita Change)"
           },
           {
             "columns": [
@@ -3618,14 +3618,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings10"
                     ],
-                    "title": "Population: Years 16 Onwards, Male, With Earnings",
+                    "title": "Count of Person: Years 16 Onwards, Male, With Earnings",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Male, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, Male, With Earnings"
           },
           {
             "columns": [
@@ -3751,7 +3751,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, Male, With Earnings Over Time (Absolute Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, Male, With Earnings Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -3877,7 +3877,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, Male, With Earnings Over Time (Percent Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, Male, With Earnings Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -4003,7 +4003,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, Male, With Earnings Over Time (Per Capita Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, Male, With Earnings Over Time (Per Capita Change)"
           },
           {
             "columns": [
@@ -4693,51 +4693,51 @@
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_WithIncome10": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_abs": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_pc": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_pct": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings10": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_abs": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings10": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_abs": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_pc": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_pct": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Income_Farm10": {
@@ -4869,15 +4869,15 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome10": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_abs": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_pct": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_growth_abs": {
@@ -5293,20 +5293,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Mean_Income_Household": {
-        "householdType": [
-          "Mean_Income_Household_FamilyHousehold",
-          "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      },
-      "Median_Income_Person": {
-        "gender": [
-          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
-          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Income",

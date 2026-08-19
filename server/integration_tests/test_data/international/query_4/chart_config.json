@@ -1136,32 +1136,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person": {
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      },
-      "sdg/SL_TLF_UEM.AGE--Y15T24": {
-        "sdg_sex": [
-          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F",
-          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M"
-        ]
-      },
-      "sdg/SL_TLF_UEM.AGE--Y_GE15": {
-        "sdg_sex": [
-          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F",
-          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M"
-        ]
-      },
-      "sdg/SL_TLF_UEM.AGE--Y_GE25": {
-        "sdg_sex": [
-          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F",
-          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Births",

@@ -1179,30 +1179,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Household_Rural": {
-        "socialCategory": [
-          "Count_Household_ScheduledCaste_Rural",
-          "Count_Household_ScheduledTribe_Rural"
-        ]
-      },
-      "Count_Person_Rural": {
-        "gender": [
-          "Count_Person_Rural_Female",
-          "Count_Person_Rural_Male"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Christian_Rural",
-          "indianCensus/Count_Person_Religion_Hindu_Rural",
-          "indianCensus/Count_Person_Religion_Muslim_Rural",
-          "indianCensus/Count_Person_Religion_Sikh_Rural"
-        ],
-        "workerStatus": [
-          "Count_Person_NonWorker_Rural",
-          "Count_Person_Workers_Rural"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/PovertyByResidency",

@@ -430,15 +430,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "sdg/AG_FOOD_WST": {
-        "sdg_foodWasteSector": [
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_HHS",
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_OOHC",
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_RTL"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Malnutrition",

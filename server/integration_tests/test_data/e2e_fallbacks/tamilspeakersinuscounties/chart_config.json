@@ -186,20 +186,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_5OrMoreYears_TamilSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TamilSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TamilSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_TeluguSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TeluguSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TeluguSpokenAtHome"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/NonEnglishLanguageAtHome",

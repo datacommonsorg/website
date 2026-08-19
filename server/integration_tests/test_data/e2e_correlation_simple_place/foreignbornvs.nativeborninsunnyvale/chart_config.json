@@ -165,46 +165,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_ForeignBorn": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_25To34Years_ForeignBorn",
-          "Count_Person_35To44Years_ForeignBorn"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCaribbean"
-        ]
-      },
-      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
-        ]
-      },
-      "Count_Person_PlaceOfBirthAsia": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthAsia"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Nationality",
