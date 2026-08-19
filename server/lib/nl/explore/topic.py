@@ -58,20 +58,22 @@ def compute_chart_vars(
   chart_vars_map = OrderedDict()
   num_topics_opened = 0
   num_svs_processed = 0
+  sv2types = getattr(state.uttr, 'sv2types', {})
   for sv in state.uttr.svs:
     cv = []
-    if cutils.is_sv(sv):
+    if cutils.is_topic(sv, sv2types):
+      if num_topics_opened < num_topics_limit:
+        start = time.time()
+        cv = _topic_chart_vars(state=state,
+                               sv=sv,
+                               source_topic=sv,
+                               orig_sv=sv,
+                               dc=dc)
+        state.uttr.counters.timeit('topic_calls', start)
+        if cv:
+          num_topics_opened += 1
+    elif cutils.is_sv(sv, sv2types):
       cv = [ftypes.ChartVars(svs=[sv], orig_sv_map={sv: [sv]})]
-    elif num_topics_opened < num_topics_limit:
-      start = time.time()
-      cv = _topic_chart_vars(state=state,
-                             sv=sv,
-                             source_topic=sv,
-                             orig_sv=sv,
-                             dc=dc)
-      state.uttr.counters.timeit('topic_calls', start)
-      if cv:
-        num_topics_opened += 1
     if cv:
       for e in cv:
         num_svs_processed += len(e.svs)
@@ -102,13 +104,14 @@ def compute_correlation_chart_vars(
   found_lhs_topic = False
   found_rhs_topic = False
   lhs_svs, rhs_svs = _match_lists(lhs_svs, rhs_svs)
+  sv2types = getattr(state.uttr, 'sv2types', {})
   for lsv, rsv in zip(lhs_svs, rhs_svs):
     cvlist = _compute_correlation_chart_vars_for_pair(state, lsv, rsv,
                                                       added_pairs)
     chart_vars_map.setdefault(lsv, []).extend(cvlist)
 
-    found_lhs_topic |= cutils.is_topic(lsv)
-    found_rhs_topic |= cutils.is_topic(rsv)
+    found_lhs_topic |= cutils.is_topic(lsv, sv2types)
+    found_rhs_topic |= cutils.is_topic(rsv, sv2types)
     if found_lhs_topic and found_rhs_topic:
       break
 

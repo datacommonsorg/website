@@ -14,6 +14,7 @@
 """Data structures for representing SVs detected in queries."""
 
 from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict, List
 
 from shared.lib import constants
@@ -44,6 +45,8 @@ class VarCandidates:
   scores: List[float]
   # Key is variable.
   sv2sentences: SV2Sentences
+  # Map of SV -> schema typeOf (e.g. 'Topic', 'StatisticalVariable')
+  sv2types: Dict[str, str] = field(default_factory=dict)
 
   def sv2sentences_dict(self) -> Dict[str, Dict]:
     resp = {}
@@ -96,7 +99,8 @@ def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
     ]
   return VarCandidates(svs=nlresp.get('SV', []),
                        scores=nlresp.get('CosineScore', []),
-                       sv2sentences=sv2sentences)
+                       sv2sentences=sv2sentences,
+                       sv2types=nlresp.get('SV_to_Types', {}))
 
 
 def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
@@ -115,11 +119,20 @@ def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
   svs = []
   scores = []
   sv2sentences: SV2Sentences = {}
+  sv2types: Dict[str, str] = {}
 
   for candidate in entity.get('candidates', []):
     sv = candidate.get('dcid')
     if not sv:
       continue
+    types_val = candidate.get('typeOf') or candidate.get('types') or ''
+    if isinstance(types_val, list):
+      node_type = types_val[0] if types_val else ''
+    else:
+      node_type = str(types_val)
+    if node_type:
+      sv2types[sv] = node_type
+
     meta = candidate.get('metadata', {})
     score_str = meta.get('score')
     try:
@@ -134,13 +147,18 @@ def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
       sv2sentences[sv] = []
     sv2sentences[sv].append(SentenceScore(sentence=sentence, score=score))
 
-  return VarCandidates(svs=svs, scores=scores, sv2sentences=sv2sentences)
+  return VarCandidates(svs=svs,
+                       scores=scores,
+                       sv2sentences=sv2sentences,
+                       sv2types=sv2types)
 
 
 def var_candidates_to_dict(res: VarCandidates) -> Dict:
   result = {'SV': res.svs, 'CosineScore': res.scores}
   if res.sv2sentences:
     result['SV_to_Sentences'] = res.sv2sentences_dict()
+  if res.sv2types:
+    result['SV_to_Types'] = res.sv2types
   return result
 
 

@@ -252,3 +252,89 @@ class TestTopicFallback(unittest.TestCase):
           'types': ['Topic']
       }])
 
+
+class TestSchemaDrivenClassification(unittest.TestCase):
+
+  def setUp(self):
+    self.app = Flask(__name__)
+
+  @patch('server.lib.nl.common.utils.is_feature_enabled')
+  def test_utils_classification_flag_enabled(self, mock_is_feature_enabled):
+    from server.lib.nl.common import utils
+    mock_is_feature_enabled.return_value = True
+
+    with self.app.app_context():
+      # Namespace matching
+      self.assertTrue(utils.is_topic('custom/topic/DisplacedPersons'))
+      self.assertTrue(utils.is_topic('dc/topic/Poverty'))
+      self.assertTrue(utils.is_svpg('custom/svpg/IDP_By_Region'))
+      self.assertTrue(utils.is_svg('custom/g/CustomGroup'))
+      self.assertFalse(utils.is_sv('custom/topic/DisplacedPersons'))
+      self.assertFalse(utils.is_sv('custom/g/CustomGroup'))
+      self.assertTrue(utils.is_sv('Count_Person_Displaced_RegionA'))
+
+      # Type map override
+      type_map = {
+          'arbitrary_node_1': 'Topic',
+          'arbitrary_node_2': 'StatVarPeerGroup',
+          'arbitrary_node_3': 'StatVarGroup',
+          'arbitrary_node_4': 'StatisticalVariable'
+      }
+      self.assertTrue(utils.is_topic('arbitrary_node_1', type_map))
+      self.assertTrue(utils.is_svpg('arbitrary_node_2', type_map))
+      self.assertTrue(utils.is_svg('arbitrary_node_3', type_map))
+      self.assertTrue(utils.is_sv('arbitrary_node_4', type_map))
+      self.assertFalse(utils.is_sv('arbitrary_node_1', type_map))
+
+  @patch('server.lib.nl.common.utils.is_feature_enabled')
+  def test_utils_classification_flag_disabled(self, mock_is_feature_enabled):
+    from server.lib.nl.common import utils
+    mock_is_feature_enabled.return_value = False
+
+    with self.app.app_context():
+      # Base DC legacy behavior
+      self.assertFalse(utils.is_topic('custom/topic/DisplacedPersons'))
+      self.assertTrue(utils.is_topic('dc/topic/Poverty'))
+      self.assertTrue(utils.is_topic('c/topic/CustomLegacy'))
+      self.assertFalse(utils.is_svpg('custom/svpg/IDP_By_Region'))
+      self.assertTrue(utils.is_svpg('dc/svpg/PeerGroup'))
+      self.assertFalse(utils.is_svg('custom/g/CustomGroup'))
+      self.assertTrue(utils.is_svg('dc/g/Group'))
+
+  def test_resolve_entity_to_var_candidates_with_types(self):
+    from shared.lib import detected_variables as dvars
+    entity = {
+        'candidates': [
+            {
+                'dcid': 'custom/topic/DisplacedPersons',
+                'typeOf': 'Topic',
+                'metadata': {
+                    'score': '0.86',
+                    'sentence': 'Displaced Persons'
+                }
+            },
+            {
+                'dcid': 'Count_Person_Displaced_RegionA',
+                'types': ['StatisticalVariable'],
+                'metadata': {
+                    'score': '0.75',
+                    'sentence': 'Displaced Persons in Region A'
+                }
+            }
+        ]
+    }
+    candidates = dvars.resolve_entity_to_var_candidates(entity)
+    self.assertEqual(candidates.svs, [
+        'custom/topic/DisplacedPersons',
+        'Count_Person_Displaced_RegionA'
+    ])
+    self.assertEqual(candidates.sv2types, {
+        'custom/topic/DisplacedPersons': 'Topic',
+        'Count_Person_Displaced_RegionA': 'StatisticalVariable'
+    })
+
+    # Test serialization roundtrip
+    data = dvars.var_candidates_to_dict(candidates)
+    self.assertIn('SV_to_Types', data)
+    self.assertEqual(data['SV_to_Types']['custom/topic/DisplacedPersons'], 'Topic')
+
