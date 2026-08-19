@@ -329,9 +329,9 @@ def get_sv_name(all_svs: List[str],
           (utils.is_svpg(sv) or utils.is_topic(sv))):
         sv_name_map[sv] = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
         if not sv_name_map[sv]:
-          # Fallback to KG name if available, otherwise clean the DCID.
-          sv_name_map[sv] = uncurated_names.get(sv) or re.sub(
-              r'^[^/]+/(topic|svpg|g)/', '', sv).replace('_', ' ')
+          # Very rare edge case.
+          sv_name_map[sv] = uncurated_names.get(sv) or sv.replace(
+              'dc/topic/', '').replace('dc/svpg/', '')
       else:
         sv_name_map[sv] = uncurated_names[sv]
 

@@ -28,6 +28,7 @@ class TestTopicFallback(unittest.TestCase):
 
   def test_members_cached(self):
     mock_cache = MagicMock()
+    mock_cache.out_map = {'dc/topic/CachedTopic': MagicMock()}
     mock_cache.get_members.return_value = [{'dcid': 'sv1'}, {'dcid': 'sv2'}]
     self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
 
@@ -39,6 +40,7 @@ class TestTopicFallback(unittest.TestCase):
   @patch('server.lib.fetch.property_values')
   def test_members_fallback(self, mock_property_values):
     mock_cache = MagicMock()
+    mock_cache.out_map = {}
     mock_cache.get_members.return_value = []
     self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
 
@@ -60,6 +62,7 @@ class TestTopicFallback(unittest.TestCase):
   @patch('server.lib.fetch.raw_property_values')
   def test_members_raw_fallback_and_dedup(self, mock_raw_property_values):
     mock_cache = MagicMock()
+    mock_cache.out_map = {'dc/topic/Cached': MagicMock()}
 
     def fake_get_members(n):
       if n == 'dc/topic/Cached':
@@ -110,20 +113,7 @@ class TestTopicFallback(unittest.TestCase):
 
   @patch('server.lib.fetch.raw_property_values')
   def test_parents_raw_fallback(self, mock_raw_property_values):
-    mock_cache = MagicMock()
-
-    def fake_get_parents(n, prop):
-      if n == 'sv_cached':
-        return [{
-            'dcid': 'dc/topic/CachedParent',
-            'name': 'Cached Parent',
-            'types': ['Topic']
-        }]
-      return []
-
-    mock_cache.get_parents.side_effect = fake_get_parents
-    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
-
+    # When TOPIC_CACHE is absent, it queries raw graph with out=False
     mock_raw_property_values.return_value = {
         'sv_dynamic': [{
             'dcid': 'dc/topic/DynamicParent',
@@ -135,21 +125,16 @@ class TestTopicFallback(unittest.TestCase):
             'name': 'Invalid',
             'types': ['SomethingElse']
         }, {
-            'dcid': 'dc/topic/CachedParent',
-            'name': 'Duplicate Cached Parent',
+            'dcid': 'dc/topic/DynamicParent',
+            'name': 'Duplicate Dynamic Parent',
             'types': ['Topic']
         }]
     }
 
     with self.app.app_context():
-      res = topic._parents_raw(['sv_cached', 'sv_dynamic'], 'relevantVariable',
-                               'main')
+      res = topic._parents_raw(['sv_dynamic'], 'relevantVariable', 'main')
       # 'non_topic_parent' should be filtered out, 'value' deleted, and duplicates deduplicated
       self.assertEqual(res, [{
-          'dcid': 'dc/topic/CachedParent',
-          'name': 'Cached Parent',
-          'types': ['Topic']
-      }, {
           'dcid': 'dc/topic/DynamicParent',
           'name': 'Dynamic Parent',
           'types': ['Topic']

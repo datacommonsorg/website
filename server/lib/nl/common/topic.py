@@ -503,9 +503,9 @@ def _members(node: str,
   """Retrieves member DCIDs for a container node (Topic or StatVarPeerGroup).
 
   Attempts in-memory TOPIC_CACHE lookup first. If the node is missing from cache
-  or has empty members (e.g. dynamic custom topics in DCP), falls back to
-  fetching the consolidated list property (e.g. 'relevantVariableList' or
-  'memberList') from Cloud Spanner / Mixer via _prop_val_ordered().
+  (e.g. dynamic custom topics in DCP), falls back to fetching the consolidated
+  list property (e.g. 'relevantVariableList' or 'memberList') from Cloud Spanner
+  / Mixer via _prop_val_ordered().
 
   Args:
     node: Container DCID (e.g., 'dc/topic/Poverty', 'custom/topic/DisplacedPersons').
@@ -520,8 +520,10 @@ def _members(node: str,
   val_list = []
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
-    resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
-    val_list = [v['dcid'] for v in resp if 'dcid' in v]
+    cache = current_app.config['TOPIC_CACHE'][dc]
+    if node in cache.out_map:
+      resp = cache.get_members(node)
+      val_list = [v['dcid'] for v in resp if 'dcid' in v]
   if not val_list:
     val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
@@ -551,10 +553,10 @@ def _members_raw(nodes: List[str],
   missing_nodes = []
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
+    cache = current_app.config['TOPIC_CACHE'][dc]
     for n in nodes:
-      members = current_app.config['TOPIC_CACHE'][dc].get_members(n)
-      if members:
-        val_map[n] = members
+      if n in cache.out_map:
+        val_map[n] = cache.get_members(n)
       else:
         missing_nodes.append(n)
   else:
@@ -588,28 +590,19 @@ def _parents_raw(nodes: List[str],
   if not nodes:
     return parent_list
 
-  missing_nodes = []
-  seen_dcids = set()
-
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
     for n in nodes:
       plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
-      if plist:
-        for p in plist:
-          dcid = p.get('dcid')
-          if dcid and dcid not in seen_dcids:
-            seen_dcids.add(dcid)
-            parent_list.append(p)
-      else:
-        missing_nodes.append(n)
+      for p in (plist or []):
+        dcid = p.get('dcid')
+        if dcid:
+          parent_list.append(p)
   else:
-    missing_nodes = list(nodes)
-
-  if missing_nodes:
-    unique_missing = list(dict.fromkeys(missing_nodes))
+    unique_nodes = list(dict.fromkeys(nodes))
     parents = fetch.raw_property_values(
-        nodes=unique_missing, prop=prop, out=False) or {}
+        nodes=unique_nodes, prop=prop, out=False) or {}
+    seen_dcids = set()
     for pvals in parents.values():
       for p in (pvals or []):
         if not isinstance(p, dict):
