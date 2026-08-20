@@ -77,12 +77,6 @@ def update_website_flags():
             ):
                 flag['enabled'] = True
 
-        # Support explicit environment variable overrides
-        if 'ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION' in os.environ:
-            for flag in data:
-                if flag.get('name') == 'enable_schema_driven_topic_resolution':
-                    flag['enabled'] = os.environ['ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION'].lower() == 'true'
-                    
         serialized = json.dumps(data, indent=2)
         with open(web_ff_path, 'w') as f:
             f.write(serialized)
