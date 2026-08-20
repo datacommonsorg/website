@@ -369,3 +369,70 @@ class TestSchemaDrivenClassification(unittest.TestCase):
                      'Topic')
     self.assertEqual(data['SV_to_Types']['custom/svpg/IDP_By_Region'],
                      'StatVarPeerGroup')
+
+
+class TestInvalidDcHandling(unittest.TestCase):
+
+  def setUp(self):
+    self.app = Flask(__name__)
+    mock_cache = MagicMock()
+    mock_cache.out_map = {}
+    self.app.config['TOPIC_CACHE'] = {'main': mock_cache}
+
+  @patch('server.lib.fetch.property_values')
+  @patch('server.lib.fetch.raw_property_values')
+  def test_topic_helpers_with_unsupported_dc(self, mock_raw_property_values,
+                                             mock_property_values):
+    mock_property_values.return_value = {
+        'dc/topic/TestTopic': ['sv1, sv2'],
+        'dc/svpg/TestSvpg': ['Test Peer Group Name'],
+        'dc/topic/ExtendedTest': ['dc/g/ExtendedGroup']
+    }
+    mock_raw_property_values.return_value = {
+        'dc/topic/TestTopic': [{
+            'dcid': 'dc/topic/ParentTopic',
+            'name': 'Parent Topic',
+            'types': ['Topic']
+        }]
+    }
+
+    with self.app.app_context():
+      # Low-level helpers with unsupported 'invalid_dc' parameter must not raise KeyError
+      self.assertEqual(
+          topic._members('dc/topic/TestTopic', 'relevantVariable',
+                         'invalid_dc'), [])
+      self.assertEqual(
+          topic.svpg_name('dc/svpg/TestSvpg', 'invalid_dc'),
+          'Test Peer Group Name')
+      self.assertEqual(
+          topic.get_topic_extended_svgs('dc/topic/ExtendedTest', 'invalid_dc'),
+          ['dc/g/ExtendedGroup'])
+      self.assertEqual(
+          topic._members_raw(['dc/topic/TestTopic'], 'relevantVariable',
+                             'invalid_dc'), {
+                                 'dc/topic/TestTopic': [{
+                                     'dcid': 'dc/topic/ParentTopic',
+                                     'name': 'Parent Topic',
+                                     'types': ['Topic']
+                                 }]
+                             })
+      self.assertEqual(
+          topic._parents_raw(['dc/topic/TestTopic'], 'relevantVariable',
+                             'invalid_dc'), [{
+                                 'dcid': 'dc/topic/ParentTopic',
+                                 'name': 'Parent Topic',
+                                 'types': ['Topic']
+                             }])
+      self.assertEqual(
+          topic.get_child_topics(['dc/topic/TestTopic'], 'invalid_dc'), [{
+              'dcid': 'dc/topic/ParentTopic',
+              'name': 'Parent Topic',
+              'types': ['Topic']
+          }])
+      self.assertEqual(
+          topic.get_parent_topics('dc/topic/TestTopic', 'invalid_dc'), [{
+              'dcid': 'dc/topic/ParentTopic',
+              'name': 'Parent Topic',
+              'types': ['Topic']
+          }])
+
