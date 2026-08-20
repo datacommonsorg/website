@@ -46,6 +46,7 @@ DIVERT_TO_SPANNER = 'divert_to_spanner'
 USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
 USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
 USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING = 'use_config_threshold_for_spanner_embedding'
+ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION = 'enable_schema_driven_topic_resolution'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:

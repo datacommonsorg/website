@@ -22,6 +22,8 @@ from typing import Any, Dict, List, Set
 
 from dateutil.relativedelta import relativedelta
 
+from server.lib.feature_flags import ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION
+from server.lib.feature_flags import is_feature_enabled
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -41,21 +43,46 @@ _MAX_DATES_FOR_EXISTENCE = 10
 _MONTH_GRANULARITY = 'M'
 
 
-# Custom dc topics, svgs and svpgs start with "c/".
-def is_topic(sv):
+def is_topic(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a Topic.
+
+  When schema-driven topic resolution is enabled, checks the entity's schema
+  type in type_map or identifies topic DCID conventions (e.g. '/topic/', 'dc/topic/', 'c/topic/').
+  """
+  if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
+    if type_map and sv in type_map:
+      t = type_map[sv]
+      return 'Topic' in t if isinstance(t, (list, set)) else t == 'Topic'
+    return '/topic/' in sv or sv.startswith(('dc/topic/', 'c/topic/'))
   return sv.startswith("dc/topic/") or sv.startswith("c/topic/")
 
 
-def is_svg(sv):
+def is_svg(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a StatVarGroup."""
+  if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
+    if type_map and sv in type_map:
+      t = type_map[sv]
+      return 'StatVarGroup' in t if isinstance(t,
+                                               (list,
+                                                set)) else t == 'StatVarGroup'
+    return '/g/' in sv or sv.startswith(('dc/g/', 'c/g/'))
   return sv.startswith("dc/g/") or sv.startswith("c/g/")
 
 
-def is_svpg(sv):
+def is_svpg(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a StatVarPeerGroup."""
+  if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
+    if type_map and sv in type_map:
+      t = type_map[sv]
+      return 'StatVarPeerGroup' in t if isinstance(
+          t, (list, set)) else t == 'StatVarPeerGroup'
+    return '/svpg/' in sv or sv.startswith(('dc/svpg/', 'c/svpg/'))
   return sv.startswith("dc/svpg/") or sv.startswith("c/svpg/")
 
 
-def is_sv(sv):
-  return not (is_topic(sv) or is_svg(sv))
+def is_sv(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a StatisticalVariable (not a Topic or SVG)."""
+  return not (is_topic(sv, type_map) or is_svg(sv, type_map))
 
 
 # Checks if there is an event in the last 3 years.

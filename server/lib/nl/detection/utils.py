@@ -21,6 +21,7 @@ from typing import Dict, List
 from server.lib.fetch import property_values
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
+from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ActualDetectorType
@@ -177,9 +178,8 @@ def _get_sv_and_prop_candidates(
     # because we are adding properties that aren't actually properties but
     # indicate a link using ->.
     is_sv = False
-    # We have some curated topics that are not a node in the kg, so assume topic
-    # if the sv starts with dc/topic
-    if sv.startswith('dc/topic/'):
+    # Check if sv is Topic or StatisticalVariable using utils.is_topic or KG types
+    if utils.is_topic(sv, sv_types):
       is_sv = True
     for sv_type in sv_type_list:
       if sv_type in ['StatisticalVariable', 'Topic']:
@@ -189,6 +189,8 @@ def _get_sv_and_prop_candidates(
     candidate_to_add.svs.append(sv)
     candidate_to_add.scores.append(svar_result.scores[i])
     candidate_to_add.sv2sentences[sv] = svar_result.sv2sentences.get(sv, [])
+    if sv in svar_result.sv2types:
+      candidate_to_add.sv2types[sv] = svar_result.sv2types[sv]
   return sv_candidates, prop_candidates
 
 
@@ -240,6 +242,13 @@ def create_utterance(query_detection: Detection,
                                    query_detection.svs_detected.sv_threshold,
                                    counters)
 
+  # Construct sv2types map from current detection and past utterance
+  sv2types = {}
+  if query_detection.svs_detected and query_detection.svs_detected.single_sv:
+    sv2types.update(query_detection.svs_detected.single_sv.sv2types)
+  if currentUtterance and hasattr(currentUtterance, 'sv2types'):
+    sv2types.update(currentUtterance.sv2types)
+
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,
                    query=query_detection.original_query,
@@ -259,7 +268,8 @@ def create_utterance(query_detection: Detection,
                    test=test,
                    client=client,
                    mode=mode,
-                   entities=[])
+                   entities=[],
+                   sv2types=sv2types)
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.
