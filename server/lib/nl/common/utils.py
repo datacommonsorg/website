@@ -43,8 +43,12 @@ _MAX_DATES_FOR_EXISTENCE = 10
 _MONTH_GRANULARITY = 'M'
 
 
-# Custom dc topics, svgs and svpgs start with "c/".
 def is_topic(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a Topic.
+
+  When schema-driven topic resolution is enabled, checks the entity's schema
+  type in type_map or identifies topic DCID conventions (e.g. '/topic/', 'dc/topic/', 'c/topic/').
+  """
   if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
     if type_map and sv in type_map:
       t = type_map[sv]
@@ -54,6 +58,7 @@ def is_topic(sv: str, type_map: dict = None) -> bool:
 
 
 def is_svg(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a StatVarGroup."""
   if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
     if type_map and sv in type_map:
       t = type_map[sv]
@@ -65,6 +70,7 @@ def is_svg(sv: str, type_map: dict = None) -> bool:
 
 
 def is_svpg(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a StatVarPeerGroup."""
   if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
     if type_map and sv in type_map:
       t = type_map[sv]
@@ -75,6 +81,7 @@ def is_svpg(sv: str, type_map: dict = None) -> bool:
 
 
 def is_sv(sv: str, type_map: dict = None) -> bool:
+  """Returns True if the DCID represents a StatisticalVariable (not a Topic or SVG)."""
   return not (is_topic(sv, type_map) or is_svg(sv, type_map))
 
 

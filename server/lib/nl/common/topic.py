@@ -339,6 +339,10 @@ def get_topic_vars_recurive(topic: str,
                             dc: str = DCNames.MAIN_DC.value,
                             max_svs: int = MAX_TOPIC_SVS,
                             cur_svs: int = 0):
+  """Recursively expands a topic into member statistical variables and peer groups.
+
+  Traverses child topics up to TOPIC_RANK_LIMIT depth or until max_svs is reached.
+  """
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
@@ -359,6 +363,7 @@ def get_topic_vars_recurive(topic: str,
 
 
 def get_topic_vars(topic: str, dc: str = DCNames.MAIN_DC.value):
+  """Returns immediate member variables, SVPGs, or sub-topics for a topic."""
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
@@ -368,6 +373,7 @@ def get_topic_vars(topic: str, dc: str = DCNames.MAIN_DC.value):
 
 
 def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
+  """Finds parent topic nodes containing the given SV or Topic via relevantVariable."""
   # This is an SV, so get parent SVPGs, if any
   if utils.is_sv(topic_or_sv):
     psvpg = _parents_raw([topic_or_sv], 'member', dc)
@@ -383,6 +389,7 @@ def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
 
 
 def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
+  """Finds child topics linked as members of the given parent topics."""
   children = _members_raw(topics, 'relevantVariable', dc)
   resp = []
   for pvals in children.values():
@@ -402,7 +409,7 @@ def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
 
 
 def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
-  """Returns a new div of svpg's expanded to peer svs."""
+  """Returns a mapping from SVPG DCID to its member statistical variables."""
   ret = {}
   for sv in sv_dcids:
     if utils.is_svpg(sv):
@@ -413,6 +420,7 @@ def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
 
 
 def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
+  """Returns extended SVGs/SVPGs associated with a topic."""
   if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
       'TOPIC_CACHE']:
     return current_app.config['TOPIC_CACHE'][dc].get_extended_svgs(topic)
@@ -422,6 +430,7 @@ def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
 
 
 def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
+  """Resolves display name for a StatVarPeerGroup from override, cache, or graph."""
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
     if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
@@ -435,6 +444,7 @@ def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
 
 
 def svpg_description(sv: str):
+  """Resolves description for a StatVarPeerGroup from override or graph."""
   name = TOPIC_AND_SVPG_DESC_OVERRIDE.get(sv, '')
   if not name:
     resp = fetch.property_values(nodes=[sv], prop='description').get(sv, [])
@@ -444,6 +454,7 @@ def svpg_description(sv: str):
 
 
 def _get_svpg_vars(svpg: str, dc: str = DCNames.MAIN_DC.value) -> List[str]:
+  """Retrieves member variables of a StatVarPeerGroup."""
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
     svs = _members(svpg, 'member', dc)

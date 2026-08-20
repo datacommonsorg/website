@@ -401,9 +401,8 @@ class TestInvalidDcHandling(unittest.TestCase):
       self.assertEqual(
           topic._members('dc/topic/TestTopic', 'relevantVariable',
                          'invalid_dc'), [])
-      self.assertEqual(
-          topic.svpg_name('dc/svpg/TestSvpg', 'invalid_dc'),
-          'Test Peer Group Name')
+      self.assertEqual(topic.svpg_name('dc/svpg/TestSvpg', 'invalid_dc'),
+                       'Test Peer Group Name')
       self.assertEqual(
           topic.get_topic_extended_svgs('dc/topic/ExtendedTest', 'invalid_dc'),
           ['dc/g/ExtendedGroup'])
@@ -435,4 +434,3 @@ class TestInvalidDcHandling(unittest.TestCase):
               'name': 'Parent Topic',
               'types': ['Topic']
           }])
-

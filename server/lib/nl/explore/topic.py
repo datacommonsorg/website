@@ -52,6 +52,11 @@ class TopicMembers:
 
 def compute_chart_vars(
     state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
+  """Expands detected topics and statistical variables into ChartVars for fulfillment.
+
+  Iterates through utterance SVs/topics, evaluates schema types, and recursively
+  unfurls topics into member SVs and SVPGs up to configured limits.
+  """
   num_topics_limit = _max_topics_to_open(state.uttr)
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
