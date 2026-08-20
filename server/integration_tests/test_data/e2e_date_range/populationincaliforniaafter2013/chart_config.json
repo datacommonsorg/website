@@ -285,7 +285,7 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: Years 1 to 4 in Counties of California (${date})",
+                    "title": "Count of Person: Years 1 to 4 in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -300,14 +300,14 @@
                     "statVarKey": [
                       "Count_Person_1To4Years"
                     ],
-                    "title": "Population: Years 1 to 4 in Counties of California (${date})",
+                    "title": "Count of Person: Years 1 to 4 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 1 to 4 in Counties of California"
+            "title": "Count of Person: Years 1 to 4 in Counties of California"
           },
           {
             "columns": [
@@ -1180,11 +1180,11 @@
             "statVar": "Count_Person_18To24Years"
           },
           "Count_Person_1To4Years": {
-            "name": "Population: Years 1 To 4",
+            "name": "Count Of Person: Years 1 To 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_1To4Years_multiple_place_bar_block": {
-            "name": "Population: Years 1 To 4",
+            "name": "Count Of Person: Years 1 To 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_25To34Years_multiple_place_bar_block": {
@@ -1200,7 +1200,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: Years 55 To 64",
+            "name": "Count Of Person: Years 55 To 64",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
@@ -2095,7 +2095,6 @@
     "exploreMore": {
       "Count_Person": {
         "age": [
-          "Count_Person_10To19Years",
           "Count_Person_18To24Years",
           "Count_Person_1To4Years",
           "Count_Person_25To34Years",
@@ -2103,10 +2102,8 @@
           "Count_Person_45To54Years",
           "Count_Person_55To64Years",
           "Count_Person_5To17Years",
-          "Count_Person_5To19Years",
           "Count_Person_65To74Years",
-          "Count_Person_75OrMoreYears",
-          "Count_Person_Upto9Years"
+          "Count_Person_75OrMoreYears"
         ],
         "gender": [
           "Count_Person_Female",

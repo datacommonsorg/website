@@ -201,7 +201,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female"
                     ],
-                    "title": "Population: Years 16 Onwards, BLS in Labor Force, Female in Cities of Placer County (${date})",
+                    "title": "Count of Person: Years 16 Onwards, BLS in Labor Force, Female in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -212,14 +212,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Female"
                     ],
-                    "title": "Population: Years 16 Onwards, BLS in Labor Force, Female in Cities of Placer County (${date})",
+                    "title": "Count of Person: Years 16 Onwards, BLS in Labor Force, Female in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, BLS in Labor Force, Female in Cities of Placer County"
+            "title": "Count of Person: Years 16 Onwards, BLS in Labor Force, Female in Cities of Placer County"
           },
           {
             "columns": [
@@ -233,7 +233,7 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male"
                     ],
-                    "title": "Population: Years 16 Onwards, BLS in Labor Force, Male in Cities of Placer County (${date})",
+                    "title": "Count of Person: Years 16 Onwards, BLS in Labor Force, Male in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -244,14 +244,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce_Male"
                     ],
-                    "title": "Population: Years 16 Onwards, BLS in Labor Force, Male in Cities of Placer County (${date})",
+                    "title": "Count of Person: Years 16 Onwards, BLS in Labor Force, Male in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, BLS in Labor Force, Male in Cities of Placer County"
+            "title": "Count of Person: Years 16 Onwards, BLS in Labor Force, Male in Cities of Placer County"
           },
           {
             "columns": [
@@ -358,7 +358,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: BLS Unemployed in Placer County",
+                    "title": "Count of Person: BLS Unemployed in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -366,18 +366,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: BLS Unemployed in Placer County",
+                    "description": "Count of Person: BLS Unemployed in Placer County",
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: BLS Unemployed in Placer County",
+                    "title": "Count of Person: BLS Unemployed in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: BLS Unemployed"
+            "title": "Count of Person: BLS Unemployed"
           },
           {
             "columns": [
@@ -391,7 +391,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: BLS Unemployed in Cities of Placer County (${date})",
+                    "title": "Count of Person: BLS Unemployed in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -402,14 +402,14 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: BLS Unemployed in Cities of Placer County (${date})",
+                    "title": "Count of Person: BLS Unemployed in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: BLS Unemployed in Cities of Placer County"
+            "title": "Count of Person: BLS Unemployed in Cities of Placer County"
           },
           {
             "columns": [
@@ -419,7 +419,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
                     ],
-                    "title": "Population: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "title": "Count of Person: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -427,27 +427,27 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "description": "Count of Person: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
                     ],
-                    "title": "Population: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "title": "Count of Person: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker"
+            "title": "Count of Person: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker"
           }
         ],
         "statVarSpec": {
           "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_multiple_place_bar_block": {
-            "name": "Population: Years 16 Onwards, Civilian, No Health Insurance, USC Non Institutionalized, NAICS/92, Worker",
+            "name": "Count Of Person: Years 16 Onwards, Civilian, No Health Insurance, USC Non Institutionalized, NAICS/92, Worker",
             "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
           },
           "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker": {
-            "name": "Population: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker",
+            "name": "Count Of Person: Years 16 Onwards, Civilian, Privately Owned, No Health Insurance, USC Non Institutionalized, Unpaid Family Worker, Worker",
             "statVar": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
           },
           "Count_Person_Employed": {
@@ -459,15 +459,15 @@
             "statVar": "Count_Person_InLaborForce"
           },
           "Count_Person_InLaborForce_Female": {
-            "name": "Population: Years 16 Onwards, BLS In Labor Force, Female",
+            "name": "Count Of Person: Years 16 Onwards, BLS In Labor Force, Female",
             "statVar": "Count_Person_InLaborForce_Female"
           },
           "Count_Person_InLaborForce_Male": {
-            "name": "Population: Years 16 Onwards, BLS In Labor Force, Male",
+            "name": "Count Of Person: Years 16 Onwards, BLS In Labor Force, Male",
             "statVar": "Count_Person_InLaborForce_Male"
           },
           "Count_Person_Unemployed": {
-            "name": "Population: BLS Unemployed",
+            "name": "Count Of Person: BLS Unemployed",
             "statVar": "Count_Person_Unemployed"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
@@ -551,7 +551,7 @@
             "statVar": "UnemploymentRate_Person"
           },
           "dc/01yc3k23tsyk_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/1013",
+            "name": "Count Of BLS Worker: NAICS/1013",
             "statVar": "dc/01yc3k23tsyk"
           },
           "dc/34t2kjrwbjd31_multiple_place_bar_block": {
@@ -563,11 +563,11 @@
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/e2mpgewwsl60c_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/1011",
+            "name": "Count Of BLS Worker: NAICS/1011",
             "statVar": "dc/e2mpgewwsl60c"
           },
           "dc/j4v6keqwsl60h_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/334",
+            "name": "Count Of BLS Worker: NAICS/334",
             "statVar": "dc/j4v6keqwsl60h"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
@@ -579,7 +579,7 @@
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/w5ve4140t8xsb_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/333",
+            "name": "Count Of BLS Worker: NAICS/333",
             "statVar": "dc/w5ve4140t8xsb"
           }
         }
@@ -800,39 +800,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Worker_NAICSConstruction": {
-        "establishmentOwnership": [
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSConstruction",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSConstruction"
-        ]
-      },
-      "Count_Worker_NAICSFinanceInsurance": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSFinanceInsurance",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSFinanceInsurance"
-        ]
-      },
-      "Count_Worker_NAICSHealthCareSocialAssistance": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance"
-        ]
-      },
-      "Count_Worker_NAICSInformation": {
-        "establishmentOwnership": [
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSInformation"
-        ]
-      },
-      "Count_Worker_NAICSTotalAllIndustries": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Jobs",

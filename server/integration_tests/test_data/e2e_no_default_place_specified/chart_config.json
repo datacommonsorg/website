@@ -157,7 +157,7 @@
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in United States of America",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -165,11 +165,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 15 to 19, Female, Separated in United States of America",
+                    "description": "Count of Person: Years 15 to 19, Female, Separated in United States of America",
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in United States of America",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -186,7 +186,7 @@
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in States of United States of America (${date})",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -201,14 +201,14 @@
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in States of United States of America (${date})",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 to 19, Female, Separated in States of United States of America"
+            "title": "Count of Person: Years 15 to 19, Female, Separated in States of United States of America"
           },
           {
             "columns": [
@@ -430,7 +430,7 @@
                     "statVarKey": [
                       "dc/lnp5g90fwpct8"
                     ],
-                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
+                    "title": "Count of Person (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -445,14 +445,14 @@
                     "statVarKey": [
                       "dc/lnp5g90fwpct8"
                     ],
-                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
+                    "title": "Count of Person (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America"
+            "title": "Count of Person (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America"
           },
           {
             "columns": [
@@ -765,7 +765,7 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -773,18 +773,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
+                    "description": "Count of Person: Years 3 Onwards, Female, Enrolled in School in United States of America",
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in United States of America",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Female, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School"
           },
           {
             "columns": [
@@ -794,7 +794,7 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -809,14 +809,14 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Female, Enrolled in School in States of United States of America"
+            "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in States of United States of America"
           },
           {
             "columns": [
@@ -826,7 +826,7 @@
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in United States of America",
+                    "title": "Count of Person: With Own Children Under 18, Female in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -834,18 +834,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: With Own Children Under 18, Female in United States of America",
+                    "description": "Count of Person: With Own Children Under 18, Female in United States of America",
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in United States of America",
+                    "title": "Count of Person: With Own Children Under 18, Female in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Own Children Under 18, Female"
+            "title": "Count of Person: With Own Children Under 18, Female"
           },
           {
             "columns": [
@@ -855,7 +855,7 @@
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in States of United States of America (${date})",
+                    "title": "Count of Person: With Own Children Under 18, Female in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -870,23 +870,23 @@
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in States of United States of America (${date})",
+                    "title": "Count of Person: With Own Children Under 18, Female in States of United States of America (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Own Children Under 18, Female in States of United States of America"
+            "title": "Count of Person: With Own Children Under 18, Female in States of United States of America"
           }
         ],
         "statVarSpec": {
           "Count_Person_15To19Years_Female_Separated": {
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Count Of Person: Years 15 To 19, Female, Separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool": {
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_Female": {
@@ -934,7 +934,7 @@
             "statVar": "Count_Person_Male"
           },
           "Count_Person_WithOwnChildrenUnder18_Female": {
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Count Of Person: With Own Children Under 18, Female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Median_Age_Person_Female": {
@@ -942,7 +942,7 @@
             "statVar": "Median_Age_Person_Female"
           },
           "dc/lnp5g90fwpct8": {
-            "name": "Population (Measured Based On Jurisdiction): Female, Incarcerated",
+            "name": "Count Of Person (Measured Based On Jurisdiction): Female, Incarcerated",
             "statVar": "dc/lnp5g90fwpct8"
           }
         }
@@ -1333,12 +1333,6 @@
     "childTopics": [],
     "exploreMore": {
       "Count_Person_Female": {
-        "age": [
-          "Count_Person_15To44Years_Female",
-          "Count_Person_21OrMoreYears_Female",
-          "Count_Person_62OrMoreYears_Female",
-          "Count_Person_Upto14Years_Female"
-        ],
         "race": [
           "Count_Person_Female_AsianAlone",
           "Count_Person_Female_AsianOrPacificIslander",
@@ -1347,647 +1341,6 @@
           "Count_Person_Female_NonWhite",
           "Count_Person_Female_NotHispanicOrLatino",
           "Count_Person_Female_WhiteAlone"
-        ]
-      },
-      "Count_Person_Female_AsianAlone": {
-        "age": [
-          "Count_Person_0To4Years_Female_AsianAlone",
-          "Count_Person_0Years_Female_AsianAlone",
-          "Count_Person_10Years_Female_AsianAlone",
-          "Count_Person_11Years_Female_AsianAlone",
-          "Count_Person_12Years_Female_AsianAlone",
-          "Count_Person_13Years_Female_AsianAlone",
-          "Count_Person_14Years_Female_AsianAlone",
-          "Count_Person_15To19Years_Female_AsianAlone",
-          "Count_Person_16Years_Female_AsianAlone",
-          "Count_Person_17Years_Female_AsianAlone",
-          "Count_Person_18Years_Female_AsianAlone",
-          "Count_Person_19Years_Female_AsianAlone",
-          "Count_Person_1Years_Female_AsianAlone",
-          "Count_Person_20Years_Female_AsianAlone",
-          "Count_Person_21Years_Female_AsianAlone",
-          "Count_Person_22Years_Female_AsianAlone",
-          "Count_Person_23Years_Female_AsianAlone",
-          "Count_Person_24Years_Female_AsianAlone",
-          "Count_Person_25Years_Female_AsianAlone",
-          "Count_Person_26Years_Female_AsianAlone",
-          "Count_Person_27Years_Female_AsianAlone",
-          "Count_Person_28Years_Female_AsianAlone",
-          "Count_Person_29Years_Female_AsianAlone",
-          "Count_Person_2Years_Female_AsianAlone",
-          "Count_Person_30Years_Female_AsianAlone",
-          "Count_Person_31Years_Female_AsianAlone",
-          "Count_Person_32Years_Female_AsianAlone",
-          "Count_Person_33Years_Female_AsianAlone",
-          "Count_Person_34Years_Female_AsianAlone",
-          "Count_Person_35To39Years_Female_AsianAlone",
-          "Count_Person_35Years_Female_AsianAlone",
-          "Count_Person_36Years_Female_AsianAlone",
-          "Count_Person_37Years_Female_AsianAlone",
-          "Count_Person_38Years_Female_AsianAlone",
-          "Count_Person_39Years_Female_AsianAlone",
-          "Count_Person_3Years_Female_AsianAlone",
-          "Count_Person_40To44Years_Female_AsianAlone",
-          "Count_Person_40Years_Female_AsianAlone",
-          "Count_Person_41Years_Female_AsianAlone",
-          "Count_Person_42Years_Female_AsianAlone",
-          "Count_Person_43Years_Female_AsianAlone",
-          "Count_Person_44Years_Female_AsianAlone",
-          "Count_Person_45To49Years_Female_AsianAlone",
-          "Count_Person_45Years_Female_AsianAlone",
-          "Count_Person_46Years_Female_AsianAlone",
-          "Count_Person_47Years_Female_AsianAlone",
-          "Count_Person_48Years_Female_AsianAlone",
-          "Count_Person_49Years_Female_AsianAlone",
-          "Count_Person_4Years_Female_AsianAlone",
-          "Count_Person_50To54Years_Female_AsianAlone",
-          "Count_Person_50Years_Female_AsianAlone",
-          "Count_Person_51Years_Female_AsianAlone",
-          "Count_Person_52Years_Female_AsianAlone",
-          "Count_Person_53Years_Female_AsianAlone",
-          "Count_Person_54Years_Female_AsianAlone",
-          "Count_Person_55To59Years_Female_AsianAlone",
-          "Count_Person_55Years_Female_AsianAlone",
-          "Count_Person_56Years_Female_AsianAlone",
-          "Count_Person_57Years_Female_AsianAlone",
-          "Count_Person_58Years_Female_AsianAlone",
-          "Count_Person_59Years_Female_AsianAlone",
-          "Count_Person_60To64Years_Female_AsianAlone",
-          "Count_Person_60Years_Female_AsianAlone",
-          "Count_Person_61Years_Female_AsianAlone",
-          "Count_Person_62Years_Female_AsianAlone",
-          "Count_Person_63Years_Female_AsianAlone",
-          "Count_Person_64Years_Female_AsianAlone",
-          "Count_Person_65To69Years_Female_AsianAlone",
-          "Count_Person_65Years_Female_AsianAlone",
-          "Count_Person_66Years_Female_AsianAlone",
-          "Count_Person_67Years_Female_AsianAlone",
-          "Count_Person_68Years_Female_AsianAlone",
-          "Count_Person_69Years_Female_AsianAlone",
-          "Count_Person_6Years_Female_AsianAlone",
-          "Count_Person_70To74Years_Female_AsianAlone",
-          "Count_Person_70Years_Female_AsianAlone",
-          "Count_Person_71Years_Female_AsianAlone",
-          "Count_Person_72Years_Female_AsianAlone",
-          "Count_Person_73Years_Female_AsianAlone",
-          "Count_Person_74Years_Female_AsianAlone",
-          "Count_Person_75To79Years_Female_AsianAlone",
-          "Count_Person_75Years_Female_AsianAlone",
-          "Count_Person_76Years_Female_AsianAlone",
-          "Count_Person_77Years_Female_AsianAlone",
-          "Count_Person_78Years_Female_AsianAlone",
-          "Count_Person_79Years_Female_AsianAlone",
-          "Count_Person_7Years_Female_AsianAlone",
-          "Count_Person_80To84Years_Female_AsianAlone",
-          "Count_Person_80Years_Female_AsianAlone",
-          "Count_Person_81Years_Female_AsianAlone",
-          "Count_Person_82Years_Female_AsianAlone",
-          "Count_Person_83Years_Female_AsianAlone",
-          "Count_Person_84Years_Female_AsianAlone",
-          "Count_Person_85Years_Female_AsianAlone",
-          "Count_Person_86Years_Female_AsianAlone",
-          "Count_Person_87Years_Female_AsianAlone",
-          "Count_Person_88Years_Female_AsianAlone",
-          "Count_Person_89Years_Female_AsianAlone",
-          "Count_Person_8Years_Female_AsianAlone",
-          "Count_Person_90Years_Female_AsianAlone",
-          "Count_Person_91Years_Female_AsianAlone",
-          "Count_Person_92Years_Female_AsianAlone",
-          "Count_Person_93Years_Female_AsianAlone",
-          "Count_Person_94Years_Female_AsianAlone",
-          "Count_Person_95Years_Female_AsianAlone",
-          "Count_Person_96Years_Female_AsianAlone",
-          "Count_Person_97Years_Female_AsianAlone",
-          "Count_Person_98Years_Female_AsianAlone",
-          "Count_Person_99Years_Female_AsianAlone",
-          "Count_Person_9Years_Female_AsianAlone"
-        ]
-      },
-      "Count_Person_Female_AsianOrPacificIslander": {
-        "age": [
-          "Count_Person_0Years_Female_AsianOrPacificIslander",
-          "Count_Person_100Years_Female_AsianOrPacificIslander",
-          "Count_Person_10Years_Female_AsianOrPacificIslander",
-          "Count_Person_11Years_Female_AsianOrPacificIslander",
-          "Count_Person_12Years_Female_AsianOrPacificIslander",
-          "Count_Person_13Years_Female_AsianOrPacificIslander",
-          "Count_Person_14Years_Female_AsianOrPacificIslander",
-          "Count_Person_15Years_Female_AsianOrPacificIslander",
-          "Count_Person_16Years_Female_AsianOrPacificIslander",
-          "Count_Person_17Years_Female_AsianOrPacificIslander",
-          "Count_Person_18Years_Female_AsianOrPacificIslander",
-          "Count_Person_19Years_Female_AsianOrPacificIslander",
-          "Count_Person_1Years_Female_AsianOrPacificIslander",
-          "Count_Person_20Years_Female_AsianOrPacificIslander",
-          "Count_Person_21Years_Female_AsianOrPacificIslander",
-          "Count_Person_22Years_Female_AsianOrPacificIslander",
-          "Count_Person_23Years_Female_AsianOrPacificIslander",
-          "Count_Person_24Years_Female_AsianOrPacificIslander",
-          "Count_Person_25Years_Female_AsianOrPacificIslander",
-          "Count_Person_26Years_Female_AsianOrPacificIslander",
-          "Count_Person_27Years_Female_AsianOrPacificIslander",
-          "Count_Person_28Years_Female_AsianOrPacificIslander",
-          "Count_Person_29Years_Female_AsianOrPacificIslander",
-          "Count_Person_2Years_Female_AsianOrPacificIslander",
-          "Count_Person_30Years_Female_AsianOrPacificIslander",
-          "Count_Person_31Years_Female_AsianOrPacificIslander",
-          "Count_Person_32Years_Female_AsianOrPacificIslander",
-          "Count_Person_33Years_Female_AsianOrPacificIslander",
-          "Count_Person_34Years_Female_AsianOrPacificIslander",
-          "Count_Person_35Years_Female_AsianOrPacificIslander",
-          "Count_Person_36Years_Female_AsianOrPacificIslander",
-          "Count_Person_37Years_Female_AsianOrPacificIslander",
-          "Count_Person_38Years_Female_AsianOrPacificIslander",
-          "Count_Person_39Years_Female_AsianOrPacificIslander",
-          "Count_Person_3Years_Female_AsianOrPacificIslander",
-          "Count_Person_40Years_Female_AsianOrPacificIslander",
-          "Count_Person_41Years_Female_AsianOrPacificIslander",
-          "Count_Person_42Years_Female_AsianOrPacificIslander",
-          "Count_Person_43Years_Female_AsianOrPacificIslander",
-          "Count_Person_44Years_Female_AsianOrPacificIslander",
-          "Count_Person_45Years_Female_AsianOrPacificIslander",
-          "Count_Person_46Years_Female_AsianOrPacificIslander",
-          "Count_Person_47Years_Female_AsianOrPacificIslander",
-          "Count_Person_48Years_Female_AsianOrPacificIslander",
-          "Count_Person_49Years_Female_AsianOrPacificIslander",
-          "Count_Person_4Years_Female_AsianOrPacificIslander",
-          "Count_Person_50Years_Female_AsianOrPacificIslander",
-          "Count_Person_51Years_Female_AsianOrPacificIslander",
-          "Count_Person_52Years_Female_AsianOrPacificIslander",
-          "Count_Person_53Years_Female_AsianOrPacificIslander",
-          "Count_Person_54Years_Female_AsianOrPacificIslander",
-          "Count_Person_55Years_Female_AsianOrPacificIslander",
-          "Count_Person_56Years_Female_AsianOrPacificIslander",
-          "Count_Person_57Years_Female_AsianOrPacificIslander",
-          "Count_Person_58Years_Female_AsianOrPacificIslander",
-          "Count_Person_59Years_Female_AsianOrPacificIslander",
-          "Count_Person_5Years_Female_AsianOrPacificIslander",
-          "Count_Person_60Years_Female_AsianOrPacificIslander",
-          "Count_Person_61Years_Female_AsianOrPacificIslander",
-          "Count_Person_62Years_Female_AsianOrPacificIslander",
-          "Count_Person_63Years_Female_AsianOrPacificIslander",
-          "Count_Person_64Years_Female_AsianOrPacificIslander",
-          "Count_Person_65Years_Female_AsianOrPacificIslander",
-          "Count_Person_66Years_Female_AsianOrPacificIslander",
-          "Count_Person_67Years_Female_AsianOrPacificIslander",
-          "Count_Person_68Years_Female_AsianOrPacificIslander",
-          "Count_Person_69Years_Female_AsianOrPacificIslander",
-          "Count_Person_6Years_Female_AsianOrPacificIslander",
-          "Count_Person_70Years_Female_AsianOrPacificIslander",
-          "Count_Person_71Years_Female_AsianOrPacificIslander",
-          "Count_Person_72Years_Female_AsianOrPacificIslander",
-          "Count_Person_73Years_Female_AsianOrPacificIslander",
-          "Count_Person_74Years_Female_AsianOrPacificIslander",
-          "Count_Person_75Years_Female_AsianOrPacificIslander",
-          "Count_Person_76Years_Female_AsianOrPacificIslander",
-          "Count_Person_77Years_Female_AsianOrPacificIslander",
-          "Count_Person_78Years_Female_AsianOrPacificIslander",
-          "Count_Person_79Years_Female_AsianOrPacificIslander",
-          "Count_Person_7Years_Female_AsianOrPacificIslander",
-          "Count_Person_80Years_Female_AsianOrPacificIslander",
-          "Count_Person_81Years_Female_AsianOrPacificIslander",
-          "Count_Person_82Years_Female_AsianOrPacificIslander",
-          "Count_Person_83Years_Female_AsianOrPacificIslander",
-          "Count_Person_84Years_Female_AsianOrPacificIslander",
-          "Count_Person_85OrMoreYears_Female_AsianOrPacificIslander",
-          "Count_Person_85Years_Female_AsianOrPacificIslander",
-          "Count_Person_86Years_Female_AsianOrPacificIslander",
-          "Count_Person_87Years_Female_AsianOrPacificIslander",
-          "Count_Person_88Years_Female_AsianOrPacificIslander",
-          "Count_Person_89Years_Female_AsianOrPacificIslander",
-          "Count_Person_8Years_Female_AsianOrPacificIslander",
-          "Count_Person_90Years_Female_AsianOrPacificIslander",
-          "Count_Person_91Years_Female_AsianOrPacificIslander",
-          "Count_Person_92Years_Female_AsianOrPacificIslander",
-          "Count_Person_93Years_Female_AsianOrPacificIslander",
-          "Count_Person_94Years_Female_AsianOrPacificIslander",
-          "Count_Person_95Years_Female_AsianOrPacificIslander",
-          "Count_Person_96Years_Female_AsianOrPacificIslander",
-          "Count_Person_97Years_Female_AsianOrPacificIslander",
-          "Count_Person_98Years_Female_AsianOrPacificIslander",
-          "Count_Person_99Years_Female_AsianOrPacificIslander",
-          "Count_Person_9Years_Female_AsianOrPacificIslander"
-        ]
-      },
-      "Count_Person_Female_BlackOrAfricanAmericanAlone": {
-        "age": [
-          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_0Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_10Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_11Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_12Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_13Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_14Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_16Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_17Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_18Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_19Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_1Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_20Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_21Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_22Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_23Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_24Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_25Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_26Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_27Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_28Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_29Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_2Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_30Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_31Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_32Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_33Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_34Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_35To39Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_35Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_36Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_37Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_38Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_39Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_3Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_40To44Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_40Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_41Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_42Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_43Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_44Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_45To49Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_45Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_46Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_47Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_48Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_49Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_4Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_50To54Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_50Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_51Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_52Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_53Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_54Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_55To59Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_55Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_56Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_57Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_58Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_59Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_60To64Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_60Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_61Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_62Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_63Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_64Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_65To69Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_65Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_66Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_67Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_68Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_69Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_6Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_70To74Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_70Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_71Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_72Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_73Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_74Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_75To79Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_75Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_76Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_77Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_78Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_79Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_7Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_80To84Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_80Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_81Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_82Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_83Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_84Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_85Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_86Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_87Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_88Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_89Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_8Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_90Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_91Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_92Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_93Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_94Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_95Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_96Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_97Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_98Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_99Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_9Years_Female_BlackOrAfricanAmericanAlone"
-        ]
-      },
-      "Count_Person_Female_HispanicOrLatino": {
-        "age": [
-          "Count_Person_0Years_Female_HispanicOrLatino",
-          "Count_Person_100OrMoreYears_Female_HispanicOrLatino",
-          "Count_Person_10Years_Female_HispanicOrLatino",
-          "Count_Person_11Years_Female_HispanicOrLatino",
-          "Count_Person_12Years_Female_HispanicOrLatino",
-          "Count_Person_13Years_Female_HispanicOrLatino",
-          "Count_Person_14Years_Female_HispanicOrLatino",
-          "Count_Person_16Years_Female_HispanicOrLatino",
-          "Count_Person_17Years_Female_HispanicOrLatino",
-          "Count_Person_18Years_Female_HispanicOrLatino",
-          "Count_Person_19Years_Female_HispanicOrLatino",
-          "Count_Person_1Years_Female_HispanicOrLatino",
-          "Count_Person_20Years_Female_HispanicOrLatino",
-          "Count_Person_21Years_Female_HispanicOrLatino",
-          "Count_Person_22Years_Female_HispanicOrLatino",
-          "Count_Person_23Years_Female_HispanicOrLatino",
-          "Count_Person_24Years_Female_HispanicOrLatino",
-          "Count_Person_25Years_Female_HispanicOrLatino",
-          "Count_Person_26Years_Female_HispanicOrLatino",
-          "Count_Person_27Years_Female_HispanicOrLatino",
-          "Count_Person_28Years_Female_HispanicOrLatino",
-          "Count_Person_29Years_Female_HispanicOrLatino",
-          "Count_Person_2Years_Female_HispanicOrLatino",
-          "Count_Person_30Years_Female_HispanicOrLatino",
-          "Count_Person_31Years_Female_HispanicOrLatino",
-          "Count_Person_32Years_Female_HispanicOrLatino",
-          "Count_Person_33Years_Female_HispanicOrLatino",
-          "Count_Person_34Years_Female_HispanicOrLatino",
-          "Count_Person_35Years_Female_HispanicOrLatino",
-          "Count_Person_36Years_Female_HispanicOrLatino",
-          "Count_Person_37Years_Female_HispanicOrLatino",
-          "Count_Person_38Years_Female_HispanicOrLatino",
-          "Count_Person_39Years_Female_HispanicOrLatino",
-          "Count_Person_3Years_Female_HispanicOrLatino",
-          "Count_Person_40Years_Female_HispanicOrLatino",
-          "Count_Person_41Years_Female_HispanicOrLatino",
-          "Count_Person_42Years_Female_HispanicOrLatino",
-          "Count_Person_43Years_Female_HispanicOrLatino",
-          "Count_Person_44Years_Female_HispanicOrLatino",
-          "Count_Person_45Years_Female_HispanicOrLatino",
-          "Count_Person_46Years_Female_HispanicOrLatino",
-          "Count_Person_47Years_Female_HispanicOrLatino",
-          "Count_Person_48Years_Female_HispanicOrLatino",
-          "Count_Person_49Years_Female_HispanicOrLatino",
-          "Count_Person_4Years_Female_HispanicOrLatino",
-          "Count_Person_50Years_Female_HispanicOrLatino",
-          "Count_Person_51Years_Female_HispanicOrLatino",
-          "Count_Person_52Years_Female_HispanicOrLatino",
-          "Count_Person_53Years_Female_HispanicOrLatino",
-          "Count_Person_54Years_Female_HispanicOrLatino",
-          "Count_Person_55Years_Female_HispanicOrLatino",
-          "Count_Person_56Years_Female_HispanicOrLatino",
-          "Count_Person_57Years_Female_HispanicOrLatino",
-          "Count_Person_58Years_Female_HispanicOrLatino",
-          "Count_Person_59Years_Female_HispanicOrLatino",
-          "Count_Person_60Years_Female_HispanicOrLatino",
-          "Count_Person_61Years_Female_HispanicOrLatino",
-          "Count_Person_62Years_Female_HispanicOrLatino",
-          "Count_Person_63Years_Female_HispanicOrLatino",
-          "Count_Person_64Years_Female_HispanicOrLatino",
-          "Count_Person_65Years_Female_HispanicOrLatino",
-          "Count_Person_66Years_Female_HispanicOrLatino",
-          "Count_Person_67Years_Female_HispanicOrLatino",
-          "Count_Person_68Years_Female_HispanicOrLatino",
-          "Count_Person_69Years_Female_HispanicOrLatino",
-          "Count_Person_6Years_Female_HispanicOrLatino",
-          "Count_Person_70Years_Female_HispanicOrLatino",
-          "Count_Person_71Years_Female_HispanicOrLatino",
-          "Count_Person_72Years_Female_HispanicOrLatino",
-          "Count_Person_73Years_Female_HispanicOrLatino",
-          "Count_Person_74Years_Female_HispanicOrLatino",
-          "Count_Person_75Years_Female_HispanicOrLatino",
-          "Count_Person_76Years_Female_HispanicOrLatino",
-          "Count_Person_77Years_Female_HispanicOrLatino",
-          "Count_Person_78Years_Female_HispanicOrLatino",
-          "Count_Person_79Years_Female_HispanicOrLatino",
-          "Count_Person_7Years_Female_HispanicOrLatino",
-          "Count_Person_80Years_Female_HispanicOrLatino",
-          "Count_Person_81Years_Female_HispanicOrLatino",
-          "Count_Person_82Years_Female_HispanicOrLatino",
-          "Count_Person_83Years_Female_HispanicOrLatino",
-          "Count_Person_84Years_Female_HispanicOrLatino",
-          "Count_Person_85Years_Female_HispanicOrLatino",
-          "Count_Person_86Years_Female_HispanicOrLatino",
-          "Count_Person_87Years_Female_HispanicOrLatino",
-          "Count_Person_88Years_Female_HispanicOrLatino",
-          "Count_Person_89Years_Female_HispanicOrLatino",
-          "Count_Person_8Years_Female_HispanicOrLatino",
-          "Count_Person_90Years_Female_HispanicOrLatino",
-          "Count_Person_91Years_Female_HispanicOrLatino",
-          "Count_Person_92Years_Female_HispanicOrLatino",
-          "Count_Person_93Years_Female_HispanicOrLatino",
-          "Count_Person_94Years_Female_HispanicOrLatino",
-          "Count_Person_95Years_Female_HispanicOrLatino",
-          "Count_Person_96Years_Female_HispanicOrLatino",
-          "Count_Person_97Years_Female_HispanicOrLatino",
-          "Count_Person_98Years_Female_HispanicOrLatino",
-          "Count_Person_99Years_Female_HispanicOrLatino",
-          "Count_Person_9Years_Female_HispanicOrLatino"
-        ]
-      },
-      "Count_Person_Female_NonWhite": {
-        "age": [
-          "Count_Person_0Years_Female_NonWhite",
-          "Count_Person_10Years_Female_NonWhite",
-          "Count_Person_11Years_Female_NonWhite",
-          "Count_Person_12Years_Female_NonWhite",
-          "Count_Person_13Years_Female_NonWhite",
-          "Count_Person_14Years_Female_NonWhite",
-          "Count_Person_15Years_Female_NonWhite",
-          "Count_Person_16Years_Female_NonWhite",
-          "Count_Person_17Years_Female_NonWhite",
-          "Count_Person_18Years_Female_NonWhite",
-          "Count_Person_19Years_Female_NonWhite",
-          "Count_Person_1Years_Female_NonWhite",
-          "Count_Person_20Years_Female_NonWhite",
-          "Count_Person_21Years_Female_NonWhite",
-          "Count_Person_22Years_Female_NonWhite",
-          "Count_Person_23Years_Female_NonWhite",
-          "Count_Person_24Years_Female_NonWhite",
-          "Count_Person_25Years_Female_NonWhite",
-          "Count_Person_26Years_Female_NonWhite",
-          "Count_Person_27Years_Female_NonWhite",
-          "Count_Person_28Years_Female_NonWhite",
-          "Count_Person_29Years_Female_NonWhite",
-          "Count_Person_2Years_Female_NonWhite",
-          "Count_Person_30Years_Female_NonWhite",
-          "Count_Person_31Years_Female_NonWhite",
-          "Count_Person_32Years_Female_NonWhite",
-          "Count_Person_33Years_Female_NonWhite",
-          "Count_Person_34Years_Female_NonWhite",
-          "Count_Person_35Years_Female_NonWhite",
-          "Count_Person_36Years_Female_NonWhite",
-          "Count_Person_37Years_Female_NonWhite",
-          "Count_Person_38Years_Female_NonWhite",
-          "Count_Person_39Years_Female_NonWhite",
-          "Count_Person_3Years_Female_NonWhite",
-          "Count_Person_40Years_Female_NonWhite",
-          "Count_Person_41Years_Female_NonWhite",
-          "Count_Person_42Years_Female_NonWhite",
-          "Count_Person_43Years_Female_NonWhite",
-          "Count_Person_44Years_Female_NonWhite",
-          "Count_Person_45Years_Female_NonWhite",
-          "Count_Person_46Years_Female_NonWhite",
-          "Count_Person_47Years_Female_NonWhite",
-          "Count_Person_48Years_Female_NonWhite",
-          "Count_Person_49Years_Female_NonWhite",
-          "Count_Person_4Years_Female_NonWhite",
-          "Count_Person_50Years_Female_NonWhite",
-          "Count_Person_51Years_Female_NonWhite",
-          "Count_Person_52Years_Female_NonWhite",
-          "Count_Person_53Years_Female_NonWhite",
-          "Count_Person_54Years_Female_NonWhite",
-          "Count_Person_55Years_Female_NonWhite",
-          "Count_Person_56Years_Female_NonWhite",
-          "Count_Person_57Years_Female_NonWhite",
-          "Count_Person_58Years_Female_NonWhite",
-          "Count_Person_59Years_Female_NonWhite",
-          "Count_Person_5Years_Female_NonWhite",
-          "Count_Person_60Years_Female_NonWhite",
-          "Count_Person_61Years_Female_NonWhite",
-          "Count_Person_62Years_Female_NonWhite",
-          "Count_Person_63Years_Female_NonWhite",
-          "Count_Person_64Years_Female_NonWhite",
-          "Count_Person_65Years_Female_NonWhite",
-          "Count_Person_66Years_Female_NonWhite",
-          "Count_Person_67Years_Female_NonWhite",
-          "Count_Person_68Years_Female_NonWhite",
-          "Count_Person_69Years_Female_NonWhite",
-          "Count_Person_6Years_Female_NonWhite",
-          "Count_Person_70Years_Female_NonWhite",
-          "Count_Person_71Years_Female_NonWhite",
-          "Count_Person_72Years_Female_NonWhite",
-          "Count_Person_73Years_Female_NonWhite",
-          "Count_Person_74Years_Female_NonWhite",
-          "Count_Person_75OrMoreYears_Female_NonWhite",
-          "Count_Person_75Years_Female_NonWhite",
-          "Count_Person_76Years_Female_NonWhite",
-          "Count_Person_77Years_Female_NonWhite",
-          "Count_Person_78Years_Female_NonWhite",
-          "Count_Person_79Years_Female_NonWhite",
-          "Count_Person_7Years_Female_NonWhite",
-          "Count_Person_80Years_Female_NonWhite",
-          "Count_Person_81Years_Female_NonWhite",
-          "Count_Person_82Years_Female_NonWhite",
-          "Count_Person_83Years_Female_NonWhite",
-          "Count_Person_84Years_Female_NonWhite",
-          "Count_Person_85OrMoreYears_Female_NonWhite",
-          "Count_Person_8Years_Female_NonWhite",
-          "Count_Person_9Years_Female_NonWhite"
-        ]
-      },
-      "Count_Person_Female_NotHispanicOrLatino": {
-        "age": [
-          "Count_Person_0Years_Female_NotHispanicOrLatino",
-          "Count_Person_100OrMoreYears_Female_NotHispanicOrLatino",
-          "Count_Person_10Years_Female_NotHispanicOrLatino",
-          "Count_Person_11Years_Female_NotHispanicOrLatino",
-          "Count_Person_12Years_Female_NotHispanicOrLatino",
-          "Count_Person_13Years_Female_NotHispanicOrLatino",
-          "Count_Person_14Years_Female_NotHispanicOrLatino",
-          "Count_Person_15Years_Female_NotHispanicOrLatino",
-          "Count_Person_16Years_Female_NotHispanicOrLatino",
-          "Count_Person_17Years_Female_NotHispanicOrLatino",
-          "Count_Person_18Years_Female_NotHispanicOrLatino",
-          "Count_Person_19Years_Female_NotHispanicOrLatino",
-          "Count_Person_1Years_Female_NotHispanicOrLatino",
-          "Count_Person_20Years_Female_NotHispanicOrLatino",
-          "Count_Person_21Years_Female_NotHispanicOrLatino",
-          "Count_Person_22Years_Female_NotHispanicOrLatino",
-          "Count_Person_23Years_Female_NotHispanicOrLatino",
-          "Count_Person_24Years_Female_NotHispanicOrLatino",
-          "Count_Person_25Years_Female_NotHispanicOrLatino",
-          "Count_Person_26Years_Female_NotHispanicOrLatino",
-          "Count_Person_27Years_Female_NotHispanicOrLatino",
-          "Count_Person_28Years_Female_NotHispanicOrLatino",
-          "Count_Person_29Years_Female_NotHispanicOrLatino",
-          "Count_Person_2Years_Female_NotHispanicOrLatino",
-          "Count_Person_30Years_Female_NotHispanicOrLatino",
-          "Count_Person_31Years_Female_NotHispanicOrLatino",
-          "Count_Person_32Years_Female_NotHispanicOrLatino",
-          "Count_Person_33Years_Female_NotHispanicOrLatino",
-          "Count_Person_34Years_Female_NotHispanicOrLatino",
-          "Count_Person_35Years_Female_NotHispanicOrLatino",
-          "Count_Person_36Years_Female_NotHispanicOrLatino",
-          "Count_Person_37Years_Female_NotHispanicOrLatino",
-          "Count_Person_38Years_Female_NotHispanicOrLatino",
-          "Count_Person_39Years_Female_NotHispanicOrLatino",
-          "Count_Person_3Years_Female_NotHispanicOrLatino",
-          "Count_Person_40Years_Female_NotHispanicOrLatino",
-          "Count_Person_41Years_Female_NotHispanicOrLatino",
-          "Count_Person_42Years_Female_NotHispanicOrLatino",
-          "Count_Person_43Years_Female_NotHispanicOrLatino",
-          "Count_Person_44Years_Female_NotHispanicOrLatino",
-          "Count_Person_45Years_Female_NotHispanicOrLatino",
-          "Count_Person_46Years_Female_NotHispanicOrLatino",
-          "Count_Person_47Years_Female_NotHispanicOrLatino",
-          "Count_Person_48Years_Female_NotHispanicOrLatino",
-          "Count_Person_49Years_Female_NotHispanicOrLatino",
-          "Count_Person_4Years_Female_NotHispanicOrLatino",
-          "Count_Person_50Years_Female_NotHispanicOrLatino",
-          "Count_Person_51Years_Female_NotHispanicOrLatino",
-          "Count_Person_52Years_Female_NotHispanicOrLatino",
-          "Count_Person_53Years_Female_NotHispanicOrLatino",
-          "Count_Person_54Years_Female_NotHispanicOrLatino",
-          "Count_Person_55Years_Female_NotHispanicOrLatino",
-          "Count_Person_56Years_Female_NotHispanicOrLatino",
-          "Count_Person_57Years_Female_NotHispanicOrLatino",
-          "Count_Person_58Years_Female_NotHispanicOrLatino",
-          "Count_Person_59Years_Female_NotHispanicOrLatino",
-          "Count_Person_5Years_Female_NotHispanicOrLatino",
-          "Count_Person_60Years_Female_NotHispanicOrLatino",
-          "Count_Person_61Years_Female_NotHispanicOrLatino",
-          "Count_Person_62Years_Female_NotHispanicOrLatino",
-          "Count_Person_63Years_Female_NotHispanicOrLatino",
-          "Count_Person_64Years_Female_NotHispanicOrLatino",
-          "Count_Person_65Years_Female_NotHispanicOrLatino",
-          "Count_Person_66Years_Female_NotHispanicOrLatino",
-          "Count_Person_67Years_Female_NotHispanicOrLatino",
-          "Count_Person_68Years_Female_NotHispanicOrLatino",
-          "Count_Person_69Years_Female_NotHispanicOrLatino",
-          "Count_Person_6Years_Female_NotHispanicOrLatino",
-          "Count_Person_70Years_Female_NotHispanicOrLatino",
-          "Count_Person_71Years_Female_NotHispanicOrLatino",
-          "Count_Person_72Years_Female_NotHispanicOrLatino",
-          "Count_Person_73Years_Female_NotHispanicOrLatino",
-          "Count_Person_74Years_Female_NotHispanicOrLatino",
-          "Count_Person_75Years_Female_NotHispanicOrLatino",
-          "Count_Person_76Years_Female_NotHispanicOrLatino",
-          "Count_Person_77Years_Female_NotHispanicOrLatino",
-          "Count_Person_78Years_Female_NotHispanicOrLatino",
-          "Count_Person_79Years_Female_NotHispanicOrLatino",
-          "Count_Person_7Years_Female_NotHispanicOrLatino",
-          "Count_Person_80Years_Female_NotHispanicOrLatino",
-          "Count_Person_81Years_Female_NotHispanicOrLatino",
-          "Count_Person_82Years_Female_NotHispanicOrLatino",
-          "Count_Person_83Years_Female_NotHispanicOrLatino",
-          "Count_Person_84Years_Female_NotHispanicOrLatino",
-          "Count_Person_85OrMoreYears_Female_NotHispanicOrLatino",
-          "Count_Person_85Years_Female_NotHispanicOrLatino",
-          "Count_Person_86Years_Female_NotHispanicOrLatino",
-          "Count_Person_87Years_Female_NotHispanicOrLatino",
-          "Count_Person_88Years_Female_NotHispanicOrLatino",
-          "Count_Person_89Years_Female_NotHispanicOrLatino",
-          "Count_Person_8Years_Female_NotHispanicOrLatino",
-          "Count_Person_90Years_Female_NotHispanicOrLatino",
-          "Count_Person_91Years_Female_NotHispanicOrLatino",
-          "Count_Person_92Years_Female_NotHispanicOrLatino",
-          "Count_Person_93Years_Female_NotHispanicOrLatino",
-          "Count_Person_94Years_Female_NotHispanicOrLatino",
-          "Count_Person_95Years_Female_NotHispanicOrLatino",
-          "Count_Person_96Years_Female_NotHispanicOrLatino",
-          "Count_Person_97Years_Female_NotHispanicOrLatino",
-          "Count_Person_98Years_Female_NotHispanicOrLatino",
-          "Count_Person_99Years_Female_NotHispanicOrLatino",
-          "Count_Person_9Years_Female_NotHispanicOrLatino"
-        ]
-      },
-      "Count_Person_Male": {
-        "age": [
-          "Count_Person_15To44Years_Male",
-          "Count_Person_21OrMoreYears_Male",
-          "Count_Person_62OrMoreYears_Male",
-          "Count_Person_Upto14Years_Male"
         ]
       },
       "Median_Age_Person_Female": {
