@@ -16,6 +16,9 @@
 
 /** A component to render the rich menu drop-down for the mobile menu */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
@@ -36,14 +39,46 @@ const MenuMobileRichMenu = ({
   labels,
   routes,
 }: MenuMobileRichMenuProps): ReactElement => {
+  const theme = useTheme();
   if (!menuItem) return null;
+
+  const sectionCss = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.lg}px;
+  `;
 
   return (
     <>
-      <div className={"introduction-section"}>
-        <h3>{labels[menuItem.introduction?.label ?? menuItem.label]}</h3>
+      <div
+        css={css`
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.md}px;
+          border-bottom: 1px solid #cccccc;
+          padding: 0 0 ${theme.spacing.lg}px 0;
+        `}
+      >
+        <h3
+          css={css`
+            ${theme.typography.family.heading};
+            ${theme.typography.menu.xl};
+            font-weight: 100;
+            margin: 0;
+          `}
+        >
+          {labels[menuItem.introduction?.label ?? menuItem.label]}
+        </h3>
         {menuItem.introduction?.description && (
-          <p>{menuItem.introduction.description}</p>
+          <p
+            css={css`
+              ${theme.typography.family.text};
+              ${theme.typography.menu.xs};
+              margin: 0;
+            `}
+          >
+            {menuItem.introduction.description}
+          </p>
         )}
         {menuItem.introduction.links?.length > 0 && (
           <MenuRichLinkGroup
@@ -54,7 +89,7 @@ const MenuMobileRichMenu = ({
         )}
       </div>
       {menuItem.primarySectionGroups?.length > 0 && (
-        <div className={"primary-section"}>
+        <div css={sectionCss}>
           {menuItem.primarySectionGroups.map((primarySectionGroup, index) => (
             <MenuRichSectionGroup
               key={index}
@@ -67,7 +102,7 @@ const MenuMobileRichMenu = ({
         </div>
       )}
       {menuItem.secondarySectionGroups?.length > 0 && (
-        <div className={"secondary-section"}>
+        <div css={sectionCss}>
           {menuItem.secondarySectionGroups.map(
             (secondarySectionGroup, index) => (
               <MenuRichSectionGroup
