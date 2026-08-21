@@ -71,7 +71,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, With Earnings in California",
+                    "title": "Count of Person: Years 16 Onwards, With Earnings in California",
                     "type": "LINE"
                   }
                 ]
@@ -79,18 +79,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 16 Onwards, With Earnings in California",
+                    "description": "Count of Person: Years 16 Onwards, With Earnings in California",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, With Earnings in California",
+                    "title": "Count of Person: Years 16 Onwards, With Earnings in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, With Earnings"
           },
           {
             "columns": [
@@ -100,7 +100,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, With Earnings in Counties of California (${date})",
+                    "title": "Count of Person: Years 16 Onwards, With Earnings in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -115,14 +115,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, With Earnings in Counties of California (${date})",
+                    "title": "Count of Person: Years 16 Onwards, With Earnings in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, With Earnings in Counties of California"
+            "title": "Count of Person: Years 16 Onwards, With Earnings in Counties of California"
           },
           {
             "columns": [
@@ -249,7 +249,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Female, With Earnings in California",
+                    "title": "Count of Person: Years 16 Onwards, Female, With Earnings in California",
                     "type": "LINE"
                   }
                 ]
@@ -257,18 +257,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 16 Onwards, Female, With Earnings in California",
+                    "description": "Count of Person: Years 16 Onwards, Female, With Earnings in California",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Female, With Earnings in California",
+                    "title": "Count of Person: Years 16 Onwards, Female, With Earnings in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Female, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, Female, With Earnings"
           },
           {
             "columns": [
@@ -278,7 +278,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Female, With Earnings in Counties of California (${date})",
+                    "title": "Count of Person: Years 16 Onwards, Female, With Earnings in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -293,14 +293,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Female, With Earnings in Counties of California (${date})",
+                    "title": "Count of Person: Years 16 Onwards, Female, With Earnings in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Female, With Earnings in Counties of California"
+            "title": "Count of Person: Years 16 Onwards, Female, With Earnings in Counties of California"
           },
           {
             "columns": [
@@ -310,7 +310,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Male, With Earnings in California",
+                    "title": "Count of Person: Years 16 Onwards, Male, With Earnings in California",
                     "type": "LINE"
                   }
                 ]
@@ -318,18 +318,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 16 Onwards, Male, With Earnings in California",
+                    "description": "Count of Person: Years 16 Onwards, Male, With Earnings in California",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Male, With Earnings in California",
+                    "title": "Count of Person: Years 16 Onwards, Male, With Earnings in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Male, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, Male, With Earnings"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Male, With Earnings in Counties of California (${date})",
+                    "title": "Count of Person: Years 16 Onwards, Male, With Earnings in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -354,14 +354,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings"
                     ],
-                    "title": "Population: Years 16 Onwards, Male, With Earnings in Counties of California (${date})",
+                    "title": "Count of Person: Years 16 Onwards, Male, With Earnings in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Male, With Earnings in Counties of California"
+            "title": "Count of Person: Years 16 Onwards, Male, With Earnings in Counties of California"
           },
           {
             "columns": [
@@ -489,7 +489,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income in California",
+                    "title": "Count of Person: Years 15 Onwards, With Income in California",
                     "type": "LINE"
                   }
                 ]
@@ -497,18 +497,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 15 Onwards, With Income in California",
+                    "description": "Count of Person: Years 15 Onwards, With Income in California",
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income in California",
+                    "title": "Count of Person: Years 15 Onwards, With Income in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, With Income"
+            "title": "Count of Person: Years 15 Onwards, With Income"
           },
           {
             "columns": [
@@ -518,7 +518,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income in Counties of California (${date})",
+                    "title": "Count of Person: Years 15 Onwards, With Income in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -533,14 +533,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income in Counties of California (${date})",
+                    "title": "Count of Person: Years 15 Onwards, With Income in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, With Income in Counties of California"
+            "title": "Count of Person: Years 15 Onwards, With Income in Counties of California"
           },
           {
             "columns": [
@@ -802,23 +802,23 @@
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_With3OrMoreWorker": {
-            "name": "Count of Household: Family Household, Worker 3 Onwards",
+            "name": "Count Of Household: Family Household, Worker 3 Onwards",
             "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker"
           },
           "Count_Person_15OrMoreYears_WithIncome": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_16OrMoreYears_Female_WithEarnings": {
-            "name": "Population: Years 16 Onwards, Female, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Female, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_Female_WithEarnings": {

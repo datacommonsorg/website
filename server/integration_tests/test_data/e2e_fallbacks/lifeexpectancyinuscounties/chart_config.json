@@ -875,7 +875,7 @@
             "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
           },
           "Count_Death_Female": {
-            "name": "Count of Mortality Event: Female",
+            "name": "Count Of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
@@ -891,7 +891,7 @@
             "statVar": "Count_Death_Neoplasms"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: Years Upto 1",
+            "name": "Count Of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {
@@ -923,15 +923,15 @@
             "statVar": "Count_Death_Upto1Years_Neoplasms"
           },
           "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block": {
-            "name": "Count of Mortality Event: Assault(Homicide), Female",
+            "name": "Count Of Mortality Event: Assault(Homicide), Female",
             "statVar": "Count_MortalityEvent_Assault(Homicide)_Female"
           },
           "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block": {
-            "name": "Count of Mortality Event: Assault(Homicide)",
+            "name": "Count Of Mortality Event: Assault(Homicide)",
             "statVar": "Count_MortalityEvent_Assault(Homicide)"
           },
           "Count_MortalityEvent_Suicide_multiple_place_bar_block": {
-            "name": "Count of Mortality Event: Suicide",
+            "name": "Count Of Mortality Event: Suicide",
             "statVar": "Count_MortalityEvent_Suicide"
           },
           "LifeExpectancy_Person": {

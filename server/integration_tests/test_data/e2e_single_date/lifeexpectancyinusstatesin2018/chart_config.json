@@ -1052,13 +1052,13 @@
           },
           "Count_Death_Female_2018": {
             "date": "2018",
-            "name": "Count of Mortality Event: Female",
+            "name": "Count Of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_Female_2018_10899698974849786843": {
             "date": "2018",
             "facetId": "10899698974849786843",
-            "name": "Count of Mortality Event: Female",
+            "name": "Count Of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block_2018": {
@@ -1118,17 +1118,17 @@
           },
           "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block_2018": {
             "date": "2018",
-            "name": "Count of Mortality Event: Assault(Homicide), Female",
+            "name": "Count Of Mortality Event: Assault(Homicide), Female",
             "statVar": "Count_MortalityEvent_Assault(Homicide)_Female"
           },
           "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block_2018": {
             "date": "2018",
-            "name": "Count of Mortality Event: Assault(Homicide)",
+            "name": "Count Of Mortality Event: Assault(Homicide)",
             "statVar": "Count_MortalityEvent_Assault(Homicide)"
           },
           "Count_MortalityEvent_Suicide_multiple_place_bar_block_2018": {
             "date": "2018",
-            "name": "Count of Mortality Event: Suicide",
+            "name": "Count Of Mortality Event: Suicide",
             "statVar": "Count_MortalityEvent_Suicide"
           },
           "LifeExpectancy_Person_2018": {

@@ -68,7 +68,7 @@
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated_6188132829030295600"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in New York",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in New York",
                     "type": "LINE"
                   }
                 ]
@@ -76,11 +76,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 15 to 19, Female, Separated in New York",
+                    "description": "Count of Person: Years 15 to 19, Female, Separated in New York",
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated_2019"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in New York",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -259,7 +259,7 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool_10169881228856630405"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in New York",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in New York",
                     "type": "LINE"
                   }
                 ]
@@ -267,18 +267,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Female, Enrolled in School in New York",
+                    "description": "Count of Person: Years 3 Onwards, Female, Enrolled in School in New York",
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in New York",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Female, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School"
           },
           {
             "columns": [
@@ -291,7 +291,7 @@
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female_9057536153401597385"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in New York",
+                    "title": "Count of Person: With Own Children Under 18, Female in New York",
                     "type": "LINE"
                   }
                 ]
@@ -299,18 +299,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: With Own Children Under 18, Female in New York",
+                    "description": "Count of Person: With Own Children Under 18, Female in New York",
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female_2019"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in New York",
+                    "title": "Count of Person: With Own Children Under 18, Female in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Own Children Under 18, Female"
+            "title": "Count of Person: With Own Children Under 18, Female"
           },
           {
             "columns": [
@@ -323,7 +323,7 @@
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_9879717220170227367"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
+                    "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
                     "type": "LINE"
                   }
                 ]
@@ -331,18 +331,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
+                    "description": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
+                    "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female"
+            "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female"
           },
           {
             "columns": [
@@ -451,7 +451,7 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings_10221448756907153750"
                     ],
-                    "title": "Population: Years 16 Onwards, Female, With Earnings in New York",
+                    "title": "Count of Person: Years 16 Onwards, Female, With Earnings in New York",
                     "type": "LINE"
                   }
                 ]
@@ -459,39 +459,39 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 16 Onwards, Female, With Earnings in New York",
+                    "description": "Count of Person: Years 16 Onwards, Female, With Earnings in New York",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Female_WithEarnings_2019"
                     ],
-                    "title": "Population: Years 16 Onwards, Female, With Earnings in New York",
+                    "title": "Count of Person: Years 16 Onwards, Female, With Earnings in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Female, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, Female, With Earnings"
           }
         ],
         "statVarSpec": {
           "Count_Person_15To19Years_Female_Separated_2019": {
             "date": "2019",
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Count Of Person: Years 15 To 19, Female, Separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_15To19Years_Female_Separated_6188132829030295600": {
             "facetId": "6188132829030295600",
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Count Of Person: Years 15 To 19, Female, Separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_16OrMoreYears_Female_WithEarnings_10221448756907153750": {
             "facetId": "10221448756907153750",
-            "name": "Population: Years 16 Onwards, Female, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Female, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Female_WithEarnings_2019": {
             "date": "2019",
-            "name": "Population: Years 16 Onwards, Female, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Female, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
           "Count_Person_2019": {
@@ -501,22 +501,22 @@
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019": {
             "date": "2019",
-            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
+            "name": "Count Of Person: Years 25 Onwards, Bachelors Degree Or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_9879717220170227367": {
             "facetId": "9879717220170227367",
-            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
+            "name": "Count Of Person: Years 25 Onwards, Bachelors Degree Or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool_10169881228856630405": {
             "facetId": "10169881228856630405",
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019": {
             "date": "2019",
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_85OrMoreYears_Female_16559184819460950966": {
@@ -606,12 +606,12 @@
           },
           "Count_Person_WithOwnChildrenUnder18_Female_2019": {
             "date": "2019",
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Count Of Person: With Own Children Under 18, Female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Count_Person_WithOwnChildrenUnder18_Female_9057536153401597385": {
             "facetId": "9057536153401597385",
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Count Of Person: With Own Children Under 18, Female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Median_Age_Person_Female_2019": {

@@ -166,7 +166,7 @@
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated_6188132829030295600"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in California",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in California",
                     "type": "LINE"
                   }
                 ]
@@ -174,11 +174,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 15 to 19, Female, Separated in California",
+                    "description": "Count of Person: Years 15 to 19, Female, Separated in California",
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in California",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -195,7 +195,7 @@
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in Counties of California (${date})",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -210,14 +210,14 @@
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated"
                     ],
-                    "title": "Population: Years 15 to 19, Female, Separated in Counties of California (${date})",
+                    "title": "Count of Person: Years 15 to 19, Female, Separated in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 to 19, Female, Separated in Counties of California"
+            "title": "Count of Person: Years 15 to 19, Female, Separated in Counties of California"
           },
           {
             "columns": [
@@ -390,7 +390,7 @@
                     "statVarKey": [
                       "dc/lnp5g90fwpct8_16244549487293598039"
                     ],
-                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in California",
+                    "title": "Count of Person (Measured Based on Jurisdiction): Female, Incarcerated in California",
                     "type": "LINE"
                   }
                 ]
@@ -398,18 +398,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population (Measured Based on Jurisdiction): Female, Incarcerated in California",
+                    "description": "Count of Person (Measured Based on Jurisdiction): Female, Incarcerated in California",
                     "statVarKey": [
                       "dc/lnp5g90fwpct8"
                     ],
-                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in California",
+                    "title": "Count of Person (Measured Based on Jurisdiction): Female, Incarcerated in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated"
+            "title": "Count of Person (Measured Based on Jurisdiction): Female, Incarcerated"
           },
           {
             "columns": [
@@ -676,7 +676,7 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool_10169881228856630405"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in California",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in California",
                     "type": "LINE"
                   }
                 ]
@@ -684,18 +684,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 3 Onwards, Female, Enrolled in School in California",
+                    "description": "Count of Person: Years 3 Onwards, Female, Enrolled in School in California",
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in California",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Female, Enrolled in School"
+            "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School"
           },
           {
             "columns": [
@@ -705,7 +705,7 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in Counties of California (${date})",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -720,14 +720,14 @@
                     "statVarKey": [
                       "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
                     ],
-                    "title": "Population: Years 3 Onwards, Female, Enrolled in School in Counties of California (${date})",
+                    "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 3 Onwards, Female, Enrolled in School in Counties of California"
+            "title": "Count of Person: Years 3 Onwards, Female, Enrolled in School in Counties of California"
           },
           {
             "columns": [
@@ -740,7 +740,7 @@
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female_9057536153401597385"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in California",
+                    "title": "Count of Person: With Own Children Under 18, Female in California",
                     "type": "LINE"
                   }
                 ]
@@ -748,18 +748,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: With Own Children Under 18, Female in California",
+                    "description": "Count of Person: With Own Children Under 18, Female in California",
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in California",
+                    "title": "Count of Person: With Own Children Under 18, Female in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Own Children Under 18, Female"
+            "title": "Count of Person: With Own Children Under 18, Female"
           },
           {
             "columns": [
@@ -772,7 +772,7 @@
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_9879717220170227367"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in California",
+                    "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in California",
                     "type": "LINE"
                   }
                 ]
@@ -780,18 +780,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in California",
+                    "description": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in California",
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in California",
+                    "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female"
+            "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female"
           },
           {
             "columns": [
@@ -801,7 +801,7 @@
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in Counties of California (${date})",
+                    "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -816,14 +816,14 @@
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
                     ],
-                    "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in Counties of California (${date})",
+                    "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 25 Onwards, Bachelors Degree or Higher, Female in Counties of California"
+            "title": "Count of Person: Years 25 Onwards, Bachelors Degree or Higher, Female in Counties of California"
           },
           {
             "columns": [
@@ -892,30 +892,30 @@
         ],
         "statVarSpec": {
           "Count_Person_15To19Years_Female_Separated": {
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Count Of Person: Years 15 To 19, Female, Separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_15To19Years_Female_Separated_6188132829030295600": {
             "facetId": "6188132829030295600",
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Count Of Person: Years 15 To 19, Female, Separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
-            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
+            "name": "Count Of Person: Years 25 Onwards, Bachelors Degree Or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_9879717220170227367": {
             "facetId": "9879717220170227367",
-            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
+            "name": "Count Of Person: Years 25 Onwards, Bachelors Degree Or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool": {
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool_10169881228856630405": {
             "facetId": "10169881228856630405",
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Count Of Person: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_Civilian_Female_NonInstitutionalized": {
@@ -1009,12 +1009,12 @@
             "statVar": "Count_Person_Male"
           },
           "Count_Person_WithOwnChildrenUnder18_Female": {
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Count Of Person: With Own Children Under 18, Female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Count_Person_WithOwnChildrenUnder18_Female_9057536153401597385": {
             "facetId": "9057536153401597385",
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Count Of Person: With Own Children Under 18, Female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Median_Age_Person_Female": {
@@ -1027,12 +1027,12 @@
             "statVar": "Median_Age_Person_Female"
           },
           "dc/lnp5g90fwpct8": {
-            "name": "Population (Measured Based On Jurisdiction): Female, Incarcerated",
+            "name": "Count Of Person (Measured Based On Jurisdiction): Female, Incarcerated",
             "statVar": "dc/lnp5g90fwpct8"
           },
           "dc/lnp5g90fwpct8_16244549487293598039": {
             "facetId": "16244549487293598039",
-            "name": "Population (Measured Based On Jurisdiction): Female, Incarcerated",
+            "name": "Count Of Person (Measured Based On Jurisdiction): Female, Incarcerated",
             "statVar": "dc/lnp5g90fwpct8"
           }
         }
