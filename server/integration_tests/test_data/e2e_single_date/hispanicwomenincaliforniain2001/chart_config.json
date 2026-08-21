@@ -117,7 +117,7 @@
                     "statVarKey": [
                       "Count_Person_0To4Years_Female_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 0 to 4, Female, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 0 to 4, Female, Hispanic or Latino in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -132,14 +132,14 @@
                     "statVarKey": [
                       "Count_Person_0To4Years_Female_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 0 to 4, Female, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 0 to 4, Female, Hispanic or Latino in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 0 to 4, Female, Hispanic or Latino in Counties of California"
+            "title": "Count of Person: Years 0 to 4, Female, Hispanic or Latino in Counties of California"
           },
           {
             "columns": [
@@ -149,7 +149,7 @@
                     "statVarKey": [
                       "Count_Person_10To14Years_Female_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 10 to 14, Female, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 10 to 14, Female, Hispanic or Latino in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -164,14 +164,14 @@
                     "statVarKey": [
                       "Count_Person_10To14Years_Female_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 10 to 14, Female, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 10 to 14, Female, Hispanic or Latino in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 10 to 14, Female, Hispanic or Latino in Counties of California"
+            "title": "Count of Person: Years 10 to 14, Female, Hispanic or Latino in Counties of California"
           },
           {
             "columns": [
@@ -414,7 +414,7 @@
                     "statVarKey": [
                       "Count_Person_0To4Years_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 0 to 4, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 0 to 4, Hispanic or Latino in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -429,14 +429,14 @@
                     "statVarKey": [
                       "Count_Person_0To4Years_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 0 to 4, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 0 to 4, Hispanic or Latino in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 0 to 4, Hispanic or Latino in Counties of California"
+            "title": "Count of Person: Years 0 to 4, Hispanic or Latino in Counties of California"
           },
           {
             "columns": [
@@ -446,7 +446,7 @@
                     "statVarKey": [
                       "Count_Person_10To14Years_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 10 to 14, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 10 to 14, Hispanic or Latino in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -461,14 +461,14 @@
                     "statVarKey": [
                       "Count_Person_10To14Years_HispanicOrLatino_2001"
                     ],
-                    "title": "Population: Years 10 to 14, Hispanic or Latino in Counties of California (${date})",
+                    "title": "Count of Person: Years 10 to 14, Hispanic or Latino in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 10 to 14, Hispanic or Latino in Counties of California"
+            "title": "Count of Person: Years 10 to 14, Hispanic or Latino in Counties of California"
           },
           {
             "columns": [
@@ -794,202 +794,202 @@
         "statVarSpec": {
           "Count_Person_0To4Years_Female_HispanicOrLatino_2001": {
             "date": "2001",
-            "name": "Population: Years 0 To 4, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 0 To 4, Female, Hispanic Or Latino",
             "statVar": "Count_Person_0To4Years_Female_HispanicOrLatino"
           },
           "Count_Person_0To4Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 0 To 4, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 0 To 4, Female, Hispanic Or Latino",
             "statVar": "Count_Person_0To4Years_Female_HispanicOrLatino"
           },
           "Count_Person_0To4Years_HispanicOrLatino_2001": {
             "date": "2001",
-            "name": "Population: Years 0 To 4, Hispanic Or Latino",
+            "name": "Count Of Person: Years 0 To 4, Hispanic Or Latino",
             "statVar": "Count_Person_0To4Years_HispanicOrLatino"
           },
           "Count_Person_0To4Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 0 To 4, Hispanic Or Latino",
+            "name": "Count Of Person: Years 0 To 4, Hispanic Or Latino",
             "statVar": "Count_Person_0To4Years_HispanicOrLatino"
           },
           "Count_Person_10To14Years_Female_HispanicOrLatino_2001": {
             "date": "2001",
-            "name": "Population: Years 10 To 14, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 10 To 14, Female, Hispanic Or Latino",
             "statVar": "Count_Person_10To14Years_Female_HispanicOrLatino"
           },
           "Count_Person_10To14Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 10 To 14, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 10 To 14, Female, Hispanic Or Latino",
             "statVar": "Count_Person_10To14Years_Female_HispanicOrLatino"
           },
           "Count_Person_10To14Years_HispanicOrLatino_2001": {
             "date": "2001",
-            "name": "Population: Years 10 To 14, Hispanic Or Latino",
+            "name": "Count Of Person: Years 10 To 14, Hispanic Or Latino",
             "statVar": "Count_Person_10To14Years_HispanicOrLatino"
           },
           "Count_Person_10To14Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 10 To 14, Hispanic Or Latino",
+            "name": "Count Of Person: Years 10 To 14, Hispanic Or Latino",
             "statVar": "Count_Person_10To14Years_HispanicOrLatino"
           },
           "Count_Person_15To19Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 15 To 19, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 15 To 19, Female, Hispanic Or Latino",
             "statVar": "Count_Person_15To19Years_Female_HispanicOrLatino"
           },
           "Count_Person_15To19Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 15 To 19, Hispanic Or Latino",
+            "name": "Count Of Person: Years 15 To 19, Hispanic Or Latino",
             "statVar": "Count_Person_15To19Years_HispanicOrLatino"
           },
           "Count_Person_20To24Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 20 To 24, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 20 To 24, Female, Hispanic Or Latino",
             "statVar": "Count_Person_20To24Years_Female_HispanicOrLatino"
           },
           "Count_Person_20To24Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 20 To 24, Hispanic Or Latino",
+            "name": "Count Of Person: Years 20 To 24, Hispanic Or Latino",
             "statVar": "Count_Person_20To24Years_HispanicOrLatino"
           },
           "Count_Person_25To29Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 25 To 29, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 25 To 29, Female, Hispanic Or Latino",
             "statVar": "Count_Person_25To29Years_Female_HispanicOrLatino"
           },
           "Count_Person_25To29Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 25 To 29, Hispanic Or Latino",
+            "name": "Count Of Person: Years 25 To 29, Hispanic Or Latino",
             "statVar": "Count_Person_25To29Years_HispanicOrLatino"
           },
           "Count_Person_30To34Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 30 To 34, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 30 To 34, Female, Hispanic Or Latino",
             "statVar": "Count_Person_30To34Years_Female_HispanicOrLatino"
           },
           "Count_Person_30To34Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 30 To 34, Hispanic Or Latino",
+            "name": "Count Of Person: Years 30 To 34, Hispanic Or Latino",
             "statVar": "Count_Person_30To34Years_HispanicOrLatino"
           },
           "Count_Person_35To39Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 35 To 39, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 35 To 39, Female, Hispanic Or Latino",
             "statVar": "Count_Person_35To39Years_Female_HispanicOrLatino"
           },
           "Count_Person_35To39Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 35 To 39, Hispanic Or Latino",
+            "name": "Count Of Person: Years 35 To 39, Hispanic Or Latino",
             "statVar": "Count_Person_35To39Years_HispanicOrLatino"
           },
           "Count_Person_40To44Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 40 To 44, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 40 To 44, Female, Hispanic Or Latino",
             "statVar": "Count_Person_40To44Years_Female_HispanicOrLatino"
           },
           "Count_Person_40To44Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 40 To 44, Hispanic Or Latino",
+            "name": "Count Of Person: Years 40 To 44, Hispanic Or Latino",
             "statVar": "Count_Person_40To44Years_HispanicOrLatino"
           },
           "Count_Person_45To49Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 45 To 49, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 45 To 49, Female, Hispanic Or Latino",
             "statVar": "Count_Person_45To49Years_Female_HispanicOrLatino"
           },
           "Count_Person_45To49Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 45 To 49, Hispanic Or Latino",
+            "name": "Count Of Person: Years 45 To 49, Hispanic Or Latino",
             "statVar": "Count_Person_45To49Years_HispanicOrLatino"
           },
           "Count_Person_50To54Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 50 To 54, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 50 To 54, Female, Hispanic Or Latino",
             "statVar": "Count_Person_50To54Years_Female_HispanicOrLatino"
           },
           "Count_Person_50To54Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 50 To 54, Hispanic Or Latino",
+            "name": "Count Of Person: Years 50 To 54, Hispanic Or Latino",
             "statVar": "Count_Person_50To54Years_HispanicOrLatino"
           },
           "Count_Person_55To59Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 55 To 59, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 55 To 59, Female, Hispanic Or Latino",
             "statVar": "Count_Person_55To59Years_Female_HispanicOrLatino"
           },
           "Count_Person_55To59Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 55 To 59, Hispanic Or Latino",
+            "name": "Count Of Person: Years 55 To 59, Hispanic Or Latino",
             "statVar": "Count_Person_55To59Years_HispanicOrLatino"
           },
           "Count_Person_5To9Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 5 To 9, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 5 To 9, Female, Hispanic Or Latino",
             "statVar": "Count_Person_5To9Years_Female_HispanicOrLatino"
           },
           "Count_Person_5To9Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 5 To 9, Hispanic Or Latino",
+            "name": "Count Of Person: Years 5 To 9, Hispanic Or Latino",
             "statVar": "Count_Person_5To9Years_HispanicOrLatino"
           },
           "Count_Person_60To64Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 60 To 64, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 60 To 64, Female, Hispanic Or Latino",
             "statVar": "Count_Person_60To64Years_Female_HispanicOrLatino"
           },
           "Count_Person_60To64Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 60 To 64, Hispanic Or Latino",
+            "name": "Count Of Person: Years 60 To 64, Hispanic Or Latino",
             "statVar": "Count_Person_60To64Years_HispanicOrLatino"
           },
           "Count_Person_65To69Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 65 To 69, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 65 To 69, Female, Hispanic Or Latino",
             "statVar": "Count_Person_65To69Years_Female_HispanicOrLatino"
           },
           "Count_Person_65To69Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 65 To 69, Hispanic Or Latino",
+            "name": "Count Of Person: Years 65 To 69, Hispanic Or Latino",
             "statVar": "Count_Person_65To69Years_HispanicOrLatino"
           },
           "Count_Person_70To74Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 70 To 74, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 70 To 74, Female, Hispanic Or Latino",
             "statVar": "Count_Person_70To74Years_Female_HispanicOrLatino"
           },
           "Count_Person_70To74Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 70 To 74, Hispanic Or Latino",
+            "name": "Count Of Person: Years 70 To 74, Hispanic Or Latino",
             "statVar": "Count_Person_70To74Years_HispanicOrLatino"
           },
           "Count_Person_75To79Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 75 To 79, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 75 To 79, Female, Hispanic Or Latino",
             "statVar": "Count_Person_75To79Years_Female_HispanicOrLatino"
           },
           "Count_Person_75To79Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 75 To 79, Hispanic Or Latino",
+            "name": "Count Of Person: Years 75 To 79, Hispanic Or Latino",
             "statVar": "Count_Person_75To79Years_HispanicOrLatino"
           },
           "Count_Person_80To84Years_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 80 To 84, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 80 To 84, Female, Hispanic Or Latino",
             "statVar": "Count_Person_80To84Years_Female_HispanicOrLatino"
           },
           "Count_Person_80To84Years_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 80 To 84, Hispanic Or Latino",
+            "name": "Count Of Person: Years 80 To 84, Hispanic Or Latino",
             "statVar": "Count_Person_80To84Years_HispanicOrLatino"
           },
           "Count_Person_85OrMoreYears_Female_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 85 Onwards, Female, Hispanic Or Latino",
+            "name": "Count Of Person: Years 85 Onwards, Female, Hispanic Or Latino",
             "statVar": "Count_Person_85OrMoreYears_Female_HispanicOrLatino"
           },
           "Count_Person_85OrMoreYears_HispanicOrLatino_multiple_place_bar_block_2001": {
             "date": "2001",
-            "name": "Population: Years 85 Onwards, Hispanic Or Latino",
+            "name": "Count Of Person: Years 85 Onwards, Hispanic Or Latino",
             "statVar": "Count_Person_85OrMoreYears_HispanicOrLatino"
           },
           "Count_Person_Female_AsianAlone_2001": {

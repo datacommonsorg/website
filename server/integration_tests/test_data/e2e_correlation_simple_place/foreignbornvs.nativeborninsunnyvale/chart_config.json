@@ -13,14 +13,14 @@
                       "Count_Person_5OrMoreYears_ForeignBorn",
                       "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Population: Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Count of Person: Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Population: Foreign Born"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Count of Person: Foreign Born"
           },
           {
             "columns": [
@@ -31,14 +31,14 @@
                       "Count_Person_5OrMoreYears_ForeignBorn",
                       "Count_Person_Native"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Count of Person: Years 5 Onwards, USC Native in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Population: Years 5 Onwards, USC Native"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Count of Person: Years 5 Onwards, USC Native"
           },
           {
             "columns": [
@@ -49,14 +49,14 @@
                       "Count_Person_5OrMoreYears_ForeignBorn",
                       "Count_Person_PlaceOfBirthAsia"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Population: USC Foreign Born, Asia in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Count of Person: USC Foreign Born, Asia in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Population: USC Foreign Born, Asia"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Count of Person: USC Foreign Born, Asia"
           },
           {
             "columns": [
@@ -67,14 +67,14 @@
                       "Count_Person_5OrMoreYears_ForeignBorn",
                       "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Caribbean Origin in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Foreign-born Caribbean Origin in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Caribbean Origin"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Foreign-born Caribbean Origin"
           },
           {
             "columns": [
@@ -85,23 +85,23 @@
                       "Count_Person_5OrMoreYears_ForeignBorn",
                       "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born and Foreign-born Central American Origin (Except Mexico)"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born and Foreign-born Central American Origin (Except Mexico)"
           }
         ],
         "statVarSpec": {
           "Count_Person_5OrMoreYears_ForeignBorn": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born",
+            "name": "Count Of Person: Years 5 Onwards, USC Foreign Born",
             "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           },
           "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
+            "name": "Count Of Person: Foreign Born",
             "statVar": "Count_Person_ForeignBorn"
           },
           "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
@@ -113,11 +113,11 @@
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
           },
           "Count_Person_Native": {
-            "name": "Population: Years 5 Onwards, USC Native",
+            "name": "Count Of Person: Years 5 Onwards, USC Native",
             "statVar": "Count_Person_Native"
           },
           "Count_Person_PlaceOfBirthAsia": {
-            "name": "Population: USC Foreign Born, Asia",
+            "name": "Count Of Person: USC Foreign Born, Asia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           }
         }
@@ -165,7 +165,46 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_ForeignBorn": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn",
+          "Count_Person_18To24Years_ForeignBorn",
+          "Count_Person_25To34Years_ForeignBorn",
+          "Count_Person_35To44Years_ForeignBorn"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCaribbean"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+        ]
+      },
+      "Count_Person_PlaceOfBirthAsia": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_16OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_25OrMoreYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthAsia"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Nationality",

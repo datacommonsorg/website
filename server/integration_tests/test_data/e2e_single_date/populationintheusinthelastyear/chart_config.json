@@ -523,7 +523,7 @@
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold_576843814454795564"
                     ],
-                    "title": "Total Number of People Residing in Households in United States",
+                    "title": "Count of Person: Household in United States",
                     "type": "LINE"
                   }
                 ]
@@ -531,18 +531,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Number of People Residing in Households in United States",
+                    "description": "Count of Person: Household in United States",
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold"
                     ],
-                    "title": "Total Number of People Residing in Households in United States",
+                    "title": "Count of Person: Household in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Number of People Residing in Households"
+            "title": "Count of Person: Household"
           }
         ],
         "statVarSpec": {
@@ -688,12 +688,12 @@
             "statVar": "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
           "Count_Person_ResidesInHousehold": {
-            "name": "Total number of people residing in households",
+            "name": "Count Of Person: Household",
             "statVar": "Count_Person_ResidesInHousehold"
           },
           "Count_Person_ResidesInHousehold_576843814454795564": {
             "facetId": "576843814454795564",
-            "name": "Total number of people residing in households",
+            "name": "Count Of Person: Household",
             "statVar": "Count_Person_ResidesInHousehold"
           },
           "Count_Person_WhiteAlone": {

@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, USC Foreign Born in Sunnyvale",
+                    "description": "Count of Person: Years 5 Onwards, USC Foreign Born in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_ForeignBorn"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born"
           },
           {
             "columns": [
@@ -41,7 +41,7 @@
                     "statVarKey": [
                       "dc/xdfcsgf05b4mc"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -49,18 +49,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
+                    "description": "Count of Person: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
                     "statVarKey": [
                       "dc/xdfcsgf05b4mc"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born, Asian Alone in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born, Asian Alone"
           },
           {
             "columns": [
@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthEurope"
                     ],
-                    "title": "Population: USC Foreign Born, Europe in Sunnyvale",
+                    "title": "Count of Person: USC Foreign Born, Europe in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -78,18 +78,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: USC Foreign Born, Europe in Sunnyvale",
+                    "description": "Count of Person: USC Foreign Born, Europe in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthEurope"
                     ],
-                    "title": "Population: USC Foreign Born, Europe in Sunnyvale",
+                    "title": "Count of Person: USC Foreign Born, Europe in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: USC Foreign Born, Europe"
+            "title": "Count of Person: USC Foreign Born, Europe"
           },
           {
             "columns": [
@@ -99,7 +99,7 @@
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthAsia"
                     ],
-                    "title": "Population: USC Foreign Born, Asia in Sunnyvale",
+                    "title": "Count of Person: USC Foreign Born, Asia in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -107,18 +107,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: USC Foreign Born, Asia in Sunnyvale",
+                    "description": "Count of Person: USC Foreign Born, Asia in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthAsia"
                     ],
-                    "title": "Population: USC Foreign Born, Asia in Sunnyvale",
+                    "title": "Count of Person: USC Foreign Born, Asia in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: USC Foreign Born, Asia"
+            "title": "Count of Person: USC Foreign Born, Asia"
           },
           {
             "columns": [
@@ -156,7 +156,7 @@
                     "statVarKey": [
                       "dc/ym3bfmz5e91gg"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -164,18 +164,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
+                    "description": "Count of Person: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
                     "statVarKey": [
                       "dc/ym3bfmz5e91gg"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born, White Alone in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born, White Alone"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born, White Alone"
           },
           {
             "columns": [
@@ -185,7 +185,7 @@
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthLatinAmerica"
                     ],
-                    "title": "Population: USC Foreign Born, Latin America in Sunnyvale",
+                    "title": "Count of Person: USC Foreign Born, Latin America in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -193,18 +193,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: USC Foreign Born, Latin America in Sunnyvale",
+                    "description": "Count of Person: USC Foreign Born, Latin America in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_PlaceOfBirthLatinAmerica"
                     ],
-                    "title": "Population: USC Foreign Born, Latin America in Sunnyvale",
+                    "title": "Count of Person: USC Foreign Born, Latin America in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: USC Foreign Born, Latin America"
+            "title": "Count of Person: USC Foreign Born, Latin America"
           },
           {
             "columns": [
@@ -214,7 +214,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Separated_ForeignBorn"
                     ],
-                    "title": "Population: Years 15 Onwards, Separated, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 15 Onwards, Separated, USC Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -222,18 +222,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 15 Onwards, Separated, USC Foreign Born in Sunnyvale",
+                    "description": "Count of Person: Years 15 Onwards, Separated, USC Foreign Born in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Separated_ForeignBorn"
                     ],
-                    "title": "Population: Years 15 Onwards, Separated, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 15 Onwards, Separated, USC Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, Separated, USC Foreign Born"
+            "title": "Count of Person: Years 15 Onwards, Separated, USC Foreign Born"
           },
           {
             "columns": [
@@ -243,7 +243,7 @@
                     "statVarKey": [
                       "dc/6bkn9vt30f5c1"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -251,18 +251,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "description": "Count of Person: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
                     "statVarKey": [
                       "dc/6bkn9vt30f5c1"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone"
+            "title": "Count of Person: Years 5 Onwards, USC Foreign Born, American Indian or Alaska Native Alone"
           },
           {
             "columns": [
@@ -291,7 +291,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
                     ],
-                    "title": "Population: Years 15 Onwards, Married and Not Separated, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 15 Onwards, Married and Not Separated, USC Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -299,18 +299,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 15 Onwards, Married and Not Separated, USC Foreign Born in Sunnyvale",
+                    "description": "Count of Person: Years 15 Onwards, Married and Not Separated, USC Foreign Born in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
                     ],
-                    "title": "Population: Years 15 Onwards, Married and Not Separated, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 15 Onwards, Married and Not Separated, USC Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, Married and Not Separated, USC Foreign Born"
+            "title": "Count of Person: Years 15 Onwards, Married and Not Separated, USC Foreign Born"
           },
           {
             "columns": [
@@ -320,7 +320,7 @@
                     "statVarKey": [
                       "dc/gvnh5cpl9h1rf"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -328,18 +328,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
+                    "description": "Count of Person: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
                     "statVarKey": [
                       "dc/gvnh5cpl9h1rf"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 15 Onwards, With Income, Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, With Income, Foreign Born"
+            "title": "Count of Person: Years 15 Onwards, With Income, Foreign Born"
           },
           {
             "columns": [
@@ -349,7 +349,7 @@
                     "statVarKey": [
                       "Count_Person_Civilian_NonInstitutionalized_ForeignBorn"
                     ],
-                    "title": "Population: Civilian, USC Non Institutionalized, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Civilian, USC Non Institutionalized, USC Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -357,18 +357,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Civilian, USC Non Institutionalized, USC Foreign Born in Sunnyvale",
+                    "description": "Count of Person: Civilian, USC Non Institutionalized, USC Foreign Born in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_Civilian_NonInstitutionalized_ForeignBorn"
                     ],
-                    "title": "Population: Civilian, USC Non Institutionalized, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Civilian, USC Non Institutionalized, USC Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Civilian, USC Non Institutionalized, USC Foreign Born"
+            "title": "Count of Person: Civilian, USC Non Institutionalized, USC Foreign Born"
           },
           {
             "columns": [
@@ -436,7 +436,7 @@
                     "statVarKey": [
                       "dc/1lm9k2vdxj4c6"
                     ],
-                    "title": "Population: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -444,18 +444,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born in Sunnyvale",
+                    "description": "Count of Person: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born in Sunnyvale",
                     "statVarKey": [
                       "dc/1lm9k2vdxj4c6"
                     ],
-                    "title": "Population: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born"
+            "title": "Count of Person: Years 5 Onwards, Asian and Pacific Island Languages, USC Foreign Born"
           },
           {
             "columns": [
@@ -465,7 +465,7 @@
                     "statVarKey": [
                       "dc/wj5l0n6wkep45"
                     ],
-                    "title": "Population: Years 5 Onwards, Other Indo European Languages, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, Other Indo European Languages, USC Foreign Born in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -473,18 +473,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, Other Indo European Languages, USC Foreign Born in Sunnyvale",
+                    "description": "Count of Person: Years 5 Onwards, Other Indo European Languages, USC Foreign Born in Sunnyvale",
                     "statVarKey": [
                       "dc/wj5l0n6wkep45"
                     ],
-                    "title": "Population: Years 5 Onwards, Other Indo European Languages, USC Foreign Born in Sunnyvale",
+                    "title": "Count of Person: Years 5 Onwards, Other Indo European Languages, USC Foreign Born in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, Other Indo European Languages, USC Foreign Born"
+            "title": "Count of Person: Years 5 Onwards, Other Indo European Languages, USC Foreign Born"
           },
           {
             "columns": [
@@ -518,19 +518,19 @@
         ],
         "statVarSpec": {
           "Count_Household_ForeignBorn_PlaceOfBirthEurope": {
-            "name": "Count of Household: USC Foreign Born, Europe",
+            "name": "Count Of Household: USC Foreign Born, Europe",
             "statVar": "Count_Household_ForeignBorn_PlaceOfBirthEurope"
           },
           "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn": {
-            "name": "Population: Years 15 Onwards, Married And Not Separated, USC Foreign Born",
+            "name": "Count Of Person: Years 15 Onwards, Married And Not Separated, USC Foreign Born",
             "statVar": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
           },
           "Count_Person_15OrMoreYears_Separated_ForeignBorn": {
-            "name": "Population: Years 15 Onwards, Separated, USC Foreign Born",
+            "name": "Count Of Person: Years 15 Onwards, Separated, USC Foreign Born",
             "statVar": "Count_Person_15OrMoreYears_Separated_ForeignBorn"
           },
           "Count_Person_5OrMoreYears_ForeignBorn": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born",
+            "name": "Count Of Person: Years 5 Onwards, USC Foreign Born",
             "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ForeignBorn": {
@@ -542,7 +542,7 @@
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_ForeignBorn"
           },
           "Count_Person_Civilian_NonInstitutionalized_ForeignBorn": {
-            "name": "Population: Civilian, USC Non Institutionalized, USC Foreign Born",
+            "name": "Count Of Person: Civilian, USC Non Institutionalized, USC Foreign Born",
             "statVar": "Count_Person_Civilian_NonInstitutionalized_ForeignBorn"
           },
           "Count_Person_NotAUSCitizen": {
@@ -550,15 +550,15 @@
             "statVar": "Count_Person_NotAUSCitizen"
           },
           "Count_Person_PlaceOfBirthAsia": {
-            "name": "Population: USC Foreign Born, Asia",
+            "name": "Count Of Person: USC Foreign Born, Asia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           },
           "Count_Person_PlaceOfBirthEurope": {
-            "name": "Population: USC Foreign Born, Europe",
+            "name": "Count Of Person: USC Foreign Born, Europe",
             "statVar": "Count_Person_PlaceOfBirthEurope"
           },
           "Count_Person_PlaceOfBirthLatinAmerica": {
-            "name": "Population: USC Foreign Born, Latin America",
+            "name": "Count Of Person: USC Foreign Born, Latin America",
             "statVar": "Count_Person_PlaceOfBirthLatinAmerica"
           },
           "Count_Person_USCitizenBornInTheUnitedStates": {
@@ -570,31 +570,31 @@
             "statVar": "Count_Person_USCitizenByNaturalization"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age of Person: USC Foreign Born",
+            "name": "Median Age Of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "dc/1lm9k2vdxj4c6": {
-            "name": "Population: Years 5 Onwards, Asian And Pacific Island Languages, USC Foreign Born",
+            "name": "Count Of Person: Years 5 Onwards, Asian And Pacific Island Languages, USC Foreign Born",
             "statVar": "dc/1lm9k2vdxj4c6"
           },
           "dc/6bkn9vt30f5c1": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, American Indian Or Alaska Native Alone",
+            "name": "Count Of Person: Years 5 Onwards, USC Foreign Born, American Indian Or Alaska Native Alone",
             "statVar": "dc/6bkn9vt30f5c1"
           },
           "dc/gvnh5cpl9h1rf": {
-            "name": "Population: Years 15 Onwards, With Income, Foreign Born",
+            "name": "Count Of Person: Years 15 Onwards, With Income, Foreign Born",
             "statVar": "dc/gvnh5cpl9h1rf"
           },
           "dc/wj5l0n6wkep45": {
-            "name": "Population: Years 5 Onwards, Other Indo European Languages, USC Foreign Born",
+            "name": "Count Of Person: Years 5 Onwards, Other Indo European Languages, USC Foreign Born",
             "statVar": "dc/wj5l0n6wkep45"
           },
           "dc/xdfcsgf05b4mc": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone",
+            "name": "Count Of Person: Years 5 Onwards, USC Foreign Born, Asian Alone",
             "statVar": "dc/xdfcsgf05b4mc"
           },
           "dc/ym3bfmz5e91gg": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, White Alone",
+            "name": "Count Of Person: Years 5 Onwards, USC Foreign Born, White Alone",
             "statVar": "dc/ym3bfmz5e91gg"
           }
         }
@@ -647,11 +647,7 @@
           "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthLatinAmerica",
           "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthMexico",
           "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthNorthernWesternEurope",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthCentralAsia",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthEasternAsia",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthernEasternEurope",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthWesternAsia"
+          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthCentralAsia"
         ]
       },
       "Count_Person_5OrMoreYears_ForeignBorn": {
@@ -673,12 +669,6 @@
           "dc/hbqhxpwsdvyj8",
           "dc/sqqee4d2eczw4",
           "dc/ves02m300f6lc"
-        ]
-      },
-      "Count_Person_Civilian_NonInstitutionalized_ForeignBorn": {
-        "citizenship": [
-          "Count_Person_Civilian_NotAUSCitizen_NonInstitutionalized_ForeignBorn",
-          "Count_Person_Civilian_USCitizenByNaturalization_NonInstitutionalized_ForeignBorn"
         ]
       },
       "Median_Age_Person_ForeignBorn": {

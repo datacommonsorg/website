@@ -204,18 +204,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 65 Onwards in Mexico City",
+                    "description": "Count of Person: Years 65 Onwards in Mexico City",
                     "statVarKey": [
                       "Count_Person_65OrMoreYears"
                     ],
-                    "title": "Population: Years 65 Onwards in Mexico City",
+                    "title": "Count of Person: Years 65 Onwards in Mexico City",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 65 Onwards"
+            "title": "Count of Person: Years 65 Onwards"
           },
           {
             "columns": [
@@ -229,19 +229,19 @@
                     "statVarKey": [
                       "Count_Person_65OrMoreYears"
                     ],
-                    "title": "Population: Years 65 Onwards in Administrative Area 2 Places of Mexico City (${date})",
+                    "title": "Count of Person: Years 65 Onwards in Administrative Area 2 Places of Mexico City (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 65 Onwards in Administrative Area 2 Places of Mexico City"
+            "title": "Count of Person: Years 65 Onwards in Administrative Area 2 Places of Mexico City"
           }
         ],
         "statVarSpec": {
           "Count_BirthEvent": {
-            "name": "Count of Birth Event",
+            "name": "Count Of Birth Event",
             "statVar": "Count_BirthEvent"
           },
           "Count_Person": {
@@ -249,7 +249,7 @@
             "statVar": "Count_Person"
           },
           "Count_Person_65OrMoreYears": {
-            "name": "Population: Years 65 Onwards",
+            "name": "Count Of Person: Years 65 Onwards",
             "statVar": "Count_Person_65OrMoreYears"
           },
           "Count_Person_Female": {

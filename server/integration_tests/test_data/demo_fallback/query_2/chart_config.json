@@ -185,11 +185,11 @@
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count of Hate Crime Incidents: Disability Status, Aggravated Assault",
+            "name": "Count Of Hate Crime Incidents: Disability Status, Aggravated Assault",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count of Hate Crime Incidents: Disability Status, Robbery",
+            "name": "Count Of Hate Crime Incidents: Disability Status, Robbery",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime"
           },
           "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block": {
@@ -250,27 +250,6 @@
           "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime",
           "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime",
           "Count_CriminalIncidents_BiasMotivationSingleBias_IsHateCrime"
-        ],
-        "crimeType": [
-          "Count_CriminalIncidents_AggravatedAssault_IsHateCrime",
-          "Count_CriminalIncidents_Arson_IsHateCrime",
-          "Count_CriminalIncidents_Burglary_IsHateCrime",
-          "Count_CriminalIncidents_CounterfeitingOrForgery_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstPerson_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstProperty_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstSociety_IsHateCrime",
-          "Count_CriminalIncidents_DestructionOrDamageOrVandalismOfProperty_IsHateCrime",
-          "Count_CriminalIncidents_DrugEquipmentViolations_IsHateCrime",
-          "Count_CriminalIncidents_DrugOrNarcoticViolations_IsHateCrime",
-          "Count_CriminalIncidents_ExtortionOrBlackmail_IsHateCrime",
-          "Count_CriminalIncidents_FalsePretenseOrSwindleOrConfidenceGame_IsHateCrime",
-          "Count_CriminalIncidents_HackingOrComputerInvasion_IsHateCrime",
-          "Count_CriminalIncidents_Impersonation_IsHateCrime",
-          "Count_CriminalIncidents_Intimidation_IsHateCrime",
-          "Count_CriminalIncidents_KidnappingOrAbduction_IsHateCrime",
-          "Count_CriminalIncidents_MotorVehicleTheft_IsHateCrime",
-          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime",
-          "Count_CriminalIncidents_PornographyOrObsceneMaterial_IsHateCrime"
         ]
       }
     },
