@@ -8,15 +8,24 @@ typeOf: schema:Class
 name: "Patient"
 subclassOf: schema:Person
 
-Node: dcid:ReturnPatient
-typeOf: schema:Class
-name: "Return patient"
-subclassOf: dcid:Patient
+Node: dcid:PatientTypeEnum
+typeOf: schema:Enum
+name: "Patient type enum"
+
+Node: dcid:ReturnedPatient
+typeOf: dcid:PatientTypeEnum
+name: "Returned"
+
+Node: dcid:patentType
+typeOf: schema:Property
+name: "Patient type"
+domainIncludes: dcid:Patient
+rangeIncludes: dcid:PatientTypeEnum
 
 Node: dcid:medicalCondition
 typeOf: schema:Property
 name: "Medical condition"
-domainIncludes: dcid:Patient,dcid:ReturnPatient
+domainIncludes: dcid:Patient
 rangeIncludes: dcs:MedicalConditionIncidentTypeEnum
 
 Node: dcid:Pneumonia
@@ -40,14 +49,16 @@ measuredProperty: dcid:medicalCondition
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:Count_ReturnPatients_HeartAttack
+Node: dcid:Count_HeartAttack_ReturnPatients
 typeOf: dcs:StatisticalVariable
 name: "Count of heart attack patients returned"
 description: "Per-hospital number of heart attack patients returned unplanned in a 30-day period"
-populationType: dcid:ReturnPatient
+populationType: dcid:Patient
 measuredProperty: dcid:medicalCondition
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
+constraintProperties: dcid:patientType
+patientType: dcid:ReturnedPatient
 
 Node: dcid:Count_Patients_HeartFailure
 typeOf: dcs:StatisticalVariable
@@ -58,14 +69,16 @@ measuredProperty: dcid:medicalCondition
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:Count_ReturnPatients_HeartFailure
+Node: dcid:Count_HeartFailure_ReturnPatients
 typeOf: dcs:StatisticalVariable
 name: "Count of heart failure patients returned"
 description: "Per-hospital number of heart failure patients returned unplanned in a 30-day period"
-populationType: dcid:ReturnPatient
+populationType: dcid:Patient
 measuredProperty: dcid:medicalCondition
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
+constraintProperties: dcid:patientType
+patientType: dcid:ReturnedPatient
 
 Node: dcid:Count_Patients_Pneumonia
 typeOf: dcs:StatisticalVariable
@@ -76,11 +89,13 @@ measuredProperty: dcid:medicalCondition
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:Count_ReturnPatients_Pneumonia
+Node: dcid:Count_Patients_Pneumonia_ReturnPatients
 typeOf: dcs:StatisticalVariable
 name: "Count of pneumonia patients returned"
 description: "Per-hospital number of pneumonia patients returned unplanned in a 30-day period"
-populationType: dcid:ReturnPatient
+populationType: dcid:Patient
 measuredProperty: dcid:medicalCondition
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
+constraintProperties: dcid:patientType
+patientType: dcid:ReturnedPatient
