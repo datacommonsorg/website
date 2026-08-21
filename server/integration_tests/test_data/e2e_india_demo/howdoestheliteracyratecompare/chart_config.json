@@ -9,18 +9,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Literate in India",
+                    "description": "Count of Person: Literate in India",
                     "statVarKey": [
                       "Count_Person_Literate"
                     ],
-                    "title": "Population: Literate in India",
+                    "title": "Count of Person: Literate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate"
+            "title": "Count of Person: Literate"
           },
           {
             "columns": [
@@ -30,7 +30,7 @@
                     "statVarKey": [
                       "Count_Person_Literate"
                     ],
-                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -45,32 +45,32 @@
                     "statVarKey": [
                       "Count_Person_Literate"
                     ],
-                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate in Administrative Area 1 Places of India"
+            "title": "Count of Person: Literate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Illiterate in India",
+                    "description": "Count of Person: Illiterate in India",
                     "statVarKey": [
                       "Count_Person_Illiterate"
                     ],
-                    "title": "Population: Illiterate in India",
+                    "title": "Count of Person: Illiterate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate"
+            "title": "Count of Person: Illiterate"
           },
           {
             "columns": [
@@ -80,7 +80,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate"
                     ],
-                    "title": "Population: Illiterate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -95,32 +95,32 @@
                     "statVarKey": [
                       "Count_Person_Illiterate"
                     ],
-                    "title": "Population: Illiterate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate in Administrative Area 1 Places of India"
+            "title": "Count of Person: Illiterate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Male, Literate in India",
+                    "description": "Count of Person: Male, Literate in India",
                     "statVarKey": [
                       "Count_Person_Literate_Male"
                     ],
-                    "title": "Population: Male, Literate in India",
+                    "title": "Count of Person: Male, Literate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Male, Literate"
+            "title": "Count of Person: Male, Literate"
           },
           {
             "columns": [
@@ -130,7 +130,7 @@
                     "statVarKey": [
                       "Count_Person_Literate_Male"
                     ],
-                    "title": "Population: Male, Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Male, Literate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -145,32 +145,32 @@
                     "statVarKey": [
                       "Count_Person_Literate_Male"
                     ],
-                    "title": "Population: Male, Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Male, Literate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Male, Literate in Administrative Area 1 Places of India"
+            "title": "Count of Person: Male, Literate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Literate, Christianity in India",
+                    "description": "Count of Person: Literate, Christianity in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Literate"
                     ],
-                    "title": "Population: Literate, Christianity in India",
+                    "title": "Count of Person: Literate, Christianity in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Christianity"
+            "title": "Count of Person: Literate, Christianity"
           },
           {
             "columns": [
@@ -180,7 +180,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Literate"
                     ],
-                    "title": "Population: Literate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Christianity in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -195,32 +195,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Literate"
                     ],
-                    "title": "Population: Literate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Christianity in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Christianity in Administrative Area 1 Places of India"
+            "title": "Count of Person: Literate, Christianity in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Literate in India",
+                    "description": "Count of Person: Female, Literate in India",
                     "statVarKey": [
                       "Count_Person_Literate_Female"
                     ],
-                    "title": "Population: Female, Literate in India",
+                    "title": "Count of Person: Female, Literate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Literate"
+            "title": "Count of Person: Female, Literate"
           },
           {
             "columns": [
@@ -230,7 +230,7 @@
                     "statVarKey": [
                       "Count_Person_Literate_Female"
                     ],
-                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Literate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -245,32 +245,32 @@
                     "statVarKey": [
                       "Count_Person_Literate_Female"
                     ],
-                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Literate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Literate in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Literate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Literate, Islam in India",
+                    "description": "Count of Person: Literate, Islam in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Literate"
                     ],
-                    "title": "Population: Literate, Islam in India",
+                    "title": "Count of Person: Literate, Islam in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Islam"
+            "title": "Count of Person: Literate, Islam"
           },
           {
             "columns": [
@@ -280,7 +280,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Literate"
                     ],
-                    "title": "Population: Literate, Islam in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Islam in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -295,25 +295,25 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Literate"
                     ],
-                    "title": "Population: Literate, Islam in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Islam in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Islam in Administrative Area 1 Places of India"
+            "title": "Count of Person: Literate, Islam in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Number of Illiterate Males in India",
+                    "description": "Count of Person: Male, Illiterate in India",
                     "statVarKey": [
                       "Count_Person_Illiterate_Male"
                     ],
-                    "title": "Number of Illiterate Males in India",
+                    "title": "Count of Person: Male, Illiterate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -321,7 +321,7 @@
             ],
             "denom": "Count_Person",
             "description": "Number of illiterate males.",
-            "title": "Number of Illiterate Males"
+            "title": "Count of Person: Male, Illiterate"
           },
           {
             "columns": [
@@ -331,7 +331,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Male"
                     ],
-                    "title": "Number of Illiterate Males in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Male, Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -346,7 +346,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Male"
                     ],
-                    "title": "Number of Illiterate Males in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Male, Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -354,18 +354,18 @@
             ],
             "denom": "Count_Person",
             "description": "Number of illiterate males.",
-            "title": "Number of Illiterate Males in Administrative Area 1 Places of India"
+            "title": "Count of Person: Male, Illiterate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Number of Illiterate Females in India",
+                    "description": "Count of Person: Female, Illiterate in India",
                     "statVarKey": [
                       "Count_Person_Illiterate_Female"
                     ],
-                    "title": "Number of Illiterate Females in India",
+                    "title": "Count of Person: Female, Illiterate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -373,7 +373,7 @@
             ],
             "denom": "Count_Person",
             "description": "Number of illiterate females.",
-            "title": "Number of Illiterate Females"
+            "title": "Count of Person: Female, Illiterate"
           },
           {
             "columns": [
@@ -383,7 +383,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Female"
                     ],
-                    "title": "Number of Illiterate Females in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -398,7 +398,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Female"
                     ],
-                    "title": "Number of Illiterate Females in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -406,25 +406,25 @@
             ],
             "denom": "Count_Person",
             "description": "Number of illiterate females.",
-            "title": "Number of Illiterate Females in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Illiterate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Illiterate, Christianity in India",
+                    "description": "Count of Person: Illiterate, Christianity in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Illiterate"
                     ],
-                    "title": "Population: Illiterate, Christianity in India",
+                    "title": "Count of Person: Illiterate, Christianity in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate, Christianity"
+            "title": "Count of Person: Illiterate, Christianity"
           },
           {
             "columns": [
@@ -434,7 +434,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Illiterate"
                     ],
-                    "title": "Population: Illiterate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate, Christianity in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -449,32 +449,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Illiterate"
                     ],
-                    "title": "Population: Illiterate, Christianity in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate, Christianity in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate, Christianity in Administrative Area 1 Places of India"
+            "title": "Count of Person: Illiterate, Christianity in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Literate, Urban in India",
+                    "description": "Count of Person: Literate, Urban in India",
                     "statVarKey": [
                       "Count_Person_Literate_Urban"
                     ],
-                    "title": "Population: Literate, Urban in India",
+                    "title": "Count of Person: Literate, Urban in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Urban"
+            "title": "Count of Person: Literate, Urban"
           },
           {
             "columns": [
@@ -484,7 +484,7 @@
                     "statVarKey": [
                       "Count_Person_Literate_Urban"
                     ],
-                    "title": "Population: Literate, Urban in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Urban in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -499,32 +499,32 @@
                     "statVarKey": [
                       "Count_Person_Literate_Urban"
                     ],
-                    "title": "Population: Literate, Urban in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Urban in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Urban in Administrative Area 1 Places of India"
+            "title": "Count of Person: Literate, Urban in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Illiterate, Islam in India",
+                    "description": "Count of Person: Illiterate, Islam in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Illiterate"
                     ],
-                    "title": "Population: Illiterate, Islam in India",
+                    "title": "Count of Person: Illiterate, Islam in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate, Islam"
+            "title": "Count of Person: Illiterate, Islam"
           },
           {
             "columns": [
@@ -534,7 +534,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Illiterate"
                     ],
-                    "title": "Population: Illiterate, Islam in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate, Islam in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -549,32 +549,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Illiterate"
                     ],
-                    "title": "Population: Illiterate, Islam in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate, Islam in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate, Islam in Administrative Area 1 Places of India"
+            "title": "Count of Person: Illiterate, Islam in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Literate, Rural in India",
+                    "description": "Count of Person: Literate, Rural in India",
                     "statVarKey": [
                       "Count_Person_Literate_Rural"
                     ],
-                    "title": "Population: Literate, Rural in India",
+                    "title": "Count of Person: Literate, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Rural"
+            "title": "Count of Person: Literate, Rural"
           },
           {
             "columns": [
@@ -584,7 +584,7 @@
                     "statVarKey": [
                       "Count_Person_Literate_Rural"
                     ],
-                    "title": "Population: Literate, Rural in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -599,32 +599,32 @@
                     "statVarKey": [
                       "Count_Person_Literate_Rural"
                     ],
-                    "title": "Population: Literate, Rural in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Rural in Administrative Area 1 Places of India"
+            "title": "Count of Person: Literate, Rural in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Illiterate, Rural in India",
+                    "description": "Count of Person: Illiterate, Rural in India",
                     "statVarKey": [
                       "Count_Person_Illiterate_Rural"
                     ],
-                    "title": "Population: Illiterate, Rural in India",
+                    "title": "Count of Person: Illiterate, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate, Rural"
+            "title": "Count of Person: Illiterate, Rural"
           },
           {
             "columns": [
@@ -634,7 +634,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Rural"
                     ],
-                    "title": "Population: Illiterate, Rural in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -649,32 +649,32 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Rural"
                     ],
-                    "title": "Population: Illiterate, Rural in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Illiterate, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate, Rural in Administrative Area 1 Places of India"
+            "title": "Count of Person: Illiterate, Rural in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Literate, Buddhism in India",
+                    "description": "Count of Person: Literate, Buddhism in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Buddhist_Literate"
                     ],
-                    "title": "Population: Literate, Buddhism in India",
+                    "title": "Count of Person: Literate, Buddhism in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Buddhism"
+            "title": "Count of Person: Literate, Buddhism"
           },
           {
             "columns": [
@@ -684,7 +684,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Buddhist_Literate"
                     ],
-                    "title": "Population: Literate, Buddhism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Buddhism in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -699,32 +699,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Buddhist_Literate"
                     ],
-                    "title": "Population: Literate, Buddhism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Buddhism in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Buddhism in Administrative Area 1 Places of India"
+            "title": "Count of Person: Literate, Buddhism in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Literate, Hinduism in India",
+                    "description": "Count of Person: Literate, Hinduism in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Literate"
                     ],
-                    "title": "Population: Literate, Hinduism in India",
+                    "title": "Count of Person: Literate, Hinduism in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Hinduism"
+            "title": "Count of Person: Literate, Hinduism"
           },
           {
             "columns": [
@@ -734,7 +734,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Literate"
                     ],
-                    "title": "Population: Literate, Hinduism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Hinduism in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -749,75 +749,75 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Literate"
                     ],
-                    "title": "Population: Literate, Hinduism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Literate, Hinduism in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Hinduism in Administrative Area 1 Places of India"
+            "title": "Count of Person: Literate, Hinduism in Administrative Area 1 Places of India"
           }
         ],
         "statVarSpec": {
           "Count_Person_Illiterate": {
-            "name": "Population: Illiterate",
+            "name": "Count Of Person: Illiterate",
             "statVar": "Count_Person_Illiterate"
           },
           "Count_Person_Illiterate_Female": {
-            "name": "Number of illiterate females",
+            "name": "Count Of Person: Female, Illiterate",
             "statVar": "Count_Person_Illiterate_Female"
           },
           "Count_Person_Illiterate_Male": {
-            "name": "Number of illiterate males",
+            "name": "Count Of Person: Male, Illiterate",
             "statVar": "Count_Person_Illiterate_Male"
           },
           "Count_Person_Illiterate_Rural": {
-            "name": "Population: Illiterate, Rural",
+            "name": "Count Of Person: Illiterate, Rural",
             "statVar": "Count_Person_Illiterate_Rural"
           },
           "Count_Person_Literate": {
-            "name": "Population: Literate",
+            "name": "Count Of Person: Literate",
             "statVar": "Count_Person_Literate"
           },
           "Count_Person_Literate_Female": {
-            "name": "Population: Female, Literate",
+            "name": "Count Of Person: Female, Literate",
             "statVar": "Count_Person_Literate_Female"
           },
           "Count_Person_Literate_Male": {
-            "name": "Population: Male, Literate",
+            "name": "Count Of Person: Male, Literate",
             "statVar": "Count_Person_Literate_Male"
           },
           "Count_Person_Literate_Rural": {
-            "name": "Population: Literate, Rural",
+            "name": "Count Of Person: Literate, Rural",
             "statVar": "Count_Person_Literate_Rural"
           },
           "Count_Person_Literate_Urban": {
-            "name": "Population: Literate, Urban",
+            "name": "Count Of Person: Literate, Urban",
             "statVar": "Count_Person_Literate_Urban"
           },
           "indianCensus/Count_Person_Religion_Buddhist_Literate": {
-            "name": "Population: Literate, Buddhism",
+            "name": "Count Of Person: Literate, Buddhism",
             "statVar": "indianCensus/Count_Person_Religion_Buddhist_Literate"
           },
           "indianCensus/Count_Person_Religion_Christian_Illiterate": {
-            "name": "Population: Illiterate, Christianity",
+            "name": "Count Of Person: Illiterate, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Illiterate"
           },
           "indianCensus/Count_Person_Religion_Christian_Literate": {
-            "name": "Population: Literate, Christianity",
+            "name": "Count Of Person: Literate, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Literate"
           },
           "indianCensus/Count_Person_Religion_Hindu_Literate": {
-            "name": "Population: Literate, Hinduism",
+            "name": "Count Of Person: Literate, Hinduism",
             "statVar": "indianCensus/Count_Person_Religion_Hindu_Literate"
           },
           "indianCensus/Count_Person_Religion_Muslim_Illiterate": {
-            "name": "Population: Illiterate, Islam",
+            "name": "Count Of Person: Illiterate, Islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Illiterate"
           },
           "indianCensus/Count_Person_Religion_Muslim_Literate": {
-            "name": "Population: Literate, Islam",
+            "name": "Count Of Person: Literate, Islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Literate"
           }
         }

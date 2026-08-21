@@ -93,18 +93,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Islam in India",
+                    "description": "Count of Person: Female, Islam in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Female"
                     ],
-                    "title": "Population: Female, Islam in India",
+                    "title": "Count of Person: Female, Islam in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Islam"
+            "title": "Count of Person: Female, Islam"
           },
           {
             "columns": [
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Female"
                     ],
-                    "title": "Population: Female, Islam in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Islam in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -129,14 +129,14 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Muslim_Female"
                     ],
-                    "title": "Population: Female, Islam in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Islam in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Islam in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Islam in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -146,7 +146,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in India",
+                    "title": "Count of Person: Female, Urban in India",
                     "type": "LINE"
                   }
                 ]
@@ -154,18 +154,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Urban Female Population in India",
+                    "description": "Count of Person: Female, Urban in India",
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in India",
+                    "title": "Count of Person: Female, Urban in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Urban Female Population"
+            "title": "Count of Person: Female, Urban"
           },
           {
             "columns": [
@@ -175,7 +175,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Urban in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -190,32 +190,32 @@
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Urban in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Urban Female Population in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Urban in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Literate in India",
+                    "description": "Count of Person: Female, Literate in India",
                     "statVarKey": [
                       "Count_Person_Literate_Female"
                     ],
-                    "title": "Population: Female, Literate in India",
+                    "title": "Count of Person: Female, Literate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Literate"
+            "title": "Count of Person: Female, Literate"
           },
           {
             "columns": [
@@ -225,7 +225,7 @@
                     "statVarKey": [
                       "Count_Person_Literate_Female"
                     ],
-                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Literate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -240,32 +240,32 @@
                     "statVarKey": [
                       "Count_Person_Literate_Female"
                     ],
-                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Literate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Literate in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Literate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Christianity in India",
+                    "description": "Count of Person: Female, Christianity in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Female"
                     ],
-                    "title": "Population: Female, Christianity in India",
+                    "title": "Count of Person: Female, Christianity in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Christianity"
+            "title": "Count of Person: Female, Christianity"
           },
           {
             "columns": [
@@ -275,7 +275,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Female"
                     ],
-                    "title": "Population: Female, Christianity in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Christianity in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -290,32 +290,32 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Christian_Female"
                     ],
-                    "title": "Population: Female, Christianity in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Christianity in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Christianity in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Christianity in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Hinduism in India",
+                    "description": "Count of Person: Female, Hinduism in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Female"
                     ],
-                    "title": "Population: Female, Hinduism in India",
+                    "title": "Count of Person: Female, Hinduism in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Hinduism"
+            "title": "Count of Person: Female, Hinduism"
           },
           {
             "columns": [
@@ -325,7 +325,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Female"
                     ],
-                    "title": "Population: Female, Hinduism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Hinduism in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -340,25 +340,25 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Hindu_Female"
                     ],
-                    "title": "Population: Female, Hinduism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Hinduism in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Hinduism in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Hinduism in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Total Rural Female Population in India",
+                    "description": "Count of Person: Female, Rural in India",
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in India",
+                    "title": "Count of Person: Female, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -366,7 +366,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population"
+            "title": "Count of Person: Female, Rural"
           },
           {
             "columns": [
@@ -376,7 +376,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -391,7 +391,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -399,25 +399,25 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Rural in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Worker in India",
+                    "description": "Count of Person: Female, Worker in India",
                     "statVarKey": [
                       "Count_Person_Workers_Female"
                     ],
-                    "title": "Population: Female, Worker in India",
+                    "title": "Count of Person: Female, Worker in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Worker"
+            "title": "Count of Person: Female, Worker"
           },
           {
             "columns": [
@@ -427,7 +427,7 @@
                     "statVarKey": [
                       "Count_Person_Workers_Female"
                     ],
-                    "title": "Population: Female, Worker in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Worker in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -442,14 +442,14 @@
                     "statVarKey": [
                       "Count_Person_Workers_Female"
                     ],
-                    "title": "Population: Female, Worker in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Worker in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Worker in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Worker in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -546,11 +546,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Illiterate Females in India",
+                    "description": "Count of Person: Female, Illiterate in India",
                     "statVarKey": [
                       "Count_Person_Illiterate_Female"
                     ],
-                    "title": "Number of Illiterate Females in India",
+                    "title": "Count of Person: Female, Illiterate in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -558,7 +558,7 @@
             ],
             "denom": "Count_Person",
             "description": "Number of illiterate females.",
-            "title": "Number of Illiterate Females"
+            "title": "Count of Person: Female, Illiterate"
           },
           {
             "columns": [
@@ -568,7 +568,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Female"
                     ],
-                    "title": "Number of Illiterate Females in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -583,7 +583,7 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Female"
                     ],
-                    "title": "Number of Illiterate Females in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Illiterate in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -591,25 +591,25 @@
             ],
             "denom": "Count_Person",
             "description": "Number of illiterate females.",
-            "title": "Number of Illiterate Females in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Illiterate in Administrative Area 1 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Buddhism in India",
+                    "description": "Count of Person: Female, Buddhism in India",
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Buddhist_Female"
                     ],
-                    "title": "Population: Female, Buddhism in India",
+                    "title": "Count of Person: Female, Buddhism in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Buddhism"
+            "title": "Count of Person: Female, Buddhism"
           },
           {
             "columns": [
@@ -619,7 +619,7 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Buddhist_Female"
                     ],
-                    "title": "Population: Female, Buddhism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Buddhism in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -634,14 +634,14 @@
                     "statVarKey": [
                       "indianCensus/Count_Person_Religion_Buddhist_Female"
                     ],
-                    "title": "Population: Female, Buddhism in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Buddhism in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Buddhism in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Buddhism in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -676,18 +676,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Non Worker in India",
+                    "description": "Count of Person: Female, Non Worker in India",
                     "statVarKey": [
                       "Count_Person_NonWorker_Female"
                     ],
-                    "title": "Population: Female, Non Worker in India",
+                    "title": "Count of Person: Female, Non Worker in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Non Worker"
+            "title": "Count of Person: Female, Non Worker"
           },
           {
             "columns": [
@@ -697,7 +697,7 @@
                     "statVarKey": [
                       "Count_Person_NonWorker_Female"
                     ],
-                    "title": "Population: Female, Non Worker in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Non Worker in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -712,14 +712,14 @@
                     "statVarKey": [
                       "Count_Person_NonWorker_Female"
                     ],
-                    "title": "Population: Female, Non Worker in Administrative Area 1 Places of India (${date})",
+                    "title": "Count of Person: Female, Non Worker in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Non Worker in Administrative Area 1 Places of India"
+            "title": "Count of Person: Female, Non Worker in Administrative Area 1 Places of India"
           }
         ],
         "statVarSpec": {
@@ -736,11 +736,11 @@
             "statVar": "Count_Person_Female"
           },
           "Count_Person_Illiterate_Female": {
-            "name": "Number of illiterate females",
+            "name": "Count Of Person: Female, Illiterate",
             "statVar": "Count_Person_Illiterate_Female"
           },
           "Count_Person_Literate_Female": {
-            "name": "Population: Female, Literate",
+            "name": "Count Of Person: Female, Literate",
             "statVar": "Count_Person_Literate_Female"
           },
           "Count_Person_Male": {
@@ -748,19 +748,19 @@
             "statVar": "Count_Person_Male"
           },
           "Count_Person_NonWorker_Female": {
-            "name": "Population: Female, Non Worker",
+            "name": "Count Of Person: Female, Non Worker",
             "statVar": "Count_Person_NonWorker_Female"
           },
           "Count_Person_Rural_Female": {
-            "name": "Total rural female population",
+            "name": "Count Of Person: Female, Rural",
             "statVar": "Count_Person_Rural_Female"
           },
           "Count_Person_Urban_Female": {
-            "name": "Total urban female population",
+            "name": "Count Of Person: Female, Urban",
             "statVar": "Count_Person_Urban_Female"
           },
           "Count_Person_Workers_Female": {
-            "name": "Population: Female, Worker",
+            "name": "Count Of Person: Female, Worker",
             "statVar": "Count_Person_Workers_Female"
           },
           "FertilityRate_Person_Female": {
@@ -768,19 +768,19 @@
             "statVar": "FertilityRate_Person_Female"
           },
           "indianCensus/Count_Person_Religion_Buddhist_Female": {
-            "name": "Population: Female, Buddhism",
+            "name": "Count Of Person: Female, Buddhism",
             "statVar": "indianCensus/Count_Person_Religion_Buddhist_Female"
           },
           "indianCensus/Count_Person_Religion_Christian_Female": {
-            "name": "Population: Female, Christianity",
+            "name": "Count Of Person: Female, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Female"
           },
           "indianCensus/Count_Person_Religion_Hindu_Female": {
-            "name": "Population: Female, Hinduism",
+            "name": "Count Of Person: Female, Hinduism",
             "statVar": "indianCensus/Count_Person_Religion_Hindu_Female"
           },
           "indianCensus/Count_Person_Religion_Muslim_Female": {
-            "name": "Population: Female, Islam",
+            "name": "Count Of Person: Female, Islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Female"
           }
         }

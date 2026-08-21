@@ -206,7 +206,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Population: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
+                    "title": "Count of Person: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -221,14 +221,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Population: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
+                    "title": "Count of Person: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County"
+            "title": "Count of Person: Years 15 Onwards, Divorced, Black or African American Alone in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -269,7 +269,7 @@
             "statVar": "Count_Person_15OrMoreYears_Divorced_AsianAlone"
           },
           "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone": {
-            "name": "Population: Years 15 Onwards, Divorced, Black Or African American Alone",
+            "name": "Count Of Person: Years 15 Onwards, Divorced, Black Or African American Alone",
             "statVar": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino": {
@@ -564,10 +564,6 @@
     "childTopics": [],
     "exploreMore": {
       "Count_Person_Divorced": {
-        "gender": [
-          "Count_Person_Female_Divorced",
-          "Count_Person_Male_Divorced"
-        ],
         "nativity": [
           "Count_Person_15OrMoreYears_Divorced_ForeignBorn",
           "Count_Person_15OrMoreYears_Divorced_Native"
@@ -583,6 +579,18 @@
           "Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces",
           "Count_Person_15OrMoreYears_Divorced_WhiteAlone",
           "Count_Person_15OrMoreYears_Divorced_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_Divorced": {
+        "age": [
+          "Count_Person_15To19Years_Female_Divorced",
+          "Count_Person_16OrMoreYears_Female_Divorced"
+        ]
+      },
+      "Count_Person_Male_Divorced": {
+        "age": [
+          "Count_Person_15To19Years_Male_Divorced",
+          "Count_Person_16OrMoreYears_Male_Divorced"
         ]
       }
     },

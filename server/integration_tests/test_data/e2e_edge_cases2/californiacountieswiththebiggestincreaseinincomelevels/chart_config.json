@@ -10,6 +10,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06085",
                       "geoId/06081",
@@ -18,8 +19,7 @@
                       "geoId/06041",
                       "geoId/06069",
                       "geoId/06005",
-                      "geoId/06097",
-                      "geoId/06013"
+                      "geoId/06097"
                     ],
                     "statVarKey": [
                       "Median_Income_Person10"
@@ -34,6 +34,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_growth_abs"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -141,24 +153,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06013",
-                    "statVarKey": [
-                      "Median_Income_Person_growth_abs"
-                    ],
-                    "title": "Contra Costa County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Individual Median Income Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -266,18 +278,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06087",
-                    "statVarKey": [
-                      "Median_Income_Person_growth_pct"
-                    ],
-                    "title": "Santa Cruz County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Individual Median Income Over Time (Percent Change)"
@@ -291,13 +291,13 @@
                       "geoId/06081",
                       "geoId/06085",
                       "geoId/06041",
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06001",
                       "geoId/06055",
                       "geoId/06013",
                       "geoId/06087",
-                      "geoId/06097",
-                      "geoId/06017"
+                      "geoId/06097"
                     ],
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold10"
@@ -344,6 +344,18 @@
                       "Median_Income_Household_FamilyHousehold_growth_abs"
                     ],
                     "title": "Marin County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold_growth_abs"
+                    ],
+                    "title": "San Francisco",
                     "type": "LINE"
                   }
                 ]
@@ -419,24 +431,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06017",
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold_growth_abs"
-                    ],
-                    "title": "El Dorado County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Family Household Income Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -544,18 +556,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06089",
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold_growth_pct"
-                    ],
-                    "title": "Shasta County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Family Household Income Over Time (Percent Change)"
@@ -568,14 +568,14 @@
                     "comparisonPlaces": [
                       "geoId/06085",
                       "geoId/06081",
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06041",
                       "geoId/06001",
                       "geoId/06013",
                       "geoId/06055",
                       "geoId/06087",
-                      "geoId/06069",
-                      "geoId/06017"
+                      "geoId/06069"
                     ],
                     "statVarKey": [
                       "Mean_Income_Household10"
@@ -610,6 +610,18 @@
                       "Mean_Income_Household_growth_abs"
                     ],
                     "title": "San Mateo County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Mean_Income_Household_growth_abs"
+                    ],
+                    "title": "San Francisco",
                     "type": "LINE"
                   }
                 ]
@@ -697,24 +709,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06017",
-                    "statVarKey": [
-                      "Mean_Income_Household_growth_abs"
-                    ],
-                    "title": "El Dorado County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Average Income for Households Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Mean_Income_Household_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -822,18 +834,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06055",
-                    "statVarKey": [
-                      "Mean_Income_Household_growth_pct"
-                    ],
-                    "title": "Napa County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Average Income for Households Over Time (Percent Change)"
@@ -846,14 +846,14 @@
                     "comparisonPlaces": [
                       "geoId/06085",
                       "geoId/06081",
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06001",
                       "geoId/06041",
                       "geoId/06013",
                       "geoId/06069",
                       "geoId/06087",
-                      "geoId/06051",
-                      "geoId/06055"
+                      "geoId/06051"
                     ],
                     "statVarKey": [
                       "Median_Income_Household10"
@@ -888,6 +888,18 @@
                       "Median_Income_Household_growth_abs"
                     ],
                     "title": "San Mateo County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_abs"
+                    ],
+                    "title": "San Francisco",
                     "type": "LINE"
                   }
                 ]
@@ -975,24 +987,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06055",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_abs"
-                    ],
-                    "title": "Napa County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Household Median Income Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -1100,18 +1112,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06079",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_pct"
-                    ],
-                    "title": "San Luis Obispo County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Household Median Income Over Time (Percent Change)"
@@ -1122,6 +1122,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06085",
                       "geoId/06041",
@@ -1130,8 +1131,7 @@
                       "geoId/06005",
                       "geoId/06069",
                       "geoId/06087",
-                      "geoId/06013",
-                      "geoId/06061"
+                      "geoId/06013"
                     ],
                     "statVarKey": [
                       "Median_Income_Person_15OrMoreYears_Male_WithIncome10"
@@ -1146,6 +1146,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_growth_abs"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -1253,24 +1265,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06061",
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_growth_abs"
-                    ],
-                    "title": "Placer County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Income of Men (15 Years or Older) With Income Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -1378,18 +1390,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06047",
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Male_WithIncome_growth_pct"
-                    ],
-                    "title": "Merced County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Income of Men (15 Years or Older) With Income Over Time (Percent Change)"
@@ -1414,14 +1414,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome10"
                     ],
-                    "title": "Population: Years 15 Onwards, With Income",
+                    "title": "Count of Person: Years 15 Onwards, With Income",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 15 Onwards, With Income"
+            "title": "Count of Person: Years 15 Onwards, With Income"
           },
           {
             "columns": [
@@ -1547,7 +1547,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 15 Onwards, With Income Over Time (Absolute Change)"
+            "title": "Increase in Count of Person: Years 15 Onwards, With Income Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -1673,7 +1673,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 15 Onwards, With Income Over Time (Percent Change)"
+            "title": "Increase in Count of Person: Years 15 Onwards, With Income Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -1799,7 +1799,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 15 Onwards, With Income Over Time (Per Capita Change)"
+            "title": "Increase in Count of Person: Years 15 Onwards, With Income Over Time (Per Capita Change)"
           },
           {
             "columns": [
@@ -1808,6 +1808,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06041",
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06081",
                       "geoId/06085",
@@ -1815,8 +1816,7 @@
                       "geoId/06055",
                       "geoId/06013",
                       "geoId/06087",
-                      "geoId/06017",
-                      "geoId/06097"
+                      "geoId/06017"
                     ],
                     "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold10"
@@ -1839,6 +1839,18 @@
                       "Mean_Income_Household_FamilyHousehold_growth_abs"
                     ],
                     "title": "Marin County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold_growth_abs"
+                    ],
+                    "title": "San Francisco",
                     "type": "LINE"
                   }
                 ]
@@ -1938,24 +1950,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06097",
-                    "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold_growth_abs"
-                    ],
-                    "title": "Sonoma County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Average Income for Family Households Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -2063,18 +2075,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06093",
-                    "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold_growth_pct"
-                    ],
-                    "title": "Siskiyou County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Average Income for Family Households Over Time (Percent Change)"
@@ -2085,6 +2085,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06051",
                       "geoId/06081",
@@ -2093,8 +2094,7 @@
                       "geoId/06041",
                       "geoId/06097",
                       "geoId/06055",
-                      "geoId/06027",
-                      "geoId/06013"
+                      "geoId/06027"
                     ],
                     "statVarKey": [
                       "Median_Income_Person_15OrMoreYears_Female_WithIncome10"
@@ -2109,6 +2109,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome_growth_abs"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -2216,18 +2228,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06013",
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Female_WithIncome_growth_abs"
-                    ],
-                    "title": "Contra Costa County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Income of Women (15 Years or Older) With Income Over Time (Absolute Change)"
@@ -2242,6 +2242,18 @@
                       "Median_Income_Person_15OrMoreYears_Female_WithIncome_growth_pct"
                     ],
                     "title": "Mono County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Female_WithIncome_growth_pct"
+                    ],
+                    "title": "San Francisco",
                     "type": "LINE"
                   }
                 ]
@@ -2341,18 +2353,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06115",
-                    "statVarKey": [
-                      "Median_Income_Person_15OrMoreYears_Female_WithIncome_growth_pct"
-                    ],
-                    "title": "Yuba County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Income of Women (15 Years or Older) With Income Over Time (Percent Change)"
@@ -2377,14 +2377,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings10"
                     ],
-                    "title": "Population: Years 16 Onwards, With Earnings",
+                    "title": "Count of Person: Years 16 Onwards, With Earnings",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, With Earnings"
           },
           {
             "columns": [
@@ -2510,7 +2510,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, With Earnings Over Time (Absolute Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, With Earnings Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -2636,7 +2636,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, With Earnings Over Time (Percent Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, With Earnings Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -2762,7 +2762,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, With Earnings Over Time (Per Capita Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, With Earnings Over Time (Per Capita Change)"
           },
           {
             "columns": [
@@ -2770,6 +2770,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06051",
                       "geoId/06011",
@@ -2778,8 +2779,7 @@
                       "geoId/06115",
                       "geoId/06041",
                       "geoId/06079",
-                      "geoId/06021",
-                      "geoId/06031"
+                      "geoId/06021"
                     ],
                     "statVarKey": [
                       "Median_Earnings_Person10"
@@ -2794,6 +2794,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Earnings_Person_growth_abs"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -2901,18 +2913,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06031",
-                    "statVarKey": [
-                      "Median_Earnings_Person_growth_abs"
-                    ],
-                    "title": "Kings County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Individual Median Earnings Over Time (Absolute Change)"
@@ -2939,6 +2939,18 @@
                       "Median_Earnings_Person_growth_pct"
                     ],
                     "title": "Colusa County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Earnings_Person_growth_pct"
+                    ],
+                    "title": "San Francisco",
                     "type": "LINE"
                   }
                 ]
@@ -3026,18 +3038,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06109",
-                    "statVarKey": [
-                      "Median_Earnings_Person_growth_pct"
-                    ],
-                    "title": "Tuolumne County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Individual Median Earnings Over Time (Percent Change)"
@@ -3048,6 +3048,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06085",
                       "geoId/06081",
@@ -3056,8 +3057,7 @@
                       "geoId/06051",
                       "geoId/06069",
                       "geoId/06013",
-                      "geoId/06097",
-                      "geoId/06061"
+                      "geoId/06097"
                     ],
                     "statVarKey": [
                       "Median_Income_Person_18OrMoreYears_Civilian_WithIncome10"
@@ -3072,6 +3072,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_abs"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -3179,24 +3191,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06061",
-                    "statVarKey": [
-                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_abs"
-                    ],
-                    "title": "Placer County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Income of Person: Years 18 Onwards, Civilian, With Income Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -3304,18 +3316,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06007",
-                    "statVarKey": [
-                      "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_pct"
-                    ],
-                    "title": "Butte County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Income of Person: Years 18 Onwards, Civilian, With Income Over Time (Percent Change)"
@@ -3326,6 +3326,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06085",
                       "geoId/06081",
@@ -3334,8 +3335,7 @@
                       "geoId/06001",
                       "geoId/06069",
                       "geoId/06041",
-                      "geoId/06087",
-                      "geoId/06055"
+                      "geoId/06087"
                     ],
                     "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold10"
@@ -3350,6 +3350,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold_growth_abs"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -3457,18 +3469,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06055",
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold_growth_abs"
-                    ],
-                    "title": "Napa County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Average Income for Nonfamily Households Over Time (Absolute Change)"
@@ -3538,6 +3538,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/06075",
                     "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold_growth_pct"
@@ -3582,18 +3594,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06097",
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold_growth_pct"
-                    ],
-                    "title": "Sonoma County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Average Income for Nonfamily Households Over Time (Percent Change)"
@@ -3618,14 +3618,14 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings10"
                     ],
-                    "title": "Population: Years 16 Onwards, Male, With Earnings",
+                    "title": "Count of Person: Years 16 Onwards, Male, With Earnings",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 16 Onwards, Male, With Earnings"
+            "title": "Count of Person: Years 16 Onwards, Male, With Earnings"
           },
           {
             "columns": [
@@ -3751,7 +3751,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, Male, With Earnings Over Time (Absolute Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, Male, With Earnings Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -3877,7 +3877,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, Male, With Earnings Over Time (Percent Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, Male, With Earnings Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -4003,7 +4003,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Population: Years 16 Onwards, Male, With Earnings Over Time (Per Capita Change)"
+            "title": "Increase in Count of Person: Years 16 Onwards, Male, With Earnings Over Time (Per Capita Change)"
           },
           {
             "columns": [
@@ -4011,6 +4011,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "geoId/0667000",
                       "geoId/06075",
                       "geoId/06081",
                       "geoId/06085",
@@ -4019,8 +4020,7 @@
                       "geoId/06013",
                       "geoId/06069",
                       "geoId/06053",
-                      "geoId/06087",
-                      "geoId/06055"
+                      "geoId/06087"
                     ],
                     "statVarKey": [
                       "Median_Income_Household_HouseholderRaceWhiteAlone10"
@@ -4035,6 +4035,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_growth_abs"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -4142,24 +4154,24 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06055",
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceWhiteAlone_growth_abs"
-                    ],
-                    "title": "Napa County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Median Income of White Households Over Time (Absolute Change)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/0667000",
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_growth_pct"
+                    ],
+                    "title": "San Francisco",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -4264,18 +4276,6 @@
                       "Median_Income_Household_HouseholderRaceWhiteAlone_growth_pct"
                     ],
                     "title": "San Diego County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06087",
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceWhiteAlone_growth_pct"
-                    ],
-                    "title": "Santa Cruz County",
                     "type": "LINE"
                   }
                 ]
@@ -4693,51 +4693,51 @@
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_WithIncome10": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_abs": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_pc": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_pct": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Count Of Person: Years 15 Onwards, With Income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings10": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_abs": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, Male, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings10": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_abs": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_pc": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_pct": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Count Of Person: Years 16 Onwards, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Income_Farm10": {
@@ -4869,15 +4869,15 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome10": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_abs": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_pct": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_growth_abs": {
@@ -4893,7 +4893,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06075"
+        "geoId/0667000"
       ]
     }
   },
