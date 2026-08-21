@@ -55,6 +55,12 @@
     "description": "Fetch all pages of the response for certain v2node requests in detect-and-fulfill where we need full responses."
   },
   {
+    "name": "enable_schema_driven_topic_resolution",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Enables schema-driven typeOf resolution and dynamic topic unfurling in detect-and-fulfill."
+  },
+  {
     "name": "enable_ranking_tile_scroll",
     "enabled": false,
     "owner": "gmechali",
@@ -134,7 +140,7 @@
   },
   {
     "name": "use_config_threshold_for_spanner_embedding",
-    "enabled": false,
+    "enabled": true,
     "owner": "shixiao",
     "description": "Gates the use of config SPANNER_EMBEDDING_THRESHOLD. If false, it will use the default threshold."
   },

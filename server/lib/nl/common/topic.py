@@ -19,6 +19,8 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import fetch
+from server.lib.feature_flags import ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.explore.params import DCNames
@@ -337,6 +339,10 @@ def get_topic_vars_recurive(topic: str,
                             dc: str = DCNames.MAIN_DC.value,
                             max_svs: int = MAX_TOPIC_SVS,
                             cur_svs: int = 0):
+  """Recursively expands a topic into member statistical variables and peer groups.
+
+  Traverses child topics up to TOPIC_RANK_LIMIT depth or until max_svs is reached.
+  """
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
@@ -356,7 +362,8 @@ def get_topic_vars_recurive(topic: str,
   return new_svs
 
 
-def get_topic_vars(topic: str, dc: str):
+def get_topic_vars(topic: str, dc: str = DCNames.MAIN_DC.value):
+  """Returns immediate member variables, SVPGs, or sub-topics for a topic."""
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
@@ -366,10 +373,11 @@ def get_topic_vars(topic: str, dc: str):
 
 
 def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
+  """Finds parent topic nodes containing the given SV or Topic via relevantVariable."""
   # This is an SV, so get parent SVPGs, if any
   if utils.is_sv(topic_or_sv):
     psvpg = _parents_raw([topic_or_sv], 'member', dc)
-    psvpg_ids = [p['dcid'] for p in psvpg]
+    psvpg_ids = [p['dcid'] for p in psvpg if 'dcid' in p]
     # Get its actual topic, if any.
     topics = psvpg_ids + [topic_or_sv]
   else:
@@ -381,10 +389,13 @@ def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
 
 
 def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
+  """Finds child topics linked as members of the given parent topics."""
   children = _members_raw(topics, 'relevantVariable', dc)
   resp = []
   for pvals in children.values():
-    for p in pvals:
+    for p in (pvals or []):
+      if not isinstance(p, dict):
+        continue
       if 'value' in p:
         del p['value']
       if 'dcid' not in p:
@@ -398,7 +409,7 @@ def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
 
 
 def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
-  """Returns a new div of svpg's expanded to peer svs."""
+  """Returns a mapping from SVPG DCID to its member statistical variables."""
   ret = {}
   for sv in sv_dcids:
     if utils.is_svpg(sv):
@@ -409,34 +420,41 @@ def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
 
 
 def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
-  if 'TOPIC_CACHE' in current_app.config:
+  """Returns extended SVGs/SVPGs associated with a topic."""
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
     return current_app.config['TOPIC_CACHE'][dc].get_extended_svgs(topic)
   else:
-    return fetch.property_values(nodes=[topic], prop='extendedVariable')[topic]
+    return fetch.property_values(nodes=[topic],
+                                 prop='extendedVariable').get(topic, [])
 
 
 def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
+  """Resolves display name for a StatVarPeerGroup from override, cache, or graph."""
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
-    if 'TOPIC_CACHE' in current_app.config:
+    if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+        'TOPIC_CACHE']:
       name = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
     if not name:
-      resp = fetch.property_values(nodes=[sv], prop='name')[sv]
+      resp = fetch.property_values(nodes=[sv], prop='name').get(sv, [])
       if resp:
         name = resp[0]
   return name
 
 
 def svpg_description(sv: str):
+  """Resolves description for a StatVarPeerGroup from override or graph."""
   name = TOPIC_AND_SVPG_DESC_OVERRIDE.get(sv, '')
   if not name:
-    resp = fetch.property_values(nodes=[sv], prop='description')[sv]
+    resp = fetch.property_values(nodes=[sv], prop='description').get(sv, [])
     if resp:
       name = resp[0]
   return name
 
 
-def _get_svpg_vars(svpg: str, dc: str) -> List[str]:
+def _get_svpg_vars(svpg: str, dc: str = DCNames.MAIN_DC.value) -> List[str]:
+  """Retrieves member variables of a StatVarPeerGroup."""
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
     svs = _members(svpg, 'member', dc)
@@ -492,36 +510,128 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _members(node: str, prop: str, dc: str) -> List[str]:
+def _members(node: str,
+             prop: str,
+             dc: str = DCNames.MAIN_DC.value) -> List[str]:
+  """Retrieves member DCIDs for a container node (Topic or StatVarPeerGroup).
+
+  Attempts in-memory TOPIC_CACHE lookup first. If the node is missing from cache
+  (e.g. dynamic custom topics in DCP) and schema-driven resolution is enabled,
+  falls back to fetching the consolidated list property (e.g.
+  'relevantVariableList' or 'memberList') from Cloud Spanner / Mixer via
+  _prop_val_ordered().
+
+  Args:
+    node: Container DCID (e.g., 'dc/topic/Poverty', 'custom/topic/DisplacedPersons').
+    prop: Base predicate name ('relevantVariable' or 'member').
+    dc: Data Commons instance name (e.g. 'main', 'custom').
+
+  Returns:
+    List of member entity DCIDs.
+  """
+  if not node:
+    return []
   val_list = []
-  if 'TOPIC_CACHE' in current_app.config:
-    resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
-    val_list = [v['dcid'] for v in resp]
-  else:
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
+    cache = current_app.config['TOPIC_CACHE'][dc]
+    if node in cache.out_map:
+      resp = cache.get_members(node)
+      val_list = [v['dcid'] for v in resp if 'dcid' in v]
+    elif is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
+      val_list = _prop_val_ordered(node, prop + 'List')
+  elif is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION) or (
+      'TOPIC_CACHE' not in current_app.config):
     val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
 
 
-def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[str]]:
+def _members_raw(nodes: List[str],
+                 prop: str,
+                 dc: str = DCNames.MAIN_DC.value) -> Dict[str, List[Dict]]:
+  """Batch-retrieves raw member dictionaries for multiple container nodes.
+
+  Used during multi-topic discovery (e.g. get_child_topics). Fulfills cached
+  nodes from in-memory TOPIC_CACHE and batch-queries missing nodes directly from
+  the graph via fetch.raw_property_values() when schema-driven resolution is
+  enabled.
+
+  Args:
+    nodes: List of container DCIDs to inspect.
+    prop: Predicate name ('relevantVariable' or 'member').
+    dc: Data Commons instance name.
+
+  Returns:
+    Dict mapping node DCID -> list of raw member arc dicts.
+  """
   val_map = {}
-  if 'TOPIC_CACHE' in current_app.config:
-    for n in nodes:
-      val_map[n] = current_app.config['TOPIC_CACHE'][dc].get_members(n)
+  if not nodes:
+    return val_map
+
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
+    cache = current_app.config['TOPIC_CACHE'][dc]
+    if is_feature_enabled(ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION):
+      missing_nodes = []
+      for n in nodes:
+        if n in cache.out_map:
+          val_map[n] = cache.get_members(n)
+        else:
+          missing_nodes.append(n)
+      if missing_nodes:
+        unique_missing = list(dict.fromkeys(missing_nodes))
+        raw_res = fetch.raw_property_values(nodes=unique_missing,
+                                            prop=prop) or {}
+        for n in missing_nodes:
+          val_map[n] = raw_res.get(n, []) or []
+    else:
+      for n in nodes:
+        val_map[n] = cache.get_members(n)
   else:
-    val_map = fetch.raw_property_values(nodes=nodes, prop=prop)
+    unique_nodes = list(dict.fromkeys(nodes))
+    raw_res = fetch.raw_property_values(nodes=unique_nodes, prop=prop) or {}
+    for n in nodes:
+      val_map[n] = raw_res.get(n, []) or []
   return val_map
 
 
-def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
+def _parents_raw(nodes: List[str],
+                 prop: str,
+                 dc: str = DCNames.MAIN_DC.value) -> List[Dict]:
+  """Batch-retrieves raw parent container dictionaries for child nodes.
+
+  Traverses inverse graph arcs (out=False) to find parent Topics or SVPGs
+  asserting 'relevantVariable' or 'member' pointing to the given nodes.
+
+  Args:
+    nodes: List of child DCIDs (StatisticalVariables or SVPGs).
+    prop: Predicate name to follow inversely ('relevantVariable' or 'member').
+    dc: Data Commons instance name.
+
+  Returns:
+    Deduplicated list of parent node dictionaries.
+  """
   parent_list = []
-  if 'TOPIC_CACHE' in current_app.config:
+  if not nodes:
+    return parent_list
+
+  if 'TOPIC_CACHE' in current_app.config and dc in current_app.config[
+      'TOPIC_CACHE']:
     for n in nodes:
       plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
-      parent_list.extend(plist)
+      for p in (plist or []):
+        dcid = p.get('dcid')
+        if dcid:
+          parent_list.append(p)
   else:
-    parents = fetch.raw_property_values(nodes=nodes, prop=prop, out=False)
+    unique_nodes = list(dict.fromkeys(nodes))
+    parents = fetch.raw_property_values(
+        nodes=unique_nodes, prop=prop, out=False) or {}
+    seen_dcids = set()
     for pvals in parents.values():
-      for p in pvals:
+      for p in (pvals or []):
+        if not isinstance(p, dict):
+          continue
         if 'value' in p:
           del p['value']
         if 'dcid' not in p:
@@ -531,15 +641,38 @@ def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
           continue
         if prop == 'member' and not utils.is_svpg(id):
           continue
-        parent_list.append(p)
+        if id not in seen_dcids:
+          seen_dcids.add(id)
+          parent_list.append(p)
   return parent_list
 
 
 # Reads Props that are strings encoding ordered DCIDs.
 def _prop_val_ordered(node: str, prop: str) -> List[str]:
-  sv_list = fetch.property_values(nodes=[node], prop=prop)[node]
+  """Fetches and parses comma-delimited DCID list properties from the graph.
+
+  Handles consolidated list predicates (e.g. 'relevantVariableList' or
+  'memberList') stored as CSV strings in Node.value. Splits on commas, trims
+  whitespace, and deduplicates entries while strictly preserving curated order.
+
+  Args:
+    node: Subject DCID.
+    prop: List predicate name (e.g. 'relevantVariableList').
+
+  Returns:
+    Ordered list of distinct DCID strings.
+  """
+  if not node:
+    return []
+  sv_list = fetch.property_values(nodes=[node], prop=prop).get(node, []) or []
   svs = []
-  if sv_list:
-    sv_list = sv_list[0]
-    svs = [v.strip() for v in sv_list.split(',') if v.strip()]
+  seen = set()
+  for item in sv_list:
+    if not isinstance(item, str):
+      continue
+    for v in item.split(','):
+      v = v.strip()
+      if v and v not in seen:
+        seen.add(v)
+        svs.append(v)
   return svs
