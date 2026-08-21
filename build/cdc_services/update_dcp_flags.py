@@ -70,9 +70,13 @@ def update_website_flags():
             data = json.load(f)
             
         for flag in data:
-            if flag.get('name') in ('enable_nl_v2node_fetchall', 'use_v2_resolve_for_nl_search_vars'):
+            if flag.get('name') in (
+                'enable_nl_v2node_fetchall',
+                'use_v2_resolve_for_nl_search_vars',
+                'enable_schema_driven_topic_resolution'
+            ):
                 flag['enabled'] = True
-                    
+
         serialized = json.dumps(data, indent=2)
         with open(web_ff_path, 'w') as f:
             f.write(serialized)

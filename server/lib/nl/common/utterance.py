@@ -200,3 +200,5 @@ class Utterance:
   client: str = ''
   # The mode for caller (currently just STRICT)
   mode: QueryMode = None
+  # Map of SV -> schema typeOf
+  sv2types: Dict[str, str] = field(default_factory=dict)
