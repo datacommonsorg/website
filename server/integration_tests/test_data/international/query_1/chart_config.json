@@ -79,7 +79,7 @@
                     "statVarKey": [
                       "Count_Household_Rural"
                     ],
-                    "title": "Total Number of Rural Households in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Household: Rural in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -90,7 +90,7 @@
                     "statVarKey": [
                       "Count_Household_Rural"
                     ],
-                    "title": "Total Number of Rural Households in Administrative Area 2 Places of India (${date})",
+                    "title": "Count of Household: Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -98,18 +98,18 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of households located in rural areas.",
-            "title": "Total Number of Rural Households in Administrative Area 2 Places of India"
+            "title": "Count of Household: Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Total Number of Rural Households in India",
+                    "description": "Count of Household: Rural in India",
                     "statVarKey": [
                       "Count_Household_Rural"
                     ],
-                    "title": "Total Number of Rural Households in India",
+                    "title": "Count of Household: Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -117,7 +117,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of households located in rural areas.",
-            "title": "Total Number of Rural Households"
+            "title": "Count of Household: Rural"
           },
           {
             "columns": [
@@ -131,7 +131,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Male"
                     ],
-                    "title": "Total Rural Male Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Population: Male, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -142,7 +142,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Male"
                     ],
-                    "title": "Total Rural Male Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Population: Male, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -150,18 +150,18 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of males living in rural areas.",
-            "title": "Total Rural Male Population in Administrative Area 2 Places of India"
+            "title": "Population: Male, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Total Rural Male Population in India",
+                    "description": "Population: Male, Rural in India",
                     "statVarKey": [
                       "Count_Person_Rural_Male"
                     ],
-                    "title": "Total Rural Male Population in India",
+                    "title": "Population: Male, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -169,7 +169,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of males living in rural areas.",
-            "title": "Total Rural Male Population"
+            "title": "Population: Male, Rural"
           },
           {
             "columns": [
@@ -183,7 +183,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Population: Female, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -194,7 +194,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 2 Places of India (${date})",
+                    "title": "Population: Female, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -202,18 +202,18 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population in Administrative Area 2 Places of India"
+            "title": "Population: Female, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Total Rural Female Population in India",
+                    "description": "Population: Female, Rural in India",
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in India",
+                    "title": "Population: Female, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -221,7 +221,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population"
+            "title": "Population: Female, Rural"
           },
           {
             "columns": [
@@ -738,7 +738,7 @@
             "statVar": "Count_Household_Houseless_Rural"
           },
           "Count_Household_Rural": {
-            "name": "Total number of rural households",
+            "name": "Count of Household: Rural",
             "statVar": "Count_Household_Rural"
           },
           "Count_Person_Houseless_Rural": {
@@ -762,11 +762,11 @@
             "statVar": "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Rural_Female": {
-            "name": "Total rural female population",
+            "name": "Population: Female, Rural",
             "statVar": "Count_Person_Rural_Female"
           },
           "Count_Person_Rural_Male": {
-            "name": "Total rural male population",
+            "name": "Population: Male, Rural",
             "statVar": "Count_Person_Rural_Male"
           },
           "Count_Person_Workers_Rural": {
