@@ -52,13 +52,6 @@ build:
     # Artifacts for Cloud Deploy
     - image: gcr.io/datcom-ci/datacommons-website
       context: build/web_server
-    - image: gcr.io/datcom-ci/datacommons-nl
-      context: build/nl_server
-    # This is an alias for the datacommons-nl image (tagged as mixer-sidecar).
-    # We use a separate artifact name here so Skaffold can track it independently
-    # from the main datacommons-nl artifact used by the website.
-    - image: gcr.io/datcom-ci/datacommons-embeddings-sidecar
-      context: build/nl_server
     - image: gcr.io/datcom-ci/datacommons-nodejs
       context: build/nodejs_server
     - image: gcr.io/datcom-ci/datacommons-mixer
@@ -133,7 +126,7 @@ profiles:
               project: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               serviceGroups.recon.enableEmbeddingsSidecar: "false"
-              serviceGroups.default.enableEmbeddingsSidecar: "true"
+              serviceGroups.default.enableEmbeddingsSidecar: "false"
               mixer.githash: ${MIXER_GITHASH}
   - name: mixer-dev
     customActions:
@@ -219,7 +212,7 @@ profiles:
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
               serviceGroups.recon.enableEmbeddingsSidecar: "false"
-              serviceGroups.default.enableEmbeddingsSidecar: "true"
+              serviceGroups.default.enableEmbeddingsSidecar: "false"
   - name: mixer-autopush
     customActions:
       - name: deploy-cloud-esp-mixer-autopush
@@ -326,7 +319,7 @@ profiles:
               project: "datcom-website-staging"
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
               serviceGroups.recon.enableEmbeddingsSidecar: "false"
-              serviceGroups.default.enableEmbeddingsSidecar: "true"
+              serviceGroups.default.enableEmbeddingsSidecar: "false"
   - name: mixer-staging
     customActions:
       - name: deploy-cloud-esp-mixer-staging
@@ -460,4 +453,4 @@ profiles:
               project: "datcom-website-prod"
               mixer.serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
               serviceGroups.recon.enableEmbeddingsSidecar: "false"
-              serviceGroups.default.enableEmbeddingsSidecar: "true"
+              serviceGroups.default.enableEmbeddingsSidecar: "false"
