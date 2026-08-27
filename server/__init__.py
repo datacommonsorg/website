@@ -52,8 +52,6 @@ from shared.lib import utils as lib_utils
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
-DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
-
 # Module-level singleton for the Secret Manager client.
 # Lazily initialized and used by _get_api_key() to avoid repeated initialization.
 _secret_client = None
@@ -285,7 +283,7 @@ def register_routes_common(app):
   app.register_blueprint(observation_series.bp)
 
 
-def create_app(nl_root=DEFAULT_NL_ROOT):
+def create_app():
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
   cfg = lib_config.get_config()
@@ -319,9 +317,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       (cfg.CUSTOM and cfg.LOCAL)) and not os.environ.get('DC_API_KEY'):
     raise Exception(
         'Set environment variable DC_API_KEY for local custom DC development')
-
-  # Use NL_SERVICE_ROOT if it's set, otherwise use nl_root argument
-  app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", nl_root)
 
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)
@@ -408,10 +403,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Enable the NL model.
   if app.config['ENABLE_MODEL']:
-    # Skip backend check if we are resolving embeddings with Spanner, as the
-    # local NL server will not be running.
-    if os.environ.get('RESOLVE_WITH_SPANNER_EMBEDDINGS') != 'true':
-      libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
 
     # This also requires disaster and event routes.
     app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
