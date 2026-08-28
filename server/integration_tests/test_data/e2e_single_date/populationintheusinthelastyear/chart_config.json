@@ -73,6 +73,70 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Over 85 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Over 85 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2025"
                     },
@@ -164,22 +228,14 @@
                       "startDate": "2025"
                     },
                     "statVarKey": [
-                      "Count_Person_HispanicOrLatino_2615007932339303024"
+                      "Count_Person_WhiteAlone_13407364759665129811",
+                      "Count_Person_BlackOrAfricanAmericanAlone_13407364759665129811",
+                      "Count_Person_HispanicOrLatino_2615007932339303024",
+                      "Count_Person_AsianAlone_13407364759665129811",
+                      "Count_Person_AmericanIndianAndAlaskaNativeAlone_13407364759665129811"
                     ],
-                    "title": "Hispanic Population in United States",
+                    "title": "Monoracial Breakdown in United States",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Hispanic Population in United States",
-                    "statVarKey": [
-                      "Count_Person_HispanicOrLatino"
-                    ],
-                    "title": "Hispanic Population in United States",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -250,6 +306,94 @@
             ],
             "denom": "Count_Person",
             "title": "Black Monoracial Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2025"
+                    },
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811",
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811",
+                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811",
+                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811",
+                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811"
+                    ],
+                    "title": "Monoracial/multiracial Breakdown in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Monoracial/multiracial Breakdown"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population, Monoracial/Multiracial in States of United States"
           },
           {
             "columns": [
@@ -523,7 +667,7 @@
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold_576843814454795564"
                     ],
-                    "title": "Total Number of People Residing in Households in United States",
+                    "title": "Population: Household in United States",
                     "type": "LINE"
                   }
                 ]
@@ -531,18 +675,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Number of People Residing in Households in United States",
+                    "description": "Population: Household in United States",
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold"
                     ],
-                    "title": "Total Number of People Residing in Households in United States",
+                    "title": "Population: Household in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Number of People Residing in Households"
+            "title": "Population: Household"
           }
         ],
         "statVarSpec": {
@@ -550,12 +694,58 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
+          "Count_Person_85OrMoreYears_Female": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Male": {
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
+          },
           "Count_Person_8912910856362438925": {
             "facetId": "8912910856362438925",
             "name": "Population",
             "statVar": "Count_Person"
           },
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "Population American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAlone"
+          },
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "Asian Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "Asian Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AsianAlone_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "Population Asian Alone",
+            "statVar": "Count_Person_AsianAlone"
+          },
           "Count_Person_BlackOrAfricanAmericanAlone": {
+            "name": "Black Monoracial Population",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "Black Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_BlackOrAfricanAmericanAlone_13407364759665129811": {
+            "facetId": "13407364759665129811",
             "name": "Black Monoracial Population",
             "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
           },
@@ -576,10 +766,6 @@
             "facetId": "14877681748872237318",
             "name": "Women",
             "statVar": "Count_Person_Female"
-          },
-          "Count_Person_HispanicOrLatino": {
-            "name": "Hispanic Population",
-            "statVar": "Count_Person_HispanicOrLatino"
           },
           "Count_Person_HispanicOrLatino_2615007932339303024": {
             "facetId": "2615007932339303024",
@@ -643,6 +829,11 @@
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "Native Hawaiian and Other Pacific Islander Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
           "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
             "name": "Non Hispanic Population Identifying as American Indian and Alaska Native, Monoracial/Multiracial",
             "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
@@ -688,12 +879,12 @@
             "statVar": "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
           "Count_Person_ResidesInHousehold": {
-            "name": "Total number of people residing in households",
+            "name": "Population: Household",
             "statVar": "Count_Person_ResidesInHousehold"
           },
           "Count_Person_ResidesInHousehold_576843814454795564": {
             "facetId": "576843814454795564",
-            "name": "Total number of people residing in households",
+            "name": "Population: Household",
             "statVar": "Count_Person_ResidesInHousehold"
           },
           "Count_Person_WhiteAlone": {
@@ -707,6 +898,16 @@
           "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
             "name": "White Hispanic Monoracial Population",
             "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "White Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_WhiteAlone_13407364759665129811": {
+            "facetId": "13407364759665129811",
+            "name": "White Monoracial Population",
+            "statVar": "Count_Person_WhiteAlone"
           }
         }
       }
@@ -1151,6 +1352,12 @@
           "Count_Person_Male"
         ],
         "race": [
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AsianAlone",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_HispanicOrLatino",
           "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
@@ -1162,6 +1369,7 @@
           "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
           "Count_Person_HispanicOrLatino_WhiteAlone",
           "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
           "Count_Person_NotHispanicOrLatino_AsianAlone",
@@ -1171,7 +1379,9 @@
           "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
           "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_WhiteAloneNotHispanicOrLatino"
+          "Count_Person_WhiteAlone",
+          "Count_Person_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
         ]
       }
     },
