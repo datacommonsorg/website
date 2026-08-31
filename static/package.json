@@ -68,7 +68,7 @@
     "prismjs": "^1.30.0",
     "pure-rand": "^6.1.0",
     "qs": "^6.11.0",
-    "query-string": "^8.1.0",
+    "query-string": "^9.5.0",
     "raw-loader": "^4.0.2",
     "react": "^17.0.2",
     "react-collapsible": "2.8.3",
@@ -100,7 +100,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^6.7.4",
-    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^10.4.9",
     "@types/enzyme": "^3.10.14",
     "@types/jest": "^28.1.3",
