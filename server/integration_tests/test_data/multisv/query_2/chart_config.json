@@ -255,7 +255,7 @@
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level In The Past 12 Months",
+            "name": "Count of household: family household, years 65 onwards, below poverty level in the past 12 months",
             "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {

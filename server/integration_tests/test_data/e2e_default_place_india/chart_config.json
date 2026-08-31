@@ -740,7 +740,7 @@
             "statVar": "Count_Person_Illiterate_Female"
           },
           "Count_Person_Literate_Female": {
-            "name": "Population: Female, Literate",
+            "name": "Population: female, literate",
             "statVar": "Count_Person_Literate_Female"
           },
           "Count_Person_Male": {
@@ -748,7 +748,7 @@
             "statVar": "Count_Person_Male"
           },
           "Count_Person_NonWorker_Female": {
-            "name": "Population: Female, Non Worker",
+            "name": "Population: female, non worker",
             "statVar": "Count_Person_NonWorker_Female"
           },
           "Count_Person_Rural_Female": {
@@ -760,7 +760,7 @@
             "statVar": "Count_Person_Urban_Female"
           },
           "Count_Person_Workers_Female": {
-            "name": "Population: Female, Worker",
+            "name": "Population: female, worker",
             "statVar": "Count_Person_Workers_Female"
           },
           "FertilityRate_Person_Female": {
@@ -768,19 +768,19 @@
             "statVar": "FertilityRate_Person_Female"
           },
           "indianCensus/Count_Person_Religion_Buddhist_Female": {
-            "name": "Population: Female, Buddhism",
+            "name": "Population: female, buddhism",
             "statVar": "indianCensus/Count_Person_Religion_Buddhist_Female"
           },
           "indianCensus/Count_Person_Religion_Christian_Female": {
-            "name": "Population: Female, Christianity",
+            "name": "Population: female, christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Female"
           },
           "indianCensus/Count_Person_Religion_Hindu_Female": {
-            "name": "Population: Female, Hinduism",
+            "name": "Population: female, hinduism",
             "statVar": "indianCensus/Count_Person_Religion_Hindu_Female"
           },
           "indianCensus/Count_Person_Religion_Muslim_Female": {
-            "name": "Population: Female, Islam",
+            "name": "Population: female, islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Female"
           }
         }
@@ -1268,7 +1268,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]

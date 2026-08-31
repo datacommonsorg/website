@@ -225,7 +225,7 @@
         ],
         "statVarSpec": {
           "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
+            "name": "Population: foreign born",
             "statVar": "Count_Person_ForeignBorn"
           },
           "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
@@ -237,11 +237,11 @@
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
           },
           "Count_Person_Native": {
-            "name": "Population: Years 5 Onwards, USC Native",
+            "name": "Population: years 5 onwards, USC native",
             "statVar": "Count_Person_Native"
           },
           "Count_Person_PlaceOfBirthAsia": {
-            "name": "Population: USC Foreign Born, Asia",
+            "name": "Population: USC foreign born, asia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           },
           "Median_Age_Person_Female_ForeignBorn": {

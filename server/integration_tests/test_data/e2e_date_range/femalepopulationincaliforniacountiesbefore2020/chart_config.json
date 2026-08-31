@@ -893,32 +893,32 @@
         "statVarSpec": {
           "Count_Person_15To19Years_Female_Separated_2019": {
             "date": "2019",
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Population: years 15 to 19, female, separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_15To19Years_Female_Separated_6188132829030295600": {
             "facetId": "6188132829030295600",
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Population: years 15 to 19, female, separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019": {
             "date": "2019",
-            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
+            "name": "Population: years 25 onwards, bachelors degree or higher, female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_9879717220170227367": {
             "facetId": "9879717220170227367",
-            "name": "Population: Years 25 Onwards, Bachelors Degree Or Higher, Female",
+            "name": "Population: years 25 onwards, bachelors degree or higher, female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool_10169881228856630405": {
             "facetId": "10169881228856630405",
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Population: years 3 onwards, female, enrolled in school",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019": {
             "date": "2019",
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Population: years 3 onwards, female, enrolled in school",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_Female_14877681748872237318": {
@@ -1023,12 +1023,12 @@
           },
           "Count_Person_WithOwnChildrenUnder18_Female_2019": {
             "date": "2019",
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Population: with own children under 18, female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Count_Person_WithOwnChildrenUnder18_Female_9057536153401597385": {
             "facetId": "9057536153401597385",
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Population: with own children under 18, female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Median_Age_Person_Female_2019": {
@@ -1043,12 +1043,12 @@
           },
           "dc/lnp5g90fwpct8_16244549487293598039": {
             "facetId": "16244549487293598039",
-            "name": "Population (Measured Based On Jurisdiction): Female, Incarcerated",
+            "name": "Population (measured based on jurisdiction): female, incarcerated",
             "statVar": "dc/lnp5g90fwpct8"
           },
           "dc/lnp5g90fwpct8_2019": {
             "date": "2019",
-            "name": "Population (Measured Based On Jurisdiction): Female, Incarcerated",
+            "name": "Population (measured based on jurisdiction): female, incarcerated",
             "statVar": "dc/lnp5g90fwpct8"
           }
         }

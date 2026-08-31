@@ -421,15 +421,15 @@
         ],
         "statVarSpec": {
           "Count_Person_DetailedEnrolledInGrade6": {
-            "name": "Population: Years 3 Onwards, Enrolled In Grade 6, Enrolled In School",
+            "name": "Population: years 3 onwards, enrolled in grade 6, enrolled in school",
             "statVar": "Count_Person_DetailedEnrolledInGrade6"
           },
           "Count_Person_DetailedEnrolledInGrade7": {
-            "name": "Population: Years 3 Onwards, Enrolled In Grade 7, Enrolled In School",
+            "name": "Population: years 3 onwards, enrolled in grade 7, enrolled in school",
             "statVar": "Count_Person_DetailedEnrolledInGrade7"
           },
           "Count_Person_DetailedEnrolledInGrade8": {
-            "name": "Population: Years 3 Onwards, Enrolled In Grade 8, Enrolled In School",
+            "name": "Population: years 3 onwards, enrolled in grade 8, enrolled in school",
             "statVar": "Count_Person_DetailedEnrolledInGrade8"
           },
           "Count_Person_DetailedMiddleSchool": {
@@ -457,59 +457,59 @@
             "statVar": "Count_Teacher"
           },
           "dc/6zbb7s5nx6rxb_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Some Other Race Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, some other race alone, enrolled in school",
             "statVar": "dc/6zbb7s5nx6rxb"
           },
           "dc/b3nmcj3w1lhed": {
-            "name": "Population: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, two or more races, enrolled in school",
             "statVar": "dc/b3nmcj3w1lhed"
           },
           "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Two Or More Races, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, two or more races, enrolled in school",
             "statVar": "dc/b3nmcj3w1lhed"
           },
           "dc/c57vzg7l74577_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Native Hawaiian Or Other Pacific Islander Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, native hawaiian or other pacific islander alone, enrolled in school",
             "statVar": "dc/c57vzg7l74577"
           },
           "dc/c75qlm98pmcb2_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, White Alone Not Hispanic Or Latino, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, white alone not hispanic or latino, enrolled in school",
             "statVar": "dc/c75qlm98pmcb2"
           },
           "dc/e2szvml8jkld8": {
-            "name": "Population: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, black or african american alone, enrolled in school",
             "statVar": "dc/e2szvml8jkld8"
           },
           "dc/e2szvml8jkld8_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Black Or African American Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, black or african american alone, enrolled in school",
             "statVar": "dc/e2szvml8jkld8"
           },
           "dc/g4fthg3t3y5td": {
-            "name": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, asian alone, enrolled in school",
             "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/g4fthg3t3y5td_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Asian Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, asian alone, enrolled in school",
             "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/njgzb8knf11n8_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, American Indian Or Alaska Native Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, american indian or alaska native alone, enrolled in school",
             "statVar": "dc/njgzb8knf11n8"
           },
           "dc/qvf1yrhwzp8rd": {
-            "name": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, white alone, enrolled in school",
             "statVar": "dc/qvf1yrhwzp8rd"
           },
           "dc/qvf1yrhwzp8rd_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, White Alone, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, white alone, enrolled in school",
             "statVar": "dc/qvf1yrhwzp8rd"
           },
           "dc/zvr6djt1p9gj3": {
-            "name": "Population: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, hispanic or latino, enrolled in school",
             "statVar": "dc/zvr6djt1p9gj3"
           },
           "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
-            "name": "Population: Years 3 Onwards, Middle School, Hispanic Or Latino, Enrolled In School",
+            "name": "Population: years 3 onwards, middle school, hispanic or latino, enrolled in school",
             "statVar": "dc/zvr6djt1p9gj3"
           }
         }
