@@ -1297,19 +1297,19 @@
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/w5ve4140t8xsb": {
-            "name": "Count of BLS Worker: NAICS/333",
+            "name": "Count Of BLS Worker: NAICS/333",
             "statVar": "dc/w5ve4140t8xsb"
           },
           "dc/w5ve4140t8xsb_growth_abs": {
-            "name": "Count of BLS Worker: NAICS/333",
+            "name": "Count Of BLS Worker: NAICS/333",
             "statVar": "dc/w5ve4140t8xsb"
           },
           "dc/w5ve4140t8xsb_growth_pc": {
-            "name": "Count of BLS Worker: NAICS/333",
+            "name": "Count Of BLS Worker: NAICS/333",
             "statVar": "dc/w5ve4140t8xsb"
           },
           "dc/w5ve4140t8xsb_growth_pct": {
-            "name": "Count of BLS Worker: NAICS/333",
+            "name": "Count Of BLS Worker: NAICS/333",
             "statVar": "dc/w5ve4140t8xsb"
           }
         }
