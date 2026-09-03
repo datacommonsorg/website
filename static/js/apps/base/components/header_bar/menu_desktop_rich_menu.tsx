@@ -18,6 +18,9 @@
 
 //TODO: Look into folding this into the same component as the mobile version, pending no changes to the structure.
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
@@ -41,16 +44,61 @@ const MenuDesktopRichMenu = ({
   routes,
   open,
 }: MenuDesktopRichMenuProps): ReactElement => {
+  const theme = useTheme();
   return (
     <div
-      className={`rich-menu-content ${open ? "open" : ""} ${
-        menuItem.secondarySectionGroups?.length > 0 ? "has-secondary" : ""
-      }`}
+      css={css`
+        display: grid;
+        grid-template-columns: ${menuItem.secondarySectionGroups?.length > 0
+          ? "minmax(400px, 1fr) 1fr 1fr 1fr"
+          : "minmax(400px, 1fr) 1fr 1fr"};
+        @media (min-width: ${theme.breakpoints.xl}px) {
+          grid-template-columns: minmax(400px, 1fr) 1fr 1fr 1fr;
+        }
+        gap: ${theme.spacing.xl}px;
+        margin: 0 auto;
+        padding: ${theme.spacing.xxl}px 0 ${theme.spacing.md}px 0;
+        max-width: ${theme.header.width}px;
+        opacity: ${open ? "1" : "0"};
+        transform: ${open
+          ? "translate3d(0, -16px, 0)"
+          : "translate3d(0, 0, 0)"};
+        transition: opacity 0.3s ease-out, transform 0.4s ease-out;
+        height: 100%;
+        max-height: calc(100vh - ${theme.header.lg}px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      `}
     >
-      <div className={"introduction-section"}>
-        <h3>{labels[menuItem.introduction?.label ?? menuItem.label]}</h3>
+      <div
+        css={css`
+          padding: ${theme.spacing.xl}px ${theme.spacing.lg}px;
+        `}
+      >
+        <h3
+          css={css`
+            ${theme.typography.family.heading};
+            ${theme.typography.menu.xl};
+            font-weight: 100;
+          `}
+        >
+          {labels[menuItem.introduction?.label ?? menuItem.label]}
+        </h3>
         {menuItem.introduction?.description && (
-          <p>{menuItem.introduction.description}</p>
+          <p
+            css={css`
+              ${theme.typography.family.text};
+              ${theme.typography.menu.xs};
+            `}
+          >
+            {menuItem.introduction.description}
+          </p>
         )}
         {menuItem.introduction.links?.length > 0 && (
           <MenuRichLinkGroup
@@ -61,7 +109,16 @@ const MenuDesktopRichMenu = ({
         )}
       </div>
       {menuItem.primarySectionGroups?.length > 0 && (
-        <div className={"primary-section"}>
+        <div
+          css={css`
+            padding: ${theme.spacing.xl}px ${theme.spacing.lg}px;
+            grid-column: 2 / span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: ${theme.spacing.lg}px ${theme.spacing.xl}px;
+            border-left: 1px solid #f2f2f2;
+          `}
+        >
           {menuItem.primarySectionGroups.map((primarySectionGroup, index) => (
             <MenuRichSectionGroup
               key={index}
@@ -74,7 +131,12 @@ const MenuDesktopRichMenu = ({
         </div>
       )}
       {menuItem.secondarySectionGroups?.length > 0 && (
-        <div className={"secondary-section"}>
+        <div
+          css={css`
+            padding: ${theme.spacing.xl}px ${theme.spacing.lg}px;
+            border-left: 1px solid #f2f2f2;
+          `}
+        >
           {menuItem.secondarySectionGroups.map(
             (secondarySectionGroup, index) => (
               <MenuRichSectionGroup

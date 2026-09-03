@@ -18,6 +18,9 @@
  * The branding logo that appears in the header.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import {
@@ -48,27 +51,35 @@ const HeaderLogo = ({
   labels,
   routes,
 }: HeaderLogoProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <div className="navbar-brand">
+    <div
+      css={css`
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        gap: ${theme.spacing.md}px;
+      `}
+    >
       {logoPath && (
-        <div className="main-header-logo">
-          <a
-            href={routes["static.homepage"]}
-            aria-label={labels["Back to homepage"]}
-            onClick={(): void => {
-              triggerGAEvent(GA_EVENT_HEADER_CLICK, {
-                [GA_PARAM_ID]: "dc-logo",
-                [GA_PARAM_URL]: "{static.homepage}",
-              });
-            }}
-          >
-            <img
-              src={logoPath}
-              style={{ width: logoWidth }}
-              alt={`${name} logo`}
-            />
-          </a>
-        </div>
+        <a
+          href={routes["static.homepage"]}
+          aria-label={labels["Back to homepage"]}
+          onClick={(): void => {
+            triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+              [GA_PARAM_ID]: "dc-logo",
+              [GA_PARAM_URL]: "{static.homepage}",
+            });
+          }}
+        >
+          <img
+            src={logoPath}
+            alt={`${name} logo`}
+            css={css`
+              width: ${logoWidth};
+            `}
+          />
+        </a>
       )}
       <a
         href={routes["static.homepage"]}
@@ -78,7 +89,14 @@ const HeaderLogo = ({
             [GA_PARAM_URL]: "{static.homepage}",
           });
         }}
-        className="main-header-name"
+        css={css`
+          ${theme.typography.family.heading};
+          ${theme.typography.menu.md};
+          color: ${theme.colors.text.primary.dark};
+          &:hover {
+            text-decoration: none;
+          }
+        `}
       >
         {name}
       </a>
