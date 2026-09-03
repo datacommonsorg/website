@@ -488,7 +488,7 @@
           },
           "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 100000 To 199999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_2016": {
@@ -531,7 +531,7 @@
           },
           "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 200000 To 299999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
           "Count_HousingUnit_HomeValue20000To24999USDollar_2016": {
@@ -580,7 +580,7 @@
           },
           "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: US Dollar 300000 To 499999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 300000 To 499999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
           },
           "Count_HousingUnit_HomeValue30000To34999USDollar_2016": {
@@ -596,12 +596,12 @@
           },
           "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: US Dollar 500000 To 999999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 500000 To 999999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar 50000 To 99999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValue70000To79999USDollar_2016": {
@@ -639,78 +639,78 @@
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
+            "name": "Count Of Housing Unit: US Dollar Upto 49999, Occupied Housing Unit, Owner Occupied",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_WithTotal2Rooms_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Rooms 2",
+            "name": "Count Of Housing Unit: Rooms 2",
             "statVar": "Count_HousingUnit_WithTotal2Rooms"
           },
           "Count_HousingUnit_WithTotal2Rooms_2016_10169881228856630405": {
             "date": "2016",
             "facetId": "10169881228856630405",
-            "name": "Count of Housing Unit: Rooms 2",
+            "name": "Count Of Housing Unit: Rooms 2",
             "statVar": "Count_HousingUnit_WithTotal2Rooms"
           },
           "dc/065dmg2ls1heb_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "name": "Count Of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
             "statVar": "dc/065dmg2ls1heb"
           },
           "dc/5jy4dp16mtssg_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "name": "Count Of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
             "statVar": "dc/5jy4dp16mtssg"
           },
           "dc/9b9gqxj27fqwc_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "name": "Count Of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
             "statVar": "dc/9b9gqxj27fqwc"
           },
           "dc/c9cl49nnrv5x4_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
+            "name": "Count Of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 1500 To 1999",
             "statVar": "dc/c9cl49nnrv5x4"
           },
           "dc/ejpm616jd1pq1_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "name": "Count Of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
             "statVar": "dc/ejpm616jd1pq1"
           },
           "dc/g0yn22m8r3639_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "name": "Count Of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
             "statVar": "dc/g0yn22m8r3639"
           },
           "dc/h34ge8t21h9m1_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "name": "Count Of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
             "statVar": "dc/h34ge8t21h9m1"
           },
           "dc/m60n94sqql2d3_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
+            "name": "Count Of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 3000 Onwards",
             "statVar": "dc/m60n94sqql2d3"
           },
           "dc/nrh9sl7zy12bf_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
+            "name": "Count Of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 800 To 1499",
             "statVar": "dc/nrh9sl7zy12bf"
           },
           "dc/q0p7fcll1lv8c_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
+            "name": "Count Of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar Upto 800",
             "statVar": "dc/q0p7fcll1lv8c"
           },
           "dc/rkq1jgk08zfs7_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
+            "name": "Count Of Housing Unit: With Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 0",
             "statVar": "dc/rkq1jgk08zfs7"
           },
           "dc/ye0f3ej72hhj7_multiple_place_bar_block_2016": {
             "date": "2016",
-            "name": "Count of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
+            "name": "Count Of Housing Unit: Without Mortgage, Occupied Housing Unit, Owner Occupied, US Dollar 2000 To 2999",
             "statVar": "dc/ye0f3ej72hhj7"
           }
         }
@@ -754,15 +754,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/HomeOwnership",
-        "name": "Home Ownership",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/3502000",
@@ -1115,22 +1107,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/HousesByOwnershipCost",
-        "name": "Houses by Ownership Cost",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HousesByTaxAmount",
-        "name": "Houses by Tax Amount",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

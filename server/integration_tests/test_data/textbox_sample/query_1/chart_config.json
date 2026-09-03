@@ -802,7 +802,7 @@
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_With3OrMoreWorker": {
-            "name": "Count of Household: Family Household, Worker 3 Onwards",
+            "name": "Count Of Household: Family Household, Worker 3 Onwards",
             "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker"
           },
           "Count_Person_15OrMoreYears_WithIncome": {
@@ -1251,20 +1251,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_16OrMoreYears_WithEarnings": {
-        "gender": [
-          "Count_Person_16OrMoreYears_Female_WithEarnings",
-          "Count_Person_16OrMoreYears_Male_WithEarnings"
-        ]
-      },
-      "Median_Earnings_Person": {
-        "gender": [
-          "Median_Earnings_Person_Female",
-          "Median_Earnings_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/HouseholdIncomeDistribution",
@@ -1275,15 +1262,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -1636,22 +1615,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

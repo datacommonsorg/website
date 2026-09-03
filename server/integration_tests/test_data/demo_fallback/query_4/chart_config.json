@@ -1243,11 +1243,11 @@
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1": {
-            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Female, Obesity",
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/x13tvt8jsgrm4": {
-            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           }
         }
@@ -1636,26 +1636,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_NoHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_NoHealthInsurance",
-          "Count_Person_Male_NoHealthInsurance"
-        ]
-      },
-      "Count_Person_WithHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_WithHealthInsurance",
-          "Count_Person_Male_WithHealthInsurance"
-        ]
-      },
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/HealthBehavior",
@@ -1666,15 +1647,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health and Behavior",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -2027,15 +2000,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/PreventativeHealth",
-        "name": "Preventive Health",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

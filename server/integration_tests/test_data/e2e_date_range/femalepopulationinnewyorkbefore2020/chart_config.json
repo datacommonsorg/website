@@ -654,36 +654,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person": {
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      },
-      "Count_Person_Female": {
-        "age": [
-          "Count_Person_15To44Years_Female",
-          "Count_Person_21OrMoreYears_Female",
-          "Count_Person_62OrMoreYears_Female",
-          "Count_Person_85OrMoreYears_Female"
-        ],
-        "race": [
-          "Count_Person_Female_AsianAlone",
-          "Count_Person_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_Female_HispanicOrLatino",
-          "Count_Person_Female_WhiteAlone"
-        ]
-      },
-      "Median_Age_Person_Female": {
-        "race": [
-          "Median_Age_Person_Female_AsianAlone",
-          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_Female_HispanicOrLatino",
-          "Median_Age_Person_Female_WhiteAlone"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Gender",
@@ -694,15 +665,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/3502000",
@@ -1055,50 +1018,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Race",
-        "name": "Population by Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Language",
-        "name": "Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MaritalStatus",
-        "name": "Marital Status",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Nationality",
-        "name": "Nationality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Veterans",
-        "name": "Veterans",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

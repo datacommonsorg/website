@@ -999,7 +999,7 @@
             "statVar": "Median_Age_Person_Female_WhiteAlone"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age of Person: USC Foreign Born",
+            "name": "Median Age Of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "Median_Age_Person_HispanicOrLatino": {
@@ -1416,51 +1416,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
-        ],
-        "race": [
-          "Median_Age_Person_AsianAlone",
-          "Median_Age_Person_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_HispanicOrLatino",
-          "Median_Age_Person_WhiteAlone"
-        ]
-      },
-      "Median_Age_Person_BlackOrAfricanAmericanAlone": {
-        "gender": [
-          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_Male_BlackOrAfricanAmericanAlone"
-        ]
-      },
-      "Median_Age_Person_Female": {
-        "race": [
-          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_Female_WhiteAlone"
-        ]
-      },
-      "Median_Age_Person_Male": {
-        "race": [
-          "Median_Age_Person_Male_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_Male_HispanicOrLatino",
-          "Median_Age_Person_Male_WhiteAlone"
-        ]
-      },
-      "Median_Age_Person_WhiteAlone": {
-        "gender": [
-          "Median_Age_Person_Female_WhiteAlone",
-          "Median_Age_Person_Male_WhiteAlone"
-        ]
-      },
-      "Median_Income_Person": {
-        "gender": [
-          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
-          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/AgeMedians",
@@ -1471,15 +1427,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -1832,22 +1780,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/AgeDistribution",
-        "name": "Age Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
-        "name": "Very Old and Very Young Population",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

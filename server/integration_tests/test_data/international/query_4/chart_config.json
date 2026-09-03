@@ -659,11 +659,11 @@
         ],
         "statVarSpec": {
           "Count_BirthEvent": {
-            "name": "Count of Birth Event",
+            "name": "Count Of Birth Event",
             "statVar": "Count_BirthEvent"
           },
           "Count_BirthEvent_AsAFractionOfCount_Person": {
-            "name": "Count of Birth Event (Per capita)",
+            "name": "Count Of Birth Event (Per Capita)",
             "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
           },
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
@@ -1136,32 +1136,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person": {
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      },
-      "sdg/SL_TLF_UEM.AGE--Y15T24": {
-        "sdg_sex": [
-          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F",
-          "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M"
-        ]
-      },
-      "sdg/SL_TLF_UEM.AGE--Y_GE15": {
-        "sdg_sex": [
-          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F",
-          "sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M"
-        ]
-      },
-      "sdg/SL_TLF_UEM.AGE--Y_GE25": {
-        "sdg_sex": [
-          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F",
-          "sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Births",
@@ -1274,7 +1249,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]

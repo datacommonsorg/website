@@ -518,7 +518,7 @@
         ],
         "statVarSpec": {
           "Count_Household_ForeignBorn_PlaceOfBirthEurope": {
-            "name": "Count of Household: USC Foreign Born, Europe",
+            "name": "Count Of Household: USC Foreign Born, Europe",
             "statVar": "Count_Household_ForeignBorn_PlaceOfBirthEurope"
           },
           "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn": {
@@ -570,7 +570,7 @@
             "statVar": "Count_Person_USCitizenByNaturalization"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age of Person: USC Foreign Born",
+            "name": "Median Age Of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "dc/1lm9k2vdxj4c6": {
@@ -627,84 +627,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_Household_ForeignBorn_PlaceOfBirthEurope": {
-        "benefitsStatus": [
-          "Count_Household_WithCashAssistanceInThePast12Months_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Household_WithFoodStampsInThePast12Months_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Household_WithSSIInThePast12Months_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEurope"
-        ]
-      },
-      "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn": {
-        "placeOfBirth": [
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthAsia",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthCaribbean",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthEasternAsia",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthEurope",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthLatinAmerica",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthMexico",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthNorthernWesternEurope",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthCentralAsia",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthEasternAsia",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthamerica",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthSouthernEasternEurope",
-          "Count_Person_MarriedAndNotSeparated_ForeignBorn_PlaceOfBirthWesternAsia"
-        ]
-      },
-      "Count_Person_5OrMoreYears_ForeignBorn": {
-        "languageSpokenAtHome": [
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ForeignBorn",
-          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_ForeignBorn",
-          "dc/1lm9k2vdxj4c6",
-          "dc/wj5l0n6wkep45"
-        ],
-        "race": [
-          "dc/6bkn9vt30f5c1",
-          "dc/xdfcsgf05b4mc",
-          "dc/ym3bfmz5e91gg"
-        ]
-      },
-      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_ForeignBorn": {
-        "abilityToSpeakEnglish": [
-          "dc/3f6nmhf0zhtd4",
-          "dc/hbqhxpwsdvyj8",
-          "dc/sqqee4d2eczw4",
-          "dc/ves02m300f6lc"
-        ]
-      },
-      "Count_Person_Civilian_NonInstitutionalized_ForeignBorn": {
-        "citizenship": [
-          "Count_Person_Civilian_NotAUSCitizen_NonInstitutionalized_ForeignBorn",
-          "Count_Person_Civilian_USCitizenByNaturalization_NonInstitutionalized_ForeignBorn"
-        ]
-      },
-      "Median_Age_Person_ForeignBorn": {
-        "placeOfBirth": [
-          "Median_Age_Person_ForeignBorn_PlaceOfBirthAsia",
-          "Median_Age_Person_ForeignBorn_PlaceOfBirthEurope",
-          "Median_Age_Person_ForeignBorn_PlaceOfBirthLatinAmerica"
-        ]
-      },
-      "dc/1lm9k2vdxj4c6": {
-        "abilityToSpeakEnglish": [
-          "dc/7qs9zcrxhm28f",
-          "dc/edfjy64gmxf6f",
-          "dc/wf1rm5zx34dtg",
-          "dc/yx0mdj3dnk3mb"
-        ]
-      },
-      "dc/wj5l0n6wkep45": {
-        "abilityToSpeakEnglish": [
-          "dc/0165994v0l8fh",
-          "dc/6rzmvxpgqlww6",
-          "dc/92mnzpclp7tbd",
-          "dc/vdss0k16mbq34"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/PlaceOfBirth",
@@ -715,15 +638,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Immigration",
-        "name": "Immigration",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/3502000",
@@ -1076,15 +991,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/LanguageSpokenAtHome_ForeignBorn",
-        "name": "Language Spoken by Foreign Born Population",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

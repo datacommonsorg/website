@@ -640,56 +640,8 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/sdg_1",
-        "name": "No Poverty",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "sdg/SD_MDP_ANDI": {
-        "sdg_urbanisation": [
-          "sdg/SD_MDP_ANDI.URBANISATION--R",
-          "sdg/SD_MDP_ANDI.URBANISATION--U"
-        ]
-      },
-      "sdg/SI_COV_WKINJRY": {
-        "sdg_sex": [
-          "sdg/SI_COV_WKINJRY.SEX--F",
-          "sdg/SI_COV_WKINJRY.SEX--M"
-        ]
-      },
-      "sdg/SI_POV_DAY1": {
-        "age": [
-          "sdg/SI_POV_DAY1.AGE--Y0T14",
-          "sdg/SI_POV_DAY1.AGE--Y15T64",
-          "sdg/SI_POV_DAY1.AGE--Y_GE65"
-        ],
-        "sdg_sex": [
-          "sdg/SI_POV_DAY1.SEX--F",
-          "sdg/SI_POV_DAY1.SEX--M"
-        ],
-        "sdg_urbanisation": [
-          "sdg/SI_POV_DAY1.URBANISATION--R",
-          "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      },
-      "sdg/SP_ACS_BSRVH2O": {
-        "sdg_urbanisation": [
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
-        ]
-      },
-      "sdg/SP_ACS_BSRVSAN": {
-        "sdg_urbanisation": [
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -700,32 +652,9 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

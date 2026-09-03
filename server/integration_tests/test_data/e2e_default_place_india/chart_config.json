@@ -1127,34 +1127,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person": {
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      },
-      "Count_Person_Female": {
-        "literacyStatus": [
-          "Count_Person_Illiterate_Female",
-          "Count_Person_Literate_Female"
-        ],
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_Female",
-          "Count_Person_Urban_Female"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Female",
-          "indianCensus/Count_Person_Religion_Christian_Female",
-          "indianCensus/Count_Person_Religion_Hindu_Female",
-          "indianCensus/Count_Person_Religion_Muslim_Female"
-        ],
-        "workerStatus": [
-          "Count_Person_NonWorker_Female",
-          "Count_Person_Workers_Female"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Gender",
@@ -1165,15 +1138,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -1268,7 +1233,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]

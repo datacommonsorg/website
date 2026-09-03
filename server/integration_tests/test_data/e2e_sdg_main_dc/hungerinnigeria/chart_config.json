@@ -421,24 +421,8 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/HeightStunting",
-        "name": "Height Stunting",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "sdg/AG_FOOD_WST": {
-        "sdg_foodWasteSector": [
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_HHS",
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_OOHC",
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_RTL"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Malnutrition",
@@ -544,7 +528,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]
