@@ -60,7 +60,9 @@ fi
 
 nginx -c /workspace/nginx.conf
 
-MIXER_ARGS=()
+MIXER_ARGS=(
+    "--disable-topic-expansion=true"
+)
 if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     # Custom embeddings index built at 
     # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
