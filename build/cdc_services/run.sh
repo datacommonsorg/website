@@ -61,7 +61,7 @@ fi
 nginx -c /workspace/nginx.conf
 
 MIXER_ARGS=(
-    "--disable-topic-expansion=true"
+    "--agent_default_expand_topics=false"
 )
 if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
     # Custom embeddings index built at 
