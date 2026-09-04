@@ -208,7 +208,7 @@
         ],
         "statVarSpec": {
           "Area_FloodEvent": {
-            "name": "Area of Flood Event",
+            "name": "Area Of Flood Event",
             "statVar": "Area_FloodEvent"
           },
           "Count_DroughtEvent": {
@@ -220,11 +220,11 @@
             "statVar": "Count_FloodEvent"
           },
           "Max_Rainfall": {
-            "name": "Max Rainfall of Place",
+            "name": "Max Rainfall Of Place",
             "statVar": "Max_Rainfall"
           },
           "Min_Rainfall": {
-            "name": "Min Rainfall of Place",
+            "name": "Min Rainfall Of Place",
             "statVar": "Min_Rainfall"
           }
         }
@@ -480,15 +480,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/NaturalDisasters",
-        "name": "Natural Disasters",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/CAN",
@@ -583,35 +575,13 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Drought",
-        "name": "Drought",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Fire",
-        "name": "Fire",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Storm",
-        "name": "Storms",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

@@ -484,19 +484,19 @@
             "statVar": "Count_BirthEvent_LiveBirth_MotherLessThan9ThGrade"
           },
           "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female": {
-            "name": "Population: Years 15 To 19, Birth In The Past 12 Months, Female (As fraction of Count Person 15 To 19 Years Female)",
+            "name": "Population: Years 15 To 19, Birth In The Past 12 Months, Female (As Fraction Of Count Person 15 To 19 Years Female)",
             "statVar": "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female"
           },
           "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female": {
-            "name": "Population: Years 15 To 50, Birth In The Past 12 Months, Female (As fraction of Count Person 15 To 50 Years Female)",
+            "name": "Population: Years 15 To 50, Birth In The Past 12 Months, Female (As Fraction Of Count Person 15 To 50 Years Female)",
             "statVar": "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female"
           },
           "Count_Person_16To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_16To50Years_Female": {
-            "name": "Population: Years 16 To 50, Birth In The Past 12 Months, Female (As fraction of Count Person 16 To 50 Years Female)",
+            "name": "Population: Years 16 To 50, Birth In The Past 12 Months, Female (As Fraction Of Count Person 16 To 50 Years Female)",
             "statVar": "Count_Person_16To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_16To50Years_Female"
           },
           "Count_Person_35To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_35To50Years_Female": {
-            "name": "Population: Years 35 To 50, Birth In The Past 12 Months, Female (As fraction of Count Person 35 To 50 Years Female)",
+            "name": "Population: Years 35 To 50, Birth In The Past 12 Months, Female (As Fraction Of Count Person 35 To 50 Years Female)",
             "statVar": "Count_Person_35To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_35To50Years_Female"
           },
           "Count_Person_WithOwnChildrenUnder18": {
@@ -901,57 +901,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Mean_LmpGestationalAge_BirthEvent_LiveBirth": {
-        "mothersAge": [
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother13Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother14Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother15OrMoreYears",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother15Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother16Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother17Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother18Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother19Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother20To24Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother20Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother21Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother22Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother23Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother24Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother25To29Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother25Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother26Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother27Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother28Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother29Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother30To34Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother30Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother31Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother32Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother33Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother34Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother35To39Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother35Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother36Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother37Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother38Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother39Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother40To44Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother40Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother41Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother42Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother43Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother44Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother45To49Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother45Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother46Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother47Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother48Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother49Years",
-          "Mean_LmpGestationalAge_BirthEvent_LiveBirth_Mother50OrMoreYears"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [],
     "parentPlaces": [],
     "parentTopics": [],

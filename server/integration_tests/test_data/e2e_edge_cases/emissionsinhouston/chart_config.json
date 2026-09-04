@@ -564,7 +564,7 @@
             "statVar": "Annual_Emissions_GreenhouseGas_NonBiogenic"
           },
           "Annual_Emissions_Hydrofluorocarbon_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Hydrofluorocarbon",
+            "name": "Annual Amount Of Emissions: Non Biogenic Emission Source, Hydrofluorocarbon",
             "statVar": "Annual_Emissions_Hydrofluorocarbon_NonBiogenic"
           },
           "Annual_Emissions_Methane_NonBiogenic": {
@@ -572,7 +572,7 @@
             "statVar": "Annual_Emissions_Methane_NonBiogenic"
           },
           "Annual_Emissions_NitrogenTrifluoride_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Nitrogen Trifluoride",
+            "name": "Annual Amount Of Emissions: Non Biogenic Emission Source, Nitrogen Trifluoride",
             "statVar": "Annual_Emissions_NitrogenTrifluoride_NonBiogenic"
           },
           "Annual_Emissions_NitrousOxide_NonBiogenic": {
@@ -580,15 +580,15 @@
             "statVar": "Annual_Emissions_NitrousOxide_NonBiogenic"
           },
           "Annual_Emissions_Perfluorocarbon_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Perfluorocarbon",
+            "name": "Annual Amount Of Emissions: Non Biogenic Emission Source, Perfluorocarbon",
             "statVar": "Annual_Emissions_Perfluorocarbon_NonBiogenic"
           },
           "Annual_Emissions_SulfurHexafluoride_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Sulfur Hexafluoride",
+            "name": "Annual Amount Of Emissions: Non Biogenic Emission Source, Sulfur Hexafluoride",
             "statVar": "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
           },
           "Annual_Emissions_SulfurHexafluoride_NonBiogenic_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Sulfur Hexafluoride",
+            "name": "Annual Amount Of Emissions: Non Biogenic Emission Source, Sulfur Hexafluoride",
             "statVar": "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
           }
         }
@@ -647,39 +647,9 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Temperatures",
-        "name": "Temperature",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Precipitation",
-        "name": "Precipitation",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GreenJobs",
-        "name": "Green Jobs",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [

@@ -1788,154 +1788,8 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Asthma",
-        "name": "Asthma",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Count_Death_45To54Years_Neoplasms": {
-        "gender": [
-          "Count_Death_45To54Years_Neoplasms_Female",
-          "Count_Death_45To54Years_Neoplasms_Male"
-        ]
-      },
-      "Count_Death_55To64Years_Neoplasms": {
-        "gender": [
-          "Count_Death_55To64Years_Neoplasms_Female",
-          "Count_Death_55To64Years_Neoplasms_Male"
-        ]
-      },
-      "Count_Death_65To74Years_Neoplasms": {
-        "gender": [
-          "Count_Death_65To74Years_Neoplasms_Female",
-          "Count_Death_65To74Years_Neoplasms_Male"
-        ],
-        "race": [
-          "Count_Death_65To74Years_Neoplasms_AsianOrPacificIslander",
-          "Count_Death_65To74Years_Neoplasms_White"
-        ]
-      },
-      "Count_Death_75To84Years_MentalBehaviouralDisorders": {
-        "gender": [
-          "Count_Death_75To84Years_MentalBehaviouralDisorders_Female",
-          "Count_Death_75To84Years_MentalBehaviouralDisorders_Male"
-        ]
-      },
-      "Count_Death_75To84Years_Neoplasms": {
-        "gender": [
-          "Count_Death_75To84Years_Neoplasms_Female",
-          "Count_Death_75To84Years_Neoplasms_Male"
-        ],
-        "race": [
-          "Count_Death_75To84Years_Neoplasms_AsianOrPacificIslander",
-          "Count_Death_75To84Years_Neoplasms_White"
-        ]
-      },
-      "Count_Death_85Years_Neoplasms": {
-        "gender": [
-          "Count_Death_85Years_Neoplasms_Female",
-          "Count_Death_85Years_Neoplasms_Male"
-        ]
-      },
-      "Count_Death_MentalBehaviouralDisorders": {
-        "age": [
-          "Count_Death_65To74Years_MentalBehaviouralDisorders",
-          "Count_Death_75To84Years_MentalBehaviouralDisorders",
-          "Count_Death_85Years_MentalBehaviouralDisorders"
-        ]
-      },
-      "Count_Death_Neoplasms": {
-        "age": [
-          "Count_Death_35To44Years_Neoplasms",
-          "Count_Death_45To54Years_Neoplasms",
-          "Count_Death_55To64Years_Neoplasms",
-          "Count_Death_65To74Years_Neoplasms",
-          "Count_Death_75To84Years_Neoplasms",
-          "Count_Death_85Years_Neoplasms",
-          "Count_MortalityEvent_85OrMoreYears_ICD10/C00-D48"
-        ]
-      },
-      "Count_Person_NoHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_NoHealthInsurance",
-          "Count_Person_Male_NoHealthInsurance"
-        ]
-      },
-      "Count_Person_WithHealthInsurance": {
-        "gender": [
-          "Count_Person_Female_WithHealthInsurance",
-          "Count_Person_Male_WithHealthInsurance"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/HealthConditions",
@@ -1946,15 +1800,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/06001",
@@ -2153,36 +1999,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/HealthEquity",
-        "name": "Health Equity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HealthInsurance",
-        "name": "Health Insurance",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Mortality",
-        "name": "Mortality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health and Behavior",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [

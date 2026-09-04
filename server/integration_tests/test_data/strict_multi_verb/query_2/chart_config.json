@@ -998,15 +998,15 @@
         ],
         "statVarSpec": {
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Count of Household: With Earnings, USC Foreign Born, Asia",
+            "name": "Count Of Household: With Earnings, USC Foreign Born, Asia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
           },
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia",
+            "name": "Count Of Household: With Earnings, USC Foreign Born, Eastern Asia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Count of Household: With Retirement Income In The Past 12 Months, USC Foreign Born, Asia",
+            "name": "Count Of Household: With Retirement Income In The Past 12 Months, USC Foreign Born, Asia",
             "statVar": "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia"
           },
           "Count_Person_0To4Years_AsianAlone": {
@@ -1182,15 +1182,15 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Earnings of Household: USC Foreign Born, Asia",
+            "name": "Mean Earnings Of Household: USC Foreign Born, Asia",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Mean Earnings of Household: USC Foreign Born, Eastern Asia",
+            "name": "Mean Earnings Of Household: USC Foreign Born, Eastern Asia",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Retirement Income of Household: USC Foreign Born, Asia",
+            "name": "Mean Retirement Income Of Household: USC Foreign Born, Asia",
             "statVar": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Median_Age_Person_AsianAlone": {
@@ -1198,11 +1198,11 @@
             "statVar": "Median_Age_Person_AsianAlone"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Median Income of Household: USC Foreign Born, Asia",
+            "name": "Median Income Of Household: USC Foreign Born, Asia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Median Income of Household: USC Foreign Born, Eastern Asia",
+            "name": "Median Income Of Household: USC Foreign Born, Eastern Asia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Median_Income_Household_HouseholderRaceAsianAlone": {
