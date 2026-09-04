@@ -241,7 +241,7 @@
         ],
         "statVarSpec": {
           "Count_BirthEvent": {
-            "name": "Count of Birth Event",
+            "name": "Count of birth event",
             "statVar": "Count_BirthEvent"
           },
           "Count_Person": {
@@ -249,7 +249,7 @@
             "statVar": "Count_Person"
           },
           "Count_Person_65OrMoreYears": {
-            "name": "Population: Years 65 Onwards",
+            "name": "Population: years 65 onwards",
             "statVar": "Count_Person_65OrMoreYears"
           },
           "Count_Person_Female": {

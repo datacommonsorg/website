@@ -882,11 +882,11 @@
         ],
         "statVarSpec": {
           "Count_Person_15To19Years_Female_Separated": {
-            "name": "Population: Years 15 To 19, Female, Separated",
+            "name": "Population: years 15 to 19, female, separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool": {
-            "name": "Population: Years 3 Onwards, Female, Enrolled In School",
+            "name": "Population: years 3 onwards, female, enrolled in school",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_Female": {
@@ -934,7 +934,7 @@
             "statVar": "Count_Person_Male"
           },
           "Count_Person_WithOwnChildrenUnder18_Female": {
-            "name": "Population: With Own Children Under 18, Female",
+            "name": "Population: with own children under 18, female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
           "Median_Age_Person_Female": {
@@ -942,7 +942,7 @@
             "statVar": "Median_Age_Person_Female"
           },
           "dc/lnp5g90fwpct8": {
-            "name": "Population (Measured Based On Jurisdiction): Female, Incarcerated",
+            "name": "Population (measured based on jurisdiction): female, incarcerated",
             "statVar": "dc/lnp5g90fwpct8"
           }
         }

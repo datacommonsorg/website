@@ -576,15 +576,15 @@
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Population: years 15 onwards, with income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_16OrMoreYears_WithEarnings": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Population: years 16 onwards, with earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_Civilian_InLaborForce": {
-            "name": "Population: Years 16 Onwards, Civilian, BLS In Labor Force",
+            "name": "Population: years 16 onwards, civilian, BLS in labor force",
             "statVar": "Count_Person_Civilian_InLaborForce"
           },
           "Count_Person_Employed": {
@@ -596,7 +596,7 @@
             "statVar": "Count_Person_InLaborForce"
           },
           "Count_Person_Male_DidNotWork": {
-            "name": "Population: Years 16 To 64, Male, Did Not Work",
+            "name": "Population: years 16 to 64, male, did not work",
             "statVar": "Count_Person_Male_DidNotWork"
           },
           "Count_Person_NotEnrolledInSchool": {
@@ -604,11 +604,11 @@
             "statVar": "Count_Person_NotEnrolledInSchool"
           },
           "Count_Person_NotInLaborForce": {
-            "name": "Population: Years 16 Onwards, BLS Not In Labor Force",
+            "name": "Population: years 16 onwards, BLS not in labor force",
             "statVar": "Count_Person_NotInLaborForce"
           },
           "Count_Person_Unemployed": {
-            "name": "Population: BLS Unemployed",
+            "name": "Population: BLS unemployed",
             "statVar": "Count_Person_Unemployed"
           },
           "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {

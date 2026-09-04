@@ -208,7 +208,7 @@
         ],
         "statVarSpec": {
           "Area_FloodEvent": {
-            "name": "Area of Flood Event",
+            "name": "Area of flood event",
             "statVar": "Area_FloodEvent"
           },
           "Count_DroughtEvent": {
@@ -220,11 +220,11 @@
             "statVar": "Count_FloodEvent"
           },
           "Max_Rainfall": {
-            "name": "Max Rainfall of Place",
+            "name": "Max rainfall of place",
             "statVar": "Max_Rainfall"
           },
           "Min_Rainfall": {
-            "name": "Min Rainfall of Place",
+            "name": "Min rainfall of place",
             "statVar": "Min_Rainfall"
           }
         }
@@ -583,7 +583,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]

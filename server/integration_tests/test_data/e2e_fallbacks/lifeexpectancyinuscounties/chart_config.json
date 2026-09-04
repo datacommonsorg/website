@@ -875,7 +875,7 @@
             "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
           },
           "Count_Death_Female": {
-            "name": "Count of Mortality Event: Female",
+            "name": "Count of mortality event: female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
@@ -891,7 +891,7 @@
             "statVar": "Count_Death_Neoplasms"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: Years Upto 1",
+            "name": "Count of mortality event: years upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {

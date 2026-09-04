@@ -761,7 +761,7 @@
         ],
         "statVarSpec": {
           "Count_Person_Illiterate": {
-            "name": "Population: Illiterate",
+            "name": "Population: illiterate",
             "statVar": "Count_Person_Illiterate"
           },
           "Count_Person_Illiterate_Female": {
@@ -773,51 +773,51 @@
             "statVar": "Count_Person_Illiterate_Male"
           },
           "Count_Person_Illiterate_Rural": {
-            "name": "Population: Illiterate, Rural",
+            "name": "Population: illiterate, rural",
             "statVar": "Count_Person_Illiterate_Rural"
           },
           "Count_Person_Literate": {
-            "name": "Population: Literate",
+            "name": "Population: literate",
             "statVar": "Count_Person_Literate"
           },
           "Count_Person_Literate_Female": {
-            "name": "Population: Female, Literate",
+            "name": "Population: female, literate",
             "statVar": "Count_Person_Literate_Female"
           },
           "Count_Person_Literate_Male": {
-            "name": "Population: Male, Literate",
+            "name": "Population: male, literate",
             "statVar": "Count_Person_Literate_Male"
           },
           "Count_Person_Literate_Rural": {
-            "name": "Population: Literate, Rural",
+            "name": "Population: literate, rural",
             "statVar": "Count_Person_Literate_Rural"
           },
           "Count_Person_Literate_Urban": {
-            "name": "Population: Literate, Urban",
+            "name": "Population: literate, urban",
             "statVar": "Count_Person_Literate_Urban"
           },
           "indianCensus/Count_Person_Religion_Buddhist_Literate": {
-            "name": "Population: Literate, Buddhism",
+            "name": "Population: literate, buddhism",
             "statVar": "indianCensus/Count_Person_Religion_Buddhist_Literate"
           },
           "indianCensus/Count_Person_Religion_Christian_Illiterate": {
-            "name": "Population: Illiterate, Christianity",
+            "name": "Population: illiterate, christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Illiterate"
           },
           "indianCensus/Count_Person_Religion_Christian_Literate": {
-            "name": "Population: Literate, Christianity",
+            "name": "Population: literate, christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Literate"
           },
           "indianCensus/Count_Person_Religion_Hindu_Literate": {
-            "name": "Population: Literate, Hinduism",
+            "name": "Population: literate, hinduism",
             "statVar": "indianCensus/Count_Person_Religion_Hindu_Literate"
           },
           "indianCensus/Count_Person_Religion_Muslim_Illiterate": {
-            "name": "Population: Illiterate, Islam",
+            "name": "Population: illiterate, islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Illiterate"
           },
           "indianCensus/Count_Person_Religion_Muslim_Literate": {
-            "name": "Population: Literate, Islam",
+            "name": "Population: literate, islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Literate"
           }
         }
@@ -1323,7 +1323,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]

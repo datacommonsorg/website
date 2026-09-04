@@ -387,21 +387,21 @@
         ],
         "statVarSpec": {
           "Area_FloodEvent": {
-            "name": "Area of Flood Event",
+            "name": "Area of flood event",
             "statVar": "Area_FloodEvent"
           },
           "Area_FloodEvent_9186366975012697583": {
             "facetId": "9186366975012697583",
-            "name": "Area of Flood Event",
+            "name": "Area of flood event",
             "statVar": "Area_FloodEvent"
           },
           "Count_DenseFogEvent": {
-            "name": "Count of Dense Fog Event",
+            "name": "Count of dense fog event",
             "statVar": "Count_DenseFogEvent"
           },
           "Count_DenseFogEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Dense Fog Event",
+            "name": "Count of dense fog event",
             "statVar": "Count_DenseFogEvent"
           },
           "Count_DroughtEvent": {
@@ -414,21 +414,21 @@
             "statVar": "Count_DroughtEvent"
           },
           "Count_FireEvent": {
-            "name": "Count of Fire Event",
+            "name": "Count of fire event",
             "statVar": "Count_FireEvent"
           },
           "Count_FireEvent_12020184095488665110": {
             "facetId": "12020184095488665110",
-            "name": "Count of Fire Event",
+            "name": "Count of fire event",
             "statVar": "Count_FireEvent"
           },
           "Count_FlashFloodEvent": {
-            "name": "Count of Flash Flood Event",
+            "name": "Count of flash flood event",
             "statVar": "Count_FlashFloodEvent"
           },
           "Count_FlashFloodEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Flash Flood Event",
+            "name": "Count of flash flood event",
             "statVar": "Count_FlashFloodEvent"
           },
           "Count_FloodEvent": {
@@ -442,17 +442,17 @@
           },
           "Count_HighWindEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of High Wind Event",
+            "name": "Count of high wind event",
             "statVar": "Count_HighWindEvent"
           },
           "Count_StrongWindEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Strong Wind Event",
+            "name": "Count of strong wind event",
             "statVar": "Count_StrongWindEvent"
           },
           "Count_ThunderstormWindEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Thunderstorm Wind Event",
+            "name": "Count of thunderstorm wind event",
             "statVar": "Count_ThunderstormWindEvent"
           },
           "Count_WildfireEvent": {
@@ -466,7 +466,7 @@
           },
           "Count_WinterStormEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Winter Storm Event",
+            "name": "Count of winter storm event",
             "statVar": "Count_WinterStormEvent"
           }
         }

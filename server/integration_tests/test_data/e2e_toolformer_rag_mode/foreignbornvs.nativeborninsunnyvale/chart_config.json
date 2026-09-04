@@ -518,19 +518,19 @@
         ],
         "statVarSpec": {
           "Count_Household_ForeignBorn_PlaceOfBirthEurope": {
-            "name": "Count of Household: USC Foreign Born, Europe",
+            "name": "Count of household: USC foreign born, europe",
             "statVar": "Count_Household_ForeignBorn_PlaceOfBirthEurope"
           },
           "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn": {
-            "name": "Population: Years 15 Onwards, Married And Not Separated, USC Foreign Born",
+            "name": "Population: years 15 onwards, married and not separated, USC foreign born",
             "statVar": "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn"
           },
           "Count_Person_15OrMoreYears_Separated_ForeignBorn": {
-            "name": "Population: Years 15 Onwards, Separated, USC Foreign Born",
+            "name": "Population: years 15 onwards, separated, USC foreign born",
             "statVar": "Count_Person_15OrMoreYears_Separated_ForeignBorn"
           },
           "Count_Person_5OrMoreYears_ForeignBorn": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born",
+            "name": "Population: years 5 onwards, USC foreign born",
             "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ForeignBorn": {
@@ -542,7 +542,7 @@
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_ForeignBorn"
           },
           "Count_Person_Civilian_NonInstitutionalized_ForeignBorn": {
-            "name": "Population: Civilian, USC Non Institutionalized, USC Foreign Born",
+            "name": "Population: civilian, USC non institutionalized, USC foreign born",
             "statVar": "Count_Person_Civilian_NonInstitutionalized_ForeignBorn"
           },
           "Count_Person_NotAUSCitizen": {
@@ -550,15 +550,15 @@
             "statVar": "Count_Person_NotAUSCitizen"
           },
           "Count_Person_PlaceOfBirthAsia": {
-            "name": "Population: USC Foreign Born, Asia",
+            "name": "Population: USC foreign born, asia",
             "statVar": "Count_Person_PlaceOfBirthAsia"
           },
           "Count_Person_PlaceOfBirthEurope": {
-            "name": "Population: USC Foreign Born, Europe",
+            "name": "Population: USC foreign born, europe",
             "statVar": "Count_Person_PlaceOfBirthEurope"
           },
           "Count_Person_PlaceOfBirthLatinAmerica": {
-            "name": "Population: USC Foreign Born, Latin America",
+            "name": "Population: USC foreign born, latin america",
             "statVar": "Count_Person_PlaceOfBirthLatinAmerica"
           },
           "Count_Person_USCitizenBornInTheUnitedStates": {
@@ -570,31 +570,31 @@
             "statVar": "Count_Person_USCitizenByNaturalization"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age of Person: USC Foreign Born",
+            "name": "Median age of person: USC foreign born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "dc/1lm9k2vdxj4c6": {
-            "name": "Population: Years 5 Onwards, Asian And Pacific Island Languages, USC Foreign Born",
+            "name": "Population: years 5 onwards, asian and pacific island languages, USC foreign born",
             "statVar": "dc/1lm9k2vdxj4c6"
           },
           "dc/6bkn9vt30f5c1": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, American Indian Or Alaska Native Alone",
+            "name": "Population: years 5 onwards, USC foreign born, american indian or alaska native alone",
             "statVar": "dc/6bkn9vt30f5c1"
           },
           "dc/gvnh5cpl9h1rf": {
-            "name": "Population: Years 15 Onwards, With Income, Foreign Born",
+            "name": "Population: years 15 onwards, with income, foreign born",
             "statVar": "dc/gvnh5cpl9h1rf"
           },
           "dc/wj5l0n6wkep45": {
-            "name": "Population: Years 5 Onwards, Other Indo European Languages, USC Foreign Born",
+            "name": "Population: years 5 onwards, other indo european languages, USC foreign born",
             "statVar": "dc/wj5l0n6wkep45"
           },
           "dc/xdfcsgf05b4mc": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, Asian Alone",
+            "name": "Population: years 5 onwards, USC foreign born, asian alone",
             "statVar": "dc/xdfcsgf05b4mc"
           },
           "dc/ym3bfmz5e91gg": {
-            "name": "Population: Years 5 Onwards, USC Foreign Born, White Alone",
+            "name": "Population: years 5 onwards, USC foreign born, white alone",
             "statVar": "dc/ym3bfmz5e91gg"
           }
         }

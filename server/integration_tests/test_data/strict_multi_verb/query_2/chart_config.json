@@ -998,175 +998,175 @@
         ],
         "statVarSpec": {
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Count of Household: With Earnings, USC Foreign Born, Asia",
+            "name": "Count of household: with earnings, USC foreign born, asia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
           },
           "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Count of Household: With Earnings, USC Foreign Born, Eastern Asia",
+            "name": "Count of household: with earnings, USC foreign born, eastern asia",
             "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Count of Household: With Retirement Income In The Past 12 Months, USC Foreign Born, Asia",
+            "name": "Count of household: with retirement income in the past 12 months, USC foreign born, asia",
             "statVar": "Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia"
           },
           "Count_Person_0To4Years_AsianAlone": {
-            "name": "Population: Years 0 To 4, Asian Alone",
+            "name": "Population: years 0 to 4, asian alone",
             "statVar": "Count_Person_0To4Years_AsianAlone"
           },
           "Count_Person_0To4Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 0 To 4, Asian Alone",
+            "name": "Population: years 0 to 4, asian alone",
             "statVar": "Count_Person_0To4Years_AsianAlone"
           },
           "Count_Person_0To4Years_Female_AsianAlone": {
-            "name": "Population: Years 0 To 4, Female, Asian Alone",
+            "name": "Population: years 0 to 4, female, asian alone",
             "statVar": "Count_Person_0To4Years_Female_AsianAlone"
           },
           "Count_Person_0To4Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 0 To 4, Female, Asian Alone",
+            "name": "Population: years 0 to 4, female, asian alone",
             "statVar": "Count_Person_0To4Years_Female_AsianAlone"
           },
           "Count_Person_10To14Years_AsianAlone": {
-            "name": "Population: Years 10 To 14, Asian Alone",
+            "name": "Population: years 10 to 14, asian alone",
             "statVar": "Count_Person_10To14Years_AsianAlone"
           },
           "Count_Person_10To14Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 10 To 14, Asian Alone",
+            "name": "Population: years 10 to 14, asian alone",
             "statVar": "Count_Person_10To14Years_AsianAlone"
           },
           "Count_Person_10To14Years_Female_AsianAlone": {
-            "name": "Population: Years 10 To 14, Female, Asian Alone",
+            "name": "Population: years 10 to 14, female, asian alone",
             "statVar": "Count_Person_10To14Years_Female_AsianAlone"
           },
           "Count_Person_10To14Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 10 To 14, Female, Asian Alone",
+            "name": "Population: years 10 to 14, female, asian alone",
             "statVar": "Count_Person_10To14Years_Female_AsianAlone"
           },
           "Count_Person_15To19Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 15 To 19, Asian Alone",
+            "name": "Population: years 15 to 19, asian alone",
             "statVar": "Count_Person_15To19Years_AsianAlone"
           },
           "Count_Person_15To19Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 15 To 19, Female, Asian Alone",
+            "name": "Population: years 15 to 19, female, asian alone",
             "statVar": "Count_Person_15To19Years_Female_AsianAlone"
           },
           "Count_Person_20To24Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 20 To 24, Asian Alone",
+            "name": "Population: years 20 to 24, asian alone",
             "statVar": "Count_Person_20To24Years_AsianAlone"
           },
           "Count_Person_20To24Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 20 To 24, Female, Asian Alone",
+            "name": "Population: years 20 to 24, female, asian alone",
             "statVar": "Count_Person_20To24Years_Female_AsianAlone"
           },
           "Count_Person_25To29Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 25 To 29, Asian Alone",
+            "name": "Population: years 25 to 29, asian alone",
             "statVar": "Count_Person_25To29Years_AsianAlone"
           },
           "Count_Person_25To29Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 25 To 29, Female, Asian Alone",
+            "name": "Population: years 25 to 29, female, asian alone",
             "statVar": "Count_Person_25To29Years_Female_AsianAlone"
           },
           "Count_Person_30To34Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 30 To 34, Asian Alone",
+            "name": "Population: years 30 to 34, asian alone",
             "statVar": "Count_Person_30To34Years_AsianAlone"
           },
           "Count_Person_30To34Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 30 To 34, Female, Asian Alone",
+            "name": "Population: years 30 to 34, female, asian alone",
             "statVar": "Count_Person_30To34Years_Female_AsianAlone"
           },
           "Count_Person_35To39Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 35 To 39, Asian Alone",
+            "name": "Population: years 35 to 39, asian alone",
             "statVar": "Count_Person_35To39Years_AsianAlone"
           },
           "Count_Person_35To39Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 35 To 39, Female, Asian Alone",
+            "name": "Population: years 35 to 39, female, asian alone",
             "statVar": "Count_Person_35To39Years_Female_AsianAlone"
           },
           "Count_Person_40To44Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 40 To 44, Asian Alone",
+            "name": "Population: years 40 to 44, asian alone",
             "statVar": "Count_Person_40To44Years_AsianAlone"
           },
           "Count_Person_40To44Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 40 To 44, Female, Asian Alone",
+            "name": "Population: years 40 to 44, female, asian alone",
             "statVar": "Count_Person_40To44Years_Female_AsianAlone"
           },
           "Count_Person_45To49Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 45 To 49, Asian Alone",
+            "name": "Population: years 45 to 49, asian alone",
             "statVar": "Count_Person_45To49Years_AsianAlone"
           },
           "Count_Person_45To49Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 45 To 49, Female, Asian Alone",
+            "name": "Population: years 45 to 49, female, asian alone",
             "statVar": "Count_Person_45To49Years_Female_AsianAlone"
           },
           "Count_Person_50To54Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 50 To 54, Asian Alone",
+            "name": "Population: years 50 to 54, asian alone",
             "statVar": "Count_Person_50To54Years_AsianAlone"
           },
           "Count_Person_50To54Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 50 To 54, Female, Asian Alone",
+            "name": "Population: years 50 to 54, female, asian alone",
             "statVar": "Count_Person_50To54Years_Female_AsianAlone"
           },
           "Count_Person_55To59Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 55 To 59, Asian Alone",
+            "name": "Population: years 55 to 59, asian alone",
             "statVar": "Count_Person_55To59Years_AsianAlone"
           },
           "Count_Person_55To59Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 55 To 59, Female, Asian Alone",
+            "name": "Population: years 55 to 59, female, asian alone",
             "statVar": "Count_Person_55To59Years_Female_AsianAlone"
           },
           "Count_Person_5To9Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 5 To 9, Asian Alone",
+            "name": "Population: years 5 to 9, asian alone",
             "statVar": "Count_Person_5To9Years_AsianAlone"
           },
           "Count_Person_5To9Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 5 To 9, Female, Asian Alone",
+            "name": "Population: years 5 to 9, female, asian alone",
             "statVar": "Count_Person_5To9Years_Female_AsianAlone"
           },
           "Count_Person_60To64Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 60 To 64, Asian Alone",
+            "name": "Population: years 60 to 64, asian alone",
             "statVar": "Count_Person_60To64Years_AsianAlone"
           },
           "Count_Person_60To64Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 60 To 64, Female, Asian Alone",
+            "name": "Population: years 60 to 64, female, asian alone",
             "statVar": "Count_Person_60To64Years_Female_AsianAlone"
           },
           "Count_Person_65To69Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 65 To 69, Asian Alone",
+            "name": "Population: years 65 to 69, asian alone",
             "statVar": "Count_Person_65To69Years_AsianAlone"
           },
           "Count_Person_65To69Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 65 To 69, Female, Asian Alone",
+            "name": "Population: years 65 to 69, female, asian alone",
             "statVar": "Count_Person_65To69Years_Female_AsianAlone"
           },
           "Count_Person_70To74Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 70 To 74, Asian Alone",
+            "name": "Population: years 70 to 74, asian alone",
             "statVar": "Count_Person_70To74Years_AsianAlone"
           },
           "Count_Person_70To74Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 70 To 74, Female, Asian Alone",
+            "name": "Population: years 70 to 74, female, asian alone",
             "statVar": "Count_Person_70To74Years_Female_AsianAlone"
           },
           "Count_Person_75To79Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 75 To 79, Asian Alone",
+            "name": "Population: years 75 to 79, asian alone",
             "statVar": "Count_Person_75To79Years_AsianAlone"
           },
           "Count_Person_75To79Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 75 To 79, Female, Asian Alone",
+            "name": "Population: years 75 to 79, female, asian alone",
             "statVar": "Count_Person_75To79Years_Female_AsianAlone"
           },
           "Count_Person_80To84Years_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 80 To 84, Asian Alone",
+            "name": "Population: years 80 to 84, asian alone",
             "statVar": "Count_Person_80To84Years_AsianAlone"
           },
           "Count_Person_80To84Years_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 80 To 84, Female, Asian Alone",
+            "name": "Population: years 80 to 84, female, asian alone",
             "statVar": "Count_Person_80To84Years_Female_AsianAlone"
           },
           "Count_Person_85OrMoreYears_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 85 Onwards, Asian Alone",
+            "name": "Population: years 85 onwards, asian alone",
             "statVar": "Count_Person_85OrMoreYears_AsianAlone"
           },
           "Count_Person_85OrMoreYears_Female_AsianAlone_multiple_place_bar_block": {
-            "name": "Population: Years 85 Onwards, Female, Asian Alone",
+            "name": "Population: years 85 onwards, female, asian alone",
             "statVar": "Count_Person_85OrMoreYears_Female_AsianAlone"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone": {
@@ -1182,15 +1182,15 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Earnings of Household: USC Foreign Born, Asia",
+            "name": "Mean earnings of household: USC foreign born, asia",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Mean Earnings of Household: USC Foreign Born, Eastern Asia",
+            "name": "Mean earnings of household: USC foreign born, eastern asia",
             "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Mean Retirement Income of Household: USC Foreign Born, Asia",
+            "name": "Mean retirement income of household: USC foreign born, asia",
             "statVar": "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Median_Age_Person_AsianAlone": {
@@ -1198,11 +1198,11 @@
             "statVar": "Median_Age_Person_AsianAlone"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia": {
-            "name": "Median Income of Household: USC Foreign Born, Asia",
+            "name": "Median income of household: USC foreign born, asia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
           },
           "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
-            "name": "Median Income of Household: USC Foreign Born, Eastern Asia",
+            "name": "Median income of household: USC foreign born, eastern asia",
             "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
           },
           "Median_Income_Household_HouseholderRaceAsianAlone": {
