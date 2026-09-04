@@ -60,23 +60,6 @@ steps:
         echo "Total time: ${total_duration} seconds"
     waitFor: ["-"]
 
-  - id: push-nl-server
-    name: gcr.io/cloud-builders/docker
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        set -e
-        docker build -f build/nl_server/Dockerfile \
-          -t gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA \
-          -t gcr.io/datcom-ci/datacommons-nl:latest \
-          -t gcr.io/datcom-ci/datacommons-nl:cicd \
-          .
-        docker push gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA
-        docker push gcr.io/datcom-ci/datacommons-nl:latest
-        docker push gcr.io/datcom-ci/datacommons-nl:cicd
-    waitFor: ["-"]
-
   - id: push-datacommons-script-runner
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -164,7 +147,7 @@ steps:
       - website-image-pushed
       - --project=datcom-ci
       - --message=${SHORT_SHA}
-    waitFor: ["push-web-server", "push-nl-server", "push-nodejs-server", "push-datacommons-script-runner"]
+    waitFor: ["push-web-server", "push-nodejs-server", "push-datacommons-script-runner"]
 
 timeout: 3600s
 

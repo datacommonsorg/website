@@ -54,10 +54,6 @@ trap 'exit_with=$?; cleanup' EXIT
 # when done with it.
 trap 'exit_with=0; cleanup' SIGINT SIGTERM
 
-if lsof -i :6070 > /dev/null 2>&1; then
-  log_error "Port 6070 (for NL server) is already in use. Please stop the process using that port."
-  exit 1
-fi
 if lsof -i :8090 > /dev/null 2>&1; then
   log_error "Port 8090 (for website server) is already in use. Please stop the process using that port."
   exit 1
@@ -65,17 +61,6 @@ fi
 
 # Check that uv is installed
 assert_uv
-
-echo "Starting NL Server..."
-if [[ $VERBOSE == "true" ]]; then
-  uv run --project nl_server python3 nl_app.py 6070 &
-else
-  uv run --project nl_server python3 nl_app.py 6070 > /dev/null 2>&1 &
-fi
-NL_PID=$!
-
-# Set NL server URL for local website server.
-export NL_SERVICE_ROOT_URL="http://localhost:6070"
 
 echo "Starting Website server..."
 if [[ $VERBOSE == "true" ]]; then
@@ -88,11 +73,6 @@ WEB_PID=$!
 while true; do
   if ! ps -p $WEB_PID > /dev/null; then
     log_error "Website server exited early. Run with --verbose to debug."
-    exit 1
-  fi
-
-  if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
-    log_error "NL server exited early. Run with --verbose to debug."
     exit 1
   fi
 
