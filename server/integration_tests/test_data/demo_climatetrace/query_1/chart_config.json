@@ -799,7 +799,7 @@
             "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
           },
           "Annual_Emissions_CarbonDioxide_ElectricityGeneration": {
-            "name": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide",
+            "name": "Annual Amount Of Emissions: Electricity Generation, Carbon Dioxide",
             "statVar": "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
           },
           "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block": {
@@ -847,79 +847,79 @@
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
           },
           "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant": {
-            "name": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles": {
-            "name": "Annual Amount of Emissions: Fuel Combustion For Road Vehicles, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Fuel Combustion For Road Vehicles, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
           },
           "Annual_Emissions_GreenhouseGas_MaritimeShipping": {
-            "name": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Maritime Shipping, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_MaritimeShipping"
           },
           "Annual_Emissions_GreenhouseGas_OilAndGasProduction": {
-            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Oil And Gas Production, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
           },
           "Annual_Emissions_GreenhouseGas_OpenBurningWaste": {
-            "name": "Annual Amount of Emissions: Open Burning Waste, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Open Burning Waste, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_OpenBurningWaste"
           },
           "Annual_Emissions_GreenhouseGas_SolidWasteDisposal": {
-            "name": "Annual Amount of Emissions: Solid Waste Disposal, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Solid Waste Disposal, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_SolidWasteDisposal"
           },
           "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge": {
-            "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Greenhouse Gas",
+            "name": "Annual Amount Of Emissions: Wastewater Treatment And Discharge, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
           },
           "Annual_Emissions_Methane_Agriculture": {
-            "name": "Annual Amount of Emissions: Agriculture, Methane",
+            "name": "Annual Amount Of Emissions: Agriculture, Methane",
             "statVar": "Annual_Emissions_Methane_Agriculture"
           },
           "Annual_Emissions_Methane_FossilFuelOperations": {
-            "name": "Annual Amount of Emissions: Fossil Fuel Operations, Methane",
+            "name": "Annual Amount Of Emissions: Fossil Fuel Operations, Methane",
             "statVar": "Annual_Emissions_Methane_FossilFuelOperations"
           },
           "Annual_Emissions_Methane_OpenBurningWaste": {
-            "name": "Annual Amount of Emissions: Open Burning Waste, Methane",
+            "name": "Annual Amount Of Emissions: Open Burning Waste, Methane",
             "statVar": "Annual_Emissions_Methane_OpenBurningWaste"
           },
           "Annual_Emissions_Methane_WasteManagement": {
-            "name": "Annual Amount of Emissions: Waste Management, Methane",
+            "name": "Annual Amount Of Emissions: Waste Management, Methane",
             "statVar": "Annual_Emissions_Methane_WasteManagement"
           },
           "Annual_Emissions_NitrousOxide_Agriculture": {
-            "name": "Annual Amount of Emissions: Agriculture, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Agriculture, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
           },
           "Annual_Emissions_NitrousOxide_Agriculture_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Agriculture, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Agriculture, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
           },
           "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating": {
-            "name": "Annual Amount of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
           },
           "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
           },
           "Annual_Emissions_NitrousOxide_Manufacturing_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Manufacturing, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Manufacturing"
           },
           "Annual_Emissions_NitrousOxide_Transportation_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Transportation, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Transportation, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Transportation"
           },
           "Annual_Emissions_NitrousOxide_WasteManagement_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Waste Management, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Waste Management, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_WasteManagement"
           },
           "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide",
+            "name": "Annual Amount Of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
           },
           "eia/INTL.4008-8-MMTCD.A": {

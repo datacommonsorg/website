@@ -4869,15 +4869,15 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome10": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_abs": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_pct": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_growth_abs": {

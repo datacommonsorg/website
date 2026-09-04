@@ -659,11 +659,11 @@
         ],
         "statVarSpec": {
           "Count_BirthEvent": {
-            "name": "Count of Birth Event",
+            "name": "Count Of Birth Event",
             "statVar": "Count_BirthEvent"
           },
           "Count_BirthEvent_AsAFractionOfCount_Person": {
-            "name": "Count of Birth Event (Per capita)",
+            "name": "Count Of Birth Event (Per Capita)",
             "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
           },
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
@@ -1274,7 +1274,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]

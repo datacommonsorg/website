@@ -551,7 +551,7 @@
             "statVar": "UnemploymentRate_Person"
           },
           "dc/01yc3k23tsyk_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/1013",
+            "name": "Count Of BLS Worker: NAICS/1013",
             "statVar": "dc/01yc3k23tsyk"
           },
           "dc/34t2kjrwbjd31_multiple_place_bar_block": {
@@ -563,11 +563,11 @@
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/e2mpgewwsl60c_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/1011",
+            "name": "Count Of BLS Worker: NAICS/1011",
             "statVar": "dc/e2mpgewwsl60c"
           },
           "dc/j4v6keqwsl60h_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/334",
+            "name": "Count Of BLS Worker: NAICS/334",
             "statVar": "dc/j4v6keqwsl60h"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
@@ -579,7 +579,7 @@
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/w5ve4140t8xsb_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/333",
+            "name": "Count Of BLS Worker: NAICS/333",
             "statVar": "dc/w5ve4140t8xsb"
           }
         }
