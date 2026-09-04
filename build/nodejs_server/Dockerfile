@@ -14,7 +14,7 @@
 
 FROM node:18.14.0-slim
 
-RUN apt-get update && apt-get -y upgrade
+RUN apt-get update
 RUN apt-get install -y python3 pkg-config build-essential libpixman-1-dev libcairo2-dev libpango1.0-dev
 # install roboto font in the container so that nodejs server can use it when
 # drawing the charts.
