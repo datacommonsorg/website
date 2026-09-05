@@ -802,7 +802,7 @@
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_With3OrMoreWorker": {
-            "name": "Count of Household: Family Household, Worker 3 Onwards",
+            "name": "Count Of Household: Family Household, Worker 3 Onwards",
             "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker"
           },
           "Count_Person_15OrMoreYears_WithIncome": {

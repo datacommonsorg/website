@@ -241,7 +241,7 @@
         ],
         "statVarSpec": {
           "Count_BirthEvent": {
-            "name": "Count of Birth Event",
+            "name": "Count Of Birth Event",
             "statVar": "Count_BirthEvent"
           },
           "Count_Person": {
