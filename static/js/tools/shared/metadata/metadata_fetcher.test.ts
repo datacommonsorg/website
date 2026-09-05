@@ -31,7 +31,8 @@ describe("fetchFacetsWithMetadata", () => {
 
   // Test: Payload sanitization and client-side URL retention.
   // Situation: Facets containing external provenanceUrl query strings are enriched via API.
-  // Expectation: provenanceUrl is excluded from the POST request body, but retained in returned client objects alongside enriched metadata.
+  // Expectation: provenanceUrl is excluded from the POST request body, but retained in returned client objects
+  // alongside enriched metadata.
   it("strips provenanceUrl from outgoing payload and retains it in merged result", async () => {
     const inputFacets: FacetResponse = {
       Count_Person: {
@@ -179,7 +180,9 @@ describe("fetchFacetsWithMetadata", () => {
 
   // Test: Multi-variable and multi-facet payload sanitization and merge.
   // Situation: Multiple statistical variables with multiple facets, some with provenanceUrl and some without.
-  // Expectation: All provenanceUrls are stripped from outgoing POST body, original provenanceUrls are retained in merged output, facets without provenanceUrl do not gain a provenanceUrl property, and enriched fields are merged across all facets.
+  // Expectation: All provenanceUrls are stripped from outgoing POST body, original provenanceUrls are retained in
+  // merged output, facets without provenanceUrl do not gain a provenanceUrl property, and enriched fields are merged
+  // across all facets.
   it("sanitizes and merges multiple stat vars and facets, preserving absence of provenanceUrl", async () => {
     const inputFacets: FacetResponse = {
       Count_Person: {

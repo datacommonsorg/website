@@ -125,6 +125,9 @@ export function FacetOptionContent({
         : humanizedPeriod;
   }
 
+  const methodDetail =
+    metadata.measurementMethodDescription || metadata.measurementMethod;
+
   return (
     <div
       className={`${SELECTOR_PREFIX}-facet-option-title`}
@@ -203,6 +206,9 @@ export function FacetOptionContent({
                 metadata.measurementMethod}
             </li>
           )}
+        {methodDetail && primaryTitle !== methodDetail && (
+          <li>{methodDetail}</li>
+        )}
         {(metadata.unitDisplayName || metadata.unit) && (
           <li>
             {intl.formatMessage(metadataComponentMessages.Unit)} •{" "}

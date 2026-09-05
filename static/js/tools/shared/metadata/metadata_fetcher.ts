@@ -118,7 +118,7 @@ export async function fetchFacetsWithMetadata(
         mergedFacets[sv][facetId] = {
           ...facet,
           ...enriched,
-          ...(facet.provenanceUrl !== undefined
+          ...(facet?.provenanceUrl !== undefined
             ? { provenanceUrl: facet.provenanceUrl }
             : {}),
         };
