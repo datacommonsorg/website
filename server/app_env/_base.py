@@ -55,7 +55,7 @@ class Config:
   # Environment name of the config.
   ENV = ''
   # Name of the site. The name is changed for custom instance.
-  NAME = 'Data Commons'
+  NAME = 'Data Commons by Google'
   VERSION = os.environ.get('WEBSITE_HASH', '')
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
