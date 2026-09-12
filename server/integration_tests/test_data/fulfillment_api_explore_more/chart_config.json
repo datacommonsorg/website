@@ -564,10 +564,6 @@
     "childTopics": [],
     "exploreMore": {
       "Count_Person_Divorced": {
-        "gender": [
-          "Count_Person_Female_Divorced",
-          "Count_Person_Male_Divorced"
-        ],
         "nativity": [
           "Count_Person_15OrMoreYears_Divorced_ForeignBorn",
           "Count_Person_15OrMoreYears_Divorced_Native"
@@ -583,6 +579,18 @@
           "Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces",
           "Count_Person_15OrMoreYears_Divorced_WhiteAlone",
           "Count_Person_15OrMoreYears_Divorced_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_Divorced": {
+        "age": [
+          "Count_Person_15To19Years_Female_Divorced",
+          "Count_Person_16OrMoreYears_Female_Divorced"
+        ]
+      },
+      "Count_Person_Male_Divorced": {
+        "age": [
+          "Count_Person_15To19Years_Male_Divorced",
+          "Count_Person_16OrMoreYears_Male_Divorced"
         ]
       }
     },

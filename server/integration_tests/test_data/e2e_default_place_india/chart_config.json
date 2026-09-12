@@ -146,7 +146,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in India",
+                    "title": "Population: Female, Urban in India",
                     "type": "LINE"
                   }
                 ]
@@ -154,18 +154,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Urban Female Population in India",
+                    "description": "Population: Female, Urban in India",
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in India",
+                    "title": "Population: Female, Urban in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Urban Female Population"
+            "title": "Population: Female, Urban"
           },
           {
             "columns": [
@@ -175,7 +175,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Population: Female, Urban in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -190,14 +190,14 @@
                     "statVarKey": [
                       "Count_Person_Urban_Female"
                     ],
-                    "title": "Total Urban Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Population: Female, Urban in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Urban Female Population in Administrative Area 1 Places of India"
+            "title": "Population: Female, Urban in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -354,11 +354,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Rural Female Population in India",
+                    "description": "Population: Female, Rural in India",
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in India",
+                    "title": "Population: Female, Rural in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -366,7 +366,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population"
+            "title": "Population: Female, Rural"
           },
           {
             "columns": [
@@ -376,7 +376,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Population: Female, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -391,7 +391,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
-                    "title": "Total Rural Female Population in Administrative Area 1 Places of India (${date})",
+                    "title": "Population: Female, Rural in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -399,7 +399,7 @@
             ],
             "denom": "Count_Person",
             "description": "Total number of females living in rural areas.",
-            "title": "Total Rural Female Population in Administrative Area 1 Places of India"
+            "title": "Population: Female, Rural in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -752,11 +752,11 @@
             "statVar": "Count_Person_NonWorker_Female"
           },
           "Count_Person_Rural_Female": {
-            "name": "Total rural female population",
+            "name": "Population: Female, Rural",
             "statVar": "Count_Person_Rural_Female"
           },
           "Count_Person_Urban_Female": {
-            "name": "Total urban female population",
+            "name": "Population: Female, Urban",
             "statVar": "Count_Person_Urban_Female"
           },
           "Count_Person_Workers_Female": {
