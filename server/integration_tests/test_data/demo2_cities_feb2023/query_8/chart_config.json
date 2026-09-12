@@ -576,43 +576,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_DetailedMiddleSchool": {
-        "race": [
-          "dc/6zbb7s5nx6rxb",
-          "dc/b3nmcj3w1lhed",
-          "dc/c57vzg7l74577",
-          "dc/c75qlm98pmcb2",
-          "dc/e2szvml8jkld8",
-          "dc/g4fthg3t3y5td",
-          "dc/njgzb8knf11n8",
-          "dc/qvf1yrhwzp8rd",
-          "dc/zvr6djt1p9gj3"
-        ]
-      },
-      "Count_Person_DetailedPrimarySchool": {
-        "race": [
-          "dc/68cg2z97cpl7d",
-          "dc/b6h698m2vmdcc",
-          "dc/bf85zc6wypd2h",
-          "dc/e4y4hqq6mjfsh",
-          "dc/env3140jqssg8",
-          "dc/jhjdplbeg26k1",
-          "dc/p4jzvj8q1lnmd",
-          "dc/wk2vjrzfgyq5d",
-          "dc/x9e7150515yt7"
-        ]
-      },
-      "Count_Person_EnrolledInSchool": {
-        "detailedLevelOfSchool": [
-          "Count_Person_DetailedEnrolledInGrade6",
-          "Count_Person_DetailedEnrolledInGrade7",
-          "Count_Person_DetailedEnrolledInGrade8",
-          "Count_Person_DetailedMiddleSchool",
-          "Count_Person_DetailedPrimarySchool"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/StudentEnrollmentLevels",
@@ -623,15 +587,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/StudentPopulation",
-        "name": "Student Population",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/3502000",
@@ -984,50 +940,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/StudentsInKindergarten",
-        "name": "Students in Kindergarten",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInPrimarySchool",
-        "name": "Students in Primary School",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInMiddleSchool",
-        "name": "Students in Middle School",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInHighSchool",
-        "name": "Students in High School",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInCollege",
-        "name": "Students in College",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInGraduateOrProfessionalSchool",
-        "name": "Students in Graduate or Professional School",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

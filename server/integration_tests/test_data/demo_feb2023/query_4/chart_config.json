@@ -551,7 +551,7 @@
             "statVar": "UnemploymentRate_Person"
           },
           "dc/01yc3k23tsyk_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/1013",
+            "name": "Count Of BLS Worker: NAICS/1013",
             "statVar": "dc/01yc3k23tsyk"
           },
           "dc/34t2kjrwbjd31_multiple_place_bar_block": {
@@ -563,11 +563,11 @@
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/e2mpgewwsl60c_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/1011",
+            "name": "Count Of BLS Worker: NAICS/1011",
             "statVar": "dc/e2mpgewwsl60c"
           },
           "dc/j4v6keqwsl60h_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/334",
+            "name": "Count Of BLS Worker: NAICS/334",
             "statVar": "dc/j4v6keqwsl60h"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
@@ -579,7 +579,7 @@
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/w5ve4140t8xsb_multiple_place_bar_block": {
-            "name": "Count of BLS Worker: NAICS/333",
+            "name": "Count Of BLS Worker: NAICS/333",
             "statVar": "dc/w5ve4140t8xsb"
           }
         }
@@ -800,39 +800,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Worker_NAICSConstruction": {
-        "establishmentOwnership": [
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSConstruction",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSConstruction"
-        ]
-      },
-      "Count_Worker_NAICSFinanceInsurance": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSFinanceInsurance",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSFinanceInsurance"
-        ]
-      },
-      "Count_Worker_NAICSHealthCareSocialAssistance": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance",
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSHealthCareSocialAssistance"
-        ]
-      },
-      "Count_Worker_NAICSInformation": {
-        "establishmentOwnership": [
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSInformation"
-        ]
-      },
-      "Count_Worker_NAICSTotalAllIndustries": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Jobs",
@@ -843,15 +811,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/06001",
@@ -1050,22 +1010,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/UnemploymentRate",
-        "name": "Unemployment Rate",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UnpaidFamilyWorkers",
-        "name": "Unpaid Family Workers",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [

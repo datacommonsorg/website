@@ -387,21 +387,21 @@
         ],
         "statVarSpec": {
           "Area_FloodEvent": {
-            "name": "Area of Flood Event",
+            "name": "Area Of Flood Event",
             "statVar": "Area_FloodEvent"
           },
           "Area_FloodEvent_9186366975012697583": {
             "facetId": "9186366975012697583",
-            "name": "Area of Flood Event",
+            "name": "Area Of Flood Event",
             "statVar": "Area_FloodEvent"
           },
           "Count_DenseFogEvent": {
-            "name": "Count of Dense Fog Event",
+            "name": "Count Of Dense Fog Event",
             "statVar": "Count_DenseFogEvent"
           },
           "Count_DenseFogEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Dense Fog Event",
+            "name": "Count Of Dense Fog Event",
             "statVar": "Count_DenseFogEvent"
           },
           "Count_DroughtEvent": {
@@ -414,21 +414,21 @@
             "statVar": "Count_DroughtEvent"
           },
           "Count_FireEvent": {
-            "name": "Count of Fire Event",
+            "name": "Count Of Fire Event",
             "statVar": "Count_FireEvent"
           },
           "Count_FireEvent_12020184095488665110": {
             "facetId": "12020184095488665110",
-            "name": "Count of Fire Event",
+            "name": "Count Of Fire Event",
             "statVar": "Count_FireEvent"
           },
           "Count_FlashFloodEvent": {
-            "name": "Count of Flash Flood Event",
+            "name": "Count Of Flash Flood Event",
             "statVar": "Count_FlashFloodEvent"
           },
           "Count_FlashFloodEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Flash Flood Event",
+            "name": "Count Of Flash Flood Event",
             "statVar": "Count_FlashFloodEvent"
           },
           "Count_FloodEvent": {
@@ -442,17 +442,17 @@
           },
           "Count_HighWindEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of High Wind Event",
+            "name": "Count Of High Wind Event",
             "statVar": "Count_HighWindEvent"
           },
           "Count_StrongWindEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Strong Wind Event",
+            "name": "Count Of Strong Wind Event",
             "statVar": "Count_StrongWindEvent"
           },
           "Count_ThunderstormWindEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Thunderstorm Wind Event",
+            "name": "Count Of Thunderstorm Wind Event",
             "statVar": "Count_ThunderstormWindEvent"
           },
           "Count_WildfireEvent": {
@@ -466,7 +466,7 @@
           },
           "Count_WinterStormEvent_14343786015636983423": {
             "facetId": "14343786015636983423",
-            "name": "Count of Winter Storm Event",
+            "name": "Count Of Winter Storm Event",
             "statVar": "Count_WinterStormEvent"
           }
         }
@@ -897,15 +897,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/NaturalDisasters",
-        "name": "Natural Disasters",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -1258,64 +1250,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Drought",
-        "name": "Drought",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Flood",
-        "name": "Flood",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeatWave",
-        "name": "Heat Wave",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Storm",
-        "name": "Storms",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Avalanche",
-        "name": "Avalanche",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Tsunami",
-        "name": "Tsunami",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/WindEvent",
-        "name": "Wind Events",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Fog",
-        "name": "Fog",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [

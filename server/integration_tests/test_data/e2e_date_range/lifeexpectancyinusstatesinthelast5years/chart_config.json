@@ -772,12 +772,12 @@
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: Years Upto 1",
+            "name": "Count Of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_4486658077301201845": {
             "facetId": "4486658077301201845",
-            "name": "Count of Mortality Event: Years Upto 1",
+            "name": "Count Of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "LifeExpectancy_Person": {
@@ -853,12 +853,12 @@
             "statVar": "Median_Age_Person_Male_WhiteAlone"
           },
           "Median_Age_Person_Native": {
-            "name": "Median Age of Person: USC Native",
+            "name": "Median Age Of Person: USC Native",
             "statVar": "Median_Age_Person_Native"
           },
           "Median_Age_Person_Native_5861401611713998024": {
             "facetId": "5861401611713998024",
-            "name": "Median Age of Person: USC Native",
+            "name": "Median Age Of Person: USC Native",
             "statVar": "Median_Age_Person_Native"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286": {
@@ -1266,20 +1266,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "LifeExpectancy_Person": {
-        "gender": [
-          "LifeExpectancy_Person_Female",
-          "LifeExpectancy_Person_Male"
-        ]
-      },
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/LifeExpectancy",
@@ -1290,15 +1277,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Mortality",
-        "name": "Mortality",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -1399,29 +1378,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/CausesOfDeath",
-        "name": "Causes of Death",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/FemaleMortality",
-        "name": "Female Mortality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/InfantMortality",
-        "name": "Infant Mortality",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

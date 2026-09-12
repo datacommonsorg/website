@@ -261,7 +261,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below poverty line vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Population Below poverty line vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -312,7 +312,7 @@
                 ]
               }
             ],
-            "title": "Population Below poverty line (Per Capita) vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Population Below poverty line (Per Capita) vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -333,7 +333,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Women below Poverty Line vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Women below Poverty Line vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -354,7 +354,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Males in Poverty (in last year) vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Males in Poverty (in last year) vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -375,7 +375,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below poverty line vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Population Below poverty line vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           },
           {
             "columns": [
@@ -428,7 +428,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below poverty line (Per Capita) vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Population Below poverty line (Per Capita) vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           },
           {
             "columns": [
@@ -449,7 +449,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Women below Poverty Line vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Women below Poverty Line vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           },
           {
             "columns": [
@@ -470,7 +470,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Males in Poverty (in last year) vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Males in Poverty (in last year) vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           }
         ],
         "statVarSpec": {
@@ -519,20 +519,20 @@
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1": {
-            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Female, Obesity",
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/4lvmzr1h1ylk1_scatter": {
-            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Female, Obesity",
             "noPerCapita": true,
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/x13tvt8jsgrm4": {
-            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           },
           "dc/x13tvt8jsgrm4_scatter": {
-            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           }
         }
@@ -920,80 +920,8 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty by Gender",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty by Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months"
-        ],
-        "gender": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Female_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Male_BelowPovertyLevelInThePast12Months"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -1011,22 +939,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health and Behavior",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -1379,57 +1292,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PreventativeHealth",
-        "name": "Preventive Health",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",

@@ -382,39 +382,9 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Mortality",
-        "name": "Mortality",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/CausesOfDeath",
-        "name": "Causes of Death",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/FemaleMortality",
-        "name": "Female Mortality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/InfantMortality",
-        "name": "Infant Mortality",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [

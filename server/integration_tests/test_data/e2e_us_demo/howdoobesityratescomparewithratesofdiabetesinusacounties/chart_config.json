@@ -106,7 +106,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Percent of Person: Years 20 Onwards, Male, Obesity vs. Diabetes"
+            "title": "Percent Of Person: Years 20 Onwards, Male, Obesity vs. Diabetes"
           },
           {
             "columns": [
@@ -164,11 +164,11 @@
             "unit": "%"
           },
           "dc/x13tvt8jsgrm4": {
-            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           },
           "dc/x13tvt8jsgrm4_scatter": {
-            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           }
         }
@@ -575,22 +575,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health and Behavior",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -691,85 +676,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/PreventativeHealth",
-        "name": "Preventive Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Asthma",
-        "name": "Asthma",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeatIllnesses",
-        "name": "Heat Illnesses",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

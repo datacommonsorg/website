@@ -1090,35 +1090,8 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/sdg_1",
-        "name": "No Poverty",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "sdg/SI_POV_EMP1.AGE--Y15T24": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-        ]
-      },
-      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-        ]
-      },
-      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -1129,15 +1102,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [],
     "peerTopics": []
   },

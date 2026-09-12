@@ -273,91 +273,8 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty by Gender",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty by Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months"
-        ],
-        "gender": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAlone"
-        ]
-      },
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -368,15 +285,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/3502000",
@@ -729,29 +638,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

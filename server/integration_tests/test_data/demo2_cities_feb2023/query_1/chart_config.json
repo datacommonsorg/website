@@ -288,15 +288,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/StudentPopulation",
-        "name": "Student Population",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/3502000",
@@ -649,57 +641,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/StudentEnrollmentLevels",
-        "name": "Student Enrollment Levels",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInKindergarten",
-        "name": "Students in Kindergarten",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInPrimarySchool",
-        "name": "Students in Primary School",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInMiddleSchool",
-        "name": "Students in Middle School",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInHighSchool",
-        "name": "Students in High School",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInCollege",
-        "name": "Students in College",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/StudentsInGraduateOrProfessionalSchool",
-        "name": "Students in Graduate or Professional School",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "UNKNOWN",
   "userMessages": []

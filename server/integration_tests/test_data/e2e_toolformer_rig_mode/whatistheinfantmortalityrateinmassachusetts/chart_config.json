@@ -247,15 +247,15 @@
         ],
         "statVarSpec": {
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
+            "name": "Count Of Mortality Event: Years Upto 1 (As Fraction Of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female": {
-            "name": "Count of Mortality Event: Years Upto 1, Female (As fraction of Count Birth Event Female)",
+            "name": "Count Of Mortality Event: Years Upto 1, Female (As Fraction Of Count Birth Event Female)",
             "statVar": "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
           },
           "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male": {
-            "name": "Count of Mortality Event: Years Upto 1, Male (As fraction of Count Birth Event Male)",
+            "name": "Count Of Mortality Event: Years Upto 1, Male (As Fraction Of Count Birth Event Male)",
             "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
           },
           "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod": {
@@ -415,15 +415,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Mortality",
-        "name": "Mortality",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -776,36 +768,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/LifeExpectancy",
-        "name": "Life Expectancy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/CausesOfDeath",
-        "name": "Causes of Death",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/FemaleMortality",
-        "name": "Female Mortality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MortalityAmongIncarcerated",
-        "name": "Mortality Among The Incarcerated",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

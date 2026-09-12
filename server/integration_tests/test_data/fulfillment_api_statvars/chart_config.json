@@ -654,16 +654,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "WagesTotal_Worker_NAICSInformation": {
-        "establishmentOwnership": [
-          "WagesTotal_Worker_FederalGovernmentOwnedEstablishment_NAICSInformation",
-          "WagesTotal_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
-          "WagesTotal_Worker_PrivatelyOwnedEstablishment_NAICSInformation",
-          "WagesTotal_Worker_StateGovernmentOwnedEstablishment_NAICSInformation"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/IndividualIncomeByIndustry",
@@ -674,15 +665,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -1035,22 +1018,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "UNKNOWN",
   "userMessages": []

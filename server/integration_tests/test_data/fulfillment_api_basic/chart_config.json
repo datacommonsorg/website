@@ -542,7 +542,7 @@
         ],
         "statVarSpec": {
           "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
-            "name": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home",
+            "name": "Mean Commute Time Of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside Of Home",
             "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
           },
           "dc/0gettc3bc60cb": {
@@ -1002,22 +1002,7 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/CommuteMode",
-        "name": "Commute Mode",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/CommuteTime",
-        "name": "Commute Time",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
@@ -1029,15 +1014,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/EducationHousingAndCommute",
-        "name": "Education, Housing and Commute",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/06001",
@@ -1229,22 +1206,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Education",
-        "name": "Education",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Housing",
-        "name": "Housing",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "UNKNOWN",
   "test": "unittest",

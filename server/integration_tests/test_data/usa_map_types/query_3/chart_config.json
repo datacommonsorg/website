@@ -676,17 +676,7 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {
-      "Count_Worker_NAICSTotalAllIndustries": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_GovernmentOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries",
-          "Count_Worker_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/UnemploymentRate",
@@ -697,39 +687,9 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EmploymentEquity",
-        "name": "Employment Equity",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Jobs",
-        "name": "Jobs",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UnpaidFamilyWorkers",
-        "name": "Unpaid Family Workers",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [

@@ -4869,15 +4869,15 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome10": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_abs": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_pct": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median Income Of Person: Years 18 Onwards, Civilian, With Income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_growth_abs": {
@@ -5270,43 +5270,8 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Mean_Income_Household": {
-        "householdType": [
-          "Mean_Income_Household_FamilyHousehold",
-          "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      },
-      "Median_Income_Person": {
-        "gender": [
-          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
-          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Income",
@@ -5317,15 +5282,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -5678,50 +5635,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",

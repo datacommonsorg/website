@@ -971,23 +971,23 @@
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level In The Past 12 Months",
+            "name": "Count Of Household: Family Household, Worker 0, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months",
+            "name": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months",
+            "name": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 3 Onwards, Below Poverty Level In The Past 12 Months",
+            "name": "Count Of Household: Family Household, Worker 3 Onwards, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Years 65 Onwards, Below Poverty Level In The Past 12 Months",
+            "name": "Count Of Household: Family Household, Years 65 Onwards, Below Poverty Level In The Past 12 Months",
             "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
@@ -1467,62 +1467,8 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty by Gender",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty by Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1",
-        "name": "No Poverty",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-        "householdWorkerSize": [
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "gender": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -1533,15 +1479,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -1642,50 +1580,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

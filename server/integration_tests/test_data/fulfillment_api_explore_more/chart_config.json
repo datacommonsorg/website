@@ -562,30 +562,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Count_Person_Divorced": {
-        "gender": [
-          "Count_Person_Female_Divorced",
-          "Count_Person_Male_Divorced"
-        ],
-        "nativity": [
-          "Count_Person_15OrMoreYears_Divorced_ForeignBorn",
-          "Count_Person_15OrMoreYears_Divorced_Native"
-        ],
-        "race": [
-          "Count_Person_15OrMoreYears_Divorced_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_15OrMoreYears_Divorced_AsianAlone",
-          "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
-          "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino",
-          "Count_Person_15OrMoreYears_Divorced_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_15OrMoreYears_Divorced_OneRace",
-          "Count_Person_15OrMoreYears_Divorced_SomeOtherRaceAlone",
-          "Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces",
-          "Count_Person_15OrMoreYears_Divorced_WhiteAlone",
-          "Count_Person_15OrMoreYears_Divorced_WhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/DivorcedPopulationByDemographic",
@@ -596,15 +573,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/MaritalStatus",
-        "name": "Marital Status",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/06001",
@@ -796,36 +765,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/MaritalStatusBreakdown",
-        "name": "Marital Status Breakdown",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MarriedPopulationByDemographic",
-        "name": "Married Population",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/NeverMarriedPopulationByDemographic",
-        "name": "Never Married Population",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/WidowedPopulationByDemographic",
-        "name": "Widowed Population",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "UNKNOWN",
   "userMessages": []
