@@ -942,11 +942,11 @@
             "statVar": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
           },
           "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Median Income of Household: Some Other Race Alone",
+            "name": "Median income of household: some other race alone",
             "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
           },
           "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Median Income of Household: Two Or More Races",
+            "name": "Median income of household: two or more races",
             "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone": {
@@ -954,7 +954,7 @@
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
           },
           "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Median Income of Household: White Alone Not Hispanic Or Latino",
+            "name": "Median income of household: white alone not hispanic or latino",
             "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
           },
           "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
@@ -982,7 +982,7 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median income of person: years 18 onwards, civilian, with income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           }
         }

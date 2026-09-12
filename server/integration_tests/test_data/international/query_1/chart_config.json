@@ -734,7 +734,7 @@
         ],
         "statVarSpec": {
           "Count_Household_Houseless_Rural": {
-            "name": "Count of Household: Houseless, Rural",
+            "name": "Count of household: houseless, rural",
             "statVar": "Count_Household_Houseless_Rural"
           },
           "Count_Household_Rural": {
@@ -742,15 +742,15 @@
             "statVar": "Count_Household_Rural"
           },
           "Count_Person_Houseless_Rural": {
-            "name": "Population: Houseless, Rural",
+            "name": "Population: houseless, rural",
             "statVar": "Count_Person_Houseless_Rural"
           },
           "Count_Person_Houseless_Workers_Rural": {
-            "name": "Population: Houseless, Rural, Worker",
+            "name": "Population: houseless, rural, worker",
             "statVar": "Count_Person_Houseless_Workers_Rural"
           },
           "Count_Person_NonWorker_Rural": {
-            "name": "Population: Rural, Non Worker",
+            "name": "Population: rural, non worker",
             "statVar": "Count_Person_NonWorker_Rural"
           },
           "Count_Person_Rural": {
@@ -770,23 +770,23 @@
             "statVar": "Count_Person_Rural_Male"
           },
           "Count_Person_Workers_Rural": {
-            "name": "Population: Rural, Worker",
+            "name": "Population: rural, worker",
             "statVar": "Count_Person_Workers_Rural"
           },
           "indianCensus/Count_Person_Religion_Christian_Rural": {
-            "name": "Population: Rural, Christianity",
+            "name": "Population: rural, christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Rural"
           },
           "indianCensus/Count_Person_Religion_Hindu_Rural": {
-            "name": "Population: Rural, Hinduism",
+            "name": "Population: rural, hinduism",
             "statVar": "indianCensus/Count_Person_Religion_Hindu_Rural"
           },
           "indianCensus/Count_Person_Religion_Muslim_Rural": {
-            "name": "Population: Rural, Islam",
+            "name": "Population: rural, islam",
             "statVar": "indianCensus/Count_Person_Religion_Muslim_Rural"
           },
           "indianCensus/Count_Person_Religion_Sikh_Rural": {
-            "name": "Population: Rural, Sikhism",
+            "name": "Population: rural, sikhism",
             "statVar": "indianCensus/Count_Person_Religion_Sikh_Rural"
           },
           "worldBank/EG_ELC_ACCS_RU_ZS": {
@@ -1316,7 +1316,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]

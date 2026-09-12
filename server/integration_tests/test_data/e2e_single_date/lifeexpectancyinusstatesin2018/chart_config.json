@@ -1052,13 +1052,13 @@
           },
           "Count_Death_Female_2018": {
             "date": "2018",
-            "name": "Count of Mortality Event: Female",
+            "name": "Count of mortality event: female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_Female_2018_10899698974849786843": {
             "date": "2018",
             "facetId": "10899698974849786843",
-            "name": "Count of Mortality Event: Female",
+            "name": "Count of mortality event: female",
             "statVar": "Count_Death_Female"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block_2018": {

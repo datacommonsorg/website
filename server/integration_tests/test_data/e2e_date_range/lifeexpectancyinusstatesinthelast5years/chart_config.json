@@ -772,12 +772,12 @@
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: Years Upto 1",
+            "name": "Count of mortality event: years upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_4486658077301201845": {
             "facetId": "4486658077301201845",
-            "name": "Count of Mortality Event: Years Upto 1",
+            "name": "Count of mortality event: years upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "LifeExpectancy_Person": {
@@ -853,12 +853,12 @@
             "statVar": "Median_Age_Person_Male_WhiteAlone"
           },
           "Median_Age_Person_Native": {
-            "name": "Median Age of Person: USC Native",
+            "name": "Median age of person: USC native",
             "statVar": "Median_Age_Person_Native"
           },
           "Median_Age_Person_Native_5861401611713998024": {
             "facetId": "5861401611713998024",
-            "name": "Median Age of Person: USC Native",
+            "name": "Median age of person: USC native",
             "statVar": "Median_Age_Person_Native"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_13678236933566447286": {

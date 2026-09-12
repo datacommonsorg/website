@@ -575,7 +575,7 @@
             "statVar": "dc/m46wj1egm7j56"
           },
           "dc/qt7ewllmt3826_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/44-45",
+            "name": "Amount of economic activity (real value): gross domestic production, NAICS/44-45",
             "statVar": "dc/qt7ewllmt3826"
           },
           "dc/rw3t3r74kv7mc_multiple_place_bar_block": {
@@ -595,7 +595,7 @@
             "statVar": "dc/zkmdz1rhlt7q8"
           },
           "dc/zz6gwv838v9w_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, NAICS/48-49",
+            "name": "Amount of economic activity (real value): gross domestic production, NAICS/48-49",
             "statVar": "dc/zz6gwv838v9w"
           }
         }

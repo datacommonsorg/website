@@ -164,7 +164,7 @@
         ],
         "statVarSpec": {
           "Count_Person_DetailedEnrolledInKindergarten": {
-            "name": "Population: Years 3 Onwards, Enrolled In Kindergarten, Enrolled In School",
+            "name": "Population: years 3 onwards, enrolled in kindergarten, enrolled in school",
             "statVar": "Count_Person_DetailedEnrolledInKindergarten"
           },
           "Count_Person_DetailedHighSchool": {

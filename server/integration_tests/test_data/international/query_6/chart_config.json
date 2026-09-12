@@ -339,11 +339,11 @@
         ],
         "statVarSpec": {
           "Area_DroughtEvent": {
-            "name": "Area of Drought Event",
+            "name": "Area of drought event",
             "statVar": "Area_DroughtEvent"
           },
           "Area_FloodEvent": {
-            "name": "Area of Flood Event",
+            "name": "Area of flood event",
             "statVar": "Area_FloodEvent"
           },
           "Count_DroughtEvent": {
@@ -355,15 +355,15 @@
             "statVar": "Count_FloodEvent"
           },
           "Max_Rainfall": {
-            "name": "Max Rainfall of Place",
+            "name": "Max rainfall of place",
             "statVar": "Max_Rainfall"
           },
           "Mean_Rainfall": {
-            "name": "Mean Rainfall of Place",
+            "name": "Mean rainfall of place",
             "statVar": "Mean_Rainfall"
           },
           "Min_Rainfall": {
-            "name": "Min Rainfall of Place",
+            "name": "Min rainfall of place",
             "statVar": "Min_Rainfall"
           }
         }

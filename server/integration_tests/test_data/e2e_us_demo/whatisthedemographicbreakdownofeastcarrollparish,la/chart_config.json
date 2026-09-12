@@ -1091,11 +1091,11 @@
             "statVar": "Count_Person_18To24Years"
           },
           "Count_Person_1To4Years": {
-            "name": "Population: Years 1 To 4",
+            "name": "Population: years 1 to 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_1To4Years_multiple_place_bar_block": {
-            "name": "Population: Years 1 To 4",
+            "name": "Population: years 1 to 4",
             "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_25To34Years_multiple_place_bar_block": {
@@ -1111,7 +1111,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: Years 55 To 64",
+            "name": "Population: years 55 to 64",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
@@ -1602,12 +1602,6 @@
           "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
           "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
           "Count_Person_HispanicOrLatino_WhiteAlone"
-        ]
-      },
-      "Count_Person_Divorced": {
-        "gender": [
-          "Count_Person_Female_Divorced",
-          "Count_Person_Male_Divorced"
         ]
       },
       "Median_Age_Person": {

@@ -4693,51 +4693,51 @@
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_WithIncome10": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Population: years 15 onwards, with income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_abs": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Population: years 15 onwards, with income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_pc": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Population: years 15 onwards, with income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_15OrMoreYears_WithIncome_growth_pct": {
-            "name": "Population: Years 15 Onwards, With Income",
+            "name": "Population: years 15 onwards, with income",
             "statVar": "Count_Person_15OrMoreYears_WithIncome"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings10": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Population: years 16 onwards, male, with earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_abs": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Population: years 16 onwards, male, with earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Population: years 16 onwards, male, with earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct": {
-            "name": "Population: Years 16 Onwards, Male, With Earnings",
+            "name": "Population: years 16 onwards, male, with earnings",
             "statVar": "Count_Person_16OrMoreYears_Male_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings10": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Population: years 16 onwards, with earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_abs": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Population: years 16 onwards, with earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_pc": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Population: years 16 onwards, with earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Count_Person_16OrMoreYears_WithEarnings_growth_pct": {
-            "name": "Population: Years 16 Onwards, With Earnings",
+            "name": "Population: years 16 onwards, with earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
           "Income_Farm10": {
@@ -4869,15 +4869,15 @@
             "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome10": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median income of person: years 18 onwards, civilian, with income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_abs": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median income of person: years 18 onwards, civilian, with income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_18OrMoreYears_Civilian_WithIncome_growth_pct": {
-            "name": "Median Income of Person: Years 18 Onwards, Civilian, With Income",
+            "name": "Median income of person: years 18 onwards, civilian, with income",
             "statVar": "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
           },
           "Median_Income_Person_growth_abs": {
