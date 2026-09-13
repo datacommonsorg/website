@@ -999,7 +999,7 @@
             "statVar": "Median_Age_Person_Female_WhiteAlone"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age of Person: USC Foreign Born",
+            "name": "Median Age Of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "Median_Age_Person_HispanicOrLatino": {

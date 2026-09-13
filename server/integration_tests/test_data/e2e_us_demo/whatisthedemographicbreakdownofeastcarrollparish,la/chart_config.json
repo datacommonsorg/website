@@ -1604,12 +1604,6 @@
           "Count_Person_HispanicOrLatino_WhiteAlone"
         ]
       },
-      "Count_Person_Divorced": {
-        "gender": [
-          "Count_Person_Female_Divorced",
-          "Count_Person_Male_Divorced"
-        ]
-      },
       "Median_Age_Person": {
         "gender": [
           "Median_Age_Person_Female",
