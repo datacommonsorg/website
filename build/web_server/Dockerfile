@@ -51,6 +51,6 @@ RUN npm run-script build
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 WORKDIR /workspace
-# The number of workers (8) is the number of requests that the app can support
+# 8 workers with 4 threads each allows the app to support up to 32 concurrent requests
 # at a time.
-CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 8 web_app:app
+CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 8 --threads 4 web_app:app

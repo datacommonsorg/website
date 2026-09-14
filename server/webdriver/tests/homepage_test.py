@@ -38,7 +38,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.assertTrue(
         find_elem(self.driver, by=By.ID, value='hero').text.startswith(
-            "Data Commons brings together the world's public data, making it simple to explore"
+            "Data Commons by Google brings together the world's public data, making it simple to explore"
         ))
 
   def test_homepage_it(self):
@@ -52,7 +52,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.assertTrue(
         find_elem(self.driver, by=By.ID, value='hero').text.startswith(
-            "Data Commons brings together the world's public data, making it simple to explore"
+            "Data Commons by Google brings together the world's public data, making it simple to explore"
         ))
 
   # def test_hero_all_langs(self):

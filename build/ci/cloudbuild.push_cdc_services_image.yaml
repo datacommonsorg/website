@@ -45,13 +45,14 @@ steps:
         DOCKER_BUILDKIT=1 docker build -f build/cdc_services/Dockerfile \
           --build-arg MIXER_HASH=$(cat mixer_hash.txt) \
           --build-arg WEBSITE_HASH=$(cat website_hash.txt) \
-          --tag gcr.io/datcom-ci/datacommons-services:${_TAG} \
+          --tag gcr.io/${_PROJECT_ID}/datacommons-services:${_TAG} \
           .
-        docker push gcr.io/datcom-ci/datacommons-services:${_TAG}
+        docker push gcr.io/${_PROJECT_ID}/datacommons-services:${_TAG}
     waitFor: ["resolve-hashes"]
 
 substitutions:
   _TAG: ""
+  _PROJECT_ID: "datcom-ci"
   _WEBSITE_HASH: ""
   _MIXER_HASH: ""
 
