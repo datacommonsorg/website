@@ -94,12 +94,6 @@ def timeline():
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
-# This tool was used by several data science course (but no traffic in 2025).
-@bp.route('/timeline/bulk_download')
-def timeline_bulk_download():
-  return flask.redirect(url_for('tools.timeline', code=301))
-
-
 @bp.route('/map')
 def map():
   vis_tool_examples_json = _load_example_file('map_vis_tool', default=[])
