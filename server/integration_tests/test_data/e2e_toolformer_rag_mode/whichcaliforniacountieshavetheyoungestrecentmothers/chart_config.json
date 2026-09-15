@@ -484,19 +484,19 @@
             "statVar": "Count_BirthEvent_LiveBirth_MotherLessThan9ThGrade"
           },
           "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female": {
-            "name": "Population: Years 15 To 19, Birth In The Past 12 Months, Female (As fraction of Count Person 15 To 19 Years Female)",
+            "name": "Population: Years 15 To 19, Birth In The Past 12 Months, Female (As Fraction Of Count Person 15 To 19 Years Female)",
             "statVar": "Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female"
           },
           "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female": {
-            "name": "Population: Years 15 To 50, Birth In The Past 12 Months, Female (As fraction of Count Person 15 To 50 Years Female)",
+            "name": "Population: Years 15 To 50, Birth In The Past 12 Months, Female (As Fraction Of Count Person 15 To 50 Years Female)",
             "statVar": "Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female"
           },
           "Count_Person_16To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_16To50Years_Female": {
-            "name": "Population: Years 16 To 50, Birth In The Past 12 Months, Female (As fraction of Count Person 16 To 50 Years Female)",
+            "name": "Population: Years 16 To 50, Birth In The Past 12 Months, Female (As Fraction Of Count Person 16 To 50 Years Female)",
             "statVar": "Count_Person_16To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_16To50Years_Female"
           },
           "Count_Person_35To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_35To50Years_Female": {
-            "name": "Population: Years 35 To 50, Birth In The Past 12 Months, Female (As fraction of Count Person 35 To 50 Years Female)",
+            "name": "Population: Years 35 To 50, Birth In The Past 12 Months, Female (As Fraction Of Count Person 35 To 50 Years Female)",
             "statVar": "Count_Person_35To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_35To50Years_Female"
           },
           "Count_Person_WithOwnChildrenUnder18": {

@@ -1200,7 +1200,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: Years 55 To 64",
+            "name": "Population: 55 - 64 Years",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
@@ -2123,18 +2123,21 @@
           "Count_Person_HispanicOrLatino",
           "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
           "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
           "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
           "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
           "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_AsianAlone": {
+        "ethnicity": [
+          "Count_Person_HispanicOrLatino_AsianAlone",
           "Count_Person_NotHispanicOrLatino_AsianAlone"
         ]
       },
