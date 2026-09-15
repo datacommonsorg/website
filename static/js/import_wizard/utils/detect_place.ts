@@ -26,7 +26,15 @@ import countriesJSON from "./country_mappings.json";
 import statesJSON from "./state_mappings.json";
 
 const MIN_HIGH_CONF_DETECT = 0.4;
-const SUPPORTED_PLACE_TYPES = new Set<string>(["Country", "State"]);
+const SUPPORTED_PLACE_TYPES = new Set<string>([
+  "Country",
+  "State",
+  "ABSGreaterCapitalCityStatisticalArea",
+  "ABSStatisticalAreaLevel4",
+  "ABSStatisticalAreaLevel3",
+  "ABSStatisticalAreaLevel2",
+  "ABSStatisticalAreaLevel1",
+]);
 
 // All supported Place types must be encoded below.
 const PLACE_TYPES: DCType[] = [
@@ -37,6 +45,14 @@ const PLACE_TYPES: DCType[] = [
   { dcid: "Municipality", displayName: "Municipality" },
   { dcid: "County", displayName: "County" },
   { dcid: "City", displayName: "City" },
+  {
+    dcid: "ABSGreaterCapitalCityStatisticalArea",
+    displayName: "Greater Capital City Statistical Area",
+  },
+  { dcid: "ABSStatisticalAreaLevel4", displayName: "Statistical Area Level 4" },
+  { dcid: "ABSStatisticalAreaLevel3", displayName: "Statistical Area Level 3" },
+  { dcid: "ABSStatisticalAreaLevel2", displayName: "Statistical Area Level 2" },
+  { dcid: "ABSStatisticalAreaLevel1", displayName: "Statistical Area Level 1" },
 ];
 
 // All supported Place properties must be encoded below.
@@ -49,6 +65,7 @@ const PLACE_PROPERTIES: DCProperty[] = [
   { dcid: "countryNumericCode", displayName: "Numeric Code" },
   { dcid: "fips52AlphaCode", displayName: "US State Alpha Code" },
   { dcid: "geoId", displayName: "FIPS Code" },
+  { dcid: "absGeographicCode", displayName: "ABS Geographic Code" },
 ];
 
 // Helper interface to refer to the place types and place properties.
@@ -120,6 +137,31 @@ export class PlaceDetector {
     ["municipality", [{ tName: "Municipality", pName: "name" }]],
     ["county", [{ tName: "County", pName: "name" }]],
     ["city", [{ tName: "City", pName: "name" }]],
+    [
+      "gccsa",
+      [
+        {
+          tName: "ABSGreaterCapitalCityStatisticalArea",
+          pName: "absGeographicCode",
+        },
+      ],
+    ],
+    [
+      "sa4",
+      [{ tName: "ABSStatisticalAreaLevel4", pName: "absGeographicCode" }],
+    ],
+    [
+      "sa3",
+      [{ tName: "ABSStatisticalAreaLevel3", pName: "absGeographicCode" }],
+    ],
+    [
+      "sa2",
+      [{ tName: "ABSStatisticalAreaLevel2", pName: "absGeographicCode" }],
+    ],
+    [
+      "sa1",
+      [{ tName: "ABSStatisticalAreaLevel1", pName: "absGeographicCode" }],
+    ],
   ]);
 
   constructor() {

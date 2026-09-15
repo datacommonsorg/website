@@ -18,6 +18,7 @@ import { NamedTypedPlace } from "./types";
 
 export const ARGENTINA_PLACE_DCID = "country/ARG";
 export const AUSTRALIA_NEW_ZEALAND_DCID = "AustraliaAndNewZealand";
+export const AUSTRALIA_PLACE_DCID = "country/AUS";
 export const BANGLADESH_PLACE_DCID = "country/BGD";
 export const BELARUS_PLACE_DCID = "country/BLR";
 export const BELIZE_PLACE_DCID = "country/BLZ";

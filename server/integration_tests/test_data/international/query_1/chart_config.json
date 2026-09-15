@@ -734,7 +734,7 @@
         ],
         "statVarSpec": {
           "Count_Household_Houseless_Rural": {
-            "name": "Count of Household: Houseless, Rural",
+            "name": "Count Of Household: Houseless, Rural",
             "statVar": "Count_Household_Houseless_Rural"
           },
           "Count_Household_Rural": {
@@ -1316,7 +1316,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]
