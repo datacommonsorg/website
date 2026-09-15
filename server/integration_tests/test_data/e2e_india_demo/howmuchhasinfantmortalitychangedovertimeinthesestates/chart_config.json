@@ -709,14 +709,14 @@
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth10"
                     ],
-                    "title": "Count of Live Births",
+                    "title": "Total Number of Reported Live Births",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Live Births"
+            "title": "Total Number of Reported Live Births"
           },
           {
             "columns": [
@@ -842,7 +842,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change in Count of Live Births Over Time (Absolute Change)"
+            "title": "Change in Total Number of Reported Live Births Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -968,7 +968,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change in Count of Live Births Over Time (Percent Change)"
+            "title": "Change in Total Number of Reported Live Births Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -1094,24 +1094,24 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change in Count of Live Births Over Time (Per Capita Change)"
+            "title": "Change in Total Number of Reported Live Births Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
           "Count_BirthEvent_LiveBirth10": {
-            "name": "Count of live births",
+            "name": "Total number of reported live births",
             "statVar": "Count_BirthEvent_LiveBirth"
           },
           "Count_BirthEvent_LiveBirth_growth_abs": {
-            "name": "Count of live births",
+            "name": "Total number of reported live births",
             "statVar": "Count_BirthEvent_LiveBirth"
           },
           "Count_BirthEvent_LiveBirth_growth_pc": {
-            "name": "Count of live births",
+            "name": "Total number of reported live births",
             "statVar": "Count_BirthEvent_LiveBirth"
           },
           "Count_BirthEvent_LiveBirth_growth_pct": {
-            "name": "Count of live births",
+            "name": "Total number of reported live births",
             "statVar": "Count_BirthEvent_LiveBirth"
           },
           "Count_Death_Infant10": {
@@ -1131,15 +1131,15 @@
             "statVar": "Count_Death_Infant"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent10": {
-            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
+            "name": "Count Of Mortality Event: Years Upto 1 (As Fraction Of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs": {
-            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
+            "name": "Count Of Mortality Event: Years Upto 1 (As Fraction Of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct": {
-            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
+            "name": "Count Of Mortality Event: Years Upto 1 (As Fraction Of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           }
         }
@@ -1581,7 +1581,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]
