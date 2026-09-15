@@ -34,18 +34,18 @@ The `cloudbuild.clear_cache.yaml` file defines a Cloud Build job that can be tri
 
 ### Triggering the Build
 
-You can trigger the build using the `gcloud` command-line tool. You need to provide the `_TARGET` and `_ENVIRONMENT` substitutions.
+You can trigger the build using the `gcloud` command-line tool against the `datcom-ci` project. You need to provide the `_TARGET` and `_ENVIRONMENT` substitutions.
 
 ### Examples
 
 To clear the website cache in the `autopush` environment:
 
 ```bash
-gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=website,_ENVIRONMENT=autopush
+gcloud builds submit --project=datcom-ci --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=website,_ENVIRONMENT=autopush
 ```
 
 To clear the mixer cache in the `autopush` environment:
 
 ```bash
-gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=mixer,_ENVIRONMENT=autopush
+gcloud builds submit --project=datcom-ci --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=mixer,_ENVIRONMENT=autopush
 ```
