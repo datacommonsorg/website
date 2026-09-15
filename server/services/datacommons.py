@@ -690,8 +690,10 @@ def nl_search_vars(
     skip_topics="",
 ):
   """Search sv from NL server."""
+  nl_root = current_app.config.get("NL_ROOT", "")
+  if not nl_root:
+    return {"queryResults": {}, "debugLogs": {}, "scoreThreshold": 0.7}
   idx_params = ",".join(index_types)
-  nl_root = current_app.config["NL_ROOT"]
   url = f"{nl_root}/api/search_vars?idx={idx_params}"
   if reranker:
     url = f"{url}&reranker={reranker}"
@@ -731,18 +733,27 @@ async def nl_search_vars_in_parallel(
 
 def nl_detect_verbs(query):
   """Detect verbs from NL server."""
-  url = f"{current_app.config['NL_ROOT']}/api/detect_verbs?q={query}"
+  nl_root = current_app.config.get("NL_ROOT", "")
+  if not nl_root:
+    return []
+  url = f"{nl_root}/api/detect_verbs?q={query}"
   return get(url)
 
 
 def nl_encode(model, queries):
   """Encode queries from NL server."""
-  url = f"{current_app.config['NL_ROOT']}/api/encode"
+  nl_root = current_app.config.get("NL_ROOT", "")
+  if not nl_root:
+    return {}
+  url = f"{nl_root}/api/encode"
   return post(url, {"model": model, "queries": queries})
 
 
 def nl_server_config():
-  return get(f"{current_app.config['NL_ROOT']}/api/server_config")
+  nl_root = current_app.config.get("NL_ROOT", "")
+  if not nl_root:
+    return {}
+  return get(f"{nl_root}/api/server_config")
 
 
 # =======================   V0 V0 V0 ================================
