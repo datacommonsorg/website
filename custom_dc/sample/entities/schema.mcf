@@ -8,19 +8,10 @@ typeOf: schema:Class
 name: "Patient"
 subclassOf: schema:Person
 
-Node: dcid:PatientTypeEnum
-typeOf: schema:Enum
-name: "Patient type enum"
-
-Node: dcid:ReturnedPatient
-typeOf: dcid:PatientTypeEnum
-name: "Returned"
-
-Node: dcid:patentType
-typeOf: schema:Property
-name: "Patient type"
-domainIncludes: dcid:Patient
-rangeIncludes: dcid:PatientTypeEnum
+Node: dcid:ReturnPatient
+typeOf: schema:Class
+name: "Return patient"
+subclassOf: dcid:Patient
 
 Node: dcid:medicalCondition
 typeOf: schema:Property
@@ -40,62 +31,113 @@ Node: dcid:HeartAttack
 typeOf: dcs:MedicalConditionIncidentTypeEnum
 name: "Heart attack"
 
+Node: dcid:HospitalStay
+typeOf: schema:Class
+name: "Hospital stay"
+subclassOf: schema: Event
+
+Node: dcid:UnplannedHospitalStay
+typeOf: schema:Class
+name: "Unplanned hospital stay in acute care by return patients"
+subclassOf: dcid:StatisticalAggregationMethodEnum
+
+Node: dcid:sum
+typeOf: schema:Property
+name: "sum"
+rangeIncludes: dcs:Sum
+
+Node: dcid:Total_Duration_UnplannedHospitalStay_ReturnPatients_HeartAttack
+typeOf: dcs:StatisticalVariable
+name: "Excess days in acute care by return patients"
+description: "Total number of days spent in acute care as unplanned visits by return heart attack patients"
+populationType: dcid:UnplannedHospitalStay
+measuredProperty: dcs:Duration
+statType: dcid:sum
+unit: dcs:Day
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:HeartAttack
+memberOf: dcid:AlaskaHospitals
+
+Node: dcid:Total_Duration_UnplannedHospitalStay_ReturnPatients_HeartFailure
+typeOf: dcs:StatisticalVariable
+name: "Excess days in acute care by return patients"
+description: "Total number of days spent in acute care as unplanned visits by return heart failure patients"
+populationType: dcid:UnplannedHospitalStay
+measuredProperty: dcs:Duration
+statType: dcid:sum
+unit: dcs:Day
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:HeartFailure
+memberOf: dcid:AlaskaHospitals
+
+Node: dcid:Total_Days_UnplannedHospitalStay_ReturnPatients_Pneumonia
+typeOf: dcs:StatisticalVariable
+name: "Excess days in acute care by return patients"
+description: "Total number of days spent in acute care as unplanned visits by return pneumonia patients"
+populationType: dcid:UnplannedHospitalStay
+measuredProperty: dcs:Duration
+statType: dcid:sum
+unit: dcs:Day
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:Pneumonia
+memberOf: dcid:AlaskaHospitals
+
 Node: dcid:Count_Patients_HeartAttack
 typeOf: dcs:StatisticalVariable
 name: "Count of heart attack patients"
 description: "Per-hospital total number of heart attack patients"
 populationType: dcid:Patient
-measuredProperty: dcid:medicalCondition
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:HeartAttack
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:Count_HeartAttack_ReturnPatients
+Node: dcid:Count_ReturnPatients_HeartAttack
 typeOf: dcs:StatisticalVariable
 name: "Count of heart attack patients returned"
 description: "Per-hospital number of heart attack patients returned unplanned in a 30-day period"
-populationType: dcid:Patient
-measuredProperty: dcid:medicalCondition
+populationType: dcid:ReturnPatient
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:HeartAttack
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
-constraintProperties: dcid:patientType
-patientType: dcid:ReturnedPatient
 
 Node: dcid:Count_Patients_HeartFailure
 typeOf: dcs:StatisticalVariable
 name: "Count of heart failure patients"
 description: "Per-hospital total number of heart failure patients"
 populationType: dcid:Patient
-measuredProperty: dcid:medicalCondition
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:HeartFailure
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:Count_HeartFailure_ReturnPatients
+Node: dcid:Count_ReturnPatients_HeartFailure
 typeOf: dcs:StatisticalVariable
 name: "Count of heart failure patients returned"
 description: "Per-hospital number of heart failure patients returned unplanned in a 30-day period"
-populationType: dcid:Patient
-measuredProperty: dcid:medicalCondition
+populationType: dcid:ReturnPatient
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:HeartFailure
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
-constraintProperties: dcid:patientType
-patientType: dcid:ReturnedPatient
 
 Node: dcid:Count_Patients_Pneumonia
 typeOf: dcs:StatisticalVariable
 name: "Count of pneumonia patients"
 description: "Per-hospital number of pneumonia patients"
 populationType: dcid:Patient
-measuredProperty: dcid:medicalCondition
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:Pneumonia
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
 
-Node: dcid:Count_Patients_Pneumonia_ReturnPatients
+Node: dcid:Count_ReturnPatients_Pneumonia
 typeOf: dcs:StatisticalVariable
 name: "Count of pneumonia patients returned"
 description: "Per-hospital number of pneumonia patients returned unplanned in a 30-day period"
-populationType: dcid:Patient
-measuredProperty: dcid:medicalCondition
+populationType: dcid:ReturnPatient
+constraintProperties: dcid:medicalCondition
+medicalCondition: dcid:Pneumonia
 statType: dcid:count
 memberOf: dcid:AlaskaHospitals
-constraintProperties: dcid:patientType
-patientType: dcid:ReturnedPatient
