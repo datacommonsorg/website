@@ -15,7 +15,9 @@
  */
 
 /** The content of the desktop version of the header */
+/** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
 import { KeyboardArrowDown } from "../../../../components/elements/icons/keyboard_arrow_down";
@@ -44,6 +46,7 @@ const MenuDesktop = ({
   labels,
   routes,
 }: MenuDesktopProps): ReactElement => {
+  const theme = useTheme();
   const [openMenu, setOpenMenu] = useState<number | null>(null);
   const [panelHeight, setPanelHeight] = useState<number>(0);
   const submenuRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -92,17 +95,56 @@ const MenuDesktop = ({
   }, [openMenu]);
 
   return (
-    <div className="header-menu" ref={menuContainerRef}>
-      <ul className="header-menu-list">
+    <div
+      css={css`
+        display: flex;
+        align-items: center;
+      `}
+      ref={menuContainerRef}
+    >
+      <ul
+        css={css`
+          display: flex;
+          align-items: stretch;
+          margin: 0;
+          padding: 0;
+          @media (min-width: ${theme.breakpoints.xl}px) {
+            gap: ${theme.spacing.xl}px;
+          }
+          @media (max-width: ${theme.breakpoints.xl}px) {
+            gap: ${theme.spacing.md}px;
+          }
+        `}
+      >
         {menu.map((menuItem, index) => {
           const buttonId = slugify(`nav-${menuItem.label}-button`);
           const dropdownId = slugify(`nav-${menuItem.label}-dropdown`);
 
           return (
-            <li key={menuItem.label}>
+            <li
+              key={menuItem.label}
+              css={css`
+                display: flex;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+              `}
+            >
               {menuItem.url ? (
                 <a
-                  className="menu-main-link"
+                  css={css`
+                    ${theme.typography.family.text};
+                    ${theme.typography.menu.xs};
+                    display: flex;
+                    align-items: center;
+                    padding: 8px 0;
+                    color: ${theme.colors.text.primary.base};
+                    transition: color 0.3s ease-in-out;
+                    &:hover {
+                      color: ${theme.colors.link.primary.base};
+                      text-decoration: none;
+                    }
+                  `}
                   href={resolveHref(menuItem.url, routes)}
                   onClick={(): boolean => {
                     triggerGAEvent(GA_EVENT_HEADER_CLICK, {
@@ -118,7 +160,21 @@ const MenuDesktop = ({
                 <>
                   <button
                     id={buttonId}
-                    className="menu-main-button"
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      ${theme.typography.family.text};
+                      ${theme.typography.menu.xs};
+                      border: 0;
+                      padding: ${theme.spacing.sm}px 0;
+                      margin: 0;
+                      background-color: transparent;
+                      transition: color 0.3s ease-in-out;
+                      &:hover span {
+                        color: ${theme.colors.link.primary.base};
+                        text-decoration: none;
+                      }
+                    `}
                     onClick={(): void => {
                       triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                         [GA_PARAM_ID]: `desktop ${menuItem.id}`,
@@ -131,15 +187,29 @@ const MenuDesktop = ({
                     aria-expanded={openMenu === index}
                     aria-controls={dropdownId}
                   >
-                    <span className="menu-main-label">
+                    <span
+                      css={css`
+                        display: inline-block;
+                        color: ${theme.colors.text.primary.base};
+                        transition: color 0.3s ease-in-out;
+                        transform: translateY(-1px);
+                      `}
+                    >
                       {labels[menuItem.label]}
                     </span>
                     <span
-                      className={`menu-arrow-icon ${
-                        openMenu === index ? "open" : ""
-                      }`}
+                      css={css`
+                        display: inline-block;
+                        transition: transform 0.3s ease;
+                        transform: ${openMenu === index
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)"};
+                      `}
                     >
-                      <KeyboardArrowDown height={"24px"} color={"#5f6368"} />
+                      <KeyboardArrowDown
+                        height={"24px"}
+                        color={theme.colors.text.secondary.base}
+                      />
                     </span>
                   </button>
                   <div
@@ -147,10 +217,20 @@ const MenuDesktop = ({
                       submenuRefs.current[index] = el;
                     }}
                     id={dropdownId}
-                    className="rich-menu-container"
                     aria-labelledby={buttonId}
+                    css={css`
+                      position: fixed;
+                      z-index: 1000;
+                      top: ${theme.header.lg}px;
+                      left: 0;
+                      right: 0;
+                      width: 100vw;
+                      overflow: hidden;
+                      background: ${theme.colors.background.primary.base};
+                      transition: max-height 0.4s ease-in-out;
+                    `}
                     style={{
-                      maxHeight: openMenu === index ? `${panelHeight}px` : 0,
+                      maxHeight: openMenu === index ? `${panelHeight}px` : "0",
                     }}
                   >
                     <MenuDesktopRichMenu
@@ -166,7 +246,21 @@ const MenuDesktop = ({
           );
         })}
       </ul>
-      <div className={"panel"} style={{ height: panelHeight }} />
+      <div
+        css={css`
+          ${theme.elevation.header.secondary};
+          width: 100vw;
+          left: 0;
+          right: 0;
+          position: absolute;
+          z-index: 950;
+          top: ${theme.header.lg}px;
+          background: ${theme.colors.background.primary.base};
+          overflow: hidden;
+          transition: height 0.4s ease-in-out;
+          height: ${panelHeight}px;
+        `}
+      />
     </div>
   );
 };
