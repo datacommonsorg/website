@@ -1068,6 +1068,30 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "Count_Person_Female_AsianAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_10To14Years_Female_AsianAlone"
+        ]
+      },
+      "Count_Person_Female_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_10To14Years_Female_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Count_Person_Female_NativeHawaiianAndOtherPacificIslanderAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_10To14Years_Female_NativeHawaiianAndOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_Female_WhiteAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_WhiteAlone",
+          "Count_Person_10To14Years_Female_WhiteAlone"
+        ]
+      },
       "Count_Person_HispanicOrLatino": {
         "gender": [
           "Count_Person_Female_HispanicOrLatino",
