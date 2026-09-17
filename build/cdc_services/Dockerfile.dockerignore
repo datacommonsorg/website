@@ -7,6 +7,8 @@
 
 .git
 .env
+**/.venv
+**/.venv_*
 
 pytest_log.txt
 

@@ -7,11 +7,17 @@
 
 .git
 .env
+**/.venv
+**/.venv_*
 
 pytest_log.txt
 
 **/eval/**/result
 
+import/pipeline/
+import/tool/
+import/tools/
+import/util/
 import/simple/sample/
 **/.data
 **/testdata
