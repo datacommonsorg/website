@@ -66,7 +66,7 @@ COPY server/requirements.txt ./server/requirements.txt
 # Create a virtual env and install requirements.
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
-RUN pip3 install --upgrade pip setuptools \
+RUN pip3 install --no-cache-dir --upgrade pip setuptools \
     && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
     && pip3 install --no-cache-dir datacommons-mcp
 
