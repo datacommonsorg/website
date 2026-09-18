@@ -13,7 +13,12 @@
 # limitations under the License.
 
 # Target-specific gcloudignore for datacommons-services container builds.
-# Includes root .gcloudignore baseline rules and excludes subsystems unused by cdc_services.
+# Note: gcloud limits #!include recursion to 1 level, so we explicitly include .gitignore and .dockerignore:
+.gcloudignore
+.git
+.gitignore
+#!include:.gitignore
+#!include:.dockerignore
 #!include:.gcloudignore
 
 # Subsystems not needed by the cdc_services container:
