@@ -61,17 +61,6 @@ steps:
         docker push gcr.io/$_PROJECT_ID/datacommons-services:${_TAG}
     waitFor: ["resolve-hashes"]
 
-  - id: push-nl-server
-    name: gcr.io/cloud-builders/docker
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        set -e
-        DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG} .
-        docker push gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG}
-    waitFor: ["-"]
-
   - id: push-nodejs-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
