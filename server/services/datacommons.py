@@ -683,6 +683,7 @@ def resolve(nodes, prop, resolver="place", target=None):
   return post(url, req)
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_search_vars(
     queries,
     index_types: List[str],
@@ -693,6 +694,7 @@ def nl_search_vars(
   return {}
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 async def nl_search_vars_in_parallel(
     queries: list[str],
     index_types: list[str],
@@ -701,16 +703,19 @@ async def nl_search_vars_in_parallel(
   return {}
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_detect_verbs(query):
   """Detect verbs from NL server."""
   return []
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_encode(model, queries):
   """Encode queries from NL server."""
   return []
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_server_config():
   return {}
 
