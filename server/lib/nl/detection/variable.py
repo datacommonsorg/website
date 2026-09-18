@@ -22,7 +22,6 @@ from flask import has_app_context
 
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING
-from server.lib.feature_flags import USE_V2_RESOLVE_FOR_NL_SEARCH_VARS
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import query_util
 from server.lib.nl.detection.types import DetectionArgs
@@ -85,33 +84,6 @@ def _detect_vars_with_resolve(
   return query2results, threshold
 
 
-def _detect_vars_with_nl_search(
-    all_queries: List[str], dargs: DetectionArgs, debug_logs: Dict,
-    counters: Counters) -> tuple[Dict[str, vars.VarCandidates], float]:
-  """
-  Detects variables using the traditional nl_search_vars API.
-
-  Args
-  ----
-    all_queries: A list of query strings.
-    dargs: Detection arguments including embedding indices and reranker.
-    debug_logs: A dictionary for logging debug information.
-
-  Returns
-  -------
-    A tuple containing the mapping of queries to candidates and the threshold.
-
-  """
-  resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
-                           dargs.reranker)
-  query2results = {
-      q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
-  }
-  debug_logs.update(resp.get('debugLogs', {}))
-  counters.info("detect_variable_path", 'nl_search_vars')
-  return query2results, resp['scoreThreshold']
-
-
 def detect_vars(orig_query: str, debug_logs: Dict, dargs: DetectionArgs,
                 counters: Counters) -> vars.VarDetectionResult:
 
@@ -151,12 +123,8 @@ def detect_vars(orig_query: str, debug_logs: Dict, dargs: DetectionArgs,
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  if is_feature_enabled(USE_V2_RESOLVE_FOR_NL_SEARCH_VARS):
-    query2results, model_threshold = _detect_vars_with_resolve(
-        all_queries, debug_logs, counters)
-  else:
-    query2results, model_threshold = _detect_vars_with_nl_search(
-        all_queries, dargs, debug_logs, counters)
+  query2results, model_threshold = _detect_vars_with_resolve(
+      all_queries, debug_logs, counters)
 
   #
   # 3. Prepare result candidates.
