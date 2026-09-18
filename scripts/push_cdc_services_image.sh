@@ -37,5 +37,6 @@ gcloud builds submit . \
   --async \
   --project=$PROJECT_ID \
   --config=build/ci/cloudbuild.push_cdc_services_image.yaml \
+  --ignore-file=.gcloudignore.cdc_services \
   --substitutions=_TAG=$IMAGE_TAG,_PROJECT_ID=$PROJECT_ID,_WEBSITE_HASH=$WEBSITE_HASH,_MIXER_HASH=$MIXER_HASH
 
