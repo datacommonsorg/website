@@ -96,10 +96,18 @@ export function FacetOptionContent({
         : facetSelectionComponentMessages.CombinedDatasetForChartsOption
     );
   } else {
+    const provenanceIdSegment = metadata.provenanceId
+      ?.split("/")
+      .filter(Boolean)
+      .pop();
     const sourceTitle =
       displayName || metadata.sourceName || metadata.importName;
-    primaryTitle = metadata.provenanceName || sourceTitle;
-    if (primaryTitle !== sourceTitle) {
+    primaryTitle =
+      metadata.provenanceName ||
+      sourceTitle ||
+      provenanceIdSegment ||
+      metadata.measurementMethod;
+    if (primaryTitle !== sourceTitle && sourceTitle) {
       firstDetailItem = sourceTitle;
     }
   }
@@ -116,6 +124,9 @@ export function FacetOptionContent({
         ? `${humanizedPeriod} (${metadata.observationPeriod})`
         : humanizedPeriod;
   }
+
+  const methodDetail =
+    metadata.measurementMethodDescription || metadata.measurementMethod;
 
   return (
     <div
@@ -185,13 +196,25 @@ export function FacetOptionContent({
             </li>
           )}
         {firstDetailItem && <li>{firstDetailItem}</li>}
-        {metadata.measurementMethodDescription && (
-          <li>{metadata.measurementMethodDescription}</li>
+        {(metadata.measurementMethodDescription ||
+          metadata.measurementMethod) &&
+          primaryTitle !==
+            (metadata.measurementMethodDescription ||
+              metadata.measurementMethod) && (
+            <li>
+              {metadata.measurementMethodDescription ||
+                metadata.measurementMethod}
+            </li>
+          )}
+        {methodDetail && primaryTitle !== methodDetail && (
+          <li>{methodDetail}</li>
         )}
-        {metadata.unitDisplayName && (
+        {(metadata.unitDisplayName || metadata.unit) && (
           <li>
             {intl.formatMessage(metadataComponentMessages.Unit)} •{" "}
-            {startCase(metadata.unitDisplayName)}
+            {metadata.unitDisplayName
+              ? startCase(metadata.unitDisplayName)
+              : metadata.unit}
           </li>
         )}
         {metadata.scalingFactor && (
