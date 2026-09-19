@@ -156,6 +156,13 @@ class ContainedInPlaceType(str, Enum):
   # Typically corresponds to county equivalent
   EU_NUTS_3 = "EurostatNUTS3"
 
+  # ASGS3 types
+  ABS_GCCSA = "ABSGreaterCapitalCityStatisticalArea"
+  ABS_SA4 = "ABSStatisticalAreaLevel4"
+  ABS_SA3 = "ABSStatisticalAreaLevel3"
+  ABS_SA2 = "ABSStatisticalAreaLevel2"
+  ABS_SA1 = "ABSStatisticalAreaLevel1"
+
   UN_GEO_REGION = "UNGeoRegion"
   CONTINENTAL_UNION = "ContinentalUnion"
   GEO_REGION = "GeoRegion"

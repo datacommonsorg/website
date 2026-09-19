@@ -299,6 +299,17 @@ def containedin(query: str) -> Union[NLClassifier, None]:
       "zip code": ContainedInPlaceType.ZIP,
       "tract": ContainedInPlaceType.CENSUS_TRACT,
       "census tract": ContainedInPlaceType.CENSUS_TRACT,
+      # ASGS3 types
+      "greater capital city statistical area": ContainedInPlaceType.ABS_GCCSA,
+      "gccsa": ContainedInPlaceType.ABS_GCCSA,
+      "sa4": ContainedInPlaceType.ABS_SA4,
+      "statistical area level 4": ContainedInPlaceType.ABS_SA4,
+      "sa3": ContainedInPlaceType.ABS_SA3,
+      "statistical area level 3": ContainedInPlaceType.ABS_SA3,
+      "sa2": ContainedInPlaceType.ABS_SA2,
+      "statistical area level 2": ContainedInPlaceType.ABS_SA2,
+      "sa1": ContainedInPlaceType.ABS_SA1,
+      "statistical area level 1": ContainedInPlaceType.ABS_SA1,
       # Schools.
       "high school": ContainedInPlaceType.HIGH_SCHOOL,
       "middle school": ContainedInPlaceType.MIDDLE_SCHOOL,
