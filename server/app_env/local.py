@@ -24,7 +24,6 @@ class Config(_base.Config):
   LOG_EXTREME_MIXER_CALLS = False
   LOG_CACHED_MIXER_RESPONSE_USAGE = False
   ENABLE_EMBEDDINGS_PLAYGROUND = True
-  ENABLE_DATAGEMMA_EVAL_TOOLS = True
 
 
 class DCConfig(Config):
