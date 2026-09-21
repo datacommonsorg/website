@@ -196,16 +196,6 @@ export function FacetOptionContent({
             </li>
           )}
         {firstDetailItem && <li>{firstDetailItem}</li>}
-        {(metadata.measurementMethodDescription ||
-          metadata.measurementMethod) &&
-          primaryTitle !==
-            (metadata.measurementMethodDescription ||
-              metadata.measurementMethod) && (
-            <li>
-              {metadata.measurementMethodDescription ||
-                metadata.measurementMethod}
-            </li>
-          )}
         {methodDetail && primaryTitle !== methodDetail && (
           <li>{methodDetail}</li>
         )}
