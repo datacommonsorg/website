@@ -123,6 +123,23 @@ describe("FacetOptionContent", () => {
     expect(detailItems.length).toBe(0);
   });
 
+  // Test: Secondary detail rendering of measurementMethod without duplication.
+  // Situation: Facet has a provenanceName as primary title and a measurementMethod.
+  // Expectation: Renders measurementMethod in the details list exactly once.
+  it("renders measurementMethod once in details when primaryTitle is a provenance name", () => {
+    renderWithTheme(
+      <FacetOptionContent
+        metadata={{
+          provenanceName: "U.S. Census Bureau",
+          measurementMethod: "CensusACS5YearSurvey",
+        }}
+      />
+    );
+
+    expect(screen.getByText("U.S. Census Bureau")).toBeTruthy();
+    expect(screen.getAllByText("CensusACS5YearSurvey")).toHaveLength(1);
+  });
+
   // Test: Legitimate secondary detail rendering.
   // Situation: Facet has both provenanceName and sourceName.
   // Expectation: Primary title is provenanceName; detail list contains sourceName.
