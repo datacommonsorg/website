@@ -85,6 +85,10 @@ export async function fetchFacetsWithMetadata(
       ...(surface ? getSurfaceHeader(surface) : {}),
     };
 
+    // Strip provenanceUrl from the request payload because external URLs in POST
+    // bodies can trigger Cloud Armor OWASP CRS false positives, and the
+    // /api/metadata/facets endpoint does not use provenanceUrl for enrichment.
+    // The original provenanceUrl is merged back into the enriched result below.
     const sanitizedFacets: FacetResponse = {};
     for (const [sv, svFacets] of Object.entries(facets)) {
       sanitizedFacets[sv] = {};
