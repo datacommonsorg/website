@@ -16,12 +16,6 @@
 set -e
 
 export MIXER_API_KEY=$DC_API_KEY
-# https://stackoverflow.com/a/62703850
-export TOKENIZERS_PARALLELISM=false
-# https://github.com/UKPLab/sentence-transformers/issues/1318#issuecomment-1084731111
-export OMP_NUM_THREADS=1
-
-export NL_SERVER_PORT=${NL_SERVER_PORT:-6060}
 
 # If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
 if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
@@ -51,7 +45,6 @@ echo "OUTPUT_DIR=$OUTPUT_DIR"
 
 export IS_CUSTOM_DC=true
 export USER_DATA_PATH=$OUTPUT_DIR
-export ADDITIONAL_CATALOG_PATH=$USER_DATA_PATH/datacommons/nl/embeddings/custom_catalog.yaml
 
 if [[ $USE_SQLITE == "true" ]]; then
     export SQLITE_PATH=$OUTPUT_DIR/datacommons/datacommons.db
@@ -60,16 +53,9 @@ fi
 
 nginx -c /workspace/nginx.conf
 
-MIXER_ARGS=()
-if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
-    # Custom embeddings index built at 
-    # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
-    export CUSTOM_EMBEDDINGS_INDEX=${CUSTOM_EMBEDDINGS_INDEX:-"user_all_minilm_mem"}
-    MIXER_ARGS+=(
-        "--embeddings_server_url=http://localhost:$NL_SERVER_PORT"
-        "--resolve_embeddings_indexes=$CUSTOM_EMBEDDINGS_INDEX"
-    )
-fi
+MIXER_ARGS=(
+    "--agent_default_expand_topics=false"
+)
 
 if [[ $USE_SPANNER_GRAPH == "true" ]]; then
     echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
@@ -116,17 +102,6 @@ echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 
 # Start envoy.
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
-
-# Start NL server.
-if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
-    if [[ $DEBUG == "true" ]]; then
-        echo "Starting NL Server in debug mode."
-        python3 nl_app.py $NL_SERVER_PORT &
-    else
-        echo "Starting NL Server."
-        gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:$NL_SERVER_PORT -w 1 nl_app:app &
-    fi
-fi
 
 # Start MCP server.
 if [[ $ENABLE_MCP == "true" ]]; then

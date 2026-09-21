@@ -185,11 +185,11 @@
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count of Hate Crime Incidents: Disability Status, Aggravated Assault",
+            "name": "Count Of Hate Crime Incidents: Disability Status, Aggravated Assault",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count of Hate Crime Incidents: Disability Status, Robbery",
+            "name": "Count Of Hate Crime Incidents: Disability Status, Robbery",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime"
           },
           "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block": {
