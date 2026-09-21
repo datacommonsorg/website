@@ -122,7 +122,7 @@ def detect_vars(orig_query: str, debug_logs: Dict, dargs: DetectionArgs,
   #
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
-  # Make API call to the NL models/embeddings server.
+  # Make API call to the Mixer resolve API.
   query2results, model_threshold = _detect_vars_with_resolve(
       all_queries, debug_logs, counters)
 
