@@ -743,6 +743,8 @@ def admin_area_equiv_for_place(
     custom_remap = constants.USA_PLACE_TYPE_REMAP
   elif place.country == 'country/PAK':
     custom_remap = constants.PAK_PLACE_TYPE_REMAP
+  elif place.country == 'country/AUS':
+    custom_remap = constants.AUS_PLACE_TYPE_REMAP
   elif place.country in constants.EU_COUNTRIES:
     custom_remap = constants.EU_PLACE_TYPE_REMAP
 

@@ -87,6 +87,56 @@ test("placeTypesAndProperties", () => {
       dcType: { dcid: "City", displayName: "City" },
       dcProperty: { dcid: "name", displayName: "Name" },
     },
+    {
+      dcType: {
+        dcid: "ABSGreaterCapitalCityStatisticalArea",
+        displayName: "Greater Capital City Statistical Area",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel4",
+        displayName: "Statistical Area Level 4",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel3",
+        displayName: "Statistical Area Level 3",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel2",
+        displayName: "Statistical Area Level 2",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel1",
+        displayName: "Statistical Area Level 1",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
   ]);
   expect(det.placeTypesAndProperties).toEqual(expected);
 });
@@ -129,6 +179,56 @@ test("supportedPlaceTypeProperties", () => {
       dcType: { dcid: "State", displayName: "State" },
       dcProperty: { dcid: "geoId", displayName: "FIPS Code" },
     },
+    {
+      dcType: {
+        dcid: "ABSGreaterCapitalCityStatisticalArea",
+        displayName: "Greater Capital City Statistical Area",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel4",
+        displayName: "Statistical Area Level 4",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel3",
+        displayName: "Statistical Area Level 3",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel2",
+        displayName: "Statistical Area Level 2",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
+    {
+      dcType: {
+        dcid: "ABSStatisticalAreaLevel1",
+        displayName: "Statistical Area Level 1",
+      },
+      dcProperty: {
+        dcid: "absGeographicCode",
+        displayName: "ABS Geographic Code",
+      },
+    },
   ]);
   expect(det.getSupportedPlaceTypesAndProperties()).toEqual(expected);
 });
@@ -145,6 +245,11 @@ test("placeDetectionKeys", () => {
     "municipality",
     "county",
     "city",
+    "gccsa",
+    "sa4",
+    "sa3",
+    "sa2",
+    "sa1",
   ]);
   const got = new Set(PlaceDetector.columnToTypePropertyMapping.keys());
   expect(got).toEqual(expected);

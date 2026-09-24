@@ -24,6 +24,7 @@ import { GeoJsonFeature } from "../../chart/types";
 import { NO_FULL_COVERAGE_PLACE_TYPES } from "../../constants/map_constants";
 import {
   ARGENTINA_PLACE_DCID,
+  AUSTRALIA_PLACE_DCID,
   BANGLADESH_PLACE_DCID,
   BELARUS_PLACE_DCID,
   BELIZE_PLACE_DCID,
@@ -160,6 +161,24 @@ const EUROPE_CHILD_PLACE_TYPES = {
   EurostatNUTS3: ["EurostatNUTS3"],
 };
 
+const AUSTRALIA_CHILD_PLACE_TYPES = {
+  Country: ["State", "ABSGreaterCapitalCityStatisticalArea"],
+  State: ["ABSGreaterCapitalCityStatisticalArea", "ABSStatisticalAreaLevel4"],
+  ABSGreaterCapitalCityStatisticalArea: [
+    "ABSStatisticalAreaLevel4",
+    "ABSStatisticalAreaLevel3",
+  ],
+  ABSStatisticalAreaLevel4: [
+    "ABSStatisticalAreaLevel3",
+    "ABSStatisticalAreaLevel2",
+  ],
+  ABSStatisticalAreaLevel3: [
+    "ABSStatisticalAreaLevel2",
+    "ABSStatisticalAreaLevel1",
+  ],
+  ABSStatisticalAreaLevel2: ["ABSStatisticalAreaLevel1"],
+};
+
 const AA1_AA2_PLACES = new Set([
   ARGENTINA_PLACE_DCID,
   BENIN_PLACE_DCID,
@@ -220,6 +239,7 @@ const CHILD_PLACE_TYPE_MAPPING = {
   [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPES,
   [PAKISTAN_PLACE_DCID]: AA1_AA3_CHILD_PLACE_TYPES,
   [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
+  [AUSTRALIA_PLACE_DCID]: AUSTRALIA_CHILD_PLACE_TYPES,
 };
 
 export const CHART_LOADER_SCREEN = "chart-loader-screen";

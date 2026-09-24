@@ -219,6 +219,17 @@ ADMIN_DIVISION_EQUIVALENTS = {
     # NOTE: This is a hack for since district equivalents for PAK alone is AA level 3
     ContainedInPlaceType.ADMIN_AREA_3:
         ContainedInPlaceType.ADMIN_AREA_2,
+    # ASGS3 equivalents
+    ContainedInPlaceType.ABS_GCCSA:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ABS_SA4:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ABS_SA3:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ABS_SA2:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ABS_SA1:
+        ContainedInPlaceType.ADMIN_AREA_2,
 }
 
 # Key is canonical AA types (and excludes county, province, etc.)
@@ -240,6 +251,12 @@ PAK_PLACE_TYPE_REMAP = {
     # TODO: Remove this after fixing in the KG.
     ContainedInPlaceType.ADMIN_AREA_2:
         ContainedInPlaceType.ADMIN_AREA_3,
+}
+
+# Key is canonical AA types (and excludes county, province, etc.)
+AUS_PLACE_TYPE_REMAP = {
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.ABS_SA4,
 }
 
 EARTH = Place('Earth', 'World', 'Place')
@@ -309,6 +326,7 @@ EU_COUNTRIES = frozenset([
 ])
 
 NON_EU_MAP_COUNTRIES = [
+    'country/AUS',
     'country/BGD',
     'country/CHN',
     'country/IND',
