@@ -51,4 +51,9 @@ def get_redis_config():
     port = redis[region]["port"]
     password = redis[region].get("password", REDIS_PASSWORD)
     ca_cert = redis[region].get("ca_cert", REDIS_CA_CERT)
-    return {"host": host, "port": port, "password": password, "ca_cert": ca_cert}
+    return {
+        "host": host,
+        "port": port,
+        "password": password,
+        "ca_cert": ca_cert
+    }
