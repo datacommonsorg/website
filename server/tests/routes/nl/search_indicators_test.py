@@ -66,7 +66,7 @@ MOCK_V2NODE_RESPONSE = {
                 },
                 "typeOf": {
                     "nodes": [{
-                        "name": "StatisticalVariable"
+                        "dcid": "StatisticalVariable"
                     }]
                 },
             }
@@ -85,7 +85,7 @@ MOCK_V2NODE_RESPONSE = {
                 },
                 "typeOf": {
                     "nodes": [{
-                        "name": "StatisticalVariable"
+                        "dcid": "StatisticalVariable"
                     }]
                 },
             }
@@ -183,7 +183,7 @@ class TestSearchVariables(unittest.TestCase):
                       },
                       "typeOf": {
                           "nodes": [{
-                              "name": "StatisticalVariable"
+                              "dcid": "StatisticalVariable"
                           }]
                       },
                   }
@@ -202,7 +202,7 @@ class TestSearchVariables(unittest.TestCase):
                       },
                       "typeOf": {
                           "nodes": [{
-                              "name": "StatisticalVariable"
+                              "dcid": "StatisticalVariable"
                           }]
                       },
                   }
@@ -221,7 +221,7 @@ class TestSearchVariables(unittest.TestCase):
                       },
                       "typeOf": {
                           "nodes": [{
-                              "name": "Topic"
+                              "dcid": "Topic"
                           }]
                       },
                   }
@@ -306,7 +306,7 @@ class TestSearchVariables(unittest.TestCase):
                       },
                       "typeOf": {
                           "nodes": [{
-                              "name": "StatisticalVariable"
+                              "dcid": "StatisticalVariable"
                           }]
                       }
                   }
@@ -320,7 +320,7 @@ class TestSearchVariables(unittest.TestCase):
                       },
                       "typeOf": {
                           "nodes": [{
-                              "name": "StatisticalVariable"
+                              "dcid": "StatisticalVariable"
                           }]
                       }
                   }
@@ -483,7 +483,7 @@ class TestSearchVariables(unittest.TestCase):
                     },
                     "typeOf": {
                         "nodes": [{
-                            "name": "StatisticalVariable"
+                            "dcid": "StatisticalVariable"
                         }]
                     },
                 }
@@ -533,7 +533,7 @@ class TestSearchVariables(unittest.TestCase):
                     },
                     "typeOf": {
                         "nodes": [{
-                            "name": "StatisticalVariable"
+                            "dcid": "StatisticalVariable"
                         }]
                     },
                 }
@@ -602,7 +602,7 @@ class TestSearchVariables(unittest.TestCase):
                     },
                     "typeOf": {
                         "nodes": [{
-                            "name": "StatisticalVariable"
+                            "dcid": "StatisticalVariable"
                         }]
                     }
                 }
@@ -616,7 +616,7 @@ class TestSearchVariables(unittest.TestCase):
                     },
                     "typeOf": {
                         "nodes": [{
-                            "name": "Topic"
+                            "dcid": "Topic"
                         }]
                     }
                 }
