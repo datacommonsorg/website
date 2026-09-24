@@ -23,6 +23,7 @@ _REDIS_CONFIG = '/datacommons/redis/redis.json'
 REDIS_HOST = os.environ.get('REDIS_HOST', '')
 REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
 REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD', '')
+REDIS_CA_CERT = os.environ.get('REDIS_CA_CERT', '')
 
 
 def get_redis_config():
@@ -32,6 +33,7 @@ def get_redis_config():
         "host": REDIS_HOST,
         "port": REDIS_PORT,
         "password": REDIS_PASSWORD,
+        "ca_cert": REDIS_CA_CERT,
     }
   # Next try local redis config file (used in gke)
   if not os.path.isfile(_REDIS_CONFIG):
@@ -48,4 +50,5 @@ def get_redis_config():
     host = redis[region]["host"]
     port = redis[region]["port"]
     password = redis[region].get("password", REDIS_PASSWORD)
-    return {"host": host, "port": port, "password": password}
+    ca_cert = redis[region].get("ca_cert", REDIS_CA_CERT)
+    return {"host": host, "port": port, "password": password, "ca_cert": ca_cert}
