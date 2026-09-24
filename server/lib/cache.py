@@ -17,6 +17,7 @@ import json
 import logging
 import os
 from pathlib import Path
+import tempfile
 from typing import Callable, Optional, Union
 
 from flask import g
@@ -154,9 +155,9 @@ def cohort_aware_redis_cache_factory(app, config, args, kwargs):
       url_kwargs["password"] = password
     ca_cert = config.get("CACHE_REDIS_CA_CERT")
     if ca_cert:
-      ca_cert_path = "/tmp/redis_ca.pem"
-      with open(ca_cert_path, "w") as ca_file:
+      with tempfile.NamedTemporaryFile(mode="w", suffix=".pem", delete=False) as ca_file:
         ca_file.write(ca_cert)
+        ca_cert_path = ca_file.name
       url_kwargs["ssl_ca_certs"] = ca_cert_path
     kwargs["host"] = redis_from_url(redis_url, **url_kwargs)
   return CohortAwareRedisCache(*args, **kwargs)
