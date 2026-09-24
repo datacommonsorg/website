@@ -47,11 +47,6 @@ spec:
         - name: ingress-config
           configMap:
             name: ingress-config
-        {{- if .Values.nl.enabled }}
-        - name: nl-config
-          configMap:
-            name: nl-config
-        {{- end }}
         {{- if .Values.website.redis.enabled }}
         - name: redis-config
           configMap:
@@ -109,48 +104,6 @@ spec:
             # or data config change.
             - name: BOUNCE
               value: "dummy"
-        {{- if .Values.nl.enabled }}
-        - name: nl
-          image: "gcr.io/datcom-ci/datacommons-nl{{- if .Values.nl.image.tag }}:{{ .Values.nl.image.tag }}{{- end }}"
-          resources:
-            limits:
-              memory: {{ .Values.nl.memory }}
-            requests:
-              memory: {{ .Values.nl.memory }}
-          env:
-            - name: FLASK_ENV
-              value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
-            - name: NUM_WORKERS
-              value: {{ .Values.nl.workers | quote }}
-          volumeMounts:
-            - name: nl-config
-              mountPath: /datacommons/nl
-          startupProbe:
-            httpGet:
-              path: /healthz
-              port: 6060
-            failureThreshold: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 6060
-            # long timeout here (and in the liveness probe) because NL server
-            # can only take NUM_WORKERS number of requests at a time, so when
-            # there's already NUM_WORKERS number of requests, need to wait
-            # before /healthz can be served.
-            timeoutSeconds: 300
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 6060
-            timeoutSeconds: 300
-            periodSeconds: 10
-          ports:
-            - containerPort: 6060
-        {{- end }}
 
 {{- if .Values.nodejs.enabled }}
 ---

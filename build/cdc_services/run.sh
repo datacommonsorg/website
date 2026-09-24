@@ -16,12 +16,6 @@
 set -e
 
 export MIXER_API_KEY=$DC_API_KEY
-# https://stackoverflow.com/a/62703850
-export TOKENIZERS_PARALLELISM=false
-# https://github.com/UKPLab/sentence-transformers/issues/1318#issuecomment-1084731111
-export OMP_NUM_THREADS=1
-
-export NL_SERVER_PORT=${NL_SERVER_PORT:-6060}
 
 # If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
 if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
@@ -51,7 +45,6 @@ echo "OUTPUT_DIR=$OUTPUT_DIR"
 
 export IS_CUSTOM_DC=true
 export USER_DATA_PATH=$OUTPUT_DIR
-export ADDITIONAL_CATALOG_PATH=$USER_DATA_PATH/datacommons/nl/embeddings/custom_catalog.yaml
 
 if [[ $USE_SQLITE == "true" ]]; then
     export SQLITE_PATH=$OUTPUT_DIR/datacommons/datacommons.db
@@ -60,45 +53,39 @@ fi
 
 nginx -c /workspace/nginx.conf
 
-MIXER_ARGS=(
-    "--agent_default_expand_topics=false"
-)
-if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
-    # Custom embeddings index built at 
-    # https://github.com/datacommonsorg/website/blob/40111935bd6e564f8825c7abc1ccd920ea942aef/build/cdc_data/run.sh#L90-L94
-    export CUSTOM_EMBEDDINGS_INDEX=${CUSTOM_EMBEDDINGS_INDEX:-"user_all_minilm_mem"}
-    MIXER_ARGS+=(
-        "--embeddings_server_url=http://localhost:$NL_SERVER_PORT"
-        "--resolve_embeddings_indexes=$CUSTOM_EMBEDDINGS_INDEX"
-    )
+# 1. Dynamically update feature flags for Website and Mixer
+python3 update_dcp_flags.py
+
+# Resolve Project ID across standard environment variables, or fall back to Compute/Cloud Run Metadata Server
+GCP_PROJECT_ID=${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-$PROJECT_ID}}
+if [[ -z "$GCP_PROJECT_ID" ]]; then
+    GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null) || true
 fi
 
-if [[ $USE_SPANNER_GRAPH == "true" ]]; then
-    echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
-    
-    # 1. Dynamically update feature flags for Website and Mixer
-    python3 update_dcp_flags.py
-    # Resolve Project ID across standard environment variables, or fall back to Compute/Cloud Run Metadata Server
-    GCP_PROJECT_ID=${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-$PROJECT_ID}}
-    if [[ -z "$GCP_PROJECT_ID" ]]; then
-        GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null) || true
-    fi
-    
-    if [[ -z "$GCP_PROJECT_ID" ]]; then
-        echo "ERROR: GCP_PROJECT_ID (or GOOGLE_CLOUD_PROJECT / PROJECT_ID) not specified and could not be resolved from metadata."
-        exit 1
-    fi
-    
-    SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
-    SPANNER_SEARCH_CONFIG_PATH=${SPANNER_SEARCH_CONFIG_PATH:-"/workspace/internal/server/spanner/spanner_config/dcp_default.yaml"}
+if [[ -z "$GCP_PROJECT_ID" ]]; then
+    echo "ERROR: GCP_PROJECT_ID (or GOOGLE_CLOUD_PROJECT / PROJECT_ID) not specified and could not be resolved from metadata."
+    exit 1
+fi
 
-    # 2. Enable V2 API for Mixer
+SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
+SPANNER_SEARCH_CONFIG_PATH=${SPANNER_SEARCH_CONFIG_PATH:-"/workspace/internal/server/spanner/spanner_config/dcp_default.yaml"}
+
+# 2. Configure Mixer arguments (Spanner Graph + V2 API)
+MIXER_ARGS=(
+    "--agent_default_expand_topics=false"
+    "--spanner_graph_info=$SPANNER_CONFIG_YAML"
+    "--spanner_search_config_path=$SPANNER_SEARCH_CONFIG_PATH"
+    "--use_spanner_graph=true"
+    "--feature_flags_path=deploy/featureflags/dcp.yaml"
+    "--host_project=$GCP_PROJECT_ID"
+)
+
+# 3. Enable Redis cache for Mixer if REDIS_HOST and REDIS_PORT are configured
+if [[ -n "$REDIS_HOST" && -n "$REDIS_PORT" ]]; then
+    REDIS_CONFIG_YAML="{instances: [{region: \"$REGION\", host: \"$REDIS_HOST\", port: \"$REDIS_PORT\"}]}"
     MIXER_ARGS+=(
-        "--spanner_graph_info=$SPANNER_CONFIG_YAML"
-        "--spanner_search_config_path=$SPANNER_SEARCH_CONFIG_PATH"
-        "--use_spanner_graph=true"
-        "--feature_flags_path=deploy/featureflags/dcp.yaml"
-        "--host_project=$GCP_PROJECT_ID"
+        "--use_redis=true"
+        "--redis_info=$REDIS_CONFIG_YAML"
     )
 fi
 
@@ -118,17 +105,6 @@ echo "DEBUG: Starting Mixer with arguments: ${MIXER_ARGS[@]}"
 
 # Start envoy.
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
-
-# Start NL server.
-if [[ $ENABLE_MODEL == "true" && $RESOLVE_WITH_SPANNER_EMBEDDINGS != "true" ]]; then
-    if [[ $DEBUG == "true" ]]; then
-        echo "Starting NL Server in debug mode."
-        python3 nl_app.py $NL_SERVER_PORT &
-    else
-        echo "Starting NL Server."
-        gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:$NL_SERVER_PORT -w 1 nl_app:app &
-    fi
-fi
 
 # Start MCP server.
 if [[ $ENABLE_MCP == "true" ]]; then
