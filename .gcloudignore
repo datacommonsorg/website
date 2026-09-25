@@ -21,12 +21,7 @@
 /setup.cfg
 
 **/node_modules/
-static/node_modules/
-packages/client/node_modules/
-packages/web-components/node_modules/
 
 server/dist/
 
 **/.venv*/
-.venv*/
-
