@@ -1433,15 +1433,8 @@
           "Count_Person_Female_AsianAlone",
           "Count_Person_Female_BlackOrAfricanAmericanAlone",
           "Count_Person_Female_HispanicOrLatino",
+          "Count_Person_Female_NotHispanicOrLatino",
           "Count_Person_Female_WhiteAlone"
-        ]
-      },
-      "Count_Person_Female_HispanicOrLatino": {
-        "age": [
-          "Count_Person_20To24Years_Female_HispanicOrLatino",
-          "Count_Person_25To29Years_Female_HispanicOrLatino",
-          "Count_Person_30To34Years_Female_HispanicOrLatino",
-          "Count_Person_5To9Years_Female_HispanicOrLatino"
         ]
       },
       "Count_Person_Male": {
@@ -1456,11 +1449,13 @@
         "race": [
           "Median_Age_Person_Female_AsianAlone",
           "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Female_HispanicOrLatino",
           "Median_Age_Person_Female_WhiteAlone"
         ]
       },
       "dc/lnp5g90fwpct8": {
         "race": [
+          "dc/4jqzmk4jtzwnb",
           "dc/7g8v95ycwgwgg",
           "dc/n11nnhnf54h78",
           "dc/xefh58ckxwk7b"
