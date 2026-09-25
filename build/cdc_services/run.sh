@@ -53,36 +53,39 @@ fi
 
 nginx -c /workspace/nginx.conf
 
+# 1. Dynamically update feature flags for Website and Mixer
+python3 update_dcp_flags.py
+
+# Resolve Project ID across standard environment variables, or fall back to Compute/Cloud Run Metadata Server
+GCP_PROJECT_ID=${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-$PROJECT_ID}}
+if [[ -z "$GCP_PROJECT_ID" ]]; then
+    GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null) || true
+fi
+
+if [[ -z "$GCP_PROJECT_ID" ]]; then
+    echo "ERROR: GCP_PROJECT_ID (or GOOGLE_CLOUD_PROJECT / PROJECT_ID) not specified and could not be resolved from metadata."
+    exit 1
+fi
+
+SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
+SPANNER_SEARCH_CONFIG_PATH=${SPANNER_SEARCH_CONFIG_PATH:-"/workspace/internal/server/spanner/spanner_config/dcp_default.yaml"}
+
+# 2. Configure Mixer arguments (Spanner Graph + V2 API)
 MIXER_ARGS=(
     "--agent_default_expand_topics=false"
+    "--spanner_graph_info=$SPANNER_CONFIG_YAML"
+    "--spanner_search_config_path=$SPANNER_SEARCH_CONFIG_PATH"
+    "--use_spanner_graph=true"
+    "--feature_flags_path=deploy/featureflags/dcp.yaml"
+    "--host_project=$GCP_PROJECT_ID"
 )
 
-if [[ $USE_SPANNER_GRAPH == "true" ]]; then
-    echo "Spanner Graph detected. Enabling V2 API for Website and Mixer."
-    
-    # 1. Dynamically update feature flags for Website and Mixer
-    python3 update_dcp_flags.py
-    # Resolve Project ID across standard environment variables, or fall back to Compute/Cloud Run Metadata Server
-    GCP_PROJECT_ID=${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-$PROJECT_ID}}
-    if [[ -z "$GCP_PROJECT_ID" ]]; then
-        GCP_PROJECT_ID=$(python3 -c "import urllib.request; req = urllib.request.Request('http://metadata.google.internal/computeMetadata/v1/project/project-id', headers={'Metadata-Flavor': 'Google'}); print(urllib.request.urlopen(req).read().decode())" 2>/dev/null) || true
-    fi
-    
-    if [[ -z "$GCP_PROJECT_ID" ]]; then
-        echo "ERROR: GCP_PROJECT_ID (or GOOGLE_CLOUD_PROJECT / PROJECT_ID) not specified and could not be resolved from metadata."
-        exit 1
-    fi
-    
-    SPANNER_CONFIG_YAML="{project: \"$GCP_PROJECT_ID\", instance: \"$GCP_SPANNER_INSTANCE_ID\", database: \"$GCP_SPANNER_DATABASE_NAME\"}"
-    SPANNER_SEARCH_CONFIG_PATH=${SPANNER_SEARCH_CONFIG_PATH:-"/workspace/internal/server/spanner/spanner_config/dcp_default.yaml"}
-
-    # 2. Enable V2 API for Mixer
+# 3. Enable Redis cache for Mixer if REDIS_HOST and REDIS_PORT are configured
+if [[ -n "$REDIS_HOST" && -n "$REDIS_PORT" ]]; then
+    REDIS_CONFIG_YAML="{instances: [{region: \"$REGION\", host: \"$REDIS_HOST\", port: \"$REDIS_PORT\"}]}"
     MIXER_ARGS+=(
-        "--spanner_graph_info=$SPANNER_CONFIG_YAML"
-        "--spanner_search_config_path=$SPANNER_SEARCH_CONFIG_PATH"
-        "--use_spanner_graph=true"
-        "--feature_flags_path=deploy/featureflags/dcp.yaml"
-        "--host_project=$GCP_PROJECT_ID"
+        "--use_redis=true"
+        "--redis_info=$REDIS_CONFIG_YAML"
     )
 fi
 
