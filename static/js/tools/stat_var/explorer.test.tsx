@@ -31,8 +31,10 @@ function summary(importName?: string): ProvenanceSummary {
 
 describe("Explorer", () => {
   // Test: Provenance cards render and sort when importName is missing.
-  // Situation: One provenance has importName "Census"; two lack importName and are keyed by "dc/base/WikidataPopulation" and "dc/base/BLS_LAUS".
-  // Expectation: Cards render without throwing, headers fall back to the last provenance id segment, and all are sorted by display name.
+  // Situation: One provenance has importName "Census"; two lack importName and
+  //   are keyed by "dc/base/WikidataPopulation" and "dc/base/BLS_LAUS".
+  // Expectation: Cards render without throwing, headers fall back to the last
+  //   provenance id segment, and all are sorted by display name.
   it("falls back to the provenance id segment for display and sorting when importName is missing", () => {
     const { container } = render(
       <Explorer
