@@ -20,6 +20,10 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+# Apply security patches for OS base packages (OpenSSL, Perl, glibc, pcre2, etc.)
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy simple importer requirements.
 COPY import/simple/requirements.txt ./import/simple/requirements.txt
@@ -27,9 +31,10 @@ COPY import/simple/requirements.txt ./import/simple/requirements.txt
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
-# Create a virtual env, add it to path, and install all requirements.
+# Create a virtual env, add it to path, upgrade core packaging tools, and install all requirements.
 RUN python -m venv /workspace/venv
 ENV PATH="/workspace/venv/bin:$PATH"
+RUN pip3 install --no-cache-dir --upgrade pip "setuptools<70" wheel
 
 # Install simple importer requirements.
 RUN pip3 install -r ./import/simple/requirements.txt
