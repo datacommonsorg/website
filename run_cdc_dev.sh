@@ -34,7 +34,9 @@ exit_with=0
 # Kill forked processes, then exit with the status code stored in a variable.
 # Called on exit via trap, configured below.
 function cleanup() {
+  trap - EXIT
   pkill -P $$ || true
+  wait || true
   exit $exit_with
 }
 
