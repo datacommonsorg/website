@@ -4290,15 +4290,15 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06019",
-                      "geoId/06107",
                       "geoId/06021",
                       "geoId/06025",
-                      "geoId/06029",
-                      "geoId/06077",
+                      "geoId/06107",
                       "geoId/06083",
-                      "geoId/06111",
+                      "geoId/06077",
                       "geoId/06011",
-                      "geoId/06099"
+                      "geoId/06111",
+                      "geoId/06099",
+                      "geoId/06029"
                     ],
                     "statVarKey": [
                       "Income_Farm10"
@@ -4322,18 +4322,6 @@
                       "Income_Farm_growth_abs"
                     ],
                     "title": "Fresno County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06107",
-                    "statVarKey": [
-                      "Income_Farm_growth_abs"
-                    ],
-                    "title": "Tulare County",
                     "type": "LINE"
                   }
                 ]
@@ -4365,11 +4353,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06029",
+                    "placeDcidOverride": "geoId/06107",
                     "statVarKey": [
                       "Income_Farm_growth_abs"
                     ],
-                    "title": "Kern County",
+                    "title": "Tulare County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06083",
+                    "statVarKey": [
+                      "Income_Farm_growth_abs"
+                    ],
+                    "title": "Santa Barbara County",
                     "type": "LINE"
                   }
                 ]
@@ -4389,11 +4389,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06083",
+                    "placeDcidOverride": "geoId/06011",
                     "statVarKey": [
                       "Income_Farm_growth_abs"
                     ],
-                    "title": "Santa Barbara County",
+                    "title": "Colusa County",
                     "type": "LINE"
                   }
                 ]
@@ -4413,11 +4413,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06011",
+                    "placeDcidOverride": "geoId/06099",
                     "statVarKey": [
                       "Income_Farm_growth_abs"
                     ],
-                    "title": "Colusa County",
+                    "title": "Stanislaus County",
                     "type": "LINE"
                   }
                 ]
@@ -4425,11 +4425,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06099",
+                    "placeDcidOverride": "geoId/06029",
                     "statVarKey": [
                       "Income_Farm_growth_abs"
                     ],
-                    "title": "Stanislaus County",
+                    "title": "Kern County",
                     "type": "LINE"
                   }
                 ]
@@ -4443,11 +4443,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06085",
+                    "placeDcidOverride": "geoId/06091",
                     "statVarKey": [
                       "Income_Farm_growth_pct"
                     ],
-                    "title": "Santa Clara County",
+                    "title": "Sierra County",
                     "type": "LINE"
                   }
                 ]
@@ -4455,59 +4455,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06055",
+                    "placeDcidOverride": "geoId/06105",
                     "statVarKey": [
                       "Income_Farm_growth_pct"
                     ],
-                    "title": "Napa County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06001",
-                    "statVarKey": [
-                      "Income_Farm_growth_pct"
-                    ],
-                    "title": "Alameda County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06083",
-                    "statVarKey": [
-                      "Income_Farm_growth_pct"
-                    ],
-                    "title": "Santa Barbara County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06059",
-                    "statVarKey": [
-                      "Income_Farm_growth_pct"
-                    ],
-                    "title": "Orange County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06037",
-                    "statVarKey": [
-                      "Income_Farm_growth_pct"
-                    ],
-                    "title": "Los Angeles County",
+                    "title": "Trinity County",
                     "type": "LINE"
                   }
                 ]
@@ -4539,6 +4491,54 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/06055",
+                    "statVarKey": [
+                      "Income_Farm_growth_pct"
+                    ],
+                    "title": "Napa County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06027",
+                    "statVarKey": [
+                      "Income_Farm_growth_pct"
+                    ],
+                    "title": "Inyo County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06051",
+                    "statVarKey": [
+                      "Income_Farm_growth_pct"
+                    ],
+                    "title": "Mono County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06049",
+                    "statVarKey": [
+                      "Income_Farm_growth_pct"
+                    ],
+                    "title": "Modoc County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/06021",
                     "statVarKey": [
                       "Income_Farm_growth_pct"
@@ -4551,11 +4551,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06097",
+                    "placeDcidOverride": "geoId/06025",
                     "statVarKey": [
                       "Income_Farm_growth_pct"
                     ],
-                    "title": "Sonoma County",
+                    "title": "Imperial County",
                     "type": "LINE"
                   }
                 ]
@@ -4641,11 +4641,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06039",
+                    "placeDcidOverride": "geoId/06091",
                     "statVarKey": [
                       "Income_Farm_growth_pc"
                     ],
-                    "title": "Madera County",
+                    "title": "Sierra County",
                     "type": "LINE"
                   }
                 ]
@@ -4665,11 +4665,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06091",
+                    "placeDcidOverride": "geoId/06039",
                     "statVarKey": [
                       "Income_Farm_growth_pc"
                     ],
-                    "title": "Sierra County",
+                    "title": "Madera County",
                     "type": "LINE"
                   }
                 ]
@@ -4677,11 +4677,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06031",
+                    "placeDcidOverride": "geoId/06113",
                     "statVarKey": [
                       "Income_Farm_growth_pc"
                     ],
-                    "title": "Kings County",
+                    "title": "Yolo County",
                     "type": "LINE"
                   }
                 ]
