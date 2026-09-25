@@ -208,7 +208,7 @@
         ],
         "statVarSpec": {
           "Area_FloodEvent": {
-            "name": "Area of Flood Event",
+            "name": "Area Of Flood Event",
             "statVar": "Area_FloodEvent"
           },
           "Count_DroughtEvent": {
@@ -220,11 +220,11 @@
             "statVar": "Count_FloodEvent"
           },
           "Max_Rainfall": {
-            "name": "Max Rainfall of Place",
+            "name": "Max Rainfall Of Place",
             "statVar": "Max_Rainfall"
           },
           "Min_Rainfall": {
-            "name": "Min Rainfall of Place",
+            "name": "Min Rainfall Of Place",
             "statVar": "Min_Rainfall"
           }
         }

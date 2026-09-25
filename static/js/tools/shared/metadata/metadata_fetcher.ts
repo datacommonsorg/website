@@ -85,11 +85,24 @@ export async function fetchFacetsWithMetadata(
       ...(surface ? getSurfaceHeader(surface) : {}),
     };
 
+    // Strip provenanceUrl from the request payload because external URLs in POST
+    // bodies can trigger Cloud Armor OWASP CRS false positives, and the
+    // /api/metadata/facets endpoint does not use provenanceUrl for enrichment.
+    // The original provenanceUrl is merged back into the enriched result below.
+    const sanitizedFacets: FacetResponse = {};
+    for (const [sv, svFacets] of Object.entries(facets)) {
+      sanitizedFacets[sv] = {};
+      for (const [facetId, facet] of Object.entries(svFacets)) {
+        sanitizedFacets[sv][facetId] = { ...facet };
+        delete sanitizedFacets[sv][facetId].provenanceUrl;
+      }
+    }
+
     const response = await fetch(`${apiRoot}/api/metadata/facets`, {
       method: "POST",
       headers,
       body: JSON.stringify({
-        facets,
+        facets: sanitizedFacets,
         statVars,
         entities: entityContext.entities,
         parentPlace: entityContext.parentPlace,
@@ -100,7 +113,22 @@ export async function fetchFacetsWithMetadata(
       console.error("Failed to enrich facets via API");
       return facets;
     }
-    return await response.json();
+    const enrichedFacets: FacetResponse = await response.json();
+    const mergedFacets: FacetResponse = {};
+    for (const [sv, svFacets] of Object.entries(facets)) {
+      mergedFacets[sv] = {};
+      for (const [facetId, facet] of Object.entries(svFacets)) {
+        const enriched = enrichedFacets?.[sv]?.[facetId] || {};
+        mergedFacets[sv][facetId] = {
+          ...facet,
+          ...enriched,
+          ...(facet?.provenanceUrl !== undefined
+            ? { provenanceUrl: facet.provenanceUrl }
+            : {}),
+        };
+      }
+    }
+    return mergedFacets;
   } catch (e) {
     console.error("Error enriching facets:", e);
     return facets;

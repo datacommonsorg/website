@@ -39,7 +39,7 @@ Where `<environment>` is one of:
 6. **Confirm for production:** If deploying to production, it asks for confirmation from the user.
 7. **Fetch staging flags (production only):** If deploying to production, it fetches the feature flags from the staging bucket (`datcom-website-staging-resources/feature_flags.json`).
 8. **Compare staging and production flags (production only):** If deploying to production, it compares the staging and production flags and exits if there are differences.
-9. **Upload the JSON file to GCS:** It uses the `gsutil` command to upload the JSON file to the appropriate GCS bucket.
+9. **Upload the JSON file to GCS:** It uses the `gcloud storage` command to upload the JSON file to the appropriate GCS bucket.
 10. **Prompt for Kubernetes restart:** It asks the user if they want to restart the Kubernetes deployment.
 11. **Restart the Kubernetes deployment (optional):** If the user confirms, it uses `gcloud` commands to restart the Kubernetes deployment.
 
