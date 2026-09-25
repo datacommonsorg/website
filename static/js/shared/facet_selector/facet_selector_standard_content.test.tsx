@@ -23,8 +23,10 @@ import { FacetSelectorStandardContent } from "./facet_selector_standard_content"
 
 describe("FacetSelectorStandardContent", () => {
   // Test: Grouping of facet options by provenanceId when importName is absent.
-  // Situation: Three facets have numeric IDs ("100", "200", "300") where "100" and "300" share a provenanceId and "200" has a different provenanceId.
-  // Expectation: Facets with the same provenanceId ("100" and "300") are grouped together rather than interleaved by numeric facetId order.
+  // Situation: Three facets have numeric IDs ("100", "200", "300") where "100"
+  //   and "300" share a provenanceId and "200" has a different provenanceId.
+  // Expectation: Facets with the same provenanceId ("100" and "300") are
+  //   grouped together rather than interleaved by numeric facetId order.
   it("groups facet options by provenanceId when importName is missing", () => {
     const { container } = render(
       <ThemeProvider theme={theme}>
