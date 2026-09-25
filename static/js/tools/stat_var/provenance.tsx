@@ -39,7 +39,7 @@ function getProvenanceDisplayName(
   provId: string,
   summary: ProvenanceSummary
 ): string {
-  return summary.importName || provId.split("/").pop();
+  return summary.importName || provId.split("/").pop() || provId;
 }
 
 class Provenance extends Component<ProvenancePropType, unknown> {
