@@ -20,9 +20,8 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Upgrade only packages with known security vulnerabilities (e.g. OpenSSL, Perl).
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends openssl perl-base \
+# Apply security patches for OS base packages (OpenSSL, Perl, glibc, pcre2, etc.)
+RUN apt-get update && apt-get upgrade -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
