@@ -18,6 +18,14 @@
 
 steps:
 
+  - id: pull-cache
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        docker pull gcr.io/datcom-ci/datacommons-data:latest || true
+
   - id: push-cdc-data-image
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -25,11 +33,16 @@ steps:
       - -c
       - |
         set -e
-        docker build -f build/cdc_data/Dockerfile \
+        DOCKER_BUILDKIT=1 docker build -f build/cdc_data/Dockerfile \
           --network=cloudbuild \
+          --cache-from gcr.io/datcom-ci/datacommons-data:latest \
+          --build-arg BUILDKIT_INLINE_CACHE=1 \
           -t gcr.io/datcom-ci/datacommons-data:${_TAG} \
+          -t gcr.io/datcom-ci/datacommons-data:latest \
           .
         docker push gcr.io/datcom-ci/datacommons-data:${_TAG}
+        docker push gcr.io/datcom-ci/datacommons-data:latest
+    waitFor: ["pull-cache"]
 
 timeout: 3600s
 options:
