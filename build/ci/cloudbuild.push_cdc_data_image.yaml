@@ -34,7 +34,6 @@ steps:
       - |
         set -e
         DOCKER_BUILDKIT=1 docker build -f build/cdc_data/Dockerfile \
-          --network=cloudbuild \
           --cache-from gcr.io/datcom-ci/datacommons-data:latest \
           --build-arg BUILDKIT_INLINE_CACHE=1 \
           -t gcr.io/datcom-ci/datacommons-data:${_TAG} \
