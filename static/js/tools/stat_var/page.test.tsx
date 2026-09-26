@@ -47,8 +47,8 @@ describe("Page", () => {
   //   summary fetch.
   // Situation: The URL propvals request resolves on a later tick than the
   //   summary and sources requests, with no subsequent re-renders.
-  // Expectation: The provenance card renders the "Source:" link once the URL
-  //   request resolves.
+  // Expectation: The provenance card renders a link to the provenance URL,
+  //   with the URL's display text, once the URL request resolves.
   it("renders provenance source URLs when the URL request resolves after the summary", async () => {
     let resolveUrls: (value: unknown) => void;
     const urlPromise = new Promise((resolve) => {
