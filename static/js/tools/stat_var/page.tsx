@@ -377,6 +377,9 @@ class Page extends Component<unknown, PageStateType> {
                 })
             : Promise.resolve({});
         return urlPromise.then((urls) => {
+          if (sv !== getUrlToken(SV_URL_PARAMS.STAT_VAR)) {
+            return;
+          }
           this.setState({
             description,
             displayName,
@@ -388,6 +391,9 @@ class Page extends Component<unknown, PageStateType> {
         });
       })
       .catch(() => {
+        if (sv !== getUrlToken(SV_URL_PARAMS.STAT_VAR)) {
+          return;
+        }
         this.setState({
           error: true,
           statVar: sv,

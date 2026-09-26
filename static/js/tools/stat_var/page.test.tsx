@@ -112,4 +112,62 @@ describe("Page", () => {
       expect(link?.textContent).toBe("census.gov");
     });
   });
+
+  // Test: Stale fetchSummary responses do not update state after the URL hash
+  //   changes to a different statVar.
+  // Situation: The URL hash changes to another statVar while the provenance
+  //   URL request for Count_Person is still in flight.
+  // Expectation: When Count_Person's URL request resolves, it does not render
+  //   Count_Person.
+  it("ignores stale fetchSummary responses when the URL hash changes", async () => {
+    let resolveUrls: (value: unknown) => void;
+    const urlPromise = new Promise((resolve) => {
+      resolveUrls = resolve;
+    });
+
+    mockedAxios.get.mockImplementation((url, config) => {
+      if (url.startsWith("/api/node/propvals/in")) {
+        return Promise.resolve({ data: {} }) as ReturnType<typeof axios.get>;
+      }
+      const prop = config?.params?.prop;
+      if (prop === "description" || prop === "name") {
+        return Promise.resolve({
+          data: { [STAT_VAR]: [{ value: "Population" }] },
+        }) as ReturnType<typeof axios.get>;
+      }
+      if (prop === "url") {
+        return urlPromise as ReturnType<typeof axios.get>;
+      }
+      return Promise.reject(new Error(`Unexpected GET ${url}`));
+    });
+
+    mockedGetStatVarInfo.mockResolvedValue({
+      data: {
+        [STAT_VAR]: {
+          placeTypeSummary: {},
+          provenanceSummary: {
+            "dc/base/CensusPEP": {
+              importName: "CensusPEP",
+              observationCount: 10,
+              timeSeriesCount: 2,
+              seriesSummary: [],
+            },
+          },
+        },
+      },
+    } as Awaited<ReturnType<typeof getStatVarInfo>>);
+
+    const { container } = render(<Page />);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    window.history.replaceState(null, "", "#sv=Median_Age_Person");
+    resolveUrls({
+      data: {
+        "dc/base/CensusPEP": [{ value: "https://www.census.gov/pep" }],
+      },
+    });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(container.querySelector("#stat-var-explorer")).toBeNull();
+  });
 });
