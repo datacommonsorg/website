@@ -16,10 +16,10 @@
                       "country/MWI",
                       "country/GMB",
                       "country/ERI",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "LifeExpectancy_Person10"
@@ -109,6 +109,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Libya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
@@ -138,18 +150,6 @@
                       "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Cameroon",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
@@ -270,11 +270,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/TUN",
+                    "placeDcidOverride": "country/LBY",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Tunisia",
+                    "title": "Libya",
                     "type": "LINE"
                   }
                 ]

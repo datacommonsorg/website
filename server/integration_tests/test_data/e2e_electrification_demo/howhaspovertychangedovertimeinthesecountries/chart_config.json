@@ -910,11 +910,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_pct"
                     ],
-                    "title": "Senegal",
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
@@ -922,11 +922,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
+                    "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_pct"
                     ],
-                    "title": "Kenya",
+                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]

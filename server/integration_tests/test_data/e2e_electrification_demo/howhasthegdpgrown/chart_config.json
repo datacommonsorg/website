@@ -11,8 +11,8 @@
                   {
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -51,11 +51,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
@@ -63,11 +63,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Kenya",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -214,11 +214,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Ghana",
                     "type": "LINE"
                   }
                 ]
@@ -238,11 +238,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GHA",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Ghana",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -377,11 +377,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -389,11 +389,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Rwanda",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -460,13 +460,13 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
+      "dcid": "country/KEN",
+      "name": "Kenya",
       "place_type": "Country"
     },
     {
-      "dcid": "country/KEN",
-      "name": "Kenya",
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
       "place_type": "Country"
     },
     {

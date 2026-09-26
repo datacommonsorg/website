@@ -21,10 +21,10 @@
                       "country/MWI",
                       "country/GMB",
                       "country/ERI",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "FertilityRate_Person_Female_multiple_place_bar_block"
@@ -54,10 +54,10 @@
                       "country/MWI",
                       "country/GMB",
                       "country/ERI",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
@@ -88,10 +88,10 @@
                       "country/MWI",
                       "country/GMB",
                       "country/ERI",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "GrowthRate_Count_Person_multiple_place_bar_block"
@@ -122,10 +122,10 @@
                       "country/MWI",
                       "country/GMB",
                       "country/ERI",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
@@ -156,10 +156,10 @@
                       "country/MWI",
                       "country/GMB",
                       "country/ERI",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "Count_Person_multiple_place_bar_block"
@@ -189,10 +189,10 @@
                       "country/TUN",
                       "country/MWI",
                       "country/GMB",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "sdg/SL_TLF_UEM.AGE--Y15T24_multiple_place_bar_block",
@@ -224,10 +224,10 @@
                       "country/TUN",
                       "country/MWI",
                       "country/GMB",
+                      "country/LBY",
                       "country/MLI",
                       "country/SSD",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F_multiple_place_bar_block",
@@ -271,7 +271,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Libya, Mali, South Sudan and Cameroon\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate, by Age - 19th ICLS (%)"
           },
           {
@@ -302,7 +302,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Libya, Mali, South Sudan and Cameroon\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate, by Sex and Age - 19th ICLS (%)"
           },
           {
@@ -319,8 +319,7 @@
                       "country/MAR",
                       "country/MWI",
                       "country/GMB",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "sdg/SL_TLF_UEMDIS.AGE--Y_GE15_multiple_place_bar_block",
@@ -333,7 +332,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Libya, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate Amon Population 15 Years Old and Over - 13th ICLS, by Disability Status (%)"
           },
           {
@@ -350,8 +349,7 @@
                       "country/MAR",
                       "country/MWI",
                       "country/GMB",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
@@ -364,7 +362,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Libya, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate Amon Female Population 15 Years Old and Over - 13th ICLS, by Disability Status (%)"
           },
           {
@@ -381,8 +379,7 @@
                       "country/MAR",
                       "country/MWI",
                       "country/GMB",
-                      "country/CMR",
-                      "country/SEN"
+                      "country/CMR"
                     ],
                     "statVarKey": [
                       "sdg/SL_TLF_UEMDIS.AGE--Y_GE15__SEX--M_multiple_place_bar_block",
@@ -395,7 +392,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Tunisia, Eritrea, Libya, Mali and South Sudan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate Amon Male Population 15 Years Old and Over - 13th ICLS, by Disability Status (%)"
           },
           {
@@ -423,7 +420,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Libya, Mali, South Sudan and Cameroon\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate Amon Population 15 Years Old and Over - 19th ICLS, by Disability Status (%)"
           },
           {
@@ -451,7 +448,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Libya, Mali, South Sudan and Cameroon\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate Amon Female Population 15 Years Old and Over - 19th ICLS, by Disability Status (%)"
           },
           {
@@ -479,7 +476,7 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Mali, South Sudan, Cameroon and Senegal\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Algeria, Morocco, Tunisia, Eritrea, Libya, Mali, South Sudan and Cameroon\" is currently unavailable. See the following statistics on the other places.",
             "title": "Unemployment Rate Amon Male Population 15 Years Old and Over - 19th ICLS, by Disability Status (%)"
           }
         ],
@@ -704,6 +701,11 @@
       "place_type": "Country"
     },
     {
+      "dcid": "country/LBY",
+      "name": "Libya",
+      "place_type": "Country"
+    },
+    {
       "dcid": "country/MLI",
       "name": "Mali",
       "place_type": "Country"
@@ -716,11 +718,6 @@
     {
       "dcid": "country/CMR",
       "name": "Cameroon",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
       "place_type": "Country"
     }
   ],
