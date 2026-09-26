@@ -35,6 +35,15 @@ steps:
           echo "${mix_hash:-unknown}" > mixer_hash.txt
         fi
 
+  - id: pull-cache
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        docker pull gcr.io/${_PROJECT_ID}/datacommons-services:latest || true
+    waitFor: ["-"]
+
   - id: push-cdc-services-image
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -43,12 +52,16 @@ steps:
       - |
         set -e
         DOCKER_BUILDKIT=1 docker build -f build/cdc_services/Dockerfile \
+          --cache-from gcr.io/${_PROJECT_ID}/datacommons-services:latest \
+          --build-arg BUILDKIT_INLINE_CACHE=1 \
           --build-arg MIXER_HASH=$(cat mixer_hash.txt) \
           --build-arg WEBSITE_HASH=$(cat website_hash.txt) \
           --tag gcr.io/${_PROJECT_ID}/datacommons-services:${_TAG} \
+          --tag gcr.io/${_PROJECT_ID}/datacommons-services:latest \
           .
         docker push gcr.io/${_PROJECT_ID}/datacommons-services:${_TAG}
-    waitFor: ["resolve-hashes"]
+        docker push gcr.io/${_PROJECT_ID}/datacommons-services:latest
+    waitFor: ["resolve-hashes", "pull-cache"]
 
 substitutions:
   _TAG: ""
