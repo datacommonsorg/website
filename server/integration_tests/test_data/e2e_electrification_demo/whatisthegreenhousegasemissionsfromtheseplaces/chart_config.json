@@ -16,8 +16,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -51,8 +51,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -85,8 +85,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -118,8 +118,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -190,8 +190,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -235,8 +235,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -269,8 +269,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -303,8 +303,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN"
                     ],
@@ -333,8 +333,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -367,8 +367,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -401,8 +401,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN"
                     ],
@@ -431,8 +431,8 @@
                     },
                     "comparisonPlaces": [
                       "country/MAR",
-                      "country/ETH",
                       "country/KEN",
+                      "country/ETH",
                       "country/GHA",
                       "country/SEN",
                       "country/MLI",
@@ -479,7 +479,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Ethiopia, Kenya, Mali, Guinea, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Kenya, Ethiopia, Mali, Guinea, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Oil and Gas Production, Carbon Dioxide"
           },
           {
@@ -526,8 +526,8 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/ETH",
-                      "country/KEN"
+                      "country/KEN",
+                      "country/ETH"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_PetrochemicalProduction_multiple_place_bar_block"
@@ -707,13 +707,13 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
+      "dcid": "country/KEN",
+      "name": "Kenya",
       "place_type": "Country"
     },
     {
-      "dcid": "country/KEN",
-      "name": "Kenya",
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
       "place_type": "Country"
     },
     {
