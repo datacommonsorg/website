@@ -31,12 +31,12 @@ TIDY_CSV_HEADERS = (
 
 
 def _without_import_name(fixture):
-  """Returns a copy of a mock_data fixture whose facets match current Mixer
-  responses: importName removed and provenanceId set.
+  """Returns a copy of a fixture with importName replaced by provenanceId.
 
   Mixer is dropping importName from facets, while provenanceId is guaranteed
-  on every facet (Bigtable synthesizes dc/base/<importName>). The shared
-  fixtures are left untouched because other tests depend on them.
+  on every facet (Bigtable synthesizes dc/base/<importName>). This matches the
+  fixture to current Mixer responses without editing the shared fixtures,
+  which other tests depend on.
   """
   result = copy.deepcopy(fixture)
   for facet in result["facets"].values():
