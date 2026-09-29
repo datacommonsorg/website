@@ -306,19 +306,19 @@ function FacetOptionSection({
   itemRefs,
   mode,
 }: FacetOptionSectionProps): ReactElement {
-  const importNameToFacetOptions: Record<string, string[]> = {};
-  const facetOptionsNoImportName: string[] = [];
+  const provenanceIdToFacetOptions: Record<string, string[]> = {};
+  const facetOptionsNoProvenanceId: string[] = [];
   let shouldShowSections = false;
   Object.keys(facetInfo.metadataMap).forEach((facetId) => {
-    const importName = facetInfo.metadataMap[facetId].importName;
-    if (!importName) {
-      facetOptionsNoImportName.push(facetId);
+    const provenanceId = facetInfo.metadataMap[facetId].provenanceId;
+    if (!provenanceId) {
+      facetOptionsNoProvenanceId.push(facetId);
       return;
     }
-    if (!(importName in importNameToFacetOptions)) {
-      importNameToFacetOptions[importName] = [];
+    if (!(provenanceId in provenanceIdToFacetOptions)) {
+      provenanceIdToFacetOptions[provenanceId] = [];
     }
-    importNameToFacetOptions[importName].push(facetId);
+    provenanceIdToFacetOptions[provenanceId].push(facetId);
     shouldShowSections = true;
   });
 
@@ -333,18 +333,18 @@ function FacetOptionSection({
   };
 
   if (shouldShowSections) {
-    const sortedImportNames = Object.keys(importNameToFacetOptions).sort();
+    const sortedProvenanceIds = Object.keys(provenanceIdToFacetOptions).sort();
     return (
       <>
-        {sortedImportNames.map((importName) => (
+        {sortedProvenanceIds.map((provenanceId) => (
           <div
-            key={facetInfo.dcid + importName}
+            key={facetInfo.dcid + provenanceId}
             css={css`
               display: flex;
               flex-direction: column;
             `}
           >
-            {importNameToFacetOptions[importName].map((facetId) => (
+            {provenanceIdToFacetOptions[provenanceId].map((facetId) => (
               <FacetOption
                 key={facetId}
                 ref={setRef(facetId)}
@@ -359,7 +359,7 @@ function FacetOptionSection({
             ))}
           </div>
         ))}
-        {facetOptionsNoImportName.map((facetId) => (
+        {facetOptionsNoProvenanceId.map((facetId) => (
           <FacetOption
             key={facetId}
             ref={setRef(facetId)}

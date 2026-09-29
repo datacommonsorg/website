@@ -141,7 +141,7 @@
                       "highlightDate": "2001"
                     },
                     "statVarKey": [
-                      "Count_Person_HispanicOrLatino_2001_2615007932339303024"
+                      "Count_Person_HispanicOrLatino_2001_17850603903953452338"
                     ],
                     "title": "Hispanic Population in California",
                     "type": "LINE"
@@ -653,9 +653,9 @@
             "name": "Hispanic Population",
             "statVar": "Count_Person_HispanicOrLatino"
           },
-          "Count_Person_HispanicOrLatino_2001_2615007932339303024": {
+          "Count_Person_HispanicOrLatino_2001_17850603903953452338": {
             "date": "2001",
-            "facetId": "2615007932339303024",
+            "facetId": "17850603903953452338",
             "name": "Hispanic Population",
             "statVar": "Count_Person_HispanicOrLatino"
           },
@@ -1068,6 +1068,30 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "Count_Person_Female_AsianAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_10To14Years_Female_AsianAlone"
+        ]
+      },
+      "Count_Person_Female_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_10To14Years_Female_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Count_Person_Female_NativeHawaiianAndOtherPacificIslanderAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_10To14Years_Female_NativeHawaiianAndOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_Female_WhiteAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_WhiteAlone",
+          "Count_Person_10To14Years_Female_WhiteAlone"
+        ]
+      },
       "Count_Person_HispanicOrLatino": {
         "gender": [
           "Count_Person_Female_HispanicOrLatino",

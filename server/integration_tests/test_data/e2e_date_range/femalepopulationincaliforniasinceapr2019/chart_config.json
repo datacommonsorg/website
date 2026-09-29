@@ -13,8 +13,8 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_14877681748872237318",
-                      "Count_Person_Male_14877681748872237318"
+                      "Count_Person_Female_10169881228856630405",
+                      "Count_Person_Male_10169881228856630405"
                     ],
                     "title": "Population by Gender in California",
                     "type": "LINE"
@@ -100,7 +100,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WhiteAlone_5230523282535389510"
+                      "Count_Person_Female_WhiteAlone_10169881228856630405"
                     ],
                     "title": "Women Identifying as White Alone in California",
                     "type": "LINE"
@@ -228,7 +228,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_AsianAlone_5230523282535389510"
+                      "Count_Person_Female_AsianAlone_10169881228856630405"
                     ],
                     "title": "Asian Monoracial Women in California",
                     "type": "LINE"
@@ -484,7 +484,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_HispanicOrLatino_1089729140798581606"
+                      "Count_Person_Female_HispanicOrLatino_10169881228856630405"
                     ],
                     "title": "Hispanic Women in California",
                     "type": "LINE"
@@ -548,7 +548,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Female_2550419630908544036"
+                      "Median_Age_Person_Female_5861401611713998024"
                     ],
                     "title": "Women's Median Age in California",
                     "type": "LINE"
@@ -610,7 +610,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_BlackOrAfricanAmericanAlone_5230523282535389510"
+                      "Count_Person_Female_BlackOrAfricanAmericanAlone_10169881228856630405"
                     ],
                     "title": "Black or African American Monoracial Women in California",
                     "type": "LINE"
@@ -931,8 +931,8 @@
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_14877681748872237318": {
-            "facetId": "14877681748872237318",
+          "Count_Person_Female_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -940,8 +940,8 @@
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
-          "Count_Person_Female_AsianAlone_5230523282535389510": {
-            "facetId": "5230523282535389510",
+          "Count_Person_Female_AsianAlone_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
@@ -949,8 +949,8 @@
             "name": "Black or African American Monoracial Women",
             "statVar": "Count_Person_Female_BlackOrAfricanAmericanAlone"
           },
-          "Count_Person_Female_BlackOrAfricanAmericanAlone_5230523282535389510": {
-            "facetId": "5230523282535389510",
+          "Count_Person_Female_BlackOrAfricanAmericanAlone_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Black or African American Monoracial Women",
             "statVar": "Count_Person_Female_BlackOrAfricanAmericanAlone"
           },
@@ -967,8 +967,8 @@
             "name": "Hispanic Women",
             "statVar": "Count_Person_Female_HispanicOrLatino"
           },
-          "Count_Person_Female_HispanicOrLatino_1089729140798581606": {
-            "facetId": "1089729140798581606",
+          "Count_Person_Female_HispanicOrLatino_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Hispanic Women",
             "statVar": "Count_Person_Female_HispanicOrLatino"
           },
@@ -994,8 +994,8 @@
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
-          "Count_Person_Female_WhiteAlone_5230523282535389510": {
-            "facetId": "5230523282535389510",
+          "Count_Person_Female_WhiteAlone_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
@@ -1003,8 +1003,8 @@
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_Male_14877681748872237318": {
-            "facetId": "14877681748872237318",
+          "Count_Person_Male_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
@@ -1021,8 +1021,8 @@
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
-          "Median_Age_Person_Female_2550419630908544036": {
-            "facetId": "2550419630908544036",
+          "Median_Age_Person_Female_5861401611713998024": {
+            "facetId": "5861401611713998024",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
@@ -1436,14 +1436,6 @@
           "Count_Person_Female_WhiteAlone"
         ]
       },
-      "Count_Person_Female_HispanicOrLatino": {
-        "age": [
-          "Count_Person_20To24Years_Female_HispanicOrLatino",
-          "Count_Person_25To29Years_Female_HispanicOrLatino",
-          "Count_Person_30To34Years_Female_HispanicOrLatino",
-          "Count_Person_5To9Years_Female_HispanicOrLatino"
-        ]
-      },
       "Count_Person_Male": {
         "age": [
           "Count_Person_15To44Years_Male",
@@ -1456,11 +1448,13 @@
         "race": [
           "Median_Age_Person_Female_AsianAlone",
           "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Female_HispanicOrLatino",
           "Median_Age_Person_Female_WhiteAlone"
         ]
       },
       "dc/lnp5g90fwpct8": {
         "race": [
+          "dc/4jqzmk4jtzwnb",
           "dc/7g8v95ycwgwgg",
           "dc/n11nnhnf54h78",
           "dc/xefh58ckxwk7b"

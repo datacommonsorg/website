@@ -9,12 +9,20 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_Female",
-                      "Count_Person_Male"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/IND"
                     ],
-                    "title": "Population by Gender in India",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_Person_Female_multiple_place_bar_block",
+                      "Count_Person_Male_multiple_place_bar_block"
+                    ],
+                    "title": "Population by Gender in India (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -140,17 +148,6 @@
           },
           {
             "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Urban_Female"
-                    ],
-                    "title": "Total Urban Female Population in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
               {
                 "tiles": [
                   {
@@ -735,6 +732,10 @@
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
+          "Count_Person_Female_multiple_place_bar_block": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
           "Count_Person_Illiterate_Female": {
             "name": "Number of illiterate females",
             "statVar": "Count_Person_Illiterate_Female"
@@ -744,6 +745,10 @@
             "statVar": "Count_Person_Literate_Female"
           },
           "Count_Person_Male": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_Male_multiple_place_bar_block": {
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
@@ -1268,7 +1273,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "country/USA",
+        "name": "United States",
         "types": [
           "Country"
         ]
