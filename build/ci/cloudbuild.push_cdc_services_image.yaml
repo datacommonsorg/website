@@ -57,10 +57,8 @@ steps:
           --build-arg MIXER_HASH=$(cat mixer_hash.txt) \
           --build-arg WEBSITE_HASH=$(cat website_hash.txt) \
           --tag gcr.io/${_PROJECT_ID}/datacommons-services:${_TAG} \
-          --tag gcr.io/${_PROJECT_ID}/datacommons-services:latest \
           .
         docker push gcr.io/${_PROJECT_ID}/datacommons-services:${_TAG}
-        docker push gcr.io/${_PROJECT_ID}/datacommons-services:latest
     waitFor: ["resolve-hashes", "pull-cache"]
 
 substitutions:
