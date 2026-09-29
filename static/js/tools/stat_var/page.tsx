@@ -357,34 +357,43 @@ class Page extends Component<unknown, PageStateType> {
             ? displayNameResult[sv][0].value
             : "";
         displayName = displayName || description;
-        const urlMap = {};
-        const provIds = [];
-        for (const provId in summaryResult[sv]?.provenanceSummary) {
-          provIds.push(provId);
-        }
-        if (provIds.length > 0) {
-          axios
-            .get<PropertyValues>("/api/node/propvals/out", {
-              params: { dcids: provIds, prop: "url" },
-              paramsSerializer: stringifyFn,
-            })
-            .then((resp) => {
-              for (const dcid in resp.data) {
-                urlMap[dcid] =
-                  resp.data[dcid].length > 0 ? resp.data[dcid][0].value : "";
-              }
-            });
-        }
-        this.setState({
-          description,
-          displayName,
-          error: false,
-          statVar: sv,
-          summary: summaryResult[sv],
-          urls: urlMap,
+        const provIds = Object.keys(summaryResult[sv]?.provenanceSummary || {});
+        const urlPromise =
+          provIds.length > 0
+            ? axios
+                .get<PropertyValues>("/api/node/propvals/out", {
+                  params: { dcids: provIds, prop: "url" },
+                  paramsSerializer: stringifyFn,
+                })
+                .then((resp) => {
+                  const urlMap: Record<string, string> = {};
+                  for (const dcid in resp.data) {
+                    urlMap[dcid] =
+                      resp.data[dcid].length > 0
+                        ? resp.data[dcid][0].value
+                        : "";
+                  }
+                  return urlMap;
+                })
+            : Promise.resolve({});
+        return urlPromise.then((urls) => {
+          if (sv !== getUrlToken(SV_URL_PARAMS.STAT_VAR)) {
+            return;
+          }
+          this.setState({
+            description,
+            displayName,
+            error: false,
+            statVar: sv,
+            summary: summaryResult[sv],
+            urls,
+          });
         });
       })
       .catch(() => {
+        if (sv !== getUrlToken(SV_URL_PARAMS.STAT_VAR)) {
+          return;
+        }
         this.setState({
           error: true,
           statVar: sv,
