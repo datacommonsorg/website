@@ -23,7 +23,6 @@ from server.lib.nl.explore import params
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
-from server.lib.nl.fulfillment.utils import get_max_num_charts
 
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5
@@ -89,11 +88,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   elif not is_chart_injection or is_timeline_highlight:
     # If its not a peer-group add one chart at a time.
     added = False
-    max_num_charts = get_max_num_charts(state)
     all_svs = copy.deepcopy(chart_vars.svs)
     for sv in all_svs:
-      if len(state.uttr.chartCandidates) >= max_num_charts:
-        break
       chart_vars.svs = [sv]
       eres = ext.svs4place(state, places[0], chart_vars.svs)
       if not eres.exist_svs:

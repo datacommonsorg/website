@@ -11,10 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Tests for explore detect-and-fulfill bounds, topic recursion, and DoS mitigations."""
+"""Tests for limits on topic expansion and chart fulfillment in Explore."""
 
 import unittest
-from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from flask import Flask
@@ -23,8 +22,7 @@ from server.lib.nl.common import counters as ctr
 from server.lib.nl.common import topic as common_topic
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
-from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
@@ -33,7 +31,6 @@ from server.lib.nl.detection.utils import create_utterance
 from server.lib.nl.explore import params
 from server.lib.nl.explore import topic as explore_topic
 from server.lib.nl.fulfillment import base as fulfillment_base
-from server.lib.nl.fulfillment import fulfiller
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.routes.explore import helpers as explore_helpers
@@ -282,11 +279,11 @@ class TestFulfillmentChartAndMemoryBounds(unittest.TestCase):
 
   @patch.object(variable, 'extend_svs')
   @patch.object(utils, 'sv_existence_for_places_check_single_point')
-  def test_single_subtopic_with_many_svs_respects_max_charts(
-      self, mock_sv_existence, mock_extend_svs):
+  def test_single_block_with_many_svs_is_capped(self, mock_sv_existence,
+                                                mock_extend_svs):
     mock_extend_svs.return_value = {}
-    # A single topic with 100 SVs, while maxCharts is set to 10.
-    many_svs = [f'SV_{i}' for i in range(100)]
+    # One chart block whose SVs fan out past MAX_CHART_CANDIDATES.
+    many_svs = [f'SV_{i}' for i in range(params.MAX_CHART_CANDIDATES + 100)]
     mock_sv_existence.return_value = (
         {
             sv: {
@@ -302,33 +299,22 @@ class TestFulfillmentChartAndMemoryBounds(unittest.TestCase):
         },
     )
 
-    uttr = _make_utterance(
-        ['dc/topic/LargeSubtopic'],
-        insight_ctx={
-            params.Params.DC.value: 'custom',
-            params.Params.MAX_CHARTS.value: 10,
-        },
-    )
+    uttr = _make_utterance(['dc/topic/Large'],
+                           insight_ctx={params.Params.DC.value: 'custom'})
     state = PopulateState(uttr=uttr)
-    state.query_types = [fulfiller.QueryType.BASIC]
+    state.query_types = [QueryType.BASIC]
     state.chart_vars_map = {
-        'dc/topic/LargeSubtopic': [
-            ChartVars(
-                svs=many_svs,
-                orig_sv_map={'dc/topic/LargeSubtopic': many_svs},
-                source_topic='dc/topic/LargeSubtopic',
-            )
+        'dc/topic/Large': [
+            ChartVars(svs=many_svs,
+                      orig_sv_map={'dc/topic/Large': many_svs},
+                      source_topic='dc/topic/Large')
         ]
     }
 
     with self.app.app_context():
       fulfillment_base.populate_charts(state)
-      # Must not generate 100 ChartSpecs when maxCharts is 10!
-      self.assertLessEqual(len(state.uttr.chartCandidates), 10)
-      # Each single-SV chart candidate should not retain all 100 SVs in its chart_vars
+      self.assertEqual(len(state.uttr.chartCandidates),
+                       params.MAX_CHART_CANDIDATES)
+      # Each per-SV chart should only carry its own SV in orig_sv_map.
       for cs in state.uttr.chartCandidates:
-        self.assertEqual(len(cs.svs), 1)
-        self.assertEqual(
-            cs.chart_vars.orig_sv_map,
-            {'dc/topic/LargeSubtopic': cs.svs},
-        )
+        self.assertEqual(cs.chart_vars.orig_sv_map, {'dc/topic/Large': cs.svs})

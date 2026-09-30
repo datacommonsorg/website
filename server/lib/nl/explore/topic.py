@@ -228,8 +228,7 @@ def _topic_chart_vars(
     orig_sv: str,
     dc: str,
     lvl: int = 0,
-    max_svs: int = _MAX_SVS_TO_PROCESS,
-) -> List[ftypes.ChartVars]:
+    max_svs: int = _MAX_SVS_TO_PROCESS) -> List[ftypes.ChartVars]:
   if max_svs <= 0:
     return []
   if lvl == 0:
@@ -240,30 +239,25 @@ def _topic_chart_vars(
     # we recurse along the topic-descendents to get a limited
     # number of vars.
     assert lvl < 2, "Must never recurse past 2 levels"
-    subtopic_limit = min(_max_subtopic_sv_limit(state), max_svs)
-    topic_vars = topic.get_topic_vars_recurive(sv,
-                                               rank=0,
-                                               dc=dc,
-                                               max_svs=subtopic_limit)
+    topic_vars = topic.get_topic_vars_recurive(
+        sv, rank=0, dc=dc, max_svs=min(_max_subtopic_sv_limit(state), max_svs))
 
   # Classify the members into `TopicMembers` struct.
   topic_members = _classify_topic_members(topic_vars, dc)
 
   charts = []
-  num_svs = 0
 
   # First produce charts for SVs and SVPGs.
   if topic_members.svs or topic_members.svpgs:
-    direct_charts = _direct_chart_vars(svs=topic_members.svs,
-                                       svpgs=topic_members.svpgs,
-                                       source_topic=source_topic,
-                                       orig_sv=orig_sv,
-                                       max_svs=max_svs)
-    for c in direct_charts:
-      num_svs += len(c.svs)
-    charts.extend(direct_charts)
+    charts.extend(
+        _direct_chart_vars(svs=topic_members.svs,
+                           svpgs=topic_members.svpgs,
+                           source_topic=source_topic,
+                           orig_sv=orig_sv,
+                           max_svs=max_svs))
 
-  # Recurse into immediate sub-topics while SV budget remains.
+  # Recurse into immediate sub-topics until the SV budget runs out.
+  num_svs = sum(len(c.svs) for c in charts)
   for t in topic_members.topics:
     if num_svs >= max_svs:
       break
@@ -274,8 +268,7 @@ def _topic_chart_vars(
                                    lvl=lvl + 1,
                                    dc=dc,
                                    max_svs=max_svs - num_svs)
-    for c in sub_charts:
-      num_svs += len(c.svs)
+    num_svs += sum(len(c.svs) for c in sub_charts)
     charts.extend(sub_charts)
 
   state.uttr.counters.info(
@@ -310,11 +303,10 @@ def _direct_chart_vars(
     svpgs: List[str],
     source_topic: str,
     orig_sv: str,
-    max_svs: int = _MAX_SVS_TO_PROCESS,
-) -> List[ftypes.ChartVars]:
+    max_svs: int = _MAX_SVS_TO_PROCESS) -> List[ftypes.ChartVars]:
   # We need a category called overview.
   # 1. Make a block for all SVs in just_svs
-  capped_svs = svs[:max_svs] if max_svs > 0 else []
+  capped_svs = svs[:max_svs]
   rem_svs = max_svs - len(capped_svs)
   charts = [
       ftypes.ChartVars(svs=capped_svs,

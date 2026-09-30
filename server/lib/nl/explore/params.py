@@ -154,8 +154,8 @@ def is_toolformer_mode(mode: QueryMode) -> bool:
   return mode == QueryMode.TOOLFORMER_RIG or mode == QueryMode.TOOLFORMER_RAG
 
 
-# Hard server-side upper bounds for numeric explore parameters to prevent
-# unbounded topic expansion and chart fulfillment (DoS).
+# Server-side upper bounds for client-provided limits. These match the largest
+# values sent by existing clients (e.g. UN Data Commons).
 MAX_TOPICS_LIMIT = 10
 MAX_TOPIC_SVS_LIMIT = 500
 MAX_CHARTS_LIMIT = 200
@@ -166,27 +166,21 @@ PARAM_MAX_LIMITS = {
     Params.MAX_CHARTS: MAX_CHARTS_LIMIT,
 }
 
+# Hard ceiling on chart specs per request. MAX_CHARTS limits chart blocks, and
+# a single block can fan out into one chart per variable.
+MAX_CHART_CANDIDATES = 500
+
 
 def parse_and_clamp_numeric_param(val, max_limit: int) -> int | None:
-  """Parses a positive integer parameter and clamps it to [1, max_limit].
+  """Returns val as an int clamped to [1, max_limit].
 
-  Returns None if the value is None, non-numeric, or <= 0 so callers fall back
-  to their default limit.
+  Returns None for missing, non-numeric, or non-positive values so callers fall
+  back to their default limit.
   """
-  if val is None or isinstance(val, bool):
+  if isinstance(val, bool) or not isinstance(val, (int, str)):
     return None
-  if isinstance(val, int):
-    parsed = val
-  elif isinstance(val, str):
-    val_str = val.strip()
-    if not val_str:
-      return None
-    try:
-      parsed = int(val_str)
-    except ValueError:
-      return None
-  else:
+  try:
+    parsed = int(val)
+  except ValueError:
     return None
-  if parsed <= 0:
-    return None
-  return min(parsed, max_limit)
+  return min(parsed, max_limit) if parsed > 0 else None
