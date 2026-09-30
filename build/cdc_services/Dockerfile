@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # #### Stage 1: Build mixer. ####
-FROM golang:1.24.0 AS mixer
+FROM golang:1.26-bookworm AS mixer
 
 WORKDIR /workspace
 
@@ -104,8 +104,21 @@ WORKDIR /workspace/static
 RUN npm run-script build
 
 
+# #### Stage 4: Envoy binary. ####
+FROM --platform=linux/amd64 envoyproxy/envoy:v1.31.0 AS envoy
+
+
 # #### Final stage: Runtime env. ####
-FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-08 as runner
+FROM --platform=linux/amd64 python:3.11.14-slim AS runner
+
+# Copy envoy binary.
+COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
+
+# Apply security patches for OS base packages and install nginx
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends nginx \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG MIXER_HASH=""
 ARG WEBSITE_HASH=""
