@@ -37,7 +37,9 @@ function start_servers() {
   # Kill forked processes, then exit with the status code stored in a variable.
   # Called on exit via trap, configured below.
   function cleanup() {
+    trap - EXIT
     pkill -P $$ || true
+    wait || true
     exit $exit_with
   }
   # On exit, assign status code to a variable and call cleanup.
@@ -74,6 +76,7 @@ function start_servers() {
 function stop_servers() {
   if ps -p $SERVERS_PID > /dev/null; then
     kill $SERVERS_PID
+    wait $SERVERS_PID 2>/dev/null || true
   fi
   trap - EXIT
 }

@@ -17,6 +17,7 @@ import json
 import logging
 import os
 from pathlib import Path
+import tempfile
 from typing import Callable, Optional, Union
 
 from flask import g
@@ -149,6 +150,16 @@ def cohort_aware_redis_cache_factory(app, config, args, kwargs):
     db = config.get("CACHE_REDIS_DB")
     if db is not None:
       url_kwargs["db"] = db
+    password = config.get("CACHE_REDIS_PASSWORD")
+    if password:
+      url_kwargs["password"] = password
+    ca_cert = config.get("CACHE_REDIS_CA_CERT")
+    if ca_cert:
+      with tempfile.NamedTemporaryFile(mode="w", suffix=".pem",
+                                       delete=False) as ca_file:
+        ca_file.write(ca_cert)
+        ca_cert_path = ca_file.name
+      url_kwargs["ssl_ca_certs"] = ca_cert_path
     kwargs["host"] = redis_from_url(redis_url, **url_kwargs)
   return CohortAwareRedisCache(*args, **kwargs)
 
@@ -189,12 +200,23 @@ REDIS_HOST = os.environ.get('REDIS_HOST', '')
 if redis_config:
   redis_host = redis_config['host']
   redis_port = redis_config['port']
+  redis_password = redis_config.get('password') or None
+  redis_ca_cert = redis_config.get('ca_cert') or None
+  redis_scheme = 'rediss' if redis_ca_cert else 'redis'
   _redis_cache = Cache(
       config={
-          'CACHE_TYPE': 'server.lib.cache.cohort_aware_redis_cache_factory',
-          'CACHE_REDIS_HOST': redis_host,
-          'CACHE_REDIS_PORT': redis_port,
-          'CACHE_REDIS_URL': 'redis://{}:{}'.format(redis_host, redis_port)
+          'CACHE_TYPE':
+              'server.lib.cache.cohort_aware_redis_cache_factory',
+          'CACHE_REDIS_HOST':
+              redis_host,
+          'CACHE_REDIS_PORT':
+              redis_port,
+          'CACHE_REDIS_PASSWORD':
+              redis_password,
+          'CACHE_REDIS_CA_CERT':
+              redis_ca_cert,
+          'CACHE_REDIS_URL':
+              '{}://{}:{}'.format(redis_scheme, redis_host, redis_port)
       })
   model_cache = _redis_cache
 else:

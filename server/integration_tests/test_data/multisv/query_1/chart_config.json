@@ -261,7 +261,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below poverty line vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Population Below poverty line vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -312,7 +312,7 @@
                 ]
               }
             ],
-            "title": "Population Below poverty line (Per Capita) vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Population Below poverty line (Per Capita) vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -333,7 +333,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Women below Poverty Line vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Women below Poverty Line vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -354,7 +354,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Males in Poverty (in last year) vs. Percent of Person: Years 20 Onwards, Female, Obesity"
+            "title": "Males in Poverty (in last year) vs. Percent Of Person: Years 20 Onwards, Female, Obesity"
           },
           {
             "columns": [
@@ -375,7 +375,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below poverty line vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Population Below poverty line vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           },
           {
             "columns": [
@@ -428,7 +428,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below poverty line (Per Capita) vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Population Below poverty line (Per Capita) vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           },
           {
             "columns": [
@@ -449,7 +449,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Women below Poverty Line vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Women below Poverty Line vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           },
           {
             "columns": [
@@ -470,7 +470,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Males in Poverty (in last year) vs. Percent of Person: Years 20 Onwards, Male, Obesity"
+            "title": "Males in Poverty (in last year) vs. Percent Of Person: Years 20 Onwards, Male, Obesity"
           }
         ],
         "statVarSpec": {
@@ -519,20 +519,20 @@
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1": {
-            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Female, Obesity",
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/4lvmzr1h1ylk1_scatter": {
-            "name": "Percent of Person: Years 20 Onwards, Female, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Female, Obesity",
             "noPerCapita": true,
             "statVar": "dc/4lvmzr1h1ylk1"
           },
           "dc/x13tvt8jsgrm4": {
-            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           },
           "dc/x13tvt8jsgrm4_scatter": {
-            "name": "Percent of Person: Years 20 Onwards, Male, Obesity",
+            "name": "Percent Of Person: Years 20 Onwards, Male, Obesity",
             "statVar": "dc/x13tvt8jsgrm4"
           }
         }

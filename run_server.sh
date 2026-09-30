@@ -42,7 +42,6 @@ PORT=8080
 ENABLE_MODEL=false
 
 export WEBSITE_HASH=$(git rev-parse --short=7 HEAD 2>/dev/null || echo "")
-export MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer 2>/dev/null || echo "")
 
 
 function help {
@@ -94,7 +93,7 @@ export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export ENABLE_DATAGEMMA=true
 
 # Set flask env
-if [[ -z "$FLASK_ENV" || "$FLASK_ENV" == "test" ]]; then
+if [[ -z "$FLASK_ENV" || "$FLASK_ENV" == "test" || "$FLASK_ENV" == "local" ]]; then
   export FLASK_ENV="local"
   if [[ $ENV_PREFIX == "" ]]; then
     export ENV_PREFIX="DC"

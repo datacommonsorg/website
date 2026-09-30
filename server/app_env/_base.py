@@ -55,9 +55,8 @@ class Config:
   # Environment name of the config.
   ENV = ''
   # Name of the site. The name is changed for custom instance.
-  NAME = 'Data Commons'
-  VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
-                           os.environ.get('MIXER_HASH'))
+  NAME = 'Data Commons by Google'
+  VERSION = os.environ.get('WEBSITE_HASH', '')
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
   # Deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead of GA_ACCOUNT
@@ -116,10 +115,6 @@ class Config:
   # Whether to enable the embeddings playground (/nl/eval/embeddings).
   # This tool is used for evaluating and debugging embeddings.
   ENABLE_EMBEDDINGS_PLAYGROUND = False
-  # Whether to enable DataGemma evaluation tools:
-  # - /nl/eval/retrieval_generation (RIG Eval)
-  # - /nl/eval/retrieval_generation_sxs (SxS Eval)
-  ENABLE_DATAGEMMA_EVAL_TOOLS = False
   # Target parameter for v2/resolve API calls when resolver=indicator
   V2_RESOLVE_INDICATORS_TARGET = os.environ.get('V2_RESOLVE_INDICATORS_TARGET',
                                                 '')

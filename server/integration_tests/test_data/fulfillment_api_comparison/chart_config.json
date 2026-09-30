@@ -193,7 +193,7 @@
         ],
         "statVarSpec": {
           "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome_multiple_place_bar_block": {
-            "name": "Mean Commute Time of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside of Home",
+            "name": "Mean Commute Time Of Person: Years 16 Onwards, Work Commute, Employed, Worked Outside Of Home",
             "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
           },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {

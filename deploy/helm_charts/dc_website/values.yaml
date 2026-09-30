@@ -142,7 +142,7 @@ cronTesting:
   # These are the in-cluster service endpoints that are set during script
   # deployment runtime.
   webApiRoot:
-  nodejsRoot:
+  nodejsApiRoot:
   # whether or not sanity tests are enabled
   enableSanity: true
   # whether or not adversarial tests are enabled

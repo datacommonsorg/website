@@ -15,6 +15,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
+import re
 from typing import Dict, List, Set, Tuple
 
 from flask import current_app
@@ -324,11 +325,13 @@ def get_sv_name(all_svs: List[str],
       # Topic and SVPG have a cache, so lookup name from there if its
       # fresher.
       if ('TOPIC_CACHE' in current_app.config and
+          dc in current_app.config['TOPIC_CACHE'] and
           (utils.is_svpg(sv) or utils.is_topic(sv))):
         sv_name_map[sv] = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
         if not sv_name_map[sv]:
           # Very rare edge case.
-          sv_name_map[sv] = sv.replace('dc/topic/', '').replace('dc/svpg/', '')
+          sv_name_map[sv] = uncurated_names.get(sv) or sv.replace(
+              'dc/topic/', '').replace('dc/svpg/', '')
       else:
         sv_name_map[sv] = uncurated_names[sv]
 

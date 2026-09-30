@@ -955,7 +955,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: Years 55 To 64",
+            "name": "Population: 55 - 64 Years",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5To17Years": {
@@ -999,7 +999,7 @@
             "statVar": "Median_Age_Person_Female_WhiteAlone"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age of Person: USC Foreign Born",
+            "name": "Median Age Of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "Median_Age_Person_HispanicOrLatino": {

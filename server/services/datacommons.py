@@ -683,6 +683,7 @@ def resolve(nodes, prop, resolver="place", target=None):
   return post(url, req)
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_search_vars(
     queries,
     index_types: List[str],
@@ -690,59 +691,33 @@ def nl_search_vars(
     skip_topics="",
 ):
   """Search sv from NL server."""
-  idx_params = ",".join(index_types)
-  nl_root = current_app.config["NL_ROOT"]
-  url = f"{nl_root}/api/search_vars?idx={idx_params}"
-  if reranker:
-    url = f"{url}&reranker={reranker}"
-  if skip_topics:
-    url = f"{url}&skip_topics={skip_topics}"
-  return post(url, {"queries": queries})
+  return {}
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 async def nl_search_vars_in_parallel(
     queries: list[str],
     index_types: list[str],
     skip_topics: bool = False) -> dict[str, dict]:
-  """Search sv from NL server in parallel for multiple indexes.
-
-    Args:
-        queries: A list of query strings.
-        index_types: A list of index names to query.
-        skip_topics: A boolean to skip topic-based SVs.
-
-    Returns:
-        A dictionary mapping from index name to the search result from that index.
-    """
-
-  async def search_for_index(index):
-    result = await asyncio.to_thread(
-        nl_search_vars,
-        queries=queries,
-        index_types=[index],
-        skip_topics="true" if skip_topics else "",
-    )
-    return index, result
-
-  tasks = [search_for_index(index) for index in index_types]
-  results = await asyncio.gather(*tasks)
-  return {index: result for index, result in results}
+  """Search sv from NL server in parallel for multiple indexes."""
+  return {}
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_detect_verbs(query):
   """Detect verbs from NL server."""
-  url = f"{current_app.config['NL_ROOT']}/api/detect_verbs?q={query}"
-  return get(url)
+  return []
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_encode(model, queries):
   """Encode queries from NL server."""
-  url = f"{current_app.config['NL_ROOT']}/api/encode"
-  return post(url, {"model": model, "queries": queries})
+  return []
 
 
+# TODO: Delete when removing nl_server code & artifacts.
 def nl_server_config():
-  return get(f"{current_app.config['NL_ROOT']}/api/server_config")
+  return {}
 
 
 # =======================   V0 V0 V0 ================================

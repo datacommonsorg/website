@@ -633,7 +633,7 @@ export function getTitle(
  * @param metadata
  */
 export function getMetaText(metadata: StatMetadata): string {
-  let result = `[${metadata.importName}]`;
+  let result = `[${metadata.provenanceId}]`;
   let first = true;
   for (const text of [
     metadata.measurementMethod,
@@ -734,7 +734,7 @@ export function getTimeSliderDates(
  */
 export function getLegendBounds(
   metadataMap: Record<string, StatMetadata>,
-  provenanceSummary: ProvenanceSummary,
+  provenanceSummary: Record<string, ProvenanceSummary>,
   placeType: string,
   bestAvailableHash: string
 ): Record<string, [number, number, number]> {
@@ -748,7 +748,7 @@ export function getLegendBounds(
       }
       const metatext = getMetaText({
         ...series.seriesKey,
-        importName: provenance.importName,
+        provenanceId: provId,
       });
       if (!(metatext in metahashMap)) {
         continue;

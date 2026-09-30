@@ -20,7 +20,7 @@ Before this module can be used on a project, you must ensure that the following 
 
 3. Terraform stores the state of installation in a file. The examples in these modules use GCS to store the state file.
 
-    Note: Examples in these modules assume that the backend bucket already exists. The backend bucket does not have to be in the same GCP project as the resources being installed. You can use the [mb](https://cloud.google.com/storage/docs/gsutil/commands/mb) command to create a new bucket.
+    Note: Examples in these modules assume that the backend bucket already exists. The backend bucket does not have to be in the same GCP project as the resources being installed. You can use the [create](https://docs.cloud.google.com/sdk/gcloud/reference/storage/buckets/create) command to create a new bucket.
 
     ```
     export PROJECT=<Terraform state project id>
@@ -38,9 +38,9 @@ Before this module can be used on a project, you must ensure that the following 
 
     Note: Terraform providers are implicit dependencies installed through `terraform init` call. They do not need to be installed explicitly.
 
-### gcloud and gsutil
+### gcloud
 
-Please follow the [gcloud install doc](https://cloud.google.com/sdk/docs/install) and the [gsutil install doc](https://cloud.google.com/storage/docs/gsutil_install) to install both cli tools in the machine that is calling Terraform. Some modules may need to call gcloud/gsutil in the background.
+Please follow the [gcloud install doc](https://cloud.google.com/sdk/docs/install) to install both cli tools in the machine that is calling Terraform. Some modules may need to call gcloud in the background.
 
 ## Notes
 

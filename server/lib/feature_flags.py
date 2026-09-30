@@ -35,8 +35,6 @@ VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
 ENABLE_NL_AGENT_DETECTOR = 'enable_nl_agent_detector'
 NEW_RANKING_PAGE = 'new_ranking_page'
-# This flag controls the switching of detect-and-fulfill API to use v2/resolve from current nl search vars
-USE_V2_RESOLVE_FOR_NL_SEARCH_VARS = 'use_v2_resolve_for_nl_search_vars'
 ENABLE_NL_V2NODE_FETCHALL = 'enable_nl_v2node_fetchall'
 CROISSANT_JSON_LD_FEATURE = 'show_croissant_json_ld'
 CROISSANT_EXTENDED_FEATURE = 'show_croissant_extended_feature'
@@ -46,6 +44,7 @@ DIVERT_TO_SPANNER = 'divert_to_spanner'
 USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
 USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
 USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING = 'use_config_threshold_for_spanner_embedding'
+ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION = 'enable_schema_driven_topic_resolution'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:

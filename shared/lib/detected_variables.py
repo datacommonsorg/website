@@ -14,6 +14,7 @@
 """Data structures for representing SVs detected in queries."""
 
 from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict, List
 
 from shared.lib import constants
@@ -44,6 +45,8 @@ class VarCandidates:
   scores: List[float]
   # Key is variable.
   sv2sentences: SV2Sentences
+  # Map of SV -> schema typeOf (e.g. 'Topic', 'StatisticalVariable')
+  sv2types: Dict[str, str] = field(default_factory=dict)
 
   def sv2sentences_dict(self) -> Dict[str, Dict]:
     resp = {}
@@ -96,30 +99,60 @@ def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
     ]
   return VarCandidates(svs=nlresp.get('SV', []),
                        scores=nlresp.get('CosineScore', []),
-                       sv2sentences=sv2sentences)
+                       sv2sentences=sv2sentences,
+                       sv2types=nlresp.get('SV_to_Types', {}))
 
 
 def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
-  """
-  Converts an entity dictionary from v2/resolve response into VarCandidates.
+  """Converts an entity dictionary from a /v2/resolve response into VarCandidates.
 
-  Args
-  ----
-    entity: A dictionary containing a list of candidate variables
+  Expected input structure from Mixer's /v2/resolve endpoint (ResolveResponse.Entity):
+    {
+      "node": "Displaced Persons",
+      "candidates": [
+        {
+          "dcid": "custom/topic/DisplacedPersons",
+          "typeOf": ["Topic"],
+          "metadata": {
+            "score": "0.8752",
+            "sentence": "Displaced Persons"
+          }
+        }
+      ]
+    }
 
-  Returns
-  -------
-    A VarCandidates object containing the parsed candidates and scores
+  Args:
+    entity: An Entity dictionary from a /v2/resolve JSON response.
 
+  Returns:
+    A VarCandidates object containing parsed candidate DCIDs, cosine scores,
+    matched sentences, and schema typeOf mappings (sv2types).
   """
   svs = []
   scores = []
   sv2sentences: SV2Sentences = {}
+  sv2types: Dict[str, str] = {}
+
+  def _extract_node_type(types_val) -> str:
+    if isinstance(types_val, list):
+      return str(types_val[0]) if types_val and types_val[0] else ''
+    return str(types_val) if types_val else ''
 
   for candidate in entity.get('candidates', []):
     sv = candidate.get('dcid')
     if not sv:
       continue
+    node_type = _extract_node_type(candidate.get('typeOf'))
+    if node_type:
+      sv2types[sv] = node_type
+
+    # Extract types for immediate children if present
+    for child in candidate.get('children', []):
+      child_sv = child.get('dcid')
+      child_type = _extract_node_type(child.get('typeOf'))
+      if child_sv and child_type:
+        sv2types[child_sv] = child_type
+
     meta = candidate.get('metadata', {})
     score_str = meta.get('score')
     try:
@@ -134,13 +167,18 @@ def resolve_entity_to_var_candidates(entity: Dict) -> VarCandidates:
       sv2sentences[sv] = []
     sv2sentences[sv].append(SentenceScore(sentence=sentence, score=score))
 
-  return VarCandidates(svs=svs, scores=scores, sv2sentences=sv2sentences)
+  return VarCandidates(svs=svs,
+                       scores=scores,
+                       sv2sentences=sv2sentences,
+                       sv2types=sv2types)
 
 
 def var_candidates_to_dict(res: VarCandidates) -> Dict:
   result = {'SV': res.svs, 'CosineScore': res.scores}
   if res.sv2sentences:
     result['SV_to_Sentences'] = res.sv2sentences_dict()
+  if res.sv2types:
+    result['SV_to_Types'] = res.sv2types
   return result
 
 

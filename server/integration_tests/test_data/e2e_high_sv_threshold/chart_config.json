@@ -211,19 +211,19 @@
         ],
         "statVarSpec": {
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
-            "name": "Count of Mortality Event: Years Upto 1 (As fraction of Count Birth Event)",
+            "name": "Count Of Mortality Event: Years Upto 1 (As Fraction Of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female": {
-            "name": "Count of Mortality Event: Years Upto 1, Female (As fraction of Count Birth Event Female)",
+            "name": "Count Of Mortality Event: Years Upto 1, Female (As Fraction Of Count Birth Event Female)",
             "statVar": "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
           },
           "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male": {
-            "name": "Count of Mortality Event: Years Upto 1, Male (As fraction of Count Birth Event Male)",
+            "name": "Count Of Mortality Event: Years Upto 1, Male (As Fraction Of Count Birth Event Male)",
             "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
           },
           "Count_Death_Upto1Years": {
-            "name": "Count of Mortality Event: Years Upto 1",
+            "name": "Count Of Mortality Event: Years Upto 1",
             "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied": {

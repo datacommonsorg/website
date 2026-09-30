@@ -191,49 +191,18 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
 
   def setUp(self):
     self.app = Flask(__name__)
-    self.app.config["NL_ROOT"] = "fake_root"
     self.app_context = self.app.app_context()
     self.app_context.push()
 
   def tearDown(self):
     self.app_context.pop()
 
-  @mock.patch("server.services.datacommons.post")
-  def test_without_skip_topics(self, mock_post):
-    idx_param = "fake_index"
-
-    def side_effect(url, data, headers=None):
-      assert url.endswith(f"/api/search_vars?idx={idx_param}")
-      self.assertEqual(data, {"queries": ["foo", "bar"]})
-      return {}
-
-    mock_post.side_effect = side_effect
-
-    nl_search_vars(
+  def test_nl_search_vars(self):
+    result = nl_search_vars(
         queries=["foo", "bar"],
-        index_types=[idx_param],
+        index_types=["fake_index"],
     )
-
-    assert mock_post.call_count == 1
-
-  @mock.patch("server.services.datacommons.post")
-  def test_with_skip_topics(self, mock_post):
-    idx_param = "fake_index"
-
-    def side_effect(url, data, headers=None):
-      assert url.endswith(f"/api/search_vars?idx={idx_param}&skip_topics=true")
-      self.assertEqual(data, {"queries": ["foo", "bar"]})
-      return {}
-
-    mock_post.side_effect = side_effect
-
-    nl_search_vars(
-        queries=["foo", "bar"],
-        index_types=[idx_param],
-        skip_topics="true",
-    )
-
-    assert mock_post.call_count == 1
+    self.assertEqual(result, {})
 
 
 class TestServiceDataCommonsResolveIndicator(unittest.TestCase):
@@ -432,7 +401,6 @@ class TestServiceDataCommonsNLSearchVarsInParallel(
 
   def setUp(self):
     self.app = Flask(__name__)
-    self.app.config["NL_ROOT"] = "fake_root"
     self.app.config["DC_API_KEY"] = "fake_key"
     self.app_context = self.app.app_context()
     self.app_context.push()
@@ -443,59 +411,10 @@ class TestServiceDataCommonsNLSearchVarsInParallel(
     self.app_context.pop()
 
   async def test_basic(self):
-
-    # The function is called for each index type.
-    idx1_result = {
-        "queryResults": {
-            "foo": {
-                "SV": ["Count_Person"],
-                "CosineScore": [0.9],
-                "SV_to_Sentences": {
-                    "Count_Person": [{
-                        "sentence": "person count",
-                        "score": 0.9
-                    }]
-                },
-            }
-        },
-        "scoreThreshold": 0.7,
-        "debugLogs": {
-            "sv_detection_query_index_types": ["idx1"]
-        }
-    }
-    idx2_result = {
-        "queryResults": {
-            "foo": {
-                "SV": ["Count_Criminal"],
-                "CosineScore": [0.8]
-            }
-        },
-        "scoreThreshold": 0.7,
-    }
-
-    def side_effect(url, *args, **kwargs):
-      resp = Response()
-      resp.status_code = 200
-
-      if "idx1" in url:
-        # Setting the ._content attribute automatically makes both resp.json() and resp.text available.
-        resp._content = json.dumps(idx1_result).encode('utf-8')
-
-      else:
-        resp._content = json.dumps(idx2_result).encode('utf-8')
-
-      return resp
-
-    with mock.patch('requests.post') as mock_post:
-      with self.app.test_request_context():
-        mock_post.side_effect = side_effect
-
-        result = await nl_search_vars_in_parallel(queries=["foo"],
-                                                  index_types=["idx1", "idx2"],
-                                                  skip_topics=True)
-
-        self.assertEqual(result, {"idx1": idx1_result, "idx2": idx2_result})
-        self.assertEqual(mock_post.call_count, 2)
+    result = await nl_search_vars_in_parallel(queries=["foo"],
+                                              index_types=["idx1", "idx2"],
+                                              skip_topics=True)
+    self.assertEqual(result, {})
 
 
 class TestGetBestType(unittest.TestCase):

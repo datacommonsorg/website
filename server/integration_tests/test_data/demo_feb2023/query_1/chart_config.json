@@ -594,7 +594,7 @@
         ],
         "statVarSpec": {
           "Count_HeatTemperatureEvent": {
-            "name": "Count of Heat Temperature Event",
+            "name": "Count Of Heat Temperature Event",
             "statVar": "Count_HeatTemperatureEvent"
           },
           "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {

@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
+import { StatMetadata } from "../../shared/stat_types";
+import { ProvenanceSummary } from "../../shared/types";
 import { ContextType, DisplayOptions, PlaceInfo, StatVar } from "./context";
 import { observationDates } from "./test_data";
 import {
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
+  getLegendBounds,
+  getMetaText,
   getTimeSliderDates,
   updateHashDisplay,
   updateHashPlaceInfo,
@@ -176,4 +180,69 @@ test("get time slider dates", () => {
     bestFacet: "3795540742",
   };
   expect(getTimeSliderDates(observationDates)).toEqual(expected);
+});
+
+// Test: getMetaText keys on provenanceId.
+// Situation: Metadata has a provenanceId, measurementMethod and unit, but no
+// importName.
+// Expectation: The metatext is prefixed with the provenanceId.
+test("getMetaText uses provenanceId", () => {
+  const metadata: StatMetadata = {
+    provenanceId: "dc/base/CensusACS5YearSurvey",
+    measurementMethod: "CensusACS5yrSurvey",
+    unit: "USDollar",
+  };
+  expect(getMetaText(metadata)).toEqual(
+    "[dc/base/CensusACS5YearSurvey]CensusACS5yrSurvey, USDollar"
+  );
+});
+
+const legendMetadataMap: Record<string, StatMetadata> = {
+  "111": {
+    provenanceId: "dc/base/CensusACS5YearSurvey",
+    measurementMethod: "CensusACS5yrSurvey",
+  },
+  "222": {
+    provenanceId: "dc/base/WikidataPopulation",
+  },
+};
+
+const legendProvenanceSummary: Record<string, ProvenanceSummary> = {
+  "dc/base/CensusACS5YearSurvey": {
+    importName: "CensusACS5YearSurvey",
+    observationCount: 1,
+    timeSeriesCount: 1,
+    seriesSummary: [
+      {
+        seriesKey: { measurementMethod: "CensusACS5yrSurvey" },
+        earliestDate: "2019",
+        latestDate: "2019",
+        observationCount: 1,
+        timeSeriesCount: 1,
+        placeTypeSummary: {
+          County: { minValue: 10, maxValue: 30, placeCount: 1, topPlaces: [] },
+        },
+      },
+    ],
+  },
+};
+
+// Test: getLegendBounds matches facets that lack importName.
+// Situation: Facets carry no importName, while the provenance summary (keyed
+// by provenance ID) still has one and a County series matching facet 111.
+// Expectation: Bounds are returned for facet 111 and, as it is the best
+// available facet, for the "" key.
+test("getLegendBounds matches on provenanceId", () => {
+  expect(
+    getLegendBounds(legendMetadataMap, legendProvenanceSummary, "County", "111")
+  ).toEqual({ "111": [10, 20, 30], "": [10, 20, 30] });
+});
+
+// Test: getLegendBounds with no summary for the place type.
+// Situation: Same input, but the requested place type is State.
+// Expectation: No bounds are returned.
+test("getLegendBounds returns empty for missing place type", () => {
+  expect(
+    getLegendBounds(legendMetadataMap, legendProvenanceSummary, "State", "111")
+  ).toEqual({});
 });

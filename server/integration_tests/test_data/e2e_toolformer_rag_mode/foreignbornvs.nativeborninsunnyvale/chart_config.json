@@ -518,7 +518,7 @@
         ],
         "statVarSpec": {
           "Count_Household_ForeignBorn_PlaceOfBirthEurope": {
-            "name": "Count of Household: USC Foreign Born, Europe",
+            "name": "Count Of Household: USC Foreign Born, Europe",
             "statVar": "Count_Household_ForeignBorn_PlaceOfBirthEurope"
           },
           "Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn": {
@@ -570,7 +570,7 @@
             "statVar": "Count_Person_USCitizenByNaturalization"
           },
           "Median_Age_Person_ForeignBorn": {
-            "name": "Median Age of Person: USC Foreign Born",
+            "name": "Median Age Of Person: USC Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
           "dc/1lm9k2vdxj4c6": {

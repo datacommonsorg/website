@@ -152,7 +152,7 @@ export interface UrlHashParams {
 export function extractFacetMetadataUrlHashParams(
   hashParams: queryString.ParsedQuery<string>
 ): FacetMetadata | undefined {
-  const importName = getSingleParam(hashParams[URL_HASH_PARAMS.IMPORT_NAME]);
+  const provenanceId = getSingleParam(hashParams[URL_HASH_PARAMS.IMPORT_NAME]);
   const measurementMethod = getSingleParam(
     hashParams[URL_HASH_PARAMS.MEASUREMENT_METHOD]
   );
@@ -165,14 +165,14 @@ export function extractFacetMetadataUrlHashParams(
   const unit = getSingleParam(hashParams[URL_HASH_PARAMS.UNIT]);
 
   if (
-    importName ||
+    provenanceId ||
     measurementMethod ||
     observationPeriod ||
     scalingFactor ||
     unit
   ) {
     return {
-      importName,
+      provenanceId,
       measurementMethod,
       observationPeriod,
       scalingFactor,
@@ -288,7 +288,7 @@ export function buildExploreUrl(
 
   // Add facet metadata if provided
   if (facetMetadata) {
-    if (facetMetadata.importName) params["imp"] = facetMetadata.importName;
+    if (facetMetadata.provenanceId) params["imp"] = facetMetadata.provenanceId;
     if (facetMetadata.measurementMethod)
       params["mm"] = facetMetadata.measurementMethod;
     if (facetMetadata.observationPeriod)

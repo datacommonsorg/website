@@ -33,7 +33,25 @@ import remarkGfm from "remark-gfm";
 import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
 import { updateHash } from "../../utils/url_utils";
-import { processTableText } from "../eval_retrieval_generation/util";
+// Assume a sequence of three or more dashes is the table divider.
+const TABLE_DIVIDER_PATTERN = /[-]{3,}/g;
+// Assume any sequence of 1 or more characters that are not pipes is a table
+// header value.
+const TABLE_HEADER_TEXT_PATTERN = /[^|]+/g;
+
+function processTableText(text: string): string {
+  if (!text) {
+    return "";
+  }
+  // Get a copy of the table header
+  const tableHeader = _.cloneDeep(text).split("\n", 1)[0];
+  // Replace all the text in the header with "-" to create the table divider
+  // example: abc | cd -> -|-
+  const tableDivider = tableHeader.replace(TABLE_HEADER_TEXT_PATTERN, "-");
+  // Replace the table divider that's originally in the text with the one just
+  // created
+  return text.replace(TABLE_DIVIDER_PATTERN, tableDivider);
+}
 
 // Constants for query modes
 const RIG_MODE = "rig";

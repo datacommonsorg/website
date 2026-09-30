@@ -20,10 +20,11 @@
 set -e
 
 IMAGE_TAG=$1
+PROJECT_ID=${2:-datcom-ci}
 
 if [[ $IMAGE_TAG == "" ]]; then
   echo "No image tag specified." >&2
-  echo "Usage ./scripts/push_cdc_services_image.sh my-test-image-tag" >&2
+  echo "Usage ./scripts/push_cdc_services_image.sh my-test-image-tag [project-id]" >&2
   exit 1
 fi
 
@@ -34,7 +35,7 @@ MIXER_HASH=$(git rev-parse --short=7 HEAD:mixer)
 
 gcloud builds submit . \
   --async \
-  --project=datcom-ci \
+  --project=$PROJECT_ID \
   --config=build/ci/cloudbuild.push_cdc_services_image.yaml \
-  --substitutions=_TAG=$IMAGE_TAG,_WEBSITE_HASH=$WEBSITE_HASH,_MIXER_HASH=$MIXER_HASH
+  --substitutions=_TAG=$IMAGE_TAG,_PROJECT_ID=$PROJECT_ID,_WEBSITE_HASH=$WEBSITE_HASH,_MIXER_HASH=$MIXER_HASH
 

@@ -34,7 +34,9 @@ exit_with=0
 # Kill forked processes, then exit with the status code stored in a variable.
 # Called on exit via trap, configured below.
 function cleanup() {
+  trap - EXIT
   pkill -P $$ || true
+  wait || true
   exit $exit_with
 }
 
@@ -45,10 +47,6 @@ trap 'exit_with=$?; cleanup' EXIT
 # when done with it.
 trap 'exit_with=0; cleanup' SIGINT SIGTERM
 
-if lsof -i :6060 > /dev/null 2>&1; then
-  log_error "Port 6060 (for NL server) is already in use. Please stop the process using that port."
-  exit 1
-fi
 if lsof -i :8080 > /dev/null 2>&1; then
   log_error "Port 8080 (for website server) is already in use. Please stop the process using that port."
   exit 1
@@ -163,21 +161,6 @@ ENVOY_PID=$!
 # cd back to website root.
 cd ..
 
-# Start NL server.
-NL_PID=""
-if [[ $ENABLE_MODEL == "true" ]]; then
-  echo "Starting NL Server..."
-  nl_command="uv run --project nl_server python3 nl_app.py 6060"
-  if [[ "$VERBOSE" == "true" ]]; then
-    eval "$nl_command &"
-  else
-    eval "$nl_command > /dev/null 2>&1 &"
-  fi
-  NL_PID=$!
-else
-  log_notice "$ENABLE_MODEL is not true, NL server will not be started."
-fi
-
 # Start MCP server.
 MCP_PID=""
 if [[ $ENABLE_MCP == "true" ]]; then
@@ -243,11 +226,6 @@ while true; do
 
   if ! ps -p $WEBSITE_PID > /dev/null; then
     log_error "Website server exited early. Run with --verbose to debug."
-    exit 1
-  fi
-
-  if [[ -n "$NL_PID" ]] && ! ps -p $NL_PID > /dev/null; then
-    log_error "NL server exited early. Run with --verbose to debug."
     exit 1
   fi
 
