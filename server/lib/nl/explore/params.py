@@ -172,15 +172,12 @@ MAX_CHART_CANDIDATES = 500
 
 
 def parse_and_clamp_numeric_param(val, max_limit: int) -> int | None:
-  """Returns val as an int clamped to [1, max_limit].
-
-  Returns None for missing, non-numeric, or non-positive values so callers fall
-  back to their default limit.
-  """
-  if isinstance(val, bool) or not isinstance(val, (int, str)):
+  """Returns val as an int in [1, max_limit], or None if it isn't valid."""
+  # None lets callers fall back to their default limit.
+  if isinstance(val, bool):
     return None
   try:
-    parsed = int(val)
-  except ValueError:
+    parsed = int(float(val))
+  except (TypeError, ValueError, OverflowError):
     return None
   return min(parsed, max_limit) if parsed > 0 else None

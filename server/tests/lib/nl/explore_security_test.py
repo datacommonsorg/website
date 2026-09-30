@@ -151,6 +151,15 @@ class TestParameterBounds(unittest.TestCase):
     self.assertIsInstance(fulfillment_base._get_max_num_charts(state_zero), int)
     self.assertGreaterEqual(fulfillment_base._get_max_num_charts(state_zero), 1)
 
+  def test_parse_and_clamp_numeric_param(self):
+    clamp = params.parse_and_clamp_numeric_param
+    self.assertEqual(clamp('10', 500), 10)
+    self.assertEqual(clamp(' 10.0 ', 500), 10)
+    self.assertEqual(clamp(12.7, 500), 12)
+    self.assertEqual(clamp(99999, 500), 500)
+    for bad in (None, '', 'abc', 'nan', '1e400', 0, -5, True, [10]):
+      self.assertIsNone(clamp(bad, 500), bad)
+
   def test_legitimate_undc_params_are_accepted_unchanged(self):
     # UN Data Commons frontend sends maxTopics=10&maxCharts=200&maxTopicSvs=500.
     with self.app.test_request_context(
@@ -214,15 +223,10 @@ class TestTopicRecursionBounds(unittest.TestCase):
       self.assertEqual(len(d_calls), 1)
 
   @patch('server.lib.nl.common.topic._members')
-  def test_deep_topic_hierarchy_respects_rank_limit(self, mock_members):
-    # 6-level deep topic chain: L0 -> L1 -> L2 -> L3 -> L4 -> L5 -> SV_L5
+  def test_deep_topic_chain_stops_at_max_svs(self, mock_members):
+    # 50-level topic chain, one SV per level.
     graph = {
-        'dc/topic/L0': ['SV_L0', 'dc/topic/L1'],
-        'dc/topic/L1': ['SV_L1', 'dc/topic/L2'],
-        'dc/topic/L2': ['SV_L2', 'dc/topic/L3'],
-        'dc/topic/L3': ['SV_L3', 'dc/topic/L4'],
-        'dc/topic/L4': ['SV_L4', 'dc/topic/L5'],
-        'dc/topic/L5': ['SV_L5'],
+        f'dc/topic/L{i}': [f'SV_L{i}', f'dc/topic/L{i + 1}'] for i in range(50)
     }
     mock_members.side_effect = lambda node, prop, dc='main': graph.get(node, [])
 
@@ -230,14 +234,9 @@ class TestTopicRecursionBounds(unittest.TestCase):
       svs = common_topic.get_topic_vars_recurive('dc/topic/L0',
                                                  rank=0,
                                                  dc='custom',
-                                                 max_svs=500)
-      # TOPIC_RANK_LIMIT is 3, so L0 (rank 0), L1 (rank 1), L2 (rank 2) are expanded,
-      # and L3+ (rank >= 3) must not be expanded.
-      self.assertIn('SV_L0', svs)
-      self.assertIn('SV_L1', svs)
-      self.assertIn('SV_L2', svs)
-      self.assertNotIn('SV_L3', svs)
-      self.assertNotIn('SV_L5', svs)
+                                                 max_svs=5)
+      self.assertEqual(svs, [f'SV_L{i}' for i in range(6)])
+      self.assertEqual(mock_members.call_count, 6)
 
   @patch('server.lib.nl.common.topic._members')
   def test_compute_chart_vars_bounds_total_svs_across_subtopics(

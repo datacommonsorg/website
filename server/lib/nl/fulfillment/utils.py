@@ -156,7 +156,7 @@ def add_chart_to_utterance(
   # per-SV chart carries the full topic SV list.
   if len(chart_vars.orig_sv_map) == 1 and not chart_vars.is_topic_peer_group:
     orig_sv = next(iter(chart_vars.orig_sv_map))
-    chart_vars.orig_sv_map = {orig_sv: list(chart_vars.svs)}
+    chart_vars.orig_sv_map = {orig_sv: chart_vars.svs}
   ch = ChartSpec(chart_type=chart_type,
                  svs=copy.deepcopy(chart_vars.svs),
                  props=copy.deepcopy(chart_vars.props),

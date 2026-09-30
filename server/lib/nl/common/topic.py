@@ -342,7 +342,8 @@ def get_topic_vars_recurive(topic: str,
                             visited: Set[str] | None = None):
   """Recursively expands a topic into member statistical variables and peer groups.
 
-  Traverses child topics up to TOPIC_RANK_LIMIT depth or until max_svs is reached.
+  Traverses child topics until max_svs is reached. Each topic is expanded at
+  most once, which also guards against cycles.
   """
   if visited is None:
     visited = set()
@@ -356,7 +357,7 @@ def get_topic_vars_recurive(topic: str,
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank + 1, dc, max_svs, cur_svs,
+      in_new_svs = get_topic_vars_recurive(sv, rank, dc, max_svs, cur_svs,
                                            visited)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
