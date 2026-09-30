@@ -28,6 +28,7 @@ from server.lib.nl.fulfillment import ranking_across_vars
 from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import get_max_num_charts
 
 _EXPLORE_RANKING_COUNT = 5
 _EXPLORE_SCHOOL_RANKING_COUNT = 10
@@ -100,8 +101,11 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   if not user_set_child_type and chart_vars.is_topic_peer_group:
     added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
+  max_num_charts = get_max_num_charts(state)
   cv = copy.deepcopy(chart_vars)
   for sv in chart_vars.svs[:max_rank_and_map_charts]:
+    if len(state.uttr.chartCandidates) >= max_num_charts:
+      break
     cv.svs = [sv]
 
     # If user didn't ask for ranking, show timeline+highlight first.

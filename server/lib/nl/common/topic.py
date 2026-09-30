@@ -14,7 +14,7 @@
 """Module for NL topics"""
 
 import time
-from typing import Dict, List
+from typing import Dict, List, Set
 
 from flask import current_app
 
@@ -338,20 +338,26 @@ def get_topic_vars_recurive(topic: str,
                             rank: int = 0,
                             dc: str = DCNames.MAIN_DC.value,
                             max_svs: int = MAX_TOPIC_SVS,
-                            cur_svs: int = 0):
+                            cur_svs: int = 0,
+                            visited: Set[str] | None = None):
   """Recursively expands a topic into member statistical variables and peer groups.
 
   Traverses child topics up to TOPIC_RANK_LIMIT depth or until max_svs is reached.
   """
-  if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
+  if visited is None:
+    visited = set()
+  if (not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT or
+      topic in visited):
     return []
+  visited.add(topic)
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
     svs = _members(topic, 'relevantVariable', dc)
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank, dc, max_svs, cur_svs)
+      in_new_svs = get_topic_vars_recurive(sv, rank + 1, dc, max_svs, cur_svs,
+                                           visited)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
     else:

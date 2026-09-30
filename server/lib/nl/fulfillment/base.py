@@ -33,6 +33,7 @@ from server.lib.nl.fulfillment.existence import get_places_to_check
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
 from server.lib.nl.fulfillment.handlers import get_populate_handlers
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import get_max_num_charts
 from server.lib.nl.fulfillment.utils import handle_contained_in_type
 
 # Limit the number of charts.  Each chart may double for per-capita.
@@ -239,7 +240,8 @@ def _add_charts_with_existence_check(state: PopulateState,
             state.uttr.counters.err('failed_populate_callback_primary', 1)
 
       # If we have found enough charts, return success
-      if num_charts >= max_num_charts:
+      if (num_charts >= max_num_charts or
+          len(state.uttr.chartCandidates) >= max_num_charts):
         break
 
     # Handle extended/comparable SVs only for simple query since
@@ -249,7 +251,8 @@ def _add_charts_with_existence_check(state: PopulateState,
     #
     # TODO: Optimize and enable in Explore mode.
     if (qt == QueryType.BASIC and existing_svs and not state.place_type and
-        not state.ranking_types and num_charts < max_num_charts):
+        not state.ranking_types and num_charts < max_num_charts and
+        len(state.uttr.chartCandidates) < max_num_charts):
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in state.uttr.svs if v in existing_svs]
@@ -438,12 +441,4 @@ def clear_fallback(state: PopulateState):
 
 
 def _get_max_num_charts(state: PopulateState) -> int:
-  # If there was a limit specified in the insight context, use that limit.
-  if state.uttr.insight_ctx.get(params.Params.MAX_CHARTS) != None:
-    return state.uttr.insight_ctx[params.Params.MAX_CHARTS]
-  # For special DCs use a much higher limit of charts
-  # shown. NOTE: This is a hack to allow mix of topics from
-  # multiple sources.
-  if params.is_special_dc(state.uttr.insight_ctx):
-    return _EXTREME_MAX_NUM_CHARTS
-  return _DEFAULT_MAX_NUM_CHARTS
+  return get_max_num_charts(state)

@@ -152,3 +152,41 @@ def dc_to_embedding_types(dc: str, embeddings_types: List[str]) -> List[str]:
 
 def is_toolformer_mode(mode: QueryMode) -> bool:
   return mode == QueryMode.TOOLFORMER_RIG or mode == QueryMode.TOOLFORMER_RAG
+
+
+# Hard server-side upper bounds for numeric explore parameters to prevent
+# unbounded topic expansion and chart fulfillment (DoS).
+MAX_TOPICS_LIMIT = 10
+MAX_TOPIC_SVS_LIMIT = 500
+MAX_CHARTS_LIMIT = 200
+
+PARAM_MAX_LIMITS = {
+    Params.MAX_TOPICS: MAX_TOPICS_LIMIT,
+    Params.MAX_TOPIC_SVS: MAX_TOPIC_SVS_LIMIT,
+    Params.MAX_CHARTS: MAX_CHARTS_LIMIT,
+}
+
+
+def parse_and_clamp_numeric_param(val, max_limit: int) -> int | None:
+  """Parses a positive integer parameter and clamps it to [1, max_limit].
+
+  Returns None if the value is None, non-numeric, or <= 0 so callers fall back
+  to their default limit.
+  """
+  if val is None or isinstance(val, bool):
+    return None
+  if isinstance(val, int):
+    parsed = val
+  elif isinstance(val, str):
+    val_str = val.strip()
+    if not val_str:
+      return None
+    try:
+      parsed = int(val_str)
+    except ValueError:
+      return None
+  else:
+    return None
+  if parsed <= 0:
+    return None
+  return min(parsed, max_limit)

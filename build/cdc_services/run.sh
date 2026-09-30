@@ -144,7 +144,7 @@ if [[ $DEBUG == "true" ]]; then
     python3 web_app.py 7070 &
 else
     echo "Starting Website Server."
-    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:7070 -w 4 web_app:app &
+    gunicorn --log-level info --preload --timeout 300 --bind 0.0.0.0:7070 -w 4 web_app:app &
 fi
 
 # Wait for any process to exit
