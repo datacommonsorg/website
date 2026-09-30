@@ -160,15 +160,15 @@ class TestParameterBounds(unittest.TestCase):
     for bad in (None, '', 'abc', 'nan', '1e400', 0, -5, True, [10]):
       self.assertIsNone(clamp(bad, 500), bad)
 
-  def test_legitimate_undc_params_are_accepted_unchanged(self):
-    # UN Data Commons frontend sends maxTopics=10&maxCharts=200&maxTopicSvs=500.
+  def test_max_allowed_params_are_accepted_unchanged(self):
+    # Largest values existing clients send.
     with self.app.test_request_context(
         '/api/explore/detect-and-fulfill?maxTopics=10&maxTopicSvs=500&maxCharts=200'
     ):
       from flask import request
       uttr = _make_utterance(['dc/topic/Root'])
       explore_helpers.update_insight_ctx_for_chart_fulfill(
-          request, uttr, 'undata')
+          request, uttr, 'custom')
 
       self.assertEqual(uttr.insight_ctx[params.Params.MAX_TOPICS], 10)
       self.assertEqual(uttr.insight_ctx[params.Params.MAX_TOPIC_SVS], 500)

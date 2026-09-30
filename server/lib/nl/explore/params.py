@@ -155,7 +155,7 @@ def is_toolformer_mode(mode: QueryMode) -> bool:
 
 
 # Server-side upper bounds for client-provided limits. These match the largest
-# values sent by existing clients (e.g. UN Data Commons).
+# values sent by existing clients.
 MAX_TOPICS_LIMIT = 10
 MAX_TOPIC_SVS_LIMIT = 500
 MAX_CHARTS_LIMIT = 200
