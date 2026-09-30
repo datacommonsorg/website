@@ -14,7 +14,7 @@
                       "country/MLI",
                       "country/SEN",
                       "country/ETH",
-                      "country/GIN",
+                      "country/UGA",
                       "country/BEN",
                       "country/RWA",
                       "country/GHA",
@@ -85,11 +85,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/UGA",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Guinea",
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -210,11 +210,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Guinea",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -222,11 +222,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BEN",
+                    "placeDcidOverride": "country/UGA",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Benin",
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -338,8 +338,8 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/GIN",
-      "name": "Guinea",
+      "dcid": "country/UGA",
+      "name": "Uganda",
       "place_type": "Country"
     },
     {
