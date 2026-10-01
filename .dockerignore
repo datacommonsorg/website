@@ -13,7 +13,6 @@ pytest_log.txt
 **/eval/**/result
 
 **/.venv*
-.venv*
 
 import/simple/sample/
 **/.data
