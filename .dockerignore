@@ -14,8 +14,6 @@ pytest_log.txt
 
 **/.venv*
 .venv*
-nl_server/
-tools/
 
 import/simple/sample/
 **/.data
