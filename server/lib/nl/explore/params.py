@@ -170,6 +170,11 @@ PARAM_MAX_LIMITS = {
 # a single block can fan out into one chart per variable.
 MAX_CHART_CANDIDATES = 500
 
+# Hard ceiling on topic and peer group lookups per request. Without it, topic
+# expansion is only bounded by the size of the topic graph. The largest
+# expansion we've measured on a production topic graph uses about 1,200.
+MAX_TOPIC_LOOKUPS_PER_REQUEST = 1500
+
 
 def parse_and_clamp_numeric_param(val, max_limit: int) -> int | None:
   """Returns val as an int in [1, max_limit], or None if it isn't valid."""

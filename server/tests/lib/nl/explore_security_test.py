@@ -238,6 +238,30 @@ class TestTopicRecursionBounds(unittest.TestCase):
       self.assertEqual(svs, [f'SV_L{i}' for i in range(6)])
       self.assertEqual(mock_members.call_count, 6)
 
+  @patch.object(common_topic, 'MAX_TOPIC_LOOKUPS_PER_REQUEST', 50)
+  @patch.object(common_topic.fetch, 'property_values')
+  def test_topic_lookups_are_capped_per_request(self, mock_property_values):
+    # Endless chain where each topic lists its subtopic before its variable,
+    # so max_svs never kicks in on the way down.
+    def members(nodes, prop):
+      i = int(nodes[0].split('/L')[-1])
+      return {nodes[0]: [f'dc/topic/L{i + 1},SV_L{i}']}
+
+    mock_property_values.side_effect = members
+
+    with self.app.test_request_context():
+      common_topic.get_topic_vars_recurive('dc/topic/L0',
+                                           dc='custom',
+                                           max_svs=5)
+      self.assertEqual(mock_property_values.call_count, 50)
+
+    # Each request gets its own budget.
+    with self.app.test_request_context():
+      common_topic.get_topic_vars_recurive('dc/topic/L0',
+                                           dc='custom',
+                                           max_svs=5)
+      self.assertEqual(mock_property_values.call_count, 100)
+
   @patch('server.lib.nl.common.topic._members')
   def test_compute_chart_vars_bounds_total_svs_across_subtopics(
       self, mock_members):
