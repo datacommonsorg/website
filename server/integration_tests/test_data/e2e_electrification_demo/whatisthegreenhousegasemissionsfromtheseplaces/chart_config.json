@@ -19,9 +19,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -54,9 +54,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -88,9 +88,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -121,9 +121,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -161,6 +161,7 @@
                       "country/MAR",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -175,7 +176,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: UNFCCC.",
-            "infoMessage": "Data for \"Kenya, Senegal, Mali and Guinea\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Kenya, Senegal and Mali\" is currently unavailable. See the following statistics on the other places.",
             "title": "Total Greenhouse Gas Emissions Without LULUCF for non-Annex I Parties"
           },
           {
@@ -193,9 +194,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -238,9 +239,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -272,9 +273,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -318,7 +319,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Uganda, Mali, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas"
           },
           {
@@ -336,9 +337,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -370,9 +371,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -416,7 +417,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Uganda, Mali, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Maritime Transport, Greenhouse Gas"
           },
           {
@@ -434,9 +435,9 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
+                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -479,7 +480,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Kenya, Ethiopia, Mali, Guinea, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Kenya, Ethiopia, Uganda, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Oil and Gas Production, Carbon Dioxide"
           },
           {
@@ -496,8 +497,8 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
+                      "country/UGA",
                       "country/MLI",
-                      "country/GIN",
                       "country/BEN",
                       "country/RWA",
                       "country/SOM"
@@ -539,7 +540,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Morocco, Ghana, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Morocco, Ghana, Uganda, Senegal, Mali, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Petrochemical Production, Greenhouse Gas"
           }
         ],
@@ -722,6 +723,11 @@
       "place_type": "Country"
     },
     {
+      "dcid": "country/UGA",
+      "name": "Uganda",
+      "place_type": "Country"
+    },
+    {
       "dcid": "country/SEN",
       "name": "Senegal",
       "place_type": "Country"
@@ -729,11 +735,6 @@
     {
       "dcid": "country/MLI",
       "name": "Mali",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GIN",
-      "name": "Guinea",
       "place_type": "Country"
     },
     {
