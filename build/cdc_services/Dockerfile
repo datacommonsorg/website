@@ -49,7 +49,7 @@ RUN protoc \
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 
 
-# #### Stage 2: Build python servers (website and MCP). ####
+# #### Stage 2: Build python server (website). ####
 FROM --platform=linux/amd64 python:3.11.14-slim as py-servers
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
@@ -67,8 +67,7 @@ COPY server/requirements.txt ./server/requirements.txt
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install --no-cache-dir --upgrade pip setuptools \
-    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
-    && pip3 install --no-cache-dir datacommons-mcp
+    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
 # Copy website app script.
 COPY web_app.py ./web_app.py
@@ -137,12 +136,7 @@ ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     USE_CLOUDSQL=false \
     DC_API_ROOT=https://api.datacommons.org \
     ENABLE_MODEL=true \
-    ENABLE_MCP=true \
     DC_TYPE=custom \
-    DC_API_BASE_URL=http://127.0.0.1:8081/v2 \
-    CUSTOM_DC_URL=http://127.0.0.1:7070 \
-    DC_AGENT_API_ROOT=http://127.0.0.1:8081/v2 \
-    DC_USE_AGENT_API=true \
     RESOLVE_WITH_SPANNER_EMBEDDINGS=true
 
 WORKDIR /workspace
