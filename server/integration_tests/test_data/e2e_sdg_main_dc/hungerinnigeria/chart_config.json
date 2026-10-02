@@ -544,7 +544,7 @@
       },
       {
         "dcid": "country/USA",
-        "name": "United States",
+        "name": "country/USA",
         "types": [
           "Country"
         ]
