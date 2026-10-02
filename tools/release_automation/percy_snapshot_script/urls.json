@@ -92,11 +92,11 @@
     "name": "Download preview"
   },
   {
-    "path": "/ranking/Count_Person/CensusZipCodeTabulationArea/country/USA?disable_feature=new_ranking_page",
+    "path": "/ranking/Count_Person/CensusZipCodeTabulationArea/country/USA",
     "name": "US Census Zip Code Tabulation Area Population Count"
   },
   {
-    "path": "/ranking/Count_Person/State/country/IND?disable_feature=new_ranking_page",
+    "path": "/ranking/Count_Person/State/country/IND",
     "name": "India State Population Ranking"
   },
   {
