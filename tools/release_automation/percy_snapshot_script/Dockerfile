@@ -27,8 +27,9 @@ RUN apt-get update && apt-get install -y \
 # Install Percy CLI globally and add to PATH
 RUN npm install -g @percy/cli
 
-# Ensure percy is accessible
+# Ensure percy is accessible and uses pre-installed Chrome instead of downloading Chromium at runtime
 ENV PATH="/usr/local/bin:$PATH"
+ENV PERCY_BROWSER_EXECUTABLE="/usr/bin/google-chrome"
 
 # Default working directory
 WORKDIR /app
