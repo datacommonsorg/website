@@ -34,20 +34,31 @@ Before you begin, ensure you have the following:
 
 ### 1. Build and Push the Docker Image
 
-This step compiles your Dockerfile into an image and pushes it to Google Container Registry.
+This step compiles your Dockerfile into an image and pushes it to Google Container Registry (`gcr.io/datcom-ci/percy-runner:latest`).
 
-You will use the `cloudbuild.push_image.yaml` file.
-
-**Command:**
+You can build and push the image by uploading only this directory (~23 KB) directly:
 
 ```bash
-gcloud builds submit --project=datcom-ci --config=tools/release_automation/percy_snapshot_script/cloudbuild.push_image.yaml .
+gcloud builds submit tools/release_automation/percy_snapshot_script \
+  --project=datcom-ci \
+  --tag=gcr.io/datcom-ci/percy-runner:latest
+```
+
+Alternatively, you can use the `cloudbuild.push_image.yaml` configuration file from the repository root:
+
+```bash
+gcloud builds submit --project=datcom-ci \
+  --config=tools/release_automation/percy_snapshot_script/cloudbuild.push_image.yaml .
 ```
 
 ### 2. Run Percy Runner
 
-This step triggers the Google Cloud Build Action to run the percy runner on a specific environment.
+This step triggers the Google Cloud Build Action to run the percy runner on a specific environment (`staging` or `production`).
+
+Because the runner container is self-contained and does not require local repository files, use `--no-source` to avoid uploading the entire repository:
 
 ```bash
-gcloud builds submit --project=datcom-ci --config=tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=staging .
+gcloud builds submit --project=datcom-ci --no-source \
+  --config=tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml \
+  --substitutions=_ENVIRONMENT=staging
 ```
