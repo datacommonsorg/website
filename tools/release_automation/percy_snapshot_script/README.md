@@ -36,7 +36,7 @@ Before you begin, ensure you have the following:
 
 This step compiles your Dockerfile into an image and pushes it to Google Container Registry (`gcr.io/datcom-ci/percy-runner:latest`).
 
-You can build and push the image by uploading only this directory (~23 KB) directly:
+From the repository root, you can build and push the image by uploading only this directory (~23 KB) directly:
 
 ```bash
 gcloud builds submit tools/release_automation/percy_snapshot_script \
