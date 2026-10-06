@@ -23,7 +23,6 @@ Usage:
 """
 
 import argparse
-import concurrent.futures
 import json
 import os
 import time
@@ -131,8 +130,14 @@ def main():
       choices=["staging", "production"],
       default="production",
       help="Target environment: staging or production (default: production)")
+  parser.add_argument(
+      "--delay",
+      type=int,
+      default=int(os.getenv("DELAY_SECONDS", "15")),
+      help="Delay in seconds between snapshots to respect rate limits (default: 15)")
   args = parser.parse_args()
   environment = args.env
+  delay = args.delay
 
   BASE_URLS = {
       "staging": "https://staging.datacommons.org",
@@ -160,26 +165,26 @@ def main():
     shard_urls = all_urls[start:end]
 
     print(
-        f"\n🔀 Shard {shard_index + 1}/{total_shards}: processing {len(shard_urls)} of {total_urls} URLs (index {start} to {end - 1})"
+        f"\n🔀 Shard {shard_index + 1}/{total_shards}: processing {len(shard_urls)} of {total_urls} URLs (index {start} to {end - 1}) with {delay}s delay between snapshots"
     )
 
-    # Run the snapshots in parallel within the shard
-    with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
-      futures = [
-          executor.submit(take_single_snapshot, name, url)
-          for name, url in shard_urls
-      ]
-      results = [f.result() for f in concurrent.futures.as_completed(futures)]
+    all_success = True
+    for i, (name, url) in enumerate(shard_urls):
+      if i > 0 and delay > 0:
+        print(f"⏳ Waiting {delay} seconds before next snapshot...")
+        time.sleep(delay)
+      if not take_single_snapshot(name, url):
+        all_success = False
 
-      if all(results):
-        print(
-            f"\n✅ Shard {shard_index + 1}/{total_shards} completed all snapshots successfully."
-        )
-      else:
-        print(
-            f"\n❌ Shard {shard_index + 1}/{total_shards} encountered snapshot failures."
-        )
-        exit(1)
+    if all_success:
+      print(
+          f"\n✅ Shard {shard_index + 1}/{total_shards} completed all snapshots successfully."
+      )
+    else:
+      print(
+          f"\n❌ Shard {shard_index + 1}/{total_shards} encountered snapshot failures."
+      )
+      exit(1)
 
   except Exception as e:
     print(f"💥 An unexpected error occurred in shard {shard_index + 1}: {e}")
