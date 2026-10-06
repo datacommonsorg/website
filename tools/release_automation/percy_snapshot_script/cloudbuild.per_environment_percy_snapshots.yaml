@@ -19,14 +19,11 @@ steps:
     args:
       - '-c'
       - |
-        if [ -f "/workspace/tools/release_automation/percy_snapshot_script/per_environment_percy_snapshots.py" ]; then
-          cp /workspace/tools/release_automation/percy_snapshot_script/per_environment_percy_snapshots.py /app/
-        fi
         cd /app
         export PERCY_TOKEN="$percy_token"
         export PERCY_BRANCH="${_ENVIRONMENT}"
         export PERCY_TARGET_BRANCH="production"
-        percy exec -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT} --delay=15
+        percy exec -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
     secretEnv: ['percy_token']
 
 availableSecrets:
