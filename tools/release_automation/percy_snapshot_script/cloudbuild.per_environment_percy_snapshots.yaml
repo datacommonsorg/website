@@ -33,7 +33,7 @@ availableSecrets:
 
 substitutions:
   _ENVIRONMENT: 'production'
-  _DELAY: '15'
+  _DELAY: '10'
 
 options:
   machineType: 'E2_HIGHCPU_8'
