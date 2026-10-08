@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in California",
+                    "title": "Motor Vehicle Thefts in United States",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Motor Vehicle Thefts in California",
+                    "description": "Motor Vehicle Thefts in United States",
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in California",
+                    "title": "Motor Vehicle Thefts in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -41,7 +41,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in California",
+                    "title": "Larceny Theft Cases in United States",
                     "type": "LINE"
                   }
                 ]
@@ -49,11 +49,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Larceny Theft Cases in California",
+                    "description": "Larceny Theft Cases in United States",
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in California",
+                    "title": "Larceny Theft Cases in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Burglaries in California",
+                    "title": "Burglaries in United States",
                     "type": "LINE"
                   }
                 ]
@@ -78,11 +78,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Burglaries in California",
+                    "description": "Burglaries in United States",
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Burglaries in California",
+                    "title": "Burglaries in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -99,7 +99,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in California",
+                    "title": "Robberies in United States",
                     "type": "LINE"
                   }
                 ]
@@ -107,11 +107,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Robberies in California",
+                    "description": "Robberies in United States",
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in California",
+                    "title": "Robberies in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -128,7 +128,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in California",
+                    "title": "Criminal Activities in United States",
                     "type": "LINE"
                   }
                 ]
@@ -136,11 +136,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Criminal Activities in California",
+                    "description": "Criminal Activities in United States",
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in California",
+                    "title": "Criminal Activities in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -154,13 +154,42 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases Per Capita in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Intentional homicides are estimates of unlawful homicides purposely inflicted as a result of domestic disputes, interpersonal violence, violent conflicts over land resources, intergang violence over turf or control, and predatory violence and killing by armed groups. Intentional homicide does not include all intentional killing; the difference is usually in the organization of the killing. Individuals or small groups usually commit homicide, whereas killing in armed conflict is usually committed by fairly cohesive groups of up to several hundred members and is thus usually excluded. UN office on drugs and Crime's international homicide statistics database.",
+            "title": "Murder and Non Negligent Manslaughter Cases Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
@@ -172,7 +201,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Crimes by Type in California (${date})",
+                    "title": "Crimes by Type in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -192,7 +221,7 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06"
+                      "country/USA"
                     ],
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
@@ -204,7 +233,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Motor Vehicle Thefts and More in California (${date})",
+                    "title": "Motor Vehicle Thefts and More in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -251,6 +280,10 @@
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
+          "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person": {
+            "name": "Murder and Non Negligent Manslaughter Cases Per Capita",
+            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+          },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
@@ -272,7 +305,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06"
+        "country/USA"
       ]
     }
   },
@@ -281,18 +314,18 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
   },
   "placeFallback": {
     "newPlace": {
       "country": null,
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
     },
-    "newStr": "California",
+    "newStr": "United States",
     "origPlace": {
       "country": "country/USA",
       "dcid": "geoId/06085",
@@ -305,9 +338,9 @@
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
@@ -330,6 +363,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "Sorry, there were no relevant statistics for census tracts in Santa Clara County. See results for California."
+    "Sorry, there were no relevant statistics for census tracts in Santa Clara County. See results for United States."
   ]
 }
