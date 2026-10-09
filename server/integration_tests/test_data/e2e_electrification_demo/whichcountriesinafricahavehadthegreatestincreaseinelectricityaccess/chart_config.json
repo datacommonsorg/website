@@ -10,16 +10,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/KEN",
                       "country/SOM",
                       "country/RWA",
+                      "country/KEN",
                       "country/GHA",
-                      "country/ETH",
-                      "country/MLI",
-                      "country/MAR",
                       "country/SEN",
+                      "country/ETH",
                       "country/BEN",
-                      "country/GIN"
+                      "country/MAR",
+                      "country/MLI",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS10"
@@ -35,18 +35,6 @@
           },
           {
             "columns": [
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/KEN",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
               {
                 "tiles": [
                   {
@@ -74,47 +62,23 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
                     "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -134,6 +98,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
@@ -146,11 +122,35 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
-                    "title": "Guinea",
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -200,18 +200,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/UGA",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
@@ -224,11 +212,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
                     ],
-                    "title": "Kenya",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -248,11 +236,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MOZ",
+                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
                     ],
-                    "title": "Mozambique",
+                    "title": "Kenya",
                     "type": "LINE"
                   }
                 ]
@@ -272,11 +260,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/MOZ",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Mozambique",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BDI",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                    ],
+                    "title": "Burundi",
                     "type": "LINE"
                   }
                 ]
@@ -304,7 +304,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/KEN"
+        "country/SOM"
       ]
     }
   },
