@@ -13,10 +13,13 @@
 # limitations under the License.
 """Module for NL topics"""
 
+import logging
 import time
-from typing import Dict, List
+from typing import Dict, List, Set
 
 from flask import current_app
+from flask import g
+from flask import has_request_context
 
 from server.lib import fetch
 from server.lib.feature_flags import ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION
@@ -24,6 +27,7 @@ from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.explore.params import DCNames
+from server.lib.nl.explore.params import MAX_TOPIC_LOOKUPS_PER_REQUEST
 
 TOPIC_RANK_LIMIT = 3
 MAX_TOPIC_SVS = 30
@@ -338,20 +342,27 @@ def get_topic_vars_recurive(topic: str,
                             rank: int = 0,
                             dc: str = DCNames.MAIN_DC.value,
                             max_svs: int = MAX_TOPIC_SVS,
-                            cur_svs: int = 0):
+                            cur_svs: int = 0,
+                            visited: Set[str] | None = None):
   """Recursively expands a topic into member statistical variables and peer groups.
 
-  Traverses child topics up to TOPIC_RANK_LIMIT depth or until max_svs is reached.
+  Traverses child topics until max_svs is reached. Each topic is expanded at
+  most once, which also guards against cycles.
   """
-  if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
+  if visited is None:
+    visited = set()
+  if (not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT or
+      topic in visited):
     return []
+  visited.add(topic)
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
     svs = _members(topic, 'relevantVariable', dc)
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank, dc, max_svs, cur_svs)
+      in_new_svs = get_topic_vars_recurive(sv, rank, dc, max_svs, cur_svs,
+                                           visited)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
     else:
@@ -662,7 +673,7 @@ def _prop_val_ordered(node: str, prop: str) -> List[str]:
   Returns:
     Ordered list of distinct DCID strings.
   """
-  if not node:
+  if not node or not _count_topic_lookup():
     return []
   sv_list = fetch.property_values(nodes=[node], prop=prop).get(node, []) or []
   svs = []
@@ -676,3 +687,15 @@ def _prop_val_ordered(node: str, prop: str) -> List[str]:
         seen.add(v)
         svs.append(v)
   return svs
+
+
+def _count_topic_lookup() -> bool:
+  """Counts a topic graph lookup and returns False once the request cap is hit."""
+  if not has_request_context():
+    return True
+  count = g.get('nl_topic_lookups', 0) + 1
+  g.nl_topic_lookups = count
+  if count == MAX_TOPIC_LOOKUPS_PER_REQUEST + 1:
+    logging.warning('Hit the limit of %d topic lookups for this request',
+                    MAX_TOPIC_LOOKUPS_PER_REQUEST)
+  return count <= MAX_TOPIC_LOOKUPS_PER_REQUEST

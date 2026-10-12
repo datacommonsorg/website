@@ -152,3 +152,37 @@ def dc_to_embedding_types(dc: str, embeddings_types: List[str]) -> List[str]:
 
 def is_toolformer_mode(mode: QueryMode) -> bool:
   return mode == QueryMode.TOOLFORMER_RIG or mode == QueryMode.TOOLFORMER_RAG
+
+
+# Server-side upper bounds for client-provided limits. These match the largest
+# values sent by existing clients.
+MAX_TOPICS_LIMIT = 10
+MAX_TOPIC_SVS_LIMIT = 500
+MAX_CHARTS_LIMIT = 200
+
+PARAM_MAX_LIMITS = {
+    Params.MAX_TOPICS: MAX_TOPICS_LIMIT,
+    Params.MAX_TOPIC_SVS: MAX_TOPIC_SVS_LIMIT,
+    Params.MAX_CHARTS: MAX_CHARTS_LIMIT,
+}
+
+# Hard ceiling on chart specs per request. MAX_CHARTS limits chart blocks, and
+# a single block can fan out into one chart per variable.
+MAX_CHART_CANDIDATES = 500
+
+# Hard ceiling on topic and peer group lookups per request. Without it, topic
+# expansion is only bounded by the size of the topic graph. The largest
+# expansion we've measured on a production topic graph uses about 1,200.
+MAX_TOPIC_LOOKUPS_PER_REQUEST = 1500
+
+
+def parse_and_clamp_numeric_param(val, max_limit: int) -> int | None:
+  """Returns val as an int in [1, max_limit], or None if it isn't valid."""
+  # None lets callers fall back to their default limit.
+  if isinstance(val, bool):
+    return None
+  try:
+    parsed = int(float(val))
+  except (TypeError, ValueError, OverflowError):
+    return None
+  return min(parsed, max_limit) if parsed > 0 else None
