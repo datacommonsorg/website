@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
+import { StatMetadata } from "../../shared/stat_types";
+import { StatVarSpec } from "../../shared/types";
 import {
+  buildExploreUrl,
+  extractFacetMetadataUrlHashParams,
   getUpdatedHash,
   getUrlWithSearchParamsToPropagate,
 } from "../url_utils";
@@ -115,5 +119,68 @@ describe("getUrlWithSearchParamsToPropagate", () => {
     window.history.pushState({}, "", "/?hl=en");
     const result = getUrlWithSearchParamsToPropagate("https://example.com/api");
     expect(result).toBe("https://example.com/api?hl=en");
+  });
+});
+
+describe("buildExploreUrl", () => {
+  const statVarSpecs: StatVarSpec[] = [
+    {
+      statVar: "Count_Person",
+      denom: "",
+      unit: "",
+      scaling: 1,
+      log: false,
+    },
+  ];
+
+  test("emits the provenance ID as the imp param", () => {
+    // Test: Facet provenance ID is carried in the imp param.
+    // Situation: Facet metadata has provenanceId 'dc/base/CensusACS5YearSurvey' and a measurement method.
+    // Expectation: URL contains the encoded provenance ID as imp, plus mm.
+    const result = buildExploreUrl(
+      "TIMELINE_WITH_HIGHLIGHT",
+      ["country/USA"],
+      statVarSpecs,
+      {
+        provenanceId: "dc/base/CensusACS5YearSurvey",
+        measurementMethod: "CensusACS5yrSurvey",
+      }
+    );
+    expect(result).toContain("imp=dc%2Fbase%2FCensusACS5YearSurvey");
+    expect(result).toContain("mm=CensusACS5yrSurvey");
+  });
+
+  test("does not fall back to importName", () => {
+    // Test: No importName fallback for the imp param.
+    // Situation: Facet metadata has only importName set, no provenanceId.
+    // Expectation: URL contains no imp param.
+    const facet: StatMetadata = { importName: "CensusACS5YearSurvey" };
+    const result = buildExploreUrl(
+      "TIMELINE_WITH_HIGHLIGHT",
+      ["country/USA"],
+      statVarSpecs,
+      facet
+    );
+    expect(result).not.toContain("imp=");
+  });
+});
+
+describe("extractFacetMetadataUrlHashParams", () => {
+  test("parses imp into provenanceId", () => {
+    // Test: The imp param is parsed as a provenance ID.
+    // Situation: Hash params contain imp 'dc/base/CensusACS5YearSurvey'.
+    // Expectation: Returned facet metadata has that provenanceId.
+    expect(
+      extractFacetMetadataUrlHashParams({
+        imp: "dc/base/CensusACS5YearSurvey",
+      })?.provenanceId
+    ).toBe("dc/base/CensusACS5YearSurvey");
+  });
+
+  test("returns undefined when no facet params are present", () => {
+    // Test: No facet params.
+    // Situation: Hash params are empty.
+    // Expectation: Returns undefined.
+    expect(extractFacetMetadataUrlHashParams({})).toBeUndefined();
   });
 });

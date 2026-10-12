@@ -19,9 +19,12 @@
  */
 export interface FacetMetadata {
   /**
-   * The name of the import source associated with the facet.
+   * Provenance ID of the facet (e.g. "dc/base/CensusACS5YearSurvey").
+   * When parsed from a legacy `imp` URL param this may instead be a bare
+   * base-DC import name (e.g. "CensusACS5YearSurvey"); findMatchingFacets
+   * accepts both forms.
    */
-  importName?: string;
+  provenanceId?: string;
 
   /**
    * The method used to measure the data represented by the facet.

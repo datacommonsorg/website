@@ -108,7 +108,7 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_2550419630908544036"
+                      "Median_Age_Person_5861401611713998024"
                     ],
                     "title": "Median Age of Population in California",
                     "type": "LINE"
@@ -172,8 +172,8 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Female_2550419630908544036",
-                      "Median_Age_Person_Male_2550419630908544036"
+                      "Median_Age_Person_Female_5861401611713998024",
+                      "Median_Age_Person_Male_5861401611713998024"
                     ],
                     "title": "Median Age by Gender in California",
                     "type": "LINE"
@@ -350,8 +350,8 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_5236930162904692845",
-                      "Count_Person_85OrMoreYears_Male_5236930162904692845"
+                      "Count_Person_85OrMoreYears_Female_10169881228856630405",
+                      "Count_Person_85OrMoreYears_Male_10169881228856630405"
                     ],
                     "title": "Population 85 or Over by Gender in California",
                     "type": "LINE"
@@ -435,8 +435,8 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_14877681748872237318",
-                      "Count_Person_Male_14877681748872237318"
+                      "Count_Person_Female_10169881228856630405",
+                      "Count_Person_Male_10169881228856630405"
                     ],
                     "title": "Population by Gender in California",
                     "type": "LINE"
@@ -1114,7 +1114,7 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_Divorced_6188132829030295600"
+                      "Count_Person_Divorced_10169881228856630405"
                     ],
                     "title": "Divorcees in California",
                     "type": "LINE"
@@ -1401,8 +1401,8 @@
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
-          "Count_Person_85OrMoreYears_Female_5236930162904692845": {
-            "facetId": "5236930162904692845",
+          "Count_Person_85OrMoreYears_Female_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
@@ -1410,8 +1410,8 @@
             "name": "Men over 85",
             "statVar": "Count_Person_85OrMoreYears_Male"
           },
-          "Count_Person_85OrMoreYears_Male_5236930162904692845": {
-            "facetId": "5236930162904692845",
+          "Count_Person_85OrMoreYears_Male_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Men over 85",
             "statVar": "Count_Person_85OrMoreYears_Male"
           },
@@ -1467,8 +1467,8 @@
             "name": "Divorcees",
             "statVar": "Count_Person_Divorced"
           },
-          "Count_Person_Divorced_6188132829030295600": {
-            "facetId": "6188132829030295600",
+          "Count_Person_Divorced_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Divorcees",
             "statVar": "Count_Person_Divorced"
           },
@@ -1476,8 +1476,8 @@
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_14877681748872237318": {
-            "facetId": "14877681748872237318",
+          "Count_Person_Female_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -1537,8 +1537,8 @@
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_Male_14877681748872237318": {
-            "facetId": "14877681748872237318",
+          "Count_Person_Male_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
@@ -1633,8 +1633,8 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "Median_Age_Person_2550419630908544036": {
-            "facetId": "2550419630908544036",
+          "Median_Age_Person_5861401611713998024": {
+            "facetId": "5861401611713998024",
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
@@ -1642,8 +1642,8 @@
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
-          "Median_Age_Person_Female_2550419630908544036": {
-            "facetId": "2550419630908544036",
+          "Median_Age_Person_Female_5861401611713998024": {
+            "facetId": "5861401611713998024",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
@@ -1651,8 +1651,8 @@
             "name": "Men's Median Age",
             "statVar": "Median_Age_Person_Male"
           },
-          "Median_Age_Person_Male_2550419630908544036": {
-            "facetId": "2550419630908544036",
+          "Median_Age_Person_Male_5861401611713998024": {
+            "facetId": "5861401611713998024",
             "name": "Men's Median Age",
             "statVar": "Median_Age_Person_Male"
           }
