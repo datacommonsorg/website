@@ -19,6 +19,8 @@ name: Dependabot auto-approve
 on:
   # zizmor: ignore[dangerous-triggers] - Needed for Dependabot secrets.
   pull_request_target:
+    types:
+      - synchronize
     branches:
       - master
   schedule:
@@ -27,6 +29,13 @@ on:
 
 permissions:
   contents: read
+
+env:
+  BAKE_DAYS: 7
+  COOLDOWN_SECONDS: 1800
+  REBASE_TIMEOUT_SECONDS: 900
+  ACTIVE_LEASE_TIMEOUT_SECONDS: 7200
+  COMMIT_STALE_SECONDS: 3600
 
 jobs:
   trigger-tests:
@@ -43,30 +52,26 @@ jobs:
       !contains(github.event.pull_request.labels.*.name, 'merge-conflict') &&
       !contains(github.event.pull_request.labels.*.name, 'ignore')
     steps:
-      - name: Dependabot metadata
-        id: dependabot-metadata
-        # v2
-        uses: dependabot/fetch-metadata@21025c705c08248db411dc16f3619e6b5f9ea21a
-
       - name: Post /gcbrun comment for Active PR
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
           PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
           # Only run /gcbrun if this PR was dispatched to Active state
-          # (auto-merge enabled or rebased within 30m), avoiding parallel
-          # test runs when Dependabot auto-rebases queued PRs in bulk.
+          # (auto-merge enabled or rebased within COOLDOWN_SECONDS), avoiding
+          # parallel test runs when Dependabot auto-rebases queued PRs in bulk.
           PR_STATE=$(gh pr view "$PR_URL" \
             --repo "$GITHUB_REPOSITORY" \
             --json autoMergeRequest,comments)
 
-          IS_ACTIVE=$(echo "$PR_STATE" | jq -r '
+          IS_ACTIVE=$(echo "$PR_STATE" | jq -r \
+            --argjson cooldown "$COOLDOWN_SECONDS" '
             (.autoMergeRequest != null) or
             (
               any(
                 .comments[]?;
-                (.body | test("@dependabot rebase")) and
-                ((now - (.createdAt | fromdateiso8601)) < 1800)
+                (.body | test("^\\s*@dependabot rebase\\b")) and
+                ((now - (.createdAt | fromdateiso8601)) < $cooldown)
               )
             )
           ')
@@ -76,8 +81,36 @@ jobs:
             exit 0
           fi
 
-          gh pr merge --auto --squash "$PR_URL" || true
+          # Ensure no other un-isolated Dependabot PR already holds the queue
+          # lock (e.g. if a developer manually retried this PR via rebase).
+          JQ_OTHER_ACTIVE='
+            [
+              .[] | select(
+                (.url != $pr_url) and
+                (.autoMergeRequest != null) and
+                (
+                  all(
+                    .labels[].name;
+                    . != "failing" and . != "merge-conflict" and . != "ignore"
+                  )
+                )
+              )
+            ] | .[0].url // empty
+          '
+          ACTIVE_OTHER_PR=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --author "app/dependabot" \
+            --limit 1000 \
+            --json url,labels,autoMergeRequest | \
+            jq -r --arg pr_url "$PR_URL" "$JQ_OTHER_ACTIVE")
+
+          if [ -n "$ACTIVE_OTHER_PR" ]; then
+            echo "Queue locked by $ACTIVE_OTHER_PR. Skipping $PR_URL."
+            exit 0
+          fi
+
           gh pr comment "$PR_URL" --body "/gcbrun"
+          gh pr merge --auto --squash "$PR_URL" || true
 
   approve-and-merge-7-days:
     runs-on: ubuntu-latest
@@ -115,9 +148,9 @@ jobs:
             sleep $((ATTEMPT * 5))
           done
 
-          # Select un-isolated PRs that are either:
+          # Sort oldest-first (FIFO) and select un-isolated PRs that are:
           # - Currently in the active queue (autoMergeRequest != null), or
-          # - Among the first 5 matured candidates (>= 7 days old).
+          # - Among the first 5 oldest matured candidates (>= BAKE_DAYS old).
           JQ_CANDIDATE_URLS='
             [
               .[] | select(
@@ -126,20 +159,24 @@ jobs:
                   . != "failing" and . != "merge-conflict" and . != "ignore"
                 )
               )
-            ] as $unignored |
+            ] | sort_by(.createdAt) as $unignored |
             (
               [ $unignored[] | select(.autoMergeRequest != null) ] +
               [
                 $unignored[] | select(
                   (.autoMergeRequest == null) and
-                  (((now - (.createdAt | fromdateiso8601)) / 86400) >= 7)
+                  (
+                    ((now - (.createdAt | fromdateiso8601)) / 86400) >=
+                    $bake_days
+                  )
                 )
               ][0:5]
-            ) | map(.url) | unique | .[]
+            ) | map(.url) | .[]
           '
 
           CANDIDATE_URLS=$(
-            jq -r "$JQ_CANDIDATE_URLS" /tmp/dependabot_all_prs.json
+            jq -r --argjson bake_days "$BAKE_DAYS" \
+              "$JQ_CANDIDATE_URLS" /tmp/dependabot_all_prs.json
           )
           echo "[]" > /tmp/dependabot_prs.json
 
@@ -176,7 +213,8 @@ jobs:
           # Un-rebased lockfile PRs often report DIRTY until rebased.
           # Only isolate a DIRTY/BEHIND PR as merge-conflict if:
           # 1. It has non-Dependabot commits (Dependabot refuses to rebase), or
-          # 2. A rebase was requested >15m ago after the last commit and failed.
+          # 2. It is DIRTY and a rebase requested >REBASE_TIMEOUT_SECONDS ago
+          #    after the last commit failed to resolve the conflict.
           JQ_CONFLICTED_FILTER='
             .[] | select(
               (all(.labels[].name; . != "merge-conflict" and . != "ignore")) and
@@ -192,14 +230,22 @@ jobs:
                     (.login // "") | test("^dependabot") | not
                   )
                 ) or
-                # Rebase already requested >15m (900s) after latest commit.
+                # DIRTY PR where rebase was requested >15m after latest commit.
                 (
-                  (([.commits[]?.committedDate] | last) // "") as $last_commit |
-                  any(
-                    .comments[]?;
-                    (.body | test("@dependabot rebase")) and
-                    (.createdAt > $last_commit) and
-                    ((now - (.createdAt | fromdateiso8601)) > 900)
+                  (.mergeStateStatus == "DIRTY") and
+                  (
+                    (
+                      ([.commits[]?.committedDate] | last) // ""
+                    ) as $last_commit |
+                    any(
+                      .comments[]?;
+                      (.body | test("^\\s*@dependabot rebase\\b")) and
+                      (.createdAt > $last_commit) and
+                      (
+                        (now - (.createdAt | fromdateiso8601)) >
+                        $rebase_timeout
+                      )
+                    )
                   )
                 )
               )
@@ -207,7 +253,8 @@ jobs:
           '
 
           CONFLICTED_PRS=$(
-            jq -r "$JQ_CONFLICTED_FILTER" /tmp/dependabot_prs.json
+            jq -r --argjson rebase_timeout "$REBASE_TIMEOUT_SECONDS" \
+              "$JQ_CONFLICTED_FILTER" /tmp/dependabot_prs.json
           )
 
           for CONFLICTED_PR in $CONFLICTED_PRS; do
@@ -225,7 +272,8 @@ jobs:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
           # Isolate PRs with any failed status check, or active PRs stuck in
-          # the queue for >2h (7200s) with no new commit in >1h (3600s).
+          # the queue past ACTIVE_LEASE_TIMEOUT_SECONDS with no new commit in
+          # COMMIT_STALE_SECONDS.
           JQ_FAILING_FILTER='
             .[] | select(
               (all(.labels[].name; . != "failing" and . != "ignore")) and
@@ -247,21 +295,26 @@ jobs:
                   (
                     (
                       now - (.autoMergeRequest.enabledAt | fromdateiso8601)
-                    ) > 7200
+                    ) > $lease_timeout
                   ) and (
                     (
                       now - (
                         (([.commits[]?.committedDate] | last) // .createdAt) |
                         fromdateiso8601
                       )
-                    ) > 3600
+                    ) > $commit_stale
                   )
                 )
               )
             ) | .url
           '
 
-          FAILING_PRS=$(jq -r "$JQ_FAILING_FILTER" /tmp/dependabot_prs.json)
+          FAILING_PRS=$(
+            jq -r \
+              --argjson lease_timeout "$ACTIVE_LEASE_TIMEOUT_SECONDS" \
+              --argjson commit_stale "$COMMIT_STALE_SECONDS" \
+              "$JQ_FAILING_FILTER" /tmp/dependabot_prs.json
+          )
 
           for FAILING_PR in $FAILING_PRS; do
             echo "State Transition: Isolating failing PR: $FAILING_PR"
@@ -320,7 +373,7 @@ jobs:
                   all(
                     .comments[]?;
                     (
-                      (.body | test("@dependabot rebase")) and
+                      (.body | test("^\\s*@dependabot rebase\\b")) and
                       (.createdAt > $last_commit)
                     ) | not
                   )
@@ -338,16 +391,19 @@ jobs:
             exit 0
           fi
 
-          # Enforce a 30m (1800s) cooldown after the last merged Dependabot PR.
+          # Enforce a 30m (COOLDOWN_SECONDS) pause after the last merged PR.
           RECENTLY_MERGED_PR=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --author "app/dependabot" \
             --state merged \
             --limit 5 \
-            --json url,mergedAt \
-            -q '
-              [.[] | select((now - (.mergedAt | fromdateiso8601)) < 1800)] |
-              .[0].url // empty
+            --json url,mergedAt | \
+            jq -r --argjson cooldown "$COOLDOWN_SECONDS" '
+              [
+                .[] | select(
+                  (now - (.mergedAt | fromdateiso8601)) < $cooldown
+                )
+              ] | .[0].url // empty
             ')
 
           if [ -n "$RECENTLY_MERGED_PR" ]; then
@@ -360,10 +416,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
-          # Pick the first matured (>= 7 days), un-isolated candidate PR.
+          # Pick the oldest matured (>= BAKE_DAYS), un-isolated candidate PR.
           JQ_TARGET_FILTER='[
             .[] | select(
-              (((now - (.createdAt | fromdateiso8601)) / 86400) >= 7) and
+              (
+                ((now - (.createdAt | fromdateiso8601)) / 86400) >= $bake_days
+              ) and
               (
                 all(
                   .labels[].name;
@@ -373,7 +431,10 @@ jobs:
             )
           ] | .[0] // empty'
 
-          TARGET_PR_JSON=$(jq -c "$JQ_TARGET_FILTER" /tmp/dependabot_prs.json)
+          TARGET_PR_JSON=$(
+            jq -c --argjson bake_days "$BAKE_DAYS" \
+              "$JQ_TARGET_FILTER" /tmp/dependabot_prs.json
+          )
 
           if [ -z "$TARGET_PR_JSON" ] || [ "$TARGET_PR_JSON" == "null" ]; then
             echo "No PRs currently eligible for Active processing."
@@ -382,17 +443,30 @@ jobs:
 
           PR_URL=$(echo "$TARGET_PR_JSON" | jq -r '.url')
           MERGE_STATE=$(echo "$TARGET_PR_JSON" | jq -r '.mergeStateStatus')
+          # Check if /gcbrun already ran on the latest commit before allowing
+          # an immediate merge on a CLEAN PR.
+          HAS_GCBRUN_ON_HEAD=$(echo "$TARGET_PR_JSON" | jq -r '
+            (([.commits[]?.committedDate] | last) // "") as $last_commit |
+            any(
+              .comments[]?;
+              (.body | test("^\\s*/gcbrun\\b")) and
+              (.createdAt > $last_commit)
+            )
+          ')
           echo "Dispatching PR: $PR_URL (mergeStateStatus: $MERGE_STATE)"
 
-          # Approve and enable auto-merge (or merge immediately if CLEAN).
+          # Approve and enable auto-merge.
           gh pr review --approve "$PR_URL" || true
-          gh pr merge --auto --squash "$PR_URL" || \
-            gh pr merge --squash "$PR_URL" || true
+          gh pr merge --auto --squash "$PR_URL" || true
 
-          # Rebase if behind/conflicted; otherwise trigger tests directly.
+          # Rebase if behind/conflicted, merge if CLEAN and already tested,
+          # otherwise trigger /gcbrun tests.
           if [ "$MERGE_STATE" == "BEHIND" ] || \
              [ "$MERGE_STATE" == "DIRTY" ]; then
             gh pr comment "$PR_URL" --body "@dependabot rebase"
-          elif [ "$MERGE_STATE" != "CLEAN" ]; then
+          elif [ "$MERGE_STATE" == "CLEAN" ] && \
+               [ "$HAS_GCBRUN_ON_HEAD" == "true" ]; then
+            gh pr merge --squash "$PR_URL" || true
+          else
             gh pr comment "$PR_URL" --body "/gcbrun"
           fi
