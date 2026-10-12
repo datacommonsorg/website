@@ -23,7 +23,10 @@ import server.lib.nl.common.utils as cutils
 from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import is_sdg
 from server.lib.nl.explore.params import is_special_dc
+from server.lib.nl.explore.params import MAX_TOPIC_SVS_LIMIT
+from server.lib.nl.explore.params import MAX_TOPICS_LIMIT
 from server.lib.nl.explore.params import Params
+from server.lib.nl.explore.params import parse_and_clamp_numeric_param
 import server.lib.nl.fulfillment.types as ftypes
 
 _MAX_CORRELATION_SVS_PER_TOPIC = 4
@@ -73,7 +76,8 @@ def compute_chart_vars(
                                sv=sv,
                                source_topic=sv,
                                orig_sv=sv,
-                               dc=dc)
+                               dc=dc,
+                               max_svs=_MAX_SVS_TO_PROCESS - num_svs_processed)
         state.uttr.counters.timeit('topic_calls', start)
         if cv:
           num_topics_opened += 1
@@ -217,12 +221,16 @@ def _open_topic_lite(state: ftypes.PopulateState,
 # This is an involved function to construct a list of ChartVars
 # for topics.
 #
-def _topic_chart_vars(state: ftypes.PopulateState,
-                      sv: str,
-                      source_topic: str,
-                      orig_sv: str,
-                      dc: str,
-                      lvl: int = 0) -> List[ftypes.ChartVars]:
+def _topic_chart_vars(
+    state: ftypes.PopulateState,
+    sv: str,
+    source_topic: str,
+    orig_sv: str,
+    dc: str,
+    lvl: int = 0,
+    max_svs: int = _MAX_SVS_TO_PROCESS) -> List[ftypes.ChartVars]:
+  if max_svs <= 0:
+    return []
   if lvl == 0:
     # This is the requested topic, just get the immediate members.
     topic_vars = topic.get_topic_vars(sv, dc)
@@ -232,7 +240,7 @@ def _topic_chart_vars(state: ftypes.PopulateState,
     # number of vars.
     assert lvl < 2, "Must never recurse past 2 levels"
     topic_vars = topic.get_topic_vars_recurive(
-        sv, rank=0, dc=dc, max_svs=_max_subtopic_sv_limit(state))
+        sv, rank=0, dc=dc, max_svs=min(_max_subtopic_sv_limit(state), max_svs))
 
   # Classify the members into `TopicMembers` struct.
   topic_members = _classify_topic_members(topic_vars, dc)
@@ -245,17 +253,23 @@ def _topic_chart_vars(state: ftypes.PopulateState,
         _direct_chart_vars(svs=topic_members.svs,
                            svpgs=topic_members.svpgs,
                            source_topic=source_topic,
-                           orig_sv=orig_sv))
+                           orig_sv=orig_sv,
+                           max_svs=max_svs))
 
-  # Recurse into immediate sub-topics.
+  # Recurse into immediate sub-topics until the SV budget runs out.
+  num_svs = sum(len(c.svs) for c in charts)
   for t in topic_members.topics:
-    charts.extend(
-        _topic_chart_vars(state=state,
-                          sv=t,
-                          source_topic=t,
-                          orig_sv=orig_sv,
-                          lvl=lvl + 1,
-                          dc=dc))
+    if num_svs >= max_svs:
+      break
+    sub_charts = _topic_chart_vars(state=state,
+                                   sv=t,
+                                   source_topic=t,
+                                   orig_sv=orig_sv,
+                                   lvl=lvl + 1,
+                                   dc=dc,
+                                   max_svs=max_svs - num_svs)
+    num_svs += sum(len(c.svs) for c in sub_charts)
+    charts.extend(sub_charts)
 
   state.uttr.counters.info(
       'topics_processed', {
@@ -284,32 +298,44 @@ def _classify_topic_members(topic_vars: List[str], dc: str) -> TopicMembers:
   return TopicMembers(svs=just_svs, svpgs=svpgs, topics=sub_topics)
 
 
-def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
-                       orig_sv: str) -> ftypes.ChartVars:
+def _direct_chart_vars(
+    svs: List[str],
+    svpgs: List[str],
+    source_topic: str,
+    orig_sv: str,
+    max_svs: int = _MAX_SVS_TO_PROCESS) -> List[ftypes.ChartVars]:
   # We need a category called overview.
   # 1. Make a block for all SVs in just_svs
+  capped_svs = svs[:max_svs]
+  rem_svs = max_svs - len(capped_svs)
   charts = [
-      ftypes.ChartVars(svs=svs,
-                       orig_sv_map={orig_sv: svs},
+      ftypes.ChartVars(svs=capped_svs,
+                       orig_sv_map={orig_sv: capped_svs},
                        source_topic=source_topic)
   ]
 
   # 2. Make a block for every peer-group in svpgs
-  for (svpg, svs) in svpgs:
+  for (svpg, pg_svs) in svpgs:
+    if rem_svs <= 0:
+      break
+    capped_pg_svs = pg_svs[:rem_svs]
+    rem_svs -= len(capped_pg_svs)
     charts.append(
-        ftypes.ChartVars(svs=svs,
+        ftypes.ChartVars(svs=capped_pg_svs,
                          is_topic_peer_group=True,
                          svpg_id=svpg,
-                         orig_sv_map={orig_sv: svs},
+                         orig_sv_map={orig_sv: capped_pg_svs},
                          source_topic=source_topic))
 
   return charts
 
 
 def _max_subtopic_sv_limit(state: ftypes.PopulateState) -> int:
-  # If there was a limit specified in the insight context, use that limit.
-  if state.uttr.insight_ctx.get(Params.MAX_TOPIC_SVS) != None:
-    return state.uttr.insight_ctx[Params.MAX_TOPIC_SVS]
+  # If there was a valid limit specified in the insight context, use that limit.
+  limit = parse_and_clamp_numeric_param(
+      state.uttr.insight_ctx.get(Params.MAX_TOPIC_SVS), MAX_TOPIC_SVS_LIMIT)
+  if limit is not None:
+    return limit
   # Otherwise, use default limits depending on the dc
   if is_sdg(state.uttr.insight_ctx):
     return _MAX_SUBTOPIC_SV_LIMIT_SDG
@@ -319,9 +345,11 @@ def _max_subtopic_sv_limit(state: ftypes.PopulateState) -> int:
 
 
 def _max_topics_to_open(uttr: ftypes.Utterance) -> int:
-  # If there was a limit specified in the insight context, use that limit.
-  if uttr.insight_ctx.get(Params.MAX_TOPICS) != None:
-    return uttr.insight_ctx[Params.MAX_TOPICS]
+  # If there was a valid limit specified in the insight context, use that limit.
+  limit = parse_and_clamp_numeric_param(uttr.insight_ctx.get(Params.MAX_TOPICS),
+                                        MAX_TOPICS_LIMIT)
+  if limit is not None:
+    return limit
   # Otherwise, use default limits depending on the dc
   if not is_sdg(uttr.insight_ctx) and is_special_dc(uttr.insight_ctx):
     max_topics = _MAX_TOPICS_TO_OPEN_SPECIAL_DC

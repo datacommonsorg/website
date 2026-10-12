@@ -51,6 +51,7 @@ export const URL_HASH_PARAMS = {
   ORIGIN: "origin",
 
   // The following are used for Facet selection.
+  // Carries a facet provenance ID, or a bare base-DC import name in legacy links.
   IMPORT_NAME: "imp",
   MEASUREMENT_METHOD: "mm",
   OBSERVATION_PERIOD: "obsPer",
