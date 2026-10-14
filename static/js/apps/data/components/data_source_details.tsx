@@ -55,7 +55,7 @@ export const DataSourceDetails = ({
           css={css`
             padding: ${theme.spacing.sm}px 0;
             display: grid;
-            gap: ${theme.spacing.huge}px;
+            gap: ${theme.spacing.xxxl}px;
             grid-template-columns: 1fr 2fr;
             transition: background ease-in-out 0.3s;
             padding: ${theme.spacing.md}px;
