@@ -27,6 +27,8 @@ from absl import app
 from absl import flags
 import requests
 
+from shared.lib.constants import TEST_SURFACE_HEADER
+
 FLAGS = flags.FLAGS
 
 INPUT_DIR = "input"
@@ -327,6 +329,7 @@ class AdversarialQueriesTest:
               'contextHistory': {},
               'dc': f'{post_dc_param}',
           },
+          headers=TEST_SURFACE_HEADER,
           timeout=30)
     except requests.exceptions.ReadTimeout:
       result.status = ResultStatus.TIMED_OUT
