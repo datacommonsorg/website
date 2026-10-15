@@ -12,13 +12,13 @@
                     "comparisonPlaces": [
                       "country/KEN",
                       "country/MAR",
+                      "country/UGA",
                       "country/GHA",
                       "country/RWA",
                       "country/SEN",
                       "country/ETH",
                       "country/BEN",
-                      "country/MLI",
-                      "country/GIN"
+                      "country/MLI"
                     ],
                     "statVarKey": [
                       "sdg/SI_POV_DAY19"
@@ -54,6 +54,18 @@
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -129,18 +141,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
@@ -156,6 +156,18 @@
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -216,18 +228,6 @@
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -273,10 +273,11 @@
                       "country/MAR",
                       "country/SEN",
                       "country/KEN",
+                      "country/UGA",
                       "country/ETH"
                     ],
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC8"
+                      "sdg/SI_POV_NAHC9"
                     ],
                     "title": "Employed Population Below International Poverty Line",
                     "type": "LINE"
@@ -376,6 +377,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_abs"
@@ -466,6 +479,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "sdg/SI_POV_NAHC_growth_pct"
@@ -500,10 +525,11 @@
                       "country/GHA",
                       "country/MAR",
                       "country/RWA",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/UGA"
                     ],
                     "statVarKey": [
-                      "sdg/SD_MDP_ANDI4"
+                      "sdg/SD_MDP_ANDI5"
                     ],
                     "title": "Average Deprivations for Population in Poverty",
                     "type": "LINE"
@@ -563,6 +589,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_abs"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "footnote": "Includes data from the following sources: CONEVAL (Consejo Nacional  de Evaluaci\u00f3n de la Pol\u00edtica de Desarrollo Social); DANE; Department of Census and Statistics; Ghana Statistical Service; Institut National de la Statistique (INSTAT); Instituto Nacional de Estad\u00edstica\u00a0(INE); Instituto Nacional de Estat\u00edstica; La Direction Generale du Plan, Instituto Nacional de Estat\u00edstica (INE); Ministry of Economics and Finance - Directorate of Economic and Financial Studies; Ministry of Economy, Planning an...1020 more chars",
@@ -614,6 +652,18 @@
                       "sdg/SD_MDP_ANDI_growth_pct"
                     ],
                     "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_growth_pct"
+                    ],
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -711,11 +761,11 @@
                     "comparisonPlaces": [
                       "country/GHA",
                       "country/MAR",
+                      "country/UGA",
                       "country/BEN",
                       "country/RWA",
                       "country/ETH",
                       "country/MLI",
-                      "country/GIN",
                       "country/SEN",
                       "country/KEN"
                     ],
@@ -753,6 +803,18 @@
                       "GiniIndex_EconomicActivity_growth_abs"
                     ],
                     "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_abs"
+                    ],
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -801,18 +863,6 @@
                       "GiniIndex_EconomicActivity_growth_abs"
                     ],
                     "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "GiniIndex_EconomicActivity_growth_abs"
-                    ],
-                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -874,6 +924,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_growth_pct"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity_growth_pct"
@@ -942,18 +1004,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "GiniIndex_EconomicActivity_growth_pct"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "description": "Measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution.",
@@ -965,12 +1015,12 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
+                      "country/UGA",
                       "country/KEN",
                       "country/MAR",
                       "country/RWA",
                       "country/BEN",
                       "country/MLI",
-                      "country/GIN",
                       "country/GHA",
                       "country/SOM",
                       "country/SEN",
@@ -990,6 +1040,18 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_abs"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -1046,18 +1108,6 @@
                       "sdg/SN_ITK_DEFC_growth_abs"
                     ],
                     "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_abs"
-                    ],
-                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -1119,6 +1169,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC_growth_pct"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_pct"
@@ -1191,18 +1253,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC_growth_pct"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFC_growth_pct"
@@ -1252,8 +1302,8 @@
                       "country/BEN",
                       "country/GHA",
                       "country/MLI",
+                      "country/UGA",
                       "country/RWA",
-                      "country/GIN",
                       "country/SEN",
                       "country/MAR"
                     ],
@@ -1346,11 +1396,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/RWA",
+                    "placeDcidOverride": "country/UGA",
                     "statVarKey": [
                       "Count_Person_SlumArea_growth_abs"
                     ],
-                    "title": "Rwanda",
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -1358,11 +1408,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "Count_Person_SlumArea_growth_abs"
                     ],
-                    "title": "Guinea",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -1448,6 +1498,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "Count_Person_SlumArea_growth_pct"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/SOM",
                     "statVarKey": [
                       "Count_Person_SlumArea_growth_pct"
@@ -1477,18 +1539,6 @@
                       "Count_Person_SlumArea_growth_pct"
                     ],
                     "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "Count_Person_SlumArea_growth_pct"
-                    ],
-                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -1610,11 +1660,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/UGA",
                     "statVarKey": [
                       "Count_Person_SlumArea_growth_pc"
                     ],
-                    "title": "Guinea",
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -1677,7 +1727,7 @@
             "name": "Gini Index of Economic Activity of a Population",
             "statVar": "GiniIndex_EconomicActivity"
           },
-          "sdg/SD_MDP_ANDI4": {
+          "sdg/SD_MDP_ANDI5": {
             "name": "Average Deprivations for Population in Poverty",
             "statVar": "sdg/SD_MDP_ANDI"
           },
@@ -1713,7 +1763,7 @@
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_NAHC8": {
+          "sdg/SI_POV_NAHC9": {
             "name": "Employed Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_NAHC"
           },
@@ -1751,18 +1801,13 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/KEN",
-    "name": "Kenya",
+    "dcid": "country/SOM",
+    "name": "Somalia",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
-    {
-      "dcid": "country/KEN",
-      "name": "Kenya",
-      "place_type": "Country"
-    },
     {
       "dcid": "country/SOM",
       "name": "Somalia",
@@ -1774,23 +1819,13 @@
       "place_type": "Country"
     },
     {
+      "dcid": "country/KEN",
+      "name": "Kenya",
+      "place_type": "Country"
+    },
+    {
       "dcid": "country/GHA",
       "name": "Ghana",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MLI",
-      "name": "Mali",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MAR",
-      "name": "Morocco",
       "place_type": "Country"
     },
     {
@@ -1799,13 +1834,28 @@
       "place_type": "Country"
     },
     {
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
+      "place_type": "Country"
+    },
+    {
       "dcid": "country/BEN",
       "name": "Benin",
       "place_type": "Country"
     },
     {
-      "dcid": "country/GIN",
-      "name": "Guinea",
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/UGA",
+      "name": "Uganda",
       "place_type": "Country"
     }
   ],
@@ -1820,23 +1870,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "sdg/SI_POV_DAY1": {
-        "age": [
-          "sdg/SI_POV_DAY1.AGE--Y0T14",
-          "sdg/SI_POV_DAY1.AGE--Y15T64",
-          "sdg/SI_POV_DAY1.AGE--Y_GE65"
-        ],
-        "sdg_sex": [
-          "sdg/SI_POV_DAY1.SEX--F",
-          "sdg/SI_POV_DAY1.SEX--M"
-        ],
-        "sdg_urbanisation": [
-          "sdg/SI_POV_DAY1.URBANISATION--R",
-          "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
