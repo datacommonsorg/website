@@ -21,14 +21,15 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+COPY --from=ghcr.io/astral-sh/uv:0.9.18 /uv /uvx /bin/
+ENV VIRTUAL_ENV=/workspace/venv
+ENV UV_PROJECT_ENVIRONMENT=/workspace/venv
+ENV PATH="/workspace/venv/bin:$PATH"
+
 COPY nl_app.py /workspace/nl_app.py
-COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
-COPY nl_requirements.txt /workspace/nl_requirements.txt
-COPY torch_requirements.txt /workspace/torch_requirements.txt
-# --no-cache-dir removes ~/.cache files, which can be a few GB.
-RUN pip install --upgrade pip setuptools
-RUN pip3 install --no-cache-dir -r /workspace/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu
-RUN pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
+COPY nl_server/pyproject.toml nl_server/uv.lock /workspace/nl_server/
+# --no-cache avoids storing uv cache files in the image layer.
+RUN uv sync --project /workspace/nl_server --locked --no-dev --no-cache
 # Flask
 COPY nl_server/. /workspace/nl_server/
 COPY shared/. /workspace/shared/
@@ -37,7 +38,7 @@ COPY shared/. /workspace/shared/
 COPY deploy/helm_charts/dc_website/nl/catalog.yaml .
 COPY tools/nl/download_nl_files/requirements.txt /workspace/download_nl_files/requirements.txt
 COPY tools/nl/download_nl_files/download_nl_files.py .
-RUN pip3 install -r /workspace/download_nl_files/requirements.txt
+RUN uv pip install --no-cache -r /workspace/download_nl_files/requirements.txt
 RUN python3 download_nl_files.py --is_docker_mode=True
 
 # Run server
