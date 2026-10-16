@@ -14,8 +14,10 @@
 # limitations under the License.
 
 # Build CDC data Docker image with a test image tag and push to Cloud Container Registry.
-# The image tag should be specified as an argument when invoking this script:
-# e.g. ./scripts/push_cdc_data_image.sh my-test-image-tag
+# The image tag must be specified as the first argument, with an optional GCP project ID
+# as the second argument (defaults to datcom-ci):
+# Usage: ./scripts/push_cdc_data_image.sh <image-tag> [project-id]
+# e.g. ./scripts/push_cdc_data_image.sh my-test-image-tag datcom-website-dev
 
 set -e
 
