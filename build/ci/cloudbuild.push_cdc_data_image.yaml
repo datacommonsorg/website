@@ -13,8 +13,9 @@
 # limitations under the License.
 
 # Cloud build file to manually trigger building and pushing a CDC data docker image.
-# This cloud build is typically executed by invoking
-# the wrapper script ./scripts/push_cdc_data_image.sh.
+# This cloud build is typically executed by invoking the wrapper script:
+#   ./scripts/push_cdc_data_image.sh <image-tag> [project-id]
+# IMAGE_TAG (_TAG) is required; project-id (_PROJECT_ID) defaults to datcom-ci.
 
 steps:
 
