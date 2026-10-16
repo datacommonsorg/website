@@ -134,7 +134,8 @@ def main():
       "--delay",
       type=int,
       default=int(os.getenv("DELAY_SECONDS", "10")),
-      help="Delay in seconds between snapshots to respect rate limits (default: 10)")
+      help=
+      "Delay in seconds between snapshots to respect rate limits (default: 10)")
   args = parser.parse_args()
   environment = args.env
   delay = args.delay
