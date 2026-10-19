@@ -19,6 +19,8 @@ steps:
     args:
       - '-c'
       - |
+        cp tools/release_automation/percy_snapshot_script/per_environment_percy_snapshots.py /app/
+        cp tools/release_automation/percy_snapshot_script/urls.json /app/
         cd /app
         export PERCY_TOKEN="$percy_token"
         export PERCY_BRANCH="${_ENVIRONMENT}"

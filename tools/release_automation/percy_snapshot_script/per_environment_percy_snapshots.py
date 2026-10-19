@@ -85,13 +85,10 @@ def load_urls(base_url: str):
     exit(1)
 
 
-def take_single_snapshot(name: str, url: str):
-  """Worker function to navigate to a single URL and take a Percy snapshot."""
+def take_single_snapshot(driver: webdriver.Chrome, name: str, url: str) -> bool:
+  """Navigates to a single URL using the shared WebDriver and takes a Percy snapshot."""
   print(f"[PID {os.getpid()}] Starting snapshot for '{name}' at {url}...")
-  driver = None
   try:
-    # The driver is found on the PATH, no argument needed
-    driver = setup_webdriver()
     driver.get(url)
 
     # Robust wait for the page to load completely.
@@ -108,16 +105,12 @@ def take_single_snapshot(name: str, url: str):
 
     percy_snapshot(driver, name, responsiveSnapshotCapture=True)
     print(f"[PID {os.getpid()}] Snapshot taken for '{name}'. Done. 🎉")
+    return True
   except Exception as e:
     print(
         f"[PID {os.getpid()}] An error occurred while processing '{name}': {e} ❌"
     )
     return False
-  finally:
-    if driver:
-      driver.quit()
-
-  return True
 
 
 # --- Main Execution ---
@@ -146,6 +139,7 @@ def main():
   }
 
   shard_index = int(os.getenv("SHARD_INDEX", "0"))
+  driver = None
 
   try:
     base_url = BASE_URLS.get(environment)
@@ -169,13 +163,20 @@ def main():
         f"\n🔀 Shard {shard_index + 1}/{total_shards}: processing {len(shard_urls)} of {total_urls} URLs (index {start} to {end - 1}) with {delay}s delay between snapshots"
     )
 
+    driver = setup_webdriver()
     all_success = True
     for i, (name, url) in enumerate(shard_urls):
       if i > 0 and delay > 0:
         print(f"⏳ Waiting {delay} seconds before next snapshot...")
         time.sleep(delay)
-      if not take_single_snapshot(name, url):
+      if not take_single_snapshot(driver, name, url):
         all_success = False
+        # Re-initialize WebDriver in case the browser session crashed
+        try:
+          driver.quit()
+        except Exception:
+          pass
+        driver = setup_webdriver()
 
     if all_success:
       print(
@@ -190,6 +191,9 @@ def main():
   except Exception as e:
     print(f"💥 An unexpected error occurred in shard {shard_index + 1}: {e}")
     exit(1)
+  finally:
+    if driver:
+      driver.quit()
 
 
 if __name__ == "__main__":
