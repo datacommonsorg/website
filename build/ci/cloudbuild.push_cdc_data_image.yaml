@@ -13,8 +13,10 @@
 # limitations under the License.
 
 # Cloud build file to manually trigger building and pushing a CDC data docker image.
-# This cloud build is typically executed by invoking
-# the wrapper script ./scripts/push_cdc_data_image.sh.
+# Typically invoked via ./scripts/push_cdc_data_image.sh.
+# Substitutions:
+#   _TAG: (Required) Image tag to push.
+#   _PROJECT_ID: (Optional) Target GCP project for the image registry (defaults to datcom-ci).
 
 steps:
 
@@ -36,12 +38,14 @@ steps:
         DOCKER_BUILDKIT=1 docker build -f build/cdc_data/Dockerfile \
           --cache-from gcr.io/datcom-ci/datacommons-data:latest \
           --build-arg BUILDKIT_INLINE_CACHE=1 \
-          -t gcr.io/datcom-ci/datacommons-data:${_TAG} \
-          -t gcr.io/datcom-ci/datacommons-data:latest \
+          --tag gcr.io/${_PROJECT_ID}/datacommons-data:${_TAG} \
           .
-        docker push gcr.io/datcom-ci/datacommons-data:${_TAG}
-        docker push gcr.io/datcom-ci/datacommons-data:latest
+        docker push gcr.io/${_PROJECT_ID}/datacommons-data:${_TAG}
     waitFor: ["pull-cache"]
+
+substitutions:
+  _TAG: ""
+  _PROJECT_ID: "datcom-ci"
 
 timeout: 3600s
 options:
