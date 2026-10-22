@@ -49,6 +49,10 @@ locals {
       value = google_sql_database_instance.mysql_instance.connection_name
     },
     {
+      name  = "CLOUDSQL_USE_PRIVATE_IP"
+      value = tostring(var.mysql_use_private_ip)
+    },
+    {
       name  = "DB_NAME"
       value = var.mysql_database_name
     },
