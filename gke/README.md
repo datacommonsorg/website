@@ -71,6 +71,9 @@ You should have owner/editor role to perform the following tasks.
    # Create cluster. Run this for all the regions
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
+   # (Optional) If enabling Narratives on this cluster, provision its secrets
+   ./setup_narratives.sh <ENV> <REGION>
+
    # Deploy helm
    ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
    ```
@@ -85,6 +88,35 @@ You should have owner/editor role to perform the following tasks.
    # Set up multi-cluster ingress and service WITH nodejs
    ./setup_config_cluster.sh <ENV> <REGION> -n
    ```
+
+## Narratives emergency off switch
+
+When Narratives is enabled on a cluster (`narratives.enabled: true`), you can disable chat or take down the `/narratives/` deployment (for example, during unexpected traffic spikes, runaway Gemini spend, upstream MCP/Vertex AI outages, or safety incidents) in two ways:
+
+1. **Immediate (<30 seconds via `kubectl`, no PR required):**
+
+   ```bash
+   gcloud container clusters get-credentials <CLUSTER_NAME> --region=<REGION> --project=<PROJECT_ID>
+
+   # Option A: Disable chat only (keeps static UI and shared stories online, stops all Gemini/MCP calls)
+   kubectl set env deployment/website-narratives-app -n website ENABLE_CHAT=false
+
+   # Option B: Scale down all Narratives pods immediately
+   kubectl scale deployment/website-narratives-app -n website --replicas=0
+   ```
+
+   To restore after an immediate `kubectl` override:
+
+   ```bash
+   kubectl set env deployment/website-narratives-app -n website ENABLE_CHAT=true
+   kubectl scale deployment/website-narratives-app -n website --replicas=2
+   ```
+
+2. **Persistent (via Helm configuration in Git):**
+
+   Because subsequent Cloud Deploy releases render the Helm chart from Git and will overwrite ad-hoc `kubectl` changes, persist the change in `deploy/helm_charts/envs/<ENV>.yaml`:
+   - Set `narratives.enableChat: false` to keep the UI online with chat disabled.
+   - Set `narratives.enabled: false` to remove the `website-narratives-app` Deployment, Service, and `/narratives` Ingress paths entirely.
 
 ## DNS setup
 

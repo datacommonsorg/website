@@ -179,3 +179,90 @@ spec:
               path: /nodejs/healthz
               port: 8080
 {{- end }}
+
+{{- if .Values.narratives.enabled }}
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-narratives-app
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: {{ .Values.narratives.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ div .Values.narratives.replicas 4 | add 1 }}
+      maxUnavailable: {{ div .Values.narratives.replicas 4 | add 1 }}
+  selector:
+    matchLabels:
+      app: website-narratives-app
+  template:
+    metadata:
+      labels:
+        app: website-narratives-app
+    spec:
+      {{- if .Values.narratives.nodePool }}
+      nodeSelector:
+        cloud.google.com/gke-nodepool: {{ .Values.narratives.nodePool }}
+      {{- end }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      containers:
+        - name: narratives
+          image: "gcr.io/datcom-ci/datacommons-narratives{{- if .Values.narratives.image.tag }}:{{ .Values.narratives.image.tag }}{{- end }}"
+          imagePullPolicy: {{ .Values.website.image.pullPolicy }}
+          args: []
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: {{ .Values.narratives.memory | quote }}
+            requests:
+              memory: {{ .Values.narratives.memory | quote }}
+          env:
+            - name: PORT
+              value: "8080"
+            - name: BASE_PATH
+              value: "/narratives"
+            - name: ENABLE_CHAT
+              value: {{ .Values.narratives.enableChat | quote }}
+            - name: ALLOWED_ORIGIN
+              value: "https://{{ .Values.domain }}"
+            - name: MCP_SERVER_URL
+              value: {{ .Values.narratives.mcpServerUrl | quote }}
+            - name: GOOGLE_GENAI_USE_VERTEXAI
+              value: {{ .Values.narratives.useVertexAi | quote }}
+            - name: GOOGLE_CLOUD_PROJECT
+              value: {{ .Values.project | quote }}
+            - name: GOOGLE_CLOUD_LOCATION
+              value: {{ .Values.narratives.cloudLocation | quote }}
+            - name: DC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.narratives.secretName }}
+                  key: dc-api-key
+            - name: TRANSCRIPT_HMAC_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.narratives.secretName }}
+                  key: transcript-hmac-secret
+          startupProbe:
+            httpGet:
+              path: /narratives/healthz
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /narratives/healthz
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /narratives/healthz
+              port: 8080
+            periodSeconds: 10
+{{- end }}

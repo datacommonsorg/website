@@ -117,3 +117,15 @@ cronTesting:
   enableNodejs: false # temporarily turned down pending nodejs server deprecation
   nodePool: "pool-1"
   schedule: "0 */12 * * *"
+
+narratives:
+  enabled: true
+  enableChat: true
+  image:
+    tag: ""
+  replicas: 2
+  memory: "1G"
+  mcpServerUrl: "https://autopush.api.datacommons.org/mcp"
+  useVertexAi: true
+  cloudLocation: "us-central1"
+  secretName: "narratives-secrets"

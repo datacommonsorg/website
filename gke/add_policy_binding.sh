@@ -34,6 +34,7 @@ declare -a roles=(
     "roles/bigtable.user"
     "roles/dataflow.admin"
     "roles/storage.admin"
+    "roles/aiplatform.user"
 )
 for role in "${roles[@]}"
 do

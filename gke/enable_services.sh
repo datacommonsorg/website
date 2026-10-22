@@ -31,5 +31,6 @@ gcloud services enable --project=$PROJECT_ID \
   secretmanager.googleapis.com \
   api.datacommons.org \
   generativelanguage.googleapis.com \
+  aiplatform.googleapis.com \
   bigtableadmin.googleapis.com \
   dataflow.googleapis.com
