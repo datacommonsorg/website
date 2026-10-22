@@ -18,6 +18,9 @@
  * A component that renders the header on all pages via the base template.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { useBreakpoints } from "../../../../shared/hooks/breakpoints";
@@ -60,12 +63,48 @@ const HeaderBar = ({
   labels,
   routes,
 }: HeaderBarProps): ReactElement => {
+  const theme = useTheme();
   const { up, down } = useBreakpoints();
 
   return (
-    <div id="main-header-container">
-      <nav id="main-navbar-container">
-        <div className="navbar-menu-large">
+    <div
+      id="main-header-container"
+      css={css`
+        ${theme.elevation.header.primary};
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 100;
+        background-color: ${theme.colors.background.primary.base};
+      `}
+    >
+      <nav
+        css={css`
+          position: relative;
+          width: 100vw;
+          height: fit-content;
+        `}
+      >
+        <div
+          css={css`
+            display: flex;
+            justify-content: space-between;
+            gap: ${theme.spacing.xl}px;
+            width: 100%;
+            max-width: ${theme.header.width}px;
+            height: ${theme.header.lg}px;
+            padding: 0 ${theme.spacing.lg}px;
+            margin: auto;
+            background: ${theme.colors.background.primary.base};
+            @media (max-width: ${theme.breakpoints.xl}px) {
+              gap: ${theme.spacing.md}px;
+            }
+            @media (max-width: ${theme.breakpoints.lg}px) {
+              display: none;
+            }
+          `}
+        >
           <HeaderLogo
             name={name}
             logoPath={logoPath}
@@ -81,7 +120,43 @@ const HeaderBar = ({
           )}
           <MenuDesktop menu={menu} labels={labels} routes={routes} />
         </div>
-        <div className="navbar-menu-mobile">
+        <div
+          css={css`
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-between;
+            padding: 0 ${theme.spacing.lg}px;
+            height: ${hideHeaderSearchBar
+              ? theme.header.xl
+              : theme.header.lg}px;
+            gap: ${theme.spacing.md}px;
+            @media (min-width: ${theme.breakpoints.lg}px) {
+              display: none;
+            }
+            @media (max-width: 620px) {
+              display: grid;
+              grid-template-columns: 1fr min-content;
+              grid-template-rows: ${hideHeaderSearchBar
+                ? "min-content"
+                : "min-content min-content"};
+              height: ${hideHeaderSearchBar
+                ? theme.header.xl
+                : theme.header.sm}px;
+              gap: ${theme.spacing.md}px;
+              padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
+              .header-search {
+                order: 3;
+                grid-column: 1 / span 2;
+              }
+            }
+            @media (max-width: 340px) {
+              gap: ${theme.spacing.sm}px;
+              height: ${hideHeaderSearchBar
+                ? theme.header.xl
+                : theme.header.md}px;
+            }
+          `}
+        >
           <HeaderLogo
             name={name}
             logoPath={logoPath}
