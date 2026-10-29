@@ -161,6 +161,7 @@ narratives:
   # Set to false to remove the Narratives Deployment, Service, and /narratives
   # Ingress routes completely.
   enabled: false
+  basePath: "/narratives"
   # Emergency off switch: set to false to reject new chat turns immediately
   # (no Gemini or MCP calls) while keeping the static UI and shared stories up.
   enableChat: true

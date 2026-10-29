@@ -224,7 +224,7 @@ spec:
             - name: PORT
               value: "8080"
             - name: BASE_PATH
-              value: "/narratives"
+              value: {{ .Values.narratives.basePath | quote }}
             - name: ENABLE_CHAT
               value: {{ .Values.narratives.enableChat | quote }}
             - name: ALLOWED_ORIGIN
@@ -243,20 +243,20 @@ spec:
               value: {{ .Values.narratives.transcriptHmacSecretName | quote }}
           startupProbe:
             httpGet:
-              path: /narratives/healthz
+              path: {{ .Values.narratives.basePath }}/healthz
               port: 8080
             failureThreshold: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /narratives/healthz
+              path: {{ .Values.narratives.basePath }}/healthz
               port: 8080
             failureThreshold: 3
             periodSeconds: 10
             timeoutSeconds: 5
           livenessProbe:
             httpGet:
-              path: /narratives/healthz
+              path: {{ .Values.narratives.basePath }}/healthz
               port: 8080
             periodSeconds: 10
 {{- end }}

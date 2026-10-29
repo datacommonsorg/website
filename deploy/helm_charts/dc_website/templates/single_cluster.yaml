@@ -101,7 +101,7 @@ spec:
     checkIntervalSec: 15
     port: 8080
     type: HTTP
-    requestPath: /narratives/healthz
+    requestPath: {{ .Values.narratives.basePath }}/healthz
 
 ---
 
@@ -207,14 +207,14 @@ spec:
     {{- if .Values.narratives.enabled }}
     - http:
         paths:
-        - path: /narratives
+        - path: {{ .Values.narratives.basePath }}
           pathType: ImplementationSpecific
           backend:
             service:
               name: website-narratives-service
               port:
                 number: 8080
-        - path: /narratives/*
+        - path: {{ .Values.narratives.basePath }}/*
           pathType: ImplementationSpecific
           backend:
             service:
