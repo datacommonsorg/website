@@ -702,65 +702,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_AsianAlone"
-                    ],
-                    "title": "Median Age of Asian Population in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Asian Population in California",
-                    "statVarKey": [
-                      "Median_Age_Person_AsianAlone"
-                    ],
-                    "title": "Median Age of Asian Population in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Asian Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_AsianAlone"
-                    ],
-                    "title": "Median Age of Asian Population in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_AsianAlone"
-                    ],
-                    "title": "Median Age of Asian Population in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Asian Population in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
                     "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in California",
@@ -813,6 +754,65 @@
               }
             ],
             "title": "Mean Retirement Income of Household: USC Foreign Born, Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Asian Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Asian Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Asian Population in Counties of California"
           },
           {
             "columns": [

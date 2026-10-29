@@ -367,6 +367,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "dc/lnp5g90fwpct8"
+                    ],
+                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/lnp5g90fwpct8"
+                    ],
+                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_Female_ForeignBorn"
                     ],
                     "title": "Foreign Born Women in United States of America",
@@ -421,38 +453,6 @@
             ],
             "denom": "Count_Person",
             "title": "Foreign Born Women in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/lnp5g90fwpct8"
-                    ],
-                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/lnp5g90fwpct8"
-                    ],
-                    "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population (Measured Based on Jurisdiction): Female, Incarcerated in States of United States of America"
           },
           {
             "columns": [
@@ -1456,19 +1456,21 @@
       },
       "Count_Person_Female_HispanicOrLatino": {
         "age": [
-          "Count_Person_100OrMoreYears_Female_HispanicOrLatino",
           "Count_Person_11Years_Female_HispanicOrLatino",
           "Count_Person_12Years_Female_HispanicOrLatino",
           "Count_Person_13Years_Female_HispanicOrLatino",
           "Count_Person_16Years_Female_HispanicOrLatino",
           "Count_Person_17Years_Female_HispanicOrLatino",
           "Count_Person_18Years_Female_HispanicOrLatino",
+          "Count_Person_20To24Years_Female_HispanicOrLatino",
           "Count_Person_20Years_Female_HispanicOrLatino",
           "Count_Person_22Years_Female_HispanicOrLatino",
           "Count_Person_24Years_Female_HispanicOrLatino",
+          "Count_Person_25To29Years_Female_HispanicOrLatino",
           "Count_Person_26Years_Female_HispanicOrLatino",
           "Count_Person_27Years_Female_HispanicOrLatino",
           "Count_Person_28Years_Female_HispanicOrLatino",
+          "Count_Person_30To34Years_Female_HispanicOrLatino",
           "Count_Person_30Years_Female_HispanicOrLatino",
           "Count_Person_33Years_Female_HispanicOrLatino",
           "Count_Person_34Years_Female_HispanicOrLatino",
@@ -1482,6 +1484,8 @@
           "Count_Person_54Years_Female_HispanicOrLatino",
           "Count_Person_57Years_Female_HispanicOrLatino",
           "Count_Person_59Years_Female_HispanicOrLatino",
+          "Count_Person_5To9Years_Female_HispanicOrLatino",
+          "Count_Person_5Years_Female_HispanicOrLatino",
           "Count_Person_61Years_Female_HispanicOrLatino",
           "Count_Person_63Years_Female_HispanicOrLatino",
           "Count_Person_64Years_Female_HispanicOrLatino",
@@ -1659,7 +1663,6 @@
         "race": [
           "Median_Age_Person_Female_AsianAlone",
           "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_Female_HispanicOrLatino",
           "Median_Age_Person_Female_WhiteAlone"
         ]
       }
