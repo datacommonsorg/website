@@ -71,7 +71,7 @@ You should have owner/editor role to perform the following tasks.
    # Create cluster. Run this for all the regions
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
-   # (Optional) If enabling Narratives on this environment, ensure Secret Manager secrets exist
+   # (Optional) If enabling Narratives on this environment, configure its prerequisites (Vertex AI API, IAM, secrets)
    ./setup_narratives.sh <ENV>
 
    # Deploy helm
