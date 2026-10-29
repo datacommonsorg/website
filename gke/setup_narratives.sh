@@ -24,6 +24,11 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
+if ! command -v yq >/dev/null 2>&1; then
+  echo "Error: 'yq' (version 4.x) is required. See gke/README.md." >&2
+  exit 1
+fi
+
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   echo "Usage: ./setup_narratives.sh <ENV>"
   exit 0
