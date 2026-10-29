@@ -237,16 +237,10 @@ spec:
               value: {{ .Values.project | quote }}
             - name: GOOGLE_CLOUD_LOCATION
               value: {{ .Values.narratives.cloudLocation | quote }}
-            - name: DC_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.narratives.secretName }}
-                  key: dc-api-key
-            - name: TRANSCRIPT_HMAC_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.narratives.secretName }}
-                  key: transcript-hmac-secret
+            - name: DC_API_KEY_SECRET
+              value: {{ .Values.narratives.dcApiKeySecret | quote }}
+            - name: TRANSCRIPT_HMAC_SECRET_NAME
+              value: {{ .Values.narratives.transcriptHmacSecretName | quote }}
           startupProbe:
             httpGet:
               path: /narratives/healthz

@@ -13,29 +13,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Provisions the GCP Secret Manager secret and GKE Kubernetes Secret
-# (`narratives-secrets`) required by `website-narratives-app`.
+# Provisions the GCP Secret Manager secret required by `website-narratives-app`.
 #
 # Usage:
-#   ./setup_narratives.sh <ENV> <REGION>
+#   ./setup_narratives.sh <ENV>
 # Example:
-#   ./setup_narratives.sh autopush us-central1
+#   ./setup_narratives.sh autopush
 
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
-  echo "Usage: ./setup_narratives.sh <ENV> <REGION>"
+  echo "Usage: ./setup_narratives.sh <ENV>"
   exit 0
 fi
 
 ENV="${1:-}"
-REGION="${2:-}"
 
-if [[ -z "$ENV" || -z "$REGION" ]]; then
-  echo "Missing arg 1 (env) and/or arg 2 (region)." >&2
-  echo "Usage: ./setup_narratives.sh <ENV> <REGION>" >&2
+if [[ -z "$ENV" ]]; then
+  echo "Missing arg 1 (env)." >&2
+  echo "Usage: ./setup_narratives.sh <ENV>" >&2
   exit 1
 fi
 
@@ -46,12 +44,9 @@ if [[ ! -f "$CONFIG_YAML" ]]; then
 fi
 
 PROJECT_ID=$(yq eval '.project' "$CONFIG_YAML")
-NAMESPACE=$(yq eval '.namespace.name // "website"' "$CONFIG_YAML")
-SECRET_NAME=$(yq eval '.narratives.secretName // "narratives-secrets"' "$CONFIG_YAML")
-CLUSTER_NAME="website-${REGION}"
-HMAC_SECRET_ID="narratives-transcript-hmac-secret"
+HMAC_SECRET_ID=$(yq eval '.narratives.transcriptHmacSecretName // "narratives-transcript-hmac-secret"' "$CONFIG_YAML")
 
-# 1. Create the transcript HMAC secret in GCP Secret Manager if it does not exist.
+# Create the transcript HMAC secret in GCP Secret Manager if it does not exist.
 if ! gcloud secrets describe "$HMAC_SECRET_ID" --project="$PROJECT_ID" >/dev/null 2>&1; then
   echo "Creating Secret Manager secret ${HMAC_SECRET_ID} in ${PROJECT_ID}..."
   openssl rand -hex 32 | tr -d '\n' | gcloud secrets create "$HMAC_SECRET_ID" \
@@ -62,20 +57,4 @@ else
   echo "Secret Manager secret ${HMAC_SECRET_ID} already exists in ${PROJECT_ID}."
 fi
 
-# 2. Sync `dc-api-key` and `transcript-hmac-secret` into the GKE cluster Secret.
-echo "Fetching credentials for cluster ${CLUSTER_NAME} (${REGION}) in ${PROJECT_ID}..."
-gcloud container clusters get-credentials "$CLUSTER_NAME" \
-  --region="$REGION" \
-  --project="$PROJECT_ID"
-
-DC_API_KEY="$(gcloud secrets versions access latest --secret=mixer-api-key --project="$PROJECT_ID")"
-TRANSCRIPT_HMAC_SECRET="$(gcloud secrets versions access latest --secret="$HMAC_SECRET_ID" --project="$PROJECT_ID")"
-
-echo "Applying Kubernetes Secret ${SECRET_NAME} in namespace ${NAMESPACE}..."
-kubectl create secret generic "$SECRET_NAME" \
-  --namespace="$NAMESPACE" \
-  --from-literal=dc-api-key="$DC_API_KEY" \
-  --from-literal=transcript-hmac-secret="$TRANSCRIPT_HMAC_SECRET" \
-  --dry-run=client -o yaml | kubectl apply -f -
-
-echo "Successfully configured Narratives secrets for ${ENV} (${CLUSTER_NAME})."
+echo "Successfully verified Secret Manager secrets for ${ENV}."

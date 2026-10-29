@@ -71,8 +71,8 @@ You should have owner/editor role to perform the following tasks.
    # Create cluster. Run this for all the regions
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
-   # (Optional) If enabling Narratives on this cluster, provision its secrets
-   ./setup_narratives.sh <ENV> <REGION>
+   # (Optional) If enabling Narratives on this environment, ensure Secret Manager secrets exist
+   ./setup_narratives.sh <ENV>
 
    # Deploy helm
    ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>

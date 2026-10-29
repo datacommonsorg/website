@@ -172,4 +172,5 @@ narratives:
   mcpServerUrl: "https://api.datacommons.org/mcp"
   useVertexAi: true
   cloudLocation: "us-central1"
-  secretName: "narratives-secrets"
+  dcApiKeySecret: "mixer-api-key"
+  transcriptHmacSecretName: "narratives-transcript-hmac-secret"
