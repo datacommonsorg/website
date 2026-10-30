@@ -14,10 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Creates a new custom DC data or services docker image and tags it.
+# Creates a new custom DC services docker image and tags it.
 # Also tags it with custom labels from arguments.
 
-# Usage: From root, ./scripts/build_and_tag_cdc_image.sh --image-type {data|services} --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL
+# Usage: From root, ./scripts/build_and_tag_cdc_image.sh --image-type services --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL
 
 set -e
 set -x
@@ -47,31 +47,26 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ $image_type != "data" && $image_type != "services" ]]; then
+if [[ $image_type != "services" ]]; then
   echo "Invalid image type: $image_type"
-  echo "Usage: ./scripts/build_and_tag_cdc_image.sh --image-type {data|services} --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL"
+  echo "Usage: ./scripts/build_and_tag_cdc_image.sh --image-type services --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL"
   exit 1
 fi
 
 if [[ $commits_label = "" ]]; then
   echo "Expected named argument --commits-label with image label."
-  echo "Usage: ./scripts/build_and_tag_cdc_image.sh --image-type {data|services} --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL"
+  echo "Usage: ./scripts/build_and_tag_cdc_image.sh --image-type services --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL"
   exit 1
 fi
 
 if [[ $release_label = "" ]]; then
   echo "Expected named argument --release-label with image label."
-  echo "Usage: ./scripts/build_and_tag_cdc_image.sh --image-type {data|services} --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL"
+  echo "Usage: ./scripts/build_and_tag_cdc_image.sh --image-type services --commits-label \$COMMITS_LABEL --release-label \$RELEASE_LABEL"
   exit 1
 fi
 
-if [[ $image_type == "data" ]]; then
-  dockerfile="build/cdc_data/Dockerfile"
-  image_name="datacommons-data"
-elif [[ $image_type == "services" ]]; then
-  dockerfile="build/cdc_services/Dockerfile"
-  image_name="datacommons-services"
-fi
+dockerfile="build/cdc_services/Dockerfile"
+image_name="datacommons-services"
 
 # Check for an existing image with the given commits label.
 list_result=$(gcloud container images list-tags gcr.io/datcom-ci/${image_name} --filter="tags=${commits_label}" 2>/dev/null)
