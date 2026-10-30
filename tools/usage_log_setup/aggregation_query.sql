@@ -44,8 +44,22 @@
         SourceWithCounts AS T_Base,
         UNNEST(GENERATE_ARRAY(1, GREATEST(1, T_Base.num_fetches_to_replicate))) AS fan_out
     ),
+    -- Resolves Import Name -> Provenance DCID -> Source Organization Name from Spanner Graph Node and Edge tables
+    ProvenanceSourceMapping AS (
+      SELECT
+        COALESCE(NULLIF(p_node.name, ''), REGEXP_EXTRACT(p_node.subject_id, r'[^/]+$')) AS import_name,
+        p_node.subject_id AS provenance_dcid,
+        s_node.name AS source_name
+      FROM `{{GRAPH_PROJECT_ID}}.{{GRAPH_DATASET}}.Node` AS p_node
+      JOIN `{{GRAPH_PROJECT_ID}}.{{GRAPH_DATASET}}.Edge` AS e_src
+        ON p_node.subject_id = e_src.subject_id
+        AND e_src.predicate = 'source'
+      JOIN `{{GRAPH_PROJECT_ID}}.{{GRAPH_DATASET}}.Node` AS s_node
+        ON e_src.object_id = s_node.subject_id
+      WHERE 'Provenance' IN UNNEST(JSON_VALUE_ARRAY(p_node.types))
+    ),
     -- Unnests query-level logs by stat var and facet
-    -- Also joins with datcom-store to get provenance information
+    -- Also joins with Spanner Graph Node and Edge tables to get provenance / source organization information
     -- This lets us identify the facets by organization, e.g. all facets contributed by the U.N.
     UnnestedFacetsWithProvenance AS (
       SELECT
@@ -55,7 +69,7 @@
         statVar.stat_var_dcid AS statVarDCID,
         T1.timestamp,
         STRUCT(
-          (SELECT AS STRUCT facet.facet.*, src.name AS provenance_name) AS facet_detail,
+          (SELECT AS STRUCT facet.facet.*, psm.source_name AS provenance_name) AS facet_detail,
           COALESCE(SAFE.PARSE_DATE('%Y', facet.earliest), CURRENT_DATE()) AS earliest,
           COALESCE(SAFE.PARSE_DATE('%Y', facet.latest), CURRENT_DATE()) AS latest,
          facet.num_series
@@ -65,13 +79,9 @@
         UNNEST(T1.jsonPayload.usage_log.stat_vars) AS statVar
       -- Left joining here ensures that stat vars that have no facets are still included
       LEFT JOIN UNNEST(statVar.facets) AS facet
-      -- Join with provenance information from knowledge graph
-      -- If you are an external user, see https://docs.datacommons.org/bigquery/  for information on
-      -- public access to these tables.
-      LEFT JOIN `datcom-store.dc_kg_latest.Provenance` AS prov
-        ON facet.facet.import_name = prov.name
-      LEFT JOIN `datcom-store.dc_kg_latest.Source` AS src
-        ON prov.source = src.id
+      -- Join with provenance information from Spanner Graph tables
+      LEFT JOIN ProvenanceSourceMapping AS psm
+        ON facet.facet.import_name = psm.import_name
     ),
 
     -- Unnests the query-level table by place type
