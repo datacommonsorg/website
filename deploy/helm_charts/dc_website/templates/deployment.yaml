@@ -202,8 +202,6 @@ spec:
     metadata:
       labels:
         app: website-narratives-app
-      annotations:
-        timestamp: {{ now | quote }}
     spec:
       {{- if .Values.narratives.nodePool }}
       nodeSelector:
