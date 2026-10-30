@@ -124,6 +124,7 @@ narratives:
   image:
     tag: ""
   replicas: 2
+  cpu: "1"
   memory: "1G"
   mcpServerUrl: "https://dev.api.datacommons.org/mcp"
   useVertexAi: true

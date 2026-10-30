@@ -219,6 +219,7 @@ spec:
             limits:
               memory: {{ .Values.narratives.memory | quote }}
             requests:
+              cpu: {{ .Values.narratives.cpu | default "500m" | quote }}
               memory: {{ .Values.narratives.memory | quote }}
           env:
             - name: PORT
