@@ -424,38 +424,6 @@
                       "highlightDate": "2016"
                     },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar_2016_10169881228856630405"
-                    ],
-                    "title": "Homes Valued Between $90,000 to $99,999 in Mountain View",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $90,000 to $99,999 in Mountain View",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar_2016"
-                    ],
-                    "title": "Homes Valued Between $90,000 to $99,999 in Mountain View",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $90,000 to $99,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "highlightDate": "2016"
-                    },
-                    "statVarKey": [
                       "Count_HousingUnit_HomeValue300000To399999USDollar_2016_10169881228856630405"
                     ],
                     "title": "Housing Units Valued at $300,000-$399,999 in Mountain View",
@@ -478,6 +446,38 @@
             ],
             "denom": "Count_Person",
             "title": "Housing Units Valued at $300,000-$399,999"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2016"
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_2016_10169881228856630405"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 in Mountain View",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Homes Valued Between $90,000 to $99,999 in Mountain View",
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_2016"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 in Mountain View",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $90,000 to $99,999"
           }
         ],
         "statVarSpec": {

@@ -8,36 +8,36 @@
   "query_with_places_removed": "show me the impact of climate change on drought",
   "sv_matching": {
     "CosineScore": [
-      0.7828,
-      0.6782,
-      0.6051,
+      0.7826,
+      0.6781,
+      0.6047,
       0.6038,
-      0.578,
-      0.5708,
-      0.5614,
+      0.5777,
+      0.5703,
+      0.5608,
       0.5605,
-      0.5603,
       0.5601,
-      0.5563,
-      0.5509,
-      0.549,
-      0.5392,
+      0.56,
+      0.556,
+      0.5506,
+      0.5487,
+      0.5391,
       0.5346,
-      0.5319,
-      0.5318,
-      0.5313,
-      0.5312,
-      0.5282,
-      0.5282,
-      0.5243,
-      0.5209,
-      0.5181,
-      0.5147,
+      0.532,
+      0.5314,
+      0.5311,
+      0.5309,
+      0.528,
+      0.5276,
+      0.5242,
+      0.5208,
+      0.5175,
       0.5142,
-      0.5128,
-      0.5096,
-      0.5066,
-      0.5026
+      0.5139,
+      0.5125,
+      0.5091,
+      0.5065,
+      0.5024
     ],
     "MultiSV": {
       "Candidates": [
@@ -47,9 +47,9 @@
           "Parts": [
             {
               "CosineScore": [
-                0.6053,
-                0.576,
-                0.5596
+                0.6052,
+                0.5759,
+                0.5597
               ],
               "QueryPart": "show climate change",
               "SV": [
@@ -75,12 +75,12 @@
           "Parts": [
             {
               "CosineScore": [
-                0.6429,
-                0.6192,
-                0.6096,
-                0.6047,
-                0.602,
-                0.594
+                0.643,
+                0.6193,
+                0.6098,
+                0.6046,
+                0.6021,
+                0.5941
               ],
               "QueryPart": "show",
               "SV": [
@@ -104,7 +104,7 @@
           ]
         },
         {
-          "AggCosineScore": 0.7116,
+          "AggCosineScore": 0.7113,
           "DelimBased": false,
           "Parts": [
             {
@@ -128,7 +128,7 @@
             },
             {
               "CosineScore": [
-                0.8
+                0.7996
               ],
               "QueryPart": "change drought",
               "SV": [
@@ -156,8 +156,8 @@
       "Mean_PalmerDroughtSeverityIndex",
       "dc/topic/sdg_13",
       "dc/topic/sdg_6.4",
-      "dc/topic/Hurricane",
       "dc/topic/sdg_6.4.1",
+      "dc/topic/Hurricane",
       "dc/topic/DecadeProjectedTemperatureLows",
       "dc/topic/DecadeProjectedTemperatureHighs",
       "dc/topic/HeatWave",
