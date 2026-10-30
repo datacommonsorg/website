@@ -14,22 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Check if both arguments are provided
-if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 <WEBSITE_GITHASH> <MIXER_GITHASH> <PIPELINE_NAME>"
-    echo "Example: $0 dev-72c634f dev-732ac9c datacommons-website-dev"
+# Check if all arguments are provided
+if [ "$#" -ne 4 ]; then
+    echo "Usage: $0 <WEBSITE_GITHASH> <MIXER_GITHASH> <NARRATIVES_GITHASH> <PIPELINE_NAME>"
+    echo "Example: $0 dev-72c634f dev-732ac9c a1b2c3d datacommons-website-dev"
     exit 1
 fi
 
 WEBSITE_GITHASH=$1
 MIXER_GITHASH=$2
-DEPLOY_PIPELINE=$3
+NARRATIVES_GITHASH=$3
+DEPLOY_PIPELINE=$4
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 
 gcloud deploy releases create "dev-manual-$TIMESTAMP" \
 --delivery-pipeline=$DEPLOY_PIPELINE \
 --region=us-central1 \
 --skaffold-file=skaffold.yaml \
---images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$WEBSITE_GITHASH,gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_GITHASH,gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$WEBSITE_GITHASH" \
+--images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$WEBSITE_GITHASH,gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_GITHASH,gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$WEBSITE_GITHASH,gcr.io/datcom-ci/datacommons-narratives=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-narratives:$NARRATIVES_GITHASH" \
 --deploy-parameters="mixer.githash=$MIXER_GITHASH,MIXER_GITHASH=$MIXER_GITHASH,website.githash=$WEBSITE_GITHASH" \
 --project=datcom-ci

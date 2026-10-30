@@ -116,3 +116,17 @@ cronTesting:
   enableNodejs: false # temporarily turned down pending nodejs server deprecation
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically
+
+narratives:
+  enabled: true
+  basePath: "/narratives"
+  enableChat: true
+  image:
+    tag: ""
+  replicas: 2
+  memory: "1G"
+  mcpServerUrl: "https://dev.api.datacommons.org/mcp"
+  useVertexAi: true
+  cloudLocation: "us-central1"
+  dcApiKeySecret: "mixer-api-key"
+  transcriptHmacSecretName: "narratives-transcript-hmac-secret"

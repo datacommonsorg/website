@@ -251,10 +251,11 @@ gcloud auth configure-docker
   *   **Note**: This script does not push a mixer image.
   * Check for the image in [Artifact Registry (datacommons-website)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-website?project=datcom-ci)
 
-#### 2. Get Mixer Image Hash
+#### 2. Get Mixer and Narratives Image Hashes
 
-**Standard Case**: Use an existing image tag available in Artifact Registry.
+**Standard Case**: Use existing image tags available in Artifact Registry.
 *   Mixer: [Artifact Registry (datacommons-mixer)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-mixer?project=datcom-ci)
+*   Narratives: [Artifact Registry (datacommons-narratives)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-narratives?project=datcom-ci)
 
 <details>
   <summary><strong>Alternative</strong>: If you need to incorporate local mixer changes, click to expand</summary>
@@ -279,13 +280,14 @@ gcloud auth configure-docker
 Once you have your hashes, run the cloud deploy script.
 
 ```bash
-# Set your hashes (include the "dev-" prefix)
+# Set your hashes (include the "dev-" prefix for locally pushed dev images)
 # Example: website_hash="dev-72c634f"
 website_hash=
 mixer_hash=
+narratives_hash=
 
-# Deploy BOTH Website and Mixer to datcom-website-dev using datacommons-website-dev Delivery pipeline
-./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
+# Deploy Website, Mixer, and Narratives to datcom-website-dev using datacommons-website-dev Delivery pipeline
+./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash $narratives_hash datacommons-website-dev
 ```
 
 The `deploy_website_cloud_deploy.sh` script creates a new release in Google Cloud Deploy using the specified image tags. It does not build images locally; it deploys the already-pushed artifacts to the GKE dev instance.
