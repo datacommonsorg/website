@@ -17,11 +17,6 @@ set -e
 
 # Check for required variables.
 
-if [[ $DC_API_KEY == "" ]]; then
-  echo "DC_API_KEY not specified."
-  exit 1
-fi
-
 if [[ $INPUT_DIR == "" ]]; then
     echo "INPUT_DIR not specified."
     exit 1
