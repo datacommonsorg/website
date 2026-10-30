@@ -208,6 +208,7 @@ spec:
         cloud.google.com/gke-nodepool: {{ .Values.narratives.nodePool }}
       {{- end }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
+      terminationGracePeriodSeconds: 125
       containers:
         - name: narratives
           image: "gcr.io/datcom-ci/datacommons-narratives{{- if .Values.narratives.image.tag }}:{{ .Values.narratives.image.tag }}{{- end }}"
@@ -235,7 +236,7 @@ spec:
             - name: GOOGLE_GENAI_USE_VERTEXAI
               value: {{ .Values.narratives.useVertexAi | quote }}
             - name: GOOGLE_CLOUD_PROJECT
-              value: {{ .Values.project | quote }}
+              value: {{ required "Missing: project" .Values.project | quote }}
             - name: GOOGLE_CLOUD_LOCATION
               value: {{ .Values.narratives.cloudLocation | quote }}
             - name: DC_API_KEY_SECRET
