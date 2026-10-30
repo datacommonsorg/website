@@ -230,7 +230,7 @@ spec:
             - name: ENABLE_CHAT
               value: {{ .Values.narratives.enableChat | quote }}
             - name: ALLOWED_ORIGIN
-              value: "https://{{ .Values.domain }}"
+              value: "https://{{ required "Missing: domain" .Values.domain }}"
             - name: MCP_SERVER_URL
               value: {{ .Values.narratives.mcpServerUrl | quote }}
             - name: GOOGLE_GENAI_USE_VERTEXAI

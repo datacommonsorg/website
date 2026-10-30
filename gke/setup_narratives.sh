@@ -50,6 +50,10 @@ if [[ ! -f "$CONFIG_YAML" ]]; then
 fi
 
 PROJECT_ID=$(yq eval '.project' "$CONFIG_YAML")
+if [[ -z "$PROJECT_ID" || "$PROJECT_ID" == "null" ]]; then
+  echo "Error: 'project' is missing or null in $CONFIG_YAML" >&2
+  exit 1
+fi
 HMAC_SECRET_ID=$(yq eval '.narratives.transcriptHmacSecretName // "narratives-transcript-hmac-secret"' "$CONFIG_YAML")
 SERVICE_ACCOUNT="website-robot@${PROJECT_ID}.iam.gserviceaccount.com"
 
