@@ -284,10 +284,13 @@ Once you have your hashes, run the cloud deploy script.
 # Example: website_hash="dev-72c634f"
 website_hash=
 mixer_hash=
+# Optional: if omitted below, deploy_website_cloud_deploy.sh automatically uses the latest non-dev narratives image
 narratives_hash=
 
 # Deploy Website, Mixer, and Narratives to datcom-website-dev using datacommons-website-dev Delivery pipeline
 ./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash $narratives_hash datacommons-website-dev
+# Or omit $narratives_hash to auto-resolve the latest narratives image:
+# ./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
 ```
 
 The `deploy_website_cloud_deploy.sh` script creates a new release in Google Cloud Deploy using the specified image tags. It does not build images locally; it deploys the already-pushed artifacts to the GKE dev instance.
