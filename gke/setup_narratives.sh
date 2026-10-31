@@ -14,7 +14,7 @@
 # limitations under the License.
 
 # Provisions the GCP APIs, IAM permissions, and Secret Manager secrets
-# required by `website-narratives-app`.
+# required by the `narratives` container in `website-agentic-apps`.
 #
 # Usage:
 #   ./setup_narratives.sh <ENV>

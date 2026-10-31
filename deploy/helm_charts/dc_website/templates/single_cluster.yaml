@@ -123,7 +123,7 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: website-narratives-app
+    app: website-agentic-apps
 
 {{- end }}
 

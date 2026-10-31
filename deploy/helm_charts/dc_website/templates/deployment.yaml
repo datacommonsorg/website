@@ -186,7 +186,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: website-narratives-app
+  name: website-agentic-apps
   namespace: {{ .Values.namespace.name }}
 spec:
   replicas: {{ .Values.narratives.replicas }}
@@ -197,11 +197,11 @@ spec:
       maxUnavailable: {{ div .Values.narratives.replicas 4 | add 1 }}
   selector:
     matchLabels:
-      app: website-narratives-app
+      app: website-agentic-apps
   template:
     metadata:
       labels:
-        app: website-narratives-app
+        app: website-agentic-apps
     spec:
       {{- if .Values.narratives.nodePool }}
       nodeSelector:
