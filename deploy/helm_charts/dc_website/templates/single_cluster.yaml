@@ -85,6 +85,48 @@ spec:
 
 {{- end }}
 
+{{- if .Values.narratives.enabled }}
+---
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backendconfig-narratives
+  namespace: {{ .Values.namespace.name }}
+spec:
+  timeoutSec: 600
+  connectionDraining:
+    drainingTimeoutSec: 120
+  healthCheck:
+    checkIntervalSec: 15
+    port: 8080
+    type: HTTP
+    requestPath: {{ .Values.narratives.basePath }}/healthz
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-narratives-service
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    {{- if .Values.ingress.internal }}
+    cloud.google.com/neg: '{"ingress": true}'
+    {{- end }}
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-narratives"}}'
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: website-agentic-apps
+
+{{- end }}
+
 {{- if .Values.ingress.enableMixer }}
 ---
 
@@ -159,6 +201,24 @@ spec:
           backend:
             service:
               name: website-nodejs-service
+              port:
+                number: 8080
+    {{- end }}
+    {{- if .Values.narratives.enabled }}
+    - http:
+        paths:
+        - path: {{ .Values.narratives.basePath }}
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: website-narratives-service
+              port:
+                number: 8080
+        - path: {{ .Values.narratives.basePath }}/*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: website-narratives-service
               port:
                 number: 8080
     {{- end }}

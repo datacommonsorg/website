@@ -17,6 +17,7 @@
 # In the cloudbuild.yaml for the Cloud Deploy pipeline.
 substitutions:
   _SHORT_SHA: ""
+  _NARRATIVES_SHORT_SHA: ""
 
 steps:
   - name: 'gcr.io/cloud-builders/git'
@@ -74,9 +75,31 @@ steps:
         git -C mixer fetch origin
         git -C mixer checkout "$mixer_githash"
 
-        # 3. CREATE DEPLOYMENT RELEASE
+        # 3. DETERMINE NARRATIVES IMAGE HASH
+        if [[ -n "${_NARRATIVES_SHORT_SHA}" ]]; then
+          if [[ "${_NARRATIVES_SHORT_SHA}" == dev-* ]]; then
+            echo "Skipping deployment for dev narratives image tag: ${_NARRATIVES_SHORT_SHA}"
+            exit 0
+          fi
+          echo "Using provided _NARRATIVES_SHORT_SHA for narratives image: ${_NARRATIVES_SHORT_SHA}"
+          narratives_githash="${_NARRATIVES_SHORT_SHA}"
+        else
+          echo "Fetching latest narratives image hash..."
+          narratives_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-narratives \
+            --project=datcom-ci \
+            --filter="NOT tags ~ ^dev-" --sort-by=~TIMESTAMP --limit=1 \
+            --format='get(tags)' | tr ';' '\n' | grep -E '^[0-9a-f]{7,40}$' | head -n 1 || true)"
+        fi
+
+        if [[ -z "$narratives_githash" ]]; then
+          echo "ERROR: Could not determine the narratives image hash from Artifact Registry. Exiting."
+          exit 1
+        fi
+        echo "Found latest narratives image hash: $narratives_githash"
+
+        # 4. CREATE DEPLOYMENT RELEASE
         # Use a timestamp for a consistently unique release name.
-        release_name="v-${website_githash}-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"
+        release_name="v-${website_githash}-${mixer_githash}-${narratives_githash}-$(date +%Y%m%d-%H%M%S)"
         echo "Creating release: $release_name"
 
         gcloud deploy apply --file=deploy/helm_charts/clouddeploy.yaml \
@@ -88,6 +111,7 @@ steps:
           "gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$${website_githash}"
           "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash}"
           "gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$${website_githash}"
+          "gcr.io/datcom-ci/datacommons-narratives=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-narratives:$${narratives_githash}"
         )
         images_str=$$(IFS=,; echo "$${images_arr[*]}")
 

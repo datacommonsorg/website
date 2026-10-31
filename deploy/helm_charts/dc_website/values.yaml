@@ -153,3 +153,26 @@ cronTesting:
   nodePool:
   # schedule to run the cron tests on
   schedule:
+
+###############################################################################
+# Config for Narratives Server
+###############################################################################
+narratives:
+  # Set to false to remove the Narratives Deployment, Service, and /narratives
+  # Ingress routes completely.
+  enabled: false
+  basePath: "/narratives"
+  # Emergency off switch: set to false to reject new chat turns immediately
+  # (no Gemini or MCP calls) while keeping the static UI and shared stories up.
+  enableChat: true
+  image:
+    tag: ""
+  replicas: 2
+  cpu: "1"
+  memory: "1G"
+  nodePool:
+  mcpServerUrl: "https://api.datacommons.org/mcp"
+  useVertexAi: true
+  cloudLocation: "global"
+  dcApiKeySecret: "mixer-api-key"
+  transcriptHmacSecretName: "narratives-transcript-hmac-secret"
