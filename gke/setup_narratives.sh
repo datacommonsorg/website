@@ -54,6 +54,7 @@ if [[ -z "$PROJECT_ID" || "$PROJECT_ID" == "null" ]]; then
   echo "Error: 'project' is missing or null in $CONFIG_YAML" >&2
   exit 1
 fi
+DC_API_KEY_SECRET=$(yq eval '.narratives.dcApiKeySecret // "mixer-api-key"' "$CONFIG_YAML")
 HMAC_SECRET_ID=$(yq eval '.narratives.transcriptHmacSecretName // "narratives-transcript-hmac-secret"' "$CONFIG_YAML")
 SERVICE_ACCOUNT="website-robot@${PROJECT_ID}.iam.gserviceaccount.com"
 
@@ -68,7 +69,21 @@ gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --role="roles/aiplatform.user" \
   --condition=None >/dev/null
 
-# 3. Create the transcript HMAC secret in GCP Secret Manager if it does not exist.
+# 3. Verify the Data Commons API key secret exists in GCP Secret Manager.
+# Note: Unlike browser client keys created with `--allowed-referrers` in create_api_key.sh,
+# the key stored in ${DC_API_KEY_SECRET} is used server-to-server by Python (no HTTP Referer header)
+# and must not be restricted by HTTP referrer.
+if ! gcloud secrets describe "$DC_API_KEY_SECRET" --project="$PROJECT_ID" >/dev/null 2>&1; then
+  echo "Error: Secret Manager secret '${DC_API_KEY_SECRET}' not found in ${PROJECT_ID}." >&2
+  echo "The Narratives server fetches '${DC_API_KEY_SECRET}' at startup and will fail to boot if it is missing." >&2
+  echo "Please create '${DC_API_KEY_SECRET}' in ${PROJECT_ID} with a Data Commons API key that does NOT have HTTP referrer restrictions (Narratives calls the MCP server directly from Python without a Referer header)." >&2
+  exit 1
+else
+  echo "Verified Secret Manager secret ${DC_API_KEY_SECRET} exists in ${PROJECT_ID}."
+  echo "Note: Ensure the API key in ${DC_API_KEY_SECRET} does not have HTTP referrer restrictions, as Narratives calls the MCP server directly from Python without a Referer header."
+fi
+
+# 4. Create the transcript HMAC secret in GCP Secret Manager if it does not exist.
 if ! gcloud secrets describe "$HMAC_SECRET_ID" --project="$PROJECT_ID" >/dev/null 2>&1; then
   echo "Creating Secret Manager secret ${HMAC_SECRET_ID} in ${PROJECT_ID}..."
   openssl rand -hex 32 | tr -d '\n' | gcloud secrets create "$HMAC_SECRET_ID" \
