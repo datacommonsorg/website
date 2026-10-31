@@ -129,6 +129,6 @@ narratives:
   memory: "1G"
   mcpServerUrl: "https://autopush.api.datacommons.org/mcp"
   useVertexAi: true
-  cloudLocation: "us-central1"
+  cloudLocation: "global"
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "narratives-transcript-hmac-secret"
