@@ -121,6 +121,7 @@ export function addXAxis(
   axis
     .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
     .call(d3Axis)
+    .call((g) => g.selectAll("text").style("font-family", TEXT_FONT_FAMILY))
     .call((g) =>
       g
         .selectAll("line")
@@ -226,7 +227,7 @@ export function addYAxis(
   axis: d3.Selection<SVGGElement, any, any, any>,
   chartWidth: number,
   yScale: d3.ScaleLinear<number, any>,
-  textFontFamily?: string,
+  textFontFamily: string = TEXT_FONT_FAMILY,
   unit?: string
 ): number {
   const tickLength = chartWidth - MARGIN.right - MARGIN.left;
@@ -259,6 +260,7 @@ export function addYAxis(
         .attr("x", -tickLength)
         .attr("dy", -4)
         .style("fill", AXIS_TEXT_FILL)
+        .style("font-family", textFontFamily || null)
         .style("shape-rendering", "crispEdges")
     );
 
@@ -287,6 +289,7 @@ export function addYAxis(
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "hanging")
       .style("fill", AXIS_TEXT_FILL)
+      .style("font-family", textFontFamily || null)
       .text(label);
     const axisLabelBBox = yAxisLabel.node().getBBox();
     maxLabelWidth += axisLabelBBox.height;
@@ -298,10 +301,6 @@ export function addYAxis(
       .selectAll(".tick-label")
       .attr("transform", `translate(${maxLabelWidth}, 0)`)
   );
-
-  if (textFontFamily) {
-    axis.call((g) => g.selectAll("text").style("font-family", textFontFamily));
-  }
 
   return maxLabelWidth + MARGIN.left + MARGIN.grid;
 }

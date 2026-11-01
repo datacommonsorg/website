@@ -13,8 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TEXT_FONT_FAMILY } from "../../js/chart/draw_constants";
+import { FONT_FAMILY } from "../constants";
 import { ChartProps } from "../types";
-import { compressChartProps, decompressChartProps } from "./utils";
+import {
+  compressChartProps,
+  decompressChartProps,
+  getProcessedSvg,
+} from "./utils";
 
 const TEST_PLACE = "testPlace";
 const TEST_PLACE_TYPE = "placeType";
@@ -80,4 +86,20 @@ test("compress and decompress chart props", () => {
       throw e;
     }
   }
+});
+
+test("getProcessedSvg strips inline font-family and sets server font", () => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", "200");
+  svg.setAttribute("height", "100");
+  const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  text.style.fontFamily = TEXT_FONT_FAMILY;
+  text.style.fill = "#2b2929";
+  text.textContent = "Label";
+  svg.appendChild(text);
+
+  const processed = getProcessedSvg(svg);
+  const processedText = processed.querySelector("text");
+  expect(processedText.style.fontFamily).toBe("");
+  expect(processedText.getAttribute("font-family")).toBe(FONT_FAMILY);
 });

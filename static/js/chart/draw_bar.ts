@@ -1127,7 +1127,10 @@ export function drawHorizontalBarChart(
     .attr("width", chartWidth)
     .attr("height", height)
     .attr("viewBox", `0, 0, ${chartWidth}, ${height}`)
-    .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif;");
+    .attr(
+      "style",
+      `max-width: 100%; height: auto; font-size: 10px; font-family: ${TEXT_FONT_FAMILY};`
+    );
 
   // Attach SVG node to the parent container
   // The node must be attached before any getBBox() calls.
@@ -1171,6 +1174,7 @@ export function drawHorizontalBarChart(
       g
         .selectAll("text")
         .style("fill", AXIS_TEXT_FILL)
+        .style("font-family", TEXT_FONT_FAMILY)
         .style("shape-rendering", "crispEdges")
     );
 
@@ -1220,6 +1224,7 @@ export function drawHorizontalBarChart(
       g
         .selectAll("text")
         .style("fill", AXIS_TEXT_FILL)
+        .style("font-family", TEXT_FONT_FAMILY)
         .style("shape-rendering", "crispEdges")
     )
     .call((g) => g.select(".domain").remove());

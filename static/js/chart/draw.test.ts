@@ -14,8 +14,21 @@
  * limitations under the License.
  */
 
+import * as d3 from "d3";
+
 import { getColorFn, getDashes } from "./base";
-import { appendLegendElem } from "./draw_utils";
+import { TEXT_FONT_FAMILY } from "./draw_constants";
+import { addXAxis, addYAxis, appendLegendElem } from "./draw_utils";
+
+beforeAll(() => {
+  (SVGElement.prototype as any).getComputedTextLength = (): number => 50;
+  (SVGElement.prototype as any).getBBox = (): {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } => ({ x: 0, y: 0, width: 50, height: 12 });
+});
 
 test("svg test", () => {
   const rootEl = document.createElement("div");
@@ -52,5 +65,44 @@ test("get dashes", () => {
   };
   for (const n in data) {
     expect(getDashes(Number(n))).toEqual(data[n]);
+  }
+});
+
+test("chart axis labels use CSS font family with sans-serif fallback", () => {
+  expect(TEXT_FONT_FAMILY).toBe(
+    "var(--dc-font-family, var(--font-family-sans-serif, sans-serif)), sans-serif"
+  );
+  expect(TEXT_FONT_FAMILY.toLowerCase()).not.toContain("roboto");
+
+  const svg = d3.create("svg");
+  document.body.append(svg.node());
+
+  // Band x-axis (bar charts)
+  const bandXAxis = svg.append("g");
+  const bandScale = d3.scaleBand().domain(["A", "B"]).range([0, 200]);
+  addXAxis(bandXAxis, 200, bandScale);
+  bandXAxis.selectAll("text").each(function () {
+    expect((this as SVGTextElement).style.fontFamily).toBe(TEXT_FONT_FAMILY);
+  });
+
+  // Time/linear x-axis (line charts)
+  const timeXAxis = svg.append("g");
+  const timeScale = d3
+    .scaleTime()
+    .domain([new Date(2020, 0, 1), new Date(2021, 0, 1)])
+    .range([0, 200]);
+  addXAxis(timeXAxis, 200, timeScale);
+  timeXAxis.selectAll("text").each(function () {
+    expect((this as SVGTextElement).style.fontFamily).toBe(TEXT_FONT_FAMILY);
+  });
+
+  // Y-axis ticks and long-unit axis label
+  const yAxis = svg.append("g");
+  const yScale = d3.scaleLinear().domain([0, 100]).range([200, 0]);
+  addYAxis(yAxis, 300, yScale, undefined, "Metric Tons CO2e");
+  const yAxisTexts = yAxis.selectAll("text").nodes() as SVGTextElement[];
+  expect(yAxisTexts.length).toBeGreaterThan(1);
+  for (const textNode of yAxisTexts) {
+    expect(textNode.style.fontFamily).toBe(TEXT_FONT_FAMILY);
   }
 });

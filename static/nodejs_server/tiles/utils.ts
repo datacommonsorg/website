@@ -105,6 +105,7 @@ export function getProcessedSvg(
   // Set the font for all the text in the svg to match the font family and size
   // used for getBBox calculations.
   chartSvg.querySelectorAll("text").forEach((node) => {
+    node.style.removeProperty("font-family");
     node.setAttribute("font-family", FONT_FAMILY);
     node.setAttribute("font-size", FONT_SIZE);
   });
