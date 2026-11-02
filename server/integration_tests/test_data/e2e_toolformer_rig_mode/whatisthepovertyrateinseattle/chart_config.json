@@ -40,36 +40,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Line (Two or More Races) in Seattle",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Below Poverty Line (Two or More Races) in Seattle",
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Line (Two or More Races) in Seattle",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Below Poverty Line (Two or More Races)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
                     "title": "Asians Below Poverty Line in Seattle",
@@ -93,6 +63,36 @@
             "denom": "Count_Person",
             "startWithDenom": true,
             "title": "Asians Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+                    ],
+                    "title": "Below Poverty Line (Two or More Races) in Seattle",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Below Poverty Line (Two or More Races) in Seattle",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+                    ],
+                    "title": "Below Poverty Line (Two or More Races) in Seattle",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Below Poverty Line (Two or More Races)"
           },
           {
             "columns": [
