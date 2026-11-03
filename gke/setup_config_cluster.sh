@@ -40,6 +40,7 @@ done
 CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
 
 PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
+NARRATIVES_ENABLED=$(yq eval '.narratives.enabled // "false"' $CONFIG_YAML)
 CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
@@ -54,6 +55,10 @@ yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.y
 if [[ -z $SETUP_NODEJS ]]; then
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
 fi
+# If narratives is not enabled in the environment config, remove the narratives paths from mci.yaml
+if [[ $NARRATIVES_ENABLED != "true" ]]; then
+  yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-narratives-mcs"))' mci.yaml
+fi
 
 kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml
@@ -61,6 +66,10 @@ kubectl apply -f website_mcs.yaml
 # If setting up nodejs service, apply the mcs yaml definition for nodejs
 if [[ $SETUP_NODEJS ]]; then
   kubectl apply -f website_nodejs_mcs.yaml
+fi
+# If narratives is enabled, apply the mcs yaml definition for narratives
+if [[ $NARRATIVES_ENABLED == "true" ]]; then
+  kubectl apply -f website_narratives_mcs.yaml
 fi
 
 # Check the status: `kubectl describe mci website -n website`
