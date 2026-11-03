@@ -72,9 +72,8 @@ You should have owner/editor role to perform the following tasks.
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
    # (Optional) If enabling Narratives on this environment, configure its prerequisites (Vertex AI API, IAM, secrets).
-   # Note: single_cluster.yaml only configures /narratives Ingress routing for single-cluster environments (dev, autopush).
-   # Enabling Narratives in multi-cluster environments (staging, prod) will also require adding MultiClusterService and
-   # MultiClusterIngress rules for /narratives in gke/ (similar to nodejs).
+   # Note: For environments using MultiClusterIngress (autopush, staging, prod), also run update_config_cluster.sh
+   # (see "Update cluster config" below) so website-mci routes /narratives and /narratives/* to website-narratives-mcs.
    ./setup_narratives.sh <ENV>
 
    # Deploy helm
