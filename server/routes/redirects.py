@@ -42,6 +42,11 @@ def kg():
   return redirect('https://datacommons.org' + url, code=302)
 
 
+@bp.route('/factcheck')
+def factcheck():
+  return redirect('https://toolbox.google.com/factcheck', code=301)
+
+
 @bp.route('/gni')
 def gni():
   return redirect(
