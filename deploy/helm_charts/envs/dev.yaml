@@ -118,7 +118,7 @@ cronTesting:
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically
 
 narratives:
-  enabled: true
+  enabled: false
   basePath: "/narratives"
   enableChat: true
   image:
