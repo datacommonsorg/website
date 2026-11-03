@@ -22,7 +22,7 @@ import * as d3 from "d3";
 
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { DataPoint, getColorFn } from "./base";
-import { MARGIN, SVGNS, TEXT_FONT_FAMILY, XLINKNS } from "./draw_constants";
+import { MARGIN, SVGNS, XLINKNS } from "./draw_constants";
 import { addXAxis, addYAxis, updateXAxis } from "./draw_utils";
 import { HistogramOptions } from "./types";
 
@@ -66,13 +66,7 @@ export function drawHistogram(
     .domain([Math.min(0, yExtent[0]), yExtent[1]])
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
 
-  const leftWidth = addYAxis(
-    tempYAxis,
-    chartWidth,
-    y,
-    TEXT_FONT_FAMILY,
-    options?.unit
-  );
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, options?.unit);
 
   const x = d3
     .scaleBand()
@@ -94,7 +88,7 @@ export function drawHistogram(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
+  addYAxis(yAxis, chartWidth, y, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = options?.fillColor ? options.fillColor : getColorFn(["A"])("A"); // we only need one color

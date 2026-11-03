@@ -297,13 +297,7 @@ export function drawStackBarChart(
     .nice()
     .rangeRound([chartHeight - MARGIN.bottom, marginTop]);
 
-  const leftWidth = addYAxis(
-    tempYAxis,
-    chartWidth,
-    y,
-    TEXT_FONT_FAMILY,
-    options?.unit
-  );
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, options?.unit);
 
   const x = d3
     .scaleBand()
@@ -325,7 +319,7 @@ export function drawStackBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, marginTop]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
+  addYAxis(yAxis, chartWidth, y, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorOrder = options?.statVarColorOrder || keys;
@@ -982,13 +976,7 @@ export function drawGroupBarChart(
     .domain([minV, maxV])
     .nice()
     .rangeRound([chartHeight - MARGIN.bottom, marginTop]);
-  const leftWidth = addYAxis(
-    tempYAxis,
-    chartWidth,
-    y,
-    TEXT_FONT_FAMILY,
-    options?.unit
-  );
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, options?.unit);
 
   const x0 = d3
     .scaleBand()
@@ -1015,7 +1003,7 @@ export function drawGroupBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, marginTop]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
+  addYAxis(yAxis, chartWidth, y, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorOrder = options?.statVarColorOrder || keys;

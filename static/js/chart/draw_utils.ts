@@ -161,7 +161,6 @@ export function addXAxis(
     const text = axis.selectAll("text");
     text
       .style("fill", AXIS_TEXT_FILL)
-      .style("font-family", TEXT_FONT_FAMILY)
       .style("text-rendering", "optimizedLegibility")
       .call(wrap, xScale.bandwidth());
 
@@ -218,7 +217,6 @@ export function addXAxis(
  * @param axis: d3-selection with an SVG element to add the y-axis to
  * @param chartWidth: The width of the SVG chart
  * @param yScale: d3-scale for the y-ayis
- * @param textFontFamily name of font-family to set axes-labels to
  * @param unit: optional unit for the tick values
  *
  * @return the width of the y-axis bounding-box. The x-coordinate of the grid starts at this value.
@@ -227,7 +225,6 @@ export function addYAxis(
   axis: d3.Selection<SVGGElement, any, any, any>,
   chartWidth: number,
   yScale: d3.ScaleLinear<number, any>,
-  textFontFamily: string = TEXT_FONT_FAMILY,
   unit?: string
 ): number {
   const tickLength = chartWidth - MARGIN.right - MARGIN.left;
@@ -260,7 +257,7 @@ export function addYAxis(
         .attr("x", -tickLength)
         .attr("dy", -4)
         .style("fill", AXIS_TEXT_FILL)
-        .style("font-family", textFontFamily || null)
+        .style("font-family", TEXT_FONT_FAMILY)
         .style("shape-rendering", "crispEdges")
     );
 
@@ -289,7 +286,7 @@ export function addYAxis(
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "hanging")
       .style("fill", AXIS_TEXT_FILL)
-      .style("font-family", textFontFamily || null)
+      .style("font-family", TEXT_FONT_FAMILY)
       .text(label);
     const axisLabelBBox = yAxisLabel.node().getBBox();
     maxLabelWidth += axisLabelBBox.height;

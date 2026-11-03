@@ -77,7 +77,6 @@ $headings-font-family: $font-family-sans-serif;
 }
 
 :root {
-  --font-family: #{inspect($font-family-sans-serif)} !important;
   --breakpoint-xl: 1040px;
 }
 

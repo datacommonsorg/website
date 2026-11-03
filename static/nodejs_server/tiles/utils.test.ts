@@ -92,6 +92,8 @@ test("getProcessedSvg strips inline font-family and sets server font", () => {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("width", "200");
   svg.setAttribute("height", "100");
+  svg.style.fontFamily = TEXT_FONT_FAMILY;
+  svg.style.fontSize = "10px";
   const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
   text.style.fontFamily = TEXT_FONT_FAMILY;
   text.style.fill = "#2b2929";
@@ -99,6 +101,8 @@ test("getProcessedSvg strips inline font-family and sets server font", () => {
   svg.appendChild(text);
 
   const processed = getProcessedSvg(svg);
+  expect(processed.style.fontFamily).toBe("");
+  expect(processed.style.fontSize).toBe("10px");
   const processedText = processed.querySelector("text");
   expect(processedText.style.fontFamily).toBe("");
   expect(processedText.getAttribute("font-family")).toBe(FONT_FAMILY);

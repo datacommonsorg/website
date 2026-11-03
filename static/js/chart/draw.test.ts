@@ -99,7 +99,7 @@ test("chart axis labels use CSS font family with sans-serif fallback", () => {
   // Y-axis ticks and long-unit axis label
   const yAxis = svg.append("g");
   const yScale = d3.scaleLinear().domain([0, 100]).range([200, 0]);
-  addYAxis(yAxis, 300, yScale, undefined, "Metric Tons CO2e");
+  addYAxis(yAxis, 300, yScale, "Metric Tons CO2e");
   const yAxisTexts = yAxis.selectAll("text").nodes() as SVGTextElement[];
   expect(yAxisTexts.length).toBeGreaterThan(1);
   for (const textNode of yAxisTexts) {
