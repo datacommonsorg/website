@@ -43,10 +43,11 @@ class TestRedirects(unittest.TestCase):
     assert response.status_code == 302
 
   def test_factcheck(self):
-    response = app.test_client().get('/factcheck')
-    assert response.status_code == 301
-    assert response.headers[
-        'Location'] == 'https://toolbox.google.com/factcheck'
+    for path in ['/factcheck', '/factcheck/faq', '/factcheck/download']:
+      response = app.test_client().get(path)
+      assert response.status_code == 301
+      assert response.headers[
+          'Location'] == 'https://toolbox.google.com/factcheck'
 
   def test_colab(self):
     response = app.test_client().get('/colab', follow_redirects=False)
