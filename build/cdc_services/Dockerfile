@@ -60,14 +60,13 @@ WORKDIR /workspace
 # Install git which is needed to install web server requirements
 RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 
-# Copy requirements.
-COPY server/requirements.txt ./server/requirements.txt
-
-# Create a virtual env and install requirements.
-RUN python -m venv ./venv
+# Copy uv and project lockfiles, then install into /workspace/venv.
+COPY --from=ghcr.io/astral-sh/uv:0.9.18 /uv /uvx /bin/
+ENV VIRTUAL_ENV=/workspace/venv
+ENV UV_PROJECT_ENVIRONMENT=/workspace/venv
 ENV PATH="/workspace/venv/bin:$PATH"
-RUN pip3 install --no-cache-dir --upgrade pip setuptools \
-    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt
+COPY server/pyproject.toml server/uv.lock ./server/
+RUN uv sync --project /workspace/server --locked --no-dev --no-cache
 
 # Copy website app script.
 COPY web_app.py ./web_app.py
