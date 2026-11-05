@@ -1200,7 +1200,7 @@
             "statVar": "Count_Person_45To54Years"
           },
           "Count_Person_55To64Years_multiple_place_bar_block": {
-            "name": "Population: 55 - 64 Years",
+            "name": "Population: Years 55 To 64",
             "statVar": "Count_Person_55To64Years"
           },
           "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
@@ -2095,7 +2095,6 @@
     "exploreMore": {
       "Count_Person": {
         "age": [
-          "Count_Person_10To19Years",
           "Count_Person_18To24Years",
           "Count_Person_1To4Years",
           "Count_Person_25To34Years",
