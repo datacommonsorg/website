@@ -19,3 +19,6 @@ import/simple/sample/
 **/testdata
 **/test_data
 import/simple/tests/
+
+# Delve debug binaries
+**/__debug_bin*
