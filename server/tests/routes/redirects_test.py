@@ -43,7 +43,7 @@ class TestRedirects(unittest.TestCase):
     assert response.status_code == 302
 
   def test_factcheck(self):
-    for path in ['/factcheck', '/factcheck/faq', '/factcheck/download']:
+    for path in ['/factcheck', '/factcheck/', '/factcheck/download']:
       response = app.test_client().get(path)
       assert response.status_code == 301
       assert response.headers[
