@@ -28,6 +28,7 @@ import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
 import { SHOW_POPULATION_LOG } from "../tools/scatter/context";
 import { wrap } from "./base";
+import { TEXT_FONT_FAMILY } from "./draw_constants";
 import { addChartTitle } from "./draw_utils";
 
 /**
@@ -243,7 +244,12 @@ function addXAxis(
   const xScale = getScale(scaleType, [min, max], [0, width]);
   const xAxis = d3.axisBottom(xScale);
   formatAxisTicks(xAxis, scaleType);
-  g.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
+  g.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(xAxis)
+    .call((axisG) =>
+      axisG.selectAll("text").style("font-family", TEXT_FONT_FAMILY)
+    );
   return xScale;
 }
 
@@ -271,7 +277,11 @@ function addYAxis(
   const yScale = getScale(scaleType, [min, max], [height, 0]);
   const yAxis = d3.axisLeft(yScale);
   formatAxisTicks(yAxis, scaleType);
-  g.append("g").call(yAxis);
+  g.append("g")
+    .call(yAxis)
+    .call((axisG) =>
+      axisG.selectAll("text").style("font-family", TEXT_FONT_FAMILY)
+    );
   return yScale;
 }
 

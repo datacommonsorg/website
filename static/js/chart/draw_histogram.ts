@@ -66,10 +66,7 @@ export function drawHistogram(
     .domain([Math.min(0, yExtent[0]), yExtent[1]])
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
 
-  // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
-  // of axis labels that results in the labels being cut-off.
-  // TODO (juliawu): identify why this is and fix root cause.
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, null, options?.unit);
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, options?.unit);
 
   const x = d3
     .scaleBand()
@@ -91,10 +88,7 @@ export function drawHistogram(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
-  // of axis labels that results in the labels being cut-off.
-  // TODO (juliawu): identify why this is and fix root cause.
-  addYAxis(yAxis, chartWidth, y, undefined, options?.unit);
+  addYAxis(yAxis, chartWidth, y, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = options?.fillColor ? options.fillColor : getColorFn(["A"])("A"); // we only need one color
