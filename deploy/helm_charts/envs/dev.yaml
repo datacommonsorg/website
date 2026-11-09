@@ -102,13 +102,6 @@ nl:
 svg:
   blocklistFile: []
 
-nodejs:
-  enabled: true
-  apiRoot: "http://website-service:8080"
-  image:
-    tag: ""
-  replicas: 2
-
 cronTesting:
   enabled: true
   webApiRoot: "http://website-service:8080"
