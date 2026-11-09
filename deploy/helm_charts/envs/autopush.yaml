@@ -103,12 +103,6 @@ serviceGroups:
   default:
     replicas: 12
 
-nodejs:
-  enabled: true
-  apiRoot: "http://website-service:8080"
-  image:
-    tag: ""
-  replicas: 12
 
 cronTesting:
   enabled: true
