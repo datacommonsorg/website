@@ -19,7 +19,7 @@ FROM python:3.11.4-slim-bookworm AS python-builder
 
 # Stage 2: Go Builder
 # Uses a specific Go patch version on a Debian Bookworm base
-FROM golang:1.24.0-bookworm AS go-builder
+FROM golang:1.26.10-bookworm AS go-builder
 
 # Stage 3: Protoc Builder
 # Downloads and extracts protoc, as there isn't a dedicated "protoc" base image for easy copying.
@@ -87,8 +87,8 @@ RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
     go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0 && \
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
 
-# Install golangci-lint at version 2.3.0
-RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.3.0
+# Install golangci-lint at version 2.15.0
+RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/v2.15.0/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.15.0
 
 # Install yq, kubectl, and GKE auth plugin for gcloud
 RUN apt update && apt install -y --no-install-recommends gnupg unzip wget \
@@ -102,7 +102,7 @@ RUN apt update && apt install -y --no-install-recommends gnupg unzip wget \
     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
     apt update && \
     apt install -y --no-install-recommends \
-    kubectl google-cloud-sdk-gke-gcloud-auth-plugin \
+    kubectl google-cloud-cli-gke-gcloud-auth-plugin \
     && \
     apt autoremove -y gnupg unzip wget && \
     apt clean && \
