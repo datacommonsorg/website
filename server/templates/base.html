@@ -61,6 +61,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  {# `?transition_animation=true` fade in/out (narratives app). Script is sync so the class is set before first paint. #}
+  <link rel="stylesheet" href={{url_for('static', filename='css/transition_animation.css', t=config['VERSION'])}}>
+  <script src={{url_for('static', filename='js/transition_animation.js', t=config['VERSION'])}}></script>
+
   {% block meta %}
   <meta property="og:type" content="website" />
   {% if title == "Home" %}

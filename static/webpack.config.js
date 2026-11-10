@@ -199,6 +199,7 @@ const config = {
     new CopyPlugin({
       patterns: [
         { from: "css/**/*.css" },
+        { from: "js/transition_animation.js" },
         { from: "images/**/*" },
         { from: "fonts/*" },
         { from: "data/**/*" },
