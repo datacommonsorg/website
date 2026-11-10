@@ -37,6 +37,7 @@ tmp/
 .air.toml
 
 # Kubernetes
+gke/backendconfig.yaml
 gke/endpoints.yaml
 gke/mci.yaml
 endpoints.yaml
