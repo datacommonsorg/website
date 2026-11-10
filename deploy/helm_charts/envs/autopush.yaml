@@ -126,3 +126,4 @@ narratives:
   cloudLocation: "global"
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "narratives-transcript-hmac-secret"
+  modelArmorTemplate: "projects/datcom-website-autopush/locations/us-central1/templates/narratives-autopush"

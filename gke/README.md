@@ -71,7 +71,7 @@ You should have owner/editor role to perform the following tasks.
    # Create cluster. Run this for all the regions
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
-   # (Optional) If enabling Narratives on this environment, configure its prerequisites (Vertex AI API, IAM, secrets).
+   # (Optional) If enabling Narratives on this environment, configure its prerequisites (Vertex AI & Model Armor APIs, IAM, secrets, and default Model Armor template).
    # Note: For environments using MultiClusterIngress (autopush, staging, prod), also run update_config_cluster.sh
    # (see "Update cluster config" below) so website-mci routes /narratives and /narratives/* to website-narratives-mcs.
    ./setup_narratives.sh <ENV>

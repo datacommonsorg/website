@@ -13,8 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Provisions the GCP APIs, IAM permissions, and Secret Manager secrets
-# required by the `narratives` container in `website-agentic-apps`.
+# Provisions the GCP APIs, IAM permissions, Secret Manager secrets, and Model
+# Armor template required by the `narratives` container in
+# `website-agentic-apps`.
 #
 # Usage:
 #   ./setup_narratives.sh <ENV>
@@ -56,17 +57,26 @@ if [[ -z "$PROJECT_ID" || "$PROJECT_ID" == "null" ]]; then
 fi
 DC_API_KEY_SECRET=$(yq eval '.narratives.dcApiKeySecret // "mixer-api-key"' "$CONFIG_YAML")
 HMAC_SECRET_ID=$(yq eval '.narratives.transcriptHmacSecretName // "narratives-transcript-hmac-secret"' "$CONFIG_YAML")
+MODEL_ARMOR_TEMPLATE=$(yq eval '.narratives.modelArmorTemplate // ""' "$CONFIG_YAML")
 SERVICE_ACCOUNT="website-robot@${PROJECT_ID}.iam.gserviceaccount.com"
 
-# 1. Enable Vertex AI API if not already enabled.
-echo "Enabling aiplatform.googleapis.com in ${PROJECT_ID}..."
-gcloud services enable aiplatform.googleapis.com --project="$PROJECT_ID"
+# 1. Enable Vertex AI, Model Armor, and Sensitive Data Protection APIs if not already enabled.
+echo "Enabling aiplatform.googleapis.com, modelarmor.googleapis.com, and dlp.googleapis.com in ${PROJECT_ID}..."
+gcloud services enable \
+  aiplatform.googleapis.com \
+  modelarmor.googleapis.com \
+  dlp.googleapis.com \
+  --project="$PROJECT_ID"
 
-# 2. Grant roles/aiplatform.user to the GKE workload identity robot account.
-echo "Granting roles/aiplatform.user to ${SERVICE_ACCOUNT} in ${PROJECT_ID}..."
+# 2. Grant roles/aiplatform.user and roles/modelarmor.user to the GKE workload identity robot account.
+echo "Granting roles/aiplatform.user and roles/modelarmor.user to ${SERVICE_ACCOUNT} in ${PROJECT_ID}..."
 gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --member="serviceAccount:${SERVICE_ACCOUNT}" \
   --role="roles/aiplatform.user" \
+  --condition=None >/dev/null
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member="serviceAccount:${SERVICE_ACCOUNT}" \
+  --role="roles/modelarmor.user" \
   --condition=None >/dev/null
 
 # 3. Verify the Data Commons API key secret exists in GCP Secret Manager.
@@ -92,6 +102,25 @@ if ! gcloud secrets describe "$HMAC_SECRET_ID" --project="$PROJECT_ID" >/dev/nul
     --project="$PROJECT_ID"
 else
   echo "Secret Manager secret ${HMAC_SECRET_ID} already exists in ${PROJECT_ID}."
+fi
+
+# 5. Verify or create the default Model Armor template if configured in <ENV>.yaml.
+if [[ -z "$MODEL_ARMOR_TEMPLATE" || "$MODEL_ARMOR_TEMPLATE" == "null" ]]; then
+  echo "Note: '.narratives.modelArmorTemplate' is unset in ${CONFIG_YAML}."
+  echo "Remember to create a Model Armor template (or set '.narratives.modelArmorTemplate' to 'projects/${PROJECT_ID}/locations/us-central1/templates/narratives-${ENV}' and re-run ./setup_narratives.sh ${ENV}) before enabling Narratives publicly."
+elif gcloud model-armor templates describe "$MODEL_ARMOR_TEMPLATE" >/dev/null 2>&1; then
+  echo "Model Armor template ${MODEL_ARMOR_TEMPLATE} already exists."
+else
+  echo "Creating default Model Armor template ${MODEL_ARMOR_TEMPLATE}..."
+  gcloud model-armor templates create "$MODEL_ARMOR_TEMPLATE" \
+    --pi-and-jailbreak-filter-settings-enforcement=enabled \
+    --pi-and-jailbreak-filter-settings-confidence-level=medium-and-above \
+    --malicious-uri-filter-settings-enforcement=enabled \
+    --basic-config-filter-enforcement=enabled \
+    --rai-settings-filters=filterType=HATE_SPEECH,confidenceLevel=MEDIUM_AND_ABOVE \
+    --rai-settings-filters=filterType=HARASSMENT,confidenceLevel=MEDIUM_AND_ABOVE \
+    --rai-settings-filters=filterType=DANGEROUS,confidenceLevel=MEDIUM_AND_ABOVE \
+    --rai-settings-filters=filterType=SEXUALLY_EXPLICIT,confidenceLevel=MEDIUM_AND_ABOVE
 fi
 
 echo "Successfully configured Narratives prerequisites for ${ENV}."
