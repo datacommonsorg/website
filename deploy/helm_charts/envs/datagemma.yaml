@@ -57,10 +57,6 @@ nl:
         project_id: datcom-nl
         location: us-central1
         prediction_endpoint_id: "4332900447158272000"
-nodejs:
-  enabled: true
-  replicas: 25
-  nodePool: "default-pool"
 serviceGroups:
   recon: null
   svg:
