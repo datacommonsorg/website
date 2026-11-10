@@ -66,5 +66,18 @@ test("getTransitionTarget", () => {
       "https://datacommons.org/?transition_animation=true"
     )
   ).toBeNull();
+  expect(
+    getTransitionTarget(
+      link({ href: "#" }),
+      "https://datacommons.org/?transition_animation=true"
+    )
+  ).toBeNull();
+  // Non-http(s) schemes are never followed.
+  expect(
+    getTransitionTarget(
+      link({ href: "javascript:alert(1)?transition_animation=true" }),
+      CURRENT
+    )
+  ).toBeNull();
   expect(getTransitionTarget(link({}), CURRENT)).toBeNull();
 });

@@ -22,6 +22,7 @@
  */
 
 const PARAM = "transition_animation";
+const FADE_IN_CLASS = "transition-animation";
 const FADE_OUT_CLASS = "transition-animation-out";
 // Keep in sync with the animation duration in core.scss.
 const FADE_MS = 300;
@@ -39,7 +40,8 @@ export function getTransitionTarget(
   currentHref: string
 ): string | null {
   const href = anchor.getAttribute("href");
-  if (!href || anchor.hasAttribute("download")) {
+  // `#...` hrefs (incl. bare `#`, whose parsed hash is empty) stay on the page.
+  if (!href || href.startsWith("#") || anchor.hasAttribute("download")) {
     return null;
   }
   let url: URL;
@@ -48,7 +50,10 @@ export function getTransitionTarget(
   } catch {
     return null;
   }
-  if (url.searchParams.get(PARAM) !== "true") {
+  if (
+    (url.protocol !== "http:" && url.protocol !== "https:") ||
+    url.searchParams.get(PARAM) !== "true"
+  ) {
     return null;
   }
   const current = new URL(currentHref);
@@ -62,8 +67,15 @@ export function initTransitionAnimation(): void {
 
   document.addEventListener("click", (e: MouseEvent) => {
     const anchor = (e.target as Element)?.closest?.("a[href]");
+    if (!anchor) {
+      return;
+    }
+    // Already fading out to another page: ignore further link clicks.
+    if (root.classList.contains(FADE_OUT_CLASS)) {
+      e.preventDefault();
+      return;
+    }
     if (
-      !anchor ||
       e.defaultPrevented ||
       e.button ||
       e.metaKey ||
@@ -85,6 +97,7 @@ export function initTransitionAnimation(): void {
       return;
     }
     e.preventDefault();
+    root.classList.remove(FADE_IN_CLASS);
     root.classList.add(FADE_OUT_CLASS);
     setTimeout(() => {
       window.location.href = url;
