@@ -108,11 +108,12 @@ fi
 if [[ -z "$MODEL_ARMOR_TEMPLATE" || "$MODEL_ARMOR_TEMPLATE" == "null" ]]; then
   echo "Note: '.narratives.modelArmorTemplate' is unset in ${CONFIG_YAML}."
   echo "Remember to create a Model Armor template (or set '.narratives.modelArmorTemplate' to 'projects/${PROJECT_ID}/locations/us-central1/templates/narratives-${ENV}' and re-run ./setup_narratives.sh ${ENV}) before enabling Narratives publicly."
-elif gcloud model-armor templates describe "$MODEL_ARMOR_TEMPLATE" >/dev/null 2>&1; then
+elif gcloud model-armor templates describe "$MODEL_ARMOR_TEMPLATE" --project="$PROJECT_ID" >/dev/null 2>&1; then
   echo "Model Armor template ${MODEL_ARMOR_TEMPLATE} already exists."
 else
   echo "Creating default Model Armor template ${MODEL_ARMOR_TEMPLATE}..."
   gcloud model-armor templates create "$MODEL_ARMOR_TEMPLATE" \
+    --project="$PROJECT_ID" \
     --pi-and-jailbreak-filter-settings-enforcement=enabled \
     --pi-and-jailbreak-filter-settings-confidence-level=medium-and-above \
     --malicious-uri-filter-settings-enforcement=enabled \
