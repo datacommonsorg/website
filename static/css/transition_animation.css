@@ -1,8 +1,0 @@
-/* `?transition_animation=true` page fade in/out. See js/transition_animation.js. */
-@keyframes transition-animation-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes transition-animation-out { from { opacity: 1; } to { opacity: 0; } }
-html.transition-animation { animation: transition-animation-in 300ms ease-out both; }
-html.transition-animation-out { animation: transition-animation-out 300ms ease-in both; }
-@media (prefers-reduced-motion: reduce) {
-  html.transition-animation, html.transition-animation-out { animation: none; }
-}

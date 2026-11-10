@@ -819,3 +819,27 @@ body.no-header-search-bar {
     }
   }
 }
+
+// `?transition_animation=true` page fade in/out. The `transition-animation`
+// class is set server-side in base.html; the click handler that adds
+// `transition-animation-out` lives in js/apps/base/transition_animation.ts.
+@keyframes transition-animation-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes transition-animation-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+html.transition-animation {
+  animation: transition-animation-in 300ms ease-out both;
+}
+html.transition-animation-out {
+  animation: transition-animation-out 300ms ease-in both;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.transition-animation,
+  html.transition-animation-out {
+    animation: none;
+  }
+}

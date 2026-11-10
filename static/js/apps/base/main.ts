@@ -25,7 +25,10 @@ import { loadLocaleData } from "../../i18n/i18n";
 import { HeaderMenu } from "../../shared/types/base";
 import { FooterApp } from "./footer_app";
 import { HeaderApp } from "./header_app";
+import { initTransitionAnimation } from "./transition_animation";
 import { extractLabels, extractRoutes } from "./utilities/utilities";
+
+initTransitionAnimation();
 
 window.addEventListener("load", async (): Promise<void> => {
   // Load locale data
